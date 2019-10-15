@@ -33,21 +33,21 @@ Le site actuel marche correctement alors pourquoi se lancer dans un nouveau dév
 
 ### Problèmes techniques
 
-Le site a été développé il y a un moment à une époque ou j'apprenais Ruby on Rails. Le code de base n'est donc pas idéal mais les problèmes se sont aussi accumulé lorsque j'ai tenté de passer une partie de la base de données sur Neo4j. Il n'existe pas forcément de bons driver sur Ruby et certaines requêtes sont trop complexe à mes yeux et posent des problèmes de performances lors de l'aggrégation des contenu (et je n'utilise pas au final les possibilités offertes par neo4j).
+Le site a été développé il y a un moment à une époque ou j'apprenais Ruby on Rails. Le code de base n'est donc pas idéal mais les problèmes se sont aussi accumulés lorsque j'ai tenté de passer une partie de la base de données sur Neo4j. Il n'existe pas forcément de bons driver sur Ruby et certaines requêtes sont trop complexes à mes yeux et posent des problèmes de performance lors de l'aggrégation des contenus (et je n'utilise pas au final les possibilités offertes par neo4j).
 
 ### Problème d'organisation / d'UX
 
-Les contenus ne sont pas correctement mis à l'avant et il n'est pas évident pour un nouvel utilisateur de trouver les bons contenus.
+Les contenus ne sont pas correctement mis en avant et il n'est pas évident pour un nouvel utilisateur de trouver les bons contenus.
 
-- Par quel vidéo dois-je commencer ?
-- Quelles formations sont disponible (peu de gens savent qu'il existe une formation sur la mise en place de serveur par exemple). 
+- Par quelle vidéo dois-je commencer ?
+- Quelles formations sont disponibles (peu de gens savent qu'il existe une formation sur la mise en place de serveur par exemple). 
 - Les commentaires ne servent pas forcément à grand chose en l'état (remplacer peut être par un système de questions ?).
 - Les contenus premiums ne sont pas forcément mis en avant et on ne sait pas trop ce qui est disponible et ce qui ne l'est pas.
 - Un système de progression doit être mis en place pour permettre de reprendre une formation ou une vidéo.
 
 ### Rendre le code Open Source
 
-La version actuelle du site contient beaucoup de chose en dur ce qui empèche le code d'être partagé sans risque. L'objectif de cette version est donc de créer un code qui puisse être utilisé et lancé facilement par les personnes qui souhaite collaborer.
+La version actuelle du site contient beaucoup de chose en dur ce qui empèche le code d'être partagé sans risque. L'objectif de cette version est donc de créer un code qui puisse être utilisé et lancé facilement par les personnes qui souhaitent collaborer.
 
 ## Design
 
