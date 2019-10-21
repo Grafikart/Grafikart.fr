@@ -2,7 +2,7 @@
   "name": "Grafikart.fr",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT",
+  "license": "CC-BY-NC-SA-4.0",
   "devDependencies": {
     "doctoc": "^1.4.0"
   }
