@@ -44,7 +44,7 @@ Les contenus ne sont pas correctement mis en avant et il n'est pas évident pour
 - Les commentaires ne servent pas forcément à grand chose en l'état (remplacer peut être par un système de questions ?).
 - Les contenus premiums ne sont pas forcément mis en avant et on ne sait pas trop ce qui est disponible et ce qui ne l'est pas.
 - Un système de progression doit être mis en place pour permettre de reprendre une formation ou une vidéo.
-- Optimisations de la SPA: Problèmes de [flash of unstyled content](https://en.wikipedia.org/wiki/Flash_of_unstyled_content) qui impactent l'éxperience utilisateur
+- Optimisations de la SPA : Problèmes de [flash of unstyled content](https://en.wikipedia.org/wiki/Flash_of_unstyled_content) qui impactent l'expérience utilisateur
 
 ### Rendre le code Open Source
 
