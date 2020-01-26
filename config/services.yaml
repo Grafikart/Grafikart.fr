@@ -13,7 +13,3 @@ services:
     App\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
-
-    App\Domain\Live\LiveSyncService:
-        arguments:
-            $playlistID: '%app.live_playlist%'

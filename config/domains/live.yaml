@@ -1,3 +1,11 @@
+services:
+  \Google_Service_YouTube_Resource_PlaylistItems:
+    class: '\Google_Service_YouTube_Resource_PlaylistItems'
+    factory: ['App\Services\Api\GoogleServiceFactory', 'createPlaylistItems']
+  App\Domain\Live\LiveSyncService:
+    arguments:
+      $playlistID: '%app.live_playlist%'
+
 doctrine:
   orm:
     mappings:

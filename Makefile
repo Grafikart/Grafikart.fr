@@ -16,7 +16,7 @@ lint: vendor/autoload.php ## Analyse le code
 
 .PHONY: test
 test: vendor/autoload.php
-	$(dr) php bin/phpunit
+	docker-compose run --rm php bin/phpunit
 
 .PHONY: dev
 dev: vendor/autoload.php ## Lance le serveur de développement

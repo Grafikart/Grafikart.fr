@@ -10,18 +10,20 @@ use Google_Service_YouTube;
 class LiveSyncService
 {
 
-    private \Google_Client $client;
     private LiveRepository $liveRepository;
+
     private string $playlistID;
 
+    private \Google_Service_YouTube_Resource_PlaylistItems $playlistItems;
+
     public function __construct(
-        \Google_Client $client,
+        \Google_Service_YouTube_Resource_PlaylistItems $playlistItems,
         LiveRepository $liveRepository,
         string $playlistID
     ) {
-        $this->client = $client;
         $this->liveRepository = $liveRepository;
         $this->playlistID = $playlistID;
+        $this->playlistItems = $playlistItems;
     }
 
     /**
@@ -29,25 +31,23 @@ class LiveSyncService
      */
     public function buildNewLives(): array
     {
-        $this->client->setScopes([
-            'https://www.googleapis.com/auth/youtube.readonly',
-        ]);
         $lastPublishedAt = $this->liveRepository->lastCreationDate();
-        $service = new Google_Service_YouTube($this->client);
         $queryParams = [
             'maxResults' => 50,
             'playlistId' => $this->playlistID,
         ];
-        $response = $service->playlistItems->listPlaylistItems('snippet', $queryParams);
+        $response = $this->playlistItems->listPlaylistItems('snippet', $queryParams);
         $newLives = [];
-        /** @var \Google_Service_YouTube_PlaylistItem $item */
-        foreach ($response->getItems() as $item) {
+        /** @var \Google_Service_YouTube_PlaylistItem[] $items */
+        $items = $response->getItems();
+        foreach ($items as $item) {
             $live = Live::fromPlayListItem($item);
             if ($live->getCreatedAt() > $lastPublishedAt) {
                 $newLives[] = $live;
             }
         }
-        return $newLives;
+
+        return array_reverse($newLives);
     }
 
 }
