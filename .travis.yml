@@ -1,0 +1,9 @@
+language: php
+php:
+  - '7.4.2'
+services:
+  - docker
+install:
+  - composer install
+script:
+  - make lint
