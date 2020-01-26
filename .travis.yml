@@ -7,4 +7,4 @@ install:
   - composer install
 script:
   - make lint
-  - make test
+  - php bin/phpunit
