@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domains\Live;
+namespace App\Domain\Live;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;

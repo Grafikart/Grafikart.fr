@@ -5,5 +5,5 @@ doctrine:
         is_bundle: false
         type: annotation
         dir: '%kernel.project_dir%/src/Live'
-        prefix: 'App\Domains\Live'
-        alias: App\Domains\Live
+        prefix: 'App\Domain\Live'
+        alias: App\Domain\Live

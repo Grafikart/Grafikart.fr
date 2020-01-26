@@ -10,6 +10,9 @@ composer := $(dr) php composer
 help: ## Affiche cette aide
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
+phpstan: ## Analyse le code
+	docker run -v $(PWD):/app --rm phpstan/phpstan analyse
+
 .PHONY: dev
 dev: vendor/autoload.php ## Lance le serveur de développement
 	docker-compose up

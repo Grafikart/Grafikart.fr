@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Domains\Live;
+namespace App\Domain\Live;
 
 use Doctrine\ORM\Mapping as ORM;
+use Google_Service_YouTube_Thumbnail;
 
 /**
- * @ORM\Entity(repositoryClass="App\Live\LiveRepository")
+ * @ORM\Entity(repositoryClass="App\Domain\Live\LiveRepository")
  */
 class Live
 {
@@ -15,7 +16,7 @@ class Live
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private string $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -47,6 +48,7 @@ class Live
     public static function fromPlayListItem(\Google_Service_YouTube_PlaylistItem $item): self
     {
         $publishedAt = new \DateTime($item->getSnippet()->getPublishedAt());
+        /** @var Google_Service_YouTube_Thumbnail|null $thumbnail */
         $thumbnail = $item->getSnippet()->getThumbnails()->getMaxres();
         return (new self())
             ->setCreatedAt($publishedAt)

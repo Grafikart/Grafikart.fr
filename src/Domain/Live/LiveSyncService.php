@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Domains\Live;
+namespace App\Domain\Live;
 
 use Google_Service_YouTube;
 
 /**
  * Gère la synchronisation des streams sur le site
- * @package App\Domains\Live
  */
 class LiveSyncService
 {

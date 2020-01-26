@@ -17,7 +17,3 @@ services:
     App\Domains\Live\LiveSyncService:
         arguments:
             $playlistID: '%app.live_playlist%'
-
-    App\Domains\Live\ThumbnailManager:
-        tags:
-            - { name: 'doctrine.event_subscriber' }
