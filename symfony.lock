@@ -90,6 +90,36 @@
     "egulias/email-validator": {
         "version": "2.1.15"
     },
+    "firebase/php-jwt": {
+        "version": "v5.0.0"
+    },
+    "google/apiclient": {
+        "version": "2.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.0",
+            "ref": "49c5d7a66d863d28513979bf0666dc77599100c0"
+        },
+        "files": [
+            "config/packages/google_apiclient.yaml"
+        ]
+    },
+    "google/apiclient-services": {
+        "version": "v0.123"
+    },
+    "google/auth": {
+        "version": "v1.6.1"
+    },
+    "guzzlehttp/guzzle": {
+        "version": "6.5.2"
+    },
+    "guzzlehttp/promises": {
+        "version": "v1.3.1"
+    },
+    "guzzlehttp/psr7": {
+        "version": "1.6.1"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
@@ -101,6 +131,9 @@
     },
     "laminas/laminas-zendframework-bridge": {
         "version": "1.0.1"
+    },
+    "league/flysystem": {
+        "version": "1.0.63"
     },
     "monolog/monolog": {
         "version": "2.0.2"
@@ -114,6 +147,18 @@
     "ocramius/proxy-manager": {
         "version": "2.6.0"
     },
+    "oneup/flysystem-bundle": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "0eb87bba411c227da027fe5f7c1dc7954b02f242"
+        },
+        "files": [
+            "config/packages/oneup_flysystem.yaml"
+        ]
+    },
     "php": {
         "version": "7.4"
     },
@@ -126,6 +171,9 @@
     "phpdocumentor/type-resolver": {
         "version": "1.0.1"
     },
+    "phpseclib/phpseclib": {
+        "version": "2.0.23"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },
@@ -135,11 +183,17 @@
     "psr/event-dispatcher": {
         "version": "1.0.0"
     },
+    "psr/http-message": {
+        "version": "1.0.1"
+    },
     "psr/link": {
         "version": "1.0.0"
     },
     "psr/log": {
         "version": "1.1.2"
+    },
+    "ralouphie/getallheaders": {
+        "version": "3.0.3"
     },
     "sensio/framework-extra-bundle": {
         "version": "5.2",

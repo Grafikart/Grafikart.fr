@@ -1,0 +1,11 @@
+# Read the documentation: https://github.com/1up-lab/OneupFlysystemBundle/tree/master/Resources/doc/index.md
+oneup_flysystem:
+    adapters:
+        local_adapter:
+            local:
+                directory: "%kernel.project_dir%/public/uploads"
+    filesystems:
+        upload:
+            adapter: local_adapter
+            alias: League\Flysystem\FilesystemInterface
+            mount: upload_fs
