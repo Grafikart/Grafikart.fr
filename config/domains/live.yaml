@@ -1,9 +1,9 @@
 doctrine:
   orm:
     mappings:
-      App\Live:
+      App\Domain\Live:
         is_bundle: false
         type: annotation
-        dir: '%kernel.project_dir%/src/Live'
+        dir: '%kernel.project_dir%/src/Domain/Live'
         prefix: 'App\Domain\Live'
         alias: App\Domain\Live

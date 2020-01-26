@@ -14,6 +14,10 @@ help: ## Affiche cette aide
 lint: vendor/autoload.php ## Analyse le code
 	docker run -v $(PWD):/app --rm phpstan/phpstan analyse
 
+.PHONY: test
+test: vendor/autoload.php
+	$(dr) php bin/phpunit
+
 .PHONY: dev
 dev: vendor/autoload.php ## Lance le serveur de développement
 	docker-compose up
