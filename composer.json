@@ -32,6 +32,7 @@
         "symfony/yaml": "5.0.*"
     },
     "require-dev": {
+        "phpstan/phpstan": "^0.12.7",
         "phpstan/phpstan-mockery": "^0.12.3",
         "phpstan/phpstan-phpunit": "^0.12.6",
         "symfony/debug-pack": "*",
