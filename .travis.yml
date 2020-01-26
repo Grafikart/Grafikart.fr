@@ -4,5 +4,6 @@ php:
 install:
   - composer install
 script:
+  - php bin/phpunit install
   - vendor/bin/phpstan analyse
   - php bin/phpunit
