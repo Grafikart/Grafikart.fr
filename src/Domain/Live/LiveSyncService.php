@@ -2,8 +2,6 @@
 
 namespace App\Domain\Live;
 
-use Google_Service_YouTube;
-
 /**
  * Gère la synchronisation des streams sur le site
  */
@@ -33,7 +31,7 @@ class LiveSyncService
     {
         $lastPublishedAt = $this->liveRepository->lastCreationDate();
         $queryParams = [
-            'maxResults' => 50,
+            'maxResults' => 1,
             'playlistId' => $this->playlistID,
         ];
         $response = $this->playlistItems->listPlaylistItems('snippet', $queryParams);

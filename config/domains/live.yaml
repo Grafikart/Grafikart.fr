@@ -1,10 +1,20 @@
+parameters:
+  app.live_playlist: PLjwdMgw5TTLU17PF0OunE2nLyMgxxQgVN
+
 services:
-  \Google_Service_YouTube_Resource_PlaylistItems:
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+    public: false
+
+  App\Domain\Live\LiveSyncService:
+    class: App\Domain\Live\LiveSyncService
+    arguments: {$playlistID: '%app.live_playlist%'}
+
+  Google_Service_YouTube_Resource_PlaylistItems:
     class: '\Google_Service_YouTube_Resource_PlaylistItems'
     factory: ['App\Services\Api\GoogleServiceFactory', 'createPlaylistItems']
-  App\Domain\Live\LiveSyncService:
-    arguments:
-      $playlistID: '%app.live_playlist%'
+    arguments: ['@Google_Client']
 
 doctrine:
   orm:
