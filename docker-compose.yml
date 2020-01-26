@@ -1,0 +1,40 @@
+version: '3.1'
+services:
+  php:
+    build:
+      context: ./docker/php
+      args:
+        USER_ID: ${USER_ID}
+        GROUP_ID: ${GROUP_ID}
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/usr/src/myapp
+    links:
+      - db
+  db:
+    image: postgres:12
+    environment:
+      POSTGRES_PASSWORD: grafikart
+      POSTGRES_USER: grafikart
+      POSTGRES_DB: grafikart
+    ports:
+      - 5432:5432 # On expose le port pour pouvoir inspecter la base pendant la phase de développement
+    volumes:
+      - db-data:/var/lib/postgresql/data
+  adminer:
+    image: adminer
+    environment:
+      ADMINER_DESIGN: 'arcs-material'
+    links:
+      - db
+    ports:
+      - 8080:8080
+  mail:
+    image: djfarrelly/maildev
+    ports:
+      - 1080:80
+
+volumes:
+  db-data:
+    driver: local
