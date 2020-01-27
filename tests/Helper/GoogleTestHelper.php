@@ -3,7 +3,7 @@
 namespace App\Tests\Helper;
 
 /**
- * Série de fonctions permettant de générer des objets en lients avec l'API de Google
+ * Série de fonctions permettant de générer des objets en liens avec l'API de Google
  */
 class GoogleTestHelper
 {
