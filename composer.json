@@ -32,14 +32,18 @@
         "symfony/yaml": "5.0.*"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.3",
+        "phpunit/phpunit": "^8.5",
+        "liip/test-fixtures-bundle": "^1.0.0",
         "phpstan/phpstan": "^0.12.7",
         "phpstan/phpstan-mockery": "^0.12.3",
         "phpstan/phpstan-phpunit": "^0.12.6",
+        "spatie/phpunit-watcher": "^1.22",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
-        "symfony/phpunit-bridge": "^5.0",
         "symfony/profiler-pack": "*",
-        "symfony/test-pack": "*"
+        "symfony/test-pack": "*",
+        "theofidry/alice-data-fixtures": "^1.1"
     },
     "config": {
         "preferred-install": {

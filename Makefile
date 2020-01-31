@@ -15,8 +15,12 @@ lint: vendor/autoload.php ## Analyse le code
 	docker run -v $(PWD):/app --rm phpstan/phpstan analyse
 
 .PHONY: test
-test: vendor/autoload.php
-	docker-compose run --rm php bin/phpunit
+test: vendor/autoload.php ## Execute les tests
+	$(dr) php vendor/bin/phpunit
+
+.PHONY: tt
+tt: vendor/autoload.php ## Lance le watcher phpunit
+	$(dr) php vendor/bin/phpunit-watcher watch --filter="nothing"
 
 .PHONY: dev
 dev: vendor/autoload.php ## Lance le serveur de développement
