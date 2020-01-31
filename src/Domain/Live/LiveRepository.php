@@ -2,6 +2,7 @@
 
 namespace App\Domain\Live;
 
+use _HumbugBox951e2b87c765\Nette\Utils\DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -16,6 +17,22 @@ class LiveRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Live::class);
+    }
+
+    /**
+     * @return array<Live>
+     */
+    public function findForYear (int $year): array
+    {
+        $start = new \DateTimeImmutable("01-01-{$year}");
+        $end = $start->add(new \DateInterval('P1Y'));
+        return $this->createQueryBuilder('l')
+            ->where('l.created_at BETWEEN :start AND :end')
+            ->setParameter('start', $start)
+            ->setParameter('end', $end)
+            ->orderBy('l.created_at', 'DESC')
+            ->getQuery()
+            ->getResult();
     }
 
     /**

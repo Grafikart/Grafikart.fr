@@ -1,0 +1,13 @@
+App\Domain\Live\Live:
+  live (template):
+    name: Live<current()>
+    description: <sentence()>
+    youtube_id: <word()>
+    created_at: <dateTime('-1 day')>
+    updated_at: <dateTime('-1 day')>
+  live{1..10} (extends live):
+    created_at: <dateTimeBetween("first day of this year", "last day of this year")>
+    updated_at: <dateTimeBetween("first day of this year", "first day of this year")>
+  latest-live (extends live):
+    name: Last Live
+    created_at: <dateTimeBetween("first day of next year", "first day of next year")>

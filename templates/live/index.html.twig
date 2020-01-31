@@ -9,12 +9,14 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
+    <h1>Revoir les précédents lives</h1>
+    <p>
+        Les lives permettent de discuter de certaines choses qui ne pourraient pas être traitée en vidéo. C’est aussi l’occasion de poser vos questions et d’avoir des avis à chaud sur certaines tendances et technologies.
+    </p>
     <ul>
-        <li>Your controller at <code><a href="{{ '/home/jonathan/Documents/Grafikart.fr/src/Controller/LiveController.php'|file_link(0) }}">src/Controller/LiveController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/jonathan/Documents/Grafikart.fr/templates/live/index.html.twig'|file_link(0) }}">templates/live/index.html.twig</a></code></li>
+        {% for live in lives %}
+        <li class="live">{{ live.name }}</li>
+        {% endfor %}
     </ul>
 </div>
 {% endblock %}

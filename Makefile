@@ -1,7 +1,7 @@
 user := $(shell id -u)
 group := $(shell id -g)
 docker := `command -v docker`
-dr := USER_ID=$(user) GROUP_ID=$(group) docker-compose run --rm --service-ports
+dr := USER_ID=$(user) GROUP_ID=$(group) docker-compose run --rm
 php := $(dr) php php
 symfony := $(dr) php symfony
 composer := $(dr) php composer

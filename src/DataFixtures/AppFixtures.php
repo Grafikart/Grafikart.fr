@@ -10,7 +10,7 @@ class AppFixtures extends Fixture
     /**
      * @inheritDoc
      */
-    public function load(\Doctrine\Persistence\ObjectManager $manager)
+    public function load(\Doctrine\Persistence\ObjectManager $manager): void
     {
         $manager->flush();
     }

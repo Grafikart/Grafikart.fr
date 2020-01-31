@@ -1,4 +1,7 @@
 {
+    "beberlei/doctrineextensions": {
+        "version": "v1.2.6"
+    },
     "clue/stdio-react": {
         "version": "v2.3.0"
     },

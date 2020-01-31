@@ -4,7 +4,7 @@ namespace App\Tests\Domain\Live;
 
 use App\Domain\Live\Live;
 use App\Domain\Live\LiveRepository;
-use Liip\TestFixturesBundle\Test\FixturesTrait;
+use App\Tests\FixturesTrait;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class LiveRepositoryTest extends KernelTestCase
@@ -17,14 +17,16 @@ class LiveRepositoryTest extends KernelTestCase
     public function setUp(): void
     {
         static::bootKernel();
-        $this->repository = self::$container->get(LiveRepository::class);
+        /** @var LiveRepository $repository */
+        $repository = self::$container->get(LiveRepository::class);
+        $this->repository = $repository;
         parent::setUp();
     }
 
     public function testLastCreationDate(): void
     {
-        /** @var array<Live, string> $lives */
-        $lives = $this->loadFixtureFiles([__DIR__ . '/live.yaml']);
+        /** @var array<string,Live> $lives */
+        $lives = $this->loadFixtures(['lives']);
         $date = $this->repository->lastCreationDate();
         $this->assertEquals($lives['latest-live']->getCreatedAt(), $date);
     }
