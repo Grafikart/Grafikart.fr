@@ -1,0 +1,75 @@
+@import "functions";
+
+// Responsive
+// ==================
+@mixin up($size) {
+  $size: strip-unit($size);
+  @media (min-width: $size * 1px) { @content; }
+}
+@mixin down($size) {
+  $size: strip-unit($size);
+  @media (max-width: $size * 1px) { @content; }
+}
+@mixin between($down, $up) {
+  $down: strip-unit($down);
+  $up: strip-unit($up);
+  @media (min-width: $down * 1px) and (max-width: $up * 1px) { @content; }
+}
+
+// Espacement
+// ==================
+@mixin container($width, $padding) {
+  width: 100%;
+  padding-left: $padding;
+  padding-right: $padding;
+
+  @include up($width + 2 * $padding) {
+    padding-left: calc(50vw - #{$width / 2});
+    padding-right: calc(50vw - #{$width / 2});
+  }
+}
+
+// Typographie
+// ==================
+@mixin font-face($name, $path, $weight: null, $style: null, $exts: eot woff2 woff ttf svg) {
+  $src: null;
+
+  $extmods: (
+    eot: "?",
+    svg: "#" + str-replace($name, " ", "_")
+  );
+
+  $formats: (
+    otf: "opentype",
+    ttf: "truetype"
+  );
+
+  @each $ext in $exts {
+    $extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
+    $format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
+    $src: append($src, url(quote($path + "." + $extmod)) format(quote($format)), comma);
+  }
+
+  @if length($weight) == 1 {
+    @font-face {
+      font-family: quote($name);
+      font-style: $style;
+      font-weight: $weight;
+      src: $src;
+    }
+  } @else {
+    $weights: $weight;
+    @each $weight in $weights {
+      $suffix: map-get((
+        300: Light,
+        400: Regular,
+        500: Medium,
+        600: SemiBold,
+        700: Bold
+      ), $weight);
+      @include font-face($name, $path + "-" + $suffix,
+      $weight, $style, $exts)
+    }
+  }
+}
+

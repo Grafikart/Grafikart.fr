@@ -1,0 +1,22 @@
+// Variables
+// ==================
+$font: 'Roboto', sans-serif;
+$font-alt: 'Montserrat', sans-serif;
+
+// Font face
+// ==================
+/*
+@include font-face('a', './fonts/HKGrotesk-Regular', 300 400 600 700, null, woff2 woff ttf svg eot);
+*/
+
+%section-title {
+  font-size: 52px;
+  font-family: $font-alt;
+  font-weight: 700;
+  line-height: 1.2;
+  @include down(675) {
+    font-size: 45px;
+  }
+}
+
+// Pour générer les polices : https://transfonter.org/

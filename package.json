@@ -4,6 +4,15 @@
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
-    "doctoc": "^1.4.0"
+    "@symfony/webpack-encore": "^0.28.2",
+    "doctoc": "^1.4.0",
+    "node-sass": "^4.13.1",
+    "sass-loader": "^7.0.1"
+  },
+  "scripts": {
+    "dev-server": "encore dev-server",
+    "dev": "encore dev",
+    "watch": "encore dev --watch",
+    "build": "encore production --progress"
   }
 }

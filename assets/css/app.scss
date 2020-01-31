@@ -1,0 +1,56 @@
+// Variables
+// ==================
+:root {
+  --color: #121C42;
+  --contrast: #4869EE;
+  --gap: 20px;
+  --space: 8px;
+  --border: #D5E3EC;
+  --background: #F7FAFB;
+  --background-light: #FFF;
+  --shadow: #D8E1E8;
+  --list-hover: var(--background);
+}
+
+.dark-mode {
+  --color: #EFFBEC;
+  --contrast: #61a0f6;
+  --gap: 20px;
+  --space: 8px;
+  --border: #122c45;
+  --background: #11172e;
+  --background-light: #202248;
+  --shadow: #0b0c1a;
+  --list-hover: #282a5a;
+}
+
+// Outils
+// ==================
+@import "tools/reset";
+@import "tools/functions";
+@import "tools/mixins";
+@import "tools/layout";
+@import "tools/typography";
+
+// Generic
+// ==================
+body {
+  font-family: $font;
+  font-size: 16px;
+  color: var(--color);
+  line-height: 1.4;
+  background: url(../images/logo.svg) top left / 580px 506px no-repeat var(--background);
+}
+
+
+// Modules
+// ==================
+@import "modules/header";
+@import "modules/card";
+
+// Pages
+// ==================
+@import "pages/live";
+// @import "pages/single";
+// @import "pages/single";
+// @import "pages/single";

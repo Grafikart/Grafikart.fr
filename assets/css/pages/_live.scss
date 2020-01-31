@@ -1,0 +1,83 @@
+.live-list {
+  @extend %container;
+}
+.live-list__header {
+  font-size: 20px;
+  margin-bottom: space(4);
+}
+.live-list__title {
+  @extend %section-title;
+  margin-bottom: space(3);
+}
+.live-list__body {
+  @extend %card;
+}
+
+// Live
+// ==================
+.live {
+  display: block;
+  position: relative;
+  padding: space(3);
+  padding-left: calc(105px + #{space(6)});
+  border-bottom: solid 1px var(--border);
+  transition: background .3s;
+}
+.live__title {
+  font-family: $font-alt;
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: space(1);
+}
+.live__image {
+  position: absolute;
+  left: space(3);
+  top: space(3);
+  display: block;
+  width: 105px;
+}
+.live__image::after,
+.live__image::before
+{
+  z-index: 1;
+  content: '';
+  background: linear-gradient(to top, var(--color), #121C4266);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: .3s;
+}
+.live__image::before {
+  z-index: 2;
+  opacity: .8;
+  background: url(../../images/play.svg) center center / 20px 20px no-repeat;
+}
+.live__date {
+  font-size: 16px;
+  opacity: .60;
+}
+.live:hover {
+  background-color:var(--list-hover);
+  color: var(--contrast);
+  .live__image::before {
+    opacity: 1!important;
+  }
+  .live__image::after {
+    opacity: .9;
+  }
+}
+
+
+@include up(1100) {
+  .live-list {
+    display: grid;
+    grid-gap: space(8);
+    grid-template-columns: 462px 1fr;
+  }
+  .live-list__header {
+    margin-top: 100px;
+  }
+}
+

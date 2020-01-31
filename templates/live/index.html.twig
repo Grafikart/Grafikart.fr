@@ -3,20 +3,26 @@
 {% block title %}Hello LiveController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Revoir les précédents lives</h1>
-    <p>
-        Les lives permettent de discuter de certaines choses qui ne pourraient pas être traitée en vidéo. C’est aussi l’occasion de poser vos questions et d’avoir des avis à chaud sur certaines tendances et technologies.
-    </p>
-    <ul>
-        {% for live in lives %}
-        <li class="live">{{ live.name }}</li>
-        {% endfor %}
-    </ul>
-</div>
+    <section class="live-list">
+        <div class="live-list__header">
+            <h1 class="live-list__title">Revoir <br>les précédents<br> lives</h1>
+            <p>
+                Les lives permettent de discuter de certaines choses qui ne pourraient pas être traitée en vidéo. C’est
+                aussi l’occasion de poser vos questions et d’avoir des avis à chaud sur certaines tendances et
+                technologies.
+            </p>
+        </div>
+        <div class="live-list__body">
+            {% for live in lives %}
+                <a href="#" class="live">
+                    <div class="live__image">
+                        <img src="/uploads/lives/{{ live.youtubeId }}.jpg" alt="">
+                    </div>
+                    <h2 class="live__title">{{ live.name }}</h2>
+                    <div class="live__date">{{ live.createdAt | date("m F Y") }}</div>
+                </a>
+            {% endfor %}
+        </div>
+    </section>
 {% endblock %}

@@ -1,0 +1,33 @@
+<svg width="0" height="0" class="hidden">
+    <symbol viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" id="home">
+        <path d="M0 4v7a1 1 0 001 1h3V8h4v4h3a1 1 0 001-1V4L6 0 0 4z" fill="currentColor"/>
+    </symbol>
+    <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" id="video">
+        <path d="M10.5 1h-9A1.5 1.5 0 000 2.5v7A1.5 1.5 0 001.5 11h9A1.5 1.5 0 0012 9.5v-7A1.5 1.5 0 0010.5 1zM4 9V3l5 3-5 3z"
+              fill="currentColor"/>
+    </symbol>
+    <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" id="lines">
+        <path d="M11 0H1a1 1 0 00-1 1v2a1 1 0 001 1h10a1 1 0 001-1V1a1 1 0 00-1-1zM12 6H0v2h12V6zM7 10H0v2h7v-2z"
+              fill="currentColor"/>
+    </symbol>
+    <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" id="comment">
+        <path d="M6 0C2.7 0 0 2.36 0 5.27c0 2.9 2.7 5.26 6 5.26.35 0 .7-.02 1.04-.08l2.72 1.49a.5.5 0 00.74-.44V8.71A4.9 4.9 0 0012 5.27C12 2.37 9.3 0 6 0z"
+              fill="currentColor"/>
+    </symbol>
+    <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 10" id="camera">
+        <path d="M8 3.5v-2A1.5 1.5 0 006.5 0h-5A1.5 1.5 0 000 1.5v7A1.5 1.5 0 001.5 10h5A1.5 1.5 0 008 8.5v-2L12 9V1L8 3.5z"
+              fill="currentColor"/>
+    </symbol>
+    <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" id="pen">
+        <path d="M11.58.41a1.4 1.4 0 00-2 0L5 5 4 8l3-1 4.59-4.59a1.41 1.41 0 000-2z" fill="currentColor"/>
+        <path d="M11.1 6.02a1 1 0 00-1.18.78A4 4 0 115.2 2.08 1 1 0 104.8.12a6 6 0 107.08 7.08 1 1 0 00-.78-1.18z"
+              fill="currentColor"/>
+    </symbol>
+    <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" id="search">
+        <path d="M11.72 10.3L9.18 7.78a5 5 0 10-1.4 1.41l2.53 2.54a1 1 0 001.41-1.41zm-9.7-5.28a3 3 0 116 0 3 3 0 01-6 0z" fill="currentColor"/>
+    </symbol>
+        <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 13" id="user">
+            <path d="M9.54 6.69A4.27 4.27 0 016 9a4.27 4.27 0 01-3.54-2.31c-1.18.86-2 2.11-2.32 3.54a.5.5 0 00.2.51 9.99 9.99 0 0011.32 0 .5.5 0 00.2-.51 5.98 5.98 0 00-2.32-3.54z" fill="currentColor"/>
+            <path d="M6 .5a3 3 0 00-3 3c0 1.61 1.26 4 3 4s3-2.39 3-4a3 3 0 00-3-3z" fill="currentColor"/>
+        </symbol>
+</svg>

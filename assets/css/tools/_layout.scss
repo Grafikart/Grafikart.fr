@@ -1,0 +1,23 @@
+:root {
+  --container-padding: 20px;
+  --container-width: calc(100% - var(--container-padding) * 2);
+}
+
+%container {
+  box-sizing: border-box;
+  width: 100%;
+  padding-left: calc(50% - var(--container-width) / 2);
+  padding-right: calc(50% - var(--container-width) / 2);
+}
+
+%container-margin {
+  margin-left: auto;
+  margin-right: auto;
+  width: var(--container-width);
+}
+
+@media only screen and (min-width: 1370px) {
+  :root {
+    --container-width: 1330px;
+  }
+}
