@@ -4,25 +4,33 @@
 
 {% block body %}
 
-    <section class="live-list">
-        <div class="live-list__header">
-            <h1 class="live-list__title">Revoir <br>les précédents<br> lives</h1>
+    <live-recap class="live-recap">
+        <div class="live-recap__header">
+            <h1 class="live-recap__title">Revoir les précédents lives</h1>
             <p>
                 Les lives permettent de discuter de certaines choses qui ne pourraient pas être traitée en vidéo. C’est
                 aussi l’occasion de poser vos questions et d’avoir des avis à chaud sur certaines tendances et
                 technologies.
             </p>
         </div>
-        <div class="live-list__body">
+        <div class="card live-list">
             {% for live in lives %}
-                <a href="#" class="live">
+                <a href="#" class="live" data-youtube="{{ live.youtubeId }}">
+                    <span class="live__icon"></span>
                     <div class="live__image">
                         <img src="/uploads/lives/{{ live.youtubeId }}.jpg" alt="">
                     </div>
-                    <h2 class="live__title">{{ live.name }}</h2>
-                    <div class="live__date">{{ live.createdAt | date("m F Y") }}</div>
+                    <div class="live__body">
+                        <h2 class="live__title">{{ live.name }}</h2>
+                        <div class="live__date">{{ live.createdAt | date("m F Y") }}</div>
+                    </div>
                 </a>
             {% endfor %}
         </div>
-    </section>
+        <div class="card live-player js-videos">
+            <div class="ratio js-video">
+            </div>
+        </div>
+    </live-recap>
+
 {% endblock %}

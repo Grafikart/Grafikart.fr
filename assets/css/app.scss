@@ -10,6 +10,7 @@
   --background-light: #FFF;
   --shadow: #D8E1E8;
   --list-hover: var(--background);
+  --play: #F3F9FB; // Couleur de fond du bouton play
 }
 
 .dark-mode {
@@ -42,11 +43,17 @@ body {
   background: url(../images/logo.svg) top left / 580px 506px no-repeat var(--background);
 }
 
+::selection {
+  background: var(--contrast);
+  color: #FFF;
+}
+
 
 // Modules
 // ==================
 @import "modules/header";
 @import "modules/card";
+@import "modules/scrollbar";
 
 // Pages
 // ==================
