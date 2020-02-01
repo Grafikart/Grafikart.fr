@@ -14,6 +14,10 @@ help: ## Affiche cette aide
 lint: vendor/autoload.php ## Analyse le code
 	docker run -v $(PWD):/app --rm phpstan/phpstan analyse
 
+.PHONY: seed
+seed: vendor/autoload.php ## Génère des données
+	$(dr) php bin/console hautelook:fixtures:load -q
+
 .PHONY: migrate
 migrate: vendor/autoload.php ## Migre la base de donnée
 	$(dr) php php bin/console doctrine:migrations:migrate

@@ -1,15 +1,22 @@
 version: '3.1'
 services:
+  web:
+    image: nginx:latest
+    ports:
+      - 8000:80
+    volumes:
+      - .:/var/www:delegated
+      - ./site.conf:/etc/nginx/conf.d/default.conf
+    links:
+      - php
   php:
     build:
       context: ./docker/php
       args:
         USER_ID: ${USER_ID}
         GROUP_ID: ${GROUP_ID}
-    ports:
-      - 8000:8000
     volumes:
-      - .:/usr/src/myapp
+      - .:/var/www:delegated
     links:
       - db
       - dbtest

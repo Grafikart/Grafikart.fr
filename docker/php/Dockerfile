@@ -1,4 +1,4 @@
-FROM php:7.4-cli
+FROM php:7.4-fpm
 
 RUN apt-get update && apt-get install -y \
       wget \
@@ -27,10 +27,6 @@ RUN groupadd -f --gid $GROUP_ID user
 RUN adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID user
 USER user
 
-WORKDIR /usr/src/myapp
+WORKDIR /var/www
 
-EXPOSE 8000
-
-CMD php -S 0.0.0.0:8000 -t public
-
-# CMD symfony serve --allow-http --no-tls --port=8000
+EXPOSE 9000

@@ -16,7 +16,6 @@ class LiveSyncServiceTest extends TestCase
 
     private MockObject $repository;
 
-
     public function setUp(): void
     {
         parent::setUp();
@@ -61,6 +60,15 @@ class LiveSyncServiceTest extends TestCase
         $this->assertEquals('video2', $lives[1]->getYoutubeId());
     }
 
+    public function testBuildNewLivesWithDuration(): void
+    {
+        $this->repository->expects($this->once())->method('lastCreationDate')->willReturn(null);
+        $lives = $this->service->buildNewLives();
+        $this->assertCount(2, $lives);
+        $this->assertEquals(2000, $lives[0]->getDuration());
+        $this->assertEquals(1500, $lives[1]->getDuration());
+    }
+
     /**
      * @return MockObject|\Google_Service_YouTube_Resource_PlaylistItems
      */
@@ -77,11 +85,13 @@ class LiveSyncServiceTest extends TestCase
         $response->setItems([
             GoogleTestHelper::fakeYoutubePlaylistItem([
                 'id' => 'video2',
-                'date' => '- 1 year'
+                'date' => '- 1 year',
+                'duration' => 1500
             ]),
             GoogleTestHelper::fakeYoutubePlaylistItem([
                 'id' => 'video1',
-                'date' => '- 5 year'
+                'date' => '- 5 year',
+                'duration' => 2000
             ])
         ]);
         return $playlistItems;

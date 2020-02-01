@@ -1,0 +1,8 @@
+App\Domain\Live\Live:
+  live{1..10}:
+    name: Live<current()>
+    description: <sentence()>
+    youtube_id: 1vDrJeAjMYg
+    duration: <numberBetween(10, 25000)>
+    updated_at: <dateTimeBetween("first day of this year", "last day of this year")>
+    created_at: <dateTimeBetween("first day of next year", "first day of next year")>

@@ -34,6 +34,11 @@ class Live
     private string $youtube_id;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private int $duration = 0;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private \DateTimeInterface $created_at;
@@ -56,6 +61,7 @@ class Live
             ->setName($item->getSnippet()->getTitle())
             ->setDescription($item->getSnippet()->getDescription())
             ->setYoutubeThumbnail($thumbnail ? $thumbnail->getUrl() : null)
+            ->setDuration((int)$item->getContentDetails()->getEndAt())
             ->setUpdatedAt($publishedAt);
     }
 
@@ -146,4 +152,18 @@ class Live
     {
         return "lives/{$this->getYoutubeId()}.jpg";
     }
+
+    public function getDuration(): int
+    {
+        return $this->duration;
+    }
+
+    public function setDuration(int $duration): self
+    {
+        $this->duration = $duration;
+
+        return $this;
+    }
+
+
 }

@@ -35,11 +35,12 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.3",
-        "phpunit/phpunit": "^8.5",
+        "hautelook/alice-bundle": "^2.7",
         "liip/test-fixtures-bundle": "^1.0.0",
         "phpstan/phpstan": "^0.12.7",
         "phpstan/phpstan-mockery": "^0.12.3",
         "phpstan/phpstan-phpunit": "^0.12.6",
+        "phpunit/phpunit": "^8.5",
         "spatie/phpunit-watcher": "^1.22",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
