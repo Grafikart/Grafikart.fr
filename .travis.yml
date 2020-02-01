@@ -1,9 +1,18 @@
 language: php
+services:
+  - postgresql
+addons:
+  postgresql: "12.0"
 php:
   - '7.4.2'
 install:
   - composer install
+before_script: 
+  - psql -c "CREATE DATABASE grafikart;" -U postgres
+  - psql -c "CREATE USER grafikart WITH PASSWORD 'grafikart';" -U postgres
 script:
-  - php bin/phpunit install
-  - vendor/bin/phpstan analyse
-  - php bin/phpunit
+  - ./vendor/bin/phpstan analyse
+  - ./vendor/bin/phpunit
+env:
+  global:
+    DATABASE_URL: postgresql://grafikart:grafikart@localhost:5432/grafikart?serverVersion=12&charset=utf8

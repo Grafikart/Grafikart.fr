@@ -14,6 +14,10 @@ help: ## Affiche cette aide
 lint: vendor/autoload.php ## Analyse le code
 	docker run -v $(PWD):/app --rm phpstan/phpstan analyse
 
+.PHONY: migrate
+migrate: vendor/autoload.php ## Migre la base de donnée
+	$(dr) php php bin/console doctrine:migrations:migrate
+
 .PHONY: test
 test: vendor/autoload.php ## Execute les tests
 	$(dr) php vendor/bin/phpunit
