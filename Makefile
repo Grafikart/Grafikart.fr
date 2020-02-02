@@ -24,17 +24,18 @@ seed: vendor/autoload.php ## Génère des données
 .PHONY: migrate
 migrate: vendor/autoload.php ## Migre la base de donnée
 	$(dr) php php bin/console doctrine:migrations:migrate
-	docker-compose down
 
 .PHONY: test
 test: vendor/autoload.php ## Execute les tests
 	$(drtest) php vendor/bin/phpunit
-	docker-compose -f docker-compose.test.yml down
 
 .PHONY: tt
 tt: vendor/autoload.php ## Lance le watcher phpunit
 	$(drtest) php vendor/bin/phpunit-watcher watch --filter="nothing"
-	docker-compose -f docker-compose.test.yml down
+
+.PHONY: clean
+clean: ## Nettoie les containers laissés en fonction
+	docker-compose -f docker-compose.yml -f docker-compose.test.yml down
 
 .PHONY: dev
 dev: vendor/autoload.php ## Lance le serveur de développement

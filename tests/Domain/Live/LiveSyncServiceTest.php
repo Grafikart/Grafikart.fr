@@ -81,6 +81,7 @@ class LiveSyncServiceTest extends TestCase
         $playlistItems
             ->expects($this->once())
             ->method('listPlaylistItems')
+            ->with($this->equalTo('snippet,contentDetails'))
             ->willReturn($response);
         $response->setItems([
             GoogleTestHelper::fakeYoutubePlaylistItem([

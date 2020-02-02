@@ -33,9 +33,8 @@ class LiveSyncService
         $queryParams = [
             'maxResults' => 1,
             'playlistId' => $this->playlistID,
-            'part'       => 'contentDetails,snipper,id'
         ];
-        $response = $this->playlistItems->listPlaylistItems('snippet', $queryParams);
+        $response = $this->playlistItems->listPlaylistItems('snippet,contentDetails', $queryParams);
         $newLives = [];
         /** @var \Google_Service_YouTube_PlaylistItem[] $items */
         $items = $response->getItems();
