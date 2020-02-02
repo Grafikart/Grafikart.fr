@@ -27,9 +27,9 @@ class LiveRepository extends ServiceEntityRepository
         $start = new \DateTimeImmutable("01-01-{$year}");
         $end = $start->add(new \DateInterval('P1Y'));
         return $this->createQueryBuilder('l')
-            // ->where('l.created_at BETWEEN :start AND :end')
-            // ->setParameter('start', $start)
-            // ->setParameter('end', $end)
+            ->where('l.created_at BETWEEN :start AND :end')
+            ->setParameter('start', $start)
+            ->setParameter('end', $end)
             ->orderBy('l.created_at', 'DESC')
             ->getQuery()
             ->getResult();

@@ -8,7 +8,6 @@ Dépôt pour la nouvelle version de Grafikart.fr. L'objectif est de rendre le pr
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
 - [Pourquoi une refonte ?](#pourquoi-une-refonte-)
 - [Etat d'avancement](#etat-davancement)
 - [Objectifs, pourquoi une refonte ?](#objectifs-pourquoi-une-refonte-)
@@ -18,6 +17,24 @@ Dépôt pour la nouvelle version de Grafikart.fr. L'objectif est de rendre le pr
 - [Design](#design)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+## Participer (faire une PR)
+
+Le développement a commencé et vous pouvez récupérer le projet et pour travailler dessus. Afin de simplifier la mise en place de l'environnement de dev, **docker** a été choisit :
+
+```bash
+make migrate ## Permet de créer la base de données
+make seed ## Permet de remplir la base de données
+make dev ## Permet de lancer le serveur de développement, accessible sur le port 8000
+```
+
+Pour les tests
+
+```bash
+make test ## Permet de lancer les tests
+make tt ## Permet de relancer les tests automatiquement
+make lint ## Permet de vérifier que le code ne contienne pas d'erreur
+```
 
 ## Etat d'avancement
 
