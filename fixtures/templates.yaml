@@ -3,6 +3,6 @@ App\Domain\Live\Live:
     name: Live<current()>
     description: <sentence()>
     youtube_id: XPsy1cbE0Qk
-    created_at: <dateTimeThisYear()>
-    updated_at: <dateTimeThisYear()>
     duration: <numberBetween(10, 25000)>
+    updated_at: <dateTimeBetween("first day of this year", "last day of this year")>
+    created_at: <dateTimeBetween("first day of this year", "first day of this year")>

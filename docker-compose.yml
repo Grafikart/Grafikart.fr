@@ -19,7 +19,6 @@ services:
       - .:/var/www:delegated
     links:
       - db
-      - dbtest
   db:
     image: postgres:12
     environment:
@@ -30,16 +29,11 @@ services:
       - 5432:5432 # On expose le port pour pouvoir inspecter la base pendant la phase de développement
     volumes:
       - db-data:/var/lib/postgresql/data
-  dbtest:
-    image: postgres:12
-    environment:
-      POSTGRES_PASSWORD: test
-      POSTGRES_USER: test
-      POSTGRES_DB: test
   adminer:
     image: adminer
     environment:
-      ADMINER_DESIGN: 'arcs-material'
+      ADMINER_DESIGN: arcs-material
+      ADMINER_DEFAULT_SERVER: pgsql
     links:
       - db
     ports:

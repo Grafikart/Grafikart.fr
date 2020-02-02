@@ -1,7 +1,0 @@
-include:
-  - templates.yaml
-
-App\Domain\Live\Live:
-  live{1..10} (extends live):
-    updated_at: <dateTimeBetween("first day of this year", "last day of this year")>
-    created_at: <dateTimeBetween("first day of next year", "first day of next year")>

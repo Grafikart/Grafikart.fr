@@ -1,0 +1,18 @@
+version: '3.1'
+services:
+  php:
+    build:
+      context: ./docker/php
+      args:
+        USER_ID: ${USER_ID}
+        GROUP_ID: ${GROUP_ID}
+    volumes:
+      - .:/var/www:delegated
+    links:
+      - dbtest
+  dbtest:
+    image: postgres:12
+    environment:
+      POSTGRES_PASSWORD: test
+      POSTGRES_USER: test
+      POSTGRES_DB: test

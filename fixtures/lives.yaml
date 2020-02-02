@@ -1,0 +1,5 @@
+include:
+  - templates.yaml
+
+App\Domain\Live\Live:
+  live{1..10} (extends live):
