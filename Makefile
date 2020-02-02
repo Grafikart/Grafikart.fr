@@ -19,22 +19,22 @@ lint: vendor/autoload.php ## Analyse le code
 .PHONY: seed
 seed: vendor/autoload.php ## Génère des données
 	$(dr) php bin/console hautelook:fixtures:load -q
-	docker-compose stop
+	docker-compose down
 
 .PHONY: migrate
 migrate: vendor/autoload.php ## Migre la base de donnée
 	$(dr) php php bin/console doctrine:migrations:migrate
-	docker-compose  stop
+	docker-compose down
 
 .PHONY: test
 test: vendor/autoload.php ## Execute les tests
 	$(drtest) php vendor/bin/phpunit
-	docker-compose -f docker-compose.test.yml stop
+	docker-compose -f docker-compose.test.yml down
 
 .PHONY: tt
 tt: vendor/autoload.php ## Lance le watcher phpunit
 	$(drtest) php vendor/bin/phpunit-watcher watch --filter="nothing"
-	docker-compose -f docker-compose.test.yml stop
+	docker-compose -f docker-compose.test.yml down
 
 .PHONY: dev
 dev: vendor/autoload.php ## Lance le serveur de développement
