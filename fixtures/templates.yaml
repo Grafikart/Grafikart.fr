@@ -1,0 +1,8 @@
+App\Domain\Live\Live:
+  live (template):
+    name: Live<current()>
+    description: <sentence()>
+    youtube_id: XPsy1cbE0Qk
+    created_at: <dateTimeThisYear()>
+    updated_at: <dateTimeThisYear()>
+    duration: <numberBetween(10, 25000)>
