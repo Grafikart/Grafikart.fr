@@ -14,12 +14,10 @@ Encore
     .addEntry('app', './assets/js/app.js')
     .splitEntryChunks()
     .enableSingleRuntimeChunk()
-    /*
     .configureBabel(function(babelConfig) {
         babelConfig.presets = [];
         babelConfig.plugins = [];
     })
-    */
     /*
      * FEATURE CONFIG
      *
@@ -34,17 +32,19 @@ Encore
     .enableVersioning(Encore.isProduction())
 
     // enables @babel/preset-env polyfills
+    /*
     .configureBabelPresetEnv((config) => {
         config.useBuiltIns = 'usage';
         config.corejs = 3;
         config.targets = "last 2 versions, not dead, not ie 6-11"// {"chrome": "79", "firefox": "73"};
     })
+     */
 
     // enables Sass/SCSS support
     .enableSassLoader()
 
     // uncomment if you use TypeScript
-    .enableTypeScriptLoader()
+    // .enableTypeScriptLoader()
 
     // uncomment to get integrity="..." attributes on your script & link tags
     // requires WebpackEncoreBundle 1.4 or higher
