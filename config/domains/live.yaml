@@ -15,13 +15,3 @@ services:
     class: '\Google_Service_YouTube_Resource_PlaylistItems'
     factory: ['App\Services\Api\GoogleServiceFactory', 'createPlaylistItems']
     arguments: ['@Google_Client']
-
-doctrine:
-  orm:
-    mappings:
-      App\Domain\Live:
-        is_bundle: false
-        type: annotation
-        dir: '%kernel.project_dir%/src/Domain/Live'
-        prefix: 'App\Domain\Live'
-        alias: App\Domain\Live

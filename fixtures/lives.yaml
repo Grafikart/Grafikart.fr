@@ -2,4 +2,5 @@ include:
   - templates.yaml
 
 App\Domain\Live\Live:
-  live{1..10} (extends live):
+  live{1..2} (extends live):
+  live_demo_{1..2} (extends live):
