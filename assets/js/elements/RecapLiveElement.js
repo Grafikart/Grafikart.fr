@@ -4,13 +4,14 @@
  * @property {boolean} isPlaying
  * @property {HTMLDivElement} videoContainer
  * @property {HTMLDivElement} liveList
- * @property {HTMLIFrameElement} iframe
+ * @property {YoutubePlayer} player
+ * @property {HTMLAnchorElement} currentLive
  */
+import YoutubePlayer from './YoutubePlayer'
+
 export default class RecapLiveElement extends HTMLElement {
   connectedCallback () {
-    this.isPlaying = false
-    this.videoContainer = this.querySelector('.js-video')
-    this.liveList = this.querySelector('.js-videos')
+    this.liveList = this.querySelector('.live-list')
     const lives = this.querySelectorAll('.live')
     lives.forEach((live) => {
       live.addEventListener('click', this.play.bind(this))
@@ -22,29 +23,28 @@ export default class RecapLiveElement extends HTMLElement {
    * @param {MouseEvent} e
    */
   play (e) {
+    e.preventDefault()
+    e.stopPropagation()
     const live = e.currentTarget
     const id = live.dataset.youtube
-    if (this.iframe) {
-      this.iframe.setAttribute('src', this.youtubeURL(id))
-    } else {
-      this.videoContainer.innerHTML = `<iframe
-            src="${this.youtubeURL(id)}"
-            allowfullscreen></iframe>`
-      this.iframe = this.videoContainer.querySelector('iframe')
+    if (live.classList.contains('is-playing')) {
+      return
     }
-    this.classList.add('is-playing')
-    this.classList.add('card')
+    if (this.player === undefined) {
+      this.player = new YoutubePlayer()
+      this.liveList.insertAdjacentElement('beforebegin', this.player)
+    }
+    live.classList.add('is-playing')
+    live.querySelector('play-button').attachVideo(this.player)
+    this.player.setAttribute('video', id)
     if (this.currentLive) {
+      this.currentLive.querySelector('play-button').detachVideo()
       this.currentLive.classList.remove('is-playing')
     }
     this.currentLive = live
-    this.isPlaying = true
-    live.classList.add('is-playing')
-    this.liveList.scrollTo({
-      top: 100,
-      left: 100,
-      behavior: 'smooth'
-    })
+    this.classList.add('has-player')
+    live.scrollIntoView({block: 'center', behavior: 'smooth', inline: 'nearest'})
+    this.player.scrollIntoView({block: 'start', behavior: 'smooth', inline: 'nearest'})
   }
 
   /**

@@ -24,7 +24,6 @@
   position: relative;
   z-index: 2;
   width: 100%;
-  transition: .5s cubic-bezier(0, .51, .2, .99);
 }
 .live-player {
   opacity: 0;
@@ -35,35 +34,9 @@
   width: calc(100% - 400px);
   transition: .8s cubic-bezier(0, .51, .2, .99);
 }
-.live-recap.is-playing {
-  align-items: stretch;
-
-  .live-recap__header {
-    margin-bottom: 0;
-  }
-
-  .live-list {
-    font-size: .875em;
-    width: 400px;
-    max-height: calc((var(--container-width) - 400px) * .5625);
-  }
-
-  .live__image {
-    width: 32px;
-  }
-
-  .live__image {
-    display: none;
-  }
-
-  .live__icon {
-    display: block;
-  }
-
-  .live-player {
-    opacity: 1;
-    transform: none;
-  }
+.live-recap youtube-player {
+  position: relative;
+  z-index: 5;
 }
 
 // Live
@@ -75,28 +48,6 @@
   border-bottom: solid 1px var(--border);
   transition: background .3s;
   align-items: center;
-}
-.live__icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 32px;
-  flex: none;
-  background-color: var(--play);
-  position: relative;
-  display: none;
-  margin-right: 1.5em;
-  transition: .3s;
-
-  &::before {
-    position: absolute;
-    top: 10px;
-    left: 11px;
-    content: '';
-    height: 0;
-    border-left: 9px solid var(--color);
-    border-top: 6px solid transparent;
-    border-bottom: 6px solid transparent;
-  }
 }
 .live__image {
   display: block;
@@ -143,32 +94,11 @@
 .live.is-playing {
   background-color: var(--list-hover);
   color: var(--contrast);
-  .live__icon {
-    background-color: var(--border);
-  }
   .live__image::before {
     opacity: 1 !important;
   }
   .live__image::after {
     opacity: .9;
-  }
-}
-.live.is-playing .live__icon {
-  background-color: #4869EE33 !important;
-
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    border: none;
-    top: 10px;
-    left: 18px;
-    background: var(--contrast);
-    width: 4px;
-    height: 12px;
-  }
-  &::before {
-    left: 10px;
   }
 }
 
@@ -186,6 +116,23 @@
     overflow: auto;
     max-height: 800px;
     justify-self: flex-end;
+  }
+  .live-recap.has-player {
+    .live-list {
+      grid-column: 1 / span 2;
+      grid-row: 1 / 1;
+      padding-left: calc(100% - 400px);
+      height: calc((var(--container-width) - 400px) * .5625);
+    }
+    .live__image {
+      display: none;
+    }
+    youtube-player {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: calc(100% - 400px);
+    }
   }
 }
 

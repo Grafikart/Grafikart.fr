@@ -16,7 +16,7 @@
         <div class="card live-list">
             {% for live in lives %}
                 <a href="#" class="live" data-youtube="{{ live.youtubeId }}">
-                    <span class="live__icon"></span>
+                    <play-button tabindex="-1"></play-button>
                     <div class="live__image">
                         <img src="/uploads/lives/{{ live.youtubeId }}.jpg" alt="">
                     </div>
