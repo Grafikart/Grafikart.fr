@@ -48,6 +48,7 @@ export default class PlayButton extends HTMLElement {
   buildStyles () {
     return `<style>
       button {
+        cursor: inherit;
         outline: none;
         position: relative;
         border: none;

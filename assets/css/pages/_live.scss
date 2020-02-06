@@ -38,6 +38,9 @@
   position: relative;
   z-index: 5;
 }
+.live-recap play-button {
+  display: none;
+}
 
 // Live
 // ==================
@@ -132,6 +135,9 @@
       top: 0;
       left: 0;
       width: calc(100% - 400px);
+    }
+    play-button {
+      display: block;
     }
   }
 }
