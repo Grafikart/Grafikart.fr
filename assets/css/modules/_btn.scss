@@ -1,0 +1,20 @@
+.btn-big {
+  display: inline-block;
+  border: 1px solid var(--contrast);
+  padding: 12px 16px;
+  color: var(--contrast);
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: $font-alt;
+  transition: .3s;
+
+  @include up(1100) {
+    font-size: 18px;
+  }
+
+  &:hover {
+    color: var(--color-btn);
+    background-color: var(--contrast);
+  }
+}

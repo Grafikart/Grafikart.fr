@@ -16,8 +16,9 @@ export default class YoutubePlayer extends HTMLElement {
     return ['video']
   }
 
-  constructor () {
+  constructor (attributes = {}) {
     super()
+    Object.keys(attributes).forEach((k) => this.setAttribute(k, attributes[k]))
     this.root = this.attachShadow({mode: 'open'})
     this.onYoutubePlayerStateChange = this.onYoutubePlayerStateChange.bind(this)
     this.onYoutubePlayerReady = this.onYoutubePlayerReady.bind(this)
@@ -43,7 +44,7 @@ export default class YoutubePlayer extends HTMLElement {
         videoId: this.getAttribute('video'),
         host: 'https://www.youtube-nocookie.com',
         playerVars: {
-          autoplay: 1,
+          autoplay: this.getAttribute('autoplay') ? 1 : 0,
           loop: 0,
           controls: 1,
           showinfo: 0,

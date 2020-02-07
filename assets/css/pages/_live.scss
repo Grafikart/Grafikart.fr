@@ -1,17 +1,52 @@
+// Live courant
+// ==================
+.live-current {
+  @extend %container-margin;
+  margin-top: 100px;
+  margin-bottom: var(--space-section);
+}
+.live-current__title {
+  @extend %section-title;
+  margin-bottom: space(4);
+
+  em {
+    font-family: $font;
+    font-size: 1.2rem;
+    font-weight: normal;
+  }
+}
+.live-current__body {
+  @extend %card;
+
+  @include up(1100) {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    align-items: stretch;
+    justify-content: stretch;
+  }
+}
+.live-current__body iframe:last-child {
+  width: 100%;
+  min-height: 350px;
+}
+
 // Recap
 // ==================
 .live-recap {
   @extend %container-margin;
+  display: block;
   position: relative;
   transition: .3s;
 }
 .live-recap__header {
-  font-size: 20px;
+  font-size: 18px;
   margin-bottom: space(4);
+}
+.live-recap__header > * + * {
+  margin-top: space(4);
 }
 .live-recap__title {
   @extend %section-title;
-  margin-bottom: space(3);
 }
 .live-recap__body {
   transition: .5s;
@@ -21,6 +56,7 @@
   grid-row: 1 / span 1;
 }
 .live-list {
+  @extend %card;
   position: relative;
   z-index: 2;
   width: 100%;
@@ -37,6 +73,7 @@
 .live-recap youtube-player {
   position: relative;
   z-index: 5;
+  animation: fadeIn .3s;
 }
 .live-recap play-button {
   display: none;
@@ -108,6 +145,9 @@
 @include up(1100) {
   .live-recap__title {
     margin-top: 100px;
+  }
+  .live-recap__header {
+    font-size: 22px;
   }
   .live-recap {
     display: grid;

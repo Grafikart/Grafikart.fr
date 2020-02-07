@@ -30,7 +30,8 @@
   display: block;
 }
 
-.header-nav a:hover {
+.header-nav a:hover,
+.header-nav a[aria-current] {
   color: var(--contrast);
 }
 

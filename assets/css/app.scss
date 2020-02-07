@@ -2,6 +2,7 @@
 // ==================
 :root {
   --color: #121C42;
+  --color-btn: #EFFBEC;
   --contrast: #4869EE;
   --gap: 20px;
   --space: 8px;
@@ -11,6 +12,7 @@
   --shadow: #D8E1E8;
   --list-hover: var(--background);
   --play: #F3F9FB; // Couleur de fond du bouton play
+  --space-section: 150px;
 }
 
 .dark-mode {
@@ -33,6 +35,7 @@
 @import "tools/mixins";
 @import "tools/layout";
 @import "tools/typography";
+@import "tools/animations";
 
 // Generic
 // ==================
@@ -55,6 +58,7 @@ body {
 @import "modules/header";
 @import "modules/card";
 @import "modules/scrollbar";
+@import "modules/btn";
 
 // Pages
 // ==================

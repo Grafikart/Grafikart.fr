@@ -31,7 +31,7 @@ export default class RecapLiveElement extends HTMLElement {
       return
     }
     if (this.player === undefined) {
-      this.player = new YoutubePlayer()
+      this.player = new YoutubePlayer({autoplay: 1})
       this.liveList.insertAdjacentElement('beforebegin', this.player)
     }
     live.classList.add('is-playing')

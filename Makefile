@@ -12,6 +12,10 @@ help: ## Affiche cette aide
 install: node_modules/time vendor/autoload.php ## Installe les différentes dépendances
 	yarn run build
 
+.PHONY: build-docker
+build-docker:
+	USER_ID=$(user) GROUP_ID=$(group) docker-compose build php
+
 .PHONY: lint
 lint: vendor/autoload.php ## Analyse le code
 	docker run -v $(PWD):/app --rm phpstan/phpstan analyse

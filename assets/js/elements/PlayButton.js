@@ -115,6 +115,7 @@ export default class PlayButton extends HTMLElement {
    * @param {YoutubePlayer|HTMLVideoElement} video
    */
   attachVideo (video) {
+    this.setAttribute('progress', 0)
     const onTimeUpdate = () => this.setAttribute('progress', (100 * video.currentTime / video.duration).toString())
     const onPlay = () => this.setAttribute('playing', 'playing')
     const onEnded = () => this.removeAttribute('playing')

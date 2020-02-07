@@ -16,7 +16,7 @@ class LiveController extends AbstractController
     public function index(LiveRepository $repo): Response
     {
         return $this->render('live/index.html.twig', [
-            'controller_name' => 'Live',
+            'menu' => 'live',
             'lives' => $repo->findForYear((int)date('Y')),
         ]);
     }

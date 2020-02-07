@@ -4,6 +4,15 @@
 
 {% block body %}
 
+    <div class="live-current">
+        <h1 class="live-current__title">Prochain live<em>, dans 10 jours</em></h1>
+
+        <div class="live-current__body">
+            <youtube-player video="QXvj1SXRobo"></youtube-player>
+            <iframe src="https://discordapp.com/widget?id=85154866468487168&theme=light&username="></iframe>
+        </div>
+    </div>
+
     <live-recap class="live-recap">
         <div class="live-recap__header">
             <h1 class="live-recap__title">Revoir les précédents lives</h1>
@@ -12,8 +21,9 @@
                 aussi l’occasion de poser vos questions et d’avoir des avis à chaud sur certaines tendances et
                 technologies.
             </p>
+            <a href="https://www.youtube.com/user/grafikarttv?sub_confirmation=1" class="btn-big">Me suivre sur youtube</a>
         </div>
-        <div class="card live-list">
+        <div class="live-list">
             {% for live in lives %}
                 <a href="#" class="live" data-youtube="{{ live.youtubeId }}">
                     <play-button tabindex="-1"></play-button>
@@ -26,10 +36,6 @@
                     </div>
                 </a>
             {% endfor %}
-        </div>
-        <div class="card live-player js-videos">
-            <div class="ratio js-video">
-            </div>
         </div>
     </live-recap>
 

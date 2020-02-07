@@ -1,12 +1,7 @@
-.card {
+.card,
+%card {
   background: var(--background-light);
   border: 1px solid var(--border);
   box-shadow: 0 2px 20px var(--shadow);
-  border-radius: 4px;
-}
-
-.card .card {
-  border: none;
-  box-shadow: none;
   border-radius: 4px;
 }
