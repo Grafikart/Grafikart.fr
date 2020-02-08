@@ -29,7 +29,7 @@ class CourseController extends AbstractController
     public function show(Course $course, string $slug): Response
     {
         if ($course->getSlug() !== $slug) {
-            $this->redirectToRoute('course_show', [
+            return $this->redirectToRoute('course_show', [
                 'id' => $course->getId(),
                 'slug' => $course->getSlug()
             ], 301);
