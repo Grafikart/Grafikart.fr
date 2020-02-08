@@ -23,7 +23,6 @@ lint: vendor/autoload.php ## Analyse le code
 .PHONY: seed
 seed: vendor/autoload.php ## Génère des données
 	$(dr) php bin/console hautelook:fixtures:load -q
-	docker-compose down
 
 .PHONY: migrate
 migrate: vendor/autoload.php ## Migre la base de donnée

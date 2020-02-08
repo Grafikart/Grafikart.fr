@@ -9,13 +9,22 @@ $font-alt: 'Montserrat', sans-serif;
 @include font-face('a', './fonts/HKGrotesk-Regular', 300 400 600 700, null, woff2 woff ttf svg eot);
 */
 
-%section-title {
+%hero-title {
   font-size: 52px;
   font-family: $font-alt;
   font-weight: 700;
   line-height: 1.2;
+
   @include down(675) {
     font-size: 45px;
+  }
+}
+
+%hero-text {
+  font-size: 18px;
+
+  @include up(600) {
+    font-size: 22px;
   }
 }
 

@@ -6,7 +6,7 @@
   margin-bottom: var(--space-section);
 }
 .live-current__title {
-  @extend %section-title;
+  @extend %hero-title;
   margin-bottom: space(4);
 
   em {
@@ -46,7 +46,7 @@
   margin-top: space(4);
 }
 .live-recap__title {
-  @extend %section-title;
+  @extend %hero-title;
 }
 .live-recap__body {
   transition: .5s;

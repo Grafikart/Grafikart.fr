@@ -6,3 +6,25 @@ App\Domain\Live\Live:
     duration: <numberBetween(10, 25000)>
     updated_at: <dateTimeBetween("first day of this year", "last day of this year")>
     created_at: <dateTimeBetween("first day of this year", "last day of this year")>
+
+App\Domain\Course\Entity\Course:
+  course (template):
+    title: <sentence(5, true)>
+    slug: <slug()>
+    content: <text(1500)>
+    created_at: <dateTimeThisYear()>
+    updated_at: <dateTimeThisYear()>
+    online: true
+    duration: <numberBetween(100, 5000)>
+    youtube_id: 7UURBqlUUUk
+    video_path: video/<numberBetween(100, 5000)>.mp4
+    source: '50%? true: false'
+    demo: demo/<numberBetween(100, 5000)>
+    premium: '10%? true: false'
+
+App\Domain\Course\Entity\Technology:
+  technology (template):
+    name: <words(1, true)>
+    slug: <slug()>
+    content: <sentence(400)>
+    image: <randomElement(['symfony','vuejs','docker', 'github', 'i3wm', 'jage', 'mjml', 'sass', 'yaml'])>.svg

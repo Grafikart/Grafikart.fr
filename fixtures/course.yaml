@@ -1,0 +1,14 @@
+include:
+  - templates.yaml
+
+App\Domain\Course\Entity\Course:
+  course{1..100} (extends course):
+
+App\Domain\Course\Entity\Technology:
+  technology{1..5} (extends technology):
+
+App\Domain\Course\Entity\TechnologyUsage:
+  technology_usage{1..100}:
+    version: <numberBetween(100, 5000)>
+    technology: '@technology<numberBetween(1, 5)>'
+    content: '@course<current()>'

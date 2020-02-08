@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Domain\Course\Entity\Course;
 use App\Domain\Course\Repository\CourseRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -14,11 +16,17 @@ class CourseController extends AbstractController
     /**
      * @Route("/tutoriels", name="course_index")
      */
-    public function index(CourseRepository $repo): Response
+    public function index(CourseRepository $repo, PaginatorInterface $paginator, Request $request): Response
     {
-        $courses = $repo->paginateAll();
+        $page = $request->query->getInt('page', 1);
+        $courses = $paginator->paginate(
+            $repo->queryAll(),
+            $page,
+            26
+        );
         return $this->render('courses/index.html.twig', [
             'courses' => $courses,
+            'page' => $page,
             'menu' => 'courses'
         ]);
     }

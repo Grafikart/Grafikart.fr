@@ -1,0 +1,25 @@
+.pagination {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin: space(8) 0;
+}
+.pagination li a,
+.pagination li span {
+  margin: space(.5);
+  padding: space(.5) space(1);
+  min-width: 35px;
+}
+
+.pagination span {
+  opacity: .6;
+}
+
+.pagination a {
+  @extend %card-inline;
+}
+
+.pagination a:hover {
+  background: var(--contrast);
+  color: var(--color-btn)
+}

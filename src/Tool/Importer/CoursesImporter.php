@@ -60,7 +60,6 @@ final class CoursesImporter
                     ->setImage($p['image'] ?? null)
                     ->setContent($p['content'] ?? null);
                 $this->em->persist($t);
-                $this->disableAutoIncrement($t);
             }
         }
 

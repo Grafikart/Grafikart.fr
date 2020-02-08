@@ -2,6 +2,17 @@
 
 {% block body %}
   <div class="courses">
+    <div class="course-hero {% if page > 1 %}is-paginated{% endif %}">
+      {% if page == 1 %}
+        <h1>Tous les tutoriels</h1>
+        <p>
+          Envie d'apprendre de nouvelles choses et maitriser de nouvelles technologies ?<br>
+          Alors vous êtes sur le bon chemin...
+        </p>
+      {% else %}
+        <h1>Tous les tutoriels<em><br>page {{ page }}</em></h1>
+      {% endif %}
+    </div>
     {% for course in courses %}
       <article class="course">
         <div class="course__icons">
@@ -25,4 +36,6 @@
       </article>
     {% endfor %}
   </div>
+
+  {{ knp_pagination_render(courses) }}
 {% endblock %}
