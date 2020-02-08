@@ -46,15 +46,16 @@
   font-size: 14px;
   @extend %card-inline;
 }
+.course > * + * {
+  margin-top: space(2);
+}
 .course__title {
   font-size: 16px;
-  margin-bottom: space(2);
   font-weight: bold;
 }
 .course__icons {
   display: flex;
   align-items: center;
-  margin-bottom: space(2);
 }
 .course__icons * + * {
   margin-left: space(1);
@@ -72,6 +73,9 @@
 .course a {
   position: relative;
   z-index: 3;
+}
+.course__content {
+  opacity: .65;
 }
 .course .course__link {
   display: block;
