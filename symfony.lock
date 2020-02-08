@@ -120,6 +120,9 @@
     "evenement/evenement": {
         "version": "v3.0.1"
     },
+    "everyman/neo4jphp": {
+        "version": "dev-master"
+    },
     "firebase/php-jwt": {
         "version": "v5.0.0"
     },

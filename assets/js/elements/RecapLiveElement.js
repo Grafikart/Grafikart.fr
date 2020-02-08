@@ -46,12 +46,4 @@ export default class RecapLiveElement extends HTMLElement {
     live.scrollIntoView({block: 'center', behavior: 'smooth', inline: 'nearest'})
     this.player.scrollIntoView({block: 'start', behavior: 'smooth', inline: 'nearest'})
   }
-
-  /**
-   * Génère l'URL pour l'embed
-   * @param {string} id
-   */
-  youtubeURL (id) {
-    return `https://www.youtube-nocookie.com/embed/${id}?controls=1&autoplay=1&loop=0&showinfo=0&rel=0&hd=1`
-  }
 }
