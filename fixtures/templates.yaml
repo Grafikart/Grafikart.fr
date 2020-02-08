@@ -1,4 +1,4 @@
-<App\Domain\Live\Live:
+App\Domain\Live\Live:
   live (template):
     name: Live<current()>
     description: <sentence()>

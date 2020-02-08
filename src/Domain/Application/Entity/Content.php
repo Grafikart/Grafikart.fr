@@ -2,6 +2,7 @@
 
 namespace App\Domain\Application\Entity;
 
+use App\Domain\Course\Entity\Technology;
 use App\Domain\Course\Entity\TechnologyUsage;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -23,22 +24,22 @@ abstract class Content
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $title;
+    private ?string $title;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $slug;
+    private ?string $slug;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $content;
+    private ?string $content;
 
     /**
      * @ORM\Column(type="datetime")
@@ -53,12 +54,13 @@ abstract class Content
     /**
      * @ORM\Column(type="boolean", options={"default": 0})
      */
-    private bool $online;
+    private bool $online = false;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Domain\Course\Entity\TechnologyUsage", mappedBy="content", orphanRemoval=true)
+     * @var Collection<int, TechnologyUsage> $technologyUsages
      */
-    private $technologyUsages;
+    private Collection $technologyUsages;
 
     public function __construct()
     {
@@ -114,7 +116,7 @@ abstract class Content
     }
 
     /**
-     * @return Collection|TechnologyUsage[]
+     * @return Collection<int, TechnologyUsage>
      */
     public function getTechnologyUsages(): Collection
     {
@@ -131,17 +133,17 @@ abstract class Content
         return $this;
     }
 
-    public function removeTechnologyUsage(TechnologyUsage $technologyUsage): self
-    {
-        if ($this->technologyUsages->contains($technologyUsage)) {
-            $this->technologyUsages->removeElement($technologyUsage);
-            // set the owning side to null (unless already changed)
-            if ($technologyUsage->getContent() === $this) {
-                $technologyUsage->setContent(null);
+    /**
+     * @return array<Technology>
+     */
+    public function getMainTechnologies(): array {
+        $technologies = [];
+        foreach ($this->getTechnologyUsages() as $usage) {
+            if ($usage->getSecondary() === false) {
+                $technologies[] = $usage->getTechnology()->setVersion($usage->getVersion());
             }
         }
-
-        return $this;
+        return $technologies;
     }
 
     public function getCreatedAt(): \DateTimeInterface

@@ -1,0 +1,39 @@
+.courses {
+  @extend %container;
+  display: grid;
+  grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
+  grid-gap: space(4);
+}
+
+.course {
+  width: 100%;
+  padding: space(2);
+  font-size: 14px;
+  @extend %card-inline;
+}
+.course__title {
+  font-size: 16px;
+  margin-bottom: space(2);
+  font-weight: bold;
+}
+.course__icons {
+  display: flex;
+  align-items: center;
+  margin-bottom: space(2);
+}
+.course__icons * + * {
+  margin-left: space(1);
+}
+.course__icons img {
+  width: 40px;
+  height: 40px;
+  display: block;
+}
+.course__icon {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+}
+.course a:hover {
+  color: var(--contrast)
+}

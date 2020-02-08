@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+  <h1>{{ course.title }}</h1>
+
+  <youtube-player video="{{ course.youtubeId }}"></youtube-player>
+
+{% endblock %}
+

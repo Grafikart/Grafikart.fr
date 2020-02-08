@@ -43,7 +43,7 @@ body {
   font-family: $font;
   font-size: 16px;
   color: var(--color);
-  line-height: 1.4;
+  line-height: 1.6;
   background: url(../images/logo.svg) top left / 580px 506px no-repeat var(--background);
 }
 
@@ -63,6 +63,7 @@ body {
 // Pages
 // ==================
 @import "pages/live";
+@import "pages/course";
 // @import "pages/single";
 // @import "pages/single";
 // @import "pages/single";

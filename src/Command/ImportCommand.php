@@ -20,11 +20,10 @@ class ImportCommand extends Command
         $this->importer = $importer;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
-            ->setDescription('Importe les données de l\'ancien site')
-        ;
+            ->setDescription('Importe les données de l\'ancien site');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

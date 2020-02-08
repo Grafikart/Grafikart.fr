@@ -14,9 +14,15 @@ class CourseRepository extends ServiceEntityRepository
         parent::__construct($registry, Course::class);
     }
 
-    public function findFirst () {
+    /**
+     * TODO : Mettre en place une pagination
+     * @return array<Course>
+     */
+    public function paginateAll(): array
+    {
         return $this->createQueryBuilder('c')
-            ->setMaxResults(1)
+            ->setMaxResults(16)
+            ->orderBy('c.created_at', 'DESC')
             ->getQuery()
             ->getResult();
     }

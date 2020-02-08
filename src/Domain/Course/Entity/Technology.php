@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\Domain\Course\TechnologyRepository")
+ * @ORM\Entity
  */
 class Technology
 {
@@ -16,44 +16,47 @@ class Technology
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private string $name;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $slug;
+    private string $slug;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $content;
+    private ?string $content;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $image;
+    private ?string $image;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Domain\Course\Entity\TechnologyUsage", mappedBy="technology", orphanRemoval=true)
+     * @var Collection<int, TechnologyUsage>
      */
-    private $usages;
+    private Collection $usages;
+
+    private ?string $version;
 
     public function __construct()
     {
         $this->usages = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -65,7 +68,7 @@ class Technology
         return $this;
     }
 
-    public function getSlug(): ?string
+    public function getSlug(): string
     {
         return $this->slug;
     }
@@ -102,7 +105,7 @@ class Technology
     }
 
     /**
-     * @return Collection|TechnologyUsage[]
+     * @return Collection<int, TechnologyUsage>
      */
     public function getUsages(): Collection
     {
@@ -123,12 +126,20 @@ class Technology
     {
         if ($this->usages->contains($usage)) {
             $this->usages->removeElement($usage);
-            // set the owning side to null (unless already changed)
-            if ($usage->getTechnology() === $this) {
-                $usage->setTechnology(null);
-            }
         }
 
         return $this;
     }
+
+    public function getVersion(): ?string
+    {
+        return $this->version;
+    }
+
+    public function setVersion(?string $version): self
+    {
+        $this->version = $version;
+        return $this;
+    }
+
 }

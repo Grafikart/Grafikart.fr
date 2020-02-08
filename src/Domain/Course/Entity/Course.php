@@ -10,59 +10,48 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Course extends Content
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
 
     /**
      * @ORM\Column(type="smallint", options={"default": 0})
      */
-    private $duration;
+    private int $duration = 0;
 
     /**
      * @ORM\Column(type="string", length=12, nullable=true)
      */
-    private $youtube_id;
+    private ?string $youtube_id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $video_path;
+    private ?string $video_path;
 
     /**
      * @ORM\Column(type="boolean", options={"default": 0})
      */
-    private $source;
+    private bool $source = false;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $demo;
+    private ?string $demo;
 
     /**
      * @ORM\Column(type="boolean", options={"default": 0})
      */
-    private $premium;
+    private bool $premium = false;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Course\Entity\Course")
      */
-    private $deprecated_by;
+    private ?Course $deprecated_by;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Course\Entity\Formation", inversedBy="courses")
      */
-    private $formation;
+    private ?Formation $formation;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getDuration(): ?int
+    public function getDuration(): int
     {
         return $this->duration;
     }

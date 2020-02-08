@@ -5,3 +5,16 @@
   box-shadow: 0 2px 20px var(--shadow);
   border-radius: 4px;
 }
+
+%card-inline {
+  background: var(--background-light);
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 4px var(--shadow);
+  border-radius: 3px;
+  transition: .3s;
+
+  &:hover {
+    border-color: var(--contrast);
+    box-shadow: 0 3px 8px var(--shadow);
+  }
+}

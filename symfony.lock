@@ -117,6 +117,9 @@
     "egulias/email-validator": {
         "version": "2.1.15"
     },
+    "erusev/parsedown": {
+        "version": "1.7.4"
+    },
     "evenement/evenement": {
         "version": "v3.0.1"
     },

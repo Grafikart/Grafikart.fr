@@ -17,25 +17,27 @@ class Formation extends Content
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="json")
+     * @var array<string>
      */
-    private $chapters = [];
+    private array $chapters = [];
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $duration;
+    private int $duration = 0;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $youtube_playlist;
+    private string $youtube_playlist = '';
 
     /**
      * @ORM\OneToMany(targetEntity="App\Domain\Course\Entity\Course", mappedBy="formation")
+     * @var Collection<int, Course>
      */
     private $courses;
 
@@ -44,16 +46,22 @@ class Formation extends Content
         $this->courses = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getChapters(): ?array
+    /**
+     * @return array<string>
+     */
+    public function getChapters(): array
     {
         return $this->chapters;
     }
 
+    /**
+     * @param array<string> $chapters
+     */
     public function setChapters(array $chapters): self
     {
         $this->chapters = $chapters;
@@ -61,7 +69,7 @@ class Formation extends Content
         return $this;
     }
 
-    public function getDuration(): ?int
+    public function getDuration(): int
     {
         return $this->duration;
     }
@@ -73,7 +81,7 @@ class Formation extends Content
         return $this;
     }
 
-    public function getYoutubePlaylist(): ?string
+    public function getYoutubePlaylist(): string
     {
         return $this->youtube_playlist;
     }
@@ -86,7 +94,7 @@ class Formation extends Content
     }
 
     /**
-     * @return Collection|Course[]
+     * @return Collection<int, Course>
      */
     public function getCourses(): Collection
     {
