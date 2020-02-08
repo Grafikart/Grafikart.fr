@@ -40,6 +40,7 @@
 // Tutoriel
 // ==================
 .course {
+  position: relative;
   width: 100%;
   padding: space(2);
   font-size: 14px;
@@ -67,6 +68,21 @@
   display: inline-block;
   width: 40px;
   height: 40px;
+}
+.course a {
+  position: relative;
+  z-index: 3;
+}
+.course .course__link {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
 }
 .course a:hover {
   color: var(--contrast)
