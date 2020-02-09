@@ -11,6 +11,7 @@
         "google/apiclient": "^2.4",
         "knplabs/knp-paginator-bundle": "^5.1",
         "oneup/flysystem-bundle": "^3.4",
+        "predis/predis": "^1.1",
         "sensio/framework-extra-bundle": "^5.1",
         "symfony/asset": "5.0.*",
         "symfony/console": "5.0.*",

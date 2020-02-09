@@ -1,0 +1,25 @@
+{% cache course %}
+  <article class="course">
+    <div class="course__icons">
+      {% for technology in course.mainTechnologies %}
+        <a href="{{ path('technology_index', {slug: technology.slug}) }}" class="course__icon" tabindex="-1">
+          <img src="{{ uploads_path('icons/' ~ technology.image) }}" alt="{{ technology.name }}">
+        </a>
+      {% endfor %}
+    </div>
+    <h2 class="course__title">
+      <a href="{{ path('course_show', {slug: course.slug, id: course.id}) }}" tabindex="-1">
+        {{ course.title }}
+      </a>
+    </h2>
+    <div class="course__content">
+      {{ course.content | markdown | striptags | excerpt(130) }}
+    </div>
+    <a href="{{ path('course_show', {slug: course.slug, id: course.id}) }}" title="{{ course.title }}" class="course__link"></a>
+    <footer class="course__footer">
+      <div>
+        {{ icon('clock') }} {{ course.duration | duration }}
+      </div>
+    </footer>
+  </article>
+{% endcache %}
