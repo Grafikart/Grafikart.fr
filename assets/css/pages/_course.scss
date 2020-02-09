@@ -14,7 +14,7 @@
   max-width: 500px;
 
   &.is-paginated {
-    margin-top: space(2);
+    margin-top: var(--card-padding);
     grid-column: -3 / -1;
     max-width: none;
 
@@ -42,12 +42,24 @@
 .course {
   position: relative;
   width: 100%;
-  padding: space(2);
+  padding: var(--card-padding);
   font-size: 14px;
+  display: flex;
+  flex-direction: column;
   @extend %card-inline;
 }
-.course > * + * {
-  margin-top: space(2);
+.course a {
+  position: relative;
+  z-index: 3;
+}
+.course a:hover {
+  color: var(--contrast)
+}
+.course > * {
+  margin-bottom: space(2);
+}
+.course > *:last-child {
+  margin-bottom: 0;
 }
 .course__title {
   font-size: 16px;
@@ -70,10 +82,6 @@
   width: 40px;
   height: 40px;
 }
-.course a {
-  position: relative;
-  z-index: 3;
-}
 .course__content {
   opacity: .65;
 }
@@ -88,6 +96,23 @@
   height: 100%;
   z-index: 2;
 }
-.course a:hover {
-  color: var(--contrast)
+.course__footer {
+  display: flex;
+  align-items: center;
+  min-height: 36px;
+  background: var(--card-footer);
+  margin: auto calc(var(--card-padding) * -1) calc(var(--card-padding) * -1)!important;
+  padding: 0 var(--card-padding);
+}
+.course__footer > * {
+  opacity: .65;
+}
+.course__footer > *:last-child {
+  margin-left: auto;
+}
+.course__footer svg {
+  vertical-align: middle;
+  transform: translateY(-2px);
+  width: 12px;
+  height: 12px;
 }

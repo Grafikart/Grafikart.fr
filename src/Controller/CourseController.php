@@ -8,6 +8,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CourseController extends AbstractController
@@ -24,6 +25,9 @@ class CourseController extends AbstractController
             $page,
             26
         );
+        if ($courses->count() === 0) {
+            throw new NotFoundHttpException('Aucun tutoriels ne correspond à cette page');
+        }
         return $this->render('courses/index.html.twig', [
             'courses' => $courses,
             'page' => $page,

@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% block title 'Tous les tutoriels' ~ ((page > 1) ? (', page' ~ page) : '') %}
+
 {% block body %}
   <div class="courses">
     <div class="course-hero {% if page > 1 %}is-paginated{% endif %}">
@@ -31,7 +33,11 @@
           {{ course.content | markdown | striptags | excerpt(130) }}
         </div>
         <a href="{{ path('course_show', {slug: course.slug, id: course.id}) }}" title="{{ course.title }}" class="course__link"></a>
-        <footer></footer>
+        <footer class="course__footer">
+          <div>
+            {{ icon('clock') }} {{ course.duration | duration }}
+          </div>
+        </footer>
       </article>
     {% endfor %}
   </div>

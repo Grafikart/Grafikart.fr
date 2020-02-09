@@ -13,6 +13,8 @@
   --list-hover: var(--background);
   --play: #F3F9FB; // Couleur de fond du bouton play
   --space-section: 150px;
+  --card-footer: #F7FAFD;
+  --card-padding: 16px;
 }
 
 .dark-mode {
@@ -26,6 +28,7 @@
   --shadow: #0b0c1a;
   --play: #1d1d3a;
   --list-hover: #282a5a;
+  --card-footer: #{darken(#202248, 3)};
 }
 
 // Outils

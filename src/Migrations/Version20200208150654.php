@@ -24,7 +24,7 @@ final class Version20200208150654 extends AbstractMigration
 
         $this->addSql('ALTER TABLE content ADD created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL');
         $this->addSql('ALTER TABLE content ADD updated_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL');
-        $this->addSql('ALTER TABLE content ADD online BOOLEAN NOT NULL DEFAULT TRUE');
+        $this->addSql('ALTER TABLE content ADD online BOOLEAN NOT NULL DEFAULT FALSE');
     }
 
     public function down(Schema $schema) : void
