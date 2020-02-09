@@ -20,7 +20,6 @@ services:
     links:
       - db
       - neo4j
-      - redis
   neo4j:
     image: neo4j:3.5
     ports:
@@ -28,8 +27,6 @@ services:
       - 7687:7687
     volumes:
       - /home/jonathan/.config/neo4j/data:/data
-  redis:
-    image: redis
   db:
     image: postgres:12
     environment:
