@@ -18,6 +18,7 @@ class CacheTokenParser extends AbstractTokenParser
         $stream = $this->parser->getStream();
 
         $key = $this->parser->getExpressionParser()->parseExpression();
+        $key->setAttribute('always_defined', true);
         $stream->expect(Token::BLOCK_END_TYPE);
         $body = $this->parser->subparse([$this, 'decideCacheEnd'], true);
         $stream->expect(Token::BLOCK_END_TYPE);
