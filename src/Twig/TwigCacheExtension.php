@@ -43,8 +43,8 @@ class TwigCacheExtension extends AbstractExtension
         try {
             $updatedAt = $item->getUpdatedAt();
             $id = $item->getId();
-            $className = explode('\\', get_class($item));
-            $className = end($className);
+            $className = get_class($item);
+            $className = substr($className, strrpos($className, '\\') + 1);
             return $id . $className . $updatedAt->getTimestamp();
         } catch (\Error $e) {
             throw new \Exception("TwigCache : Impossible de serialiser l'objet pour le cache : \n" . $e->getMessage());
