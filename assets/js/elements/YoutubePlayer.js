@@ -148,11 +148,10 @@ export default class YoutubePlayer extends HTMLElement {
         position: relative;
         width: 48px;
         height: 48px;
-        border-radius: 48px;
         z-index: 3;
         fill: #FFF;
         margin-bottom: 8px;
-        box-shadow:  0 1px 20px #121C4280;
+        filter:  drop-shadow(0 1px 20px #121C4280);
         transition: .3s;
       }
       .poster::before {
