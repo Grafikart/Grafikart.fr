@@ -2,7 +2,8 @@
 
 namespace App\Command;
 
-use App\Tool\Importer\CoursesImporter;
+use App\Infrastructure\Importer\CoursesImporter;
+use App\Infrastructure\Importer\FormationImporter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -12,12 +13,17 @@ class ImportCommand extends Command
 {
     protected static $defaultName = 'app:import';
 
-    private CoursesImporter $importer;
+    private CoursesImporter $courseImporter;
+    private FormationImporter $formationImporter;
 
-    public function __construct(string $name = null, CoursesImporter $importer)
+    public function __construct(
+        string $name = null,
+        CoursesImporter $courseImporter,
+        FormationImporter $formationImporter)
     {
         parent::__construct($name);
-        $this->importer = $importer;
+        $this->courseImporter = $courseImporter;
+        $this->formationImporter = $formationImporter;
     }
 
     protected function configure(): void
@@ -30,9 +36,10 @@ class ImportCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $this->importer->import($io);
+        // $this->courseImporter->import($io);
+        $this->formationImporter->import($io);
 
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+        $io->success('Import des contenus terminé');
 
         return 0;
     }

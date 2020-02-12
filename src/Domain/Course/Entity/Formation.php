@@ -12,12 +12,16 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Formation extends Content
 {
+
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="text", nullable=true)
      */
-    private int $id;
+    private ?string $short;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private ?string $image;
 
     /**
      * @ORM\Column(type="json")
@@ -46,9 +50,26 @@ class Formation extends Content
         $this->courses = new ArrayCollection();
     }
 
-    public function getId(): int
+    public function getShort(): ?string
     {
-        return $this->id;
+        return $this->short;
+    }
+
+    public function setShort(?string $short): self
+    {
+        $this->short = $short;
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+        return $this;
     }
 
     /**

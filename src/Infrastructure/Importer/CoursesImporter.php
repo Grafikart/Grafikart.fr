@@ -1,34 +1,18 @@
 <?php
 
-namespace App\Tool\Importer;
+namespace App\Infrastructure\Importer;
 
 use App\Domain\Application\Entity\Content;
 use App\Domain\Course\Entity\Course;
 use App\Domain\Course\Entity\Technology;
 use App\Domain\Course\Entity\TechnologyUsage;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Id\AssignedGenerator;
-use Doctrine\ORM\Mapping\ClassMetadata;
-use Everyman\Neo4j\Client;
-use Everyman\Neo4j\Cypher\Query;
 use Everyman\Neo4j\Node;
-use Everyman\Neo4j\Query\ResultSet;
 use Everyman\Neo4j\Query\Row;
 use Everyman\Neo4j\Relationship;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-final class CoursesImporter
+final class CoursesImporter extends Neo4jImporter
 {
-
-    private EntityManagerInterface $em;
-    private Client $client;
-
-    public function __construct(EntityManagerInterface $em)
-    {
-        $this->em = $em;
-        $this->client = new Client('neo4j', 7474);
-        $this->client->getTransport()->setAuth('neo4j', 'neo4j');
-    }
 
     public function import(SymfonyStyle $io): void
     {
@@ -149,26 +133,4 @@ final class CoursesImporter
         $io->success(sprintf('Import de %d relations', $rows->count()));
     }
 
-    /**
-     * @return ResultSet<Row>
-     */
-    private function neo4jQuery(string $query): ResultSet
-    {
-        return (new Query($this->client, $query))->getResultSet();
-    }
-
-    private function truncate(string $tableName): void
-    {
-        // On vide la table
-        $connection = $this->em->getConnection();
-        $platform = $connection->getDatabasePlatform();
-        $connection->exec($platform->getTruncateTableSQL($tableName, true));
-    }
-
-    private function disableAutoIncrement(object $entity): void
-    {
-        $metadata = $this->em->getClassMetaData(get_class($entity));
-        $metadata->setIdGeneratorType(ClassMetadata::GENERATOR_TYPE_NONE);
-        $metadata->setIdGenerator(new AssignedGenerator());
-    }
 }
