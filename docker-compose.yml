@@ -20,6 +20,7 @@ services:
     links:
       - db
       - neo4j
+      - mariadb
   neo4j:
     image: neo4j:3.5
     ports:
@@ -37,6 +38,13 @@ services:
       - 5432:5432 # On expose le port pour pouvoir inspecter la base pendant la phase de développement
     volumes:
       - db-data:/var/lib/postgresql/data
+  mariadb:
+    image: mariadb:10.4
+    volumes:
+      - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: grafikart_dev
   adminer:
     image: adminer
     environment:
@@ -44,6 +52,7 @@ services:
       ADMINER_DEFAULT_SERVER: pgsql
     links:
       - db
+      - mariadb
     ports:
       - 8888:8080
   mail:
