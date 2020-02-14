@@ -25,7 +25,7 @@
 .fade.in {
   opacity: 1 !important;
   transform: translateY(0px) !important;
-  transition: 1s cubic-bezier(.5, 0, 0, 1);
+  transition: .7s cubic-bezier(.5, 0, 0, 1);
 }
 .fade-1 {
   transition-delay: .2s!important;

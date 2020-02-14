@@ -1,8 +1,6 @@
 // On mémorise si la page précédente avait la vague
 let previousPageHadWaves = false
-const timer = function () {
-  previousPageHadWaves = false
-}
+let timer = null
 
 /**
  * Custom element pour générer les vagues sous le header
@@ -17,7 +15,9 @@ export default class Waves extends HTMLElement {
   }
 
   connectedCallback () {
-    window.clearTimeout(timer)
+    if (timer) {
+      window.clearTimeout(timer)
+    }
     const className = previousPageHadWaves === true ? 'no-animation' : ''
     previousPageHadWaves = true
     this.root.innerHTML = `
@@ -98,7 +98,10 @@ export default class Waves extends HTMLElement {
   }
 
   disconnectedCallback () {
-    window.setTimeout(timer, 1000)
+    timer = window.setTimeout(function () {
+      timer = null
+      previousPageHadWaves = false
+    }, 700)
   }
 
 }
