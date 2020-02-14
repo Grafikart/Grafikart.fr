@@ -13,13 +13,17 @@ class TooManyBadCredentialsException extends AuthenticationException
     public function __construct(User $user)
     {
         $this->user = $user;
-        // TODO : Trouver un message pour l'erreur
-        parent::__construct('', 0, null);
+        parent::__construct('Too many attempt.', 0, null);
     }
 
     public function getUser(): User
     {
         return $this->user;
+    }
+
+    public function getMessageKey()
+    {
+        return 'Too many attempt.';
     }
 
 }

@@ -12,7 +12,9 @@
   box-shadow: 0 2px 4px var(--shadow);
   border-radius: 3px;
   transition: .3s;
+}
 
+%card-hoverable {
   &:hover {
     border-color: var(--contrast);
     box-shadow: 0 3px 8px var(--shadow);

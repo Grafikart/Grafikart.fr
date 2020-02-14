@@ -16,9 +16,10 @@
   --space-section: 150px;
   --card-footer: #F7FAFD;
   --card-padding: 16px;
+  --header-height: 137px;
 }
 
-.dark-mode {
+.dark {
   --color: #EFFBEC;
   --contrast: #61a0f6;
   --gap: 20px;
@@ -63,11 +64,14 @@ body {
 @import "modules/scrollbar";
 @import "modules/btn";
 @import "modules/pagination";
+@import "modules/form";
+@import "modules/alert";
 
 // Pages
 // ==================
 @import "pages/live";
 @import "pages/course";
+@import "pages/auth";
 // @import "pages/single";
 // @import "pages/single";
 // @import "pages/single";

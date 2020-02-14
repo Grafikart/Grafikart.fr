@@ -1,42 +1,41 @@
+{% set headerWhite = true %}
+
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title 'Se connecter' %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+  <div class="sub-header">
+    <div class="auth-container">
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+      <h1 class="auth-title fade">Se connecter</h1>
+
+      {% if error %}
+        <alert-message type="danger">
+          {{ error.messageKey | trans(error.messageData, 'security') }}
+        </alert-message>
+      {% endif %}
+
+      <form class="auth-form fade fade-1" method="post">
+        <div class="form-group">
+          <label for="inputEmail">Nom d'utilisateur</label>
+          <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
         </div>
-    {% endif %}
-
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
-
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
+        <div class="form-group">
+          <label for="inputPassword">Mot de passe</label>
+          <input type="password" name="password" id="inputPassword" class="form-control" required>
         </div>
-    #}
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+        <div class="flex">
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="rememberMe" name="_remember_me">
+            <label class="form-check-label" for="rememberMe">Se souvenir de moi</label>
+          </div>
+          <a href="#" class="auth-password-forgot">Mot de passe oublié ?</a>
+        </div>
+        <button type="submit" class="btn-gradient">Se connecter</button>
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+      </form>
+    </div>
+    <waves-shape></waves-shape>
+  </div>
 {% endblock %}

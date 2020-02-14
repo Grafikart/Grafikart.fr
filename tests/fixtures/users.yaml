@@ -1,0 +1,5 @@
+include:
+  - ../../fixtures/templates.yaml
+
+App\Domain\Auth\User:
+  user{1..5} (extends user):

@@ -8,9 +8,13 @@
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
+        {% block javascripts %}
+          {{ encore_entry_script_tags('app') | replace({'<script': '<script defer'}) | raw }}
+        {% endblock %}
+        <meta name="turbolinks-cache-control" content="no-cache" />
     </head>
     <body>
-        <nav class="header">
+        <nav class="header {% if headerWhite is defined %}is-white{% endif %}">
             <ul class="header-nav">
                 <li class="header__home"><a href="{{ path('home') }}" title="Accueil">{{ icon('home') }}</a></li>
                 <li><a href="{{ path('course_index') }}" {{ menu_active('courses') }}>{{ icon('video') }} Tutoriels</a></li>
@@ -18,16 +22,17 @@
                 <li><a href="#">{{ icon('comment') }} Forum</a></li>
                 <li><a href="{{ path('live') }}" {{ menu_active('live') }}>{{ icon('camera') }} Live</a></li>
                 <li><a href="#">{{ icon('pen') }} Blog</a></li>
+                <li id="dark-toggle"><a href="#">Dark</a></li>
             </ul>
             <ul class="header-side">
                 <li class="header__search"><a href="#">{{ icon('search') }}</a></li>
-                <li class="header__account"><a href="#">{{ icon('user') }} Se connecter</a></li>
+              {% if app.user %}
+                <li class="header__account"><a href="{{ path('auth_logout') }}">{{ icon('user') }} {{ app.user.username }}</a></li>
+              {% else %}
+                <li class="header__account"><a href="{{ path('auth_login') }}">{{ icon('user') }} Se connecter</a></li>
+              {% endif %}
             </ul>
         </nav>
-        {% block body %}
-        {% endblock %}
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
+        {% block body %}{% endblock %}
     </body>
 </html>

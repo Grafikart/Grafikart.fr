@@ -1,7 +1,7 @@
 // http://meyerweb.com/eric/tools/css/reset/
 //  v2.0 | 20110126
 //  License: none (public domain)
-* {
+*, *::before, *::after {
   box-sizing: border-box;
 }
 html, body, div, span, applet, object, iframe,
@@ -23,6 +23,13 @@ time, mark, audio, video {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+}
+button {
+  border: none;
+  background: transparent;
+}
+input {
+  font-size: .9rem;
 }
 // HTML5 display-role reset for older browsers
 article, aside, details, figcaption, figure,

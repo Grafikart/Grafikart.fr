@@ -1,8 +1,37 @@
+// Keyframes
+// ==================
 @keyframes fadeIn {
   from {
     opacity: 0;
   }
   to {
     opacity: 1;
+  }
+}
+
+// Turbolink
+// ==================
+.turbolinks-progress-bar {
+  height: 5px;
+  background-color: var(--contrast);
+}
+
+// ScrollReveal
+// ==================
+.fade {
+  opacity: 0 !important;
+  transform: translateY(30px) !important;
+}
+.fade.in {
+  opacity: 1 !important;
+  transform: translateY(0px) !important;
+  transition: 1s cubic-bezier(.5, 0, 0, 1);
+}
+.fade-1 {
+  transition-delay: .2s!important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fade {
+    transition: none!important;
   }
 }

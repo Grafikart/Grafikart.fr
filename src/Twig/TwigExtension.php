@@ -32,7 +32,7 @@ class TwigExtension extends AbstractExtension
     public function svgIcon(string $name): string
     {
         return <<<HTML
-        <svg class="icon">
+        <svg class="icon icon-{$name}">
           <use xlink:href="/sprite.svg#{$name}"></use>
         </svg>
         HTML;

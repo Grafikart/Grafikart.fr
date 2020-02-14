@@ -12,7 +12,6 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
-use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -30,7 +29,7 @@ class Authenticator extends AbstractFormLoginAuthenticator implements PasswordAu
     private UrlGeneratorInterface $urlGenerator;
     private CsrfTokenManagerInterface $csrfTokenManager;
     private UserPasswordEncoderInterface $passwordEncoder;
-    private UserInterface $user;
+    private ?UserInterface $user = null;
     private EventDispatcherInterface $eventDispatcher;
     private UserRepository $userRepository;
     private LoginAttemptService $loginAttemptService;
@@ -83,7 +82,7 @@ class Authenticator extends AbstractFormLoginAuthenticator implements PasswordAu
         $user = $this->userRepository->findForAuth($credentials['email']);
 
         if (!$user) {
-            throw new CustomUserMessageAuthenticationException('Email could not be found.');
+            throw new BadCredentialsException();
         }
 
         return $user;

@@ -1,0 +1,71 @@
+// Champs texte
+// ==================
+.form-group input {
+  border: 1px solid var(--border);
+  background: var(--background);
+  border-radius: 3px;
+  color: var(--color);
+  padding: space(1.5) space(1);
+  display: block;
+  width: 100%;
+  outline: none;
+}
+.form-group label {
+  display: block;
+  margin-bottom: space(1);
+}
+
+// Checkbox
+// ==================
+.form-check {
+  cursor: pointer;
+  position: relative;
+}
+.form-check input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.form-check label {
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+.form-check label::before {
+  content:'';
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--border);
+  background: var(--background);
+  margin-right: space(1);
+}
+.form-check label::after {
+  transition: transform .2s;
+  content:'';
+  position: absolute;
+  top: calc(50% - 6px);
+  left: 4px;
+  width: 10px;
+  height: 10px;
+  background: var(--contrast);
+  transform: scale(0);
+}
+.form-check input:checked + label::after {
+  transform: scale(1);
+}
+.form-check input::after {
+  content:'lol';
+}
+
+// Accessibilité
+// ==================
+
+.form-group input:focus,
+.form-check input:focus + label::before,
+form button:focus  {
+  border-color: var(--contrast);
+  box-shadow: 0px 0px 3px var(--contrast);
+}

@@ -16,5 +16,7 @@
     "watch": "encore dev --watch",
     "build": "encore production --progress"
   },
-  "dependencies": {}
+  "dependencies": {
+    "turbolinks": "^5.2.0"
+  }
 }

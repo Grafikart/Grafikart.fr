@@ -28,3 +28,9 @@ App\Domain\Course\Entity\Technology:
     slug: <slug()>
     content: <sentence(400)>
     image: <randomElement(['symfony','vuejs','docker', 'github', 'i3wm', 'jage', 'mjml', 'sass', 'yaml'])>.svg
+
+App\Domain\Auth\User:
+  user (template):
+    username: John<current()>
+    email: john<current()>\@doe.fr
+    password: <password('0000')>
