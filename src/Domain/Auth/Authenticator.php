@@ -4,6 +4,7 @@ namespace App\Domain\Auth;
 
 use App\Domain\Auth\Event\BadPasswordLoginEvent;
 use App\Domain\Auth\Exception\TooManyBadCredentialsException;
+use App\Domain\Auth\Service\LoginAttemptService;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

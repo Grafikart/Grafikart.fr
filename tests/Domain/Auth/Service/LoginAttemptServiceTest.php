@@ -3,8 +3,8 @@
 namespace App\Tests\Domain\Auth\Service;
 
 use App\Domain\Auth\Entity\LoginAttempt;
-use App\Domain\Auth\LoginAttemptService;
 use App\Domain\Auth\Repository\LoginAttemptRepository;
+use App\Domain\Auth\Service\LoginAttemptService;
 use App\Domain\Auth\User;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\MockObject\MockObject;

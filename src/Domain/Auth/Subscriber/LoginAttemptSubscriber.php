@@ -3,7 +3,7 @@
 namespace App\Domain\Auth\Subscriber;
 
 use App\Domain\Auth\Event\BadPasswordLoginEvent;
-use App\Domain\Auth\LoginAttemptService;
+use App\Domain\Auth\Service\LoginAttemptService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class LoginAttemptSubscriber implements EventSubscriberInterface

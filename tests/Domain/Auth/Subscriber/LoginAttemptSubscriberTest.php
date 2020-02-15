@@ -3,7 +3,7 @@
 namespace App\Tests\Domain\Auth\Subscriber;
 
 use App\Domain\Auth\Event\BadPasswordLoginEvent;
-use App\Domain\Auth\LoginAttemptService;
+use App\Domain\Auth\Service\LoginAttemptService;
 use App\Domain\Auth\Subscriber\LoginAttemptSubscriber;
 use App\Domain\Auth\User;
 use App\Tests\EventSubscriberTest;

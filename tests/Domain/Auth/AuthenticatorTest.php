@@ -4,7 +4,7 @@ namespace App\Tests\Domain\Auth;
 
 use App\Domain\Auth\Authenticator;
 use App\Domain\Auth\Exception\TooManyBadCredentialsException;
-use App\Domain\Auth\LoginAttemptService;
+use App\Domain\Auth\Service\LoginAttemptService;
 use App\Domain\Auth\User;
 use App\Domain\Auth\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;

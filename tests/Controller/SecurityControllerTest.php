@@ -71,4 +71,42 @@ class SecurityControllerTest extends WebTestCase
         $this->assertStringContainsString('verrouillé', $crawler->filter('alert-message')->text());
     }
 
+    public function testResetPassword(): void
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/login');
+        $crawler = $client->click($crawler->selectLink('Mot de passe oublié ?')->link());
+        $this->assertEquals('Mot de passe oublié', $crawler->filter('h1')->text());
+    }
+
+    public function testResetPasswordBlockBadEmails(): void
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/login');
+        $crawler = $client->click($crawler->selectLink('Mot de passe oublié ?')->link());
+        $this->assertEquals(0, $crawler->filter('.invalid-feedback')->count());
+        $form = $crawler->selectButton('M\'envoyer les instructions')->form();
+        $form->setValues([
+            'email' => 'lol hacker',
+        ]);
+        $crawler = $client->submit($form);
+        $this->assertEquals(1, $crawler->filter('.invalid-feedback')->count());
+    }
+
+    public function testResetPasswordShouldSendAnEmail(): void
+    {
+        /** @var array<string,User> $users */
+        $users = $this->loadFixtures(['users']);
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/login');
+        $crawler = $client->click($crawler->selectLink('Mot de passe oublié ?')->link());
+        $this->assertEquals(0, $crawler->filter('.invalid-feedback')->count());
+        $form = $crawler->selectButton('M\'envoyer les instructions')->form();
+        $form->setValues([
+            'email' => $users['user1']->getEmail(),
+        ]);
+        $crawler = $client->submit($form);
+        $this->assertEquals(0, $crawler->filter('.invalid-feedback')->count());
+        $this->assertEmailCount(1);
+    }
 }
