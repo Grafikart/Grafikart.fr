@@ -39,14 +39,13 @@ class PasswordResetService
     public function resetPassword(PasswordResetRequestData $data): void
     {
         // TODO: Améliorer cette méthode
-        $users = $this->userRepository->findForAuth(['email' => $data->getEmail()]);
-        if (empty($users)) {
+        $user = $this->userRepository->findOneBy(['email' => $data->getEmail()]);
+        if ($user === null) {
             throw new UserNotFoundException();
         }
-        $user = $users[0];
         // TODO: Laisser la possibiliter de renvoyer une instruction si la précédente à plus de 30 minutes
-        $token = $this->tokenRepository->findBy(['user' => $user]);
-        if (empty($token)) {
+        $token = $this->tokenRepository->findOneBy(['user' => $user]);
+        if ($token === null) {
             $token = (new PasswordResetToken())
                 ->setUser($user)
                 ->setCreatedAt(new \DateTime())
