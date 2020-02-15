@@ -5,21 +5,19 @@ namespace App\Domain\Auth\Event;
 use App\Domain\Auth\Entity\PasswordResetToken;
 use App\Domain\Auth\User;
 
-class PasswordResetRequestEvent
+class PasswordResetTokenCreatedEvent
 {
 
-    private User $user;
     private PasswordResetToken $token;
 
-    public function __construct(User $user, PasswordResetToken $token)
+    public function __construct(PasswordResetToken $token)
     {
-        $this->user = $user;
         $this->token = $token;
     }
 
     public function getUser(): User
     {
-        return $this->user;
+        return $this->token->getUser();
     }
 
     public function getToken(): PasswordResetToken

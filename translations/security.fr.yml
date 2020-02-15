@@ -1,3 +1,4 @@
 Invalid credentials.: 'Mot de passe ou identifiant invalide'
 Too many attempt.: 'Le compte a été verrouillé suite à de trop nombreuses tentatives de connexion'
 User not found.: 'Aucun compte ne correspond à cet email'
+Ongoing password reset.: 'Une demande de réinitialisation est déjà en cours pour ce compte.'

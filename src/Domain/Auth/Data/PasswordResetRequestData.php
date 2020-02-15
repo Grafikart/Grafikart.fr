@@ -4,7 +4,7 @@ namespace App\Domain\Auth\Data;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-class PasswordResetRequestData
+final class PasswordResetRequestData
 {
 
     /**

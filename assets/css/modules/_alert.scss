@@ -8,6 +8,7 @@
   align-items: center;
   animation: alertIn .5s both;
   line-height: 1.2;
+  border-bottom: 3px solid var(--border);
 }
 
 .alert.out {
@@ -44,10 +45,18 @@
 }
 
 .alert-danger {
-  border-bottom: 3px solid #FB4635;
+  border-bottom-color: #FB4635;
 
   svg:first-child {
     color: #FB4635;
+  }
+}
+
+.alert-success {
+  border-bottom-color: #23DB72;
+
+  svg:first-child {
+    color: #23DB72;
   }
 }
 

@@ -8,6 +8,9 @@ export default class Alert extends HTMLElement {
   constructor () {
     super()
     this.type = this.getAttribute('type')
+    if (this.type === 'error') {
+      this.type = 'danger'
+    }
     this.innerHTML = `<div class="alert alert-${this.type}">
         <svg class="icon icon-{$name}">
           <use xlink:href="/sprite.svg#${this.icon}"></use>
@@ -34,6 +37,8 @@ export default class Alert extends HTMLElement {
   get icon () {
     if (this.type === 'danger') {
       return 'warning'
+    } else if (this.type === 'success') {
+      return 'check'
     }
   }
 

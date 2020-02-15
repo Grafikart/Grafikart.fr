@@ -10,6 +10,8 @@
 
       <h1 class="auth-title fade">Se connecter</h1>
 
+      {% include 'partials/flash.html.twig' %}
+
       {% if error %}
         <alert-message type="danger">
           {{ error.messageKey | trans(error.messageData, 'security') }}

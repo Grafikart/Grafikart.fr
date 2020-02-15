@@ -45,4 +45,5 @@
   <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 15" id="cross">
     <path d="M2.64 1.27L7.5 6.13l4.84-4.84A.92.92 0 0113 1a1 1 0 01.93 1.36.9.9 0 01-.2.3L8.84 7.5l4.89 4.89A.9.9 0 0114 13a1 1 0 01-1 1 .92.92 0 01-.69-.27L7.5 8.87l-4.85 4.85A.92.92 0 012 14a1 1 0 01-.93-1.36.9.9 0 01.2-.3L6.16 7.5 1.27 2.61A.9.9 0 011 2a1 1 0 011-1c.24 0 .47.1.64.27z" fill="currentColor"/>
   </symbol>
+  <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="check"><path d="M12 2a10.01 10.01 0 000 20 10.01 10.01 0 000-20zm-2 14.41l-3.71-3.7 1.41-1.42 2.3 2.3 5.3-5.3 1.4 1.42-6.7 6.7z" fill="currentColor"/></symbol>
 </svg>

@@ -6,7 +6,7 @@ use App\Domain\Auth\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Domain\Auth\Repository\PasswordResetTokenRepository")
  */
 class PasswordResetToken
 {

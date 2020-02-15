@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\Mailing;
 
-use App\Domain\Auth\Event\PasswordResetRequestEvent;
+use App\Domain\Auth\Event\PasswordResetTokenCreatedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
@@ -25,11 +25,11 @@ class AuthSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            PasswordResetRequestEvent::class => 'onPasswordRequest'
+            PasswordResetTokenCreatedEvent::class => 'onPasswordRequest'
         ];
     }
 
-    public function onPasswordRequest(PasswordResetRequestEvent $event): void
+    public function onPasswordRequest(PasswordResetTokenCreatedEvent $event): void
     {
         $email = $this->factory->makeFromTemplate('mails/auth/password_reset.html.twig', [
             'token' => $event->getToken()->getToken(),
@@ -37,7 +37,7 @@ class AuthSubscriber implements EventSubscriberInterface
             'username' => $event->getUser()->getUsername()
         ])
             ->to($event->getUser()->getEmail())
-            ->from('fabien@symfony.com')
+            ->from('noreply@grafikart.fr')
             ->priority(Email::PRIORITY_HIGH)
             ->subject('Réinitialisation de votre mot de passe');
         $this->mailer->send($email);
