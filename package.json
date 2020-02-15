@@ -8,9 +8,11 @@
     "@types/youtube": "^0.0.38",
     "doctoc": "^1.4.0",
     "node-sass": "^4.13.1",
-    "sass-loader": "^7.0.1"
+    "sass-loader": "^7.0.1",
+    "standard": "^14.3.1"
   },
   "scripts": {
+    "lint": "standard \"assets/js/**/*.js\" --fix",
     "dev-server": "encore dev-server",
     "dev": "encore dev",
     "watch": "encore dev --watch",

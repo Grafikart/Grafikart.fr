@@ -3,8 +3,7 @@
  */
 import { slideUp } from '../modules/animation'
 
-export default class Alert extends HTMLElement {
-
+export default class Alert extends global.HTMLElement {
   constructor () {
     super()
     this.type = this.getAttribute('type')
@@ -28,7 +27,7 @@ export default class Alert extends HTMLElement {
   close () {
     const element = this.querySelector('.alert')
     element.classList.add('out')
-    window.setTimeout(async() => {
+    window.setTimeout(async () => {
       await slideUp(element)
       this.parentElement.removeChild(this)
     }, 500)
@@ -41,5 +40,6 @@ export default class Alert extends HTMLElement {
       return 'check'
     }
   }
-
 }
+
+global.customElements.define('alert-message', Alert)

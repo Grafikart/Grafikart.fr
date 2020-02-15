@@ -9,7 +9,7 @@
  */
 import YoutubePlayer from './YoutubePlayer'
 
-export default class RecapLiveElement extends HTMLElement {
+export default class RecapLiveElement extends global.HTMLElement {
   connectedCallback () {
     this.liveList = this.querySelector('.live-list')
     const lives = this.querySelectorAll('.live')
@@ -31,7 +31,7 @@ export default class RecapLiveElement extends HTMLElement {
       return
     }
     if (this.player === undefined) {
-      this.player = new YoutubePlayer({autoplay: 1})
+      this.player = new YoutubePlayer({ autoplay: 1 })
       this.liveList.insertAdjacentElement('beforebegin', this.player)
     }
     live.classList.add('is-playing')
@@ -43,7 +43,9 @@ export default class RecapLiveElement extends HTMLElement {
     }
     this.currentLive = live
     this.classList.add('has-player')
-    live.scrollIntoView({block: 'center', behavior: 'smooth', inline: 'nearest'})
-    this.player.scrollIntoView({block: 'start', behavior: 'smooth', inline: 'nearest'})
+    live.scrollIntoView({ block: 'center', behavior: 'smooth', inline: 'nearest' })
+    this.player.scrollIntoView({ block: 'start', behavior: 'smooth', inline: 'nearest' })
   }
 }
+
+global.customElements.define('live-recap', RecapLiveElement)

@@ -7,8 +7,7 @@ let timer = null
  *
  * @property {ShadowRoot} root
  */
-export default class Waves extends HTMLElement {
-
+export default class Waves extends global.HTMLElement {
   constructor () {
     super()
     this.root = this.attachShadow({ mode: 'open' })
@@ -103,5 +102,6 @@ export default class Waves extends HTMLElement {
       previousPageHadWaves = false
     }, 700)
   }
-
 }
+
+global.customElements.define('waves-shape', Waves)

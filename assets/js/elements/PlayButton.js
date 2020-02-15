@@ -5,14 +5,14 @@
  * @property {HTMLButtonElement} button
  * @property {SVGCircleElement} circle
  */
-export default class PlayButton extends HTMLElement {
+export default class PlayButton extends global.HTMLElement {
   static get observedAttributes () {
     return ['playing', 'progress']
   }
 
   constructor () {
     super()
-    this.root = this.attachShadow({mode: 'open'})
+    this.root = this.attachShadow({ mode: 'open' })
   }
 
   connectedCallback () {
@@ -136,3 +136,5 @@ export default class PlayButton extends HTMLElement {
    */
   detachVideo () {}
 }
+
+global.customElements.define('play-button', PlayButton)

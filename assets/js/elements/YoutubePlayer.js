@@ -11,7 +11,7 @@ let YT = null
  * @property {?number} timer Timer permettant de suivre la progression de la lecture
  * @property {YT.Player} player
  */
-export default class YoutubePlayer extends HTMLElement {
+export default class YoutubePlayer extends global.HTMLElement {
   static get observedAttributes () {
     return ['video']
   }
@@ -21,7 +21,7 @@ export default class YoutubePlayer extends HTMLElement {
 
     // Initialisation
     Object.keys(attributes).forEach((k) => this.setAttribute(k, attributes[k]))
-    this.root = this.attachShadow({mode: 'open'})
+    this.root = this.attachShadow({ mode: 'open' })
     this.onYoutubePlayerStateChange = this.onYoutubePlayerStateChange.bind(this)
     this.onYoutubePlayerReady = this.onYoutubePlayerReady.bind(this)
     this.getAttribute('poster')
@@ -42,7 +42,7 @@ export default class YoutubePlayer extends HTMLElement {
 
     // Evènements
     if (poster !== '') {
-      let onClick = () => {
+      const onClick = () => {
         this.root.querySelector('.poster').setAttribute('aria-hidden', 'true')
         this.setAttribute('autoplay', 'autoplay')
         this.removeAttribute('poster')
@@ -86,7 +86,7 @@ export default class YoutubePlayer extends HTMLElement {
       },
       events: {
         onStateChange: this.onYoutubePlayerStateChange,
-        onReady: this.onYoutubePlayerReady,
+        onReady: this.onYoutubePlayerReady
       }
     })
   }
@@ -97,10 +97,10 @@ export default class YoutubePlayer extends HTMLElement {
   onYoutubePlayerStateChange (event) {
     if (event.data === YT.PlayerState.PLAYING) {
       this.startTimer()
-      this.dispatchEvent(new Event('play'))
+      this.dispatchEvent(new global.Event('play'))
     } else if (event.data === YT.PlayerState.ENDED) {
       this.stopTimer()
-      this.dispatchEvent(new Event('ended'))
+      this.dispatchEvent(new global.Event('ended'))
     }
   }
 
@@ -109,7 +109,7 @@ export default class YoutubePlayer extends HTMLElement {
    */
   onYoutubePlayerReady (event) {
     this.startTimer()
-    this.dispatchEvent(new Event('play'))
+    this.dispatchEvent(new global.Event('play'))
   }
 
   /**
@@ -190,8 +190,8 @@ export default class YoutubePlayer extends HTMLElement {
     if (this.timer) {
       return null
     }
-    this.dispatchEvent(new Event('timeupdate'))
-    this.timer = window.setInterval(() => this.dispatchEvent(new Event('timeupdate')), 1000)
+    this.dispatchEvent(new global.Event('timeupdate'))
+    this.timer = window.setInterval(() => this.dispatchEvent(new global.Event('timeupdate')), 1000)
   }
 
   /**
@@ -209,7 +209,6 @@ export default class YoutubePlayer extends HTMLElement {
   get currentTime () {
     return this.player ? this.player.getCurrentTime() : null
   }
-
 }
 
 /**
@@ -232,3 +231,5 @@ async function loadYoutubeApi () {
     }
   })
 }
+
+global.customElements.define('youtube-player', YoutubePlayer)

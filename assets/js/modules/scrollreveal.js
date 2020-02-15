@@ -1,4 +1,4 @@
-const ratio = .02
+const ratio = 0.02
 const options = {
   root: null,
   rootMargin: '0px',
@@ -15,7 +15,7 @@ const handleIntersect = function (entries, observer) {
     }
   })
 }
-const observer = new IntersectionObserver(handleIntersect, options)
+const observer = new global.IntersectionObserver(handleIntersect, options)
 
 document.addEventListener('turbolinks:load', function () {
   document.querySelectorAll('.fade').forEach(function (r) {
