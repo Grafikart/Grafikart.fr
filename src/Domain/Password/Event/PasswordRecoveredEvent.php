@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Domain\Auth\Event;
+namespace App\Domain\Password\Event;
 
 use App\Domain\Auth\User;
 
-class PasswordUpdatedEvent
+final class PasswordRecoveredEvent
 {
 
     private User $user;

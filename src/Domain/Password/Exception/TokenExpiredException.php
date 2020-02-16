@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Auth\Exception;
+namespace App\Domain\Password\Exception;
 
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 

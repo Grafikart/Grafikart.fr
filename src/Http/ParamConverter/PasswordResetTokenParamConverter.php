@@ -2,8 +2,8 @@
 
 namespace App\Http\ParamConverter;
 
-use App\Domain\Auth\Entity\PasswordResetToken;
-use App\Domain\Auth\Repository\PasswordResetTokenRepository;
+use App\Domain\Password\Entity\PasswordResetToken;
+use App\Domain\Password\Repository\PasswordResetTokenRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;

@@ -11,7 +11,7 @@ class SecurityControllerTest extends WebTestCase
 
     use FixturesTrait;
 
-    public function testLive(): void
+    public function testLoginTitle(): void
     {
         $title = "Se connecter";
 
@@ -68,101 +68,5 @@ class SecurityControllerTest extends WebTestCase
             $crawler = $this->client->followRedirect();
         }
         $this->assertStringContainsString('verrouillé', $crawler->filter('alert-message')->text());
-    }
-
-    public function testResetPassword(): void
-    {
-
-        $crawler = $this->client->request('GET', '/login');
-        $crawler = $this->client->click($crawler->selectLink('Mot de passe oublié ?')->link());
-        $this->assertEquals('Mot de passe oublié', $crawler->filter('h1')->text());
-    }
-
-    public function testResetPasswordBlockBadEmails(): void
-    {
-
-        $crawler = $this->client->request('GET', '/login');
-        $crawler = $this->client->click($crawler->selectLink('Mot de passe oublié ?')->link());
-        $this->expectFormErrors(0);
-        $form = $crawler->selectButton('M\'envoyer les instructions')->form();
-        $form->setValues([
-            'email' => 'lol hacker',
-        ]);
-        $this->client->submit($form);
-        $this->expectFormErrors(1);
-    }
-
-    public function testResetPasswordShouldSendAnEmail(): void
-    {
-        /** @var array<string,User> $users */
-        $users = $this->loadFixtures(['users']);
-
-        $crawler = $this->client->request('GET', '/login');
-        $crawler = $this->client->click($crawler->selectLink('Mot de passe oublié ?')->link());
-        $this->expectFormErrors(0);
-        $form = $crawler->selectButton('M\'envoyer les instructions')->form();
-        $form->setValues([
-            'email' => $users['user1']->getEmail(),
-        ]);
-        $this->client->submit($form);
-        $this->expectFormErrors(0);
-        $this->assertEmailCount(1);
-    }
-
-    public function testResetPasswordShouldBlockRepeat(): void
-    {
-        /** @var array<string,User> $users */
-        $users = $this->loadFixtures(['users']);
-
-        $crawler = $this->client->request('GET', '/login');
-        $crawler = $this->client->click($crawler->selectLink('Mot de passe oublié ?')->link());
-        $url = $crawler->getUri();
-
-        // Je demande un nouveau mot de passe
-        $this->expectFormErrors(0);
-        $form = $crawler->selectButton('M\'envoyer les instructions')->form();
-        $form->setValues([
-            'email' => $users['user1']->getEmail(),
-        ]);
-        $this->client->submit($form);
-
-        // Je demande encore un nouveau mot de passe
-        $crawler = $this->client->request('GET', $url);
-        $this->expectFormErrors(0);
-        $form = $crawler->selectButton('M\'envoyer les instructions')->form();
-        $form->setValues([
-            'email' => $users['user1']->getEmail(),
-        ]);
-        $this->client->submit($form);
-        $this->expectErrorAlert();
-    }
-
-    public function testResetPasswordShouldWorkWithOldPasswordAttempt(): void
-    {
-        /** @var array<string,User> $users */
-        $users = $this->loadFixtures(['password-reset']);
-        $crawler = $this->client->request('GET', '/login');
-        $crawler = $this->client->click($crawler->selectLink('Mot de passe oublié ?')->link());
-        $form = $crawler->selectButton('M\'envoyer les instructions')->form();
-        $form->setValues([
-            'email' => $users['user1']->getEmail(),
-        ]);
-        $this->client->submit($form);
-        $this->assertEmailCount(1);
-    }
-
-    public function testResetPasswordAfterSuccess(): void
-    {
-        // TODO : Tester que l'on peut relancer une demande de réinitialisation après une demande complété
-    }
-
-    public function testResetPasswordConfirmChangePassword(): void
-    {
-        // TODO : Vérifier que le mot de passe de l'utilisateur est bien changé
-    }
-
-    public function testResetPasswordConfirmExpired(): void
-    {
-        // TODO : Vérifier que l'on soit bien redirigé si le token est invalid
     }
 }

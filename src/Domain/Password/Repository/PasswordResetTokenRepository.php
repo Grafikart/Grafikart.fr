@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Domain\Auth\Repository;
+namespace App\Domain\Password\Repository;
 
-use App\Domain\Auth\Entity\PasswordResetToken;
+use App\Domain\Password\Entity\PasswordResetToken;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

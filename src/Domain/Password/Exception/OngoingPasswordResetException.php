@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Auth\Exception;
+namespace App\Domain\Password\Exception;
 
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
  * Exception renvoyée si une demande de renvoie de mot de passe est faites alors
  * qu'une demande est déjà en cours
  */
-class OngoingPasswordResetException extends AuthenticationException
+final class OngoingPasswordResetException extends AuthenticationException
 {
 
     public function __construct()

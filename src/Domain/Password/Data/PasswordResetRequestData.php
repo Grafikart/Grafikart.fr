@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Auth\Data;
+namespace App\Domain\Password\Data;
 
 use Symfony\Component\Validator\Constraints as Assert;
 

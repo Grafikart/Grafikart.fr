@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Domain\Auth\Event;
+namespace App\Domain\Password\Event;
 
-use App\Domain\Auth\Entity\PasswordResetToken;
 use App\Domain\Auth\User;
+use App\Domain\Password\Entity\PasswordResetToken;
 
-class PasswordResetTokenCreatedEvent
+final class PasswordResetTokenCreatedEvent
 {
 
     private PasswordResetToken $token;

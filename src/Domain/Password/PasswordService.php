@@ -1,21 +1,21 @@
 <?php
 
-namespace App\Domain\Auth\Service;
+namespace App\Domain\Password;
 
-use App\Domain\Auth\Data\PasswordResetRequestData;
-use App\Domain\Auth\Entity\PasswordResetToken;
-use App\Domain\Auth\Event\PasswordResetTokenCreatedEvent;
-use App\Domain\Auth\Event\PasswordUpdatedEvent;
-use App\Domain\Auth\Exception\OngoingPasswordResetException;
 use App\Domain\Auth\Exception\UserNotFoundException;
-use App\Domain\Auth\Repository\PasswordResetTokenRepository;
 use App\Domain\Auth\User;
 use App\Domain\Auth\UserRepository;
+use App\Domain\Password\Data\PasswordResetRequestData;
+use App\Domain\Password\Entity\PasswordResetToken;
+use App\Domain\Password\Event\PasswordRecoveredEvent;
+use App\Domain\Password\Event\PasswordResetTokenCreatedEvent;
+use App\Domain\Password\Exception\OngoingPasswordResetException;
+use App\Domain\Password\Repository\PasswordResetTokenRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class PasswordResetService
+class PasswordService
 {
 
     const EXPIRE_IN = 30; // Temps d'expiration d'un token
@@ -47,7 +47,7 @@ class PasswordResetService
 
     /**
      * Lance une demande de réinitialisation de mot de passe
-     * @throws OngoingPasswordResetException
+     * @throws \App\Domain\Password\Exception\OngoingPasswordResetException
      * @throws UserNotFoundException
      */
     public function resetPassword(PasswordResetRequestData $data): void
@@ -81,7 +81,7 @@ class PasswordResetService
     {
         $user->setPassword($this->encoder->encodePassword($user, $password));
         $this->em->flush();
-        $this->dispatcher->dispatch(new PasswordUpdatedEvent($user));
+        $this->dispatcher->dispatch(new PasswordRecoveredEvent($user));
     }
 
 }

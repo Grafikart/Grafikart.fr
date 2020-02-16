@@ -1,21 +1,20 @@
 <?php
 
-namespace App\Tests\Domain\Auth\Service;
+namespace App\Tests\Domain\Password;
 
-use App\Domain\Auth\Entity\PasswordResetToken;
-use App\Domain\Auth\Repository\PasswordResetTokenRepository;
-use App\Domain\Auth\Service\PasswordResetService;
-use App\Domain\Auth\Service\TokenGeneratorService;
 use App\Domain\Auth\UserRepository;
+use App\Domain\Password\Entity\PasswordResetToken;
+use App\Domain\Password\Repository\PasswordResetTokenRepository;
+use App\Domain\Password\TokenGeneratorService;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class PasswordResetServiceTest extends TestCase
+class PasswordServiceTest extends TestCase
 {
 
-    private PasswordResetService $service;
+    private \App\Domain\Password\PasswordService $service;
 
     public function setUp(): void
     {
@@ -26,7 +25,7 @@ class PasswordResetServiceTest extends TestCase
         $dispatcher = $this->getMockBuilder(EventDispatcherInterface::class)->getMock();
         $encoder = $this->getMockBuilder(UserPasswordEncoderInterface::class)->getMock();
 
-        $this->service = new PasswordResetService(
+        $this->service = new \App\Domain\Password\PasswordService(
             $userRepository,
             $tokenRepository,
             $generator,

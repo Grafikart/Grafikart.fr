@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\Mailing;
 
-use App\Domain\Auth\Event\PasswordResetTokenCreatedEvent;
+use App\Domain\Password\Event\PasswordResetTokenCreatedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Tests\Domain\Auth\Service;
+namespace App\Tests\Domain\Password;
 
-use App\Domain\Auth\Service\TokenGeneratorService;
+use App\Domain\Password\TokenGeneratorService;
 use PHPUnit\Framework\TestCase;
 
 class TokenGeneratorServiceTest extends TestCase
