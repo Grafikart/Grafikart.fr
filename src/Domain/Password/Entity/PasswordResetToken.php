@@ -6,7 +6,7 @@ use App\Domain\Auth\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Domain\Auth\Repository\PasswordResetTokenRepository")
+ * @ORM\Entity(repositoryClass="App\Domain\Password\Repository\PasswordResetTokenRepository")
  */
 final class PasswordResetToken
 {
@@ -16,7 +16,7 @@ final class PasswordResetToken
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    public int $id;
+    public ?int $id;
 
     /**
      * @ORM\Column(type="datetime")
@@ -34,7 +34,7 @@ final class PasswordResetToken
      */
     public User $user;
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }

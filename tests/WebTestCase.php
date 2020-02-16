@@ -2,16 +2,21 @@
 
 namespace App\Tests;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
 {
 
     protected KernelBrowser $client;
+    protected EntityManagerInterface $em;
 
     public function setUp(): void
     {
         $this->client = self::createClient();
+        /** @var EntityManagerInterface $em */
+        $em = self::$container->get(EntityManagerInterface::class);
+        $this->em = $em;
         parent::setUp();
     }
 

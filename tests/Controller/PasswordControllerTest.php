@@ -3,8 +3,10 @@
 namespace App\Tests\Controller;
 
 use App\Domain\Auth\User;
+use App\Domain\Password\Entity\PasswordResetToken;
 use App\Tests\FixturesTrait;
 use App\Tests\WebTestCase;
+use Doctrine\ORM\EntityManagerInterface;
 
 class PasswordControllerTest extends WebTestCase
 {
@@ -86,18 +88,33 @@ class PasswordControllerTest extends WebTestCase
         $this->assertEmailCount(1);
     }
 
-    public function testResetPasswordAfterSuccess(): void
-    {
-        // TODO : Tester que l'on peut relancer une demande de réinitialisation après une demande complété
-    }
-
     public function testResetPasswordConfirmChangePassword(): void
     {
-        // TODO : Vérifier que le mot de passe de l'utilisateur est bien changé
+        /** @var array<string,PasswordResetToken> $tokens */
+        $tokens = $this->loadFixtures(['password-reset']);
+        /** @var PasswordResetToken $token */
+        $token = $tokens['recent_password_token'];
+        $crawler = $this->client->request('GET', self::RESET_PASSWORD_PATH . "/{$token->getUser()->getId()}/{$token->getToken()}");
+        $this->client->submitForm('Réinitialiser mon mot de passe', [
+            'password' => [
+                'first' => 'pazjejoazuaziuaazenonazbfiumqksdmù',
+                'second' => 'pazjejoazuaziuaazenonazbfiumqksdmù'
+            ],
+        ]);
+        $this->assertResponseRedirects();
+        $this->client->followRedirect();
+        $this->expectSuccessAlert();
     }
 
     public function testResetPasswordConfirmExpired(): void
     {
-        // TODO : Vérifier que l'on soit bien redirigé si le token est invalid
+        /** @var array<string,PasswordResetToken> $tokens */
+        $tokens = $this->loadFixtures(['password-reset']);
+        /** @var PasswordResetToken $token */
+        $token = $tokens['password_token'];
+        $this->client->request('GET', self::RESET_PASSWORD_PATH . "/{$token->getUser()->getId()}/{$token->getToken()}");
+        $this->assertResponseRedirects();
+        $this->client->followRedirect();
+        $this->expectErrorAlert();
     }
 }
