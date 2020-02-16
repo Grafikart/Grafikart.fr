@@ -23,27 +23,17 @@ Dépôt pour la nouvelle version de Grafikart.fr. L'objectif est de rendre le pr
 Le développement a commencé et vous pouvez récupérer le projet et pour travailler dessus. Afin de simplifier la mise en place de l'environnement de dev, **docker** a été choisit :
 
 ```bash
-make migrate ## Permet de créer la base de données
+make dev ## Permet de lancer le serveur de développement, accessible ensuite sur http://grafikart.localhost:8000
 make seed ## Permet de remplir la base de données
-make dev ## Permet de lancer le serveur de développement, accessible sur le port 8000
 ```
 
-Pour les tests
+Pour les tests vous pouvez lancer une de ces commandes
 
 ```bash
 make test ## Permet de lancer les tests
 make tt ## Permet de relancer les tests automatiquement
 make lint ## Permet de vérifier que le code ne contienne pas d'erreur
 ```
-
-## Etat d'avancement
-
-- [x] Créer le dépôt Github
-- [ ] Trouver une licence pour ce dépôt (qui interdit l'utilisation commerciale)
-- [ ] Créer le design du site et des différentes pages
-- [ ] Intégration du design
-- [ ] Développement 
-- [ ] Déploiement
 
 ## Objectifs, pourquoi une refonte ?
 
@@ -58,7 +48,7 @@ Le site a été développé il y a un moment à une époque ou j'apprenais Ruby 
 Les contenus ne sont pas correctement mis en avant et il n'est pas évident pour un nouvel utilisateur de trouver les bons contenus.
 
 - Par quelle vidéo dois-je commencer ?
-- Quelles formations sont disponibles (peu de gens savent qu'il existe une formation sur la mise en place de serveur par exemple). 
+- Quelles formations sont disponibles (peu de gens savent qu'il existe une formation sur la mise en place de serveur par exemple).
 - Les commentaires ne servent pas forcément à grand chose en l'état (remplacer peut être par un système de questions ?).
 - Les contenus premiums ne sont pas forcément mis en avant et on ne sait pas trop ce qui est disponible et ce qui ne l'est pas.
 - Un système de progression doit être mis en place pour permettre de reprendre une formation ou une vidéo.

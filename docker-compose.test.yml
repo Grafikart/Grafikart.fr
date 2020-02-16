@@ -1,6 +1,8 @@
 version: '3.1'
 services:
   php:
+    environment:
+      WAIT_HOSTS: dbtest:5432
     build:
       context: ./docker/php
       args:

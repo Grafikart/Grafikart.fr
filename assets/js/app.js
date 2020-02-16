@@ -9,7 +9,7 @@ import Turbolinks from 'turbolinks'
 
 import './modules/scrollreveal'
 
-document.querySelector('#dark-toggle').addEventListener('click', function (e) {
+document.querySelector('#dark-toggle a').addEventListener('click', function (e) {
   e.preventDefault()
   document.body.classList.toggle('dark')
 })

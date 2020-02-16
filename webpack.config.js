@@ -10,7 +10,7 @@ Encore
     .setOutputPath('public/assets/')
     .setPublicPath('/assets')
     // only needed for CDN's or sub-directory deploy
-    //.setManifestKeyPrefix('build/')
+    // .setManifestKeyPrefix('assets/')
     .addEntry('app', './assets/js/app.js')
     .splitEntryChunks()
     .enableSingleRuntimeChunk()
@@ -57,5 +57,9 @@ Encore
     //.enableReactPreset()
     //.addEntry('admin', './assets/js/admin.js')
 ;
+
+if (!Encore.isProduction()) {
+  Encore.disableCssExtraction()
+}
 
 module.exports = Encore.getWebpackConfig();

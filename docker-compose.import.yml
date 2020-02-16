@@ -1,0 +1,40 @@
+version: '3.1'
+services:
+  php:
+    build:
+      context: ./docker/php
+      args:
+        USER_ID: ${USER_ID}
+        GROUP_ID: ${GROUP_ID}
+    volumes:
+      - .:/var/www:delegated
+    links:
+      - db
+      - neo4j
+      - mariadb
+  neo4j:
+    image: neo4j:3.5
+    ports:
+      - 7474:7474
+      - 7687:7687
+    volumes:
+      - ~/.config/neo4j/data:/data
+  db:
+    image: postgres:12
+    environment:
+      POSTGRES_PASSWORD: grafikart
+      POSTGRES_USER: grafikart
+      POSTGRES_DB: grafikart
+    volumes:
+      - db-data:/var/lib/postgresql/data
+  mariadb:
+    image: mariadb:10.4
+    volumes:
+      - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: grafikart_dev
+
+volumes:
+  db-data:
+    driver: local

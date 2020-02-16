@@ -13,7 +13,7 @@
   },
   "scripts": {
     "lint": "standard \"assets/js/**/*.js\" --fix",
-    "dev-server": "encore dev-server",
+    "dev-server": "encore dev-server --hot --public http://grafikart.localhost:8080 --host 0.0.0.0  --disable-host-check",
     "dev": "encore dev",
     "watch": "encore dev --watch",
     "build": "encore production --progress"

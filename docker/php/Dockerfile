@@ -20,6 +20,10 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ 
 RUN wget https://get.symfony.com/cli/installer -O - | bash && \
   mv /root/.symfony/bin/symfony /usr/local/bin/symfony
 
+## Wait script
+ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.7.3/wait /wait
+RUN chmod +x /wait
+
 ARG USER_ID
 ARG GROUP_ID
 

@@ -19,16 +19,18 @@ services:
       - .:/var/www:delegated
     links:
       - db
-      - neo4j
-      - mariadb
       - mail
-  neo4j:
-    image: neo4j:3.5
-    ports:
-      - 7474:7474
-      - 7687:7687
+    depends_on:
+      - db
+  node:
+    image: node:12
+    command: yarn run dev-server
+    working_dir: /usr/src/app
+    user: "${USER_ID}:${GROUP_ID}"
     volumes:
-      - /home/jonathan/.config/neo4j/data:/data
+      - .:/usr/src/app
+    ports:
+      - 8080:8080
   db:
     image: postgres:12
     environment:
@@ -39,13 +41,6 @@ services:
       - 5432:5432 # On expose le port pour pouvoir inspecter la base pendant la phase de développement
     volumes:
       - db-data:/var/lib/postgresql/data
-  mariadb:
-    image: mariadb:10.4
-    volumes:
-      - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: grafikart_dev
   adminer:
     image: adminer
     environment:
@@ -53,7 +48,6 @@ services:
       ADMINER_DEFAULT_SERVER: pgsql
     links:
       - db
-      - mariadb
     ports:
       - 8888:8080
   mail:

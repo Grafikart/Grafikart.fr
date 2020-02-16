@@ -2,6 +2,7 @@ user := $(shell id -u)
 group := $(shell id -g)
 dc := USER_ID=$(user) GROUP_ID=$(group) docker-compose
 dr := $(dc) run --rm
+dexec := docker-compose exec
 drtest := $(dc) -f docker-compose.test.yml run --rm
 
 .PHONY: help
@@ -21,28 +22,33 @@ lint: vendor/autoload.php ## Analyse le code
 	docker run -v $(PWD):/app --rm phpstan/phpstan analyse
 
 .PHONY: seed
-seed: vendor/autoload.php ## Génère des données
-	$(dr) php bin/console hautelook:fixtures:load -q
+seed: vendor/autoload.php ## Génère des données dans la base de données (docker-compose up doit être lancé)
+	$(dexec) php bash -c "php bin/console doctrine:migrations:migrate -q && php bin/console hautelook:fixtures:load -q"
 
 .PHONY: migrate
-migrate: vendor/autoload.php ## Migre la base de donnée
-	$(dr) php php bin/console doctrine:migrations:migrate
+migrate: vendor/autoload.php ## Migre la base de donnée (docker-compose up doit être lancé)
+	$(dexec) php php bin/console doctrine:migrations:migrate
+
+.PHONY: import
+import: vendor/autoload.php ## Import les données du site actuel
+	$(dc) -f docker-compose.import.yml run php bash -c "php bin/console doctrine:migrations:migrate -q && php bin/console app:import"
+	$(dc) -f docker-compose.import.yml stop
 
 .PHONY: test
 test: vendor/autoload.php ## Execute les tests
-	$(drtest) php vendor/bin/phpunit
+	$(drtest) php bash -c "wait && vendor/bin/phpunit"
 
 .PHONY: tt
 tt: vendor/autoload.php ## Lance le watcher phpunit
 	$(drtest) php vendor/bin/phpunit-watcher watch --filter="nothing"
 
 .PHONY: clean
-clean: ## Nettoie les containers laissés en fonction
-	docker-compose -f docker-compose.yml -f docker-compose.test.yml down
+clean: ## Nettoie les containers
+	$(dc) -f docker-compose.yml -f docker-compose.test.yml -f docker-compose.import.yml down --volumes
 
 .PHONY: dev
-dev: vendor/autoload.php ## Lance le serveur de développement
-	docker-compose up
+dev: vendor/autoload.php node_modules/time ## Lance le serveur de développement
+	$(dc) up
 
 .PHONY: doc
 doc: ## Génère le sommaire de la documentation
@@ -53,5 +59,6 @@ vendor/autoload.php: composer.lock
 	touch vendor/autoload.php
 
 node_modules/time: yarn.lock
-	yarn
+	$(dr) --no-deps node yarn
 	touch node_modules/time
+
