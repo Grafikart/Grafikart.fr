@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Controller;
+namespace App\Tests\Http\Controller;
 
 use App\Domain\Auth\User;
 use App\Tests\FixturesTrait;
@@ -14,7 +14,6 @@ class SecurityControllerTest extends WebTestCase
     public function testLoginTitle(): void
     {
         $title = "Se connecter";
-
         $crawler = $this->client->request('GET', '/login');
         $this->assertEquals($title, $crawler->filter('h1')->text(), $crawler->filter('title')->text());
     }

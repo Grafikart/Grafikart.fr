@@ -1,3 +1,6 @@
+parameters:
+  admin_prefix: '%env(resolve:ADMIN_PREFIX)%'
+
 services:
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
@@ -8,9 +11,12 @@ services:
         resource: '../src/*'
         exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
 
-    App\Controller\:
-        resource: '../src/Controller'
+    App\Http\Controller\:
+        resource: '../src/Http/Controller'
         tags: ['controller.service_arguments']
+    App\Http\Admin\Controller\:
+      resource: '../src/Http/Admin/Controller'
+      tags: ['controller.service_arguments']
 
     Google_Service_YouTube_Resource_PlaylistItems:
         class: '\Google_Service_YouTube_Resource_PlaylistItems'

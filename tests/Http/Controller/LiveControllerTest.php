@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Controller;
+namespace App\Tests\Http\Controller;
 
 use App\Tests\FixturesTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;

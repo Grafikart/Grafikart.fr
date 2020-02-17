@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Infrastructure\Admin\Data;
+namespace App\Http\Admin\Data;
 
 use App\Domain\Auth\User;
 use App\Domain\Blog\Category;
 use App\Domain\Blog\Post;
-use App\Infrastructure\Admin\Form\PostForm;
+use App\Http\Admin\Form\PostForm;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;

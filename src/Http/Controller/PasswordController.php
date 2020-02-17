@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Http\Controller;
 
 use App\Domain\Auth\User;
 use App\Domain\Password\Data\PasswordResetConfirmData;

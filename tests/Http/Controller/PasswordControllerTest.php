@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Tests\Controller;
+namespace App\Tests\Http\Controller;
 
 use App\Domain\Auth\User;
 use App\Domain\Password\Entity\PasswordResetToken;
 use App\Tests\FixturesTrait;
 use App\Tests\WebTestCase;
-use Doctrine\ORM\EntityManagerInterface;
 
 class PasswordControllerTest extends WebTestCase
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Infrastructure\Admin\Controller;
+namespace App\Http\Admin\Controller;
 
-use App\Infrastructure\Admin\Data\CrudDataInterface;
+use App\Http\Admin\Data\CrudDataInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Knp\Component\Pager\PaginatorInterface;

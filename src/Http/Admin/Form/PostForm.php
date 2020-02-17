@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Infrastructure\Admin\Form;
+namespace App\Http\Admin\Form;
 
-use App\Infrastructure\Admin\Data\PostCrudData;
+use App\Http\Admin\Data\PostCrudData;
 use App\Type\DateTimeType;
 use App\Type\SwitchType;
 use Symfony\Component\Form\AbstractType;

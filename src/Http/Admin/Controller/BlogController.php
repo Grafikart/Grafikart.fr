@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Infrastructure\Admin\Controller;
+namespace App\Http\Admin\Controller;
 
 use App\Domain\Blog\Event\PostUpdatedEvent;
 use App\Domain\Blog\Post;
-use App\Infrastructure\Admin\Data\PostCrudData;
+use App\Http\Admin\Data\PostCrudData;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 

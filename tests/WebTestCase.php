@@ -45,4 +45,13 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
         }
     }
 
+    public function expectH1(string $title) {
+        $crawler = $this->client->getCrawler();
+        $this->assertEquals(
+            $title,
+            $crawler->filter('h1')->text(),
+            $crawler->filter('title')->text()
+        );
+    }
+
 }

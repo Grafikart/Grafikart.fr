@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Http\Controller;
 
 use App\Domain\Course\Entity\Technology;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
