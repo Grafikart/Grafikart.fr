@@ -29,7 +29,7 @@ class PasswordController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             try {
                 $resetService->resetPassword($form->getData());
-                $this->addFlash('success', 'Les instructions pour réinitialiser votre mot de passes vous ont été envoyées');
+                $this->addFlash('success', 'Les instructions pour réinitialiser votre mot de passe vous ont été envoyées');
                 return $this->redirectToRoute('auth_login');
             } catch (\Exception $e) {
                 $error = $e;
