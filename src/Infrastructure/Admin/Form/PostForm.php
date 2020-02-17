@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\Admin\Form;
 
-use App\Infrastructure\Admin\Data\PostData;
+use App\Infrastructure\Admin\Data\PostCrudData;
 use App\Type\DateTimeType;
 use App\Type\SwitchType;
 use Symfony\Component\Form\AbstractType;
@@ -33,7 +33,7 @@ class PostForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => PostData::class,
+            'data_class' => PostCrudData::class,
         ]);
     }
 

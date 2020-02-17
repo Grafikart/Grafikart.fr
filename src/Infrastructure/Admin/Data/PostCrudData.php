@@ -5,12 +5,13 @@ namespace App\Infrastructure\Admin\Data;
 use App\Domain\Auth\User;
 use App\Domain\Blog\Category;
 use App\Domain\Blog\Post;
+use App\Infrastructure\Admin\Form\PostForm;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
-final class PostData
+final class PostCrudData implements CrudDataInterface
 {
 
     /**
@@ -38,6 +39,8 @@ final class PostData
 
     public bool $online = false;
 
+    public Post $entity;
+
     public static function makeFromPost(Post $post): self
     {
         $data = new self();
@@ -48,9 +51,13 @@ final class PostData
         $data->content = $post->getContent();
         $data->author = $post->getAuthor()->getId();
         $data->online = $post->isOnline();
+        $data->entity = $post;
         return $data;
     }
 
+    /**
+     * @param Post $post
+     */
     public function hydrate(Post $post, EntityManagerInterface $em): Post
     {
         if ($post->getImage() !== null && $this->image) {
@@ -73,4 +80,13 @@ final class PostData
         return $post;
     }
 
+    public function getEntity(): object
+    {
+        return $this->entity;
+    }
+
+    public function getFormClass(): string
+    {
+        return PostForm::class;
+    }
 }

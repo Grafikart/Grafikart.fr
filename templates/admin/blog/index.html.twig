@@ -23,16 +23,16 @@
       </tr>
       </thead>
       <tbody>
-        {% for post in posts %}
-          {% set link = path('admin_blog_edit', {post: post.id}) %}
+        {% for row in rows %}
+          {% set link = path('admin_blog_edit', {post: row.id}) %}
         <tr>
           <td class="dashboard-id">
-            <a href="{{ link }}">{{ post.id }}</a>
+            <a href="{{ link }}">{{ row.id }}</a>
           </td>
           <td>
-            <a href="{{ link }}">{{ post.title }}</a>
+            <a href="{{ link }}">{{ row.title }}</a>
           </td>
-          <td><span class="bullet {% if post.online == false %}bullet--danger{% endif %}"></span></td>
+          <td><span class="bullet {% if row.online == false %}bullet--danger{% endif %}"></span></td>
           <td>
             <div class="dashboard-actions">
               <a href="{{ link }}">{{ icon('edit') }}</a>
@@ -43,6 +43,6 @@
       </tbody>
     </table>
 
-    {{ knp_pagination_render(posts) }}
+    {{ knp_pagination_render(rows) }}
   </div>
 {% endblock %}

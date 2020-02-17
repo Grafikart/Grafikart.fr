@@ -77,6 +77,17 @@
   }
 }
 
+.dashboard .alert {
+  z-index: 5;
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  border-top: 1px solid var(--border);
+  box-shadow: 0 2px 20px var(--shadow);
+  position: fixed;
+  top: var(--container-padding);
+  right: var(--container-padding);
+}
+
 // Bullets
 // ==================
 .bullet {
@@ -91,3 +102,4 @@
 .bullet--danger {
   background: #FB4635;
 }
+

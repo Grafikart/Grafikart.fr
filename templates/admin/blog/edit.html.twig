@@ -7,6 +7,8 @@
   Editer l'article
 </div>
 
+{% include 'partials/flash.html.twig' %}
+
 <div class="dashboard-card">
   {{ form_start(form, {attr: {class: 'stacked'}}) }}
     <div class="row">
@@ -18,7 +20,7 @@
       {{ form_row(form.online) }}
       <div>
         {% if form.image %}
-          <img src="{{ vich_uploader_asset(post.image) }}" alt="">
+          <img src="{{ vich_uploader_asset(entity.image) }}" alt="">
         {% endif %}
         {{ form_row(form.image) }}
       </div>
