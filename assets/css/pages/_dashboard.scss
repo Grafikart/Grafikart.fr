@@ -13,7 +13,7 @@
 }
 .dashboard-card {
   @extend %card;
-  padding: space(2);
+  padding: space(3);
 }
 .dashboard-card > * + * {
   margin-top: space(4);
