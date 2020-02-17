@@ -1,0 +1,10 @@
+<a href="#" class="live" data-youtube="{{ live.youtubeId }}">
+  <play-button tabindex="-1"></play-button>
+  <div class="live__image">
+    <img src="/uploads/lives/{{ live.youtubeId }}.jpg" alt="">
+  </div>
+  <div class="live__body">
+    <h2 class="live__title">{{ live.name }}</h2>
+    <div class="live__date">{{ live.createdAt | date("m F Y") }}</div>
+  </div>
+</a>

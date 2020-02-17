@@ -708,6 +708,11 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@grafikart/spinning-dots-element@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@grafikart/spinning-dots-element/-/spinning-dots-element-0.0.3.tgz#024d3634918d97b51999af4daa81f5c7000cb4d7"
+  integrity sha512-u3bu1UTO5+VZCxJGSrUVUF7c8c82kSxkybRpC6eq+RrzBkOY81dchlJlAINmreV/6l2LfK8KkOVrbYQbscgSpw==
+
 "@symfony/webpack-encore@^0.28.2":
   version "0.28.2"
   resolved "https://registry.yarnpkg.com/@symfony/webpack-encore/-/webpack-encore-0.28.2.tgz#0d661b19c33c43d320dea1636cbbfeb6d583d982"

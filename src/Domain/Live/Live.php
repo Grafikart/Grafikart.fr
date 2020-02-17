@@ -31,7 +31,7 @@ class Live
     /**
      * @ORM\Column(type="string", length=20)
      */
-    private string $youtube_id;
+    private string $youtubeId;
 
     /**
      * @ORM\Column(type="integer")
@@ -41,7 +41,7 @@ class Live
     /**
      * @ORM\Column(type="datetime")
      */
-    private \DateTimeInterface $created_at;
+    private \DateTimeInterface $createdAt;
 
     /**
      * @ORM\Column(type="datetime")
@@ -96,24 +96,24 @@ class Live
 
     public function getYoutubeId(): ?string
     {
-        return $this->youtube_id;
+        return $this->youtubeId;
     }
 
     public function setYoutubeId(string $youtube): self
     {
-        $this->youtube_id = $youtube;
+        $this->youtubeId = $youtube;
 
         return $this;
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }

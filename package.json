@@ -19,6 +19,7 @@
     "build": "encore production --progress"
   },
   "dependencies": {
+    "@grafikart/spinning-dots-element": "^0.0.3",
     "turbolinks": "^5.2.0"
   }
 }

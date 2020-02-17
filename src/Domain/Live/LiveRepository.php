@@ -2,7 +2,6 @@
 
 namespace App\Domain\Live;
 
-use _HumbugBox951e2b87c765\Nette\Utils\DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -20,17 +19,30 @@ class LiveRepository extends ServiceEntityRepository
     }
 
     /**
+     * @return array<int,int>
+     */
+    public function findYears(): array
+    {
+        return array_map(fn ($row) => (int)$row['year'], $this->createQueryBuilder('l')
+            ->select('EXTRACT(year from l.createdAt) as year')
+            ->groupBy('year')
+            ->orderBy('year', 'DESC')
+            ->getQuery()
+            ->getArrayResult());
+    }
+
+    /**
      * @return array<Live>
      */
-    public function findForYear (int $year): array
+    public function findForYear(int $year): array
     {
         $start = new \DateTimeImmutable("01-01-{$year}");
         $end = $start->add(new \DateInterval('P1Y'));
         return $this->createQueryBuilder('l')
-            ->where('l.created_at BETWEEN :start AND :end')
+            ->where('l.createdAt BETWEEN :start AND :end')
             ->setParameter('start', $start)
             ->setParameter('end', $end)
-            ->orderBy('l.created_at', 'DESC')
+            ->orderBy('l.createdAt', 'DESC')
             ->getQuery()
             ->getResult();
     }
@@ -41,7 +53,7 @@ class LiveRepository extends ServiceEntityRepository
     public function lastCreationDate(): ?\DateTimeInterface
     {
         $date = $this->createQueryBuilder('l')
-            ->select('MAX(l.created_at)')
+            ->select('MAX(l.createdAt)')
             ->getQuery()
             ->getSingleScalarResult();
         return $date ? new \DateTime($date) : null;

@@ -6,16 +6,51 @@
  * @property {HTMLDivElement} liveList
  * @property {YoutubePlayer} player
  * @property {HTMLAnchorElement} currentLive
+ * @property {string} path URL vers les lives
  */
 import YoutubePlayer from './YoutubePlayer'
+import SpinningDots from '@grafikart/spinning-dots-element'
 
 export default class RecapLiveElement extends global.HTMLElement {
   connectedCallback () {
+    this.path = this.getAttribute('path')
+    this.play = this.play.bind(this)
+    this.gotoYear = this.gotoYear.bind(this)
     this.liveList = this.querySelector('.live-list')
-    const lives = this.querySelectorAll('.live')
-    lives.forEach((live) => {
-      live.addEventListener('click', this.play.bind(this))
+    this.querySelectorAll('.live').forEach((live) => {
+      live.addEventListener('click', this.play)
     })
+    this.querySelectorAll('.live-years a').forEach((a) => {
+      a.addEventListener('click', this.gotoYear)
+    })
+  }
+
+  /**
+   *
+   */
+  async gotoYear (e) {
+    e.preventDefault()
+    e.stopPropagation()
+    if (e.currentTarget.classList.contains('is-active')) {
+      return
+    }
+    e.currentTarget.parentElement.querySelector('.is-active').classList.remove('is-active')
+    this.showLoader()
+    e.currentTarget.classList.add('is-active')
+    const year = e.currentTarget.text
+    const url = this.path + `/${year}`
+    const response = await fetch(url + '?ajax=1')
+    if (response.status >= 200 && response.status < 300) {
+      const data = await response.text()
+      this.liveList.innerHTML = data
+      this.liveList.querySelectorAll('.live').forEach((live) => {
+        live.addEventListener('click', this.play)
+      })
+      window.history.replaceState({}, '', url)
+    } else {
+      console.error(response)
+    }
+    this.hideLoader()
   }
 
   /**
@@ -45,6 +80,20 @@ export default class RecapLiveElement extends global.HTMLElement {
     this.classList.add('has-player')
     live.scrollIntoView({ block: 'center', behavior: 'smooth', inline: 'nearest' })
     this.player.scrollIntoView({ block: 'start', behavior: 'smooth', inline: 'nearest' })
+  }
+
+  showLoader () {
+    const loader = new SpinningDots()
+    loader.style.width = '20px'
+    loader.classList.add('loader')
+    this.querySelector('.live-years').appendChild(loader)
+  }
+
+  hideLoader () {
+    const loader = this.querySelector('.loader')
+    if (loader) {
+      loader.parentElement.removeChild(loader)
+    }
   }
 }
 

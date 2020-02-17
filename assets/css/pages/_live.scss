@@ -79,6 +79,29 @@
   display: none;
 }
 
+// Tabs
+.live-years {
+  display: flex;
+  align-items: center;
+}
+.live-years .loader {
+  color: inherit;
+  opacity: .6;
+}
+.live-years a {
+  padding: space(1) space(2);
+  display: block;
+  border-bottom: 2px solid transparent;
+  transition: .3s;
+  opacity: .6;
+}
+.live-years a.is-active,
+.live-years a:hover {
+  font-weight: bold;
+  opacity: 1;
+  border-bottom-color: var(--contrast);
+}
+
 // Live
 // ==================
 .live {
@@ -179,6 +202,12 @@
     play-button {
       display: block;
     }
+  }
+  .has-player .live-years {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(-100%);
   }
 }
 
