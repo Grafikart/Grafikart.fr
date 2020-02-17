@@ -1,3 +1,5 @@
+// Alerts
+// ==================
 .alert {
   margin: space(3) auto;
   max-width: 400px;
@@ -10,18 +12,15 @@
   line-height: 1.2;
   border-bottom: 3px solid var(--border);
 }
-
 .alert.out {
   animation: alertOut .5s both;
 }
-
 .alert > svg:first-child {
   flex: none;
   width: 30px;
   height: 30px;
   margin-right: space(2);
 }
-
 .alert .alert-close {
   width: 30px;
   flex: none;
@@ -37,13 +36,11 @@
   }
 
 }
-
 .alert-close svg {
   width: 12px;
   height: 12px;
   color: var(--color) !important;
 }
-
 .alert-danger {
   border-bottom-color: #FB4635;
 
@@ -51,7 +48,6 @@
     color: #FB4635;
   }
 }
-
 .alert-success {
   border-bottom-color: #23DB72;
 
@@ -70,7 +66,6 @@
     transform: translateY(0px);
   }
 }
-
 @keyframes alertOut {
   from {
     opacity: 1;
@@ -80,4 +75,19 @@
     opacity: 0;
     transform: translateY(-10px);
   }
+}
+
+// Bullets
+// ==================
+.bullet {
+  display: block;
+  width: 6px;
+  border-radius: 6px;
+  height: 6px;
+  margin-left: auto;
+  margin-right: auto;
+  background: #23DB72;
+}
+.bullet--danger {
+  background: #FB4635;
 }

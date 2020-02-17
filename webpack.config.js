@@ -12,6 +12,7 @@ Encore
     // only needed for CDN's or sub-directory deploy
     // .setManifestKeyPrefix('assets/')
     .addEntry('app', './assets/js/app.js')
+    .addEntry('admin', './assets/js/admin.js')
     .splitEntryChunks()
     .enableSingleRuntimeChunk()
     .configureBabel(function(babelConfig) {

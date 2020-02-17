@@ -1,0 +1,48 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+  <div class="dashboard-title">
+    {{ icon('pen') }}
+    Gestion des articles
+  </div>
+
+  <div class="dashboard-card">
+    <div class="flex">
+      <form class="form-group dashboard-search">
+        <input name="q" type="text" placeholder="Rechercher un article" value="{{ app.request.get('q') }}" >
+      </form>
+      <a href="#" class="dashboard-btn">Ajouter un article</a>
+    </div>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th class="text-center">Statut</th>
+        <th class="text-right">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+        {% for post in posts %}
+          {% set link = path('admin_blog_edit', {post: post.id}) %}
+        <tr>
+          <td class="dashboard-id">
+            <a href="{{ link }}">{{ post.id }}</a>
+          </td>
+          <td>
+            <a href="{{ link }}">{{ post.title }}</a>
+          </td>
+          <td><span class="bullet {% if post.online == false %}bullet--danger{% endif %}"></span></td>
+          <td>
+            <div class="dashboard-actions">
+              <a href="{{ link }}">{{ icon('edit') }}</a>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    {{ knp_pagination_render(posts) }}
+  </div>
+{% endblock %}

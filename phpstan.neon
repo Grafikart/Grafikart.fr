@@ -9,3 +9,4 @@ parameters:
     - tests
   excludes_analyse:
     - src/Migrations/*
+  checkMissingIterableValueType: false

@@ -1,0 +1,40 @@
+.table {
+  width: 100%;
+  line-height: 1.2;
+}
+.table thead th {
+  font-weight: 300;
+  text-transform: uppercase;
+  opacity: .6;
+  font-size: .9em;
+  text-align: left;
+}
+.table thead th:last-child {
+  text-align: right;
+}
+.table td {
+  vertical-align: middle;
+  padding: space(2) space(2) space(2) 0;
+}
+.table td:last-child {
+  padding-right: 0 !important;
+}
+.table tbody tr {
+  border-bottom: 1px solid var(--border);
+}
+.table svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+  color: var(--color);
+  opacity: .15;
+  transition: .3s;
+
+  &:hover {
+    color: var(--contrast);
+    opacity: 1;
+  }
+}
+.table tbody > a {
+  display: table-row;
+}

@@ -29,3 +29,12 @@ $font-alt: "Montserrat", "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe 
 }
 
 // Pour générer les polices : https://transfonter.org/
+
+// Alignements
+// ==================
+.text-right {
+  text-align: right!important;
+}
+.text-center {
+  text-align: center!important;
+}

@@ -30,7 +30,7 @@ class BlogImporter
 
     public function import(SymfonyStyle $io): void
     {
-        // $this->importCategory($io);
+        $this->importCategory($io);
         $this->importPosts($io);
     }
 

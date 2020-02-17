@@ -29,7 +29,7 @@ final class DataImporter
     {
         // $this->coursesImporter->import($io);
         // $this->formationImporter->import($io);
-        // $this->userImporter->import($io);
+        $this->userImporter->import($io);
         $this->blogImporter->import($io);
     }
 

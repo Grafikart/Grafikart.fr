@@ -17,7 +17,7 @@ class Attachment
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
      */
-    private ?int $id;
+    private int $id = 0;
 
     /**
      * @Vich\UploadableField(mapping="attachments", fileNameProperty="fileName", size="fileSize")
@@ -28,7 +28,7 @@ class Attachment
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private string $fileName;
+    private string $fileName = '';
 
     /**
      * @ORM\Column(type="integer", options={"unsigned"=true})
@@ -40,7 +40,7 @@ class Attachment
      */
     private \DateTimeInterface $createdAt;
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -50,9 +50,9 @@ class Attachment
         return $this->fileName;
     }
 
-    public function setFileName(string $fileName): self
+    public function setFileName(?string $fileName): self
     {
-        $this->fileName = $fileName;
+        $this->fileName = $fileName ?: '';
         return $this;
     }
 
@@ -84,9 +84,9 @@ class Attachment
         return $this->fileSize;
     }
 
-    public function setFileSize(int $fileSize): Attachment
+    public function setFileSize(?int $fileSize): Attachment
     {
-        $this->fileSize = $fileSize;
+        $this->fileSize = $fileSize ?: 0;
         return $this;
     }
 

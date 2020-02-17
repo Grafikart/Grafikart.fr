@@ -1,6 +1,13 @@
+label {
+  text-transform: uppercase;
+  font-weight: 300;
+  font-size: .85em;
+}
+
 // Champs texte
 // ==================
-.form-group input {
+.form-group input,
+.form-group textarea {
   border: 1px solid var(--border);
   background: var(--background);
   border-radius: 3px;
@@ -9,6 +16,9 @@
   display: block;
   width: 100%;
   outline: none;
+}
+.form-group textarea {
+  min-height: 300px;
 }
 .form-group input.is-invalid {
   border-color: #FB4635;
@@ -41,6 +51,7 @@
   display: inline-block;
   width: 18px;
   height: 18px;
+  margin-top: -3px;
   border: 1px solid var(--border);
   background: var(--background);
   margin-right: space(1);
@@ -49,7 +60,7 @@
   transition: transform .2s;
   content:'';
   position: absolute;
-  top: calc(50% - 6px);
+  top: calc(50% - 9px);
   left: 4px;
   width: 10px;
   height: 10px;
@@ -61,6 +72,55 @@
 }
 .form-check input::after {
   content:'lol';
+}
+
+// Switch
+// ==================
+.form-switch {
+  position: relative;
+  cursor: pointer;
+
+  input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  label {
+    display: flex;
+    cursor: pointer;
+  }
+}
+.switch {
+  width: 55px;
+  height: 26px;
+  display: inline-block;
+  background: var(--background);
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 4px rgba(213, 222, 233, 0.2);
+  border-radius: 100px;
+  margin-right: space(1);
+  transition: background .3s;
+
+  &::before {
+    content:'';
+    display: block;
+    height: 24px;
+    width: 24px;
+    background: var(--background-light);
+    border: 1px solid var(--border);
+    box-shadow: 0 1px 4px rgba(213, 222, 233, 0.2);
+    border-radius: 100px;
+    transition: transform .3s
+  }
+}
+input:checked + label .switch {
+  background-color: var(--contrast);
+}
+input:checked + label .switch::before {
+  transform: translateX(31px);
 }
 
 // Validation
@@ -80,7 +140,8 @@
 // ==================
 .form-group input:focus,
 .form-check input:focus + label::before,
-form button:focus  {
+form button:focus,
+input:focus + label .switch {
   border-color: var(--contrast);
   box-shadow: 0px 0px 3px var(--contrast);
 }

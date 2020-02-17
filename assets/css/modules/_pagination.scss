@@ -10,16 +10,25 @@
   padding: space(.5) space(1);
   min-width: 35px;
 }
-
 .pagination span {
   opacity: .6;
 }
-
 .pagination a {
   @extend %card-inline;
 }
-
 .pagination a:hover {
   background: var(--contrast);
   color: var(--color-btn)
+}
+
+// Variations
+// ==================
+.dashboard .pagination {
+  justify-content: flex-end;
+  margin-bottom: 0;
+
+  li:last-child,
+  li:first-child {
+    display: none;
+  }
 }

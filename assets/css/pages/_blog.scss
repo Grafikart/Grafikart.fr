@@ -16,10 +16,10 @@
   grid-gap: space(4);
 }
 .blog-post + .blog-post {
-  margin-top: space(5);
+  margin-top: space(10);
 }
 .blog-post__body > * + * {
-  margin-top: space(1);
+  margin-top: space(2);
 }
 .blog-post__image {
   margin-top: space(1);
@@ -40,6 +40,7 @@
   align-items: center;
   justify-content: space-between;
   opacity: .6;
+  font-size: .85em;
   text-transform: uppercase;
   font-weight: light;
 }

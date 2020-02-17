@@ -27,27 +27,27 @@ abstract class Content
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
      */
-    private ?int $id;
+    private int $id = 0;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private ?string $title;
+    private string $title = '';
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private ?string $slug;
+    private string $slug = '';
 
     /**
      * @ORM\Column(type="text")
      */
-    private ?string $content;
+    private string $content = '';
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private \DateTimeInterface $created_at;
+    private \DateTimeInterface $createdAt;
 
     /**
      * @ORM\Column(type="datetime")
@@ -94,7 +94,7 @@ abstract class Content
         return $this;
     }
 
-    public function getTitle(): ?string
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -106,7 +106,7 @@ abstract class Content
         return $this;
     }
 
-    public function getSlug(): ?string
+    public function getSlug(): string
     {
         return $this->slug;
     }
@@ -118,7 +118,7 @@ abstract class Content
         return $this;
     }
 
-    public function getContent(): ?string
+    public function getContent(): string
     {
         return $this->content;
     }
@@ -163,12 +163,12 @@ abstract class Content
 
     public function getCreatedAt(): \DateTimeInterface
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
         return $this;
     }
 
@@ -193,7 +193,7 @@ abstract class Content
 
     /**
      * @param bool $online
-     * @return Content
+     * @return static
      */
     public function setOnline(bool $online): self
     {

@@ -1,0 +1,32 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+
+<div class="dashboard-title">
+  {{ icon('pen') }}
+  Editer l'article
+</div>
+
+<div class="dashboard-card">
+  {{ form_start(form, {attr: {class: 'stacked'}}) }}
+    <div class="row">
+      {{ form_row(form.title) }}
+      {{ form_row(form.slug) }}
+      {{ form_row(form.createdAt) }}
+    </div>
+    <div class="row">
+      {{ form_row(form.online) }}
+      <div>
+        {% if form.image %}
+          <img src="{{ vich_uploader_asset(post.image) }}" alt="">
+        {% endif %}
+        {{ form_row(form.image) }}
+      </div>
+      {{ form_row(form.author) }}
+    </div>
+    {{ form_rest(form) }}
+    <button type="submit" class="btn-gradient">Editer</button>
+  {{ form_end(form) }}
+</div>
+{% endblock %}
+

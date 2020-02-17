@@ -1,3 +1,8 @@
 controllers:
     resource: ../../src/Controller/
     type: annotation
+admin_controllers:
+  name_prefix: admin_
+  prefix: /volibear
+  resource: ../../src/Infrastructure/Admin/Controller/
+  type: annotation

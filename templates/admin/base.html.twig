@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Welcome!{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700|Roboto:300,400&display=swap" rel="stylesheet">
+  {% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+  {% endblock %}
+  {% block javascripts %}
+    {{ encore_entry_script_tags('app') | replace({'<script': '<script defer'}) | raw }}
+    {{ encore_entry_script_tags('admin') | replace({'<script': '<script defer'}) | raw }}
+  {% endblock %}
+  <meta name="turbolinks-cache-control" content="no-cache" />
+</head>
+<body>
+<nav class="header {% if headerWhite is defined %}is-white{% endif %}">
+  <ul class="header-nav">
+    <li><a href="{{ path('admin_blog_index') }}" {{ menu_active('blog') }}>{{ icon('pen') }} Blog</a></li>
+  </ul>
+  <ul class="header-side">
+    <li class="header__search"><a href="#">{{ icon('search') }}</a></li>
+    {% if app.user %}
+      <li class="header__account"><a href="{{ path('auth_logout') }}">{{ icon('user') }} {{ app.user.username }}</a></li>
+    {% else %}
+      <li class="header__account"><a href="{{ path('auth_login') }}">{{ icon('user') }} Se connecter</a></li>
+    {% endif %}
+  </ul>
+</nav>
+<div class="dashboard">
+  {% block body %}{% endblock %}
+</div>
+</body>
+</html>
