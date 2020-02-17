@@ -1,13 +1,18 @@
 name: Tests
 on: [push]
 jobs:
-  test:
-    name: Test
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
       - name: lint
         run: make lint
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
       - name: install
         run: make install
       - name: test
