@@ -10,12 +10,12 @@ help: ## Affiche cette aide
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 .PHONY: install
-install: node_modules/time vendor/autoload.php ## Installe les différentes dépendances
-	yarn run build
+install: public/assets vendor/autoload.php ## Installe les différentes dépendances
 
 .PHONY: build-docker
 build-docker:
 	USER_ID=$(user) GROUP_ID=$(group) docker-compose build php
+	USER_ID=$(user) GROUP_ID=$(group) docker-compose build node
 
 .PHONY: lint
 lint: vendor/autoload.php ## Analyse le code
@@ -36,7 +36,7 @@ import: vendor/autoload.php ## Import les données du site actuel
 
 .PHONY: test
 test: vendor/autoload.php ## Execute les tests
-	$(drtest) php bash -c "wait && vendor/bin/phpunit"
+	$(drtest) php vendor/bin/phpunit
 
 .PHONY: tt
 tt: vendor/autoload.php ## Lance le watcher phpunit
@@ -62,3 +62,5 @@ node_modules/time: yarn.lock
 	$(dr) --no-deps node yarn
 	touch node_modules/time
 
+public/assets: node_modules/time
+	$(dr) --no-deps node yarn run build

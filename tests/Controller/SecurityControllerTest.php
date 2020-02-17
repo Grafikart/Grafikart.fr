@@ -16,7 +16,7 @@ class SecurityControllerTest extends WebTestCase
         $title = "Se connecter";
 
         $crawler = $this->client->request('GET', '/login');
-        $this->assertEquals($title, $crawler->filter('h1')->text());
+        $this->assertEquals($title, $crawler->filter('h1')->text(), $crawler->filter('title')->text());
     }
 
     public function testBadPassword(): void

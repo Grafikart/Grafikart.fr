@@ -23,7 +23,8 @@ services:
     depends_on:
       - db
   node:
-    image: node:12
+    build:
+      context: ./docker/node
     command: yarn run dev-server
     working_dir: /usr/src/app
     user: "${USER_ID}:${GROUP_ID}"
