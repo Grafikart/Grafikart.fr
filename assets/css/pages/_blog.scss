@@ -1,0 +1,45 @@
+.blog-posts {
+  width: calc(100% - 2 * var(--container-padding));
+  max-width: 725px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// Article
+// ==================
+.blog-post a:hover {
+  color: var(--contrast);
+}
+.blog-post {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  grid-gap: space(4);
+}
+.blog-post + .blog-post {
+  margin-top: space(5);
+}
+.blog-post__body > * + * {
+  margin-top: space(1);
+}
+.blog-post__image {
+  margin-top: space(1);
+}
+.blog-post__image img {
+  @extend %card-inline;
+  @extend %card-hoverable;
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+}
+.blog-post__title {
+  @extend %hero-title;
+  font-size: 42px;
+}
+.blog-post__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  opacity: .6;
+  text-transform: uppercase;
+  font-weight: light;
+}

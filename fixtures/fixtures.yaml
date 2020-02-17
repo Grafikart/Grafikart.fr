@@ -1,11 +1,24 @@
 include:
   - templates.yaml
 
+App\Domain\Auth\User:
+  user{1..5} (extends user):
+
+App\Domain\Live\Live:
+  live{1..10} (extends live):
+
 App\Domain\Course\Entity\Course:
   course{1..100} (extends course):
 
 App\Domain\Course\Entity\Technology:
   technology{1..5} (extends technology):
+
+App\Domain\Blog\Category:
+  category{1..5} (extends category):
+
+App\Domain\Blog\Post:
+  post{1..50} (extends post):
+    category: '@category*'
 
 App\Domain\Course\Entity\TechnologyUsage:
   technology_usage{1..100}:

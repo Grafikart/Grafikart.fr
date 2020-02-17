@@ -7,6 +7,21 @@ App\Domain\Live\Live:
     updated_at: <dateTimeBetween("first day of this year", "last day of this year")>
     created_at: <dateTimeBetween("first day of this year", "last day of this year")>
 
+App\Domain\Blog\Post:
+  post (template):
+    title: <sentence(5, true)>
+    slug: <slug()>
+    content: <text(1500)>
+    created_at: <dateTimeThisYear()>
+    updated_at: <dateTimeThisYear()>
+    online: true
+    author: '@user1'
+
+App\Domain\Blog\Category:
+  category (template):
+    name: <sentence(5, true)>
+    slug: <slug()>
+
 App\Domain\Course\Entity\Course:
   course (template):
     title: <sentence(5, true)>
@@ -21,6 +36,7 @@ App\Domain\Course\Entity\Course:
     source: '50%? true: false'
     demo: demo/<numberBetween(100, 5000)>
     premium: '10%? true: false'
+    author: '@user1'
 
 App\Domain\Course\Entity\Technology:
   technology (template):

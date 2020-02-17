@@ -36,9 +36,9 @@ class Category
 
     /**
      * @ORM\OneToMany(targetEntity="App\Domain\Blog\Post", mappedBy="category")
-     * @var ArrayCollection<int,Post>
+     * @var Collection<int,Post>
      */
-    private ArrayCollection $posts;
+    private Collection $posts;
 
     public function __construct()
     {

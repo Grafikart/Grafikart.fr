@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <div class="page" style="max-width: 700px; margin-left: auto; margin-right: auto;">
+    <div class="page__title" style="font-size: 3rem;font-weight: bold; margin-bottom: 50px; ">
+      {{ post.title }}
+    </div>
+
+    <div class="page__content formatted">
+      {{ post.content | markdown }}
+    </div>
+  </div>
+{% endblock %}
+

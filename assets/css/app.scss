@@ -66,12 +66,14 @@ body {
 @import "modules/pagination";
 @import "modules/form";
 @import "modules/alert";
+@import "modules/formatted";
 
 // Pages
 // ==================
 @import "pages/live";
 @import "pages/course";
 @import "pages/auth";
+@import "pages/blog";
 // @import "pages/single";
 // @import "pages/single";
 // @import "pages/single";
