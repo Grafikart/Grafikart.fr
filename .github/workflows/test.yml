@@ -1,0 +1,14 @@
+name: Tests
+on: [push]
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: lint
+        run: make lint
+      - name: install
+        run: make install
+      - name: test
+        run: make test
