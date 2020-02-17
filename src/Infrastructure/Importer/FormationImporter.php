@@ -32,8 +32,8 @@ final class FormationImporter extends Neo4jImporter
             $data = $row->offsetGet(0)->getProperties();
             $item = (new Formation())
                 ->setYoutubePlaylist($data['youtube_playlist'] ?? null)
-                ->setImage($data['image'] ?? null)
                 ->setShort($data['short'] ?? null)
+                ->setImage($data['image'] ?? null)
                 ->setCreatedAt(new \DateTime("@" . $data['created_at']))
                 ->setUpdatedAt(new \DateTime("@" . $data['updated_at']))
                 ->setTitle($data['name'])

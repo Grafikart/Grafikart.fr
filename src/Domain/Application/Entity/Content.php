@@ -2,6 +2,8 @@
 
 namespace App\Domain\Application\Entity;
 
+use App\Domain\Attachment\Attachment;
+use App\Domain\Auth\User;
 use App\Domain\Course\Entity\Technology;
 use App\Domain\Course\Entity\TechnologyUsage;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -15,13 +17,14 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorMap({
  *     "course" = "App\Domain\Course\Entity\Course",
  *     "formation" = "App\Domain\Course\Entity\Formation",
+ *     "post" = "App\Domain\Blog\Post",
  * })
  */
 abstract class Content
 {
     /**
      * @ORM\Id()
-     * @ORM\GeneratedValue()
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
      */
     private ?int $id;
@@ -55,6 +58,18 @@ abstract class Content
      * @ORM\Column(type="boolean", options={"default": 0})
      */
     private bool $online = false;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Domain\Attachment\Attachment", cascade={"persist"})
+     * @ORM\JoinColumn(name="attachment_id", referencedColumnName="id")
+     */
+    private ?Attachment $image;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Domain\Auth\User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private User $author;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Domain\Course\Entity\TechnologyUsage", mappedBy="content", orphanRemoval=true)
@@ -183,6 +198,28 @@ abstract class Content
     public function setOnline(bool $online): self
     {
         $this->online = $online;
+        return $this;
+    }
+
+    public function getImage(): ?Attachment
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Attachment $image): Content
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+    public function getAuthor(): User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(User $author): Content
+    {
+        $this->author = $author;
         return $this;
     }
 

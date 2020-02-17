@@ -19,11 +19,6 @@ class Formation extends Content
     private ?string $short;
 
     /**
-     * @ORM\Column(type="string")
-     */
-    private ?string $image;
-
-    /**
      * @ORM\Column(type="json")
      * @var array<string>
      */
@@ -58,17 +53,6 @@ class Formation extends Content
     public function setShort(?string $short): self
     {
         $this->short = $short;
-        return $this;
-    }
-
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(?string $image): self
-    {
-        $this->image = $image;
         return $this;
     }
 

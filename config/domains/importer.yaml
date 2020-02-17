@@ -1,0 +1,18 @@
+services:
+  importer.pdo:
+    class: \PDO
+    autowire: false
+    arguments:
+      - 'mysql:host=mariadb;dbname=grafikart_dev;charset=UTF8'
+      - 'root'
+      - 'root'
+  App\Infrastructure\Importer\BlogImporter:
+    class: App\Infrastructure\Importer\BlogImporter
+    autowire: true
+    arguments:
+      $pdo: '@importer.pdo'
+  App\Infrastructure\Importer\UserImporter:
+    class: App\Infrastructure\Importer\UserImporter
+    autowire: true
+    arguments:
+      $pdo: '@importer.pdo'

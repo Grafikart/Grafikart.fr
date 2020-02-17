@@ -1,0 +1,16 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+      attachments:
+        uri_prefix: /uploads/attachments
+        upload_destination: '%kernel.project_dir%/public/uploads/attachments'
+        namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        directory_namer:
+          service: Vich\UploaderBundle\Naming\CurrentDateTimeDirectoryNamer
+          options:
+            date_time_format: 'Y' # will create directory "2018/23/09" for curent date "2018-09-23"
+            date_time_property: createdAt # see above example
+        inject_on_load: false
+        delete_on_update: true
+        delete_on_remove: true

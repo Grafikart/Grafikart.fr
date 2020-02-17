@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "94f3a0f44464d0457383baa0b714e51c",
+    "content-hash": "1ca5830cfa0e5973d7d99481148d9cfa",
     "packages": [
         {
             "name": "beberlei/doctrineextensions",
@@ -1788,6 +1788,63 @@
                 "sql"
             ],
             "time": "2014-01-12T16:20:24+00:00"
+        },
+        {
+            "name": "jms/metadata",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/schmittjoh/metadata.git",
+                "reference": "8d8958103485c2cbdd9a9684c3869312ebdaf73a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/schmittjoh/metadata/zipball/8d8958103485c2cbdd9a9684c3869312ebdaf73a",
+                "reference": "8d8958103485c2cbdd9a9684c3869312ebdaf73a",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "doctrine/cache": "^1.0",
+                "doctrine/coding-standard": "^4.0",
+                "phpunit/phpunit": "^7.0",
+                "symfony/cache": "^3.1|^4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Metadata\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Johannes M. Schmitt",
+                    "email": "schmittjoh@gmail.com"
+                },
+                {
+                    "name": "Asmir Mustafic",
+                    "email": "goetas@gmail.com"
+                }
+            ],
+            "description": "Class/method/property metadata management in PHP",
+            "keywords": [
+                "annotations",
+                "metadata",
+                "xml",
+                "yaml"
+            ],
+            "time": "2019-09-17T15:30:40+00:00"
         },
         {
             "name": "knplabs/knp-components",
@@ -7275,6 +7332,103 @@
                 "templating"
             ],
             "time": "2019-12-28T07:17:28+00:00"
+        },
+        {
+            "name": "vich/uploader-bundle",
+            "version": "1.13.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dustin10/VichUploaderBundle.git",
+                "reference": "282321173e8a01a295d04fa642658b6b10c3ec9a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dustin10/VichUploaderBundle/zipball/282321173e8a01a295d04fa642658b6b10c3ec9a",
+                "reference": "282321173e8a01a295d04fa642658b6b10c3ec9a",
+                "shasum": ""
+            },
+            "require": {
+                "ext-simplexml": "*",
+                "jms/metadata": "^2.1",
+                "php": "^7.2",
+                "symfony/config": "^4.4 || ^5.0",
+                "symfony/console": "^4.4 || ^5.0",
+                "symfony/dependency-injection": "^4.4 || ^5.0",
+                "symfony/event-dispatcher-contracts": "^1.1 || ^2.0",
+                "symfony/form": "^4.4 || ^5.0",
+                "symfony/http-foundation": "^4.4 || ^5.0",
+                "symfony/http-kernel": "^4.4 || ^5.0",
+                "symfony/property-access": "^4.4 || ^5.0",
+                "symfony/string": "^5.0"
+            },
+            "require-dev": {
+                "alcaeus/mongo-php-adapter": "^1.1",
+                "doctrine/doctrine-bundle": "^2.0.3",
+                "doctrine/mongodb-odm": "^1.2",
+                "doctrine/orm": "^2.7",
+                "ext-sqlite3": "*",
+                "knplabs/knp-gaufrette-bundle": "^0.7",
+                "league/flysystem-bundle": "^1.4",
+                "league/flysystem-memory": "^1.0",
+                "matthiasnoback/symfony-dependency-injection-test": "^4.1",
+                "mikey179/vfsstream": "^1.6",
+                "oneup/flysystem-bundle": "^3.3",
+                "phpunit/phpunit": "^8.5",
+                "symfony/asset": "^4.4 || ^5.0",
+                "symfony/browser-kit": "^4.4 || ^5.0",
+                "symfony/css-selector": "^4.4 || ^5.0",
+                "symfony/doctrine-bridge": "^4.4 || ^5.0",
+                "symfony/dom-crawler": "^4.4 || ^5.0",
+                "symfony/framework-bundle": "^4.4 || ^5.0",
+                "symfony/phpunit-bridge": "^4.3 || ^5.0",
+                "symfony/security-csrf": "^4.4 || ^5.0",
+                "symfony/translation": "^4.4 || ^5.0",
+                "symfony/twig-bridge": "^4.4 || ^5.0",
+                "symfony/twig-bundle": "^4.4 || ^5.0",
+                "symfony/validator": "^4.4 || ^5.0",
+                "symfony/var-dumper": "^4.4 || ^5.0",
+                "symfony/yaml": "^4.4 || ^5.0"
+            },
+            "suggest": {
+                "doctrine/doctrine-bundle": "For integration with Doctrine",
+                "doctrine/mongodb-odm-bundle": "For integration with Doctrine ODM",
+                "doctrine/orm": "For integration with Doctrine ORM",
+                "doctrine/phpcr-odm": "For integration with Doctrine PHPCR",
+                "knplabs/knp-gaufrette-bundle": "For integration with Gaufrette",
+                "liip/imagine-bundle": "To generate image thumbnails",
+                "ocramius/proxy-manager": "To use lazy services",
+                "oneup/flysystem-bundle": "For integration with Flysystem",
+                "symfony/asset": "To generate better links",
+                "symfony/yaml": "To use YAML mapping"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.14.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Vich\\UploaderBundle\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dustin Dobervich",
+                    "email": "ddobervich@gmail.com"
+                }
+            ],
+            "description": "Ease file uploads attached to entities",
+            "homepage": "https://github.com/dustin10/VichUploaderBundle",
+            "keywords": [
+                "file uploads",
+                "upload"
+            ],
+            "time": "2020-02-06T07:49:31+00:00"
         },
         {
             "name": "webimpress/safe-writer",

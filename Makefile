@@ -27,7 +27,7 @@ seed: vendor/autoload.php ## Génère des données dans la base de données (doc
 
 .PHONY: migrate
 migrate: vendor/autoload.php ## Migre la base de donnée (docker-compose up doit être lancé)
-	$(dexec) php php bin/console doctrine:migrations:migrate
+	$(dexec) php php bin/console doctrine:migrations:migrate -q
 
 .PHONY: import
 import: vendor/autoload.php ## Import les données du site actuel
