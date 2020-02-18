@@ -8,5 +8,5 @@ parameters:
     - src
     - tests
   excludes_analyse:
-    - src/Migrations/*
+    - src/Infrastructure/Migrations/*
   checkMissingIterableValueType: false
