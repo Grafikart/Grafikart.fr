@@ -3,6 +3,8 @@
 namespace App\Http\Admin\Form;
 
 use App\Http\Admin\Data\PostCrudData;
+use App\Http\Admin\Field\Lol;
+use App\Http\Admin\Field\UserChoiceType;
 use App\Type\DateTimeType;
 use App\Type\SwitchType;
 use Symfony\Component\Form\AbstractType;
@@ -26,7 +28,7 @@ class PostForm extends AbstractType
             ])
             ->add('createdAt', DateTimeType::class)
             ->add('online', SwitchType::class)
-            ->add('author', TextType::class)
+            ->add('author', UserChoiceType::class)
             ->add('content', TextareaType::class);
     }
 

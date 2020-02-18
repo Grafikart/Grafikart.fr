@@ -6,6 +6,7 @@ export default class Switch extends HTMLInputElement {
   connectedCallback () {
     if (this.nextElementSibling === null  || this.nextElementSibling.tagName !== 'LABEL') {
       console.error('Impossible de greffer le switch')
+      return
     }
     this.parentElement.classList.add('form-switch')
     this.parentElement.classList.remove('form-check')

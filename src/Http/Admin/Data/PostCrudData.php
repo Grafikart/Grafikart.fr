@@ -30,7 +30,7 @@ final class PostCrudData implements CrudDataInterface
     /**
      * @Assert\NotBlank()
      */
-    public int $author = 1;
+    public User $author;
 
     /**
      * @Assert\NotBlank()
@@ -49,7 +49,7 @@ final class PostCrudData implements CrudDataInterface
         $data->category = $post->getCategory();
         $data->createdAt = $post->getCreatedAt();
         $data->content = $post->getContent();
-        $data->author = $post->getAuthor()->getId();
+        $data->author = $post->getAuthor();
         $data->online = $post->isOnline();
         $data->entity = $post;
         return $data;
@@ -65,8 +65,6 @@ final class PostCrudData implements CrudDataInterface
                 ->setCreatedAt(new \DateTime())
                 ->setFile($this->image);
         }
-        /** @var User $user */
-        $user = $em->getReference(User::class, $this->author);
         /** @var Post $post */
         $post = $post
             ->setCategory($this->category)
@@ -75,7 +73,7 @@ final class PostCrudData implements CrudDataInterface
             ->setContent($this->content)
             ->setOnline($this->online)
             ->setUpdatedAt(new \DateTime())
-            ->setAuthor($user)
+            ->setAuthor($this->author)
             ->setSlug($this->slug);
         return $post;
     }
@@ -89,4 +87,16 @@ final class PostCrudData implements CrudDataInterface
     {
         return PostForm::class;
     }
+
+    public function getAuthor(): User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(User $author): PostCrudData
+    {
+        $this->author = $author;
+        return $this;
+    }
+
 }

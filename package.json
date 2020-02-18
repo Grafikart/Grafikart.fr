@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@grafikart/spinning-dots-element": "^0.0.3",
+    "choices.js": "^9.0.1",
     "flatpickr": "^4.6.3",
     "turbolinks": "^5.2.0"
   }
