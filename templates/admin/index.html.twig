@@ -1,5 +1,10 @@
 {% extends 'admin/base.html.twig' %}
 
+{% block javascripts %}
+  {{ parent() }}
+  {{ encore_entry_script_tags('filemanager') }}
+{% endblock %}
+
 {% block body %}
-  <h1>Dashboard</h1>
+  <file-manager></file-manager>
 {% endblock %}

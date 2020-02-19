@@ -25,3 +25,6 @@ doctrine:
         dql:
             datetime_functions:
                 EXTRACT: DoctrineExtensions\Query\Postgresql\ExtractFunction
+            string_functions:
+                LPAD: DoctrineExtensions\Query\Mysql\Lpad
+                CAST: DoctrineExtensions\Query\Mysql\Cast
