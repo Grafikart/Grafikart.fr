@@ -65,9 +65,16 @@
   grid-gap: space(2);
   grid-template-columns: 1fr;
 
+  @include down(500) {
+    & > * {
+      grid-column: auto!important;
+      grid-row: auto!important;
+    }
+  }
+
   @include up(500) {
     align-items: center;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 33%));
   }
 }
 .stacked > * + * {

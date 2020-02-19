@@ -1,6 +1,7 @@
 includes:
   - vendor/phpstan/phpstan-phpunit/extension.neon
   - vendor/phpstan/phpstan-mockery/extension.neon
+  - vendor/phpstan/phpstan-doctrine/extension.neon
 
 parameters:
   level: 8
@@ -10,3 +11,4 @@ parameters:
   excludes_analyse:
     - src/Infrastructure/Migrations/*
   checkMissingIterableValueType: false
+  checkGenericClassInNonGenericObjectType: false

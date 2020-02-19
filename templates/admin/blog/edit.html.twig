@@ -15,16 +15,9 @@
       {{ form_row(form.title) }}
       {{ form_row(form.slug) }}
       {{ form_row(form.createdAt) }}
-    </div>
-    <div class="row">
-      {{ form_row(form.online) }}
-      <div>
-        {% if form.image %}
-          <img src="{{ vich_uploader_asset(entity.image) }}" alt="">
-        {% endif %}
-        {{ form_row(form.image) }}
-      </div>
       {{ form_row(form.author) }}
+      {{ form_row(form.online) }}
+      {{ form_row(form.image, {row_attr: {style: 'grid-column: -1 / -1; grid-row: 1 / 3'}}) }}
     </div>
     {{ form_rest(form) }}
     <button type="submit" class="btn-gradient">Editer</button>

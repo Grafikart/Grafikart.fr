@@ -2,12 +2,12 @@
 
 namespace App\Http\Admin\Data;
 
+use App\Domain\Attachment\Attachment;
 use App\Domain\Auth\User;
 use App\Domain\Blog\Category;
 use App\Domain\Blog\Post;
 use App\Http\Admin\Form\PostForm;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
@@ -21,7 +21,7 @@ final class PostCrudData implements CrudDataInterface
 
     public string $slug;
 
-    public ?UploadedFile $image = null;
+    public ?Attachment $image = null;
 
     public ?Category $category;
 
@@ -51,6 +51,7 @@ final class PostCrudData implements CrudDataInterface
         $data->content = $post->getContent();
         $data->author = $post->getAuthor();
         $data->online = $post->isOnline();
+        $data->image = $post->getImage();
         $data->entity = $post;
         return $data;
     }
@@ -60,14 +61,10 @@ final class PostCrudData implements CrudDataInterface
      */
     public function hydrate(Post $post, EntityManagerInterface $em): Post
     {
-        if ($post->getImage() !== null && $this->image) {
-            $post->getImage()
-                ->setCreatedAt(new \DateTime())
-                ->setFile($this->image);
-        }
         /** @var Post $post */
         $post = $post
             ->setCategory($this->category)
+            ->setImage($this->image)
             ->setTitle($this->title)
             ->setCreatedAt($this->createdAt)
             ->setContent($this->content)

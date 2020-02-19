@@ -4,17 +4,24 @@
 import { slideUp } from '../modules/animation'
 
 export default class Alert extends global.HTMLElement {
-  constructor () {
+  constructor ({type, message} = {}) {
     super()
-    this.type = this.getAttribute('type')
-    if (this.type === 'error') {
+    if (type !== undefined) {
+      this.type = type
+    } else {
+      this.type = this.getAttribute('type')
+    }
+    if (!message) {
+      message = this.innerHTML
+    }
+    if (this.type === 'error' || this.type === null) {
       this.type = 'danger'
     }
     this.innerHTML = `<div class="alert alert-${this.type}">
         <svg class="icon icon-{$name}">
           <use xlink:href="/sprite.svg#${this.icon}"></use>
         </svg>
-        ${this.innerHTML}
+        ${message}
         <button class="alert-close">
           <svg class="icon icon-{$name}">
             <use xlink:href="/sprite.svg#cross"></use>

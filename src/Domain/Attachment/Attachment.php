@@ -17,7 +17,7 @@ class Attachment
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
      */
-    private int $id = 0;
+    protected int $id = 0;
 
     /**
      * @Vich\UploadableField(mapping="attachments", fileNameProperty="fileName", size="fileSize")
@@ -88,6 +88,11 @@ class Attachment
     {
         $this->fileSize = $fileSize ?: 0;
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->fileName;
     }
 
 }

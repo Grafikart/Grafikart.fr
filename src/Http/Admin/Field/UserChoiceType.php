@@ -5,15 +5,15 @@ namespace App\Http\Admin\Field;
 use App\Domain\Auth\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\ChoiceList\View\ChoiceView;
+use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class UserChoiceType extends AbstractType
+class UserChoiceType extends AbstractType implements DataTransformerInterface
 {
 
     private EntityManagerInterface $em;
@@ -27,12 +27,7 @@ class UserChoiceType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->addModelTransformer(new CallbackTransformer(function (?User $user): int {
-            return $user === null ? 0 : $user->getId();
-        }, function (int $userId) {
-            return $this->em->getReference(User::class, $userId);
-        }));
-        parent::buildForm($builder, $options);
+        $builder->addViewTransformer($this);
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options): void
@@ -66,5 +61,21 @@ class UserChoiceType extends AbstractType
     public function getBlockPrefix(): string
     {
         return 'choice';
+    }
+
+    /**
+     * @param ?User $user
+     */
+    public function transform($user): string
+    {
+        return $user === null ? '' : (string)$user->getId();
+    }
+
+    /**
+     * @param int $userId
+     */
+    public function reverseTransform($userId): ?User
+    {
+        return $this->em->getRepository(User::class)->find($userId);
     }
 }

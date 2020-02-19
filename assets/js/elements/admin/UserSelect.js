@@ -30,7 +30,6 @@ class UserSelect extends HTMLSelectElement {
       this.timer = null
       return
     }
-    console.log('binding event')
     this.endpoint = this.getAttribute('endpoint')
     if (this.endpoint === null) {
       console.error("Impossible de monter l'élément user-select, endpoint n'est pas définit")

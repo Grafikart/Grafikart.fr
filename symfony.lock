@@ -270,6 +270,9 @@
     "phpstan/phpstan": {
         "version": "0.12.7"
     },
+    "phpstan/phpstan-doctrine": {
+        "version": "0.12.9"
+    },
     "phpstan/phpstan-mockery": {
         "version": "0.12.3"
     },
