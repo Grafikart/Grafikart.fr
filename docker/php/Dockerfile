@@ -15,8 +15,6 @@ RUN docker-php-ext-install mysqli pdo_mysql
 
 # Xdebug
 RUN pecl install xdebug-2.8.1 && docker-php-ext-enable xdebug
-RUN echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-RUN echo "xdebug.remote_port=9001" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
@@ -24,6 +22,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ 
 # Symfony tool
 RUN wget https://get.symfony.com/cli/installer -O - | bash && \
   mv /root/.symfony/bin/symfony /usr/local/bin/symfony
+
+ADD xdebug.ini /usr/local/etc/php/conf.d/
 
 ARG USER_ID
 ARG GROUP_ID
@@ -35,4 +35,3 @@ USER user
 WORKDIR /var/www
 
 EXPOSE 9000
-EXPOSE 9001

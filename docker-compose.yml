@@ -22,6 +22,8 @@ services:
       - mail
     depends_on:
       - db
+    environment:
+      PHP_IDE_CONFIG: serverName=grafikart
   node:
     build:
       context: ./docker/node
