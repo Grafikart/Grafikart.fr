@@ -2,6 +2,7 @@
 
 namespace App\Http\Admin\Controller;
 
+use App\Domain\Application\Entity\Content;
 use App\Http\Admin\Data\CrudDataInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
@@ -11,11 +12,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @template E
+ */
 abstract class CrudController extends BaseController
 {
 
+    /**
+     * @var class-string<E> $entity
+     */
+    protected string $entity = Content::class;
     protected string $templatePath = 'blog';
-    protected string $entity = '';
     protected string $menuItem = '';
     protected array $events = [
         'update' => '',
