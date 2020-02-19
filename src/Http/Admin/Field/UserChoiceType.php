@@ -30,7 +30,7 @@ class UserChoiceType extends AbstractType
         $builder->addModelTransformer(new CallbackTransformer(function (?User $user): int {
             return $user === null ? 0 : $user->getId();
         }, function (int $userId) {
-            return $this->em->getRepository(User::class)->find($userId);
+            return $this->em->getReference(User::class, $userId);
         }));
         parent::buildForm($builder, $options);
     }
