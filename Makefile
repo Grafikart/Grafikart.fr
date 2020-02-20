@@ -37,6 +37,7 @@ import: vendor/autoload.php ## Import les données du site actuel
 .PHONY: test
 test: vendor/autoload.php ## Execute les tests
 	$(drtest) php vendor/bin/phpunit
+	$(dr) --no-deps node yarn run test
 
 .PHONY: tt
 tt: vendor/autoload.php ## Lance le watcher phpunit

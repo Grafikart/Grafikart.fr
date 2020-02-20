@@ -19,7 +19,7 @@ class CourseRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('c')
             ->where('c.online = true')
-            ->orderBy('c.created_at', 'DESC')
+            ->orderBy('c.createdAt', 'DESC')
             ->getQuery();
     }
 

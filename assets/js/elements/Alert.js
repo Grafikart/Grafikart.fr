@@ -17,11 +17,15 @@ export default class Alert extends global.HTMLElement {
     if (this.type === 'error' || this.type === null) {
       this.type = 'danger'
     }
+    this.message = message
+  }
+
+  connectedCallback () {
     this.innerHTML = `<div class="alert alert-${this.type}">
         <svg class="icon icon-{$name}">
           <use xlink:href="/sprite.svg#${this.icon}"></use>
         </svg>
-        ${message}
+        ${this.message}
         <button class="alert-close">
           <svg class="icon icon-{$name}">
             <use xlink:href="/sprite.svg#cross"></use>

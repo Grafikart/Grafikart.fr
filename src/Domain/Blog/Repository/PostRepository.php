@@ -22,12 +22,11 @@ class PostRepository extends ServiceEntityRepository
         parent::__construct($registry, Post::class);
     }
 
-
     public function queryAll(?Category $category = null): Query
     {
         $query = $this->createQueryBuilder('c')
             ->where('c.online = true')
-            ->orderBy('c.created_at', 'DESC');
+            ->orderBy('c.createdAt', 'DESC');
 
         if ($category) {
             $query = $query
