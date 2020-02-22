@@ -11,13 +11,17 @@ class AttachmentControllerTest extends WebTestCase
 
     use FixturesTrait;
 
-    public function testQueryParameterValidation(): void
+    public function testAttachmentWithoutAuth(): void
     {
         $this->jsonRequest('GET', '/admin/attachment/files');
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
+    }
 
-        ['user1' => $admin] = $this->loadFixtures(['users', 'attachments']);
-        $this->login($admin);
+    public function testAttachmentWithInsufficientPermission(): void
+    {
+        ['user1' => $user] = $this->loadFixtures(['users', 'attachments']);
+        $this->login($user);
+        $this->jsonRequest('GET', '/admin/attachment/files');
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
@@ -27,6 +31,22 @@ class AttachmentControllerTest extends WebTestCase
         $this->login($users['user_admin']);
         $this->jsonRequest('GET', '/admin/attachment/files');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+    }
+
+    public function testFolderEndpoint(): void
+    {
+        $users = $this->loadFixtures(['users']);
+        $this->login($users['user_admin']);
+        $this->jsonRequest('GET', '/admin/attachment/folders');
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+    }
+
+    public function testFileWithBadPathQuery(): void
+    {
+        ['user_admin' => $admin] = $this->loadFixtures(['users']);
+        $this->login($admin);
+        $this->jsonRequest('GET', '/admin/attachment/files?path=azeaze');
+        $this->assertResponseStatusCodeSame(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     public function testReturnRightNumberOfAttachment(): void

@@ -10,6 +10,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Image;
@@ -106,7 +109,12 @@ class AttachmentController extends BaseController
         $resolver->setAllowedValues('path', function ($value) {
             return $value === null || preg_match('/^2\d{3}\/(1[0-2]|0[1-9])$/', $value) > 0;
         });
-        return $resolver->resolve($request->query->all());
+
+        try {
+            return $resolver->resolve($request->query->all());
+        } catch (InvalidOptionsException $exception) {
+            throw new HttpException(Response::HTTP_UNPROCESSABLE_ENTITY, $exception->getMessage());
+        }
     }
 
 }
