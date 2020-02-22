@@ -2,7 +2,7 @@ const DS = '/'
 
 /**
  * Représentation d'un dossier
- * @typedef {{folder: string, count: number, children: Folder[]}} Folder
+ * @typedef {{folder: string, count: number, children: Folder[], path: string}} Folder
  */
 
 /**
@@ -26,6 +26,7 @@ export function pathsToTree (paths) {
     let folder = {
       folder: path,
       count: count,
+      path: relativePath,
       children: []
     }
     folderMap[relativePath] = folder

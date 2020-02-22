@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -49,10 +48,13 @@ class AttachmentController extends BaseController
     /**
      * @Route("/attachment/files", name="attachment_files", requirements={"path"="aze"})
      */
-    public function files(AttachmentRepository $repository, Request $request, SerializerInterface $serializer): JsonResponse
+    public function files(AttachmentRepository $repository, Request $request): JsonResponse
     {
         $path = $request->get('path');
-        if ($path === null) {
+        $q = $request->get('q');
+        if (!empty($q)) {
+            $attachments = $repository->search($q);
+        } else if ($path === null) {
             $attachments = $repository->findLatest();
         } else {
             if (!AttachmentPathValidator::validate($path)) {
@@ -64,27 +66,32 @@ class AttachmentController extends BaseController
     }
 
     /**
-     * @Route("/attachment/{attachment}", name="attachment_show", methods={"POST"})
+     * @Route("/attachment/{attachment<\d+>?}", name="attachment_show", methods={"POST"})
      */
-    public function update(Attachment $attachment, Request $request, EntityManagerInterface $em): JsonResponse
+    public function update(?Attachment $attachment, Request $request, EntityManagerInterface $em): JsonResponse
     {
         [$valid, $response] = $this->validateRequest($request);
         if (!$valid) {
             return $response;
         }
+        if ($attachment === null) {
+            $attachment = new Attachment();
+        }
         $attachment->setFile($request->files->get('file'));
         $attachment->setCreatedAt(new \DateTime());
+        $em->persist($attachment);
         $em->flush();
-        return new JsonResponse([
-            'id' => $attachment->getId(),
-            'url' => $this->urlGenerator->generate($attachment)
-        ]);
+        return $this->json($attachment);
     }
 
-    public function delete(Attachment $attachment): JsonResponse
+    /**
+     * @Route("/attachment/{attachment<\d+>}", methods={"DELETE"})
+     */
+    public function delete(Attachment $attachment, EntityManagerInterface $em): JsonResponse
     {
-        // TODO : Faire ce code ;)
-        return new JsonResponse();
+        $em->remove($attachment);
+        $em->flush();
+        return $this->json([]);
     }
 
 }

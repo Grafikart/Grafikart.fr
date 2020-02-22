@@ -17,7 +17,7 @@ class Attachment
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
      */
-    protected int $id = 0;
+    protected ?int $id = 0;
 
     /**
      * @Vich\UploadableField(mapping="attachments", fileNameProperty="fileName", size="fileSize")
@@ -42,7 +42,7 @@ class Attachment
 
     public function getId(): int
     {
-        return $this->id;
+        return $this->id ?: 0;
     }
 
     public function getFileName(): string

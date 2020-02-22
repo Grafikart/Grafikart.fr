@@ -5,6 +5,7 @@
  */
 import Alert from '../Alert'
 import SpinningDots from '@grafikart/spinning-dots-element'
+import FileManager from '@el/filemanager'
 
 export default class InputAttachment extends HTMLInputElement {
 
@@ -21,6 +22,7 @@ export default class InputAttachment extends HTMLInputElement {
     this.container.addEventListener('dragleave', this.ondragleave.bind(this))
     this.container.addEventListener('dragover', this.onDragOver)
     this.container.addEventListener('drop', this.onDrop.bind(this))
+    this.container.addEventListener('click', this.onClick.bind(this))
     this.preview = this.container.querySelector('.input-attachment__preview')
   }
 
@@ -29,24 +31,20 @@ export default class InputAttachment extends HTMLInputElement {
   }
 
   onDragEnter (e) {
-    e.stopPropagation()
     e.preventDefault()
     this.container.classList.add('is-hovered')
   }
 
   ondragleave (e) {
-    e.stopPropagation()
     e.preventDefault()
     this.container.classList.remove('is-hovered')
   }
 
   onDragOver (e) {
-    e.stopPropagation()
     e.preventDefault()
   }
 
   async onDrop (e) {
-    e.stopPropagation()
     e.preventDefault()
     this.container.classList.add('is-hovered')
     const loader = new SpinningDots()
@@ -56,20 +54,50 @@ export default class InputAttachment extends HTMLInputElement {
     if (files.length === 0) return false
     const data = new FormData()
     data.append('file', files[0])
-    const response = await fetch(`/admin/attachment/${this.attachmentId}`, {
+    let url = '/admin/attachment'
+    if (this.attachmentId !== '') {
+      url = `${url}/${this.attachmentId}`
+    }
+    const response = await fetch(url, {
       method: 'POST',
       body: data
     })
     const responseData = await response.json()
-    if (response.status >= 200 && response.status < 300) {
-      this.preview.style.backgroundImage = `url(${responseData.url})`
-      this.value = responseData.id
+    if (response.ok) {
+      this.setAttachment(responseData)
     } else {
       const alert = new Alert({message: responseData.error})
       document.querySelector('.dashboard').appendChild(alert)
     }
     this.container.removeChild(loader)
     this.container.classList.remove('is-hovered')
+  }
+
+  onClick (e) {
+    // TODO : Prévoir une modale
+    e.preventDefault()
+    const div = document.createElement('div')
+    const fm = new FileManager()
+    div.style.position = 'absolute';
+    div.style.top = '0';
+    div.style.left = '0';
+    fm.style.width = '300px'
+    fm.style.height = '300px'
+    div.appendChild(fm)
+    fm.addEventListener('file', e => {
+      this.setAttachment(e.detail)
+      document.body.removeChild(div)
+    })
+    document.body.appendChild(div)
+  }
+
+  setAttachment (attachment) {
+    this.preview.style.backgroundImage = `url(${attachment.url})`
+    this.value = attachment.id
+    let changeEvent = document.createEvent("HTMLEvents");
+    changeEvent.initEvent("change", false, true);
+    this.dispatchEvent(changeEvent)
+    this.dispatchEvent(new CustomEvent('attachment', {detail: attachment}))
   }
 
   /**

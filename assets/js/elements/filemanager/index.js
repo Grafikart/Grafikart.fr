@@ -4,25 +4,61 @@ export default class FileManager extends HTMLElement {
 
   constructor () {
     super()
-    this.root = this.attachShadow({mode: 'closed'})
+    this.root = this.attachShadow({ mode: 'closed' })
     this.root.innerHTML = this.style()
-    const app = new FileManagerSvelte({
+    this.addEventListener('dragenter', this.onDragEnter.bind(this))
+    this.addEventListener('dragleave', this.ondragleave.bind(this))
+    this.addEventListener('dragover', this.onDragOver)
+    this.addEventListener('drop', this.onDrop.bind(this))
+    this.fileManagerComponent = new FileManagerSvelte({
       target: this.root,
       props: {
-        apiEndpoint: '/admin/attachment'
+        apiEndpoint: '/admin/attachment',
+        dragOver: false,
+        onSelectFile: this.onSelectFile.bind(this)
       }
-    });
+    })
+  }
+
+  /**
+   * @param {{id: number, createdAt: number, name: string, size: number, url: string}} file
+   */
+  onSelectFile (file) {
+    this.dispatchEvent(new CustomEvent('file', {
+      detail: file
+    }))
   }
 
   style () {
     return `<style>
     :host {
+      display: block;
       --space: 8px;
       --accent: #457cff;
       --space-4: calc(4 * var(--space));
       --space-3: calc(3 * var(--space));
       --space-2: calc(2 * var(--space));
+      --background:
     }
+    button {
+      cursor: pointer;
+      background: transparent;
+      border: none;
+    }
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+      padding: 1px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #c6d0d6;
+      border-radius: 4px;
+    }
+
     * {
       box-sizing: border-box;
     }
@@ -33,7 +69,25 @@ export default class FileManager extends HTMLElement {
     a:hover {
       text-decoration: underline;
     }
+    .input-attachment {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      opacity: 0;
+      background: var(--accent);
+      transition: opacity .3s;
+      z-index: 5;
+      pointer-events: none;
+    }
+    .has-dragover .input-attachment {
+      opacity: .8;
+      pointer-events: auto;
+    }
     .filemanager {
+      position: relative;
+      height: 100%;
       box-shadow: 0 1px 4px rgba(212, 212, 212, 0.2);
       border-radius: 8px;
       border: 1px solid #ebeced;
@@ -57,7 +111,11 @@ export default class FileManager extends HTMLElement {
       padding: var(--space-4);
       border-right:1px solid #f0f0f6;
     }
-    input[type=text] {
+    aside, main {
+        overflow: auto;
+    }
+    input[type=text],
+    input[type=search] {
       display: block;
       font-size: 16px;
       padding: 0 var(--space-2);
@@ -80,6 +138,10 @@ export default class FileManager extends HTMLElement {
       font-size: 14px;
       font-weight: 300;
     }
+    .hierarchy {
+        min-height: 150px;
+        position: relative;
+    }
     .hierarchy svg {
       display: block;
       width: 16px;
@@ -98,14 +160,36 @@ export default class FileManager extends HTMLElement {
       padding: var(--space);
       border-radius: 6px;
       transition: .3s;
+      cursor: pointer;
+    }
+    .hierarchy__item span {
+      display: block;
+      padding: 0 5px 0 4px;
+      margin-left: 12px;
+      height: 16px;
+      border-radius: 4px;
+      background-color: #c6d0d6;
+      font-size: 12px;
+      transition: .2s;
+      transition-property: background, box-shadow;
+      font-weight: 600;
     }
     .hierarchy__item.is-deeper {
       margin-left: var(--space-3);
+    }
+    .hierarchy__item.is-deeper .arrow {
+        opacity: 0;
+        width: 0;
     }
     .hierarchy__item:hover {
       background-color:#457cff1A;
       color: var(--accent);
       text-decoration: none;
+    }
+    .hierarchy__item:hover span {
+      color: #FFF;
+      box-shadow: 0 1px 3px rgba(106, 106, 106, 0.5);
+      background-image: linear-gradient(180deg, #457cff 0%, #366ae6 100%);
     }
     .hierarchy__item:hover svg {
       color: var(--accent);
@@ -114,7 +198,7 @@ export default class FileManager extends HTMLElement {
       color: #212944;
     }
     .hierarchy__item.is-selected .arrow {
-      transform: rotate(-90deg);
+      transform: rotate(90deg);
     }
     .hierarchy__item.is-selected svg {
       color: #212944;
@@ -171,8 +255,46 @@ export default class FileManager extends HTMLElement {
     .delete:hover svg {
       color: #FB4635;
     }
+    .loader {
+       position:absolute;
+       top: 0;
+       left: 0;
+       right: 0;
+       bottom: 0;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       background: #FFFC;
+       color: #6f6f85;
+    }
+    .loader spinning-dots {
+      width: 20px;
+      height: 20px;
+    }
     </style>`
   }
+
+  onDragEnter (e) {
+    e.stopPropagation()
+    e.preventDefault()
+    this.fileManagerComponent.$set({dragOver: true})
+  }
+
+  ondragleave (e) {
+    e.stopPropagation()
+    e.preventDefault()
+    this.fileManagerComponent.$set({dragOver: false})
+  }
+
+  onDragOver (e) {
+    e.stopPropagation()
+    e.preventDefault()
+  }
+
+  onDrop (e) {
+    this.fileManagerComponent.$set({dragOver: false})
+  }
+
 
 }
 

@@ -70,4 +70,18 @@ class AttachmentRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * @return array<Attachment>
+     */
+    public function search(string $q)
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.fileName LIKE :search')
+            ->orderBy('a.createdAt', 'DESC')
+            ->setMaxResults(25)
+            ->setParameter('search', "%$q%")
+            ->getQuery()
+            ->getResult();
+    }
+
 }
