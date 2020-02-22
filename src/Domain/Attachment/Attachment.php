@@ -17,13 +17,13 @@ class Attachment
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
      */
-    protected ?int $id = 0;
+    protected ?int $id;
 
     /**
      * @Vich\UploadableField(mapping="attachments", fileNameProperty="fileName", size="fileSize")
      * @var File|null
      */
-    private ?File $file;
+    private ?File $file = null;
 
     /**
      * @ORM\Column(type="string", length=255)

@@ -2,8 +2,11 @@
 
 namespace App\Tests;
 
+use App\Domain\Auth\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
+use Symfony\Component\BrowserKit\Cookie;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
 {
@@ -18,6 +21,15 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
         $em = self::$container->get(EntityManagerInterface::class);
         $this->em = $em;
         parent::setUp();
+    }
+
+    public function jsonRequest(string $method, string $url): string
+    {
+        $this->client->request($method, $url, [], [], [
+            'CONTENT_TYPE' => 'application/json',
+            'HTTP_Accept' => 'application/json',
+        ]);
+        return $this->client->getResponse()->getContent();
     }
 
     /**
@@ -53,6 +65,18 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
             $crawler->filter('h1')->text(),
             $crawler->filter('title')->text()
         );
+    }
+
+    public function login(User $user)
+    {
+        $session = self::$container->get('session');
+        $firewallName = 'main';
+        $firewallContext = $firewallName;
+        $token = new UsernamePasswordToken($user, null, $firewallName, $user->getRoles());
+        $session->set('_security_' . $firewallContext, serialize($token));
+        $session->save();
+        $cookie = new Cookie($session->getName(), $session->getId());
+        $this->client->getCookieJar()->set($cookie);
     }
 
 }

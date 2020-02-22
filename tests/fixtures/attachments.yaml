@@ -1,0 +1,10 @@
+include:
+  - ../../fixtures/templates.yaml
+
+App\Domain\Attachment\Attachment:
+  attachment{1..5}:
+    createdAt: <dateTime()>
+    fileName: file<current()>.jpg
+    fileSize: <numberBetween(10,1000)>
+
+

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Domain\Password\Repository\PasswordResetTokenRepository")
  */
-final class PasswordResetToken
+class PasswordResetToken
 {
 
     /**

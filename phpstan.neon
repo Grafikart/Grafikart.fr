@@ -7,7 +7,6 @@ parameters:
   level: 8
   paths:
     - src
-    - tests
   excludes_analyse:
     - src/Infrastructure/Migrations/*
   checkMissingIterableValueType: false

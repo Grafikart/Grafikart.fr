@@ -7,13 +7,17 @@ use App\Domain\Attachment\AttachmentUrlGenerator;
 use App\Domain\Attachment\Repository\AttachmentRepository;
 use App\Domain\Attachment\Validator\AttachmentPathValidator;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
+/**
+ * @IsGranted("ATTACHMENT")
+ */
 class AttachmentController extends BaseController
 {
 
@@ -46,20 +50,16 @@ class AttachmentController extends BaseController
     }
 
     /**
-     * @Route("/attachment/files", name="attachment_files", requirements={"path"="aze"})
+     * @Route("/attachment/files", name="attachment_files")
      */
     public function files(AttachmentRepository $repository, Request $request): JsonResponse
     {
-        $path = $request->get('path');
-        $q = $request->get('q');
+        ['path' => $path, 'q' => $q] = $this->getFilterParams($request);
         if (!empty($q)) {
             $attachments = $repository->search($q);
         } else if ($path === null) {
             $attachments = $repository->findLatest();
         } else {
-            if (!AttachmentPathValidator::validate($path)) {
-                return $this->json(['error' => 'Chemin invalide'], Response::HTTP_UNPROCESSABLE_ENTITY);
-            }
             $attachments = $repository->findForPath($request->get('path'));
         }
         return $this->json($attachments);
@@ -92,6 +92,21 @@ class AttachmentController extends BaseController
         $em->remove($attachment);
         $em->flush();
         return $this->json([]);
+    }
+
+    private function getFilterParams(Request $request): array
+    {
+        $resolver = new OptionsResolver();
+        $resolver->setDefaults([
+            'path' => null,
+            'q' => null,
+        ]);
+        $resolver->setAllowedTypes('path', ['string', 'null']);
+        $resolver->setAllowedTypes('q', ['string', 'null']);
+        $resolver->setAllowedValues('path', function ($value) {
+            return $value === null || preg_match('/^2\d{3}\/(1[0-2]|0[1-9])$/', $value) > 0;
+        });
+        return $resolver->resolve($request->query->all());
     }
 
 }
