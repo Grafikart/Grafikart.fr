@@ -30,7 +30,6 @@ class PostForm extends AbstractType
         $builder
             ->add('title', TextType::class)
             ->add('slug', TextType::class)
-            ->add('slug', TextType::class)
             ->add('image', AttachmentType::class)
             ->add('createdAt', DateTimeType::class)
             ->add('online', SwitchType::class)
