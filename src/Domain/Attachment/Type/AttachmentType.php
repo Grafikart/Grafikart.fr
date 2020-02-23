@@ -37,7 +37,8 @@ class AttachmentType extends TextType implements DataTransformerInterface
 
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
-        $view->vars['attr']['data-image'] = $this->attachmentUrlGenerator->generate($form->getData());
+        $view->vars['attr']['preview'] = $this->attachmentUrlGenerator->generate($form->getData());
+        $view->vars['attr']['overwrite'] = true;
         parent::buildView($view, $form, $options);
     }
 

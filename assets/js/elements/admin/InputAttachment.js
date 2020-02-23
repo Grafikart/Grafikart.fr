@@ -1,16 +1,17 @@
-/**
- * @property {number|null} timer
- * @property {choices} Choices
- * @property {string} endpoint
- */
 import Alert from '../Alert'
 import SpinningDots from '@grafikart/spinning-dots-element'
 import FileManager from '@el/filemanager'
 
+/**
+ * @property {number|null} timer
+ * @property {choices} Choices
+ * @property {string} endpoint
+ * @property {bool} overwrite L'envoie d'une nouvelle image écrase la précédente
+ */
 export default class InputAttachment extends HTMLInputElement {
 
   connectedCallback () {
-    const preview = this.dataset.image
+    const preview = this.getAttribute('preview')
     this.insertAdjacentHTML('afterend', `
 <div class="input-attachment">
 <div class="input-attachment__preview" style="background-image:url(${preview})"></div>
@@ -24,10 +25,7 @@ export default class InputAttachment extends HTMLInputElement {
     this.container.addEventListener('drop', this.onDrop.bind(this))
     this.container.addEventListener('click', this.onClick.bind(this))
     this.preview = this.container.querySelector('.input-attachment__preview')
-  }
-
-  disconnectedCallback () {
-
+    this.overwrite = this.getAttribute('overwrite') !== null
   }
 
   onDragEnter (e) {
@@ -55,7 +53,7 @@ export default class InputAttachment extends HTMLInputElement {
     const data = new FormData()
     data.append('file', files[0])
     let url = '/admin/attachment'
-    if (this.attachmentId !== '') {
+    if (this.attachmentId !== '' && this.overwrite) {
       url = `${url}/${this.attachmentId}`
     }
     const response = await fetch(url, {

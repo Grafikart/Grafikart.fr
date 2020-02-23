@@ -21,7 +21,6 @@
   let filesLoading = true
   let foldersLoading
   let currentFolder = null
-  let fileDropper
   let search = ''
 
 
@@ -94,7 +93,6 @@
    */
   function onNewFile(e) {
     files = [e.detail, ...files]
-    fileDropper.value = ''
   }
 
   function onSearch (e) {
@@ -108,7 +106,7 @@
 </script>
 
 <div class="filemanager" class:has-dragover={dragOver}>
-  <input type="text" bind:this={fileDropper} is="input-attachment" on:attachment={onNewFile}>
+  <input type="text" is="input-attachment" on:attachment={onNewFile}>
   <aside>
     <form class="form-group" on:submit={onSearch}>
       <label for="file-search" class="bloc__title">Rechercher</label>
