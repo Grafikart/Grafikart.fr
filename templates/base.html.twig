@@ -1,38 +1,40 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700|Roboto:300,400&display=swap" rel="stylesheet">
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
-        {% block javascripts %}
-          {{ encore_entry_script_tags('app') | replace({'<script': '<script defer'}) | raw }}
-        {% endblock %}
-        <meta name="turbolinks-cache-control" content="no-cache" />
-    </head>
-    <body>
-        <nav class="header {% if headerWhite is defined %}is-white{% endif %}">
-            <ul class="header-nav">
-                <li class="header__home"><a href="{{ path('home') }}" title="Accueil">{{ icon('home') }}</a></li>
-                <li><a href="{{ path('course_index') }}" {{ menu_active('courses') }}>{{ icon('video') }} Tutoriels</a></li>
-                <li><a href="#">{{ icon('lines') }} Formations</a></li>
-                <li><a href="#">{{ icon('comment') }} Forum</a></li>
-                <li><a href="{{ path('live') }}" {{ menu_active('live') }}>{{ icon('camera') }} Live</a></li>
-                <li><a href="{{ path('blog_index') }}" {{ menu_active('blog') }}>{{ icon('pen') }} Blog</a></li>
-                <li id="dark-toggle"><a href="#">Dark</a></li>
-            </ul>
-            <ul class="header-side">
-                <li class="header__search"><a href="#">{{ icon('search') }}</a></li>
-              {% if app.user %}
-                <li class="header__account"><a href="{{ path('auth_logout') }}">{{ icon('user') }} {{ app.user.username }}</a></li>
-              {% else %}
-                <li class="header__account"><a href="{{ path('auth_login') }}">{{ icon('user') }} Se connecter</a></li>
-              {% endif %}
-            </ul>
-        </nav>
-        {% block body %}{% endblock %}
-    </body>
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Welcome!{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui"/>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700|Roboto:300,400&display=swap" rel="stylesheet">
+  {% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+  {% endblock %}
+  {% block javascripts %}
+    {{ encore_entry_script_tags('app') | replace({'<script': '<script defer'}) | raw }}
+  {% endblock %}
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="turbolinks-cache-control" content="no-cache"/>
+</head>
+<body>
+<nav class="header {% if headerWhite is defined %}is-white{% endif %}">
+  <ul class="header-nav">
+    <li class="header__home"><a href="{{ path('home') }}" title="Accueil">{{ icon('home') }}</a></li>
+    <li><a href="{{ path('course_index') }}" {{ menu_active('courses') }}>{{ icon('video') }} Tutoriels</a></li>
+    <li><a href="#">{{ icon('lines') }} Formations</a></li>
+    <li><a href="#">{{ icon('comment') }} Forum</a></li>
+    <li><a href="{{ path('live') }}" {{ menu_active('live') }}>{{ icon('camera') }} Live</a></li>
+    <li><a href="{{ path('blog_index') }}" {{ menu_active('blog') }}>{{ icon('pen') }} Blog</a></li>
+    <li id="dark-toggle"><a href="#">Dark</a></li>
+  </ul>
+  <ul class="header-side">
+    <li class="header__search"><a href="#">{{ icon('search') }}</a></li>
+    {% if app.user %}
+      <li class="header__account"><a href="{{ path('auth_logout') }}">{{ icon('user') }} {{ app.user.username }}</a>
+      </li>
+    {% else %}
+      <li class="header__account"><a href="{{ path('auth_login') }}">{{ icon('user') }} Se connecter</a></li>
+    {% endif %}
+  </ul>
+</nav>
+{% block body %}{% endblock %}
+</body>
 </html>
