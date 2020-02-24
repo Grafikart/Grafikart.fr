@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y \
       git \
       fish
 
+RUN apt-get update && apt-get install -y libicu-dev
 RUN apt-get update && apt-get install -y libzip-dev && docker-php-ext-install pdo zip
 
 # Support de Postgre
@@ -12,6 +13,9 @@ RUN apt-get update && apt-get install -y libpq-dev && docker-php-ext-install pdo
 
 # Support de MySQL (pour la migration)
 RUN docker-php-ext-install mysqli pdo_mysql
+
+# Extension intl
+RUN docker-php-ext-install intl && docker-php-ext-enable intl
 
 # Xdebug
 RUN pecl install xdebug-2.8.1 && docker-php-ext-enable xdebug
