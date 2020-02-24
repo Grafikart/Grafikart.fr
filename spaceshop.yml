@@ -1,0 +1,21 @@
+paths:
+  - /:preset/uploads/:image(.*)
+sources:
+  - volume:
+      root: /mnt/images/uploads/:image
+presets:
+  r_160_160:
+    steps:
+      - $fill:
+          width: 160
+          height: 160
+      - $format:
+          type: jpeg
+      - $compress:
+          quality: 90
+  jpg:
+    steps:
+      - $format:
+          type: jpeg
+      - $compress:
+          quality: 90

@@ -17,7 +17,7 @@
       <article class="blog-post">
         <a href="{{ link }}" class="blog-post__image">
           {% if post.image %}
-          <img src="{{ vich_uploader_asset(post.image) }}" alt="">
+          <img src="{{ image_url(post.image, 160, 160) }}" alt="">
           {% endif %}
         </a>
         <div class="blog-post__body">

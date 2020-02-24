@@ -3,12 +3,13 @@
 namespace App\Http\Admin\Form;
 
 use App\Domain\Attachment\Type\AttachmentType;
+use App\Domain\Blog\Category;
 use App\Http\Admin\Data\PostCrudData;
-use App\Http\Admin\Field\Lol;
 use App\Http\Admin\Field\UserChoiceType;
 use App\Type\DateTimeType;
 use App\Type\SwitchType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -32,9 +33,13 @@ class PostForm extends AbstractType
             ->add('slug', TextType::class)
             ->add('image', AttachmentType::class)
             ->add('createdAt', DateTimeType::class)
-            ->add('online', SwitchType::class)
+            ->add('category', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'name'
+            ])
             ->add('author', UserChoiceType::class)
-            ->add('content', TextareaType::class);
+            ->add('content', TextareaType::class)
+            ->add('online', SwitchType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

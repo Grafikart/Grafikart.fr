@@ -57,6 +57,12 @@ services:
     image: schickling/mailcatcher
     ports:
       - 1080:1080
+  spacechop:
+    container_name: spacechop
+    image: spacechop/spacechop:latest
+    volumes:
+      - ./spaceshop.yml:/config.yml
+      - ./public/uploads:/mnt/images/uploads
 
 volumes:
   db-data:

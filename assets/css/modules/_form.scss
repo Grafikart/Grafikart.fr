@@ -7,7 +7,8 @@ label {
 // Champs texte
 // ==================
 .form-group input,
-.form-group textarea {
+.form-group textarea,
+.form-group select {
   border: 1px solid var(--border);
   background: var(--background);
   border-radius: 3px;
@@ -30,6 +31,9 @@ label {
 
 // Checkbox
 // ==================
+.form-checkboxes {
+  grid-column: 1 / -1;
+}
 .form-check {
   cursor: pointer;
   position: relative;
@@ -121,6 +125,14 @@ input:checked + label .switch {
 }
 input:checked + label .switch::before {
   transform: translateX(31px);
+}
+
+// Attachment
+// ==================
+.form-attachment {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
 }
 
 // Validation

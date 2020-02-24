@@ -17,13 +17,13 @@ final class PostCrudData implements CrudDataInterface
     /**
      * @Assert\NotBlank()
      */
-    public string $title;
+    public string $title = "";
 
-    public string $slug;
+    public string $slug = "";
 
     public ?Attachment $image = null;
 
-    public ?Category $category;
+    public ?Category $category = null;
 
     public \DateTimeInterface $createdAt;
 
@@ -35,7 +35,7 @@ final class PostCrudData implements CrudDataInterface
     /**
      * @Assert\NotBlank()
      */
-    public string $content;
+    public string $content = '';
 
     public bool $online = false;
 
@@ -54,6 +54,11 @@ final class PostCrudData implements CrudDataInterface
         $data->image = $post->getImage();
         $data->entity = $post;
         return $data;
+    }
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
     }
 
     /**

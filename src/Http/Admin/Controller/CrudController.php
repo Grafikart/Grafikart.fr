@@ -8,12 +8,14 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @template E
+ * @method \App\Domain\Auth\User getUser()
  */
 abstract class CrudController extends BaseController
 {
@@ -24,6 +26,7 @@ abstract class CrudController extends BaseController
     protected string $entity = Content::class;
     protected string $templatePath = 'blog';
     protected string $menuItem = '';
+    protected string $routePrefix = '';
     protected array $events = [
         'update' => '',
         'delete' => '',
@@ -79,10 +82,13 @@ abstract class CrudController extends BaseController
         $form = $this->createForm($data->getFormClass(), $data);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $data->hydrate($data->getEntity(), $this->em);
+            /** @var E $entity */
+            $entity = $data->getEntity();
+            $data->hydrate($entity, $this->em);
             $this->em->flush();
-            $this->dispatcher->dispatch(new $this->events['update']($data->getEntity()));
+            $this->dispatcher->dispatch(new $this->events['update']($entity));
             $this->addFlash('success', 'Le contenu a bien été modifié');
+            return $this->redirectToRoute($this->routePrefix . '_edit', ['id' => $entity->getId()]);
         }
 
         return $this->render('admin/blog/edit.html.twig', [
@@ -90,6 +96,39 @@ abstract class CrudController extends BaseController
             'entity' => $data->getEntity(),
             'menu' => 'blog'
         ]);
+    }
+
+    public function crudNew(CrudDataInterface $data): Response
+    {
+        /** @var Request $request */
+        $request = $this->requestStack->getCurrentRequest();
+        $form = $this->createForm($data->getFormClass(), $data);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var E $entity */
+            $entity = $data->getEntity();
+            $data->hydrate($entity, $this->em);
+            $this->em->persist($entity);
+            $this->em->flush();
+            $this->dispatcher->dispatch(new $this->events['create']($data->getEntity()));
+            $this->addFlash('success', 'Le contenu a bien été créé');
+            return $this->redirectToRoute($this->routePrefix . '_edit', ['id' => $entity->getId()]);
+        }
+
+        return $this->render('admin/blog/new.html.twig', [
+            'form' => $form->createView(),
+            'entity' => $data->getEntity(),
+            'menu' => 'blog'
+        ]);
+    }
+
+    public function crudDelete(object $entity): RedirectResponse
+    {
+        $this->em->remove($entity);
+        $this->dispatcher->dispatch(new $this->events['delete']($entity));
+        $this->em->flush();
+        $this->addFlash('success', 'Le contenu a bien été supprimé');
+        return $this->redirectToRoute($this->routePrefix . '_index');
     }
 
     public function getRepository(): EntityRepository

@@ -45,6 +45,7 @@ class AttachmentType extends TextType implements DataTransformerInterface
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
+            'required' => false,
             'attr' => [
                 'is' => 'input-attachment',
             ],

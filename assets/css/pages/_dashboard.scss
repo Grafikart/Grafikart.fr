@@ -29,8 +29,34 @@
   width: 100%;
   display: flex;
   justify-content: flex-end;
+
+  & > * + * {
+    margin-left: space(1);
+  }
 }
 .dashboard-btn {
   @extend .btn-gradient;
   font-size: .9em;
+}
+
+
+// Grille
+// ==================
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
+  grid-gap: space(3);
+}
+
+.form-attachment {
+  grid-column: -2 / -1;
+  grid-row-end: span 2;
+}
+
+.form-editor {
+  grid-column: 1 / -1;
+}
+
+.form-switch {
+  align-self: flex-end;
 }

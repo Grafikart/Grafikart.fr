@@ -14,7 +14,6 @@ Encore
   // .setManifestKeyPrefix('assets/')
   .addEntry('app', './assets/js/app.js')
   .addEntry('admin', './assets/js/admin.js')
-  .addEntry('filemanager', './assets/js/filemanager.js')
   .splitEntryChunks()
   .enableSingleRuntimeChunk()
   .configureBabel(c => { return {} })

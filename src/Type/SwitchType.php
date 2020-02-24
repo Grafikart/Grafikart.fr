@@ -12,8 +12,12 @@ class SwitchType extends CheckboxType
     {
         parent::configureOptions($resolver);
         $resolver->setDefaults([
+            'required' => false,
             'attr' => [
-                'is' => 'input-switch'
+                'is' => 'input-switch',
+            ],
+            'row_attr' => [
+                'class' => 'form-switch'
             ]
         ]);
     }

@@ -2,15 +2,15 @@
 
 {% block body %}
 
-<div class="dashboard-title">
-  {{ icon('pen') }}
-  Editer l'article
-</div>
+  <div class="dashboard-title">
+    {{ icon('pen') }}
+    Ajouter un article
+  </div>
 
-{% include 'partials/flash.html.twig' %}
+  {% include 'partials/flash.html.twig' %}
 
-<div class="dashboard-card">
-  {{ form_start(form, {attr: {class: 'stacked'}}) }}
+  <div class="dashboard-card">
+    {{ form_start(form, {attr: {class: 'stacked'}}) }}
     <div class="dashboard-grid">
       {{ form_row(form.title) }}
       {{ form_row(form.slug) }}
@@ -23,8 +23,8 @@
       </div>
       {{ form_row(form.content, {row_attr: {class: 'form-editor'}}) }}
     </div>
-    <button type="submit" class="btn-gradient">Editer</button>
-  {{ form_end(form) }}
-</div>
+    <button type="submit" class="btn-gradient">Ajouter</button>
+    {{ form_end(form) }}
+  </div>
 {% endblock %}
 
