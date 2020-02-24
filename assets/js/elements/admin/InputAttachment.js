@@ -1,6 +1,7 @@
 import Alert from '../Alert'
 import SpinningDots from '@grafikart/spinning-dots-element'
 import FileManager from '@el/filemanager'
+import { Modal } from '../Modal'
 
 /**
  * @property {number|null} timer
@@ -74,19 +75,14 @@ export default class InputAttachment extends HTMLInputElement {
   onClick (e) {
     // TODO : Prévoir une modale
     e.preventDefault()
-    const div = document.createElement('div')
+    const modal = new Modal()
     const fm = new FileManager()
-    div.style.position = 'absolute';
-    div.style.top = '0';
-    div.style.left = '0';
-    fm.style.width = '300px'
-    fm.style.height = '300px'
-    div.appendChild(fm)
+    modal.appendChild(fm)
     fm.addEventListener('file', e => {
       this.setAttachment(e.detail)
-      document.body.removeChild(div)
+      modal.close()
     })
-    document.body.appendChild(div)
+    document.body.appendChild(modal)
   }
 
   setAttachment (attachment) {

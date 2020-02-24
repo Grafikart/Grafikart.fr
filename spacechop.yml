@@ -13,6 +13,15 @@ presets:
           type: jpeg
       - $compress:
           quality: 90
+  r_250_100:
+    steps:
+      - $fill:
+          width: 250
+          height: 100
+      - $format:
+          type: jpeg
+      - $compress:
+          quality: 90
   jpg:
     steps:
       - $format:

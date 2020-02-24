@@ -17,6 +17,7 @@
   --card-footer: #F7FAFD;
   --card-padding: 16px;
   --header-height: 137px;
+  --red: #FB4635;
 }
 
 .dark {
@@ -68,6 +69,7 @@ body {
 @import "modules/alert";
 @import "modules/formatted";
 @import "modules/table";
+@import "modules/modal";
 
 // Pages
 // ==================

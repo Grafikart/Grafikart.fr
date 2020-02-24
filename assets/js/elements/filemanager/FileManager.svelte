@@ -150,7 +150,9 @@
       <tbody>
       {#each files as file, index (file.id)}
       <tr>
-        <td on:click={() => onSelectFile(file)}><img src={file.url} alt={file.alt}></td>
+        <td on:click={() => onSelectFile(file)}>
+          <img src={file.url} alt={file.alt} loading="lazy">
+        </td>
         <td on:click={() => onSelectFile(file)}>{file.name}</td>
         <td>{human(file.size, {locale: 'fr'})}</td>
         <td>

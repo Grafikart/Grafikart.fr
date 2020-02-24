@@ -1,0 +1,16 @@
+
+{{ form_start(form, {attr: {class: 'stacked'}}) }}
+<div class="dashboard-grid">
+  {{ form_row(form.title) }}
+  {{ form_row(form.slug) }}
+  {{ form_row(form.createdAt) }}
+  {{ form_row(form.author) }}
+  {{ form_row(form.category) }}
+  {{ form_row(form.image, {row_attr: {class: 'form-attachment', style:'grid-row-start:1;'}}) }}
+  <div class="form-checkboxes">
+    {{ form_row(form.online) }}
+  </div>
+  {{ form_row(form.content, {row_attr: {class: 'form-editor'}}) }}
+</div>
+<button type="submit" class="btn-gradient">Sauvegarder</button>
+{{ form_end(form) }}

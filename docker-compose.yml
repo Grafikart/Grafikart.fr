@@ -20,6 +20,7 @@ services:
     links:
       - db
       - mail
+      - redis
     depends_on:
       - db
     environment:
@@ -58,11 +59,13 @@ services:
     ports:
       - 1080:1080
   spacechop:
-    container_name: spacechop
     image: spacechop/spacechop:latest
     volumes:
-      - ./spaceshop.yml:/config.yml
+      - ./spacechop.yml:/config.yml
       - ./public/uploads:/mnt/images/uploads
+  redis:
+    image: redis:5-alpine
+
 
 volumes:
   db-data:

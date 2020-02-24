@@ -1,30 +1,11 @@
-{% extends 'admin/base.html.twig' %}
+{% extends 'admin/layout/card.html.twig' %}
 
-{% block body %}
+{% block title %}
+  {{ icon('pen') }}
+  Créer l'article
+{% endblock %}
 
-  <div class="dashboard-title">
-    {{ icon('pen') }}
-    Ajouter un article
-  </div>
-
-  {% include 'partials/flash.html.twig' %}
-
-  <div class="dashboard-card">
-    {{ form_start(form, {attr: {class: 'stacked'}}) }}
-    <div class="dashboard-grid">
-      {{ form_row(form.title) }}
-      {{ form_row(form.slug) }}
-      {{ form_row(form.createdAt) }}
-      {{ form_row(form.author) }}
-      {{ form_row(form.category) }}
-      {{ form_row(form.image, {row_attr: {class: 'form-attachment', style:'grid-row-start:1;'}}) }}
-      <div class="form-checkboxes">
-        {{ form_row(form.online) }}
-      </div>
-      {{ form_row(form.content, {row_attr: {class: 'form-editor'}}) }}
-    </div>
-    <button type="submit" class="btn-gradient">Ajouter</button>
-    {{ form_end(form) }}
-  </div>
+{% block content %}
+  {% include 'admin/blog/_form.html.twig' %}
 {% endblock %}
 

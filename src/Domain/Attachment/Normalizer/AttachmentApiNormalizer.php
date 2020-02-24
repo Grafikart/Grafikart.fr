@@ -4,16 +4,22 @@ namespace App\Domain\Attachment\Normalizer;
 
 use App\Domain\Attachment\Attachment;
 use App\Domain\Attachment\AttachmentUrlGenerator;
+use App\Infrastructure\Image\ImageResizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class AttachmentApiNormalizer implements NormalizerInterface
 {
 
     private AttachmentUrlGenerator $urlGenerator;
+    private ImageResizer $resizer;
 
-    public function __construct(AttachmentUrlGenerator $urlGenerator)
+    public function __construct(
+        AttachmentUrlGenerator $urlGenerator,
+        ImageResizer $resizer
+    )
     {
         $this->urlGenerator = $urlGenerator;
+        $this->resizer = $resizer;
     }
 
     /**
@@ -31,12 +37,12 @@ class AttachmentApiNormalizer implements NormalizerInterface
             'createdAt' => $object->getCreatedAt()->getTimestamp(),
             'name' => "{$filename}.{$extension}",
             'size' => $object->getFileSize(),
-            'url' => $this->urlGenerator->generate($object)
+            'url' => $this->resizer->resize($this->urlGenerator->generate($object), 250, 100)
         ];
     }
 
     /**
-     * @param mixed $data;
+     * @param mixed $data ;
      */
     public function supportsNormalization($data, string $format = null): bool
     {

@@ -25,7 +25,9 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 button {
+  padding: 0;
   border: none;
+  cursor: pointer;
   background: transparent;
 }
 input {

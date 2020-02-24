@@ -13,24 +13,7 @@
     </ul>
 
     {% for post in posts %}
-      {% set link = path('blog_show', {slug: post.slug}) %}
-      <article class="blog-post">
-        <a href="{{ link }}" class="blog-post__image">
-          {% if post.image %}
-          <img src="{{ image_url(post.image, 160, 160) }}" alt="">
-          {% endif %}
-        </a>
-        <div class="blog-post__body">
-          <h2 class="blog-post__title"><a href="{{ link }}">{{ post.title }}</a></h2>
-          <div class="blog-post__meta">
-            <div>{{ post.createdAt | date }}</div>
-            <div>Auteur {{ post.author.username }}</div>
-          </div>
-          <p>
-            {{ post.content | markdown_excerpt(250) }}
-          </p>
-        </div>
-      </article>
+      {% include 'blog/_post.html.twig' %}
     {% endfor %}
 
     {{ knp_pagination_render(posts) }}

@@ -24,13 +24,14 @@ class PostRepository extends ServiceEntityRepository
 
     public function queryAll(?Category $category = null): Query
     {
-        $query = $this->createQueryBuilder('c')
-            ->where('c.online = true')
-            ->orderBy('c.createdAt', 'DESC');
+        $query = $this->createQueryBuilder('p')
+            ->select('p')
+            ->where('p.online = true')
+            ->orderBy('p.createdAt', 'DESC');
 
         if ($category) {
             $query = $query
-                ->andWhere('c.category = :category')
+                ->andWhere('p.category = :category')
                 ->setParameter('category', $category);
         }
 

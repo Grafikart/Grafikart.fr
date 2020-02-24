@@ -157,3 +157,9 @@ input:focus + label .switch {
   border-color: var(--contrast);
   box-shadow: 0px 0px 3px var(--contrast);
 }
+
+// Misc
+// ==================
+button:hover .icon-delete {
+  color: var(--red);
+}
