@@ -9,6 +9,11 @@
   transition: .2s;
 }
 
+.input-attachment:hover {
+  border-color: var(--contrast);
+  box-shadow: 0px 0px 3px var(--contrast);
+}
+
 .input-attachment::after {
   content:'';
   position: absolute;

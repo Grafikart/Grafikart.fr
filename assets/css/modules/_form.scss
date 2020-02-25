@@ -1,3 +1,9 @@
+// Libraries
+// ==================
+@import "./choices.scss";
+
+// Label
+// ==================
 label {
   text-transform: uppercase;
   font-weight: 300;
@@ -8,7 +14,10 @@ label {
 // ==================
 .form-group input,
 .form-group textarea,
-.form-group select {
+.choices__inner,
+.form-group select,
+%input {
+  font-size: .9rem;
   border: 1px solid var(--border);
   background: var(--background);
   border-radius: 3px;
@@ -17,6 +26,7 @@ label {
   display: block;
   width: 100%;
   outline: none;
+  min-height: 44px;
 }
 .form-group textarea {
   min-height: 300px;
@@ -152,8 +162,11 @@ input:checked + label .switch::before {
 // ==================
 .form-group input:focus,
 .form-check input:focus + label::before,
+select:focus,
+textarea:focus,
 form button:focus,
-input:focus + label .switch {
+input:focus + label .switch,
+%input-active {
   border-color: var(--contrast);
   box-shadow: 0px 0px 3px var(--contrast);
 }
