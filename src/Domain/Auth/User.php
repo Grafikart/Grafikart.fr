@@ -16,7 +16,7 @@ class User implements UserInterface
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
      */
-    private int $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
@@ -36,7 +36,7 @@ class User implements UserInterface
     /** @var array<string> */
     private array $roles = [];
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }

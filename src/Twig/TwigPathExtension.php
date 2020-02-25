@@ -38,7 +38,7 @@ class TwigPathExtension extends AbstractExtension
         return '/uploads/' . trim($path, '/');
     }
 
-    public function imageUrl(Attachment $attachment, int $width, int $height): string
+    public function imageUrl(?Attachment $attachment, ?int $width = null, ?int $height = null): string
     {
         return $this->imageResizer->resize($this->attachmentUrlGenerator->generate($attachment), $width, $height);
     }

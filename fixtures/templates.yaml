@@ -50,3 +50,9 @@ App\Domain\Auth\User:
     username: John<current()>
     email: john<current()>\@doe.fr
     password: <password('0000')>
+
+App\Domain\Comment\Comment:
+  comment (template):
+    username: john<numberBetween(0, 1000)>
+    email: john<numberBetween(0, 1000)>\@doe.fr
+    createdAt: <dateTimeThisYear()>

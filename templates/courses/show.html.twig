@@ -2,9 +2,45 @@
 
 {% block body %}
 
-  <h1>{{ course.title }}</h1>
-
-  <youtube-player video="{{ course.youtubeId }}" poster="" title="{{ course.title }}"></youtube-player>
+  <div class="layout-sidebar">
+    <div class="stack">
+      <youtube-player video="{{ course.youtubeId }}" poster="{{ image_url(course.image) }}" title="{{ course.title }}" class="shadow"></youtube-player>
+      <div class="flex">
+        <div class="inline-1">
+          <div class="pill pill-yellow">Premium</div>
+          <div class="pill pill-green">Premium</div>
+        </div>
+        <div class="inline-1">
+          <a href="#" class="pill">
+            {{ icon('lines') }}
+            Télécharger les sources
+          </a>
+          <a href="#" class="pill">
+            {{ icon('video') }}
+            Télécharger la vidéo
+          </a>
+        </div>
+      </div>
+      <div class="formatted">
+        <h1>{{ course.title }}</h1>
+        {{ course.content | markdown }}
+      </div>
+    </div>
+    <div>
+      <div class="stack sticky">
+        <div class="requirements stack-separated">
+          <div>
+            <div class="requirements__title">Sommaire</div>
+            <div class="list">
+              <a class="flex" href="#">Twig <span class="badge">3.0</span></a>
+              <a class="flex" href="#">Composer <span class="badge">3.0</span></a>
+              <a class="flex" href="#">PHP <span class="badge">3.0</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 {% endblock %}
 

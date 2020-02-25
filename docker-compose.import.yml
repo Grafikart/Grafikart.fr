@@ -27,6 +27,8 @@ services:
       POSTGRES_DB: grafikart
     volumes:
       - db-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432 # On expose le port pour pouvoir inspecter la base pendant la phase de développement
   mariadb:
     image: mariadb:10.4
     volumes:
@@ -34,6 +36,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: grafikart_dev
+    ports:
+      - 3306:3306
 
 volumes:
   db-data:

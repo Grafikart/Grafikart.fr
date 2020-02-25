@@ -11,7 +11,7 @@ final class FormationImporter extends Neo4jImporter
 
     public function import(SymfonyStyle $io): void
     {
-        // $this->importFormations($io);
+        $this->importFormations($io);
         $this->importChapters($io);
     }
 
@@ -73,6 +73,7 @@ final class FormationImporter extends Neo4jImporter
             // TODO : Gérer la création des chapitres dans les formations
             break;
         }
+        $io->progressFinish();
 
     }
 

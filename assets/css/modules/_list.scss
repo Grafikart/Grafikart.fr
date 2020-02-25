@@ -1,0 +1,67 @@
+.list > * {
+  display: flex;
+  padding: space(1) 0;
+}
+
+.list > a:hover {
+  background: var(--background);
+}
+
+// Badge
+// ==================
+.badge {
+  background-color: var(--background);
+  display: inline-block;
+  padding: .25em .6em;
+  border-radius: 10rem;
+  font-size: 75%;
+  line-height: 1;
+}
+
+// Pills
+// ==================
+.pill {
+  display: inline-flex;
+  align-items: center;
+  font-family: $font-alt;
+  position: relative;
+  padding: space(1) space(2);
+  color: var(--contrast);
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: bold;
+
+  &::after {
+    content:'';
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: currentColor;
+    opacity: .2;
+    border-radius: 20px;
+  }
+}
+
+.pill svg {
+  width: 16px;
+  height: 16px;
+  margin-right: space(1);
+}
+
+.pill-green {
+  color: var(--green);
+}
+
+.pill-yellow {
+  color: var(--yellow);
+}
+
+.pill-grey {
+  color: var(--color);
+  &::after {
+    opacity: .1;
+  }
+}

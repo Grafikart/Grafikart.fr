@@ -16,3 +16,8 @@ services:
     autowire: true
     arguments:
       $pdo: '@importer.pdo'
+  App\Infrastructure\Importer\CommentImporter:
+    class: App\Infrastructure\Importer\CommentImporter
+    autowire: true
+    arguments:
+      $pdo: '@importer.pdo'

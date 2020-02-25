@@ -1,5 +1,7 @@
 
 .formatted {
+  padding: 20px;
+  font-size: 20px;
 
   details > summary{
     list-style: none;
@@ -17,16 +19,28 @@
     }
   }
 
+  pre {
+    margin: 2em 0;
+  }
+
   p, ul, ol {
     margin-top: 1rem;
     margin-bottom: 30px;
   }
+
   p:first-child {
     margin-top: 0px !important;
   }
+
+  h1, h2, h3 {
+    font-family: $font-alt;
+    font-weight: bold;
+  }
+
   h1 {
     font-size: 2em;
   }
+
   h2 {
     font-weight: 700;
     font-style: normal;
@@ -46,9 +60,10 @@
   h4 {
     margin-top: space(2);
   }
+
   pre {
-    color: #d0d0d0;
   }
+
   ul {
     list-style: disc;
     padding-left: 19px;

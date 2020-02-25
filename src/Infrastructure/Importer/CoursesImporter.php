@@ -3,6 +3,7 @@
 namespace App\Infrastructure\Importer;
 
 use App\Domain\Application\Entity\Content;
+use App\Domain\Auth\User;
 use App\Domain\Course\Entity\Course;
 use App\Domain\Course\Entity\Technology;
 use App\Domain\Course\Entity\TechnologyUsage;
@@ -56,17 +57,22 @@ final class CoursesImporter extends Neo4jImporter
     {
         $io->title('Import des cours');
         $this->truncate('course');
-        $this->truncate('content');
+        $this->disableAutoIncrement(Content::class);
 
         $rows = $this->neo4jQuery(<<<CYPHER
             MATCH (t:Tutoriel)
-            RETURN t
-            ORDER BY t.created_at ASC
+            OPTIONAL MATCH (t)<-[:CREATE]-(u:User)
+            RETURN t, u
+            ORDER BY t.uuid ASC
         CYPHER
         );
+        $tutoriel = [];
         /** @var Row<mixed> $row */
         foreach ($rows as $row) {
             $tutoriel = $row->offsetGet(0)->getProperties();
+            $user = $row->offsetGet(1)->getProperties();
+            /** @var User $author */
+            $author = $this->em->getReference(User::class, $user['uuid']);
             $course = (new Course())
                 ->setYoutubeId($tutoriel['youtube'] ?? null)
                 ->setDemo($tutoriel['demo'] ?? null)
@@ -80,13 +86,17 @@ final class CoursesImporter extends Neo4jImporter
                 ->setContent($tutoriel['content'] ?? null)
                 ->setTitle($tutoriel['name'])
                 ->setOnline(true)
+                ->setAuthor($author)
                 ->setId($tutoriel['uuid']);
-            $this->disableAutoIncrement($course);
             $this->em->persist($course);
         }
 
         // On persite
         $this->em->flush();
+        $id = $tutoriel['uuid'] + 1;
+        $this->em->getConnection()->exec("ALTER SEQUENCE content_id_seq RESTART WITH $id;");
+        $this->restoreAutoIncrement(Content::class);
+        $this->em->clear();
         $io->success(sprintf('Import de %d cours', $rows->count()));
     }
 

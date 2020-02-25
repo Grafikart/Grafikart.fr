@@ -6,27 +6,10 @@ use App\Domain\Attachment\Attachment;
 use App\Domain\Auth\User;
 use App\Domain\Blog\Category;
 use App\Domain\Blog\Post;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\HttpKernel\KernelInterface;
 
-class BlogImporter
+final class BlogImporter extends MySQLImporter
 {
-
-    use DatabaseImporterTools;
-
-    private \PDO $pdo;
-    private EntityManagerInterface $em;
-    private KernelInterface $kernel;
-
-    public function __construct(\PDO $pdo, EntityManagerInterface $em, KernelInterface $kernel)
-    {
-        $this->pdo = $pdo;
-        $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-        $this->pdo->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
-        $this->em = $em;
-        $this->kernel = $kernel;
-    }
 
     public function import(SymfonyStyle $io): void
     {
@@ -65,7 +48,6 @@ class BlogImporter
     public function importPosts(SymfonyStyle $io): void
     {
         $this->truncate($this->em->getClassMetadata(Post::class)->getTableName());
-        $this->truncate($this->em->getClassMetadata(Attachment::class)->getTableName());
         $query = $this->pdo->prepare(<<<SQL
             SELECT p.name, p.slug, p.content, p.created_at, p.user_id, p.category_id, p.online, p.image
             FROM posts as p

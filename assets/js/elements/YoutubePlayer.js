@@ -118,6 +118,9 @@ export default class YoutubePlayer extends global.HTMLElement {
    */
   buildStyles () {
     return `<style>
+      :host {
+        display: block;
+      }
       .ratio {
         background-color:black;
         position: relative;

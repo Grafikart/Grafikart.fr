@@ -1,12 +1,17 @@
-.card,
-%card {
+.shadow {
+  box-shadow: 0 2px 20px var(--shadow);
+}
+
+.card-big,
+%card-big {
   background: var(--background-light);
   border: 1px solid var(--border);
   box-shadow: 0 2px 20px var(--shadow);
   border-radius: 4px;
 }
 
-%card-inline {
+.card,
+%card {
   background: var(--background-light);
   border: 1px solid var(--border);
   box-shadow: 0 2px 4px var(--shadow);

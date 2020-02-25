@@ -28,6 +28,12 @@ $font-alt: "Montserrat", "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe 
   }
 }
 
+%card-title {
+  font-family: $font-alt;
+  font-size: 20px;
+  font-weight: bold;
+}
+
 // Pour générer les polices : https://transfonter.org/
 
 // Alignements

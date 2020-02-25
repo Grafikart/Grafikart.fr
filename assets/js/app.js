@@ -11,5 +11,6 @@ import '@grafikart/spinning-dots-element'
 import Turbolinks from 'turbolinks'
 
 import './modules/scrollreveal'
+import './modules/highlight'
 
 Turbolinks.start()

@@ -1,0 +1,21 @@
+include:
+  - ../../fixtures/templates.yaml
+  - ./users.yaml
+
+App\Domain\Blog\Post:
+  post1 (extends post):
+
+App\Domain\Comment\Comment:
+  comment{1..5} (extends comment):
+    target: '@post1'
+
+  comment_user (extends comment):
+    username: null
+    email: null
+    author: "@user1"
+    target: '@post1'
+
+  comment_post (extends comment):
+    username: null
+    email: null
+    target: '@post1'

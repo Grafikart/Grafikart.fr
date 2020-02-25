@@ -20,7 +20,7 @@
   }
 }
 .auth-form {
-  @extend %card-inline;
+  @extend %card;
   padding: space(3);
 }
 .auth-form > * + * {

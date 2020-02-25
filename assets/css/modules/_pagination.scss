@@ -14,7 +14,7 @@
   opacity: .6;
 }
 .pagination a {
-  @extend %card-inline;
+  @extend %card;
 }
 .pagination a:hover {
   background: var(--contrast);
