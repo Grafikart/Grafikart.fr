@@ -32,6 +32,7 @@ button {
 }
 input {
   font-size: inherit;
+  font-family: inherit;
 }
 pre {
   font-family: monospace;
@@ -66,4 +67,9 @@ a {
   text-decoration: none;
   color: inherit;
   transition: color .3s;
+}
+textarea {
+  font-size: inherit;
+  font-family: inherit;
+  line-height: inherit;
 }
