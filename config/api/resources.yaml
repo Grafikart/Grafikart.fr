@@ -1,0 +1,16 @@
+resources:
+  App\Domain\Comment\Comment:
+    collectionOperations:
+      get: ~
+      post: ~
+    itemOperations:
+      get:
+        controller: "ApiPlatform\\Core\\Action\\NotFoundAction"
+        read: false
+        output: false
+      delete:
+        security: "is_granted('App/Http/Security/CommentVoter::DELETE', object)"
+        security_message: "Sorry, but you are not the book owner."
+    attributes:
+      input: App\Http\Api\Dto\CommentInput
+      output: App\Http\Api\Dto\CommentOutput

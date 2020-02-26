@@ -73,12 +73,12 @@ class Comment
         return $this;
     }
 
-    public function getEmail(): ?string
+    public function getEmail(): string
     {
         if ($this->author !== null) {
             return $this->author->getEmail();
         }
-        return $this->email;
+        return $this->email ?: '';
     }
 
     public function setEmail(?string $email): Comment
@@ -87,12 +87,12 @@ class Comment
         return $this;
     }
 
-    public function getUsername(): ?string
+    public function getUsername(): string
     {
         if ($this->author !== null) {
             return $this->author->getUsername();
         }
-        return $this->username;
+        return $this->username ?: '';
     }
 
     public function setUsername(?string $username): Comment

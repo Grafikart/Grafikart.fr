@@ -1,0 +1,14 @@
+api_platform:
+  show_webby: false
+  mapping:
+    paths:
+      - '%kernel.project_dir%/config/api'
+  patch_formats:
+    json: ['application/merge-patch+json']
+  swagger:
+    versions: [3]
+  formats:
+    json:
+      mime_types: ['application/json']
+    html:
+      mime_types: ['text/html']

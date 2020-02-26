@@ -4,6 +4,7 @@ namespace App\Domain\Comment;
 
 use App\Domain\Application\Entity\Content;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -33,6 +34,22 @@ class CommentRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
         return $comments;
+    }
+
+    /**
+     * @param int $content
+     * @return array<Comment>
+     */
+    public function findForApi(int $content): array
+    {
+        return $this->createQueryBuilder('c')
+            ->select('partial c.{id, username, email, content, createdAt}, partial u.{id, username, email}')
+            ->where('c.target = :content')
+            ->leftJoin('c.author', 'u')
+            ->setParameter('content', $content)
+            ->getQuery()
+            ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)
+            ->getResult();
     }
 
 }

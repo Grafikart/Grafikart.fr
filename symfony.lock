@@ -1,4 +1,21 @@
 {
+    "api-platform/api-pack": {
+        "version": "v1.2.1"
+    },
+    "api-platform/core": {
+        "version": "2.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.5",
+            "ref": "a93061567140e386f107be75340ac2aee3f86cbf"
+        },
+        "files": [
+            "config/packages/api_platform.yaml",
+            "config/routes/api_platform.yaml",
+            "src/Entity/.gitignore"
+        ]
+    },
     "beberlei/doctrineextensions": {
         "version": "v1.2.6"
     },
@@ -126,6 +143,9 @@
     "everyman/neo4jphp": {
         "version": "dev-master"
     },
+    "fig/link-util": {
+        "version": "1.1.0"
+    },
     "firebase/php-jwt": {
         "version": "v5.0.0"
     },
@@ -220,6 +240,18 @@
         "files": [
             "config/packages/dev/nelmio_alice.yaml",
             "config/packages/test/nelmio_alice.yaml"
+        ]
+    },
+    "nelmio/cors-bundle": {
+        "version": "1.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.5",
+            "ref": "6388de23860284db9acce0a7a5d9d13153bcb571"
+        },
+        "files": [
+            "config/packages/nelmio_cors.yaml"
         ]
     },
     "nikic/php-parser": {
@@ -808,6 +840,9 @@
     },
     "webmozart/assert": {
         "version": "1.6.0"
+    },
+    "willdurand/negotiation": {
+        "version": "v2.3.1"
     },
     "yosymfony/resource-watcher": {
         "version": "v2.0.1"

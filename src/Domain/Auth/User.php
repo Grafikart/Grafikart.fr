@@ -16,22 +16,22 @@ class User implements UserInterface
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
      */
-    private ?int $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      */
-    private string $username;
+    private string $username = '';
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      */
-    private string $email;
+    private string $email = '';
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private string $password;
+    private string $password = '';
 
     /** @var array<string> */
     private array $roles = [];
