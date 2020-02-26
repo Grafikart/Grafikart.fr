@@ -9,7 +9,7 @@
     "ext-iconv": "*",
     "beberlei/doctrineextensions": "^1.2",
     "erusev/parsedown": "^1.7",
-    "everyman/neo4jphp": "^0.1",
+    "everyman/neo4jphp": "dev-master",
     "google/apiclient": "^2.4",
     "knplabs/knp-paginator-bundle": "^5.1",
     "oneup/flysystem-bundle": "^3.4",

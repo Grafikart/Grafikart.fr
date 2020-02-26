@@ -7,6 +7,7 @@ import './elements/Waves'
 import './elements/Alert'
 import './elements/Switch'
 import './elements/Modal'
+import './elements/Autogrow'
 import '@grafikart/spinning-dots-element'
 import Turbolinks from 'turbolinks'
 

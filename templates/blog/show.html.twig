@@ -9,6 +9,8 @@
     <div class="page__content formatted">
       {{ post.content | markdown }}
     </div>
+
+    {% include 'partials/comments.html.twig' with {content: post} only %}
   </div>
 {% endblock %}
 
