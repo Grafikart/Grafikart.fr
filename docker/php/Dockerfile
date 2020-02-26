@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -y \
       git \
       fish
 
-RUN apt-get update && apt-get install -y libzip-dev && docker-php-ext-install pdo zip
+RUN apt-get update && apt-get install -y libzip-dev libicu-dev && docker-php-ext-install pdo zip intl
 
 # Support de Postgre
 RUN apt-get update && apt-get install -y libpq-dev && docker-php-ext-install pdo_pgsql
