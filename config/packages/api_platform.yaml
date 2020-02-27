@@ -2,7 +2,7 @@ api_platform:
   show_webby: false
   mapping:
     paths:
-      - '%kernel.project_dir%/config/api'
+      - '%kernel.project_dir%/src/Http/Api/Resource'
   patch_formats:
     json: ['application/merge-patch+json']
   swagger:

@@ -4,6 +4,7 @@ namespace App\Domain\Comment;
 
 use App\Domain\Application\Entity\Content;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityNotFoundException;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -53,7 +54,28 @@ class CommentRepository extends ServiceEntityRepository
             ->getQuery()
             ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)
             ->getResult();
+    }
 
+    /**
+     * Renvoie un commentaire en évitant la liaison content
+     *
+     * @param int $id
+     */
+    public function findPartial(int $id): Comment
+    {
+        $result = $this->createQueryBuilder('c')
+            ->select('partial c.{id, username, email, content, createdAt}, partial u.{id, username, email}')
+            ->where('c.id = :id')
+            ->leftJoin('c.author', 'u')
+            ->setParameter('id', $id)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)
+            ->getOneOrNullResult();
+        if ($result === null) {
+            throw new EntityNotFoundException();
+        }
+        return $result;
     }
 
 }

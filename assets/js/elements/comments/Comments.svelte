@@ -10,7 +10,8 @@
 
   async function loadComments () {
     try {
-      comments = await findAllComments(target)
+      const c = await findAllComments(target)
+      comments = c.sort((a,b) => b.createdAt - a.createdAt)
     } catch (e) {
       alert(e.detail)
     }
@@ -47,9 +48,9 @@
     <hr>
 
     <div class="comment-list">
-      {#each comments as comment}
+      {#each comments as comment (comment.id)}
       <div class="comment">
-        <img src="{comment.avatar}" alt="Avatar {comment.username}" class="comment__avatar">
+        <img src="{comment.avatar}" alt="" class="comment__avatar">
         <div class="comment__meta">
           <div class="comment__author">{comment.username}</div>
           <div class="comment__actions">
@@ -60,7 +61,12 @@
             <a href="#c{comment.id}">Supprimer</a>
           </div>
         </div>
-        <div class="comment__content">{comment.content}</div>
+        <div class="comment__content form-group">
+          <textarea is="textarea-autogrow" required  bind:value={comment.content}></textarea>
+        </div>
+        <div class="full">
+          <button class="btn-gradient">Envoyer</button>
+        </div>
         <div class="comment__replies">
           {#if reply === comment}
             <CommentForm loading={isLoading} onSubmit={onSubmit}></CommentForm>
