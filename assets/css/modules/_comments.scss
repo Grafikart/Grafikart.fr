@@ -1,0 +1,79 @@
+// Espacements
+// ==========================================================================
+.comment-area {
+  margin-top: space(10);
+}
+.comment-area > * + * {
+  margin-top: space(6);
+}
+.comment-list > * + * {
+  margin-top: space(5);
+}
+.comments__title + * {
+  margin-top: space(2);
+}
+
+// Titre
+// ==========================================================================
+.comments__title {
+  @extend %h2;
+  @extend %underlined;
+}
+
+// Commentaire
+// ==========================================================================
+.comment {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 40px 1fr;
+  grid-row-gap: space(1);
+  grid-column-gap: space(2);
+  grid-template-areas: "avatar meta" "content content";
+}
+.comment__author {
+  font-family: $font-alt;
+  font-weight: bold;
+}
+.comment__avatar {
+  grid-area: avatar;
+  width: 100%;
+  height: auto;
+  border-radius: 50px;
+}
+.comment__content {
+  grid-area: content;
+}
+.comment__actions {
+  transition: opacity .3s;
+  font-size: .9em;
+  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  opacity: .6;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    margin-right: space(1);
+    border-radius: 3px;
+  }
+
+  a:hover {
+    background-color: var(--background-light);
+    text-decoration: underline;
+  }
+}
+
+.comment svg {
+  display: block;
+  margin-right: 5px;
+  width: 14px;
+  height: 14px;
+}
+
+.comment .comment__delete {
+  svg {
+    transform: none;
+  }
+}

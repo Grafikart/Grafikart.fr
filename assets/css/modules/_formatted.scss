@@ -1,6 +1,5 @@
 
 .formatted {
-  padding: 20px;
   font-size: 20px;
 
   details > summary{
@@ -42,10 +41,7 @@
   }
 
   h2 {
-    font-weight: 700;
-    font-style: normal;
-    font-size: 32px;
-    line-height: 1.2;
+    @extend %h2;
     padding-top: 31px;
     margin-bottom: 2px;
   }

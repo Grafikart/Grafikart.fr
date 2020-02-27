@@ -29,6 +29,7 @@ button {
   border: none;
   cursor: pointer;
   background: transparent;
+  font-size: inherit;
 }
 input {
   font-size: inherit;
@@ -72,4 +73,11 @@ textarea {
   font-size: inherit;
   font-family: inherit;
   line-height: inherit;
+}
+hr {
+  height: 1px;
+  background: var(--border);
+  margin: 0;
+  padding: 0;
+  border:none;
 }
