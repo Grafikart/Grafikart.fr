@@ -2,7 +2,7 @@
  *
  * @param {RequestInfo} url
  * @param {RequestInit} params
- * @return {Promise<void>}
+ * @return {Promise<Object>}
  */
 export async function jsonFetch (url, params= {}) {
   params = Object.assign({

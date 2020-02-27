@@ -49,7 +49,7 @@ class Comment
      * @ORM\ManyToOne(targetEntity="App\Domain\Comment\Comment")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
-    private ?self $parent;
+    private ?self $parent = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Application\Entity\Content")

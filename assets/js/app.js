@@ -8,6 +8,8 @@ import './elements/Alert'
 import './elements/Switch'
 import './elements/Modal'
 import './elements/Autogrow'
+import './elements/Comments'
+import './elements/TimeAgo'
 import '@grafikart/spinning-dots-element'
 import Turbolinks from 'turbolinks'
 

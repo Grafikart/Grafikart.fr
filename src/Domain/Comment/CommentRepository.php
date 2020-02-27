@@ -43,13 +43,17 @@ class CommentRepository extends ServiceEntityRepository
     public function findForApi(int $content): array
     {
         return $this->createQueryBuilder('c')
-            ->select('partial c.{id, username, email, content, createdAt}, partial u.{id, username, email}')
+            ->select('partial c.{id, username, email, content, createdAt}, partial u.{id, username, email}, partial p.{id}')
+            ->orderBy('c.createdAt', 'ASC')
             ->where('c.target = :content')
+            // TODO : Repenser ça pour éviter les pbs de performances
+            ->leftJoin('c.parent', 'p')
             ->leftJoin('c.author', 'u')
             ->setParameter('content', $content)
             ->getQuery()
             ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)
             ->getResult();
+
     }
 
 }

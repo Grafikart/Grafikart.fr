@@ -1,3 +1,5 @@
+<comments-area target="{{ target.id }}"></comments-area>
+{#
 <aside class="comment-area">
   <div class="comments__title">33 Commentaires</div>
 
@@ -23,23 +25,69 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet aspernatur autem 
   <hr>
 
   <div class="comment-list">
-    {% for i in 0..20 %}
-    <div class="comment">
-      <img src="https://1.gravatar.com/avatar/adf7d110fd4ac7853ecdbd5b95e6ad9e?s=200&amp;r=pg&amp;d=mm" class="comment__avatar">
-      <div class="comment__meta">
-        <div class="comment__author">John Doe</div>
-        <div class="comment__actions">
-          <a class="comment__date" href="#">Il y a 5 mois</a>
-          <a href="#">{{ icon('reply') }}Répondre</a>
-          <a href="#">{{ icon('trash') }} Supprimer</a>
+    {% for i in 0..4 %}
+      <div class="comment">
+        <img src="https://1.gravatar.com/avatar/adf7d110fd4ac7853ecdbd5b95e6ad9e?s=200&amp;r=pg&amp;d=mm"
+             class="comment__avatar">
+        <div class="comment__meta">
+          <div class="comment__author">John Doe</div>
+          <div class="comment__actions">
+            <a class="comment__date" href="#">Il y a 5 mois</a>
+            <a href="#">{{ icon('reply') }}Répondre</a>
+            <a href="#">{{ icon('trash') }} Supprimer</a>
+          </div>
         </div>
+        <div class="comment__content">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis delectus dicta, fugit minima obcaecati odio
+          possimus quae quos similique vero. Ab accusantium dolorum eum maxime minus porro repellendus voluptates
+          voluptatum?
+        </div>
+        {% if i == 0 %}
+          <div class="comment__replies">
+          {% for i in 0..5 %}
+              <div class="comment">
+                <img src="https://1.gravatar.com/avatar/adf7d110fd4ac7853ecdbd5b95e6ad9e?s=200&amp;r=pg&amp;d=mm"
+                     class="comment__avatar">
+                <div class="comment__meta">
+                  <div class="comment__author">John Doe</div>
+                  <div class="comment__actions">
+                    <a class="comment__date" href="#">Il y a 5 mois</a>
+                    <a href="#">{{ icon('reply') }}Répondre</a>
+                    <a href="#">{{ icon('trash') }} Supprimer</a>
+                  </div>
+                </div>
+                <div class="comment__content">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis delectus dicta, fugit minima
+                  obcaecati odio possimus quae quos similique vero. Ab accusantium dolorum eum maxime minus porro
+                  repellendus voluptates voluptatum?
+                </div>
+              </div>
+          {% endfor %}
+
+            <form action="" class="grid" style="--col: 300px;">
+              <div class="form-group">
+                <label for="firstname">Nom d'utilisateur</label>
+                <input type="text" id="firstname">
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email">
+              </div>
+              <div class="form-group full">
+      <textarea name="#" id="" placeholder="Votre message" is="textarea-autogrow">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur beatae pariatur quidem quos velit, voluptas voluptate voluptatum. Cupiditate enim et, eveniet neque quidem quos reiciendis rem suscipit veniam voluptates voluptatum!
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet aspernatur autem consequatur cumque deleniti dolore eum eveniet, fugit laborum, magnam minima nemo nisi nobis obcaecati quibusdam, quidem ratione rerum vero.</textarea>
+              </div>
+              <div class="full">
+                <button class="btn-gradient">Envoyer</button>
+              </div>
+            </form>
+          </div>
+        {% endif %}
       </div>
-      <div class="comment__content">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis delectus dicta, fugit minima obcaecati odio possimus quae quos similique vero. Ab accusantium dolorum eum maxime minus porro repellendus voluptates voluptatum?
-      </div>
-    </div>
     {% endfor %}
   </div>
 
 
 </aside>
+#}

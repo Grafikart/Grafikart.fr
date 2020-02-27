@@ -28,7 +28,7 @@
   grid-template-columns: 40px 1fr;
   grid-row-gap: space(1);
   grid-column-gap: space(2);
-  grid-template-areas: "avatar meta" "content content";
+  grid-template-areas: "avatar meta" "content content" "replies replies";
 }
 .comment__author {
   font-family: $font-alt;
@@ -62,6 +62,16 @@
   a:hover {
     background-color: var(--background-light);
     text-decoration: underline;
+  }
+}
+.comment__replies {
+  grid-area: replies;
+  margin-left: 10px;
+  padding-left: 30px;
+  border-left: 1px solid var(--border);
+
+  & > * {
+    margin-top: space(3);
   }
 }
 

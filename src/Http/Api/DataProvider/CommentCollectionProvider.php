@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-final class CommentCollectionProvider implements CollectionDataProviderInterface, RestrictedDataProviderInterface
+class CommentCollectionProvider implements CollectionDataProviderInterface, RestrictedDataProviderInterface
 {
     private RequestStack $requestStack;
     private CommentRepository $commentRepository;
@@ -30,7 +30,10 @@ final class CommentCollectionProvider implements CollectionDataProviderInterface
         return Comment::class === $resourceClass;
     }
 
-    public function getCollection(string $resourceClass, string $operationName = null)
+    /**
+     * @return array<Comment>
+     */
+    public function getCollection(string $resourceClass, string $operationName = null): array
     {
         $request = $this->requestStack->getCurrentRequest();
         if ($request === null) {

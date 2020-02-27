@@ -16,7 +16,7 @@ class Post extends Content
      * @ORM\ManyToOne(targetEntity="App\Domain\Blog\Category", inversedBy="posts")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
-    private ?Category $category;
+    private ?Category $category = null;
 
     public function getCategory(): ?Category
     {
