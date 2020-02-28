@@ -78,6 +78,11 @@ class CommentResource
      */
     public ?int $parent = 0;
 
+    /**
+     * Garde une trace de l'entité qui a servi à créer la resource
+     */
+    public ?Comment $entity = null;
+
     static public function fromComment(Comment $comment): CommentResource
     {
         $resource = new self();
@@ -88,6 +93,7 @@ class CommentResource
         $resource->parent = $comment->getParent() !== null ? $comment->getParent()->getId() : null;
         $gravatar = md5($comment->getEmail());
         $resource->avatar = "https://1.gravatar.com/avatar/{$gravatar}?s=200&r=pg&d=mp";
+        $resource->entity = $comment;
         return $resource;
     }
 

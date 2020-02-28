@@ -7,7 +7,6 @@ use ApiPlatform\Core\Validator\ValidatorInterface;
 use App\Domain\Application\Entity\Content;
 use App\Domain\Auth\User;
 use App\Domain\Comment\Comment;
-use App\Domain\Comment\CommentRepository;
 use App\Http\Api\Resource\CommentResource;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Security;
@@ -53,11 +52,9 @@ class CommentPersister implements ContextAwareDataPersisterInterface
         }
         $this->validator->validate($data, ['groups' => $groups]);
 
-        if ($data->id) {
+        if ($data->entity !== null) {
             // On met à jour un commentaire
-            /** @var CommentRepository $repository */
-            $repository = $this->em->getRepository(Comment::class);
-            $comment = $repository->findPartial($data->id);
+            $comment = $data->entity;
             $comment->setContent($data->content);
         } else {
             // On crée un nouveau commentaire

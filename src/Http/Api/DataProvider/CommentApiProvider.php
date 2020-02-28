@@ -57,8 +57,6 @@ class CommentApiProvider implements CollectionDataProviderInterface, RestrictedD
         if (is_array($id)) {
             throw new RuntimeException('id as array not expected');
         }
-        $comment = new CommentResource();
-        $comment->id = (int)$id;
-        return $comment;
+        return CommentResource::fromComment($this->commentRepository->findPartial((int)$id));
     }
 }

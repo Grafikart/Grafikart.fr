@@ -2,7 +2,6 @@
 
 namespace App\Domain\Comment;
 
-use App\Domain\Application\Entity\Content;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityNotFoundException;
 use Doctrine\ORM\Query;
@@ -23,36 +22,22 @@ class CommentRepository extends ServiceEntityRepository
     }
 
     /**
-     * Renvoie les commentaires associé à un contenu
+     * Récupère les commentaires pour le listing de l'API en évitant la liaison content
      *
-     * @return array<Comment>
-     */
-    public function findForContent(Content $content): array
-    {
-        $comments = $this->createQueryBuilder('c')
-            ->where('c.target = :target')
-            ->setParameter('target', $content)
-            ->getQuery()
-            ->getResult();
-        return $comments;
-    }
-
-    /**
      * @param int $content
      * @return array<Comment>
      */
     public function findForApi(int $content): array
     {
+        // Force l'enregistrement de l'entité dans l'entity manager pour éviter les requêtes supplémentaires
+        $post = $this->_em->getReference(\App\Domain\Blog\Post::class, $content);
         return $this->createQueryBuilder('c')
-            ->select('partial c.{id, username, email, content, createdAt}, partial u.{id, username, email}, partial p.{id}')
+            ->select('c, u')
             ->orderBy('c.createdAt', 'ASC')
             ->where('c.target = :content')
-            // TODO : Repenser ça pour éviter les pbs de performances
-            ->leftJoin('c.parent', 'p')
             ->leftJoin('c.author', 'u')
             ->setParameter('content', $content)
             ->getQuery()
-            ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)
             ->getResult();
     }
 
