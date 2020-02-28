@@ -23,3 +23,13 @@ export async function addComment(data) {
     body: JSON.stringify(data)
   })
 }
+
+/**
+ * @param {int} id
+ * @return {Promise<null>}
+ */
+export async function deleteComment (id) {
+  return jsonFetch(`/api/comments/${id}`, {
+    method: 'DELETE'
+  })
+}

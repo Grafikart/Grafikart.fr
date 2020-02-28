@@ -12,6 +12,9 @@ export async function jsonFetch (url, params= {}) {
     }
   }, params)
   const response = await fetch(url, params)
+  if (response.status === 204) {
+    return null
+  }
   const data = await response.json()
   if (response.ok) {
     return data

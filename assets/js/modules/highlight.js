@@ -10,7 +10,12 @@ let lazylangs = ['typescript', 'elixir', 'less', 'stylus', 'scss', 'sass', 'yaml
 function highlight ($codes) {
   $codes.forEach(function (code) {
     let lazy = false
-    let cls = code.getAttribute('class').replace('markup', 'bash')
+    let cls = code.getAttribute('class')
+    if (cls === null) {
+      cls = 'bash'
+    } else {
+      cls = code.getAttribute('class').replace('markup', 'bash')
+    }
     lazylangs.forEach(lang => {
       if (cls.endsWith(lang)) {
         lazy = true

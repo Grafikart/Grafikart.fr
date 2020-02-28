@@ -23,12 +23,16 @@
 // Commentaire
 // ==========================================================================
 .comment {
+  position: relative;
   display: grid;
   align-items: center;
   grid-template-columns: 40px 1fr;
   grid-row-gap: space(1);
   grid-column-gap: space(2);
   grid-template-areas: "avatar meta" "content content" "replies replies";
+}
+.comment.is-loading {
+  opacity: .6;
 }
 .comment__author {
   font-family: $font-alt;
@@ -73,6 +77,19 @@
   & > * {
     margin-top: space(3);
   }
+}
+.comment__loader {
+  position: absolute;
+  top: calc(50% - 10px);
+  left: calc(50% - 10px);
+  right: 0;
+  bottom: 0;
+  color: var(--contrast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
 }
 
 .comment svg {

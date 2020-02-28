@@ -1,6 +1,8 @@
 <script>
-  import {findAllComments, addComment} from '../../api/comments'
+  import {findAllComments, addComment, deleteComment} from '../../api/comments'
   import CommentForm from './CommentForm.svelte'
+  import {slide} from 'svelte/transition'
+  import Icon from './Icon.svelte'
 
   export let target
 
@@ -28,6 +30,36 @@
     isLoading = false
   }
 
+  /**
+   * @param {CommentResource} comment
+   * @return {Promise<void>}
+   */
+  async function onDelete (comment) {
+    comment.loading = true
+    comments = comments // Force svelte à tracker le changement
+    try {
+      await deleteComment(comment.id)
+      comments = comments.filter(c => c !== comment)
+    } catch (e) {
+      alert(e.detail)
+    }
+  }
+
+  function scrollTo(node) {
+    return {
+      duration: 500,
+      tick: t => {
+        if (t === 1) {
+          window.scrollTo({
+            top: node.getBoundingClientRect().top,
+            left: 0,
+            behavior: 'smooth'
+          })
+        }
+      }
+    };
+  }
+
   function replyTo(comment) {
     reply = comment
   }
@@ -49,7 +81,10 @@
 
     <div class="comment-list">
       {#each comments as comment (comment.id)}
-      <div class="comment">
+      <div class="comment" transition:slide class:is-loading={comment.loading}>
+        {#if comment.loading}
+        <spinning-dots class="comment__loader"></spinning-dots>
+        {/if}
         <img src="{comment.avatar}" alt="" class="comment__avatar">
         <div class="comment__meta">
           <div class="comment__author">{comment.username}</div>
@@ -57,19 +92,20 @@
             <a class="comment__date" href="#c{comment.id}">
               <time-ago time="{comment.createdAt}"></time-ago>
             </a>
-            <a href="#c{comment.id}" on:click|stopPropagation|preventDefault={() => replyTo(comment)}>Répondre</a>
-            <a href="#c{comment.id}">Supprimer</a>
+            <a href="#c{comment.id}" on:click|preventDefault={() => replyTo(comment)}>
+              <Icon name="reply"></Icon>
+              Répondre
+            </a>
+            <a href="#c{comment.id}" on:click|preventDefault={() => onDelete(comment)}>
+              <Icon name="trash"></Icon>
+              Supprimer
+            </a>
           </div>
         </div>
-        <div class="comment__content form-group">
-          <textarea is="textarea-autogrow" required  bind:value={comment.content}></textarea>
-        </div>
-        <div class="full">
-          <button class="btn-gradient">Envoyer</button>
-        </div>
+        <div class="comment__content form-group">{comment.content}</div>
         <div class="comment__replies">
           {#if reply === comment}
-            <CommentForm loading={isLoading} onSubmit={onSubmit}></CommentForm>
+            <CommentForm loading={isLoading} onSubmit={onSubmit} scroll={true}></CommentForm>
           {/if}
         </div>
       </div>

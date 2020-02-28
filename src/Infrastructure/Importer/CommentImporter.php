@@ -23,6 +23,7 @@ final class CommentImporter extends MySQLImporter
         $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
         $this->disableAutoIncrement(Comment::class);
         $parents = [];
+        $lastId = 0;
         while (true) {
             $query = $this->pdo->prepare("
                 SELECT
@@ -70,11 +71,14 @@ final class CommentImporter extends MySQLImporter
                     $this->em->persist($comment);
                 }
                 $io->progressAdvance();
+                $lastId = $row['id'];
             }
             $this->em->flush();
             $this->em->clear();
             $offset += 1000;
         }
+        $lastId++;
+        $this->em->getConnection()->exec("ALTER SEQUENCE comment_id_seq RESTART WITH $lastId;");
         $io->progressFinish();
         $io->success(sprintf('Importation de %d commentaires', $result['count']));
     }

@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <title>{% block title %}Welcome!{% endblock %}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui"/>
+  {% if is_granted('SUPERADMIN') %}
+    <meta name="user" content="admin" >
+  {% elseif app.user %}
+    <meta name="user" content="{{ app.user }}" >
+  {% endif %}
   <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700|Roboto:300,400&display=swap" rel="stylesheet">
   {% block stylesheets %}
     {{ encore_entry_link_tags('app') }}
