@@ -2,17 +2,11 @@
 
 {% block body %}
   <div class="page" style="max-width: 700px; margin-left: auto; margin-right: auto;">
-    <div class="page__title">
-      {{ post.title }}
-    </div>
+    <h1 class="page__title">{{ post.title }}</h1>
 
     <div class="page__content formatted">
       {{ post.content | markdown }}
     </div>
-
-    <alert-message type="success" class="is-floating">
-      Hello world
-    </alert-message>
 
     {% include 'partials/comments.html.twig' with {target: post} only %}
 

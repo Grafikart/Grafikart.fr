@@ -25,6 +25,8 @@
         <h1>{{ course.title }}</h1>
         {{ course.content | markdown }}
       </div>
+
+      {% include 'partials/comments.html.twig' with {target: course} only %}
     </div>
     <div>
       <div class="stack sticky">
