@@ -1,5 +1,6 @@
 <script>
   import {slide} from 'svelte/transition'
+  import {isAuthenticated} from '@fn/auth'
 
   export let onSubmit
   export let loading
@@ -7,15 +8,21 @@
 
   let form
   let input
-  let data = {
-    username: 'John',
-    email: 'john@doe.fr',
-    content: 'Mon contenu'
+  let emptyData = {
+    username: '',
+    email: '',
+    content: ''
   }
+  let data = Object.assign({}, emptyData)
 
-  function formSubmit (e) {
+  async function formSubmit (e) {
     e.preventDefault()
-    onSubmit(data)
+    try {
+      await onSubmit(data)
+      data = Object.assign({}, emptyData)
+    } catch (e) {
+      console.alert(e.detail ? e.detail : e)
+    }
   }
 
   function scrollToForm () {
@@ -35,6 +42,7 @@
 
 <form action="" class="grid" style="--col: 300px;" on:submit={formSubmit} bind:this={form} transition:slide
       on:introend={scrollToForm}>
+  {#if !isAuthenticated}
   <div class="form-group">
     <label for="firstname">Nom d'utilisateur</label>
     <input type="text" id="firstname" required bind:value={data.username} bind:this={input}>
@@ -43,6 +51,7 @@
     <label for="email">Email</label>
     <input type="email" id="email" required bind:value={data.email}>
   </div>
+  {/if}
   <div class="form-group full">
     <textarea placeholder="Votre message" is="textarea-autogrow" required bind:value={data.content}></textarea>
   </div>

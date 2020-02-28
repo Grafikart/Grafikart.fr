@@ -25,15 +25,35 @@ class TwigCacheExtensionTest extends TestCase
         $this->extension = new TwigCacheExtension($this->cache);
     }
 
-    public function testCacheKeyWithString(): void
+
+    public function cacheKeys(): iterable
     {
-        $this->assertEquals('salut', $this->extension->getCacheKey('salut'));
+        yield ['salut', 'salut'];
+        yield ['salut-aurevoir', ['salut', 'aurevoir']];
+
+        $fake = new FakeClass();
+        yield [
+            $fake->getId() . 'FakeClass' . $fake->getUpdatedAt()->getTimestamp(),
+            $fake
+        ];
+        yield [
+            'card-' . $fake->getId() . 'FakeClass' . $fake->getUpdatedAt()->getTimestamp(),
+            ['card', $fake]
+        ];
     }
 
-    public function testCacheKeyWithEntity(): void
+    /**
+     * @dataProvider cacheKeys
+     */
+    public function testCacheKeyGeneration($expected, $value): void
     {
-        $fake = new FakeClass();
-        $this->assertEquals($fake->getId() . 'FakeClass' . $fake->getUpdatedAt()->getTimestamp(), $this->extension->getCacheKey($fake));
+        $this->assertEquals($expected, $this->extension->getCacheKey($value));
+    }
+
+    public function testCacheKeyWithBadValues(): void
+    {
+        $this->expectException(\Exception::class);
+        $this->extension->getCacheKey([]);
     }
 
     public function testSetCacheValue(): void

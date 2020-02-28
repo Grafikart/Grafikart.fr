@@ -30,12 +30,18 @@ class TwigCacheExtension extends AbstractExtension
     }
 
     /**
-     * @param CacheableInterface|string|null $item
+     * @param CacheableInterface|string|null|array $item
      */
     public function getCacheKey($item): string
     {
+        if (empty($item)) {
+            throw new \Exception('Clef de cache invalide');
+        }
         if (is_string($item)) {
             return $item;
+        }
+        if (is_array($item)) {
+            return implode('-', array_map(fn ($v) => $this->getCacheKey($v), $item));
         }
         if (!is_object($item)) {
             throw new \Exception("TwigCache : Impossible de serialiser une variable qui n'est pas un objet ou une chaine");

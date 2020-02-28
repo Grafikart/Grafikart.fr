@@ -77,7 +77,8 @@
   }
 }
 
-.dashboard .alert {
+.dashboard .alert,
+.is-floating .alert{
   z-index: 5;
   border-left: 1px solid var(--border);
   border-right: 1px solid var(--border);

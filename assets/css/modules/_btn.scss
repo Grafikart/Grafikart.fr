@@ -25,6 +25,16 @@
   height: 16px;
   margin-right: space(1);
 }
+
+.btn-primary {
+  @extend .btn-gradient;
+}
+
+.btn-secondary {
+  @extend .btn-gradient;
+  background-color: #cacaca;
+}
+
 .btn-big {
   display: inline-flex;
   align-items: center;

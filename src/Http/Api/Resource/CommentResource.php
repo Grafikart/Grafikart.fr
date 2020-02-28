@@ -83,9 +83,15 @@ class CommentResource
      */
     public ?Comment $entity = null;
 
+    /**
+     * @Groups({"read"})
+     */
+    public ?int $userId = null;
+
     static public function fromComment(Comment $comment): CommentResource
     {
         $resource = new self();
+        $author = $comment->getAuthor();
         $resource->id = $comment->getId();
         $resource->username = $comment->getUsername();
         $resource->content = $comment->getContent();
@@ -94,6 +100,7 @@ class CommentResource
         $gravatar = md5($comment->getEmail());
         $resource->avatar = "https://1.gravatar.com/avatar/{$gravatar}?s=200&r=pg&d=mp";
         $resource->entity = $comment;
+        $resource->userId = $author ? $author->getId() : null;
         return $resource;
     }
 

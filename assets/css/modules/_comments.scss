@@ -63,6 +63,10 @@
     border-radius: 3px;
   }
 
+  span {
+    margin-right: space(1);
+  }
+
   a:hover {
     background-color: var(--background-light);
     text-decoration: underline;
@@ -102,5 +106,15 @@
 .comment .comment__delete {
   svg {
     transform: none;
+  }
+}
+
+@media (hover: hover) {
+  .comment__actions a {
+    opacity: 0;
+    transition: opacity .3s;
+  }
+  .comment:hover .comment__actions a {
+    opacity:  1;
   }
 }

@@ -1,7 +1,7 @@
 /**
  * @property {string} type
  */
-import { slideUp } from '../modules/animation'
+import {slideUp} from '../modules/animation'
 
 export default class Alert extends global.HTMLElement {
   constructor ({type, message} = {}) {
@@ -27,7 +27,7 @@ export default class Alert extends global.HTMLElement {
         </svg>
         ${this.message}
         <button class="alert-close">
-          <svg class="icon icon-{$name}">
+          <svg class="icon">
             <use xlink:href="/sprite.svg#cross"></use>
           </svg>
         </button>

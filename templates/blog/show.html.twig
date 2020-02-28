@@ -10,6 +10,10 @@
       {{ post.content | markdown }}
     </div>
 
+    <alert-message type="success" class="is-floating">
+      Hello world
+    </alert-message>
+
     {% include 'partials/comments.html.twig' with {target: post} only %}
 
   </div>

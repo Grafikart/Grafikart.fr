@@ -1,45 +1,60 @@
 <script>
   import {findAllComments, addComment, deleteComment} from '../../api/comments'
   import CommentForm from './CommentForm.svelte'
-  import {slide} from 'svelte/transition'
-  import Icon from './Icon.svelte'
+  import Comment from './Comment.svelte'
 
   export let target
 
-  let comments = null
-  let isLoading = false
-  let reply = null
+  let comments = null // Liste des commentaires
+  let isLoading = false // Chargement de la liste des commentaires
+  let reply = null // Commentaire sur lequel on est en train de répondre
+  let count = 0 // Nombre total de commentaires
 
   async function loadComments () {
     try {
-      const c = await findAllComments(target)
+      const {comments:c, count: total} = await findAllComments(target)
+      count = total
       comments = c.sort((a,b) => b.createdAt - a.createdAt)
     } catch (e) {
       alert(e.detail)
     }
   }
 
-  async function onSubmit (data) {
+  async function onSubmit (data, parent = null) {
     isLoading = true
     try {
       const comment = await addComment({target: target, ...data})
-      comments = [comment, ...comments]
+      if (parent === null) {
+        comments = [comment, ...comments]
+      } else {
+        parent.replies = [...parent.replies, comment]
+        comments = comments // force svelte à voir le changement
+      }
+      count++
+      isLoading = false
+      reply = null
     } catch (e) {
-      alert(e.detail)
+      isLoading = false
+      throw e
     }
-    isLoading = false
   }
 
   /**
    * @param {CommentResource} comment
    * @return {Promise<void>}
    */
-  async function onDelete (comment) {
+  async function onDelete (comment, parent = null) {
     comment.loading = true
     comments = comments // Force svelte à tracker le changement
     try {
       await deleteComment(comment.id)
-      comments = comments.filter(c => c !== comment)
+      if (parent === null) {
+        comments = comments.filter(c => c !== comment)
+      } else {
+        parent.replies = parent.replies.filter(c => c !== comment)
+        comments = comments // force svelte à voir le changement
+      }
+      count--
     } catch (e) {
       alert(e.detail)
     }
@@ -73,7 +88,7 @@
 </div>
 {:else}
   <aside class="comment-area">
-    <div class="comments__title">{comments.length} Commentaires</div>
+    <div class="comments__title">{count} Commentaires</div>
 
     <CommentForm loading={isLoading} onSubmit={onSubmit}></CommentForm>
 
@@ -81,34 +96,11 @@
 
     <div class="comment-list">
       {#each comments as comment (comment.id)}
-      <div class="comment" transition:slide class:is-loading={comment.loading}>
-        {#if comment.loading}
-        <spinning-dots class="comment__loader"></spinning-dots>
+      <Comment comment={comment} replyTo={replyTo} onDelete={onDelete}>
+        {#if reply === comment}
+          <CommentForm loading={isLoading} onSubmit={(data) => onSubmit(data, reply)} scroll={true}></CommentForm>
         {/if}
-        <img src="{comment.avatar}" alt="" class="comment__avatar">
-        <div class="comment__meta">
-          <div class="comment__author">{comment.username}</div>
-          <div class="comment__actions">
-            <a class="comment__date" href="#c{comment.id}">
-              <time-ago time="{comment.createdAt}"></time-ago>
-            </a>
-            <a href="#c{comment.id}" on:click|preventDefault={() => replyTo(comment)}>
-              <Icon name="reply"></Icon>
-              Répondre
-            </a>
-            <a href="#c{comment.id}" on:click|preventDefault={() => onDelete(comment)}>
-              <Icon name="trash"></Icon>
-              Supprimer
-            </a>
-          </div>
-        </div>
-        <div class="comment__content form-group">{comment.content}</div>
-        <div class="comment__replies">
-          {#if reply === comment}
-            <CommentForm loading={isLoading} onSubmit={onSubmit} scroll={true}></CommentForm>
-          {/if}
-        </div>
-      </div>
+      </Comment>
       {/each}
     </div>
 

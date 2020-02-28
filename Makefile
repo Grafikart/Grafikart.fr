@@ -42,12 +42,12 @@ import: vendor/autoload.php ## Import les données du site actuel
 
 .PHONY: test
 test: vendor/autoload.php ## Execute les tests
-	$(drtest) php vendor/bin/phpunit
+	$(drtest) phptest vendor/bin/phpunit
 	$(dr) --no-deps node yarn run test
 
 .PHONY: tt
 tt: vendor/autoload.php ## Lance le watcher phpunit
-	$(drtest) php vendor/bin/phpunit-watcher watch --filter="nothing"
+	$(drtest) phptest vendor/bin/phpunit-watcher watch --filter="nothing"
 
 .PHONY: clean
 clean: ## Nettoie les containers
