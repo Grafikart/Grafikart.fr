@@ -10,6 +10,7 @@ import './elements/Modal'
 import './elements/Autogrow'
 import './elements/Comments'
 import './elements/TimeAgo'
+import './elements/editor'
 import '@grafikart/spinning-dots-element'
 import Turbolinks from 'turbolinks'
 

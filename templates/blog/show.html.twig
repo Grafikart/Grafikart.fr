@@ -4,25 +4,28 @@
 
 {% block body %}
 
+  {% cache ['single', post] %}
   <div class="blog-single">
 
     <div class="blog-single__header">
       <h1 class="blog-single__title">{{ post.title }}</h1>
       <div class="blog-single__meta">
-        Posté le <time datetime="2019-07-29">{{ post.createdAt | date }}</time> -
-        <a href="/blog/category/concentre-du-web">{{post.category.name}}</a> -
-        Par {{ post.author.username }}
+        Posté le {{ post.createdAt | date }} -
+        <a href="{{ path('blog_category', {slug: post.category.slug})}}">{{post.category.name}}</a> -
+        Par {{ post.author.username }} -
+        <a href="{{ path('') }}"></a>
       </div>
     </div>
 
     <div class="blog-single__body formatted {{ post.video ? 'has-video' : 'text-only' }}">
       {{ post.content | markdown }}
-
       <waves-shape background="{{ image_url(post.image) }}" target="{{ post.video ? '.formatted iframe' : '.formatted p:first-child' }}" {% if not post.video %}position="bottom"{% endif %}></waves-shape>
     </div>
 
     {% include 'partials/comments.html.twig' with {target: post} only %}
 
   </div>
+  {% endcache %}
+
 {% endblock %}
 

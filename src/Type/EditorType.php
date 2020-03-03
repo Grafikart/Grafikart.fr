@@ -17,7 +17,7 @@ class EditorType extends TextareaType
                 'class' => 'full'
             ],
             'attr' => [
-                'is' => 'textarea-autogrow'
+                'is' => 'markdown-editor'
             ]
         ]);
     }

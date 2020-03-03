@@ -10,3 +10,27 @@ export function offsetTop (element) {
   }
   return top
 }
+
+/**
+ * Crée un élément HTML
+ *
+ * @param {string} tagName
+ * @param {object} attributes
+ * @return HTMLElement
+ */
+export function createElement (tagName, attributes = {}) {
+  const e = document.createElement(tagName)
+  for (const k of Object.keys(attributes)) {
+    e.setAttribute(k, attributes[k])
+  }
+  return e
+}
+
+/**
+ * Transform une chaine en élément DOM
+ * @param {string} str
+ * @return {DocumentFragment}
+ */
+export function strToDom(str) {
+  return document.createRange().createContextualFragment(str).firstChild
+}
