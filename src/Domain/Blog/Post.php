@@ -30,4 +30,8 @@ class Post extends Content
         return $this;
     }
 
+    public function hasVideo (): bool
+    {
+        return preg_match('/^[^\s]*youtube.com/mi', $this->getContent()) === 1;
+    }
 }

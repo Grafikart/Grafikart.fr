@@ -44,3 +44,59 @@
   text-transform: uppercase;
   font-weight: light;
 }
+
+// Page single
+// ==========================================================================
+.blog-single {
+  @extend %container-margin;
+  width: calc(100% - var(--container-padding) * 2);
+  max-width: 700px;
+}
+.blog-single__header {
+  color: var(--color-inversed);
+  padding: space(4) 0 space(6) 0;
+}
+.blog-single__title {
+  @extend %hero-title;
+  margin-bottom: space(1);
+}
+.blog-single__meta {
+  opacity: .6;
+}
+.blog-single__meta a {
+  text-decoration: underline;
+}
+
+// Contenu avec video
+.blog-single__body .video {
+  width: 100vw;
+  position: relative;
+  max-width: 900px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 1px 10px rgba(0,0,0,0.05);
+  border: solid 1px var(--border);
+  margin-top: space(6);
+  margin-bottom: space(4);
+  background: var(--background);
+  transition: box-shadow .3s;
+}
+.blog-single__body .video:hover {
+  box-shadow: 0 1px 15px rgba(0,0,0,0.1);
+}
+.blog-single__body.has-video {
+  color: var(--color-inversed);
+
+  .video ~ * {
+    color: var(--color);
+  }
+}
+
+// Contenu sans video
+.blog-single__body.text-only p:first-child {
+  color: var(--color-inversed);
+  margin-bottom: 70px;
+}
+.blog-single__body.text-only {
+  --wave-height:100px;
+}

@@ -28,6 +28,13 @@ Encore
       exclude: /node_modules/,
       use: {
         loader: 'svelte-loader',
+        options: {
+          onwarn: function (warning, onwarn) {
+            if (warning.code !== 'avoid-is') {
+              onwarn(warning)
+            }
+          }
+        }
       },
     })
   /*

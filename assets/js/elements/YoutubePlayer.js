@@ -80,6 +80,7 @@ export default class YoutubePlayer extends global.HTMLElement {
       playerVars: {
         autoplay: this.getAttribute('autoplay') ? 1 : 0,
         loop: 0,
+        modestbranding: 1,
         controls: 1,
         showinfo: 0,
         rel: 0

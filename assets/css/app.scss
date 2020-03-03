@@ -2,6 +2,7 @@
 // ==================
 :root {
   --color: #121C42;
+  --color-inversed: #EFFBEC;
   --color-transparent: #{rgba(#121C42, 0)};
   --color-btn: #EFFBEC;
   --contrast: #4869EE;
@@ -25,6 +26,7 @@
 
 .dark {
   --color: #EFFBEC;
+  --color-inversed: #121C42;
   --contrast: #61a0f6;
   --gap: 20px;
   --space: 8px;
@@ -53,7 +55,20 @@ body {
   font-size: 16px;
   color: var(--color);
   line-height: 1.6;
-  background: url(../images/logo.svg) top left / 580px 506px no-repeat var(--background);
+  background:  var(--background);
+}
+
+body::after {
+  content:'';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 580px;
+  height: 506px;
+  z-index: -1;
+  pointer-events: none;
+  background: url(../images/logo.svg) top left / 100% 100% no-repeat;
 }
 
 ::selection {

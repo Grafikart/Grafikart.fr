@@ -1,16 +1,12 @@
 {% extends 'base.html.twig' %}
 
+{% block title title %}
+
 {% block body %}
 
   <div class="blog-posts">
 
-    <h2>Catégories</h2>
-
-    <ul>
-      {% for category in categories %}
-      <li><a href="{{ path('blog_category', {slug: category.slug}) }}">{{ category.name }}</a></li>
-      {% endfor %}
-    </ul>
+    <h1 class="reader-only">{{ title }}</h1>
 
     {% for post in posts %}
       {% include 'blog/_post.html.twig' %}

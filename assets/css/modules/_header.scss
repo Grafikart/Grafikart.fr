@@ -1,21 +1,41 @@
 .header {
   @extend %container-margin;
+  position: relative;
   font-family: $font-alt;
   font-weight: 500;
   line-height: 1;
   margin-top: space(6);
   padding-bottom: space(3);
-  border-bottom: 1px solid var(--border);
   margin-bottom: space(6);
-  position: relative;
   z-index: 5;
+
+  &::after {
+    content:'';
+    position: absolute;
+    width: 100%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--border);
+    height: 1px;
+  }
 }
-.header.is-white {
-  color: rgba(255, 255, 255, .60);
-  border-bottom-color: rgba(255, 255, 255, .30);
+.header.is-inversed {
+  color: var(--color-inversed);
+  border-bottom-color: var(--color-inversed);
+
+  a {
+    opacity: .6;
+  }
 
   a:hover, a[aria-current] {
-    color: #FFF;
+    color: var(--color-inversed);
+    opacity: 1;
+  }
+
+  &::after {
+    opacity: .3;
+    background: var(--color-inversed);
   }
 }
 .header svg {
@@ -67,13 +87,4 @@
   .header {
     display: none;
   }
-}
-
-// Misc
-// ==================
-// Element permettant de passer sous le header
-.sub-header {
-  position: relative;
-  margin-top: calc(var(--header-height) * -1);
-  padding-top: calc(var(--header-height) + 40px);
 }

@@ -1,7 +1,7 @@
 import flatpickr from 'flatpickr'
 import 'flatpickr/dist/flatpickr.min.css'
-import { French } from 'flatpickr/dist/l10n/fr.js'
-import 'flatpickr/dist/themes/material_blue.css'
+import {French} from 'flatpickr/dist/l10n/fr.js'
+import '../../css/libs/flatpickr.scss'
 
 /**
  * @property {flatpickr} flatpickr

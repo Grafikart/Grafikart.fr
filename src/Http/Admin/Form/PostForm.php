@@ -7,11 +7,11 @@ use App\Domain\Blog\Category;
 use App\Http\Admin\Data\PostCrudData;
 use App\Http\Admin\Field\UserChoiceType;
 use App\Type\DateTimeType;
+use App\Type\EditorType;
 use App\Type\SwitchType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -38,7 +38,7 @@ class PostForm extends AbstractType
                 'choice_label' => 'name'
             ])
             ->add('author', UserChoiceType::class)
-            ->add('content', TextareaType::class)
+            ->add('content', EditorType::class)
             ->add('online', SwitchType::class);
     }
 

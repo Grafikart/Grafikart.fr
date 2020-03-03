@@ -1,16 +1,16 @@
 
 {{ form_start(form, {attr: {class: 'stacked'}}) }}
-<div class="dashboard-grid">
+<div class="grid">
   {{ form_row(form.title) }}
   {{ form_row(form.slug) }}
   {{ form_row(form.createdAt) }}
   {{ form_row(form.author) }}
   {{ form_row(form.category) }}
-  {{ form_row(form.image, {row_attr: {class: 'form-attachment', style:'grid-row-start:1;'}}) }}
-  <div style="align-self: flex-end">
-    {{ form_row(form.online) }}
+  {{ form_row(form.image, {row_attr: {class: 'form-attachment', style:'grid-row-start:1;align-self:stretch;'}}) }}
+  {{ form_row(form.online, {row_attr: {style: 'align-self: flex-end'}}) }}
+  {{ form_row(form.content) }}
+  <div class="full">
+    <button type="submit" class="btn-gradient">Sauvegarder</button>
   </div>
-  {{ form_row(form.content, {row_attr: {class: 'form-editor'}}) }}
 </div>
-<button type="submit" class="btn-gradient">Sauvegarder</button>
 {{ form_end(form) }}

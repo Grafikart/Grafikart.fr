@@ -6,6 +6,7 @@ use App\Domain\Blog\Category;
 use App\Domain\Blog\Post;
 use App\Domain\Blog\Repository\CategoryRepository;
 use App\Domain\Blog\Repository\PostRepository;
+use Doctrine\ORM\Query;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,21 +22,19 @@ class BlogController extends AbstractController
      */
     public function index(PostRepository $repo, CategoryRepository $categoryRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        $page = $request->query->getInt('page', 1);
-        $posts = $paginator->paginate(
-            $repo->queryAll(),
-            $page,
-            10
-        );
-        if ($posts->count() === 0) {
-            throw new NotFoundHttpException('Aucun articles ne correspond à cette page');
-        }
-        return $this->render('blog/index.html.twig', [
-            'posts' => $posts,
-            'categories' => $categoryRepository->findAll(),
-            'page' => $page,
-            'menu' => 'blog'
-        ]);
+        $title = 'Blog';
+        $query = $repo->queryAll();
+        return $this->renderListing($title, $query, $paginator, $request);
+    }
+
+    /**
+     * @Route("/blog/category/{slug}", name="blog_category")
+     */
+    public function category(Category $category, PostRepository $repo, PaginatorInterface $paginator, Request $request): Response
+    {
+        $title = $category->getName();
+        $query = $repo->queryAll($category);
+        return $this->renderListing($title, $query, $paginator, $request);
     }
 
     /**
@@ -49,24 +48,24 @@ class BlogController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/blog/category/{slug}", name="blog_category")
-     */
-    public function category(Request $request, Category $category, PostRepository $repo, CategoryRepository $categoryRepository, PaginatorInterface $paginator): Response
+    private function renderListing(string $title, Query $query, PaginatorInterface $paginator, Request $request): Response
     {
         $page = $request->query->getInt('page', 1);
         $posts = $paginator->paginate(
-            $repo->queryAll($category),
+            $query,
             $page,
             10
         );
+        if ($page > 1) {
+            $title .= ", page $page";
+        }
         if ($posts->count() === 0) {
             throw new NotFoundHttpException('Aucun articles ne correspond à cette page');
         }
         return $this->render('blog/index.html.twig', [
             'posts' => $posts,
-            'categories' => $categoryRepository->findAll(),
             'page' => $page,
+            'title' => $title,
             'menu' => 'blog'
         ]);
     }

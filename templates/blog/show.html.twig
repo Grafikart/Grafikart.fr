@@ -1,11 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-  <div class="page" style="max-width: 700px; margin-left: auto; margin-right: auto;">
-    <h1 class="page__title">{{ post.title }}</h1>
+{% block title post.title %}
 
-    <div class="page__content formatted">
+{% block body %}
+
+  <div class="blog-single">
+
+    <div class="blog-single__header">
+      <h1 class="blog-single__title">{{ post.title }}</h1>
+      <div class="blog-single__meta">
+        Posté le <time datetime="2019-07-29">{{ post.createdAt | date }}</time> -
+        <a href="/blog/category/concentre-du-web">{{post.category.name}}</a> -
+        Par {{ post.author.username }}
+      </div>
+    </div>
+
+    <div class="blog-single__body formatted {{ post.video ? 'has-video' : 'text-only' }}">
       {{ post.content | markdown }}
+
+      <waves-shape background="{{ image_url(post.image) }}" target="{{ post.video ? '.formatted iframe' : '.formatted p:first-child' }}" {% if not post.video %}position="bottom"{% endif %}></waves-shape>
     </div>
 
     {% include 'partials/comments.html.twig' with {target: post} only %}
