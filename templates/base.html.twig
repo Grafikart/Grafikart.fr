@@ -14,7 +14,7 @@
   <link rel="manifest" href="/manifest.webmanifest">
   <meta name="turbolinks-cache-control" content="no-cache"/>
 </head>
-<body>
+<body {% if bodyClass is defined %}class="{{ bodyClass }}"{% endif %}>
 <nav class="header {% if headerWhite is defined %}is-white{% endif %}">
   <ul class="header-nav">
     <li class="header__home"><a href="{{ path('home') }}" title="Accueil">{{ icon('home') }}</a></li>

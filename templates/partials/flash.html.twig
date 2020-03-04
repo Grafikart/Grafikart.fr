@@ -1,7 +1,7 @@
 {% for type, messages in app.session.flashbag.all() %}
   {% for message in messages %}
     <alert-message type="{{ type }}">
-      {{ message }}
+      {{ message | nl2br }}
     </alert-message>
   {% endfor %}
 {% endfor %}

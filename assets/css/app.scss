@@ -2,6 +2,7 @@
 // ==================
 :root {
   --color: #121C42;
+  --color-light: #121C4299;
   --color-inversed: #EFFBEC;
   --color-transparent: #{rgba(#121C42, 0)};
   --color-btn: #EFFBEC;
@@ -26,6 +27,7 @@
 
 .dark {
   --color: #EFFBEC;
+  --color-light: #EFFBEC99;
   --color-inversed: #121C42;
   --contrast: #61a0f6;
   --gap: 20px;
@@ -56,6 +58,13 @@ body {
   color: var(--color);
   line-height: 1.6;
   background:  var(--background);
+}
+
+body.light {
+  background:  var(--background-light);
+  &::after {
+    display: none;
+  }
 }
 
 body::after {

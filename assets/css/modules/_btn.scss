@@ -64,3 +64,14 @@
     height: 16px;
   }
 }
+
+.text-inversed .btn-big {
+  color: inherit;
+  border-color: currentColor;
+
+  &:hover {
+    color: var(--contrast);
+    background-color: var(--color-inversed);
+    border-color: var(--color-inversed);
+  }
+}

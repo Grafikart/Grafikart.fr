@@ -2,7 +2,6 @@
 // ==================
 .alert {
   margin: space(3) auto;
-  max-width: 400px;
   background: var(--background-light);
   padding: space(2);
   border-radius: 4px;
@@ -87,6 +86,7 @@
   position: fixed;
   top: var(--container-padding);
   right: var(--container-padding);
+  max-width: 400px;
 }
 
 // Bullets

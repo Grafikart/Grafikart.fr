@@ -13,7 +13,7 @@
         Posté le {{ post.createdAt | date }} -
         <a href="{{ path('blog_category', {slug: post.category.slug})}}">{{post.category.name}}</a> -
         Par {{ post.author.username }} -
-        <a href="{{ path('') }}"></a>
+        <a href="{{ path('revision', {id: post.id}) }}">Editer</a>
       </div>
     </div>
 

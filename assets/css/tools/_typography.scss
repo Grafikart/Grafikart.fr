@@ -9,7 +9,8 @@ $font-alt: "Montserrat", "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe 
 @include font-face('a', './fonts/HKGrotesk-Regular', 300 400 600 700, null, woff2 woff ttf svg eot);
 */
 
-%hero-title {
+%hero-title,
+.hero-title {
   font-size: 52px;
   font-family: $font-alt;
   font-weight: 700;
@@ -64,6 +65,9 @@ $font-alt: "Montserrat", "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe 
 }
 .text-center {
   text-align: center!important;
+}
+.text-inversed {
+  color: var(--color-inversed);
 }
 .reader-only {
   display: none;

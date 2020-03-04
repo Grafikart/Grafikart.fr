@@ -1,7 +1,32 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+  {{ form_start(form) }}
 
-  <textarea name="" id="" cols="30" rows="10" is="markdown-editor">{{ content.content }}</textarea>
+  <div class="container stack-large">
+    <div class="flex text-inversed">
+      <div class="stack">
+        <h1 class="hero-title">Proposer<br> un changement</h1>
+        <div class="formatted" style="max-width: 800px">
+          Vous pouvez ici proposer vos modifications sur l'article "<a
+            href="{{ content_path(revision.target) }}">{{ revision.target.title }}</a>" pour corriger une erreur
+          d'ortographe ou ajouter des précisions supplémentaires.
+          Vos modifications seront ensuite validées par un administrateur.
+        </div>
+      </div>
+      <div style="align-self: flex-end">
+        <button class="btn-big" type="submit" style="white-space: nowrap">Valider mes modifications</button>
+      </div>
+    </div>
+
+    <div id="page-editor">
+      {{ include('partials/flash.html.twig') }}
+      {{ form_row(form.content, {label: false}) }}
+    </div>
+
+    <waves-shape target="#page-editor"></waves-shape>
+  </div>
+
+  {{ form_end(form) }}
 
 {% endblock %}

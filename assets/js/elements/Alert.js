@@ -32,7 +32,10 @@ export default class Alert extends global.HTMLElement {
           </svg>
         </button>
       </div>`
-    this.querySelector('.alert-close').addEventListener('click', this.close.bind(this))
+    this.querySelector('.alert-close').addEventListener('click', (e) => {
+      e.preventDefault()
+      this.close()
+    })
   }
 
   close () {
