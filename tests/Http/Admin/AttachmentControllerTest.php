@@ -2,6 +2,7 @@
 
 namespace App\Tests\Http\Admin;
 
+use App\Domain\Auth\User;
 use App\Tests\FixturesTrait;
 use App\Tests\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,42 +12,28 @@ class AttachmentControllerTest extends WebTestCase
 
     use FixturesTrait;
 
-    public function testAttachmentWithoutAuth(): void
+    public function filesDataProvider(): iterable
     {
-        $this->jsonRequest('GET', '/admin/attachment/files');
-        $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
+        $data = $this->loadFixtures(['users', 'attachments']);
+        $attachment = $data['attachment1'];
+        yield [null, Response::HTTP_FORBIDDEN];
+        yield [$data['user1'], Response::HTTP_FORBIDDEN];
+        yield [$data['user_admin'], Response::HTTP_OK];
+        yield [$data['user_admin'], Response::HTTP_OK, '/folders'];
+        yield [$data['user_admin'], Response::HTTP_UNPROCESSABLE_ENTITY, '/files?path=azeaze'];
+        yield [$data['user1'], Response::HTTP_FORBIDDEN, '/' . $attachment->getId(), 'DELETE'];
+        yield [$data['user_admin'], Response::HTTP_OK, '/' . $attachment->getId(), 'DELETE'];
     }
 
-    public function testAttachmentWithInsufficientPermission(): void
-    {
-        ['user1' => $user] = $this->loadFixtures(['users', 'attachments']);
-        $this->login($user);
-        $this->jsonRequest('GET', '/admin/attachment/files');
-        $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
-    }
-
-    public function testPreventDeleteIfAttachmentIsInContent(): void
-    {
-        $users = $this->loadFixtures(['users']);
-        $this->login($users['user_admin']);
-        $this->jsonRequest('GET', '/admin/attachment/files');
-        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
-    }
-
-    public function testFolderEndpoint(): void
-    {
-        $users = $this->loadFixtures(['users']);
-        $this->login($users['user_admin']);
-        $this->jsonRequest('GET', '/admin/attachment/folders');
-        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
-    }
-
-    public function testFileWithBadPathQuery(): void
-    {
-        ['user_admin' => $admin] = $this->loadFixtures(['users']);
-        $this->login($admin);
-        $this->jsonRequest('GET', '/admin/attachment/files?path=azeaze');
-        $this->assertResponseStatusCodeSame(Response::HTTP_UNPROCESSABLE_ENTITY);
+    /**
+     * @dataProvider filesDataProvider
+     */
+    public function testFilesEndpoint (?User $user, int $expectedStatus, $endpoint = '/files', $method = 'GET') {
+        if ($user) {
+            $this->login($user);
+        }
+        $this->jsonRequest($method, '/admin/attachment' . $endpoint);
+        $this->assertResponseStatusCodeSame($expectedStatus);
     }
 
     public function testReturnRightNumberOfAttachment(): void
@@ -58,19 +45,5 @@ class AttachmentControllerTest extends WebTestCase
         $this->assertCount(5, $items);
     }
 
-    public function testDeleteAttachment(): void
-    {
-        ['attachment1' => $attachment] = $this->loadFixtures(['attachments']);
-        $this->jsonRequest('DELETE', '/admin/attachment/' . $attachment->getId());
-        $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
-    }
-
-    public function testDeleteWithRightPermission(): void
-    {
-        ['attachment1' => $attachment, 'user_admin' => $admin] = $this->loadFixtures(['attachments', 'users']);
-        $this->login($admin);
-        $this->jsonRequest('DELETE', "/admin/attachment/{$attachment->getId()}");
-        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
-    }
 
 }
