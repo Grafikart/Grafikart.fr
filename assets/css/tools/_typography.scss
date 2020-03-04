@@ -16,6 +16,10 @@ $font-alt: "Montserrat", "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe 
   font-weight: 700;
   line-height: 1.2;
 
+  strong {
+    color: var(--contrast);
+  }
+
   @include down(675) {
     font-size: 45px;
   }

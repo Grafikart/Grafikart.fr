@@ -1,13 +1,9 @@
-import CodeMirror from 'codemirror'
-import 'codemirror/mode/markdown/markdown'
-import 'codemirror/lib/codemirror.css'
-import 'codemirror/theme/neo.css'
-
 /**
  * Objet permettant de construire un éditeur CodeMirror
  *
  * @property {HTMLDivElement} element
  * @property {CodeMirror} editor
+ * @property {string} value
  */
 export default class Editor {
 
@@ -15,10 +11,18 @@ export default class Editor {
    * @param {string} value
    */
   constructor (value = '') {
+    this.value = value
     this.element = document.createElement('div')
     this.element.classList.add('mdeditor__editor')
+  }
+
+  /**
+   * Démarre l'éditeur
+   */
+  async boot () {
+    const {default: CodeMirror} = await import(/* webpackChunkName: "CodeMirror" */ '../../libs/CodeMirror')
     this.editor = new CodeMirror(this.element, {
-      value: value,
+      value: this.value,
       mode: 'markdown',
       theme: 'neo',
       lineWrapping: true,
@@ -72,6 +76,7 @@ export default class Editor {
 
   /**
    * Fonction appelée lors du changement de valeur de l'éditeur
+   *
    * @param {string} value
    */
   onChange (value) {}

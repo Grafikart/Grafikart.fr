@@ -4,9 +4,9 @@
   {{ form_start(form) }}
 
   <div class="container stack-large">
-    <div class="flex text-inversed">
+    <div class="flex">
       <div class="stack">
-        <h1 class="hero-title">Proposer<br> un changement</h1>
+        <h1 class="hero-title"><strong>Proposer</strong><br> un changement</h1>
         <div class="formatted" style="max-width: 800px">
           Vous pouvez ici proposer vos modifications sur l'article "<a
             href="{{ content_path(revision.target) }}">{{ revision.target.title }}</a>" pour corriger une erreur
@@ -24,7 +24,6 @@
       {{ form_row(form.content, {label: false}) }}
     </div>
 
-    <waves-shape target="#page-editor"></waves-shape>
   </div>
 
   {{ form_end(form) }}

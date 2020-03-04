@@ -13,8 +13,9 @@ class MarkdownEditor extends HTMLTextAreaElement {
     this.toggleFullscreen = this.toggleFullscreen.bind(this)
   }
 
-  connectedCallback () {
+  async connectedCallback () {
     const editor = new Editor(this.value)
+    await editor.boot()
     const toolbar = new Toolbar(editor)
 
     // Construction du DOM
