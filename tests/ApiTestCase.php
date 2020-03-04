@@ -26,6 +26,7 @@ class ApiTestCase extends \ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCa
 
     public function setUp(): void
     {
+        parent::setUp();
         $this->client = static::createClient();
         $this->client->setDefaultOptions(self::DEFAULT_OPTIONS);
     }
