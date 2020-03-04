@@ -1,6 +1,12 @@
 {% extends 'admin/base.html.twig' %}
 
+{% block title 'Dashboard' %}
+
 {% block body %}
+
+  <h1 class="dashboard-title">
+    {{ icon('clock') }} Dashboard
+  </h1>
 
   {% if revisions is not empty  %}
   <div class="dashboard-title">

@@ -15,24 +15,35 @@ class AdminSecurityTest extends WebTestCase
 
     use FixturesTrait;
 
+    private array $users = [];
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->users = $this->loadFixtures(['users']);
+    }
+
     public function dataProvider(): iterable
     {
-        $users = $this->loadFixtures(['users']);
         yield [null, Response::HTTP_FOUND];
-        yield [$users['user1'], Response::HTTP_FORBIDDEN];
-        yield [$users['user_admin'], Response::HTTP_OK];
+        yield ['user1', Response::HTTP_FORBIDDEN];
+        yield ['user_admin', Response::HTTP_OK];
     }
 
     /**
      * @dataProvider dataProvider
      */
-    public function testAdminAccess(?User $user, int $responseCode): iterable
+    public function testAdminAccess(?string $user, int $responseCode): void
     {
         if ($user) {
-            $this->login($user);
+            $this->login($this->users[$user]);
+        }
+        $verb = 'ne devrait pas';
+        if ($responseCode === Response::HTTP_OK) {
+            $verb = 'devrait';
         }
         $this->client->request('GET', '/admin/');
-        $this->assertResponseStatusCodeSame($responseCode);
+        $this->assertResponseStatusCodeSame($responseCode, "L'utilisateur {$user} $verb pouvoir voir l'admin");
     }
 
 }

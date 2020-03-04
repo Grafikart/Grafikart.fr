@@ -4,6 +4,7 @@ namespace App\Tests;
 
 use App\Domain\Auth\User;
 use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\Runner\Exception;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -14,13 +15,20 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
     protected KernelBrowser $client;
     protected EntityManagerInterface $em;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->client = self::createClient();
         /** @var EntityManagerInterface $em */
         $em = self::$container->get(EntityManagerInterface::class);
         $this->em = $em;
+        $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
         parent::setUp();
+    }
+
+    protected function tearDown(): void
+    {
+        $this->em->clear();
+        parent::tearDown();
     }
 
     public function jsonRequest(string $method, string $url): string
@@ -67,15 +75,39 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
         );
     }
 
-    public function login(User $user)
+    public function expectTitle(string $title): void
     {
+        $crawler = $this->client->getCrawler();
+        $this->assertEquals(
+            $title,
+            $crawler->filter('title')->text(),
+            $crawler->filter('title')->text()
+        );
+    }
+
+    public function login(?User $user)
+    {
+        if ($user === null) {
+            return;
+        }
+        // On récupère l'instance dans l'entityManager pour éviter la deAuthenticate dans le ContextListener
+        /** @var EntityManagerInterface $em */
+        $em = self::$container->get(EntityManagerInterface::class);
+        $managedUser = $em->getRepository(User::class)->find($user->getId());
+        if ($managedUser === null) {
+            throw new Exception("Impossible de retrouver l'utilisateur {$user->getId()}");
+        }
+
+        // On crée le cookie
         $session = self::$container->get('session');
         $firewallName = 'main';
         $firewallContext = $firewallName;
-        $token = new UsernamePasswordToken($user, null, $firewallName, $user->getRoles());
+        $token = new UsernamePasswordToken($managedUser, null, $firewallName, $managedUser->getRoles());
         $session->set('_security_' . $firewallContext, serialize($token));
         $session->save();
         $cookie = new Cookie($session->getName(), $session->getId());
+
+        // On ajoute le cookie au client
         $this->client->getCookieJar()->set($cookie);
     }
 

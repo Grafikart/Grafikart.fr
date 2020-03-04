@@ -2,16 +2,20 @@
 
 namespace App\Tests\Http\Admin;
 
+use App\Tests\FixturesTrait;
 use App\Tests\WebTestCase;
 
 class PagesControllerTest extends WebTestCase
 {
 
+    use FixturesTrait;
+
     public function testAdminPage(): void
     {
-        // TODO : Bloquer l'accès aux utilisateurs autres qu'admins ;)
+        $data = $this->loadFixtures(['users']);
+        $this->login($data['user_admin']);
         $this->client->request('GET', '/admin/');
-        $this->expectH1('Dashboard');
+        $this->expectTitle('Dashboard');
     }
 
 }

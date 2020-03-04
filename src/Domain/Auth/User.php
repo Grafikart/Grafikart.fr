@@ -34,7 +34,7 @@ class User implements UserInterface
     private string $password = '';
 
     /** @var array<string> */
-    private array $roles = [];
+    private array $roles = ['ROLE_USER'];
 
     public function getId(): ?int
     {

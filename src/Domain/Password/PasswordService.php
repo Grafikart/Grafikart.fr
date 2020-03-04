@@ -12,7 +12,7 @@ use App\Domain\Password\Event\PasswordResetTokenCreatedEvent;
 use App\Domain\Password\Exception\OngoingPasswordResetException;
 use App\Domain\Password\Repository\PasswordResetTokenRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class PasswordService

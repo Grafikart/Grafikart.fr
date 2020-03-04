@@ -6,7 +6,7 @@ use App\Domain\Application\Entity\Content;
 use App\Domain\Auth\User;
 use App\Domain\Revision\Event\RevisionSubmittedEvent;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 
 class RevisionService
 {
