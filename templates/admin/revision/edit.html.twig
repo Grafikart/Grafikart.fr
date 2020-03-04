@@ -1,0 +1,33 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title 'Editer la révision' %}
+
+{% block body %}
+  <form action="{{ path('admin_revision_show', {id: revision.id}) }}" method="post" class="stack">
+
+    <div class="flex">
+      <div class="dashboard-title" style="margin-bottom: 0;">
+        {{ icon('pen') }}
+        Editer la révision
+      </div>
+      <div>
+        <button type="submit" name="delete" class="btn-danger"
+                onclick="return confirm('Voulez vous vraiment refuser cette révision ?')">
+          Refuser
+        </button>
+        <button type="submit" class="btn-primary">
+          Accepter
+        </button>
+      </div>
+    </div>
+
+    {% include 'partials/flash.html.twig' %}
+
+    <div class="form-group">
+        <textarea class="card" name="content" id="" cols="30" is="diff-editor"
+                  original="{{ revision.target.content | e('html_attr') }}">{{ revision.content }}</textarea>
+    </div>
+
+  </form>
+{% endblock %}
+

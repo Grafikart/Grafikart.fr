@@ -10,7 +10,7 @@ final class PageController extends BaseController
 {
 
     /**
-     * @Route("", name="index")
+     * @Route("", name="home")
      */
     public function index(RevisionRepository $revisionRepository): Response
     {

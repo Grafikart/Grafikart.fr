@@ -45,5 +45,4 @@ class AttachmentControllerTest extends WebTestCase
         $this->assertCount(5, $items);
     }
 
-
 }

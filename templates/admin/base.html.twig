@@ -17,6 +17,7 @@
 <body>
 <nav class="header {% if headerWhite is defined %}is-white{% endif %}">
   <ul class="header-nav">
+    <li class="header__home"><a href="{{ path('admin_home') }}" title="Accueil">{{ icon('home') }}</a></li>
     <li><a href="{{ path('admin_blog_index') }}" {{ menu_active('blog') }}>{{ icon('pen') }} Blog</a></li>
   </ul>
   <ul class="header-side">

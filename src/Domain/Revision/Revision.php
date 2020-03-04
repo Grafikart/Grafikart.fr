@@ -25,13 +25,13 @@ class Revision
      * @ORM\ManyToOne(targetEntity="App\Domain\Auth\User")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
-    private ?User $author = null;
+    private User $author;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Application\Entity\Content")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
-    private ?Content $target = null;
+    private Content $target;
 
     /**
      * @ORM\Column(type="text")
@@ -49,31 +49,31 @@ class Revision
         return $this->id;
     }
 
-    public function getAuthor(): ?User
+    public function getAuthor(): User
     {
         return $this->author;
     }
 
-    public function setAuthor(?User $author): self
+    public function setAuthor(User $author): self
     {
         $this->author = $author;
 
         return $this;
     }
 
-    public function getTarget(): ?Content
+    public function getTarget(): Content
     {
         return $this->target;
     }
 
-    public function setTarget(?Content $target): self
+    public function setTarget(Content $target): self
     {
         $this->target = $target;
 
         return $this;
     }
 
-    public function getContent(): ?string
+    public function getContent(): string
     {
         return $this->content;
     }

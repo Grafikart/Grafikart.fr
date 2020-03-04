@@ -74,5 +74,6 @@ if (!Encore.isProduction()) {
 const config = Encore.getWebpackConfig()
 config.resolve.extensions.push('.svelte')
 config.resolve.mainFields = ['svelte', 'browser', 'module', 'main']
+config.output.globalObject = 'self'
 
 module.exports = config

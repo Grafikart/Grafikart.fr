@@ -14,7 +14,7 @@ class MarkdownEditor extends HTMLTextAreaElement {
   }
 
   async connectedCallback () {
-    const editor = new Editor(this.value)
+    const editor = new Editor(this.value, this.getAttribute('original'))
     await editor.boot()
     const toolbar = new Toolbar(editor)
 

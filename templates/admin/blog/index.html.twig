@@ -37,7 +37,7 @@
               <a href="{{ link }}">{{ icon('edit') }}</a>
               <form action="{{ path('admin_blog_edit', {id: row.id}) }}" method="post" onsubmit="return confirm('Voulez vous vraiment supprimer ce contenu')">
                 <input type="hidden" name="_method" value="DELETE" />
-                <button type="submit" class="btn btn-lg btn-block btn-danger">
+                <button type="submit">
                   {{ icon('delete') }}
                 </button>
               </form>

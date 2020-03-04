@@ -20,7 +20,7 @@ export default class Editor {
    * Démarre l'éditeur
    */
   async boot () {
-    const {default: CodeMirror} = await import(/* webpackChunkName: "CodeMirror" */ '../../libs/CodeMirror')
+    const {default: CodeMirror} = await import(/* webpackChunkName: "CodeMirror" */ './libs/CodeMirror')
     this.editor = new CodeMirror(this.element, {
       value: this.value,
       mode: 'markdown',
