@@ -3,6 +3,6 @@ controllers:
     type: annotation
 admin_controllers:
   name_prefix: admin_
-  prefix: /%admin_prefix%
+  prefix: '%admin_prefix%'
   resource: ../../src/Http/Admin/Controller/
   type: annotation

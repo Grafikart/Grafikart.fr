@@ -1,6 +1,35 @@
 {% extends 'admin/base.html.twig' %}
 
 {% block body %}
-  <h1>Dashboard</h1>r
-  <file-manager style="height:400px;"></file-manager>
+
+  {% if revisions is not empty  %}
+  <div class="dashboard-title">
+    {{ icon('clock') }} Révisions
+  </div>
+  <div class="dashboard-card">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Article</th>
+          <th>Auteur</th>
+          <th>Date</th>
+          <th class="text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for revision in revisions %}
+        <tr>
+          <td>{{ revision.target.title }}</td>
+          <td>{{ revision.author.username }}</td>
+          <td>{{ revision.createdAt | date }}</td>
+          <td class="dashboard-actions">
+            <a href="{{ path('admin_revision_show', {id: revision.id}) }}">{{ icon('edit') }}</a>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+
 {% endblock %}

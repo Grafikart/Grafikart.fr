@@ -28,3 +28,7 @@ services:
       class: 'Everyman\Neo4j\Client'
       factory: ['App\Services\Neo4jClientFactory', 'createClient']
       arguments: ['neo4j', 'neo4j', 'neo4j']
+
+    App\Http\Admin\Firewall\AdminRequestListener:
+      class: App\Http\Admin\Firewall\AdminRequestListener
+      arguments: ['%admin_prefix%']

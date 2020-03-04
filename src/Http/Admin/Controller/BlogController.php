@@ -7,14 +7,11 @@ use App\Domain\Blog\Event\PostDeletedEvent;
 use App\Domain\Blog\Event\PostUpdatedEvent;
 use App\Domain\Blog\Post;
 use App\Http\Admin\Data\PostCrudData;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Permet la gestion du blog
- *
- * @IsGranted("CMS_MANAGE")
  */
 final class BlogController extends CrudController
 {
