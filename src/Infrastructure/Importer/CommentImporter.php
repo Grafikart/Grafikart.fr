@@ -51,21 +51,26 @@ final class CommentImporter extends MySQLImporter
                     ->setUsername($row['username'])
                     ->setEmail($row['email'])
                     ->setContent($row['content'])
-                    ->setCreatedAt(new \DateTime($row['created_at']));
-                if ($row['parent_id'] === null) {
+                    ->setCreatedAt(new \DateTime($row['created_at']))
+                ;
+
+                if (null === $row['parent_id']) {
                     $parents[$row['id']] = $row['id'];
                 }
+
                 if ($row['parent_id'] && isset($parents[$row['parent_id']])) {
                     $comment->setParent($this->em->getReference(Comment::class, $row['parent_id']));
                 }
+
                 if ($row['user_id']) {
                     $user = $this->em->getRepository(User::class)->find($row['user_id']);
-                    if ($user === null) {
+                    if (null === $user) {
                         $comment->setUsername('John Doe')->setEmail('john@doe.fr');
                     } else {
                         $comment->setAuthor($this->em->getReference(User::class, $row['user_id']));
                     }
                 }
+
                 $valid = $this->attachContent($comment, $row['commentable_type'], $row['commentable_id'], $row['slug']);
                 if ($valid) {
                     $this->em->persist($comment);
@@ -89,16 +94,23 @@ final class CommentImporter extends MySQLImporter
             /** @var Course $course */
             $course = $this->em->getReference(Course::class, $id);
             $comment->setTarget($course);
+
             return true;
         }
+
         if ($type === 'Post' && $id > 0 && $slug) {
             $post = $this->em->getRepository(Post::class)->findOneBy(['slug' => $slug]);
             if ($post) {
                 $comment->setTarget($post);
+
                 return true;
             }
         }
         return false;
     }
 
+    public function support(string $type): bool
+    {
+        return $type === 'comments';
+    }
 }

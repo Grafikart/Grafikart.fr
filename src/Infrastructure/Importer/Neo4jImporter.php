@@ -8,7 +8,7 @@ use Everyman\Neo4j\Cypher\Query;
 use Everyman\Neo4j\Query\ResultSet;
 use Everyman\Neo4j\Query\Row;
 
-abstract class Neo4jImporter
+abstract class Neo4jImporter implements TypeImporterInterface
 {
 
     use DatabaseImporterTools;
