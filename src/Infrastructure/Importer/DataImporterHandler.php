@@ -13,15 +13,21 @@ final class DataImporterHandler
 
     private EntityManagerInterface $em;
 
-    private $handlers = [];
+    private iterable $handlers = [];
 
-    public function __construct(iterable $handlers, EntityManagerInterface $em)
+    public function __construct(\Traversable $handlers, EntityManagerInterface $em)
     {
         $this->handlers = iterator_to_array($handlers);
         $this->em = $em;
     }
 
-    public function getImporter(string $type, $io): bool
+    /**
+     * @param string|string[]|null $type
+     * @param SymfonyStyle         $io
+     *
+     * @return bool
+     */
+    public function getImporter($type, SymfonyStyle $io): bool
     {
         $importerSupportFound = false;
         foreach ($this->handlers as $handler) {
