@@ -1,0 +1,15 @@
+.breadcrumb {
+  color: var(--color-light);
+  font-size: .9em;
+  margin-bottom: space(2);
+}
+.breadcrumb > *::before {
+  content: '>';
+}
+.breadcrumb > *:first-child::before {
+  display: none;
+}
+.breadcrumb a:hover span {
+  color: var(--color);
+  text-decoration: underline;
+}

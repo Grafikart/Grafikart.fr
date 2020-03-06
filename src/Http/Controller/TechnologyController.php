@@ -11,7 +11,7 @@ class TechnologyController extends AbstractController
 {
 
     /**
-     * @Route("/tutoriels/{slug}", name="technology_index", requirements={"slug"="[a-z\-]+"})
+     * @Route("/tutoriels/{slug}", name="technology_show", requirements={"slug"="[a-z\-]+"})
      */
     public function index(Technology $technology): Response
     {
