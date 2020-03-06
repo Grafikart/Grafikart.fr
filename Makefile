@@ -3,8 +3,10 @@ group := $(shell id -g)
 dc := USER_ID=$(user) GROUP_ID=$(group) docker-compose
 dr := $(dc) run --rm
 de := docker-compose exec
+console :=$(de) php bin/console
 drtest := $(dc) -f docker-compose.test.yml run --rm
 
+.DEFAULT_GOAL := help
 .PHONY: help
 help: ## Affiche cette aide
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
@@ -14,30 +16,36 @@ install: public/assets vendor/autoload.php ## Installe les différentes dépenda
 
 .PHONY: build-docker
 build-docker:
-	USER_ID=$(user) GROUP_ID=$(group) docker-compose build php
-	USER_ID=$(user) GROUP_ID=$(group) docker-compose build node
+	$(dc) pull --ignore-pull-failures
+	$(dc) build --force-rm --pull
 
-.PHONY: lint
-lint: vendor/autoload.php ## Analyse le code
-	docker run -v $(PWD):/app --rm phpstan/phpstan analyse
+.PHONY: dev
+dev: vendor/autoload.php node_modules/time ## Lance le serveur de développement
+	$(dc) up --remove-orphans
+
+.PHONY: clean
+clean: ## Nettoie les containers
+	$(dc) -f docker-compose.yml -f docker-compose.test.yml -f docker-compose.import.yml down --volumes
 
 .PHONY: seed
 seed: vendor/autoload.php ## Génère des données dans la base de données (docker-compose up doit être lancé)
-	$(de) php bash -c "php bin/console doctrine:migrations:migrate -q && php bin/console hautelook:fixtures:load -q"
+	$(console) doctrine:migrations:migrate -q
+	$(console) doctrine:schema:validate -q
+	$(console) hautelook:fixtures:load -q
 
 .PHONY: migrate
 migrate: vendor/autoload.php ## Migre la base de donnée (docker-compose up doit être lancé)
-	$(de) php php bin/console doctrine:migrations:migrate -q
+	$(console) doctrine:migrations:migrate -q
 
 .PHONY: import
 import: vendor/autoload.php ## Import les données du site actuel
 	$(dc) -f docker-compose.import.yml up -d
-	$(de) php bin/console doctrine:migrations:migrate -q
-	$(de) php bin/console app:import reset
-	$(de) php bin/console app:import users
-	$(de) php bin/console app:import tutoriels
-	$(de) php bin/console app:import blog
-	$(de) php bin/console app:import comments
+	$(console) doctrine:migrations:migrate -q
+	$(console) app:import reset
+	$(console) app:import users
+	$(console) app:import tutoriels
+	$(console) app:import blog
+	$(console) app:import comments
 	$(dc) -f docker-compose.import.yml stop
 
 .PHONY: test
@@ -49,13 +57,9 @@ test: vendor/autoload.php ## Execute les tests
 tt: vendor/autoload.php ## Lance le watcher phpunit
 	$(drtest) phptest vendor/bin/phpunit-watcher watch --filter="nothing"
 
-.PHONY: clean
-clean: ## Nettoie les containers
-	$(dc) -f docker-compose.yml -f docker-compose.test.yml -f docker-compose.import.yml down --volumes
-
-.PHONY: dev
-dev: vendor/autoload.php node_modules/time ## Lance le serveur de développement
-	$(dc) up
+.PHONY: lint
+lint: vendor/autoload.php ## Analyse le code
+	docker run -v $(PWD):/app --rm phpstan/phpstan analyse
 
 .PHONY: doc
 doc: ## Génère le sommaire de la documentation
