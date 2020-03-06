@@ -89,4 +89,9 @@ final class BlogImporter extends MySQLImporter
         $io->progressFinish();
         $io->success(sprintf('Importation de %d articles', count($rows)));
     }
+
+    public function support(string $type): bool
+    {
+        return 'blog' === $type;
+    }
 }

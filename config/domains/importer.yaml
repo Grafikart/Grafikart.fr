@@ -7,17 +7,26 @@ services:
       - 'root'
       - 'root'
   App\Infrastructure\Importer\BlogImporter:
-    class: App\Infrastructure\Importer\BlogImporter
     autowire: true
+    tags: ['importer.handler']
     arguments:
       $pdo: '@importer.pdo'
   App\Infrastructure\Importer\UserImporter:
-    class: App\Infrastructure\Importer\UserImporter
     autowire: true
+    tags: ['importer.handler']
     arguments:
       $pdo: '@importer.pdo'
   App\Infrastructure\Importer\CommentImporter:
-    class: App\Infrastructure\Importer\CommentImporter
     autowire: true
+    tags: ['importer.handler']
     arguments:
       $pdo: '@importer.pdo'
+  App\Infrastructure\Importer\CoursesImporter:
+    autowire: true
+    tags: ['importer.handler']
+  # App\Infrastructure\Importer\FormationImporter:
+  #   autowire: true
+  #   tags: ['importer.handler']
+
+  App\Infrastructure\Importer\DataImporterHandler:
+    arguments: [!tagged_iterator importer.handler, '@doctrine.orm.entity_manager']

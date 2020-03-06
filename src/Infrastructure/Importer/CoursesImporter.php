@@ -143,4 +143,8 @@ final class CoursesImporter extends Neo4jImporter
         $io->success(sprintf('Import de %d relations', $rows->count()));
     }
 
+    public function support(string $type): bool
+    {
+        return $type === 'tutoriels';
+    }
 }

@@ -6,7 +6,7 @@ use App\Domain\Auth\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-final class UserImporter
+final class UserImporter implements TypeImporterInterface
 {
 
     use DatabaseImporterTools;
@@ -63,4 +63,8 @@ final class UserImporter
         $io->success(sprintf('Importation de %d utilisateurs', $result['count']));
     }
 
+    public function support(string $type): bool
+    {
+        return $type === 'users';
+    }
 }

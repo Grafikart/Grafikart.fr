@@ -74,7 +74,10 @@ final class FormationImporter extends Neo4jImporter
             break;
         }
         $io->progressFinish();
-
     }
 
+    public function support(string $type): bool
+    {
+        return $type === 'tutoriels';
+    }
 }

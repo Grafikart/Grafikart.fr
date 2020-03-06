@@ -5,7 +5,7 @@ namespace App\Infrastructure\Importer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 
-abstract class MySQLImporter
+abstract class MySQLImporter implements TypeImporterInterface
 {
 
     use DatabaseImporterTools;
