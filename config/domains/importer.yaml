@@ -24,9 +24,9 @@ services:
   App\Infrastructure\Importer\CoursesImporter:
     autowire: true
     tags: ['importer.handler']
-  # App\Infrastructure\Importer\FormationImporter:
-  #   autowire: true
-  #   tags: ['importer.handler']
+  App\Infrastructure\Importer\FormationImporter:
+    autowire: true
+    tags: ['importer.handler']
 
   App\Infrastructure\Importer\DataImporterHandler:
     arguments: [!tagged_iterator importer.handler, '@doctrine.orm.entity_manager']

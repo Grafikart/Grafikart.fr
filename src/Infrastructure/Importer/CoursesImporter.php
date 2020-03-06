@@ -48,7 +48,7 @@ final class CoursesImporter extends Neo4jImporter
             }
         }
 
-        // On persite
+        // On persiste
         $this->em->flush();
         $io->success(sprintf('Import de %d technologies', $result->count()));
     }
@@ -57,6 +57,7 @@ final class CoursesImporter extends Neo4jImporter
     {
         $io->title('Import des cours');
         $this->truncate('course');
+        $this->truncate('formation');
         $this->disableAutoIncrement(Content::class);
 
         $rows = $this->neo4jQuery(<<<CYPHER
@@ -91,7 +92,7 @@ final class CoursesImporter extends Neo4jImporter
             $this->em->persist($course);
         }
 
-        // On persite
+        // On persiste
         $this->em->flush();
         $id = $tutoriel['uuid'] + 1;
         $this->em->getConnection()->exec("ALTER SEQUENCE content_id_seq RESTART WITH $id;");

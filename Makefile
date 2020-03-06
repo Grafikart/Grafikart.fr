@@ -3,7 +3,7 @@ group := $(shell id -g)
 dc := USER_ID=$(user) GROUP_ID=$(group) docker-compose
 dr := $(dc) run --rm
 de := docker-compose exec
-console :=$(de) php bin/console
+sy := $(de) php bin/console
 drtest := $(dc) -f docker-compose.test.yml run --rm
 
 .DEFAULT_GOAL := help
@@ -21,7 +21,7 @@ build-docker:
 
 .PHONY: dev
 dev: vendor/autoload.php node_modules/time ## Lance le serveur de développement
-	$(dc) up --remove-orphans
+	$(dc) up
 
 .PHONY: clean
 clean: ## Nettoie les containers
@@ -29,23 +29,24 @@ clean: ## Nettoie les containers
 
 .PHONY: seed
 seed: vendor/autoload.php ## Génère des données dans la base de données (docker-compose up doit être lancé)
-	$(console) doctrine:migrations:migrate -q
-	$(console) doctrine:schema:validate -q
-	$(console) hautelook:fixtures:load -q
+	$(sy) doctrine:migrations:migrate -q
+	$(sy) doctrine:schema:validate -q
+	$(sy) hautelook:fixtures:load -q
 
 .PHONY: migrate
 migrate: vendor/autoload.php ## Migre la base de donnée (docker-compose up doit être lancé)
-	$(console) doctrine:migrations:migrate -q
+	$(sy) doctrine:migrations:migrate -q
 
 .PHONY: import
 import: vendor/autoload.php ## Import les données du site actuel
 	$(dc) -f docker-compose.import.yml up -d
-	$(console) doctrine:migrations:migrate -q
-	$(console) app:import reset
-	$(console) app:import users
-	$(console) app:import tutoriels
-	$(console) app:import blog
-	$(console) app:import comments
+	# $(sy) doctrine:migrations:migrate -q
+	$(sy) app:import reset
+	# $(sy) app:import users
+	$(sy) app:import tutoriels
+	$(sy) app:import formations
+	$(sy) app:import blog
+	# $(sy) app:import comments
 	$(dc) -f docker-compose.import.yml stop
 
 .PHONY: test

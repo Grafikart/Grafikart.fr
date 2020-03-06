@@ -20,14 +20,9 @@ class Formation extends Content
 
     /**
      * @ORM\Column(type="json")
-     * @var array<string>
+     * @return array{title: string, courses: int[]}[]
      */
     private array $chapters = [];
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private int $duration = 0;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -57,17 +52,25 @@ class Formation extends Content
     }
 
     /**
-     * @return array<string>
+     * @return Chapter[]
      */
     public function getChapters(): array
+    {
+        return Chapter::makeFromFormation($this);
+    }
+
+    /**
+     * Renvoie les données brut (JSON)
+     */
+    public function getRawChapters(): array
     {
         return $this->chapters;
     }
 
     /**
-     * @param array<string> $chapters
+     * @param list<array{title: string, courses: int[]}> $chapters
      */
-    public function setChapters(array $chapters): self
+    public function setRawChapters(array $chapters): self
     {
         $this->chapters = $chapters;
 
@@ -76,14 +79,10 @@ class Formation extends Content
 
     public function getDuration(): int
     {
-        return $this->duration;
-    }
-
-    public function setDuration(int $duration): self
-    {
-        $this->duration = $duration;
-
-        return $this;
+        return array_reduce($this->courses->toArray(), function (int $acc, Course $item) {
+            $acc += $item->getDuration();
+            return $acc;
+        }, 0);
     }
 
     public function getYoutubePlaylist(): string
@@ -127,5 +126,15 @@ class Formation extends Content
         }
 
         return $this;
+    }
+
+    public function getCoursesById(): array
+    {
+        $courses = $this->getCourses();
+        $coursesById = [];
+        foreach($this->getCourses() as $course) {
+            $coursesById[$course->getId()] = $course;
+        }
+        return $coursesById;
     }
 }
