@@ -17,4 +17,12 @@ class PagesController extends AbstractController
         return $this->render('pages/home.html.twig');
     }
 
+    /**
+     * @Route("/environnement", name="env")
+     */
+    public function env(): Response
+    {
+        return $this->render('pages/env.html.twig');
+    }
+
 }

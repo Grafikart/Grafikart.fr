@@ -54,12 +54,10 @@
   display: none;
   position: relative;
 }
-
 .wave-header__image img {
   position: relative;
   z-index: 2;
 }
-
 @include up(550) {
   .wave-header {
     grid-template-columns: 1fr 200px;
@@ -71,7 +69,6 @@
     padding: 0 25px;
   }
 }
-
 @include up(1000) {
   .wave-header {
     grid-template-columns: 1fr 400px;
@@ -96,4 +93,12 @@
     border-radius: 50% / 15px;
     background-color: var(--border-light);
   }
+}
+
+// Page alternant des blocks de couleurs
+// ==========================================================================
+.sections > * {
+  @extend %container;
+  padding-top: 115px;
+  padding-bottom: 115px;
 }

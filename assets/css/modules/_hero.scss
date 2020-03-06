@@ -1,0 +1,23 @@
+.hero-grid {
+  --col-width: 400px;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  grid-gap: space(4);
+  grid-auto-flow: dense;
+
+  @include up(900) {
+    grid-template-columns: var(--col-width) 1fr;
+    grid-gap: space(8);
+
+    &.is-inversed {
+      grid-template-columns: 1fr var(--col-width);
+    }
+    &.is-inversed > *:first-child {
+      grid-column: 2 / span 1;
+    }
+    &.is-inversed > *:last-child {
+      grid-column: 1 / span 1;
+    }
+  }
+}

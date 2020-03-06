@@ -58,6 +58,7 @@ body {
   color: var(--color);
   line-height: 1.6;
   background:  var(--background);
+  scroll-margin: 100px 0 0 0;
 }
 
 body.light {
@@ -101,6 +102,8 @@ body::after {
 @import "modules/comments";
 @import "modules/page";
 @import "modules/breadcrumb";
+@import "modules/hero";
+@import "modules/nav";
 
 // Pages
 // ==================
@@ -109,6 +112,7 @@ body::after {
 @import "pages/auth";
 @import "pages/blog";
 @import "pages/dashboard";
+@import "pages/env";
 // @import "pages/single";
 // @import "pages/single";
 // @import "pages/single";
