@@ -66,6 +66,9 @@
   align-items: center;
   justify-content: space-between;
 }
+.flex.start {
+  justify-content: flex-start;
+}
 .inline-1 {
   display: flex;
   & > * + * {
@@ -103,6 +106,12 @@
   margin-top: space(3);
   border-top: 1px solid var(--border-light);
   padding-top: space(3);
+}
+.hstack > * + * {
+  margin-left: space(2);
+}
+.hstack-large > * + * {
+  margin-left: space(4);
 }
 
 // Layout

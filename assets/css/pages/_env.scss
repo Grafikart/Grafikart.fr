@@ -21,12 +21,15 @@
 }
 
 .page-env .waves {
-  --wave-height: 200px;
-  transform: scaleX(-1);
+  --wave-height: 150px;
 }
 
 @include up(900) {
 
+  .page-env .waves {
+    --wave-height: 200px;
+    transform: scaleX(-1);
+  }
   .page-env .hero-grid > *:first-child {
     align-self: flex-start;
     padding-top: 150px;

@@ -19,12 +19,12 @@ class Course extends Content
     /**
      * @ORM\Column(type="string", length=12, nullable=true)
      */
-    private ?string $youtube_id;
+    private ?string $youtubeId;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private ?string $video_path;
+    private ?string $videoPath;
 
     /**
      * @ORM\Column(type="boolean", options={"default": 0})
@@ -44,7 +44,7 @@ class Course extends Content
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Course\Entity\Course")
      */
-    private ?Course $deprecated_by;
+    private ?Course $deprecatedBy;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Course\Entity\Formation", inversedBy="courses")
@@ -66,24 +66,24 @@ class Course extends Content
 
     public function getYoutubeId(): ?string
     {
-        return $this->youtube_id;
+        return $this->youtubeId;
     }
 
-    public function setYoutubeId(?string $youtube_id): self
+    public function setYoutubeId(?string $youtubeId): self
     {
-        $this->youtube_id = $youtube_id;
+        $this->youtubeId = $youtubeId;
 
         return $this;
     }
 
     public function getVideoPath(): ?string
     {
-        return $this->video_path;
+        return $this->videoPath;
     }
 
-    public function setVideoPath(?string $video_path): self
+    public function setVideoPath(?string $videoPath): self
     {
-        $this->video_path = $video_path;
+        $this->videoPath = $videoPath;
 
         return $this;
     }
@@ -126,12 +126,12 @@ class Course extends Content
 
     public function getDeprecatedBy(): ?self
     {
-        return $this->deprecated_by;
+        return $this->deprecatedBy;
     }
 
-    public function setDeprecatedBy(?self $deprecated_by): self
+    public function setDeprecatedBy(?self $deprecatedBy): self
     {
-        $this->deprecated_by = $deprecated_by;
+        $this->deprecatedBy = $deprecatedBy;
 
         return $this;
     }

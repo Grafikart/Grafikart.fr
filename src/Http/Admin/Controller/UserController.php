@@ -26,6 +26,12 @@ class UserController extends BaseController
         /** @var UserRepository $repository */
         $repository = $this->em->getRepository(User::class);
         $q = strtolower($q);
+        if ($q === 'moi') {
+            return new JsonResponse([[
+                'id' => $this->getUser()->getId(),
+                'username' => $this->getUser()->getUsername()
+            ]]);
+        }
         $users = $repository
             ->createQueryBuilder('u')
             ->select('u.id', 'u.username')

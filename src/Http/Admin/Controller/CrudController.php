@@ -6,6 +6,7 @@ use App\Domain\Application\Entity\Content;
 use App\Http\Admin\Data\CrudDataInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\PaginatorInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -50,16 +51,16 @@ abstract class CrudController extends BaseController
         $this->requestStack = $requestStack;
     }
 
-    public function crudIndex(): Response
+    public function crudIndex(QueryBuilder $query = null): Response
     {
         /** @var Request $request */
         $request = $this->requestStack->getCurrentRequest();
-        $query = $this->getRepository()
+        $query = $query ?: $this->getRepository()
             ->createQueryBuilder('p')
             ->orderBy('p.createdAt', 'DESC');
         if ($request->get('q')) {
-            $query = $query->where('p.title LIKE :title')
-                ->setParameter('title', "%" . $request->get('q') . "%");
+            $query = $query->where('LOWER(p.title) LIKE :title')
+                ->setParameter('title', "%" . strtolower($request->get('q')) . "%");
         }
         $page = $request->query->getInt('page', 1);
         $rows = $this->paginator->paginate(
@@ -70,7 +71,8 @@ abstract class CrudController extends BaseController
         return $this->render("admin/{$this->templatePath}/index.html.twig", [
             'rows' => $rows,
             'page' => $page,
-            'menu' => $this->menuItem
+            'menu' => $this->menuItem,
+            'prefix' => $this->routePrefix
         ]);
 
     }
@@ -91,10 +93,10 @@ abstract class CrudController extends BaseController
             return $this->redirectToRoute($this->routePrefix . '_edit', ['id' => $entity->getId()]);
         }
 
-        return $this->render('admin/blog/edit.html.twig', [
+        return $this->render("admin/{$this->templatePath}/edit.html.twig", [
             'form' => $form->createView(),
             'entity' => $data->getEntity(),
-            'menu' => 'blog'
+            'menu' => $this->menuItem
         ]);
     }
 
@@ -115,10 +117,10 @@ abstract class CrudController extends BaseController
             return $this->redirectToRoute($this->routePrefix . '_edit', ['id' => $entity->getId()]);
         }
 
-        return $this->render('admin/blog/new.html.twig', [
+        return $this->render("admin/{$this->templatePath}/new.html.twig", [
             'form' => $form->createView(),
             'entity' => $data->getEntity(),
-            'menu' => 'blog'
+            'menu' => $this->menuItem
         ]);
     }
 

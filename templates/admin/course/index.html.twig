@@ -1,0 +1,58 @@
+{% extends 'admin/layout/card.html.twig' %}
+
+{% block title %}
+    {{ icon('video') }}
+    Gestion des tutoriels
+{% endblock %}
+
+{% block content %}
+    <div class="flex">
+      <form class="form-group dashboard-search">
+        <input name="q" type="text" placeholder="Rechercher un tutoriel" value="{{ app.request.get('q') }}" >
+      </form>
+      <a href="{{ path(prefix ~ '_new') }}" class="dashboard-btn">Ajouter un tutoriel</a>
+    </div>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Technologies</th>
+        <th class="text-center">Statut</th>
+        <th class="text-right">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+        {% for row in rows %}
+          {% set link = path(prefix ~ '_edit', {id: row.id}) %}
+        <tr>
+          <td class="dashboard-id">
+            <a href="{{ link }}">{{ row.id }}</a>
+          </td>
+          <td>
+            <a href="{{ link }}">{{ row.title }}</a>
+          </td>
+          <td>
+            {% for technology in row.mainTechnologies %}
+              {{ technology.name }}{% if not loop.last %}, {% endif %}
+            {% endfor %}
+          </td>
+          <td><span class="bullet {% if row.online == false %}bullet--danger{% endif %}"></span></td>
+          <td>
+            <div class="dashboard-actions">
+              <a href="{{ link }}">{{ icon('edit') }}</a>
+              <form action="{{ path(prefix ~ '_edit', {id: row.id}) }}" method="post" onsubmit="return confirm('Voulez vous vraiment supprimer ce contenu')">
+                <input type="hidden" name="_method" value="DELETE" />
+                <button type="submit">
+                  {{ icon('delete') }}
+                </button>
+              </form>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    {{ knp_pagination_render(rows) }}
+{% endblock %}
