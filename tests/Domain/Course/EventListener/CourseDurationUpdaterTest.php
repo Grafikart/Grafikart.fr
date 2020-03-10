@@ -3,14 +3,17 @@
 namespace App\Tests\Domain\Course\EventListener;
 
 use App\Domain\Course\Entity\Course;
-use App\Tests\DatabaseTestCase;
+use App\Tests\FixturesTrait;
+use App\Tests\KernelTestCase;
 use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
 
 /**
  * @IgnoreAnnotation("dataProvider")
  */
-class CourseDurationUpdaterTest extends DatabaseTestCase
+class CourseDurationUpdaterTest extends KernelTestCase
 {
+
+    use FixturesTrait;
 
     public function getData (): iterable
     {

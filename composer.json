@@ -43,6 +43,7 @@
     "vich/uploader-bundle": "^1.13"
   },
   "require-dev": {
+    "dama/doctrine-test-bundle": "^6.3",
     "doctrine/doctrine-fixtures-bundle": "^3.3",
     "hautelook/alice-bundle": "^2.7",
     "justinrainbow/json-schema": "^5.2",

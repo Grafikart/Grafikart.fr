@@ -2,7 +2,6 @@
 
 namespace App\Tests\Http\Admin;
 
-use App\Domain\Auth\User;
 use App\Tests\FixturesTrait;
 use App\Tests\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,7 +44,7 @@ class AttachmentControllerTest extends WebTestCase
 
     public function testReturnRightNumberOfAttachment(): void
     {
-        ['user_admin' => $admin] = $this->loadFixtures(['users', 'attachments']);
+        ['user_admin' => $admin] = $this->data;
         $this->login($admin);
         $content = $this->jsonRequest('GET', '/admin/attachment/files');
         $items = json_decode($content);
