@@ -1,0 +1,13 @@
+services:
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: false # Automatically registers your services as commands, event subscribers, etc.
+    public: false
+
+  App\Domain\Course\EventListener\CourseDurationUpdater:
+    tags:
+      -
+        name: 'doctrine.orm.property_change_listener'
+        entity: 'App\Domain\Course\Entity\Course'
+        property: 'videoPath'
+        method: 'updateDuration'

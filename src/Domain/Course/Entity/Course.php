@@ -88,7 +88,7 @@ class Course extends Content
         return $this;
     }
 
-    public function getSource(): ?bool
+    public function getSource(): bool
     {
         return $this->source;
     }
@@ -105,14 +105,14 @@ class Course extends Content
         return $this->demo;
     }
 
-    public function setDemo(string $demo): self
+    public function setDemo(?string $demo): self
     {
         $this->demo = $demo;
 
         return $this;
     }
 
-    public function getPremium(): ?bool
+    public function getPremium(): bool
     {
         return $this->premium;
     }

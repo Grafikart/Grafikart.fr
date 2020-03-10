@@ -9,6 +9,7 @@ use App\Type\DateTimeType;
 use App\Type\EditorType;
 use App\Type\SwitchType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -30,7 +31,7 @@ class CourseForm extends AbstractType
             ->add('videoPath', TextType::class, [
                 'required' => false
             ])
-            ->add('deprecatedBy', TextType::class, [
+            ->add('deprecatedBy', NumberType::class, [
                 'required' => false
             ])
             ->add('demo', TextType::class, [
