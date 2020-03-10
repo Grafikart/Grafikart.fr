@@ -1,6 +1,6 @@
 <?php
 
-use Symfony\Component\Dotenv\Dotenv;
+use Doctrine\Common\Annotations\AnnotationReader;
 
 require dirname(__DIR__).'/vendor/autoload.php';
 
@@ -9,3 +9,5 @@ require dirname(__DIR__).'/vendor/autoload.php';
 // } elseif (method_exists(Dotenv::class, 'bootEnv')) {
 //    (new Dotenv())->bootEnv(dirname(__DIR__).'/.env');
 // }
+
+AnnotationReader::addGlobalIgnoredName('dataProvider');

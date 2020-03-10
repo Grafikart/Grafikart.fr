@@ -1,5 +1,8 @@
 parameters:
   admin_prefix: '%env(resolve:ADMIN_PREFIX)%'
+  download_path: '%kernel.project_dir%/downloads'
+  videos_path: '%download_path%/videos'
+  sources_path: '%download_path%/sources'
 
 services:
     _defaults:

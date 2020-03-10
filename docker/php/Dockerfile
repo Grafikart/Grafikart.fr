@@ -25,6 +25,9 @@ RUN wget https://get.symfony.com/cli/installer -O - | bash && \
 
 ADD xdebug.ini /usr/local/etc/php/conf.d/
 
+# Pour la récupération des durées
+RUN apt-get update && apt-get install -y ffmpeg
+
 ARG USER_ID
 ARG GROUP_ID
 

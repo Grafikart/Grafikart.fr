@@ -17,7 +17,7 @@ install: public/assets vendor/autoload.php ## Installe les différentes dépenda
 .PHONY: build-docker
 build-docker:
 	$(dc) pull --ignore-pull-failures
-	$(dc) build --force-rm --pull
+	$(dc) build --force-rm
 
 .PHONY: dev
 dev: vendor/autoload.php node_modules/time ## Lance le serveur de développement

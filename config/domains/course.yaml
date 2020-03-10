@@ -3,6 +3,8 @@ services:
     autowire: true      # Automatically injects dependencies in your services.
     autoconfigure: false # Automatically registers your services as commands, event subscribers, etc.
     public: false
+    bind:
+      $videosPath: '%videos_path%'
 
   App\Domain\Course\EventListener\CourseDurationUpdater:
     tags:

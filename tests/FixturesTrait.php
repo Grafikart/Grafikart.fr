@@ -2,20 +2,34 @@
 
 namespace App\Tests;
 
+use App\Helper\PathHelper;
+use Doctrine\ORM\EntityManagerInterface;
+use Fidry\AliceDataFixtures\LoaderInterface;
+
+/**
+ * @property EntityManagerInterface $em
+ */
 trait FixturesTrait
 {
 
-    use \Liip\TestFixturesBundle\Test\FixturesTrait {
-        loadFixtureFiles as liipLoadFixtureFiles;
-    }
-
     /**
+     * Charge une série de fixture en base de donnée et ajoute les entités à l'EntityManager
+     *
      * @param array<string> $fixtures
      * @return array<string,object>
      */
     public function loadFixtures(array $fixtures): array
     {
-        return $this->liipLoadFixtureFiles(array_map(fn($fixture) => __DIR__ . '/fixtures/' . $fixture . '.yaml', $fixtures));
+        $fixturePath = $this->getFixturesPath();
+        $files = array_map(fn($fixture) => PathHelper::join($fixturePath, $fixture . '.yaml'), $fixtures);
+        /** @var LoaderInterface $loader */
+        $loader = static::$container->get('fidry_alice_data_fixtures.loader.doctrine');
+        return $loader->load($files);
+    }
+
+    public function getFixturesPath()
+    {
+        return __DIR__ . '/fixtures/';
     }
 
 }

@@ -25,7 +25,11 @@ class DoctrinePropertyChangeEventListener
         $this->propertyAccessor = $propertyAccessor;
     }
 
-    public function prePersist(object $entity, LifecycleEventArgs $event): void
+    /**
+     * @param object $entity
+     * @return void
+     */
+    public function prePersist($entity, LifecycleEventArgs $event)
     {
         foreach ($this->listeners as $key => $listeners) {
             if ($value = $this->propertyAccessor->getValue($entity, $key)) {
@@ -37,7 +41,11 @@ class DoctrinePropertyChangeEventListener
         }
     }
 
-    public function preUpdate(object $entity, PreUpdateEventArgs $event): void
+    /**
+     * @param object $entity
+     * @return void
+     */
+    public function preUpdate($entity, PreUpdateEventArgs $event)
     {
         $changeSet = $event->getEntityManager()->getUnitOfWork()->getEntityChangeSet($entity);
         foreach ($this->listeners as $key => $listeners) {

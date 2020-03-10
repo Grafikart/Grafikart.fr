@@ -223,9 +223,6 @@
     "league/flysystem": {
         "version": "1.0.63"
     },
-    "liip/test-fixtures-bundle": {
-        "version": "1.6.0"
-    },
     "monolog/monolog": {
         "version": "2.0.2"
     },

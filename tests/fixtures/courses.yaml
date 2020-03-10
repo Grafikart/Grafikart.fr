@@ -1,0 +1,8 @@
+include:
+  - ../../fixtures/templates.yaml
+
+App\Domain\Auth\User:
+  user{1} (extends user):
+
+App\Domain\Course\Entity\Course:
+  course{1} (extends course):

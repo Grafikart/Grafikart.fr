@@ -46,7 +46,6 @@
     "doctrine/doctrine-fixtures-bundle": "^3.3",
     "hautelook/alice-bundle": "^2.7",
     "justinrainbow/json-schema": "^5.2",
-    "liip/test-fixtures-bundle": "^1.0.0",
     "phpstan/phpstan": "^0.12.7",
     "phpstan/phpstan-doctrine": "^0.12.9",
     "phpstan/phpstan-mockery": "^0.12.3",
