@@ -38,7 +38,9 @@
   @extend .btn-gradient;
   font-size: .9em;
 }
-
+.dashboard .mdeditor {
+  box-shadow: none;
+}
 
 // Grille
 // ==================

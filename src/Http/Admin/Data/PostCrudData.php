@@ -7,7 +7,6 @@ use App\Domain\Auth\User;
 use App\Domain\Blog\Category;
 use App\Domain\Blog\Post;
 use App\Http\Admin\Form\PostForm;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
@@ -25,12 +24,12 @@ final class PostCrudData implements CrudDataInterface
 
     public ?Category $category = null;
 
-    public \DateTimeInterface $createdAt;
+    public ?\DateTimeInterface $createdAt;
 
     /**
      * @Assert\NotBlank()
      */
-    public User $author;
+    public ?User $author;
 
     /**
      * @Assert\NotBlank()
@@ -61,13 +60,9 @@ final class PostCrudData implements CrudDataInterface
         $this->createdAt = new \DateTime();
     }
 
-    /**
-     * @param Post $post
-     */
-    public function hydrate(Post $post, EntityManagerInterface $em): Post
+    public function hydrate(): void
     {
-        /** @var Post $post */
-        $post = $post
+        $this->entity
             ->setCategory($this->category)
             ->setImage($this->image)
             ->setTitle($this->title)
@@ -77,7 +72,6 @@ final class PostCrudData implements CrudDataInterface
             ->setUpdatedAt(new \DateTime())
             ->setAuthor($this->author)
             ->setSlug($this->slug);
-        return $post;
     }
 
     public function getEntity(): object
@@ -90,7 +84,7 @@ final class PostCrudData implements CrudDataInterface
         return PostForm::class;
     }
 
-    public function getAuthor(): User
+    public function getAuthor(): ?User
     {
         return $this->author;
     }

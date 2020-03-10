@@ -16,4 +16,6 @@ interface CrudDataInterface
 
     public function getFormClass(): string;
 
+    public function hydrate(): void;
+
 }

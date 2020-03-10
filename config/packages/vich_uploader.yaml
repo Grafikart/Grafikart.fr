@@ -14,3 +14,13 @@ vich_uploader:
         inject_on_load: false
         delete_on_update: true
         delete_on_remove: true
+      sources:
+        upload_destination: '%kernel.project_dir%/downloads/sources'
+        namer:
+          service: Vich\UploaderBundle\Naming\PropertyNamer
+          options: { property: 'slug'}
+        directory_namer:
+          service: App\Infrastructure\Storage\Naming\IdDirectoryNamer
+        inject_on_load: false
+        delete_on_update: true
+        delete_on_remove: true

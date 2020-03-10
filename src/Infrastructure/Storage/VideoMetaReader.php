@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure\Video;
+namespace App\Infrastructure\Storage;
 
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;

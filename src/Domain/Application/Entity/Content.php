@@ -47,12 +47,12 @@ abstract class Content
     /**
      * @ORM\Column(type="datetime")
      */
-    private \DateTimeInterface $createdAt;
+    private ?\DateTimeInterface $createdAt = null;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private \DateTimeInterface $updated_at;
+    private ?\DateTimeInterface $updated_at = null;
 
     /**
      * @ORM\Column(type="boolean", options={"default": 0})
@@ -63,16 +63,16 @@ abstract class Content
      * @ORM\ManyToOne(targetEntity="App\Domain\Attachment\Attachment", cascade={"persist"})
      * @ORM\JoinColumn(name="attachment_id", referencedColumnName="id")
      */
-    private ?Attachment $image;
+    private ?Attachment $image = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Auth\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    private User $author;
+    private ?User $author = null;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Domain\Course\Entity\TechnologyUsage", mappedBy="content", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Domain\Course\Entity\TechnologyUsage", mappedBy="content", cascade={"persist"})
      * @var Collection<int, TechnologyUsage> $technologyUsages
      */
     private Collection $technologyUsages;
@@ -87,6 +87,10 @@ abstract class Content
         return $this->id;
     }
 
+    /**
+     * @param int $id
+     * @return $this
+     */
     public function setId(int $id): self
     {
         $this->id = $id;
@@ -99,6 +103,10 @@ abstract class Content
         return $this->title;
     }
 
+    /**
+     * @param string $title
+     * @return $this
+     */
     public function setTitle(string $title): self
     {
         $this->title = $title;
@@ -111,6 +119,10 @@ abstract class Content
         return $this->slug;
     }
 
+    /**
+     * @param string $slug
+     * @return $this
+     */
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
@@ -123,6 +135,10 @@ abstract class Content
         return $this->content;
     }
 
+    /**
+     * @param string $content
+     * @return $this
+     */
     public function setContent(string $content): self
     {
         $this->content = $content;
@@ -138,6 +154,10 @@ abstract class Content
         return $this->technologyUsages;
     }
 
+    /**
+     * @param TechnologyUsage $technologyUsage
+     * @return $this
+     */
     public function addTechnologyUsage(TechnologyUsage $technologyUsage): self
     {
         if (!$this->technologyUsages->contains($technologyUsage)) {
@@ -151,33 +171,98 @@ abstract class Content
     /**
      * @return array<Technology>
      */
-    public function getMainTechnologies(): array {
+    public function getTechnologies (): array
+    {
+        return $this->getTechnologyUsages()->map(fn(TechnologyUsage $usage) => $usage->getTechnology())->toArray();
+    }
+
+    /**
+     * @return array<Technology>
+     */
+    public function getMainTechnologies(): array
+    {
+        return $this->getFilteredTechnology(false);
+    }
+
+    /**
+     * @return array<Technology>
+     */
+    public function getSecondaryTechnologies(): array
+    {
+        return $this->getFilteredTechnology(true);
+    }
+
+    /**
+     * Synchronise les technologies à partir d'un tableau de technology avec des valeurs de version
+     * et de secondary hydraté.
+     */
+    public function syncTechnologies(array $technologies): self
+    {
+        $currentTechnologies = $this->getTechnologies();
+
+        // On commence par synchronisé les usages
+        /** @var TechnologyUsage $usage */
+        foreach($this->getTechnologyUsages() as $usage) {
+            $usage->setVersion($usage->getTechnology()->getVersion());
+            $usage->setSecondary($usage->getTechnology()->isSecondary());
+        }
+
+        // On ajoute les nouveaux usage
+        /** @var Technology[] $newUsage */
+        $newUsage = array_diff($technologies, $currentTechnologies);
+        foreach($newUsage as $technology) {
+            $usage = (new TechnologyUsage())
+                ->setSecondary($technology->isSecondary())
+                ->setTechnology($technology)
+                ->setVersion($technology->getVersion());
+            $this->addTechnologyUsage($usage);
+        }
+
+        // On supprime les technologies qui n'existe pas dans notre nouvelle liste
+        $this->technologyUsages = new ArrayCollection($this->technologyUsages->filter(fn (TechnologyUsage $technologyUsage) => in_array($technologyUsage->getTechnology(), $technologies))->getValues());
+
+        return $this;
+    }
+
+    /**
+     * @return array<Technology>
+     */
+    private function getFilteredTechnology(bool $secondary = false): array
+    {
         $technologies = [];
         foreach ($this->getTechnologyUsages() as $usage) {
-            if ($usage->getSecondary() === false) {
+            if ($usage->getSecondary() === $secondary) {
                 $technologies[] = $usage->getTechnology()->setVersion($usage->getVersion());
             }
         }
         return $technologies;
     }
 
-    public function getCreatedAt(): \DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    /**
+     * @param \DateTimeInterface|null $createdAt
+     * @return $this
+     */
+    public function setCreatedAt(?\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
         return $this;
     }
 
-    public function getUpdatedAt(): \DateTimeInterface
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updated_at;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    /**
+     * @param \DateTimeInterface|null $updated_at
+     * @return $this
+     */
+    public function setUpdatedAt(?\DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
         return $this;
@@ -193,7 +278,7 @@ abstract class Content
 
     /**
      * @param bool $online
-     * @return static
+     * @return $this
      */
     public function setOnline(bool $online): self
     {
@@ -206,21 +291,30 @@ abstract class Content
         return $this->image;
     }
 
-    public function setImage(?Attachment $image): Content
+    /**
+     * @param Attachment|null $image
+     * @return $this
+     */
+    public function setImage(?Attachment $image): self
     {
         $this->image = $image;
         return $this;
     }
 
-    public function getAuthor(): User
+    public function getAuthor(): ?User
     {
         return $this->author;
     }
 
-    public function setAuthor(User $author): Content
+    /**
+     * @param User $author
+     * @return $this
+     */
+    public function setAuthor(?User $author): self
     {
         $this->author = $author;
         return $this;
     }
+
 
 }

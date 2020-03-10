@@ -46,9 +46,8 @@ class CourseController extends CrudController
      */
     public function new(): Response
     {
-        $data = new CourseCrudData();
-        $data->entity = new Course();
-        $data->author = $this->getUser();
+        $entity = (new Course())->setAuthor($this->getUser());
+        $data = new CourseCrudData($entity);
         return $this->crudNew($data);
     }
 
@@ -57,7 +56,7 @@ class CourseController extends CrudController
      */
     public function edit(Course $course): Response
     {
-        $data = CourseCrudData::makeFromCourse($course);
+        $data = new CourseCrudData($course);
         return $this->crudEdit($data);
     }
 

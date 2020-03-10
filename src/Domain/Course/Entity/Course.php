@@ -4,9 +4,12 @@ namespace App\Domain\Course\Entity;
 
 use App\Domain\Application\Entity\Content;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity
+ * @Vich\Uploadable()
  */
 class Course extends Content
 {
@@ -19,22 +22,28 @@ class Course extends Content
     /**
      * @ORM\Column(type="string", length=12, nullable=true)
      */
-    private ?string $youtubeId;
+    private ?string $youtubeId = null;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private ?string $videoPath;
+    private ?string $videoPath = null;
 
     /**
-     * @ORM\Column(type="boolean", options={"default": 0})
+     * @ORM\Column(type="string", nullable=true)
      */
-    private bool $source = false;
+    private ?string $source = null;
+
+    /**
+     * @Vich\UploadableField(mapping="sources", fileNameProperty="source")
+     * @var File|null
+     */
+    private ?File $sourceFile = null;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private ?string $demo;
+    private ?string $demo = null;
 
     /**
      * @ORM\Column(type="boolean", options={"default": 0})
@@ -44,7 +53,7 @@ class Course extends Content
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Course\Entity\Course")
      */
-    private ?Course $deprecatedBy;
+    private ?Course $deprecatedBy = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Course\Entity\Formation", inversedBy="courses")
@@ -88,12 +97,12 @@ class Course extends Content
         return $this;
     }
 
-    public function getSource(): bool
+    public function getSource(): ?string
     {
         return $this->source;
     }
 
-    public function setSource(bool $source): self
+    public function setSource(?string $source): self
     {
         $this->source = $source;
 
@@ -145,6 +154,17 @@ class Course extends Content
     {
         $this->formation = $formation;
 
+        return $this;
+    }
+
+    public function getSourceFile(): ?File
+    {
+        return $this->sourceFile;
+    }
+
+    public function setSourceFile(?File $sourceFile): Course
+    {
+        $this->sourceFile = $sourceFile;
         return $this;
     }
 

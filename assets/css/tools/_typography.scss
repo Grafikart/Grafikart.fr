@@ -36,6 +36,7 @@ $font-alt: "Montserrat", "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe 
 
 %section-title,
 .section-title {
+  font-family: $font-alt;
   font-size: 18px;
   font-weight: bold;
   border-bottom: 1px solid var(--border);

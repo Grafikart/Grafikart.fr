@@ -4,7 +4,7 @@ namespace App\Domain\Course\EventListener;
 
 use App\Domain\Course\Entity\Course;
 use App\Helper\PathHelper;
-use App\Infrastructure\Video\VideoMetaReader;
+use App\Infrastructure\Storage\VideoMetaReader;
 
 class CourseDurationUpdater
 {

@@ -1,0 +1,6 @@
+include:
+  - ../../fixtures/templates.yaml
+
+App\Domain\Course\Entity\Technology:
+  technology{1..10} (extends technology):
+    name: Tecnology Name<current()>

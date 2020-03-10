@@ -178,3 +178,35 @@ input:focus + label .switch,
 button:hover .icon-delete {
   color: var(--red);
 }
+
+// InputTag
+// ==========================================================================
+.form-group .choices[data-type="text"] .choices__inner {
+  padding: 0 8px;
+  display: flex;
+  min-height: 45px;
+  align-items: center;
+  background: var(--background);
+}
+.form-group .choices__input {
+  width: auto;
+  border: none;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  min-height: 0px;
+  box-shadow: none!important;
+}
+.choices__list--multiple .choices__item,
+.choices__list--multiple .choices__item.is-highlighted {
+  border: none;
+  background: var(--contrast);
+  font-size: .9rem;
+}
+.choices__list--multiple.choices__list {
+  margin-right: space(1);
+  background: transparent!important;
+}
+.choices__list--multiple {
+  margin-right: space(1);
+}

@@ -2,6 +2,7 @@
 
 namespace App\Domain\Course\Entity;
 
+use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -16,27 +17,27 @@ class Technology
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
      */
-    private int $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private string $name;
+    private ?string $name = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private string $slug;
+    private ?string $slug = null;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private ?string $content;
+    private ?string $content = null;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private ?string $image;
+    private ?string $image = null;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Domain\Course\Entity\TechnologyUsage", mappedBy="technology", orphanRemoval=true)
@@ -44,36 +45,41 @@ class Technology
      */
     private Collection $usages;
 
-    private ?string $version;
+    private bool $secondary = false;
+
+    private ?string $version = null;
 
     public function __construct()
     {
         $this->usages = new ArrayCollection();
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
+        if ($this->slug === null && $this->name) {
+            $this->slug = (new Slugify())->slugify($this->name);
+        }
 
         return $this;
     }
 
-    public function getSlug(): string
+    public function getSlug(): ?string
     {
         return $this->slug;
     }
 
-    public function setSlug(string $slug): self
+    public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
 
@@ -140,6 +146,22 @@ class Technology
     {
         $this->version = $version;
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name ?: '';
+    }
+
+    public function setSecondary(bool $secondary): self
+    {
+        $this->secondary = $secondary;
+        return $this;
+    }
+
+    public function isSecondary(): bool
+    {
+        return $this->secondary;
     }
 
 }

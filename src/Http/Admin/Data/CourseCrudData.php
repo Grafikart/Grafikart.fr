@@ -5,9 +5,11 @@ namespace App\Http\Admin\Data;
 use App\Domain\Attachment\Attachment;
 use App\Domain\Auth\User;
 use App\Domain\Course\Entity\Course;
-use App\Http\Admin\Form\CourseForm;
+use App\Domain\Course\Entity\Technology;
+use App\Http\Form\AutomaticForm;
 use App\Validator\Exists;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class CourseCrudData implements CrudDataInterface
 {
@@ -16,7 +18,7 @@ class CourseCrudData implements CrudDataInterface
 
     public string $slug = '';
 
-    public User $author;
+    public ?User $author;
 
     public \DateTimeInterface $createdAt;
 
@@ -25,10 +27,6 @@ class CourseCrudData implements CrudDataInterface
     public bool $source = false;
 
     public bool $premium = false;
-
-    public ?Attachment $image = null;
-
-    public ?Attachment $youtubeThumbnail = null;
 
     public ?string $demo = null;
 
@@ -41,50 +39,73 @@ class CourseCrudData implements CrudDataInterface
      */
     public ?int $deprecatedBy = null;
 
-    public ?UploadedFile $sourceFile = null;
-
     public string $content = '';
 
-    public Course $entity;
+    private Course $entity;
 
-    public function __construct()
+    public ?int $duration = 0;
+
+    public ?Attachment $image = null;
+
+    public ?Attachment $youtubeThumbnail = null;
+
+    /**
+     * @Assert\File(mimeTypes={"application/zip"})
+     */
+    public ?UploadedFile $sourceFile = null;
+
+    /**
+     * @var Technology[]
+     */
+    public array $mainTechnologies = [];
+
+    /**
+     * @var Technology[]
+     */
+    public array $secondaryTechnologies = [];
+
+    public function __construct(Course $course)
     {
-        $this->createdAt = new \DateTime();
+        $this->entity = $course;
+        $this->title = $course->getTitle();
+        $this->slug = $course->getSlug();
+        $this->author = $course->getAuthor();
+        $this->createdAt = $course->getCreatedAt() ?: new \DateTime();
+        $this->videoPath = $course->getVideoPath();
+        $this->image = $course->getImage();
+        $this->demo = $course->getDemo();
+        $this->online = $course->isOnline();
+        $this->premium = $course->getPremium();
+        $this->content = $course->getContent();
+        $this->youtube = $course->getYoutubeId();
+        $this->duration = $course->getDuration();
+        $this->source = !empty($course->getSource());
+        $this->mainTechnologies = $course->getMainTechnologies();
+        $this->secondaryTechnologies = $course->getSecondaryTechnologies();
     }
 
-    public static function makeFromCourse(Course $course): self
+    public function hydrate(): void
     {
-        $data = new self();
-        $data->entity = $course;
-        $data->title = $course->getTitle();
-        $data->slug = $course->getSlug();
-        $data->author = $course->getAuthor();
-        $data->createdAt = $course->getCreatedAt();
-        $data->videoPath = $course->getVideoPath();
-        $data->image = $course->getImage();
-        $data->demo = $course->getDemo();
-        $data->online = $course->isOnline();
-        $data->source = $course->getSource();
-        $data->premium = $course->getPremium();
-        $data->content = $course->getContent();
-        return $data;
-    }
-
-    public function hydrate(Course $course): Course
-    {
-        $course->setTitle($this->title);
-        $course->setSlug($this->slug);
-        $course->setAuthor($this->author);
-        $course->setCreatedAt($this->createdAt);
-        $course->setVideoPath($this->videoPath);
-        $course->setImage($this->image);
-        $course->setDemo($this->demo);
-        $course->setOnline($this->online);
-        $course->setSource($this->source);
-        $course->setPremium($this->premium);
-        $course->setContent($this->content);
-        $course->setUpdatedAt(new \DateTime());
-        return $course;
+        $this->entity->setTitle($this->title);
+        $this->entity->setSlug($this->slug);
+        $this->entity->setAuthor($this->author);
+        $this->entity->setVideoPath($this->videoPath);
+        $this->entity->setImage($this->image);
+        $this->entity->setDemo($this->demo);
+        $this->entity->setOnline($this->online);
+        $this->entity->setSourceFile($this->sourceFile);
+        $this->entity->setPremium($this->premium);
+        $this->entity->setContent($this->content);
+        $this->entity->setCreatedAt($this->createdAt);
+        $this->entity->setUpdatedAt(new \DateTime());
+        foreach($this->mainTechnologies as $technology) {
+            $technology->setSecondary(false);
+        }
+        foreach($this->secondaryTechnologies as $technology) {
+            $technology->setSecondary(true);
+        }
+        $this->entity->syncTechnologies(array_merge($this->mainTechnologies, $this->secondaryTechnologies));
+        dd(array_merge($this->mainTechnologies, $this->secondaryTechnologies), $this->entity->getTechnologyUsages()->toArray());
     }
 
     public function getEntity(): Course
@@ -94,6 +115,6 @@ class CourseCrudData implements CrudDataInterface
 
     public function getFormClass(): string
     {
-        return CourseForm::class;
+        return AutomaticForm::class;
     }
 }

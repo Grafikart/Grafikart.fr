@@ -48,8 +48,8 @@ services:
   adminer:
     image: adminer
     environment:
-      ADMINER_DESIGN: arcs-material
-      ADMINER_DEFAULT_SERVER: pgsql
+      ADMINER_DESIGN: pepa-linha
+      ADMINER_DEFAULT_SERVER: db
     links:
       - db
     ports:

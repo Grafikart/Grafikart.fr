@@ -32,6 +32,10 @@ services:
       factory: ['App\Services\Neo4jClientFactory', 'createClient']
       arguments: ['neo4j', 'neo4j', 'neo4j']
 
+    App\Infrastructure\Storage\Naming\IdDirectoryNamer:
+      class: App\Infrastructure\Storage\Naming\IdDirectoryNamer
+      public: true
+
     App\Http\Admin\Firewall\AdminRequestListener:
       class: App\Http\Admin\Firewall\AdminRequestListener
       arguments: ['%admin_prefix%']

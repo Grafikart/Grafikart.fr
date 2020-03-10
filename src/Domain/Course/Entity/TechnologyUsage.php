@@ -13,7 +13,7 @@ class TechnologyUsage
 
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="App\Domain\Course\Entity\Technology", inversedBy="usages")
+     * @ORM\ManyToOne(targetEntity="App\Domain\Course\Entity\Technology", inversedBy="usages", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private Technology $technology;
@@ -28,7 +28,7 @@ class TechnologyUsage
     /**
      * @ORM\Column(type="string", length=15, nullable=true)
      */
-    private ?string $version;
+    private ?string $version = null;
 
     /**
      * @ORM\Column(type="boolean", options={"default": false})
@@ -72,6 +72,11 @@ class TechnologyUsage
     }
 
     public function getSecondary(): bool
+    {
+        return $this->secondary;
+    }
+
+    public function isSecondary(): bool
     {
         return $this->secondary;
     }

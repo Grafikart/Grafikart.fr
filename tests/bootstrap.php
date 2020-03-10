@@ -13,7 +13,10 @@ $kernel = new \App\Kernel('test', true);
 $kernel->boot();
 $application = new Application($kernel);
 $application->setAutoExit(false);
-$application->run(new StringInput('doctrine:database:drop --if-exists --force -q'));
-$application->run(new StringInput('doctrine:database:create -q'));
-$application->run(new StringInput('doctrine:schema:update --force -q'));
+$user = $application->run(new StringInput('doctrine:query:sql "SELECT 1 FROM user;" -q'));
+if ($user !== 0) {
+    $application->run(new StringInput('doctrine:database:drop --if-exists --force -q'));
+    $application->run(new StringInput('doctrine:database:create -q'));
+    $application->run(new StringInput('doctrine:schema:update --force -q'));
+}
 $kernel->shutdown();

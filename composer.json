@@ -9,6 +9,7 @@
     "ext-iconv": "*",
     "api-platform/api-pack": "^1.2",
     "beberlei/doctrineextensions": "^1.2",
+    "cocur/slugify": "^4.0",
     "erusev/parsedown": "^1.7",
     "everyman/neo4jphp": "dev-master",
     "google/apiclient": "^2.4",

@@ -11,13 +11,13 @@ import './elements/Autogrow'
 import './elements/Comments'
 import './elements/TimeAgo'
 import './elements/Tabs'
+import './elements/Choices'
 import './elements/editor'
 import '@grafikart/spinning-dots-element'
 import Turbolinks from 'turbolinks'
 
 import './modules/scrollreveal'
 import './modules/highlight'
-
 
 document.addEventListener('turbolinks:load', function () {
   const darkToggle = document.querySelector('#dark-toggle')

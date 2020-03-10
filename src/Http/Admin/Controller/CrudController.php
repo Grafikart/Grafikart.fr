@@ -86,7 +86,7 @@ abstract class CrudController extends BaseController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var E $entity */
             $entity = $data->getEntity();
-            $data->hydrate($entity, $this->em);
+            $data->hydrate();
             $this->em->flush();
             $this->dispatcher->dispatch(new $this->events['update']($entity));
             $this->addFlash('success', 'Le contenu a bien été modifié');
@@ -109,7 +109,7 @@ abstract class CrudController extends BaseController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var E $entity */
             $entity = $data->getEntity();
-            $data->hydrate($entity, $this->em);
+            $data->hydrate();
             $this->em->persist($entity);
             $this->em->flush();
             $this->dispatcher->dispatch(new $this->events['create']($data->getEntity()));
