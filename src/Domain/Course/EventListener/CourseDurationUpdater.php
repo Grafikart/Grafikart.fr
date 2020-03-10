@@ -20,9 +20,11 @@ class CourseDurationUpdater
 
     public function updateDuration(Course $course): void
     {
-        $video = PathHelper::join($this->videosPath, $course->getVideoPath());
-        $duration = (int)$this->metaReader->getDuration($video);
-        $course->setDuration($duration);
+        if (!empty($course->getVideoPath())) {
+            $video = PathHelper::join($this->videosPath, $course->getVideoPath());
+            $duration = (int)$this->metaReader->getDuration($video);
+            $course->setDuration($duration);
+        }
     }
 
 }
