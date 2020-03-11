@@ -195,8 +195,10 @@ abstract class Content
     /**
      * Synchronise les technologies à partir d'un tableau de technology avec des valeurs de version
      * et de secondary hydraté.
+     *
+     * @return array<TechnologyUsage> Relation TechnologyUsage détachés de l'entité (qu'il faudra supprimer)
      */
-    public function syncTechnologies(array $technologies): self
+    public function syncTechnologies(array $technologies): array
     {
         $currentTechnologies = $this->getTechnologies();
 
@@ -219,9 +221,18 @@ abstract class Content
         }
 
         // On supprime les technologies qui n'existe pas dans notre nouvelle liste
-        $this->technologyUsages = new ArrayCollection($this->technologyUsages->filter(fn (TechnologyUsage $technologyUsage) => in_array($technologyUsage->getTechnology(), $technologies))->getValues());
+        $removed = [];
+        $newUsage = [];
+        foreach($this->technologyUsages as $usage) {
+            if (!in_array($usage->getTechnology(), $technologies)) {
+                $removed[] = $usage;
+            } else {
+                $newUsage[] = $usage;
+            }
+        }
+        $this->technologyUsages = new ArrayCollection($newUsage);
 
-        return $this;
+        return $removed;
     }
 
     /**

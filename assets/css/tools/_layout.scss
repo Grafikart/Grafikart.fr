@@ -82,10 +82,8 @@
   width: 100%;
   display: grid;
   grid-gap: space(2);
-  align-items: center;
   grid-template-columns: repeat(auto-fill, minmax(var(--col, 275px), 1fr));
 }
-
 .grid .full {
   grid-column: 1 / -1;
 }

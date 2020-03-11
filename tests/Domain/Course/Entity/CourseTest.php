@@ -35,7 +35,16 @@ class CourseTest extends TestCase
             [
                 ['Laravel', '5.4', true],
                 ['Golang', null, true]
-            ]
+            ],
+            ['PHP']
+        ];
+        yield [
+            [
+                ['PHP', '5.4', true],
+                ['Laravel', null, true]
+            ],
+            [],
+            ['Laravel', 'PHP']
         ];
     }
 
@@ -44,7 +53,8 @@ class CourseTest extends TestCase
      */
     public function testUpdateVersion(
         array $courseTechnologies,
-        array $syncTechnologies
+        array $syncTechnologies,
+        array $expectedReturn = []
     ): void {
         // On crée le cours
         $course = new Course();
@@ -73,7 +83,7 @@ class CourseTest extends TestCase
                 ->setVersion($version);
         }, $syncTechnologies);
 
-        $course->syncTechnologies($technologies);
+        $removed = $course->syncTechnologies($technologies);
 
         // On fait les assertions
         $this->assertSameSize($syncTechnologies, $course->getTechnologyUsages());
@@ -82,6 +92,9 @@ class CourseTest extends TestCase
             $this->assertEquals($version, $course->getTechnologyUsages()[$k]->getVersion());
             $this->assertEquals($secondary, $course->getTechnologyUsages()[$k]->isSecondary());
         }
+
+        $removedNames = array_map(fn (TechnologyUsage $u) => $u->getTechnology()->getName(), $removed);
+        $this->assertEqualsCanonicalizing($expectedReturn, $removedNames);
     }
 
 }

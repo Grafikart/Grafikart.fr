@@ -184,7 +184,7 @@ button:hover .icon-delete {
 .form-group .choices[data-type="text"] .choices__inner {
   padding: 0 8px;
   display: flex;
-  min-height: 45px;
+  min-height: 41px;
   align-items: center;
   background: var(--background);
 }
@@ -196,11 +196,17 @@ button:hover .icon-delete {
   margin: 0;
   min-height: 0px;
   box-shadow: none!important;
+  &.choices__input--cloned {
+    width: 1ch;
+  }
 }
 .choices__list--multiple .choices__item,
 .choices__list--multiple .choices__item.is-highlighted {
   border: none;
+  white-space: nowrap;
   background: var(--contrast);
+  margin-top: 4px;
+  margin-bottom: 4px;
   font-size: .9rem;
 }
 .choices__list--multiple.choices__list {

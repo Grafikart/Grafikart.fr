@@ -8,6 +8,7 @@ use App\Domain\Course\Entity\Course;
 use App\Domain\Course\Entity\Technology;
 use App\Http\Form\AutomaticForm;
 use App\Validator\Exists;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -64,6 +65,8 @@ class CourseCrudData implements CrudDataInterface
      */
     public array $secondaryTechnologies = [];
 
+    private ?EntityManagerInterface $em = null;
+
     public function __construct(Course $course)
     {
         $this->entity = $course;
@@ -104,8 +107,12 @@ class CourseCrudData implements CrudDataInterface
         foreach($this->secondaryTechnologies as $technology) {
             $technology->setSecondary(true);
         }
-        $this->entity->syncTechnologies(array_merge($this->mainTechnologies, $this->secondaryTechnologies));
-        dd(array_merge($this->mainTechnologies, $this->secondaryTechnologies), $this->entity->getTechnologyUsages()->toArray());
+        $removed = $this->entity->syncTechnologies(array_merge($this->mainTechnologies, $this->secondaryTechnologies));
+        if($this->em) {
+            foreach($removed as $usage) {
+                $this->em->remove($usage);
+            }
+        }
     }
 
     public function getEntity(): Course
@@ -116,5 +123,12 @@ class CourseCrudData implements CrudDataInterface
     public function getFormClass(): string
     {
         return AutomaticForm::class;
+    }
+
+    public function setEntityManager(EntityManagerInterface $em): self
+    {
+        $this->em = $em;
+
+        return $this;
     }
 }

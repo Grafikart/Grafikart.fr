@@ -56,7 +56,7 @@ class CourseController extends CrudController
      */
     public function edit(Course $course): Response
     {
-        $data = new CourseCrudData($course);
+        $data = (new CourseCrudData($course))->setEntityManager($this->em);
         return $this->crudEdit($data);
     }
 

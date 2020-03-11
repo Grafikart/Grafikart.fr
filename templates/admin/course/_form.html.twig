@@ -32,14 +32,16 @@
       {{ form_row(form.deprecatedBy, {label: 'Déprécié par'}) }}
       {{ form_row(form.sourceFile) }}
       {{ form_row(form.youtubeThumbnail, {row_attr: {class: 'form-attachment', style:'grid-row-start:1; align-self:stretch;'}}) }}
-      {{ form_row(form.mainTechnologies) }}
-      {{ form_row(form.secondaryTechnologies) }}
+      <div class="full grid" style="--col: 400px;">
+        {{ form_row(form.mainTechnologies) }}
+        {{ form_row(form.secondaryTechnologies) }}
+      </div>
     </div>
   </section>
 
   <section>
     <div class="section-title">
-      Descriptions
+      Description
     </div>
     {{ form_row(form.content, {label: false}) }}
   </section>
