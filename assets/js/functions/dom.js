@@ -34,3 +34,16 @@ export function createElement (tagName, attributes = {}) {
 export function strToDom(str) {
   return document.createRange().createContextualFragment(str).firstChild
 }
+
+/**
+ *
+ * @param {HTMLElement|Document|Node} element
+ * @param {string} selector
+ * @return {null|*}
+ */
+export function closest (element, selector) {
+    for ( ; element && element !== document; element = element.parentNode ) {
+      if ( element.matches( selector ) ) return element;
+    }
+    return null;
+}

@@ -13,6 +13,7 @@ import './elements/TimeAgo'
 import './elements/Tabs'
 import './elements/Choices'
 import './elements/editor'
+import './elements/AjaxDelete'
 import '@grafikart/spinning-dots-element'
 import Turbolinks from 'turbolinks'
 

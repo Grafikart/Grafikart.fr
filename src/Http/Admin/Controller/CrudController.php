@@ -66,7 +66,7 @@ abstract class CrudController extends BaseController
         $rows = $this->paginator->paginate(
             $query->getQuery(),
             $page,
-            10
+            15
         );
         return $this->render("admin/{$this->templatePath}/index.html.twig", [
             'rows' => $rows,

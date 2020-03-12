@@ -39,3 +39,6 @@ services:
     App\Http\Admin\Firewall\AdminRequestListener:
       class: App\Http\Admin\Firewall\AdminRequestListener
       arguments: ['%admin_prefix%']
+
+    Knp\Bundle\PaginatorBundle\Helper\Processor:
+      class: Knp\Bundle\PaginatorBundle\Helper\Processor

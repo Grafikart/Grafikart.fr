@@ -8,40 +8,69 @@
     {{ icon('clock') }} Dashboard
   </h1>
 
-  {% if revisions is not empty  %}
-  <div class="dashboard-title">
-    {{ icon('clock') }} Révisions
+  <div class="grid" style="--col:460px">
+    <section class="stack" style="--gap:1">
+      <div class="flex">
+        <h1 class="dashboard-title">
+          {{ icon('comments') }} Derniers commentaires
+        </h1>
+        {{ pagination_nav(comments) }}
+      </div>
+      <div class="dashboard-card stack-separated">
+        {% for comment in comments %}
+          <article class="dashboard-comment stack" style="--gap:1">
+            <div class="flex">
+              <h3>
+                <strong>{{ icon('user') }} {{ comment.username }}</strong>,
+                {{ comment.target.title }}
+              </h3>
+              <ajax-delete class="dashboard-comment__delete"
+                           target=".dashboard-comment"
+                           url="{{ path('api_comments_delete_item', {id: comment.id}) }}">
+                {{ icon('delete') }}
+              </ajax-delete>
+            </div>
+            <p>{{ comment.content | nl2br }}</p>
+          </article>
+        {% endfor %}
+      </div>
+    </section>
   </div>
-  <div class="dashboard-card">
-    <table class="table">
-      <thead>
+
+  {% if revisions is not empty %}
+    <div class="dashboard-title">
+      {{ icon('clock') }} Révisions
+    </div>
+    <div class="dashboard-card">
+      <table class="table">
+        <thead>
         <tr>
           <th>Article</th>
           <th>Auteur</th>
           <th>Date</th>
           <th class="text-right">Actions</th>
         </tr>
-      </thead>
-      <tbody>
-      {% for revision in revisions %}
-        <tr>
-          <td>
-            <a href="{{ path('admin_revision_show', {id: revision.id}) }}">
-              {{ revision.target.title }}
-            </a>
-          </td>
-          <td>{{ revision.author.username }}</td>
-          <td>{{ revision.createdAt | date }}</td>
-          <td>
-            <div class="dashboard-actions">
-            <a href="{{ path('admin_revision_show', {id: revision.id}) }}">{{ icon('edit') }}</a>
-            </div>
-          </td>
-        </tr>
-      {% endfor %}
-      </tbody>
-    </table>
-  </div>
+        </thead>
+        <tbody>
+        {% for revision in revisions %}
+          <tr>
+            <td>
+              <a href="{{ path('admin_revision_show', {id: revision.id}) }}">
+                {{ revision.target.title }}
+              </a>
+            </td>
+            <td>{{ revision.author.username }}</td>
+            <td>{{ revision.createdAt | date }}</td>
+            <td>
+              <div class="dashboard-actions">
+                <a href="{{ path('admin_revision_show', {id: revision.id}) }}">{{ icon('edit') }}</a>
+              </div>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
   {% endif %}
 
 {% endblock %}

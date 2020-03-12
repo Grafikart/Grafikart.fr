@@ -15,6 +15,8 @@
   z-index: -1;
 }
 
+// Container
+// ==============
 %container,
 .container {
   box-sizing: border-box;
@@ -94,16 +96,29 @@
 
 // Stacks
 // ==================
-.stack > * + * {
-  margin-top: space(2);
+.stack,
+.stack-large,
+.stack-separated {
+  --gap: 2;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: calc(var(--gap) * var(--space));
 }
-.stack-large > * + * {
-  margin-top: space(4);
+.stack-large {
+  --gap: 4;
 }
-.stack-separated > * +* {
-  margin-top: space(3);
-  border-top: 1px solid var(--border-light);
-  padding-top: space(3);
+.stack-separated {
+  --gap: 3;
+  --gap-separated: var(--gap);
+  grid-gap: calc(var(--gap) * var(--space) * 2);
+}
+.stack-separated > * + *::before {
+    content:'';
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    background: var(--border-light);
+    top: calc(var(--gap-separated) * var(--space) * -1);
 }
 .hstack > * + * {
   margin-left: space(2);
@@ -128,3 +143,7 @@
   position: sticky;
   top: space(3);
 }
+
+
+// Spaces
+// =============

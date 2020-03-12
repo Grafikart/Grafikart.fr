@@ -1,3 +1,6 @@
+/**
+ * Debounce un callback
+ */
 export function debounce(func, wait, immediate) {
   var timeout;
   return function() {
@@ -9,4 +12,15 @@ export function debounce(func, wait, immediate) {
     }, wait);
     if (immediate && !timeout) func.apply(context, args);
   };
+}
+
+/**
+ * Version asynchrone du timeout
+ *
+ * @param {number} duration
+ */
+export function wait (duration) {
+  return new Promise(function (resolve) {
+    window.setTimeout(resolve, duration)
+  })
 }

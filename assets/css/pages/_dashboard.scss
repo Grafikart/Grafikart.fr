@@ -4,7 +4,6 @@
 .dashboard-title {
   font-weight: 600;
   font-size: 1.5rem;
-  margin-bottom: space(1);
 }
 .dashboard-title svg {
   height: 20px;
@@ -14,9 +13,6 @@
 .dashboard-card {
   @extend %card-big;
   padding: space(3);
-}
-.dashboard-card > * + * {
-  margin-top: space(4);
 }
 .dashboard-search {
   display: flex;
@@ -50,15 +46,50 @@
   grid-gap: space(3);
 }
 
+// Formulaires
+// =============
 .form-attachment {
   grid-column: -2 / -1;
   grid-row-end: span 2;
 }
-
 .form-editor {
   grid-column: 1 / -1;
 }
-
 .form-switch {
   align-self: flex-end;
+}
+
+// Commentaires
+// =============
+.dashboard-comment {
+  position: relative;
+}
+.dashboard-comment strong {
+  font-weight: bold;
+  margin-bottom: space(1);
+}
+.dashboard-comment p {
+  opacity: .6;
+}
+.dashboard-comment .icon-user {
+  height: 12px;
+  width: 12px;
+}
+.dashboard-comment .icon-delete {
+  height: 14px;
+  width: 14px;
+}
+.dashboard-comment__delete {
+  color: var(--border);
+  cursor: pointer;
+  transition: .3s;
+
+  .dashboard-comment:hover & {
+    display: block;
+  }
+
+  &:hover {
+    color: var(--red);
+    opacity: 1;
+  }
 }

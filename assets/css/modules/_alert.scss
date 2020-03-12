@@ -78,15 +78,10 @@
 
 .dashboard .alert,
 .is-floating .alert{
-  z-index: 5;
   border-left: 1px solid var(--border);
   border-right: 1px solid var(--border);
   border-top: 1px solid var(--border);
   box-shadow: 0 2px 20px var(--shadow);
-  position: fixed;
-  top: var(--container-padding);
-  right: var(--container-padding);
-  max-width: 400px;
 }
 
 // Bullets

@@ -14,7 +14,8 @@ class TwigTimeExtension extends AbstractExtension
     public function getFilters(): array
     {
         return [
-            new TwigFilter('duration', [$this, 'duration'])
+            new TwigFilter('duration', [$this, 'duration']),
+            new TwigFilter('ago', [$this, 'ago'], ['is_safe' => ['html']])
         ];
     }
 
@@ -27,6 +28,11 @@ class TwigTimeExtension extends AbstractExtension
         $hours = floor($minutes / 60);
         $minutes = $minutes - ($hours * 60);
         return "{$hours}h{$minutes}";
+    }
+
+    public function ago (\DateTimeInterface $date): string
+    {
+        return "<time-ago time=\"{$date->getTimestamp()}\"></time-ago>";
     }
 
 }

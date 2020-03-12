@@ -1,7 +1,7 @@
-import Alert from '../Alert'
+import {Alert} from '../Alert'
 import SpinningDots from '@grafikart/spinning-dots-element'
 import FileManager from '@el/filemanager'
-import { Modal } from '../Modal'
+import {Modal} from '../Modal'
 
 /**
  * @property {number|null} timer

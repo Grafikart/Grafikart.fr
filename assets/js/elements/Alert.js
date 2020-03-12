@@ -1,9 +1,6 @@
-/**
- * @property {string} type
- */
 import {slideUp} from '../modules/animation'
 
-export default class Alert extends global.HTMLElement {
+export class Alert extends HTMLElement {
   constructor ({type, message} = {}) {
     super()
     if (type !== undefined) {
@@ -56,4 +53,17 @@ export default class Alert extends global.HTMLElement {
   }
 }
 
-global.customElements.define('alert-message', Alert)
+export class FloatingAlert extends Alert {
+  constructor (options = {}) {
+    super(options)
+    this.classList.add('is-floating')
+    this.style.position = 'fixed'
+    this.style.top = '20px'
+    this.style.right = '20px'
+    this.style.maxWidth = '400px'
+    this.style.zIndex = '100'
+  }
+}
+
+customElements.define('alert-message', Alert)
+customElements.define('alert-floating', FloatingAlert)

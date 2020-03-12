@@ -1,0 +1,21 @@
+{% if pageCount > 1 %}
+  <nav class="pagination-nav">
+    {% if previous is defined %}
+      <a rel="prev" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">
+        <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
+          <path d="M3.5.5l6 5.5-6 5.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Préc
+      </a>
+    {% endif %}
+
+    {% if next is defined %}
+      <a rel="next" href="{{ path(route, query|merge({(pageParameterName): next})) }}">
+        Suiv
+        <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
+          <path d="M3.5.5l6 5.5-6 5.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    {% endif %}
+  </nav>
+{% endif %}

@@ -32,6 +32,18 @@ export function slideUp (element, duration = 500) {
 }
 
 /**
+ * Masque un élément avec un effet de repli
+ * @param {HTMLElement} element
+ * @param {Number} duration
+ * @returns {Promise<boolean>}
+ */
+export async function slideUpAndRemove (element, duration = 500) {
+  const r = await slideUp(element)
+  element.parentNode.removeChild(element)
+  return r
+}
+
+/**
  * Affiche un élément avec un effet de dépliement
  * @param {HTMLElement} element
  * @param {Number} duration

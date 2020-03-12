@@ -2,14 +2,19 @@
 
 {% block body %}
 
-  <div class="dashboard-title">
-    {% block title '' %}
+  <div class="stack" style="--gap:1">
+
+    <div class="dashboard-title">
+      {% block title '' %}
+    </div>
+
+    {% include 'partials/flash.html.twig' %}
+
+    <div class="dashboard-card stack-large">
+      {% block content '' %}
+    </div>
+
   </div>
 
-  {% include 'partials/flash.html.twig' %}
-
-  <div class="dashboard-card">
-    {% block content '' %}
-  </div>
 {% endblock %}
 
