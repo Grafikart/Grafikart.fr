@@ -68,12 +68,14 @@ final class CoursesImporter extends Neo4jImporter
         CYPHER
         );
         $tutoriel = [];
+
         /** @var Row<mixed> $row */
         foreach ($rows as $row) {
             $tutoriel = $row->offsetGet(0)->getProperties();
             $user = $row->offsetGet(1)->getProperties();
             /** @var User $author */
             $author = $this->em->getReference(User::class, $user['uuid']);
+            $createdAt = new \DateTime("@" . $tutoriel['created_at']);
             $course = (new Course())
                 ->setYoutubeId($tutoriel['youtube'] ?? null)
                 ->setDemo($tutoriel['demo'] ?? null)
@@ -81,7 +83,7 @@ final class CoursesImporter extends Neo4jImporter
                 ->setSource($tutoriel['source'] ?? false)
                 ->setPremium($tutoriel['premium'] ?? false)
                 ->setVideoPath($tutoriel['video'] ?? null)
-                ->setCreatedAt(new \DateTime("@" . $tutoriel['created_at']))
+                ->setCreatedAt($createdAt)
                 ->setUpdatedAt(new \DateTime("@" . $tutoriel['updated_at']))
                 ->setSlug($tutoriel['slug'])
                 ->setContent($tutoriel['content'] ?? null)
@@ -89,6 +91,15 @@ final class CoursesImporter extends Neo4jImporter
                 ->setOnline(true)
                 ->setAuthor($author)
                 ->setId($tutoriel['uuid']);
+
+            // Import de la miniature
+            $dir = ceil($tutoriel['uuid'] / 1000);
+            $filePath  = "tutoriels/{$dir}/{$tutoriel['uuid']}.jpg";
+            $backgroundPath  = "tutoriels/{$dir}/background_{$tutoriel['uuid']}.jpg";
+            $course->setImage($this->oldFileToAttachment($backgroundPath, $createdAt));
+            $course->setYoutubeThumbnail($this->oldFileToAttachment($filePath, $createdAt));
+
+
             $this->em->persist($course);
         }
 

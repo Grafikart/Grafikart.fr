@@ -6,7 +6,6 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityNotFoundException;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
-use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
 /**
@@ -68,13 +67,15 @@ class CommentRepository extends ServiceEntityRepository
         return $result;
     }
 
-    public function paginateLatest(int $page, int $limit = 5): PaginationInterface
+    public function queryLatest(): Query
     {
-        return $this->paginator->paginate(
-            $this->createQueryBuilder('c')->orderBy('c.createdAt', 'DESC')->join('c.target', 't')->join('c.author', 'a')->addSelect('t', 'a')->getQuery(),
-            $page,
-            $limit
-        );
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.createdAt', 'DESC')
+            ->join('c.target', 't')
+            ->join('c.author', 'a')
+            ->addSelect('t', 'a')
+            ->setMaxResults(5)
+            ->getQuery();
     }
 
 }

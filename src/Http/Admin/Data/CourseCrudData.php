@@ -85,6 +85,8 @@ class CourseCrudData implements CrudDataInterface
         $this->source = !empty($course->getSource());
         $this->mainTechnologies = $course->getMainTechnologies();
         $this->secondaryTechnologies = $course->getSecondaryTechnologies();
+        $this->youtubeThumbnail = $course->getYoutubeThumbnail();
+        $this->duration = $course->getDuration();
     }
 
     public function hydrate(): void
@@ -94,6 +96,7 @@ class CourseCrudData implements CrudDataInterface
         $this->entity->setAuthor($this->author);
         $this->entity->setVideoPath($this->videoPath);
         $this->entity->setImage($this->image);
+        $this->entity->setYoutubeThumbnail($this->youtubeThumbnail);
         $this->entity->setDemo($this->demo);
         $this->entity->setOnline($this->online);
         $this->entity->setSourceFile($this->sourceFile);

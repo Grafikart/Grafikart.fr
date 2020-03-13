@@ -9,3 +9,4 @@ knp_paginator:
     filter_value_name: filterValue  # filter value query parameter name
   template:
     pagination: 'partials/pagination.html.twig'
+    sortable: 'partials/pagination-sortable.html.twig'

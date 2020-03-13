@@ -14,7 +14,7 @@
         <h1 class="dashboard-title">
           {{ icon('comments') }} Derniers commentaires
         </h1>
-        {{ pagination_nav(comments) }}
+        {{ paginate_nav(comments) }}
       </div>
       <div class="dashboard-card stack-separated">
         {% for comment in comments %}

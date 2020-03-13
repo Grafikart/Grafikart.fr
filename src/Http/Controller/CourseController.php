@@ -23,7 +23,10 @@ class CourseController extends AbstractController
         $courses = $paginator->paginate(
             $repo->queryAll(),
             $page,
-            26
+            26,
+            [
+                'whiteList' => []
+            ]
         );
         if ($courses->count() === 0) {
             throw new NotFoundHttpException('Aucun tutoriels ne correspond à cette page');

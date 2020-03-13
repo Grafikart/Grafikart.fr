@@ -14,6 +14,7 @@ export default class Button {
         this.editor.addShortcut(this.shortcut(), this.action)
       }
       this.element = document.createElement('button')
+      this.element.setAttribute('type', 'button')
       this.element.addEventListener('click', (e) => {
         e.preventDefault()
         this.action()

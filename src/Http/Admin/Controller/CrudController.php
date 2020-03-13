@@ -3,11 +3,13 @@
 namespace App\Http\Admin\Controller;
 
 use App\Domain\Application\Entity\Content;
+use App\Helper\Paginator\PaginatorInterface;
 use App\Http\Admin\Data\CrudDataInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
-use Knp\Component\Pager\PaginatorInterface;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Pagerfanta;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,7 +36,7 @@ abstract class CrudController extends BaseController
         'create' => ''
     ];
     protected EntityManagerInterface $em;
-    private PaginatorInterface $paginator;
+    protected PaginatorInterface $paginator;
     private EventDispatcherInterface $dispatcher;
     private RequestStack $requestStack;
 
@@ -56,21 +58,16 @@ abstract class CrudController extends BaseController
         /** @var Request $request */
         $request = $this->requestStack->getCurrentRequest();
         $query = $query ?: $this->getRepository()
-            ->createQueryBuilder('p')
-            ->orderBy('p.createdAt', 'DESC');
+            ->createQueryBuilder('row')
+            ->orderBy('row.createdAt', 'DESC');
         if ($request->get('q')) {
-            $query = $query->where('LOWER(p.title) LIKE :title')
+            $query = $query->where('LOWER(row.title) LIKE :title')
                 ->setParameter('title', "%" . strtolower($request->get('q')) . "%");
         }
-        $page = $request->query->getInt('page', 1);
-        $rows = $this->paginator->paginate(
-            $query->getQuery(),
-            $page,
-            15
-        );
+        $this->paginator->allowSort('row.id', 'row.title');
+        $rows = $this->paginator->paginate($query->getQuery());
         return $this->render("admin/{$this->templatePath}/index.html.twig", [
             'rows' => $rows,
-            'page' => $page,
             'menu' => $this->menuItem,
             'prefix' => $this->routePrefix
         ]);

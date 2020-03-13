@@ -3,6 +3,7 @@
 namespace App\Domain\Course\Entity;
 
 use App\Domain\Application\Entity\Content;
+use App\Domain\Attachment\Attachment;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -23,6 +24,12 @@ class Course extends Content
      * @ORM\Column(type="string", length=12, nullable=true)
      */
     private ?string $youtubeId = null;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Domain\Attachment\Attachment", cascade={"persist"})
+     * @ORM\JoinColumn(onDelete="SET NULL")
+     */
+    private ?Attachment $youtubeThumbnail;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -165,6 +172,18 @@ class Course extends Content
     public function setSourceFile(?File $sourceFile): Course
     {
         $this->sourceFile = $sourceFile;
+        return $this;
+    }
+
+    public function getYoutubeThumbnail(): ?Attachment
+    {
+        return $this->youtubeThumbnail;
+    }
+
+    public function setYoutubeThumbnail(?Attachment $youtubeThumbnail): self
+    {
+        $this->youtubeThumbnail = $youtubeThumbnail;
+
         return $this;
     }
 

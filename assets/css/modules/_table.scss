@@ -9,6 +9,16 @@
   font-size: .9em;
   text-align: left;
 }
+.table thead th svg {
+  opacity: 1;
+  width: 12px;
+  height: 12px;
+  vertical-align: middle;
+  display: inline-block;
+}
+.table .desc svg {
+  transform: scaleY(-1);
+}
 .table thead th:last-child {
   text-align: right;
 }

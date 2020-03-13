@@ -4,7 +4,6 @@ namespace App\Twig;
 
 use Knp\Bundle\PaginatorBundle\Helper\Processor;
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
-use Knp\Bundle\PaginatorBundle\Twig\Extension\PaginationExtension;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -12,7 +11,6 @@ use Twig\TwigFunction;
 class TwigPaginationExtension extends AbstractExtension
 {
 
-    private PaginationExtension $paginationExtension;
     private Processor $processor;
 
     public function __construct(Processor $processor)
@@ -23,9 +21,11 @@ class TwigPaginationExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('pagination_nav', [$this, 'renderNav'],
+            new TwigFunction('paginate_nav', [$this, 'renderNav'],
                 ['is_safe' => ['html'], 'needs_environment' => true]),
-            new TwigFunction('pagination', [$this, 'render'],
+            new TwigFunction('paginate', [$this, 'render'],
+                ['is_safe' => ['html'], 'needs_environment' => true]),
+            new TwigFunction('sort_by', [$this, 'sortBy'],
                 ['is_safe' => ['html'], 'needs_environment' => true]),
         ];
     }
@@ -50,6 +50,22 @@ class TwigPaginationExtension extends AbstractExtension
     ): string {
         $pagination->setTemplate('partials/pagination-nav.html.twig');
         return $this->render($env, $pagination, $queryParams, $viewParams);
+    }
+
+
+    public function sortBy(
+        Environment $env,
+        SlidingPagination $pagination,
+        string $title,
+        string $key,
+        array $options = [],
+        array $params = [],
+        ?string $template = null
+    ): string {
+        return $env->render(
+            $template ?: (string)$pagination->getSortableTemplate(),
+            $this->processor->sortable($pagination, $title, $key, $options, $params)
+        );
     }
 
 

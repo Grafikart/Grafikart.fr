@@ -6,6 +6,7 @@ use App\Domain\Application\Event\ContentCreatedEvent;
 use App\Domain\Application\Event\ContentDeletedEvent;
 use App\Domain\Application\Event\ContentUpdatedEvent;
 use App\Domain\Course\Entity\Course;
+use App\Domain\Course\Helper\CourseCloner;
 use App\Http\Admin\Data\CourseCrudData;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,12 +33,13 @@ class CourseController extends CrudController
      */
     public function index(): Response
     {
+        $this->paginator->allowSort('row.id', 'row.online');
         $query = $this->getRepository()
-            ->createQueryBuilder('p')
+            ->createQueryBuilder('row')
             ->addSelect('tu', 't')
-            ->leftJoin('p.technologyUsages', 'tu')
+            ->leftJoin('row.technologyUsages', 'tu')
             ->leftJoin('tu.technology', 't')
-            ->orderBy('p.createdAt', 'DESC');
+            ->orderBy('row.createdAt', 'DESC');
         return $this->crudIndex($query);
     }
 
@@ -58,6 +60,16 @@ class CourseController extends CrudController
     {
         $data = (new CourseCrudData($course))->setEntityManager($this->em);
         return $this->crudEdit($data);
+    }
+
+    /**
+     * @Route("/{id}/clone", name="clone", methods={"GET","POST"})
+     */
+    public function clone(Course $course): Response
+    {
+        $course = CourseCloner::clone($course);
+        $data = new CourseCrudData($course);
+        return $this->crudNew($data);
     }
 
     /**

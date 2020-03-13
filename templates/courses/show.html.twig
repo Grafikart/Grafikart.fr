@@ -29,14 +29,18 @@
                       class="shadow"></youtube-player>
       <div class="flex">
         <div class="inline-1">
+          {% if course.premium %}
           <div class="pill pill-yellow">Premium</div>
+          {% endif %}
           <div class="pill pill-green">Facile</div>
         </div>
         <div class="inline-1">
+          {% if course.source is not empty %}
           <a href="#" class="pill">
             {{ icon('lines') }}
             Télécharger les sources
           </a>
+          {% endif %}
           <a href="#" class="pill">
             {{ icon('video') }}
             Télécharger la vidéo

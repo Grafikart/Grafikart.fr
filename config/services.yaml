@@ -42,3 +42,6 @@ services:
 
     Knp\Bundle\PaginatorBundle\Helper\Processor:
       class: Knp\Bundle\PaginatorBundle\Helper\Processor
+
+    App\Helper\Paginator\PaginatorInterface:
+      class: App\Helper\Paginator\KnpPaginator
