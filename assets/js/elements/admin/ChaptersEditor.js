@@ -1,4 +1,5 @@
-import {html} from '@fn/dom'
+import {closest, html} from '@fn/dom'
+import Sortable from 'sortablejs'
 
 /**
  * CustomElement pour la gestion des chapitres associé aux formations
