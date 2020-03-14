@@ -1,3 +1,5 @@
+import htm from 'htm'
+
 /**
  * Trouve la position de l'élément par rapport au haut de la page de manière recursive
  *
@@ -20,25 +22,41 @@ export function offsetTop (element) {
  * @return HTMLElement
  */
 export function createElement (tagName, attributes = {}, ...children) {
+  // On construit l'élément
   const e = document.createElement(tagName)
-  for (const k of Object.keys(attributes)) {
+
+  // On lui associe les bons attributs
+  for (const k of Object.keys(attributes || {})) {
     if (k.startsWith('on')) {
       e.addEventListener(k.substr(2).toLowerCase(), attributes[k])
     } else {
       e.setAttribute(k, attributes[k])
     }
   }
+
+  // On aplatit les enfants
+  children = children.reduce(function (acc, child) {
+    return Array.isArray(child) ? [...acc, ...child] : [...acc, child]
+  }, [])
+
+  // On ajoute les enfants à l'élément
   for (const child of children) {
-    if (typeof child === 'string') {
+    if (typeof child === 'string' || typeof child === 'number') {
       e.appendChild(document.createTextNode(child))
     } else if (child instanceof HTMLElement) {
       e.appendChild(child)
     } else {
-      console.error("Impossible d'ajouter l'élément", child)
+      console.error("Impossible d'ajouter l'élément", child, children)
     }
   }
   return e
 }
+
+/**
+ * CreateElement version Tagged templates
+ * @type {(strings: TemplateStringsArray, ...values: any[]) => (HTMLElement[] | HTMLElement)}
+ */
+export const html = htm.bind(createElement)
 
 /**
  * Transform une chaine en élément DOM

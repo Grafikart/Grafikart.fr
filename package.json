@@ -27,6 +27,7 @@
     "choices.js": "^9.0.1",
     "codemirror": "^5.52.0",
     "flatpickr": "^4.6.3",
+    "htm": "^3.0.3",
     "monaco-editor": "^0.20.0",
     "scriptjs": "^2.5.9",
     "sortablejs": "^1.10.2",
