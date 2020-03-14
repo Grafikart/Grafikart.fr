@@ -16,7 +16,9 @@ class CourseCloner
         $clone = clone $course;
         $clone->setSource(null);
         $clone->setYoutubeId(null);
-        $clone->setCreatedAt(new DateTime('@' . ($course->getCreatedAt()->getTimestamp() + 24 * 3600)));
+        if ($createdAt = $course->getCreatedAt()) {
+            $clone->setCreatedAt(new DateTime('@' . ($createdAt->getTimestamp() + 24 * 3600)));
+        }
         $usages = $clone->getTechnologyUsages();
         $clone->syncTechnologies([]);
         foreach($usages as $usage) {

@@ -2,7 +2,7 @@
 
 namespace App\Tests;
 
-use App\Helper\PathHelper;
+use App\Core\Helper\PathHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Fidry\AliceDataFixtures\LoaderInterface;
 

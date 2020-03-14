@@ -27,7 +27,7 @@ class Formation extends Content
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private string $youtube_playlist = '';
+    private ?string $youtube_playlist = null;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Domain\Course\Entity\Course", mappedBy="formation")
@@ -85,12 +85,12 @@ class Formation extends Content
         }, 0);
     }
 
-    public function getYoutubePlaylist(): string
+    public function getYoutubePlaylist(): ?string
     {
         return $this->youtube_playlist;
     }
 
-    public function setYoutubePlaylist(string $youtube_playlist): self
+    public function setYoutubePlaylist(?string $youtube_playlist): self
     {
         $this->youtube_playlist = $youtube_playlist;
 

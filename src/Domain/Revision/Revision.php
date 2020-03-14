@@ -37,7 +37,7 @@ class Revision
      * @ORM\Column(type="text")
      * @Assert\NotBlank()
      */
-    private string $content = '';
+    private ?string $content = null;
 
     /**
      * @ORM\Column(type="datetime")
@@ -73,12 +73,12 @@ class Revision
         return $this;
     }
 
-    public function getContent(): string
+    public function getContent(): ?string
     {
         return $this->content;
     }
 
-    public function setContent(string $content): self
+    public function setContent(?string $content): self
     {
         $this->content = $content;
 

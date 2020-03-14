@@ -2,14 +2,12 @@
 
 namespace App\Http\Admin\Controller;
 
+use App\Core\Helper\Paginator\PaginatorInterface;
 use App\Domain\Application\Entity\Content;
-use App\Helper\Paginator\PaginatorInterface;
 use App\Http\Admin\Data\CrudDataInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
-use Pagerfanta\Adapter\DoctrineORMAdapter;
-use Pagerfanta\Pagerfanta;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

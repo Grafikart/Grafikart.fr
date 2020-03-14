@@ -13,5 +13,5 @@ services:
 
   Google_Service_YouTube_Resource_PlaylistItems:
     class: '\Google_Service_YouTube_Resource_PlaylistItems'
-    factory: ['App\Services\Api\GoogleServiceFactory', 'createPlaylistItems']
+    factory: ['App\Core\Services\Api\GoogleServiceFactory', 'createPlaylistItems']
     arguments: ['@Google_Client']

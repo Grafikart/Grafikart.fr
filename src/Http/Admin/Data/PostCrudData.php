@@ -9,16 +9,15 @@ use App\Domain\Blog\Post;
 use App\Http\Admin\Form\PostForm;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 final class PostCrudData implements CrudDataInterface
 {
 
     /**
      * @Assert\NotBlank()
      */
-    public string $title = "";
+    public ?string $title = null;
 
-    public string $slug = "";
+    public ?string $slug = null;
 
     public ?Attachment $image = null;
 
@@ -34,7 +33,7 @@ final class PostCrudData implements CrudDataInterface
     /**
      * @Assert\NotBlank()
      */
-    public string $content = '';
+    public ?string $content = null;
 
     public bool $online = false;
 

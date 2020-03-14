@@ -32,17 +32,17 @@ abstract class Content
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private string $title = '';
+    private ?string $title = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private string $slug = '';
+    private ?string $slug = null;
 
     /**
      * @ORM\Column(type="text")
      */
-    private string $content = '';
+    private ?string $content = null;
 
     /**
      * @ORM\Column(type="datetime")
@@ -91,14 +91,14 @@ abstract class Content
      * @param int $id
      * @return $this
      */
-    public function setId(int $id): self
+    public function setId(?int $id): self
     {
         $this->id = $id;
 
         return $this;
     }
 
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
@@ -107,14 +107,14 @@ abstract class Content
      * @param string $title
      * @return $this
      */
-    public function setTitle(string $title): self
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
 
         return $this;
     }
 
-    public function getSlug(): string
+    public function getSlug(): ?string
     {
         return $this->slug;
     }
@@ -123,14 +123,14 @@ abstract class Content
      * @param string $slug
      * @return $this
      */
-    public function setSlug(string $slug): self
+    public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
 
         return $this;
     }
 
-    public function getContent(): string
+    public function getContent(): ?string
     {
         return $this->content;
     }
@@ -139,7 +139,7 @@ abstract class Content
      * @param string $content
      * @return $this
      */
-    public function setContent(string $content): self
+    public function setContent(?string $content): self
     {
         $this->content = $content;
 

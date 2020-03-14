@@ -2,13 +2,13 @@
 
 namespace App\Http\Admin\Form;
 
+use App\Core\Type\DateTimeType;
+use App\Core\Type\EditorType;
+use App\Core\Type\SwitchType;
 use App\Domain\Attachment\Type\AttachmentType;
 use App\Domain\Blog\Category;
 use App\Http\Admin\Data\PostCrudData;
 use App\Http\Admin\Field\UserChoiceType;
-use App\Type\DateTimeType;
-use App\Type\EditorType;
-use App\Type\SwitchType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;

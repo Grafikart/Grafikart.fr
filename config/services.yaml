@@ -24,12 +24,12 @@ services:
 
     Google_Service_YouTube_Resource_PlaylistItems:
         class: '\Google_Service_YouTube_Resource_PlaylistItems'
-        factory: ['App\Services\Api\GoogleServiceFactory', 'createPlaylistItems']
+        factory: ['App\Core\Services\Api\GoogleServiceFactory', 'createPlaylistItems']
         arguments: ['@Google_Client']
 
     Everyman\Neo4j\Client:
       class: 'Everyman\Neo4j\Client'
-      factory: ['App\Services\Neo4jClientFactory', 'createClient']
+      factory: ['App\Core\Services\Neo4jClientFactory', 'createClient']
       arguments: ['neo4j', 'neo4j', 'neo4j']
 
     App\Infrastructure\Storage\Naming\IdDirectoryNamer:
@@ -43,5 +43,5 @@ services:
     Knp\Bundle\PaginatorBundle\Helper\Processor:
       class: Knp\Bundle\PaginatorBundle\Helper\Processor
 
-    App\Helper\Paginator\PaginatorInterface:
-      class: App\Helper\Paginator\KnpPaginator
+    App\Core\Helper\Paginator\PaginatorInterface:
+      class: App\Core\Helper\Paginator\KnpPaginator

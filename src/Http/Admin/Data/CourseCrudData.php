@@ -2,12 +2,12 @@
 
 namespace App\Http\Admin\Data;
 
+use App\Core\Validator\Exists;
 use App\Domain\Attachment\Attachment;
 use App\Domain\Auth\User;
 use App\Domain\Course\Entity\Course;
 use App\Domain\Course\Entity\Technology;
 use App\Http\Form\AutomaticForm;
-use App\Validator\Exists;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -15,9 +15,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 class CourseCrudData implements CrudDataInterface
 {
 
-    public string $title = '';
+    public ?string $title = null;
 
-    public string $slug = '';
+    public ?string $slug = null;
 
     public ?User $author;
 
@@ -40,7 +40,7 @@ class CourseCrudData implements CrudDataInterface
      */
     public ?int $deprecatedBy = null;
 
-    public string $content = '';
+    public ?string $content = null;
 
     private Course $entity;
 

@@ -4,7 +4,7 @@ namespace App\Tests\Domain\Live;
 
 use App\Domain\Live\LiveRepository;
 use App\Domain\Live\LiveSyncService;
-use App\Tests\Helper\GoogleTestHelper;
+use App\Tests\Core\Helper\GoogleTestHelper;
 use Google_Service_YouTube_Resource_PlaylistItems;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

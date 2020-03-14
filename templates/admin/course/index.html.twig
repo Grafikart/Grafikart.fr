@@ -40,8 +40,8 @@
           <td><span class="bullet {% if row.online == false %}bullet--danger{% endif %}"></span></td>
           <td>
             <div class="dashboard-actions">
-              <a href="{{ link }}">{{ icon('edit') }}</a>
               <a href="{{ path(prefix ~ '_clone', {id: row.id}) }}">{{ icon('clone') }}</a>
+              <a href="{{ link }}">{{ icon('edit') }}</a>
               {# La suppresion d'un tutoriel n'est pas prévue pour le moment
               <form action="{{ path(prefix ~ '_edit', {id: row.id}) }}" method="post" onsubmit="return confirm('Voulez vous vraiment supprimer ce contenu')">
                 <input type="hidden" name="_method" value="DELETE" />

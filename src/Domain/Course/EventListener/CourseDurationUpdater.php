@@ -2,8 +2,8 @@
 
 namespace App\Domain\Course\EventListener;
 
+use App\Core\Helper\PathHelper;
 use App\Domain\Course\Entity\Course;
-use App\Helper\PathHelper;
 use App\Infrastructure\Storage\VideoMetaReader;
 
 class CourseDurationUpdater

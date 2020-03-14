@@ -3,7 +3,7 @@
 namespace App\Tests\Domain\Live;
 
 use App\Domain\Live\Live;
-use App\Tests\Helper\GoogleTestHelper;
+use App\Tests\Core\Helper\GoogleTestHelper;
 use PHPUnit\Framework\TestCase;
 
 class LiveTest extends TestCase

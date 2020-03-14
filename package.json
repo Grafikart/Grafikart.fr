@@ -29,6 +29,7 @@
     "flatpickr": "^4.6.3",
     "monaco-editor": "^0.20.0",
     "scriptjs": "^2.5.9",
+    "sortablejs": "^1.10.2",
     "svelte": "^3.18.2",
     "turbolinks": "^5.2.0"
   }

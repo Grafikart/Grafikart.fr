@@ -2,9 +2,9 @@
 
 namespace App\Http\Admin\Controller;
 
+use App\Core\Helper\Paginator\PaginatorInterface;
 use App\Domain\Comment\CommentRepository;
 use App\Domain\Revision\RevisionRepository;
-use App\Helper\Paginator\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

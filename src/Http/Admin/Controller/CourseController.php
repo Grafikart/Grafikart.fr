@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * @Route("/course", name="course_")
  * @method getRepository() App\Domain\Course\Repository\CourseRepository\CourseRepository
  */
-class CourseController extends CrudController
+final class CourseController extends CrudController
 {
 
     protected string $templatePath = 'course';

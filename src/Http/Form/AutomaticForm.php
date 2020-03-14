@@ -2,19 +2,20 @@
 
 namespace App\Http\Form;
 
+use App\Core\Type\DateTimeType;
+use App\Core\Type\EditorType;
+use App\Core\Type\SwitchType;
 use App\Domain\Attachment\Attachment;
 use App\Domain\Attachment\Type\AttachmentType;
 use App\Domain\Auth\User;
 use App\Domain\Course\Type\TechnologiesType;
 use App\Http\Admin\Field\UserChoiceType;
-use App\Type\DateTimeType;
-use App\Type\EditorType;
-use App\Type\SwitchType;
 use DateTimeInterface;
 use ReflectionClass;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -37,8 +38,10 @@ class AutomaticForm extends AbstractType
 
     const NAMES = [
         'content' => EditorType::class,
+        'short' => TextareaType::class,
         'mainTechnologies' => TechnologiesType::class,
         'secondaryTechnologies' => TechnologiesType::class,
+        'chapters' => ChaptersForm::class
     ];
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

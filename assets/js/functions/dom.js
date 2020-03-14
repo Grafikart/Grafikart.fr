@@ -16,12 +16,26 @@ export function offsetTop (element) {
  *
  * @param {string} tagName
  * @param {object} attributes
+ * @param {...HTMLElement|string} children
  * @return HTMLElement
  */
-export function createElement (tagName, attributes = {}) {
+export function createElement (tagName, attributes = {}, ...children) {
   const e = document.createElement(tagName)
   for (const k of Object.keys(attributes)) {
-    e.setAttribute(k, attributes[k])
+    if (k.startsWith('on')) {
+      e.addEventListener(k.substr(2).toLowerCase(), attributes[k])
+    } else {
+      e.setAttribute(k, attributes[k])
+    }
+  }
+  for (const child of children) {
+    if (typeof child === 'string') {
+      e.appendChild(document.createTextNode(child))
+    } else if (child instanceof HTMLElement) {
+      e.appendChild(child)
+    } else {
+      console.error("Impossible d'ajouter l'élément", child)
+    }
   }
   return e
 }

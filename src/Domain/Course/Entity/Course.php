@@ -29,7 +29,7 @@ class Course extends Content
      * @ORM\ManyToOne(targetEntity="App\Domain\Attachment\Attachment", cascade={"persist"})
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
-    private ?Attachment $youtubeThumbnail;
+    private ?Attachment $youtubeThumbnail = null;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)

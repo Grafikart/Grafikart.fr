@@ -25,11 +25,9 @@
   height: 16px;
   margin-right: space(1);
 }
-
 .btn-primary {
   @extend .btn-gradient;
 }
-
 .btn-danger {
   @extend .btn-gradient;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 100%) var(--red);
@@ -38,12 +36,10 @@
     background: var(--red);
   }
 }
-
 .btn-secondary {
   @extend .btn-gradient;
   background-color: #cacaca;
 }
-
 .btn-big {
   display: inline-flex;
   align-items: center;

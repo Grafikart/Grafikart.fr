@@ -1,0 +1,51 @@
+{{ form_start(form, {attr: {class: 'stacked'}}) }}
+
+<section class="stack-large">
+
+  <section>
+    <div class="section-title">
+      Informations générales
+    </div>
+    <div class="grid">
+      {{ form_row(form.title) }}
+      {{ form_row(form.slug) }}
+      {{ form_row(form.author) }}
+      {{ form_row(form.createdAt) }}
+      {{ form_row(form.youtubePlaylist) }}
+      {{ form_row(form.online) }}
+      {{ form_row(form.image, {row_attr: {class: 'form-attachment', style:'grid-row-start:1; align-self:stretch;'}}) }}
+      <div class="full grid" style="--col: 400px;">
+        {{ form_row(form.mainTechnologies) }}
+        {{ form_row(form.secondaryTechnologies) }}
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">
+      Chapitres
+    </div>
+    {{ form_row(form.chapters) }}
+  </section>
+
+  <section>
+    <div class="section-title">
+      Contenu
+    </div>
+    {{ form_row(form.short) }}
+  </section>
+
+  <section>
+    <div class="section-title">
+      Description
+    </div>
+    {{ form_row(form.content, {label: false}) }}
+  </section>
+
+  <section>
+    <button type="submit" class="btn-gradient">Sauvegarder</button>
+  </section>
+
+</section>
+
+{{ form_end(form) }}
