@@ -93,3 +93,18 @@
     opacity: 1;
   }
 }
+
+// Champs Formation
+// =============
+.dashboard-formation-editor {
+  --col: 320px;
+  .mdeditor {
+    height: 100%;
+  }
+  & > *:first-child {
+    grid-column: 1 / -2!important;
+  }
+  & > *:last-child {
+    grid-column: -2 / -1!important;
+  }
+}

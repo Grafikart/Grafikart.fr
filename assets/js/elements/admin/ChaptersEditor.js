@@ -18,6 +18,7 @@ export default class ChaptersEditor extends HTMLTextAreaElement {
   }
 
   connectedCallback () {
+    // this.style.display = 'none'
     this.list = this.renderList()
     this.bindSortable()
     this.insertAdjacentElement('afterend', this.list)
@@ -40,11 +41,15 @@ export default class ChaptersEditor extends HTMLTextAreaElement {
               ${chapter.courses.map(course => html`
                 <li
                   class="chapters-editor__course"
-                  data-title={course.title}
-                  data-id={course.id}
+                  data-title=${course.title}
+                  data-id=${course.id}
                 >
                   <span>${course.title}</span>
-                  <button type="button" onclick=${this.removeCourse}>Supprimer</button>
+                  <button type="button" onclick=${this.removeCourse}>
+                    <svg class="icon icon-delete">
+                      <use xlink:href="/sprite.svg#delete"></use>
+                    </svg>
+                  </button>
                 </li>
               `)}
             </ul>
@@ -58,10 +63,9 @@ export default class ChaptersEditor extends HTMLTextAreaElement {
    *
    * @param {MouseEvent} e
    */
-  removeCourse (e) {
+  async removeCourse (e) {
     e.preventDefault()
     if (e.currentTarget instanceof HTMLButtonElement) {
-      console.log('ok')
       const li = closest(e.currentTarget, 'li')
       li.parentElement.removeChild(li)
       this.updateInput()

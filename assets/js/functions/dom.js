@@ -1,4 +1,4 @@
-import htm from 'htm'
+import htm from 'htm/mini'
 
 /**
  * Trouve la position de l'élément par rapport au haut de la page de manière recursive
@@ -13,8 +13,11 @@ export function offsetTop (element) {
   return top
 }
 
+
 /**
  * Crée un élément HTML
+ *
+ * Cette fonction ne couvre que les besoins de l'application, jsx-dom pourrait remplacer cette fonction
  *
  * @param {string} tagName
  * @param {object} attributes
@@ -22,13 +25,16 @@ export function offsetTop (element) {
  * @return HTMLElement
  */
 export function createElement (tagName, attributes = {}, ...children) {
+  const svgTags = ['svg', 'use', 'path', 'circle', 'g']
   // On construit l'élément
-  const e = document.createElement(tagName)
+  const e = !svgTags.includes(tagName) ? document.createElement(tagName) : document.createElementNS("http://www.w3.org/2000/svg", tagName)
 
   // On lui associe les bons attributs
   for (const k of Object.keys(attributes || {})) {
-    if (k.startsWith('on')) {
+    if (typeof attributes[k] === 'function' && k.startsWith('on')) {
       e.addEventListener(k.substr(2).toLowerCase(), attributes[k])
+    } else if (k === 'xlink:href') {
+      e.setAttributeNS('http://www.w3.org/1999/xlink', 'href', attributes[k]);
     } else {
       e.setAttribute(k, attributes[k])
     }
@@ -43,7 +49,7 @@ export function createElement (tagName, attributes = {}, ...children) {
   for (const child of children) {
     if (typeof child === 'string' || typeof child === 'number') {
       e.appendChild(document.createTextNode(child))
-    } else if (child instanceof HTMLElement) {
+    } else if (child instanceof HTMLElement || child instanceof SVGElement) {
       e.appendChild(child)
     } else {
       console.error("Impossible d'ajouter l'élément", child, children)

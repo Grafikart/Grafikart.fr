@@ -25,7 +25,6 @@
     <div class="section-title">
       Chapitres
     </div>
-    {{ form_row(form.chapters) }}
   </section>
 
   <section>
@@ -39,7 +38,10 @@
     <div class="section-title">
       Description
     </div>
-    {{ form_row(form.content, {label: false}) }}
+    <div class="grid dashboard-formation-editor">
+      {{ form_row(form.content, {label: false}) }}
+      {{ form_row(form.chapters) }}
+    </div>
   </section>
 
   <section>
