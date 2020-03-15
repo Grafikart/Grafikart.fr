@@ -13,7 +13,6 @@ export function offsetTop (element) {
   return top
 }
 
-
 /**
  * Crée un élément HTML
  *
@@ -25,6 +24,10 @@ export function offsetTop (element) {
  * @return HTMLElement
  */
 export function createElement (tagName, attributes = {}, ...children) {
+  if (typeof tagName === 'function') {
+    return tagName(attributes)
+  }
+
   const svgTags = ['svg', 'use', 'path', 'circle', 'g']
   // On construit l'élément
   const e = !svgTags.includes(tagName) ? document.createElement(tagName) : document.createElementNS("http://www.w3.org/2000/svg", tagName)
@@ -52,7 +55,7 @@ export function createElement (tagName, attributes = {}, ...children) {
     } else if (child instanceof HTMLElement || child instanceof SVGElement) {
       e.appendChild(child)
     } else {
-      console.error("Impossible d'ajouter l'élément", child, children)
+      console.error("Impossible d'ajouter l'élément", child, typeof child)
     }
   }
   return e

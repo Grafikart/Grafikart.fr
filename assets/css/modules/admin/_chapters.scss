@@ -13,7 +13,7 @@
   display: block;
   padding: space(1) space(2);
   border: solid 1px var(--border);
-  margin-left: 24px;
+  margin-left: space(3);
   position: relative;
   box-shadow: 0px 1px 4px rgba(213, 222, 233, 0.2);
   border-radius: 2px;
@@ -51,13 +51,30 @@
   cursor: move;
   background: linear-gradient(to bottom, var(--background-handle) 0px, var(--background-handle) 2px, transparent 4px) top left / 100% 6px repeat;
 }
-.chapters-editor__course button {
+.chapters-editor__course button,
+.chapters-editor__add button
+{
   position: absolute;
   top: calc(50% - 8px);
   right: space(1);
   color: var(--border);
 }
-.chapters-editor__course button svg {
+.chapters-editor__course button svg,
+.chapters-editor__add svg {
   width: 16px;
   height: 16px;
+}
+.chapters-editor__add {
+  position: relative;
+  margin-left: space(3);
+}
+.chapters-editor__add input {
+  border: 2px solid var(--green);
+}
+.chapters-editor__add input::placeholder {
+  color: var(--green);
+}
+.chapters-editor__add svg {
+  color: var(--green);
+  transform: rotate(45deg);
 }
