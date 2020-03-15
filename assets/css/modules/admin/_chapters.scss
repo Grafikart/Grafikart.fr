@@ -1,3 +1,13 @@
+// Chapitres
+.chapters-editor li {
+  position: relative;
+}
+.chapters-editor > li > .chapters-editor__delete {
+  top: 16px;
+}
+.chapters-editor > .chapters-editor__add {
+  margin-left: 0;
+}
 .chapters-editor__chapter {
   text-transform: uppercase;
   font-weight: 300;
@@ -9,6 +19,7 @@
   box-shadow: none !important;
 }
 
+// Cours
 .chapters-editor__course {
   display: block;
   padding: space(1) space(2);
@@ -19,7 +30,6 @@
   border-radius: 2px;
   margin-bottom: space(1);
 }
-
 .chapters-editor__course::after {
   content: '';
   position: absolute;
@@ -31,15 +41,12 @@
   opacity: .1;
   pointer-events: none;
 }
-
 .chapters-editor__course.sortable-ghost {
   color: transparent;
 }
-
 .chapters-editor__course.sortable-ghost::after {
   opacity: .4;
 }
-
 .chapters-editor__course::before {
   --background-handle: var(--border);
   content: '';
@@ -51,7 +58,9 @@
   cursor: move;
   background: linear-gradient(to bottom, var(--background-handle) 0px, var(--background-handle) 2px, transparent 4px) top left / 100% 6px repeat;
 }
-.chapters-editor__course button,
+
+// Boutons
+.chapters-editor__delete,
 .chapters-editor__add button
 {
   position: absolute;
@@ -59,7 +68,7 @@
   right: space(1);
   color: var(--border);
 }
-.chapters-editor__course button svg,
+.chapters-editor__delete svg,
 .chapters-editor__add svg {
   width: 16px;
   height: 16px;

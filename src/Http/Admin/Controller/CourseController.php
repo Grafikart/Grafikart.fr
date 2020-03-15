@@ -8,6 +8,7 @@ use App\Domain\Application\Event\ContentUpdatedEvent;
 use App\Domain\Course\Entity\Course;
 use App\Domain\Course\Helper\CourseCloner;
 use App\Http\Admin\Data\CourseCrudData;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -78,6 +79,19 @@ final class CourseController extends CrudController
     public function delete(Course $course): Response
     {
         return $this->crudDelete($course);
+    }
+
+    /**
+     * Endpoint pour récupérer le titre d'un cours depuis son Id
+     *
+     * @Route("/{id}/title", name="title")
+     */
+    public function title(Course $course): JsonResponse
+    {
+        return new JsonResponse([
+            'id' => $course->getId(),
+            'title' => $course->getTitle()
+        ]);
     }
 
 }

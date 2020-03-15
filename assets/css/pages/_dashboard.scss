@@ -16,6 +16,7 @@
 }
 .dashboard-search {
   display: flex;
+  flex-basis: 250px;
 }
 .dashboard-search input {
   max-width: 300px;
@@ -99,6 +100,7 @@
 .dashboard-formation-editor {
   --col: 320px;
   .mdeditor {
+    min-height: 500px;
     height: 100%;
   }
   & > *:first-child {

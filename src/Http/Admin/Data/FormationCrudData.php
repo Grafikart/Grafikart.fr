@@ -5,6 +5,7 @@ namespace App\Http\Admin\Data;
 use App\Domain\Attachment\Attachment;
 use App\Domain\Auth\User;
 use App\Domain\Course\Entity\Chapter;
+use App\Domain\Course\Entity\Course;
 use App\Domain\Course\Entity\Formation;
 use App\Domain\Course\Entity\Technology;
 use App\Http\Form\AutomaticForm;
@@ -82,6 +83,7 @@ class FormationCrudData implements CrudDataInterface
         $this->formation->setTitle($this->title);
         $this->formation->setSlug($this->slug);
         $this->formation->setCreatedAt($this->createdAt);
+        $this->formation->setUpdatedAt(new \DateTime());
         $this->formation->setAuthor($this->author);
         $this->formation->setYoutubePlaylist($this->youtubePlaylist);
         $this->formation->setOnline($this->online);
@@ -100,6 +102,16 @@ class FormationCrudData implements CrudDataInterface
                 $this->em->remove($usage);
             }
         }
+        /** @var Course $course */
+        foreach($this->formation->getCourses() as $course) {
+            $course->setFormation(null);
+        }
+        foreach($this->chapters as $chapter) {
+            foreach($chapter->getCourses() as $course) {
+                $course->setFormation($this->formation);
+            }
+        }
+        $this->formation->setChapters($this->chapters);
     }
 
     public function setEntityManager(\Doctrine\ORM\EntityManagerInterface $em): self

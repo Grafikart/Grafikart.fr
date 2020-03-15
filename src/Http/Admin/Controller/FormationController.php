@@ -38,6 +38,7 @@ final class FormationController extends CrudController
             ->leftJoin('row.technologyUsages', 'tu')
             ->leftJoin('tu.technology', 't')
             ->addSelect('t', 'tu')
+            ->orderby('row.createdAt', 'DESC')
         ;
         return $this->crudIndex($query);
     }

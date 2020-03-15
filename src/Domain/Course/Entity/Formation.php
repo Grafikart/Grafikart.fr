@@ -16,7 +16,7 @@ class Formation extends Content
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private ?string $short;
+    private ?string $short = null;
 
     /**
      * @ORM\Column(type="json")
@@ -25,7 +25,7 @@ class Formation extends Content
     private array $chapters = [];
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private ?string $youtube_playlist = null;
 
@@ -38,6 +38,7 @@ class Formation extends Content
     public function __construct()
     {
         $this->courses = new ArrayCollection();
+        parent::__construct();
     }
 
     public function getShort(): ?string
@@ -52,11 +53,30 @@ class Formation extends Content
     }
 
     /**
+     * Initialise les chapitres depuis le JSON
+     *
      * @return Chapter[]
      */
     public function getChapters(): array
     {
         return Chapter::makeFromFormation($this);
+    }
+
+    /**
+     * Rempli le champs JSON à partir d'un tableau d'objet chapitres
+     *
+     * @var Chapter[] $chapters
+     */
+    public function setChapters(array $chapters): self
+    {
+        $this->chapters = array_map(function (Chapter $chapter) {
+            return [
+                'title' => $chapter->getTitle(),
+                'courses' => array_map(fn (Course $course) => $course->getId(), $chapter->getCourses())
+            ];
+        }, $chapters);
+
+        return $this;
     }
 
     /**

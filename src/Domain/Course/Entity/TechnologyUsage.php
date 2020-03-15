@@ -21,7 +21,7 @@ class TechnologyUsage
     /**
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="App\Domain\Application\Entity\Content", inversedBy="technologyUsages")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private Content $content;
 

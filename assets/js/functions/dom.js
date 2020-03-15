@@ -80,7 +80,7 @@ export function strToDom(str) {
  *
  * @param {HTMLElement|Document|Node} element
  * @param {string} selector
- * @return {null|*}
+ * @return {null|HTMLElement}
  */
 export function closest (element, selector) {
     for ( ; element && element !== document; element = element.parentNode ) {

@@ -10,7 +10,7 @@
       <form class="form-group dashboard-search">
         <input name="q" type="text" placeholder="Rechercher une formation" value="{{ app.request.get('q') }}" >
       </form>
-      <a href="{{ path(prefix ~ '_new') }}" class="dashboard-btn">Ajouter un tutoriel</a>
+      <a href="{{ path(prefix ~ '_new') }}" class="dashboard-btn">Ajouter une formation</a>
     </div>
     <table class="table">
       <thead>
@@ -41,14 +41,12 @@
           <td>
             <div class="dashboard-actions">
               <a href="{{ link }}">{{ icon('edit') }}</a>
-              {# La suppresion d'un tutoriel n'est pas prévue pour le moment
               <form action="{{ path(prefix ~ '_edit', {id: row.id}) }}" method="post" onsubmit="return confirm('Voulez vous vraiment supprimer ce contenu')">
                 <input type="hidden" name="_method" value="DELETE" />
                 <button type="submit">
                   {{ icon('delete') }}
                 </button>
               </form>
-              #}
             </div>
           </td>
         </tr>
