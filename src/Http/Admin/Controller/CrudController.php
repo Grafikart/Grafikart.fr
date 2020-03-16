@@ -28,10 +28,11 @@ abstract class CrudController extends BaseController
     protected string $templatePath = 'blog';
     protected string $menuItem = '';
     protected string $routePrefix = '';
+    protected string $searchField = 'title';
     protected array $events = [
-        'update' => '',
-        'delete' => '',
-        'create' => ''
+        'update' => null,
+        'delete' => null,
+        'create' => null
     ];
     protected EntityManagerInterface $em;
     protected PaginatorInterface $paginator;
@@ -59,8 +60,8 @@ abstract class CrudController extends BaseController
             ->createQueryBuilder('row')
             ->orderBy('row.createdAt', 'DESC');
         if ($request->get('q')) {
-            $query = $query->where('LOWER(row.title) LIKE :title')
-                ->setParameter('title', "%" . strtolower($request->get('q')) . "%");
+            $query = $query->where("LOWER(row.{$this->searchField}) LIKE :search")
+                ->setParameter('search', "%" . strtolower($request->get('q')) . "%");
         }
         $this->paginator->allowSort('row.id', 'row.title');
         $rows = $this->paginator->paginate($query->getQuery());
@@ -83,7 +84,9 @@ abstract class CrudController extends BaseController
             $entity = $data->getEntity();
             $data->hydrate();
             $this->em->flush();
-            $this->dispatcher->dispatch(new $this->events['update']($entity));
+            if ($this->events['update']) {
+                $this->dispatcher->dispatch(new $this->events['update']($entity));
+            }
             $this->addFlash('success', 'Le contenu a bien été modifié');
             return $this->redirectToRoute($this->routePrefix . '_edit', ['id' => $entity->getId()]);
         }
@@ -107,7 +110,9 @@ abstract class CrudController extends BaseController
             $data->hydrate();
             $this->em->persist($entity);
             $this->em->flush();
-            $this->dispatcher->dispatch(new $this->events['create']($data->getEntity()));
+            if ($this->events['create']) {
+                $this->dispatcher->dispatch(new $this->events['create']($data->getEntity()));
+            }
             $this->addFlash('success', 'Le contenu a bien été créé');
             return $this->redirectToRoute($this->routePrefix . '_edit', ['id' => $entity->getId()]);
         }
@@ -122,7 +127,9 @@ abstract class CrudController extends BaseController
     public function crudDelete(object $entity): RedirectResponse
     {
         $this->em->remove($entity);
-        $this->dispatcher->dispatch(new $this->events['delete']($entity));
+        if ($this->events['delete']) {
+            $this->dispatcher->dispatch(new $this->events['delete']($entity));
+        }
         $this->em->flush();
         $this->addFlash('success', 'Le contenu a bien été supprimé');
         return $this->redirectToRoute($this->routePrefix . '_index');

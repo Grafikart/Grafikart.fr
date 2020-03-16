@@ -20,11 +20,11 @@ class Unique extends Constraint
 
     public ?string $entityClass = null;
 
-    public ?string $field = null;
+    public string $field = '';
 
     public function getRequiredOptions()
     {
-        return ['entityClass', 'field'];
+        return ['field'];
     }
     public function getTargets()
     {

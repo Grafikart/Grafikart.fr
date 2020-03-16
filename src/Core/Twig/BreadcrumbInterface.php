@@ -5,8 +5,11 @@ namespace App\Core\Twig;
 interface BreadcrumbInterface
 {
 
-    public function generate ($course): array;
+    /**
+     * @param object $entity
+     */
+    public function generate ($entity): array;
 
-    public function support ($object): bool;
+    public function support (object $object): bool;
 
 }

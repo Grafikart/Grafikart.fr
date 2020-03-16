@@ -9,6 +9,7 @@ use App\Domain\Course\Entity\Course;
 use App\Domain\Course\Helper\CourseCloner;
 use App\Http\Admin\Data\CourseCrudData;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -32,7 +33,7 @@ final class CourseController extends CrudController
     /**
      * @Route("/", name="index")
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
         $this->paginator->allowSort('row.id', 'row.online');
         $query = $this->getRepository()
@@ -41,6 +42,11 @@ final class CourseController extends CrudController
             ->leftJoin('row.technologyUsages', 'tu')
             ->leftJoin('tu.technology', 't')
             ->orderBy('row.createdAt', 'DESC');
+        if ($request->query->has('technology')) {
+            $query
+                ->andWhere('t.slug = :technology')
+                ->setParameter('technology', $request->query->get('technology'));
+        }
         return $this->crudIndex($query);
     }
 

@@ -6,9 +6,12 @@ use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity
+ * @Vich\Uploadable()
  */
 class Technology
 {
@@ -40,6 +43,11 @@ class Technology
     private ?string $image = null;
 
     /**
+     * @Vich\UploadableField(fileNameProperty="image", mapping="icons")
+     */
+    private ?File $imageFile = null;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Domain\Course\Entity\TechnologyUsage", mappedBy="technology", orphanRemoval=true)
      * @var Collection<int, TechnologyUsage>
      */
@@ -48,6 +56,11 @@ class Technology
     private bool $secondary = false;
 
     private ?string $version = null;
+
+    /**
+     * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
+     */
+    private ?\DateTimeInterface $updatedAt = null;
 
     public function __construct()
     {
@@ -162,6 +175,28 @@ class Technology
     public function isSecondary(): bool
     {
         return $this->secondary;
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(?File $imageFile): Technology
+    {
+        $this->imageFile = $imageFile;
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): Technology
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
     }
 
 }

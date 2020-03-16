@@ -3,9 +3,12 @@
 {% block body %}
 
   <header class="wave-header">
-    <div class="wave-header__body">
+    <div class="wave-header__body stack">
       <div class="wave-header__title">{{ formation.title }}</div>
-      {{ formation.short }}
+      <p>{{ formation.short }}</p>
+      <p>
+        <button class="btn-big" style="color: #FFF; border-color:#FFF;">Continuer</button>
+      </p>
     </div>
     <div class="wave-header__image">
       <img src="https://www.grafikart.fr/uploads/formations/single_mysql.png" alt="">
@@ -14,6 +17,14 @@
   </header>
 
   <section class="container formatted">
+    <h2>Actions principales</h2>
+    <ul>
+      <li>Ma progression : Chapitre 3 / 12</li>
+      <li>Peut être la fiche de la prochaine vidéo à regarder ?</li>
+    </ul>
+    <p>
+      <button class="btn"></button>
+    </p>
     <h2>Informations</h2>
     <ul>
       <li><strong>{{ formation.courses.count }}</strong> Chapitres</li>

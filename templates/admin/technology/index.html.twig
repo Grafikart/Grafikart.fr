@@ -1,0 +1,63 @@
+{% extends 'admin/layout/card.html.twig' %}
+
+{% block title %}
+    {{ icon('lines') }}
+    Gestion des technologies
+{% endblock %}
+
+{% block content %}
+    <div class="flex">
+      <form class="form-group dashboard-search">
+        <input name="q" type="text" placeholder="Rechercher une technologie" value="{{ app.request.get('q') }}" >
+      </form>
+      <a href="{{ path(prefix ~ '_new') }}" class="dashboard-btn">Ajouter une technologie</a>
+    </div>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>{{ sort_by(rows, 'ID', 'row.id') }}</th>
+        <th>{{ sort_by(rows, 'Nom', 'row.name') }}</th>
+        <th>{{ sort_by(rows, 'Tutoriels', 'count') }}</th>
+        <th class="text-right">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+        {% for row in rows %}
+          {% set count = row['count'] %}
+          {% set row = row[0] %}
+          {% set link = path(prefix ~ '_edit', {id: row.id}) %}
+        <tr>
+          <td class="dashboard-id">
+            <a href="{{ link }}">{{ row.id }}</a>
+          </td>
+          <td>
+            <a href="{{ link }}" style="display: inline-flex; align-items: center">
+              <img src="{{ vich_uploader_asset(row, 'imageFile') }}" alt="" style="width: 30px; margin-right: 8px;" >
+              {{ row.name }}
+            </a>
+          </td>
+          <td>
+            <a href="{{ path('admin_course_index', {technology: row.slug}) }}">
+              {{ count }}
+            </a>
+          </td>
+          <td>
+            <div class="dashboard-actions">
+              <a href="{{ link }}">{{ icon('edit') }}</a>
+              {% if count  == 0 %}
+              <form action="{{ path(prefix ~ '_edit', {id: row.id}) }}" method="post" onsubmit="return confirm('Voulez vous vraiment supprimer ce contenu')">
+                <input type="hidden" name="_method" value="DELETE" />
+                <button type="submit">
+                  {{ icon('delete') }}
+                </button>
+              </form>
+              {% endif %}
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    {{ paginate(rows) }}
+{% endblock %}

@@ -47,30 +47,30 @@ class AutomaticForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $data = $options['data'];
-        $refClass = new ReflectionClass(get_class($data));
-        $classProperties = $refClass->getProperties();
-        $dataProperties = get_object_vars($options['data']);
+        $refClass = new ReflectionClass($data);
+        $classProperties = $refClass->getProperties(\ReflectionProperty::IS_PUBLIC);
         foreach ($classProperties as $property) {
             $name = $property->getName();
-            if (array_key_exists($name, $dataProperties)) {
-                /** @var \ReflectionNamedType $type */
-                $type = $property->getType();
-                if (array_key_exists($name, self::NAMES)) {
-                    $builder->add($name, self::NAMES[$name], [
-                        'required' => false
-                    ]);
-                } else if (array_key_exists($type->getName(), self::TYPES)) {
-                    $builder->add($name, self::TYPES[$type->getName()], [
-                        'required' => !$type->allowsNull() && $type->getName() !== 'bool'
-                    ]);
-                } else {
-                    throw new \RuntimeException(sprintf(
-                        'Impossible de trouver le champs associé au type %s dans %s::%s',
-                        $type->getName(),
-                        get_class($data),
-                        $name
-                    ));
-                }
+            /** @var \ReflectionNamedType|null $type */
+            $type = $property->getType();
+            if ($type === null) {
+                return;
+            }
+            if (array_key_exists($name, self::NAMES)) {
+                $builder->add($name, self::NAMES[$name], [
+                    'required' => false
+                ]);
+            } else if (array_key_exists($type->getName(), self::TYPES)) {
+                $builder->add($name, self::TYPES[$type->getName()], [
+                    'required' => !$type->allowsNull() && $type->getName() !== 'bool'
+                ]);
+            } else {
+                throw new \RuntimeException(sprintf(
+                    'Impossible de trouver le champs associé au type %s dans %s::%s',
+                    $type->getName(),
+                    get_class($data),
+                    $name
+                ));
             }
         }
     }

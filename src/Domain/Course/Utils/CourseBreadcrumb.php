@@ -29,7 +29,7 @@ class CourseBreadcrumb implements BreadcrumbInterface
         return $items;
     }
 
-    public function support($object): bool
+    public function support(object $object): bool
     {
         return $object instanceof Course;
     }

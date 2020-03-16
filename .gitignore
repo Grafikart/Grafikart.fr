@@ -1,9 +1,10 @@
-/public/assets/
-/public/old/
+/public/assets
+/public/icons
+/public/old
+/public/uploads
 *.sql
 
 ###> symfony/framework-bundle ###
-/public/uploads
 /.env.local
 /.env.local.php
 /.env.*.local
