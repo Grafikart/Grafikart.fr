@@ -2,6 +2,7 @@
 
 namespace App\Http\Admin\Data;
 
+use App\Core\Validator\Unique;
 use App\Domain\Attachment\Attachment;
 use App\Domain\Auth\User;
 use App\Domain\Course\Entity\Chapter;
@@ -10,7 +11,12 @@ use App\Domain\Course\Entity\Formation;
 use App\Domain\Course\Entity\Technology;
 use App\Http\Form\AutomaticForm;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Core\Validator\Slug;
+use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * @Unique(field="slug")
+ */
 class FormationCrudData implements CrudDataInterface
 {
 
@@ -18,8 +24,15 @@ class FormationCrudData implements CrudDataInterface
 
     private ?EntityManagerInterface $em = null;
 
+    /**
+     * @Assert\NotBlank()
+     */
     public ?string $title;
 
+    /**
+     * @Assert\NotBlank()
+     * @Slug()
+     */
     public ?string $slug;
 
     public \DateTimeInterface $createdAt;
@@ -119,5 +132,10 @@ class FormationCrudData implements CrudDataInterface
         $this->em = $em;
 
         return $this;
+    }
+
+    public function getId (): ?int
+    {
+        return $this->getEntity()->getId();
     }
 }

@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700|Roboto:300,400&display=swap" rel="stylesheet">
   {% block stylesheets %}
     {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('admin') }}
   {% endblock %}
   {% block javascripts %}
     {{ encore_entry_script_tags('app') | replace({'<script': '<script defer'}) | raw }}

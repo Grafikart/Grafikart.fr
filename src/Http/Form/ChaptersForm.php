@@ -96,7 +96,7 @@ class ChaptersForm extends TextareaType implements DataTransformerInterface
     public function reverseTransform($value): array
     {
         $chapters = json_decode($value, true);
-        if ($chapters === false || empty($chapters)) {
+        if ($chapters === null) {
             throw new \RuntimeException('Impossible de parser le JSON des chapitres : ' . $value);
         }
         return array_map(function ($chapter) {

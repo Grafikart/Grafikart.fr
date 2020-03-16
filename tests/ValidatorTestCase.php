@@ -20,6 +20,8 @@ class ValidatorTestCase extends KernelTestCase
         if ($expectedViolation) {
             $violation = $this->getMockBuilder(ConstraintViolationBuilderInterface::class)->getMock();
             $violation->expects($this->any())->method('setParameter')->willReturn($violation);
+            $violation->expects($this->any())->method('setCode')->willReturn($violation);
+            $violation->expects($this->any())->method('atPath')->willReturn($violation);
             $violation->expects($this->once())->method('addViolation');
             $context
                 ->expects($this->once())
