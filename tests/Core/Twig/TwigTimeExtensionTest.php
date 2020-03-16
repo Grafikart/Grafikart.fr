@@ -44,7 +44,24 @@ class TwigTimeExtensionTest extends TestCase
     {
         $date = new DateTime("@" . $time);
         $this->assertEquals("<time-ago time=\"$time\"></time-ago>", $this->extension->ago($date));
+    }
 
+
+
+    public function dataTestShortDuration(): iterable
+    {
+        yield ['30:00', 30 * 60];
+        yield ['58:55', 58 * 60 + 55];
+        yield ['01:30:00', 90 * 60];
+        yield ['01:30:55', 90 * 60 + 55];
+    }
+
+    /**
+     * @dataProvider dataTestShortDuration
+     */
+    public function testShortDuration(string $expected, int $time): void
+    {
+        $this->assertEquals($expected, $this->extension->shortDuration($time));
     }
 
 

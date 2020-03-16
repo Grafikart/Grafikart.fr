@@ -16,11 +16,11 @@ use Symfony\Component\Validator\Constraint;
 class Unique extends Constraint
 {
 
-    public $message = 'Cette valeur est déjà utilisée';
+    public string $message = 'Cette valeur est déjà utilisée';
 
-    public $entityClass = null;
+    public ?string $entityClass = null;
 
-    public $field = null;
+    public ?string $field = null;
 
     public function getRequiredOptions()
     {

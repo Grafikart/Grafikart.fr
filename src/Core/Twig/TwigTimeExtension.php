@@ -15,10 +15,14 @@ class TwigTimeExtension extends AbstractExtension
     {
         return [
             new TwigFilter('duration', [$this, 'duration']),
-            new TwigFilter('ago', [$this, 'ago'], ['is_safe' => ['html']])
+            new TwigFilter('ago', [$this, 'ago'], ['is_safe' => ['html']]),
+            new TwigFilter('duration_short', [$this, 'shortDuration'], ['is_safe' => ['html']])
         ];
     }
 
+    /**
+     * Génère une durée au format "30 min"
+     */
     public function duration(int $duration): string
     {
         $minutes = round($duration / 60);
@@ -30,6 +34,28 @@ class TwigTimeExtension extends AbstractExtension
         return "{$hours}h{$minutes}";
     }
 
+    /**
+     * Génère une durée au format court hh:mm:ss
+     */
+    public function shortDuration(int $duration): string
+    {
+        $minutes = floor($duration / 60);
+        $seconds = $duration - $minutes * 60;
+        if ($minutes < 60) {
+            $hours = null;
+        } else {
+            $hours = floor($minutes / 60);
+            $minutes = $minutes - ($hours * 60);
+        }
+        return implode(':', array_map(
+            fn (int $duration) => str_pad(strval($duration), 2, "0", STR_PAD_LEFT),
+            array_filter([$hours, $minutes, $seconds], fn ($duration) => $duration !== null)
+        ));
+    }
+
+    /**
+     * Génère une date au format "Il y a" gràce à un CustomElement
+     */
     public function ago (\DateTimeInterface $date): string
     {
         return "<time-ago time=\"{$date->getTimestamp()}\"></time-ago>";

@@ -169,7 +169,7 @@ abstract class Content
     }
 
     /**
-     * @return array<Technology>
+     * @return Technology[]
      */
     public function getTechnologies (): array
     {
@@ -177,7 +177,7 @@ abstract class Content
     }
 
     /**
-     * @return array<Technology>
+     * @return Technology[]
      */
     public function getMainTechnologies(): array
     {
@@ -185,7 +185,7 @@ abstract class Content
     }
 
     /**
-     * @return array<Technology>
+     * @return Technology[]
      */
     public function getSecondaryTechnologies(): array
     {
@@ -236,7 +236,7 @@ abstract class Content
     }
 
     /**
-     * @return array<Technology>
+     * @return Technology[]
      */
     private function getFilteredTechnology(bool $secondary = false): array
     {

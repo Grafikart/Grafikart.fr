@@ -76,4 +76,18 @@ config.resolve.extensions.push('.svelte')
 config.resolve.mainFields = ['svelte', 'browser', 'module', 'main']
 config.output.globalObject = 'self'
 
+// Patch style loader parceque symfony ne supporte pas la version 1 à l'heure actuelle
+config.module.rules.forEach(function (rule) {
+  if (rule.oneOf === undefined) {
+    return
+  }
+  rule.oneOf.forEach(function (rule) {
+    rule.use.forEach(function (rule) {
+      if (rule.loader === 'style-loader') {
+        rule.options = {}
+      }
+    })
+  })
+})
+
 module.exports = config

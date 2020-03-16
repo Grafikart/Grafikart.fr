@@ -10,6 +10,10 @@ services:
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         public: false
 
+    _instanceof:
+      App\Core\Twig\BreadcrumbInterface:
+        tags: ['app.breadcrumb']
+
     App\:
         resource: '../src/*'
         exclude: '../src/{DependencyInjection,Entity,Infrastructure/Migrations,Tests,Kernel.php}'
@@ -45,3 +49,7 @@ services:
 
     App\Core\Helper\Paginator\PaginatorInterface:
       class: App\Core\Helper\Paginator\KnpPaginator
+
+    App\Core\Twig\TwigBreadcrumbExtension:
+      class: App\Core\Twig\TwigBreadcrumbExtension
+      arguments: [!tagged_iterator app.breadcrumb]

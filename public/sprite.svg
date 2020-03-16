@@ -93,4 +93,7 @@
   <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="sort">
     <path d="M17.25 15.88l-4.5 4.5V.82h-1.5v19.56l-4.5-4.5-1.06 1.06L12 23.25l6.31-6.31-1.06-1.06z" fill="currentColor"/>
   </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22" id="breadcrumb">
+    <path fill="currentColor" d="M8.15 14.78l3.84-3.86-3.84-3.86 1.18-1.18 5.04 5.04-5.04 5.04z"/>
+  </symbol>
 </svg>

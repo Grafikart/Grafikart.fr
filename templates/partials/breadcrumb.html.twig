@@ -1,0 +1,10 @@
+<div class="breadcrumb">
+  {% for label, url in items %}
+    <a itemprop="url" title="{{ label }}" href="{{ url }}">
+      <span itemprop="title">{{ label }}</span>
+    </a>
+    {% if not loop.last %}
+      {{ icon('breadcrumb') }}
+    {% endif %}
+  {% endfor %}
+</div>

@@ -3,43 +3,35 @@
 {% block body %}
 
   <div class="container">
-    <div class="breadcrumb">
-        <a itemprop="url" title="Tutoriels" href="{{ path('course_index')}}">
-          <span itemprop="title">Tutoriels </span>
-        </a>
-        {% for technology in course.mainTechnologies %}
-          <a itemprop="url" title="{{ technology.name }} &quot;c'est nul&quot;" href="{{path('technology_show', {slug: technology.slug})}}">
-            <span itemprop="title">{{ technology.name }}</span>
-          </a>
-        {% endfor %}
-        {% if course.formation %}
-          <a itemprop="url" title="{{course.formation.title}} &quot;c'est nul&quot;" href="{{path('formation_show', {slug: course.formation.slug})}}">
-            <span itemprop="title">{{ course.formation.title }}</span>
-          </a>
-        {% endif %}
-        <a itemprop="url" title="{{ course.title }}" href="{{ path('course_show', {slug: course.slug, id: course.id}) }}">
-          <span itemprop="title">{{ course.title }}</span>
-        </a>
-    </div>
+    {{ breadcrumb(course) }}
   </div>
 
-  <div class="layout-sidebar">
-    <div class="stack">
-      <youtube-player video="{{ course.youtubeId }}" poster="{{ image_url(course.image) }}" title="{{ course.title }}"
-                      class="shadow"></youtube-player>
+  <div class="course-header container-full">
+    <div class="course-header__player stack">
+      <youtube-player
+        video="{{ course.youtubeId }}"
+        poster="{{ image_url(course.image) }}"
+        title="{{ course.title }}"
+        button="#chapter{{ course.id }} play-button"
+        id="coursePlayer"
+        class="shadow"></youtube-player>
       <div class="flex">
         <div class="inline-1">
           {% if course.premium %}
-          <div class="pill pill-yellow">Premium</div>
+            <div class="pill pill-yellow">Premium</div>
           {% endif %}
           <div class="pill pill-green">Facile</div>
         </div>
         <div class="inline-1">
-          {% if course.source is not empty %}
           <a href="#" class="pill">
             {{ icon('lines') }}
-            Télécharger les sources
+            Voir la démo
           </a>
+          {% if course.source is not empty %}
+            <a href="#" class="pill">
+              {{ icon('lines') }}
+              Télécharger les sources
+            </a>
           {% endif %}
           <a href="#" class="pill">
             {{ icon('video') }}
@@ -47,13 +39,18 @@
           </a>
         </div>
       </div>
+    </div>
+    {% if course.formation %}
+      <div class="course-header__sidebar">
+        {% include 'chapters/_summary.html.twig' with {chapters: course.formation.chapters, current: "#chapter" ~ course.id} only %}
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="layout-sidebar">
+    <div class="stack">
       <div class="formatted">
         <h1>{{ course.title }}</h1>
-
-        <a href="#" class="pill">
-          {{ icon('lines') }}
-          Voir la démo
-        </a>
 
         {{ course.content | markdown }}
       </div>
@@ -61,41 +58,34 @@
       {% include 'partials/comments.html.twig' with {target: course} only %}
     </div>
     <div>
-      <div class="stack sticky">
-        <div class="requirements stack-separated">
-          {% if course.formation %}
-            {% for chapter in course.formation.chapters %}
-              <div>
-                <h3 class="requirements__title">{{ chapter.title }}</h3>
-                <ul class="list">
-                  {% for course in chapter.courses %}
-                    <li>
-                      <a href="{{ path('course_show', {slug: course.slug, id: course.id}) }}">
-                        <strong>{{ course.title }}</strong> {{ course.duration | duration }}
-                      </a>
-                    </li>
-                  {% endfor %}
-                </ul>
-              </div>
-            {% endfor %}
-          {% endif %}
-          <div>
-            <div class="requirements__title">Sommaire</div>
-            <div class="list">
-              <a class="flex" href="#">Twig <span class="badge">3.0</span></a>
-              <a class="flex" href="#">Composer <span class="badge">3.0</span></a>
-              <a class="flex" href="#">PHP <span class="badge">3.0</span></a>
+      <div class="stack-large">
+        <div>
+          <div class="requirements__title">Technologies utilisées</div>
+          <div class="list">
+            <a class="flex" href="#">Twig <span class="badge">3.0</span></a>
+            <a class="flex" href="#">Composer <span class="badge">3.0</span></a>
+            <a class="flex" href="#">PHP <span class="badge">3.0</span></a>
+          </div>
+        </div>
+        <div>
+          <div class="flex">
+            <img class="author_avatar" src="https://www.grafikart.fr/uploads/avatars/1/1.jpg" alt=""
+                 style="width: 50px;border-radius: 50px;">
+            <div style="width: 100%; margin-left: 20px;">
+              <strong style="font-weight: bold;">Auteur : </strong><br>
+              <a title="Grafikart" class="author_name" href="/profil/1">Grafikart</a>
             </div>
           </div>
-          <div>
-            <div class="flex">
-              <img class="author_avatar" src="https://www.grafikart.fr/uploads/avatars/1/1.jpg" alt="" style="width: 50px;border-radius: 50px;">
-              <div style="width: 100%; margin-left: 20px;">
-                <strong style="font-weight: bold;">Auteur : </strong><br>
-                <a title="Grafikart" class="author_name" href="/profil/1">Grafikart</a>
-              </div>
-            </div>
+        </div>
+        <div>
+          <div class="requirements__title">Actions secondaires</div>
+          <div class="stack">
+            <button class="btn btn-big">Marquer comme lu</button>
+            <button class="btn btn-big">Proposer une modification</button>
           </div>
+        </div>
+        <div>
+          <div class="requirements__title">Partage social</div>
         </div>
       </div>
     </div>

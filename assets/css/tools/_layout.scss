@@ -24,19 +24,22 @@
   padding-left: calc(50% - var(--container-width) / 2);
   padding-right: calc(50% - var(--container-width) / 2);
 }
-
+.container-full {
+  box-sizing: border-box;
+  width: 100%;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
 %container-margin {
   margin-left: auto;
   margin-right: auto;
   width: var(--container-width);
 }
-
 .container-narrow {
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
 }
-
 @media only screen and (min-width: 1370px) {
   :root {
     --container-width: 1330px;
@@ -77,7 +80,6 @@
     margin-left: space(1);
   }
 }
-
 // Grille
 // ==================
 .grid {
@@ -144,6 +146,14 @@
   top: space(3);
 }
 
-
 // Spaces
 // =============
+@for $i from 1 through 3 {
+  .p#{$i} {
+    padding: space($i);
+  }
+  .py#{$i} {
+    padding-top: space($i);
+    padding-bottom: space($i);
+  }
+}

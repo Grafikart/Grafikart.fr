@@ -1,0 +1,5 @@
+<div class="chapters" is="auto-scroll" data-to="{{ current }}">
+  {% for chapter in chapters %}
+    {% include 'chapters/_item.html.twig' %}
+  {% endfor %}
+</div>

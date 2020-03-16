@@ -1,0 +1,34 @@
+.chapters {
+  @extend %card;
+  @extend .stack-separated;
+  padding: space(3) 0;
+}
+.chapters__section {
+  @extend %card-title;
+  margin-bottom: space(3);
+  padding-left: space(3);
+  padding-right: space(3);
+}
+.chapters__item {
+  display: flex;
+  align-items: center;
+}
+.chapters__item {
+  display: flex;
+  align-items: center;
+  line-height: 1.4;
+  padding: space(1) space(3);
+}
+.chapters__title {
+  transform: translateY(-1px);
+}
+.chapters__duration {
+  color: var(--color-light);
+  margin-left: auto;
+  font-size: .9em;
+  white-space: nowrap;
+}
+.chapters__item:hover,
+.chapters__item.is-selected {
+  background: var(--background);
+}

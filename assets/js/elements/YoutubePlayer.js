@@ -7,13 +7,21 @@ let YT = null
 /**
  * Element représentant une video youtube `<youtube-player video="UEINCHBN">`.
  *
+ * ## Attributes
+ *
+ * - video, ID de la vidéo Youtube
+ * - poster, URL de la miniature
+ * - autoplay
+ * - playButton, ID du bouton play à connecter au player
+ * - title, Titre à afficher sur le player
+ *
  * @property {ShadowRoot} root
  * @property {?number} timer Timer permettant de suivre la progression de la lecture
  * @property {YT.Player} player
  */
 export default class YoutubePlayer extends global.HTMLElement {
   static get observedAttributes () {
-    return ['video']
+    return ['video', 'button']
   }
 
   constructor (attributes = {}) {
@@ -60,6 +68,13 @@ export default class YoutubePlayer extends global.HTMLElement {
   async attributeChangedCallback (name, oldValue, newValue) {
     if (name === 'video' && newValue !== null && this.getAttribute('poster') === null) {
       this.loadPlayer(newValue)
+    }
+    if (name === 'button' && newValue !== null) {
+      /** @var {PlayButton} button **/
+      const button = document.querySelector(newValue)
+      if (button !== null) {
+        button.setAttribute('video', '#' + this.id)
+      }
     }
   }
 
