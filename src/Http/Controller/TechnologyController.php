@@ -24,7 +24,7 @@ class TechnologyController extends AbstractController
         PaginatorInterface $paginator,
         Request $request
     ): Response {
-        $page = $request->query->getInt('page');
+        $page = $request->query->getInt('page', 1);
         return $this->render('courses/technology.html.twig', [
             'technology' => $technology,
             'formations' => $page !== 1 ? [] : $formationRepository->findForTechnology($technology),
