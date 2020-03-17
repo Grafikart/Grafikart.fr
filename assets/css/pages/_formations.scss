@@ -1,0 +1,54 @@
+.formations {
+  @extend %container;
+  display: grid;
+  grid-template-columns: repeat( auto-fill, minmax(245px, 1fr) );
+  grid-gap: space(4);
+  grid-auto-flow: dense;
+}
+
+// Carte cursus
+// =============
+.cursus-card {
+  @extend %card;
+  padding: space(3);
+  padding-right: calc(250px + 3 * var(--space));
+  position: relative;
+}
+.cursus-card__icons {
+  display: flex;
+  margin-bottom: space(2);
+}
+.cursus-card__icons img {
+  display: block;
+  width: 40px;
+  height: 40px;
+}
+.cursus-card__content {
+  max-height: 75px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cursus-card__title {
+  @extend %card-title;
+  margin-bottom: 16px;
+}
+.cursus-card__image {
+  position: absolute;
+  width: 250px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #121C42;
+}
+.cursus-card__image img {
+  opacity: .30;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+.cursus-card__footer {
+  opacity: .65;
+  padding: 0;
+  background-color: transparent;
+  margin-top: space(3);
+}

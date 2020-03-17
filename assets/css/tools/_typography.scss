@@ -63,6 +63,17 @@ $font-alt: "Montserrat", "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe 
   margin-bottom: space(3);
 }
 
+%h3,
+.h3 {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+
+  strong {
+    font-weight: bold;
+  }
+}
+
 // Pour générer les polices : https://transfonter.org/
 
 // Alignements

@@ -17,6 +17,7 @@
   box-shadow: 0 2px 4px var(--shadow);
   border-radius: 3px;
   transition: .3s;
+  font-size: .9em;
 }
 
 %card-hoverable {
@@ -24,4 +25,77 @@
     border-color: var(--contrast);
     box-shadow: 0 3px 8px var(--shadow);
   }
+}
+
+// Carte
+// =============
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.card__body {
+  padding: var(--card-padding);
+}
+.card__icons {
+  display: flex;
+  align-items: center;
+}
+.card__description {
+  opacity: .65;
+}
+.card__title {
+  font-family: $font-alt;
+  font-size: 16px;
+  font-weight: bold;
+}
+.card__icons > * + * {
+  margin-left: space(1);
+}
+.card__icons img {
+  width: 40px;
+  height: 40px;
+  display: block;
+}
+.card__footer {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  min-height: 36px;
+  background: var(--card-footer);
+  padding: 0 var(--card-padding);
+  opacity: .65;
+
+  & > * {
+    opacity: .65;
+  }
+
+  & > *:last-child {
+    margin-left: auto;
+  }
+
+  & svg {
+    vertical-align: middle;
+    transform: translateY(-2px);
+    width: 12px;
+    height: 12px;
+  }
+}
+.card a {
+  position: relative;
+  z-index: 3;
+}
+.card a:hover {
+  color: var(--contrast);
+}
+.card__link {
+  display: block;
+  position: absolute!important;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2!important;
 }

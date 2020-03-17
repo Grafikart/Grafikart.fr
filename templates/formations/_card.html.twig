@@ -1,32 +1,30 @@
-{% cache [course, 'card'] %}
+{% cache [formation, 'card'] %}
   <article class="card">
     <div class="card__body stack">
       <div class="card__icons">
-        {% for technology in course.mainTechnologies %}
+        {% for technology in formation.mainTechnologies %}
           <a href="{{ path('technology_show', {slug: technology.slug}) }}" class="course__icon" tabindex="-1">
             <img src="{{ uploads_path('icons/' ~ technology.image) }}" alt="{{ technology.name }}">
           </a>
         {% endfor %}
       </div>
       <h2 class="card__title">
-        <a href="{{ path('course_show', {slug: course.slug, id: course.id}) }}" tabindex="-1">
-          {{ course.title }}
+        <a href="{{ path('formation_show', {slug: formation.slug}) }}" tabindex="-1">
+          {{ formation.title }}
         </a>
       </h2>
       <div class="card__description">
-        {{ course.content | markdown | striptags | excerpt(130) }}
+        {{ formation.content | markdown | striptags | excerpt(130) }}
       </div>
-      <a href="{{ path('course_show', {slug: course.slug, id: course.id}) }}" title="{{ course.title }}"
+      <a href="{{ path('formation_show', {slug: formation.slug}) }}" title="{{ formation.title }}"
          class="card__link"></a>
     </div>
     <footer class="card__footer">
-      {% if course.formation %}
       <div>
-        {{ icon('lines') }} {{ course.formation.title }}
+        {{ icon('lines') }} {{ formation.courses | length }} Chapitres
       </div>
-      {% endif %}
       <div>
-        {{ icon('clock') }} {{ course.duration | duration }}
+        {{ icon('clock') }} {{ formation.duration | duration }}
       </div>
     </footer>
   </article>

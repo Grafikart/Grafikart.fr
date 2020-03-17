@@ -2,7 +2,51 @@
 
 {% block body %}
 
-  <h1>{{ technology.name }}</h1>
+  <header class="wave-header">
+    <div class="wave-header__body stack">
+      <h1 class="wave-header__title">{{ technology.name }}</h1>
+      <p>{{ technology.content }}</p>
+    </div>
+    <div class="wave-header__image">
+      <img src="https://www.grafikart.fr/uploads/formations/single_mysql.png" alt="">
+    </div>
+    <waves-shape class="waves" position="bottom" target=".wave-header"></waves-shape>
+  </header>
+
+  <div class="container stack" style="--gap:10">
+
+    <section class="stack">
+      <h2 class="h3"><strong>Apprendre</strong> les bases</h2>
+      <div class="formations">
+        {% for formation in formations %}
+          {% include 'formations/_card.html.twig' %}
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="stack">
+      <h2 class="h3"><strong>Se perfectionner</strong> en allant plus loin</h2>
+      <div class="formations">
+        {% for formation in formations %}
+          {% include 'formations/_card.html.twig' %}
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="stack">
+      <h2 class="h3"><strong>Pratiquer</strong> à travers des exemples concrets</h2>
+      <div class="courses">
+        {% for course in courses %}
+          {% include 'courses/_card.html.twig' %}
+        {% endfor %}
+      </div>
+      {{ paginate(courses) }}
+    </section>
+
+  </div>
+
+
+
 
 {% endblock %}
 
