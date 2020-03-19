@@ -13,7 +13,7 @@ class CommentVoter extends Voter
     const DELETE = 'delete';
     const UPDATE = 'update';
 
-    protected function supports($attribute, $subject)
+    protected function supports(string $attribute, $subject)
     {
         return in_array($attribute, [
             self::DELETE,

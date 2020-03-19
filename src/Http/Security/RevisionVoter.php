@@ -12,7 +12,7 @@ class RevisionVoter extends Voter
 {
     const ADD = 'add_revision';
 
-    protected function supports($attribute, $subject)
+    protected function supports(string $attribute, $subject)
     {
         return in_array($attribute, [
             self::ADD,

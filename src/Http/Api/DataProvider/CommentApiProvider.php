@@ -32,7 +32,7 @@ class CommentApiProvider implements CollectionDataProviderInterface, RestrictedD
     }
 
     /**
-     * @return array<Comment>
+     * @return array<CommentResource>
      */
     public function getCollection(string $resourceClass, string $operationName = null): array
     {
