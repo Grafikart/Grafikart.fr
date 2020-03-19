@@ -66,7 +66,7 @@ class Course extends Content
      * @ORM\ManyToOne(targetEntity="App\Domain\Course\Entity\Formation", inversedBy="courses")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
-    private ?Formation $formation;
+    private ?Formation $formation = null;
 
     public function getDuration(): int
     {

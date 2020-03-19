@@ -6,7 +6,6 @@
  * - progress, Nombre représentant la progression entre 0 et 100
  * - playing, La vidéo est en cours de lecture
  * - video, Selecteur de la vidéo à connecter à ce bouton
- * - checked, Affiche un "check" pour indiquer que la vidéo à été consulté
  *
  * @property {ShadowRoot} root
  * @property {HTMLButtonElement} button
@@ -14,7 +13,7 @@
  */
 export default class PlayButton extends global.HTMLElement {
   static get observedAttributes () {
-    return ['playing', 'progress', 'checked', 'video']
+    return ['playing', 'progress', 'video']
   }
 
   constructor () {
@@ -44,11 +43,11 @@ export default class PlayButton extends global.HTMLElement {
       if (this.circle) {
         this.circle.style.strokeDashoffset = (94 - 94 * progress / 100) + 'px'
       }
-    }
-    if (name === 'checked' && newValue === null) {
-      this.root.host.classList.remove('is-checked')
-    } else if (name === 'checked') {
-      this.root.host.classList.add('is-checked')
+      if (progress === 100) {
+        this.root.host.classList.add('is-checked')
+      } else {
+        this.root.host.classList.remove('is-checked')
+      }
     }
     if (name === 'video' && newValue !== null) {
       const video = document.querySelector(newValue)
@@ -78,7 +77,7 @@ export default class PlayButton extends global.HTMLElement {
         color: var(--contrast);
       }
       button svg {
-        opacity: 0;
+        opacity: 1;
         position: absolute;
         top: 0;
         left: 0;
@@ -93,7 +92,7 @@ export default class PlayButton extends global.HTMLElement {
         transition: stroke-dashoffset .1s;
       }
       button path {
-      opacity: 0;
+        opacity: 0;
       }
       button::before {
         position: absolute;
@@ -122,9 +121,8 @@ export default class PlayButton extends global.HTMLElement {
       :host-context(.is-playing) button::before {
         left: 10px;
       }
-      :host-context(.is-playing) button svg,
-      :host-context(.is-checked) button svg {
-        opacity: 1;
+      :host-context(.is-checked) button circle {
+        opacity: 0;
       }
       :host-context(.is-checked) button svg {
         transform: rotate(0deg);

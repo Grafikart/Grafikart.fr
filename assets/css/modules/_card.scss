@@ -34,6 +34,9 @@
   display: flex;
   flex-direction: column;
 }
+.card.is-completed {
+  outline: solid 4px var(--contrast);
+}
 .card__body {
   padding: var(--card-padding);
 }

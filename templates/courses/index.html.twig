@@ -20,5 +20,7 @@
     {% endfor %}
   </div>
 
-  {{ knp_pagination_render(courses) }}
+  {{ paginate(courses) }}
+
+  {{ show_history(courses.items) }}
 {% endblock %}

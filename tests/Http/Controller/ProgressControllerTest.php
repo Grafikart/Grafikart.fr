@@ -7,7 +7,7 @@ use App\Tests\ApiTestCase;
 use App\Tests\FixturesTrait;
 use Symfony\Component\HttpFoundation\Response;
 
-class HistoryControllerTest extends ApiTestCase
+class ProgressControllerTest extends ApiTestCase
 {
 
     use FixturesTrait;
@@ -35,6 +35,15 @@ class HistoryControllerTest extends ApiTestCase
         $course = $data['course1'];
         $this->login($data['user1']);
         $this->client->request('POST', "/progress/{$course->getId()}/101");
+        $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+    }
+
+    public function testRejectNumberIs0 (): void
+    {
+        $data = $this->loadFixtures(['courses']);
+        $course = $data['course1'];
+        $this->login($data['user1']);
+        $this->client->request('POST', "/progress/{$course->getId()}/0");
         $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
     }
 

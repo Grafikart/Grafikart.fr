@@ -1,5 +1,5 @@
 {% cache [course, 'card'] %}
-  <article class="card">
+  <article class="card" data-history="{{ course.id }}">
     <div class="card__body stack">
       <div class="card__icons">
         {% for technology in course.mainTechnologies %}

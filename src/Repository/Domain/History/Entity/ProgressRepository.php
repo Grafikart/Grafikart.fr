@@ -2,6 +2,8 @@
 
 namespace App\Repository\Domain\History\Entity;
 
+use App\Domain\Application\Entity\Content;
+use App\Domain\Auth\User;
 use App\Domain\History\Entity\Progress;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -19,32 +21,28 @@ class ProgressRepository extends ServiceEntityRepository
         parent::__construct($registry, Progress::class);
     }
 
-    // /**
-    //  * @return Progress[] Returns an array of Progress objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findOneByContent(User $user, Content $content): ?Progress
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        return $this->findOneBy([
+            'content' => $content,
+            'author' => $user
+        ]);
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Progress
+    /**
+     * @param User $user
+     * @param Content[] $contents
+     * @return Progress[]
+     */
+    public function findForContents(User $user, array $contents): array
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
+            ->leftJoin('p.content', 'c')
+            ->addSelect('partial c.{id}')
+            ->where('p.content IN (:ids)')
+            ->setParameter('ids', array_map(fn(Content $c) => $c->getId(), $contents))
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
     }
-    */
+
 }

@@ -3,7 +3,7 @@
   <div class="chapters__list">
     {% for course in chapter.courses %}
       <a href="{{ path('course_show', {slug: course.slug, id: course.id}) }}" class="chapters__item" id="chapter{{ course.id }}">
-        <play-button class="chapters__play" tabindex="-1"></play-button>
+        <play-button class="chapters__play" data-history="{{ course.id }}" tabindex="-1"></play-button>
         <span class="chapters__title">{{ course.title }}</span>
         <span class="chapters__duration">{{ course.duration | duration }}</span>
       </a>

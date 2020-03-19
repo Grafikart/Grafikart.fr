@@ -2,56 +2,62 @@
 
 {% block body %}
 
-  <header class="wave-header">
-    <div class="wave-header__body stack">
-      <div class="wave-header__title">{{ formation.title }}</div>
-      <p>{{ formation.short }}</p>
-      <p>
-        <button class="btn-big" style="color: #FFF; border-color:#FFF;">Continuer</button>
-      </p>
-    </div>
-    <div class="wave-header__image">
-      <img src="https://www.grafikart.fr/uploads/formations/single_mysql.png" alt="">
-    </div>
-    <waves-shape class="waves" position="bottom" target=".wave-header"></waves-shape>
-  </header>
+  {% cache [formation, 'show'] %}
 
-  <section class="container formatted">
-    <h2>Actions principales</h2>
-    <ul>
-      <li>Ma progression : Chapitre 3 / 12</li>
-      <li>Peut être la fiche de la prochaine vidéo à regarder ?</li>
-    </ul>
-    <p>
-      <button class="btn"></button>
-    </p>
-    <h2>Informations</h2>
-    <ul>
-      <li><strong>{{ formation.courses.count }}</strong> Chapitres</li>
-      <li><strong>{{ formation.duration | duration }}</strong></li>
-    </ul>
-    <h2>Description</h2>
-    {{ formation.content | markdown }}
-    <h2>Chapitres</h2>
-    {% for chapter in formation.chapters %}
-      <h3>{{ chapter.title }}</h3>
+    <header class="wave-header">
+      <div class="wave-header__body stack">
+        <div class="wave-header__title">{{ formation.title }}</div>
+        <p>{{ formation.short }}</p>
+        <p>
+          <button class="btn-big" style="color: #FFF; border-color:#FFF;">Continuer</button>
+        </p>
+      </div>
+      <div class="wave-header__image">
+        <img src="https://www.grafikart.fr/uploads/formations/single_mysql.png" alt="">
+      </div>
+      <waves-shape class="waves" position="bottom" target=".wave-header"></waves-shape>
+    </header>
+
+    <section class="container formatted">
+      <h2>Actions principales</h2>
       <ul>
-        {% for course in chapter.courses %}
-        <li>
-          <a href="{{ path('course_show', {slug: course.slug, id: course.id}) }}">
-            <strong>{{ course.title }}</strong> {{ course.duration | duration }}
-          </a>
-        </li>
+        <li>Ma progression : Chapitre 3/12</li>
+        <li>Peut être la fiche de la prochaine vidéo à regarder ?</li>
+      </ul>
+      <p>
+        <button class="btn"></button>
+      </p>
+      <h2>Informations</h2>
+      <ul>
+        <li><strong>{{ formation.courses.count }}</strong> Chapitres</li>
+        <li><strong>{{ formation.duration | duration }}</strong></li>
+      </ul>
+      <h2>Description</h2>
+      {{ formation.content | markdown }}
+      <h2>Chapitres</h2>
+      {% for chapter in formation.chapters %}
+        <h3>{{ chapter.title }}</h3>
+        <ul>
+          {% for course in chapter.courses %}
+            <li>
+              <a href="{{ path('course_show', {slug: course.slug, id: course.id}) }}">
+                <play-button id="play-content-{{ course.id }}"></play-button>
+                <strong>{{ course.title }}</strong> {{ course.duration | duration }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endfor %}
+      <h2>Technologies utilisées</h2>
+      <ul>
+        {% for technology in formation.mainTechnologies %}
+          <li>{{ technology.name }}</li>
         {% endfor %}
       </ul>
-    {% endfor %}
-    <h2>Technologies utilisées</h2>
-    <ul>
-      {% for technology in formation.mainTechnologies %}
-        <li>{{ technology.name }}</li>
-      {% endfor %}
-    </ul>
-  </section>
+    </section>
+
+  {% endcache %}
+
+  {{ show_history(formation.courses.toArray) }}
 
 {% endblock %}
-

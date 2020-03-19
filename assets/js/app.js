@@ -20,6 +20,7 @@ import Turbolinks from 'turbolinks'
 
 import './modules/scrollreveal'
 import './modules/highlight'
+import {showHistory} from './modules/history'
 
 document.addEventListener('turbolinks:load', function () {
   const darkToggle = document.querySelector('#dark-toggle')
@@ -31,5 +32,9 @@ document.addEventListener('turbolinks:load', function () {
     })
   }
 })
+
+global.Grafikart = {
+  showHistory
+}
 
 Turbolinks.start()
