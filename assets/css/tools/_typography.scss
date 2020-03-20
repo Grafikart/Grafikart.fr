@@ -29,6 +29,10 @@ $font-alt: "Montserrat", "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe 
 .hero-text {
   font-size: 18px;
 
+  strong {
+    font-weight: bold;
+  }
+
   @include up(600) {
     font-size: 22px;
   }

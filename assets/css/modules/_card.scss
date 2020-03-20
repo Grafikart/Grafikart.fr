@@ -34,9 +34,6 @@
   display: flex;
   flex-direction: column;
 }
-.card.is-completed {
-  outline: solid 4px var(--contrast);
-}
 .card__body {
   padding: var(--card-padding);
 }
@@ -100,4 +97,32 @@
   width: 100%;
   height: 100%;
   z-index: 2!important;
+}
+
+// Complété
+// =============
+.card.is-completed {
+  position: relative;
+  outline: solid 4px var(--contrast);
+}
+.card.is-completed::after {
+  content:'';
+  position: absolute;
+  top: 7px;
+  right: 4px;
+
+  width: 17px;
+  height: 13px;
+  background: url(../../images/check.svg);
+}
+.card.is-completed::before {
+  content:'';
+  width: 0;
+  height: 0;
+
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  border-left: solid 48px transparent;
+  border-top: solid 48px  var(--contrast);
 }

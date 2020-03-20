@@ -38,7 +38,13 @@
 }
 .btn-secondary {
   @extend .btn-gradient;
-  background-color: #cacaca;
+  color: var(--contrast);
+  box-shadow: inset 0 0 0 1px var(--contrast), 0 0 0 1px var(--contrast);
+  background: transparent;
+
+  &:hover {
+    color: #FFF;
+  }
 }
 .btn-big {
   display: inline-flex;

@@ -15,6 +15,7 @@ import './elements/Choices'
 import './elements/editor'
 import './elements/AjaxDelete'
 import './elements/AutoScroll'
+import './elements/AnimatedEditor'
 import '@grafikart/spinning-dots-element'
 import Turbolinks from 'turbolinks'
 

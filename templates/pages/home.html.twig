@@ -1,5 +1,74 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
+{% set bodyClass = 'light' %}
 
+{% block body %}
+  <div class="sections">
+
+    <div class="container home-intro">
+        <div class="home-intro__body stack">
+          <div class="hero-title">
+            Apprenez des<br>
+            nouvelles <br>
+            choses.
+          </div>
+          <p class="hero-text">
+            Améliorez-vous et apprenez de nouvelles choses grâce à <strong>513 heures</strong> de tutoriels vidéos gratuits.
+          </p>
+          <div class="hstack">
+            <div class="btn-primary">Créer votre compte</div>
+            <div class="btn-secondary">Créer votre compte</div>
+          </div>
+        </div>
+        <div class="home-intro__illustration">
+          <animated-editor width="678" height="402"></animated-editor>
+          <img src="{{ asset('images/racoon.svg') }}" alt="" width="366" class="home-intro__mascot">
+        </div>
+    </div>
+
+    <div class="home-formations container">
+      <div class="home-intro">
+        <div class="home-intro__body stack">
+          <div class="hero-title">
+            Apprenez des<br>
+            nouvelles <br>
+            choses.
+          </div>
+          <p class="hero-text">
+            Améliorez-vous et apprenez de nouvelles choses grâce à <strong>513 heures</strong> de tutoriels vidéos gratuits.
+          </p>
+          <div class="hstack">
+            <div class="btn-primary">Créer votre compte</div>
+            <div class="btn-secondary">Créer votre compte</div>
+          </div>
+        </div>
+        <div class="home-intro__illustration">
+          <img src="{{ asset('images/editor.svg') }}" alt="" width="658">
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="home-intro">
+        <div class="home-intro__body stack">
+          <div class="hero-title">
+            Apprenez des<br>
+            nouvelles <br>
+            choses.
+          </div>
+          <p class="hero-text">
+            Améliorez-vous et apprenez de nouvelles choses grâce à <strong>513 heures</strong> de tutoriels vidéos gratuits.
+          </p>
+          <div class="hstack">
+            <div class="btn-primary">Créer votre compte</div>
+            <div class="btn-secondary">Créer votre compte</div>
+          </div>
+        </div>
+        <div class="home-intro__illustration">
+          <img src="{{ asset('images/editor.svg') }}" alt="" width="658">
+        </div>
+      </div>
+    </div>
+
+  </div>
 {% endblock %}

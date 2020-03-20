@@ -1,0 +1,24 @@
+.home-intro {
+  position: relative;
+
+  @include up(700) {
+    display: grid;
+  }
+
+  grid-template-columns: 466px 1fr;
+  align-items: center;
+  justify-items: center;
+  overflow: hidden;
+}
+.home-intro__illustration {
+  position: relative;
+  width: 658px;
+}
+.home-intro__mascot {
+  position: absolute;
+  bottom: -120px;
+  right: -150px;
+}
+.home-formations {
+  background: var(--background);
+}
