@@ -14,7 +14,7 @@ class Tag
 {
     /**
      * @ORM\Id()
-     * @ORM\GeneratedValue()
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
      */
     private ?int $id = null;
@@ -52,11 +52,27 @@ class Tag
     /**
      * @ORM\ManyToMany(targetEntity="App\Domain\Forum\Entity\Topic", mappedBy="tags")
      */
-    private ?Collection $topics = null;
+    private Collection $topics;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $color = null;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Domain\Forum\Entity\Tag", inversedBy="children")
+     */
+    private ?Tag $parent = null;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Domain\Forum\Entity\Tag", mappedBy="parent")
+     */
+    private Collection $children;
 
     public function __construct()
     {
         $this->topics = new ArrayCollection();
+        $this->children = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -64,7 +80,7 @@ class Tag
         return $this->id;
     }
 
-    public function setId($id): self
+    public function setId(int $id): self
     {
         $this->id = $id;
 
@@ -100,7 +116,7 @@ class Tag
         return $this->description;
     }
 
-    public function setDescription(string $description): self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 
@@ -166,6 +182,61 @@ class Tag
         if ($this->topics->contains($topic)) {
             $this->topics->removeElement($topic);
             $topic->removeTag($this);
+        }
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(?string $color): self
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    public function getParent(): ?self
+    {
+        return $this->parent;
+    }
+
+    public function setParent(?self $parent): self
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getChildren(): Collection
+    {
+        return $this->children;
+    }
+
+    public function addChild(self $child): self
+    {
+        if (!$this->children->contains($child)) {
+            $this->children[] = $child;
+            $child->setParent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChild(self $child): self
+    {
+        if ($this->children->contains($child)) {
+            $this->children->removeElement($child);
+            // set the owning side to null (unless already changed)
+            if ($child->getParent() === $this) {
+                $child->setParent(null);
+            }
         }
 
         return $this;

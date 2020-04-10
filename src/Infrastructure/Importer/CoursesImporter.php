@@ -43,6 +43,7 @@ final class CoursesImporter extends Neo4jImporter
                     ->setName($p['name'])
                     ->setSlug($p['slug'])
                     ->setImage($p['image'] ?? null)
+                    ->setUpdatedAt(new \DateTime())
                     ->setContent($p['content'] ?? null);
                 $this->em->persist($t);
             }

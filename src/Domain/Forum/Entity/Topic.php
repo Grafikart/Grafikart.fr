@@ -15,7 +15,7 @@ class Topic
 {
     /**
      * @ORM\Id()
-     * @ORM\GeneratedValue()
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
      */
     private ?int $id = null;
@@ -54,22 +54,34 @@ class Topic
      * @ORM\ManyToMany(targetEntity="App\Domain\Forum\Entity\Tag", inversedBy="topics")
      * @ORM\JoinTable(name="forum_topic_tag")
      */
-    private ?Collection $tags = null;
+    private Collection $tags;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Auth\User", inversedBy="topics")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
-    private $author;
+    private ?User $author = null;
 
     /**
      * @ORM\Column(type="integer", options={"default": 0})
      */
     private int $messageCount = 0;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Domain\Forum\Entity\Message", mappedBy="topic")
+     */
+    private Collection $messages;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Domain\Forum\Entity\Message")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private ?Message $lastMessage = null;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
+        $this->messages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -202,6 +214,49 @@ class Topic
     public function setMessageCount(int $messageCount): self
     {
         $this->messageCount = $messageCount;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->setTopic($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): self
+    {
+        if ($this->messages->contains($message)) {
+            $this->messages->removeElement($message);
+            // set the owning side to null (unless already changed)
+            if ($message->getTopic() === $this) {
+                $message->setTopic(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getLastMessage(): ?Message
+    {
+        return $this->lastMessage;
+    }
+
+    public function setLastMessage(?Message $lastMessage): self
+    {
+        $this->lastMessage = $lastMessage;
 
         return $this;
     }

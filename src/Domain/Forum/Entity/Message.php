@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Domain\History\Entity;
+namespace App\Domain\Forum\Entity;
 
-use App\Domain\Application\Entity\Content;
 use App\Domain\Auth\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Domain\History\Repository\ProgressRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\Domain\Forum\Entity\MessageRepository")
+ * @ORM\Table(name="forum_message")
  */
-class Progress
+class Message
 {
     /**
      * @ORM\Id()
@@ -19,21 +19,26 @@ class Progress
     private ?int $id = null;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Auth\User")
+     * @ORM\ManyToOne(targetEntity="App\Domain\Forum\Entity\Topic", inversedBy="messages")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
+     */
+    private ?Topic $topic = null;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Domain\Auth\User")
+     * @ORM\JoinColumn(nullable=false)
      */
     private ?User $author = null;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Application\Entity\Content")
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
+     * @ORM\Column(type="boolean", options={"default":0})
      */
-    private ?Content $content = null;
+    private bool $accepted = false;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="text")
      */
-    private int $percent = 0;
+    private ?string $content = null;
 
     /**
      * @ORM\Column(type="datetime")
@@ -50,6 +55,24 @@ class Progress
         return $this->id;
     }
 
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function getTopic(): ?Topic
+    {
+        return $this->topic;
+    }
+
+    public function setTopic(?Topic $topic): self
+    {
+        $this->topic = $topic;
+
+        return $this;
+    }
+
     public function getAuthor(): ?User
     {
         return $this->author;
@@ -62,26 +85,26 @@ class Progress
         return $this;
     }
 
-    public function getContent(): ?Content
+    public function getAccepted(): ?bool
     {
-        return $this->content;
+        return $this->accepted;
     }
 
-    public function setContent(?Content $content): self
+    public function setAccepted(bool $accepted): self
     {
-        $this->content = $content;
+        $this->accepted = $accepted;
 
         return $this;
     }
 
-    public function getPercent(): ?int
+    public function getContent(): ?string
     {
-        return $this->percent;
+        return $this->content;
     }
 
-    public function setPercent(int $percent): self
+    public function setContent(string $content): self
     {
-        $this->percent = $percent;
+        $this->content = $content;
 
         return $this;
     }

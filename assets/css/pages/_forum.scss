@@ -4,10 +4,79 @@
 
 // Listing sujet
 // =============
-.forum-topic .badge {
+.forum-topic {
+  display: grid;
+  grid-template-columns: 1fr 30px;
+  grid-gap: space(2);
+  padding: space(2);
+  position: relative;
+  transition: .3s;
+}
+.forum-topic a {
+  position: relative;
+  z-index: 3;
+}
+.forum-topic:hover {
+  background: var(--background-light);
+  box-shadow: 0 2px 4px var(--shadow);
+}
+.forum-topic__title {
+  display: block;
+  margin-right: 100px;
+  font-weight: bold;
+  font-family: $font-alt;
+  line-height: 1.3;
+
+  .forum-topic:hover & {
+    color: var(--contrast);
+  }
+}
+.forum-topic__body {
+  position: relative;
+}
+.forum-topic__tags {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+}
+.forum-topic__tags a[style]{
   color: #FFF;
-  background-color: grey;
-  border-radius: 3px;
+}
+.forum-topic__tags a {
+  background-color: var(--border-light);
+  border-radius: 2px;
+}
+.forum-topic__meta {
+  color: var(--color-light);
+}
+.forum-topic__meta a:hover {
+    text-decoration: underline;
+}
+.forum-topic__meta time-ago {
+  font-weight: 300;
+  text-transform: lowercase;
+}
+.forum-topic__excerpt {
+  color: var(--color-light);
+}
+.forum-topic__count {
+  text-align: right;
+  font-size: .9em;
+  color: var(--color-light);
+}
+.forum-topic svg {
+  width: 14px;
+  height: 14px;
+}
+.forum-topic .forum-topic__link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: block;
+  z-index: 2;
 }
 
 @include up(800) {

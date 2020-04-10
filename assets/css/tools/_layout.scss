@@ -104,6 +104,7 @@
   --gap: 2;
   display: grid;
   grid-template-columns: 1fr;
+  align-content: flex-start;
   grid-gap: calc(var(--gap) * var(--space));
 }
 .stack-large {

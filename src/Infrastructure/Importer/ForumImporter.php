@@ -3,6 +3,7 @@
 namespace App\Infrastructure\Importer;
 
 use App\Domain\Auth\User;
+use App\Domain\Forum\Entity\Message;
 use App\Domain\Forum\Entity\Tag;
 use App\Domain\Forum\Entity\Topic;
 use Cocur\Slugify\Slugify;
@@ -17,6 +18,7 @@ class ForumImporter extends MySQLImporter
         $this->truncate('forum_tag');
         $this->truncate('forum_topic');
         $this->truncate('forum_topic_tag');
+        $this->truncate('forum_message');
 
         // On importe les tags
         $query = $this->pdo->prepare(<<<SQL
@@ -24,6 +26,7 @@ class ForumImporter extends MySQLImporter
             FROM forum_forums
         SQL);
         $query->execute();
+        /** @var array $rows */
         $rows = $query->fetchAll();
         $io->title('Importation des tags');
         $io->progressStart(count($rows));
@@ -41,7 +44,7 @@ class ForumImporter extends MySQLImporter
         }
         $io->progressFinish();
         $this->em->flush();
-        $io->success(sprintf('Importation des %d tags', count($row)));
+        $io->success(sprintf('Importation des %d tags', count($rows)));
 
         // On importe les topics
         $io->title('Importation des topics');
@@ -65,6 +68,10 @@ class ForumImporter extends MySQLImporter
                 break;
             }
             foreach ($rows as $row) {
+                /** @var Tag $tag */
+                $tag = $this->em->getReference(Tag::class, $row['forum_id']);
+                /** @var User $user */
+                $user = $this->em->getReference(User::class, $row['user_id']);
                 $topic = (new Topic())
                     ->setId($row['id'])
                     ->setName($row['name'])
@@ -74,8 +81,8 @@ class ForumImporter extends MySQLImporter
                     ->setCreatedAt(new \DateTime($row['created_at']))
                     ->setUpdatedAt(new \DateTime($row['updated_at']))
                     ->setMessageCount($row['posts_count'])
-                    ->addTag($this->em->getReference(Tag::class, $row['forum_id']))
-                    ->setAuthor($this->em->getReference(User::class, $row['user_id']))
+                    ->addTag($tag)
+                    ->setAuthor($user)
                 ;
                 $this->em->persist($topic);
                 $io->progressAdvance();
@@ -86,6 +93,51 @@ class ForumImporter extends MySQLImporter
         }
         $io->progressFinish();
         $io->success(sprintf('Importation des %d topics', $offset));
+
+        // Import des messages
+        $io->title('Importation des messages');
+        $io->progressStart();
+        $this->disableAutoIncrement(Message::class);
+        $offset = 0;
+        while (true) {
+            $query = $this->pdo->prepare(<<<SQL
+                SELECT p.*
+                FROM forum_posts p
+                LEFT JOIN users u ON u.id = p.user_id
+                WHERE u.id IS NOT NULL
+                ORDER BY p.id ASC
+                LIMIT $offset, 1000
+            SQL);
+            $query->execute();
+            /** @var array<string,mixed> $rows */
+            $rows = $query->fetchAll();
+            if (empty($rows)) {
+                break;
+            }
+            foreach ($rows as $row) {
+                $topic = $this->em->getRepository(Topic::class)->find($row['topic_id']);
+                if ($topic) {
+                    $message = (new Message())
+                        ->setId($row['id'])
+                        ->setTopic($topic)
+                        ->setContent($row['content'])
+                        ->setAccepted($row['solver'])
+                        ->setCreatedAt(new \DateTime($row['created_at']))
+                        ->setUpdatedAt(new \DateTime($row['updated_at']))
+                        ->setAuthor($this->em->getReference(User::class, $row['user_id']))
+                    ;
+                    $topic->setLastMessage($message);
+                    $this->em->persist($message);
+                }
+                $io->progressAdvance();
+            }
+            $this->em->flush();
+            $this->em->clear();
+            $offset += 1000;
+        }
+        $io->progressFinish();
+        $io->success(sprintf('Importation des %d messages', $offset));
+
     }
 
     public function support(string $type): bool

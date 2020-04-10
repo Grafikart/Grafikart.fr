@@ -1,6 +1,12 @@
 {% extends 'base.html.twig' %}
 
+{% block title 'Forum' %}
+
 {% block body %}
+
+<div class="container forum-search">
+  <h1 class="hero-title">Forum</h1>
+</div>
 
 <div class="forum-page">
   <div class="forum-page__sidebar stack">
@@ -21,25 +27,9 @@
     </ul>
   </div>
 
-  <main class="forum-page__main">
+  <main class="forum-page__main stack">
     {% for topic in topics %}
-    <div class="forum-topic">
-      <div class="forum-topic__body">
-        <a class="forum-topic__title" href="{{ path('forum_show', {id: topic.id}) }}">{{ topic.name }}</a>
-        <div class="forum-topic__meta">
-          {% for tag in topic.tags %}
-            <div class="badge">{{ tag.name }}</div>
-          {% endfor %}
-          Créé par {{ topic.author.username }} {{ topic.createdAt | ago }}
-        </div>
-        <div class="forum-topic__excerpt">
-          {{ topic.content | excerpt }}
-        </div>
-      </div>
-      <div class="forum-topic__count">
-        {{ topic.messageCount }}
-      </div>
-    </div>
+      {% include('forum/_topic.html.twig') %}
     {% endfor %}
   </main>
 

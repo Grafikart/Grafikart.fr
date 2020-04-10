@@ -9,10 +9,13 @@ use App\Domain\Attachment\Attachment;
 use App\Domain\Attachment\Type\AttachmentType;
 use App\Domain\Auth\User;
 use App\Domain\Course\Type\TechnologiesType;
+use App\Domain\Forum\Entity\Tag;
+use App\Http\Admin\Field\ForumTagChoiceType;
 use App\Http\Admin\Field\UserChoiceType;
 use DateTimeInterface;
 use ReflectionClass;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -32,6 +35,7 @@ class AutomaticForm extends AbstractType
         'int'                    => NumberType::class,
         Attachment::class        => AttachmentType::class,
         User::class              => UserChoiceType::class,
+        Tag::class               => ForumTagChoiceType::class,
         DateTimeInterface::class => DateTimeType::class,
         UploadedFile::class      => FileType::class,
     ];
@@ -41,7 +45,8 @@ class AutomaticForm extends AbstractType
         'short' => TextareaType::class,
         'mainTechnologies' => TechnologiesType::class,
         'secondaryTechnologies' => TechnologiesType::class,
-        'chapters' => ChaptersForm::class
+        'chapters' => ChaptersForm::class,
+        'color' => ColorType::class,
     ];
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

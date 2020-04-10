@@ -58,18 +58,21 @@ App\Domain\Comment\Comment:
     email: john<numberBetween(0, 1000)>\@doe.fr
     createdAt: <dateTimeThisYear()>
 
-App\Domain\Forum\Entity\Category:
-  category (template):
-    name: Category <current()>
+App\Domain\Forum\Entity\Tag:
+  tag (template):
+    name: Tag <current()>
+    slug: tag-<current()>
     position: <current()>
+    createdAt: <dateTimeThisYear()>
+    updatedAt: <dateTimeThisYear()>
 
-App\Domain\Forum\Entity\Forum:
-  forum (template):
-    name: Forum <current()>
+App\Domain\Forum\Entity\Topic:
+  topic (template):
+    name: Tpic <current()>
     content: <sentence(2)>
     createdAt: <dateTimeThisYear()>
     updatedAt: <dateTimeThisYear()>
-    category: '@category*'
-    position: <current()>
-    topic_count: <numberBetween(1, 50)>
-    online: 'true'
+    message_count: <numberBetween(1, 50)>
+    solved: 0
+    sticky: 0
+    author: '@user*'

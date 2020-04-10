@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title topic.name %}
+
+{% block body %}
+
+  <div class="topic-page">
+    <div class="forum-message">
+      <div class="forum-message__avatar">
+        <img src="https://www.grafikart.fr/uploads/avatars/1/1.jpg" alt="">
+      </div>
+      <div class="forum-message__body">
+        <div class="forum-message__header">
+          <div class="forum-message__author">{{ topic.author.username }}</div>
+          , {{ topic.createdAt | ago }}
+        </div>
+
+        <div class="forum-message__content">
+          {{ topic.content }}
+        </div>
+      </div>
+    </div>
+
+    <h1>{{ topic.messageCount }} Réponses</h1>
+
+    {% for message in messages %}
+      <div class="forum-message">
+        <div class="forum-message__avatar">
+          <img src="https://www.grafikart.fr/uploads/avatars/1/1.jpg" alt="">
+        </div>
+        <div class="forum-message__body">
+          <div class="forum-message__header">
+            <div class="forum-message__author">{{ message.author.username }}</div>
+            , {{ message.createdAt | ago }}
+          </div>
+
+          <div class="forum-message__content">
+            {{ message.content }}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+
+  </div>
+
+{% endblock %}

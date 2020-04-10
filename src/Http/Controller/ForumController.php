@@ -51,7 +51,11 @@ class ForumController extends AbstractController
      */
     public function show(Topic $topic): Response
     {
-        dd($topic);
+        return $this->render('forum/show.html.twig', [
+            'topic' => $topic,
+            'messages' => $topic->getMessages(),
+            'menu' => 'forum'
+        ]);
     }
 
 }
