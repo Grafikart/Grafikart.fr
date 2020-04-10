@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="forum-page">
+  <div class="forum-page__sidebar stack">
+    <a href="#" class="btn-primary">Nouveau sujet</a>
+    <ul>
+      <li>
+        <a href="{{ path('forum') }}">
+          Tous les sujets
+        </a>
+      </li>
+      {% for tag in tags %}
+        <li>
+          <a href="{{ path('forum_tag', {slug: tag.slug, id: tag.id}) }}">
+            {{ tag.name }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <main class="forum-page__main">
+    {% for topic in topics %}
+    <div class="forum-topic">
+      <div class="forum-topic__body">
+        <a class="forum-topic__title" href="{{ path('forum_show', {id: topic.id}) }}">{{ topic.name }}</a>
+        <div class="forum-topic__meta">
+          {% for tag in topic.tags %}
+            <div class="badge">{{ tag.name }}</div>
+          {% endfor %}
+          Créé par {{ topic.author.username }} {{ topic.createdAt | ago }}
+        </div>
+        <div class="forum-topic__excerpt">
+          {{ topic.content | excerpt }}
+        </div>
+      </div>
+      <div class="forum-topic__count">
+        {{ topic.messageCount }}
+      </div>
+    </div>
+    {% endfor %}
+  </main>
+
+  {% endblock %}

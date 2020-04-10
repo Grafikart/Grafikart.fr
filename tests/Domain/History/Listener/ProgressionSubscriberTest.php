@@ -8,7 +8,7 @@ use App\Domain\Course\Entity\Formation;
 use App\Domain\History\Entity\Progress;
 use App\Domain\History\Event\ProgressEvent;
 use App\Domain\History\Listener\ProgressionSubscriber;
-use App\Repository\Domain\History\Entity\ProgressRepository;
+use App\Domain\History\Repository\ProgressRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\MockObject\MockObject;

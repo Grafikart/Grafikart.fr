@@ -41,12 +41,13 @@ migrate: vendor/autoload.php ## Migre la base de donnée (docker-compose up doit
 import: vendor/autoload.php ## Import les données du site actuel
 	$(dc) -f docker-compose.import.yml up -d
 	$(sy) doctrine:migrations:migrate -q
-	$(sy) app:import reset
-	$(sy) app:import users
-	$(sy) app:import tutoriels
-	$(sy) app:import formations
-	$(sy) app:import blog
-	$(sy) app:import comments
+	# $(sy) app:import reset
+	# $(sy) app:import users
+	# $(sy) app:import tutoriels
+	# $(sy) app:import formations
+	# $(sy) app:import blog
+	# $(sy) app:import comments
+	$(sy) app:import forum
 	$(dc) -f docker-compose.import.yml stop
 
 .PHONY: test

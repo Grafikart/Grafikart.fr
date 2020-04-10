@@ -27,6 +27,11 @@ services:
   App\Infrastructure\Importer\FormationImporter:
     autowire: true
     tags: ['importer.handler']
+  App\Infrastructure\Importer\ForumImporter:
+    autowire: true
+    tags: ['importer.handler']
+    arguments:
+      $pdo: '@importer.pdo'
 
   App\Infrastructure\Importer\DataImporterHandler:
     arguments: [!tagged_iterator importer.handler, '@doctrine.orm.entity_manager']

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository\Domain\History\Entity;
+namespace App\Domain\History\Repository;
 
 use App\Domain\Application\Entity\Content;
 use App\Domain\Auth\User;

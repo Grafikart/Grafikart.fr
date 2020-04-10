@@ -1,0 +1,19 @@
+.forum-page {
+  @extend %container;
+}
+
+// Listing sujet
+// =============
+.forum-topic .badge {
+  color: #FFF;
+  background-color: grey;
+  border-radius: 3px;
+}
+
+@include up(800) {
+  .forum-page {
+    display: grid;
+    grid-template-columns: 190px 1fr;
+    grid-gap: space(3);
+  }
+}

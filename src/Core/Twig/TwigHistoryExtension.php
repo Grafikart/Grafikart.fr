@@ -4,7 +4,7 @@ namespace App\Core\Twig;
 
 use App\Domain\Application\Entity\Content;
 use App\Domain\History\HistoryService;
-use App\Repository\Domain\History\Entity\ProgressRepository;
+use App\Domain\History\Repository\ProgressRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Twig\Extension\AbstractExtension;

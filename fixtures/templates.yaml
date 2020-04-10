@@ -57,3 +57,19 @@ App\Domain\Comment\Comment:
     username: john<numberBetween(0, 1000)>
     email: john<numberBetween(0, 1000)>\@doe.fr
     createdAt: <dateTimeThisYear()>
+
+App\Domain\Forum\Entity\Category:
+  category (template):
+    name: Category <current()>
+    position: <current()>
+
+App\Domain\Forum\Entity\Forum:
+  forum (template):
+    name: Forum <current()>
+    content: <sentence(2)>
+    createdAt: <dateTimeThisYear()>
+    updatedAt: <dateTimeThisYear()>
+    category: '@category*'
+    position: <current()>
+    topic_count: <numberBetween(1, 50)>
+    online: 'true'
