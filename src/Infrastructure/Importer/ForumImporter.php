@@ -42,6 +42,7 @@ class ForumImporter extends MySQLImporter
             $this->em->persist($tag);
             $io->progressAdvance();
         }
+        $this->resetSequence('forum_tag', $row['id'] ?? 1);
         $io->progressFinish();
         $this->em->flush();
         $io->success(sprintf('Importation des %d tags', count($rows)));
@@ -76,7 +77,7 @@ class ForumImporter extends MySQLImporter
                     ->setId($row['id'])
                     ->setName($row['name'])
                     ->setContent($row['content'])
-                    ->setSolved($row['alert'])
+                    ->setSolved($row['state'])
                     ->setSticky($row['sticky'])
                     ->setCreatedAt(new \DateTime($row['created_at']))
                     ->setUpdatedAt(new \DateTime($row['updated_at']))
@@ -91,6 +92,7 @@ class ForumImporter extends MySQLImporter
             $this->em->clear();
             $offset += 1000;
         }
+        $this->resetSequence('forum_topic', $row['id'] ?? 1);
         $io->progressFinish();
         $io->success(sprintf('Importation des %d topics', $offset));
 
@@ -135,6 +137,7 @@ class ForumImporter extends MySQLImporter
             $this->em->clear();
             $offset += 1000;
         }
+        $this->resetSequence('forum_message', $row['id'] ?? 1);
         $io->progressFinish();
         $io->success(sprintf('Importation des %d messages', $offset));
 

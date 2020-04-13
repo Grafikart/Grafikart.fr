@@ -17,6 +17,21 @@
   font-size: 75%;
   line-height: 1;
 }
+.badge-success {
+  color: var(--green);
+  position: relative;
+  &::before {
+    position: absolute;
+    content:'';
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--green);
+    opacity: .1;
+    border-radius: 10rem;
+  }
+}
 
 // Pills
 // ==================

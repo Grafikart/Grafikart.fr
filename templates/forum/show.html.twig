@@ -4,42 +4,48 @@
 
 {% block body %}
 
-  <div class="topic-page">
-    <div class="forum-message">
-      <div class="forum-message__avatar">
-        <img src="https://www.grafikart.fr/uploads/avatars/1/1.jpg" alt="">
-      </div>
-      <div class="forum-message__body">
-        <div class="forum-message__header">
-          <div class="forum-message__author">{{ topic.author.username }}</div>
-          , {{ topic.createdAt | ago }}
-        </div>
+  <div class="container stack topic-page">
 
-        <div class="forum-message__content">
-          {{ topic.content }}
+    <h1 class="forum-message__title">{{ topic.name }}</h1>
+
+    <div class="forum-message">
+      <div class="forum-message__header">
+        <img src="{{ topic.author | avatar }}" alt="" class="forum-message__avatar">
+        <div>
+          <a class="forum-message__author" href="{{ path_for(topic.author) }}">{{ topic.author.username }}</a>
+          <div class="forum-message__date">{{ topic.createdAt | ago }}</div>
         </div>
+      </div>
+      <div class="forum-message__body formatted">
+        {{ topic.content | markdown_untrusted }}
       </div>
     </div>
 
-    <h1>{{ topic.messageCount }} Réponses</h1>
+    <h2 class="section-title">{{ topic.messageCount }} Réponses</h2>
 
-    {% for message in messages %}
-      <div class="forum-message">
-        <div class="forum-message__avatar">
-          <img src="https://www.grafikart.fr/uploads/avatars/1/1.jpg" alt="">
-        </div>
-        <div class="forum-message__body">
+    <div class="forum-messages">
+      {% for message in messages %}
+        <div class="forum-message is-reply {% if message.accepted %}is-accepted{% endif %}" id="message-{{ message.id }}">
+          <div class="forum-avatar">
+            <img src="{{ message.author | avatar }}" alt="" class="forum-message__avatar">
+          </div>
           <div class="forum-message__header">
-            <div class="forum-message__author">{{ message.author.username }}</div>
-            , {{ message.createdAt | ago }}
+            <div>
+              <div class="forum-message__author">{{ message.author.username }} et mon pseudo est long</div>
+              <a class="forum-message__date" href="#message-{{ message.id }}">{{ message.createdAt | ago }}</a>
+            </div>
+            {% if message.accepted %}
+              <div class="forum-message__accepted badge badge-success">
+                Réponse acceptée
+              </div>
+            {% endif %}
           </div>
-
-          <div class="forum-message__content">
-            {{ message.content }}
+          <div class="forum-message__body formatted card" style="padding:1rem;">
+            {{ message.content | markdown_untrusted }}
           </div>
         </div>
-      </div>
-    {% endfor %}
+      {% endfor %}
+    </div>
 
   </div>
 

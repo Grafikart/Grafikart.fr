@@ -1,22 +1,25 @@
 {% cache [topic, 'card'] %}
-  <div class="forum-topic">
+  <div class="forum-topic{% if topic.solved %} is-solved{% endif %}">
+    <div class="forum-avatar">
+      <img src="{{ topic.author | avatar }}" alt="">
+    </div>
     <div class="forum-topic__body">
-      <a class="forum-topic__title" href="{{ path('forum_show', {id: topic.id}) }}">{{ topic.name }}</a>
+      <a class="forum-topic__title" href="{{ path_for(topic) }}">{{ topic.name }}</a>
       <div class="forum-topic__meta">
         <div class="forum-topic__tags">
           {% for tag in topic.tags %}
             {% if tag.parent %}
-              <a href="{{ path('forum_tag', {slug: tag.parent.slug, id: tag.parent.id}) }}" class="badge" style="background-color: {{ tag.parent.color }}">{{ tag.parent.name }}</a>
+              <a href="{{ path_for(tag) }}" class="badge" style="background-color: {{ tag.parent.color }}">{{ tag.parent.name }}</a>
             {% endif %}
-            <a href="{{ path('forum_tag', {slug: tag.slug, id: tag.id}) }}" class="badge">{{ tag.name }}</a>
+            <a href="{{ path_for(tag) }}" class="badge">{{ tag.name }}</a>
           {% endfor %}
         </div>
         {% if topic.lastMessage %}
           {{icon('reply')}} <a
-          href="{{ path('user_show', {id: topic.lastMessage.author.id}) }}">{{ topic.lastMessage.author.username }}</a>, {{ topic.lastMessage.createdAt | ago }}
+          href="{{ path_for(topic.lastMessage.author) }}">{{ topic.lastMessage.author.username }}</a>, {{ topic.lastMessage.createdAt | ago }}
         {% else %}
           <a
-          href="{{ path('user_show', {id: topic.author.id}) }}">{{ topic.author.username }}</a>, {{ topic.createdAt | ago }}
+          href="{{ path_for(topic.author) }}">{{ topic.author.username }}</a>, {{ topic.createdAt | ago }}
         {% endif %}
       </div>
     </div>
@@ -24,6 +27,6 @@
       {{ icon('comments') }}
       {{ topic.messageCount }}
     </div>
-    <a href="{{ path('forum_show', {id: topic.id}) }}" aria-hidden="true" class="forum-topic__link" tabindex="-1"></a>
+    <a href="{{ path_for(topic) }}" aria-hidden="true" class="forum-topic__link" tabindex="-1"></a>
   </div>
 {% endcache %}

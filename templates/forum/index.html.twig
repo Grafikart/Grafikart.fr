@@ -19,9 +19,20 @@
       </li>
       {% for tag in tags %}
         <li>
-          <a href="{{ path('forum_tag', {slug: tag.slug, id: tag.id}) }}">
-            {{ tag.name }}
-          </a>
+          <details>
+            <summary>
+                {{ tag.name }}
+            </summary>
+            <ul>
+              {% for t in tag.children %}
+                <li>
+                  <a href="{{ path_for(t) }}">
+                    {{ t.name }}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          </details>
         </li>
       {% endfor %}
     </ul>
@@ -32,5 +43,5 @@
       {% include('forum/_topic.html.twig') %}
     {% endfor %}
   </main>
-
-  {% endblock %}
+</div>
+{% endblock %}

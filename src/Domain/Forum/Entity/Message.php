@@ -6,7 +6,7 @@ use App\Domain\Auth\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\Domain\Forum\Entity\MessageRepository")
+ * @ORM\Entity(repositoryClass="App\Domain\Forum\Repository\Messagerepository")
  * @ORM\Table(name="forum_message")
  */
 class Message
@@ -85,7 +85,7 @@ class Message
         return $this;
     }
 
-    public function getAccepted(): ?bool
+    public function isAccepted(): ?bool
     {
         return $this->accepted;
     }

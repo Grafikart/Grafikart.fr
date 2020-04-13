@@ -41,7 +41,7 @@ class ForumController extends AbstractController
     {
         $topics = $this->paginator->paginate($this->topicRepository->queryAllForTag($tag));
         return $this->render('forum/index.html.twig', [
-            'tags' => $this->tagRepository->findAll(),
+            'tags' => $this->tagRepository->findTree(),
             'topics' => $topics,
             'menu' => 'forum'
         ]);

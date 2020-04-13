@@ -41,7 +41,6 @@ function bindHighlight () {
     } else {
       let link = document.createElement('link')
       link.setAttribute('rel', 'stylesheet')
-      link.setAttribute('href', '//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/tomorrow-night-eighties.min.css')
       document.querySelector('head').appendChild(link)
       $script('//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js', function () {
         global.hljs.configure({tabReplace: '    '})

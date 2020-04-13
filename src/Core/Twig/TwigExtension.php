@@ -23,7 +23,8 @@ class TwigExtension extends AbstractExtension
         return [
             new TwigFilter('excerpt', [$this, 'excerpt']),
             new TwigFilter('markdown', [$this, 'markdown'], ['is_safe' => ['html']]),
-            new TwigFilter('markdown_excerpt', [$this, 'markdownExcerpt'], ['is_safe' => ['html']])
+            new TwigFilter('markdown_excerpt', [$this, 'markdownExcerpt'], ['is_safe' => ['html']]),
+            new TwigFilter('markdown_untrusted', [$this, 'markdownUntrusted'], ['is_safe' => ['html']])
         ];
     }
 
@@ -89,5 +90,10 @@ class TwigExtension extends AbstractExtension
     public function markdownExcerpt(?string $content, int $characterLimit = 135): string
     {
         return $this->excerpt(strip_tags($this->markdown($content)), $characterLimit);
+    }
+
+    public function markdownUntrusted(?string $content): string
+    {
+        return (new Parsedown())->setSafeMode(true)->text($content);
     }
 }

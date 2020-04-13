@@ -2,11 +2,45 @@
   @extend %container;
 }
 
-// Listing sujet
+// Avatar
+// =============
+.forum-avatar {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  flex: none;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50px;
+  }
+}
+
+.is-solved .forum-avatar::before,
+.is-solved .forum-avatar::after {
+  content:'';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  opacity: .7;
+  background: var(--green);
+}
+
+.is-solved .forum-avatar::after {
+  opacity: 1;
+  background: url(../../images/check.svg) center center / 50% 50% no-repeat;
+}
+
+  // Listing sujet
 // =============
 .forum-topic {
   display: grid;
-  grid-template-columns: 1fr 30px;
+  grid-template-columns: 40px 1fr 30px;
   grid-gap: space(2);
   padding: space(2);
   position: relative;
@@ -77,6 +111,87 @@
   bottom: 0;
   display: block;
   z-index: 2;
+}
+
+// Topic
+// =============
+.forum-messages {
+  --gap: 6;
+  @extend %stack;
+}
+.forum-message {
+  @extend %stack;
+  p, ul, ol {
+    margin-bottom: 1rem;
+  }
+}
+.forum-message__title {
+  font-family: Rubik;
+  font-weight: 500;
+  color: var(--color-dark);
+  font-size: 2em;
+}
+.forum-message__header,
+.forum-message__footer {
+  --gap: 2;
+  @extend %hstack;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.forum-message__footer {
+  margin-left: auto;
+}
+.forum-message__avatar{
+  display: block;
+  flex: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+}
+.is-accepted .forum-message__avatar {
+  border: 3px solid var(--green);
+  position: relative;
+}
+.forum-message.is-accepted .forum-message__header::after {
+  content:'';
+  position: absolute;
+  left: 35px;
+  top: -2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 15px;
+  border: 2px solid var(--background);
+  background: url(../../images/check.svg) center center / 70% 70% no-repeat var(--green);
+}
+.forum-message__author {
+  font-family: $font-alt;
+  font-weight: 500;
+  color: var(--color-dark);
+}
+.forum-message__date {
+  font-size: .9em;
+  color: var(--color-light);
+}
+.forum-message__body {
+  font-size: 18px;
+}
+.forum-message.is-reply {
+  display: grid;
+  grid-template-columns: 50px 1fr;
+
+  .forum-avatar {
+    width: 50px;
+    height: 50px;
+  }
+
+  .forum-message__body {
+    grid-column: 2 / -1;
+  }
+
+  .hjs {
+    background-color: var(--background);
+  }
 }
 
 @include up(800) {

@@ -1,6 +1,7 @@
 // Variables
 // ==================
 :root {
+  --color-dark: #000;
   --color: #121C42;
   --color-light: #121C4299;
   --color-inversed: #EFFBEC;
@@ -26,6 +27,7 @@
 }
 
 .dark {
+  --color-dark: #FFF;
   --color: #EFFBEC;
   --color-light: #EFFBEC99;
   --color-inversed: #121C42;
@@ -104,6 +106,7 @@ body::after {
 @import "modules/breadcrumb";
 @import "modules/hero";
 @import "modules/nav";
+@import "modules/highlight";
 
 // Pages
 // ==================

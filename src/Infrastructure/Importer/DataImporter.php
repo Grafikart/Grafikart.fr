@@ -33,4 +33,17 @@ abstract class DataImporter implements TypeImporterInterface
         return null;
     }
 
+    /**
+     * Réinitialise une séquence pgsql
+     *
+     * @param string $table
+     * @param int $lastId
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    public function resetSequence(string $table, int $lastId): void
+    {
+        $lastId = $lastId + 1;
+        $this->em->getConnection()->exec("ALTER SEQUENCE {$table}_id_seq RESTART WITH {$lastId};");
+    }
+
 }

@@ -11,7 +11,7 @@ services:
       - php
   php:
     build:
-      context: ./docker/php
+      context: ./tools/docker/php
       args:
         USER_ID: ${USER_ID}
         GROUP_ID: ${GROUP_ID}
@@ -27,7 +27,7 @@ services:
       PHP_IDE_CONFIG: serverName=grafikart
   node:
     build:
-      context: ./docker/node
+      context: ./tools/docker/node
     command: yarn run dev-server
     working_dir: /usr/src/app
     user: "${USER_ID}:${GROUP_ID}"

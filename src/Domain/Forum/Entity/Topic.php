@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\Domain\Forum\Entity\TopicRepository")
+ * @ORM\Entity(repositoryClass="App\Domain\Forum\Repository\TopicRepository")
  * @ORM\Table(name="forum_topic")
  */
 class Topic

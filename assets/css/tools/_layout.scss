@@ -98,6 +98,7 @@
 
 // Stacks
 // ==================
+%stack,
 .stack,
 .stack-large,
 .stack-separated {
@@ -122,6 +123,9 @@
     width: 100%;
     background: var(--border-light);
     top: calc(var(--gap-separated) * var(--space) * -1);
+}
+%hstack > * + * {
+  margin-left: calc(var(--gap) * var(--space));;
 }
 .hstack > * + * {
   margin-left: space(2);

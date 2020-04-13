@@ -1,0 +1,84 @@
+.sortable-item ul:empty {
+  height: 2rem;
+  background: var(--background);
+  border-radius: 2px;
+}
+
+.sortable-item ul ul {
+  display: none;
+}
+
+.sortable-item {
+  display: block;
+  padding: space(1) space(2);
+  border: solid 1px var(--border);
+  position: relative;
+  box-shadow: 0px 1px 4px rgba(213, 222, 233, 0.2);
+  border-radius: 2px;
+  margin-bottom: space(1);
+}
+.sortable-item.sortable-ghost {
+  color: transparent;
+}
+.sortable-item.sortable-ghost::after {
+  opacity: .4;
+}
+.sortable-item ul {
+  margin-top: 10px;
+}
+
+// Niveau 2
+// =============
+.sortable-items > li .sortable-item {
+
+  margin-left: space(3);
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--border);
+    opacity: .1;
+    pointer-events: none;
+  }
+  &::before {
+    --background-handle: var(--border);
+    content: '';
+    width: 16px;
+    height: 15px;
+    position: absolute;
+    left: -24px;
+    top: calc(50% - 8px);
+    cursor: move;
+    background: linear-gradient(to bottom, var(--background-handle) 0px, var(--background-handle) 2px, transparent 4px) top left / 100% 6px repeat;
+  }
+}
+
+// Boutons
+.sortable-items > .sortable-item > .sortable-item__delete {
+  top: 13px;
+  right: space(1.5);
+}
+.sortable-item__delete,
+{
+  position: absolute;
+  top: calc(50% - 8px);
+  right: space(1);
+  color: var(--border);
+  transition: .3s;
+}
+.sortable-item__delete svg{
+  width: 16px;
+  height: 16px;
+}
+.sortable-item__delete:hover{
+  color: var(--red);
+}
+.sortable-item__loader {
+  color: var(--contrast);
+  width: 16px;
+  height: 16px;
+}
