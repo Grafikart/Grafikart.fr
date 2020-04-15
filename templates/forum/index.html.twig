@@ -10,8 +10,8 @@
 
 <div class="forum-page">
   <div class="forum-page__sidebar stack">
-    <a href="#" class="btn-primary">Nouveau sujet</a>
-    <ul>
+    <a href="{{ path('forum_new') }}" class="btn-primary">Nouveau sujet</a>
+    <ul class="forum-tags">
       <li>
         <a href="{{ path('forum') }}">
           Tous les sujets
@@ -19,20 +19,18 @@
       </li>
       {% for tag in tags %}
         <li>
-          <details>
-            <summary>
-                {{ tag.name }}
-            </summary>
-            <ul>
-              {% for t in tag.children %}
-                <li>
-                  <a href="{{ path_for(t) }}">
-                    {{ t.name }}
-                  </a>
-                </li>
-              {% endfor %}
-            </ul>
-          </details>
+          <a href="{{ path(tag) }}">
+            {{ tag.name }}
+          </a>
+          <ul>
+            {% for t in tag.children %}
+              <li>
+                <a href="{{ path(t) }}">
+                  {{ t.name }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
         </li>
       {% endfor %}
     </ul>

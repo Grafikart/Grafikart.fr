@@ -18,7 +18,7 @@ class PagesController extends AbstractController
     }
 
     /**
-     * @Route("/environnement", name="env")
+     * @Route("/env", name="env")
      */
     public function env(): Response
     {

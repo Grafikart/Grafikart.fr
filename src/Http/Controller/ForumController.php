@@ -9,6 +9,8 @@ use App\Domain\Forum\Entity\Topic;
 use App\Domain\Forum\Repository\CategoryRepository;
 use App\Domain\Forum\Repository\TagRepository;
 use App\Domain\Forum\Repository\TopicRepository;
+use App\Http\Form\ForumTopicForm;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -32,6 +34,22 @@ class ForumController extends AbstractController
     public function index(TagRepository $tagRepository): Response
     {
         return $this->tag(null);
+    }
+
+    /**
+     * @Route("/forum/new", name="forum_new")
+     */
+    public function create(Request $request): Response
+    {
+        $topic = (new Topic())->setContent($this->renderView('forum/template/placeholder.text.twig'));
+        $form = $this->createForm(ForumTopicForm::class, $topic);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            dd('ok');
+        }
+        return $this->render('forum/new.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
     /**

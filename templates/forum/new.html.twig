@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Créer un nouveau sujet' %}
+
+{% block body %}
+
+  <section class="container hero-grid">
+    <div class="stack" style="align-self: flex-start">
+      <h2 class="hero-title">
+        Créer un <br>
+        <strong>sujet</strong>
+      </h2>
+      <p class="hero-text">
+        Afin de maximiser vos chances d'obtenir de l'aide essayer de décrire au mieux votre problème (ne copiez pas des
+        centaines de lignes). Essayez de simplifier votre problème au maximum
+      </p>
+    </div>
+    <div class="stack-large">
+      {{ form_start(form, {attr: {class: 'grid fit', style: '--col:300px'}}) }}
+      {{ form_row(form.name, {label: 'Titre'}) }}
+      {{ form_row(form.tags, {label: 'Tags'}) }}
+      {{ form_row(form.content, {label: false}) }}
+      <div class="full text-right">
+        <button type="submit" class="btn-big">Créer le sujet</button>
+      </div>
+      {{ form_end(form) }}
+    </div>
+  </section>
+
+
+{% endblock %}

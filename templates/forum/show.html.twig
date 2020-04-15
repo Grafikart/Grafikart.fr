@@ -10,9 +10,11 @@
 
     <div class="forum-message">
       <div class="forum-message__header">
-        <img src="{{ topic.author | avatar }}" alt="" class="forum-message__avatar">
+        <div class="forum-avatar">
+          <img src="{{ topic.author | avatar }}" alt="">
+        </div>
         <div>
-          <a class="forum-message__author" href="{{ path_for(topic.author) }}">{{ topic.author.username }}</a>
+          <a class="forum-message__author" href="{{ path(topic.author) }}">{{ topic.author.username }}</a>
           <div class="forum-message__date">{{ topic.createdAt | ago }}</div>
         </div>
       </div>
@@ -31,7 +33,7 @@
           </div>
           <div class="forum-message__header">
             <div>
-              <div class="forum-message__author">{{ message.author.username }} et mon pseudo est long</div>
+              <div class="forum-message__author">{{ message.author.username }}</div>
               <a class="forum-message__date" href="#message-{{ message.id }}">{{ message.createdAt | ago }}</a>
             </div>
             {% if message.accepted %}

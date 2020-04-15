@@ -27,7 +27,7 @@ class TwigUrlExtension extends AbstractExtension
     {
         return [
             new TwigFunction('content_path', [$this, 'contentPath']),
-            new TwigFunction('path_for', [$this, 'pathFor'])
+            new TwigFunction('path', [$this, 'pathFor'])
         ];
     }
 
@@ -51,8 +51,15 @@ class TwigUrlExtension extends AbstractExtension
         return '/images/default.png';
     }
 
-    public function pathFor (object $object): string {
-        return $this->serializer->serialize($object, 'path');
+    /**
+     * @param string|object $path
+     * @return string
+     */
+    public function pathFor ($path,  array $params = []): string {
+        if (is_string($path)) {
+            return $this->urlGenerator->generate($path, $params);
+        }
+        return $this->serializer->serialize($path, 'path');
     }
 
 }

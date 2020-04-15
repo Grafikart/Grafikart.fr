@@ -6,6 +6,7 @@ use App\Domain\Auth\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Domain\Forum\Repository\TopicRepository")
@@ -22,11 +23,14 @@ class Topic
 
     /**
      * @ORM\Column(type="string", length=70)
+     * @Assert\NotBlank()
+     * @Assert\Length(min="5", max="70")
      */
     private ?string $name = null;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank()
      */
     private ?string $content = null;
 
@@ -53,6 +57,8 @@ class Topic
     /**
      * @ORM\ManyToMany(targetEntity="App\Domain\Forum\Entity\Tag", inversedBy="topics")
      * @ORM\JoinTable(name="forum_topic_tag")
+     * @Assert\NotBlank()
+     * @Assert\Count(min="1")
      */
     private Collection $tags;
 

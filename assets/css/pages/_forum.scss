@@ -9,6 +9,7 @@
   width: 40px;
   height: 40px;
   flex: none;
+  border-radius: 40px;
 
   img {
     display: block;
@@ -17,7 +18,7 @@
     border-radius: 50px;
   }
 }
-
+// Sujet résolu
 .is-solved .forum-avatar::before,
 .is-solved .forum-avatar::after {
   content:'';
@@ -30,10 +31,24 @@
   opacity: .7;
   background: var(--green);
 }
-
 .is-solved .forum-avatar::after {
   opacity: 1;
   background: url(../../images/check.svg) center center / 50% 50% no-repeat;
+}
+// Réponse acceptée
+.is-accepted .forum-avatar {
+  border: 3px solid var(--green);
+}
+.is-accepted .forum-avatar::after {
+  content:'';
+  position: absolute;
+  right: -10px;
+  top: -2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 15px;
+  border: 2px solid var(--background);
+  background: url(../../images/check.svg) center center / 70% 70% no-repeat var(--green);
 }
 
   // Listing sujet
@@ -142,28 +157,6 @@
 .forum-message__footer {
   margin-left: auto;
 }
-.forum-message__avatar{
-  display: block;
-  flex: none;
-  width: 50px;
-  height: 50px;
-  border-radius: 50px;
-}
-.is-accepted .forum-message__avatar {
-  border: 3px solid var(--green);
-  position: relative;
-}
-.forum-message.is-accepted .forum-message__header::after {
-  content:'';
-  position: absolute;
-  left: 35px;
-  top: -2px;
-  width: 18px;
-  height: 18px;
-  border-radius: 15px;
-  border: 2px solid var(--background);
-  background: url(../../images/check.svg) center center / 70% 70% no-repeat var(--green);
-}
 .forum-message__author {
   font-family: $font-alt;
   font-weight: 500;
@@ -192,6 +185,21 @@
   .hjs {
     background-color: var(--background);
   }
+}
+
+// Tag
+// =============
+.forum-tags a {
+  display: inline-block;
+  padding: 5px 0;
+
+  &:hover {
+    color: var(--contrast);
+  }
+}
+
+.forum-tags li li a {
+  margin-left: 20px;
 }
 
 @include up(800) {

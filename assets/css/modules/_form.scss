@@ -181,10 +181,11 @@ button:hover .icon-delete {
 
 // InputTag
 // ==========================================================================
-.form-group .choices[data-type="text"] .choices__inner {
+.form-group .choices[data-type="text"] .choices__inner,
+.form-group .choices[data-type="select-multiple"] .choices__inner {
   padding: 0 8px;
   display: flex;
-  min-height: 41px;
+  min-height: 45px;
   align-items: center;
   background: var(--background);
 }
@@ -215,4 +216,7 @@ button:hover .icon-delete {
 }
 .choices__list--multiple {
   margin-right: space(1);
+}
+.form-group .choices {
+  margin-bottom: 0;
 }

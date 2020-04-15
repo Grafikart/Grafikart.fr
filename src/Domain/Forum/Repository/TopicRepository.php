@@ -22,10 +22,14 @@ class TopicRepository extends ServiceEntityRepository
             ->setMaxResults(20)
             ->orderBy('t.createdAt', 'DESC');
         if ($tag) {
+            $tags = [$tag];
+            if ($tag->getChildren()->count() > 0) {
+                $tags = $tag->getChildren()->toArray();
+            }
             $query
                 ->join('t.tags', 'tag')
-                ->where('tag = :tag')
-                ->setParameter('tag', $tag);
+                ->where('tag IN (:tags)')
+                ->setParameter('tags', $tags);
         }
         return $query->getQuery();
     }
