@@ -150,9 +150,9 @@ class Topic
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): \DateTimeInterface
     {
-        return $this->createdAt;
+        return $this->createdAt ?: new \DateTime();
     }
 
     public function setCreatedAt(\DateTimeInterface $createdAt): self

@@ -3,6 +3,8 @@ parameters:
   download_path: '%kernel.project_dir%/downloads'
   videos_path: '%download_path%/videos'
   sources_path: '%download_path%/sources'
+  typesense_key: '%env(resolve:TYPESENSE_KEY)%'
+  typesense_host: '%env(resolve:TYPESENSE_HOST)%'
 
 services:
     _defaults:
@@ -53,3 +55,4 @@ services:
     App\Core\Twig\TwigBreadcrumbExtension:
       class: App\Core\Twig\TwigBreadcrumbExtension
       arguments: [!tagged_iterator app.breadcrumb]
+

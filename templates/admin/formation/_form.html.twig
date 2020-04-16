@@ -25,7 +25,12 @@
     <div class="section-title">
       Contenu
     </div>
-    {{ form_row(form.short) }}
+    <div class="stack">
+      {{ form_row(form.short) }}
+      <div class="text-right">
+        <button type="submit" class="btn-gradient">Sauvegarder</button>
+      </div>
+    </div>
   </section>
 
   <section>

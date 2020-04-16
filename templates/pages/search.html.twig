@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <div class="container">
+    <h1 class="hero-title">Résultat pour votre recherche "<em>{{ q }}</em>"</h1>
+    <div class="formatted">
+      <ul>
+        {% for result in results %}
+          <li style="margin-bottom: 1rem;">
+            <span style="font-weight: bold;">{{ result.document.title }} // {{ result.document.type }}#{{ result.document.id }}</span><br>
+            {% for h in result.highlights%}
+              {% if h.field != 'category' %}
+              {{ h.snippet | raw }}
+              {% endif %}
+              <br>
+            {% endfor %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endblock %}
+

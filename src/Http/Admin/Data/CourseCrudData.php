@@ -81,7 +81,7 @@ class CourseCrudData implements CrudDataInterface
         $this->title = $course->getTitle();
         $this->slug = $course->getSlug();
         $this->author = $course->getAuthor();
-        $this->createdAt = $course->getCreatedAt() ?: new \DateTime();
+        $this->createdAt = $course->getCreatedAt();
         $this->videoPath = $course->getVideoPath();
         $this->image = $course->getImage();
         $this->demo = $course->getDemo();

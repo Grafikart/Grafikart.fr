@@ -2,6 +2,7 @@
 
 namespace App\Http\Admin\Data;
 
+use App\Core\Validator\Slug;
 use App\Core\Validator\Unique;
 use App\Domain\Attachment\Attachment;
 use App\Domain\Auth\User;
@@ -11,7 +12,6 @@ use App\Domain\Course\Entity\Formation;
 use App\Domain\Course\Entity\Technology;
 use App\Http\Form\AutomaticForm;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Core\Validator\Slug;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -70,7 +70,7 @@ class FormationCrudData implements CrudDataInterface
         $this->title = $formation->getTitle();
         $this->slug = $formation->getSlug();
         $this->author = $formation->getAuthor();
-        $this->createdAt = $formation->getCreatedAt() ?: new \DateTime();
+        $this->createdAt = $formation->getCreatedAt();
         $this->youtubePlaylist = $formation->getYoutubePlaylist();
         $this->online = $formation->isOnline();
         $this->image = $formation->getImage();

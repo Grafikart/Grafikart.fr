@@ -34,4 +34,26 @@ class TopicRepository extends ServiceEntityRepository
         return $query->getQuery();
     }
 
+    public function findAllBatched(): iterable
+    {
+        $limit = 0;
+        $perPage = 1000;
+        while(true) {
+            $rows = $this->createQueryBuilder('t')
+                ->setMaxResults($perPage)
+                ->setFirstResult($limit)
+                ->getQuery()
+                ->getResult()
+            ;
+            if (empty($rows)) {
+                break;
+            }
+            foreach($rows as $row) {
+                yield $row;
+            }
+            $limit += $perPage;
+            $this->getEntityManager()->clear();
+        }
+    }
+
 }

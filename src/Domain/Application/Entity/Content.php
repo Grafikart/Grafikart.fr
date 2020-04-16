@@ -249,9 +249,9 @@ abstract class Content
         return $technologies;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): \DateTimeInterface
     {
-        return $this->createdAt;
+        return $this->createdAt ?: new \DateTime();
     }
 
     /**
