@@ -16,7 +16,7 @@ class CourseNormalizer implements ContextAwareNormalizerInterface
     public function normalize($object, string $format = null, array $context = [])
     {
         if (!$object instanceof Course) {
-            throw new \InvalidArgumentException('Unexpected type for normalization, expected Formation, got ' . get_class($object));
+            throw new \InvalidArgumentException('Unexpected type for normalization, expected Course, got ' . get_class($object));
         }
         $title = $object->getTitle();
         $formation = $object->getFormation();
