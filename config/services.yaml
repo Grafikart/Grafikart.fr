@@ -56,3 +56,6 @@ services:
       class: App\Core\Twig\TwigBreadcrumbExtension
       arguments: [!tagged_iterator app.breadcrumb]
 
+    App\Core\UploaderBundle\PropertyGroupedDirectoryNamer:
+      class: App\Core\UploaderBundle\PropertyGroupedDirectoryNamer
+      public: true

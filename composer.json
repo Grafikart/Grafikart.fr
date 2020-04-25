@@ -13,6 +13,7 @@
     "erusev/parsedown": "^1.7",
     "everyman/neo4jphp": "dev-master",
     "google/apiclient": "^2.4",
+    "intervention/image": "^2.5",
     "knplabs/knp-paginator-bundle": "^5.1",
     "oneup/flysystem-bundle": "^3.4",
     "predis/predis": "^1.1",

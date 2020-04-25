@@ -30,3 +30,18 @@ vich_uploader:
         namer:
           service: Vich\UploaderBundle\Naming\PropertyNamer
           options: { property: 'slug'}
+      avatars:
+        uri_prefix: /uploads/avatars
+        upload_destination: '%kernel.project_dir%/public/uploads/avatars'
+        namer:
+          service: Vich\UploaderBundle\Naming\PropertyNamer
+          options:
+            property: id
+        directory_namer:
+          service: App\Core\UploaderBundle\PropertyGroupedDirectoryNamer
+          options:
+            property: id
+            modulo: 10000
+        inject_on_load: false
+        delete_on_update: true
+        delete_on_remove: true

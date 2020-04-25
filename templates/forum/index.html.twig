@@ -20,6 +20,7 @@
       {% for tag in tags %}
         <li>
           <a href="{{ path(tag) }}">
+            <img src="/icons/{{ tag.name | lower }}.svg" alt="" width="16" height="16">
             {{ tag.name }}
           </a>
           <ul>

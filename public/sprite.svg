@@ -91,9 +91,16 @@
       fill="currentColor" stroke="currentColor"/>
   </symbol>
   <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="sort">
-    <path d="M17.25 15.88l-4.5 4.5V.82h-1.5v19.56l-4.5-4.5-1.06 1.06L12 23.25l6.31-6.31-1.06-1.06z" fill="currentColor"/>
+    <path d="M17.25 15.88l-4.5 4.5V.82h-1.5v19.56l-4.5-4.5-1.06 1.06L12 23.25l6.31-6.31-1.06-1.06z"
+          fill="currentColor"/>
   </symbol>
   <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22" id="breadcrumb">
     <path fill="currentColor" d="M8.15 14.78l3.84-3.86-3.84-3.86 1.18-1.18 5.04 5.04-5.04 5.04z"/>
+  </symbol>
+  <symbol id="lock" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <path fill="#000" fill-rule="evenodd" d="M7 10V7a5 5 0 1110 0v3h1a2 2 0 012 2v8a2 2 0 01-2 2H6a2 2 0 01-2-2v-8a2 2 0 012-2h1zm-1 2v8h12v-8H6zm3-2h6V7a3 3 0 00-6 0v3zm5 4h2v4h-2v-4z" clip-rule="evenodd"/>
+  </symbol>
+  <symbol id="cloud" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 17">
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.28 11.83L10 8.5m0 0l-3.27 3.33M10 8.5V16m6.87-2.18a4.24 4.24 0 00.55-6.95 4.04 4.04 0 00-2.5-.87h-1.04a6.71 6.71 0 00-3.7-4.43 6.44 6.44 0 00-7.92 2.16 6.73 6.73 0 00.38 8.35"/>
   </symbol>
 </svg>

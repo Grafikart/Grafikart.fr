@@ -13,6 +13,9 @@ RUN apt-get update && apt-get install -y libpq-dev && docker-php-ext-install pdo
 # Support de MySQL (pour la migration)
 RUN docker-php-ext-install mysqli pdo_mysql
 
+# Imagick
+RUN apt-get update && apt-get install -y libmagickwand-dev --no-install-recommends && pecl install imagick && docker-php-ext-enable imagick
+
 # Xdebug
 RUN pecl install xdebug-2.8.1 && docker-php-ext-enable xdebug
 

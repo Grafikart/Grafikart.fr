@@ -84,9 +84,19 @@
 // ==================
 .grid {
   width: 100%;
-  display: grid;
+  display: grid!important;
   grid-gap: space(2);
   grid-template-columns: repeat(auto-fill, minmax(var(--col, 275px), 1fr));
+}
+.grid2 {
+  width: 100%;
+  display: grid!important;
+  grid-gap: space(2);
+  grid-template-columns: 1fr;
+
+  @include up(500) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 .grid.fit {
   grid-template-columns: repeat(auto-fit, minmax(var(--col, 275px), 1fr));
