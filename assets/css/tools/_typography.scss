@@ -57,6 +57,15 @@ $font-alt: "Montserrat", "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe 
   font-weight: bold;
 }
 
+%h1,
+.h1 {
+  font-family: $font-alt;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 42px;
+  line-height: 1.2;
+}
+
 %h2 {
   font-weight: 700;
   font-style: normal;
@@ -79,6 +88,11 @@ $font-alt: "Montserrat", "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe 
   strong {
     font-weight: bold;
   }
+
+  .icon {
+    width: 20px;
+    height: 20px;
+  }
 }
 
 // Pour générer les polices : https://transfonter.org/
@@ -96,4 +110,7 @@ $font-alt: "Montserrat", "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe 
 }
 .reader-only {
   display: none;
+}
+.text-danger {
+  color: var(--red);
 }

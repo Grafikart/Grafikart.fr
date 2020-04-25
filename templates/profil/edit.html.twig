@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Mon compte' %}
+
+{% block body %}
+
+
+  <div class="container">
+
+    <div class="profil-header">
+      <form class="profil-header__avatar" enctype="multipart/form-data" method="post" action="{{ path('user_avatar') }}">
+        {#
+          <input type="file" name="avatar"/>
+          <button type="submit">Envoyer</button>
+          #}
+        <img src="{{ user | avatar }}" alt="">
+        <div class="profil-header__upload">
+          {{ icon('cloud') }}
+        </div>
+      </form>
+      <div class="profil-header__body">
+        <h1 class="h1">Mon profil</h1>
+        <p>
+          <span class="badge badge-secondary">Compte standard</span>
+          Inscrit depuis 10 ans
+        </p>
+      </div>
+    </div>
+
+    {% include 'partials/flash.html.twig' %}
+
+    <section style="max-width: 790px;" class="stack-large">
+      {{ form_start(form_password, {attr: {class: 'stack'}}) }}
+        <h2 class="h3">
+          {{ icon('lock') }}
+          <strong>Mot de passe</strong>
+        </h2>
+        <div class="card p3 grid2">
+          {{ form_row(form_password.password) }}
+        </div>
+        <div class="text-right">
+          <button type="submit" class="btn-primary">Modifier mon mot de passe</button>
+        </div>
+      {{ form_end(form_password) }}
+      <div class="stack">
+        <h2 class="text-danger h3">
+          {{ icon('trash') }}
+          <strong>Danger zone</strong>
+        </h2>
+        <p style="font-size: 1.2rem;">
+          Vous n'êtes pas satisfait du contenu du site ?<br>
+          ou vous souhaitez supprimer toutes les informations associées à ce compte ?
+        </p>
+        <p class="text-right">
+          <a href="#" class="btn-danger">
+            {{ icon('trash') }}
+            Supprimer mon compte
+          </a>
+        </p>
+      </div>
+    </section>
+
+  </div>
+
+
+{% endblock %}

@@ -10,17 +10,23 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class TwigUrlExtension extends AbstractExtension
 {
 
     private UrlGeneratorInterface $urlGenerator;
     private SerializerInterface $serializer;
+    private UploaderHelper $uploaderHelper;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator, SerializerInterface $serializer)
+    public function __construct(
+        UrlGeneratorInterface $urlGenerator,
+        UploaderHelper $uploaderHelper,
+        SerializerInterface $serializer)
     {
         $this->urlGenerator = $urlGenerator;
         $this->serializer = $serializer;
+        $this->uploaderHelper = $uploaderHelper;
     }
 
     public function getFunctions(): array
@@ -48,7 +54,10 @@ class TwigUrlExtension extends AbstractExtension
 
     public function avatarPath(User $user): ?string
     {
-        return '/images/default.png';
+        if ($user->getAvatarName() === null) {
+            return '/images/default.png';
+        }
+        return $this->uploaderHelper->asset($user, 'avatarFile');
     }
 
     /**
