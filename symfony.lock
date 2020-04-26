@@ -841,8 +841,17 @@
     "tightenco/collect": {
         "version": "v7.0.8"
     },
+    "tijsverkoyen/css-to-inline-styles": {
+        "version": "2.2.2"
+    },
+    "twig/cssinliner-extra": {
+        "version": "v3.0.3"
+    },
     "twig/extra-bundle": {
         "version": "v3.0.1"
+    },
+    "twig/markdown-extra": {
+        "version": "v3.0.3"
     },
     "twig/twig": {
         "version": "v3.0.1"

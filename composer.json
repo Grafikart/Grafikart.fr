@@ -42,6 +42,9 @@
     "symfony/web-link": "5.0.*",
     "symfony/webpack-encore-bundle": "^1.7",
     "symfony/yaml": "5.0.*",
+    "twig/cssinliner-extra": "^3.0",
+    "twig/extra-bundle": "^3.0",
+    "twig/markdown-extra": "^3.0",
     "vich/uploader-bundle": "^1.13"
   },
   "require-dev": {

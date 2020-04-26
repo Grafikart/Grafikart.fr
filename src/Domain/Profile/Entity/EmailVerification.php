@@ -16,7 +16,7 @@ class EmailVerification
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
      */
-    private int $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -39,7 +39,7 @@ class EmailVerification
      */
     private string $token;
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -90,5 +90,9 @@ class EmailVerification
         $this->token = $token;
 
         return $this;
+    }
+
+    public function isExpired (): bool {
+        return $this->createdAt < new \DateTime('-1 hour');
     }
 }

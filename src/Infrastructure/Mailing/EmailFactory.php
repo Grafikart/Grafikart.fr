@@ -21,7 +21,9 @@ final class EmailFactory
     public function makeFromTemplate(string $template, array $data = []): Email
     {
         return (new Email())
-            ->html($this->twig->render($template, $data));
+            ->from('noreply@grafikart.fr')
+            ->html($this->twig->render($template, array_merge($data, ['format' => 'html'])))
+            ->text($this->twig->render($template, array_merge($data, ['format' => 'text'])));
     }
 
 }
