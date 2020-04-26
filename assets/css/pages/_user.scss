@@ -2,7 +2,11 @@
   margin-bottom: space(3);
   text-align: center;
 }
+
+// Avatar
+// =============
 .profil-header__avatar {
+  display: block;
   width: 110px;
   height: 110px;
   border-radius: 110px;
@@ -11,12 +15,22 @@
   margin-right: auto;
   position: relative;
   background-color: #9FB3C8;
+  border: solid 2px #9FB3C8;
 }
 .profil-header__avatar img {
-  width: 108px;
-  height: 108px;
+  width: 100%;
+  height: 100%;
   border-radius: 110px;
   transition: opacity .3s;
+}
+.profil-header__avatar input {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
 }
 .profil-header__body p {
   display: flex;

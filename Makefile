@@ -38,6 +38,10 @@ seed: vendor/autoload.php ## Génère des données dans la base de données (doc
 migrate: vendor/autoload.php ## Migre la base de donnée (docker-compose up doit être lancé)
 	$(sy) doctrine:migrations:migrate -q
 
+.PHONY: rollback
+rollback:
+	$(sy) doctrine:migration:migrate prev
+
 .PHONY: import
 import: vendor/autoload.php ## Import les données du site actuel
 	$(dc) -f docker-compose.import.yml up -d
@@ -78,3 +82,4 @@ node_modules/time: yarn.lock
 
 public/assets: node_modules/time
 	$(dr) --no-deps node yarn run build
+
