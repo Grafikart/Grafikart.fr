@@ -1,0 +1,11 @@
+{% extends 'mails/base.' ~ format ~ '.twig' %}
+
+{% block body %}
+
+## Changement d'email pour {{ username }}
+
+Un changement d'adresse email a été demandé pour votre compte Grafikart.fr. Si vous n'êtes pas à l'origine de cette demande merci de contacter le support **contact@grafikart.fr** immédiatement. Sinon, merci de vérifier votre email en cliquant sur le lien suivant.
+
+  Si vous êtes à l'origine de cette demande, merci de vérifier la nouvelle adresse email en cliquant sur le lien de confirmation qui vous a été envoyé à **{{ email }}**. Votre changement d'email ne sera pas appliqué tant que cela n'est pas fait.
+
+{% endblock %}

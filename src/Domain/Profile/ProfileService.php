@@ -66,4 +66,10 @@ class ProfileService
         $this->dispatcher->dispatch(new EmailVerificationEvent($emailVerification));
     }
 
+    public function updateEmail(EmailVerification $emailVerification, EntityManagerInterface $em): void
+    {
+        $emailVerification->getAuthor()->setEmail($emailVerification->getEmail());
+        $em->remove($emailVerification);
+    }
+
 }

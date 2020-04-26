@@ -6,7 +6,7 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 
 /**
- * @method getUser() App\Domain\Auth\User
+ * @method \App\Domain\Auth\User getUser()
  */
 abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
 {

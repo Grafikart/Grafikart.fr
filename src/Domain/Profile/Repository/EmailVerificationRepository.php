@@ -18,12 +18,11 @@ class EmailVerificationRepository extends ServiceEntityRepository
     public function findLastForUser(User $user): ?EmailVerification
     {
         return $this->createQueryBuilder('v')
-            ->select('v.createdAt')
             ->where('v.author = :user')
             ->setParameter('user', $user)
             ->setMaxResults(1)
             ->getQuery()
-            ->getSingleResult();
+            ->getOneOrNullResult();
     }
 
 }

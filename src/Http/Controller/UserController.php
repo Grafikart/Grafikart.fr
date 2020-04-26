@@ -50,9 +50,14 @@ class UserController extends AbstractController
         }
         // Traitement de la mise à jour de profil
         if ($formUpdate->isSubmitted() && $formUpdate->isValid()) {
-            $service->updateProfile($formUpdate->getData(), $em);
+            $data = $formUpdate->getData();
+            $service->updateProfile($data, $em);
             $em->flush();
-            $this->addFlash('success', 'Votre profil a bien été mis à jour');
+            if ($user->getEmail() !== $data->email) {
+                $this->addFlash('success', "Votre profil a bien été mis à jour, un email a été envoyé à {$data->email} pour confirmer votre changement");
+            } else {
+                $this->addFlash('success', 'Votre profil a bien été mis à jour');
+            }
             return $this->redirectToRoute('user_edit');
         }
 

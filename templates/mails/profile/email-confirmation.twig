@@ -1,0 +1,11 @@
+{% extends 'mails/base.' ~ format ~ '.twig' %}
+
+{% block body %}
+
+## Changement d'email pour {{ username }}
+
+Un changement d'adresse email a été demandé pour votre compte Grafikart.fr. Si vous n'êtes pas à l'origine de cette demande vous pouvez ignorer cet email. Sinon, merci de confirmer votre demande de changement en cliquant sur le lien suivant.
+
+{% include 'mails/parts/button.' ~ format ~ '.twig' with {url: url('user_email_confirm', {token: token}), title: 'Confirmer cet email'} %}
+
+{% endblock %}
