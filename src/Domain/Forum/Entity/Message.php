@@ -50,6 +50,8 @@ class Message
      */
     private ?\DateTimeInterface $updatedAt = null;
 
+    use SpamTrait;
+
     public function getId(): ?int
     {
         return $this->id;

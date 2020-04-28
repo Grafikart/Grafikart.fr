@@ -9,7 +9,9 @@ use App\Domain\Forum\Entity\Topic;
 use App\Domain\Forum\Repository\CategoryRepository;
 use App\Domain\Forum\Repository\TagRepository;
 use App\Domain\Forum\Repository\TopicRepository;
+use App\Domain\Forum\TopicService;
 use App\Http\Form\ForumTopicForm;
+use App\Http\Security\ForumVoter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,13 +41,17 @@ class ForumController extends AbstractController
     /**
      * @Route("/forum/new", name="forum_new")
      */
-    public function create(Request $request): Response
+    public function create(Request $request, TopicService $service): Response
     {
+        $this->denyAccessUnlessGranted(ForumVoter::CREATE);
         $topic = (new Topic())->setContent($this->renderView('forum/template/placeholder.text.twig'));
+        $topic->setAuthor($this->getUser());
         $form = $this->createForm(ForumTopicForm::class, $topic);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            dd('ok');
+            $service->createTopic($topic);
+            $this->addFlash('success', 'Le sujet a bien été créé');
+            return $this->redirectToRoute('forum');
         }
         return $this->render('forum/new.html.twig', [
             'form' => $form->createView()

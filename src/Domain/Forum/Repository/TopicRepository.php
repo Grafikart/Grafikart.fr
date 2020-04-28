@@ -2,6 +2,7 @@
 
 namespace App\Domain\Forum\Repository;
 
+use App\Domain\Auth\User;
 use App\Domain\Forum\Entity\Tag;
 use App\Domain\Forum\Entity\Topic;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -38,22 +39,26 @@ class TopicRepository extends ServiceEntityRepository
     {
         $limit = 0;
         $perPage = 1000;
-        while(true) {
+        while (true) {
             $rows = $this->createQueryBuilder('t')
                 ->setMaxResults($perPage)
                 ->setFirstResult($limit)
                 ->getQuery()
-                ->getResult()
-            ;
+                ->getResult();
             if (empty($rows)) {
                 break;
             }
-            foreach($rows as $row) {
+            foreach ($rows as $row) {
                 yield $row;
             }
             $limit += $perPage;
             $this->getEntityManager()->clear();
         }
+    }
+
+    public function countForUser(User $user): int
+    {
+        return $this->count(['user' => $user]);
     }
 
 }
