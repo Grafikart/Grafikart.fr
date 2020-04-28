@@ -2,10 +2,8 @@
 
 namespace App\Tests\Http\Controller;
 
-use App\Domain\Forum\Entity\Category;
-use App\Domain\Forum\Entity\Forum;
 use App\Tests\FixturesTrait;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use App\Tests\WebTestCase;
 
 class ForumControllerTest extends WebTestCase
 {
@@ -15,20 +13,23 @@ class ForumControllerTest extends WebTestCase
     public function testForum(): void
     {
         $title = "Forum";
-        $client = static::createClient();
-        $crawler = $client->request('GET', '/forum');
+        $crawler = $this->client->request('GET', '/forum');
         $this->assertResponseStatusCodeSame(200);
         $this->assertEquals($title, $crawler->filter('h1')->text());
     }
 
-    /**
-    public function testForumDisplayContent(): void
+    public function testCreateTopicUnauthenticated(): void
     {
-        $client = static::createClient();
-        $this->loadFixtures(['forums']);
-        $crawler = $client->request('GET', '/forum');
-        $this->assertEquals(4, $crawler->filter('h2')->count());
-        $this->assertEquals(10, $crawler->filter('h3')->count());
+        $this->client->request('GET', '/forum/new');
+        $this->assertResponseRedirects('/login');
     }
-     **/
+
+    public function testCreateTopicAuthenticated(): void
+    {
+        $data = $this->loadFixtures(['users']);
+        $this->login($data['user1']);
+        $this->client->request('GET', '/forum/new');
+        $this->assertResponseStatusCodeSame(200);
+    }
+
 }

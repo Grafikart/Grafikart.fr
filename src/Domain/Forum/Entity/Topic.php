@@ -37,12 +37,12 @@ class Topic
     /**
      * @ORM\Column(type="boolean", options={"default":0})
      */
-    private ?bool $solved = null;
+    private ?bool $solved = false;
 
     /**
      * @ORM\Column(type="boolean", options={"default":0})
      */
-    private ?bool $sticky = null;
+    private ?bool $sticky = false;
 
     /**
      * @ORM\Column(type="datetime")
@@ -66,7 +66,7 @@ class Topic
      * @ORM\ManyToOne(targetEntity="App\Domain\Auth\User", inversedBy="topics")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
-    private ?User $author = null;
+    private User $author;
 
     /**
      * @ORM\Column(type="integer", options={"default": 0})
@@ -83,6 +83,8 @@ class Topic
      * @ORM\JoinColumn(nullable=true)
      */
     private ?Message $lastMessage = null;
+
+    use SpamTrait;
 
     public function __construct()
     {
@@ -200,12 +202,12 @@ class Topic
         return $this;
     }
 
-    public function getAuthor(): ?User
+    public function getAuthor(): User
     {
         return $this->author;
     }
 
-    public function setAuthor(?User $author): self
+    public function setAuthor(User $author): self
     {
         $this->author = $author;
 
