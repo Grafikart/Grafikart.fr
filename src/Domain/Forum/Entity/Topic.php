@@ -63,7 +63,7 @@ class Topic
     private Collection $tags;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Auth\User", inversedBy="topics")
+     * @ORM\ManyToOne(targetEntity="App\Domain\Auth\User")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private User $author;

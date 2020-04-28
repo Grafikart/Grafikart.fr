@@ -35,7 +35,7 @@ seed: vendor/autoload.php ## Génère des données dans la base de données (doc
 	$(sy) hautelook:fixtures:load -q
 
 .PHONY: migrate
-migrate: vendor/autoload.php ## Migre la base de donnée (docker-compose up doit être lancé)
+migrate: vendor/autoload.php ## Migre la base de données (docker-compose up doit être lancé)
 	$(sy) doctrine:migrations:migrate -q
 
 .PHONY: rollback
@@ -57,6 +57,7 @@ import: vendor/autoload.php ## Import les données du site actuel
 
 .PHONY: test
 test: vendor/autoload.php ## Execute les tests
+	$(drtest) phptest bin/console doctrine:schema:validate --skip-sync
 	$(drtest) phptest vendor/bin/phpunit
 	$(dr) --no-deps node yarn run test
 
