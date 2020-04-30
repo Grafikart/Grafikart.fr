@@ -1,0 +1,76 @@
+.pricing {
+  max-width: 450px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pricing__price {
+  font-family: $font-alt;
+  font-weight: bold;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 100px;
+  color: var(--contrast);
+  justify-content: center;
+  line-height: 1;
+  padding: 30px 0 10px;
+  position: relative;
+}
+.pricing__price sup {
+  position: absolute;
+  bottom: 25px;
+  left: 100%;
+  white-space: nowrap;
+  font-size: 20px;
+}
+
+.pricing__eco {
+  font-weight: 300;
+  font-style: italic;
+  color: var(--contrast);
+}
+
+.pricing__item {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+  font-weight: 300;
+  line-height: 1.4;
+  font-size: 18px;
+
+  strong {
+    font-family: $font-alt;
+    display: block;
+    color: #000;
+    font-weight: bold;
+    font-size: 20px;
+  }
+}
+
+.pricing__action {
+  padding: 30px;
+
+  button {
+    font-size: 18px;
+  }
+}
+
+.premium-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: space(5);
+}
+
+@include up(950) {
+  .premium-grid {
+    grid-template-columns: 500px 1fr;
+    grid-auto-flow: dense;
+  }
+  .premium-grid > *:first-child {
+    grid-column: 2 / span 1;
+  }
+  .premium-grid > *:last-child {
+    grid-column: 1 / span 1;
+  }
+}

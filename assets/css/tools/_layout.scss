@@ -13,6 +13,10 @@
   bottom: 0;
   width: 100%;
   z-index: -1;
+
+  &.left {
+    transform: scaleX(-1);
+  }
 }
 
 // Container

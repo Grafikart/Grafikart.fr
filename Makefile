@@ -34,6 +34,10 @@ seed: vendor/autoload.php ## Génère des données dans la base de données (doc
 	$(sy) doctrine:schema:validate -q
 	$(sy) hautelook:fixtures:load -q
 
+.PHONY: migration
+migration: vendor/autoload.php ## Génère les migrations
+	$(sy) make:migration
+
 .PHONY: migrate
 migrate: vendor/autoload.php ## Migre la base de données (docker-compose up doit être lancé)
 	$(sy) doctrine:migrations:migrate -q
