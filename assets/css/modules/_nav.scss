@@ -27,8 +27,75 @@
   background: var(--contrast) linear-gradient(to top, #FFFFFF26, #FFFFFF26);
 }
 
+// Tabs avec toggle au milieu
+// =============
+.tabs-toggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: $font-alt;
+}
+.tabs-toggle button {
+  width: 50%;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  outline: none;
+  color: var(--color);
+}
+.tabs-toggle button:first-child {
+  text-align: right;
+  padding-right: 35px;
+}
+.tabs-toggle button:last-child {
+  text-align: left;
+  padding-left: 35px;
+}
+.tabs-toggle button[aria-selected=true] {
+  color: var(--contrast);
+}
+.tabs-toggle button:first-child::before {
+  pointer-events: none;
+  content:'';
+  position: absolute;
+  top: calc(50% - 10px);
+  left: calc(50% - 20px);
+  width: 40px;
+  height: 20px;
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  box-sizing: border-box;
+  box-shadow: 0 2px 10px var(--shadow);
+  border-radius: 100px;
+}
+.tabs-toggle button:first-child::after {
+  pointer-events: none;
+  content:'';
+  position: absolute;
+  top: calc(50% - 8px);
+  left: calc(50% - 18px);
+  width: 16px;
+  height: 16px;
+
+  background: linear-gradient(180deg, #4869EE 0%, #3255E2 100%);
+  box-shadow: 0px 1px 2px rgba(36, 57, 141, 0.4);
+  border-radius: 100px;
+  transition-duration: .3s;
+}
+.tabs-toggle button[aria-selected=false]:first-child::after {
+  transform: translateX(20px);
+}
+
+
+
 // Animation pour les onglets
 // =================
+[role="tabpanel"][hidden] {
+  display: none;
+}
+/*
 [role="tabpanel"] {
   transition: .5s;
 }
@@ -44,3 +111,4 @@
   transform: translateY(30px);
   pointer-events: none;
 }
+*/

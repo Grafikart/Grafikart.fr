@@ -22,6 +22,9 @@
     "clue/stdio-react": {
         "version": "v2.3.0"
     },
+    "clue/stream-filter": {
+        "version": "v1.4.1"
+    },
     "clue/term-react": {
         "version": "v1.2.0"
     },
@@ -241,6 +244,9 @@
     "league/flysystem": {
         "version": "1.0.63"
     },
+    "moneyphp/money": {
+        "version": "v3.3.1"
+    },
     "monolog/monolog": {
         "version": "2.0.2"
     },
@@ -281,6 +287,12 @@
     "ocramius/proxy-manager": {
         "version": "2.6.0"
     },
+    "omnipay/common": {
+        "version": "v3.0.3"
+    },
+    "omnipay/paypal": {
+        "version": "v3.0.2"
+    },
     "oneup/flysystem-bundle": {
         "version": "3.0",
         "recipe": {
@@ -293,6 +305,9 @@
             "config/packages/oneup_flysystem.yaml"
         ]
     },
+    "paypal/rest-api-sdk-php": {
+        "version": "1.14.0"
+    },
     "phar-io/manifest": {
         "version": "1.0.3"
     },
@@ -301,6 +316,15 @@
     },
     "php": {
         "version": "7.4"
+    },
+    "php-http/discovery": {
+        "version": "1.7.4"
+    },
+    "php-http/message": {
+        "version": "1.8.0"
+    },
+    "php-http/message-factory": {
+        "version": "v1.0.2"
     },
     "phpdocumentor/reflection-common": {
         "version": "2.0.0"
@@ -438,6 +462,9 @@
     },
     "spatie/phpunit-watcher": {
         "version": "1.22.0"
+    },
+    "stripe/stripe-php": {
+        "version": "v7.31.0"
     },
     "symfony/asset": {
         "version": "v5.0.3"

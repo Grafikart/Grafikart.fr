@@ -907,6 +907,11 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
+"@sb-elements/all@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@sb-elements/all/-/all-0.3.0.tgz#80cd5f5c5fd468a3df5cd8db5e55f3b4c67de4cd"
+  integrity sha512-HzoHfVfThMa2Kent2pyp54Sv105dP+eBjJ1uPLJAs1mUT2VBUPT5+MuVCWn78oZWJmeqAbvVt2NFEgi6W92tLQ==
+
 "@sinonjs/commons@^1.7.0":
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/@sinonjs/commons/-/commons-1.7.1.tgz#da5fd19a5f71177a53778073978873964f49acf1"

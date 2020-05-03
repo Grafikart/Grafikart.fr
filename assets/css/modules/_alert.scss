@@ -11,6 +11,9 @@
   line-height: 1.2;
   border-bottom: 3px solid var(--border);
 }
+.alert strong {
+  font-weight: bold;
+}
 .alert.out {
   animation: alertOut .5s both;
 }
@@ -52,6 +55,13 @@
 
   svg:first-child {
     color: #23DB72;
+  }
+}
+.alert-info {
+  border-bottom-color: #4869EE;
+
+  svg:first-child {
+    color: #4869EE;
   }
 }
 

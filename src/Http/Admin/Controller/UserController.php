@@ -4,18 +4,34 @@ namespace App\Http\Admin\Controller;
 
 use App\Domain\Auth\User;
 use App\Domain\Auth\UserRepository;
-use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class UserController extends BaseController
+class UserController extends CrudController
 {
 
-    private EntityManagerInterface $em;
+    protected string $templatePath = 'user';
+    protected string $menuItem = 'user';
+    protected string $entity = User::class;
+    protected string $routePrefix = 'admin_user';
+    protected string $searchField = 'username';
+    protected array $events = [];
 
-    public function __construct(EntityManagerInterface $em)
+    /**
+     * @Route("/users", name="user_index")
+     */
+    public function index(): Response
     {
-        $this->em = $em;
+        return $this->crudIndex();
+    }
+
+    public function applySearch(string $search, QueryBuilder $query): QueryBuilder
+    {
+        return $query->where("LOWER(row.username) = :search")
+            ->orWhere("row.email = :search")
+            ->setParameter('search', strtolower($search));
     }
 
     /**

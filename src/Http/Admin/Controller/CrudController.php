@@ -44,8 +44,7 @@ abstract class CrudController extends BaseController
         PaginatorInterface $paginator,
         EventDispatcherInterface $dispatcher,
         RequestStack $requestStack
-    )
-    {
+    ) {
         $this->em = $em;
         $this->paginator = $paginator;
         $this->dispatcher = $dispatcher;
@@ -60,14 +59,13 @@ abstract class CrudController extends BaseController
             ->createQueryBuilder('row')
             ->orderBy('row.createdAt', 'DESC');
         if ($request->get('q')) {
-            $query = $query->where("LOWER(row.{$this->searchField}) LIKE :search")
-                ->setParameter('search', "%" . strtolower($request->get('q')) . "%");
+            $query = $this->applySearch($request->get('q'), $query);
         }
         $this->paginator->allowSort('row.id', 'row.title');
         $rows = $this->paginator->paginate($query->getQuery());
         return $this->render("admin/{$this->templatePath}/index.html.twig", [
-            'rows' => $rows,
-            'menu' => $this->menuItem,
+            'rows'   => $rows,
+            'menu'   => $this->menuItem,
             'prefix' => $this->routePrefix
         ]);
 
@@ -84,7 +82,7 @@ abstract class CrudController extends BaseController
             $entity = $data->getEntity();
             $data->hydrate();
             $this->em->flush();
-            if ($this->events['update']) {
+            if ($this->events['update'] ?? null) {
                 $this->dispatcher->dispatch(new $this->events['update']($entity));
             }
             $this->addFlash('success', 'Le contenu a bien été modifié');
@@ -92,9 +90,9 @@ abstract class CrudController extends BaseController
         }
 
         return $this->render("admin/{$this->templatePath}/edit.html.twig", [
-            'form' => $form->createView(),
+            'form'   => $form->createView(),
             'entity' => $data->getEntity(),
-            'menu' => $this->menuItem
+            'menu'   => $this->menuItem
         ]);
     }
 
@@ -110,7 +108,7 @@ abstract class CrudController extends BaseController
             $data->hydrate();
             $this->em->persist($entity);
             $this->em->flush();
-            if ($this->events['create']) {
+            if ($this->events['create'] ?? null) {
                 $this->dispatcher->dispatch(new $this->events['create']($data->getEntity()));
             }
             $this->addFlash('success', 'Le contenu a bien été créé');
@@ -118,26 +116,32 @@ abstract class CrudController extends BaseController
         }
 
         return $this->render("admin/{$this->templatePath}/new.html.twig", [
-            'form' => $form->createView(),
+            'form'   => $form->createView(),
             'entity' => $data->getEntity(),
-            'menu' => $this->menuItem
+            'menu'   => $this->menuItem
         ]);
     }
 
-    public function crudDelete(object $entity): RedirectResponse
+    public function crudDelete(object $entity, ?string $redirectRoute): RedirectResponse
     {
         $this->em->remove($entity);
-        if ($this->events['delete']) {
+        if ($this->events['delete'] ?? null) {
             $this->dispatcher->dispatch(new $this->events['delete']($entity));
         }
         $this->em->flush();
         $this->addFlash('success', 'Le contenu a bien été supprimé');
-        return $this->redirectToRoute($this->routePrefix . '_index');
+        return $this->redirectToRoute($redirectRoute ?: ($this->routePrefix . '_index'));
     }
 
     public function getRepository(): EntityRepository
     {
         return $this->em->getRepository($this->entity);
+    }
+
+    protected function applySearch(string $search, QueryBuilder $query): QueryBuilder
+    {
+        return $query->where("LOWER(row.{$this->searchField}) LIKE :search")
+            ->setParameter('search', "%" . strtolower($search) . "%");
     }
 
 }

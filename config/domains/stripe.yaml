@@ -1,0 +1,13 @@
+parameters:
+  stripe_public_key: '%env(resolve:STRIPE_PUBLIC)%'
+  stripe_secret_key: '%env(resolve:STRIPE_SECRET)%'
+
+services:
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: false # Automatically registers your services as commands, event subscribers, etc.
+    public: false
+
+  App\Infrastructure\Payment\Stripe\StripeApi:
+    class: App\Infrastructure\Payment\Stripe\StripeApi
+    arguments: ["%stripe_secret_key%"]

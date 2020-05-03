@@ -33,6 +33,7 @@ class AutomaticForm extends AbstractType
         'string'                 => TextType::class,
         'bool'                   => SwitchType::class,
         'int'                    => NumberType::class,
+        'float'                    => NumberType::class,
         Attachment::class        => AttachmentType::class,
         User::class              => UserChoiceType::class,
         Tag::class               => ForumTagChoiceType::class,

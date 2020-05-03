@@ -91,3 +91,8 @@ Pour le design j'utilise [Figma](https://www.figma.com) car c'est l'outil le plu
 95%         F2
 100%        FF
 ```
+
+## Fonts à tester
+
+- Sofia Pro
+- Bruta Pro
