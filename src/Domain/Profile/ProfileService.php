@@ -46,24 +46,24 @@ class ProfileService
 
     public function updateProfile(ProfileUpdateDto $data, EntityManagerInterface $em): void
     {
-        if ($data->email === $data->user->getEmail()) {
-            return;
-        }
-        $lastRequest = $this->emailVerificationRepository->findLastForUser($data->user);
-        if ($lastRequest && $lastRequest->getCreatedAt() > new \DateTime('-1 hour')) {
-            throw new TooManyEmailChangeException($lastRequest);
-        } else {
-            if ($lastRequest) {
-                $em->remove($lastRequest);
+        $data->user->setCountry($data->country);
+        if ($data->email !== $data->user->getEmail()) {
+            $lastRequest = $this->emailVerificationRepository->findLastForUser($data->user);
+            if ($lastRequest && $lastRequest->getCreatedAt() > new \DateTime('-1 hour')) {
+                throw new TooManyEmailChangeException($lastRequest);
+            } else {
+                if ($lastRequest) {
+                    $em->remove($lastRequest);
+                }
             }
+            $emailVerification = (new EmailVerification())
+                ->setEmail($data->email)
+                ->setAuthor($data->user)
+                ->setCreatedAt(new \DateTime())
+                ->setToken($this->tokenGeneratorService->generate());
+            $em->persist($emailVerification);
+            $this->dispatcher->dispatch(new EmailVerificationEvent($emailVerification));
         }
-        $emailVerification = (new EmailVerification())
-            ->setEmail($data->email)
-            ->setAuthor($data->user)
-            ->setCreatedAt(new \DateTime())
-            ->setToken($this->tokenGeneratorService->generate());
-        $em->persist($emailVerification);
-        $this->dispatcher->dispatch(new EmailVerificationEvent($emailVerification));
     }
 
     public function updateEmail(EmailVerification $emailVerification, EntityManagerInterface $em): void

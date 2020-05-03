@@ -10,7 +10,8 @@ import './elements/Modal'
 import './elements/Autogrow'
 import './elements/Comments'
 import './elements/TimeAgo'
-import './elements/Tabs'
+// import './elements/Tabs'
+import NavTabs from '@sb-elements/all/src/nav-tabs/index'
 import './elements/Choices'
 import './elements/editor'
 import './elements/AjaxDelete'
@@ -25,6 +26,8 @@ import './modules/highlight'
 import {showHistory} from './modules/history'
 import Choices from 'choices.js'
 import {$$} from '@fn/dom'
+
+customElements.define('nav-tabs', NavTabs)
 
 document.addEventListener('turbolinks:load', function () {
   const darkToggle = document.querySelector('#dark-toggle')

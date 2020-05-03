@@ -1,0 +1,18 @@
+parameters:
+  paypal_id: '%env(resolve:PAYPAL_ID)%'
+  paypal_secret: '%env(resolve:PAYPAL_SECRET)%'
+
+services:
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: false # Automatically registers your services as commands, event subscribers, etc.
+    public: false
+
+
+  paypal_oauth_credentials:
+    class: PayPal\Auth\OAuthTokenCredential
+    arguments: ["%paypal_id%", "%paypal_secret%"]
+
+  PayPal\Rest\ApiContext:
+    class: PayPal\Rest\ApiContext
+    arguments: ["@paypal_oauth_credentials"]

@@ -1,5 +1,87 @@
 {% extends 'base.html.twig' %}
 
+{% block javascripts %}
+  {{ parent() }}
+  <script src="https://js.stripe.com/v3/" defer></script>
+  <script>
+    window.addEventListener('load', function () {
+      console.log('I\'m loading Stripe !!!!')
+      var stripe = Stripe('pk_test_4xz0aH0LjCHk6XQOsKJy1qZh')
+      var elements = stripe.elements()
+      var style = {
+        base: {
+          color: '#32325d',
+          fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+          fontSmoothing: 'antialiased',
+          fontSize: '16px',
+          '::placeholder': {
+            color: '#aab7c4'
+          }
+        },
+        invalid: {
+          color: '#fa755a',
+          iconColor: '#fa755a'
+        }
+      }
+
+      var cardElement = elements.create('card', {style: style})
+      cardElement.mount('#card-element')
+
+      const form = document.getElementById('subscription-form')
+
+      form.addEventListener('submit', async (event) => {
+        // We don't want to let default form submission happen here,
+        // which would refresh the page.
+        event.preventDefault()
+
+        const result = await stripe.createPaymentMethod({
+          type: 'card',
+          card: cardElement,
+          billing_details: {
+            email: 'jenny.rosen@example.com'
+          },
+          metadata: {
+            userId: '3'
+          }
+        })
+        //pm_1Gedn8FCMNgisvowRkkmm5fG
+
+        console.log(result)
+      })
+    })
+  </script>
+{% endblock %}
+
+{% block stylesheets %}
+  <style>
+    .MyCardElement {
+      height: 40px;
+      padding: 10px 12px;
+      width: 100%;
+      color: #32325d;
+      background-color: white;
+      border: 1px solid transparent;
+      border-radius: 4px;
+
+      box-shadow: 0 1px 3px 0 #e6ebf1;
+      -webkit-transition: box-shadow 150ms ease;
+      transition: box-shadow 150ms ease;
+    }
+
+    .MyCardElement--focus {
+      box-shadow: 0 1px 3px 0 #cfd7df;
+    }
+
+    .MyCardElement--invalid {
+      border-color: #fa755a;
+    }
+
+    .MyCardElement--webkit-autofill {
+      background-color: #fefde5 !important;
+    }
+  </style>
+{% endblock %}
+
 {% block title 'Devenir premium' %}
 
 {% block body %}
@@ -9,9 +91,33 @@
     <section id="page-header" class="stack text-inversed" style="padding-bottom: 200px;">
       <h1 class="hero-title">Devenir premium</h1>
       <div class="hero-text formatted">
-        Devenir premium sur Grafikart, c'est <strong>soutenir</strong> la création de nouveaux contenus chaque semaine et accéder à du contenu exclusif pour apprendre et s'améliorer (comme le téléchargement des vidéos et des sources).
+        Devenir premium sur Grafikart, c'est <strong>soutenir</strong> la création de nouveaux contenus chaque semaine
+        et accéder à du contenu exclusif pour apprendre et s'améliorer (comme le téléchargement des vidéos et des
+        sources).
       </div>
     </section>
+
+    {% if app.user and app.user.country == null %}
+      <div class="alert alert-info">
+        {{ icon('info') }}
+        <div>
+          <strong>Calcul de la TVA</strong><br>
+          Afin de calculer la TVA vous devez renseigner votre pays, si il ne correspond pas au pays de votre moyen de
+          paiement
+          il sera automatiquement refusé
+        </div>
+      </div>
+    {% endif %}
+
+    <form id="subscription-form">
+      <div id="card-element" class="MyCardElement">
+        <!-- Elements will create input elements here -->
+      </div>
+
+      <!-- We'll put the error messages in this element -->
+      <div id="card-errors" role="alert"></div>
+      <button type="submit">Subscribe</button>
+    </form>
 
     <div class="premium-grid">
       <div class="premium-grid__body stack">
@@ -20,44 +126,57 @@
         </h2>
         <div class="hero-text formatted">
           <p>
-            Mon but à travers grafikart.fr est de partager mes connaissances avec le plus grand nombre, c'est pourquoi j'essaie de rendre un maximum de contenu gratuit et public.
+            Mon but à travers grafikart.fr est de partager mes connaissances avec le plus grand nombre, c'est pourquoi
+            j'essaie de rendre un maximum de contenu gratuit et public.
           </p>
           <p>
-            Malgré tout, la préparation, l'enregistrement et le montage des tutoriels prend un temps considérable (10 à 20 heures par semaine). Du coup proposer des options payantes, comme le téléchargement des sources, me permet d'amortir une partie du temps passé et de continuer à faire vivre le site.
+            Malgré tout, la préparation, l'enregistrement et le montage des tutoriels prend un temps considérable (10 à
+            20 heures par semaine). Du coup proposer des options payantes, comme le téléchargement des sources, me
+            permet d'amortir une partie du temps passé et de continuer à faire vivre le site.
           </p>
         </div>
       </div>
       <div class="premium-grid__price">
-        <div class="card pricing">
-          <div class="pricing__price">38<sup>€ HT</sup></div>
-          <div class="pricing__eco">(économiser 10%)</div>
-          <div class="pricing__item">
-            Visionner les tutoriels
-            <strong>en avance</strong>
+
+
+        <nav-tabs class="tabs-toggle" style="margin-bottom: 50px;">
+          {% for plan in plans %}
+            <button aria-controls="plan{{ plan.id }}">{{ plan.name }}</button>
+          {% endfor %}
+        </nav-tabs>
+
+        {% for plan in plans %}
+          <div class="card pricing" id="plan{{ plan.id }}">
+            <div class="pricing__price">{{ vat_with_suffix(plan.price, app.user) }}</div>
+            {# <div class="pricing__eco">(économiser 10%)</div> #}
+            <div class="pricing__item">
+              Visionner les tutoriels
+              <strong>en avance</strong>
+            </div>
+            <div class="pricing__item">
+              Visionner les tutoriels
+              <strong>en avance</strong>
+            </div>
+            <div class="pricing__item">
+              Voir les vidéos
+              <strong>premium</strong>
+            </div>
+            <div class="pricing__item">
+              <strong>Télécharger</strong>
+              les vidéos
+            </div>
+            <div class="pricing__item">
+              <strong>Télécharger</strong>
+              les sources
+            </div>
+            <div class="pricing__action">
+              <a class="btn-primary" href="{{ path('premium_pay', {id: plan.id}) }}">Devenir premium
+                ({{ plan.duration }} mois)</a>
+            </div>
           </div>
-          <div class="pricing__item">
-            Visionner les tutoriels
-            <strong>en avance</strong>
-          </div>
-          <div class="pricing__item">
-            Voir les vidéos
-            <strong>premium</strong>
-          </div>
-          <div class="pricing__item">
-            <strong>Télécharger</strong>
-            les vidéos
-          </div>
-          <div class="pricing__item">
-            <strong>Télécharger</strong>
-            les sources
-          </div>
-          <div class="pricing__action">
-            <button class="btn-primary">Devenir premium (12 mois)</button>
-          </div>
-        </div>
+        {% endfor %}
       </div>
     </div>
-
 
 
   </div>

@@ -1,0 +1,53 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+
+  <div class="stack" style="--gap:1">
+
+    <div class="dashboard-title">
+      {{ icon('star') }}
+      Gestion des formules
+    </div>
+
+    {% include 'partials/flash.html.twig' %}
+
+    <div class="dashboard-card stack-large">
+      <div class="text-right">
+        <a href="{{ path('admin_plan_new') }}" class="dashboard-btn">Ajouter une formule</a>
+      </div>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Formule</th>
+          <th>Prix</th>
+          <th class="text-right">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for plan in plans %}
+          {% set link = path('admin_plan_edit', {id: plan.id}) %}
+        <tr>
+          <td><a href="{{ link }}">{{ plan.name }}</a></td>
+          <td>{{ plan.price }}€</td>
+          <td>
+            <div class="dashboard-actions">
+              <a href="{{ link }}">{{ icon('edit') }}</a>
+              <a href="{{ path('admin_plan_clone', {id: plan.id}) }}">{{ icon('clone') }}</a>
+              <form action="{{ path('admin_plan_edit', {id: plan.id}) }}" method="post" onsubmit="return confirm('Voulez vous vraiment supprimer cette formule')">
+                <input type="hidden" name="_method" value="DELETE" />
+                <button type="submit">
+                  {{ icon('delete') }}
+                </button>
+              </form>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+{% endblock %}
+

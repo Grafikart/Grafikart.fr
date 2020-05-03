@@ -4,6 +4,7 @@ namespace App\Http\Form;
 
 use App\Domain\Profile\Dto\ProfileUpdateDto;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,7 +20,11 @@ class UpdateProfileForm extends AbstractType
         parent::buildForm($builder, $options);
         $builder->add('email', EmailType::class, [
             'required'       => true
-        ]);
+        ])
+            ->add('country', CountryType::class, [
+                'required' => true,
+            ])
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

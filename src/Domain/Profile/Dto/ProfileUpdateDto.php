@@ -18,11 +18,18 @@ class ProfileUpdateDto
      */
     public string $email;
 
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Country()
+     */
+    public ?string $country;
+
     public User $user;
 
     public function __construct(User $user)
     {
         $this->email = $user->getEmail();
+        $this->country = $user->getCountry();
         $this->user = $user;
     }
 

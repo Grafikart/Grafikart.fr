@@ -34,8 +34,9 @@
         {{ icon('user') }}
         <strong>Mes informations</strong>
       </h2>
-      <div class="card p3">
+      <div class="card p3 grid">
         {{ form_row(form_update.email) }}
+        {{ form_row(form_update.country) }}
       </div>
       <div class="text-right">
         <button type="submit" class="btn-primary" name="action" value="update">Modifier mon profil</button>

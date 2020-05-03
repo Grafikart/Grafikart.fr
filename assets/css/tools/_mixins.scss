@@ -61,11 +61,13 @@
     $weights: $weight;
     @each $weight in $weights {
       $suffix: map-get((
+        200: ExtraLight,
         300: Light,
         400: Regular,
         500: Medium,
         600: SemiBold,
-        700: Bold
+        700: Bold,
+        900: Black
       ), $weight);
       @include font-face($name, $path + "-" + $suffix,
       $weight, $style, $exts)
