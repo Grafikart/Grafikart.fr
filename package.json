@@ -7,6 +7,7 @@
     "@babel/plugin-transform-react-jsx": "^7.9.4",
     "@symfony/webpack-encore": "^0.28.2",
     "@types/youtube": "^0.0.38",
+    "babel-plugin-jsx-pragmatic": "^1.0.2",
     "doctoc": "^1.4.0",
     "jest": "^25.1.0",
     "sass": "^1.26.5",
