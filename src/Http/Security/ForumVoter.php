@@ -10,10 +10,11 @@ class ForumVoter extends Voter
 {
 
     const CREATE = "forumCreate";
+    const REPORT  = "forumReport";
 
     protected function supports(string $attribute, $subject)
     {
-        return in_array($attribute, [self::CREATE]);
+        return in_array($attribute, [self::CREATE, self::REPORT]);
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token)

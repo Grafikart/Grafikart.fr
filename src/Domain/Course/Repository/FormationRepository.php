@@ -17,6 +17,19 @@ class FormationRepository extends ServiceEntityRepository
         parent::__construct($registry, Formation::class);
     }
 
+    /**
+     * @return Formation[]
+     */
+    public function findRecent(int $limit): array
+    {
+        return $this->createQueryBuilder('f')
+            ->where('f.online = true')
+            ->orderBy('f.createdAt', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findForTechnology(Technology $technology): iterable
     {
         return new IterableQuery($this->createQueryBuilder('f')

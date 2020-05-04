@@ -36,6 +36,28 @@
   background-color: var(--border);
 }
 
+.badge-rounded {
+  position: relative;
+  display: inline-block;
+  padding: 8px 16px;
+  font-family: $font-alt;
+  font-weight: bold;
+  font-size: 14px;
+  color: var(--contrast);
+  &::after {
+    content:'';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: currentColor;
+    opacity: .2;
+    z-index: -1;
+    border-radius: 100px;
+  }
+}
+
 // Pills
 // ==================
 .pill {
@@ -62,21 +84,17 @@
     border-radius: 20px;
   }
 }
-
 .pill svg {
   width: 16px;
   height: 16px;
   margin-right: space(1);
 }
-
 .pill-green {
   color: var(--green);
 }
-
 .pill-yellow {
   color: var(--yellow);
 }
-
 .pill-grey {
   color: var(--color);
   &::after {

@@ -86,7 +86,7 @@
 
 {% block body %}
 
-  <div class="container">
+  <div class="container" style="padding-top: 100px;">
 
     <section id="page-header" class="stack text-inversed" style="padding-bottom: 200px;">
       <h1 class="hero-title">Devenir premium</h1>
@@ -138,45 +138,7 @@
       </div>
       <div class="premium-grid__price">
 
-
-        <nav-tabs class="tabs-toggle" style="margin-bottom: 50px;">
-          {% for plan in plans %}
-            <button aria-controls="plan{{ plan.id }}">{{ plan.name }}</button>
-          {% endfor %}
-        </nav-tabs>
-
-        {% for plan in plans %}
-          <div class="card pricing" id="plan{{ plan.id }}">
-            <div class="pricing__price">{{ vat_with_suffix(plan.price, app.user) }}</div>
-            {# <div class="pricing__eco">(économiser 10%)</div> #}
-            <div class="pricing__item">
-              Visionner les tutoriels
-              <strong>en avance</strong>
-            </div>
-            <div class="pricing__item">
-              Visionner les tutoriels
-              <strong>en avance</strong>
-            </div>
-            <div class="pricing__item">
-              Voir les vidéos
-              <strong>premium</strong>
-            </div>
-            <div class="pricing__item">
-              <strong>Télécharger</strong>
-              les vidéos
-            </div>
-            <div class="pricing__item">
-              <strong>Télécharger</strong>
-              les sources
-            </div>
-            <div class="pricing__action">
-              <a class="btn-primary" href="{{ path('premium_pay', {id: plan.id}) }}">Devenir premium
-                ({{ plan.duration }} mois)</a>
-            </div>
-          </div>
-        {% endfor %}
-      </div>
-    </div>
+      {% include 'partials/premium.html.twig' %}
 
 
   </div>

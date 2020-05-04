@@ -24,6 +24,19 @@ class CourseRepository extends ServiceEntityRepository
             ->getQuery();
     }
 
+    /**
+     * @return Course[]
+     */
+    public function findRecent(int $limit): array
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.online = true')
+            ->orderBy('c.createdAt', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
     public function queryForTechnology(Technology $technology): Query
     {
         return $this->createQueryBuilder('c')

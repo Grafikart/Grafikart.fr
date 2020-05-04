@@ -187,7 +187,32 @@
   }
 }
 
-// Tag
+.forum-message__actions {
+  display: flex;
+}
+
+.forum-message__report {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  color: var(--color-light)
+}
+.forum-message__report span {
+  color: #FFF;
+  width: 37px;
+  height: 37px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 37px;
+  font-weight: 700;
+  font-family: $font-alt;
+  font-size: 14px;
+  background: url(../../images/hexagon.svg) center center / 18px 18px no-repeat var(--border-light);
+  margin-right: space(2);
+}
+
+  // Tag
 // =============
 .forum-tags a {
   display: inline-block;
