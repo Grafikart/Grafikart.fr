@@ -21,6 +21,12 @@
       <div class="forum-message__body formatted">
         {{ topic.content | markdown_untrusted }}
       </div>
+      <div class="forum-message__actions">
+        <div class="forum-message__report js-report" data-data="{topic: {{ topic.id }}}" data-endpoint="{{ path('api_reports_post_collection') }}">
+          <span>!</span>
+          Signaler le sujet
+        </div>
+      </div>
     </div>
 
     <h2 class="section-title">{{ topic.messageCount }} Réponses</h2>

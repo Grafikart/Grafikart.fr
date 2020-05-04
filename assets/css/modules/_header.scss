@@ -88,3 +88,62 @@
     display: none;
   }
 }
+
+// Déclinaison bleu
+// =============
+.header-filled {
+  background: #415EDE;
+  margin: 0 !important;
+  padding-bottom: 0 !important;
+  width: 100% !important;
+  height: 75px;
+  color: #FFF;
+  @extend %container;
+
+  &::after {
+    display: none !important;
+  }
+
+  .header-nav,
+  .header-side {
+    a {
+      position: relative;
+      padding-left: 7px;
+      opacity: 1;
+
+      &::after {
+        content: '';
+        position: absolute;
+        display: block;
+        top: -4px;
+        left: 0px;
+        width: 26px;
+        height: 26px;
+        padding: 3px;
+        background-color: #2D47B8;
+        border-radius: 18px;
+        z-index: 2;
+      }
+    }
+    .icon {
+      z-index: 3;
+      position: relative;
+      margin-right: space(1);
+      filter: drop-shadow( 0px 1px 1px rgba(0, 0, 0, .4))
+    }
+    a[aria-current] {
+      opacity: 1;
+      color: #FFF!important;
+    }
+  }
+
+  .header__home a::after {
+    display: none;
+  }
+
+  .header__home,
+  .header__search {
+    border-color: #2D47B8;
+  }
+
+}

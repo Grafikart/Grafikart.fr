@@ -1,0 +1,22 @@
+App\Domain\Forum\Entity\Report:
+  collectionOperations:
+    post:
+      security: is_granted("forumReport")
+      denormalization_context:
+        groups: ["create:report"]
+        swagger_definition_name: "ReportCreate"
+      normalization_context:
+        groups: ["read:report"]
+        swagger_definition_name: "ReportRead"
+      openapi_context:
+        summary: Crée un nouveau signalement
+  itemOperations:
+    get:
+      controller: "EmptyController"
+
+App\Domain\Forum\Entity\Topic:
+  collectionOperations: []
+  itemOperations:
+    get:
+      normalization_context:
+        groups: ["read:topic"]

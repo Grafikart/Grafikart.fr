@@ -22,6 +22,33 @@ presets:
           type: jpeg
       - $compress:
           quality: 90
+  r_97_93:
+    steps:
+      - $fill:
+          width: 97
+          height: 93
+      - $format:
+          type: jpeg
+      - $compress:
+          quality: 90
+  r_385_182:
+    steps:
+      - $fill:
+          width: 385
+          height: 182
+      - $format:
+          type: jpeg
+      - $compress:
+          quality: 90
+  r_385_465:
+    steps:
+      - $fill:
+          width: 385
+          height: 465
+      - $format:
+          type: jpeg
+      - $compress:
+          quality: 90
   jpg:
     steps:
       - $format:

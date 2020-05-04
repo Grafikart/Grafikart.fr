@@ -1,0 +1,16 @@
+{% set link = path(post) %}
+<div class="home-post stack" style="--gap:1">
+  {% if post.image %}
+    <a href="{{ link }}" class="home-post__image">
+      <img src="{{ image_url(post.image, width, height) }}" alt="">
+    </a>
+  {% endif %}
+  <h3 class="card__title"><a href="{{ link }}">{{ post.title }}</a></h3>
+  <p>
+    {{ post.content | markdown_excerpt(125) }}
+  </p>
+  <div class="home-post__author">
+    <img src="{{ post.author | avatar }}" alt="">
+    {{ post.author.username }}
+  </div>
+</div>

@@ -2,6 +2,7 @@
 
 namespace App\Domain\Forum\Entity;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
 use App\Domain\Auth\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -18,6 +19,7 @@ class Topic
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
+     * @ApiProperty(identifier=true)
      */
     private ?int $id = null;
 

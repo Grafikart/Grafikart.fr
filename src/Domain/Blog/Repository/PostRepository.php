@@ -22,6 +22,21 @@ class PostRepository extends ServiceEntityRepository
         parent::__construct($registry, Post::class);
     }
 
+    /**
+     * @param int $limit
+     * @return Post[]
+     */
+    public function findRecent(int $limit): array
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p')
+            ->where('p.online = true')
+            ->orderBy('p.createdAt', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
     public function queryAll(?Category $category = null): Query
     {
         $query = $this->createQueryBuilder('p')

@@ -1,5 +1,5 @@
 {% cache ['card', post] %}
-  {% set link = path('blog_show', {slug: post.slug}) %}
+  {% set link = path(post) %}
   <article class="blog-post">
     <a href="{{ link }}" class="blog-post__image">
       {% if post.image %}

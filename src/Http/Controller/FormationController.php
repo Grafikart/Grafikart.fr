@@ -10,6 +10,14 @@ class FormationController extends AbstractController
 {
 
     /**
+     * @Route("/formations", name="formation_index")
+     */
+    public function index(): Response
+    {
+        return new Response('Hello ;)');
+    }
+
+    /**
      * @Route("/formations/{slug}", name="formation_show")
      */
     public function show(Formation $formation): Response
