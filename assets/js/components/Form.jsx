@@ -18,7 +18,7 @@ export function Formart ({value, onChange, children}) {
 
   const onSubmit = e => {
     e.preventDefault()
-    console.log(data)
+    console.log(value)
   }
 
   return <FormContext.Provider value={contextData}>
