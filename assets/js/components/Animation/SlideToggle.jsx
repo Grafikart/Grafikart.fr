@@ -14,7 +14,6 @@ export default ({visible, className = null, children}) => {
   }
 
   useEffect(async function () {
-    console.log('visible', visible, showChildren)
     if (visible) {
       if (showChildren === false) {
         setShowChildren(true)

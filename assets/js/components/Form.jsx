@@ -1,6 +1,6 @@
 import {createContext} from 'preact'
 import {jsonFetch} from '@fn/api'
-import {useState} from 'preact/hooks'
+import {useEffect, useRef, useState} from 'preact/hooks'
 
 export const FormContext = createContext({
   data: {},
@@ -89,33 +89,57 @@ export function FetchForm ({value, onChange, className, children, action, method
  * @return {*}
  * @constructor
  */
-export function Field ({type, name, children, ...props}) {
+export function FormField ({type, name, children, ...props}) {
+
   return <FormContext.Consumer>
     {({data, setValue, errors, emptyError, loading}) => {
-
-      // On récupère la valeur / erreur depuis le contexte
       const value = data[name] || null
       const error = errors[name] || null
-      const inputClass = error ? 'is-invalid' : null
-
-      function onInput (e) {
+      const onInput = function (e) {
         if (error) {
           emptyError(name)
         }
         setValue(name, e.target.value)
       }
 
-      return <div className="form-group">
-        <label htmlFor={name}>{children}</label>
-        <textarea name={name} id={name} is="textarea-autogrow" readOnly={loading}
-                  className={inputClass}
-                  onInput={onInput}
-                  {...props}
-        >{value}</textarea>
-        {error && <div className="invalid-feedback">{error}</div>}
-      </div>
+      return <Field type={type} name={name} value={value} error={error} onInput={onInput} readonly={loading} {...props}>{children}</Field>
     }}
   </FormContext.Consumer>
+}
+
+/**
+ * Représente un champs, dans le contexte du formulaire
+ *
+ * @param type
+ * @param name
+ * @param onInput
+ * @param value
+ * @param error
+ * @param props
+ * @return {*}
+ * @constructor
+ */
+export function Field ({type, name, onInput, value, error, children, ...props}) {
+  const inputClass = error ? 'is-invalid' : null
+  const inputRef = useRef(null)
+
+  useEffect(function () {
+    if (props.autofocus && inputRef.current) {
+      inputRef.current.focus()
+    }
+  }, [props.autofocus])
+
+
+  return <div className="form-group">
+    <label htmlFor={name}>{children}</label>
+    <textarea name={name} id={name} is="textarea-autogrow"
+              onInput={onInput}
+              className={inputClass}
+              ref={inputRef}
+              {...props}
+    >{value}</textarea>
+    {error && <div className="invalid-feedback">{error}</div>}
+  </div>
 }
 
 /**
