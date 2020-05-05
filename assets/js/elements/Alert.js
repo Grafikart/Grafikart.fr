@@ -5,29 +5,34 @@ export class Alert extends HTMLElement {
     super()
     if (type !== undefined) {
       this.type = type
-    } else {
-      this.type = this.getAttribute('type')
-    }
-    if (!message) {
-      message = this.innerHTML
     }
     if (this.type === 'error' || this.type === null) {
       this.type = 'danger'
     }
     this.message = message
+    this.close = this.close.bind(this)
   }
 
   connectedCallback () {
+    this.type = this.type || this.getAttribute('type') || 'error'
+    const text = this.innerText
+    const duration = this.getAttribute('duration')
+    let progressBar = '';
+    if (duration !== null) {
+      progressBar = `<div class="alert__progress" style="animation-duration: ${duration}s">`
+      window.setTimeout(this.close, duration * 1000)
+    }
     this.innerHTML = `<div class="alert alert-${this.type}">
         <svg class="icon icon-{$name}">
           <use xlink:href="/sprite.svg#${this.icon}"></use>
         </svg>
-        ${this.message}
+        ${this.message || text}
         <button class="alert-close">
           <svg class="icon">
             <use xlink:href="/sprite.svg#cross"></use>
           </svg>
         </button>
+        ${progressBar}
       </div>`
     this.querySelector('.alert-close').addEventListener('click', (e) => {
       e.preventDefault()
@@ -41,6 +46,7 @@ export class Alert extends HTMLElement {
     window.setTimeout(async () => {
       await slideUp(element)
       this.parentElement.removeChild(this)
+      this.dispatchEvent(new CustomEvent('close'))
     }, 500)
   }
 

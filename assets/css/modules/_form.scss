@@ -34,9 +34,6 @@ input:disabled {
 .form-group textarea {
   min-height: 150px;
 }
-.form-group input.is-invalid {
-  border-color: #FB4635;
-}
 .form-group label {
   display: block;
   margin-bottom: space(1);
@@ -162,6 +159,16 @@ input:checked + label .switch::before {
   * > * {
     margin-top: .5em;
   }
+}
+.form-group input.is-invalid,
+.form-group textarea.is-invalid
+{
+  border-color: #FB4635;
+}
+.invalid-feedback {
+  color: #FB4635;
+  margin-top: space(1);
+  font-size: .9em;
 }
 
 // Accessibilité

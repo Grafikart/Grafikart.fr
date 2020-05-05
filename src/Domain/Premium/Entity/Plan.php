@@ -81,17 +81,6 @@ class Plan
         return $this;
     }
 
-    public function getPaypalId(): ?string
-    {
-        return $this->paypalId;
-    }
-
-    public function setPaypalId(?string $paypalId): Plan
-    {
-        $this->paypalId = $paypalId;
-        return $this;
-    }
-
     public function getStripeId(): ?string
     {
         return $this->stripeId;

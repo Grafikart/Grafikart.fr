@@ -2,6 +2,7 @@
 
 namespace App\Infrastructure\Payment\Stripe;
 
+use App\Domain\Auth\User;
 use Stripe\{Customer, Plan, Stripe, Subscription};
 
 class StripeApi
@@ -13,7 +14,7 @@ class StripeApi
         Stripe::setApiVersion('2020-03-02');
     }
 
-    public function createSubscription(string $paymentMethodId, StripeEntity $user): \App\Domain\Premium\Entity\Subscription
+    public function createSubscription(string $paymentMethodId, User $user): \App\Domain\Premium\Entity\Subscription
     {
         // On crée le client sur stripe
         if ($user->getStripeId()) {

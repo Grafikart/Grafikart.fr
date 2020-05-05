@@ -16,10 +16,11 @@ class StripePlanValidator extends ConstraintValidator
         $this->api = $api;
     }
 
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
-        /* @var $constraint \App\Infrastructure\Payment\Validator\StripePlan */
-
+        if (!$constraint instanceof StripePlan) {
+            throw new \RuntimeException('Contrainte inattendue');
+        }
         if (null === $value || '' === $value) {
             return;
         }

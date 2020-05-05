@@ -123,12 +123,12 @@ class Subscription
         return $this;
     }
 
-    public function getTax()
+    public function getTax(): float
     {
         return $this->tax;
     }
 
-    public function setTax($tax)
+    public function setTax(float $tax): self
     {
         $this->tax = $tax;
         return $this;
