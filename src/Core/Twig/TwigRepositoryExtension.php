@@ -23,10 +23,18 @@ class TwigRepositoryExtension extends AbstractExtension
         ];
     }
 
+    /**
+     * @param class-string<mixed> $repositoryClass
+     * @param string $method
+     * @param array $params
+     * @return mixed
+     */
     public function repositoryCall(string $repositoryClass, string $method, array $params = [])
     {
         $repository = $this->em->getRepository($repositoryClass);
-        return call_user_func_array([$repository, $method], $params);
+        /** @var callable $callable */
+        $callable = [$repository, $method];
+        return call_user_func_array($callable, $params);
 
     }
 

@@ -54,6 +54,7 @@ class Report
      * @ORM\Column(type="string")
      * @ApiProperty()
      * @Assert\NotBlank()
+     * @Assert\Length(min="4")
      * @Groups({"create:report", "read:report"})
      */
     private string $reason;

@@ -1,5 +1,9 @@
 .formatted {
 
+  > *:last-child {
+    margin-bottom: 0 !important;
+  }
+
   details > summary{
     list-style: none;
   }

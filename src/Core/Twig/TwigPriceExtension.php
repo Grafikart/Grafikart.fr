@@ -24,7 +24,7 @@ class TwigPriceExtension extends AbstractExtension
         ];
     }
 
-    public function vatWithSuffix(float $price, ?User $user)
+    public function vatWithSuffix(float $price, ?User $user): string
     {
         $vat = $this->vatService->vat($user);
         $vatPrice = $this->vatService->vatPrice($price, $user);

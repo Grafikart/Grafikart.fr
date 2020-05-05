@@ -4,7 +4,6 @@ namespace App\Http\Admin\Controller;
 
 use App\Domain\Premium\Entity\Plan;
 use App\Http\Admin\Data\CrudPlanData;
-use App\Infrastructure\Payment\Paypal\PaypalApi;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -49,19 +48,9 @@ class PlanController extends CrudController
     }
 
     /**
-     * @Route("/{id}/paypal", name="plan_paypal", methods={"POST", "GET"})
-     */
-    public function paypal(Plan $plan, PaypalApi $api): Response
-    {
-        $api->syncPlan($plan);
-        $this->em->flush();
-        return $this->redirectToRoute('admin_plan_edit', ['id' => $plan->getId()]);
-    }
-
-    /**
      * @Route("/{id}", methods={"DELETE"})
      */
-    public function delete(Plan $plan) {
+    public function delete(Plan $plan): Response {
         return $this->crudDelete($plan, 'admin_premium');
     }
 

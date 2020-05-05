@@ -9,6 +9,7 @@
   align-items: center;
   animation: alertIn .5s both;
   line-height: 1.2;
+  position: relative;
   border-bottom: 3px solid var(--border);
 }
 .alert strong {
@@ -65,6 +66,18 @@
   }
 }
 
+.alert__progress {
+  height: 3px;
+  background: var(--background-light);
+  position: absolute;
+  bottom: -3px;
+  right: 0;
+  width: 100%;
+  z-index: 3;
+  transform-origin: 0 100%;
+  animation: alertDuration 2s linear both;
+}
+
 @keyframes alertIn {
   from {
     opacity: 0;
@@ -83,6 +96,14 @@
   to {
     opacity: 0;
     transform: translateY(-10px);
+  }
+}
+@keyframes alertDuration {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
   }
 }
 

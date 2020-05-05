@@ -7,7 +7,8 @@ use App\Domain\Auth\User;
 class VatService
 {
 
-    public function vat(?User $user) {
+    public function vat(?User $user): float
+    {
         return $user === null || $user->getCountry() === 'FR' ? .2 : 0;
     }
 

@@ -1,0 +1,10 @@
+{% if topic is defined %}
+  {% set data = {topic: path('api_topics_get_item', {id: topic})} %}
+{% elseif message is defined %}
+
+{% endif %}
+
+<button class="forum-message__report js-report" data-data="{{ data | json_encode }}" data-endpoint="{{ path('api_reports_post_collection') }}">
+<span>!</span>
+Signaler le sujet
+</button>

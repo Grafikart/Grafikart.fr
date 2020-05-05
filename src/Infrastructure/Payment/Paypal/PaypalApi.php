@@ -2,12 +2,9 @@
 
 namespace App\Infrastructure\Payment\Paypal;
 
-use App\Domain\Premium\Entity\Plan;
-use PayPal\Rest\ApiContext;
-use Symfony\Component\HttpClient\HttpClient;
-
 class PaypalApi
 {
+    /*
 
     private ApiContext $context;
 
@@ -108,4 +105,5 @@ class PaypalApi
             dd($data['message'], $data['details']);
         }
     }
+    */
 }

@@ -122,7 +122,7 @@ abstract class CrudController extends BaseController
         ]);
     }
 
-    public function crudDelete(object $entity, ?string $redirectRoute): RedirectResponse
+    public function crudDelete(object $entity, ?string $redirectRoute = null): RedirectResponse
     {
         $this->em->remove($entity);
         if ($this->events['delete'] ?? null) {

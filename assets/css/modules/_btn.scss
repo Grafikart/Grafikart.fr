@@ -86,3 +86,7 @@
     border-color: var(--color-inversed);
   }
 }
+
+.stack > button {
+  justify-self: flex-start;
+}
