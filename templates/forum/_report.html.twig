@@ -4,7 +4,4 @@
 
 {% endif %}
 
-<button class="forum-message__report js-report" data-data="{{ data | json_encode }}" data-endpoint="{{ path('api_reports_post_collection') }}">
-<span>!</span>
-Signaler le sujet
-</button>
+<div class="js-report" data-data="{{ data | json_encode }}" data-endpoint="{{ path('api_reports_post_collection') }}"></div>
