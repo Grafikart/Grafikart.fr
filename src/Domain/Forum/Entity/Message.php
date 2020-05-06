@@ -4,6 +4,7 @@ namespace App\Domain\Forum\Entity;
 
 use App\Domain\Auth\User;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Domain\Forum\Repository\Messagerepository")
@@ -37,6 +38,8 @@ class Message
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(groups={"create"})
+     * @Assert\Length(min=10, groups={"create"})
      */
     private ?string $content = null;
 

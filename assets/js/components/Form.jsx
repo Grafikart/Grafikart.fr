@@ -1,6 +1,7 @@
 import {createContext} from 'preact'
 import {jsonFetch} from '@fn/api'
 import {useEffect, useRef, useState} from 'preact/hooks'
+import {PrimaryButton} from './Button'
 
 export const FormContext = createContext({
   data: {},
@@ -67,7 +68,7 @@ function useForm (method, url, value, onSuccess) {
  * @param method
  * @param onSuccess Fonction appelée en cas de retour valide de l'API (reçoit les données de l'API en paramètre)
  */
-export function FetchForm ({value, onChange, className, children, action, method, onSuccess}) {
+export function FetchForm ({value, onChange, children, action, className = null, method = 'POST', onSuccess = () => {}}) {
   const setValue = (name, newValue) => onChange({...value, [name]: newValue})
   const [errors, loading, onSubmit, emptyError] = useForm(method, action, value, onSuccess)
   const contextData = { data: value, errors, loading, setValue, emptyError}
@@ -119,27 +120,46 @@ export function FormField ({type, name, children, ...props}) {
  * @return {*}
  * @constructor
  */
-export function Field ({type, name, onInput, value, error, children, ...props}) {
-  const inputClass = error ? 'is-invalid' : null
-  const inputRef = useRef(null)
+export function Field ({name, onInput, value, error, children, type = 'text', className = '', ...props}) {
+  className += error ? ' is-invalid' : ''
 
-  useEffect(function () {
-    if (props.autofocus && inputRef.current) {
-      inputRef.current.focus()
-    }
-  }, [props.autofocus])
-
+  const attr = {
+    name: name,
+    id: name,
+    value: value,
+    className,
+    onInput,
+    ...props
+  }
 
   return <div className="form-group">
     <label htmlFor={name}>{children}</label>
-    <textarea name={name} id={name} is="textarea-autogrow"
-              onInput={onInput}
-              className={inputClass}
-              ref={inputRef}
-              {...props}
-    >{value}</textarea>
+    {(() => {
+      switch (type) {
+        case 'textarea':
+          return <FieldTextarea {...attr}/>
+        case 'editor':
+          return <FieldEditor {...attr}/>
+        default:
+          return null;
+      }
+    })()}
     {error && <div className="invalid-feedback">{error}</div>}
   </div>
+}
+
+function FieldTextarea (props) {
+  return <textarea {...props} />
+}
+
+function FieldEditor (props) {
+  const ref = useRef(null)
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.syncEditor()
+    }
+  }, [props.value])
+  return <textarea {...props} is="markdown-editor" ref={ref}/>
 }
 
 /**
@@ -150,16 +170,16 @@ export function Field ({type, name, onInput, value, error, children, ...props}) 
  * @return {*}
  * @constructor
  */
-export function PrimaryButton ({children, ...props}) {
+export function FormPrimaryButton ({children, ...props}) {
   return <FormContext.Consumer>
     {({loading, errors}) => {
 
       const disabled = loading || Object.keys(errors).filter(k => k !== 'main').length > 0
 
-      return <button className="btn btn-primary" disabled={disabled} {...props}>
+      return <PrimaryButton disabled={disabled} {...props}>
         {loading && <Loader className="icon" />}
         {children}
-      </button>
+      </PrimaryButton>
     }}
   </FormContext.Consumer>
 }

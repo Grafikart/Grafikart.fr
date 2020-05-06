@@ -25,7 +25,11 @@ class MarkdownEditor extends HTMLTextAreaElement {
 
     // Evènement
     toolbar.onFullScreen = this.toggleFullscreen
-    editor.onChange = (value) => this.value = value
+    editor.onChange = (value) => {
+      this.value = value
+      this.dispatchEvent(new CustomEvent('input'))
+    }
+    this.syncEditor = () => editor.setValue(this.value)
 
     // On ajoute au dom
     this.insertAdjacentElement('beforebegin', this.container)
@@ -34,6 +38,13 @@ class MarkdownEditor extends HTMLTextAreaElement {
 
   toggleFullscreen () {
     this.container.classList.toggle('mdeditor--fullscreen')
+  }
+
+  /**
+   * Permet de forcer la synchronisation de l'éditeur depuis le textarea (utile quand le composant est monté dans react)
+   */
+  syncEditor () {
+
   }
 
 }

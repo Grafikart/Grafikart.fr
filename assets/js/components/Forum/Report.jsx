@@ -1,5 +1,5 @@
 import {useState} from 'preact/hooks'
-import {FetchForm, FormField, PrimaryButton} from '../Form'
+import {FetchForm, FormField, FormPrimaryButton} from '../Form'
 import {Fragment} from 'preact'
 import {useToggle} from '@fn/hooks'
 import SlideToggle from '../Animation/SlideToggle'
@@ -15,8 +15,8 @@ function ReportButton ({children, ...props}) {
 function ReportForm ({action, value, onChange, onSuccess}) {
   const placeholder = "Indiquez en quoi ce sujet ne convient pas"
   return <FetchForm value={value} onChange={onChange} className="stack" action={action} method="post" onSuccess={onSuccess}>
-        <FormField name="reason" required placeholder={placeholder} autofocus>Raison du signalement</FormField>
-        <PrimaryButton>Envoyer</PrimaryButton>
+        <FormField type="textarea" name="reason" required placeholder={placeholder} autofocus>Raison du signalement</FormField>
+        <FormPrimaryButton>Envoyer</FormPrimaryButton>
       </FetchForm>
 }
 

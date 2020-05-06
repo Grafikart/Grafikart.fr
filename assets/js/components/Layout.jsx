@@ -4,3 +4,10 @@ export function Stack ({children, gap}) {
     {children}
   </div>
 }
+
+export function Flex ({children, gap}) {
+  const style = gap ? `--gap:${gap}` : null
+  return <div className="hstack" style={style}>
+    {children}
+  </div>
+}

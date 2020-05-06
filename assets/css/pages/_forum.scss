@@ -134,6 +134,9 @@
   --gap: 6;
   @extend %stack;
 }
+.forum-messages .mdeditor {
+  height: auto;
+}
 .forum-message {
   @extend %stack;
   p, ul, ol {
