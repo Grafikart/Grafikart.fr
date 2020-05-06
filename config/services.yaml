@@ -28,6 +28,10 @@ services:
       resource: '../src/Http/Admin/Controller'
       tags: ['controller.service_arguments']
 
+    App\Http\Api\Controller\:
+      resource: '../src/Http/Api/Controller'
+      tags: ['controller.service_arguments']
+
     Google_Service_YouTube_Resource_PlaylistItems:
         class: '\Google_Service_YouTube_Resource_PlaylistItems'
         factory: ['App\Core\Services\Api\GoogleServiceFactory', 'createPlaylistItems']

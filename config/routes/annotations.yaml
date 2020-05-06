@@ -6,3 +6,8 @@ admin_controllers:
   prefix: '%admin_prefix%'
   resource: ../../src/Http/Admin/Controller/
   type: annotation
+api_controllers:
+  name_prefix: api_
+  prefix: /api
+  resource: ../../src/Http/Api/Controller/
+  type: annotation

@@ -1,13 +1,11 @@
 .mdeditor {
   position: relative;
-  height: 500px;
   background-color: #fff;
   box-shadow: 0 1px 10px rgba(0,0,0,0.05);
   border: solid 1px var(--border);
   background: var(--background);
   transition: box-shadow .3s;
 }
-
 .mdeditor--fullscreen {
   position: fixed;
   z-index: 100;
@@ -18,27 +16,18 @@
   width: 100%;
   height: 100%;
 }
-
 .mdeditor__editor {
-  position: absolute;
   top: 34px;
   left: 0;
   width: 100%;
-  height: calc(100% - 34px);
   overflow-x: hidden;
   overflow-y: scroll;
   z-index: 2;
   background: var(--background);
 }
-
-.CodeMirror-scroll {
-  padding: 10px;
-}
-
-.mdeditor .CodeMirror-wrap {
+.mdeditor .Code-Mirror-wrap {
   height: 100%;
 }
-
 .mdeditor__toolbar {
   position: relative;
   display: flex;
@@ -67,7 +56,6 @@
     height: 15px;
   }
 }
-
 .mdeditor__toolbarright {
   margin-left: auto;
 }
@@ -103,14 +91,26 @@
   font-family: Montserrat;
   margin-top: space(2);
 }
-
 .mdeditor .CodeMirror pre.CodeMirror-line {
   font-family: Roboto;
 }
-
 .mdeditor .cm-comment {
   font-family: monospace;
 }
 .mdeditor .CodeMirror-scroll {
   background: var(--background);
+  min-height: 100px;
+}
+.mdeditor .CodeMirror {
+  height: auto;
+}
+.CodeMirror-scroll {
+  padding: 10px;
+}
+.mdeditor--fullscreen .mdeditor__editor {
+  position: absolute;
+  height: calc(100% - 34px);
+}
+.mdeditor--fullscreen .CodeMirror {
+  height: 100%;
 }

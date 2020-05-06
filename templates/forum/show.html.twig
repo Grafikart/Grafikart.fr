@@ -28,26 +28,10 @@
 
     <div class="forum-messages">
       {% for message in messages %}
-        <div class="forum-message is-reply {% if message.accepted %}is-accepted{% endif %}" id="message-{{ message.id }}">
-          <div class="forum-avatar">
-            <img src="{{ message.author | avatar }}" alt="" class="forum-message__avatar">
-          </div>
-          <div class="forum-message__header">
-            <div>
-              <div class="forum-message__author">{{ message.author.username }}</div>
-              <a class="forum-message__date" href="#message-{{ message.id }}">{{ message.createdAt | ago }}</a>
-            </div>
-            {% if message.accepted %}
-              <div class="forum-message__accepted badge badge-success">
-                Réponse acceptée
-              </div>
-            {% endif %}
-          </div>
-          <div class="forum-message__body formatted card" style="padding:1rem;">
-            {{ message.content | markdown_untrusted }}
-          </div>
-        </div>
+        {% include 'forum/_message.html.twig' %}
       {% endfor %}
+
+      <div id="new-forum-message" data-topic="{{ topic.id }}"></div>
     </div>
 
   </div>

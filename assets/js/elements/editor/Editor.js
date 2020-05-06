@@ -41,7 +41,7 @@ export default class Editor {
    * Entoure la selection.
    *
    * @param {string} start
-   * @param {string|null} end
+   * @param {null|string} end
    */
   wrapWith (start, end = null) {
     if (end === null) {
@@ -59,6 +59,17 @@ export default class Editor {
   replace (value) {
     this.editor.getDoc().replaceSelection(value)
     this.editor.focus()
+  }
+
+  /**
+   * Remplace la selection par la valeur donnée.
+   *
+   * @param {string} value
+   */
+  setValue (value) {
+    if (this.editor && value !== this.editor.getValue()) {
+      this.editor.setValue(value)
+    }
   }
 
   /**

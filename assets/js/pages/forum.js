@@ -1,6 +1,7 @@
 import {h, render} from 'preact'
 import {Report} from '../components/Forum/Report'
 import {$$} from '@fn/dom'
+import MessageCreate from '../components/Forum/MessageCreate'
 
 document.addEventListener('turbolinks:load', function () {
 
@@ -12,6 +13,12 @@ document.addEventListener('turbolinks:load', function () {
         }),
         report
       )
+  })
+
+  $$('#new-forum-message').forEach(element => {
+    render(h(MessageCreate, {
+      topic: parseInt(element.dataset.topic, 10)
+    }), element.parentElement, element)
   })
 
 })

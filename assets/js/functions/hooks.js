@@ -6,10 +6,18 @@ import {useState} from 'preact/hooks'
  * @param {boolean} value
  * @return {unknown[]}
  */
-export function useToggle (value) {
-  const [v, setV] = useState(value)
+export function useToggle (initialValue = null) {
+  const [value, setValue] = useState(initialValue)
   return [
-    v,
-    () => setV(!v)
+    value,
+    () => setValue(!value)
+  ]
+}
+
+export function usePush (initialValue = []) {
+  const [value, setValue] = useState(initialValue)
+  return [
+    value,
+    (item) => setValue([...value, item])
   ]
 }
