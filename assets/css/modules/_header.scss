@@ -89,10 +89,11 @@
   display: block;
   width: 16px;
   height: 16px;
+  margin-right: 0;
 }
 .header__notification {
   position: relative;
-  margin-right: calc(1 * var(--space));
+  margin-right: calc(2 * var(--space));
   padding-right: calc(1 * var(--space));
 }
 
