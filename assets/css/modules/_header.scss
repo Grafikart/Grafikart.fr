@@ -83,6 +83,19 @@
   margin-right: space(2);
   padding-right: space(1);
 }
+
+.header__notification .icon,
+.header__notification > button {
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+.header__notification {
+  position: relative;
+  margin-right: calc(1 * var(--space));
+  padding-right: calc(1 * var(--space));
+}
+
 @include down(800) {
   .header {
     display: none;

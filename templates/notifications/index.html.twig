@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Mes notifications' %}
+
+{% block body %}
+
+  <div class="container stack">
+    <h1 class="hero-title">Mes notifications</h1>
+
+    <div style="background-color:#CCC; border: solid 2px red; padding: 16px;">
+      <site-notifications></site-notifications>
+    </div>
+
+    <div class="stack-separated">
+      {% for notification in notifications %}
+      <div class="formatted">
+        {% if notification.read %}
+          <span style="color: goldenrod">
+            {{ icon('star') }}
+          </span>
+        {% endif %}
+        <strong>{{ notification.message }}</strong> - {{ notification.url }}<br>
+        {{ notification.createdAt | ago }}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+{% endblock %}

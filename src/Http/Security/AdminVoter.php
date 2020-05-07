@@ -28,6 +28,6 @@ class AdminVoter extends Voter
             return false;
         }
 
-        return $user->getUsername() === 'Grafiakart';
+        return $user->getUsername() === 'Grafikart';
     }
 }

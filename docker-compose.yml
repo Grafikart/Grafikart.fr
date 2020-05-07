@@ -22,6 +22,7 @@ services:
       - mail
       - redis
       - typesense
+      - mercure
     depends_on:
       - db
     environment:
@@ -75,6 +76,14 @@ services:
       - search-data:/data
     ports:
       - 8108:8108
+  mercure:
+    image: dunglas/mercure
+    environment:
+      JWT_KEY: mercure
+      ALLOW_ANONYMOUS: 0
+      CORS_ALLOWED_ORIGINS: 'http://grafikart.localhost:8000'
+    ports:
+      - 8001:80
 
 volumes:
   db-data:

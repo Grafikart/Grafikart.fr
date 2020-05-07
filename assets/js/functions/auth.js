@@ -17,6 +17,15 @@ export function isAuthenticated () {
 }
 
 /**
+ * Vérifie si l'utilisateur est connecté
+ *
+ * @return {boolean}
+ */
+export function lastNotificationRead () {
+  return window.grafikart.NOTIFICATION
+}
+
+/**
  * Vérifie si l'utilisateur connecté correspond à l'id passé en paramètre
  *
  * @param {number} userId

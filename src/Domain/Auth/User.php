@@ -2,6 +2,7 @@
 
 namespace App\Domain\Auth;
 
+use App\Domain\Notification\Entity\Notifiable;
 use App\Domain\Premium\Entity\PremiumTrait;
 use App\Infrastructure\Payment\Stripe\StripeEntity;
 use Doctrine\ORM\Mapping as ORM;
@@ -69,6 +70,7 @@ class User implements UserInterface, \Serializable
 
     use PremiumTrait;
     use StripeEntity;
+    use Notifiable;
 
     public function getId(): ?int
     {

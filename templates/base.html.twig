@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>{% block title 'Grafikart' %}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui"/>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:500,600,700|Roboto:300,400|Rubik:300,400,500,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:500,600,700|Roboto:300,400&display=swap" rel="stylesheet">
   {% block stylesheets %}
     {{ encore_entry_link_tags('app') }}
   {% endblock %}
@@ -26,6 +26,9 @@
     <li id="dark-toggle"><a href="#">Dark</a></li>
   </ul>
   <ul class="header-side">
+    <li class="header__notification">
+      <site-notifications></site-notifications>
+    </li>
     <li class="header__search"><a href="#">{{ icon('search') }}</a></li>
     {% if app.user %}
       <li class="header__account"><a href="{{ path('auth_logout') }}">{{ icon('user') }} {{ app.user.username }}</a>
@@ -39,7 +42,8 @@
 <script>
   window.grafikart = {
     ADMIN: {{ is_granted('SUPERADMIN') ? 'true' : 'false' }},
-    USER: {{ app.user ? app.user.id : 'null' }}
+    USER: {{ app.user ? app.user.id : 'null' }},
+    NOTIFICATION: new Date({{ (app.user and app.user.notificationsReadAt) ? app.user.notificationsReadAt.timestamp : 0 }} * 1000)
   }
 </script>
 </body>

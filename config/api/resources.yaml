@@ -20,3 +20,14 @@ App\Domain\Forum\Entity\Topic:
     get:
       normalization_context:
         groups: ["read:topic"]
+
+App\Domain\Notification\Entity\Notification:
+  collectionOperations:
+    get:
+      security: is_granted("ROLE_USER")
+      pagination_client_items_per_page: true
+      normalization_context:
+        groups: ["read:notification"]
+  itemOperations:
+    get:
+      controller: "EmptyController"
