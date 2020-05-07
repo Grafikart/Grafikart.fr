@@ -107,4 +107,7 @@
   <symbol xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16" id="info">
     <path fill="currentColor" d="M8.93 6.59l-2.29.29-.08.38.45.08c.3.07.35.17.29.47l-.74 3.47c-.2.9.1 1.31.8 1.31.55 0 1.18-.25 1.47-.6l.09-.41c-.2.18-.5.25-.69.25-.27 0-.37-.2-.3-.54l1-4.7zM8 5.5a1 1 0 100-2 1 1 0 000 2z"/>
   </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20" id="bell">
+    <path fill="#000" d="M10 18l2-2H8l2 2zm4-8V8c0-2-1-4-3-4V3l-1-1-1 1v1C7 4 6 6 6 8v2l-2 3v2h12v-2l-2-3z"/>
+  </symbol>
 </svg>

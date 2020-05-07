@@ -1,5 +1,9 @@
 .formatted {
 
+  strong {
+    font-weight: bold;
+  }
+
   > *:last-child {
     margin-bottom: 0 !important;
   }

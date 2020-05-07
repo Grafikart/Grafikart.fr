@@ -4,6 +4,8 @@ namespace App\Http\Admin\Controller;
 
 use App\Core\Helper\Paginator\PaginatorInterface;
 use App\Domain\Comment\CommentRepository;
+use App\Domain\Course\Repository\CourseRepository;
+use App\Domain\Notification\NotificationService;
 use App\Domain\Revision\RevisionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,6 +29,16 @@ final class PageController extends BaseController
             'revisions' => $revisions,
             'comments' => $comments
         ]);
+    }
+
+    /**
+     * @Route("/notify")
+     */
+    public function notify(NotificationService $notifications, CourseRepository $courseRepository): Response
+    {
+        $course = $courseRepository->find(103);
+        $notification = $notifications->notifyChannel('content', 'Un nouveau tutoriel est disponible', $course);
+        return new Response('ok');
     }
 
 }

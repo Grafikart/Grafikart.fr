@@ -13,3 +13,7 @@ api_platform:
     json: ['application/json']
     html: ['text/html']
     jsonld: ['application/ld+json']
+  collection:
+    pagination:
+      client_items_per_page: false
+      items_per_page_parameter_name: count
