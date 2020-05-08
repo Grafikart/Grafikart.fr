@@ -4,3 +4,7 @@ parameters:
   videos_path: '%download_path%'
   sources_path: '%download_path%'
 
+services:
+  App\Tests\Infrastructure\Mercure\PublisherStub:
+    class: App\Tests\Infrastructure\Mercure\PublisherStub
+    decorates: mercure.hub.default.publisher
