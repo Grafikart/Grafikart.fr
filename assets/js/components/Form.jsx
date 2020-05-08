@@ -90,7 +90,7 @@ export function FetchForm ({value, onChange, children, action, className = null,
  * @return {*}
  * @constructor
  */
-export function FormField ({type, name, children, ...props}) {
+export function FormField ({type = "text", name, children, ...props}) {
 
   return <FormContext.Consumer>
     {({data, setValue, errors, emptyError, loading}) => {
@@ -141,7 +141,7 @@ export function Field ({name, onInput, value, error, children, type = 'text', cl
         case 'editor':
           return <FieldEditor {...attr}/>
         default:
-          return null;
+          return <FieldInput {...attr}/>
       }
     })()}
     {error && <div className="invalid-feedback">{error}</div>}
@@ -150,6 +150,10 @@ export function Field ({name, onInput, value, error, children, type = 'text', cl
 
 function FieldTextarea (props) {
   return <textarea {...props} />
+}
+
+function FieldInput (props) {
+  return <input {...props} />
 }
 
 function FieldEditor (props) {

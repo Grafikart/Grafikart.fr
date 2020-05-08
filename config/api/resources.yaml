@@ -28,6 +28,12 @@ App\Domain\Notification\Entity\Notification:
       pagination_client_items_per_page: true
       normalization_context:
         groups: ["read:notification"]
+    post:
+      security: is_granted("CREATE_NOTIFICATION")
+      normalization_context:
+        groups: ["read:notification"]
+      denormalization_context:
+        groups: ["create:notification"]
   itemOperations:
     get:
       controller: "EmptyController"

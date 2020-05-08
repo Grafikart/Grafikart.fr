@@ -79,7 +79,8 @@ services:
   mercure:
     image: dunglas/mercure
     environment:
-      JWT_KEY: mercure
+      JWT_KEY: mercure_subscriber
+      PUBLISHER_JWT_KEY: mercure_publisher
       ALLOW_ANONYMOUS: 0
       CORS_ALLOWED_ORIGINS: 'http://grafikart.localhost:8000'
     ports:

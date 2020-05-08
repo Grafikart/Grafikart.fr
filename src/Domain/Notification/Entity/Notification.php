@@ -5,6 +5,7 @@ namespace App\Domain\Notification\Entity;
 use App\Domain\Auth\User;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Domain\Notification\Repository\NotificationRepository")
@@ -27,13 +28,16 @@ class Notification
 
     /**
      * @ORM\Column(type="string")
-     * @Groups({"read:notification"})
+     * @Assert\NotBlank()
+     * @Groups({"read:notification", "create:notification"})
      */
     private string $message;
 
     /**
      * @ORM\Column(type="string", nullable=true)
-     * @Groups({"read:notification"})
+     * @Assert\NotBlank()
+     * @Assert\Url()
+     * @Groups({"read:notification", "create:notification"})
      */
     private ?string $url = null;
 
@@ -45,8 +49,14 @@ class Notification
 
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @Groups({"create:notification"})
      */
     private ?string $channel = null;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
 
     public function getId(): ?int
     {

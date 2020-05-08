@@ -96,3 +96,10 @@ Pour le design j'utilise [Figma](https://www.figma.com) car c'est l'outil le plu
 
 - Sofia Pro
 - Bruta Pro
+
+## Référence
+
+Pour évaluer l'efficacité de la nouvelle version :
+
+- application.js version actuelle : 174ko / 490ko
+- application.css version actuelle : 32ko / 131ko

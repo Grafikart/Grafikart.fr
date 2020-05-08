@@ -4,15 +4,8 @@
 
 {% block body %}
 
-  <h1 class="dashboard-title">
-    {{ icon('clock') }} Dashboard
-  </h1>
-
-  <form action="/admin/notify" method="post">
-    <button class="btn-primary">Notifier</button>
-  </form>
-
   <div class="grid" style="--col:460px">
+    <!-- Commentaires -->
     <section class="stack" style="--gap:1">
       <div class="flex">
         <h1 class="dashboard-title">
@@ -37,6 +30,18 @@
             <p>{{ comment.content | nl2br }}</p>
           </article>
         {% endfor %}
+      </div>
+    </section>
+
+    <!-- Notifications -->
+    <section class="stack" style="--gap:1">
+      <div class="flex">
+        <h1 class="dashboard-title">
+          {{ icon('bell') }} Notifier
+        </h1>
+      </div>
+      <div class="dashboard-card">
+        <form-notification></form-notification>
       </div>
     </section>
   </div>

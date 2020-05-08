@@ -7,8 +7,8 @@ export function SlideIn ({show, children, style = {}, ...props}) {
     if (show) setRender(true)
   }, [show])
 
-  const onAnimationEnd = () => {
-    if (!show) setRender(false)
+  const onAnimationEnd = (e) => {
+    if (!show && e.animationName === 'slideOut') setRender(false)
   }
 
   return (

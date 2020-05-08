@@ -5,3 +5,5 @@ twig:
     date:
       format: d F Y
       interval_format: '%%d days'
+    globals:
+      mercure_subscribe_url: '%env(resolve:MERCURE_SUBSCRIBE_URL)%'
