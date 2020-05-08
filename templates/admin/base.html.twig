@@ -28,6 +28,9 @@
     <li><a href="{{ path('admin_premium_index') }}" {{ menu_active('premium') }}>{{ icon('star') }} Premium</a></li>
   </ul>
   <ul class="header-side">
+    <li class="header__notification">
+      <site-notifications></site-notifications>
+    </li>
     <li class="header__search"><a href="#">{{ icon('search') }}</a></li>
     {% if app.user %}
       <li class="header__account"><a href="{{ path('auth_logout') }}">{{ icon('user') }} {{ app.user.username }}</a></li>
@@ -40,7 +43,15 @@
 
   {% include 'partials/flash.html.twig' %}
 
-  {% block body %}{% endblock %}
+  {% block body '' %}
 </div>
+<script>
+  window.grafikart = {
+    ADMIN: {{ is_granted('SUPERADMIN') ? 'true' : 'false' }},
+    USER: {{ app.user ? app.user.id : 'null' }},
+    MERCURE_URL: "{{ mercure_subscribe_url }}",
+    NOTIFICATION: new Date({{ (app.user and app.user.notificationsReadAt) ? app.user.notificationsReadAt.timestamp : 0 }} * 1000)
+  }
+</script>
 </body>
 </html>

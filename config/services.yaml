@@ -63,3 +63,8 @@ services:
     App\Core\UploaderBundle\PropertyGroupedDirectoryNamer:
       class: App\Core\UploaderBundle\PropertyGroupedDirectoryNamer
       public: true
+
+    App\Infrastructure\Mercure\Service\CookieGenerator:
+      class: App\Infrastructure\Mercure\Service\CookieGenerator
+      arguments:
+        $secret: "%env(resolve:MERCURE_SUBSCRIBER_KEY)%"

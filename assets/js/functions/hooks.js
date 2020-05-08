@@ -16,10 +16,27 @@ export function useToggle (initialValue = null) {
  * Valeur avec la possibilité de push un valeur supplémentaire
  */
 export function usePush (initialValue = []) {
-  const [value, setValue] = useState(initialValue)
+  let [value, setValue] = useState(initialValue)
   return [
     value,
-    (item) => setValue([...value, item])
+    (item) => {
+      value = [...value, item] // On sauvegarde l'état en amont pour les appels consécutifs
+      setValue(value)
+    }
+  ]
+}
+
+/**
+ * Valeur avec la possibilité de push un valeur supplémentaire
+ */
+export function usePrepend (initialValue = []) {
+  let [value, setValue] = useState(initialValue)
+  return [
+    value,
+    (item) => {
+      value = [item, ...value] // On sauvegarde l'état en amont pour les appels consécutifs
+      setValue(value)
+    }
   ]
 }
 
@@ -45,7 +62,7 @@ export function useClickOutside(ref, cb) {
       document.removeEventListener('keyup', escCb)
       ref.current && ref.current.addEventListener('click', stopPropagation)
     }
-  })
+  }, [])
 }
 
 /**

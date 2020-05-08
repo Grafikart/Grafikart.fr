@@ -1,11 +1,12 @@
 import {Fragment} from 'preact'
-import {useRef, useState} from 'preact/hooks'
-import {useClickOutside, useJsonFetch} from '@fn/hooks'
-import {Icon} from '../Icon'
-import {SlideIn} from '../Animation/SlideIn'
+import {useEffect, useRef, useState} from 'preact/hooks'
+import {useClickOutside, usePrepend} from '@fn/hooks'
+import {Icon} from '@comp/Icon'
+import {SlideIn} from '@comp/Animation/SlideIn'
 import {isAuthenticated, lastNotificationRead} from '@fn/auth'
-import {Spinner} from '../Animation/Spinner'
-import {fetchAll} from '../../api/notifications'
+import {Spinner} from '@comp/Animation/Spinner'
+import {loadNotifications} from '../api/notifications'
+import preactCustomElement from '@fn/preact'
 
 const OPEN = 0
 const CLOSE = 1
@@ -22,12 +23,17 @@ function countUnread (notifications, notificationReadAt) {
  * @return {*}
  * @constructor
  */
-export function Notifications () {
+function Notifications () {
   // Le système de notification ne fonction que pour les utilisateurs
   if (!isAuthenticated()) return null
 
-  const [state, setState] = useState(CLOSE)
+  // Hooks
+  const [state, setState] = useState(OPEN)
+  const [notifications, pushNotification] = usePrepend()
   const [notificationReadAt, setNotificationReadAt] = useState(lastNotificationRead())
+  const [loading, setLoading] = useState(true)
+
+  // Méthods
   const openMenu = e => {
     e.preventDefault()
     setState(OPEN)
@@ -36,17 +42,32 @@ export function Notifications () {
     setNotificationReadAt(new Date())
     setState(CLOSE)
   }
-  const [loading, notifications, error] = useJsonFetch(fetchAll, [4])
+
+  // On charge les notification la première fois
+  useEffect(async () => {
+    await loadNotifications()
+    setLoading(false)
+  }, [])
+
+  useEffect(() => {
+    const onNotification = e => {
+      pushNotification(e.detail)
+    }
+    window.addEventListener('gnotification', onNotification)
+    return () => {
+      window.removeEventListener('gnotification', onNotification)
+    }
+  }, [pushNotification])
 
   return <Fragment>
     <button onClick={openMenu}>
-      <Icon name="bell" />
+      <Icon name="bell"/>
     </button>
     <Badge count={countUnread(notifications, notificationReadAt)}/>
     <SlideIn className="notifications"  show={state === OPEN}>
       <Popup
-        onClickOutside={closeMenu}
         loading={loading}
+        onClickOutside={closeMenu}
         notifications={notifications}
         notificationReadAt={notificationReadAt}
       />
@@ -91,3 +112,5 @@ function Notification ({url, message, createdAt, notificationReadAt}) {
     </div>
   </a>
 }
+
+preactCustomElement(Notifications, 'site-notifications')

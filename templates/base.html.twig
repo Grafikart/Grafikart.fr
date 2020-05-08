@@ -43,6 +43,7 @@
   window.grafikart = {
     ADMIN: {{ is_granted('SUPERADMIN') ? 'true' : 'false' }},
     USER: {{ app.user ? app.user.id : 'null' }},
+    MERCURE_URL: "{{ mercure_subscribe_url }}",
     NOTIFICATION: new Date({{ (app.user and app.user.notificationsReadAt) ? app.user.notificationsReadAt.timestamp : 0 }} * 1000)
   }
 </script>

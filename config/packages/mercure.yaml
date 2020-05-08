@@ -4,3 +4,9 @@ mercure:
         default:
             url: '%env(MERCURE_PUBLISH_URL)%'
             jwt: '%env(MERCURE_JWT_TOKEN)%'
+
+services:
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: false # Automatically registers your services as commands, event subscribers, etc.
+    public: false

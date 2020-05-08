@@ -13,11 +13,9 @@ import './AjaxDelete'
 import './AutoScroll'
 import './AnimatedEditor'
 import './AutoSubmit'
+import './Notifications'
 import '@grafikart/spinning-dots-element'
 import {NavTabs, TextareaAutogrow} from '@sb-elements/all'
-import preactCustomElement from '@fn/preact'
-import {Notifications} from '../components/Notifications/Notifications'
 
 customElements.define('nav-tabs', NavTabs)
 customElements.define('textarea-autogrow', TextareaAutogrow, {extends: 'textarea'})
-preactCustomElement(Notifications, 'site-notifications')
