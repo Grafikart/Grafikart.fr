@@ -1,4 +1,4 @@
-import {jsonFetch} from '../functions/api'
+import {jsonFetch} from '@fn/api'
 
 function emitEvent(notification) {
   notification.createdAt = new Date(notification.createdAt)

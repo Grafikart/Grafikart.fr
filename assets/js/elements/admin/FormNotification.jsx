@@ -5,7 +5,7 @@ import {FloatingAlert} from '@comp/Alert'
 
 function FormNotification () {
 
-  const initialData = {message: 'Hello World !', url: 'https://grafikart.fr'}
+  const initialData = {message: '', url: window.location.origin}
   const [data, setData] = useState(initialData)
   const [success, setSuccess] = useState(false)
 

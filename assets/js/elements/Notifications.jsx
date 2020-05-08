@@ -28,12 +28,12 @@ function Notifications () {
   if (!isAuthenticated()) return null
 
   // Hooks
-  const [state, setState] = useState(OPEN)
+  const [state, setState] = useState(CLOSE)
   const [notifications, pushNotification] = usePrepend()
   const [notificationReadAt, setNotificationReadAt] = useState(lastNotificationRead())
   const [loading, setLoading] = useState(true)
 
-  // Méthods
+  // Méthodes
   const openMenu = e => {
     e.preventDefault()
     setState(OPEN)
@@ -49,6 +49,7 @@ function Notifications () {
     setLoading(false)
   }, [])
 
+  // On écoute l'arrivé de nouveaux évènement depuis l'API ou le SSE
   useEffect(() => {
     const onNotification = e => {
       pushNotification(e.detail)
