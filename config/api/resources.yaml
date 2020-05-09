@@ -16,11 +16,20 @@ App\Domain\Forum\Entity\Report:
       controller: "EmptyController"
 
 App\Domain\Forum\Entity\Topic:
+  shortName: "forum/topic"
   collectionOperations: []
   itemOperations:
     get:
       normalization_context:
         groups: ["read:topic"]
+
+App\Domain\Forum\Entity\Message:
+  shortName: "forum/message"
+  collectionOperations: []
+  itemOperations:
+    get:
+      normalization_context:
+        groups: ["read:message"]
 
 App\Domain\Notification\Entity\Notification:
   collectionOperations:
