@@ -37,7 +37,6 @@ class Report
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Forum\Entity\Topic")
      * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
-     * @ApiProperty()
      * @Groups({"create:report"})
      */
     private ?Topic $topic = null;
@@ -45,14 +44,12 @@ class Report
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Forum\Entity\Message")
      * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
-     * @ApiProperty()
      * @Groups({"create:report"})
      */
     private ?Message $message = null;
 
     /**
      * @ORM\Column(type="string")
-     * @ApiProperty()
      * @Assert\NotBlank()
      * @Assert\Length(min="4")
      * @Groups({"create:report", "read:report"})

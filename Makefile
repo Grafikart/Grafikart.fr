@@ -67,6 +67,7 @@ test: vendor/autoload.php ## Execute les tests
 
 .PHONY: tt
 tt: vendor/autoload.php ## Lance le watcher phpunit
+	$(de) php bin/console cache:clear --env=test
 	$(drtest) phptest vendor/bin/phpunit-watcher watch --filter="nothing"
 
 .PHONY: lint

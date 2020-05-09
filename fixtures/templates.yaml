@@ -68,7 +68,7 @@ App\Domain\Forum\Entity\Tag:
 
 App\Domain\Forum\Entity\Topic:
   topic (template):
-    name: Tpic <current()>
+    name: Topic <current()>
     content: <sentence(2)>
     createdAt: <dateTimeThisYear()>
     updatedAt: <dateTimeThisYear()>
@@ -76,3 +76,11 @@ App\Domain\Forum\Entity\Topic:
     solved: 0
     sticky: 0
     author: '@user*'
+
+App\Domain\Forum\Entity\Message:
+  forum_message (template):
+    topic: '@topic*'
+    author: '@user*'
+    content: <sentence(2)>
+    createdAt: <dateTimeThisYear()>
+    updatedAt: <dateTimeThisYear()>

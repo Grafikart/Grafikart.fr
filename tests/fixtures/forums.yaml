@@ -9,3 +9,6 @@ App\Domain\Forum\Entity\Tag:
 
 App\Domain\Forum\Entity\Topic:
   topic{1..2} (extends topic):
+
+App\Domain\Forum\Entity\Message:
+  message{1..2} (extends forum_message):
