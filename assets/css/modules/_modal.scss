@@ -1,3 +1,48 @@
+modal-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+
+  opacity: 1;
+  transition: 0.3s;
+}
+
+.modal-box {
+  width: 430px;
+  max-width: calc(100vw - 40px);
+  background-color: var(--background-light);
+  border: solid 1px var(--border);
+}
+
+modal-dialog[hidden] {
+  opacity: 0;
+  transform: scale(1.05);
+  pointer-events: none;
+}
+.modal-close {
+  background-color: transparent;
+  position: absolute;
+  top: 12px;
+  right: 10px;
+  border: none;
+  cursor: pointer;
+}
+modal-dialog .card {
+  position: relative;
+  max-width: 500px;
+  width: calc(100vw - 40px);
+  animation: 0.4s slideIn both;
+}
+
+
+
 modal-box,
 .modal {
   position: fixed;

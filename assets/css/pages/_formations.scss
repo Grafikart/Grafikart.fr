@@ -6,6 +6,65 @@
   grid-auto-flow: dense;
 }
 
+.formation-single {
+  @extend %container;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 50px;
+  padding-top: 70px;
+
+  .hero-title {
+    margin-bottom: space(4);
+  }
+
+  @include up(700) {
+    grid-template-columns: 420px 1fr;
+    grid-gap: 120px;
+  }
+}
+
+.formation-arguments {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: space(3);
+}
+.formation-argument {
+  border-radius: 8px;
+  padding: space(3);
+  background-color: var(--border-light);
+}
+.formation-arguments_title {
+  @extend %h4;
+  margin-bottom: space(2);
+}
+.formation-argument a:hover {
+  text-decoration: underline;
+}
+.formation-argument li {
+  display: inline-flex;
+  align-items: flex-start;
+
+  & + li {
+    margin-top: space(1);
+  }
+}
+.formation-argument li::before {
+  transform: translateY(5px);
+  content:'';
+  display: inline-block;
+  width: 15px;
+  flex: none;
+  height: 15px;
+  border-radius: 15px;
+  background: currentColor;
+  border: 5px solid var(--background-light);
+  margin-right: space(1);
+}
+.formation-argument .icon {
+  width: 12px;
+  height: 12px;
+}
+
 // Carte cursus
 // =============
 .cursus-card {

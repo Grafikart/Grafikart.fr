@@ -131,7 +131,7 @@
 .stack-large,
 .stack-separated {
   --gap: 2;
-  display: grid;
+  display: grid!important;
   grid-template-columns: 1fr;
   align-content: flex-start;
   grid-gap: calc(var(--gap) * var(--space));

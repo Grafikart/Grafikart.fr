@@ -1,5 +1,5 @@
 import Choices from 'choices.js'
-import { debounce } from '../../functions/timers'
+import {debounce} from '@fn/timers'
 
 /**
  * @param {string} endpoint

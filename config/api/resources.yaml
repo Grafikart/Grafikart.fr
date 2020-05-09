@@ -1,4 +1,5 @@
 App\Domain\Forum\Entity\Report:
+  shortName: "forum/report"
   collectionOperations:
     post:
       security: is_granted("forumReport")

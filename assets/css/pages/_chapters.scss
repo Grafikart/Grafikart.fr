@@ -3,6 +3,19 @@
   @extend .stack-separated;
   padding: space(3) 0;
 }
+.chapters-split {
+  --gap: 4;
+  @extend %stack;
+
+  & > * {
+    padding-top: space(1.5);
+    @extend %card;
+  }
+
+  .chapters__section {
+    margin-bottom: space(2);
+  }
+}
 .chapters__section {
   @extend %card-title;
   margin-bottom: space(3);

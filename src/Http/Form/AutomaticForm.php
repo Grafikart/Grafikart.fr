@@ -48,6 +48,7 @@ class AutomaticForm extends AbstractType
         'secondaryTechnologies' => TechnologiesType::class,
         'chapters' => ChaptersForm::class,
         'color' => ColorType::class,
+        'links' => TextareaType::class,
     ];
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

@@ -1,10 +1,6 @@
-import {h, render} from 'preact'
-import {Report} from '../components/Forum/Report'
-import {$$} from '@fn/dom'
-import MessageCreate from '../components/Forum/MessageCreate'
-
 document.addEventListener('turbolinks:load', function () {
 
+  /**
   $$('.js-report').forEach(report => {
       render(
         h(Report, {
@@ -20,5 +16,6 @@ document.addEventListener('turbolinks:load', function () {
       topic: parseInt(element.dataset.topic, 10)
     }), element.parentElement, element)
   })
+   **/
 
 })

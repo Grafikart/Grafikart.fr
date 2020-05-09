@@ -955,10 +955,10 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
-"@sb-elements/all@^0.3.0":
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/@sb-elements/all/-/all-0.3.1.tgz#acffc66c4894d158fb7f28213b550b42862c561d"
-  integrity sha512-G2qhftJE1woVINQWKe73OG4We/1j5mxWzq1XDBcFcHKOn/hhG3nylZKKRZZ/UKdNJ+w26MlkUkGDjsRSXUJ/PA==
+"@sb-elements/all@^0.3.2":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@sb-elements/all/-/all-0.3.2.tgz#cd4b9f32fad35af38da3ffd49cc51842dc80d206"
+  integrity sha512-dOa8379OboEB0ubJHXrsijuZBQDCCV5AdbDha83h/HxINxdXo3GVk86xD36BF7WYcrjuYQcp5Li4iPPi4X+O1Q==
 
 "@sinonjs/commons@^1.7.0":
   version "1.7.1"
