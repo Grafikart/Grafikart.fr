@@ -59,6 +59,8 @@ class FormationCrudData implements CrudDataInterface
 
     public ?string $short;
 
+    public ?string $links;
+
     /**
      * @var Chapter[]
      */
@@ -79,6 +81,7 @@ class FormationCrudData implements CrudDataInterface
         $this->short = $formation->getShort();
         $this->content = $formation->getContent();
         $this->chapters = $formation->getChapters();
+        $this->links = $formation->getLinks();
     }
 
     public function getEntity(): Formation
@@ -103,6 +106,7 @@ class FormationCrudData implements CrudDataInterface
         $this->formation->setImage($this->image);
         $this->formation->setShort($this->short);
         $this->formation->setContent($this->content);
+        $this->formation->setLinks($this->links);
         foreach($this->mainTechnologies as $technology) {
             $technology->setSecondary(false);
         }

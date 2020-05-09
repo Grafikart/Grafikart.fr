@@ -6,54 +6,64 @@
 
     <header class="wave-header">
       <div class="wave-header__body stack">
-        <div class="wave-header__title">{{ formation.title }}</div>
+        <h1 class="wave-header__title">{{ formation.title }}</h1>
         <p>{{ formation.short }}</p>
         <p>
           <button class="btn-big" style="color: #FFF; border-color:#FFF;">Continuer</button>
         </p>
       </div>
       <div class="wave-header__image">
-        <img src="https://www.grafikart.fr/uploads/formations/single_mysql.png" alt="">
+        <img src="{{ uploads_path('icons/' ~ formation.mainTechnologies[0].image) }}" alt="">
       </div>
       <waves-shape class="waves" position="bottom" target=".wave-header"></waves-shape>
     </header>
 
-    <section class="container formatted">
-      <h2>Actions principales</h2>
-      <ul>
-        <li>Ma progression : Chapitre 3/12</li>
-        <li>Peut être la fiche de la prochaine vidéo à regarder ?</li>
-      </ul>
-      <p>
-        <button class="btn"></button>
-      </p>
-      <h2>Informations</h2>
-      <ul>
-        <li><strong>{{ formation.courses.count }}</strong> Chapitres</li>
-        <li><strong>{{ formation.duration | duration }}</strong></li>
-      </ul>
-      <h2>Description</h2>
-      {{ formation.content | markdown }}
-      <h2>Chapitres</h2>
-      {% for chapter in formation.chapters %}
-        <h3>{{ chapter.title }}</h3>
-        <ul>
-          {% for course in chapter.courses %}
-            <li>
-              <a href="{{ path('course_show', {slug: course.slug, id: course.id}) }}">
-                <play-button id="play-content-{{ course.id }}"></play-button>
-                <strong>{{ course.title }}</strong> {{ course.duration | duration }}
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
-      {% endfor %}
-      <h2>Technologies utilisées</h2>
-      <ul>
-        {% for technology in formation.mainTechnologies %}
-          <li>{{ technology.name }}</li>
-        {% endfor %}
-      </ul>
+    <section class="formation-single">
+      <div class="formation-chapters">
+        <h2 class="hero-title">Chapitres</h2>
+        {% include 'chapters/_summary.html.twig' with {chapters: formation.chapters, class: 'chapters-split'} only %}
+      </div>
+      <div class="formation-summary">
+        <h2 class="hero-title">Présentation</h2>
+        <div class="stack" style="--gap:4">
+        <div class="formatted">
+          {{ formation.content | markdown }}
+          <p class="text-muted">
+            {{ formation.createdAt | ago }}
+          </p>
+        </div>
+        <div class="formation-arguments">
+          <div class="formation-argument">
+            <div class="formation-arguments_title">Liens utiles</div>
+            {{ formation.links | markdown }}
+          </div>
+          <div class="formation-argument">
+            <div class="formation-arguments_title">Informations</div>
+            <ul>
+              <li>{{ formation.duration | duration }} de vidéos</li>
+              <li>{{ formation.courses.count }} chapitres</li>
+            </ul>
+          </div>
+          <div class="formation-argument">
+            <div class="formation-arguments_title">Prérequis</div>
+            <ul>
+              {% for technology in formation.secondaryTechnologies %}
+                <li><a href="{{ path(technology) }}">{{ technology.name }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+
+        {% set course = formation.chapters[0].courses[0] %}
+        <youtube-player
+          video="{{ course.youtubeId }}"
+          poster="{{ image_url(course.image) }}"
+          title="{{ course.title }}"
+          button="#chapter{{ course.id }} play-button"
+          id="coursePlayer"
+          class="shadow"></youtube-player>
+        </div>
+      </div>
     </section>
 
   {% endcache %}

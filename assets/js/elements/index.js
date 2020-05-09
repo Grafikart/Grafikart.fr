@@ -14,8 +14,10 @@ import './AutoScroll'
 import './AnimatedEditor'
 import './AutoSubmit'
 import './Notifications'
+import './forum'
 import '@grafikart/spinning-dots-element'
-import {NavTabs, TextareaAutogrow} from '@sb-elements/all'
+import {ModalDialog, NavTabs, TextareaAutogrow} from '@sb-elements/all'
 
 customElements.define('nav-tabs', NavTabs)
 customElements.define('textarea-autogrow', TextareaAutogrow, {extends: 'textarea'})
+customElements.define('modal-dialog', ModalDialog)

@@ -35,6 +35,11 @@ class Formation extends Content
      */
     private $courses;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private ?string $links = null;
+
     public function __construct()
     {
         $this->courses = new ArrayCollection();
@@ -157,4 +162,16 @@ class Formation extends Content
         }
         return $coursesById;
     }
+
+    public function getLinks(): ?string
+    {
+        return $this->links;
+    }
+
+    public function setLinks(?string $links)
+    {
+        $this->links = $links;
+        return $this;
+    }
+
 }

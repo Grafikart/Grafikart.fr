@@ -12,6 +12,9 @@
         Réponse acceptée
       </div>
     {% endif %}
+    <div style="margin-left: auto;">
+      <forum-report message="{{ message.id }}"></forum-report>
+    </div>
   </div>
   <div class="forum-message__body formatted card" style="padding:1rem;">
     {{ message.content | markdown_untrusted }}

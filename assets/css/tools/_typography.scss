@@ -96,6 +96,11 @@ $font-alt: "Montserrat", "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe 
   }
 }
 
+%h4 {
+  font-family: $font-alt;
+  font-weight: bold;
+}
+
 // Pour générer les polices : https://transfonter.org/
 
 // Alignements
@@ -114,4 +119,7 @@ $font-alt: "Montserrat", "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe 
 }
 .text-danger {
   color: var(--red);
+}
+.text-muted {
+  color: var(--color-light)
 }

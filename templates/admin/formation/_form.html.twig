@@ -20,13 +20,15 @@
       </div>
     </div>
   </section>
-
   <section>
     <div class="section-title">
       Contenu
     </div>
     <div class="stack">
-      {{ form_row(form.short) }}
+      <div class="grid">
+        {{ form_row(form.short, {row_attr: {style: 'grid-column: 1 / -2;'}}) }}
+        {{ form_row(form.links) }}
+      </div>
       <div class="text-right">
         <button type="submit" class="btn-gradient">Sauvegarder</button>
       </div>
