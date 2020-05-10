@@ -119,6 +119,8 @@ class ForumImporter extends MySQLImporter
             foreach ($rows as $row) {
                 $topic = $this->em->getRepository(Topic::class)->find($row['topic_id']);
                 if ($topic) {
+                    /** @var User $user */
+                    $user = $this->em->getReference(User::class, $row['user_id']);
                     $message = (new Message())
                         ->setId($row['id'])
                         ->setTopic($topic)
@@ -126,7 +128,7 @@ class ForumImporter extends MySQLImporter
                         ->setAccepted($row['solver'])
                         ->setCreatedAt(new \DateTime($row['created_at']))
                         ->setUpdatedAt(new \DateTime($row['updated_at']))
-                        ->setAuthor($this->em->getReference(User::class, $row['user_id']))
+                        ->setAuthor($user)
                     ;
                     $topic->setLastMessage($message);
                     $this->em->persist($message);

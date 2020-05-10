@@ -53,6 +53,11 @@ class Notification
      */
     private ?string $channel = null;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private ?string $target = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -121,6 +126,17 @@ class Notification
     public function setChannel(?string $channel): Notification
     {
         $this->channel = $channel;
+        return $this;
+    }
+
+    public function getTarget(): ?string
+    {
+        return $this->target;
+    }
+
+    public function setTarget(?string $target): Notification
+    {
+        $this->target = $target;
         return $this;
     }
 

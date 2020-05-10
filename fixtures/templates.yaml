@@ -84,3 +84,11 @@ App\Domain\Forum\Entity\Message:
     content: <sentence(2)>
     createdAt: <dateTimeThisYear()>
     updatedAt: <dateTimeThisYear()>
+
+App\Domain\Notification\Entity\Notification:
+  notification (template):
+    user: '@user*'
+    url: <url()>
+    channel: <slug()>
+    message: <sentence(1)>
+    createdAt: <dateTimeThisYear()>

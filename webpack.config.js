@@ -21,7 +21,9 @@ Encore
     svelte: path.resolve('node_modules', 'svelte'),
     '@fn': path.resolve('assets', 'js', 'functions'),
     '@el': path.resolve('assets', 'js', 'elements'),
-    '@comp': path.resolve('assets', 'js', 'components')
+    '@comp': path.resolve('assets', 'js', 'components'),
+    'react': 'preact/compat',
+    'react-dom': 'preact/compat'
   })
   .addLoader(
     {
