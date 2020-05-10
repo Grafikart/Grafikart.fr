@@ -19,6 +19,7 @@ export async function loadNotifications () {
   // On se connecte au SSE
   const url = new URL(window.grafikart.MERCURE_URL);
   url.searchParams.append('topic', '/notifications/{channel}');
+  url.searchParams.append('topic', '/notifications/user/' + window.grafikart.USER);
   const eventSource = new EventSource(url, {withCredentials: true});
   eventSource.onmessage = e => emitEvent(JSON.parse(e.data))
   return notifications

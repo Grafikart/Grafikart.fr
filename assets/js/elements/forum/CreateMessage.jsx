@@ -1,9 +1,10 @@
-import {FetchForm, FormField, FormPrimaryButton} from '../Form'
-import {Stack} from '../Layout'
+import {FetchForm, FormField, FormPrimaryButton} from '@comp/Form'
+import {Stack} from '@comp/Layout'
 import {useState} from 'preact/hooks'
 import {Fragment} from 'preact'
 import {usePush} from '@fn/hooks'
-import SlideToggle from '../Animation/SlideToggle'
+import SlideToggle from '@comp/Animation/SlideToggle'
+import {isAuthenticated} from '@fn/auth'
 
 
 function Message ({html}) {
@@ -12,7 +13,7 @@ function Message ({html}) {
   </SlideToggle>
 }
 
-export default function MessageCreate ({topic}) {
+export function CreateMessage ({topic}) {
 
   const [value, setValue] = useState({content: ''})
   const endpoint =`/api/topics/${topic}/messages`
@@ -22,7 +23,7 @@ export default function MessageCreate ({topic}) {
     setValue({content: ''})
   }
 
-  return <Fragment>
+  return (isAuthenticated() && <Fragment>
     {messages.map(message => <Message html={message}/> )}
     <FetchForm action={endpoint} value={value} onChange={setValue} onSuccess={onSuccess}>
       <Stack>
@@ -30,6 +31,6 @@ export default function MessageCreate ({topic}) {
         <FormPrimaryButton>Répondre</FormPrimaryButton>
       </Stack>
     </FetchForm>
-  </Fragment>
+  </Fragment>)
 
 }

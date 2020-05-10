@@ -23,13 +23,13 @@ class Message
      * @ORM\ManyToOne(targetEntity="App\Domain\Forum\Entity\Topic", inversedBy="messages")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
-    private ?Topic $topic = null;
+    private Topic $topic;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Auth\User")
      * @ORM\JoinColumn(nullable=false)
      */
-    private ?User $author = null;
+    private User $author;
 
     /**
      * @ORM\Column(type="boolean", options={"default":0})
@@ -66,24 +66,24 @@ class Message
         return $this;
     }
 
-    public function getTopic(): ?Topic
+    public function getTopic(): Topic
     {
         return $this->topic;
     }
 
-    public function setTopic(?Topic $topic): self
+    public function setTopic(Topic $topic): self
     {
         $this->topic = $topic;
 
         return $this;
     }
 
-    public function getAuthor(): ?User
+    public function getAuthor(): User
     {
         return $this->author;
     }
 
-    public function setAuthor(?User $author): self
+    public function setAuthor(User $author): self
     {
         $this->author = $author;
 

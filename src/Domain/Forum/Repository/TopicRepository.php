@@ -58,7 +58,7 @@ class TopicRepository extends ServiceEntityRepository
 
     public function countForUser(User $user): int
     {
-        return $this->count(['user' => $user]);
+        return $this->count(['author' => $user]);
     }
 
 }

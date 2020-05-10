@@ -21,7 +21,7 @@
       <div class="forum-message__body formatted">
         {{ topic.content | markdown_untrusted }}
       </div>
-      {% include 'forum/_report.html.twig' with {topic: topic.id} %}
+      {# include 'forum/_report.html.twig' with {topic: topic.id} #}
     </div>
 
     <h2 class="section-title">{{ topic.messageCount }} Réponses</h2>
@@ -30,7 +30,7 @@
       {% for message in messages %}
         {% include 'forum/_message.html.twig' %}
       {% endfor %}
-      <div id="new-forum-message" data-topic="{{ topic.id }}"></div>
+      <forum-create-message topic="{{ topic.id }}"></forum-create-message>
     </div>
 
   </div>

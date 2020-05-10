@@ -168,7 +168,7 @@ class Formation extends Content
         return $this->links;
     }
 
-    public function setLinks(?string $links)
+    public function setLinks(?string $links): self
     {
         $this->links = $links;
         return $this;

@@ -20,8 +20,7 @@ export function usePush (initialValue = []) {
   return [
     value,
     (item) => {
-      value = [...value, item] // On sauvegarde l'état en amont pour les appels consécutifs
-      setValue(value)
+      setValue((v) => [...v, item])
     }
   ]
 }
@@ -34,8 +33,7 @@ export function usePrepend (initialValue = []) {
   return [
     value,
     (item) => {
-      value = [item, ...value] // On sauvegarde l'état en amont pour les appels consécutifs
-      setValue(value)
+      setValue((v) => [item, ...v])
     }
   ]
 }
