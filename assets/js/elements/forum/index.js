@@ -1,6 +1,6 @@
-import {Report} from './ForumReport.jsx'
 import {CreateMessage} from './CreateMessage.jsx'
 import preactCustomElement from '@fn/preact'
+import {ForumActions} from '@el/forum/ForumActions'
 
-preactCustomElement(Report, 'forum-report', ['message'])
 preactCustomElement(CreateMessage, 'forum-create-message', ['topic'])
+preactCustomElement(ForumActions, 'forum-actions', ['message', 'topic'])

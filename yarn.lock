@@ -6915,6 +6915,14 @@ postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.14, postcss@^7.0.5, postcss@^7.0.6:
     source-map "^0.6.1"
     supports-color "^6.1.0"
 
+preact-robot@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/preact-robot/-/preact-robot-0.2.3.tgz#532c9dd90495bd575402066c70ec10b8fcebff68"
+  integrity sha512-MhL/83u1gtRPgkrK2ioFUKjP+37zfvZYAObA5NUUsjn4yYvoOTn/ooCenUEiFNBAaS8xva8kvaysrlDCplzPyg==
+  dependencies:
+    robot-hooks "^0.3.5"
+    rollup "^2.8.2"
+
 preact@^10.4.1:
   version "10.4.1"
   resolved "https://registry.yarnpkg.com/preact/-/preact-10.4.1.tgz#9b3ba020547673a231c6cf16f0fbaef0e8863431"
@@ -7545,6 +7553,23 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
   dependencies:
     hash-base "^3.0.0"
     inherits "^2.0.1"
+
+robot-hooks@^0.3.5:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/robot-hooks/-/robot-hooks-0.3.5.tgz#605e766e1da09317a3f7b94eec0137436209ef21"
+  integrity sha512-25FYYtdofIsmH7Ybo+8x6DltGksYSiaC3gbrbeQ8BFqYzfq12KlKIK0wTHHcc8DM7tkZeEMN7yRVOgPAQqt1RA==
+
+robot3@^0.2.17:
+  version "0.2.17"
+  resolved "https://registry.yarnpkg.com/robot3/-/robot3-0.2.17.tgz#4fd29dcb66dd3f8a0641081a0208c4a3f9e50063"
+  integrity sha512-QCm0eJQXJaz5YOf1hhb+/1w6z5Gw2ZgtXGgSRvjmkQW4b52R0sjGJbSJDKmn7ek5bWi+n8GzaGGblX6pWwU2Og==
+
+rollup@^2.8.2:
+  version "2.9.1"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.9.1.tgz#3038ba1378e2ee614b5c9385b8379d7bec4c69ea"
+  integrity sha512-kEZn76R0j+WD4AActu5Np4RShNlewTtJhdUaWNtHwHnAA8AOapyXgH6O7NL2RkcQLHnl49oz1xW1VrDcu5yP+Q==
+  optionalDependencies:
+    fsevents "~2.1.2"
 
 rsvp@^4.8.4:
   version "4.8.5"

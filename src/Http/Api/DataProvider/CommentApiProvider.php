@@ -50,7 +50,7 @@ class CommentApiProvider implements CollectionDataProviderInterface, RestrictedD
 
     /**
      * @inheritDoc
-     * @param int $id
+     * @param int|array $id
      */
     public function getItem(string $resourceClass, $id, string $operationName = null, array $context = [])
     {

@@ -43,24 +43,36 @@ export function usePrepend (initialValue = []) {
  */
 export function useClickOutside(ref, cb) {
   useEffect(() => {
-    if (!ref.current) {
-      return
-    }
     const escCb = e => {
-      if (e.key === 'Escape') {
+      if (e.key === 'Escape' && ref.current) { cb() }
+    }
+    const clickCb = e => {
+      if (ref.current && !ref.current.contains(e.target)) {
         cb()
       }
     }
-    const stopPropagation = e => e.stopPropagation()
-    document.addEventListener('click', cb)
+    document.addEventListener('click', clickCb)
     document.addEventListener('keyup', escCb)
-    ref.current && ref.current.addEventListener('click', stopPropagation)
     return function cleanup() {
-      document.removeEventListener('click', cb)
+      document.removeEventListener('click', clickCb)
       document.removeEventListener('keyup', escCb)
-      ref.current && ref.current.addEventListener('click', stopPropagation)
     }
-  }, [])
+  }, [ref, cb])
+}
+
+/**
+ * Focus le premier champs dans l'élément correspondant à la ref
+ * @param {boolean} focus
+ */
+export function useAutofocus(ref, focus) {
+  useEffect(() => {
+    if (focus && ref.current) {
+      const input = ref.current.querySelector('input, textarea')
+      if (input) {
+        input.focus()
+      }
+    }
+  }, [focus, ref])
 }
 
 /**

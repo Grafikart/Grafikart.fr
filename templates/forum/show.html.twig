@@ -21,7 +21,9 @@
       <div class="forum-message__body formatted">
         {{ topic.content | markdown_untrusted }}
       </div>
-      {# include 'forum/_report.html.twig' with {topic: topic.id} #}
+      <forum-actions
+        topic="{{ topic.id }}"
+        class="forum-message__actions"></forum-actions>
     </div>
 
     <h2 class="section-title">{{ topic.messageCount }} Réponses</h2>

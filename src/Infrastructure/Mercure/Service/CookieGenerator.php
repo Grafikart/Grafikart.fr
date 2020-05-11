@@ -23,6 +23,7 @@ class CookieGenerator
         $token = (new Builder())
             ->withClaim('mercure', [
                 'subscribe' => [
+                    '/notifications/user/' . $user->getId(),
                     '/notifications/{channel}'
                 ]
             ])
