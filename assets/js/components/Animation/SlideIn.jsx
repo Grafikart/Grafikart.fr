@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'preact/hooks'
 
-export function SlideIn ({show, children, style = {}, ...props}) {
+export function SlideIn ({show, children, style = {}, forwardedRef = null, ...props}) {
   const [shouldRender, setRender] = useState(show)
 
   useEffect(() => {
@@ -16,6 +16,7 @@ export function SlideIn ({show, children, style = {}, ...props}) {
       <div
         style={{animation: `${show ? 'slideIn' : 'slideOut'} .3s both`, ...style}}
         onAnimationEnd={onAnimationEnd}
+        ref={forwardedRef}
         {...props}
       >
         {children}

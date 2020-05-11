@@ -25,7 +25,7 @@ function AlertProgress ({duration}) {
   return <div className="alert__progress" style={{animationDuration: duration + 'ms'}}></div>
 }
 
-export function Alert ({type, children, duration = false}) {
+export function Alert ({type, children, duration = false, ...props}) {
   const className = 'alert alert-' + type
   const [visible, toggleVisible] = useToggle(true)
   if (duration && visible) {

@@ -2,6 +2,8 @@ import {createContext} from 'preact'
 import {jsonFetch} from '@fn/api'
 import {useEffect, useRef, useState} from 'preact/hooks'
 import {PrimaryButton} from './Button'
+import {useAutofocus} from '@fn/hooks'
+import {flash} from '@el/Alert'
 
 export const FormContext = createContext({
   data: {},
@@ -42,7 +44,10 @@ function useForm (method, url, value, onSuccess) {
             return acc
           }, {})
         )
-      } else {
+      } else if (e.detail) {
+        flash(e.detail, 'danger', null)
+      }
+      else {
         throw e
       }
     }
@@ -131,8 +136,11 @@ export function Field ({name, onInput, value, error, children, type = 'text', cl
     onInput,
     ...props
   }
+  const ref = useRef(null)
 
-  return <div className="form-group">
+  useAutofocus(ref, props.autofocus)
+
+  return <div className="form-group" ref={ref}>
     <label htmlFor={name}>{children}</label>
     {(() => {
       switch (type) {

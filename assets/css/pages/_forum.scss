@@ -18,10 +18,11 @@
     border-radius: 50px;
   }
 }
+
 // Sujet résolu
 .is-solved .forum-avatar::before,
 .is-solved .forum-avatar::after {
-  content:'';
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
@@ -31,16 +32,19 @@
   opacity: .7;
   background: var(--green);
 }
+
 .is-solved .forum-avatar::after {
   opacity: 1;
   background: url(../../images/check.svg) center center / 50% 50% no-repeat;
 }
+
 // Réponse acceptée
 .is-accepted .forum-avatar {
   border: 3px solid var(--green);
 }
+
 .is-accepted .forum-avatar::after {
-  content:'';
+  content: '';
   position: absolute;
   right: -10px;
   top: -2px;
@@ -51,7 +55,7 @@
   background: url(../../images/check.svg) center center / 70% 70% no-repeat var(--green);
 }
 
-  // Listing sujet
+// Listing sujet
 // =============
 .forum-topic {
   display: grid;
@@ -61,14 +65,17 @@
   position: relative;
   transition: .3s;
 }
+
 .forum-topic a {
   position: relative;
   z-index: 3;
 }
+
 .forum-topic:hover {
   background: var(--background-light);
   box-shadow: 0 2px 4px var(--shadow);
 }
+
 .forum-topic__title {
   display: block;
   margin-right: 100px;
@@ -80,44 +87,55 @@
     color: var(--contrast);
   }
 }
+
 .forum-topic__body {
   position: relative;
 }
+
 .forum-topic__tags {
   position: absolute;
   top: 0;
   right: 0;
   display: flex;
 }
-.forum-topic__tags a[style]{
+
+.forum-topic__tags a[style] {
   color: #FFF;
 }
+
 .forum-topic__tags a {
   background-color: var(--border-light);
   border-radius: 2px;
 }
+
 .forum-topic__meta {
   color: var(--color-light);
 }
+
 .forum-topic__meta a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
+
 .forum-topic__meta time-ago {
   font-weight: 300;
   text-transform: lowercase;
 }
+
 .forum-topic__excerpt {
   color: var(--color-light);
 }
+
 .forum-topic__count {
   text-align: right;
   font-size: .9em;
   color: var(--color-light);
 }
+
 .forum-topic svg {
   width: 14px;
   height: 14px;
 }
+
 .forum-topic .forum-topic__link {
   position: absolute;
   top: 0;
@@ -134,21 +152,26 @@
   --gap: 6;
   @extend %stack;
 }
+
 .forum-messages .mdeditor {
   height: auto;
 }
+
 .forum-message {
   @extend %stack;
+
   p, ul, ol {
     margin-bottom: 1rem;
   }
 }
+
 .forum-message__title {
   font-family: Rubik;
   font-weight: 500;
   color: var(--color-dark);
   font-size: 2em;
 }
+
 .forum-message__header,
 .forum-message__footer {
   --gap: 2;
@@ -157,21 +180,27 @@
   display: flex;
   align-items: center;
 }
+
 .forum-message__footer {
   margin-left: auto;
 }
+
 .forum-message__author {
   font-family: $font-alt;
   font-weight: 500;
   color: var(--color-dark);
 }
+
 .forum-message__date {
   font-size: .9em;
+  white-space: nowrap;
   color: var(--color-light);
 }
+
 .forum-message__body {
   font-size: 18px;
 }
+
 .forum-message.is-reply {
   display: grid;
   grid-template-columns: 50px 1fr;
@@ -190,33 +219,22 @@
   }
 }
 
+.forum-message__header {
+
+}
+
 .forum-message__actions {
   display: flex;
   width: 100%;
+  flex-wrap: wrap;
+
+  .full {
+    flex: none;
+    width: 100%;
+  }
 }
 
-.forum-message__report {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  color: var(--color-light)
-}
-.forum-message__report span {
-  color: #FFF;
-  width: 37px;
-  height: 37px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 37px;
-  font-weight: 700;
-  font-family: $font-alt;
-  font-size: 14px;
-  background: url(../../images/hexagon.svg) center center / 18px 18px no-repeat var(--border-light);
-  margin-right: space(2);
-}
-
-  // Tag
+// Tag
 // =============
 .forum-tags a {
   display: inline-block;
@@ -237,4 +255,52 @@
     grid-template-columns: 190px 1fr;
     grid-gap: space(3);
   }
+}
+
+// Report
+// =============
+.forum-report {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  color: var(--color-light)
+}
+.forum-report:disabled {
+  opacity: .6;
+}
+.forum-report span {
+  color: #FFF;
+  width: 37px;
+  height: 37px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 37px;
+  font-weight: 700;
+  font-family: $font-alt;
+  font-size: 14px;
+  background: url(../../images/hexagon.svg) center center / 18px 18px no-repeat var(--border-light);
+}
+.forum-report__form {
+  @extend %card;
+  top: 100%;
+  position: absolute;
+  z-index: 2;
+  padding: space(2);
+  line-height: 1.4;
+  right: 0;
+  width: 250px;
+}
+
+.forum-report__form::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: -10px;
+  right: 7px;
+  width: 0;
+  height: 0;
+  border-bottom: 10px solid #fff;
+  border-right: 10px solid #0000;
+  border-left: 10px solid #0000;
 }

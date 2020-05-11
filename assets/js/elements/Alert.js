@@ -62,13 +62,21 @@ export class Alert extends HTMLElement {
 export class FloatingAlert extends Alert {
   constructor (options = {}) {
     super(options)
-    this.classList.add('is-floating')
-    this.style.position = 'fixed'
-    this.style.top = '20px'
-    this.style.right = '20px'
-    this.style.maxWidth = '400px'
-    this.style.zIndex = '100'
   }
+  connectedCallback () {
+    super.connectedCallback()
+    this.classList.add('is-floating')
+  }
+}
+
+export function flash (message, type="success", duration = 2) {
+  const alert = new FloatingAlert()
+  if (duration) {
+    alert.setAttribute('duration', duration)
+  }
+  alert.setAttribute('type', type)
+  alert.innerText = message
+  document.body.appendChild(alert)
 }
 
 customElements.define('alert-message', Alert)

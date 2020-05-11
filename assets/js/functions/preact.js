@@ -38,8 +38,8 @@ function detachedCallback() {
 }
 
 function toVdom(element, nodeName) {
-  if (element.nodeType === 3) return element.data;
-  if (element.nodeType !== 1) return null;
+  if (element.nodeType === Node.TEXT_NODE) return element.data;
+  if (element.nodeType !== Node.ELEMENT_NODE) return null;
   let children = [],
     props = {},
     i = 0,

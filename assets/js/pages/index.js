@@ -1,1 +1,1 @@
-import './forum.js'
+// Code JavaScript spécifique à une page
