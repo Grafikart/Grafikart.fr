@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'preact/hooks'
 import {jsonFetch} from '@fn/api'
+import {flash} from '@el/Alert'
 
 /**
  * Alterne une valeur
@@ -105,4 +106,27 @@ export function useJsonFetch (url, params = {}, autofetch = true) {
   return [
     loading, data, error, load
   ]
+}
+
+/**
+ * Hook faisant un appel fetch et flash en cas d'erreur / succès
+ *
+ * @param {string} url
+ * @param {object} params
+ * @return {(boolean|*[]|{}|load)[]}
+ */
+export function useJsonFetchOrFlash (url, success, params = {}) {
+  const [loading, setLoading] = useState(true)
+  const [data, setData] = useState(null)
+  const fetch = async function () {
+    setLoading(true)
+    try {
+      const response = await jsonFetch(url, params)
+      setData(response)
+    } catch (e) {
+      flash(e, 'error')
+    }
+    setLoading(false)
+  }
+  return [loading, data, fetch]
 }

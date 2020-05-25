@@ -227,11 +227,13 @@
   display: flex;
   width: 100%;
   flex-wrap: wrap;
+  justify-content: flex-end;
+  margin-left: auto;
 
-  .full {
-    flex: none;
-    width: 100%;
+  & > * + * {
+    margin-left: space(1);
   }
+
 }
 
 // Tag
@@ -263,29 +265,16 @@
   margin-left: auto;
   display: flex;
   align-items: center;
-  color: var(--color-light)
+  color: var(--color-light);
 }
 .forum-report:disabled {
   opacity: .6;
-}
-.forum-report span {
-  color: #FFF;
-  width: 37px;
-  height: 37px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 37px;
-  font-weight: 700;
-  font-family: $font-alt;
-  font-size: 14px;
-  background: url(../../images/hexagon.svg) center center / 18px 18px no-repeat var(--border-light);
 }
 .forum-report__form {
   @extend %card;
   top: 100%;
   position: absolute;
-  z-index: 2;
+  z-index: 10;
   padding: space(2);
   line-height: 1.4;
   right: 0;

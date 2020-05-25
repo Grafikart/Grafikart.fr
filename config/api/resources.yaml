@@ -30,6 +30,8 @@ App\Domain\Forum\Entity\Message:
     get:
       normalization_context:
         groups: ["read:message"]
+    delete:
+      security: is_granted("DELETE_FORUM_MESSAGE", object)
 
 App\Domain\Notification\Entity\Notification:
   collectionOperations:
