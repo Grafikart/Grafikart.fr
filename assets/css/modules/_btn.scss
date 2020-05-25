@@ -8,7 +8,7 @@
   border-radius: 4px;
   font-family: $font-alt;
   font-weight: bold;
-  color: #FFFFFF!important;
+  color: #FFFFFF !important;
   cursor: pointer;
   transition: background .3s;
   font-size: .9em;
@@ -17,17 +17,21 @@
     background: var(--contrast);
   }
 }
+
 .btn-gradient:disabled {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 100%) #a6a6a6;
 }
+
 .btn-gradient .icon {
   width: 16px;
   height: 16px;
   margin-right: space(1);
 }
+
 .btn-primary {
   @extend .btn-gradient;
 }
+
 .btn-danger {
   @extend .btn-gradient;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 100%) var(--red);
@@ -36,6 +40,7 @@
     background: var(--red);
   }
 }
+
 .btn-secondary {
   @extend .btn-gradient;
   color: var(--contrast);
@@ -46,6 +51,7 @@
     color: #FFF;
   }
 }
+
 .btn-big {
   display: inline-flex;
   align-items: center;
@@ -90,3 +96,78 @@
 .stack > button {
   justify-self: flex-start;
 }
+
+// Bouton rond
+// =============
+.rounded-button {
+  width: 37px;
+  height: 37px;
+  position: relative;
+  color: #FFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+
+  & ~ .rounded-button {
+    margin-left: space(1);
+  }
+
+  .icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  span::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    content: '';
+    background: var(--border-light);
+    border-radius: 100%;
+    transition: transform .3s;
+  }
+
+  span {
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url(../../images/hexagon.svg) center center / 18px 18px no-repeat;
+  }
+
+  span:hover::after {
+    transform: scale(1.2)
+  }
+}
+
+.rounded-button.danger {
+  span::after {
+    background-color: var(--red);
+    opacity: .2;
+  }
+  span {
+    background: var(--red);
+    color: #FFF;
+  }
+}
+
+/*
+.rounded-button span {
+  color: #FFF;
+  width: 37px;
+  height: 37px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 37px;
+  font-weight: 700;
+  font-family: $font-alt;
+  font-size: 14px;
+  background: url(../../images/hexagon.svg) center center / 18px 18px no-repeat var(--border-light);
+}
+*/

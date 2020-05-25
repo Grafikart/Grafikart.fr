@@ -1,15 +1,52 @@
 import {Fragment} from 'preact'
 import {FetchForm, FormField, FormPrimaryButton} from '@comp/Form'
-import {useClickOutside, useToggle} from '@fn/hooks'
-import {useRef, useState} from 'preact/hooks'
+import {useClickOutside, useJsonFetchOrFlash, useToggle} from '@fn/hooks'
+import {useCallback, useRef, useState} from 'preact/hooks'
 import {SlideIn} from '@comp/Animation/SlideIn'
 import {flash} from '@el/Alert'
+import {Icon} from '@comp/Icon'
+import {RoundedButton} from '@comp/Button'
+import {slideUp} from '@fn/animation'
+import {closest} from '@fn/dom'
 
 export function ForumActions ({message, topic}) {
+  // On récupère le endpoint à appeler pour la suppresion (ou l'édition)
+  let endpoint = null
+  if (message) {
+    endpoint = `/api/forum/messages/${message}`
+  } else if (topic) {
+    endpoint = `/api/forum/topics/${topic}`
+  } else {
+    console.error('Impossible de charger le formulaire de signalement')
+    return
+  }
+
+  // On prépare les hooks
+  const [deleteLoading, deleteCalled, deleteFetch] = useJsonFetchOrFlash(endpoint, {method: 'DELETE'})
+
+  // Handler
+  const handleDeleteClick = useCallback(async function (e) {
+    if (!confirm('Voulez vous vraiment supprimer ce message ?')) {
+      return
+    }
+    const message = closest(e.target, '.forum-message')
+    await deleteFetch()
+    flash('Votre message a bien été supprimé')
+    await slideUp(message)
+    message.remove()
+  }, [endpoint])
+
+  // Rendu
   return <Fragment>
+    {deleteCalled === null && <DeleteButton loading={deleteLoading} onClick={handleDeleteClick}/>}
     <ReportButton message={message} topic={topic}/>
   </Fragment>
 }
+
+function DeleteButton (props) {
+  return <RoundedButton type="danger" title="Supprimer ce message" {...props}><Icon name="trash"/></RoundedButton>
+}
+
 
 /**
  * Bouton de signalement avec formulaire en tooltip
@@ -21,9 +58,8 @@ function ReportButton ({message, topic}) {
   const [success, toggleSuccess] = useToggle(false)
   useClickOutside(ref, toggleForm)
 
-
-  return <div style={{marginLeft: 'auto', position: 'relative'}}>
-    <button className="forum-report" onClick={toggleForm} disabled={success}>
+  return <div style={{position: 'relative'}}>
+    <button className="rounded-button" onClick={toggleForm} disabled={success} aria-label="Signaler le message" data-microtip-position="top" role="tooltip">
       <span>!</span>
     </button>
     <SlideIn show={showForm && !success} className="forum-report__form" forwardedRef={ref}>
@@ -32,6 +68,9 @@ function ReportButton ({message, topic}) {
   </div>
 }
 
+/**
+ * Formulaire de signalement
+ */
 function ReportForm ({onSuccess, message, topic}) {
   const initialData = {reason: 'Ceci est un spam', message: null, topic: null}
   if (message) {
