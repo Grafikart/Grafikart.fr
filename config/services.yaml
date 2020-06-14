@@ -40,7 +40,7 @@ services:
     Everyman\Neo4j\Client:
       class: 'Everyman\Neo4j\Client'
       factory: ['App\Core\Services\Neo4jClientFactory', 'createClient']
-      arguments: ['neo4j', 'neo4j', 'neo4j']
+      arguments: ['neo4j', 'neo4j', 'neo']
 
     App\Infrastructure\Storage\Naming\IdDirectoryNamer:
       class: App\Infrastructure\Storage\Naming\IdDirectoryNamer

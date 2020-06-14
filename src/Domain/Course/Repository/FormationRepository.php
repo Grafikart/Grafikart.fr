@@ -40,4 +40,18 @@ class FormationRepository extends ServiceEntityRepository
             ->orderBy('f.createdAt', 'ASC'));
     }
 
+    public function findForTechnologyPerLevel(Technology $technology): iterable
+    {
+        $technologies = $this->createQueryBuilder('f')
+            ->where('f.online = true')
+            ->leftJoin('f.technologyUsages', 'usage')
+            ->where('usage.technology = :technology')
+            ->setParameter('technology', $technology)
+            ->orderBy('f.level', 'ASC')
+            ->orderBy('f.createdAt', 'ASC')
+            ->getQuery()
+            ->getResult();
+        return collect($technologies)->groupBy(fn(Formation $t) => $t->getLevel())->toArray();
+    }
+
 }

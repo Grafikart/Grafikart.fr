@@ -26,6 +26,8 @@ final class CoursesImporter extends Neo4jImporter
     {
         $io->title('Import des technologies');
         $this->truncate('technology');
+        /** @var Technology[] $technologiesIndexedBySlug */
+        $technologiesIndexedBySlug = [];
 
         // On récupère les données depuis neo4j
         $result = $this->neo4jQuery(<<<CYPHER
@@ -39,12 +41,22 @@ final class CoursesImporter extends Neo4jImporter
             foreach ($row as $node) {
                 /** @var array{image: string, updated_at: int, name: string, category: string, content: string, slug: string} $p */
                 $p = $node->getProperties();
+                $type = 'Langage';
+                if (($p['category'] ?? null) === 'framework') {
+                    $type = 'Framework';
+                } else if (($p['category'] ?? null) === 'tool') {
+                    $type = 'Outil';
+                } else if (($p['category'] ?? null) === 'library') {
+                    $type = 'Librairie';
+                }
                 $t = (new Technology())
                     ->setName($p['name'])
                     ->setSlug($p['slug'])
+                    ->setType($type)
                     ->setImage($p['image'] ?? null)
                     ->setUpdatedAt(new \DateTime())
                     ->setContent($p['content'] ?? null);
+                $technologiesIndexedBySlug[$p['slug']] = $t;
                 $this->em->persist($t);
             }
         }
@@ -52,6 +64,19 @@ final class CoursesImporter extends Neo4jImporter
         // On persiste
         $this->em->flush();
         $io->success(sprintf('Import de %d technologies', $result->count()));
+
+        // On lie les technologies ensemble
+        $rows = $this->neo4jQuery(<<<CYPHER
+            MATCH (t:Technology)-[:REQUIRE]->(requirement:Technology)
+            RETURN t.slug, requirement.slug
+        CYPHER
+        );
+        foreach ($rows as $row) {
+            $source = $row->offsetGet(0);
+            $requirement = $row->offsetGet(1);
+            $technologiesIndexedBySlug[$source]->addRequirement($technologiesIndexedBySlug[$requirement]);
+        }
+        $this->em->flush();
     }
 
     private function importCourses(SymfonyStyle $io): void

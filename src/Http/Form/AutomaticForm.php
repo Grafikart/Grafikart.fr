@@ -8,13 +8,16 @@ use App\Core\Type\SwitchType;
 use App\Domain\Attachment\Attachment;
 use App\Domain\Attachment\Type\AttachmentType;
 use App\Domain\Auth\User;
+use App\Domain\Course\Entity\Formation;
 use App\Domain\Course\Type\TechnologiesType;
 use App\Domain\Forum\Entity\Tag;
 use App\Http\Admin\Field\ForumTagChoiceType;
+use App\Http\Admin\Field\TechnologyChoiceType;
 use App\Http\Admin\Field\UserChoiceType;
 use DateTimeInterface;
 use ReflectionClass;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -49,6 +52,7 @@ class AutomaticForm extends AbstractType
         'chapters' => ChaptersForm::class,
         'color' => ColorType::class,
         'links' => TextareaType::class,
+        'requirements' => TechnologyChoiceType::class,
     ];
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -63,7 +67,19 @@ class AutomaticForm extends AbstractType
             if ($type === null) {
                 return;
             }
-            if (array_key_exists($name, self::NAMES)) {
+            if ($name === 'requirements') {
+                $builder->add('requirements', ChoiceType::class, [
+                    'multiple' => true,
+                ]);
+            }
+            // Input spécifique au niveau
+            if ($name === 'level') {
+                $builder->add($name, ChoiceType::class, [
+                    'required' => true,
+                    'choices' => array_flip(Formation::$levels)
+                ]);
+            // Input spécifique au nom du champs
+            } else if (array_key_exists($name, self::NAMES)) {
                 $builder->add($name, self::NAMES[$name], [
                     'required' => false
                 ]);

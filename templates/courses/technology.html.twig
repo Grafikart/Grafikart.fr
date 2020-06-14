@@ -8,41 +8,64 @@
       <p>{{ technology.content }}</p>
     </div>
     <div class="wave-header__image">
-      <img src="https://www.grafikart.fr/uploads/formations/single_mysql.png" alt="">
+      <img src="{{ uploads_path('icons/' ~ technology.image) }}" alt="{{ technology.name }}">
     </div>
     <waves-shape class="waves" position="bottom" target=".wave-header"></waves-shape>
   </header>
 
-  <div class="container stack" style="--gap:10">
+  <div class="container flex start hstack">
 
-    <section class="stack">
-      <h2 class="h3"><strong>Apprendre</strong> les bases</h2>
-      <div class="formations">
-        {% for formation in formations %}
-          {% include 'formations/_card.html.twig' %}
-        {% endfor %}
-      </div>
-    </section>
+    <div class="stack mt3" style="--gap:10; width: 75%; flex: none;">
 
-    <section class="stack">
-      <h2 class="h3"><strong>Se perfectionner</strong> en allant plus loin</h2>
-      <div class="formations">
-        {% for formation in formations %}
-          {% include 'formations/_card.html.twig' %}
-        {% endfor %}
-      </div>
-    </section>
+      <section class="stack" style="--gap:7">
+        {% if formations[0] %}
+          <div class="stack">
+            <h2 class="h3"><strong>Apprendre</strong> les bases</h2>
+            {% for formation in formations[0] %}
+              {% include 'formations/_card-large.html.twig' %}
+            {% endfor %}
+          </div>
+        {% endif %}
+        {% if formations[1] is defined or formations[2] is defined %}
+          <div class="stack">
+            <h2 class="h3">Se <strong>perfectionner</strong></h2>
+            {% if formations[1] is defined %}
+              {% for formation in formations[1] %}
+                {% include 'formations/_card-large.html.twig' %}
+              {% endfor %}
+            {% endif %}
+            {% if formations[2] is defined %}
+              {% for formation in formations[2] %}
+                {% include 'formations/_card-large.html.twig' %}
+              {% endfor %}
+            {% endif %}
+          </div>
+        {% endif %}
+      </section>
 
-    <section class="stack">
-      <h2 class="h3"><strong>Pratiquer</strong> à travers des exemples concrets</h2>
-      <div class="courses">
-        {% for course in courses %}
-          {% include 'courses/_card.html.twig' %}
-        {% endfor %}
-      </div>
-      {{ paginate(courses) }}
-    </section>
+    </div>
 
+    <div>
+      <div class="h3"><strong>Ce qu'il faut connaitre</strong></div>
+      <p>
+        Avant de pouvoir apprendre PHP il est important d'avoir acquis les connaissances suivantes.
+      </p>
+      <ul class="list">
+      {% for technology in technology.requirements %}
+          <li><a href="{{ path(technology) }}">{{ technology.name }}</a></li>
+      {% endfor %}
+      </ul>
+
+      <div class="h3"><strong>Que faire après ?</strong></div>
+      {% for category, technologies in next %}
+        <div class="h4">{{ category }}</div>
+        <ul class="list">
+          {% for technology in technologies %}
+          <li><a href="{{ path(technology) }}">{{ technology.name }}</a></li>
+          {% endfor %}
+        </ul>
+      {% endfor %}
+    </div>
   </div>
 
 

@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+  <div class="formations">
+    {% for formation in formations %}
+      {% include 'formations/_card.html.twig' %}
+    {% endfor %}
+  </div>
+
+{% endblock %}
+
