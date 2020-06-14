@@ -18,7 +18,7 @@ services:
       - 7474:7474
       - 7687:7687
     volumes:
-      - ~/.config/neo4j/data:/data
+      - ~/App/neo4j/data:/data
   db:
     image: postgres:12
     environment:

@@ -62,9 +62,29 @@ class Technology
      */
     private ?\DateTimeInterface $updatedAt = null;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Domain\Course\Entity\Technology", inversedBy="requiredBy")
+     * @ORM\JoinTable(name="technology_requirement")
+     * @var Collection<int, Technology>
+     */
+    private Collection $requirements;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Domain\Course\Entity\Technology", mappedBy="requirements")
+     * @var Collection<int, Technology>
+     */
+    private Collection $requiredBy;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private ?string $type = null;
+
     public function __construct()
     {
         $this->usages = new ArrayCollection();
+        $this->requirements = new ArrayCollection();
+        $this->requiredBy = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -197,6 +217,52 @@ class Technology
     {
         $this->updatedAt = $updatedAt;
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Technology>
+     */
+    public function getRequirements(): Collection
+    {
+        return $this->requirements;
+    }
+
+    public function addRequirement(self $requirement): self
+    {
+        if (!$this->requirements->contains($requirement)) {
+            $this->requirements[] = $requirement;
+        }
+
+        return $this;
+    }
+
+    public function removeRequirement(self $requirement): self
+    {
+        if ($this->requirements->contains($requirement)) {
+            $this->requirements->removeElement($requirement);
+        }
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(?string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Technology>
+     */
+    public function getRequiredBy()
+    {
+        return $this->requiredBy;
     }
 
 }

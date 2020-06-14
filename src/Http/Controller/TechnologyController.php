@@ -25,10 +25,12 @@ class TechnologyController extends AbstractController
         Request $request
     ): Response {
         $page = $request->query->getInt('page', 1);
+        $nextTechnologies = collect($technology->getRequiredBy())->groupBy(fn(Technology $t) => $t->getType());
         return $this->render('courses/technology.html.twig', [
             'technology' => $technology,
-            'formations' => $page !== 1 ? [] : $formationRepository->findForTechnology($technology),
+            'formations' => $page !== 1 ? [] : $formationRepository->findForTechnologyPerLevel($technology),
             'courses'    => $paginator->paginate($courseRepository->queryForTechnology($technology)),
+            'next' => $nextTechnologies,
             'menu' => 'courses'
         ]);
     }

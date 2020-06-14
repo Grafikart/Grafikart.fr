@@ -1,0 +1,27 @@
+{% cache [formation, 'card'] %}
+  <article class="card card--formation">
+    <div class="card__body stack">
+      <div class="flex">
+
+        <h2 class="card__title" style="margin-bottom: 4px;">
+          <a href="{{ path('formation_show', {slug: formation.slug}) }}" tabindex="-1">
+            {{ formation.title }}
+          </a>
+        </h2>
+
+        <div class="flex text-muted hstack" style="--gap:1">
+          <div>{{ icon('lines') }} {{ formation.courses | length }} Chapitres</div>
+          <div>{{ icon('clock') }} {{ formation.duration | duration }}</div>
+        </div>
+
+      </div>
+
+      <div class="card__description">
+        {{ formation.short }}
+      </div>
+
+      <a href="{{ path('formation_show', {slug: formation.slug}) }}" title="{{ formation.title }}"
+         class="card__link"></a>
+    </div>
+  </article>
+{% endcache %}

@@ -15,6 +15,8 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class Course extends Content
 {
 
+    use LevelTrait;
+
     /**
      * @ORM\Column(type="smallint", options={"default": 0})
      */

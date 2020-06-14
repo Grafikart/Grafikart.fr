@@ -92,6 +92,12 @@
   }
 }
 
+// Largeur
+// =============
+.w100 {
+  width: 100%;
+}
+
 // Grille
 // ==================
 .grid {
@@ -207,5 +213,11 @@
   }
   .mb#{$i} {
     margin-bottom: space($i);
+  }
+  .mr#{$i} {
+    margin-right: space($i);
+  }
+  .ml#{$i} {
+    margin-left: space($i);
   }
 }

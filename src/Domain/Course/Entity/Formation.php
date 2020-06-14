@@ -13,6 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Formation extends Content
 {
 
+    use LevelTrait;
+
     /**
      * @ORM\Column(type="text", nullable=true)
      */
