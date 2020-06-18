@@ -1,0 +1,14 @@
+include:
+  - ../../fixtures/templates.yaml
+  - ./users.yaml
+
+App\Domain\Blog\Category:
+  category{1..3} (extends category):
+
+App\Domain\Blog\Post:
+  post{1..15} (extends post):
+    category: '@category*'
+  post{16} (extends post):
+    category: '@category2'
+
+

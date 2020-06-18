@@ -29,7 +29,7 @@ class FormationRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findForTechnology(Technology $technology): iterable
+    public function findForTechnology(Technology $technology): array
     {
         return $this->createQueryBuilder('f')
             ->where('f.online = true')
