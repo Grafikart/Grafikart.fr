@@ -1,40 +1,33 @@
 {% cache [course, 'card'] %}
-  <article class="card card--course" data-history="{{ course.id }}">
+  <article class="card" data-history="{{ course.id }}">
     <div class="card__body stack">
-      <div class="flex">
-        <div class="card__icons">
-          {% for technology in course.mainTechnologies %}
-            <a href="{{ path('technology_show', {slug: technology.slug}) }}" class="course__icon" tabindex="-1">
-              <img src="{{ uploads_path('icons/' ~ technology.image) }}" alt="{{ technology.name }}">
-            </a>
-          {% endfor %}
-        </div>
-        <div class="ml1 w100">
-          <h2 class="card__title" style="margin-bottom: 4px;">
-            <a href="{{ path('course_show', {slug: course.slug, id: course.id}) }}" tabindex="-1">
-              {{ course.title }}
-            </a>
-          </h2>
-
-          <div class="flex start text-muted">
-            <div>
-              {{ icon('clock') }} {{ course.duration | duration }}
-            </div>
-            {% if course.formation %}
-              <div class="ml1">
-                {{ icon('lines') }} {{ course.formation.title }}
-              </div>
-            {% endif %}
-          </div>
-
-        </div>
-
+      <div class="card__icons">
+        {% for technology in course.mainTechnologies %}
+          <a href="{{ path('technology_show', {slug: technology.slug}) }}" class="course__icon" tabindex="-1">
+            <img src="{{ uploads_path('icons/' ~ technology.image) }}" alt="{{ technology.name }}">
+          </a>
+        {% endfor %}
       </div>
+      <h2 class="card__title">
+        <a href="{{ path('course_show', {slug: course.slug, id: course.id}) }}" tabindex="-1">
+          {{ course.title }}
+        </a>
+      </h2>
       <div class="card__description">
         {{ course.content | markdown | striptags | excerpt(130) }}
       </div>
       <a href="{{ path('course_show', {slug: course.slug, id: course.id}) }}" title="{{ course.title }}"
          class="card__link"></a>
     </div>
+    <footer class="card__footer">
+      {% if course.formation %}
+        <div>
+          {{ icon('lines') }} {{ course.formation.title }}
+        </div>
+      {% endif %}
+      <div>
+        {{ icon('clock') }} {{ course.duration | duration }}
+      </div>
+    </footer>
   </article>
 {% endcache %}

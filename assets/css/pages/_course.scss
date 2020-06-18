@@ -1,7 +1,7 @@
-.courses, {
+.courses {
   @extend %container;
   display: grid;
-  grid-template-columns: repeat( auto-fit, minmax(245px, 1fr) );
+  grid-template-columns: repeat( auto-fill, minmax(245px, 1fr) );
   grid-gap: space(4);
   grid-auto-flow: dense;
 }
@@ -190,4 +190,26 @@
     overflow: auto;
     margin-left: var(--container-padding);
   }
+}
+
+// En tête technology
+// =============
+.technology-header {
+  display: flex;
+  align-items: flex-start;
+}
+.technology-header__logo {
+  position: relative;
+  z-index: 2;
+  width: 200px;
+  height: 100px;
+  flex: none;
+  margin-left: space(4);
+
+  @include down(600) {
+    display: none !important;
+  }
+}
+.technology-header__logo img {
+  width: 100%;
 }

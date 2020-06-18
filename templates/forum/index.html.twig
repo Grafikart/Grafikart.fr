@@ -1,10 +1,12 @@
 {% extends 'base.html.twig' %}
 
+{% set bodyClass = 'light' %}
+
 {% block title 'Forum' %}
 
 {% block body %}
 
-<div class="container page-header flex mb3">
+<div class="container page-header flex">
   <h1 class="hero-title">Forum</h1>
   <div class="form-group flex" style="width: 100%; margin-left: 70px;">
     <input type="text" name="q" placeholder="Rechercher un sujet">
@@ -12,7 +14,7 @@
   </div>
 </div>
 
-<div class="forum-page">
+<div class="forum-page bg py3">
   <div class="forum-page__sidebar stack">
     <a href="{{ path('forum_new') }}" class="btn-primary">Nouveau sujet</a>
     <ul class="forum-tags">

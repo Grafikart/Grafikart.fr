@@ -43,6 +43,7 @@ class CourseRepository extends ServiceEntityRepository
             ->where('c.online = true')
             ->leftJoin('c.technologyUsages', 'usage')
             ->where('usage.technology = :technology')
+            ->andwhere('c.formation IS NULL')
             ->setParameter('technology', $technology)
             ->orderBy('c.createdAt', 'DESC')
             ->getQuery()

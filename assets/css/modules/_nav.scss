@@ -93,7 +93,7 @@
 // Animation pour les onglets
 // =================
 [role="tabpanel"][hidden] {
-  display: none;
+  display: none!important;
 }
 /*
 [role="tabpanel"] {
