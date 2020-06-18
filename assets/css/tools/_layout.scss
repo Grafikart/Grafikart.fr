@@ -80,7 +80,15 @@
   justify-content: space-between;
 }
 
-.flex.start {
+.flex-md {
+  @include up(500) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.flex-start {
   justify-content: flex-start;
 }
 
@@ -184,8 +192,9 @@
 // ==================
 .layout-sidebar {
   @extend %container;
+  --gap: 3;
   display: grid;
-  grid-gap: space(3);
+  grid-gap: calc(var(--gap) * var(--space));
   grid-template-columns: 100%;
 
   @include up(1100) {
@@ -200,7 +209,7 @@
 
 // Spaces
 // =============
-@for $i from 1 through 3 {
+@for $i from 1 through 5 {
   .p#{$i} {
     padding: space($i);
   }

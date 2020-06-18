@@ -96,7 +96,8 @@ $font-alt: "Montserrat", "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe 
   }
 }
 
-%h4 {
+%h4,
+.h4 {
   font-family: $font-alt;
   font-weight: bold;
 }
