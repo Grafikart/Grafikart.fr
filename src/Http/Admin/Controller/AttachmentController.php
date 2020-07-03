@@ -3,7 +3,6 @@
 namespace App\Http\Admin\Controller;
 
 use App\Domain\Attachment\Attachment;
-use App\Domain\Attachment\AttachmentUrlGenerator;
 use App\Domain\Attachment\Repository\AttachmentRepository;
 use App\Domain\Attachment\Validator\AttachmentPathValidator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,6 +16,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 /**
  * @IsGranted("ATTACHMENT")
@@ -25,12 +25,11 @@ class AttachmentController extends BaseController
 {
 
     private ValidatorInterface $validator;
-    private AttachmentUrlGenerator $urlGenerator;
+    private UploaderHelper $uploaderHelper;
 
-    public function __construct(ValidatorInterface $validator, AttachmentUrlGenerator $urlGenerator)
+    public function __construct(ValidatorInterface $validator)
     {
         $this->validator = $validator;
-        $this->urlGenerator = $urlGenerator;
     }
 
     public function validateRequest(Request $request): array

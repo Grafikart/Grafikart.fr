@@ -32,11 +32,6 @@ services:
       resource: '../src/Http/Api/Controller'
       tags: ['controller.service_arguments']
 
-    Google_Service_YouTube_Resource_PlaylistItems:
-        class: '\Google_Service_YouTube_Resource_PlaylistItems'
-        factory: ['App\Core\Services\Api\GoogleServiceFactory', 'createPlaylistItems']
-        arguments: ['@Google_Client']
-
     Everyman\Neo4j\Client:
       class: 'Everyman\Neo4j\Client'
       factory: ['App\Core\Services\Neo4jClientFactory', 'createClient']
@@ -68,3 +63,8 @@ services:
       class: App\Infrastructure\Mercure\Service\CookieGenerator
       arguments:
         $secret: "%env(resolve:MERCURE_SUBSCRIBER_KEY)%"
+
+    Google_Service_YouTube:
+      class: '\Google_Service_YouTube'
+      factory: ['App\Core\Services\Api\GoogleServiceFactory', 'getYoutubeService']
+      arguments: ['@Google_Client']

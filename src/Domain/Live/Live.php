@@ -2,11 +2,15 @@
 
 namespace App\Domain\Live;
 
+use App\Core\UploaderBundle\RemoteFile;
 use Doctrine\ORM\Mapping as ORM;
 use Google_Service_YouTube_Thumbnail;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Domain\Live\LiveRepository")
+ * @Vich\Uploadable()
  */
 class Live
 {
@@ -48,20 +52,30 @@ class Live
      */
     private \DateTimeInterface $updated_at;
 
-    private string $youtube_thumbnail;
+    /**
+     * @Vich\UploadableField(mapping="lives", fileNameProperty="imageName")
+     */
+    private ?File $image = null;
 
-    public static function fromPlayListItem(\Google_Service_YouTube_PlaylistItem $item): self
+    /**
+     * @ORM\Column(type="string", name="image", nullable=true)
+     */
+    private ?string $imageName = null;
+
+    public static function fromYoutubeVideo(\Google_Service_YouTube_Video $video): self
     {
-        $publishedAt = new \DateTime($item->getSnippet()->getPublishedAt());
+        $publishedAt = new \DateTime($video->getSnippet()->getPublishedAt());
         /** @var Google_Service_YouTube_Thumbnail|null $thumbnail */
-        $thumbnail = $item->getSnippet()->getThumbnails()->getMaxres();
+        $thumbnail = $video->getSnippet()->getThumbnails()->getMaxres();
+        /** @var Google_Service_YouTube_Thumbnail|null $thumbnail */
+        $thumbnail = $thumbnail ?: $video->getSnippet()->getThumbnails()->getHigh();
         return (new self())
             ->setCreatedAt($publishedAt)
-            ->setYoutubeId($item->getSnippet()->getResourceId()->getVideoId())
-            ->setName($item->getSnippet()->getTitle())
-            ->setDescription($item->getSnippet()->getDescription())
-            ->setYoutubeThumbnail($thumbnail ? $thumbnail->getUrl() : null)
-            ->setDuration((int)$item->getContentDetails()->getEndAt())
+            ->setYoutubeId($video->getId())
+            ->setName($video->getSnippet()->getTitle())
+            ->setDescription($video->getSnippet()->getDescription())
+            ->setImage($thumbnail ? new RemoteFile($thumbnail->getUrl()) : null)
+            ->setDuration(new \DateInterval($video->getContentDetails()->getDuration()))
             ->setUpdatedAt($publishedAt);
     }
 
@@ -92,6 +106,10 @@ class Live
         $this->description = $description;
 
         return $this;
+    }
+
+    public function getYoutubeUrl(): ?string {
+        return 'https://youtu.be/' . $this->youtubeId;
     }
 
     public function getYoutubeId(): ?string
@@ -130,40 +148,45 @@ class Live
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getYoutubeThumbnail(): string
-    {
-        return $this->youtube_thumbnail;
-    }
-
-    /**
-     * @param string $youtube_thumbnail
-     */
-    public function setYoutubeThumbnail(?string $youtube_thumbnail): self
-    {
-        $this->youtube_thumbnail = $youtube_thumbnail ?? "https://i.ytimg.com/vi/{$this->getYoutubeId()}/maxresdefault.jpg";
-
-        return $this;
-    }
-
-    public function getThumbnailPath(): string
-    {
-        return "lives/{$this->getYoutubeId()}.jpg";
-    }
-
     public function getDuration(): int
     {
         return $this->duration;
     }
 
-    public function setDuration(int $duration): self
+    /**
+     * @param int|\DateInterval $duration
+     * @return $this
+     */
+    public function setDuration($duration): self
     {
-        $this->duration = $duration;
-
+        if ($duration instanceof \DateInterval) {
+            $this->duration = 3600 * $duration->h + 60 * $duration->i + $duration->s;
+        } else {
+            $this->duration = $duration;
+        }
         return $this;
     }
 
+    public function getImage(): ?File
+    {
+        return $this->image;
+    }
+
+    public function setImage(?File $image): Live
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    public function setImageName(?string $imageName): Live
+    {
+        $this->imageName = $imageName;
+        return $this;
+    }
 
 }

@@ -6,20 +6,21 @@ use App\Domain\Attachment\Attachment;
 use App\Domain\Attachment\AttachmentUrlGenerator;
 use App\Infrastructure\Image\ImageResizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class AttachmentApiNormalizer implements NormalizerInterface
 {
 
-    private AttachmentUrlGenerator $urlGenerator;
     private ImageResizer $resizer;
+    private UploaderHelper $uploaderHelper;
 
     public function __construct(
-        AttachmentUrlGenerator $urlGenerator,
+        UploaderHelper $uploaderHelper,
         ImageResizer $resizer
     )
     {
-        $this->urlGenerator = $urlGenerator;
         $this->resizer = $resizer;
+        $this->uploaderHelper = $uploaderHelper;
     }
 
     /**
@@ -37,7 +38,7 @@ class AttachmentApiNormalizer implements NormalizerInterface
             'createdAt' => $object->getCreatedAt()->getTimestamp(),
             'name' => "{$filename}.{$extension}",
             'size' => $object->getFileSize(),
-            'url' => $this->resizer->resize($this->urlGenerator->generate($object), 250, 100)
+            'url' => $this->resizer->resize($this->uploaderHelper->asset($object), 250, 100)
         ];
     }
 
