@@ -13,20 +13,20 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class AttachmentType extends TextType implements DataTransformerInterface
 {
 
     private EntityManagerInterface $em;
-    private AttachmentUrlGenerator $attachmentUrlGenerator;
+    private UploaderHelper $uploaderHelper;
 
     public function __construct(
         EntityManagerInterface $em,
-        AttachmentUrlGenerator $attachmentUrlGenerator
-    )
-    {
+        UploaderHelper $uploaderHelper
+    ) {
         $this->em = $em;
-        $this->attachmentUrlGenerator = $attachmentUrlGenerator;
+        $this->uploaderHelper = $uploaderHelper;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -37,7 +37,7 @@ class AttachmentType extends TextType implements DataTransformerInterface
 
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
-        $view->vars['attr']['preview'] = $this->attachmentUrlGenerator->generate($form->getData());
+        $view->vars['attr']['preview'] = $this->uploaderHelper->asset($form->getData());
         $view->vars['attr']['overwrite'] = true;
         parent::buildView($view, $form, $options);
     }
@@ -45,8 +45,8 @@ class AttachmentType extends TextType implements DataTransformerInterface
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'required' => false,
-            'attr' => [
+            'required'    => false,
+            'attr'        => [
                 'is' => 'input-attachment',
             ],
             'constraints' => [

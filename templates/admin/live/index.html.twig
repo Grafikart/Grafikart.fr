@@ -1,0 +1,35 @@
+{% extends 'admin/layout/card.html.twig' %}
+
+{% block title %}
+  {{ icon('video') }}
+  Gestion des lives
+{% endblock %}
+
+{% block content %}
+  <div class="flex">
+    <form class="form-group dashboard-search" method="post" action="{{ path('admin_live_sync') }}">
+      <button class="btn btn-primary">Synchroniser</button>
+    </form>
+  </div>
+  <table class="table">
+    <thead>
+    <tr>
+      <th style="width: 120px;">Image</th>
+      <th>Titre</th>
+      <th>Durée</th>
+      <th>Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for live in lives %}
+    <tr>
+      <td><a href="{{ live.youtubeUrl }}">{{ image(live, 105, 60) }}</a></td>
+      <td><a href="{{ live.youtubeUrl }}">{{ live.name }}</a></td>
+      <td>{{ live.duration | duration }}</td>
+      <td class="text-right">{{ live.createdAt | date }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {{ paginate(lives) }}
+{% endblock %}

@@ -14,6 +14,15 @@ vich_uploader:
         inject_on_load: false
         delete_on_update: true
         delete_on_remove: true
+      lives:
+        uri_prefix: /uploads/lives
+        upload_destination: '%kernel.project_dir%/public/uploads/lives'
+        namer:
+          service: Vich\UploaderBundle\Naming\PropertyNamer
+          options: {property: 'youtubeId'}
+        inject_on_load: false
+        delete_on_update: true
+        delete_on_remove: true
       sources:
         upload_destination: '%kernel.project_dir%/downloads/sources'
         namer:

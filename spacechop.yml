@@ -55,3 +55,12 @@ presets:
           type: jpeg
       - $compress:
           quality: 90
+  r_105_60:
+    steps:
+      - $fill:
+          width: 105
+          height: 60
+      - $format:
+          type: jpeg
+      - $compress:
+          quality: 90
