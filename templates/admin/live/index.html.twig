@@ -6,8 +6,19 @@
 {% endblock %}
 
 {% block content %}
-  <div class="flex">
-    <form class="form-group dashboard-search" method="post" action="{{ path('admin_live_sync') }}">
+  <div class="flex form-group flex-end">
+    {% if live %}
+      <form class="flex mr1" method="post" action="{{ path('admin_live_set') }}">
+        <input type="hidden" name="_method" value="DELETE" />
+        <button class="btn btn-danger">Fin du live</button>
+      </form>
+    {% else %}
+    <form class="form-group flex mr1" method="post" action="{{ path('admin_live_set') }}">
+      <input type="text" value="{{ live }}" class="form-control mr1" placeholder="Live" name="live_id">
+      <button class="btn btn-primary">Live&nbsp;!</button>
+    </form>
+    {% endif %}
+    <form class="form-group" method="post" action="{{ path('admin_live_sync') }}">
       <button class="btn btn-primary">Synchroniser</button>
     </form>
   </div>

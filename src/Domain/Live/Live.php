@@ -20,17 +20,17 @@ class Live
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
      */
-    private int $id;
+    private int $id = 0;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private string $name;
+    private string $name = '';
 
     /**
      * @ORM\Column(type="text")
      */
-    private string $description;
+    private string $description = '';
 
     /**
      * @ORM\Column(type="string", length=20)

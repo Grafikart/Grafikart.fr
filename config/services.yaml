@@ -68,3 +68,6 @@ services:
       class: '\Google_Service_YouTube'
       factory: ['App\Core\Services\Api\GoogleServiceFactory', 'getYoutubeService']
       arguments: ['@Google_Client']
+
+    App\Core\OptionInterface:
+      class: 'App\Domain\Application\Option'
