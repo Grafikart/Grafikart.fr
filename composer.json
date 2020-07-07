@@ -60,6 +60,7 @@
     "phpstan/phpstan-doctrine": "^0.12.9",
     "phpstan/phpstan-mockery": "^0.12.3",
     "phpstan/phpstan-phpunit": "^0.12.6",
+    "phpstan/phpstan-symfony": "^0.12.6",
     "phpunit/phpunit": "^8.5",
     "spatie/phpunit-watcher": "^1.22",
     "symfony/debug-pack": "*",

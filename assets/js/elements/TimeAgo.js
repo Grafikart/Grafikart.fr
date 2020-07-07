@@ -66,13 +66,14 @@ export default class TimeAgo extends HTMLElement {
   updateText(date) {
     let seconds = ((new Date()).getTime() - date.getTime()) / 1000
     let term = null
+    const prefix = this.getAttribute('prefix') || 'Il y a'
     for (term of terms) {
       if (Math.abs(seconds) < term.time) {
         break
       }
     }
     if (seconds >= 0) {
-      this.innerHTML = 'Il y a ' + term.text.replace('%d', Math.round(seconds / term.divide))
+      this.innerHTML = prefix + ' ' + term.text.replace('%d', Math.round(seconds / term.divide))
     } else {
       this.innerHTML = 'Dans ' + term.text.replace('%d', Math.round(Math.abs(seconds) / term.divide))
     }

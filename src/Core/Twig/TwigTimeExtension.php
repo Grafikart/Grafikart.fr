@@ -57,9 +57,9 @@ class TwigTimeExtension extends AbstractExtension
     /**
      * Génère une date au format "Il y a" gràce à un CustomElement
      */
-    public function ago (\DateTimeInterface $date): string
+    public function ago (\DateTimeInterface $date, string $prefix = ''): string
     {
-        return "<time-ago time=\"{$date->getTimestamp()}\"></time-ago>";
+        return "<time-ago time=\"{$date->getTimestamp()}\" prefix=\"{$prefix}\"/>";
     }
 
 }

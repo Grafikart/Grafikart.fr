@@ -356,6 +356,9 @@
     "phpstan/phpstan-phpunit": {
         "version": "0.12.6"
     },
+    "phpstan/phpstan-symfony": {
+        "version": "0.12.6"
+    },
     "phpunit/php-code-coverage": {
         "version": "7.0.10"
     },
