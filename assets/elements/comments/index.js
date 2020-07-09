@@ -18,7 +18,7 @@ export default class CommentsElement extends HTMLElement {
         }
       })
     })
-    this.attachComments()
+    this.observer.observe(this)
   }
 
   disconnectedCallback () {

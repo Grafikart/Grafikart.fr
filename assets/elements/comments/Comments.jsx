@@ -22,6 +22,7 @@ export function Comments ({ target }) {
     focus: null, // Commentaire à focus
     reply: null // Commentaire auquel on souhaite répondre
   })
+  const count = state.comments ? state.comments.length : 0
   const comments = useMemo(() => {
     if (state.comments === null) {
       return null
@@ -103,7 +104,9 @@ export function Comments ({ target }) {
   // On rend la liste des commentaires
   return (
     <div className='comment-area'>
-      <div className='comments__title'>{state.comments.length} Commentaires</div>
+      <div className='comments__title'>
+        {count} Commentaire{count > 1 ? 's' : ''}
+      </div>
       <CommentForm onSubmit={handleCreate} />
       <hr />
       <div className='comment-list'>
@@ -147,7 +150,6 @@ const Comment = memo(function ({ comment, editing, onEdit, onUpdate, onDelete, o
   const className = ['comment']
   const textarea = useRef(null)
   const [loading, setLoading] = useState(false)
-  let content = <div>{comment.content}</div>
 
   function handleEdit (e) {
     e.preventDefault()
@@ -181,15 +183,20 @@ const Comment = memo(function ({ comment, editing, onEdit, onUpdate, onDelete, o
     }
   }, [editing])
 
+  let content = <div onDoubleClick={handleEdit}>{comment.content}</div>
   if (editing) {
     content = (
-      <>
+      <form onSubmit={handleUpdate} className='form-group stack'>
         <textarea is='textarea-autogrow' ref={textarea} defaultValue={comment.content} />
         <Flex>
-          <PrimaryButton onClick={handleUpdate}>Modifier</PrimaryButton>
-          <SecondaryButton onClick={handleEdit}>Annuler</SecondaryButton>
+          <PrimaryButton type='submit' loading={loading}>
+            Modifier
+          </PrimaryButton>
+          <SecondaryButton type='reset' onClick={handleEdit}>
+            Annuler
+          </SecondaryButton>
         </Flex>
-      </>
+      </form>
     )
   }
   if (loading) {
@@ -216,14 +223,14 @@ const Comment = memo(function ({ comment, editing, onEdit, onUpdate, onDelete, o
             </a>
           )}
           {canEdit && (
-            <a href={anchor} onClick={handleDelete}>
+            <a href={anchor} onClick={handleDelete} className='text-danger'>
               <Icon name='trash' />
               Supprimer
             </a>
           )}
         </div>
       </div>
-      <div className='comment__content form-group stack'>{content}</div>
+      <div className='comment__content'>{content}</div>
       <div className='comment__replies'>{children}</div>
     </div>
   )
@@ -272,16 +279,16 @@ function CommentForm ({ onSubmit, parent, onCancel = null }) {
     <form className='grid' onSubmit={handleSubmit} ref={ref}>
       {!isAuthenticated() && (
         <>
-          <Field name='username' defaultValue='John' error={errors.username}>
+          <Field name='username' error={errors.username} required>
             Nom d'utilisateur
           </Field>
-          <Field name='email' type='email' defaultValue='john@doe.fr' required error={errors.email}>
+          <Field name='email' type='email' required error={errors.email}>
             Email
           </Field>
         </>
       )}
       <div className='full'>
-        <Field type='textarea' name='content' defaultValue='Votre message ici ' error={errors.content} required>
+        <Field type='textarea' name='content' error={errors.content} required>
           Votre message
         </Field>
       </div>

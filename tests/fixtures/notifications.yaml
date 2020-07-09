@@ -4,4 +4,3 @@ include:
 App\Domain\Notification\Entity\Notification:
   notification{1..5} (extends notification):
     user: '@user1'
-

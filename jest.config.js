@@ -80,8 +80,8 @@ module.exports = {
 
   // A map from regular expressions to module names that allow to stub out resources with a single module<
   moduleNameMapper: {
-    "@fn/(.*)$": "<rootDir>/../../assets/js/functions/$1",
-    "@el/(.*)$": "<rootDir>/../../assets/js/elements/$1",
+    '@fn/(.*)$': '<rootDir>/../../assets/js/functions/$1',
+    '@el/(.*)$': '<rootDir>/../../assets/js/elements/$1'
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
@@ -115,7 +115,7 @@ module.exports = {
   // restoreMocks: false,
 
   // The root directory that Jest should scan for tests and modules within
-  rootDir: 'tests/js',
+  rootDir: 'tests/js'
 
   // A list of paths to directories that Jest should use to search for files in
   // roots: [
@@ -188,4 +188,4 @@ module.exports = {
 
   // Whether to use watchman for file crawling
   // watchman: true,
-};
+}

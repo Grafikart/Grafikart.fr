@@ -7,7 +7,7 @@
   border-radius: 4px;
   display: flex;
   align-items: center;
-  animation: alertIn .5s both;
+  animation: alertIn 0.5s both;
   line-height: 1.2;
   position: relative;
   border-bottom: 3px solid var(--border);
@@ -16,7 +16,7 @@
   font-weight: bold;
 }
 .alert.out {
-  animation: alertOut .5s both;
+  animation: alertOut 0.5s both;
 }
 .alert > svg:first-child {
   flex: none;
@@ -30,14 +30,13 @@
   margin-left: auto;
   margin-right: 0;
   color: var(--color);
-  opacity: .3;
+  opacity: 0.3;
   cursor: pointer;
-  transition: opacity .3s;
+  transition: opacity 0.3s;
 
   &:hover {
-    opacity: .5;
+    opacity: 0.5;
   }
-
 }
 .alert-close svg {
   width: 12px;
@@ -45,24 +44,24 @@
   color: var(--color) !important;
 }
 .alert-danger {
-  border-bottom-color: #FB4635;
+  border-bottom-color: #fb4635;
 
   svg:first-child {
-    color: #FB4635;
+    color: #fb4635;
   }
 }
 .alert-success {
-  border-bottom-color: #23DB72;
+  border-bottom-color: #23db72;
 
   svg:first-child {
-    color: #23DB72;
+    color: #23db72;
   }
 }
 .alert-info {
-  border-bottom-color: #4869EE;
+  border-bottom-color: #4869ee;
 
   svg:first-child {
-    color: #4869EE;
+    color: #4869ee;
   }
 }
 
@@ -108,7 +107,7 @@
 }
 
 .dashboard .alert,
-.is-floating .alert{
+.is-floating .alert {
   box-shadow: 0 2px 20px var(--shadow);
   position: fixed;
   top: 20px;
@@ -126,9 +125,8 @@
   height: 6px;
   margin-left: auto;
   margin-right: auto;
-  background: #23DB72;
+  background: #23db72;
 }
 .bullet--danger {
-  background: #FB4635;
+  background: #fb4635;
 }
-

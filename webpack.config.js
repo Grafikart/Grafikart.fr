@@ -7,8 +7,7 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
   Encore.configureRuntimeEnvironment(process.env.NODE_ENV || 'dev')
 }
 
-Encore
-  .setOutputPath('public/assets/')
+Encore.setOutputPath('public/assets/')
   .setPublicPath('/assets')
   // only needed for CDN's or sub-directory deploy
   // .setManifestKeyPrefix('assets/')
@@ -16,29 +15,30 @@ Encore
   .addEntry('admin', './assets/js/admin.js')
   // .splitEntryChunks()
   .enableSingleRuntimeChunk()
-  .configureBabel(c => { return {} })
+  .configureBabel(c => {
+    return {}
+  })
   .addAliases({
     svelte: path.resolve('node_modules', 'svelte'),
     '@@': path.resolve('assets', 'js'),
     '@comp': path.resolve('assets', 'js', 'components'),
-    'react': 'preact/compat',
+    react: 'preact/compat',
     'react-dom': 'preact/compat'
   })
-  .addLoader(
-    {
-      test: /\.(html|svelte)$/,
-      exclude: /node_modules/,
-      use: {
-        loader: 'svelte-loader',
-        options: {
-          onwarn: function (warning, onwarn) {
-            if (warning.code !== 'avoid-is') {
-              onwarn(warning)
-            }
+  .addLoader({
+    test: /\.(html|svelte)$/,
+    exclude: /node_modules/,
+    use: {
+      loader: 'svelte-loader',
+      options: {
+        onwarn: function (warning, onwarn) {
+          if (warning.code !== 'avoid-is') {
+            onwarn(warning)
           }
         }
-      },
-    })
+      }
+    }
+  })
   /*
    * FEATURE CONFIG
    *

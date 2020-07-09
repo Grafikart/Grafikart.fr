@@ -4,10 +4,10 @@ parameters:
 
 services:
   _defaults:
-    autowire: true      # Automatically injects dependencies in your services.
+    autowire: true # Automatically injects dependencies in your services.
     autoconfigure: false # Automatically registers your services as commands, event subscribers, etc.
     public: false
 
   App\Infrastructure\Payment\Stripe\StripeApi:
     class: App\Infrastructure\Payment\Stripe\StripeApi
-    arguments: ["%stripe_secret_key%"]
+    arguments: ['%stripe_secret_key%']

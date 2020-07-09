@@ -12,8 +12,8 @@ const config = {
   alias: {
     '/@@/': './'
   },
-  configureServer: function ({app}) {
-    app.use(cors({origin: '*'}))
+  configureServer: function ({ app }) {
+    app.use(cors({ origin: '*' }))
   }
 }
 

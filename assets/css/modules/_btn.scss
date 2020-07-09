@@ -8,10 +8,10 @@
   border-radius: 4px;
   font-family: $font-alt;
   font-weight: bold;
-  color: #FFFFFF !important;
+  color: #ffffff !important;
   cursor: pointer;
-  transition: background .3s;
-  font-size: .9em;
+  transition: background 0.3s;
+  font-size: 0.9em;
 
   &:hover {
     background: var(--contrast);
@@ -48,7 +48,7 @@
   background: transparent;
 
   &:hover {
-    color: #FFF;
+    color: #fff;
   }
 }
 
@@ -62,7 +62,7 @@
   font-size: 1rem;
   font-weight: 700;
   font-family: $font-alt;
-  transition: .3s;
+  transition: 0.3s;
 
   @include up(1100) {
     font-size: 18px;
@@ -103,7 +103,7 @@
   width: 37px;
   height: 37px;
   position: relative;
-  color: #FFF;
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -127,7 +127,7 @@
     content: '';
     background: var(--border-light);
     border-radius: 100%;
-    transition: transform .3s;
+    transition: transform 0.3s;
   }
 
   span {
@@ -141,18 +141,18 @@
   }
 
   span:hover::after {
-    transform: scale(1.2)
+    transform: scale(1.2);
   }
 }
 
 .rounded-button.danger {
   span::after {
     background-color: var(--red);
-    opacity: .2;
+    opacity: 0.2;
   }
   span {
     background: var(--red);
-    color: #FFF;
+    color: #fff;
   }
 }
 

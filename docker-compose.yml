@@ -32,7 +32,7 @@ services:
       context: ./tools/docker/node
     command: yarn run dev-server
     working_dir: /usr/src/app
-    user: "${USER_ID}:${GROUP_ID}"
+    user: '${USER_ID}:${GROUP_ID}'
     volumes:
       - .:/usr/src/app
     ports:

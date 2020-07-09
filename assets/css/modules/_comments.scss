@@ -29,10 +29,10 @@
   grid-template-columns: 40px 1fr;
   grid-row-gap: space(1);
   grid-column-gap: space(2);
-  grid-template-areas: "avatar meta" "content content" "replies replies";
+  grid-template-areas: 'avatar meta' 'content content' 'replies replies';
 }
 .comment.is-loading {
-  opacity: .6;
+  opacity: 0.6;
 }
 .comment__author {
   font-family: $font-alt;
@@ -48,13 +48,13 @@
   grid-area: content;
 }
 .comment__actions {
-  transition: opacity .3s;
-  font-size: .9em;
+  transition: opacity 0.3s;
+  font-size: 0.9em;
   text-align: right;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  opacity: .6;
+  opacity: 0.6;
 
   a {
     display: inline-flex;
@@ -112,9 +112,9 @@
 @media (hover: hover) {
   .comment__actions a {
     opacity: 0;
-    transition: opacity .3s;
+    transition: opacity 0.3s;
   }
   .comment__actions:hover a {
-    opacity:  1;
+    opacity: 1;
   }
 }

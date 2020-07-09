@@ -10,7 +10,6 @@ Dépôt pour la nouvelle version de Grafikart.fr. L'objectif est de rendre le pr
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
 - [Etat d'avancement](#etat-davancement)
 - [Participer (faire une PR)](#participer-faire-une-pr)
 - [Objectifs, pourquoi une refonte ?](#objectifs-pourquoi-une-refonte-)

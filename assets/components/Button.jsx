@@ -1,14 +1,25 @@
+import { Loader } from './Form.jsx'
+
 export function PrimaryButton ({ children, ...props }) {
   return (
-    <button className='btn btn-primary' {...props}>
+    <Button className='btn-primary' {...props}>
       {children}
-    </button>
+    </Button>
   )
 }
 
 export function SecondaryButton ({ children, ...props }) {
   return (
-    <button className='btn btn-secondary' {...props}>
+    <Button className='btn-secondary' {...props}>
+      {children}
+    </Button>
+  )
+}
+
+export function Button ({ children, className = '', loading = false, ...props }) {
+  return (
+    <button className={'btn ' + className} disabled={loading} {...props}>
+      {loading && <Loader className='icon' />}
       {children}
     </button>
   )

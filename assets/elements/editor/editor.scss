@@ -1,10 +1,10 @@
 .mdeditor {
   position: relative;
   background-color: #fff;
-  box-shadow: 0 1px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.05);
   border: solid 1px var(--border);
   background: var(--background);
-  transition: box-shadow .3s;
+  transition: box-shadow 0.3s;
 }
 .mdeditor--fullscreen {
   position: fixed;
@@ -45,13 +45,13 @@
     outline: none;
 
     &:hover {
-      background-color: #F5F5F5;
+      background-color: #f5f5f5;
     }
   }
 
   svg {
     margin-top: 3px;
-    fill: #1D1D1D;
+    fill: #1d1d1d;
     width: 15px;
     height: 15px;
   }
@@ -63,8 +63,8 @@
 // CodeMirror
 // ======================
 .mdeditor .CodeMirror-cursor {
-  background-color: transparent!important;
-  border-left: 2px solid var(--contrast)!important;
+  background-color: transparent !important;
+  border-left: 2px solid var(--contrast) !important;
 }
 .mdeditor__editor .CodeMirror-selected {
   background: var(--border);

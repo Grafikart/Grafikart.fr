@@ -149,7 +149,7 @@
 .stack-large,
 .stack-separated {
   --gap: 2;
-  display: grid!important;
+  display: grid !important;
   grid-template-columns: 1fr;
   align-content: flex-start;
   grid-gap: calc(var(--gap) * var(--space));
@@ -181,7 +181,7 @@
 }
 
 %hstack > * + * {
-  margin-left: calc(var(--gap) * var(--space));;
+  margin-left: calc(var(--gap) * var(--space));
 }
 
 .hstack > * + * {
