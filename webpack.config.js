@@ -21,6 +21,7 @@ Encore
     svelte: path.resolve('node_modules', 'svelte'),
     '@fn': path.resolve('assets', 'js', 'functions'),
     '@el': path.resolve('assets', 'js', 'elements'),
+    '@@': path.resolve('assets', 'js'),
     '@comp': path.resolve('assets', 'js', 'components'),
     'react': 'preact/compat',
     'react-dom': 'preact/compat'

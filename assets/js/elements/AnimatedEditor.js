@@ -1,4 +1,4 @@
-import {randomBetween} from '@fn/math'
+import {randomBetween} from '@@/functions/math.js'
 
 const lineHeight = 18 // Hauteur de ligne
 const lineDuration = .4 // Durée d'animation pour une ligne

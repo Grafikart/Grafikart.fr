@@ -1,4 +1,4 @@
-import {slideUp} from '../modules/animation'
+import {slideUp} from '@@/functions/animation.js'
 
 export class Alert extends HTMLElement {
   constructor ({type, message} = {}) {

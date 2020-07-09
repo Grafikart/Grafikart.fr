@@ -1,8 +1,8 @@
-import {jsonFetch} from '@fn/api'
-import {slideUpAndRemove} from '@fn/animation'
-import LoaderOverlay from '@el/LoaderOverlay'
-import {FloatingAlert} from '@el/Alert'
-import {closest} from '@fn/dom'
+import {jsonFetch} from '@@/functions/api.js'
+import {slideUpAndRemove} from '@@/functions/animation.js'
+import LoaderOverlay from '@@/elements/LoaderOverlay.js'
+import {FloatingAlert} from '@@/elements/Alert.js'
+import {closest} from '@@/functions/dom.js'
 
 /**
  * Bouton pour appeler une URL avec la méthode DELETE et masquer le parent en cas de retour

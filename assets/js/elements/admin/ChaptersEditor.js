@@ -1,7 +1,7 @@
-import {closest, html} from '@fn/dom'
-import {enterKeyListener} from '@fn/keyboard'
+import {closest, html} from '@@/functions/dom.js'
+import {enterKeyListener} from '@@/functions/keyboard.js'
 import Sortable from 'sortablejs'
-import {jsonFetch} from '@fn/api'
+import {jsonFetch} from '@@/functions/api'
 
 
 /**

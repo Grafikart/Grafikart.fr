@@ -1,6 +1,6 @@
 // On mémorise si la page précédente avait la vague
-import {offsetTop} from '../functions/dom'
-import {debounce} from '../functions/timers'
+import {offsetTop} from '@@/functions/dom.js'
+import {debounce} from '@@/functions/timers.js'
 
 let previousPageHadWaves = false
 

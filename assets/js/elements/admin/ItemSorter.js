@@ -1,5 +1,5 @@
 import Sortable from 'sortablejs'
-import {jsonFetch} from '@fn/api'
+import {jsonFetch} from '@@/functions/api.js'
 import SpinningDots from '@grafikart/spinning-dots-element'
 
 /**

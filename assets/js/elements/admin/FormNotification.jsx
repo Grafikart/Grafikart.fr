@@ -1,7 +1,7 @@
-import preactCustomElement from '@fn/preact'
-import {FetchForm, FormField, FormPrimaryButton} from '@comp/Form'
+import preactCustomElement from '@@/functions/preact.js'
+import {FetchForm, FormField, FormPrimaryButton} from '@@/components/Form.jsx'
 import {useState} from 'preact/hooks'
-import {flash} from '@el/Alert'
+import {flash} from '@@/elements/Alert.js'
 
 function FormNotification () {
 

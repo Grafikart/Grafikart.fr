@@ -1,12 +1,12 @@
 import {Fragment} from 'preact'
 import {useEffect, useRef, useState} from 'preact/hooks'
-import {useClickOutside, usePrepend} from '@fn/hooks'
-import {Icon} from '@comp/Icon'
-import {SlideIn} from '@comp/Animation/SlideIn'
+import {useClickOutside, usePrepend} from '@@/functions/hooks.js'
+import {Icon} from '@@/components/Icon.jsx'
+import {SlideIn} from '@@/components/Animation/SlideIn.jsx'
 import {isAuthenticated, lastNotificationRead} from '@fn/auth'
-import {Spinner} from '@comp/Animation/Spinner'
-import {loadNotifications} from '../api/notifications'
-import preactCustomElement from '@fn/preact'
+import {Spinner} from '@@/components/Animation/Spinner.jsx'
+import {loadNotifications} from '../api/notifications.js'
+import preactCustomElement from '@@/functions/preact.js'
 
 const OPEN = 0
 const CLOSE = 1

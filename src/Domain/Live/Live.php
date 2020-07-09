@@ -20,17 +20,17 @@ class Live
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
      */
-    private int $id = 0;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private string $name = '';
+    private string $name;
 
     /**
      * @ORM\Column(type="text")
      */
-    private string $description = '';
+    private string $description;
 
     /**
      * @ORM\Column(type="string", length=20)
@@ -108,7 +108,8 @@ class Live
         return $this;
     }
 
-    public function getYoutubeUrl(): ?string {
+    public function getYoutubeUrl(): ?string
+    {
         return 'https://youtu.be/' . $this->youtubeId;
     }
 
@@ -188,5 +189,4 @@ class Live
         $this->imageName = $imageName;
         return $this;
     }
-
 }

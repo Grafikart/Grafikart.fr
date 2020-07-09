@@ -1,9 +1,9 @@
 import {createContext} from 'preact'
-import {jsonFetch} from '@fn/api'
+import {jsonFetch} from '@@/functions/api.js'
 import {useEffect, useRef, useState} from 'preact/hooks'
-import {PrimaryButton} from './Button'
-import {useAutofocus} from '@fn/hooks'
-import {flash} from '@el/Alert'
+import {PrimaryButton} from './Button.jsx'
+import {useAutofocus} from '@@/functions/hooks.js'
+import {flash} from '@@/elements/Alert.js'
 
 export const FormContext = createContext({
   data: {},

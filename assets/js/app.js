@@ -1,15 +1,15 @@
 import '../css/app.scss'
 
-import './elements'
-import './pages'
+import './elements/index.js'
+import './pages/index.js'
 
 import Turbolinks from 'turbolinks'
 
-import './modules/scrollreveal'
-import './modules/highlight'
-import {showHistory} from './modules/history'
+import './modules/scrollreveal.js'
+import './modules/highlight.js'
+import {showHistory} from './modules/history.js'
 import Choices from 'choices.js'
-import {$$} from '@fn/dom'
+import {$$} from '@@/functions/dom.js'
 
 document.addEventListener('turbolinks:load', function () {
   const darkToggle = document.querySelector('#dark-toggle')

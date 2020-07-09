@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'preact/hooks'
-import {jsonFetch} from '@fn/api'
-import {flash} from '@el/Alert'
+import {jsonFetch} from '@@/functions/api.js'
+import {flash} from '@@/elements/Alert.js'
 
 /**
  * Alterne une valeur

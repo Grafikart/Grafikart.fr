@@ -1,4 +1,4 @@
-import {createElement} from '@fn/dom'
+import {createElement} from '@@/functions/dom.js'
 
 /**
  * @property {HTMLDivElement} container

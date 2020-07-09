@@ -1,4 +1,4 @@
-import {jsonFetch} from '@fn/api'
+import {jsonFetch} from '@@/functions/api.js'
 
 /**
  * Représentation d'un commentaire de l'API

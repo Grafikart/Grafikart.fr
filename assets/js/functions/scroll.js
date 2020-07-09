@@ -1,5 +1,5 @@
-import {offsetTop} from '@fn/dom'
-import {windowHeight} from '@fn/window'
+import {offsetTop} from '@@/functions/dom.js'
+import {windowHeight} from '@@/functions/window.js'
 
 /**
  * Scroll vers l'éménet en le plaçant au centre de la fenêtre si il n'est pas trop grand
