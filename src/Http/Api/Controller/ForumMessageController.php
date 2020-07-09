@@ -16,7 +16,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ForumMessageController extends AbstractController
 {
-
     /**
      * @Route("/topics/{id}/messages", name="messages_post_collection", methods={"POST"})
      */
@@ -28,7 +27,7 @@ class ForumMessageController extends AbstractController
         EventDispatcherInterface $dispatcher
     ): JsonResponse {
         $this->denyAccessUnlessGranted(ForumVoter::CREATE_MESSAGE, $topic);
-        $data = json_decode((string)$request->getContent(), true);
+        $data = json_decode((string) $request->getContent(), true);
         $message = (new Message())
             ->setCreatedAt(new \DateTime())
             ->setUpdatedAt(new \DateTime())
@@ -39,10 +38,10 @@ class ForumMessageController extends AbstractController
         $em->persist($message);
         $em->flush();
         $dispatcher->dispatch(new MessageCreatedEvent($message));
+
         return new JsonResponse([
-            'id'   => $message->getId(),
-            'html' => $this->renderView('forum/_message.html.twig', ['message' => $message])
+            'id' => $message->getId(),
+            'html' => $this->renderView('forum/_message.html.twig', ['message' => $message]),
         ], 201);
     }
-
 }

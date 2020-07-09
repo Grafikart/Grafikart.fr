@@ -13,11 +13,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
- * Permet la gestion des tags sur le forum
+ * Permet la gestion des tags sur le forum.
  */
 final class ForumTagController extends CrudController
 {
-
     protected string $templatePath = 'forum/tag';
     protected string $menuItem = 'forum-tag';
     protected string $entity = Tag::class;
@@ -30,9 +29,9 @@ final class ForumTagController extends CrudController
     public function index(SerializerInterface $serializer, TagRepository $tagRepository, Request $request): Response
     {
         return $this->render("admin/{$this->templatePath}/index.html.twig", [
-            'tags'   => $serializer->serialize($tagRepository->findTree(), 'json'),
-            'menu'   => $this->menuItem,
-            'prefix' => $this->routePrefix
+            'tags' => $serializer->serialize($tagRepository->findTree(), 'json'),
+            'menu' => $this->menuItem,
+            'prefix' => $this->routePrefix,
         ]);
     }
 
@@ -43,6 +42,7 @@ final class ForumTagController extends CrudController
     {
         $tag = (new Tag())->setCreatedAt(new \DateTime());
         $data = new ForumTagCrudData($tag);
+
         return $this->crudNew($data);
     }
 
@@ -52,6 +52,7 @@ final class ForumTagController extends CrudController
     public function edit(Tag $tag): Response
     {
         $data = new ForumTagCrudData($tag);
+
         return $this->crudEdit($data);
     }
 
@@ -64,11 +65,12 @@ final class ForumTagController extends CrudController
         if (in_array('application/json', $request->getAcceptableContentTypes())) {
             return new JsonResponse([]);
         }
+
         return $response;
     }
 
     /**
-     * Mémorise la position des tags dans la base de données
+     * Mémorise la position des tags dans la base de données.
      *
      * ## Requête
      *
@@ -78,25 +80,26 @@ final class ForumTagController extends CrudController
      */
     public function sort(Request $request, TagRepository $tagRepository, EntityManagerInterface $em): Response
     {
-        ['positions' => $positions] = json_decode((string)$request->getContent(), true);
+        ['positions' => $positions] = json_decode((string) $request->getContent(), true);
         $positionById = array_reduce($positions, function ($acc, $position) {
             $acc[$position['id']] = $position;
+
             return $acc;
         }, []);
         $tags = $tagRepository->findBy(['id' => array_keys($positionById)]);
-        foreach($tags as $tag) {
+        foreach ($tags as $tag) {
             $position = $positionById[$tag->getId()];
             $parent = null;
             if ($position['parent'] > 0) {
                 /** @var Tag $parent */
-                $parent = $this->em->getReference(Tag::class, (int)$position['parent']);
+                $parent = $this->em->getReference(Tag::class, (int) $position['parent']);
             }
             $tag
                 ->setParent($parent)
                 ->setPosition($position['position'] + 1);
         }
         $em->flush();
+
         return new JsonResponse([], 200);
     }
-
 }

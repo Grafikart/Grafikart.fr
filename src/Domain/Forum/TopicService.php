@@ -10,7 +10,6 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class TopicService
 {
-
     private EventDispatcherInterface $dispatcher;
     private EntityManagerInterface $em;
 
@@ -29,5 +28,4 @@ class TopicService
         $this->em->flush();
         $this->dispatcher->dispatch(new TopicCreatedEvent($topic));
     }
-
 }

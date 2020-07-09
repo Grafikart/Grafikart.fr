@@ -7,7 +7,6 @@ use Symfony\Component\HttpKernel\KernelInterface;
 
 abstract class MySQLImporter extends DataImporter
 {
-
     use DatabaseImporterTools;
 
     protected \PDO $pdo;
@@ -19,5 +18,4 @@ abstract class MySQLImporter extends DataImporter
         $this->pdo->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
         parent::__construct($em, $kernel);
     }
-
 }

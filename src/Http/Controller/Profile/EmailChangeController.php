@@ -11,7 +11,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class EmailChangeController extends AbstractController
 {
-
     /**
      * @Route("/email-confirm/{token}", name="user_email_confirm")
      */
@@ -27,7 +26,7 @@ class EmailChangeController extends AbstractController
             $em->flush();
             $this->addFlash('success', 'Votre email a bien été modifié');
         }
+
         return $this->redirectToRoute('user_edit');
     }
-
 }

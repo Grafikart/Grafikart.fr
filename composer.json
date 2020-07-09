@@ -12,6 +12,7 @@
     "cocur/slugify": "^4.0",
     "erusev/parsedown": "^1.7",
     "everyman/neo4jphp": "dev-master",
+    "friendsofphp/php-cs-fixer": "^2.16",
     "google/apiclient": "^2.0",
     "intervention/image": "^2.5",
     "knplabs/knp-paginator-bundle": "^5.1",

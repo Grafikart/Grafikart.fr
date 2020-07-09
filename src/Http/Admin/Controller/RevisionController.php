@@ -14,11 +14,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Permet la gestion du blog
+ * Permet la gestion du blog.
  */
 final class RevisionController extends CrudController
 {
-
     protected string $templatePath = 'revision';
     protected string $menuItem = 'revision';
     protected string $entity = Revision::class;
@@ -26,7 +25,7 @@ final class RevisionController extends CrudController
     protected array $events = [
         'update' => PostUpdatedEvent::class,
         'delete' => PostDeletedEvent::class,
-        'create' => PostCreatedEvent::class
+        'create' => PostCreatedEvent::class,
     ];
 
     /**
@@ -34,8 +33,8 @@ final class RevisionController extends CrudController
      */
     public function edit(Revision $revision, Request $request, EventDispatcherInterface $dispatcher): Response
     {
-        if ($request->getMethod() === 'POST') {
-            $isDeleteRequest = $request->get('delete') !== null;
+        if ('POST' === $request->getMethod()) {
+            $isDeleteRequest = null !== $request->get('delete');
             if ($isDeleteRequest) {
                 $dispatcher->dispatch(new RevisionRefusedEvent($revision));
                 $this->addFlash('success', 'La révision a bien été supprimée');
@@ -44,10 +43,12 @@ final class RevisionController extends CrudController
                 $dispatcher->dispatch(new RevisionAcceptedEvent($revision));
                 $this->addFlash('success', 'La révision a bien été acceptée');
             }
+
             return $this->redirectToRoute('admin_home');
         }
+
         return $this->render('admin/revision/edit.html.twig', [
-            'revision' => $revision
+            'revision' => $revision,
         ]);
     }
 
@@ -58,7 +59,7 @@ final class RevisionController extends CrudController
     {
         $dispatcher->dispatch(new RevisionRefusedEvent($revision));
         $this->addFlash('success', 'La révision a bien été supprimée');
+
         return $this->redirectToRoute('admin_home');
     }
-
 }

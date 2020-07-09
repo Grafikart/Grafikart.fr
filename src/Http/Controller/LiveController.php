@@ -16,21 +16,22 @@ class LiveController extends AbstractController
      */
     public function index(LiveRepository $repo, ?int $year, Request $request, LiveService $liveService): Response
     {
-        $year = $year ?: (int)date('Y');
+        $year = $year ?: (int) date('Y');
         $lives = $repo->findForYear($year);
         if ($request->get('ajax')) {
             return $this->render('live/year.html.twig', [
-                'lives' => $lives
+                'lives' => $lives,
             ]);
         } else {
             $live = $liveService->getCurrentLive();
+
             return $this->render('live/index.html.twig', [
-                'menu'  => 'live',
-                'year'  => $year,
+                'menu' => 'live',
+                'year' => $year,
                 'years' => $repo->findYears(),
                 'lives' => $lives,
-                'live'  => $live,
-                'on_air' => $live && $live->getCreatedAt() <= new \DateTime()
+                'live' => $live,
+                'on_air' => $live && $live->getCreatedAt() <= new \DateTime(),
             ]);
         }
     }

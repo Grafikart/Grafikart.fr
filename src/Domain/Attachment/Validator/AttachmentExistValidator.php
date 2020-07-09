@@ -16,7 +16,7 @@ class AttachmentExistValidator extends ConstraintValidator
     }
 
     /**
-     * @param mixed $value
+     * @param mixed           $value
      * @param AttachmentExist $constraint
      */
     public function validate($value, Constraint $constraint): void
@@ -27,8 +27,7 @@ class AttachmentExistValidator extends ConstraintValidator
 
         $this->context
             ->buildViolation($constraint->message)
-            ->setParameter('{{ id }}', (string)$value->getId())
+            ->setParameter('{{ id }}', (string) $value->getId())
             ->addViolation();
     }
-
 }

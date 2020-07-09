@@ -12,7 +12,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Notification
 {
-
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -71,6 +70,7 @@ class Notification
     public function setId(?int $id): Notification
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -82,6 +82,7 @@ class Notification
     public function setUser(?User $user): Notification
     {
         $this->user = $user;
+
         return $this;
     }
 
@@ -93,6 +94,7 @@ class Notification
     public function setMessage(string $message): Notification
     {
         $this->message = $message;
+
         return $this;
     }
 
@@ -104,6 +106,7 @@ class Notification
     public function setUrl(?string $url): Notification
     {
         $this->url = $url;
+
         return $this;
     }
 
@@ -115,6 +118,7 @@ class Notification
     public function setCreatedAt(\DateTimeInterface $createdAt): Notification
     {
         $this->createdAt = $createdAt;
+
         return $this;
     }
 
@@ -126,6 +130,7 @@ class Notification
     public function setChannel(?string $channel): Notification
     {
         $this->channel = $channel;
+
         return $this;
     }
 
@@ -137,19 +142,17 @@ class Notification
     public function setTarget(?string $target): Notification
     {
         $this->target = $target;
+
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isRead(): bool
     {
-        if ($this->user === null) {
+        if (null === $this->user) {
             return false;
         }
         $notificationsReadAt = $this->user->getNotificationsReadAt();
+
         return $notificationsReadAt ? ($this->createdAt > $notificationsReadAt) : false;
     }
-
 }

@@ -9,7 +9,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 abstract class EventSubscriberTest extends KernelTestCase
 {
-
     protected function dispatch(EventSubscriberInterface $subscriber, object $event): void
     {
         $dispatcher = new EventDispatcher();
@@ -18,7 +17,7 @@ abstract class EventSubscriberTest extends KernelTestCase
     }
 
     /**
-     * Vérifie qu'un subscriber écoute bien un évènement donnée au niveau du kernel
+     * Vérifie qu'un subscriber écoute bien un évènement donnée au niveau du kernel.
      */
     protected function assertSubsribeTo(string $subscriberClass, string $event): void
     {
@@ -27,8 +26,7 @@ abstract class EventSubscriberTest extends KernelTestCase
         $dispatcher = self::$container->get(EventDispatcherInterface::class);
         $subscribers = $dispatcher->getListeners($event);
         // TODO : Ne fonctionne pour le moment qu'avec des subscribers, à voir les listeners
-        $subscribers = array_map(fn($subscriber) => get_class($subscriber[0]), $subscribers);
+        $subscribers = array_map(fn ($subscriber) => get_class($subscriber[0]), $subscribers);
         $this->assertContains($subscriberClass, $subscribers);
     }
-
 }

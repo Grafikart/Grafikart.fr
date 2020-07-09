@@ -10,16 +10,15 @@ const HARD = 2;
 
 trait LevelTrait
 {
-
     /**
      * @ORM\Column(type="smallint", options={"default" : 0})
      */
     private int $level = 0;
 
-    static array $levels = [
-        EASY   => 'Débutant',
+    public static array $levels = [
+        EASY => 'Débutant',
         MEDIUM => 'Amateur',
-        HARD   => 'Expert'
+        HARD => 'Expert',
     ];
 
     public function getLevel(): int
@@ -38,5 +37,4 @@ trait LevelTrait
 
         return $this;
     }
-
 }

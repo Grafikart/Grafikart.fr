@@ -13,7 +13,6 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class ApiNotificationSubscriber implements EventSubscriberInterface
 {
-
     private EventDispatcherInterface $dispatcher;
 
     public function __construct(EventDispatcherInterface $dispatcher)
@@ -24,7 +23,7 @@ class ApiNotificationSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::VIEW => ['dispatchNotificationCreation', EventPriorities::PRE_WRITE]
+            KernelEvents::VIEW => ['dispatchNotificationCreation', EventPriorities::PRE_WRITE],
         ];
     }
 
@@ -36,7 +35,7 @@ class ApiNotificationSubscriber implements EventSubscriberInterface
             !$controllerResult instanceof Notification
             || !($attributes = RequestAttributesExtractor::extractAttributes($request))
             || !$attributes['persist']
-            || $request->getMethod() !== 'POST'
+            || 'POST' !== $request->getMethod()
         ) {
             return;
         }

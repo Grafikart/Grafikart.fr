@@ -29,8 +29,6 @@ class CommentPersister implements ContextAwareDataPersisterInterface
 
     /**
      * @param object $data
-     * @param array $context
-     * @return bool
      */
     public function supports($data, array $context = []): bool
     {
@@ -39,7 +37,7 @@ class CommentPersister implements ContextAwareDataPersisterInterface
 
     /**
      * @param CommentResource $data
-     * @param array $context
+     *
      * @throws \Exception
      */
     public function persist($data, array $context = []): CommentResource
@@ -52,7 +50,7 @@ class CommentPersister implements ContextAwareDataPersisterInterface
         }
         $this->validator->validate($data, ['groups' => $groups]);
 
-        if ($data->entity !== null) {
+        if (null !== $data->entity) {
             // On met à jour un commentaire
             $comment = $data->entity;
             $comment->setContent($data->content);
@@ -73,12 +71,12 @@ class CommentPersister implements ContextAwareDataPersisterInterface
             $this->em->persist($comment);
         }
         $this->em->flush();
+
         return CommentResource::fromComment($comment);
     }
 
     /**
      * @param CommentResource $data
-     * @param array $context
      */
     public function remove($data, array $context = []): CommentResource
     {
@@ -86,6 +84,7 @@ class CommentPersister implements ContextAwareDataPersisterInterface
         $comment = $this->em->getReference(Comment::class, $data->id);
         $this->em->remove($comment);
         $this->em->flush();
+
         return $data;
     }
 }

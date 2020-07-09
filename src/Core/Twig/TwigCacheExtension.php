@@ -11,7 +11,6 @@ use Twig\TokenParser\AbstractTokenParser;
 
 class TwigCacheExtension extends AbstractExtension
 {
-
     private AdapterInterface $cache;
 
     public function __construct(AdapterInterface $cache)
@@ -25,12 +24,12 @@ class TwigCacheExtension extends AbstractExtension
     public function getTokenParsers(): array
     {
         return [
-            new CacheTokenParser()
+            new CacheTokenParser(),
         ];
     }
 
     /**
-     * @param CacheableInterface|string|null|array $item
+     * @param CacheableInterface|string|array|null $item
      */
     public function getCacheKey($item): string
     {
@@ -51,9 +50,10 @@ class TwigCacheExtension extends AbstractExtension
             $id = $item->getId();
             $className = get_class($item);
             $className = substr($className, strrpos($className, '\\') + 1);
-            return $id . $className . $updatedAt->getTimestamp();
+
+            return $id.$className.$updatedAt->getTimestamp();
         } catch (\Error $e) {
-            throw new \Exception("TwigCache : Impossible de serialiser l'objet pour le cache : \n" . $e->getMessage());
+            throw new \Exception("TwigCache : Impossible de serialiser l'objet pour le cache : \n".$e->getMessage());
         }
     }
 
@@ -64,6 +64,7 @@ class TwigCacheExtension extends AbstractExtension
     {
         /** @var CacheItem $item */
         $item = $this->cache->getItem($this->getCacheKey($item));
+
         return $item->get();
     }
 
@@ -77,5 +78,4 @@ class TwigCacheExtension extends AbstractExtension
         $item->set($value);
         $this->cache->save($item);
     }
-
 }

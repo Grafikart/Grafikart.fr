@@ -1,14 +1,11 @@
 <?php
 
-
 namespace App\Domain\Forum\Entity;
-
 
 use Doctrine\ORM\Mapping as ORM;
 
 trait SpamTrait
 {
-
     /**
      * @ORM\Column(type="boolean", options={"default" : 1})
      */
@@ -22,9 +19,7 @@ trait SpamTrait
     public function setSpam(bool $spam): self
     {
         $this->spam = $spam;
+
         return $this;
     }
-
-
-
 }

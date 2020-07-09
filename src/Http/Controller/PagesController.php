@@ -11,7 +11,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PagesController extends AbstractController
 {
-
     /**
      * @Route("/", name="home")
      */
@@ -20,7 +19,7 @@ class PagesController extends AbstractController
         return $this->render('pages/home.html.twig', [
             'courses' => $courseRepository->findRecent(3),
             'formations' => $formationRepository->findRecent(3),
-            'posts' => $postRepository->findRecent(5)
+            'posts' => $postRepository->findRecent(5),
         ]);
     }
 
@@ -31,5 +30,4 @@ class PagesController extends AbstractController
     {
         return $this->render('pages/env.html.twig');
     }
-
 }

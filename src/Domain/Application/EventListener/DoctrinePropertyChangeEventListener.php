@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Domain\Application\EventListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
@@ -8,11 +7,10 @@ use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 /**
- * Ecouteur
+ * Ecouteur.
  */
 class DoctrinePropertyChangeEventListener
 {
-
     private array $listeners;
     private PropertyAccessorInterface $propertyAccessor;
 
@@ -27,6 +25,7 @@ class DoctrinePropertyChangeEventListener
 
     /**
      * @param object $entity
+     *
      * @return void
      */
     public function prePersist($entity, LifecycleEventArgs $event)
@@ -43,6 +42,7 @@ class DoctrinePropertyChangeEventListener
 
     /**
      * @param object $entity
+     *
      * @return void
      */
     public function preUpdate($entity, PreUpdateEventArgs $event)
@@ -57,5 +57,4 @@ class DoctrinePropertyChangeEventListener
             }
         }
     }
-
 }

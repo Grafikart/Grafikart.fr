@@ -3,13 +3,12 @@
 namespace App\Tests\Core\Helper;
 
 /**
- * Série de fonctions permettant de générer des objets en liens avec l'API de Google
+ * Série de fonctions permettant de générer des objets en liens avec l'API de Google.
  */
 class GoogleTestHelper
 {
-
     /**
-     * Génère un faux PlaylistItem
+     * Génère un faux PlaylistItem.
      *
      * @param array{id?: string, description?: string, title?: string, date?: string, duration?: int} $options
      *
@@ -20,7 +19,8 @@ class GoogleTestHelper
      * - title (string)
      * - date (string)
      */
-    public static function fakeYoutubePlaylistItem(array $options = []): \Google_Service_YouTube_PlaylistItem {
+    public static function fakeYoutubePlaylistItem(array $options = []): \Google_Service_YouTube_PlaylistItem
+    {
         $item = new \Google_Service_YouTube_PlaylistItem();
         $id = new \Google_Service_YouTube_ResourceId();
         $id->setVideoId($options['id'] ?? 'video');
@@ -35,7 +35,7 @@ class GoogleTestHelper
         $snippet->setResourceId($id);
         $item->setSnippet($snippet);
         $item->setContentDetails($contentDetails);
+
         return $item;
     }
-
 }

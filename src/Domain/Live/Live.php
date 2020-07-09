@@ -14,7 +14,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class Live
 {
-
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -69,6 +68,7 @@ class Live
         $thumbnail = $video->getSnippet()->getThumbnails()->getMaxres();
         /** @var Google_Service_YouTube_Thumbnail|null $thumbnail */
         $thumbnail = $thumbnail ?: $video->getSnippet()->getThumbnails()->getHigh();
+
         return (new self())
             ->setCreatedAt($publishedAt)
             ->setYoutubeId($video->getId())
@@ -82,6 +82,7 @@ class Live
     public function setId(int $id): self
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -116,7 +117,7 @@ class Live
 
     public function getYoutubeUrl(): ?string
     {
-        return 'https://youtu.be/' . $this->youtubeId;
+        return 'https://youtu.be/'.$this->youtubeId;
     }
 
     public function getYoutubeId(): ?string
@@ -162,6 +163,7 @@ class Live
 
     /**
      * @param int|\DateInterval $duration
+     *
      * @return $this
      */
     public function setDuration($duration): self
@@ -171,6 +173,7 @@ class Live
         } else {
             $this->duration = $duration;
         }
+
         return $this;
     }
 
@@ -182,6 +185,7 @@ class Live
     public function setImage(?File $image): Live
     {
         $this->image = $image;
+
         return $this;
     }
 
@@ -193,6 +197,7 @@ class Live
     public function setImageName(?string $imageName): Live
     {
         $this->imageName = $imageName;
+
         return $this;
     }
 }

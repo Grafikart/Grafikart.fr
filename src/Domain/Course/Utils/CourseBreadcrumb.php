@@ -7,16 +7,14 @@ use App\Domain\Course\Entity\Course;
 
 class CourseBreadcrumb implements BreadcrumbInterface
 {
-
     /**
      * @param Course $course
-     * @return array
      */
     public function generate($course): array
     {
         $items = [];
         $items['Tutoriels'] = ['course_index'];
-        foreach($course->getMainTechnologies() as $technology) {
+        foreach ($course->getMainTechnologies() as $technology) {
             $items[$technology->getName()] = ['technology_show', ['slug' => $technology->getSlug()]];
         }
         if ($formation = $course->getFormation()) {
@@ -24,8 +22,9 @@ class CourseBreadcrumb implements BreadcrumbInterface
         }
         $items[$course->getTitle()] = ['course_show', [
             'id' => $course->getId(),
-            'slug' => $course->getSlug()
+            'slug' => $course->getSlug(),
         ]];
+
         return $items;
     }
 

@@ -3,11 +3,10 @@
 namespace App\Domain\Live;
 
 /**
- * Gère la synchronisation des streams sur le site
+ * Gère la synchronisation des streams sur le site.
  */
 class LiveSyncService
 {
-
     private LiveRepository $liveRepository;
 
     private string $playlistID;
@@ -49,11 +48,10 @@ class LiveSyncService
         // On récupère les vidéos depuis l'API
         /** @var \Google_Service_YouTube_Video[] $videos */
         $videos = $this->service->videos->listVideos('snippet,contentDetails', [
-            'id' => implode(',', array_reverse($videos))
+            'id' => implode(',', array_reverse($videos)),
         ])->getItems();
 
         // On convertit les vidéos youtube en Live
         return array_map(fn (\Google_Service_YouTube_Video $video) => Live::fromYoutubeVideo($video), $videos);
     }
-
 }

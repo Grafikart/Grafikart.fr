@@ -9,18 +9,16 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PremiumController extends AbstractController
 {
-
     /**
      * @Route("/premium", name="premium_index")
      */
     public function index(PlanRepository $planRepository): Response
     {
         $plans = $planRepository->findAll();
-        return $this->render("admin/premium/index.html.twig", [
+
+        return $this->render('admin/premium/index.html.twig', [
             'menu' => 'premium',
-            'plans' => $plans
+            'plans' => $plans,
         ]);
     }
-
-
 }

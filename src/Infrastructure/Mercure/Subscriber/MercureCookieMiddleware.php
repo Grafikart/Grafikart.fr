@@ -11,11 +11,10 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Security;
 
 /**
- * Ajoute le cookie nécessaire à mercure sur les réponses
+ * Ajoute le cookie nécessaire à mercure sur les réponses.
  */
 class MercureCookieMiddleware implements EventSubscriberInterface
 {
-
     private Security $security;
     private CookieGenerator $generator;
 
@@ -28,7 +27,7 @@ class MercureCookieMiddleware implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            KernelEvents::RESPONSE => ['setMercureCookie']
+            KernelEvents::RESPONSE => ['setMercureCookie'],
         ];
     }
 
@@ -37,7 +36,7 @@ class MercureCookieMiddleware implements EventSubscriberInterface
         $response = $event->getResponse();
         $request = $event->getRequest();
         if (
-            $event->getRequestType() !== HttpKernelInterface::MASTER_REQUEST ||
+            HttpKernelInterface::MASTER_REQUEST !== $event->getRequestType() ||
             !in_array('text/html', $request->getAcceptableContentTypes()) ||
             !($user = $this->security->getUser()) instanceof User
         ) {

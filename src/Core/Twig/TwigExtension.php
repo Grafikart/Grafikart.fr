@@ -9,12 +9,11 @@ use Twig\TwigFunction;
 
 class TwigExtension extends AbstractExtension
 {
-
     public function getFunctions(): array
     {
         return [
             new TwigFunction('icon', [$this, 'svgIcon'], ['is_safe' => ['html']]),
-            new TwigFunction('menu_active', [$this, 'menuActive'], ['is_safe' => ['html'], 'needs_context' => true])
+            new TwigFunction('menu_active', [$this, 'menuActive'], ['is_safe' => ['html'], 'needs_context' => true]),
         ];
     }
 
@@ -24,12 +23,12 @@ class TwigExtension extends AbstractExtension
             new TwigFilter('excerpt', [$this, 'excerpt']),
             new TwigFilter('markdown', [$this, 'markdown'], ['is_safe' => ['html']]),
             new TwigFilter('markdown_excerpt', [$this, 'markdownExcerpt'], ['is_safe' => ['html']]),
-            new TwigFilter('markdown_untrusted', [$this, 'markdownUntrusted'], ['is_safe' => ['html']])
+            new TwigFilter('markdown_untrusted', [$this, 'markdownUntrusted'], ['is_safe' => ['html']]),
         ];
     }
 
     /**
-     * Génère le code HTML pour une icone SVG
+     * Génère le code HTML pour une icone SVG.
      */
     public function svgIcon(string $name): string
     {
@@ -41,41 +40,44 @@ class TwigExtension extends AbstractExtension
     }
 
     /**
-     * Ajout une class is-active pour les éléments actifs du menu
+     * Ajout une class is-active pour les éléments actifs du menu.
+     *
      * @param array<string,mixed> $context
      */
     public function menuActive(array $context, string $name): string
     {
         if (($context['menu'] ?? null) === $name) {
-            return " aria-current=\"page\"";
+            return ' aria-current="page"';
         }
+
         return '';
     }
 
     /**
-     * Renvoie un extrait d'un texte
+     * Renvoie un extrait d'un texte.
      */
     public function excerpt(?string $content, int $characterLimit = 135): string
     {
-        if ($content === null) {
+        if (null === $content) {
             return '';
         }
         if (mb_strlen($content) <= $characterLimit) {
             return $content;
         }
         $lastSpace = strpos($content, ' ', $characterLimit);
-        if ($lastSpace === false) {
+        if (false === $lastSpace) {
             return $content;
         }
-        return substr($content, 0, $lastSpace) . '...';
+
+        return substr($content, 0, $lastSpace).'...';
     }
 
     /**
-     * Convertit le contenu markdown en HTML
+     * Convertit le contenu markdown en HTML.
      */
     public function markdown(?string $content): string
     {
-        if ($content === null) {
+        if (null === $content) {
             return '';
         }
         $content = (new Parsedown())->text($content);

@@ -9,7 +9,6 @@ use PHPUnit\Framework\TestCase;
 
 class TechnologiesTypeTest extends TestCase
 {
-
     private TechnologiesType $type;
 
     public function setUp(): void
@@ -65,11 +64,9 @@ class TechnologiesTypeTest extends TestCase
     {
         $technologies = $this->type->reverseTransform($value);
         $this->assertSameSize($expectedTechnologies, $technologies);
-        foreach($technologies as $k => $technology) {
+        foreach ($technologies as $k => $technology) {
             $this->assertEquals($expectedTechnologies[$k]->getName(), $technology->getName());
             $this->assertEquals($expectedTechnologies[$k]->getVersion(), $technology->getVersion());
         }
-
     }
-
 }

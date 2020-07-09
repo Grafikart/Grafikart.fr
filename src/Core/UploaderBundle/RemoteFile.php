@@ -2,18 +2,16 @@
 
 namespace App\Core\UploaderBundle;
 
-
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Mime\MimeTypes;
 
 /**
- * Représente un fichier qui sera uploadé à partir d'une URL
+ * Représente un fichier qui sera uploadé à partir d'une URL.
  */
 class RemoteFile extends UploadedFile
 {
-
     public function __construct(string $url)
     {
         $originalName = pathinfo($url, PATHINFO_BASENAME);
@@ -26,11 +24,11 @@ class RemoteFile extends UploadedFile
             $targetFile = $this->getTargetFile($directory, $name);
             // On copie la source vers la sortie
             $source = fopen($this->getPathname(), 'r');
-            if ($source === false) {
+            if (false === $source) {
                 throw new FileException(sprintf("Impossible d'ouvrir le fichier %s en lecture", $this->getPathname()));
             }
             $target = fopen($targetFile->getPathname(), 'w+');
-            if ($target === false) {
+            if (false === $target) {
                 throw new FileException(sprintf("Impossible d'ouvrir le fichier %s en écriture", $targetFile->getPathname()));
             }
             $copied = stream_copy_to_stream($source, $target);
@@ -41,6 +39,7 @@ class RemoteFile extends UploadedFile
             if (!$copied) {
                 throw new FileException(sprintf('Could not move the file "%s" to "%s"', $this->getPathname(), $targetFile->getPathname()));
             }
+
             return $targetFile;
         }
 
@@ -55,6 +54,7 @@ class RemoteFile extends UploadedFile
     public function getMimeType(): string
     {
         $ext = pathinfo($this->getPathname(), PATHINFO_EXTENSION);
+
         return MimeTypes::getDefault()->getMimeTypes($ext)[0];
     }
 

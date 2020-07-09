@@ -8,16 +8,15 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PremiumController extends AbstractController
 {
-
     /**
      * @Route("/premium", name="premium")
      */
     public function premium(PlanRepository $planRepository): Response
     {
         $plans = $planRepository->findall();
-        return $this->render("pages/premium.html.twig", [
-            'plans' => $plans
+
+        return $this->render('pages/premium.html.twig', [
+            'plans' => $plans,
         ]);
     }
-
 }

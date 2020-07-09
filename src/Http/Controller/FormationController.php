@@ -9,15 +9,15 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class FormationController extends AbstractController
 {
-
     /**
      * @Route("/formations", name="formation_index")
      */
     public function index(FormationRepository $formationRepository): Response
     {
         $formations = $formationRepository->findAll();
+
         return $this->render('formations/index.html.twig', [
-            'formations' => $formations
+            'formations' => $formations,
         ]);
     }
 
@@ -27,8 +27,7 @@ class FormationController extends AbstractController
     public function show(Formation $formation): Response
     {
         return $this->render('formations/show.html.twig', [
-            'formation' => $formation
+            'formation' => $formation,
         ]);
     }
-
 }

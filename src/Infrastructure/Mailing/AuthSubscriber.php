@@ -9,7 +9,6 @@ use Symfony\Component\Mime\Email;
 
 class AuthSubscriber implements EventSubscriberInterface
 {
-
     private EmailFactory $factory;
     private MailerInterface $mailer;
 
@@ -25,7 +24,7 @@ class AuthSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            PasswordResetTokenCreatedEvent::class => 'onPasswordRequest'
+            PasswordResetTokenCreatedEvent::class => 'onPasswordRequest',
         ];
     }
 
@@ -34,7 +33,7 @@ class AuthSubscriber implements EventSubscriberInterface
         $email = $this->factory->makeFromTemplate('mails/auth/password_reset.html.twig', [
             'token' => $event->getToken()->getToken(),
             'id' => $event->getUser()->getId(),
-            'username' => $event->getUser()->getUsername()
+            'username' => $event->getUser()->getUsername(),
         ])
             ->to($event->getUser()->getEmail())
             ->from('noreply@grafikart.fr')

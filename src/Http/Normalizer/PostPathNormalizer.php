@@ -8,27 +8,26 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class PostPathNormalizer implements NormalizerInterface
 {
-
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function normalize($object, string $format = null, array $context = [])
     {
         if ($object instanceof Post) {
             return [
                 'path' => 'blog_show',
-                'params' => ['slug' => $object->getSlug()]
+                'params' => ['slug' => $object->getSlug()],
             ];
         }
         throw new \RuntimeException("Can't normalize path");
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function supportsNormalization($data, string $format = null)
     {
         return ($data instanceof Post)
-            && $format === PathEncoder::FORMAT;
+            && PathEncoder::FORMAT === $format;
     }
 }

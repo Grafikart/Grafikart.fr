@@ -8,7 +8,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class LoginAttemptSubscriber implements EventSubscriberInterface
 {
-
     private LoginAttemptService $service;
 
     public function __construct(LoginAttemptService $service)
@@ -22,7 +21,7 @@ class LoginAttemptSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            BadPasswordLoginEvent::class => 'onAuthenticationFailure'
+            BadPasswordLoginEvent::class => 'onAuthenticationFailure',
         ];
     }
 

@@ -11,7 +11,6 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class TopicRepository extends ServiceEntityRepository
 {
-
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Topic::class);
@@ -32,6 +31,7 @@ class TopicRepository extends ServiceEntityRepository
                 ->where('tag IN (:tags)')
                 ->setParameter('tags', $tags);
         }
+
         return $query->getQuery();
     }
 
@@ -60,5 +60,4 @@ class TopicRepository extends ServiceEntityRepository
     {
         return $this->count(['author' => $user]);
     }
-
 }

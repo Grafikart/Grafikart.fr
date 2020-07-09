@@ -18,7 +18,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PostForm extends AbstractType
 {
-
     private EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
@@ -35,7 +34,7 @@ class PostForm extends AbstractType
             ->add('createdAt', DateTimeType::class)
             ->add('category', EntityType::class, [
                 'class' => Category::class,
-                'choice_label' => 'name'
+                'choice_label' => 'name',
             ])
             ->add('author', UserChoiceType::class)
             ->add('content', EditorType::class)
@@ -48,5 +47,4 @@ class PostForm extends AbstractType
             'data_class' => PostCrudData::class,
         ]);
     }
-
 }

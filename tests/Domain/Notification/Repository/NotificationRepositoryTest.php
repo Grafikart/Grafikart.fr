@@ -7,7 +7,6 @@ use App\Domain\Notification\Repository\NotificationRepository;
 use App\Tests\FixturesTrait;
 use App\Tests\RepositoryTestCase;
 
-
 /**
  * @method Notification|null find($id, $lockMode = null, $lockVersion = null)
  * @method Notification|null findOneBy(array $criteria, array $orderBy = null)
@@ -16,7 +15,6 @@ use App\Tests\RepositoryTestCase;
  */
 class NotificationRepositoryTest extends RepositoryTestCase
 {
-
     use FixturesTrait;
 
     /**
@@ -25,7 +23,8 @@ class NotificationRepositoryTest extends RepositoryTestCase
     protected $repository;
     protected $repositoryClass = NotificationRepository::class;
 
-    public function testFindForUser() {
+    public function testFindForUser()
+    {
         $fixtures = $this->loadFixtures(['users', 'notifications']);
         $notifications = $this->repository->findRecentForUser($fixtures['user1']);
         $notifications2 = $this->repository->findRecentForUser($fixtures['user2']);
@@ -33,7 +32,8 @@ class NotificationRepositoryTest extends RepositoryTestCase
         $this->assertCount(0, $notifications2);
     }
 
-    public function testPersistOrUpdateWithoutPreviousRecord() {
+    public function testPersistOrUpdateWithoutPreviousRecord()
+    {
         $fixtures = $this->loadFixtures(['users', 'notifications']);
         /** @var Notification $newNotification */
         $newNotification = clone $fixtures['notification2'];
@@ -43,7 +43,8 @@ class NotificationRepositoryTest extends RepositoryTestCase
         $this->assertCount(6, $this->repository->findRecentForUser($fixtures['user1']));
     }
 
-    public function testPersistOrUpdateWithPreviousRecord() {
+    public function testPersistOrUpdateWithPreviousRecord()
+    {
         $fixtures = $this->loadFixtures(['users', 'notifications']);
         /** @var Notification $newNotification */
         $newNotification = clone $fixtures['notification2'];
@@ -51,5 +52,4 @@ class NotificationRepositoryTest extends RepositoryTestCase
         $this->em->flush();
         $this->assertCount(5, $this->repository->findRecentForUser($fixtures['user1']));
     }
-
 }

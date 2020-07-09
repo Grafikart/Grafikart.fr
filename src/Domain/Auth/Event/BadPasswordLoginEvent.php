@@ -6,7 +6,6 @@ use App\Domain\Auth\User;
 
 class BadPasswordLoginEvent
 {
-
     private User $user;
 
     public function __construct(User $user)
@@ -18,5 +17,4 @@ class BadPasswordLoginEvent
     {
         return $this->user;
     }
-
 }

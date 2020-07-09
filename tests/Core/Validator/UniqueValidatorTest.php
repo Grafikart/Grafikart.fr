@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Tests\Core\Validator;
-
 
 use App\Core\Validator\Unique;
 use App\Core\Validator\UniqueValidator;
@@ -12,7 +10,6 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class UniqueValidatorTest extends ValidatorTestCase
 {
-
     public function dataProvider(): iterable
     {
         $obj = new FakeObjectWithSlug('myslug');
@@ -24,7 +21,6 @@ class UniqueValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @param FakeObjectWithSlug $value
      * @dataProvider dataProvider
      */
     public function testUniqueValidator(
@@ -52,5 +48,4 @@ class UniqueValidatorTest extends ValidatorTestCase
         $existsValidator->initialize($context);
         $existsValidator->validate($value, new Unique(['entityClass' => 'Demo', 'field' => 'slug']));
     }
-
 }

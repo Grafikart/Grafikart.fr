@@ -11,10 +11,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PasswordResetConfirmForm extends AbstractType
 {
-
     /**
      * @param FormBuilderInterface<FormBuilderInterface> $builder
-     * @param array<string,mixed> $options
+     * @param array<string,mixed>                        $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -37,5 +36,4 @@ class PasswordResetConfirmForm extends AbstractType
     {
         return '';
     }
-
 }

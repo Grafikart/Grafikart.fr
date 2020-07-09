@@ -9,7 +9,6 @@ use App\Tests\WebTestCase;
 
 class BlogControllerTest extends WebTestCase
 {
-
     use FixturesTrait;
 
     public function testIndex(): void
@@ -35,9 +34,9 @@ class BlogControllerTest extends WebTestCase
         $data = $this->loadFixtures(['posts']);
         /** @var Category $category */
         $category = $data['category2'];
-        $crawler = $this->client->request('GET', '/blog/category/' . $category->getSlug());
+        $crawler = $this->client->request('GET', '/blog/category/'.$category->getSlug());
         $this->assertResponseStatusCodeSame(200);
-        $this->assertEquals($category->getName() . ' | Grafikart', $crawler->filter('title')->text());
+        $this->assertEquals($category->getName().' | Grafikart', $crawler->filter('title')->text());
         $this->assertEquals($category->getName(), $crawler->filter('h1')->text());
     }
 
@@ -46,10 +45,9 @@ class BlogControllerTest extends WebTestCase
         $posts = $this->loadFixtures(['posts']);
         /** @var Post $post */
         $post = $posts['post2'];
-        $crawler = $this->client->request('GET', '/blog/' . $post->getSlug());
+        $crawler = $this->client->request('GET', '/blog/'.$post->getSlug());
         $this->assertResponseStatusCodeSame(200);
-        $this->assertEquals($post->getTitle() . ' | Grafikart', $crawler->filter('title')->text());
+        $this->assertEquals($post->getTitle().' | Grafikart', $crawler->filter('title')->text());
         $this->assertEquals($post->getTitle(), $crawler->filter('h1')->text());
     }
-
 }

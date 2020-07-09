@@ -8,9 +8,7 @@ use App\Tests\WebTestCase;
 
 class UserControllerTest extends WebTestCase
 {
-
     use FixturesTrait;
-
 
     public function testUnauthenticatedIsRedirected(): void
     {
@@ -70,5 +68,4 @@ class UserControllerTest extends WebTestCase
         $this->client->followRedirect();
         $this->expectSuccessAlert();
     }
-
 }

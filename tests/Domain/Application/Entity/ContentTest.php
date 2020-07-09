@@ -9,7 +9,6 @@ use PHPUnit\Framework\TestCase;
 
 class ContentTest extends TestCase
 {
-
     public function testMainTechnologies(): void
     {
         $content = new Course();
@@ -50,5 +49,4 @@ class ContentTest extends TestCase
         $technologies = $content->getMainTechnologies();
         $this->assertCount(1, $technologies);
     }
-
 }

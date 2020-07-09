@@ -14,7 +14,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TechnologyController extends AbstractController
 {
-
     /**
      * @Route("/tutoriels/{slug}", name="technology_show", requirements={"slug"="[a-z\-]+"})
      */
@@ -30,18 +29,17 @@ class TechnologyController extends AbstractController
         $formationsPerLevel = [];
         if ($page <= 1) {
             $formations = $formationRepository->findForTechnology($technology);
-            $formationsPerLevel = collect($formations)->groupBy(fn(Formation $t) => $t->getLevel())->toArray();
+            $formationsPerLevel = collect($formations)->groupBy(fn (Formation $t) => $t->getLevel())->toArray();
         }
-        $nextTechnologies = collect($technology->getRequiredBy())->groupBy(fn(Technology $t) => $t->getType());
+        $nextTechnologies = collect($technology->getRequiredBy())->groupBy(fn (Technology $t) => $t->getType());
+
         return $this->render('courses/technology.html.twig', [
             'technology' => $technology,
-            'showTabs'   => count($formations) > 3,
+            'showTabs' => count($formations) > 3,
             'formations' => $formationsPerLevel,
-            'courses'    => $paginator->paginate($courseRepository->queryForTechnology($technology)),
-            'next'       => $nextTechnologies,
-            'menu'       => 'courses'
+            'courses' => $paginator->paginate($courseRepository->queryForTechnology($technology)),
+            'next' => $nextTechnologies,
+            'menu' => 'courses',
         ]);
     }
-
-
 }

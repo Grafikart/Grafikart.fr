@@ -15,7 +15,6 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ProfileService
 {
-
     private TokenGeneratorService $tokenGeneratorService;
     private EmailVerificationRepository $emailVerificationRepository;
     private EventDispatcherInterface $dispatcher;
@@ -32,7 +31,7 @@ class ProfileService
 
     public function updateAvatar(AvatarDto $data): void
     {
-        if ($data->file->getRealPath() === false) {
+        if (false === $data->file->getRealPath()) {
             throw new \RuntimeException('Impossible de redimensionner un avatar non existant');
         }
         // On redimensionne l'image
@@ -71,5 +70,4 @@ class ProfileService
         $emailVerification->getAuthor()->setEmail($emailVerification->getEmail());
         $em->remove($emailVerification);
     }
-
 }

@@ -12,10 +12,9 @@ use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
  */
 class CourseDurationUpdaterTest extends KernelTestCase
 {
-
     use FixturesTrait;
 
-    public function getData (): iterable
+    public function getData(): iterable
     {
         yield ['video-10.mp4', 10];
         yield ['video-100.mp4', 100];
@@ -32,7 +31,4 @@ class CourseDurationUpdaterTest extends KernelTestCase
         $this->em->flush();
         $this->assertEquals($expectedDuration, $course->getDuration());
     }
-
-
-
 }

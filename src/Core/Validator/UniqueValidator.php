@@ -18,7 +18,7 @@ class UniqueValidator extends ConstraintValidator
     }
 
     /**
-     * @param object|null $obj
+     * @param object|null       $obj
      * @param Unique|Constraint $constraint
      */
     public function validate($obj, Constraint $constraint): void
@@ -43,11 +43,11 @@ class UniqueValidator extends ConstraintValidator
         }
         $value = $accessor->getValue($obj, $constraint->field);
         $result = $this->em->getRepository($entityClass)->findOneBy([
-            $constraint->field => $value
+            $constraint->field => $value,
         ]);
 
         if (
-            $result !== null &&
+            null !== $result &&
             (!method_exists($result, 'getId') || $result->getId() !== $obj->getId())
         ) {
             $this->context->buildViolation($constraint->message)

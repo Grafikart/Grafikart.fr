@@ -31,7 +31,7 @@ class LiveRepository extends ServiceEntityRepository
      */
     public function findYears(): array
     {
-        return array_map(fn ($row) => (int)$row['year'], $this->createQueryBuilder('l')
+        return array_map(fn ($row) => (int) $row['year'], $this->createQueryBuilder('l')
             ->select('EXTRACT(year from l.createdAt) as year')
             ->groupBy('year')
             ->orderBy('year', 'DESC')
@@ -46,6 +46,7 @@ class LiveRepository extends ServiceEntityRepository
     {
         $start = new \DateTimeImmutable("01-01-{$year}");
         $end = $start->add(new \DateInterval('P1Y'));
+
         return $this->createQueryBuilder('l')
             ->where('l.createdAt BETWEEN :start AND :end')
             ->setParameter('start', $start)
@@ -56,7 +57,7 @@ class LiveRepository extends ServiceEntityRepository
     }
 
     /**
-     * Récupère la date du dernier live publié sur le site
+     * Récupère la date du dernier live publié sur le site.
      */
     public function lastCreationDate(): ?\DateTimeInterface
     {
@@ -64,6 +65,7 @@ class LiveRepository extends ServiceEntityRepository
             ->select('MAX(l.createdAt)')
             ->getQuery()
             ->getSingleScalarResult();
+
         return $date ? new \DateTime($date) : null;
     }
 }

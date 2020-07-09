@@ -14,7 +14,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ForumTopicForm extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -26,7 +25,7 @@ class ForumTopicForm extends AbstractType
                 'query_builder' => function (EntityRepository $repo) {
                     return $repo->createQueryBuilder('t')->where('t.parent IS NULL')->orderBy('t.name', 'ASC');
                 },
-                'choice_label' => 'name'
+                'choice_label' => 'name',
             ])
             ->add('content', EditorType::class);
     }
@@ -37,5 +36,4 @@ class ForumTopicForm extends AbstractType
             'data_class' => Topic::class,
         ]);
     }
-
 }

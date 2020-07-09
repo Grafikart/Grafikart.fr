@@ -10,10 +10,9 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class ForumVoter extends Voter
 {
-
-    const CREATE = "forumCreate";
-    const REPORT = "forumReport";
-    const CREATE_MESSAGE = "forumCreateMessage";
+    const CREATE = 'forumCreate';
+    const REPORT = 'forumReport';
+    const CREATE_MESSAGE = 'forumCreateMessage';
     const DELETE_MESSAGE = 'DELETE_FORUM_MESSAGE';
 
     protected function supports(string $attribute, $subject)

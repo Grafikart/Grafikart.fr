@@ -16,8 +16,8 @@ class ForumReportApiTest extends ApiTestCase
     {
         yield [
             [
-                "reason" => "Il est trop méchant"
-            ]
+                'reason' => 'Il est trop méchant',
+            ],
         ];
     }
 
@@ -39,7 +39,7 @@ class ForumReportApiTest extends ApiTestCase
         $fixtures = $this->loadFixtures(['users']);
         $this->login($fixtures['user1']);
         $this->client->request('POST', '/api/forum/reports', [
-            'json' => $data
+            'json' => $data,
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
     }
@@ -51,11 +51,11 @@ class ForumReportApiTest extends ApiTestCase
     {
         $fixtures = $this->loadFixtures(['users', 'forums']);
         $data = array_merge($data, [
-            'topic' => '/api/forum/topics/' . $fixtures['topic1']->getId()
+            'topic' => '/api/forum/topics/'.$fixtures['topic1']->getId(),
         ]);
         $this->login($fixtures['user1']);
         $this->client->request('POST', '/api/forum/reports', [
-            'json' => $data
+            'json' => $data,
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_CREATED);
     }
@@ -67,13 +67,12 @@ class ForumReportApiTest extends ApiTestCase
     {
         $fixtures = $this->loadFixtures(['users', 'forums']);
         $data = array_merge($data, [
-            'message' => '/api/forum/messages/' . $fixtures['message1']->getId()
+            'message' => '/api/forum/messages/'.$fixtures['message1']->getId(),
         ]);
         $this->login($fixtures['user1']);
         $this->client->request('POST', '/api/forum/reports', [
-            'json' => $data
+            'json' => $data,
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_CREATED);
     }
-
 }

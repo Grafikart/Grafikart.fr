@@ -6,7 +6,6 @@ use App\Domain\Forum\Entity\Message;
 
 class MessageCreatedEvent
 {
-
     private Message $message;
 
     public function __construct(Message $message)
@@ -18,5 +17,4 @@ class MessageCreatedEvent
     {
         return $this->message;
     }
-
 }

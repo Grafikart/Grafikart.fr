@@ -13,7 +13,6 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class NotificationService
 {
-
     private EntityManagerInterface $em;
     private SerializerInterface $serializer;
     private EventDispatcherInterface $dispatcher;
@@ -29,7 +28,7 @@ class NotificationService
     }
 
     /**
-     * Envoie une notification sur un canal particulier
+     * Envoie une notification sur un canal particulier.
      */
     public function notifyChannel(string $channel, string $message, object $entity): Notification
     {
@@ -49,7 +48,7 @@ class NotificationService
     }
 
     /**
-     * Envoie une notification à un utilisateur
+     * Envoie une notification à un utilisateur.
      */
     public function notifyUser(User $user, string $message, object $entity): Notification
     {
@@ -75,24 +74,26 @@ class NotificationService
     {
         /** @var NotificationRepository $repository */
         $repository = $this->em->getRepository(Notification::class);
+
         return $repository->findRecentForUser($user);
     }
 
     /**
-     * Extrait un hash pour une notification className::id
+     * Extrait un hash pour une notification className::id.
      */
     private function getHashForEntity(object $entity): string
     {
         $hash = get_class($entity);
         if (method_exists($entity, 'getId')) {
-            $hash .= '::' . (string)$entity->getId();
+            $hash .= '::'.(string) $entity->getId();
         }
+
         return $hash;
     }
 
     private function getRepository(): NotificationRepository
     {
-        /** @var NotificationRepository */
+        /* @var NotificationRepository */
         return $this->em->getRepository(Notification::class);
     }
 }

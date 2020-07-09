@@ -14,7 +14,6 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class TwigUrlExtension extends AbstractExtension
 {
-
     private UrlGeneratorInterface $urlGenerator;
     private SerializerInterface $serializer;
     private UploaderHelper $uploaderHelper;
@@ -33,14 +32,14 @@ class TwigUrlExtension extends AbstractExtension
     {
         return [
             new TwigFunction('content_path', [$this, 'contentPath']),
-            new TwigFunction('path', [$this, 'pathFor'])
+            new TwigFunction('path', [$this, 'pathFor']),
         ];
     }
 
     public function getFilters(): array
     {
         return [
-            new TwigFilter('avatar', [$this, 'avatarPath'])
+            new TwigFilter('avatar', [$this, 'avatarPath']),
         ];
     }
 
@@ -49,26 +48,28 @@ class TwigUrlExtension extends AbstractExtension
         if ($content instanceof Post) {
             return $this->urlGenerator->generate('blog_show', ['slug' => $content->getSlug()]);
         }
+
         return null;
     }
 
     public function avatarPath(User $user): ?string
     {
-        if ($user->getAvatarName() === null) {
+        if (null === $user->getAvatarName()) {
             return '/images/default.png';
         }
+
         return $this->uploaderHelper->asset($user, 'avatarFile');
     }
 
     /**
      * @param string|object $path
-     * @return string
      */
-    public function pathFor ($path,  array $params = []): string {
+    public function pathFor($path, array $params = []): string
+    {
         if (is_string($path)) {
             return $this->urlGenerator->generate($path, $params);
         }
+
         return $this->serializer->serialize($path, 'path');
     }
-
 }

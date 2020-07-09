@@ -12,7 +12,7 @@ class PublisherStub implements PublisherInterface
     public function __invoke(Update $update): string
     {
         self::$lastUpdate = $update;
+
         return '';
     }
-
 }

@@ -11,7 +11,6 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
 {
-
     protected KernelBrowser $client;
     protected EntityManagerInterface $em;
 
@@ -37,11 +36,12 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
             'CONTENT_TYPE' => 'application/json',
             'HTTP_Accept' => 'application/json',
         ]);
+
         return $this->client->getResponse()->getContent();
     }
 
     /**
-     * Vérifie si on a un message d'erreur
+     * Vérifie si on a un message d'erreur.
      */
     public function expectErrorAlert(): void
     {
@@ -49,7 +49,7 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
     }
 
     /**
-     * Vérifie si on a un message de succès
+     * Vérifie si on a un message de succès.
      */
     public function expectSuccessAlert(): void
     {
@@ -58,7 +58,7 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
 
     public function expectFormErrors(?int $expectedErrors = null): void
     {
-        if ($expectedErrors === null) {
+        if (null === $expectedErrors) {
             $this->assertTrue($this->client->getCrawler()->filter('.form-error')->count() > 0, 'Form errors missmatch.');
         } else {
             $this->assertEquals($expectedErrors, $this->client->getCrawler()->filter('.form-error')->count(), 'Form errors missmatch.');
@@ -87,14 +87,14 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
 
     public function login(?User $user)
     {
-        if ($user === null) {
+        if (null === $user) {
             return;
         }
         // On récupère l'instance dans l'entityManager pour éviter la deAuthenticate dans le ContextListener
         /** @var EntityManagerInterface $em */
         $em = self::$container->get(EntityManagerInterface::class);
         $managedUser = $em->getRepository(User::class)->find($user->getId());
-        if ($managedUser === null) {
+        if (null === $managedUser) {
             throw new Exception("Impossible de retrouver l'utilisateur {$user->getId()}");
         }
 
@@ -103,12 +103,11 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
         $firewallName = 'main';
         $firewallContext = $firewallName;
         $token = new UsernamePasswordToken($managedUser, null, $firewallName, $managedUser->getRoles());
-        $session->set('_security_' . $firewallContext, serialize($token));
+        $session->set('_security_'.$firewallContext, serialize($token));
         $session->save();
         $cookie = new Cookie($session->getName(), $session->getId());
 
         // On ajoute le cookie au client
         $this->client->getCookieJar()->set($cookie);
     }
-
 }

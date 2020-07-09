@@ -6,7 +6,5 @@ use App\Http\Admin\Data\AutomaticCrudData;
 
 class FakeCrudData extends AutomaticCrudData
 {
-
     public string $name;
-
 }

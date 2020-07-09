@@ -6,7 +6,6 @@ use App\Domain\Application\Entity\Content;
 
 class ContentUpdatedEvent
 {
-
     private Content $content;
 
     public function __construct(Content $content)
@@ -18,5 +17,4 @@ class ContentUpdatedEvent
     {
         return $this->content;
     }
-
 }

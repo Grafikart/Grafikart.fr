@@ -92,7 +92,8 @@ class EmailVerification
         return $this;
     }
 
-    public function isExpired (): bool {
+    public function isExpired(): bool
+    {
         return $this->createdAt < new \DateTime('-1 hour');
     }
 }

@@ -9,8 +9,7 @@ use Symfony\Component\Validator\Constraint;
  */
 class Exists extends Constraint
 {
-
-    public string $message = "No record found for {{ value }}";
+    public string $message = 'No record found for {{ value }}';
 
     /**
      * @var class-string<mixed>
@@ -21,5 +20,4 @@ class Exists extends Constraint
     {
         return ['class'];
     }
-
 }

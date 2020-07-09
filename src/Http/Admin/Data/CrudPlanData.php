@@ -7,7 +7,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class CrudPlanData extends AutomaticCrudData
 {
-
     /**
      * @Assert\NotBlank()
      */
@@ -29,5 +28,4 @@ class CrudPlanData extends AutomaticCrudData
      * @StripePlan()
      */
     public ?string $stripeId = null;
-
 }

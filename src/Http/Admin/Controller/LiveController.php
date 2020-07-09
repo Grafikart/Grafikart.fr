@@ -15,7 +15,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LiveController extends BaseController
 {
-
     /**
      * @Route("/live", name="live_index", methods={"GET"})
      */
@@ -25,9 +24,10 @@ class LiveController extends BaseController
         LiveService $service
     ): Response {
         $lives = $paginator->paginate($liveRepository->queryAll());
+
         return $this->render('admin/live/index.html.twig', [
             'lives' => $lives,
-            'live'  => $service->getCurrentLive()
+            'live' => $service->getCurrentLive(),
         ]);
     }
 
@@ -46,6 +46,7 @@ class LiveController extends BaseController
             $dispatcher->dispatch(new LiveCreatedEvent($live));
         }
         $this->addFlash('success', 'Les nouveaux lives ont bien été importés');
+
         return $this->redirectToRoute('admin_live_index');
     }
 
@@ -56,6 +57,7 @@ class LiveController extends BaseController
     {
         $service->setCurrentLive($request->get('live_id'));
         $this->addFlash('success', 'Le live a bien été enregistré');
+
         return $this->redirectToRoute('admin_live_index');
     }
 
@@ -66,7 +68,7 @@ class LiveController extends BaseController
     {
         $service->setCurrentLive(null);
         $this->addFlash('success', 'Le live a bien été supprimé');
+
         return $this->redirectToRoute('admin_live_index');
     }
-
 }

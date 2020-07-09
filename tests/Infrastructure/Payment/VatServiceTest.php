@@ -8,8 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class VatServiceTest extends TestCase
 {
-
-    public function dataProvider (): iterable
+    public function dataProvider(): iterable
     {
         yield ['CM', 10.0, 10.0];
         yield ['FR', 10.0, 12.0];
@@ -25,6 +24,4 @@ class VatServiceTest extends TestCase
         $vatService = new VatService();
         $this->assertSame($expectedPrice, $vatService->vatPrice($price, $user));
     }
-
-
 }

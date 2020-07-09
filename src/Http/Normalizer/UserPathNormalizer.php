@@ -8,26 +8,25 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class UserPathNormalizer implements NormalizerInterface
 {
-
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function normalize($object, string $format = null, array $context = [])
     {
         if ($object instanceof User) {
             return [
                 'path' => 'user_show',
-                'params' => ['id' => $object->getId()]
+                'params' => ['id' => $object->getId()],
             ];
         }
         throw new \RuntimeException("Can't normalize path");
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function supportsNormalization($data, string $format = null)
     {
-        return $data instanceof User && $format === PathEncoder::FORMAT;
+        return $data instanceof User && PathEncoder::FORMAT === $format;
     }
 }

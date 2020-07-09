@@ -6,7 +6,6 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 final class TypesenseException extends \RuntimeException
 {
-
     public int $status;
 
     /**
@@ -19,5 +18,4 @@ final class TypesenseException extends \RuntimeException
         $this->status = $response->getStatusCode();
         $this->message = json_decode($response->getContent(false), true)['message'] ?? '';
     }
-
 }

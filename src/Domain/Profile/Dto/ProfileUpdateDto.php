@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Domain\Profile\Dto;
 
@@ -7,12 +9,12 @@ use App\Domain\Auth\User;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Données pour la mise à jour du profil utilisateur
+ * Données pour la mise à jour du profil utilisateur.
+ *
  * @Unique(entityClass="App\Domain\Auth\User", field="email")
  */
 class ProfileUpdateDto
 {
-
     /**
      * @Assert\NotBlank()
      */
@@ -33,8 +35,8 @@ class ProfileUpdateDto
         $this->user = $user;
     }
 
-    public function getId(): int {
+    public function getId(): int
+    {
         return $this->user->getId() ?: 0;
     }
-
 }

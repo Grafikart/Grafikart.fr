@@ -18,7 +18,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserController extends AbstractController
 {
-
     /**
      * @Route("/profil", name="user_edit")
      * @IsGranted("ROLE_USER")
@@ -35,9 +34,9 @@ class UserController extends AbstractController
         $formPassword = $this->createForm(UpdatePasswordForm::class);
         $formUpdate = $this->createForm(UpdateProfileForm::class, new ProfileUpdateDto($user));
         $action = $request->get('action');
-        if ($action === 'update') {
+        if ('update' === $action) {
             $formUpdate->handleRequest($request);
-        } else if ($action === 'password') {
+        } elseif ('password' === $action) {
             $formPassword->handleRequest($request);
         }
         // Traitement du mot de passe
@@ -46,6 +45,7 @@ class UserController extends AbstractController
             $user->setPassword($passwordEncoder->encodePassword($user, $data['password']));
             $em->flush();
             $this->addFlash('success', 'Votre mot de passe a bien été mis à jour');
+
             return $this->redirectToRoute('user_edit');
         }
         // Traitement de la mise à jour de profil
@@ -58,13 +58,14 @@ class UserController extends AbstractController
             } else {
                 $this->addFlash('success', 'Votre profil a bien été mis à jour');
             }
+
             return $this->redirectToRoute('user_edit');
         }
 
         return $this->render('profil/edit.html.twig', [
             'form_password' => $formPassword->createView(),
             'form_update' => $formUpdate->createView(),
-            'user'          => $user
+            'user' => $user,
         ]);
     }
 
@@ -83,7 +84,7 @@ class UserController extends AbstractController
         $data = new AvatarDto($request->files->get('avatar'), $user);
         $errors = $validator->validate($data);
         if ($errors->count() > 0) {
-            $this->addFlash('error', (string)$errors->get(0)->getMessage());
+            $this->addFlash('error', (string) $errors->get(0)->getMessage());
         } else {
             $service->updateAvatar($data);
             $em->flush();
@@ -96,9 +97,8 @@ class UserController extends AbstractController
     /**
      * @Route("/user/{id}", name="user_show")
      */
-    function show(User $user): Response
+    public function show(User $user): Response
     {
         return new Response('Hello');
     }
-
 }

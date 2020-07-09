@@ -4,7 +4,6 @@ namespace App\Tests\Domain\Notification;
 
 class FakeEntity
 {
-
     private int $id;
 
     public function __construct(int $id)
@@ -16,5 +15,4 @@ class FakeEntity
     {
         return $this->id;
     }
-
 }

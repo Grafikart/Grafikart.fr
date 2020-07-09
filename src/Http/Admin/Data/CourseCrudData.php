@@ -15,7 +15,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class CourseCrudData implements CrudDataInterface
 {
-
     /**
      * @Assert\NotBlank()
      */
@@ -112,15 +111,15 @@ class CourseCrudData implements CrudDataInterface
         $this->entity->setContent($this->content);
         $this->entity->setCreatedAt($this->createdAt);
         $this->entity->setUpdatedAt(new \DateTime());
-        foreach($this->mainTechnologies as $technology) {
+        foreach ($this->mainTechnologies as $technology) {
             $technology->setSecondary(false);
         }
-        foreach($this->secondaryTechnologies as $technology) {
+        foreach ($this->secondaryTechnologies as $technology) {
             $technology->setSecondary(true);
         }
         $removed = $this->entity->syncTechnologies(array_merge($this->mainTechnologies, $this->secondaryTechnologies));
-        if($this->em) {
-            foreach($removed as $usage) {
+        if ($this->em) {
+            foreach ($removed as $usage) {
                 $this->em->remove($usage);
             }
         }

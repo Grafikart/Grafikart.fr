@@ -10,7 +10,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RevisionForm extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -23,5 +22,4 @@ class RevisionForm extends AbstractType
             'data_class' => Revision::class,
         ]);
     }
-
 }

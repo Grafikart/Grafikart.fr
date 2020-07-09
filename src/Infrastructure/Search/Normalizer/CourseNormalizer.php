@@ -7,29 +7,29 @@ use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 
 class CourseNormalizer implements ContextAwareNormalizerInterface
 {
-
     public function supportsNormalization($data, string $format = null, array $context = [])
     {
-        return $data instanceof Course && $format === 'search';
+        return $data instanceof Course && 'search' === $format;
     }
 
     public function normalize($object, string $format = null, array $context = [])
     {
         if (!$object instanceof Course) {
-            throw new \InvalidArgumentException('Unexpected type for normalization, expected Course, got ' . get_class($object));
+            throw new \InvalidArgumentException('Unexpected type for normalization, expected Course, got '.get_class($object));
         }
         $title = $object->getTitle();
         $formation = $object->getFormation();
-        if ($formation !== null) {
-            $title = $formation->getTitle() . ' : '  . $title;
+        if (null !== $formation) {
+            $title = $formation->getTitle().' : '.$title;
         }
+
         return [
-            'id' => (string)$object->getId(),
+            'id' => (string) $object->getId(),
             'content' => $object->getContent(),
             'title' => $title,
-            'category' => array_map(fn($t) => $t->getName(), $object->getMainTechnologies()),
+            'category' => array_map(fn ($t) => $t->getName(), $object->getMainTechnologies()),
             'type' => 'course',
-            'created_at' => $object->getCreatedAt()->getTimestamp()
+            'created_at' => $object->getCreatedAt()->getTimestamp(),
         ];
     }
 }

@@ -15,7 +15,7 @@ class ReportUserSubscriber implements EventSubscriberInterface
 {
     private Security $security;
 
-    public function __construct(Security  $security)
+    public function __construct(Security $security)
     {
         $this->security = $security;
     }

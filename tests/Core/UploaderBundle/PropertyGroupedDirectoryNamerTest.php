@@ -8,7 +8,6 @@ use Vich\UploaderBundle\Mapping\PropertyMapping;
 
 class PropertyGroupedDirectoryNamerTest extends TestCase
 {
-
     public function getTests()
     {
         yield [1000, 10, '100'];
@@ -21,14 +20,13 @@ class PropertyGroupedDirectoryNamerTest extends TestCase
      */
     public function testModulo(int $id, int $modulo, string $expected): void
     {
-        $object = (object)['id' => $id];
+        $object = (object) ['id' => $id];
         $namer = new PropertyGroupedDirectoryNamer();
         $namer->configure([
-            'modulo'   => $modulo,
-            'property' => 'id'
+            'modulo' => $modulo,
+            'property' => 'id',
         ]);
         $mapping = $this->getMockBuilder(PropertyMapping::class)->disableOriginalConstructor()->getMock();
         $this->assertEquals($expected, $namer->directoryName($object, $mapping));
     }
-
 }

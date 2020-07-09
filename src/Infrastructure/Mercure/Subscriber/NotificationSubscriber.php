@@ -12,7 +12,6 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class NotificationSubscriber implements EventSubscriberInterface
 {
-
     private SerializerInterface $serializer;
     private PublisherInterface $publisher;
     private NormalizerInterface $normalizer;
@@ -27,7 +26,7 @@ class NotificationSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            NotificationCreatedEvent::class => ['publishNotification']
+            NotificationCreatedEvent::class => ['publishNotification'],
         ];
     }
 
@@ -35,12 +34,12 @@ class NotificationSubscriber implements EventSubscriberInterface
     {
         $notification = $event->getNotification();
         $channel = $notification->getChannel();
-        if ($channel === null && $notification->getUser() instanceof User) {
-            $channel = 'user/' . $notification->getUser()->getId();
+        if (null === $channel && $notification->getUser() instanceof User) {
+            $channel = 'user/'.$notification->getUser()->getId();
         }
         $update = new Update("/notifications/$channel", $this->serializer->serialize($notification, 'json', [
             'groups' => ['read:notification'],
-            'iri' => false
+            'iri' => false,
         ]));
         $this->publisher->__invoke($update);
     }

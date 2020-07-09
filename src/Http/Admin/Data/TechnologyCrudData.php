@@ -12,11 +12,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @Unique(field="slug")
  * @Unique(field="name")
+ *
  * @property Technology $entity
  */
 class TechnologyCrudData extends AutomaticCrudData
 {
-
     /**
      * @Assert\NotBlank()
      */

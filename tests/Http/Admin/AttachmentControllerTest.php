@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AttachmentControllerTest extends WebTestCase
 {
-
     use FixturesTrait;
 
     public array $data = [];
@@ -33,12 +32,13 @@ class AttachmentControllerTest extends WebTestCase
     /**
      * @dataProvider filesDataProvider
      */
-    public function testFilesEndpoint (?string $user, int $expectedStatus, $endpoint = '/files', $method = 'GET') {
+    public function testFilesEndpoint(?string $user, int $expectedStatus, $endpoint = '/files', $method = 'GET')
+    {
         if ($user) {
             $this->login($this->data[$user]);
             $endpoint = str_replace('{id}', $this->data['attachment1']->getId(), $endpoint);
         }
-        $this->jsonRequest($method, '/admin/attachment' . $endpoint);
+        $this->jsonRequest($method, '/admin/attachment'.$endpoint);
         $this->assertResponseStatusCodeSame($expectedStatus);
     }
 
@@ -50,5 +50,4 @@ class AttachmentControllerTest extends WebTestCase
         $items = json_decode($content);
         $this->assertCount(5, $items);
     }
-
 }

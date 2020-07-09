@@ -11,7 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Comment
 {
-
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -70,34 +69,39 @@ class Comment
     public function setId(int $id): Comment
     {
         $this->id = $id;
+
         return $this;
     }
 
     public function getEmail(): string
     {
-        if ($this->author !== null) {
+        if (null !== $this->author) {
             return $this->author->getEmail();
         }
+
         return $this->email ?: '';
     }
 
     public function setEmail(?string $email): Comment
     {
         $this->email = $email;
+
         return $this;
     }
 
     public function getUsername(): string
     {
-        if ($this->author !== null) {
+        if (null !== $this->author) {
             return $this->author->getUsername();
         }
+
         return $this->username ?: '';
     }
 
     public function setUsername(?string $username): Comment
     {
         $this->username = $username;
+
         return $this;
     }
 
@@ -109,6 +113,7 @@ class Comment
     public function setContent(string $content): Comment
     {
         $this->content = $content;
+
         return $this;
     }
 
@@ -120,6 +125,7 @@ class Comment
     public function setCreatedAt(\DateTimeInterface $createdAt): Comment
     {
         $this->createdAt = $createdAt;
+
         return $this;
     }
 
@@ -131,6 +137,7 @@ class Comment
     public function setAuthor(?User $author): Comment
     {
         $this->author = $author;
+
         return $this;
     }
 
@@ -142,6 +149,7 @@ class Comment
     public function setParent(?self $parent): Comment
     {
         $this->parent = $parent;
+
         return $this;
     }
 
@@ -156,6 +164,4 @@ class Comment
 
         return $this;
     }
-
-
 }

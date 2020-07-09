@@ -6,7 +6,6 @@ use App\Domain\Notification\Entity\Notification;
 
 class NotificationCreatedEvent
 {
-
     private Notification $notification;
 
     public function __construct(Notification $notification)
@@ -18,5 +17,4 @@ class NotificationCreatedEvent
     {
         return $this->notification;
     }
-
 }

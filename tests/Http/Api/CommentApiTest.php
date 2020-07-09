@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CommentApiTest extends ApiTestCase
 {
-
     use FixturesTrait;
 
     public function testGetWithoutContent()
@@ -23,7 +22,7 @@ class CommentApiTest extends ApiTestCase
     {
         $fixtures = $this->loadFixtures(['comments']);
         $contentId = $fixtures['post1']->getId();
-        $response = $this->client->request('GET', '/api/comments?content=' . $contentId);
+        $response = $this->client->request('GET', '/api/comments?content='.$contentId);
         $this->assertResponseIsSuccessful();
         $this->assertCount(7, $response->toArray());
         $this->assertMatchesResourceCollectionJsonSchema(CommentResource::class);
@@ -45,17 +44,17 @@ class CommentApiTest extends ApiTestCase
         $fixtures = $this->loadFixtures(['comments']);
         $this->client->request('POST', '/api/comments', [
             'json' => [
-                'content'  => 'Hello world !',
-                'email'    => 'johnfake',
+                'content' => 'Hello world !',
+                'email' => 'johnfake',
                 'username' => 'John Doe',
-                'target'   => $fixtures['post1']->getId(),
-            ]
+                'target' => $fixtures['post1']->getId(),
+            ],
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
         $this->assertJsonContains([
             'violations' => [[
                 'propertyPath' => 'email',
-            ]]
+            ]],
         ]);
     }
 
@@ -64,11 +63,11 @@ class CommentApiTest extends ApiTestCase
         $fixtures = $this->loadFixtures(['comments']);
         $this->client->request('POST', '/api/comments', [
             'json' => [
-                'content'  => 'Hello world !',
-                'email'    => 'john@fake.fr',
+                'content' => 'Hello world !',
+                'email' => 'john@fake.fr',
                 'username' => 'John Doe',
-                'target'   => $fixtures['post1']->getId(),
-            ]
+                'target' => $fixtures['post1']->getId(),
+            ],
         ]);
         $this->assertResponseIsSuccessful();
     }
@@ -79,8 +78,8 @@ class CommentApiTest extends ApiTestCase
         $this->client->request('POST', '/api/comments', [
             'json' => [
                 'content' => 'Hello world !',
-                'target'  => $fixtures['post1']->getId(),
-            ]
+                'target' => $fixtures['post1']->getId(),
+            ],
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
     }
@@ -92,8 +91,8 @@ class CommentApiTest extends ApiTestCase
         $this->client->request('POST', '/api/comments', [
             'json' => [
                 'content' => 'Hello world !',
-                'target'  => $fixtures['post1']->getId(),
-            ]
+                'target' => $fixtures['post1']->getId(),
+            ],
         ]);
         $this->assertResponseIsSuccessful();
     }
@@ -108,28 +107,29 @@ class CommentApiTest extends ApiTestCase
         $this->assertResponseIsSuccessful();
     }
 
-    public function testUpdateWithBadAuth () {
+    public function testUpdateWithBadAuth()
+    {
         $fixtures = $this->loadFixtures(['comments']);
         $comment = $fixtures['comment1'];
         $this->client->request('PUT', "/api/comments/{$comment->getId()}", [
             'json' => [
-                'content' => 'Hello world !'
-            ]
+                'content' => 'Hello world !',
+            ],
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
-    public function testUpdateWithGoodAuth () {
+    public function testUpdateWithGoodAuth()
+    {
         $fixtures = $this->loadFixtures(['comments']);
         /** @var Comment $comment */
         $comment = $fixtures['comment_user'];
         $this->login($fixtures['user1']);
         $this->client->request('PUT', "/api/comments/{$comment->getId()}", [
             'json' => [
-                'content' => 'Hello world !'
-            ]
+                'content' => 'Hello world !',
+            ],
         ]);
         $this->assertResponseIsSuccessful();
     }
-
 }

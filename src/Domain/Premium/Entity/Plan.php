@@ -10,7 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Plan
 {
-
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -29,7 +28,7 @@ class Plan
     private float $price = 0;
 
     /**
-     * Durée de l'abonnement (en mois)
+     * Durée de l'abonnement (en mois).
      *
      * @ORM\Column(type="integer", nullable=false)
      */
@@ -45,6 +44,7 @@ class Plan
     public function setId(?int $id): Plan
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -56,6 +56,7 @@ class Plan
     public function setName(string $name): Plan
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -67,6 +68,7 @@ class Plan
     public function setPrice(float $price): Plan
     {
         $this->price = $price;
+
         return $this;
     }
 
@@ -78,6 +80,7 @@ class Plan
     public function setDuration(int $duration): Plan
     {
         $this->duration = $duration;
+
         return $this;
     }
 
@@ -89,7 +92,7 @@ class Plan
     public function setStripeId(?string $stripeId): Plan
     {
         $this->stripeId = $stripeId;
+
         return $this;
     }
-
 }

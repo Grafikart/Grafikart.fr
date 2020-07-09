@@ -8,8 +8,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class LiveService
 {
-
-    const OPTION_KEY = "live_id";
+    const OPTION_KEY = 'live_id';
     private OptionInterface $option;
     private \Google_Service_YouTube $youTube;
     private SerializerInterface $serializer;
@@ -27,17 +26,19 @@ class LiveService
     public function getCurrentLive(): ?Live
     {
         $option = $this->option->get(self::OPTION_KEY);
-        return $option === null ? null : $this->serializer->deserialize($option, Live::class, 'json');
+
+        return null === $option ? null : $this->serializer->deserialize($option, Live::class, 'json');
     }
 
     public function setCurrentLive(?string $live): void
     {
-        if ($live === null) {
+        if (null === $live) {
             $this->option->delete(self::OPTION_KEY);
+
             return;
         }
         $response = $this->youTube->videos->listVideos('snippet,liveStreamingDetails', [
-            'id' => $live
+            'id' => $live,
         ]);
         /** @var Google_Service_YouTube_Video[] $videos */
         $videos = $response->getItems();

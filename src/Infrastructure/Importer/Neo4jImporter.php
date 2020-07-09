@@ -11,7 +11,6 @@ use Symfony\Component\HttpKernel\KernelInterface;
 
 abstract class Neo4jImporter extends DataImporter
 {
-
     use DatabaseImporterTools;
 
     protected Client $client;

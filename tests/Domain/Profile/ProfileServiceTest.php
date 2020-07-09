@@ -17,24 +17,26 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ProfileServiceTest extends TestCase
 {
-
     const TOKEN = 'hello';
 
     /**
-     * @var EventDispatcherInterface|MockObject $dispatcher
+     * @var EventDispatcherInterface|MockObject
      */
     private EventDispatcherInterface $dispatcher;
 
-    public function getService (?EmailVerification $formerVerification = null) {
+    public function getService(?EmailVerification $formerVerification = null)
+    {
         $tokenGenerator = $this->getMockBuilder(TokenGeneratorService::class)->getMock();
         $tokenGenerator->expects($this->any())->method('generate')->willReturn(self::TOKEN);
         $repository = $this->getMockBuilder(EmailVerificationRepository::class)->disableOriginalConstructor()->getMock();
         $repository->expects($this->any())->method('findLastForUser')->willReturn($formerVerification);
         $this->dispatcher = $this->getMockBuilder(EventDispatcherInterface::class)->getMock();
+
         return new ProfileService($tokenGenerator, $repository, $this->dispatcher);
     }
 
-    public function testNothingHappensWhenNotChangingEmail () {
+    public function testNothingHappensWhenNotChangingEmail()
+    {
         $user = new User();
         $user->setEmail('john@doe.fr');
         $data = new ProfileUpdateDto($user);
@@ -46,7 +48,8 @@ class ProfileServiceTest extends TestCase
         $service->updateProfile($data, $em);
     }
 
-    public function testGenerateEmailChangeVerificationOnChangingEmail () {
+    public function testGenerateEmailChangeVerificationOnChangingEmail()
+    {
         $user = new User();
         $user->setEmail('john@doe.fr');
         $data = new ProfileUpdateDto($user);
@@ -57,13 +60,14 @@ class ProfileServiceTest extends TestCase
         $em->expects($this->once())->method('persist')->with(
             $this->callback(function (EmailVerification $entity) use ($data) {
                 return $entity->getEmail() === $data->email
-                    && $entity->getToken() === self::TOKEN;
+                    && self::TOKEN === $entity->getToken();
             })
         );
         $service->updateProfile($data, $em);
     }
 
-    public function testDispatchEventOnEmailChange () {
+    public function testDispatchEventOnEmailChange()
+    {
         $user = new User();
         $user->setEmail('john@doe.fr');
         $data = new ProfileUpdateDto($user);
@@ -76,7 +80,8 @@ class ProfileServiceTest extends TestCase
         $service->updateProfile($data, $em);
     }
 
-    public function testThrowExceptionIfEmailAlreadyChangeLastHour () {
+    public function testThrowExceptionIfEmailAlreadyChangeLastHour()
+    {
         $user = new User();
         $user->setEmail('john@doe.fr');
         $data = new ProfileUpdateDto($user);
@@ -92,7 +97,8 @@ class ProfileServiceTest extends TestCase
         $service->updateProfile($data, $em);
     }
 
-    public function testDeletePreviousEmailVerification () {
+    public function testDeletePreviousEmailVerification()
+    {
         $user = new User();
         $user->setEmail('john@doe.fr');
         $data = new ProfileUpdateDto($user);
@@ -105,5 +111,4 @@ class ProfileServiceTest extends TestCase
         $em->expects($this->once())->method('remove')->with($oldVerification);
         $service->updateProfile($data, $em);
     }
-
 }

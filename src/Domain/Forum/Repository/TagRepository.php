@@ -11,7 +11,6 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class TagRepository extends ServiceEntityRepository
 {
-
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Tag::class);
@@ -23,11 +22,10 @@ class TagRepository extends ServiceEntityRepository
             ->addSelect('p')
             ->leftJoin('t.parent', 'p')
             ->orderBy('t.position', 'ASC');
+
         return array_values(array_filter(
             $query->getQuery()->getResult(),
-            fn(Tag $tag) => $tag->getParent() === null
+            fn (Tag $tag) => null === $tag->getParent()
         ));
-
     }
-
 }
