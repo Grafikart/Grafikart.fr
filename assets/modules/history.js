@@ -16,10 +16,9 @@ export function showHistory (progress) {
     if (element.tagName === 'PLAY-BUTTON') {
       element.setAttribute('progress', p)
 
-    // Sinon on ajoute la class "is-completed" aux éléments qui ont été terminés
+      // Sinon on ajoute la class "is-completed" aux éléments qui ont été terminés
     } else if (p === 100) {
       element.classList.add('is-completed')
     }
   })
-
 }

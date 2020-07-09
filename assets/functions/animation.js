@@ -1,5 +1,5 @@
-import {offsetTop} from '/functions/dom.js'
-import {windowHeight} from '/functions/window.js'
+import { offsetTop } from '/functions/dom.js'
+import { windowHeight } from '/functions/window.js'
 
 /**
  * Masque un élément avec un effet de repli
@@ -52,8 +52,7 @@ export async function slideUpAndRemove (element, duration = 500) {
  * @param {Number} duration
  * @returns {Promise<boolean>}
  */
-export function slideDown(element, duration = 500)
-{
+export function slideDown (element, duration = 500) {
   return new Promise(function (resolve, reject) {
     element.style.removeProperty('display')
     let display = window.getComputedStyle(element).display
@@ -91,7 +90,7 @@ export function slideDown(element, duration = 500)
  */
 export function scrollTo (element) {
   if (element === null) {
-    return;
+    return
   }
   const elementOffset = offsetTop(element)
   const elementHeight = element.getBoundingClientRect().height

@@ -1,8 +1,7 @@
-import {closest, html} from '/functions/dom.js'
-import {enterKeyListener} from '/functions/keyboard.js'
+import { closest, html } from '/functions/dom.js'
+import { enterKeyListener } from '/functions/keyboard.js'
 import Sortable from 'sortablejs'
-import {jsonFetch} from '/functions/api'
-
+import { jsonFetch } from '/functions/api'
 
 /**
  * Construit un élément représentant un chapitre
@@ -11,7 +10,7 @@ import {jsonFetch} from '/functions/api'
  * @param {function} onUpdate
  * @return {HTMLLIElement}
  */
-function Chapter ({chapter, onUpdate, onRemove, onAdd, editPath}) {
+function Chapter ({ chapter, onUpdate, onRemove, onAdd, editPath }) {
   function deleteChapter (e) {
     e.preventDefault()
     e.stopPropagation()
@@ -21,21 +20,22 @@ function Chapter ({chapter, onUpdate, onRemove, onAdd, editPath}) {
   }
   return html`
     <li data-title="${chapter.title}">
-      <input type="text" value="${chapter.title}" class="chapters-editor__chapter" onblur=${onUpdate}/>
+      <input type="text" value="${chapter.title}" class="chapters-editor__chapter" onblur=${onUpdate} />
       <button type="button" onclick=${deleteChapter} class="chapters-editor__delete">
         <svg class="icon icon-delete">
           <use xlink:href="/sprite.svg#delete"></use>
         </svg>
       </button>
       <ul>
-        ${chapter.courses.map(c => html`<${Course}
-            course=${c}
-            onRemove=${onRemove}
-            editPath=${editPath} />`
+        ${chapter.courses.map(
+          c => html`
+            <${Course} course=${c} onRemove=${onRemove} editPath=${editPath} />
+          `
         )}
         <${AddButton} placeholder="Ajouter un cours" onAdd=${onAdd} />
       </ul>
-    </li>`
+    </li>
+  `
 }
 
 /**
@@ -45,21 +45,18 @@ function Chapter ({chapter, onUpdate, onRemove, onAdd, editPath}) {
  * @param {function} onRemove
  * @return {HTMLLIElement}
  */
-function Course ({course, onRemove, editPath}) {
+function Course ({ course, onRemove, editPath }) {
   const url = editPath.replace(':id', course.id)
   return html`
-    <li
-      class="chapters-editor__course"
-      data-title=${course.title}
-      data-id=${course.id}
-    >
+    <li class="chapters-editor__course" data-title=${course.title} data-id=${course.id}>
       <a href=${url} target="_blank">${course.title}</a>
       <button type="button" onclick=${onRemove} class="chapters-editor__delete">
         <svg class="icon icon-delete">
           <use xlink:href="/sprite.svg#delete"></use>
         </svg>
       </button>
-    </li>`
+    </li>
+  `
 }
 
 /**
@@ -70,7 +67,7 @@ function Course ({course, onRemove, editPath}) {
  * @return HTMLLIElement
  * @constructor
  */
-function AddButton ({placeholder, onAdd}) {
+function AddButton ({ placeholder, onAdd }) {
   const callback = function (e) {
     e.preventDefault()
     e.stopPropagation()
@@ -82,13 +79,14 @@ function AddButton ({placeholder, onAdd}) {
   }
   return html`
     <li class="chapters-editor__add">
-      <input type="text" placeholder=${placeholder} onkeydown=${enterKeyListener(callback)}/>
+      <input type="text" placeholder=${placeholder} onkeydown=${enterKeyListener(callback)} />
       <button type="button" onclick=${callback}>
         <svg class="icon icon-add">
           <use xlink:href="/sprite.svg#delete"></use>
         </svg>
       </button>
-    </li>`
+    </li>
+  `
 }
 
 /**
@@ -100,7 +98,6 @@ function AddButton ({placeholder, onAdd}) {
  * @typedef {{id: number, title: string}} ICourse
  */
 export default class ChaptersEditor extends HTMLTextAreaElement {
-
   constructor () {
     super()
     this.sortables = []
@@ -137,17 +134,21 @@ export default class ChaptersEditor extends HTMLTextAreaElement {
     const chapters = JSON.parse(this.value)
     return html`
       <ul class="chapters-editor stack">
-        ${chapters.map(chapter =>
-          html`<${Chapter}
-            chapter=${chapter}
-            onUpdate=${this.updateInput}
-            onRemove=${this.removeCourse}
-            onAdd="${this.addCourse}"
-            editPath="${this.editPath}"
-            />`
+        ${chapters.map(
+          chapter =>
+            html`
+              <${Chapter}
+                chapter=${chapter}
+                onUpdate=${this.updateInput}
+                onRemove=${this.removeCourse}
+                onAdd="${this.addCourse}"
+                editPath="${this.editPath}"
+              />
+            `
         )}
         <${AddButton} placeholder="Ajouter un chapitre" onAdd=${this.addChapter} />
-      </ul>`
+      </ul>
+    `
   }
 
   /**
@@ -162,7 +163,7 @@ export default class ChaptersEditor extends HTMLTextAreaElement {
     const endpoint = this.getAttribute('endpoint').replace(':id', value)
     try {
       const course = await jsonFetch(endpoint)
-      const courseLi = Course({course, onRemove: this.removeCourse, editPath: this.editPath})
+      const courseLi = Course({ course, onRemove: this.removeCourse, editPath: this.editPath })
       li.insertAdjacentElement('beforebegin', courseLi)
       this.updateInput()
     } catch (e) {
@@ -192,17 +193,17 @@ export default class ChaptersEditor extends HTMLTextAreaElement {
       title,
       courses: []
     }
-    const chapterLi = html`<${Chapter}
-      chapter=${chapter}
-      onUpdate=${this.updateInput}
-      onRemove=${this.removeCourse}
-      onAdd=${this.addCourse}
-      editPath=${this.editPath}
-    />`
+    const chapterLi = html`
+      <${Chapter}
+        chapter=${chapter}
+        onUpdate=${this.updateInput}
+        onRemove=${this.removeCourse}
+        onAdd=${this.addCourse}
+        editPath=${this.editPath}
+      />
+    `
     li.insertAdjacentElement('beforebegin', chapterLi)
-    this.sortables.push(
-      new Sortable(chapterLi.querySelector('ul'), this.sortableOptions)
-    )
+    this.sortables.push(new Sortable(chapterLi.querySelector('ul'), this.sortableOptions))
   }
 
   /**
@@ -237,13 +238,17 @@ export default class ChaptersEditor extends HTMLTextAreaElement {
       // On ajoute le chapitre au tableau
       newChapters.push({
         title: li.querySelector('input').value,
-        courses: Array.from(courses).map(l => {
-          if (l.dataset.id === undefined) { return null }
-          return {
-            id: l.dataset.id,
-            title: l.dataset.title
-          }
-        }).filter(c => c !== null)
+        courses: Array.from(courses)
+          .map(l => {
+            if (l.dataset.id === undefined) {
+              return null
+            }
+            return {
+              id: l.dataset.id,
+              title: l.dataset.title
+            }
+          })
+          .filter(c => c !== null)
       })
     })
     this.value = JSON.stringify(newChapters)
@@ -255,7 +260,6 @@ export default class ChaptersEditor extends HTMLTextAreaElement {
       this.list.parentElement.removeChild(this.list)
     }
   }
-
 }
 
-customElements.define('chapters-editor', ChaptersEditor, {extends: 'textarea'})
+customElements.define('chapters-editor', ChaptersEditor, { extends: 'textarea' })

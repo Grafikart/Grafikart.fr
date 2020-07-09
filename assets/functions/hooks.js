@@ -1,16 +1,13 @@
-import {useEffect, useState} from 'preact/hooks'
-import {jsonFetch} from '/functions/api.js'
-import {flash} from '/elements/Alert.js'
+import { useEffect, useState } from 'preact/hooks'
+import { jsonFetch } from '/functions/api.js'
+import { flash } from '/elements/Alert.js'
 
 /**
  * Alterne une valeur
  */
 export function useToggle (initialValue = null) {
   const [value, setValue] = useState(initialValue)
-  return [
-    value,
-    () => setValue(!value)
-  ]
+  return [value, () => setValue(!value)]
 }
 
 /**
@@ -20,8 +17,8 @@ export function usePush (initialValue = []) {
   let [value, setValue] = useState(initialValue)
   return [
     value,
-    (item) => {
-      setValue((v) => [...v, item])
+    item => {
+      setValue(v => [...v, item])
     }
   ]
 }
@@ -33,8 +30,8 @@ export function usePrepend (initialValue = []) {
   let [value, setValue] = useState(initialValue)
   return [
     value,
-    (item) => {
-      setValue((v) => [item, ...v])
+    item => {
+      setValue(v => [item, ...v])
     }
   ]
 }
@@ -42,10 +39,12 @@ export function usePrepend (initialValue = []) {
 /**
  * Hook d'effet pour détecter le clique en dehors d'un élément
  */
-export function useClickOutside(ref, cb) {
+export function useClickOutside (ref, cb) {
   useEffect(() => {
     const escCb = e => {
-      if (e.key === 'Escape' && ref.current) { cb() }
+      if (e.key === 'Escape' && ref.current) {
+        cb()
+      }
     }
     const clickCb = e => {
       if (ref.current && !ref.current.contains(e.target)) {
@@ -54,7 +53,7 @@ export function useClickOutside(ref, cb) {
     }
     document.addEventListener('click', clickCb)
     document.addEventListener('keyup', escCb)
-    return function cleanup() {
+    return function cleanup () {
       document.removeEventListener('click', clickCb)
       document.removeEventListener('keyup', escCb)
     }
@@ -65,7 +64,7 @@ export function useClickOutside(ref, cb) {
  * Focus le premier champs dans l'élément correspondant à la ref
  * @param {boolean} focus
  */
-export function useAutofocus(ref, focus) {
+export function useAutofocus (ref, focus) {
   useEffect(() => {
     if (focus && ref.current) {
       const input = ref.current.querySelector('input, textarea')
@@ -96,16 +95,17 @@ export function useJsonFetch (url, params = {}, autofetch = true) {
     } else {
       response = jsonFetch(url, params)
     }
-    response.then(setData).catch(setError).then(() => setLoading(false))
+    response
+      .then(setData)
+      .catch(setError)
+      .then(() => setLoading(false))
   }
-  if(autofetch) {
+  if (autofetch) {
     if (loaded === false) {
       load()
     }
   }
-  return [
-    loading, data, error, load
-  ]
+  return [loading, data, error, load]
 }
 
 /**

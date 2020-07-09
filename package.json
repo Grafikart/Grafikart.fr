@@ -11,6 +11,7 @@
     "babel-plugin-jsx-pragmatic": "^1.0.2",
     "doctoc": "^1.4.0",
     "jest": "^25.1.0",
+    "prettier-standard": "^16.4.1",
     "sass": "^1.26.5",
     "sass-loader": "^7.0.1",
     "standard": "^14.3.1",

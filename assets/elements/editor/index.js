@@ -1,13 +1,12 @@
 import './editor.scss'
 import Editor from './Editor'
 import Toolbar from './Toolbar'
-import {createElement} from '/functions/dom'
+import { createElement } from '/functions/dom'
 
 /**
  * @property {HTMLDivElement} container
  */
 class MarkdownEditor extends HTMLTextAreaElement {
-
   constructor () {
     super()
     this.toggleFullscreen = this.toggleFullscreen.bind(this)
@@ -19,13 +18,13 @@ class MarkdownEditor extends HTMLTextAreaElement {
     const toolbar = new Toolbar(editor)
 
     // Construction du DOM
-    this.container = createElement('div', {class: 'mdeditor'})
+    this.container = createElement('div', { class: 'mdeditor' })
     this.container.appendChild(toolbar.element)
     this.container.appendChild(editor.element)
 
     // Evènement
     toolbar.onFullScreen = this.toggleFullscreen
-    editor.onChange = (value) => {
+    editor.onChange = value => {
       this.value = value
       this.dispatchEvent(new CustomEvent('input'))
     }
@@ -43,10 +42,7 @@ class MarkdownEditor extends HTMLTextAreaElement {
   /**
    * Permet de forcer la synchronisation de l'éditeur depuis le textarea (utile quand le composant est monté dans react)
    */
-  syncEditor () {
-
-  }
-
+  syncEditor () {}
 }
 
-customElements.define('markdown-editor', MarkdownEditor, {extends: 'textarea'})
+customElements.define('markdown-editor', MarkdownEditor, { extends: 'textarea' })

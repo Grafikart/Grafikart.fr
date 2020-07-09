@@ -7,7 +7,7 @@ import htm from 'htm/mini'
  */
 export function offsetTop (element) {
   let top = element.offsetTop
-  while(element = element.offsetParent) {
+  while ((element = element.offsetParent)) {
     top += element.offsetTop
   }
   return top
@@ -30,14 +30,16 @@ export function createElement (tagName, attributes = {}, ...children) {
 
   const svgTags = ['svg', 'use', 'path', 'circle', 'g']
   // On construit l'élément
-  const e = !svgTags.includes(tagName) ? document.createElement(tagName) : document.createElementNS("http://www.w3.org/2000/svg", tagName)
+  const e = !svgTags.includes(tagName)
+    ? document.createElement(tagName)
+    : document.createElementNS('http://www.w3.org/2000/svg', tagName)
 
   // On lui associe les bons attributs
   for (const k of Object.keys(attributes || {})) {
     if (typeof attributes[k] === 'function' && k.startsWith('on')) {
       e.addEventListener(k.substr(2).toLowerCase(), attributes[k])
     } else if (k === 'xlink:href') {
-      e.setAttributeNS('http://www.w3.org/1999/xlink', 'href', attributes[k]);
+      e.setAttributeNS('http://www.w3.org/1999/xlink', 'href', attributes[k])
     } else {
       e.setAttribute(k, attributes[k])
     }
@@ -72,7 +74,7 @@ export const html = htm.bind(createElement)
  * @param {string} str
  * @return {DocumentFragment}
  */
-export function strToDom(str) {
+export function strToDom (str) {
   return document.createRange().createContextualFragment(str).firstChild
 }
 
@@ -83,17 +85,17 @@ export function strToDom(str) {
  * @return {null|HTMLElement}
  */
 export function closest (element, selector) {
-    for ( ; element && element !== document; element = element.parentNode ) {
-      if ( element.matches( selector ) ) return element;
-    }
-    return null;
+  for (; element && element !== document; element = element.parentNode) {
+    if (element.matches(selector)) return element
+  }
+  return null
 }
 
 /**
  * @param {string} selector
  * @return {HTMLElement}
  */
-export function $(selector) {
+export function $ (selector) {
   return document.querySelector(selector)
 }
 
@@ -101,6 +103,6 @@ export function $(selector) {
  * @param {string} selector
  * @return {HTMLElement[]}
  */
-export function $$(selector) {
+export function $$ (selector) {
   return Array.from(document.querySelectorAll(selector))
 }

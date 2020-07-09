@@ -7,13 +7,11 @@
  * ```
  */
 class AutoScroll extends HTMLDivElement {
-
   connectedCallback () {
     const target = document.querySelector(this.dataset.to)
     this.scrollTo(0, target.offsetTop - this.getBoundingClientRect().height / 2)
     target.classList.add('is-selected')
   }
-
 }
 
-customElements.define('auto-scroll', AutoScroll, {extends: 'div'})
+customElements.define('auto-scroll', AutoScroll, { extends: 'div' })

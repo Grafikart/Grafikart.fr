@@ -1,5 +1,5 @@
 import * as Choices from 'choices.js'
-import {debounce} from '/functions/timers.js'
+import { debounce } from '/functions/timers.js'
 
 /**
  * @param {string} endpoint
@@ -11,10 +11,9 @@ function getItems (endpoint, search) {
     if (response.status >= 200 && response.status < 300) {
       return await response.json()
     }
-    return [];
+    return []
   }
 }
-
 
 /**
  * @property {number|null} timer
@@ -22,7 +21,6 @@ function getItems (endpoint, search) {
  * @property {string} endpoint
  */
 class UserSelect extends HTMLSelectElement {
-
   connectedCallback () {
     if (this.timer) {
       global.clearTimeout(this.timer)
@@ -53,8 +51,6 @@ class UserSelect extends HTMLSelectElement {
       this.choices.setChoices(getItems(this.endpoint, search), 'id', 'username', true)
     }
   }
-
 }
 
-
-global.customElements.define('user-select', UserSelect, {extends: 'select'})
+global.customElements.define('user-select', UserSelect, { extends: 'select' })

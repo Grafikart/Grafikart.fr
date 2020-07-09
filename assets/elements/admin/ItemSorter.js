@@ -1,5 +1,5 @@
 import Sortable from 'sortablejs'
-import {jsonFetch} from '/functions/api.js'
+import { jsonFetch } from '/functions/api.js'
 import SpinningDots from '@grafikart/spinning-dots-element'
 
 /**
@@ -26,7 +26,7 @@ function createLi (item) {
     if (confirm('Sûr ?')) {
       e.preventDefault()
       const loader = showLoader(li)
-      await jsonFetch(item.url, {method: 'DELETE'})
+      await jsonFetch(item.url, { method: 'DELETE' })
       hideLoader(loader)
       li.parentElement.removeChild(li)
     }
@@ -67,7 +67,6 @@ function hideLoader (loader) {
  * @typedef {{id: number, title: string}} ICourse
  */
 export default class ItemSorter extends HTMLElement {
-
   constructor () {
     super()
     this.sortables = []
@@ -140,7 +139,6 @@ export default class ItemSorter extends HTMLElement {
     })
     hideLoader(loader)
   }
-
 }
 
 customElements.define('item-sorter', ItemSorter)

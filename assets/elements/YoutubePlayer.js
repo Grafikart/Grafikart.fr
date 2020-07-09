@@ -28,7 +28,7 @@ export default class YoutubePlayer extends HTMLElement {
     super()
 
     // Initialisation
-    Object.keys(attributes).forEach((k) => this.setAttribute(k, attributes[k]))
+    Object.keys(attributes).forEach(k => this.setAttribute(k, attributes[k]))
     this.root = this.attachShadow({ mode: 'open' })
     this.onYoutubePlayerStateChange = this.onYoutubePlayerStateChange.bind(this)
     this.onYoutubePlayerReady = this.onYoutubePlayerReady.bind(this)
@@ -36,7 +36,10 @@ export default class YoutubePlayer extends HTMLElement {
 
     // Structure HTML
     let poster = this.getAttribute('poster')
-    poster = poster === null ? '' : `<div class="poster">
+    poster =
+      poster === null
+        ? ''
+        : `<div class="poster">
       <img src="${poster}">
       <svg class="play" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46 46"><path d="M23 0C10.32 0 0 10.32 0 23s10.32 23 23 23 23-10.32 23-23S35.68 0 23 0zm8.55 23.83l-12 8A1 1 0 0118 31V15a1 1 0 011.55-.83l12 8a1 1 0 010 1.66z"/></svg>
       <div class="title">${this.getAttribute('title')}</div>

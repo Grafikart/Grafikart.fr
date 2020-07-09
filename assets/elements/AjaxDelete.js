@@ -1,14 +1,13 @@
-import {jsonFetch} from '/functions/api.js'
-import {slideUpAndRemove} from '/functions/animation.js'
+import { jsonFetch } from '/functions/api.js'
+import { slideUpAndRemove } from '/functions/animation.js'
 import LoaderOverlay from '/elements/LoaderOverlay.js'
-import {FloatingAlert} from '/elements/Alert.js'
-import {closest} from '/functions/dom.js'
+import { FloatingAlert } from '/elements/Alert.js'
+import { closest } from '/functions/dom.js'
 
 /**
  * Bouton pour appeler une URL avec la méthode DELETE et masquer le parent en cas de retour
  */
 class AjaxDelete extends HTMLElement {
-
   connectedCallback () {
     this.addEventListener('click', async e => {
       e.preventDefault()
@@ -26,17 +25,15 @@ class AjaxDelete extends HTMLElement {
 
       // On fait l'appel
       try {
-        await jsonFetch(this.getAttribute('url'), {method: 'DELETE'})
+        await jsonFetch(this.getAttribute('url'), { method: 'DELETE' })
         loader.hide()
         await slideUpAndRemove(parent)
       } catch (e) {
         loader.hide()
-        document.body.appendChild(new FloatingAlert({message: e.detail}))
+        document.body.appendChild(new FloatingAlert({ message: e.detail }))
       }
-
     })
   }
-
 }
 
 customElements.define('ajax-delete', AjaxDelete)

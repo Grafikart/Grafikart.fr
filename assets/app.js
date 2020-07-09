@@ -7,9 +7,9 @@ import Turbolinks from 'turbolinks'
 
 import './modules/scrollreveal.js'
 import './modules/highlight.js'
-import {showHistory} from './modules/history.js'
+import { showHistory } from './modules/history.js'
 import * as Choices from 'choices.js'
-import {$$} from '/functions/dom.js'
+import { $$ } from '/functions/dom.js'
 
 document.addEventListener('turbolinks:load', function () {
   const darkToggle = document.querySelector('#dark-toggle')
@@ -22,7 +22,7 @@ document.addEventListener('turbolinks:load', function () {
   }
 
   // Choices
-  $$('select[multiple]').forEach((s) => new Choices(s))
+  $$('select[multiple]').forEach(s => new Choices(s))
 })
 
 window.Grafikart = {

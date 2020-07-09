@@ -17,7 +17,6 @@ const DS = '/'
  * @return {Folder[]}
  */
 export function pathsToTree (paths) {
-
   function pathToObject (path, count, relativePath) {
     if (folderMap[relativePath]) {
       folderMap[relativePath].count += count
@@ -35,21 +34,22 @@ export function pathsToTree (paths) {
 
   const folderMap = {}
 
-  return uniq(paths.map(p => {
-    if (p.path.includes('/')) {
-      const parts = p.path.split('/')
-      let folder = pathToObject(parts[0], p.count, parts[0])
-      let parent = folder
-      for (let i = 1; i < parts.length; i++) {
-        let child = pathToObject(parts[i], p.count, parts.slice(0, i + 1).join(DS))
-        if (!parent.children.includes(child)) parent.children.push(child)
-        parent = child
+  return uniq(
+    paths.map(p => {
+      if (p.path.includes('/')) {
+        const parts = p.path.split('/')
+        let folder = pathToObject(parts[0], p.count, parts[0])
+        let parent = folder
+        for (let i = 1; i < parts.length; i++) {
+          let child = pathToObject(parts[i], p.count, parts.slice(0, i + 1).join(DS))
+          if (!parent.children.includes(child)) parent.children.push(child)
+          parent = child
+        }
+        return folder
       }
-      return folder
-    }
-    return pathToObject(p.path, p.count, p.path)
-  }))
-
+      return pathToObject(p.path, p.count, p.path)
+    })
+  )
 }
 
 function uniq (arr) {

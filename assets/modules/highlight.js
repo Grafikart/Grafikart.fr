@@ -43,7 +43,7 @@ function bindHighlight () {
       link.setAttribute('rel', 'stylesheet')
       document.querySelector('head').appendChild(link)
       $script('//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js', function () {
-        global.hljs.configure({tabReplace: '    '})
+        global.hljs.configure({ tabReplace: '    ' })
         highlight($codes)
       })
     }

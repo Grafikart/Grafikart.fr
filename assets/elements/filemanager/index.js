@@ -1,7 +1,6 @@
 import FileManagerSvelte from './FileManager.svelte'
 
 export default class FileManager extends HTMLElement {
-
   constructor () {
     super()
     this.root = this.attachShadow({ mode: 'closed' })
@@ -24,9 +23,11 @@ export default class FileManager extends HTMLElement {
    * @param {{id: number, createdAt: number, name: string, size: number, url: string}} file
    */
   onSelectFile (file) {
-    this.dispatchEvent(new CustomEvent('file', {
-      detail: file
-    }))
+    this.dispatchEvent(
+      new CustomEvent('file', {
+        detail: file
+      })
+    )
   }
 
   style () {
@@ -277,13 +278,13 @@ export default class FileManager extends HTMLElement {
   onDragEnter (e) {
     e.stopPropagation()
     e.preventDefault()
-    this.fileManagerComponent.$set({dragOver: true})
+    this.fileManagerComponent.$set({ dragOver: true })
   }
 
   ondragleave (e) {
     e.stopPropagation()
     e.preventDefault()
-    this.fileManagerComponent.$set({dragOver: false})
+    this.fileManagerComponent.$set({ dragOver: false })
   }
 
   onDragOver (e) {
@@ -292,10 +293,8 @@ export default class FileManager extends HTMLElement {
   }
 
   onDrop (e) {
-    this.fileManagerComponent.$set({dragOver: false})
+    this.fileManagerComponent.$set({ dragOver: false })
   }
-
-
 }
 
 customElements.define('file-manager', FileManager)

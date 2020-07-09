@@ -6,7 +6,6 @@
  * @property {string} value
  */
 export default class Editor {
-
   /**
    * @param {string} value
    */
@@ -20,19 +19,19 @@ export default class Editor {
    * Démarre l'éditeur
    */
   async boot () {
-    const {default: CodeMirror} = await import(/* webpackChunkName: "CodeMirror" */ './libs/CodeMirror')
+    const { default: CodeMirror } = await import(/* webpackChunkName: "CodeMirror" */ './libs/CodeMirror')
     this.editor = new CodeMirror(this.element, {
       value: this.value,
       mode: 'markdown',
       theme: 'neo',
       lineWrapping: true,
       cursorBlinkRate: 0,
-      viewportMargin: Infinity,
+      viewportMargin: Infinity
     })
     window.requestAnimationFrame(() => {
       this.editor.refresh()
     })
-    this.editor.on('change', (cm) => {
+    this.editor.on('change', cm => {
       this.onChange(cm.getValue())
     })
   }
@@ -78,7 +77,7 @@ export default class Editor {
    * @param {string} shortcut
    * @param {function} action
    */
-  addShortcut(shortcut, action) {
+  addShortcut (shortcut, action) {
     this.editor.setOption('extraKeys', {
       ...this.editor.getOption('extraKeys'),
       [shortcut]: action
@@ -91,5 +90,4 @@ export default class Editor {
    * @param {string} value
    */
   onChange (value) {}
-
 }

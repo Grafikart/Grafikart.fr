@@ -17,10 +17,10 @@ export default class RecapLiveElement extends HTMLElement {
     this.play = this.play.bind(this)
     this.gotoYear = this.gotoYear.bind(this)
     this.liveList = this.querySelector('.live-list')
-    this.querySelectorAll('.live').forEach((live) => {
+    this.querySelectorAll('.live').forEach(live => {
       live.addEventListener('click', this.play)
     })
-    this.querySelectorAll('.live-years a').forEach((a) => {
+    this.querySelectorAll('.live-years a').forEach(a => {
       a.addEventListener('click', this.gotoYear)
     })
   }
@@ -43,7 +43,7 @@ export default class RecapLiveElement extends HTMLElement {
     if (response.status >= 200 && response.status < 300) {
       const data = await response.text()
       this.liveList.innerHTML = data
-      this.liveList.querySelectorAll('.live').forEach((live) => {
+      this.liveList.querySelectorAll('.live').forEach(live => {
         live.addEventListener('click', this.play)
       })
       window.history.replaceState({}, '', url)

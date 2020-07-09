@@ -41,7 +41,7 @@ export default class PlayButton extends HTMLElement {
     if (name === 'progress') {
       const progress = newValue ? parseInt(newValue, 10) : 0
       if (this.circle) {
-        this.circle.style.strokeDashoffset = (94 - 94 * progress / 100) + 'px'
+        this.circle.style.strokeDashoffset = 94 - (94 * progress) / 100 + 'px'
       }
       if (progress === 100) {
         this.root.host.classList.add('is-checked')
@@ -147,7 +147,7 @@ export default class PlayButton extends HTMLElement {
   attachVideo (video) {
     this.setAttribute('progress', 0)
     const onTimeUpdate = () => {
-      this.setAttribute('progress', (100 * video.currentTime / video.duration).toString())
+      this.setAttribute('progress', ((100 * video.currentTime) / video.duration).toString())
     }
     const onPlay = () => this.setAttribute('playing', 'playing')
     const onEnded = () => this.removeAttribute('playing')

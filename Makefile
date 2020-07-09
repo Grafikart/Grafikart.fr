@@ -74,6 +74,10 @@ tt: vendor/autoload.php ## Lance le watcher phpunit
 lint: vendor/autoload.php ## Analyse le code
 	docker run -v $(PWD):/app --rm phpstan/phpstan analyse
 
+.PHONY: format
+format:
+	npx prettier-standard --format 'assets/**/*.{js,css,jsx}'
+
 .PHONY: doc
 doc: ## Génère le sommaire de la documentation
 	npx doctoc ./README.md

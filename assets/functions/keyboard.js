@@ -4,7 +4,7 @@
  * @param {function(KeyboardEvent)} callback
  * @return {function(KeyboardEvent)}
  */
-export function enterKeyListener(callback) {
+export function enterKeyListener (callback) {
   return function (e) {
     if (e.key === 'Enter') {
       callback(e)

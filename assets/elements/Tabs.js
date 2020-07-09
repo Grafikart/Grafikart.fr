@@ -1,4 +1,4 @@
-import {scrollTo} from '/functions/animation.js'
+import { scrollTo } from '/functions/animation.js'
 
 /**
  * Custom element pour créer un système d'onglet accessible
@@ -6,7 +6,6 @@ import {scrollTo} from '/functions/animation.js'
  * Référence : https://www.w3.org/TR/wai-aria-practices/examples/tabs/tabs-1/tabs.html
  */
 export default class Tabs extends HTMLElement {
-
   connectedCallback () {
     // On ajoute les attributs aria
     this.setAttribute('role', 'tablist')
@@ -36,7 +35,7 @@ export default class Tabs extends HTMLElement {
       target.setAttribute('hidden', 'hidden')
 
       // Navigation à la souris
-      tab.addEventListener('click', (e) => {
+      tab.addEventListener('click', e => {
         e.preventDefault()
         this.activate(tab)
       })
@@ -98,7 +97,6 @@ export default class Tabs extends HTMLElement {
       window.history.replaceState({}, '', '#' + tab.getAttribute('aria-controls'))
     }
   }
-
 }
 
 customElements.define('nav-tabs', Tabs)

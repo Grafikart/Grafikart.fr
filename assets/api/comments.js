@@ -1,4 +1,4 @@
-import {jsonFetch} from '/functions/api.js'
+import { jsonFetch } from '/functions/api.js'
 
 /**
  * Représentation d'un commentaire de l'API
@@ -9,7 +9,7 @@ import {jsonFetch} from '/functions/api.js'
  * @param {string} target
  * @return {Promise<CommentResource[]>}
  */
-export async function findAllComments(target) {
+export async function findAllComments (target) {
   return await jsonFetch('/api/comments?content=' + target)
 }
 
@@ -17,7 +17,7 @@ export async function findAllComments(target) {
  * @param {{target: number, username: ?string, email: ?string, content: string}} data
  * @return {Promise<Object>}
  */
-export async function addComment(body) {
+export async function addComment (body) {
   return jsonFetch('/api/comments', {
     method: 'POST',
     body: body
@@ -42,6 +42,6 @@ export async function deleteComment (id) {
 export async function updateComment (id, content) {
   return jsonFetch(`/api/comments/${id}`, {
     method: 'PUT',
-    body: JSON.stringify({content})
+    body: JSON.stringify({ content })
   })
 }

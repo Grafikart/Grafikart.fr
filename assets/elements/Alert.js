@@ -1,7 +1,7 @@
-import {slideUp} from '/functions/animation.js'
+import { slideUp } from '/functions/animation.js'
 
 export class Alert extends HTMLElement {
-  constructor ({type, message} = {}) {
+  constructor ({ type, message } = {}) {
     super()
     if (type !== undefined) {
       this.type = type
@@ -17,7 +17,7 @@ export class Alert extends HTMLElement {
     this.type = this.type || this.getAttribute('type') || 'error'
     const text = this.innerText
     const duration = this.getAttribute('duration')
-    let progressBar = '';
+    let progressBar = ''
     if (duration !== null) {
       progressBar = `<div class="alert__progress" style="animation-duration: ${duration}s">`
       window.setTimeout(this.close, duration * 1000)
@@ -34,7 +34,7 @@ export class Alert extends HTMLElement {
         </button>
         ${progressBar}
       </div>`
-    this.querySelector('.alert-close').addEventListener('click', (e) => {
+    this.querySelector('.alert-close').addEventListener('click', e => {
       e.preventDefault()
       this.close()
     })
@@ -69,7 +69,7 @@ export class FloatingAlert extends Alert {
   }
 }
 
-export function flash (message, type="success", duration = 2) {
+export function flash (message, type = 'success', duration = 2) {
   const alert = new FloatingAlert()
   if (duration) {
     alert.setAttribute('duration', duration)

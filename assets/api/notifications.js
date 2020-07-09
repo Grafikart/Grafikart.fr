@@ -1,10 +1,12 @@
-import {jsonFetch} from '/functions/api.js'
+import { jsonFetch } from '/functions/api.js'
 
-function emitEvent(notification) {
+function emitEvent (notification) {
   notification.createdAt = new Date(notification.createdAt)
-  window.dispatchEvent(new CustomEvent('gnotification', {
-    detail: notification
-  }))
+  window.dispatchEvent(
+    new CustomEvent('gnotification', {
+      detail: notification
+    })
+  )
 }
 
 /**
@@ -17,10 +19,10 @@ export async function loadNotifications () {
   notifications.forEach(emitEvent)
 
   // On se connecte au SSE
-  const url = new URL(window.grafikart.MERCURE_URL);
-  url.searchParams.append('topic', '/notifications/{channel}');
-  url.searchParams.append('topic', '/notifications/user/' + window.grafikart.USER);
-  const eventSource = new EventSource(url, {withCredentials: true});
+  const url = new URL(window.grafikart.MERCURE_URL)
+  url.searchParams.append('topic', '/notifications/{channel}')
+  url.searchParams.append('topic', '/notifications/user/' + window.grafikart.USER)
+  const eventSource = new EventSource(url, { withCredentials: true })
   eventSource.onmessage = e => emitEvent(JSON.parse(e.data))
   return notifications
 }

@@ -4,7 +4,6 @@ import SpinningDots from '@grafikart/spinning-dots-element'
  * Crée un loader qui se place au dessus de l'élément courant
  */
 export default class LoaderOverlay extends HTMLElement {
-
   constructor () {
     super()
     this.style.position = 'absolute'
@@ -25,8 +24,8 @@ export default class LoaderOverlay extends HTMLElement {
   connectedCallback () {
     // On crée le loader
     const loader = new SpinningDots()
-    loader.style.width = "20px"
-    loader.style.height= "20px"
+    loader.style.width = '20px'
+    loader.style.height = '20px'
 
     // On ajoute le loader à notre élément
     this.appendChild(loader)
@@ -38,7 +37,6 @@ export default class LoaderOverlay extends HTMLElement {
   hide () {
     this.style.opacity = 0
   }
-
 }
 
 customElements.define('loader-overlay', LoaderOverlay)

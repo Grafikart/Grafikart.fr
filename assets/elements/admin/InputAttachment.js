@@ -1,7 +1,7 @@
-import {Alert} from '../Alert.js'
+import { Alert } from '../Alert.js'
 import SpinningDots from '@grafikart/spinning-dots-element'
 import FileManager from '/elements/filemanager/index.js'
-import {Modal} from '../Modal.js'
+import { Modal } from '../Modal.js'
 
 /**
  * @property {number|null} timer
@@ -10,14 +10,16 @@ import {Modal} from '../Modal.js'
  * @property {bool} overwrite L'envoie d'une nouvelle image écrase la précédente
  */
 export default class InputAttachment extends HTMLInputElement {
-
   connectedCallback () {
     const preview = this.getAttribute('preview')
-    this.insertAdjacentHTML('afterend', `
+    this.insertAdjacentHTML(
+      'afterend',
+      `
 <div class="input-attachment">
 <div class="input-attachment__preview" style="background-image:url(${preview})"></div>
 </div>
-`)
+`
+    )
     this.style.display = 'none'
     this.container = this.parentElement.querySelector('.input-attachment')
     this.container.addEventListener('dragenter', this.onDragEnter.bind(this))
@@ -65,7 +67,7 @@ export default class InputAttachment extends HTMLInputElement {
     if (response.ok) {
       this.setAttachment(responseData)
     } else {
-      const alert = new Alert({message: responseData.error})
+      const alert = new Alert({ message: responseData.error })
       document.querySelector('.dashboard').appendChild(alert)
     }
     this.container.removeChild(loader)
@@ -88,10 +90,10 @@ export default class InputAttachment extends HTMLInputElement {
   setAttachment (attachment) {
     this.preview.style.backgroundImage = `url(${attachment.url})`
     this.value = attachment.id
-    let changeEvent = document.createEvent("HTMLEvents");
-    changeEvent.initEvent("change", false, true);
+    let changeEvent = document.createEvent('HTMLEvents')
+    changeEvent.initEvent('change', false, true)
     this.dispatchEvent(changeEvent)
-    this.dispatchEvent(new CustomEvent('attachment', {detail: attachment}))
+    this.dispatchEvent(new CustomEvent('attachment', { detail: attachment }))
   }
 
   /**
@@ -100,8 +102,6 @@ export default class InputAttachment extends HTMLInputElement {
   get attachmentId () {
     return this.value
   }
-
 }
 
-
-global.customElements.define('input-attachment', InputAttachment, {extends: 'input'})
+global.customElements.define('input-attachment', InputAttachment, { extends: 'input' })

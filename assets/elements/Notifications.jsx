@@ -1,17 +1,17 @@
-import {useEffect, useRef, useState} from 'preact/hooks'
-import {useClickOutside, usePrepend} from '/functions/hooks.js'
-import {Icon} from '/components/Icon.jsx'
-import {SlideIn} from '/components/Animation/SlideIn.jsx'
-import {isAuthenticated, lastNotificationRead} from '/functions/auth.js'
-import {Spinner} from '/components/Animation/Spinner.jsx'
-import {loadNotifications} from '../api/notifications.js'
+import { useEffect, useRef, useState } from 'preact/hooks'
+import { useClickOutside, usePrepend } from '/functions/hooks.js'
+import { Icon } from '/components/Icon.jsx'
+import { SlideIn } from '/components/Animation/SlideIn.jsx'
+import { isAuthenticated, lastNotificationRead } from '/functions/auth.js'
+import { Spinner } from '/components/Animation/Spinner.jsx'
+import { loadNotifications } from '../api/notifications.js'
 import preactCustomElement from '/functions/preact.js'
 
 const OPEN = 0
 const CLOSE = 1
 
 function countUnread (notifications, notificationReadAt) {
-  return notifications.filter(({createdAt}) => {
+  return notifications.filter(({ createdAt }) => {
     return notificationReadAt < createdAt
   }).length
 }
@@ -59,58 +59,68 @@ function Notifications () {
     }
   }, [pushNotification])
 
-  return <Fragment>
-    <button onClick={openMenu}>
-      <Icon name="bell"/>
-    </button>
-    <Badge count={countUnread(notifications, notificationReadAt)}/>
-    <SlideIn className="notifications"  show={state === OPEN}>
-      <Popup
-        loading={loading}
-        onClickOutside={closeMenu}
-        notifications={notifications}
-        notificationReadAt={notificationReadAt}
-      />
-    </SlideIn>
-  </Fragment>
+  return (
+    <Fragment>
+      <button onClick={openMenu}>
+        <Icon name='bell' />
+      </button>
+      <Badge count={countUnread(notifications, notificationReadAt)} />
+      <SlideIn className='notifications' show={state === OPEN}>
+        <Popup
+          loading={loading}
+          onClickOutside={closeMenu}
+          notifications={notifications}
+          notificationReadAt={notificationReadAt}
+        />
+      </SlideIn>
+    </Fragment>
+  )
 }
 
 /**
  * Badge contenant le nombre de notifications
  */
-function Badge ({count}) {
-  return (count > 0 && <span className="notification-badge">{count}</span>)
+function Badge ({ count }) {
+  return count > 0 && <span className='notification-badge'>{count}</span>
 }
 
 /**
  * Popup contenant les notifications
  */
-function Popup ({notifications = [], onClickOutside = () => {}, loading = false, notificationReadAt, ...props}) {
+function Popup ({ notifications = [], onClickOutside = () => {}, loading = false, notificationReadAt, ...props }) {
   const ref = useRef()
 
   useClickOutside(ref, onClickOutside)
 
-  return <div ref={ref} {...props}>
-    <div className="notifications_title">Nouveaux messages</div>
-    <div className="notifications_body">
-      {loading && <Spinner/>}
-      {notifications.map(n => <Notification notificationReadAt={notificationReadAt} {...n} />)}
-      <a href="/notifications" className="notifications_footer">Toutes les notifications</a>
+  return (
+    <div ref={ref} {...props}>
+      <div className='notifications_title'>Nouveaux messages</div>
+      <div className='notifications_body'>
+        {loading && <Spinner />}
+        {notifications.map(n => (
+          <Notification notificationReadAt={notificationReadAt} {...n} />
+        ))}
+        <a href='/notifications' className='notifications_footer'>
+          Toutes les notifications
+        </a>
+      </div>
     </div>
-  </div>
+  )
 }
 
 /**
  * Représente une notification
  */
-function Notification ({url, message, createdAt, notificationReadAt}) {
+function Notification ({ url, message, createdAt, notificationReadAt }) {
   const isRead = notificationReadAt > createdAt
   const className = `notifications_item ${isRead ? 'is-read' : ''}`
-  return <a href={url} className={className}>
-    <div className="notifications_text">
-      <p>{message}</p>
-    </div>
-  </a>
+  return (
+    <a href={url} className={className}>
+      <div className='notifications_text'>
+        <p>{message}</p>
+      </div>
+    </a>
+  )
 }
 
 preactCustomElement(Notifications, 'site-notifications')

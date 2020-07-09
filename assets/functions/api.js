@@ -4,21 +4,24 @@
  * @param {RequestInit} params
  * @return {Promise<Object>}
  */
-export async function jsonFetch (url, params= {}) {
+export async function jsonFetch (url, params = {}) {
   // Si on reçoit un FormData on le convertit en objet
   if (params.body instanceof FormData) {
     params.body = Object.fromEntries(params.body)
   }
   // Si on reçoit un objet on le convertit en chaine JSON
-  if (params.body &&  typeof params.body === 'object') {
+  if (params.body && typeof params.body === 'object') {
     params.body = JSON.stringify(params.body)
   }
-  params = Object.assign({
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    }
-  }, params)
+  params = Object.assign(
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      }
+    },
+    params
+  )
   const response = await fetch(url, params)
   if (response.status === 204) {
     return null
@@ -32,13 +35,13 @@ export async function jsonFetch (url, params= {}) {
 
 /**
  * Capture un retour d'API
- * 
- * @param {function} fn 
+ *
+ * @param {function} fn
  */
 export async function catchViolations (p) {
   try {
     return [await p, null]
-  } catch(e) {
+  } catch (e) {
     if (e instanceof ApiError) {
       return [null, e.violations]
     }
@@ -53,29 +56,24 @@ export async function catchViolations (p) {
  * }} data
  */
 export class ApiError {
-  
-  constructor(data) {
+  constructor (data) {
     this.data = data
   }
 
   // Récupère la liste de violation pour un champs donnée
   violationsFor (field) {
-    return this.data.violations
-      .filter(v => v.propertyPath === field)
-      .map(v => v.message)
+    return this.data.violations.filter(v => v.propertyPath === field).map(v => v.message)
   }
 
   // Renvoie les violations indexé par propertyPath
   get violations () {
-      return this.data.violations
-        .reduce((acc, violation) => {
-          if (acc[violation.propertyPath]) {
-            acc[violation.propertyPath].push(violation.message)
-          } else {
-            acc[violation.propertyPath] = [violation.message]
-          }
-          return acc
-        }, {})
+    return this.data.violations.reduce((acc, violation) => {
+      if (acc[violation.propertyPath]) {
+        acc[violation.propertyPath].push(violation.message)
+      } else {
+        acc[violation.propertyPath] = [violation.message]
+      }
+      return acc
+    }, {})
   }
-
 }

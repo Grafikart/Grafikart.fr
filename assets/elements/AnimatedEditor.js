@@ -1,11 +1,10 @@
-import {randomBetween} from '/functions/math.js'
+import { randomBetween } from '/functions/math.js'
 
 const lineHeight = 18 // Hauteur de ligne
-const lineDuration = .4 // Durée d'animation pour une ligne
+const lineDuration = 0.4 // Durée d'animation pour une ligne
 const screens = 2 // Nombre d'écran de code à remplire
 
 export default class AnimatedEditor extends HTMLElement {
-
   constructor () {
     super()
     this.root = this.attachShadow({ mode: 'open' })
@@ -13,9 +12,7 @@ export default class AnimatedEditor extends HTMLElement {
     this.height = parseInt(this.getAttribute('height'), 10)
     this.style.display = 'block'
     const linesPerScreen = Math.floor(350 / lineHeight)
-    this.root.innerHTML =
-      this.drawSVG(this.drawLines(linesPerScreen)) +
-      this.buildStyle(linesPerScreen)
+    this.root.innerHTML = this.drawSVG(this.drawLines(linesPerScreen)) + this.buildStyle(linesPerScreen)
   }
 
   drawSVG (code) {
@@ -105,16 +102,19 @@ export default class AnimatedEditor extends HTMLElement {
   drawPanels () {
     let html = ''
     for (let i = 0; i < 5; i++) {
-      const delay = 3 * i + .5
+      const delay = 3 * i + 0.5
       html += `
       <g style="transform: translateY(${i * 97}px)">
         <g stroke="#D5E3EC" class="panel" style="animation-delay: ${delay}s">
           <path fill="#F7FAFB"
                 d="M46 69.5h252a3.5 3.5 0 013.5 3.5v73a3.5 3.5 0 01-3.5 3.5H46a3.5 3.5 0 01-3.5-3.5V73a3.5 3.5 0 013.5-3.5z"/>
-          <circle cx="75" cy="101" r="21.5" fill="#fff" style="animation-delay: ${delay + .5}s"/>
-          <rect width="186" height="14" x="104.5" y="79.5" fill="#fff" rx="3.5"  style="animation-delay: ${delay + 1}s"/>
-          <rect width="137" height="14" x="104.5" y="102.5" fill="#fff" rx="3.5"  style="animation-delay: ${delay + 1.5}s"/>
-          <rect  width="155" height="14" x="104.5" y="125.5" fill="#fff" rx="3.5"  style="animation-delay: ${delay + 2}s"/>
+          <circle cx="75" cy="101" r="21.5" fill="#fff" style="animation-delay: ${delay + 0.5}s"/>
+          <rect width="186" height="14" x="104.5" y="79.5" fill="#fff" rx="3.5"  style="animation-delay: ${delay +
+            1}s"/>
+          <rect width="137" height="14" x="104.5" y="102.5" fill="#fff" rx="3.5"  style="animation-delay: ${delay +
+            1.5}s"/>
+          <rect  width="155" height="14" x="104.5" y="125.5" fill="#fff" rx="3.5"  style="animation-delay: ${delay +
+            2}s"/>
         </g>
       </g>`
     }
@@ -137,7 +137,7 @@ export default class AnimatedEditor extends HTMLElement {
     html += `<mask id="line${line}">
     <rect x="0" y="${y}" width="${lineWidth}" height="10" fill="white" class="mask" style="transform-origin: ${x}px 0px; animation-delay: ${delay}s" rx="5"/>
     </mask>`
-    while(x < lineWidth) {
+    while (x < lineWidth) {
       const width = randomBetween(20, 100)
       const color = width > 50 ? '#121C42' : '#5A63FF'
       if (width + x <= lineWidth) {
@@ -197,14 +197,14 @@ export default class AnimatedEditor extends HTMLElement {
   }
 
   buildPanelStyle (index) {
-    const delay = 3 * (index - 1) + .5
+    const delay = 3 * (index - 1) + 0.5
     return `
       .panel-${index} {
       }
       .panel-${index} circle {
         stroke-dasharray: 400px;
         stroke-dashoffset: 400px;
-        animation: 1s ${delay + .5}s appearDashRect both linear;
+        animation: 1s ${delay + 0.5}s appearDashRect both linear;
       }
       .panel-${index} rect {
         stroke-dasharray: 400px;
@@ -219,7 +219,6 @@ export default class AnimatedEditor extends HTMLElement {
       }
     `
   }
-
 }
 
 customElements.define('animated-editor', AnimatedEditor)

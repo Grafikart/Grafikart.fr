@@ -1,16 +1,16 @@
-import {createContext} from 'preact'
-import {jsonFetch} from '/functions/api.js'
-import {useEffect, useRef, useState, useLayoutEffect} from 'preact/hooks'
-import {PrimaryButton} from './Button.jsx'
-import {useAutofocus} from '/functions/hooks.js'
-import {flash} from '/elements/Alert.js'
+import { createContext } from 'preact'
+import { jsonFetch } from '/functions/api.js'
+import { useEffect, useRef, useState, useLayoutEffect } from 'preact/hooks'
+import { PrimaryButton } from './Button.jsx'
+import { useAutofocus } from '/functions/hooks.js'
+import { flash } from '/elements/Alert.js'
 
 export const FormContext = createContext({
   data: {},
   errors: {},
   loading: false,
   setValue: (name, value) => {},
-  emptyError: (name) => {},
+  emptyError: name => {}
 })
 
 /**
@@ -23,7 +23,7 @@ export const FormContext = createContext({
 function useForm (method, url, value, onSuccess) {
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
-  const emptyError = (name) => {
+  const emptyError = name => {
     delete errors[name]
     setErrors(errors)
   }
@@ -31,12 +31,12 @@ function useForm (method, url, value, onSuccess) {
     e.preventDefault()
     setLoading(true)
     try {
-      const data = await jsonFetch(url, {method, body: JSON.stringify(value)})
+      const data = await jsonFetch(url, { method, body: JSON.stringify(value) })
       onSuccess(data)
     } catch (e) {
       if (e.violations) {
         setErrors(
-          e.violations.reduce((acc, {propertyPath, message}) => {
+          e.violations.reduce((acc, { propertyPath, message }) => {
             if (propertyPath === '') {
               propertyPath = 'main'
             }
@@ -46,8 +46,7 @@ function useForm (method, url, value, onSuccess) {
         )
       } else if (e.detail) {
         flash(e.detail, 'danger', null)
-      }
-      else {
+      } else {
         throw e
       }
     }
@@ -73,18 +72,32 @@ function useForm (method, url, value, onSuccess) {
  * @param method
  * @param onSuccess Fonction appelée en cas de retour valide de l'API (reçoit les données de l'API en paramètre)
  */
-export function FetchForm ({value, onChange, children, action, className = null, method = 'POST', onSuccess = () => {}}) {
-  const setValue = (name, newValue) => onChange({...value, [name]: newValue})
+export function FetchForm ({
+  value,
+  onChange,
+  children,
+  action,
+  className = null,
+  method = 'POST',
+  onSuccess = () => {}
+}) {
+  const setValue = (name, newValue) => onChange({ ...value, [name]: newValue })
   const [errors, loading, onSubmit, emptyError] = useForm(method, action, value, onSuccess)
-  const contextData = { data: value, errors, loading, setValue, emptyError}
+  const contextData = { data: value, errors, loading, setValue, emptyError }
   const mainError = errors['main'] || null
 
-  return <FormContext.Provider value={contextData}>
-    <form onSubmit={onSubmit} className={className}>
-      {mainError && <alert-message type="error" duration="4" onClose={() => emptyError('main')}>{mainError}</alert-message>}
-      {children}
-    </form>
-  </FormContext.Provider>
+  return (
+    <FormContext.Provider value={contextData}>
+      <form onSubmit={onSubmit} className={className}>
+        {mainError && (
+          <alert-message type='error' duration='4' onClose={() => emptyError('main')}>
+            {mainError}
+          </alert-message>
+        )}
+        {children}
+      </form>
+    </FormContext.Provider>
+  )
 }
 
 /**
@@ -95,22 +108,27 @@ export function FetchForm ({value, onChange, children, action, className = null,
  * @return {*}
  * @constructor
  */
-export function FormField ({type = "text", name, children, ...props}) {
-
-  return <FormContext.Consumer>
-    {({data, setValue, errors, emptyError, loading}) => {
-      const value = data[name] || null
-      const error = errors[name] || null
-      const onInput = function (e) {
-        if (error) {
-          emptyError(name)
+export function FormField ({ type = 'text', name, children, ...props }) {
+  return (
+    <FormContext.Consumer>
+      {({ data, setValue, errors, emptyError, loading }) => {
+        const value = data[name] || null
+        const error = errors[name] || null
+        const onInput = function (e) {
+          if (error) {
+            emptyError(name)
+          }
+          setValue(name, e.target.value)
         }
-        setValue(name, e.target.value)
-      }
 
-      return <Field type={type} name={name} value={value} error={error} onInput={onInput} readonly={loading} {...props}>{children}</Field>
-    }}
-  </FormContext.Consumer>
+        return (
+          <Field type={type} name={name} value={value} error={error} onInput={onInput} readonly={loading} {...props}>
+            {children}
+          </Field>
+        )
+      }}
+    </FormContext.Consumer>
+  )
 }
 
 /**
@@ -125,13 +143,13 @@ export function FormField ({type = "text", name, children, ...props}) {
  * @return {*}
  * @constructor
  */
-export function Field ({name, onInput, value, error, children, type = 'text', className = '', ...props}) {
+export function Field ({ name, onInput, value, error, children, type = 'text', className = '', ...props }) {
   // Hooks
   const [dirty, setDirty] = useState(false)
   const ref = useRef(null)
   useAutofocus(ref, props.autofocus)
   const showError = error && !dirty
-  
+
   function handleInput (e) {
     if (dirty === false) {
       setDirty(true)
@@ -156,27 +174,29 @@ export function Field ({name, onInput, value, error, children, type = 'text', cl
     ...props
   }
 
-  // Si l'erreur change on considère le champs comme "clean" 
+  // Si l'erreur change on considère le champs comme "clean"
   useLayoutEffect(() => {
     if (dirty === true) {
       setDirty(false)
     }
   }, [error])
 
-  return <div className="form-group" ref={ref}>
-    <label htmlFor={name}>{children}</label>
-    {(() => {
-      switch (type) {
-        case 'textarea':
-          return <FieldTextarea {...attr}/>
-        case 'editor':
-          return <FieldEditor {...attr}/>
-        default:
-          return <FieldInput {...attr}/>
-      }
-    })()}
-    {showError && <div className="invalid-feedback">{error}</div>}
-  </div>
+  return (
+    <div className='form-group' ref={ref}>
+      <label htmlFor={name}>{children}</label>
+      {(() => {
+        switch (type) {
+          case 'textarea':
+            return <FieldTextarea {...attr} />
+          case 'editor':
+            return <FieldEditor {...attr} />
+          default:
+            return <FieldInput {...attr} />
+        }
+      })()}
+      {showError && <div className='invalid-feedback'>{error}</div>}
+    </div>
+  )
 }
 
 function FieldTextarea (props) {
@@ -194,7 +214,7 @@ function FieldEditor (props) {
       ref.current.syncEditor()
     }
   }, [props.value])
-  return <textarea {...props} is="markdown-editor" ref={ref}/>
+  return <textarea {...props} is='markdown-editor' ref={ref} />
 }
 
 /**
@@ -205,18 +225,21 @@ function FieldEditor (props) {
  * @return {*}
  * @constructor
  */
-export function FormPrimaryButton ({children, ...props}) {
-  return <FormContext.Consumer>
-    {({loading, errors}) => {
+export function FormPrimaryButton ({ children, ...props }) {
+  return (
+    <FormContext.Consumer>
+      {({ loading, errors }) => {
+        const disabled = loading || Object.keys(errors).filter(k => k !== 'main').length > 0
 
-      const disabled = loading || Object.keys(errors).filter(k => k !== 'main').length > 0
-
-      return <PrimaryButton disabled={disabled} {...props}>
-        {loading && <Loader className="icon" />}
-        {children}
-      </PrimaryButton>
-    }}
-  </FormContext.Consumer>
+        return (
+          <PrimaryButton disabled={disabled} {...props}>
+            {loading && <Loader className='icon' />}
+            {children}
+          </PrimaryButton>
+        )
+      }}
+    </FormContext.Consumer>
+  )
 }
 
 /**
@@ -224,6 +247,6 @@ export function FormPrimaryButton ({children, ...props}) {
  *
  * @constructor
  */
-export function Loader ({...props}) {
+export function Loader ({ ...props }) {
   return <spinning-dots {...props}></spinning-dots>
 }

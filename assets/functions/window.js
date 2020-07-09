@@ -4,7 +4,5 @@
  * @return {number}
  */
 export function windowHeight () {
-  return window.innerHeight
-    || document.documentElement.clientHeight
-    || document.body.clientHeight
+  return window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
 }

@@ -1,5 +1,4 @@
 export class Modal extends HTMLElement {
-
   constructor () {
     super()
     this.onEscapeKey = this.onEscapeKey.bind(this)
@@ -33,7 +32,6 @@ export class Modal extends HTMLElement {
       this.parentElement.removeChild(this)
     }, 500)
   }
-
 }
 
 customElements.define('modal-box', Modal)

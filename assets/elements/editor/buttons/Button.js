@@ -3,7 +3,6 @@
  * @property {HTMLButtonElement} element
  */
 export default class Button {
-
   constructor (editor) {
     this.action = this.action.bind(this)
     this.editor = editor
@@ -15,7 +14,7 @@ export default class Button {
       }
       this.element = document.createElement('button')
       this.element.setAttribute('type', 'button')
-      this.element.addEventListener('click', (e) => {
+      this.element.addEventListener('click', e => {
         e.preventDefault()
         this.action()
       })
@@ -34,5 +33,4 @@ export default class Button {
   action () {
     console.error('Vous devez définir une action pour ce bouton')
   }
-
 }
