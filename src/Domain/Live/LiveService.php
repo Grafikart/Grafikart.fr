@@ -17,15 +17,14 @@ class LiveService
     public function __construct(
         OptionInterface $option,
         \Google_Service_YouTube $youTube,
-    SerializerInterface $serializer
-    )
-    {
+        SerializerInterface $serializer
+    ) {
         $this->option = $option;
         $this->youTube = $youTube;
         $this->serializer = $serializer;
     }
 
-    public function getCurrentLive (): ?Live
+    public function getCurrentLive(): ?Live
     {
         $option = $this->option->get(self::OPTION_KEY);
         return $option === null ? null : $this->serializer->deserialize($option, Live::class, 'json');
@@ -45,11 +44,11 @@ class LiveService
         $video = $videos[0];
         $publishedAt = new \DateTime($video->getLiveStreamingDetails()->getScheduledStartTime());
         $live = (new Live())
+            ->setId(0)
             ->setYoutubeId($video->getId())
             ->setName($video->getSnippet()->getTitle())
             ->setCreatedAt($publishedAt)
             ->setUpdatedAt($publishedAt);
         $this->option->set(self::OPTION_KEY, $this->serializer->serialize($live, 'json'));
     }
-
 }

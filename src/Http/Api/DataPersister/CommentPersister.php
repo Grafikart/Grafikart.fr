@@ -60,12 +60,15 @@ class CommentPersister implements ContextAwareDataPersisterInterface
             // On crée un nouveau commentaire
             /** @var Content $target */
             $target = $this->em->getRepository(Content::class)->find($data->target);
+            /** @var Comment|null $parent */
+            $parent = $data->parent ? $this->em->getReference(Comment::class, $data->parent) : null;
             $comment = (new Comment())
                 ->setAuthor($user)
                 ->setUsername($data->username)
                 ->setEmail($data->email)
                 ->setCreatedAt(new \DateTime())
                 ->setContent($data->content)
+                ->setParent($parent)
                 ->setTarget($target);
             $this->em->persist($comment);
         }

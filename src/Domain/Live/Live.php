@@ -30,7 +30,7 @@ class Live
     /**
      * @ORM\Column(type="text")
      */
-    private string $description;
+    private string $description = '';
 
     /**
      * @ORM\Column(type="string", length=20)
@@ -77,6 +77,12 @@ class Live
             ->setImage($thumbnail ? new RemoteFile($thumbnail->getUrl()) : null)
             ->setDuration(new \DateInterval($video->getContentDetails()->getDuration()))
             ->setUpdatedAt($publishedAt);
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+        return $this;
     }
 
     public function getId(): ?int
