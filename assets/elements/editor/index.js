@@ -6,7 +6,7 @@ import { createElement } from '/functions/dom.js'
 /**
  * @property {HTMLDivElement} container
  */
-class MarkdownEditor extends HTMLTextAreaElement {
+export class MarkdownEditor extends HTMLTextAreaElement {
   constructor () {
     super()
     this.toggleFullscreen = this.toggleFullscreen.bind(this)
@@ -44,5 +44,3 @@ class MarkdownEditor extends HTMLTextAreaElement {
    */
   syncEditor () {}
 }
-
-customElements.define('markdown-editor', MarkdownEditor, { extends: 'textarea' })

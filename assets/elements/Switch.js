@@ -1,7 +1,7 @@
 /**
  * @property {HTMLSpanElement} switch
  */
-export default class Switch extends HTMLInputElement {
+export class Switch extends HTMLInputElement {
   connectedCallback () {
     if (this.nextElementSibling === null || this.nextElementSibling.tagName !== 'LABEL') {
       console.error('Impossible de greffer le switch')
@@ -21,5 +21,3 @@ export default class Switch extends HTMLInputElement {
     this.switch.parentElement.remove(this.switch)
   }
 }
-
-customElements.define('input-switch', Switch, { extends: 'input' })

@@ -4,7 +4,7 @@ const lineHeight = 18 // Hauteur de ligne
 const lineDuration = 0.4 // Durée d'animation pour une ligne
 const screens = 2 // Nombre d'écran de code à remplire
 
-export default class AnimatedEditor extends HTMLElement {
+export class AnimatedEditor extends HTMLElement {
   constructor () {
     super()
     this.root = this.attachShadow({ mode: 'open' })
@@ -220,5 +220,3 @@ export default class AnimatedEditor extends HTMLElement {
     `
   }
 }
-
-customElements.define('animated-editor', AnimatedEditor)

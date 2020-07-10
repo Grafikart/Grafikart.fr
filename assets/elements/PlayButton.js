@@ -11,7 +11,7 @@
  * @property {HTMLButtonElement} button
  * @property {SVGCircleElement} circle
  */
-export default class PlayButton extends HTMLElement {
+export class PlayButton extends HTMLElement {
   static get observedAttributes () {
     return ['playing', 'progress', 'video']
   }
@@ -168,5 +168,3 @@ export default class PlayButton extends HTMLElement {
    */
   detachVideo () {}
 }
-
-customElements.define('play-button', PlayButton)

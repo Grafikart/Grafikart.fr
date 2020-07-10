@@ -1,4 +1,4 @@
-export default class AutoSubmit extends HTMLFormElement {
+export class AutoSubmit extends HTMLFormElement {
   connectedCallback () {
     Array.from(this.querySelectorAll('input')).forEach(input => {
       input.addEventListener('change', () => {
@@ -7,5 +7,3 @@ export default class AutoSubmit extends HTMLFormElement {
     })
   }
 }
-
-customElements.define('auto-submit', AutoSubmit, { extends: 'form' })

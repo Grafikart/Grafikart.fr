@@ -33,5 +33,3 @@ export class Modal extends HTMLElement {
     }, 500)
   }
 }
-
-customElements.define('modal-box', Modal)

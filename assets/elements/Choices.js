@@ -1,13 +1,13 @@
-import * as Choices from 'choices.js'
+import ChoicesJS from 'choices.js'
 
 /**
  * @property {Choices} choices
  */
-class ChoicesElement extends HTMLInputElement {
+export class Choices extends HTMLInputElement {
   connectedCallback () {
     if (!this.getAttribute('choicesBinded')) {
       this.setAttribute('choicesBinded', 'true')
-      this.choices = new Choices(this, {
+      this.choices = new ChoicesJS(this, {
         removeItems: true,
         removeItemButton: true,
         addItemText: value => {
@@ -23,5 +23,3 @@ class ChoicesElement extends HTMLInputElement {
     }
   }
 }
-
-customElements.define('input-choices', ChoicesElement, { extends: 'input' })

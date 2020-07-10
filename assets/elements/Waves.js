@@ -13,7 +13,7 @@ let previousPageHadWaves = false
  * @property {HTMLElement} waves
  * @property {string} position
  */
-export default class Waves extends HTMLElement {
+export class Waves extends HTMLElement {
   constructor () {
     super()
     this.root = this.attachShadow({ mode: 'open' })
@@ -178,5 +178,3 @@ export default class Waves extends HTMLElement {
     this.matchTarget()
   }
 }
-
-customElements.define('waves-shape', Waves)

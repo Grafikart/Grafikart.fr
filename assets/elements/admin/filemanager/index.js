@@ -1,4 +1,5 @@
-import FileManagerSvelte from './FileManager.svelte'
+import { FileManager as FileManagerComponent } from './FileManager.jsx'
+import { render, h } from 'preact'
 
 export default class FileManager extends HTMLElement {
   constructor () {
@@ -9,14 +10,14 @@ export default class FileManager extends HTMLElement {
     this.addEventListener('dragleave', this.ondragleave.bind(this))
     this.addEventListener('dragover', this.onDragOver)
     this.addEventListener('drop', this.onDrop.bind(this))
-    this.fileManagerComponent = new FileManagerSvelte({
-      target: this.root,
-      props: {
+    render(
+      h(FileManagerComponent, {
         apiEndpoint: '/admin/attachment',
         dragOver: false,
         onSelectFile: this.onSelectFile.bind(this)
-      }
-    })
+      }),
+      this.root
+    )
   }
 
   /**
@@ -278,13 +279,27 @@ export default class FileManager extends HTMLElement {
   onDragEnter (e) {
     e.stopPropagation()
     e.preventDefault()
-    this.fileManagerComponent.$set({ dragOver: true })
+    render(
+      h(FileManagerComponent, {
+        apiEndpoint: '/admin/attachment',
+        dragOver: true,
+        onSelectFile: this.onSelectFile.bind(this)
+      }),
+      this.root
+    )
   }
 
   ondragleave (e) {
     e.stopPropagation()
     e.preventDefault()
-    this.fileManagerComponent.$set({ dragOver: false })
+    render(
+      h(FileManagerComponent, {
+        apiEndpoint: '/admin/attachment',
+        dragOver: false,
+        onSelectFile: this.onSelectFile.bind(this)
+      }),
+      this.root
+    )
   }
 
   onDragOver (e) {
@@ -293,6 +308,13 @@ export default class FileManager extends HTMLElement {
   }
 
   onDrop (e) {
-    this.fileManagerComponent.$set({ dragOver: false })
+    render(
+      h(FileManagerComponent, {
+        apiEndpoint: '/admin/attachment',
+        dragOver: false,
+        onSelectFile: this.onSelectFile.bind(this)
+      }),
+      this.root
+    )
   }
 }

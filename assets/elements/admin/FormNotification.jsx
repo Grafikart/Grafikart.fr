@@ -13,7 +13,7 @@ function FormNotification () {
   }
 
   return (
-    <FetchForm action='/api/notifications' value={data} className='stack' onChange={setData} onSuccess={setSuccess}>
+    <FetchForm action='/api/notifications' value={data} className='stack' onChange={setData} onSuccess={onSuccess}>
       <FormField name='message' type='textarea' />
       <FormField name='url' />
       <FormPrimaryButton>Notifier</FormPrimaryButton>
@@ -21,4 +21,4 @@ function FormNotification () {
   )
 }
 
-preactCustomElement(FormNotification, 'form-notification')
+preactCustomElement('form-notification', FormNotification)

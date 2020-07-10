@@ -10,8 +10,8 @@
     {{ encore_entry_link_tags('admin') }}
   {% endblock %}
   {% block javascripts %}
-    {{ encore_entry_script_tags('app') | replace({'<script': '<script defer'}) | raw }}
-    {{ encore_entry_script_tags('admin') | replace({'<script': '<script defer'}) | raw }}
+    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('admin') }}
   {% endblock %}
   <meta name="turbolinks-cache-control" content="no-cache" />
 </head>

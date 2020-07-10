@@ -904,10 +904,10 @@
   resolved "https://registry.yarnpkg.com/@glimmer/util/-/util-0.41.4.tgz#508fd82ca40305416e130f0da7b537295ded7989"
   integrity sha512-DwS94K+M0vtG+cymxH0rslJr09qpdjyOLdCjmpKcG/nNiZQfMA1ybAaFEmwk9UaVlUG9STENFeQwyrLevJB+7g==
 
-"@grafikart/spinning-dots-element@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@grafikart/spinning-dots-element/-/spinning-dots-element-0.0.3.tgz#024d3634918d97b51999af4daa81f5c7000cb4d7"
-  integrity sha512-u3bu1UTO5+VZCxJGSrUVUF7c8c82kSxkybRpC6eq+RrzBkOY81dchlJlAINmreV/6l2LfK8KkOVrbYQbscgSpw==
+"@grafikart/spinning-dots-element@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@grafikart/spinning-dots-element/-/spinning-dots-element-1.0.0.tgz#1d3de4ee7bae2d52f0cadcb1a881596d97a831cb"
+  integrity sha512-KijKnCA/Vo5VNzt68CgBO13EWE/D1XpqDyXqL4OZghekg/aCT7ihg6yYN62tXziA7x8IyvzE3kCybELcHDM+QA==
 
 "@iarna/toml@2.2.3":
   version "2.2.3"

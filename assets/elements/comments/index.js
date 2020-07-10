@@ -1,10 +1,10 @@
 import { render, h } from 'preact'
-import { Comments } from './Comments.jsx'
+import { Comments as CommentsComponent } from './Comments.jsx'
 
 /**
  * @property {IntersectionObserver} observer
  */
-export default class CommentsElement extends HTMLElement {
+export class Comments extends HTMLElement {
   constructor () {
     super()
   }
@@ -27,9 +27,7 @@ export default class CommentsElement extends HTMLElement {
 
   attachComments () {
     const target = this.getAttribute('target')
-    render(h(Comments, { target }), this)
+    render(h(CommentsComponent, { target }), this)
     this.observer.disconnect()
   }
 }
-
-customElements.define('comments-area', CommentsElement)

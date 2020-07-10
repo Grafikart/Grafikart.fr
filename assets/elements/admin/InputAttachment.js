@@ -1,6 +1,6 @@
 import { Alert } from '../Alert.js'
 import SpinningDots from '@grafikart/spinning-dots-element'
-import FileManager from '/elements/filemanager/index.js'
+import FileManager from '/elements/admin/filemanager/index.js'
 import { Modal } from '../Modal.js'
 
 /**

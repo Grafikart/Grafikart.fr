@@ -7,7 +7,7 @@ import { closest } from '/functions/dom.js'
 /**
  * Bouton pour appeler une URL avec la méthode DELETE et masquer le parent en cas de retour
  */
-class AjaxDelete extends HTMLElement {
+export class AjaxDelete extends HTMLElement {
   connectedCallback () {
     this.addEventListener('click', async e => {
       e.preventDefault()
@@ -35,5 +35,3 @@ class AjaxDelete extends HTMLElement {
     })
   }
 }
-
-customElements.define('ajax-delete', AjaxDelete)

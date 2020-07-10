@@ -11,7 +11,7 @@
 import { YoutubePlayer } from './YoutubePlayer.js'
 import SpinningDots from '@grafikart/spinning-dots-element'
 
-export default class RecapLiveElement extends HTMLElement {
+export class RecapLiveElement extends HTMLElement {
   connectedCallback () {
     this.path = this.getAttribute('path')
     this.play = this.play.bind(this)
@@ -96,5 +96,3 @@ export default class RecapLiveElement extends HTMLElement {
     }
   }
 }
-
-customElements.define('live-recap', RecapLiveElement)

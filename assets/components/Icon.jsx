@@ -1,5 +1,3 @@
-import '@grafikart/spinning-dots-element'
-
 /**
  * Icône basé sur la sprite SVG
  * @param {{name: string}} props

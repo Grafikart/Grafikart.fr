@@ -1,4 +1,4 @@
-import * as Choices from 'choices.js'
+import Choices from 'choices.js'
 import { debounce } from '/functions/timers.js'
 
 /**
@@ -23,7 +23,7 @@ function getItems (endpoint, search) {
 class UserSelect extends HTMLSelectElement {
   connectedCallback () {
     if (this.timer) {
-      global.clearTimeout(this.timer)
+      clearTimeout(this.timer)
       this.timer = null
       return
     }

@@ -4,8 +4,6 @@
 
 {% block body %}
 
-  <file-manager endpoint="/admin/attachment"/>
-
   <div class="grid" style="--col:460px">
     <!-- Commentaires -->
     <section class="stack" style="--gap:1">
@@ -49,7 +47,7 @@
   </div>
 
   {% if revisions is not empty %}
-    <div class="dashboard-title">
+    <div class="dashboard-title mt2">
       {{ icon('clock') }} Révisions
     </div>
     <div class="dashboard-card">

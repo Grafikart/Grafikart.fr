@@ -5,7 +5,6 @@ import { SlideIn } from '/components/Animation/SlideIn.jsx'
 import { isAuthenticated, lastNotificationRead } from '/functions/auth.js'
 import { Spinner } from '/components/Animation/Spinner.jsx'
 import { loadNotifications } from '../api/notifications.js'
-import preactCustomElement from '/functions/preact.js'
 
 const OPEN = 0
 const CLOSE = 1
@@ -22,7 +21,7 @@ function countUnread (notifications, notificationReadAt) {
  * @return {*}
  * @constructor
  */
-function Notifications () {
+export function Notifications () {
   // Le système de notification ne fonction que pour les utilisateurs
   if (!isAuthenticated()) return null
 
@@ -122,5 +121,3 @@ function Notification ({ url, message, createdAt, notificationReadAt }) {
     </a>
   )
 }
-
-preactCustomElement(Notifications, 'site-notifications')

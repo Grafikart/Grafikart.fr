@@ -61,7 +61,7 @@ const terms = [
  *
  * @property {number} timer
  */
-export default class TimeAgo extends HTMLElement {
+export class TimeAgo extends HTMLElement {
   connectedCallback () {
     let timestamp = parseInt(this.getAttribute('time'), 10) * 1000
     let date = new Date(timestamp)
@@ -100,5 +100,3 @@ export default class TimeAgo extends HTMLElement {
     }, 1000 * nextTick)
   }
 }
-
-customElements.define('time-ago', TimeAgo)
