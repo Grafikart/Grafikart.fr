@@ -1,10 +1,13 @@
 import './css/admin.scss'
 
-import './elements/DatePicker'
-import './elements/admin/UserSelect'
-import './elements/admin/InputAttachment'
-import './elements/filemanager'
-import './elements/DiffEditor'
-import './elements/admin/ChaptersEditor'
-import './elements/admin/ItemSorter'
-import './elements/admin/FormNotification'
+import './elements/DatePicker.js'
+import './elements/admin/UserSelect.js'
+import InputAttachment from './elements/admin/InputAttachment.js'
+import FileManager from './elements/filemanager.js'
+import './elements/DiffEditor.js'
+import './elements/admin/ChaptersEditor.js'
+import './elements/admin/ItemSorter.js'
+import './elements/admin/FormNotification.jsx'
+
+customElements.define('input-attachment', InputAttachment, { extends: 'input' })
+customElements.define('file-manager', FileManager)

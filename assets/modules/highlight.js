@@ -1,4 +1,4 @@
-import $script from 'scriptjs'
+import scriptjs from 'scriptjs'
 
 let lazylangs = ['typescript', 'elixir', 'less', 'stylus', 'scss', 'sass', 'yaml']
 
@@ -19,7 +19,7 @@ function highlight ($codes) {
     lazylangs.forEach(lang => {
       if (cls.endsWith(lang)) {
         lazy = true
-        $script(`//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/languages/${lang}.min.js`, () => {
+        scriptjs(`//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/languages/${lang}.min.js`, () => {
           global.hljs.highlightBlock(code)
         })
       }
@@ -42,7 +42,7 @@ function bindHighlight () {
       let link = document.createElement('link')
       link.setAttribute('rel', 'stylesheet')
       document.querySelector('head').appendChild(link)
-      $script('//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js', function () {
+      scriptjs('//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js', function () {
         global.hljs.configure({ tabReplace: '    ' })
         highlight($codes)
       })

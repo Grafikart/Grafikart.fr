@@ -8,7 +8,7 @@
  * @property {HTMLAnchorElement} currentLive
  * @property {string} path URL vers les lives
  */
-import YoutubePlayer from './YoutubePlayer.js'
+import { YoutubePlayer } from './YoutubePlayer.js'
 import SpinningDots from '@grafikart/spinning-dots-element'
 
 export default class RecapLiveElement extends HTMLElement {

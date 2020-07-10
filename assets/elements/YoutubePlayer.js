@@ -19,7 +19,7 @@ let YT = null
  * @property {?number} timer Timer permettant de suivre la progression de la lecture
  * @property {YT.Player} player
  */
-export default class YoutubePlayer extends HTMLElement {
+export class YoutubePlayer extends HTMLElement {
   static get observedAttributes () {
     return ['video', 'button']
   }
@@ -253,5 +253,3 @@ async function loadYoutubeApi () {
     }
   })
 }
-
-customElements.define('youtube-player', YoutubePlayer)

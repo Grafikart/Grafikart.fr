@@ -1,7 +1,7 @@
 import { closest, html } from '/functions/dom.js'
 import { enterKeyListener } from '/functions/keyboard.js'
 import Sortable from 'sortablejs'
-import { jsonFetch } from '/functions/api'
+import { jsonFetch } from '/functions/api.js'
 
 /**
  * Construit un élément représentant un chapitre

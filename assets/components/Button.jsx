@@ -1,4 +1,4 @@
-import { Loader } from './Form.jsx'
+import { Loader } from './Loader.jsx'
 
 export function PrimaryButton ({ children, ...props }) {
   return (

@@ -2,7 +2,7 @@
  * @property {HTMLDivElement} element
  */
 import { BoldButton, FullScreenButton, LinkButton, SpeechButton } from './buttons'
-import { createElement } from '/functions/dom'
+import { createElement } from '/functions/dom.js'
 
 export default class Toolbar {
   /**

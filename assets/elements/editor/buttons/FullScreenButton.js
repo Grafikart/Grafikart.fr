@@ -1,5 +1,5 @@
 import Button from './Button'
-import { strToDom } from '/functions/dom'
+import { strToDom } from '/functions/dom.js'
 
 export default class FullScreenButton extends Button {
   constructor (editor) {

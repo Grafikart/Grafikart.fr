@@ -1,9 +1,9 @@
-import { FetchForm, FormField, FormPrimaryButton } from '/components/Form'
-import { Stack } from '/components/Layout'
+import { FetchForm, FormField, FormPrimaryButton } from '/components/Form.jsx'
+import { Stack } from '/components/Layout.jsx'
 import { useState } from 'preact/hooks'
-import { isAuthenticated } from '/functions/auth'
-import { strToDom } from '/functions/dom'
-import { slideDown } from '/functions/animation'
+import { isAuthenticated } from '/functions/auth.js'
+import { strToDom } from '/functions/dom.js'
+import { slideDown } from '/functions/animation.js'
 
 export function CreateMessage ({ topic, parent }) {
   const [value, setValue] = useState({ content: '' })

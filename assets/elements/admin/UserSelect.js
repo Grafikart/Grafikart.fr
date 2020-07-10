@@ -53,4 +53,4 @@ class UserSelect extends HTMLSelectElement {
   }
 }
 
-global.customElements.define('user-select', UserSelect, { extends: 'select' })
+customElements.define('user-select', UserSelect, { extends: 'select' })

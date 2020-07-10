@@ -103,5 +103,3 @@ export default class InputAttachment extends HTMLInputElement {
     return this.value
   }
 }
-
-global.customElements.define('input-attachment', InputAttachment, { extends: 'input' })

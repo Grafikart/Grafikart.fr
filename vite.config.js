@@ -9,6 +9,11 @@ const config = {
   jsx: 'preact',
   plugins: [preactRefresh()],
   root: './assets',
+  optimizeDeps: {
+    include: [
+      'codemirror/mode/markdown/markdown'
+    ]
+  },
   alias: {
     '/@@/': './'
   },

@@ -78,6 +78,3 @@ export function flash (message, type = 'success', duration = 2) {
   alert.innerText = message
   document.body.appendChild(alert)
 }
-
-customElements.define('alert-message', Alert)
-customElements.define('alert-floating', FloatingAlert)

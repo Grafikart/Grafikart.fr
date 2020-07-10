@@ -296,5 +296,3 @@ export default class FileManager extends HTMLElement {
     this.fileManagerComponent.$set({ dragOver: false })
   }
 }
-
-customElements.define('file-manager', FileManager)

@@ -3,6 +3,7 @@ import { jsonFetch } from '/functions/api.js'
 import { useEffect, useRef, useState, useLayoutEffect } from 'preact/hooks'
 import { PrimaryButton } from './Button.jsx'
 import { useAutofocus } from '/functions/hooks.js'
+import { Loader } from './Loader.jsx'
 import { flash } from '/elements/Alert.js'
 
 export const FormContext = createContext({
@@ -240,13 +241,4 @@ export function FormPrimaryButton ({ children, ...props }) {
       }}
     </FormContext.Consumer>
   )
-}
-
-/**
- * Loader
- *
- * @constructor
- */
-export function Loader ({ ...props }) {
-  return <spinning-dots {...props}></spinning-dots>
 }

@@ -60,7 +60,7 @@ function Notifications () {
   }, [pushNotification])
 
   return (
-    <Fragment>
+    <>
       <button onClick={openMenu}>
         <Icon name='bell' />
       </button>
@@ -73,7 +73,7 @@ function Notifications () {
           notificationReadAt={notificationReadAt}
         />
       </SlideIn>
-    </Fragment>
+    </>
   )
 }
 

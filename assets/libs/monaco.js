@@ -4,6 +4,6 @@ import 'monaco-editor/esm/vs/editor/editor.worker.js'
 import * as m from 'monaco-editor/esm/vs/editor/editor.api.js'
 import 'monaco-editor/esm/vs/basic-languages/markdown/markdown.contribution.js'
 
-global.monaco = m
+window.monaco = m
 
 export default monaco

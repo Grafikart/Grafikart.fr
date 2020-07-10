@@ -7,7 +7,7 @@ import { createElement } from '/functions/dom.js'
 export default class DiffEditor extends HTMLTextAreaElement {
   async connectedCallback () {
     // On charge monaco
-    const { default: monaco } = await import(/* webpackChunkName: "Monaco" */ '../libs/monaco')
+    const { default: monaco } = await import('/libs/monaco.js')
 
     // On crée le contaienr
     this.container = createElement('div', {
