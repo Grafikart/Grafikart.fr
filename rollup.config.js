@@ -6,8 +6,8 @@ import commonjs from '@rollup/plugin-commonjs'
 
 const sources = ['app', 'admin']
 
-export default sources.map(source => ({
-  input: `assets/${source}.js`,
+export default {
+  input: sources.map(source => `assets/${source}.js`),
   output: {
     dir: 'public/assets',
     format: 'es'
@@ -24,9 +24,7 @@ export default sources.map(source => ({
     }),
     babel({
       babelHelpers: 'bundled',
-      exclude: [
-        'node_modules/**'
-      ]
+      exclude: ['node_modules/**']
     })
   ]
-}))
+}

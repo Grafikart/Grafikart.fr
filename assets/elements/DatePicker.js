@@ -5,7 +5,7 @@ import '/css/libs/flatpickr.scss'
 /**
  * @property {flatpickr} flatpickr
  */
-export default class DatePicker extends HTMLInputElement {
+export class DatePicker extends HTMLInputElement {
   connectedCallback () {
     this.flatpickr = flatpickr(this, {
       locale: {
@@ -55,5 +55,3 @@ export default class DatePicker extends HTMLInputElement {
     this.flatpickr.destroy()
   }
 }
-
-customElements.define('date-picker', DatePicker, { extends: 'input' })

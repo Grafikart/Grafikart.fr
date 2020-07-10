@@ -66,7 +66,7 @@ function hideLoader (loader) {
  * @typedef {{title: string, courses: ICourse[]}} IChapter
  * @typedef {{id: number, title: string}} ICourse
  */
-export default class ItemSorter extends HTMLElement {
+export class ItemSorter extends HTMLElement {
   constructor () {
     super()
     this.sortables = []
@@ -140,5 +140,3 @@ export default class ItemSorter extends HTMLElement {
     hideLoader(loader)
   }
 }
-
-customElements.define('item-sorter', ItemSorter)
