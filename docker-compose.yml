@@ -27,16 +27,16 @@ services:
       - db
     environment:
       PHP_IDE_CONFIG: serverName=grafikart
-  node:
-    build:
-      context: ./tools/docker/node
-    command: yarn run dev-server
-    working_dir: /usr/src/app
-    user: '${USER_ID}:${GROUP_ID}'
-    volumes:
-      - .:/usr/src/app
-    ports:
-      - 8080:8080
+#  node:
+#    build:
+#      context: ./tools/docker/node
+#    command: yarn run dev-server
+#    working_dir: /usr/src/app
+#    user: '${USER_ID}:${GROUP_ID}'
+#    volumes:
+#      - .:/usr/src/app
+#    ports:
+#      - 8080:8080
   db:
     image: postgres:12
     environment:

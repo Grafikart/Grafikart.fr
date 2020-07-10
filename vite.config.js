@@ -11,7 +11,7 @@ const config = {
   root: './assets',
   optimizeDeps: {
     include: [
-      'codemirror/mode/markdown/markdown'
+      'codemirror/mode/markdown/markdown',
     ]
   },
   alias: {

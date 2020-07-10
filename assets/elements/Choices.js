@@ -1,4 +1,4 @@
-import ChoicesJS from 'choices.js'
+import ChoicesJS from '/libs/Choices.js'
 
 /**
  * @property {Choices} choices
