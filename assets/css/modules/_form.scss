@@ -180,7 +180,7 @@ form button:focus,
 input:focus + label .switch,
 %input-active {
   border-color: var(--contrast);
-  box-shadow: 0px 0px 3px var(--contrast);
+  box-shadow: 0 0 0 3px var(--contrast25);
 }
 
 // Misc
