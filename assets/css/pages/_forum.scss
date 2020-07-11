@@ -35,7 +35,7 @@
 
 .is-solved .forum-avatar::after {
   opacity: 1;
-  background: url(../../images/check.svg) center center / 50% 50% no-repeat;
+  background: url(..//images/check.svg) center center / 50% 50% no-repeat;
 }
 
 // Réponse acceptée
@@ -52,7 +52,7 @@
   height: 18px;
   border-radius: 15px;
   border: 2px solid var(--background);
-  background: url(../../images/check.svg) center center / 70% 70% no-repeat var(--green);
+  background: url(..//images/check.svg) center center / 70% 70% no-repeat var(--green);
 }
 
 // Listing sujet
@@ -177,7 +177,6 @@
 .forum-message__header,
 .forum-message__footer {
   --gap: 2;
-  @extend %hstack;
   position: relative;
   display: flex;
   align-items: center;

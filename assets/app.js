@@ -1,4 +1,4 @@
-import './css/app.scss'
+import './css/app.css'
 
 import './elements/index.js'
 import './pages/index.js'

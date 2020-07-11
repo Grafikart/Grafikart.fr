@@ -1,4 +1,4 @@
-import { slideUp } from '/functions/animation.js'
+import {slideUp} from '/functions/animation.js'
 
 export class Alert extends HTMLElement {
   constructor ({ type, message } = {}) {
@@ -15,7 +15,7 @@ export class Alert extends HTMLElement {
 
   connectedCallback () {
     this.type = this.type || this.getAttribute('type') || 'error'
-    const text = this.innerText
+    const text = this.innerHTML
     const duration = this.getAttribute('duration')
     let progressBar = ''
     if (duration !== null) {
@@ -23,10 +23,12 @@ export class Alert extends HTMLElement {
       window.setTimeout(this.close, duration * 1000)
     }
     this.innerHTML = `<div class="alert alert-${this.type}">
-        <svg class="icon icon-{$name}">
+        <svg class="icon icon-${this.icon}">
           <use xlink:href="/sprite.svg#${this.icon}"></use>
         </svg>
-        ${this.message || text}
+        <div>
+          ${this.message || text}
+        </div>
         <button class="alert-close">
           <svg class="icon">
             <use xlink:href="/sprite.svg#cross"></use>
@@ -56,6 +58,7 @@ export class Alert extends HTMLElement {
     } else if (this.type === 'success') {
       return 'check'
     }
+    return this.type
   }
 }
 

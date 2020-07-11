@@ -79,7 +79,7 @@
 // Horizontal
 // ==================
 .flex {
-  display: flex;
+  display: flex !important;
   align-items: center;
   justify-content: space-between;
 }
@@ -98,6 +98,12 @@
 
 .flex-end {
   justify-content: flex-end;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .inline-1 {
@@ -184,12 +190,18 @@
   top: calc(var(--gap-separated) * var(--space) * -1);
 }
 
-%hstack > * + * {
-  margin-left: calc(var(--gap) * var(--space));
+.hstack {
+  display: flex;
+  flex-wrap: wrap;
+  --gap: 2;
+  margin: calc(var(--gap) * var(--space) * -0.5);
+  margin-top: 0;
 }
 
-.hstack > * + * {
-  margin-left: space(2);
+.hstack > * {
+  margin-left: calc(var(--gap) * var(--space) * 0.5);
+  margin-right: calc(var(--gap) * var(--space) * 0.5);
+  margin-bottom: calc(var(--gap) * var(--space));
 }
 
 .hstack-large > * + * {
@@ -203,10 +215,10 @@
   --gap: 3;
   display: grid;
   grid-gap: calc(var(--gap) * var(--space));
-  grid-template-columns: 100%;
+  grid-template-columns: 1fr;
 
   @include up(1100) {
-    grid-template-columns: calc(100% - 385px) 385px;
+    grid-template-columns: 1fr 385px;
   }
 }
 

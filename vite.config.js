@@ -1,5 +1,5 @@
 // @ts-check
-const preactRefresh = require('@prefresh/vite')
+const prefresh = require('@prefresh/vite')
 const cors = require('@koa/cors')
 
 /**
@@ -7,16 +7,8 @@ const cors = require('@koa/cors')
  */
 const config = {
   jsx: 'preact',
-  plugins: [preactRefresh()],
+  plugins: [prefresh()],
   root: './assets',
-  optimizeDeps: {
-    include: [
-      'codemirror/mode/markdown/markdown',
-    ]
-  },
-  alias: {
-    '/@@/': './'
-  },
   configureServer: function ({ app }) {
     app.use(cors({ origin: '*' }))
   }

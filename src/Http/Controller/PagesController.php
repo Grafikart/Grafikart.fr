@@ -30,4 +30,12 @@ class PagesController extends AbstractController
     {
         return $this->render('pages/env.html.twig');
     }
+
+    /**
+     * @Route("/ui", name="ui")
+     */
+    public function ui(): Response
+    {
+        return $this->render('pages/ui.html.twig');
+    }
 }

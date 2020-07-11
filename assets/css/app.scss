@@ -6,7 +6,6 @@
   --color-light: #121c4299;
   --color-inversed: #effbec;
   --color-transparent: #{rgba(#121c42, 0)};
-  --color-btn: #effbec;
   --contrast: #4869ee;
   --contrast25: #4869ee3F;
   --gap: 20px;
@@ -22,7 +21,7 @@
   --card-footer: #f7fafd;
   --card-padding: 16px;
   --header-height: 137px;
-  --red: #fb4635;
+  --red: #F25353;
   --green: #41cf7c;
   --yellow: #feb32b;
 }
@@ -81,7 +80,7 @@ body::after {
   height: 506px;
   z-index: -1;
   pointer-events: none;
-  background: url(../images/logo.svg) top left / 100% 100% no-repeat;
+  background: url(/images/logo.svg) top left / 100% 100% no-repeat;
 }
 
 ::selection {
@@ -131,3 +130,4 @@ body::after {
 
 // TODO : Voir comment importer dans le cas de vite
 // @import '~microtip/microtip.css';
+

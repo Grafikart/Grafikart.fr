@@ -5,6 +5,8 @@
 *.sql
 
 # Assets
+/assets/css/app.css
+/assets/css/app.css.map
 /node_modules/
 /public/build/
 npm-debug.log

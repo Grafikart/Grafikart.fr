@@ -86,7 +86,7 @@
   position: relative;
   z-index: 3;
 }
-.card a:hover {
+.card a:not([class^="btn"]):hover {
   color: var(--contrast);
 }
 .card__link {
@@ -101,9 +101,11 @@
   z-index: 2 !important;
   border: 1px solid transparent;
   transition: 0.3s;
+  border-radius: 3px;
+  cursor: pointer;
 }
 
-.card:hover {
+.card__link:hover {
   border: 1px solid var(--contrast);
 }
 
@@ -121,7 +123,7 @@
 
   width: 17px;
   height: 13px;
-  background: url(../../images/check.svg);
+  background: url(..//images/check.svg);
 }
 .card.is-completed::before {
   content: '';
@@ -178,7 +180,7 @@
     width: 24px;
     height: 24px;
     transform: translate(-50%, -50%);
-    background: url(../../images/play.svg) center center no-repeat;
+    background: url(..//images/play.svg) center center no-repeat;
   }
 }
 
