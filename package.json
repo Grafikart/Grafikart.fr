@@ -56,5 +56,13 @@
     "env": {
       "browser": true
     }
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "/functions/(.*)$": "<rootDir>/../../assets/functions/$1",
+      "/elements/(.*)$": "<rootDir>/../../assets/elements/$1"
+    },
+    "moduleDirectories": ["node_modules", "bower_components", "assets"],
+    "rootDir": "tests/js"
   }
 }

@@ -1,4 +1,4 @@
-import { human } from '@fn/size'
+import { human } from '/functions/size'
 
 test('Convertit les kilos octets', () => {
   expect(human(1024)).toBe('1k')

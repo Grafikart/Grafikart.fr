@@ -1,4 +1,4 @@
-import { pathsToTree } from '@el/filemanager/helpers.js'
+import { pathsToTree } from '/elements/admin/filemanager/helpers'
 
 test('Convertit des chemins simples en arbre', () => {
   let paths = [
