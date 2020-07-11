@@ -7,7 +7,7 @@ export function Icon ({ name }) {
   const href = `/sprite.svg#${name}`
   return (
     <svg className={className}>
-      <use xlinkHref={href}></use>
+      <use xlinkHref={href} />
     </svg>
   )
 }

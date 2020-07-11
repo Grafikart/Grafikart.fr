@@ -1,4 +1,4 @@
-import {slideUp} from '/functions/animation.js'
+import { slideUp } from '/functions/animation.js'
 
 export class Alert extends HTMLElement {
   constructor ({ type, message } = {}) {
@@ -66,6 +66,7 @@ export class FloatingAlert extends Alert {
   constructor (options = {}) {
     super(options)
   }
+
   connectedCallback () {
     super.connectedCallback()
     this.classList.add('is-floating')

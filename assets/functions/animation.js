@@ -10,7 +10,7 @@ import { windowHeight } from '/functions/window.js'
 export function slideUp (element, duration = 500) {
   return new Promise(function (resolve, reject) {
     element.style.height = element.offsetHeight + 'px'
-    element.style.transitionProperty = `height, margin, padding`
+    element.style.transitionProperty = 'height, margin, padding'
     element.style.transitionDuration = duration + 'ms'
     element.offsetHeight // eslint-disable-line no-unused-expressions
     element.style.overflow = 'hidden'
@@ -58,7 +58,7 @@ export function slideDown (element, duration = 500) {
     let display = window.getComputedStyle(element).display
     if (display === 'none') display = 'block'
     element.style.display = display
-    let height = element.offsetHeight
+    const height = element.offsetHeight
     element.style.overflow = 'hidden'
     element.style.height = 0
     element.style.paddingTop = 0
@@ -66,7 +66,7 @@ export function slideDown (element, duration = 500) {
     element.style.marginTop = 0
     element.style.marginBottom = 0
     element.offsetHeight // eslint-disable-line no-unused-expressions
-    element.style.transitionProperty = `height, margin, padding`
+    element.style.transitionProperty = 'height, margin, padding'
     element.style.transitionDuration = duration + 'ms'
     element.style.height = height + 'px'
     element.style.removeProperty('padding-top')

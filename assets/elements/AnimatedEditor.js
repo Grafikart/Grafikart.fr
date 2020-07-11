@@ -88,9 +88,9 @@ export class AnimatedEditor extends HTMLElement {
       html += this.drawLine(line, currentIndent, screenWidth)
       line++
     }
-    html += `</g>`
-    html += `</g>`
-    html += `</g>`
+    html += '</g>'
+    html += '</g>'
+    html += '</g>'
     return html
   }
 

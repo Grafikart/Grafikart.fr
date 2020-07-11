@@ -93,7 +93,6 @@ class NotificationService
 
     private function getRepository(): NotificationRepository
     {
-        /* @var NotificationRepository */
         return $this->em->getRepository(Notification::class);
     }
 }

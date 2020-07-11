@@ -90,7 +90,7 @@ export default class InputAttachment extends HTMLInputElement {
   setAttachment (attachment) {
     this.preview.style.backgroundImage = `url(${attachment.url})`
     this.value = attachment.id
-    let changeEvent = document.createEvent('HTMLEvents')
+    const changeEvent = document.createEvent('HTMLEvents')
     changeEvent.initEvent('change', false, true)
     this.dispatchEvent(changeEvent)
     this.dispatchEvent(new CustomEvent('attachment', { detail: attachment }))

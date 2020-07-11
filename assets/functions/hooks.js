@@ -14,7 +14,7 @@ export function useToggle (initialValue = null) {
  * Valeur avec la possibilité de push un valeur supplémentaire
  */
 export function usePush (initialValue = []) {
-  let [value, setValue] = useState(initialValue)
+  const [value, setValue] = useState(initialValue)
   return [
     value,
     item => {
@@ -27,7 +27,7 @@ export function usePush (initialValue = []) {
  * Valeur avec la possibilité de push un valeur supplémentaire
  */
 export function usePrepend (initialValue = []) {
-  let [value, setValue] = useState(initialValue)
+  const [value, setValue] = useState(initialValue)
   return [
     value,
     item => {

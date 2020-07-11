@@ -76,7 +76,7 @@ lint: vendor/autoload.php ## Analyse le code
 
 .PHONY: format
 format:
-	npx lint
+	npm run lint
 	vendor/bin/php-cs-fixer fix
 
 .PHONY: doc

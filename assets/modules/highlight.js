@@ -1,6 +1,6 @@
 import scriptjs from 'scriptjs'
 
-let lazylangs = ['typescript', 'elixir', 'less', 'stylus', 'scss', 'sass', 'yaml']
+const lazylangs = ['typescript', 'elixir', 'less', 'stylus', 'scss', 'sass', 'yaml']
 
 /**
  * Ajoute highlightjs sur les éléments sélectionnés
@@ -34,12 +34,12 @@ function highlight ($codes) {
  * Détecte et ajoute la coloration syntaxique sur le site
  */
 function bindHighlight () {
-  let $codes = document.querySelectorAll('pre code')
+  const $codes = document.querySelectorAll('pre code')
   if ($codes.length > 0) {
     if (global.hljs) {
       highlight($codes)
     } else {
-      let link = document.createElement('link')
+      const link = document.createElement('link')
       link.setAttribute('rel', 'stylesheet')
       document.querySelector('head').appendChild(link)
       scriptjs('//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js', function () {

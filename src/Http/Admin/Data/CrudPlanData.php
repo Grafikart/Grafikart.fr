@@ -25,7 +25,7 @@ class CrudPlanData extends AutomaticCrudData
     /**
      * TODO : Remttre en place les assertions
      * Assert\NotBlank()
-     * StripePlan()
+     * StripePlan().
      */
     public ?string $stripeId = null;
 }

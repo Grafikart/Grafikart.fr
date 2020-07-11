@@ -164,7 +164,7 @@ export class Waves extends HTMLElement {
       return
     }
     let top = offsetTop(this.target)
-    let height = this.target.offsetHeight
+    const height = this.target.offsetHeight
     if (this.position === 'center') {
       top = top + height / 2 - 117
     } else if (this.position === 'bottom') {

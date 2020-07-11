@@ -1,6 +1,6 @@
 import { createContext } from 'preact'
 import { jsonFetch } from '/functions/api.js'
-import { useEffect, useRef, useState, useLayoutEffect } from 'preact/hooks'
+import { useEffect, useLayoutEffect, useRef, useState } from 'preact/hooks'
 import { PrimaryButton } from './Button.jsx'
 import { useAutofocus } from '/functions/hooks.js'
 import { Loader } from './Loader.jsx'
@@ -85,7 +85,7 @@ export function FetchForm ({
   const setValue = (name, newValue) => onChange({ ...value, [name]: newValue })
   const [errors, loading, onSubmit, emptyError] = useForm(method, action, value, onSuccess)
   const contextData = { data: value, errors, loading, setValue, emptyError }
-  const mainError = errors['main'] || null
+  const mainError = errors.main || null
 
   return (
     <FormContext.Provider value={contextData}>

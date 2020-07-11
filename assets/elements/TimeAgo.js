@@ -63,8 +63,8 @@ const terms = [
  */
 export class TimeAgo extends HTMLElement {
   connectedCallback () {
-    let timestamp = parseInt(this.getAttribute('time'), 10) * 1000
-    let date = new Date(timestamp)
+    const timestamp = parseInt(this.getAttribute('time'), 10) * 1000
+    const date = new Date(timestamp)
     this.updateText(date)
   }
 
@@ -73,7 +73,7 @@ export class TimeAgo extends HTMLElement {
   }
 
   updateText (date) {
-    let seconds = (new Date().getTime() - date.getTime()) / 1000
+    const seconds = (new Date().getTime() - date.getTime()) / 1000
     let term = null
     const prefix = this.getAttribute('prefix') || 'Il y a'
     for (term of terms) {

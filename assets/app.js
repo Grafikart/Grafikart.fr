@@ -7,9 +7,9 @@ import Turbolinks from 'turbolinks'
 
 import './modules/scrollreveal.js'
 import './modules/highlight.js'
-import {showHistory} from './modules/history.js'
+import { showHistory } from './modules/history.js'
 import ChoicesJS from '/libs/Choices.js'
-import {$$} from '/functions/dom.js'
+import { $$ } from '/functions/dom.js'
 
 document.addEventListener('turbolinks:load', function () {
   const darkToggle = document.querySelector('#dark-toggle')

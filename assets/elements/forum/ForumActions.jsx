@@ -78,7 +78,7 @@ function ReportButton ({ message, topic }) {
         <span>!</span>
       </button>
       <SlideIn show={showForm && !success} className='forum-report__form' forwardedRef={ref}>
-        <ReportForm message={message} topic={topic} onSuccess={toggleSuccess}></ReportForm>
+        <ReportForm message={message} topic={topic} onSuccess={toggleSuccess} />
       </SlideIn>
     </div>
   )

@@ -37,13 +37,13 @@ function detachedCallback () {
 function toVdom (element, nodeName) {
   if (element.nodeType === Node.TEXT_NODE) return element.data
   if (element.nodeType !== Node.ELEMENT_NODE) return null
-  let children = [],
-    props = {},
-    i = 0,
-    a = element.attributes,
-    cn = element.childNodes
-  for (i = a.length; i--; ) props[a[i].name] = a[i].value
-  for (i = cn.length; i--; ) children[i] = toVdom(cn[i])
+  const children = []
+  const props = {}
+  let i = 0
+  const a = element.attributes
+  const cn = element.childNodes
+  for (i = a.length; i--;) props[a[i].name] = a[i].value
+  for (i = cn.length; i--;) children[i] = toVdom(cn[i])
   props.parent = element
   return h(nodeName || element.nodeName.toLowerCase(), props, children)
 }

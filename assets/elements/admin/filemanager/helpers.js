@@ -22,7 +22,7 @@ export function pathsToTree (paths) {
       folderMap[relativePath].count += count
       return folderMap[relativePath]
     }
-    let folder = {
+    const folder = {
       folder: path,
       count: count,
       path: relativePath,
@@ -38,10 +38,10 @@ export function pathsToTree (paths) {
     paths.map(p => {
       if (p.path.includes('/')) {
         const parts = p.path.split('/')
-        let folder = pathToObject(parts[0], p.count, parts[0])
+        const folder = pathToObject(parts[0], p.count, parts[0])
         let parent = folder
         for (let i = 1; i < parts.length; i++) {
-          let child = pathToObject(parts[i], p.count, parts.slice(0, i + 1).join(DS))
+          const child = pathToObject(parts[i], p.count, parts.slice(0, i + 1).join(DS))
           if (!parent.children.includes(child)) parent.children.push(child)
           parent = child
         }
