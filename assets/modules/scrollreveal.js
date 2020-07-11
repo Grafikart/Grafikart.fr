@@ -5,7 +5,7 @@ const options = {
   threshold: ratio
 }
 const handleIntersect = function (entries, observer) {
-  entries.forEach(function (entry) {
+  entries.forEach(entry => {
     if (entry.intersectionRatio > ratio) {
       entry.target.classList.add('in')
       if (entry.target.dataset.delay) {
@@ -17,12 +17,12 @@ const handleIntersect = function (entries, observer) {
 }
 const observer = new IntersectionObserver(handleIntersect, options)
 
-document.addEventListener('turbolinks:load', function () {
-  document.querySelectorAll('.fade').forEach(function (r) {
+document.addEventListener('turbolinks:load', () => {
+  document.querySelectorAll('.fade').forEach(r => {
     observer.observe(r)
   })
 })
 
-document.addEventListener('turbolinks:before-render', function () {
+document.addEventListener('turbolinks:before-render', () => {
   observer.takeRecords()
 })

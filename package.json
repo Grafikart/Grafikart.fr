@@ -12,21 +12,21 @@
     "@rollup/plugin-babel": "^5.0.4",
     "@rollup/plugin-commonjs": "^13.0.0",
     "@rollup/plugin-node-resolve": "^8.1.0",
-    "@symfony/webpack-encore": "^0.28.2",
     "@types/youtube": "^0.0.38",
     "babel-plugin-jsx-pragmatic": "^1.0.2",
     "doctoc": "^1.4.0",
+    "eslint-config-preact": "^1.1.1",
     "jest": "^25.1.0",
+    "prettier": "^2.0.5",
     "prettier-standard": "^16.4.1",
     "rollup": "^2.21.0",
     "rollup-plugin-postcss": "^3.1.2",
     "rollup-plugin-root-import": "^1.0.0",
     "sass": "^1.26.5",
-    "standard": "^14.3.1",
     "vite": "^1.0.0-beta.11"
   },
   "scripts": {
-    "lint": "standard \"assets/**/*.{js,css,jsx}\" --fix",
+    "lint": "prettier-standard --lint \"assets/**/*.{js,css,jsx}\"",
     "dev": "rm -rf public/assets/time && npx vite",
     "build": "rm -rf public/assets && npx rollup -c rollup.config.js && touch public/assets/time",
     "test": "jest"
@@ -46,5 +46,15 @@
     "sortablejs": "^1.10.2",
     "svelte": "^3.18.2",
     "turbolinks": "^5.2.0"
+  },
+  "eslintConfig": {
+    "extends": "preact",
+    "rules": {
+      "react/jsx-fragments": 0,
+      "import/no-absolute-path": 0
+    },
+    "env": {
+      "browser": true
+    }
   }
 }

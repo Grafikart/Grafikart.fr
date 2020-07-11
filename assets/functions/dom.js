@@ -46,7 +46,7 @@ export function createElement (tagName, attributes = {}, ...children) {
   }
 
   // On aplatit les enfants
-  children = children.reduce(function (acc, child) {
+  children = children.reduce((acc, child) => {
     return Array.isArray(child) ? [...acc, ...child] : [...acc, child]
   }, [])
 

@@ -10,7 +10,7 @@ import { jsonFetch } from '/functions/api.js'
  * @return {Promise<CommentResource[]>}
  */
 export async function findAllComments (target) {
-  return await jsonFetch('/api/comments?content=' + target)
+  return await jsonFetch(`/api/comments?content=${target}`)
 }
 
 /**
@@ -20,7 +20,7 @@ export async function findAllComments (target) {
 export async function addComment (body) {
   return jsonFetch('/api/comments', {
     method: 'POST',
-    body: body
+    body
   })
 }
 

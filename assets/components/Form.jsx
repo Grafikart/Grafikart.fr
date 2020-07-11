@@ -10,8 +10,8 @@ export const FormContext = createContext({
   data: {},
   errors: {},
   loading: false,
-  setValue: (name, value) => {},
-  emptyError: name => {}
+  setValue: () => {},
+  emptyError: () => {}
 })
 
 /**
@@ -167,9 +167,9 @@ export function Field ({ name, onInput, value, error, children, type = 'text', c
 
   // Les attributs à passer aux champs
   const attr = {
-    name: name,
+    name,
     id: name,
-    value: value,
+    value,
     className,
     onInput: handleInput,
     ...props
@@ -180,7 +180,7 @@ export function Field ({ name, onInput, value, error, children, type = 'text', c
     if (dirty === true) {
       setDirty(false)
     }
-  }, [error])
+  }, [error, dirty])
 
   return (
     <div className='form-group' ref={ref}>

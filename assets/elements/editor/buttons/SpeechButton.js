@@ -9,8 +9,9 @@ export default class SpeechButton extends Button {
   constructor (editor) {
     super(editor)
     this.listening = false
-    if (window.hasOwnProperty('webkitSpeechRecognition')) {
-      this.recognition = new webkitSpeechRecognition()
+    if (window.webkitSpeechRecognition) {
+      /* eslint-disable new-cap */
+      this.recognition = new window.webkitSpeechRecognition()
       this.recognition.lang = 'fr-FR'
       this.recognition.continuous = true
       this.recognition.interimResults = false
@@ -18,7 +19,7 @@ export default class SpeechButton extends Button {
   }
 
   icon () {
-    if (!window.hasOwnProperty('webkitSpeechRecognition')) {
+    if (!window.webkitSpeechRecognition) {
       return null
     }
     this.icon = strToDom(

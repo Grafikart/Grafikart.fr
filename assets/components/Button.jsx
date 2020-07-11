@@ -18,7 +18,7 @@ export function SecondaryButton ({ children, ...props }) {
 
 export function Button ({ children, className = '', loading = false, ...props }) {
   return (
-    <button className={'btn ' + className} disabled={loading} {...props}>
+    <button className={`btn ${className}`} disabled={loading} {...props}>
       {loading && <Loader className='icon' />}
       {children}
     </button>
@@ -28,7 +28,7 @@ export function Button ({ children, className = '', loading = false, ...props })
 export function RoundedButton ({ children, loading = false, type = '', title = '', ...props }) {
   return (
     <button
-      className={'rounded-button ' + type}
+      className={`rounded-button ${type}`}
       aria-label={title}
       data-microtip-position='top'
       role='tooltip'

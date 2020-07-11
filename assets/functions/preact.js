@@ -42,8 +42,8 @@ function toVdom (element, nodeName) {
   let i = 0
   const a = element.attributes
   const cn = element.childNodes
-  for (i = a.length; i--;) props[a[i].name] = a[i].value
-  for (i = cn.length; i--;) children[i] = toVdom(cn[i])
+  for (i = a.length; i--; ) props[a[i].name] = a[i].value
+  for (i = cn.length; i--; ) children[i] = toVdom(cn[i])
   props.parent = element
   return h(nodeName || element.nodeName.toLowerCase(), props, children)
 }

@@ -41,7 +41,7 @@ export class PlayButton extends HTMLElement {
     if (name === 'progress') {
       const progress = newValue ? parseInt(newValue, 10) : 0
       if (this.circle) {
-        this.circle.style.strokeDashoffset = 94 - (94 * progress) / 100 + 'px'
+        this.circle.style.strokeDashoffset = `${94 - (94 * progress) / 100}px`
       }
       if (progress === 100) {
         this.root.host.classList.add('is-checked')

@@ -1,3 +1,5 @@
+import SpinningDots from '@grafikart/spinning-dots-element'
+
 /**
  * Crée un loader qui se place au dessus de l'élément courant
  */

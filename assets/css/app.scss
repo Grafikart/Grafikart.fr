@@ -7,7 +7,7 @@
   --color-inversed: #effbec;
   --color-transparent: #{rgba(#121c42, 0)};
   --contrast: #4869ee;
-  --contrast25: #4869ee3F;
+  --contrast25: #4869ee3f;
   --gap: 20px;
   --space: 8px;
   --border: #d5e3ec;
@@ -21,7 +21,7 @@
   --card-footer: #f7fafd;
   --card-padding: 16px;
   --header-height: 137px;
-  --red: #F25353;
+  --red: #f25353;
   --green: #41cf7c;
   --yellow: #feb32b;
 }
@@ -130,4 +130,3 @@ body::after {
 
 // TODO : Voir comment importer dans le cas de vite
 // @import '~microtip/microtip.css';
-

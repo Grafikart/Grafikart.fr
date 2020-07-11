@@ -24,7 +24,7 @@ export function pathsToTree (paths) {
     }
     const folder = {
       folder: path,
-      count: count,
+      count,
       path: relativePath,
       children: []
     }

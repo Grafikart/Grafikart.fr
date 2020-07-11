@@ -12,31 +12,10 @@ export default class DatePicker extends HTMLInputElement {
         firstDayOfWeek: 1,
         weekdays: {
           shorthand: ['dim', 'lun', 'mar', 'mer', 'jeu', 'ven', 'sam'],
-          longhand: [
-            'dimanche',
-            'lundi',
-            'mardi',
-            'mercredi',
-            'jeudi',
-            'vendredi',
-            'samedi'
-          ]
+          longhand: ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi']
         },
         months: {
-          shorthand: [
-            'janv',
-            'févr',
-            'mars',
-            'avr',
-            'mai',
-            'juin',
-            'juil',
-            'août',
-            'sept',
-            'oct',
-            'nov',
-            'déc'
-          ],
+          shorthand: ['janv', 'févr', 'mars', 'avr', 'mai', 'juin', 'juil', 'août', 'sept', 'oct', 'nov', 'déc'],
           longhand: [
             'janvier',
             'février',
@@ -52,8 +31,10 @@ export default class DatePicker extends HTMLInputElement {
             'décembre'
           ]
         },
-        ordinal: function (nth) {
-          if (nth > 1) { return '' }
+        ordinal (nth) {
+          if (nth > 1) {
+            return ''
+          }
           return 'er'
         },
         rangeSeparator: ' au ',

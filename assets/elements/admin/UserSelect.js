@@ -7,7 +7,7 @@ import { debounce } from '/functions/timers.js'
  */
 function getItems (endpoint, search) {
   return async function () {
-    const response = await fetch(endpoint + '/' + search)
+    const response = await fetch(`${endpoint}/${search}`)
     if (response.status >= 200 && response.status < 300) {
       return await response.json()
     }

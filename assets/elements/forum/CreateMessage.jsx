@@ -17,7 +17,7 @@ export function CreateMessage ({ topic, parent }) {
 
   return (
     isAuthenticated() && (
-      <Fragment>
+      <>
         <FetchForm action={endpoint} value={value} onChange={setValue} onSuccess={onSuccess}>
           <Stack>
             <FormField placeholder='Votre message' name='content' type='editor'>
@@ -26,7 +26,7 @@ export function CreateMessage ({ topic, parent }) {
             <FormPrimaryButton>Répondre</FormPrimaryButton>
           </Stack>
         </FetchForm>
-      </Fragment>
+      </>
     )
   )
 }

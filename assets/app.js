@@ -11,7 +11,7 @@ import { showHistory } from './modules/history.js'
 import ChoicesJS from '/libs/Choices.js'
 import { $$ } from '/functions/dom.js'
 
-document.addEventListener('turbolinks:load', function () {
+document.addEventListener('turbolinks:load', () => {
   const darkToggle = document.querySelector('#dark-toggle')
   if (darkToggle) {
     darkToggle.addEventListener('click', e => {

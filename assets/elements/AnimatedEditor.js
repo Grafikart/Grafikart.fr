@@ -76,7 +76,6 @@ export class AnimatedEditor extends HTMLElement {
   drawLines (linesPerScreen) {
     const lines = linesPerScreen * screens
     const screenWidth = 300
-    const screenHeight = linesPerScreen * lineHeight
     let line = 0
     let currentIndent = 0 // Indentation
     let html = '<g style="transform: translate(346px, 24px)">'

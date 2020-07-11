@@ -28,9 +28,10 @@ function Chapter ({ chapter, onUpdate, onRemove, onAdd, editPath }) {
       </button>
       <ul>
         ${chapter.courses.map(
-          c => html`
-            <${Course} course=${c} onRemove=${onRemove} editPath=${editPath} />
-          `
+          c =>
+            html`
+              <${Course} course=${c} onRemove=${onRemove} editPath=${editPath} />
+            `
         )}
         <${AddButton} placeholder="Ajouter un cours" onAdd=${onAdd} />
       </ul>

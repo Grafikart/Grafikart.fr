@@ -8,7 +8,7 @@ const lazylangs = ['typescript', 'elixir', 'less', 'stylus', 'scss', 'sass', 'ya
  * @param {NodeList<HTMLElement>} $codes
  */
 function highlight ($codes) {
-  $codes.forEach(function (code) {
+  $codes.forEach(code => {
     let lazy = false
     let cls = code.getAttribute('class')
     if (cls === null) {
@@ -42,7 +42,7 @@ function bindHighlight () {
       const link = document.createElement('link')
       link.setAttribute('rel', 'stylesheet')
       document.querySelector('head').appendChild(link)
-      scriptjs('//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js', function () {
+      scriptjs('//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js', () => {
         global.hljs.configure({ tabReplace: '    ' })
         highlight($codes)
       })
@@ -50,6 +50,6 @@ function bindHighlight () {
   }
 }
 
-document.addEventListener('turbolinks:load', function () {
+document.addEventListener('turbolinks:load', () => {
   bindHighlight()
 })

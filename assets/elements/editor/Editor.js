@@ -89,5 +89,5 @@ export default class Editor {
    *
    * @param {string} value
    */
-  onChange (value) {}
+  onChange () {}
 }

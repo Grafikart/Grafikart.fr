@@ -1,5 +1,5 @@
 import { FileManager as FileManagerComponent } from './FileManager.jsx'
-import { render, h } from 'preact'
+import { h, render } from 'preact'
 
 export default class FileManager extends HTMLElement {
   constructor () {
@@ -307,7 +307,7 @@ export default class FileManager extends HTMLElement {
     e.preventDefault()
   }
 
-  onDrop (e) {
+  onDrop () {
     render(
       h(FileManagerComponent, {
         apiEndpoint: '/admin/attachment',

@@ -28,7 +28,7 @@ export default class DiffEditor extends HTMLTextAreaElement {
       original: originalModel,
       modified: modifiedModel
     })
-    modifiedModel.onDidChangeContent(event => {
+    modifiedModel.onDidChangeContent(() => {
       this.value = modifiedModel.getLinesContent().join('\n')
     })
     // On masque le champs original

@@ -5,393 +5,1033 @@ function unwrapExports (x) {
 }
 
 function createCommonjsModule (fn, module) {
-  return module = { exports: {} }, fn(module, module.exports), module.exports
+  return (module = { exports: {} }), fn(module, module.exports), module.exports
 }
 
-var choices = createCommonjsModule(function (module, exports) {
+let choices = createCommonjsModule((module, exports) => {
   /*! choices.js v9.0.1 | © 2019 Josh Johnson | https://github.com/jshjohnson/Choices#readme */
   (function webpackUniversalModuleDefinition (root, factory) {
     module.exports = factory()
-  })(window, function () {
-    return /******/ (function (modules) { // webpackBootstrap
-      /******/ 	// The module cache
-      /******/ 	var installedModules = {}
+  })(window, () => {
+    return /******/ (function (modules) {
+      // webpackBootstrap
+      /******/ // The module cache
+      /******/ let installedModules = {} // The require function
       /******/
-      /******/ 	// The require function
-      /******/ 	function __webpack_require__ (moduleId) {
+      /******/ /******/ function __webpack_require__ (moduleId) {
         /******/
-        /******/ 		// Check if module is in cache
-        /******/ 		if (installedModules[moduleId]) {
-          /******/ 			return installedModules[moduleId].exports
-          /******/ 		}
-        /******/ 		// Create a new module (and put it into the cache)
-        /******/ 		var module = installedModules[moduleId] = {
-          /******/ 			i: moduleId,
-          /******/ 			l: false,
-          /******/ 			exports: {}
-          /******/ 		}
+        /******/ // Check if module is in cache
+        /******/ if (installedModules[moduleId]) {
+          /******/ return installedModules[moduleId].exports
+          /******/
+        } // Create a new module (and put it into the cache)
+        /******/ /******/ let module = (installedModules[moduleId] = {
+          /******/ i: moduleId,
+          /******/ l: false,
+          /******/ exports: {}
+          /******/
+        }) // Execute the module function
         /******/
-        /******/ 		// Execute the module function
-        /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__)
+        /******/ /******/ modules[moduleId].call(module.exports, module, module.exports, __webpack_require__) // Flag the module as loaded
         /******/
-        /******/ 		// Flag the module as loaded
-        /******/ 		module.l = true
+        /******/ /******/ module.l = true // Return the exports of the module
         /******/
-        /******/ 		// Return the exports of the module
-        /******/ 		return module.exports
-        /******/ 	}
+        /******/ /******/ return module.exports
+        /******/
+      } // expose the modules object (__webpack_modules__)
       /******/
       /******/
-      /******/ 	// expose the modules object (__webpack_modules__)
-      /******/ 	__webpack_require__.m = modules
+      /******/ /******/ __webpack_require__.m = modules // expose the module cache
       /******/
-      /******/ 	// expose the module cache
-      /******/ 	__webpack_require__.c = installedModules
+      /******/ /******/ __webpack_require__.c = installedModules // define getter function for harmony exports
       /******/
-      /******/ 	// define getter function for harmony exports
-      /******/ 	__webpack_require__.d = function (exports, name, getter) {
-        /******/ 		if (!__webpack_require__.o(exports, name)) {
-          /******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter })
-          /******/ 		}
-        /******/ 	}
-      /******/
-      /******/ 	// define __esModule on exports
-      /******/ 	__webpack_require__.r = function (exports) {
-        /******/ 		if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-          /******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' })
-          /******/ 		}
-        /******/ 		Object.defineProperty(exports, '__esModule', { value: true })
-        /******/ 	}
-      /******/
-      /******/ 	// create a fake namespace object
-      /******/ 	// mode & 1: value is a module id, require it
-      /******/ 	// mode & 2: merge all properties of value into the ns
-      /******/ 	// mode & 4: return value when already ns object
-      /******/ 	// mode & 8|1: behave like require
-      /******/ 	__webpack_require__.t = function (value, mode) {
-        /******/ 		if (mode & 1) value = __webpack_require__(value)
-        /******/ 		if (mode & 8) return value
-        /******/ 		if ((mode & 4) && typeof value === 'object' && value && value.__esModule) return value
-        /******/ 		var ns = Object.create(null)
-        /******/ 		__webpack_require__.r(ns)
-        /******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value })
-        /******/ 		if (mode & 2 && typeof value !== 'string') for (var key in value) __webpack_require__.d(ns, key, function (key) { return value[key] }.bind(null, key))
-        /******/ 		return ns
-        /******/ 	}
-      /******/
-      /******/ 	// getDefaultExport function for compatibility with non-harmony modules
-      /******/ 	__webpack_require__.n = function (module) {
-        /******/ 		var getter = module && module.__esModule
-          /******/ 			? function getDefault () { return module.default }
-          /******/ 			: function getModuleExports () { return module }
-        /******/ 		__webpack_require__.d(getter, 'a', getter)
-        /******/ 		return getter
-        /******/ 	}
-      /******/
-      /******/ 	// Object.prototype.hasOwnProperty.call
-      /******/ 	__webpack_require__.o = function (object, property) { return Object.prototype.hasOwnProperty.call(object, property) }
-      /******/
-      /******/ 	// __webpack_public_path__
-      /******/ 	__webpack_require__.p = '/public/assets/scripts/'
-      /******/
-      /******/
-      /******/ 	// Load entry module and return exports
-      /******/ 	return __webpack_require__(__webpack_require__.s = 4)
-      /******/ })
-    /************************************************************************/
-    /******/ ([
-      /* 0 */
-      /***/ function (module, exports, __webpack_require__) {
-        var isMergeableObject = function isMergeableObject (value) {
-          return isNonNullObject(value) &&
-              !isSpecial(value)
+      /******/ /******/ __webpack_require__.d = function (exports, name, getter) {
+        /******/ if (!__webpack_require__.o(exports, name)) {
+          /******/ Object.defineProperty(exports, name, { enumerable: true, get: getter })
+          /******/
         }
-
-        function isNonNullObject (value) {
-          return !!value && typeof value === 'object'
+        /******/
+      } // define __esModule on exports
+      /******/
+      /******/ /******/ __webpack_require__.r = function (exports) {
+        /******/ if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+          /******/ Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' })
+          /******/
         }
-
-        function isSpecial (value) {
-          var stringValue = Object.prototype.toString.call(value)
-
-          return stringValue === '[object RegExp]' ||
-              stringValue === '[object Date]' ||
-              isReactElement(value)
-        }
-
-        // see https://github.com/facebook/react/blob/b5ac963fb791d1298e7f396236383bc955f916c1/src/isomorphic/classic/element/ReactElement.js#L21-L25
-        var canUseSymbol = typeof Symbol === 'function' && Symbol.for
-        var REACT_ELEMENT_TYPE = canUseSymbol ? Symbol.for('react.element') : 0xeac7
-
-        function isReactElement (value) {
-          return value.$$typeof === REACT_ELEMENT_TYPE
-        }
-
-        function emptyTarget (val) {
-          return Array.isArray(val) ? [] : {}
-        }
-
-        function cloneUnlessOtherwiseSpecified (value, options) {
-          return (options.clone !== false && options.isMergeableObject(value))
-            ? deepmerge(emptyTarget(value), value, options)
-            : value
-        }
-
-        function defaultArrayMerge (target, source, options) {
-          return target.concat(source).map(function (element) {
-            return cloneUnlessOtherwiseSpecified(element, options)
-          })
-        }
-
-        function getMergeFunction (key, options) {
-          if (!options.customMerge) {
-            return deepmerge
+        /******/ Object.defineProperty(exports, '__esModule', { value: true })
+        /******/
+      } // create a fake namespace object // mode & 1: value is a module id, require it // mode & 2: merge all properties of value into the ns // mode & 4: return value when already ns object // mode & 8|1: behave like require
+      /******/
+      /******/ /******/ /******/ /******/ /******/ /******/ __webpack_require__.t = function (value, mode) {
+        /******/ if (mode & 1) value = __webpack_require__(value)
+        /******/ if (mode & 8) return value
+        /******/ if (mode & 4 && typeof value === 'object' && value && value.__esModule) return value
+        /******/ let ns = Object.create(null)
+        /******/ __webpack_require__.r(ns)
+        /******/ Object.defineProperty(ns, 'default', { enumerable: true, value })
+        /******/ if (mode & 2 && typeof value !== 'string')
+          for (let key in value)
+            __webpack_require__.d(
+              ns,
+              key,
+              ((key) => {
+                return value[key]
+              }).bind(null, key)
+            )
+        /******/ return ns
+        /******/
+      } // getDefaultExport function for compatibility with non-harmony modules
+      /******/
+      /******/ /******/ __webpack_require__.n = function (module) {
+        /******/ let getter =
+          module && module.__esModule
+            ? /******/ function getDefault () {
+                return module.default
+              }
+            : /******/ function getModuleExports () {
+                return module
+              }
+        /******/ __webpack_require__.d(getter, 'a', getter)
+        /******/ return getter
+        /******/
+      } // Object.prototype.hasOwnProperty.call
+      /******/
+      /******/ /******/ __webpack_require__.o = function (object, property) {
+        return Object.prototype.hasOwnProperty.call(object, property)
+      } // __webpack_public_path__
+      /******/
+      /******/ /******/ __webpack_require__.p = '/public/assets/scripts/' // Load entry module and return exports
+      /******/
+      /******/
+      /******/ /******/ return __webpack_require__((__webpack_require__.s = 4))
+      /******/
+    })(
+      /************************************************************************/
+      /******/ [
+        /* 0 */
+        /***/ function (module, exports, __webpack_require__) {
+          let isMergeableObject = function isMergeableObject (value) {
+            return isNonNullObject(value) && !isSpecial(value)
           }
-          var customMerge = options.customMerge(key)
-          return typeof customMerge === 'function' ? customMerge : deepmerge
-        }
 
-        function getEnumerableOwnPropertySymbols (target) {
-          return Object.getOwnPropertySymbols
-            ? Object.getOwnPropertySymbols(target).filter(function (symbol) {
-              return target.propertyIsEnumerable(symbol)
+          function isNonNullObject (value) {
+            return !!value && typeof value === 'object'
+          }
+
+          function isSpecial (value) {
+            let stringValue = Object.prototype.toString.call(value)
+
+            return stringValue === '[object RegExp]' || stringValue === '[object Date]' || isReactElement(value)
+          }
+
+          // see https://github.com/facebook/react/blob/b5ac963fb791d1298e7f396236383bc955f916c1/src/isomorphic/classic/element/ReactElement.js#L21-L25
+          let canUseSymbol = typeof Symbol === 'function' && Symbol.for
+          let REACT_ELEMENT_TYPE = canUseSymbol ? Symbol.for('react.element') : 0xeac7
+
+          function isReactElement (value) {
+            return value.$$typeof === REACT_ELEMENT_TYPE
+          }
+
+          function emptyTarget (val) {
+            return Array.isArray(val) ? [] : {}
+          }
+
+          function cloneUnlessOtherwiseSpecified (value, options) {
+            return options.clone !== false && options.isMergeableObject(value)
+              ? deepmerge(emptyTarget(value), value, options)
+              : value
+          }
+
+          function defaultArrayMerge (target, source, options) {
+            return target.concat(source).map((element) => {
+              return cloneUnlessOtherwiseSpecified(element, options)
             })
-            : []
-        }
+          }
 
-        function getKeys (target) {
-          return Object.keys(target).concat(getEnumerableOwnPropertySymbols(target))
-        }
+          function getMergeFunction (key, options) {
+            if (!options.customMerge) {
+              return deepmerge
+            }
+            let customMerge = options.customMerge(key)
+            return typeof customMerge === 'function' ? customMerge : deepmerge
+          }
 
-        // Protects from prototype poisoning and unexpected merging up the prototype chain.
-        function propertyIsUnsafe (target, key) {
+          function getEnumerableOwnPropertySymbols (target) {
+            return Object.getOwnPropertySymbols
+              ? Object.getOwnPropertySymbols(target).filter((symbol) => {
+                  return target.propertyIsEnumerable(symbol)
+                })
+              : []
+          }
+
+          function getKeys (target) {
+            return Object.keys(target).concat(getEnumerableOwnPropertySymbols(target))
+          }
+
+          // Protects from prototype poisoning and unexpected merging up the prototype chain.
+          function propertyIsUnsafe (target, key) {
+            try {
+              return (
+                key in target && // Properties are safe to merge if they don't exist in the target yet,
+                !(
+                  (Object.hasOwnProperty.call(target, key) && Object.propertyIsEnumerable.call(target, key)) // unsafe if they exist up the prototype chain,
+                )
+              ) // and also unsafe if they're nonenumerable.
+            } catch (unused) {
+              // Counterintuitively, it's safe to merge any property on a target that causes the `in` operator to throw.
+              // This happens when trying to copy an object in the source over a plain string in the target.
+              return false
+            }
+          }
+
+          function mergeObject (target, source, options) {
+            let destination = {}
+            if (options.isMergeableObject(target)) {
+              getKeys(target).forEach((key) => {
+                destination[key] = cloneUnlessOtherwiseSpecified(target[key], options)
+              })
+            }
+            getKeys(source).forEach((key) => {
+              if (propertyIsUnsafe(target, key)) {
+                return
+              }
+
+              if (!options.isMergeableObject(source[key]) || !target[key]) {
+                destination[key] = cloneUnlessOtherwiseSpecified(source[key], options)
+              } else {
+                destination[key] = getMergeFunction(key, options)(target[key], source[key], options)
+              }
+            })
+            return destination
+          }
+
+          function deepmerge (target, source, options) {
+            options = options || {}
+            options.arrayMerge = options.arrayMerge || defaultArrayMerge
+            options.isMergeableObject = options.isMergeableObject || isMergeableObject
+            // cloneUnlessOtherwiseSpecified is added to `options` so that custom arrayMerge()
+            // implementations can use it. The caller may not replace it.
+            options.cloneUnlessOtherwiseSpecified = cloneUnlessOtherwiseSpecified
+
+            let sourceIsArray = Array.isArray(source)
+            let targetIsArray = Array.isArray(target)
+            let sourceAndTargetTypesMatch = sourceIsArray === targetIsArray
+
+            if (!sourceAndTargetTypesMatch) {
+              return cloneUnlessOtherwiseSpecified(source, options)
+            } else if (sourceIsArray) {
+              return options.arrayMerge(target, source, options)
+            } 
+              return mergeObject(target, source, options)
+            
+          }
+
+          deepmerge.all = function deepmergeAll (array, options) {
+            if (!Array.isArray(array)) {
+              throw new Error('first argument should be an array')
+            }
+
+            return array.reduce((prev, next) => {
+              return deepmerge(prev, next, options)
+            }, {})
+          }
+
+          let deepmerge_1 = deepmerge
+
+          module.exports = deepmerge_1
+          /***/
+        },
+        /* 1 */
+        /***/ function (module, __webpack_exports__, __webpack_require__) {
+          /* WEBPACK VAR INJECTION */ (function (global, module) {
+            /* harmony import */ let _ponyfill_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3)
+            /* global window */
+
+            let root
+
+            if (typeof self !== 'undefined') {
+              root = self
+            } else if (typeof window !== 'undefined') {
+              root = window
+            } else if (typeof global !== 'undefined') {
+              root = global
+            } else {
+              root = module
+            }
+
+            let result = Object(_ponyfill_js__WEBPACK_IMPORTED_MODULE_0__[/* default */ 'a'])(root)
+            /* harmony default export */ __webpack_exports__.a = result
+            /* WEBPACK VAR INJECTION */
+          }.call(this, __webpack_require__(5), __webpack_require__(6)(module)))
+          /***/
+        },
+        /* 2 */
+        /***/ function (module, exports, __webpack_require__) {
+          /*!
+           * Fuse.js v3.4.5 - Lightweight fuzzy-search (http://fusejs.io)
+           *
+           * Copyright (c) 2012-2017 Kirollos Risk (http://kiro.me)
+           * All Rights Reserved. Apache Software License 2.0
+           *
+           * http://www.apache.org/licenses/LICENSE-2.0
+           */
+          !(function (e, t) {
+            module.exports = t()
+          })(this, () => {
+            return (function (e) {
+              let t = {}
+              function n (r) {
+                if (t[r]) return t[r].exports
+                let o = (t[r] = { i: r, l: !1, exports: {} })
+                return e[r].call(o.exports, o, o.exports, n), (o.l = !0), o.exports
+              }
+              return (
+                (n.m = e),
+                (n.c = t),
+                (n.d = function (e, t, r) {
+                  n.o(e, t) || Object.defineProperty(e, t, { enumerable: !0, get: r })
+                }),
+                (n.r = function (e) {
+                  typeof Symbol !== 'undefined' &&
+                    Symbol.toStringTag &&
+                    Object.defineProperty(e, Symbol.toStringTag, { value: 'Module' }),
+                    Object.defineProperty(e, '__esModule', { value: !0 })
+                }),
+                (n.t = function (e, t) {
+                  if ((1 & t && (e = n(e)), 8 & t)) return e
+                  if (4 & t && typeof e === 'object' && e && e.__esModule) return e
+                  let r = Object.create(null)
+                  if (
+                    (n.r(r),
+                    Object.defineProperty(r, 'default', { enumerable: !0, value: e }),
+                    2 & t && typeof e !== 'string')
+                  )
+                    for (let o in e)
+                      n.d(
+                        r,
+                        o,
+                        ((t) => {
+                          return e[t]
+                        }).bind(null, o)
+                      )
+                  return r
+                }),
+                (n.n = function (e) {
+                  let t =
+                    e && e.__esModule
+                      ? function () {
+                          return e.default
+                        }
+                      : function () {
+                          return e
+                        }
+                  return n.d(t, 'a', t), t
+                }),
+                (n.o = function (e, t) {
+                  return Object.prototype.hasOwnProperty.call(e, t)
+                }),
+                (n.p = ''),
+                n((n.s = 1))
+              )
+            })([
+              function (e, t) {
+                e.exports = function (e) {
+                  return Array.isArray ? Array.isArray(e) : Object.prototype.toString.call(e) === '[object Array]'
+                }
+              },
+              function (e, t, n) {
+                function r (e) {
+                  return (r =
+                    typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol'
+                      ? function (e) {
+                          return typeof e
+                        }
+                      : function (e) {
+                          return e && typeof Symbol === 'function' && e.constructor === Symbol && e !== Symbol.prototype
+                            ? 'symbol'
+                            : typeof e
+                        })(e)
+                }
+                function o (e, t) {
+                  for (let n = 0; n < t.length; n++) {
+                    let r = t[n]
+                    ;(r.enumerable = r.enumerable || !1),
+                      (r.configurable = !0),
+                      'value' in r && (r.writable = !0),
+                      Object.defineProperty(e, r.key, r)
+                  }
+                }
+                let i = n(2)
+                let a = n(8)
+                let s = n(0)
+                let c = (function () {
+                  function e (t, n) {
+                    let r = n.location
+                    let o = void 0 === r ? 0 : r
+                    let i = n.distance
+                    let s = void 0 === i ? 100 : i
+                    let c = n.threshold
+                    let h = void 0 === c ? 0.6 : c
+                    let l = n.maxPatternLength
+                    let u = void 0 === l ? 32 : l
+                    let f = n.caseSensitive
+                    let d = void 0 !== f && f
+                    let v = n.tokenSeparator
+                    let p = void 0 === v ? / +/g : v
+                    let g = n.findAllMatches
+                    let y = void 0 !== g && g
+                    let m = n.minMatchCharLength
+                    let k = void 0 === m ? 1 : m
+                    let S = n.id
+                    let x = void 0 === S ? null : S
+                    let b = n.keys
+                    let M = void 0 === b ? [] : b
+                    let _ = n.shouldSort
+                    let L = void 0 === _ || _
+                    let w = n.getFn
+                    let A = void 0 === w ? a : w
+                    let C = n.sortFn
+                    let I =
+                      void 0 === C
+                        ? function (e, t) {
+                            return e.score - t.score
+                          }
+                        : C
+                    let O = n.tokenize
+                    let j = void 0 !== O && O
+                    let P = n.matchAllTokens
+                    let F = void 0 !== P && P
+                    let T = n.includeMatches
+                    let z = void 0 !== T && T
+                    let E = n.includeScore
+                    let K = void 0 !== E && E
+                    let $ = n.verbose
+                    let J = void 0 !== $ && $
+                    !(function (e, t) {
+                      if (!(e instanceof t)) throw new TypeError('Cannot call a class as a function')
+                    })(this, e),
+                      (this.options = {
+                        location: o,
+                        distance: s,
+                        threshold: h,
+                        maxPatternLength: u,
+                        isCaseSensitive: d,
+                        tokenSeparator: p,
+                        findAllMatches: y,
+                        minMatchCharLength: k,
+                        id: x,
+                        keys: M,
+                        includeMatches: z,
+                        includeScore: K,
+                        shouldSort: L,
+                        getFn: A,
+                        sortFn: I,
+                        verbose: J,
+                        tokenize: j,
+                        matchAllTokens: F
+                      }),
+                      this.setCollection(t)
+                  }
+                  let t, n
+                  return (
+                    (t = e),
+                    (n = [
+                      {
+                        key: 'setCollection',
+                        value (e) {
+                          return (this.list = e), e
+                        }
+                      },
+                      {
+                        key: 'search',
+                        value (e) {
+                          let t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : { limit: !1 }
+                          this._log('---------\nSearch pattern: "'.concat(e, '"'))
+                          let n = this._prepareSearchers(e)
+                          let r = n.tokenSearchers
+                          let o = n.fullSearcher
+                          let i = this._search(r, o)
+                          let a = i.weights
+                          let s = i.results
+                          return (
+                            this._computeScore(a, s),
+                            this.options.shouldSort && this._sort(s),
+                            t.limit && typeof t.limit === 'number' && (s = s.slice(0, t.limit)),
+                            this._format(s)
+                          )
+                        }
+                      },
+                      {
+                        key: '_prepareSearchers',
+                        value () {
+                          let e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : ''
+                          let t = []
+                          if (this.options.tokenize)
+                            for (let n = e.split(this.options.tokenSeparator), r = 0, o = n.length; r < o; r += 1)
+                              t.push(new i(n[r], this.options))
+                          return { tokenSearchers: t, fullSearcher: new i(e, this.options) }
+                        }
+                      },
+                      {
+                        key: '_search',
+                        value () {
+                          let e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : []
+                          let t = arguments.length > 1 ? arguments[1] : void 0
+                          let n = this.list
+                          let r = {}
+                          let o = []
+                          if (typeof n[0] === 'string') {
+                            for (let i = 0, a = n.length; i < a; i += 1)
+                              this._analyze(
+                                { key: '', value: n[i], record: i, index: i },
+                                { resultMap: r, results: o, tokenSearchers: e, fullSearcher: t }
+                              )
+                            return { weights: null, results: o }
+                          }
+                          for (var s = {}, c = 0, h = n.length; c < h; c += 1)
+                            for (let l = n[c], u = 0, f = this.options.keys.length; u < f; u += 1) {
+                              let d = this.options.keys[u]
+                              if (typeof d !== 'string') {
+                                if (((s[d.name] = { weight: 1 - d.weight || 1 }), d.weight <= 0 || d.weight > 1))
+                                  throw new Error('Key weight has to be > 0 and <= 1')
+                                d = d.name
+                              } else s[d] = { weight: 1 }
+                              this._analyze(
+                                { key: d, value: this.options.getFn(l, d), record: l, index: c },
+                                { resultMap: r, results: o, tokenSearchers: e, fullSearcher: t }
+                              )
+                            }
+                          return { weights: s, results: o }
+                        }
+                      },
+                      {
+                        key: '_analyze',
+                        value (e, t) {
+                          let n = e.key
+                          let r = e.arrayIndex
+                          let o = void 0 === r ? -1 : r
+                          let i = e.value
+                          let a = e.record
+                          let c = e.index
+                          let h = t.tokenSearchers
+                          let l = void 0 === h ? [] : h
+                          let u = t.fullSearcher
+                          let f = void 0 === u ? [] : u
+                          let d = t.resultMap
+                          let v = void 0 === d ? {} : d
+                          let p = t.results
+                          let g = void 0 === p ? [] : p
+                          if (i != null) {
+                            let y = !1
+                            let m = -1
+                            let k = 0
+                            if (typeof i === 'string') {
+                              this._log('\nKey: '.concat(n === '' ? '-' : n))
+                              let S = f.search(i)
+                              if (
+                                (this._log('Full text: "'.concat(i, '", score: ').concat(S.score)),
+                                this.options.tokenize)
+                              ) {
+                                for (
+                                  var x = i.split(this.options.tokenSeparator), b = [], M = 0;
+                                  M < l.length;
+                                  M += 1
+                                ) {
+                                  let _ = l[M]
+                                  this._log('\nPattern: "'.concat(_.pattern, '"'))
+                                  for (var L = !1, w = 0; w < x.length; w += 1) {
+                                    let A = x[w]
+                                    let C = _.search(A)
+                                    let I = {}
+                                    C.isMatch
+                                      ? ((I[A] = C.score), (y = !0), (L = !0), b.push(C.score))
+                                      : ((I[A] = 1), this.options.matchAllTokens || b.push(1)),
+                                      this._log('Token: "'.concat(A, '", score: ').concat(I[A]))
+                                  }
+                                  L && (k += 1)
+                                }
+                                m = b[0]
+                                for (var O = b.length, j = 1; j < O; j += 1) m += b[j]
+                                ;(m /= O), this._log('Token score average:', m)
+                              }
+                              let P = S.score
+                              m > -1 && (P = (P + m) / 2), this._log('Score average:', P)
+                              let F = !this.options.tokenize || !this.options.matchAllTokens || k >= l.length
+                              if ((this._log('\nCheck Matches: '.concat(F)), (y || S.isMatch) && F)) {
+                                let T = v[c]
+                                T
+                                  ? T.output.push({
+                                      key: n,
+                                      arrayIndex: o,
+                                      value: i,
+                                      score: P,
+                                      matchedIndices: S.matchedIndices
+                                    })
+                                  : ((v[c] = {
+                                      item: a,
+                                      output: [
+                                        { key: n, arrayIndex: o, value: i, score: P, matchedIndices: S.matchedIndices }
+                                      ]
+                                    }),
+                                    g.push(v[c]))
+                              }
+                            } else if (s(i))
+                              for (let z = 0, E = i.length; z < E; z += 1)
+                                this._analyze(
+                                  { key: n, arrayIndex: z, value: i[z], record: a, index: c },
+                                  { resultMap: v, results: g, tokenSearchers: l, fullSearcher: f }
+                                )
+                          }
+                        }
+                      },
+                      {
+                        key: '_computeScore',
+                        value (e, t) {
+                          this._log('\n\nComputing score:\n')
+                          for (let n = 0, r = t.length; n < r; n += 1) {
+                            for (var o = t[n].output, i = o.length, a = 1, s = 1, c = 0; c < i; c += 1) {
+                              let h = e ? e[o[c].key].weight : 1
+                              let l = (h === 1 ? o[c].score : o[c].score || 0.001) * h
+                              h !== 1 ? (s = Math.min(s, l)) : ((o[c].nScore = l), (a *= l))
+                            }
+                            (t[n].score = s === 1 ? a : s), this._log(t[n])
+                          }
+                        }
+                      },
+                      {
+                        key: '_sort',
+                        value (e) {
+                          this._log('\n\nSorting....'), e.sort(this.options.sortFn)
+                        }
+                      },
+                      {
+                        key: '_format',
+                        value (e) {
+                          let t = []
+                          if (this.options.verbose) {
+                            let n = []
+                            this._log(
+                              '\n\nOutput:\n\n',
+                              JSON.stringify(e, (e, t) => {
+                                if (r(t) === 'object' && t !== null) {
+                                  if (n.indexOf(t) !== -1) return
+                                  n.push(t)
+                                }
+                                return t
+                              })
+                            ),
+                              (n = null)
+                          }
+                          let o = []
+                          this.options.includeMatches &&
+                            o.push((e, t) => {
+                              let n = e.output
+                              t.matches = []
+                              for (let r = 0, o = n.length; r < o; r += 1) {
+                                let i = n[r]
+                                if (i.matchedIndices.length !== 0) {
+                                  let a = { indices: i.matchedIndices, value: i.value }
+                                  i.key && (a.key = i.key),
+                                    i.hasOwnProperty('arrayIndex') &&
+                                      i.arrayIndex > -1 &&
+                                      (a.arrayIndex = i.arrayIndex),
+                                    t.matches.push(a)
+                                }
+                              }
+                            }),
+                            this.options.includeScore &&
+                              o.push((e, t) => {
+                                t.score = e.score
+                              })
+                          for (let i = 0, a = e.length; i < a; i += 1) {
+                            let s = e[i]
+                            if (
+                              (this.options.id && (s.item = this.options.getFn(s.item, this.options.id)[0]), o.length)
+                            ) {
+                              for (var c = { item: s.item }, h = 0, l = o.length; h < l; h += 1) o[h](s, c)
+                              t.push(c)
+                            } else t.push(s.item)
+                          }
+                          return t
+                        }
+                      },
+                      {
+                        key: '_log',
+                        value () {
+                          let e
+                          this.options.verbose && (e = console).log.apply(e, arguments)
+                        }
+                      }
+                    ]) && o(t.prototype, n),
+                    e
+                  )
+                })()
+                e.exports = c
+              },
+              function (e, t, n) {
+                function r (e, t) {
+                  for (let n = 0; n < t.length; n++) {
+                    let r = t[n]
+                    ;(r.enumerable = r.enumerable || !1),
+                      (r.configurable = !0),
+                      'value' in r && (r.writable = !0),
+                      Object.defineProperty(e, r.key, r)
+                  }
+                }
+                let o = n(3)
+                let i = n(4)
+                let a = n(7)
+                let s = (function () {
+                  function e (t, n) {
+                    let r = n.location
+                    let o = void 0 === r ? 0 : r
+                    let i = n.distance
+                    let s = void 0 === i ? 100 : i
+                    let c = n.threshold
+                    let h = void 0 === c ? 0.6 : c
+                    let l = n.maxPatternLength
+                    let u = void 0 === l ? 32 : l
+                    let f = n.isCaseSensitive
+                    let d = void 0 !== f && f
+                    let v = n.tokenSeparator
+                    let p = void 0 === v ? / +/g : v
+                    let g = n.findAllMatches
+                    let y = void 0 !== g && g
+                    let m = n.minMatchCharLength
+                    let k = void 0 === m ? 1 : m
+                    !(function (e, t) {
+                      if (!(e instanceof t)) throw new TypeError('Cannot call a class as a function')
+                    })(this, e),
+                      (this.options = {
+                        location: o,
+                        distance: s,
+                        threshold: h,
+                        maxPatternLength: u,
+                        isCaseSensitive: d,
+                        tokenSeparator: p,
+                        findAllMatches: y,
+                        minMatchCharLength: k
+                      }),
+                      (this.pattern = this.options.isCaseSensitive ? t : t.toLowerCase()),
+                      this.pattern.length <= u && (this.patternAlphabet = a(this.pattern))
+                  }
+                  let t, n
+                  return (
+                    (t = e),
+                    (n = [
+                      {
+                        key: 'search',
+                        value (e) {
+                          if ((this.options.isCaseSensitive || (e = e.toLowerCase()), this.pattern === e))
+                            return { isMatch: !0, score: 0, matchedIndices: [[0, e.length - 1]] }
+                          let t = this.options
+                          let n = t.maxPatternLength
+                          let r = t.tokenSeparator
+                          if (this.pattern.length > n) return o(e, this.pattern, r)
+                          let a = this.options
+                          let s = a.location
+                          let c = a.distance
+                          let h = a.threshold
+                          let l = a.findAllMatches
+                          let u = a.minMatchCharLength
+                          return i(e, this.pattern, this.patternAlphabet, {
+                            location: s,
+                            distance: c,
+                            threshold: h,
+                            findAllMatches: l,
+                            minMatchCharLength: u
+                          })
+                        }
+                      }
+                    ]) && r(t.prototype, n),
+                    e
+                  )
+                })()
+                e.exports = s
+              },
+              function (e, t) {
+                let n = /[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g
+                e.exports = function (e, t) {
+                  let r = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : / +/g
+                  let o = new RegExp(t.replace(n, '\\$&').replace(r, '|'))
+                  let i = e.match(o)
+                  let a = !!i
+                  let s = []
+                  if (a)
+                    for (let c = 0, h = i.length; c < h; c += 1) {
+                      let l = i[c]
+                      s.push([e.indexOf(l), l.length - 1])
+                    }
+                  return { score: a ? 0.5 : 1, isMatch: a, matchedIndices: s }
+                }
+              },
+              function (e, t, n) {
+                let r = n(5)
+                let o = n(6)
+                e.exports = function (e, t, n, i) {
+                  for (
+                    var a = i.location,
+                      s = void 0 === a ? 0 : a,
+                      c = i.distance,
+                      h = void 0 === c ? 100 : c,
+                      l = i.threshold,
+                      u = void 0 === l ? 0.6 : l,
+                      f = i.findAllMatches,
+                      d = void 0 !== f && f,
+                      v = i.minMatchCharLength,
+                      p = void 0 === v ? 1 : v,
+                      g = s,
+                      y = e.length,
+                      m = u,
+                      k = e.indexOf(t, g),
+                      S = t.length,
+                      x = [],
+                      b = 0;
+                    b < y;
+                    b += 1
+                  )
+                    x[b] = 0
+                  if (k !== -1) {
+                    let M = r(t, { errors: 0, currentLocation: k, expectedLocation: g, distance: h })
+                    if (((m = Math.min(M, m)), (k = e.lastIndexOf(t, g + S)) !== -1)) {
+                      let _ = r(t, { errors: 0, currentLocation: k, expectedLocation: g, distance: h })
+                      m = Math.min(_, m)
+                    }
+                  }
+                  k = -1
+                  for (var L = [], w = 1, A = S + y, C = 1 << (S - 1), I = 0; I < S; I += 1) {
+                    for (var O = 0, j = A; O < j; ) {
+                      r(t, { errors: I, currentLocation: g + j, expectedLocation: g, distance: h }) <= m
+                        ? (O = j)
+                        : (A = j),
+                        (j = Math.floor((A - O) / 2 + O))
+                    }
+                    A = j
+                    let P = Math.max(1, g - j + 1)
+                    let F = d ? y : Math.min(g + j, y) + S
+                    let T = Array(F + 2)
+                    T[F + 1] = (1 << I) - 1
+                    for (let z = F; z >= P; z -= 1) {
+                      let E = z - 1
+                      let K = n[e.charAt(E)]
+                      if (
+                        (K && (x[E] = 1),
+                        (T[z] = ((T[z + 1] << 1) | 1) & K),
+                        I !== 0 && (T[z] |= ((L[z + 1] | L[z]) << 1) | 1 | L[z + 1]),
+                        T[z] & C &&
+                          (w = r(t, { errors: I, currentLocation: E, expectedLocation: g, distance: h })) <= m)
+                      ) {
+                        if (((m = w), (k = E) <= g)) break
+                        P = Math.max(1, 2 * g - k)
+                      }
+                    }
+                    if (r(t, { errors: I + 1, currentLocation: g, expectedLocation: g, distance: h }) > m) break
+                    L = T
+                  }
+                  return { isMatch: k >= 0, score: w === 0 ? 0.001 : w, matchedIndices: o(x, p) }
+                }
+              },
+              function (e, t) {
+                e.exports = function (e, t) {
+                  let n = t.errors
+                  let r = void 0 === n ? 0 : n
+                  let o = t.currentLocation
+                  let i = void 0 === o ? 0 : o
+                  let a = t.expectedLocation
+                  let s = void 0 === a ? 0 : a
+                  let c = t.distance
+                  let h = void 0 === c ? 100 : c
+                  let l = r / e.length
+                  let u = Math.abs(s - i)
+                  return h ? l + u / h : u ? 1 : l
+                }
+              },
+              function (e, t) {
+                e.exports = function () {
+                  for (
+                    var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : [],
+                      t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 1,
+                      n = [],
+                      r = -1,
+                      o = -1,
+                      i = 0,
+                      a = e.length;
+                    i < a;
+                    i += 1
+                  ) {
+                    let s = e[i]
+                    s && r === -1 ? (r = i) : s || r === -1 || ((o = i - 1) - r + 1 >= t && n.push([r, o]), (r = -1))
+                  }
+                  return e[i - 1] && i - r >= t && n.push([r, i - 1]), n
+                }
+              },
+              function (e, t) {
+                e.exports = function (e) {
+                  for (var t = {}, n = e.length, r = 0; r < n; r += 1) t[e.charAt(r)] = 0
+                  for (let o = 0; o < n; o += 1) t[e.charAt(o)] |= 1 << (n - o - 1)
+                  return t
+                }
+              },
+              function (e, t, n) {
+                let r = n(0)
+                e.exports = function (e, t) {
+                  return (function e (t, n, o) {
+                    if (n) {
+                      let i = n.indexOf('.')
+                      let a = n
+                      let s = null
+                      i !== -1 && ((a = n.slice(0, i)), (s = n.slice(i + 1)))
+                      let c = t[a]
+                      if (c != null)
+                        if (s || (typeof c !== 'string' && typeof c !== 'number'))
+                          if (r(c)) for (let h = 0, l = c.length; h < l; h += 1) e(c[h], s, o)
+                          else s && e(c, s, o)
+                        else o.push(c.toString())
+                    } else o.push(t)
+                    return o
+                  })(e, t, [])
+                }
+              }
+            ])
+          })
+          /***/
+        },
+        /* 3 */
+        /***/ function (module, __webpack_exports__, __webpack_require__) {
+          /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, 'a', () => {
+            return symbolObservablePonyfill
+          })
+          function symbolObservablePonyfill (root) {
+            let result
+            let Symbol = root.Symbol
+
+            if (typeof Symbol === 'function') {
+              if (Symbol.observable) {
+                result = Symbol.observable
+              } else {
+                result = Symbol('observable')
+                Symbol.observable = result
+              }
+            } else {
+              result = '@@observable'
+            }
+
+            return result
+          }
+          /***/
+        },
+        /* 4 */
+        /***/ function (module, exports, __webpack_require__) {
+          module.exports = __webpack_require__(7)
+          /***/
+        },
+        /* 5 */
+        /***/ function (module, exports) {
+          let g
+
+          // This works in non-strict mode
+          g = (function () {
+            return this
+          })()
+
           try {
-            return (key in target) && // Properties are safe to merge if they don't exist in the target yet,
-                !(Object.hasOwnProperty.call(target, key) && // unsafe if they exist up the prototype chain,
-                  Object.propertyIsEnumerable.call(target, key)) // and also unsafe if they're nonenumerable.
-          } catch (unused) {
-            // Counterintuitively, it's safe to merge any property on a target that causes the `in` operator to throw.
-            // This happens when trying to copy an object in the source over a plain string in the target.
-            return false
+            // This works if eval is allowed (see CSP)
+            g = g || new Function('return this')()
+          } catch (e) {
+            // This works if the window reference is available
+            if (typeof window === 'object') g = window
           }
-        }
 
-        function mergeObject (target, source, options) {
-          var destination = {}
-          if (options.isMergeableObject(target)) {
-            getKeys(target).forEach(function (key) {
-              destination[key] = cloneUnlessOtherwiseSpecified(target[key], options)
-            })
-          }
-          getKeys(source).forEach(function (key) {
-            if (propertyIsUnsafe(target, key)) {
-              return
+          // g can still be undefined, but nothing to do about it...
+          // We return undefined, instead of nothing here, so it's
+          // easier to handle this case. if(!global) { ...}
+
+          module.exports = g
+          /***/
+        },
+        /* 6 */
+        /***/ function (module, exports) {
+          module.exports = function (originalModule) {
+            if (!originalModule.webpackPolyfill) {
+              var module = Object.create(originalModule)
+              // module.parent = undefined by default
+              if (!module.children) module.children = []
+              Object.defineProperty(module, 'loaded', {
+                enumerable: true,
+                get () {
+                  return module.l
+                }
+              })
+              Object.defineProperty(module, 'id', {
+                enumerable: true,
+                get () {
+                  return module.i
+                }
+              })
+              Object.defineProperty(module, 'exports', {
+                enumerable: true
+              })
+              module.webpackPolyfill = 1
             }
-
-            if (!options.isMergeableObject(source[key]) || !target[key]) {
-              destination[key] = cloneUnlessOtherwiseSpecified(source[key], options)
-            } else {
-              destination[key] = getMergeFunction(key, options)(target[key], source[key], options)
-            }
-          })
-          return destination
-        }
-
-        function deepmerge (target, source, options) {
-          options = options || {}
-          options.arrayMerge = options.arrayMerge || defaultArrayMerge
-          options.isMergeableObject = options.isMergeableObject || isMergeableObject
-          // cloneUnlessOtherwiseSpecified is added to `options` so that custom arrayMerge()
-          // implementations can use it. The caller may not replace it.
-          options.cloneUnlessOtherwiseSpecified = cloneUnlessOtherwiseSpecified
-
-          var sourceIsArray = Array.isArray(source)
-          var targetIsArray = Array.isArray(target)
-          var sourceAndTargetTypesMatch = sourceIsArray === targetIsArray
-
-          if (!sourceAndTargetTypesMatch) {
-            return cloneUnlessOtherwiseSpecified(source, options)
-          } else if (sourceIsArray) {
-            return options.arrayMerge(target, source, options)
-          } else {
-            return mergeObject(target, source, options)
+            return module
           }
-        }
+          /***/
+        },
+        /* 7 */
+        /***/ function (module, __webpack_exports__, __webpack_require__) {
+          __webpack_require__.r(__webpack_exports__)
 
-        deepmerge.all = function deepmergeAll (array, options) {
-          if (!Array.isArray(array)) {
-            throw new Error('first argument should be an array')
-          }
+          // EXTERNAL MODULE: ./node_modules/fuse.js/dist/fuse.js
+          let dist_fuse = __webpack_require__(2)
+          let fuse_default = /* #__PURE__ */ __webpack_require__.n(dist_fuse)
 
-          return array.reduce(function (prev, next) {
-            return deepmerge(prev, next, options)
-          }, {})
-        }
+          // EXTERNAL MODULE: ./node_modules/deepmerge/dist/cjs.js
+          let cjs = __webpack_require__(0)
+          let cjs_default = /* #__PURE__ */ __webpack_require__.n(cjs)
 
-        var deepmerge_1 = deepmerge
+          // EXTERNAL MODULE: ./node_modules/symbol-observable/es/index.js
+          let es = __webpack_require__(1)
 
-        module.exports = deepmerge_1
-        /***/ },
-      /* 1 */
-      /***/ function (module, __webpack_exports__, __webpack_require__) {
-        /* WEBPACK VAR INJECTION */(function (global, module) {
-          /* harmony import */ var _ponyfill_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3)
-          /* global window */
+          // CONCATENATED MODULE: ./node_modules/redux/es/redux.js
 
-          var root
-
-          if (typeof self !== 'undefined') {
-            root = self
-          } else if (typeof window !== 'undefined') {
-            root = window
-          } else if (typeof global !== 'undefined') {
-            root = global
-          } else {
-            root = module
-          }
-
-          var result = Object(_ponyfill_js__WEBPACK_IMPORTED_MODULE_0__[/* default */ 'a'])(root)
-          /* harmony default export */ __webpack_exports__.a = (result)
-          /* WEBPACK VAR INJECTION */ }.call(this, __webpack_require__(5), __webpack_require__(6)(module)))
-        /***/ },
-      /* 2 */
-      /***/ function (module, exports, __webpack_require__) {
-        /*!
- * Fuse.js v3.4.5 - Lightweight fuzzy-search (http://fusejs.io)
- *
- * Copyright (c) 2012-2017 Kirollos Risk (http://kiro.me)
- * All Rights Reserved. Apache Software License 2.0
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- */
-        !(function (e, t) { module.exports = t() }(this, function () { return (function (e) { var t = {}; function n (r) { if (t[r]) return t[r].exports; var o = t[r] = { i: r, l: !1, exports: {} }; return e[r].call(o.exports, o, o.exports, n), o.l = !0, o.exports } return n.m = e, n.c = t, n.d = function (e, t, r) { n.o(e, t) || Object.defineProperty(e, t, { enumerable: !0, get: r }) }, n.r = function (e) { typeof Symbol !== 'undefined' && Symbol.toStringTag && Object.defineProperty(e, Symbol.toStringTag, { value: 'Module' }), Object.defineProperty(e, '__esModule', { value: !0 }) }, n.t = function (e, t) { if (1 & t && (e = n(e)), 8 & t) return e; if (4 & t && typeof e === 'object' && e && e.__esModule) return e; var r = Object.create(null); if (n.r(r), Object.defineProperty(r, 'default', { enumerable: !0, value: e }), 2 & t && typeof e !== 'string') for (var o in e)n.d(r, o, function (t) { return e[t] }.bind(null, o)); return r }, n.n = function (e) { var t = e && e.__esModule ? function () { return e.default } : function () { return e }; return n.d(t, 'a', t), t }, n.o = function (e, t) { return Object.prototype.hasOwnProperty.call(e, t) }, n.p = '', n(n.s = 1) }([function (e, t) { e.exports = function (e) { return Array.isArray ? Array.isArray(e) : Object.prototype.toString.call(e) === '[object Array]' } }, function (e, t, n) { function r (e) { return (r = typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol' ? function (e) { return typeof e } : function (e) { return e && typeof Symbol === 'function' && e.constructor === Symbol && e !== Symbol.prototype ? 'symbol' : typeof e })(e) } function o (e, t) { for (var n = 0; n < t.length; n++) { var r = t[n]; r.enumerable = r.enumerable || !1, r.configurable = !0, 'value' in r && (r.writable = !0), Object.defineProperty(e, r.key, r) } } var i = n(2); var a = n(8); var s = n(0); var c = (function () { function e (t, n) { var r = n.location; var o = void 0 === r ? 0 : r; var i = n.distance; var s = void 0 === i ? 100 : i; var c = n.threshold; var h = void 0 === c ? 0.6 : c; var l = n.maxPatternLength; var u = void 0 === l ? 32 : l; var f = n.caseSensitive; var d = void 0 !== f && f; var v = n.tokenSeparator; var p = void 0 === v ? / +/g : v; var g = n.findAllMatches; var y = void 0 !== g && g; var m = n.minMatchCharLength; var k = void 0 === m ? 1 : m; var S = n.id; var x = void 0 === S ? null : S; var b = n.keys; var M = void 0 === b ? [] : b; var _ = n.shouldSort; var L = void 0 === _ || _; var w = n.getFn; var A = void 0 === w ? a : w; var C = n.sortFn; var I = void 0 === C ? function (e, t) { return e.score - t.score } : C; var O = n.tokenize; var j = void 0 !== O && O; var P = n.matchAllTokens; var F = void 0 !== P && P; var T = n.includeMatches; var z = void 0 !== T && T; var E = n.includeScore; var K = void 0 !== E && E; var $ = n.verbose; var J = void 0 !== $ && $; !(function (e, t) { if (!(e instanceof t)) throw new TypeError('Cannot call a class as a function') }(this, e)), this.options = { location: o, distance: s, threshold: h, maxPatternLength: u, isCaseSensitive: d, tokenSeparator: p, findAllMatches: y, minMatchCharLength: k, id: x, keys: M, includeMatches: z, includeScore: K, shouldSort: L, getFn: A, sortFn: I, verbose: J, tokenize: j, matchAllTokens: F }, this.setCollection(t) } var t, n; return t = e, (n = [{ key: 'setCollection', value: function (e) { return this.list = e, e } }, { key: 'search', value: function (e) { var t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : { limit: !1 }; this._log('---------\nSearch pattern: "'.concat(e, '"')); var n = this._prepareSearchers(e); var r = n.tokenSearchers; var o = n.fullSearcher; var i = this._search(r, o); var a = i.weights; var s = i.results; return this._computeScore(a, s), this.options.shouldSort && this._sort(s), t.limit && typeof t.limit === 'number' && (s = s.slice(0, t.limit)), this._format(s) } }, { key: '_prepareSearchers', value: function () { var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : ''; var t = []; if (this.options.tokenize) for (var n = e.split(this.options.tokenSeparator), r = 0, o = n.length; r < o; r += 1)t.push(new i(n[r], this.options)); return { tokenSearchers: t, fullSearcher: new i(e, this.options) } } }, { key: '_search', value: function () { var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : []; var t = arguments.length > 1 ? arguments[1] : void 0; var n = this.list; var r = {}; var o = []; if (typeof n[0] === 'string') { for (var i = 0, a = n.length; i < a; i += 1) this._analyze({ key: '', value: n[i], record: i, index: i }, { resultMap: r, results: o, tokenSearchers: e, fullSearcher: t }); return { weights: null, results: o } } for (var s = {}, c = 0, h = n.length; c < h; c += 1) for (var l = n[c], u = 0, f = this.options.keys.length; u < f; u += 1) { var d = this.options.keys[u]; if (typeof d !== 'string') { if (s[d.name] = { weight: 1 - d.weight || 1 }, d.weight <= 0 || d.weight > 1) throw new Error('Key weight has to be > 0 and <= 1'); d = d.name } else s[d] = { weight: 1 }; this._analyze({ key: d, value: this.options.getFn(l, d), record: l, index: c }, { resultMap: r, results: o, tokenSearchers: e, fullSearcher: t }) } return { weights: s, results: o } } }, { key: '_analyze', value: function (e, t) { var n = e.key; var r = e.arrayIndex; var o = void 0 === r ? -1 : r; var i = e.value; var a = e.record; var c = e.index; var h = t.tokenSearchers; var l = void 0 === h ? [] : h; var u = t.fullSearcher; var f = void 0 === u ? [] : u; var d = t.resultMap; var v = void 0 === d ? {} : d; var p = t.results; var g = void 0 === p ? [] : p; if (i != null) { var y = !1; var m = -1; var k = 0; if (typeof i === 'string') { this._log('\nKey: '.concat(n === '' ? '-' : n)); var S = f.search(i); if (this._log('Full text: "'.concat(i, '", score: ').concat(S.score)), this.options.tokenize) { for (var x = i.split(this.options.tokenSeparator), b = [], M = 0; M < l.length; M += 1) { var _ = l[M]; this._log('\nPattern: "'.concat(_.pattern, '"')); for (var L = !1, w = 0; w < x.length; w += 1) { var A = x[w]; var C = _.search(A); var I = {}; C.isMatch ? (I[A] = C.score, y = !0, L = !0, b.push(C.score)) : (I[A] = 1, this.options.matchAllTokens || b.push(1)), this._log('Token: "'.concat(A, '", score: ').concat(I[A])) }L && (k += 1) }m = b[0]; for (var O = b.length, j = 1; j < O; j += 1)m += b[j]; m /= O, this._log('Token score average:', m) } var P = S.score; m > -1 && (P = (P + m) / 2), this._log('Score average:', P); var F = !this.options.tokenize || !this.options.matchAllTokens || k >= l.length; if (this._log('\nCheck Matches: '.concat(F)), (y || S.isMatch) && F) { var T = v[c]; T ? T.output.push({ key: n, arrayIndex: o, value: i, score: P, matchedIndices: S.matchedIndices }) : (v[c] = { item: a, output: [{ key: n, arrayIndex: o, value: i, score: P, matchedIndices: S.matchedIndices }] }, g.push(v[c])) } } else if (s(i)) for (var z = 0, E = i.length; z < E; z += 1) this._analyze({ key: n, arrayIndex: z, value: i[z], record: a, index: c }, { resultMap: v, results: g, tokenSearchers: l, fullSearcher: f }) } } }, { key: '_computeScore', value: function (e, t) { this._log('\n\nComputing score:\n'); for (var n = 0, r = t.length; n < r; n += 1) { for (var o = t[n].output, i = o.length, a = 1, s = 1, c = 0; c < i; c += 1) { var h = e ? e[o[c].key].weight : 1; var l = (h === 1 ? o[c].score : o[c].score || 0.001) * h; h !== 1 ? s = Math.min(s, l) : (o[c].nScore = l, a *= l) }t[n].score = s === 1 ? a : s, this._log(t[n]) } } }, { key: '_sort', value: function (e) { this._log('\n\nSorting....'), e.sort(this.options.sortFn) } }, { key: '_format', value: function (e) { var t = []; if (this.options.verbose) { var n = []; this._log('\n\nOutput:\n\n', JSON.stringify(e, function (e, t) { if (r(t) === 'object' && t !== null) { if (n.indexOf(t) !== -1) return; n.push(t) } return t })), n = null } var o = []; this.options.includeMatches && o.push(function (e, t) { var n = e.output; t.matches = []; for (var r = 0, o = n.length; r < o; r += 1) { var i = n[r]; if (i.matchedIndices.length !== 0) { var a = { indices: i.matchedIndices, value: i.value }; i.key && (a.key = i.key), i.hasOwnProperty('arrayIndex') && i.arrayIndex > -1 && (a.arrayIndex = i.arrayIndex), t.matches.push(a) } } }), this.options.includeScore && o.push(function (e, t) { t.score = e.score }); for (var i = 0, a = e.length; i < a; i += 1) { var s = e[i]; if (this.options.id && (s.item = this.options.getFn(s.item, this.options.id)[0]), o.length) { for (var c = { item: s.item }, h = 0, l = o.length; h < l; h += 1)o[h](s, c); t.push(c) } else t.push(s.item) } return t } }, { key: '_log', value: function () { var e; this.options.verbose && (e = console).log.apply(e, arguments) } }]) && o(t.prototype, n), e }()); e.exports = c }, function (e, t, n) { function r (e, t) { for (var n = 0; n < t.length; n++) { var r = t[n]; r.enumerable = r.enumerable || !1, r.configurable = !0, 'value' in r && (r.writable = !0), Object.defineProperty(e, r.key, r) } } var o = n(3); var i = n(4); var a = n(7); var s = (function () { function e (t, n) { var r = n.location; var o = void 0 === r ? 0 : r; var i = n.distance; var s = void 0 === i ? 100 : i; var c = n.threshold; var h = void 0 === c ? 0.6 : c; var l = n.maxPatternLength; var u = void 0 === l ? 32 : l; var f = n.isCaseSensitive; var d = void 0 !== f && f; var v = n.tokenSeparator; var p = void 0 === v ? / +/g : v; var g = n.findAllMatches; var y = void 0 !== g && g; var m = n.minMatchCharLength; var k = void 0 === m ? 1 : m; !(function (e, t) { if (!(e instanceof t)) throw new TypeError('Cannot call a class as a function') }(this, e)), this.options = { location: o, distance: s, threshold: h, maxPatternLength: u, isCaseSensitive: d, tokenSeparator: p, findAllMatches: y, minMatchCharLength: k }, this.pattern = this.options.isCaseSensitive ? t : t.toLowerCase(), this.pattern.length <= u && (this.patternAlphabet = a(this.pattern)) } var t, n; return t = e, (n = [{ key: 'search', value: function (e) { if (this.options.isCaseSensitive || (e = e.toLowerCase()), this.pattern === e) return { isMatch: !0, score: 0, matchedIndices: [[0, e.length - 1]] }; var t = this.options; var n = t.maxPatternLength; var r = t.tokenSeparator; if (this.pattern.length > n) return o(e, this.pattern, r); var a = this.options; var s = a.location; var c = a.distance; var h = a.threshold; var l = a.findAllMatches; var u = a.minMatchCharLength; return i(e, this.pattern, this.patternAlphabet, { location: s, distance: c, threshold: h, findAllMatches: l, minMatchCharLength: u }) } }]) && r(t.prototype, n), e }()); e.exports = s }, function (e, t) { var n = /[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g; e.exports = function (e, t) { var r = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : / +/g; var o = new RegExp(t.replace(n, '\\$&').replace(r, '|')); var i = e.match(o); var a = !!i; var s = []; if (a) for (var c = 0, h = i.length; c < h; c += 1) { var l = i[c]; s.push([e.indexOf(l), l.length - 1]) } return { score: a ? 0.5 : 1, isMatch: a, matchedIndices: s } } }, function (e, t, n) { var r = n(5); var o = n(6); e.exports = function (e, t, n, i) { for (var a = i.location, s = void 0 === a ? 0 : a, c = i.distance, h = void 0 === c ? 100 : c, l = i.threshold, u = void 0 === l ? 0.6 : l, f = i.findAllMatches, d = void 0 !== f && f, v = i.minMatchCharLength, p = void 0 === v ? 1 : v, g = s, y = e.length, m = u, k = e.indexOf(t, g), S = t.length, x = [], b = 0; b < y; b += 1)x[b] = 0; if (k !== -1) { var M = r(t, { errors: 0, currentLocation: k, expectedLocation: g, distance: h }); if (m = Math.min(M, m), (k = e.lastIndexOf(t, g + S)) !== -1) { var _ = r(t, { errors: 0, currentLocation: k, expectedLocation: g, distance: h }); m = Math.min(_, m) } }k = -1; for (var L = [], w = 1, A = S + y, C = 1 << S - 1, I = 0; I < S; I += 1) { for (var O = 0, j = A; O < j;) { r(t, { errors: I, currentLocation: g + j, expectedLocation: g, distance: h }) <= m ? O = j : A = j, j = Math.floor((A - O) / 2 + O) }A = j; var P = Math.max(1, g - j + 1); var F = d ? y : Math.min(g + j, y) + S; var T = Array(F + 2); T[F + 1] = (1 << I) - 1; for (var z = F; z >= P; z -= 1) { var E = z - 1; var K = n[e.charAt(E)]; if (K && (x[E] = 1), T[z] = (T[z + 1] << 1 | 1) & K, I !== 0 && (T[z] |= (L[z + 1] | L[z]) << 1 | 1 | L[z + 1]), T[z] & C && (w = r(t, { errors: I, currentLocation: E, expectedLocation: g, distance: h })) <= m) { if (m = w, (k = E) <= g) break; P = Math.max(1, 2 * g - k) } } if (r(t, { errors: I + 1, currentLocation: g, expectedLocation: g, distance: h }) > m) break; L = T } return { isMatch: k >= 0, score: w === 0 ? 0.001 : w, matchedIndices: o(x, p) } } }, function (e, t) { e.exports = function (e, t) { var n = t.errors; var r = void 0 === n ? 0 : n; var o = t.currentLocation; var i = void 0 === o ? 0 : o; var a = t.expectedLocation; var s = void 0 === a ? 0 : a; var c = t.distance; var h = void 0 === c ? 100 : c; var l = r / e.length; var u = Math.abs(s - i); return h ? l + u / h : u ? 1 : l } }, function (e, t) { e.exports = function () { for (var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : [], t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 1, n = [], r = -1, o = -1, i = 0, a = e.length; i < a; i += 1) { var s = e[i]; s && r === -1 ? r = i : s || r === -1 || ((o = i - 1) - r + 1 >= t && n.push([r, o]), r = -1) } return e[i - 1] && i - r >= t && n.push([r, i - 1]), n } }, function (e, t) { e.exports = function (e) { for (var t = {}, n = e.length, r = 0; r < n; r += 1)t[e.charAt(r)] = 0; for (var o = 0; o < n; o += 1)t[e.charAt(o)] |= 1 << n - o - 1; return t } }, function (e, t, n) { var r = n(0); e.exports = function (e, t) { return (function e (t, n, o) { if (n) { var i = n.indexOf('.'); var a = n; var s = null; i !== -1 && (a = n.slice(0, i), s = n.slice(i + 1)); var c = t[a]; if (c != null) if (s || typeof c !== 'string' && typeof c !== 'number') if (r(c)) for (var h = 0, l = c.length; h < l; h += 1)e(c[h], s, o); else s && e(c, s, o); else o.push(c.toString()) } else o.push(t); return o }(e, t, [])) } }])) }))
-        /***/ },
-      /* 3 */
-      /***/ function (module, __webpack_exports__, __webpack_require__) {
-        /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, 'a', function () { return symbolObservablePonyfill })
-        function symbolObservablePonyfill (root) {
-          var result
-          var Symbol = root.Symbol
-
-          if (typeof Symbol === 'function') {
-            if (Symbol.observable) {
-              result = Symbol.observable
-            } else {
-              result = Symbol('observable')
-              Symbol.observable = result
-            }
-          } else {
-            result = '@@observable'
-          }
-
-          return result
-        }
-        /***/ },
-      /* 4 */
-      /***/ function (module, exports, __webpack_require__) {
-        module.exports = __webpack_require__(7)
-        /***/ },
-      /* 5 */
-      /***/ function (module, exports) {
-        var g
-
-        // This works in non-strict mode
-        g = (function () {
-          return this
-        })()
-
-        try {
-          // This works if eval is allowed (see CSP)
-          g = g || new Function('return this')()
-        } catch (e) {
-          // This works if the window reference is available
-          if (typeof window === 'object') g = window
-        }
-
-        // g can still be undefined, but nothing to do about it...
-        // We return undefined, instead of nothing here, so it's
-        // easier to handle this case. if(!global) { ...}
-
-        module.exports = g
-        /***/ },
-      /* 6 */
-      /***/ function (module, exports) {
-        module.exports = function (originalModule) {
-          if (!originalModule.webpackPolyfill) {
-            var module = Object.create(originalModule)
-            // module.parent = undefined by default
-            if (!module.children) module.children = []
-            Object.defineProperty(module, 'loaded', {
-              enumerable: true,
-              get: function () {
-                return module.l
-              }
-            })
-            Object.defineProperty(module, 'id', {
-              enumerable: true,
-              get: function () {
-                return module.i
-              }
-            })
-            Object.defineProperty(module, 'exports', {
-              enumerable: true
-            })
-            module.webpackPolyfill = 1
-          }
-          return module
-        }
-        /***/ },
-      /* 7 */
-      /***/ function (module, __webpack_exports__, __webpack_require__) {
-        __webpack_require__.r(__webpack_exports__)
-
-        // EXTERNAL MODULE: ./node_modules/fuse.js/dist/fuse.js
-        var dist_fuse = __webpack_require__(2)
-        var fuse_default = /* #__PURE__ */__webpack_require__.n(dist_fuse)
-
-        // EXTERNAL MODULE: ./node_modules/deepmerge/dist/cjs.js
-        var cjs = __webpack_require__(0)
-        var cjs_default = /* #__PURE__ */__webpack_require__.n(cjs)
-
-        // EXTERNAL MODULE: ./node_modules/symbol-observable/es/index.js
-        var es = __webpack_require__(1)
-
-        // CONCATENATED MODULE: ./node_modules/redux/es/redux.js
-
-        /**
+          /**
            * These are private action types reserved by Redux.
            * For any unknown actions, you must return the current state.
            * If the current state is undefined, you must return the initial state.
            * Do not reference these action types directly in your code.
            */
-        var randomString = function randomString () {
-          return Math.random().toString(36).substring(7).split('').join('.')
-        }
-
-        var ActionTypes = {
-          INIT: '@@redux/INIT' + randomString(),
-          REPLACE: '@@redux/REPLACE' + randomString(),
-          PROBE_UNKNOWN_ACTION: function PROBE_UNKNOWN_ACTION () {
-            return '@@redux/PROBE_UNKNOWN_ACTION' + randomString()
+          let randomString = function randomString () {
+            return Math.random()
+              .toString(36)
+              .substring(7)
+              .split('')
+              .join('.')
           }
-        }
 
-        /**
+          let ActionTypes = {
+            INIT: `@@redux/INIT${  randomString()}`,
+            REPLACE: `@@redux/REPLACE${  randomString()}`,
+            PROBE_UNKNOWN_ACTION: function PROBE_UNKNOWN_ACTION () {
+              return `@@redux/PROBE_UNKNOWN_ACTION${  randomString()}`
+            }
+          }
+
+          /**
            * @param {any} obj The object to inspect.
            * @returns {boolean} True if the argument appears to be a plain object.
            */
-        function isPlainObject (obj) {
-          if (typeof obj !== 'object' || obj === null) return false
-          var proto = obj
+          function isPlainObject (obj) {
+            if (typeof obj !== 'object' || obj === null) return false
+            let proto = obj
 
-          while (Object.getPrototypeOf(proto) !== null) {
-            proto = Object.getPrototypeOf(proto)
+            while (Object.getPrototypeOf(proto) !== null) {
+              proto = Object.getPrototypeOf(proto)
+            }
+
+            return Object.getPrototypeOf(obj) === proto
           }
 
-          return Object.getPrototypeOf(obj) === proto
-        }
-
-        /**
+          /**
            * Creates a Redux store that holds the state tree.
            * The only way to change the data in the store is to call `dispatch()` on it.
            *
@@ -417,36 +1057,43 @@ var choices = createCommonjsModule(function (module, exports) {
            * and subscribe to changes.
            */
 
-        function createStore (reducer, preloadedState, enhancer) {
-          var _ref2
+          function createStore (reducer, preloadedState, enhancer) {
+            let _ref2
 
-          if (typeof preloadedState === 'function' && typeof enhancer === 'function' || typeof enhancer === 'function' && typeof arguments[3] === 'function') {
-            throw new Error('It looks like you are passing several store enhancers to ' + 'createStore(). This is not supported. Instead, compose them ' + 'together to a single function.')
-          }
-
-          if (typeof preloadedState === 'function' && typeof enhancer === 'undefined') {
-            enhancer = preloadedState
-            preloadedState = undefined
-          }
-
-          if (typeof enhancer !== 'undefined') {
-            if (typeof enhancer !== 'function') {
-              throw new Error('Expected the enhancer to be a function.')
+            if (
+              (typeof preloadedState === 'function' && typeof enhancer === 'function') ||
+              (typeof enhancer === 'function' && typeof arguments[3] === 'function')
+            ) {
+              throw new Error(
+                'It looks like you are passing several store enhancers to ' +
+                  'createStore(). This is not supported. Instead, compose them ' +
+                  'together to a single function.'
+              )
             }
 
-            return enhancer(createStore)(reducer, preloadedState)
-          }
+            if (typeof preloadedState === 'function' && typeof enhancer === 'undefined') {
+              enhancer = preloadedState
+              preloadedState = undefined
+            }
 
-          if (typeof reducer !== 'function') {
-            throw new Error('Expected the reducer to be a function.')
-          }
+            if (typeof enhancer !== 'undefined') {
+              if (typeof enhancer !== 'function') {
+                throw new Error('Expected the enhancer to be a function.')
+              }
 
-          var currentReducer = reducer
-          var currentState = preloadedState
-          var currentListeners = []
-          var nextListeners = currentListeners
-          var isDispatching = false
-          /**
+              return enhancer(createStore)(reducer, preloadedState)
+            }
+
+            if (typeof reducer !== 'function') {
+              throw new Error('Expected the reducer to be a function.')
+            }
+
+            let currentReducer = reducer
+            let currentState = preloadedState
+            let currentListeners = []
+            let nextListeners = currentListeners
+            let isDispatching = false
+            /**
              * This makes a shallow copy of currentListeners so we can use
              * nextListeners as a temporary list while dispatching.
              *
@@ -454,25 +1101,29 @@ var choices = createCommonjsModule(function (module, exports) {
              * subscribe/unsubscribe in the middle of a dispatch.
              */
 
-          function ensureCanMutateNextListeners () {
-            if (nextListeners === currentListeners) {
-              nextListeners = currentListeners.slice()
+            function ensureCanMutateNextListeners () {
+              if (nextListeners === currentListeners) {
+                nextListeners = currentListeners.slice()
+              }
             }
-          }
-          /**
+            /**
              * Reads the state tree managed by the store.
              *
              * @returns {any} The current state tree of your application.
              */
 
-          function getState () {
-            if (isDispatching) {
-              throw new Error('You may not call store.getState() while the reducer is executing. ' + 'The reducer has already received the state as an argument. ' + 'Pass it down from the top reducer instead of reading it from the store.')
-            }
+            function getState () {
+              if (isDispatching) {
+                throw new Error(
+                  'You may not call store.getState() while the reducer is executing. ' +
+                    'The reducer has already received the state as an argument. ' +
+                    'Pass it down from the top reducer instead of reading it from the store.'
+                )
+              }
 
-            return currentState
-          }
-          /**
+              return currentState
+            }
+            /**
              * Adds a change listener. It will be called any time an action is dispatched,
              * and some part of the state tree may potentially have changed. You may then
              * call `getState()` to read the current state tree inside the callback.
@@ -496,34 +1147,42 @@ var choices = createCommonjsModule(function (module, exports) {
              * @returns {Function} A function to remove this change listener.
              */
 
-          function subscribe (listener) {
-            if (typeof listener !== 'function') {
-              throw new Error('Expected the listener to be a function.')
-            }
-
-            if (isDispatching) {
-              throw new Error('You may not call store.subscribe() while the reducer is executing. ' + 'If you would like to be notified after the store has been updated, subscribe from a ' + 'component and invoke store.getState() in the callback to access the latest state. ' + 'See https://redux.js.org/api-reference/store#subscribe(listener) for more details.')
-            }
-
-            var isSubscribed = true
-            ensureCanMutateNextListeners()
-            nextListeners.push(listener)
-            return function unsubscribe () {
-              if (!isSubscribed) {
-                return
+            function subscribe (listener) {
+              if (typeof listener !== 'function') {
+                throw new Error('Expected the listener to be a function.')
               }
 
               if (isDispatching) {
-                throw new Error('You may not unsubscribe from a store listener while the reducer is executing. ' + 'See https://redux.js.org/api-reference/store#subscribe(listener) for more details.')
+                throw new Error(
+                  'You may not call store.subscribe() while the reducer is executing. ' +
+                    'If you would like to be notified after the store has been updated, subscribe from a ' +
+                    'component and invoke store.getState() in the callback to access the latest state. ' +
+                    'See https://redux.js.org/api-reference/store#subscribe(listener) for more details.'
+                )
               }
 
-              isSubscribed = false
+              let isSubscribed = true
               ensureCanMutateNextListeners()
-              var index = nextListeners.indexOf(listener)
-              nextListeners.splice(index, 1)
+              nextListeners.push(listener)
+              return function unsubscribe () {
+                if (!isSubscribed) {
+                  return
+                }
+
+                if (isDispatching) {
+                  throw new Error(
+                    'You may not unsubscribe from a store listener while the reducer is executing. ' +
+                      'See https://redux.js.org/api-reference/store#subscribe(listener) for more details.'
+                  )
+                }
+
+                isSubscribed = false
+                ensureCanMutateNextListeners()
+                let index = nextListeners.indexOf(listener)
+                nextListeners.splice(index, 1)
+              }
             }
-          }
-          /**
+            /**
              * Dispatches an action. It is the only way to trigger a state change.
              *
              * The `reducer` function, used to create the store, will be called with the
@@ -549,36 +1208,38 @@ var choices = createCommonjsModule(function (module, exports) {
              * return something else (for example, a Promise you can await).
              */
 
-          function dispatch (action) {
-            if (!isPlainObject(action)) {
-              throw new Error('Actions must be plain objects. ' + 'Use custom middleware for async actions.')
+            function dispatch (action) {
+              if (!isPlainObject(action)) {
+                throw new Error('Actions must be plain objects. ' + 'Use custom middleware for async actions.')
+              }
+
+              if (typeof action.type === 'undefined') {
+                throw new Error(
+                  'Actions may not have an undefined "type" property. ' + 'Have you misspelled a constant?'
+                )
+              }
+
+              if (isDispatching) {
+                throw new Error('Reducers may not dispatch actions.')
+              }
+
+              try {
+                isDispatching = true
+                currentState = currentReducer(currentState, action)
+              } finally {
+                isDispatching = false
+              }
+
+              let listeners = (currentListeners = nextListeners)
+
+              for (let i = 0; i < listeners.length; i++) {
+                let listener = listeners[i]
+                listener()
+              }
+
+              return action
             }
-
-            if (typeof action.type === 'undefined') {
-              throw new Error('Actions may not have an undefined "type" property. ' + 'Have you misspelled a constant?')
-            }
-
-            if (isDispatching) {
-              throw new Error('Reducers may not dispatch actions.')
-            }
-
-            try {
-              isDispatching = true
-              currentState = currentReducer(currentState, action)
-            } finally {
-              isDispatching = false
-            }
-
-            var listeners = currentListeners = nextListeners
-
-            for (var i = 0; i < listeners.length; i++) {
-              var listener = listeners[i]
-              listener()
-            }
-
-            return action
-          }
-          /**
+            /**
              * Replaces the reducer currently used by the store to calculate the state.
              *
              * You might need this if your app implements code splitting and you want to
@@ -589,100 +1250,135 @@ var choices = createCommonjsModule(function (module, exports) {
              * @returns {void}
              */
 
-          function replaceReducer (nextReducer) {
-            if (typeof nextReducer !== 'function') {
-              throw new Error('Expected the nextReducer to be a function.')
+            function replaceReducer (nextReducer) {
+              if (typeof nextReducer !== 'function') {
+                throw new Error('Expected the nextReducer to be a function.')
+              }
+
+              currentReducer = nextReducer // This action has a similiar effect to ActionTypes.INIT.
+              // Any reducers that existed in both the new and old rootReducer
+              // will receive the previous state. This effectively populates
+              // the new state tree with any relevant data from the old one.
+
+              dispatch({
+                type: ActionTypes.REPLACE
+              })
             }
-
-            currentReducer = nextReducer // This action has a similiar effect to ActionTypes.INIT.
-            // Any reducers that existed in both the new and old rootReducer
-            // will receive the previous state. This effectively populates
-            // the new state tree with any relevant data from the old one.
-
-            dispatch({
-              type: ActionTypes.REPLACE
-            })
-          }
-          /**
+            /**
              * Interoperability point for observable/reactive libraries.
              * @returns {observable} A minimal observable of state changes.
              * For more information, see the observable proposal:
              * https://github.com/tc39/proposal-observable
              */
 
-          function observable () {
-            var _ref
+            function observable () {
+              let _ref
 
-            var outerSubscribe = subscribe
-            return _ref = {
-              /**
-                 * The minimal observable subscription method.
-                 * @param {Object} observer Any object that can be used as an observer.
-                 * The observer object should have a `next` method.
-                 * @returns {subscription} An object with an `unsubscribe` method that can
-                 * be used to unsubscribe the observable from the store, and prevent further
-                 * emission of values from the observable.
-                 */
-              subscribe: function subscribe (observer) {
-                if (typeof observer !== 'object' || observer === null) {
-                  throw new TypeError('Expected the observer to be an object.')
-                }
+              let outerSubscribe = subscribe
+              return (
+                (_ref = {
+                  /**
+                   * The minimal observable subscription method.
+                   * @param {Object} observer Any object that can be used as an observer.
+                   * The observer object should have a `next` method.
+                   * @returns {subscription} An object with an `unsubscribe` method that can
+                   * be used to unsubscribe the observable from the store, and prevent further
+                   * emission of values from the observable.
+                   */
+                  subscribe: function subscribe (observer) {
+                    if (typeof observer !== 'object' || observer === null) {
+                      throw new TypeError('Expected the observer to be an object.')
+                    }
 
-                function observeState () {
-                  if (observer.next) {
-                    observer.next(getState())
+                    function observeState () {
+                      if (observer.next) {
+                        observer.next(getState())
+                      }
+                    }
+
+                    observeState()
+                    let unsubscribe = outerSubscribe(observeState)
+                    return {
+                      unsubscribe
+                    }
                   }
-                }
+                }),
+                (_ref[es['a' /* default */]] = function () {
+                  return this
+                }),
+                _ref
+              )
+            } // When a store is created, an "INIT" action is dispatched so that every
+            // reducer returns their initial state. This effectively populates
+            // the initial state tree.
 
-                observeState()
-                var unsubscribe = outerSubscribe(observeState)
-                return {
-                  unsubscribe: unsubscribe
-                }
-              }
-            }, _ref[es['a' /* default */]] = function () {
-              return this
-            }, _ref
-          } // When a store is created, an "INIT" action is dispatched so that every
-          // reducer returns their initial state. This effectively populates
-          // the initial state tree.
-
-          dispatch({
-            type: ActionTypes.INIT
-          })
-          return _ref2 = {
-            dispatch: dispatch,
-            subscribe: subscribe,
-            getState: getState,
-            replaceReducer: replaceReducer
-          }, _ref2[es['a' /* default */]] = observable, _ref2
-        }
-
-        function getUndefinedStateErrorMessage (key, action) {
-          var actionType = action && action.type
-          var actionDescription = actionType && 'action "' + String(actionType) + '"' || 'an action'
-          return 'Given ' + actionDescription + ', reducer "' + key + '" returned undefined. ' + 'To ignore an action, you must explicitly return the previous state. ' + 'If you want this reducer to hold no value, you can return null instead of undefined.'
-        }
-
-        function assertReducerShape (reducers) {
-          Object.keys(reducers).forEach(function (key) {
-            var reducer = reducers[key]
-            var initialState = reducer(undefined, {
+            dispatch({
               type: ActionTypes.INIT
             })
+            return (
+              (_ref2 = {
+                dispatch,
+                subscribe,
+                getState,
+                replaceReducer
+              }),
+              (_ref2[es['a' /* default */]] = observable),
+              _ref2
+            )
+          }
 
-            if (typeof initialState === 'undefined') {
-              throw new Error('Reducer "' + key + '" returned undefined during initialization. ' + 'If the state passed to the reducer is undefined, you must ' + 'explicitly return the initial state. The initial state may ' + "not be undefined. If you don't want to set a value for this reducer, " + 'you can use null instead of undefined.')
-            }
+          function getUndefinedStateErrorMessage (key, action) {
+            let actionType = action && action.type
+            let actionDescription = (actionType && `action "${  String(actionType)  }"`) || 'an action'
+            return (
+              `Given ${ 
+              actionDescription 
+              }, reducer "${ 
+              key 
+              }" returned undefined. ` +
+              `To ignore an action, you must explicitly return the previous state. ` +
+              `If you want this reducer to hold no value, you can return null instead of undefined.`
+            )
+          }
 
-            if (typeof reducer(undefined, {
-              type: ActionTypes.PROBE_UNKNOWN_ACTION()
-            }) === 'undefined') {
-              throw new Error('Reducer "' + key + '" returned undefined when probed with a random type. ' + ("Don't try to handle " + ActionTypes.INIT + ' or other actions in "redux/*" ') + 'namespace. They are considered private. Instead, you must return the ' + 'current state for any unknown actions, unless it is undefined, ' + 'in which case you must return the initial state, regardless of the ' + 'action type. The initial state may not be undefined, but can be null.')
-            }
-          })
-        }
-        /**
+          function assertReducerShape (reducers) {
+            Object.keys(reducers).forEach((key) => {
+              let reducer = reducers[key]
+              let initialState = reducer(undefined, {
+                type: ActionTypes.INIT
+              })
+
+              if (typeof initialState === 'undefined') {
+                throw new Error(
+                  `Reducer "${ 
+                    key 
+                    }" returned undefined during initialization. ` +
+                    `If the state passed to the reducer is undefined, you must ` +
+                    `explicitly return the initial state. The initial state may ` +
+                    `not be undefined. If you don't want to set a value for this reducer, ` +
+                    `you can use null instead of undefined.`
+                )
+              }
+
+              if (
+                typeof reducer(undefined, {
+                  type: ActionTypes.PROBE_UNKNOWN_ACTION()
+                }) === 'undefined'
+              ) {
+                throw new Error(
+                  `Reducer "${ 
+                    key 
+                    }" returned undefined when probed with a random type. ` +
+                    `Don't try to handle ${  ActionTypes.INIT  } or other actions in "redux/*" ` +
+                    `namespace. They are considered private. Instead, you must return the ` +
+                    `current state for any unknown actions, unless it is undefined, ` +
+                    `in which case you must return the initial state, regardless of the ` +
+                    `action type. The initial state may not be undefined, but can be null.`
+                )
+              }
+            })
+          }
+          /**
            * Turns an object whose values are different reducer functions, into a single
            * reducer function. It will call every child reducer, and gather their results
            * into a single state object, whose keys correspond to the keys of the passed
@@ -699,579 +1395,591 @@ var choices = createCommonjsModule(function (module, exports) {
            * passed object, and builds a state object with the same shape.
            */
 
-        function combineReducers (reducers) {
-          var reducerKeys = Object.keys(reducers)
-          var finalReducers = {}
+          function combineReducers (reducers) {
+            let reducerKeys = Object.keys(reducers)
+            let finalReducers = {}
 
-          for (var i = 0; i < reducerKeys.length; i++) {
-            var key = reducerKeys[i]
+            for (let i = 0; i < reducerKeys.length; i++) {
+              let key = reducerKeys[i]
 
-            if (typeof reducers[key] === 'function') {
-              finalReducers[key] = reducers[key]
-            }
-          }
-
-          var finalReducerKeys = Object.keys(finalReducers) // This is used to make sure we don't warn about the same
-
-          var shapeAssertionError
-
-          try {
-            assertReducerShape(finalReducers)
-          } catch (e) {
-            shapeAssertionError = e
-          }
-
-          return function combination (state, action) {
-            if (state === void 0) {
-              state = {}
+              if (typeof reducers[key] === 'function') {
+                finalReducers[key] = reducers[key]
+              }
             }
 
-            if (shapeAssertionError) {
-              throw shapeAssertionError
+            let finalReducerKeys = Object.keys(finalReducers) // This is used to make sure we don't warn about the same
+
+            let shapeAssertionError
+
+            try {
+              assertReducerShape(finalReducers)
+            } catch (e) {
+              shapeAssertionError = e
             }
 
-            var hasChanged = false
-            var nextState = {}
-
-            for (var _i = 0; _i < finalReducerKeys.length; _i++) {
-              var _key = finalReducerKeys[_i]
-              var reducer = finalReducers[_key]
-              var previousStateForKey = state[_key]
-              var nextStateForKey = reducer(previousStateForKey, action)
-
-              if (typeof nextStateForKey === 'undefined') {
-                var errorMessage = getUndefinedStateErrorMessage(_key, action)
-                throw new Error(errorMessage)
+            return function combination (state, action) {
+              if (state === void 0) {
+                state = {}
               }
 
-              nextState[_key] = nextStateForKey
-              hasChanged = hasChanged || nextStateForKey !== previousStateForKey
-            }
+              if (shapeAssertionError) {
+                throw shapeAssertionError
+              }
 
-            return hasChanged ? nextState : state
-          }
-        }
+              let hasChanged = false
+              let nextState = {}
 
-        // CONCATENATED MODULE: ./src/scripts/reducers/items.js
-        var defaultState = []
-        function items_items (state, action) {
-          if (state === void 0) {
-            state = defaultState
-          }
+              for (let _i = 0; _i < finalReducerKeys.length; _i++) {
+                let _key = finalReducerKeys[_i]
+                let reducer = finalReducers[_key]
+                let previousStateForKey = state[_key]
+                let nextStateForKey = reducer(previousStateForKey, action)
 
-          switch (action.type) {
-            case 'ADD_ITEM':
-            {
-              // Add object to items array
-              var newState = [].concat(state, [{
-                id: action.id,
-                choiceId: action.choiceId,
-                groupId: action.groupId,
-                value: action.value,
-                label: action.label,
-                active: true,
-                highlighted: false,
-                customProperties: action.customProperties,
-                placeholder: action.placeholder || false,
-                keyCode: null
-              }])
-              return newState.map(function (obj) {
-                var item = obj
-                item.highlighted = false
-                return item
-              })
-            }
-
-            case 'REMOVE_ITEM':
-            {
-              // Set item to inactive
-              return state.map(function (obj) {
-                var item = obj
-
-                if (item.id === action.id) {
-                  item.active = false
+                if (typeof nextStateForKey === 'undefined') {
+                  let errorMessage = getUndefinedStateErrorMessage(_key, action)
+                  throw new Error(errorMessage)
                 }
 
-                return item
-              })
-            }
+                nextState[_key] = nextStateForKey
+                hasChanged = hasChanged || nextStateForKey !== previousStateForKey
+              }
 
-            case 'HIGHLIGHT_ITEM':
-            {
-              return state.map(function (obj) {
-                var item = obj
-
-                if (item.id === action.id) {
-                  item.highlighted = action.highlighted
-                }
-
-                return item
-              })
-            }
-
-            default:
-            {
-              return state
+              return hasChanged ? nextState : state
             }
           }
-        }
-        // CONCATENATED MODULE: ./src/scripts/reducers/groups.js
-        var groups_defaultState = []
-        function groups (state, action) {
-          if (state === void 0) {
-            state = groups_defaultState
-          }
 
-          switch (action.type) {
-            case 'ADD_GROUP':
-            {
-              return [].concat(state, [{
-                id: action.id,
-                value: action.value,
-                active: action.active,
-                disabled: action.disabled
-              }])
+          // CONCATENATED MODULE: ./src/scripts/reducers/items.js
+          let defaultState = []
+          function items_items (state, action) {
+            if (state === void 0) {
+              state = defaultState
             }
 
-            case 'CLEAR_CHOICES':
-            {
-              return []
-            }
+            switch (action.type) {
+              case 'ADD_ITEM': {
+                // Add object to items array
+                let newState = [].concat(state, [
+                  {
+                    id: action.id,
+                    choiceId: action.choiceId,
+                    groupId: action.groupId,
+                    value: action.value,
+                    label: action.label,
+                    active: true,
+                    highlighted: false,
+                    customProperties: action.customProperties,
+                    placeholder: action.placeholder || false,
+                    keyCode: null
+                  }
+                ])
+                return newState.map((obj) => {
+                  let item = obj
+                  item.highlighted = false
+                  return item
+                })
+              }
 
-            default:
-            {
-              return state
+              case 'REMOVE_ITEM': {
+                // Set item to inactive
+                return state.map((obj) => {
+                  let item = obj
+
+                  if (item.id === action.id) {
+                    item.active = false
+                  }
+
+                  return item
+                })
+              }
+
+              case 'HIGHLIGHT_ITEM': {
+                return state.map((obj) => {
+                  let item = obj
+
+                  if (item.id === action.id) {
+                    item.highlighted = action.highlighted
+                  }
+
+                  return item
+                })
+              }
+
+              default: {
+                return state
+              }
             }
           }
-        }
-        // CONCATENATED MODULE: ./src/scripts/reducers/choices.js
-        var choices_defaultState = []
-        function choices_choices (state, action) {
-          if (state === void 0) {
-            state = choices_defaultState
-          }
+          // CONCATENATED MODULE: ./src/scripts/reducers/groups.js
+          let groups_defaultState = []
+          function groups (state, action) {
+            if (state === void 0) {
+              state = groups_defaultState
+            }
 
-          switch (action.type) {
-            case 'ADD_CHOICE':
-            {
-              /*
+            switch (action.type) {
+              case 'ADD_GROUP': {
+                return [].concat(state, [
+                  {
+                    id: action.id,
+                    value: action.value,
+                    active: action.active,
+                    disabled: action.disabled
+                  }
+                ])
+              }
+
+              case 'CLEAR_CHOICES': {
+                return []
+              }
+
+              default: {
+                return state
+              }
+            }
+          }
+          // CONCATENATED MODULE: ./src/scripts/reducers/choices.js
+          let choices_defaultState = []
+          function choices_choices (state, action) {
+            if (state === void 0) {
+              state = choices_defaultState
+            }
+
+            switch (action.type) {
+              case 'ADD_CHOICE': {
+                /*
             A disabled choice appears in the choice dropdown but cannot be selected
             A selected choice has been added to the passed input's value (added as an item)
             An active choice appears within the choice dropdown
          */
-              return [].concat(state, [{
-                id: action.id,
-                elementId: action.elementId,
-                groupId: action.groupId,
-                value: action.value,
-                label: action.label || action.value,
-                disabled: action.disabled || false,
-                selected: false,
-                active: true,
-                score: 9999,
-                customProperties: action.customProperties,
-                placeholder: action.placeholder || false,
-                keyCode: null
-              }])
-            }
+                return [].concat(state, [
+                  {
+                    id: action.id,
+                    elementId: action.elementId,
+                    groupId: action.groupId,
+                    value: action.value,
+                    label: action.label || action.value,
+                    disabled: action.disabled || false,
+                    selected: false,
+                    active: true,
+                    score: 9999,
+                    customProperties: action.customProperties,
+                    placeholder: action.placeholder || false,
+                    keyCode: null
+                  }
+                ])
+              }
 
-            case 'ADD_ITEM':
-            {
-              // If all choices need to be activated
-              if (action.activateOptions) {
-                return state.map(function (obj) {
-                  var choice = obj
+              case 'ADD_ITEM': {
+                // If all choices need to be activated
+                if (action.activateOptions) {
+                  return state.map((obj) => {
+                    let choice = obj
+                    choice.active = action.active
+                    return choice
+                  })
+                } // When an item is added and it has an associated choice,
+                // we want to disable it so it can't be chosen again
+
+                if (action.choiceId > -1) {
+                  return state.map((obj) => {
+                    let choice = obj
+
+                    if (choice.id === parseInt(action.choiceId, 10)) {
+                      choice.selected = true
+                    }
+
+                    return choice
+                  })
+                }
+
+                return state
+              }
+
+              case 'REMOVE_ITEM': {
+                // When an item is removed and it has an associated choice,
+                // we want to re-enable it so it can be chosen again
+                if (action.choiceId > -1) {
+                  return state.map((obj) => {
+                    let choice = obj
+
+                    if (choice.id === parseInt(action.choiceId, 10)) {
+                      choice.selected = false
+                    }
+
+                    return choice
+                  })
+                }
+
+                return state
+              }
+
+              case 'FILTER_CHOICES': {
+                return state.map((obj) => {
+                  let choice = obj // Set active state based on whether choice is
+                  // within filtered results
+
+                  choice.active = action.results.some((_ref) => {
+                    let item = _ref.item
+                    let score = _ref.score
+
+                    if (item.id === choice.id) {
+                      choice.score = score
+                      return true
+                    }
+
+                    return false
+                  })
+                  return choice
+                })
+              }
+
+              case 'ACTIVATE_CHOICES': {
+                return state.map((obj) => {
+                  let choice = obj
                   choice.active = action.active
                   return choice
                 })
-              } // When an item is added and it has an associated choice,
-              // we want to disable it so it can't be chosen again
-
-              if (action.choiceId > -1) {
-                return state.map(function (obj) {
-                  var choice = obj
-
-                  if (choice.id === parseInt(action.choiceId, 10)) {
-                    choice.selected = true
-                  }
-
-                  return choice
-                })
               }
 
-              return state
-            }
-
-            case 'REMOVE_ITEM':
-            {
-              // When an item is removed and it has an associated choice,
-              // we want to re-enable it so it can be chosen again
-              if (action.choiceId > -1) {
-                return state.map(function (obj) {
-                  var choice = obj
-
-                  if (choice.id === parseInt(action.choiceId, 10)) {
-                    choice.selected = false
-                  }
-
-                  return choice
-                })
+              case 'CLEAR_CHOICES': {
+                return choices_defaultState
               }
 
-              return state
-            }
-
-            case 'FILTER_CHOICES':
-            {
-              return state.map(function (obj) {
-                var choice = obj // Set active state based on whether choice is
-                // within filtered results
-
-                choice.active = action.results.some(function (_ref) {
-                  var item = _ref.item
-                  var score = _ref.score
-
-                  if (item.id === choice.id) {
-                    choice.score = score
-                    return true
-                  }
-
-                  return false
-                })
-                return choice
-              })
-            }
-
-            case 'ACTIVATE_CHOICES':
-            {
-              return state.map(function (obj) {
-                var choice = obj
-                choice.active = action.active
-                return choice
-              })
-            }
-
-            case 'CLEAR_CHOICES':
-            {
-              return choices_defaultState
-            }
-
-            default:
-            {
-              return state
-            }
-          }
-        }
-        // CONCATENATED MODULE: ./src/scripts/reducers/general.js
-        var general_defaultState = {
-          loading: false
-        }
-
-        var general = function general (state, action) {
-          if (state === void 0) {
-            state = general_defaultState
-          }
-
-          switch (action.type) {
-            case 'SET_IS_LOADING':
-            {
-              return {
-                loading: action.isLoading
+              default: {
+                return state
               }
             }
+          }
+          // CONCATENATED MODULE: ./src/scripts/reducers/general.js
+          let general_defaultState = {
+            loading: false
+          }
 
-            default:
-            {
-              return state
+          let general = function general (state, action) {
+            if (state === void 0) {
+              state = general_defaultState
+            }
+
+            switch (action.type) {
+              case 'SET_IS_LOADING': {
+                return {
+                  loading: action.isLoading
+                }
+              }
+
+              default: {
+                return state
+              }
             }
           }
-        }
 
-        /* harmony default export */ var reducers_general = (general)
-        // CONCATENATED MODULE: ./src/scripts/lib/utils.js
-        /**
+          /* harmony default export */ let reducers_general = general
+          // CONCATENATED MODULE: ./src/scripts/lib/utils.js
+          /**
            * @param {number} min
            * @param {number} max
            * @returns {number}
            */
-        var getRandomNumber = function getRandomNumber (min, max) {
-          return Math.floor(Math.random() * (max - min) + min)
-        }
-        /**
+          let getRandomNumber = function getRandomNumber (min, max) {
+            return Math.floor(Math.random() * (max - min) + min)
+          }
+          /**
            * @param {number} length
            * @returns {string}
            */
 
-        var generateChars = function generateChars (length) {
-          return Array.from({
-            length: length
-          }, function () {
-            return getRandomNumber(0, 36).toString(36)
-          }).join('')
-        }
-        /**
+          let generateChars = function generateChars (length) {
+            return Array.from(
+              {
+                length
+              },
+              () => {
+                return getRandomNumber(0, 36).toString(36)
+              }
+            ).join('')
+          }
+          /**
            * @param {HTMLInputElement | HTMLSelectElement} element
            * @param {string} prefix
            * @returns {string}
            */
 
-        var generateId = function generateId (element, prefix) {
-          var id = element.id || element.name && element.name + '-' + generateChars(2) || generateChars(4)
-          id = id.replace(/(:|\.|\[|\]|,)/g, '')
-          id = prefix + '-' + id
-          return id
-        }
-        /**
+          let generateId = function generateId (element, prefix) {
+            let id = element.id || (element.name && `${element.name  }-${  generateChars(2)}`) || generateChars(4)
+            id = id.replace(/(:|\.|\[|\]|,)/g, '')
+            id = `${prefix  }-${  id}`
+            return id
+          }
+          /**
            * @param {any} obj
            * @returns {string}
            */
 
-        var getType = function getType (obj) {
-          return Object.prototype.toString.call(obj).slice(8, -1)
-        }
-        /**
+          let getType = function getType (obj) {
+            return Object.prototype.toString.call(obj).slice(8, -1)
+          }
+          /**
            * @param {string} type
            * @param {any} obj
            * @returns {boolean}
            */
 
-        var isType = function isType (type, obj) {
-          return obj !== undefined && obj !== null && getType(obj) === type
-        }
-        /**
+          let isType = function isType (type, obj) {
+            return obj !== undefined && obj !== null && getType(obj) === type
+          }
+          /**
            * @param {HTMLElement} element
            * @param {HTMLElement} [wrapper={HTMLDivElement}]
            * @returns {HTMLElement}
            */
 
-        var utils_wrap = function wrap (element, wrapper) {
-          if (wrapper === void 0) {
-            wrapper = document.createElement('div')
-          }
+          let utils_wrap = function wrap (element, wrapper) {
+            if (wrapper === void 0) {
+              wrapper = document.createElement('div')
+            }
 
-          if (element.nextSibling) {
-            element.parentNode.insertBefore(wrapper, element.nextSibling)
-          } else {
-            element.parentNode.appendChild(wrapper)
-          }
+            if (element.nextSibling) {
+              element.parentNode.insertBefore(wrapper, element.nextSibling)
+            } else {
+              element.parentNode.appendChild(wrapper)
+            }
 
-          return wrapper.appendChild(element)
-        }
-        /**
+            return wrapper.appendChild(element)
+          }
+          /**
            * @param {Element} startEl
            * @param {string} selector
            * @param {1 | -1} direction
            * @returns {Element | undefined}
            */
 
-        var getAdjacentEl = function getAdjacentEl (startEl, selector, direction) {
-          if (direction === void 0) {
-            direction = 1
-          }
-
-          if (!(startEl instanceof Element) || typeof selector !== 'string') {
-            return undefined
-          }
-
-          var prop = (direction > 0 ? 'next' : 'previous') + 'ElementSibling'
-          var sibling = startEl[prop]
-
-          while (sibling) {
-            if (sibling.matches(selector)) {
-              return sibling
+          let getAdjacentEl = function getAdjacentEl (startEl, selector, direction) {
+            if (direction === void 0) {
+              direction = 1
             }
 
-            sibling = sibling[prop]
-          }
+            if (!(startEl instanceof Element) || typeof selector !== 'string') {
+              return undefined
+            }
 
-          return sibling
-        }
-        /**
+            let prop = `${direction > 0 ? 'next' : 'previous'  }ElementSibling`
+            let sibling = startEl[prop]
+
+            while (sibling) {
+              if (sibling.matches(selector)) {
+                return sibling
+              }
+
+              sibling = sibling[prop]
+            }
+
+            return sibling
+          }
+          /**
            * @param {Element} element
            * @param {Element} parent
            * @param {-1 | 1} direction
            * @returns {boolean}
            */
 
-        var isScrolledIntoView = function isScrolledIntoView (element, parent, direction) {
-          if (direction === void 0) {
-            direction = 1
+          let isScrolledIntoView = function isScrolledIntoView (element, parent, direction) {
+            if (direction === void 0) {
+              direction = 1
+            }
+
+            if (!element) {
+              return false
+            }
+
+            let isVisible
+
+            if (direction > 0) {
+              // In view from bottom
+              isVisible = parent.scrollTop + parent.offsetHeight >= element.offsetTop + element.offsetHeight
+            } else {
+              // In view from top
+              isVisible = element.offsetTop >= parent.scrollTop
+            }
+
+            return isVisible
           }
-
-          if (!element) {
-            return false
-          }
-
-          var isVisible
-
-          if (direction > 0) {
-            // In view from bottom
-            isVisible = parent.scrollTop + parent.offsetHeight >= element.offsetTop + element.offsetHeight
-          } else {
-            // In view from top
-            isVisible = element.offsetTop >= parent.scrollTop
-          }
-
-          return isVisible
-        }
-        /**
+          /**
            * @param {any} value
            * @returns {any}
            */
 
-        var sanitise = function sanitise (value) {
-          if (typeof value !== 'string') {
-            return value
-          }
+          let sanitise = function sanitise (value) {
+            if (typeof value !== 'string') {
+              return value
+            }
 
-          return value.replace(/&/g, '&amp;').replace(/>/g, '&rt;').replace(/</g, '&lt;').replace(/"/g, '&quot;')
-        }
-        /**
+            return value
+              .replace(/&/g, '&amp;')
+              .replace(/>/g, '&rt;')
+              .replace(/</g, '&lt;')
+              .replace(/"/g, '&quot;')
+          }
+          /**
            * @returns {() => (str: string) => Element}
            */
 
-        var strToEl = (function () {
-          var tmpEl = document.createElement('div')
-          return function (str) {
-            var cleanedInput = str.trim()
-            tmpEl.innerHTML = cleanedInput
-            var firldChild = tmpEl.children[0]
+          let strToEl = (function () {
+            let tmpEl = document.createElement('div')
+            return function (str) {
+              let cleanedInput = str.trim()
+              tmpEl.innerHTML = cleanedInput
+              let firldChild = tmpEl.children[0]
 
-            while (tmpEl.firstChild) {
-              tmpEl.removeChild(tmpEl.firstChild)
+              while (tmpEl.firstChild) {
+                tmpEl.removeChild(tmpEl.firstChild)
+              }
+
+              return firldChild
             }
-
-            return firldChild
-          }
-        }())
-        /**
+          })()
+          /**
            * @param {{ label?: string, value: string }} a
            * @param {{ label?: string, value: string }} b
            * @returns {number}
            */
 
-        var sortByAlpha = function sortByAlpha (_ref, _ref2) {
-          var value = _ref.value
-          var _ref$label = _ref.label
-          var label = _ref$label === void 0 ? value : _ref$label
-          var value2 = _ref2.value
-          var _ref2$label = _ref2.label
-          var label2 = _ref2$label === void 0 ? value2 : _ref2$label
-          return label.localeCompare(label2, [], {
-            sensitivity: 'base',
-            ignorePunctuation: true,
-            numeric: true
-          })
-        }
-        /**
+          let sortByAlpha = function sortByAlpha (_ref, _ref2) {
+            let value = _ref.value
+            let _ref$label = _ref.label
+            let label = _ref$label === void 0 ? value : _ref$label
+            let value2 = _ref2.value
+            let _ref2$label = _ref2.label
+            let label2 = _ref2$label === void 0 ? value2 : _ref2$label
+            return label.localeCompare(label2, [], {
+              sensitivity: 'base',
+              ignorePunctuation: true,
+              numeric: true
+            })
+          }
+          /**
            * @param {{ score: number }} a
            * @param {{ score: number }} b
            */
 
-        var sortByScore = function sortByScore (a, b) {
-          return a.score - b.score
-        }
-        /**
+          let sortByScore = function sortByScore (a, b) {
+            return a.score - b.score
+          }
+          /**
            * @param {HTMLElement} element
            * @param {string} type
            * @param {object} customArgs
            */
 
-        var dispatchEvent = function dispatchEvent (element, type, customArgs) {
-          if (customArgs === void 0) {
-            customArgs = null
-          }
+          let dispatchEvent = function dispatchEvent (element, type, customArgs) {
+            if (customArgs === void 0) {
+              customArgs = null
+            }
 
-          var event = new CustomEvent(type, {
-            detail: customArgs,
-            bubbles: true,
-            cancelable: true
-          })
-          return element.dispatchEvent(event)
-        }
-        /**
+            let event = new CustomEvent(type, {
+              detail: customArgs,
+              bubbles: true,
+              cancelable: true
+            })
+            return element.dispatchEvent(event)
+          }
+          /**
            * @param {array} array
            * @param {any} value
            * @param {string} [key="value"]
            * @returns {boolean}
            */
 
-        var existsInArray = function existsInArray (array, value, key) {
-          if (key === void 0) {
-            key = 'value'
-          }
-
-          return array.some(function (item) {
-            if (typeof value === 'string') {
-              return item[key] === value.trim()
+          let existsInArray = function existsInArray (array, value, key) {
+            if (key === void 0) {
+              key = 'value'
             }
 
-            return item[key] === value
-          })
-        }
-        /**
+            return array.some((item) => {
+              if (typeof value === 'string') {
+                return item[key] === value.trim()
+              }
+
+              return item[key] === value
+            })
+          }
+          /**
            * @param {any} obj
            * @returns {any}
            */
 
-        var cloneObject = function cloneObject (obj) {
-          return JSON.parse(JSON.stringify(obj))
-        }
-        /**
+          let cloneObject = function cloneObject (obj) {
+            return JSON.parse(JSON.stringify(obj))
+          }
+          /**
            * Returns an array of keys present on the first but missing on the second object
            * @param {object} a
            * @param {object} b
            * @returns {string[]}
            */
 
-        var diff = function diff (a, b) {
-          var aKeys = Object.keys(a).sort()
-          var bKeys = Object.keys(b).sort()
-          return aKeys.filter(function (i) {
-            return bKeys.indexOf(i) < 0
+          let diff = function diff (a, b) {
+            let aKeys = Object.keys(a).sort()
+            let bKeys = Object.keys(b).sort()
+            return aKeys.filter((i) => {
+              return bKeys.indexOf(i) < 0
+            })
+          }
+          // CONCATENATED MODULE: ./src/scripts/reducers/index.js
+
+          let appReducer = combineReducers({
+            items: items_items,
+            groups,
+            choices: choices_choices,
+            general: reducers_general
           })
-        }
-        // CONCATENATED MODULE: ./src/scripts/reducers/index.js
 
-        var appReducer = combineReducers({
-          items: items_items,
-          groups: groups,
-          choices: choices_choices,
-          general: reducers_general
-        })
+          let reducers_rootReducer = function rootReducer (passedState, action) {
+            let state = passedState // If we are clearing all items, groups and options we reassign
+            // state and then pass that state to our proper reducer. This isn't
+            // mutating our actual state
+            // See: http://stackoverflow.com/a/35641992
 
-        var reducers_rootReducer = function rootReducer (passedState, action) {
-          var state = passedState // If we are clearing all items, groups and options we reassign
-          // state and then pass that state to our proper reducer. This isn't
-          // mutating our actual state
-          // See: http://stackoverflow.com/a/35641992
+            if (action.type === 'CLEAR_ALL') {
+              state = undefined
+            } else if (action.type === 'RESET_TO') {
+              return cloneObject(action.state)
+            }
 
-          if (action.type === 'CLEAR_ALL') {
-            state = undefined
-          } else if (action.type === 'RESET_TO') {
-            return cloneObject(action.state)
+            return appReducer(state, action)
           }
 
-          return appReducer(state, action)
-        }
+          /* harmony default export */ let reducers = reducers_rootReducer
+          // CONCATENATED MODULE: ./src/scripts/store/store.js
+          function _defineProperties (target, props) {
+            for (let i = 0; i < props.length; i++) {
+              let descriptor = props[i]
+              descriptor.enumerable = descriptor.enumerable || false
+              descriptor.configurable = true
+              if ('value' in descriptor) descriptor.writable = true
+              Object.defineProperty(target, descriptor.key, descriptor)
+            }
+          }
 
-        /* harmony default export */ var reducers = (reducers_rootReducer)
-        // CONCATENATED MODULE: ./src/scripts/store/store.js
-        function _defineProperties (target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor) } }
+          function _createClass (Constructor, protoProps, staticProps) {
+            if (protoProps) _defineProperties(Constructor.prototype, protoProps)
+            if (staticProps) _defineProperties(Constructor, staticProps)
+            return Constructor
+          }
 
-        function _createClass (Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor }
-
-        /**
+          /**
            * @typedef {import('../../../types/index').Choices.Choice} Choice
            * @typedef {import('../../../types/index').Choices.Group} Group
            * @typedef {import('../../../types/index').Choices.Item} Item
            */
 
-        var store_Store =
+          let store_Store =
             /* #__PURE__ */
             (function () {
               function Store () {
-                this._store = createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+                this._store = createStore(
+                  reducers,
+                  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+                )
               }
               /**
                * Subscribe store to function call (wrapped Redux method)
@@ -1279,7 +1987,7 @@ var choices = createCommonjsModule(function (module, exports) {
                * @return
                */
 
-              var _proto = Store.prototype
+              let _proto = Store.prototype
 
               _proto.subscribe = function subscribe (onChange) {
                 this._store.subscribe(onChange)
@@ -1312,7 +2020,7 @@ var choices = createCommonjsModule(function (module, exports) {
                */
 
               _proto.getChoiceById = function getChoiceById (id) {
-                return this.activeChoices.find(function (choice) {
+                return this.activeChoices.find((choice) => {
                   return choice.id === parseInt(id, 10)
                 })
               }
@@ -1323,151 +2031,168 @@ var choices = createCommonjsModule(function (module, exports) {
                */
 
               _proto.getGroupById = function getGroupById (id) {
-                return this.groups.find(function (group) {
+                return this.groups.find((group) => {
                   return group.id === id
                 })
               }
 
-              _createClass(Store, [{
-                key: 'state',
-                get: function get () {
-                  return this._store.getState()
-                }
-                /**
-                 * Get items from store
-                 * @returns {Item[]} Item objects
-                 */
-
-              }, {
-                key: 'items',
-                get: function get () {
-                  return this.state.items
-                }
-                /**
-                 * Get active items from store
-                 * @returns {Item[]} Item objects
-                 */
-
-              }, {
-                key: 'activeItems',
-                get: function get () {
-                  return this.items.filter(function (item) {
-                    return item.active === true
-                  })
-                }
-                /**
-                 * Get highlighted items from store
-                 * @returns {Item[]} Item objects
-                 */
-
-              }, {
-                key: 'highlightedActiveItems',
-                get: function get () {
-                  return this.items.filter(function (item) {
-                    return item.active && item.highlighted
-                  })
-                }
-                /**
-                 * Get choices from store
-                 * @returns {Choice[]} Option objects
-                 */
-
-              }, {
-                key: 'choices',
-                get: function get () {
-                  return this.state.choices
-                }
-                /**
-                 * Get active choices from store
-                 * @returns {Choice[]} Option objects
-                 */
-
-              }, {
-                key: 'activeChoices',
-                get: function get () {
-                  return this.choices.filter(function (choice) {
-                    return choice.active === true
-                  })
-                }
-                /**
-                 * Get selectable choices from store
-                 * @returns {Choice[]} Option objects
-                 */
-
-              }, {
-                key: 'selectableChoices',
-                get: function get () {
-                  return this.choices.filter(function (choice) {
-                    return choice.disabled !== true
-                  })
-                }
-                /**
-                 * Get choices that can be searched (excluding placeholders)
-                 * @returns {Choice[]} Option objects
-                 */
-
-              }, {
-                key: 'searchableChoices',
-                get: function get () {
-                  return this.selectableChoices.filter(function (choice) {
-                    return choice.placeholder !== true
-                  })
-                }
-                /**
-                 * Get placeholder choice from store
-                 * @returns {Choice | undefined} Found placeholder
-                 */
-
-              }, {
-                key: 'placeholderChoice',
-                get: function get () {
-                  return [].concat(this.choices).reverse().find(function (choice) {
-                    return choice.placeholder === true
-                  })
-                }
-                /**
-                 * Get groups from store
-                 * @returns {Group[]} Group objects
-                 */
-
-              }, {
-                key: 'groups',
-                get: function get () {
-                  return this.state.groups
-                }
-                /**
-                 * Get active groups from store
-                 * @returns {Group[]} Group objects
-                 */
-
-              }, {
-                key: 'activeGroups',
-                get: function get () {
-                  var groups = this.groups
-                  var choices = this.choices
-                  return groups.filter(function (group) {
-                    var isActive = group.active === true && group.disabled === false
-                    var hasActiveOptions = choices.some(function (choice) {
-                      return choice.active === true && choice.disabled === false
+              _createClass(Store, [
+                {
+                  key: 'state',
+                  get: function get () {
+                    return this._store.getState()
+                  }
+                  /**
+                   * Get items from store
+                   * @returns {Item[]} Item objects
+                   */
+                },
+                {
+                  key: 'items',
+                  get: function get () {
+                    return this.state.items
+                  }
+                  /**
+                   * Get active items from store
+                   * @returns {Item[]} Item objects
+                   */
+                },
+                {
+                  key: 'activeItems',
+                  get: function get () {
+                    return this.items.filter((item) => {
+                      return item.active === true
                     })
-                    return isActive && hasActiveOptions
-                  }, [])
+                  }
+                  /**
+                   * Get highlighted items from store
+                   * @returns {Item[]} Item objects
+                   */
+                },
+                {
+                  key: 'highlightedActiveItems',
+                  get: function get () {
+                    return this.items.filter((item) => {
+                      return item.active && item.highlighted
+                    })
+                  }
+                  /**
+                   * Get choices from store
+                   * @returns {Choice[]} Option objects
+                   */
+                },
+                {
+                  key: 'choices',
+                  get: function get () {
+                    return this.state.choices
+                  }
+                  /**
+                   * Get active choices from store
+                   * @returns {Choice[]} Option objects
+                   */
+                },
+                {
+                  key: 'activeChoices',
+                  get: function get () {
+                    return this.choices.filter((choice) => {
+                      return choice.active === true
+                    })
+                  }
+                  /**
+                   * Get selectable choices from store
+                   * @returns {Choice[]} Option objects
+                   */
+                },
+                {
+                  key: 'selectableChoices',
+                  get: function get () {
+                    return this.choices.filter((choice) => {
+                      return choice.disabled !== true
+                    })
+                  }
+                  /**
+                   * Get choices that can be searched (excluding placeholders)
+                   * @returns {Choice[]} Option objects
+                   */
+                },
+                {
+                  key: 'searchableChoices',
+                  get: function get () {
+                    return this.selectableChoices.filter((choice) => {
+                      return choice.placeholder !== true
+                    })
+                  }
+                  /**
+                   * Get placeholder choice from store
+                   * @returns {Choice | undefined} Found placeholder
+                   */
+                },
+                {
+                  key: 'placeholderChoice',
+                  get: function get () {
+                    return []
+                      .concat(this.choices)
+                      .reverse()
+                      .find((choice) => {
+                        return choice.placeholder === true
+                      })
+                  }
+                  /**
+                   * Get groups from store
+                   * @returns {Group[]} Group objects
+                   */
+                },
+                {
+                  key: 'groups',
+                  get: function get () {
+                    return this.state.groups
+                  }
+                  /**
+                   * Get active groups from store
+                   * @returns {Group[]} Group objects
+                   */
+                },
+                {
+                  key: 'activeGroups',
+                  get: function get () {
+                    let groups = this.groups
+                    let choices = this.choices
+                    return groups.filter((group) => {
+                      let isActive = group.active === true && group.disabled === false
+                      let hasActiveOptions = choices.some((choice) => {
+                        return choice.active === true && choice.disabled === false
+                      })
+                      return isActive && hasActiveOptions
+                    }, [])
+                  }
                 }
-              }])
+              ])
 
               return Store
-            }())
+            })()
 
-        // CONCATENATED MODULE: ./src/scripts/components/dropdown.js
-        function dropdown_defineProperties (target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor) } }
+          // CONCATENATED MODULE: ./src/scripts/components/dropdown.js
+          function dropdown_defineProperties (target, props) {
+            for (let i = 0; i < props.length; i++) {
+              let descriptor = props[i]
+              descriptor.enumerable = descriptor.enumerable || false
+              descriptor.configurable = true
+              if ('value' in descriptor) descriptor.writable = true
+              Object.defineProperty(target, descriptor.key, descriptor)
+            }
+          }
 
-        function dropdown_createClass (Constructor, protoProps, staticProps) { if (protoProps) dropdown_defineProperties(Constructor.prototype, protoProps); if (staticProps) dropdown_defineProperties(Constructor, staticProps); return Constructor }
+          function dropdown_createClass (Constructor, protoProps, staticProps) {
+            if (protoProps) dropdown_defineProperties(Constructor.prototype, protoProps)
+            if (staticProps) dropdown_defineProperties(Constructor, staticProps)
+            return Constructor
+          }
 
-        /**
+          /**
            * @typedef {import('../../../types/index').Choices.passedElement} passedElement
            * @typedef {import('../../../types/index').Choices.ClassNames} ClassNames
            */
-        var Dropdown =
+          let Dropdown =
             /* #__PURE__ */
             (function () {
               /**
@@ -1478,9 +2203,9 @@ var choices = createCommonjsModule(function (module, exports) {
                * }} args
                */
               function Dropdown (_ref) {
-                var element = _ref.element
-                var type = _ref.type
-                var classNames = _ref.classNames
+                let element = _ref.element
+                let type = _ref.type
+                let classNames = _ref.classNames
                 this.element = element
                 this.classNames = classNames
                 this.type = type
@@ -1491,7 +2216,7 @@ var choices = createCommonjsModule(function (module, exports) {
                * @returns {number} Vertical position
                */
 
-              var _proto = Dropdown.prototype
+              let _proto = Dropdown.prototype
 
               /**
                * Find element that matches passed selector
@@ -1524,152 +2249,154 @@ var choices = createCommonjsModule(function (module, exports) {
                 return this
               }
 
-              dropdown_createClass(Dropdown, [{
-                key: 'distanceFromTopWindow',
-                get: function get () {
-                  return this.element.getBoundingClientRect().bottom
+              dropdown_createClass(Dropdown, [
+                {
+                  key: 'distanceFromTopWindow',
+                  get: function get () {
+                    return this.element.getBoundingClientRect().bottom
+                  }
                 }
-              }])
+              ])
 
               return Dropdown
-            }())
+            })()
 
-        // CONCATENATED MODULE: ./src/scripts/constants.js
+          // CONCATENATED MODULE: ./src/scripts/constants.js
 
-        /**
+          /**
            * @typedef {import('../../types/index').Choices.ClassNames} ClassNames
            * @typedef {import('../../types/index').Choices.Options} Options
            */
 
-        /** @type {ClassNames} */
+          /** @type {ClassNames} */
 
-        var DEFAULT_CLASSNAMES = {
-          containerOuter: 'choices',
-          containerInner: 'choices__inner',
-          input: 'choices__input',
-          inputCloned: 'choices__input--cloned',
-          list: 'choices__list',
-          listItems: 'choices__list--multiple',
-          listSingle: 'choices__list--single',
-          listDropdown: 'choices__list--dropdown',
-          item: 'choices__item',
-          itemSelectable: 'choices__item--selectable',
-          itemDisabled: 'choices__item--disabled',
-          itemChoice: 'choices__item--choice',
-          placeholder: 'choices__placeholder',
-          group: 'choices__group',
-          groupHeading: 'choices__heading',
-          button: 'choices__button',
-          activeState: 'is-active',
-          focusState: 'is-focused',
-          openState: 'is-open',
-          disabledState: 'is-disabled',
-          highlightedState: 'is-highlighted',
-          selectedState: 'is-selected',
-          flippedState: 'is-flipped',
-          loadingState: 'is-loading',
-          noResults: 'has-no-results',
-          noChoices: 'has-no-choices'
-        }
-        /** @type {Options} */
+          let DEFAULT_CLASSNAMES = {
+            containerOuter: 'choices',
+            containerInner: 'choices__inner',
+            input: 'choices__input',
+            inputCloned: 'choices__input--cloned',
+            list: 'choices__list',
+            listItems: 'choices__list--multiple',
+            listSingle: 'choices__list--single',
+            listDropdown: 'choices__list--dropdown',
+            item: 'choices__item',
+            itemSelectable: 'choices__item--selectable',
+            itemDisabled: 'choices__item--disabled',
+            itemChoice: 'choices__item--choice',
+            placeholder: 'choices__placeholder',
+            group: 'choices__group',
+            groupHeading: 'choices__heading',
+            button: 'choices__button',
+            activeState: 'is-active',
+            focusState: 'is-focused',
+            openState: 'is-open',
+            disabledState: 'is-disabled',
+            highlightedState: 'is-highlighted',
+            selectedState: 'is-selected',
+            flippedState: 'is-flipped',
+            loadingState: 'is-loading',
+            noResults: 'has-no-results',
+            noChoices: 'has-no-choices'
+          }
+          /** @type {Options} */
 
-        var DEFAULT_CONFIG = {
-          items: [],
-          choices: [],
-          silent: false,
-          renderChoiceLimit: -1,
-          maxItemCount: -1,
-          addItems: true,
-          addItemFilter: null,
-          removeItems: true,
-          removeItemButton: false,
-          editItems: false,
-          duplicateItemsAllowed: true,
-          delimiter: ',',
-          paste: true,
-          searchEnabled: true,
-          searchChoices: true,
-          searchFloor: 1,
-          searchResultLimit: 4,
-          searchFields: ['label', 'value'],
-          position: 'auto',
-          resetScrollPosition: true,
-          shouldSort: true,
-          shouldSortItems: false,
-          sorter: sortByAlpha,
-          placeholder: true,
-          placeholderValue: null,
-          searchPlaceholderValue: null,
-          prependValue: null,
-          appendValue: null,
-          renderSelectedChoices: 'auto',
-          loadingText: 'Loading...',
-          noResultsText: 'No results found',
-          noChoicesText: 'No choices to choose from',
-          itemSelectText: 'Press to select',
-          uniqueItemText: 'Only unique values can be added',
-          customAddItemText: 'Only values matching specific conditions can be added',
-          addItemText: function addItemText (value) {
-            return 'Press Enter to add <b>"' + sanitise(value) + '"</b>'
-          },
-          maxItemText: function maxItemText (maxItemCount) {
-            return 'Only ' + maxItemCount + ' values can be added'
-          },
-          valueComparer: function valueComparer (value1, value2) {
-            return value1 === value2
-          },
-          fuseOptions: {
-            includeScore: true
-          },
-          callbackOnInit: null,
-          callbackOnCreateTemplates: null,
-          classNames: DEFAULT_CLASSNAMES
-        }
-        var EVENTS = {
-          showDropdown: 'showDropdown',
-          hideDropdown: 'hideDropdown',
-          change: 'change',
-          choice: 'choice',
-          search: 'search',
-          addItem: 'addItem',
-          removeItem: 'removeItem',
-          highlightItem: 'highlightItem',
-          highlightChoice: 'highlightChoice'
-        }
-        var ACTION_TYPES = {
-          ADD_CHOICE: 'ADD_CHOICE',
-          FILTER_CHOICES: 'FILTER_CHOICES',
-          ACTIVATE_CHOICES: 'ACTIVATE_CHOICES',
-          CLEAR_CHOICES: 'CLEAR_CHOICES',
-          ADD_GROUP: 'ADD_GROUP',
-          ADD_ITEM: 'ADD_ITEM',
-          REMOVE_ITEM: 'REMOVE_ITEM',
-          HIGHLIGHT_ITEM: 'HIGHLIGHT_ITEM',
-          CLEAR_ALL: 'CLEAR_ALL'
-        }
-        var KEY_CODES = {
-          BACK_KEY: 46,
-          DELETE_KEY: 8,
-          ENTER_KEY: 13,
-          A_KEY: 65,
-          ESC_KEY: 27,
-          UP_KEY: 38,
-          DOWN_KEY: 40,
-          PAGE_UP_KEY: 33,
-          PAGE_DOWN_KEY: 34
-        }
-        var TEXT_TYPE = 'text'
-        var SELECT_ONE_TYPE = 'select-one'
-        var SELECT_MULTIPLE_TYPE = 'select-multiple'
-        var SCROLLING_SPEED = 4
-        // CONCATENATED MODULE: ./src/scripts/components/container.js
+          let DEFAULT_CONFIG = {
+            items: [],
+            choices: [],
+            silent: false,
+            renderChoiceLimit: -1,
+            maxItemCount: -1,
+            addItems: true,
+            addItemFilter: null,
+            removeItems: true,
+            removeItemButton: false,
+            editItems: false,
+            duplicateItemsAllowed: true,
+            delimiter: ',',
+            paste: true,
+            searchEnabled: true,
+            searchChoices: true,
+            searchFloor: 1,
+            searchResultLimit: 4,
+            searchFields: ['label', 'value'],
+            position: 'auto',
+            resetScrollPosition: true,
+            shouldSort: true,
+            shouldSortItems: false,
+            sorter: sortByAlpha,
+            placeholder: true,
+            placeholderValue: null,
+            searchPlaceholderValue: null,
+            prependValue: null,
+            appendValue: null,
+            renderSelectedChoices: 'auto',
+            loadingText: 'Loading...',
+            noResultsText: 'No results found',
+            noChoicesText: 'No choices to choose from',
+            itemSelectText: 'Press to select',
+            uniqueItemText: 'Only unique values can be added',
+            customAddItemText: 'Only values matching specific conditions can be added',
+            addItemText: function addItemText (value) {
+              return `Press Enter to add <b>"${  sanitise(value)  }"</b>`
+            },
+            maxItemText: function maxItemText (maxItemCount) {
+              return `Only ${  maxItemCount  } values can be added`
+            },
+            valueComparer: function valueComparer (value1, value2) {
+              return value1 === value2
+            },
+            fuseOptions: {
+              includeScore: true
+            },
+            callbackOnInit: null,
+            callbackOnCreateTemplates: null,
+            classNames: DEFAULT_CLASSNAMES
+          }
+          let EVENTS = {
+            showDropdown: 'showDropdown',
+            hideDropdown: 'hideDropdown',
+            change: 'change',
+            choice: 'choice',
+            search: 'search',
+            addItem: 'addItem',
+            removeItem: 'removeItem',
+            highlightItem: 'highlightItem',
+            highlightChoice: 'highlightChoice'
+          }
+          let ACTION_TYPES = {
+            ADD_CHOICE: 'ADD_CHOICE',
+            FILTER_CHOICES: 'FILTER_CHOICES',
+            ACTIVATE_CHOICES: 'ACTIVATE_CHOICES',
+            CLEAR_CHOICES: 'CLEAR_CHOICES',
+            ADD_GROUP: 'ADD_GROUP',
+            ADD_ITEM: 'ADD_ITEM',
+            REMOVE_ITEM: 'REMOVE_ITEM',
+            HIGHLIGHT_ITEM: 'HIGHLIGHT_ITEM',
+            CLEAR_ALL: 'CLEAR_ALL'
+          }
+          let KEY_CODES = {
+            BACK_KEY: 46,
+            DELETE_KEY: 8,
+            ENTER_KEY: 13,
+            A_KEY: 65,
+            ESC_KEY: 27,
+            UP_KEY: 38,
+            DOWN_KEY: 40,
+            PAGE_UP_KEY: 33,
+            PAGE_DOWN_KEY: 34
+          }
+          let TEXT_TYPE = 'text'
+          let SELECT_ONE_TYPE = 'select-one'
+          let SELECT_MULTIPLE_TYPE = 'select-multiple'
+          let SCROLLING_SPEED = 4
+          // CONCATENATED MODULE: ./src/scripts/components/container.js
 
-        /**
+          /**
            * @typedef {import('../../../types/index').Choices.passedElement} passedElement
            * @typedef {import('../../../types/index').Choices.ClassNames} ClassNames
            */
 
-        var container_Container =
+          let container_Container =
             /* #__PURE__ */
             (function () {
               /**
@@ -1681,10 +2408,10 @@ var choices = createCommonjsModule(function (module, exports) {
                * }} args
                */
               function Container (_ref) {
-                var element = _ref.element
-                var type = _ref.type
-                var classNames = _ref.classNames
-                var position = _ref.position
+                let element = _ref.element
+                let type = _ref.type
+                let classNames = _ref.classNames
+                let position = _ref.position
                 this.element = element
                 this.classNames = classNames
                 this.type = type
@@ -1698,7 +2425,7 @@ var choices = createCommonjsModule(function (module, exports) {
                 this._onBlur = this._onBlur.bind(this)
               }
 
-              var _proto = Container.prototype
+              let _proto = Container.prototype
 
               _proto.addEventListeners = function addEventListeners () {
                 this.element.addEventListener('focus', this._onFocus)
@@ -1722,10 +2449,10 @@ var choices = createCommonjsModule(function (module, exports) {
                 } // If flip is enabled and the dropdown bottom position is
                 // greater than the window height flip the dropdown.
 
-                var shouldFlip = false
+                let shouldFlip = false
 
                 if (this.position === 'auto') {
-                  shouldFlip = !window.matchMedia('(min-height: ' + (dropdownPos + 1) + 'px)').matches
+                  shouldFlip = !window.matchMedia(`(min-height: ${  dropdownPos + 1  }px)`).matches
                 } else if (this.position === 'top') {
                   shouldFlip = true
                 }
@@ -1844,19 +2571,31 @@ var choices = createCommonjsModule(function (module, exports) {
               }
 
               return Container
-            }())
+            })()
 
-        // CONCATENATED MODULE: ./src/scripts/components/input.js
-        function input_defineProperties (target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor) } }
+          // CONCATENATED MODULE: ./src/scripts/components/input.js
+          function input_defineProperties (target, props) {
+            for (let i = 0; i < props.length; i++) {
+              let descriptor = props[i]
+              descriptor.enumerable = descriptor.enumerable || false
+              descriptor.configurable = true
+              if ('value' in descriptor) descriptor.writable = true
+              Object.defineProperty(target, descriptor.key, descriptor)
+            }
+          }
 
-        function input_createClass (Constructor, protoProps, staticProps) { if (protoProps) input_defineProperties(Constructor.prototype, protoProps); if (staticProps) input_defineProperties(Constructor, staticProps); return Constructor }
+          function input_createClass (Constructor, protoProps, staticProps) {
+            if (protoProps) input_defineProperties(Constructor.prototype, protoProps)
+            if (staticProps) input_defineProperties(Constructor, staticProps)
+            return Constructor
+          }
 
-        /**
+          /**
            * @typedef {import('../../../types/index').Choices.passedElement} passedElement
            * @typedef {import('../../../types/index').Choices.ClassNames} ClassNames
            */
 
-        var input_Input =
+          let input_Input =
             /* #__PURE__ */
             (function () {
               /**
@@ -1868,10 +2607,10 @@ var choices = createCommonjsModule(function (module, exports) {
                * }} args
                */
               function Input (_ref) {
-                var element = _ref.element
-                var type = _ref.type
-                var classNames = _ref.classNames
-                var preventPaste = _ref.preventPaste
+                let element = _ref.element
+                let type = _ref.type
+                let classNames = _ref.classNames
+                let preventPaste = _ref.preventPaste
                 this.element = element
                 this.type = type
                 this.classNames = classNames
@@ -1887,7 +2626,7 @@ var choices = createCommonjsModule(function (module, exports) {
                * @param {string} placeholder
                */
 
-              var _proto = Input.prototype
+              let _proto = Input.prototype
 
               _proto.addEventListeners = function addEventListeners () {
                 this.element.addEventListener('paste', this._onPaste)
@@ -1964,12 +2703,12 @@ var choices = createCommonjsModule(function (module, exports) {
 
               _proto.setWidth = function setWidth () {
                 // Resize input to contents or placeholder
-                var _this$element = this.element
-                var style = _this$element.style
-                var value = _this$element.value
-                var placeholder = _this$element.placeholder
-                style.minWidth = placeholder.length + 1 + 'ch'
-                style.width = value.length + 1 + 'ch'
+                let _this$element = this.element
+                let style = _this$element.style
+                let value = _this$element.value
+                let placeholder = _this$element.placeholder
+                style.minWidth = `${placeholder.length + 1  }ch`
+                style.width = `${value.length + 1  }ch`
               }
               /**
                * @param {string} activeDescendantID
@@ -2006,51 +2745,52 @@ var choices = createCommonjsModule(function (module, exports) {
                 this.isFocussed = false
               }
 
-              input_createClass(Input, [{
-                key: 'placeholder',
-                set: function set (placeholder) {
-                  this.element.placeholder = placeholder
+              input_createClass(Input, [
+                {
+                  key: 'placeholder',
+                  set: function set (placeholder) {
+                    this.element.placeholder = placeholder
+                  }
+                  /**
+                   * @returns {string}
+                   */
+                },
+                {
+                  key: 'value',
+                  get: function get () {
+                    return sanitise(this.element.value)
+                  },
+                  /**
+                   * @param {string} value
+                   */ set: function set (value) {
+                    this.element.value = value
+                  }
                 }
-                /**
-                 * @returns {string}
-                 */
-
-              }, {
-                key: 'value',
-                get: function get () {
-                  return sanitise(this.element.value)
-                }, /**
-                 * @param {string} value
-                 */
-
-                set: function set (value) {
-                  this.element.value = value
-                }
-              }])
+              ])
 
               return Input
-            }())
+            })()
 
-        // CONCATENATED MODULE: ./src/scripts/components/list.js
+          // CONCATENATED MODULE: ./src/scripts/components/list.js
 
-        /**
+          /**
            * @typedef {import('../../../types/index').Choices.Choice} Choice
            */
 
-        var list_List =
+          let list_List =
             /* #__PURE__ */
             (function () {
               /**
                * @param {{ element: HTMLElement }} args
                */
               function List (_ref) {
-                var element = _ref.element
+                let element = _ref.element
                 this.element = element
                 this.scrollPos = this.element.scrollTop
                 this.height = this.element.offsetHeight
               }
 
-              var _proto = List.prototype
+              let _proto = List.prototype
 
               _proto.clear = function clear () {
                 this.element.innerHTML = ''
@@ -2087,21 +2827,22 @@ var choices = createCommonjsModule(function (module, exports) {
                */
 
               _proto.scrollToChildElement = function scrollToChildElement (element, direction) {
-                var _this = this
+                let _this = this
 
                 if (!element) {
                   return
                 }
 
-                var listHeight = this.element.offsetHeight // Scroll position of dropdown
+                let listHeight = this.element.offsetHeight // Scroll position of dropdown
 
-                var listScrollPosition = this.element.scrollTop + listHeight
-                var elementHeight = element.offsetHeight // Distance from bottom of element to top of parent
+                let listScrollPosition = this.element.scrollTop + listHeight
+                let elementHeight = element.offsetHeight // Distance from bottom of element to top of parent
 
-                var elementPos = element.offsetTop + elementHeight // Difference between the element and scroll position
+                let elementPos = element.offsetTop + elementHeight // Difference between the element and scroll position
 
-                var destination = direction > 0 ? this.element.scrollTop + elementPos - listScrollPosition : element.offsetTop
-                requestAnimationFrame(function () {
+                let destination =
+                  direction > 0 ? this.element.scrollTop + elementPos - listScrollPosition : element.offsetTop
+                requestAnimationFrame(() => {
                   _this._animateScroll(destination, direction)
                 })
               }
@@ -2112,8 +2853,8 @@ var choices = createCommonjsModule(function (module, exports) {
                */
 
               _proto._scrollDown = function _scrollDown (scrollPos, strength, destination) {
-                var easing = (destination - scrollPos) / strength
-                var distance = easing > 1 ? easing : 1
+                let easing = (destination - scrollPos) / strength
+                let distance = easing > 1 ? easing : 1
                 this.element.scrollTop = scrollPos + distance
               }
               /**
@@ -2123,8 +2864,8 @@ var choices = createCommonjsModule(function (module, exports) {
                */
 
               _proto._scrollUp = function _scrollUp (scrollPos, strength, destination) {
-                var easing = (scrollPos - destination) / strength
-                var distance = easing > 1 ? easing : 1
+                let easing = (scrollPos - destination) / strength
+                let distance = easing > 1 ? easing : 1
                 this.element.scrollTop = scrollPos - distance
               }
               /**
@@ -2133,11 +2874,11 @@ var choices = createCommonjsModule(function (module, exports) {
                */
 
               _proto._animateScroll = function _animateScroll (destination, direction) {
-                var _this2 = this
+                let _this2 = this
 
-                var strength = SCROLLING_SPEED
-                var choiceListScrollTop = this.element.scrollTop
-                var continueAnimation = false
+                let strength = SCROLLING_SPEED
+                let choiceListScrollTop = this.element.scrollTop
+                let continueAnimation = false
 
                 if (direction > 0) {
                   this._scrollDown(choiceListScrollTop, strength, destination)
@@ -2154,26 +2895,38 @@ var choices = createCommonjsModule(function (module, exports) {
                 }
 
                 if (continueAnimation) {
-                  requestAnimationFrame(function () {
+                  requestAnimationFrame(() => {
                     _this2._animateScroll(destination, direction)
                   })
                 }
               }
 
               return List
-            }())
+            })()
 
-        // CONCATENATED MODULE: ./src/scripts/components/wrapped-element.js
-        function wrapped_element_defineProperties (target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor) } }
+          // CONCATENATED MODULE: ./src/scripts/components/wrapped-element.js
+          function wrapped_element_defineProperties (target, props) {
+            for (let i = 0; i < props.length; i++) {
+              let descriptor = props[i]
+              descriptor.enumerable = descriptor.enumerable || false
+              descriptor.configurable = true
+              if ('value' in descriptor) descriptor.writable = true
+              Object.defineProperty(target, descriptor.key, descriptor)
+            }
+          }
 
-        function wrapped_element_createClass (Constructor, protoProps, staticProps) { if (protoProps) wrapped_element_defineProperties(Constructor.prototype, protoProps); if (staticProps) wrapped_element_defineProperties(Constructor, staticProps); return Constructor }
+          function wrapped_element_createClass (Constructor, protoProps, staticProps) {
+            if (protoProps) wrapped_element_defineProperties(Constructor.prototype, protoProps)
+            if (staticProps) wrapped_element_defineProperties(Constructor, staticProps)
+            return Constructor
+          }
 
-        /**
+          /**
            * @typedef {import('../../../types/index').Choices.passedElement} passedElement
            * @typedef {import('../../../types/index').Choices.ClassNames} ClassNames
            */
 
-        var wrapped_element_WrappedElement =
+          let wrapped_element_WrappedElement =
             /* #__PURE__ */
             (function () {
               /**
@@ -2183,8 +2936,8 @@ var choices = createCommonjsModule(function (module, exports) {
                * }} args
                */
               function WrappedElement (_ref) {
-                var element = _ref.element
-                var classNames = _ref.classNames
+                let element = _ref.element
+                let classNames = _ref.classNames
                 this.element = element
                 this.classNames = classNames
 
@@ -2195,7 +2948,7 @@ var choices = createCommonjsModule(function (module, exports) {
                 this.isDisabled = false
               }
 
-              var _proto = WrappedElement.prototype
+              let _proto = WrappedElement.prototype
 
               _proto.conceal = function conceal () {
                 // Hide passed input
@@ -2204,7 +2957,7 @@ var choices = createCommonjsModule(function (module, exports) {
 
                 this.element.tabIndex = -1 // Backup original styles if any
 
-                var origStyle = this.element.getAttribute('style')
+                let origStyle = this.element.getAttribute('style')
 
                 if (origStyle) {
                   this.element.setAttribute('data-choice-orig-style', origStyle)
@@ -2219,7 +2972,7 @@ var choices = createCommonjsModule(function (module, exports) {
                 this.element.hidden = false
                 this.element.removeAttribute('tabindex') // Recover original styles if any
 
-                var origStyle = this.element.getAttribute('data-choice-orig-style')
+                let origStyle = this.element.getAttribute('data-choice-orig-style')
 
                 if (origStyle) {
                   this.element.removeAttribute('data-choice-orig-style')
@@ -2250,43 +3003,63 @@ var choices = createCommonjsModule(function (module, exports) {
                 dispatchEvent(this.element, eventType, data)
               }
 
-              wrapped_element_createClass(WrappedElement, [{
-                key: 'isActive',
-                get: function get () {
-                  return this.element.dataset.choice === 'active'
-                }
-              }, {
-                key: 'dir',
-                get: function get () {
-                  return this.element.dir
-                }
-              }, {
-                key: 'value',
-                get: function get () {
-                  return this.element.value
+              wrapped_element_createClass(WrappedElement, [
+                {
+                  key: 'isActive',
+                  get: function get () {
+                    return this.element.dataset.choice === 'active'
+                  }
                 },
-                set: function set (value) {
-                  // you must define setter here otherwise it will be readonly property
-                  this.element.value = value
+                {
+                  key: 'dir',
+                  get: function get () {
+                    return this.element.dir
+                  }
+                },
+                {
+                  key: 'value',
+                  get: function get () {
+                    return this.element.value
+                  },
+                  set: function set (value) {
+                    // you must define setter here otherwise it will be readonly property
+                    this.element.value = value
+                  }
                 }
-              }])
+              ])
 
               return WrappedElement
-            }())
+            })()
 
-        // CONCATENATED MODULE: ./src/scripts/components/wrapped-input.js
-        function wrapped_input_defineProperties (target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor) } }
+          // CONCATENATED MODULE: ./src/scripts/components/wrapped-input.js
+          function wrapped_input_defineProperties (target, props) {
+            for (let i = 0; i < props.length; i++) {
+              let descriptor = props[i]
+              descriptor.enumerable = descriptor.enumerable || false
+              descriptor.configurable = true
+              if ('value' in descriptor) descriptor.writable = true
+              Object.defineProperty(target, descriptor.key, descriptor)
+            }
+          }
 
-        function wrapped_input_createClass (Constructor, protoProps, staticProps) { if (protoProps) wrapped_input_defineProperties(Constructor.prototype, protoProps); if (staticProps) wrapped_input_defineProperties(Constructor, staticProps); return Constructor }
+          function wrapped_input_createClass (Constructor, protoProps, staticProps) {
+            if (protoProps) wrapped_input_defineProperties(Constructor.prototype, protoProps)
+            if (staticProps) wrapped_input_defineProperties(Constructor, staticProps)
+            return Constructor
+          }
 
-        function _inheritsLoose (subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass }
+          function _inheritsLoose (subClass, superClass) {
+            subClass.prototype = Object.create(superClass.prototype)
+            subClass.prototype.constructor = subClass
+            subClass.__proto__ = superClass
+          }
 
-        /**
+          /**
            * @typedef {import('../../../types/index').Choices.ClassNames} ClassNames
            * @typedef {import('../../../types/index').Choices.Item} Item
            */
 
-        var WrappedInput =
+          let WrappedInput =
             /* #__PURE__ */
             (function (_WrappedElement) {
               _inheritsLoose(WrappedInput, _WrappedElement)
@@ -2299,15 +3072,16 @@ var choices = createCommonjsModule(function (module, exports) {
                * }} args
                */
               function WrappedInput (_ref) {
-                var _this
+                let _this
 
-                var element = _ref.element
-                var classNames = _ref.classNames
-                var delimiter = _ref.delimiter
-                _this = _WrappedElement.call(this, {
-                  element: element,
-                  classNames: classNames
-                }) || this
+                let element = _ref.element
+                let classNames = _ref.classNames
+                let delimiter = _ref.delimiter
+                _this =
+                  _WrappedElement.call(this, {
+                    element,
+                    classNames
+                  }) || this
                 _this.delimiter = delimiter
                 return _this
               }
@@ -2315,42 +3089,59 @@ var choices = createCommonjsModule(function (module, exports) {
                * @returns {string}
                */
 
-              wrapped_input_createClass(WrappedInput, [{
-                key: 'value',
-                get: function get () {
-                  return this.element.value
-                }, /**
-                 * @param {Item[]} items
-                 */
-
-                set: function set (items) {
-                  var itemValues = items.map(function (_ref2) {
-                    var value = _ref2.value
-                    return value
-                  })
-                  var joinedValues = itemValues.join(this.delimiter)
-                  this.element.setAttribute('value', joinedValues)
-                  this.element.value = joinedValues
+              wrapped_input_createClass(WrappedInput, [
+                {
+                  key: 'value',
+                  get: function get () {
+                    return this.element.value
+                  },
+                  /**
+                   * @param {Item[]} items
+                   */ set: function set (items) {
+                    let itemValues = items.map((_ref2) => {
+                      let value = _ref2.value
+                      return value
+                    })
+                    let joinedValues = itemValues.join(this.delimiter)
+                    this.element.setAttribute('value', joinedValues)
+                    this.element.value = joinedValues
+                  }
                 }
-              }])
+              ])
 
               return WrappedInput
-            }(wrapped_element_WrappedElement))
+            })(wrapped_element_WrappedElement)
 
-        // CONCATENATED MODULE: ./src/scripts/components/wrapped-select.js
-        function wrapped_select_defineProperties (target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor) } }
+          // CONCATENATED MODULE: ./src/scripts/components/wrapped-select.js
+          function wrapped_select_defineProperties (target, props) {
+            for (let i = 0; i < props.length; i++) {
+              let descriptor = props[i]
+              descriptor.enumerable = descriptor.enumerable || false
+              descriptor.configurable = true
+              if ('value' in descriptor) descriptor.writable = true
+              Object.defineProperty(target, descriptor.key, descriptor)
+            }
+          }
 
-        function wrapped_select_createClass (Constructor, protoProps, staticProps) { if (protoProps) wrapped_select_defineProperties(Constructor.prototype, protoProps); if (staticProps) wrapped_select_defineProperties(Constructor, staticProps); return Constructor }
+          function wrapped_select_createClass (Constructor, protoProps, staticProps) {
+            if (protoProps) wrapped_select_defineProperties(Constructor.prototype, protoProps)
+            if (staticProps) wrapped_select_defineProperties(Constructor, staticProps)
+            return Constructor
+          }
 
-        function wrapped_select_inheritsLoose (subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass }
+          function wrapped_select_inheritsLoose (subClass, superClass) {
+            subClass.prototype = Object.create(superClass.prototype)
+            subClass.prototype.constructor = subClass
+            subClass.__proto__ = superClass
+          }
 
-        /**
+          /**
            * @typedef {import('../../../types/index').Choices.ClassNames} ClassNames
            * @typedef {import('../../../types/index').Choices.Item} Item
            * @typedef {import('../../../types/index').Choices.Choice} Choice
            */
 
-        var WrappedSelect =
+          let WrappedSelect =
             /* #__PURE__ */
             (function (_WrappedElement) {
               wrapped_select_inheritsLoose(WrappedSelect, _WrappedElement)
@@ -2364,20 +3155,21 @@ var choices = createCommonjsModule(function (module, exports) {
                * }} args
                */
               function WrappedSelect (_ref) {
-                var _this
+                let _this
 
-                var element = _ref.element
-                var classNames = _ref.classNames
-                var template = _ref.template
-                _this = _WrappedElement.call(this, {
-                  element: element,
-                  classNames: classNames
-                }) || this
+                let element = _ref.element
+                let classNames = _ref.classNames
+                let template = _ref.template
+                _this =
+                  _WrappedElement.call(this, {
+                    element,
+                    classNames
+                  }) || this
                 _this.template = template
                 return _this
               }
 
-              var _proto = WrappedSelect.prototype
+              let _proto = WrappedSelect.prototype
 
               /**
                * @param {DocumentFragment} fragment
@@ -2387,59 +3179,62 @@ var choices = createCommonjsModule(function (module, exports) {
                 this.element.appendChild(fragment)
               }
 
-              wrapped_select_createClass(WrappedSelect, [{
-                key: 'placeholderOption',
-                get: function get () {
-                  return this.element.querySelector('option[value=""]') || // Backward compatibility layer for the non-standard placeholder attribute supported in older versions.
-                    this.element.querySelector('option[placeholder]')
+              wrapped_select_createClass(WrappedSelect, [
+                {
+                  key: 'placeholderOption',
+                  get: function get () {
+                    return (
+                      this.element.querySelector('option[value=""]') || // Backward compatibility layer for the non-standard placeholder attribute supported in older versions.
+                      this.element.querySelector('option[placeholder]')
+                    )
+                  }
+                  /**
+                   * @returns {Element[]}
+                   */
+                },
+                {
+                  key: 'optionGroups',
+                  get: function get () {
+                    return Array.from(this.element.getElementsByTagName('OPTGROUP'))
+                  }
+                  /**
+                   * @returns {Item[] | Choice[]}
+                   */
+                },
+                {
+                  key: 'options',
+                  get: function get () {
+                    return Array.from(this.element.options)
+                  },
+                  /**
+                   * @param {Item[] | Choice[]} options
+                   */ set: function set (options) {
+                    let _this2 = this
+
+                    let fragment = document.createDocumentFragment()
+
+                    let addOptionToFragment = function addOptionToFragment (data) {
+                      // Create a standard select option
+                      let option = _this2.template(data) // Append it to fragment
+
+                      fragment.appendChild(option)
+                    } // Add each list item to list
+
+                    options.forEach((optionData) => {
+                      return addOptionToFragment(optionData)
+                    })
+                    this.appendDocFragment(fragment)
+                  }
                 }
-                /**
-                 * @returns {Element[]}
-                 */
-
-              }, {
-                key: 'optionGroups',
-                get: function get () {
-                  return Array.from(this.element.getElementsByTagName('OPTGROUP'))
-                }
-                /**
-                 * @returns {Item[] | Choice[]}
-                 */
-
-              }, {
-                key: 'options',
-                get: function get () {
-                  return Array.from(this.element.options)
-                }, /**
-                 * @param {Item[] | Choice[]} options
-                 */
-
-                set: function set (options) {
-                  var _this2 = this
-
-                  var fragment = document.createDocumentFragment()
-
-                  var addOptionToFragment = function addOptionToFragment (data) {
-                    // Create a standard select option
-                    var option = _this2.template(data) // Append it to fragment
-
-                    fragment.appendChild(option)
-                  } // Add each list item to list
-
-                  options.forEach(function (optionData) {
-                    return addOptionToFragment(optionData)
-                  })
-                  this.appendDocFragment(fragment)
-                }
-              }])
+              ])
 
               return WrappedSelect
-            }(wrapped_element_WrappedElement))
+            })(wrapped_element_WrappedElement)
 
-        // CONCATENATED MODULE: ./src/scripts/components/index.js
+          // CONCATENATED MODULE: ./src/scripts/components/index.js
 
-        // CONCATENATED MODULE: ./src/scripts/templates.js
-        /**
+          // CONCATENATED MODULE: ./src/scripts/templates.js
+          /**
            * Helpers to create HTML elements used by Choices
            * Can be overridden by providing `callbackOnCreateTemplates` option
            * @typedef {import('../../types/index').Choices.Templates} Templates
@@ -2449,7 +3244,7 @@ var choices = createCommonjsModule(function (module, exports) {
            * @typedef {import('../../types/index').Choices.Choice} Choice
            * @typedef {import('../../types/index').Choices.Group} Group
            */
-        var TEMPLATES =
+          let TEMPLATES =
             /** @type {Templates} */
             {
               /**
@@ -2460,9 +3255,16 @@ var choices = createCommonjsModule(function (module, exports) {
                * @param {boolean} searchEnabled
                * @param {"select-one" | "select-multiple" | "text"} passedElementType
                */
-              containerOuter: function containerOuter (_ref, dir, isSelectElement, isSelectOneElement, searchEnabled, passedElementType) {
-                var _containerOuter = _ref.containerOuter
-                var div = Object.assign(document.createElement('div'), {
+              containerOuter: function containerOuter (
+                _ref,
+                dir,
+                isSelectElement,
+                isSelectOneElement,
+                searchEnabled,
+                passedElementType
+              ) {
+                let _containerOuter = _ref.containerOuter
+                let div = Object.assign(document.createElement('div'), {
                   className: _containerOuter
                 })
                 div.dataset.type = passedElementType
@@ -2492,7 +3294,7 @@ var choices = createCommonjsModule(function (module, exports) {
                * @param {Partial<ClassNames>} classNames
                */
               containerInner: function containerInner (_ref2) {
-                var _containerInner = _ref2.containerInner
+                let _containerInner = _ref2.containerInner
                 return Object.assign(document.createElement('div'), {
                   className: _containerInner
                 })
@@ -2503,11 +3305,11 @@ var choices = createCommonjsModule(function (module, exports) {
                * @param {boolean} isSelectOneElement
                */
               itemList: function itemList (_ref3, isSelectOneElement) {
-                var list = _ref3.list
-                var listSingle = _ref3.listSingle
-                var listItems = _ref3.listItems
+                let list = _ref3.list
+                let listSingle = _ref3.listSingle
+                let listItems = _ref3.listItems
                 return Object.assign(document.createElement('div'), {
-                  className: list + ' ' + (isSelectOneElement ? listSingle : listItems)
+                  className: `${list  } ${  isSelectOneElement ? listSingle : listItems}`
                 })
               },
 
@@ -2516,7 +3318,7 @@ var choices = createCommonjsModule(function (module, exports) {
                * @param {string} value
                */
               placeholder: function placeholder (_ref4, value) {
-                var _placeholder = _ref4.placeholder
+                let _placeholder = _ref4.placeholder
                 return Object.assign(document.createElement('div'), {
                   className: _placeholder,
                   innerHTML: value
@@ -2529,28 +3331,28 @@ var choices = createCommonjsModule(function (module, exports) {
                * @param {boolean} removeItemButton
                */
               item: function item (_ref5, _ref6, removeItemButton) {
-                var _item = _ref5.item
-                var button = _ref5.button
-                var highlightedState = _ref5.highlightedState
-                var itemSelectable = _ref5.itemSelectable
-                var placeholder = _ref5.placeholder
-                var id = _ref6.id
-                var value = _ref6.value
-                var label = _ref6.label
-                var customProperties = _ref6.customProperties
-                var active = _ref6.active
-                var disabled = _ref6.disabled
-                var highlighted = _ref6.highlighted
-                var isPlaceholder = _ref6.placeholder
-                var div = Object.assign(document.createElement('div'), {
+                let _item = _ref5.item
+                let button = _ref5.button
+                let highlightedState = _ref5.highlightedState
+                let itemSelectable = _ref5.itemSelectable
+                let placeholder = _ref5.placeholder
+                let id = _ref6.id
+                let value = _ref6.value
+                let label = _ref6.label
+                let customProperties = _ref6.customProperties
+                let active = _ref6.active
+                let disabled = _ref6.disabled
+                let highlighted = _ref6.highlighted
+                let isPlaceholder = _ref6.placeholder
+                let div = Object.assign(document.createElement('div'), {
                   className: _item,
                   innerHTML: label
                 })
                 Object.assign(div.dataset, {
                   item: '',
-                  id: id,
-                  value: value,
-                  customProperties: customProperties
+                  id,
+                  value,
+                  customProperties
                 })
 
                 if (active) {
@@ -2575,13 +3377,13 @@ var choices = createCommonjsModule(function (module, exports) {
                   div.dataset.deletable = ''
                   /** @todo This MUST be localizable, not hardcoded! */
 
-                  var REMOVE_ITEM_TEXT = 'Remove item'
-                  var removeButton = Object.assign(document.createElement('button'), {
+                  let REMOVE_ITEM_TEXT = 'Remove item'
+                  let removeButton = Object.assign(document.createElement('button'), {
                     type: 'button',
                     className: button,
                     innerHTML: REMOVE_ITEM_TEXT
                   })
-                  removeButton.setAttribute('aria-label', REMOVE_ITEM_TEXT + ": '" + value + "'")
+                  removeButton.setAttribute('aria-label', `${REMOVE_ITEM_TEXT  }: '${  value  }'`)
                   removeButton.dataset.button = ''
                   div.appendChild(removeButton)
                 }
@@ -2594,8 +3396,8 @@ var choices = createCommonjsModule(function (module, exports) {
                * @param {boolean} isSelectOneElement
                */
               choiceList: function choiceList (_ref7, isSelectOneElement) {
-                var list = _ref7.list
-                var div = Object.assign(document.createElement('div'), {
+                let list = _ref7.list
+                let div = Object.assign(document.createElement('div'), {
                   className: list
                 })
 
@@ -2612,30 +3414,32 @@ var choices = createCommonjsModule(function (module, exports) {
                * @param {Group} group
                */
               choiceGroup: function choiceGroup (_ref8, _ref9) {
-                var group = _ref8.group
-                var groupHeading = _ref8.groupHeading
-                var itemDisabled = _ref8.itemDisabled
-                var id = _ref9.id
-                var value = _ref9.value
-                var disabled = _ref9.disabled
-                var div = Object.assign(document.createElement('div'), {
-                  className: group + ' ' + (disabled ? itemDisabled : '')
+                let group = _ref8.group
+                let groupHeading = _ref8.groupHeading
+                let itemDisabled = _ref8.itemDisabled
+                let id = _ref9.id
+                let value = _ref9.value
+                let disabled = _ref9.disabled
+                let div = Object.assign(document.createElement('div'), {
+                  className: `${group  } ${  disabled ? itemDisabled : ''}`
                 })
                 div.setAttribute('role', 'group')
                 Object.assign(div.dataset, {
                   group: '',
-                  id: id,
-                  value: value
+                  id,
+                  value
                 })
 
                 if (disabled) {
                   div.setAttribute('aria-disabled', 'true')
                 }
 
-                div.appendChild(Object.assign(document.createElement('div'), {
-                  className: groupHeading,
-                  innerHTML: value
-                }))
+                div.appendChild(
+                  Object.assign(document.createElement('div'), {
+                    className: groupHeading,
+                    innerHTML: value
+                  })
+                )
                 return div
               },
 
@@ -2645,24 +3449,24 @@ var choices = createCommonjsModule(function (module, exports) {
                * @param {Options['itemSelectText']} selectText
                */
               choice: function choice (_ref10, _ref11, selectText) {
-                var item = _ref10.item
-                var itemChoice = _ref10.itemChoice
-                var itemSelectable = _ref10.itemSelectable
-                var selectedState = _ref10.selectedState
-                var itemDisabled = _ref10.itemDisabled
-                var placeholder = _ref10.placeholder
-                var id = _ref11.id
-                var value = _ref11.value
-                var label = _ref11.label
-                var groupId = _ref11.groupId
-                var elementId = _ref11.elementId
-                var isDisabled = _ref11.disabled
-                var isSelected = _ref11.selected
-                var isPlaceholder = _ref11.placeholder
-                var div = Object.assign(document.createElement('div'), {
+                let item = _ref10.item
+                let itemChoice = _ref10.itemChoice
+                let itemSelectable = _ref10.itemSelectable
+                let selectedState = _ref10.selectedState
+                let itemDisabled = _ref10.itemDisabled
+                let placeholder = _ref10.placeholder
+                let id = _ref11.id
+                let value = _ref11.value
+                let label = _ref11.label
+                let groupId = _ref11.groupId
+                let elementId = _ref11.elementId
+                let isDisabled = _ref11.disabled
+                let isSelected = _ref11.selected
+                let isPlaceholder = _ref11.placeholder
+                let div = Object.assign(document.createElement('div'), {
                   id: elementId,
                   innerHTML: label,
-                  className: item + ' ' + itemChoice
+                  className: `${item  } ${  itemChoice}`
                 })
 
                 if (isSelected) {
@@ -2676,9 +3480,9 @@ var choices = createCommonjsModule(function (module, exports) {
                 div.setAttribute('role', groupId > 0 ? 'treeitem' : 'option')
                 Object.assign(div.dataset, {
                   choice: '',
-                  id: id,
-                  value: value,
-                  selectText: selectText
+                  id,
+                  value,
+                  selectText
                 })
 
                 if (isDisabled) {
@@ -2698,11 +3502,11 @@ var choices = createCommonjsModule(function (module, exports) {
                * @param {string} placeholderValue
                */
               input: function input (_ref12, placeholderValue) {
-                var _input = _ref12.input
-                var inputCloned = _ref12.inputCloned
-                var inp = Object.assign(document.createElement('input'), {
+                let _input = _ref12.input
+                let inputCloned = _ref12.inputCloned
+                let inp = Object.assign(document.createElement('input'), {
                   type: 'text',
-                  className: _input + ' ' + inputCloned,
+                  className: `${_input  } ${  inputCloned}`,
                   autocomplete: 'off',
                   autocapitalize: 'off',
                   spellcheck: false
@@ -2717,9 +3521,9 @@ var choices = createCommonjsModule(function (module, exports) {
                * @param {Partial<ClassNames>} classNames
                */
               dropdown: function dropdown (_ref13) {
-                var list = _ref13.list
-                var listDropdown = _ref13.listDropdown
-                var div = document.createElement('div')
+                let list = _ref13.list
+                let listDropdown = _ref13.listDropdown
+                let div = document.createElement('div')
                 div.classList.add(list, listDropdown)
                 div.setAttribute('aria-expanded', 'false')
                 return div
@@ -2732,16 +3536,16 @@ var choices = createCommonjsModule(function (module, exports) {
                * @param {"no-choices" | "no-results" | ""} type
                */
               notice: function notice (_ref14, innerHTML, type) {
-                var item = _ref14.item
-                var itemChoice = _ref14.itemChoice
-                var noResults = _ref14.noResults
-                var noChoices = _ref14.noChoices
+                let item = _ref14.item
+                let itemChoice = _ref14.itemChoice
+                let noResults = _ref14.noResults
+                let noChoices = _ref14.noChoices
 
                 if (type === void 0) {
                   type = ''
                 }
 
-                var classes = [item, itemChoice]
+                let classes = [item, itemChoice]
 
                 if (type === 'no-choices') {
                   classes.push(noChoices)
@@ -2750,7 +3554,7 @@ var choices = createCommonjsModule(function (module, exports) {
                 }
 
                 return Object.assign(document.createElement('div'), {
-                  innerHTML: innerHTML,
+                  innerHTML,
                   className: classes.join(' ')
                 })
               },
@@ -2759,12 +3563,12 @@ var choices = createCommonjsModule(function (module, exports) {
                * @param {Item} option
                */
               option: function option (_ref15) {
-                var label = _ref15.label
-                var value = _ref15.value
-                var customProperties = _ref15.customProperties
-                var active = _ref15.active
-                var disabled = _ref15.disabled
-                var opt = new Option(label, value, false, active)
+                let label = _ref15.label
+                let value = _ref15.value
+                let customProperties = _ref15.customProperties
+                let active = _ref15.active
+                let disabled = _ref15.disabled
+                let opt = new Option(label, value, false, active)
 
                 if (customProperties) {
                   opt.dataset.customProperties = customProperties
@@ -2774,243 +3578,256 @@ var choices = createCommonjsModule(function (module, exports) {
                 return opt
               }
             }
-        // CONCATENATED MODULE: ./src/scripts/actions/choices.js
-        /**
+          // CONCATENATED MODULE: ./src/scripts/actions/choices.js
+          /**
            * @typedef {import('redux').Action} Action
            * @typedef {import('../../../types/index').Choices.Choice} Choice
            */
 
-        /**
+          /**
            * @argument {Choice} choice
            * @returns {Action & Choice}
            */
 
-        var choices_addChoice = function addChoice (_ref) {
-          var value = _ref.value
-          var label = _ref.label
-          var id = _ref.id
-          var groupId = _ref.groupId
-          var disabled = _ref.disabled
-          var elementId = _ref.elementId
-          var customProperties = _ref.customProperties
-          var placeholder = _ref.placeholder
-          var keyCode = _ref.keyCode
-          return {
-            type: ACTION_TYPES.ADD_CHOICE,
-            value: value,
-            label: label,
-            id: id,
-            groupId: groupId,
-            disabled: disabled,
-            elementId: elementId,
-            customProperties: customProperties,
-            placeholder: placeholder,
-            keyCode: keyCode
+          let choices_addChoice = function addChoice (_ref) {
+            let value = _ref.value
+            let label = _ref.label
+            let id = _ref.id
+            let groupId = _ref.groupId
+            let disabled = _ref.disabled
+            let elementId = _ref.elementId
+            let customProperties = _ref.customProperties
+            let placeholder = _ref.placeholder
+            let keyCode = _ref.keyCode
+            return {
+              type: ACTION_TYPES.ADD_CHOICE,
+              value,
+              label,
+              id,
+              groupId,
+              disabled,
+              elementId,
+              customProperties,
+              placeholder,
+              keyCode
+            }
           }
-        }
-        /**
+          /**
            * @argument {Choice[]} results
            * @returns {Action & { results: Choice[] }}
            */
 
-        var choices_filterChoices = function filterChoices (results) {
-          return {
-            type: ACTION_TYPES.FILTER_CHOICES,
-            results: results
+          let choices_filterChoices = function filterChoices (results) {
+            return {
+              type: ACTION_TYPES.FILTER_CHOICES,
+              results
+            }
           }
-        }
-        /**
+          /**
            * @argument {boolean} active
            * @returns {Action & { active: boolean }}
            */
 
-        var choices_activateChoices = function activateChoices (active) {
-          if (active === void 0) {
-            active = true
-          }
+          let choices_activateChoices = function activateChoices (active) {
+            if (active === void 0) {
+              active = true
+            }
 
-          return {
-            type: ACTION_TYPES.ACTIVATE_CHOICES,
-            active: active
+            return {
+              type: ACTION_TYPES.ACTIVATE_CHOICES,
+              active
+            }
           }
-        }
-        /**
+          /**
            * @returns {Action}
            */
 
-        var choices_clearChoices = function clearChoices () {
-          return {
-            type: ACTION_TYPES.CLEAR_CHOICES
+          let choices_clearChoices = function clearChoices () {
+            return {
+              type: ACTION_TYPES.CLEAR_CHOICES
+            }
           }
-        }
-        // CONCATENATED MODULE: ./src/scripts/actions/items.js
+          // CONCATENATED MODULE: ./src/scripts/actions/items.js
 
-        /**
+          /**
            * @typedef {import('redux').Action} Action
            * @typedef {import('../../../types/index').Choices.Item} Item
            */
 
-        /**
+          /**
            * @param {Item} item
            * @returns {Action & Item}
            */
 
-        var items_addItem = function addItem (_ref) {
-          var value = _ref.value
-          var label = _ref.label
-          var id = _ref.id
-          var choiceId = _ref.choiceId
-          var groupId = _ref.groupId
-          var customProperties = _ref.customProperties
-          var placeholder = _ref.placeholder
-          var keyCode = _ref.keyCode
-          return {
-            type: ACTION_TYPES.ADD_ITEM,
-            value: value,
-            label: label,
-            id: id,
-            choiceId: choiceId,
-            groupId: groupId,
-            customProperties: customProperties,
-            placeholder: placeholder,
-            keyCode: keyCode
+          let items_addItem = function addItem (_ref) {
+            let value = _ref.value
+            let label = _ref.label
+            let id = _ref.id
+            let choiceId = _ref.choiceId
+            let groupId = _ref.groupId
+            let customProperties = _ref.customProperties
+            let placeholder = _ref.placeholder
+            let keyCode = _ref.keyCode
+            return {
+              type: ACTION_TYPES.ADD_ITEM,
+              value,
+              label,
+              id,
+              choiceId,
+              groupId,
+              customProperties,
+              placeholder,
+              keyCode
+            }
           }
-        }
-        /**
+          /**
            * @param {string} id
            * @param {string} choiceId
            * @returns {Action & { id: string, choiceId: string }}
            */
 
-        var items_removeItem = function removeItem (id, choiceId) {
-          return {
-            type: ACTION_TYPES.REMOVE_ITEM,
-            id: id,
-            choiceId: choiceId
+          let items_removeItem = function removeItem (id, choiceId) {
+            return {
+              type: ACTION_TYPES.REMOVE_ITEM,
+              id,
+              choiceId
+            }
           }
-        }
-        /**
+          /**
            * @param {string} id
            * @param {boolean} highlighted
            * @returns {Action & { id: string, highlighted: boolean }}
            */
 
-        var items_highlightItem = function highlightItem (id, highlighted) {
-          return {
-            type: ACTION_TYPES.HIGHLIGHT_ITEM,
-            id: id,
-            highlighted: highlighted
+          let items_highlightItem = function highlightItem (id, highlighted) {
+            return {
+              type: ACTION_TYPES.HIGHLIGHT_ITEM,
+              id,
+              highlighted
+            }
           }
-        }
-        // CONCATENATED MODULE: ./src/scripts/actions/groups.js
+          // CONCATENATED MODULE: ./src/scripts/actions/groups.js
 
-        /**
+          /**
            * @typedef {import('redux').Action} Action
            * @typedef {import('../../../types/index').Choices.Group} Group
            */
 
-        /**
+          /**
            * @param {Group} group
            * @returns {Action & Group}
            */
 
-        var groups_addGroup = function addGroup (_ref) {
-          var value = _ref.value
-          var id = _ref.id
-          var active = _ref.active
-          var disabled = _ref.disabled
-          return {
-            type: ACTION_TYPES.ADD_GROUP,
-            value: value,
-            id: id,
-            active: active,
-            disabled: disabled
+          let groups_addGroup = function addGroup (_ref) {
+            let value = _ref.value
+            let id = _ref.id
+            let active = _ref.active
+            let disabled = _ref.disabled
+            return {
+              type: ACTION_TYPES.ADD_GROUP,
+              value,
+              id,
+              active,
+              disabled
+            }
           }
-        }
-        // CONCATENATED MODULE: ./src/scripts/actions/misc.js
-        /**
+          // CONCATENATED MODULE: ./src/scripts/actions/misc.js
+          /**
            * @typedef {import('redux').Action} Action
            */
 
-        /**
+          /**
            * @returns {Action}
            */
-        var clearAll = function clearAll () {
-          return {
-            type: 'CLEAR_ALL'
+          let clearAll = function clearAll () {
+            return {
+              type: 'CLEAR_ALL'
+            }
           }
-        }
-        /**
+          /**
            * @param {any} state
            * @returns {Action & { state: object }}
            */
 
-        var resetTo = function resetTo (state) {
-          return {
-            type: 'RESET_TO',
-            state: state
+          let resetTo = function resetTo (state) {
+            return {
+              type: 'RESET_TO',
+              state
+            }
           }
-        }
-        /**
+          /**
            * @param {boolean} isLoading
            * @returns {Action & { isLoading: boolean }}
            */
 
-        var setIsLoading = function setIsLoading (isLoading) {
-          return {
-            type: 'SET_IS_LOADING',
-            isLoading: isLoading
+          let setIsLoading = function setIsLoading (isLoading) {
+            return {
+              type: 'SET_IS_LOADING',
+              isLoading
+            }
           }
-        }
-        // CONCATENATED MODULE: ./src/scripts/choices.js
-        function choices_defineProperties (target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor) } }
+          // CONCATENATED MODULE: ./src/scripts/choices.js
+          function choices_defineProperties (target, props) {
+            for (let i = 0; i < props.length; i++) {
+              let descriptor = props[i]
+              descriptor.enumerable = descriptor.enumerable || false
+              descriptor.configurable = true
+              if ('value' in descriptor) descriptor.writable = true
+              Object.defineProperty(target, descriptor.key, descriptor)
+            }
+          }
 
-        function choices_createClass (Constructor, protoProps, staticProps) { if (protoProps) choices_defineProperties(Constructor.prototype, protoProps); if (staticProps) choices_defineProperties(Constructor, staticProps); return Constructor }
+          function choices_createClass (Constructor, protoProps, staticProps) {
+            if (protoProps) choices_defineProperties(Constructor.prototype, protoProps)
+            if (staticProps) choices_defineProperties(Constructor, staticProps)
+            return Constructor
+          }
 
-        /** @see {@link http://browserhacks.com/#hack-acea075d0ac6954f275a70023906050c} */
+          /** @see {@link http://browserhacks.com/#hack-acea075d0ac6954f275a70023906050c} */
 
-        var IS_IE11 = '-ms-scroll-limit' in document.documentElement.style && '-ms-ime-align' in document.documentElement.style
-        /**
+          let IS_IE11 =
+            '-ms-scroll-limit' in document.documentElement.style && '-ms-ime-align' in document.documentElement.style
+          /**
            * @typedef {import('../../types/index').Choices.Choice} Choice
            * @typedef {import('../../types/index').Choices.Item} Item
            * @typedef {import('../../types/index').Choices.Group} Group
            * @typedef {import('../../types/index').Choices.Options} Options
            */
 
-        /** @type {Partial<Options>} */
+          /** @type {Partial<Options>} */
 
-        var USER_DEFAULTS = {}
-        /**
+          let USER_DEFAULTS = {}
+          /**
            * Choices
            * @author Josh Johnson<josh@joshuajohnson.co.uk>
            */
 
-        var choices_Choices =
+          let choices_Choices =
             /* #__PURE__ */
             (function () {
-              choices_createClass(Choices, null, [{
-                key: 'defaults',
-                get: function get () {
-                  return Object.preventExtensions({
-                    get options () {
-                      return USER_DEFAULTS
-                    },
+              choices_createClass(Choices, null, [
+                {
+                  key: 'defaults',
+                  get: function get () {
+                    return Object.preventExtensions({
+                      get options () {
+                        return USER_DEFAULTS
+                      },
 
-                    get templates () {
-                      return TEMPLATES
-                    }
-
-                  })
+                      get templates () {
+                        return TEMPLATES
+                      }
+                    })
+                  }
+                  /**
+                   * @param {string | HTMLInputElement | HTMLSelectElement} element
+                   * @param {Partial<Options>} userConfig
+                   */
                 }
-                /**
-                 * @param {string | HTMLInputElement | HTMLSelectElement} element
-                 * @param {Partial<Options>} userConfig
-                 */
-
-              }])
+              ])
 
               function Choices (element, userConfig) {
-                var _this = this
+                let _this = this
 
                 if (element === void 0) {
                   element = '[data-choice]'
@@ -3021,20 +3838,22 @@ var choices = createCommonjsModule(function (module, exports) {
                 }
 
                 /** @type {Partial<Options>} */
-                this.config = cjs_default.a.all([DEFAULT_CONFIG, Choices.defaults.options, userConfig], // When merging array configs, replace with a copy of the userConfig array,
+                this.config = cjs_default.a.all(
+                  [DEFAULT_CONFIG, Choices.defaults.options, userConfig], // When merging array configs, replace with a copy of the userConfig array,
                   // instead of concatenating with the default array
                   {
                     arrayMerge: function arrayMerge (_, sourceArray) {
                       return [].concat(sourceArray)
                     }
-                  })
-                var invalidConfigOptions = diff(this.config, DEFAULT_CONFIG)
+                  }
+                )
+                let invalidConfigOptions = diff(this.config, DEFAULT_CONFIG)
 
                 if (invalidConfigOptions.length) {
                   console.warn('Unknown config option(s) passed', invalidConfigOptions.join(', '))
                 }
 
-                var passedElement = typeof element === 'string' ? document.querySelector(element) : element
+                let passedElement = typeof element === 'string' ? document.querySelector(element) : element
 
                 if (!(passedElement instanceof HTMLInputElement || passedElement instanceof HTMLSelectElement)) {
                   throw TypeError('Expected one of the following types text|select-one|select-multiple')
@@ -3051,7 +3870,10 @@ var choices = createCommonjsModule(function (module, exports) {
                 }
 
                 if (userConfig.addItemFilter && typeof userConfig.addItemFilter !== 'function') {
-                  var re = userConfig.addItemFilter instanceof RegExp ? userConfig.addItemFilter : new RegExp(userConfig.addItemFilter)
+                  let re =
+                    userConfig.addItemFilter instanceof RegExp
+                      ? userConfig.addItemFilter
+                      : new RegExp(userConfig.addItemFilter)
                   this.config.addItemFilter = re.test.bind(re)
                 }
 
@@ -3092,11 +3914,11 @@ var choices = createCommonjsModule(function (module, exports) {
                 this._direction = this.passedElement.dir
 
                 if (!this._direction) {
-                  var _window$getComputedSt = window.getComputedStyle(this.passedElement.element)
-                  var elementDirection = _window$getComputedSt.direction
+                  let _window$getComputedSt = window.getComputedStyle(this.passedElement.element)
+                  let elementDirection = _window$getComputedSt.direction
 
-                  var _window$getComputedSt2 = window.getComputedStyle(document.documentElement)
-                  var documentDirection = _window$getComputedSt2.direction
+                  let _window$getComputedSt2 = window.getComputedStyle(document.documentElement)
+                  let documentDirection = _window$getComputedSt2.direction
 
                   if (elementDirection !== documentDirection) {
                     this._direction = elementDirection
@@ -3120,7 +3942,7 @@ var choices = createCommonjsModule(function (module, exports) {
                 } // Create array of choices from option elements
 
                 if (this.passedElement.options) {
-                  this.passedElement.options.forEach(function (o) {
+                  this.passedElement.options.forEach((o) => {
                     _this._presetChoices.push({
                       value: o.value,
                       label: o.innerHTML,
@@ -3161,7 +3983,7 @@ var choices = createCommonjsModule(function (module, exports) {
                 this.init()
               }
 
-              var _proto = Choices.prototype
+              let _proto = Choices.prototype
 
               _proto.init = function init () {
                 if (this.initialised) {
@@ -3183,14 +4005,14 @@ var choices = createCommonjsModule(function (module, exports) {
 
                 this._addEventListeners()
 
-                var shouldDisable = !this.config.addItems || this.passedElement.element.hasAttribute('disabled')
+                let shouldDisable = !this.config.addItems || this.passedElement.element.hasAttribute('disabled')
 
                 if (shouldDisable) {
                   this.disable()
                 }
 
                 this.initialised = true
-                var callbackOnInit = this.config.callbackOnInit // Run callback if it is a function
+                let callbackOnInit = this.config.callbackOnInit // Run callback if it is a function
 
                 if (callbackOnInit && typeof callbackOnInit === 'function') {
                   callbackOnInit.call(this)
@@ -3255,22 +4077,22 @@ var choices = createCommonjsModule(function (module, exports) {
                   return this
                 }
 
-                var id = item.id
-                var _item$groupId = item.groupId
-                var groupId = _item$groupId === void 0 ? -1 : _item$groupId
-                var _item$value = item.value
-                var value = _item$value === void 0 ? '' : _item$value
-                var _item$label = item.label
-                var label = _item$label === void 0 ? '' : _item$label
-                var group = groupId >= 0 ? this._store.getGroupById(groupId) : null
+                let id = item.id
+                let _item$groupId = item.groupId
+                let groupId = _item$groupId === void 0 ? -1 : _item$groupId
+                let _item$value = item.value
+                let value = _item$value === void 0 ? '' : _item$value
+                let _item$label = item.label
+                let label = _item$label === void 0 ? '' : _item$label
+                let group = groupId >= 0 ? this._store.getGroupById(groupId) : null
 
                 this._store.dispatch(items_highlightItem(id, true))
 
                 if (runEvent) {
                   this.passedElement.triggerEvent(EVENTS.highlightItem, {
-                    id: id,
-                    value: value,
-                    label: label,
+                    id,
+                    value,
+                    label,
                     groupValue: group && group.value ? group.value : null
                   })
                 }
@@ -3283,30 +4105,30 @@ var choices = createCommonjsModule(function (module, exports) {
                   return this
                 }
 
-                var id = item.id
-                var _item$groupId2 = item.groupId
-                var groupId = _item$groupId2 === void 0 ? -1 : _item$groupId2
-                var _item$value2 = item.value
-                var value = _item$value2 === void 0 ? '' : _item$value2
-                var _item$label2 = item.label
-                var label = _item$label2 === void 0 ? '' : _item$label2
-                var group = groupId >= 0 ? this._store.getGroupById(groupId) : null
+                let id = item.id
+                let _item$groupId2 = item.groupId
+                let groupId = _item$groupId2 === void 0 ? -1 : _item$groupId2
+                let _item$value2 = item.value
+                let value = _item$value2 === void 0 ? '' : _item$value2
+                let _item$label2 = item.label
+                let label = _item$label2 === void 0 ? '' : _item$label2
+                let group = groupId >= 0 ? this._store.getGroupById(groupId) : null
 
                 this._store.dispatch(items_highlightItem(id, false))
 
                 this.passedElement.triggerEvent(EVENTS.highlightItem, {
-                  id: id,
-                  value: value,
-                  label: label,
+                  id,
+                  value,
+                  label,
                   groupValue: group && group.value ? group.value : null
                 })
                 return this
               }
 
               _proto.highlightAll = function highlightAll () {
-                var _this2 = this
+                let _this2 = this
 
-                this._store.items.forEach(function (item) {
+                this._store.items.forEach((item) => {
                   return _this2.highlightItem(item)
                 })
 
@@ -3314,9 +4136,9 @@ var choices = createCommonjsModule(function (module, exports) {
               }
 
               _proto.unhighlightAll = function unhighlightAll () {
-                var _this3 = this
+                let _this3 = this
 
-                this._store.items.forEach(function (item) {
+                this._store.items.forEach((item) => {
                   return _this3.unhighlightItem(item)
                 })
 
@@ -3324,38 +4146,42 @@ var choices = createCommonjsModule(function (module, exports) {
               }
 
               _proto.removeActiveItemsByValue = function removeActiveItemsByValue (value) {
-                var _this4 = this
+                let _this4 = this
 
-                this._store.activeItems.filter(function (item) {
-                  return item.value === value
-                }).forEach(function (item) {
-                  return _this4._removeItem(item)
-                })
+                this._store.activeItems
+                  .filter((item) => {
+                    return item.value === value
+                  })
+                  .forEach((item) => {
+                    return _this4._removeItem(item)
+                  })
 
                 return this
               }
 
               _proto.removeActiveItems = function removeActiveItems (excludedId) {
-                var _this5 = this
+                let _this5 = this
 
-                this._store.activeItems.filter(function (_ref) {
-                  var id = _ref.id
-                  return id !== excludedId
-                }).forEach(function (item) {
-                  return _this5._removeItem(item)
-                })
+                this._store.activeItems
+                  .filter((_ref) => {
+                    let id = _ref.id
+                    return id !== excludedId
+                  })
+                  .forEach((item) => {
+                    return _this5._removeItem(item)
+                  })
 
                 return this
               }
 
               _proto.removeHighlightedItems = function removeHighlightedItems (runEvent) {
-                var _this6 = this
+                let _this6 = this
 
                 if (runEvent === void 0) {
                   runEvent = false
                 }
 
-                this._store.highlightedActiveItems.forEach(function (item) {
+                this._store.highlightedActiveItems.forEach((item) => {
                   _this6._removeItem(item) // If this action was performed by the user
                   // trigger the event
 
@@ -3368,13 +4194,13 @@ var choices = createCommonjsModule(function (module, exports) {
               }
 
               _proto.showDropdown = function showDropdown (preventInputFocus) {
-                var _this7 = this
+                let _this7 = this
 
                 if (this.dropdown.isActive) {
                   return this
                 }
 
-                requestAnimationFrame(function () {
+                requestAnimationFrame(() => {
                   _this7.dropdown.show()
 
                   _this7.containerOuter.open(_this7.dropdown.distanceFromTopWindow)
@@ -3389,13 +4215,13 @@ var choices = createCommonjsModule(function (module, exports) {
               }
 
               _proto.hideDropdown = function hideDropdown (preventInputBlur) {
-                var _this8 = this
+                let _this8 = this
 
                 if (!this.dropdown.isActive) {
                   return this
                 }
 
-                requestAnimationFrame(function () {
+                requestAnimationFrame(() => {
                   _this8.dropdown.hide()
 
                   _this8.containerOuter.close()
@@ -3416,8 +4242,8 @@ var choices = createCommonjsModule(function (module, exports) {
                   valueOnly = false
                 }
 
-                var values = this._store.activeItems.reduce(function (selectedItems, item) {
-                  var itemValue = valueOnly ? item.value : item
+                let values = this._store.activeItems.reduce((selectedItems, item) => {
+                  let itemValue = valueOnly ? item.value : item
                   selectedItems.push(itemValue)
                   return selectedItems
                 }, [])
@@ -3429,28 +4255,28 @@ var choices = createCommonjsModule(function (module, exports) {
                */
 
               _proto.setValue = function setValue (items) {
-                var _this9 = this
+                let _this9 = this
 
                 if (!this.initialised) {
                   return this
                 }
 
-                items.forEach(function (value) {
+                items.forEach((value) => {
                   return _this9._setChoiceOrItem(value)
                 })
                 return this
               }
 
               _proto.setChoiceByValue = function setChoiceByValue (value) {
-                var _this10 = this
+                let _this10 = this
 
                 if (!this.initialised || this._isTextElement) {
                   return this
                 } // If only one value has been passed, convert to array
 
-                var choiceValue = Array.isArray(value) ? value : [value] // Loop through each value and
+                let choiceValue = Array.isArray(value) ? value : [value] // Loop through each value and
 
-                choiceValue.forEach(function (val) {
+                choiceValue.forEach((val) => {
                   return _this10._findAndSelectChoiceByValue(val)
                 })
                 return this
@@ -3527,7 +4353,7 @@ var choices = createCommonjsModule(function (module, exports) {
                */
 
               _proto.setChoices = function setChoices (choicesArrayOrFetcher, value, label, replaceChoices) {
-                var _this11 = this
+                let _this11 = this
 
                 if (choicesArrayOrFetcher === void 0) {
                   choicesArrayOrFetcher = []
@@ -3563,46 +4389,57 @@ var choices = createCommonjsModule(function (module, exports) {
 
                 if (typeof choicesArrayOrFetcher === 'function') {
                   // it's a choices fetcher function
-                  var fetcher = choicesArrayOrFetcher(this)
+                  let fetcher = choicesArrayOrFetcher(this)
 
                   if (typeof Promise === 'function' && fetcher instanceof Promise) {
                     // that's a promise
                     // eslint-disable-next-line compat/compat
-                    return new Promise(function (resolve) {
+                    return new Promise(((resolve) => {
                       return requestAnimationFrame(resolve)
-                    }).then(function () {
-                      return _this11._handleLoadingState(true)
-                    }).then(function () {
-                      return fetcher
-                    }).then(function (data) {
-                      return _this11.setChoices(data, value, label, replaceChoices)
-                    }).catch(function (err) {
-                      if (!_this11.config.silent) {
-                        console.error(err)
-                      }
-                    }).then(function () {
-                      return _this11._handleLoadingState(false)
-                    }).then(function () {
-                      return _this11
-                    })
+                    }))
+                      .then(() => {
+                        return _this11._handleLoadingState(true)
+                      })
+                      .then(() => {
+                        return fetcher
+                      })
+                      .then((data) => {
+                        return _this11.setChoices(data, value, label, replaceChoices)
+                      })
+                      .catch((err) => {
+                        if (!_this11.config.silent) {
+                          console.error(err)
+                        }
+                      })
+                      .then(() => {
+                        return _this11._handleLoadingState(false)
+                      })
+                      .then(() => {
+                        return _this11
+                      })
                   } // function returned something else than promise, let's check if it's an array of choices
 
                   if (!Array.isArray(fetcher)) {
-                    throw new TypeError('.setChoices first argument function must return either array of choices or Promise, got: ' + typeof fetcher)
+                    throw new TypeError(
+                      `.setChoices first argument function must return either array of choices or Promise, got: ${ 
+                        typeof fetcher}`
+                    )
                   } // recursion with results, it's sync and choices were cleared already
 
                   return this.setChoices(fetcher, value, label, false)
                 }
 
                 if (!Array.isArray(choicesArrayOrFetcher)) {
-                  throw new TypeError('.setChoices must be called either with array of choices with a function resulting into Promise of array of choices')
+                  throw new TypeError(
+                    '.setChoices must be called either with array of choices with a function resulting into Promise of array of choices'
+                  )
                 }
 
                 this.containerOuter.removeLoadingState()
 
                 this._startLoading()
 
-                choicesArrayOrFetcher.forEach(function (groupOrChoice) {
+                choicesArrayOrFetcher.forEach((groupOrChoice) => {
                   if (groupOrChoice.choices) {
                     _this11._addGroup({
                       id: parseInt(groupOrChoice.id, 10) || null,
@@ -3640,7 +4477,7 @@ var choices = createCommonjsModule(function (module, exports) {
               }
 
               _proto.clearInput = function clearInput () {
-                var shouldSetInputWidth = !this._isSelectOneElement
+                let shouldSetInputWidth = !this._isSelectOneElement
                 this.input.clear(shouldSetInputWidth)
 
                 if (!this._isTextElement && this._canSearch) {
@@ -3658,9 +4495,12 @@ var choices = createCommonjsModule(function (module, exports) {
                 }
 
                 this._currentState = this._store.state
-                var stateChanged = this._currentState.choices !== this._prevState.choices || this._currentState.groups !== this._prevState.groups || this._currentState.items !== this._prevState.items
-                var shouldRenderChoices = this._isSelectElement
-                var shouldRenderItems = this._currentState.items !== this._prevState.items
+                let stateChanged =
+                  this._currentState.choices !== this._prevState.choices ||
+                  this._currentState.groups !== this._prevState.groups ||
+                  this._currentState.items !== this._prevState.items
+                let shouldRenderChoices = this._isSelectElement
+                let shouldRenderItems = this._currentState.items !== this._prevState.items
 
                 if (!stateChanged) {
                   return
@@ -3678,23 +4518,23 @@ var choices = createCommonjsModule(function (module, exports) {
               }
 
               _proto._renderChoices = function _renderChoices () {
-                var _this12 = this
+                let _this12 = this
 
-                var _this$_store = this._store
-                var activeGroups = _this$_store.activeGroups
-                var activeChoices = _this$_store.activeChoices
-                var choiceListFragment = document.createDocumentFragment()
+                let _this$_store = this._store
+                let activeGroups = _this$_store.activeGroups
+                let activeChoices = _this$_store.activeChoices
+                let choiceListFragment = document.createDocumentFragment()
                 this.choiceList.clear()
 
                 if (this.config.resetScrollPosition) {
-                  requestAnimationFrame(function () {
+                  requestAnimationFrame(() => {
                     return _this12.choiceList.scrollToTop()
                   })
                 } // If we have grouped options
 
                 if (activeGroups.length >= 1 && !this._isSearching) {
                   // If we have a placeholder choice along with groups
-                  var activePlaceholders = activeChoices.filter(function (activeChoice) {
+                  let activePlaceholders = activeChoices.filter((activeChoice) => {
                     return activeChoice.placeholder === true && activeChoice.groupId === -1
                   })
 
@@ -3708,9 +4548,9 @@ var choices = createCommonjsModule(function (module, exports) {
                 } // If we have choices to show
 
                 if (choiceListFragment.childNodes && choiceListFragment.childNodes.length > 0) {
-                  var activeItems = this._store.activeItems
+                  let activeItems = this._store.activeItems
 
-                  var canAddItem = this._canAddItem(activeItems, this.input.value) // ...and we can select them
+                  let canAddItem = this._canAddItem(activeItems, this.input.value) // ...and we can select them
 
                   if (canAddItem.response) {
                     // ...append them and highlight the first choice
@@ -3723,14 +4563,20 @@ var choices = createCommonjsModule(function (module, exports) {
                   }
                 } else {
                   // Otherwise show a notice
-                  var dropdownItem
-                  var notice
+                  let dropdownItem
+                  let notice
 
                   if (this._isSearching) {
-                    notice = typeof this.config.noResultsText === 'function' ? this.config.noResultsText() : this.config.noResultsText
+                    notice =
+                      typeof this.config.noResultsText === 'function'
+                        ? this.config.noResultsText()
+                        : this.config.noResultsText
                     dropdownItem = this._getTemplate('notice', notice, 'no-results')
                   } else {
-                    notice = typeof this.config.noChoicesText === 'function' ? this.config.noChoicesText() : this.config.noChoicesText
+                    notice =
+                      typeof this.config.noChoicesText === 'function'
+                        ? this.config.noChoicesText()
+                        : this.config.noChoicesText
                     dropdownItem = this._getTemplate('notice', notice, 'no-choices')
                   }
 
@@ -3739,11 +4585,11 @@ var choices = createCommonjsModule(function (module, exports) {
               }
 
               _proto._renderItems = function _renderItems () {
-                var activeItems = this._store.activeItems || []
+                let activeItems = this._store.activeItems || []
                 this.itemList.clear() // Create a fragment to store our list items
                 // (so we don't have to update the DOM for each item)
 
-                var itemListFragment = this._createItemsFragment(activeItems) // If we have items to add, append them
+                let itemListFragment = this._createItemsFragment(activeItems) // If we have items to add, append them
 
                 if (itemListFragment.childNodes) {
                   this.itemList.append(itemListFragment)
@@ -3751,19 +4597,22 @@ var choices = createCommonjsModule(function (module, exports) {
               }
 
               _proto._createGroupsFragment = function _createGroupsFragment (groups, choices, fragment) {
-                var _this13 = this
+                let _this13 = this
 
                 if (fragment === void 0) {
                   fragment = document.createDocumentFragment()
                 }
 
-                var getGroupChoices = function getGroupChoices (group) {
-                  return choices.filter(function (choice) {
+                let getGroupChoices = function getGroupChoices (group) {
+                  return choices.filter((choice) => {
                     if (_this13._isSelectOneElement) {
                       return choice.groupId === group.id
                     }
 
-                    return choice.groupId === group.id && (_this13.config.renderSelectedChoices === 'always' || !choice.selected)
+                    return (
+                      choice.groupId === group.id &&
+                      (_this13.config.renderSelectedChoices === 'always' || !choice.selected)
+                    )
                   })
                 } // If sorting is enabled, filter groups
 
@@ -3771,11 +4620,11 @@ var choices = createCommonjsModule(function (module, exports) {
                   groups.sort(this.config.sorter)
                 }
 
-                groups.forEach(function (group) {
-                  var groupChoices = getGroupChoices(group)
+                groups.forEach((group) => {
+                  let groupChoices = getGroupChoices(group)
 
                   if (groupChoices.length >= 1) {
-                    var dropdownGroup = _this13._getTemplate('choiceGroup', group)
+                    let dropdownGroup = _this13._getTemplate('choiceGroup', group)
 
                     fragment.appendChild(dropdownGroup)
 
@@ -3786,7 +4635,7 @@ var choices = createCommonjsModule(function (module, exports) {
               }
 
               _proto._createChoicesFragment = function _createChoicesFragment (choices, fragment, withinGroup) {
-                var _this14 = this
+                let _this14 = this
 
                 if (fragment === void 0) {
                   fragment = document.createDocumentFragment()
@@ -3797,52 +4646,58 @@ var choices = createCommonjsModule(function (module, exports) {
                 }
 
                 // Create a fragment to store our list items (so we don't have to update the DOM for each item)
-                var _this$config = this.config
-                var renderSelectedChoices = _this$config.renderSelectedChoices
-                var searchResultLimit = _this$config.searchResultLimit
-                var renderChoiceLimit = _this$config.renderChoiceLimit
-                var filter = this._isSearching ? sortByScore : this.config.sorter
+                let _this$config = this.config
+                let renderSelectedChoices = _this$config.renderSelectedChoices
+                let searchResultLimit = _this$config.searchResultLimit
+                let renderChoiceLimit = _this$config.renderChoiceLimit
+                let filter = this._isSearching ? sortByScore : this.config.sorter
 
-                var appendChoice = function appendChoice (choice) {
-                  var shouldRender = renderSelectedChoices === 'auto' ? _this14._isSelectOneElement || !choice.selected : true
+                let appendChoice = function appendChoice (choice) {
+                  let shouldRender =
+                    renderSelectedChoices === 'auto' ? _this14._isSelectOneElement || !choice.selected : true
 
                   if (shouldRender) {
-                    var dropdownItem = _this14._getTemplate('choice', choice, _this14.config.itemSelectText)
+                    let dropdownItem = _this14._getTemplate('choice', choice, _this14.config.itemSelectText)
 
                     fragment.appendChild(dropdownItem)
                   }
                 }
 
-                var rendererableChoices = choices
+                let rendererableChoices = choices
 
                 if (renderSelectedChoices === 'auto' && !this._isSelectOneElement) {
-                  rendererableChoices = choices.filter(function (choice) {
+                  rendererableChoices = choices.filter((choice) => {
                     return !choice.selected
                   })
                 } // Split array into placeholders and "normal" choices
 
-                var _rendererableChoices$ = rendererableChoices.reduce(function (acc, choice) {
-                  if (choice.placeholder) {
-                    acc.placeholderChoices.push(choice)
-                  } else {
-                    acc.normalChoices.push(choice)
-                  }
+                let _rendererableChoices$ = rendererableChoices.reduce(
+                  (acc, choice) => {
+                    if (choice.placeholder) {
+                      acc.placeholderChoices.push(choice)
+                    } else {
+                      acc.normalChoices.push(choice)
+                    }
 
-                  return acc
-                }, {
-                  placeholderChoices: [],
-                  normalChoices: []
-                })
-                var placeholderChoices = _rendererableChoices$.placeholderChoices
-                var normalChoices = _rendererableChoices$.normalChoices // If sorting is enabled or the user is searching, filter choices
+                    return acc
+                  },
+                  {
+                    placeholderChoices: [],
+                    normalChoices: []
+                  }
+                )
+                let placeholderChoices = _rendererableChoices$.placeholderChoices
+                let normalChoices = _rendererableChoices$.normalChoices // If sorting is enabled or the user is searching, filter choices
 
                 if (this.config.shouldSort || this._isSearching) {
                   normalChoices.sort(filter)
                 }
 
-                var choiceLimit = rendererableChoices.length // Prepend placeholeder
+                let choiceLimit = rendererableChoices.length // Prepend placeholeder
 
-                var sortedChoices = this._isSelectOneElement ? [].concat(placeholderChoices, normalChoices) : normalChoices
+                let sortedChoices = this._isSelectOneElement
+                  ? [].concat(placeholderChoices, normalChoices)
+                  : normalChoices
 
                 if (this._isSearching) {
                   choiceLimit = searchResultLimit
@@ -3850,7 +4705,7 @@ var choices = createCommonjsModule(function (module, exports) {
                   choiceLimit = renderChoiceLimit
                 } // Add each choice to dropdown within range
 
-                for (var i = 0; i < choiceLimit; i += 1) {
+                for (let i = 0; i < choiceLimit; i += 1) {
                   if (sortedChoices[i]) {
                     appendChoice(sortedChoices[i])
                   }
@@ -3860,17 +4715,17 @@ var choices = createCommonjsModule(function (module, exports) {
               }
 
               _proto._createItemsFragment = function _createItemsFragment (items, fragment) {
-                var _this15 = this
+                let _this15 = this
 
                 if (fragment === void 0) {
                   fragment = document.createDocumentFragment()
                 }
 
                 // Create fragment to add elements to
-                var _this$config2 = this.config
-                var shouldSortItems = _this$config2.shouldSortItems
-                var sorter = _this$config2.sorter
-                var removeItemButton = _this$config2.removeItemButton // If sorting is enabled, filter items
+                let _this$config2 = this.config
+                let shouldSortItems = _this$config2.shouldSortItems
+                let sorter = _this$config2.sorter
+                let removeItemButton = _this$config2.removeItemButton // If sorting is enabled, filter items
 
                 if (shouldSortItems && !this._isSelectOneElement) {
                   items.sort(sorter)
@@ -3884,9 +4739,9 @@ var choices = createCommonjsModule(function (module, exports) {
                   this.passedElement.options = items
                 }
 
-                var addItemToFragment = function addItemToFragment (item) {
+                let addItemToFragment = function addItemToFragment (item) {
                   // Create new list element
-                  var listItem = _this15._getTemplate('item', item, removeItemButton) // Append it to list
+                  let listItem = _this15._getTemplate('item', item, removeItemButton) // Append it to list
 
                   fragment.appendChild(listItem)
                 } // Add each list item to list
@@ -3901,12 +4756,12 @@ var choices = createCommonjsModule(function (module, exports) {
                 }
 
                 this.passedElement.triggerEvent(EVENTS.change, {
-                  value: value
+                  value
                 })
               }
 
               _proto._selectPlaceholderChoice = function _selectPlaceholderChoice () {
-                var placeholderChoice = this._store.placeholderChoice
+                let placeholderChoice = this._store.placeholderChoice
 
                 if (placeholderChoice) {
                   this._addItem({
@@ -3926,8 +4781,8 @@ var choices = createCommonjsModule(function (module, exports) {
                   return
                 }
 
-                var itemId = element.parentNode.getAttribute('data-id')
-                var itemToRemove = activeItems.find(function (item) {
+                let itemId = element.parentNode.getAttribute('data-id')
+                let itemToRemove = activeItems.find((item) => {
                   return item.id === parseInt(itemId, 10)
                 }) // Remove item associated with button
 
@@ -3941,7 +4796,7 @@ var choices = createCommonjsModule(function (module, exports) {
               }
 
               _proto._handleItemAction = function _handleItemAction (activeItems, element, hasShiftKey) {
-                var _this16 = this
+                let _this16 = this
 
                 if (hasShiftKey === void 0) {
                   hasShiftKey = false
@@ -3951,11 +4806,11 @@ var choices = createCommonjsModule(function (module, exports) {
                   return
                 }
 
-                var passedId = element.getAttribute('data-id') // We only want to select one item with a click
+                let passedId = element.getAttribute('data-id') // We only want to select one item with a click
                 // so we deselect any items that aren't the target
                 // unless shift is being pressed
 
-                activeItems.forEach(function (item) {
+                activeItems.forEach((item) => {
                   if (item.id === parseInt(passedId, 10) && !item.highlighted) {
                     _this16.highlightItem(item)
                   } else if (!hasShiftKey && item.highlighted) {
@@ -3972,24 +4827,24 @@ var choices = createCommonjsModule(function (module, exports) {
                   return
                 } // If we are clicking on an option
 
-                var id = element.dataset.id
+                let id = element.dataset.id
 
-                var choice = this._store.getChoiceById(id)
+                let choice = this._store.getChoiceById(id)
 
                 if (!choice) {
                   return
                 }
 
-                var passedKeyCode = activeItems[0] && activeItems[0].keyCode ? activeItems[0].keyCode : null
-                var hasActiveDropdown = this.dropdown.isActive // Update choice keyCode
+                let passedKeyCode = activeItems[0] && activeItems[0].keyCode ? activeItems[0].keyCode : null
+                let hasActiveDropdown = this.dropdown.isActive // Update choice keyCode
 
                 choice.keyCode = passedKeyCode
                 this.passedElement.triggerEvent(EVENTS.choice, {
-                  choice: choice
+                  choice
                 })
 
                 if (!choice.selected && !choice.disabled) {
-                  var canAddItem = this._canAddItem(activeItems, choice.value)
+                  let canAddItem = this._canAddItem(activeItems, choice.value)
 
                   if (canAddItem.response) {
                     this._addItem({
@@ -4019,8 +4874,8 @@ var choices = createCommonjsModule(function (module, exports) {
                   return
                 }
 
-                var lastItem = activeItems[activeItems.length - 1]
-                var hasHighlightedItems = activeItems.some(function (item) {
+                let lastItem = activeItems[activeItems.length - 1]
+                let hasHighlightedItems = activeItems.some((item) => {
                   return item.highlighted
                 }) // If editing the last item is allowed and there are not other selected items,
                 // we can edit the item value. Otherwise if we can remove items, remove all selected items
@@ -4055,7 +4910,7 @@ var choices = createCommonjsModule(function (module, exports) {
                   setLoading = true
                 }
 
-                var placeholderItem = this.itemList.getChild('.' + this.config.classNames.placeholder)
+                let placeholderItem = this.itemList.getChild(`.${  this.config.classNames.placeholder}`)
 
                 if (setLoading) {
                   this.disable()
@@ -4088,20 +4943,20 @@ var choices = createCommonjsModule(function (module, exports) {
                   return
                 }
 
-                var choices = this._store.choices
-                var _this$config3 = this.config
-                var searchFloor = _this$config3.searchFloor
-                var searchChoices = _this$config3.searchChoices
-                var hasUnactiveChoices = choices.some(function (option) {
+                let choices = this._store.choices
+                let _this$config3 = this.config
+                let searchFloor = _this$config3.searchFloor
+                let searchChoices = _this$config3.searchChoices
+                let hasUnactiveChoices = choices.some((option) => {
                   return !option.active
                 }) // Check that we have a value to search and the input was an alphanumeric character
 
                 if (value && value.length >= searchFloor) {
-                  var resultCount = searchChoices ? this._searchChoices(value) : 0 // Trigger search event
+                  let resultCount = searchChoices ? this._searchChoices(value) : 0 // Trigger search event
 
                   this.passedElement.triggerEvent(EVENTS.search, {
-                    value: value,
-                    resultCount: resultCount
+                    value,
+                    resultCount
                   })
                 } else if (hasUnactiveChoices) {
                   // Otherwise reset choices to active
@@ -4112,52 +4967,71 @@ var choices = createCommonjsModule(function (module, exports) {
               }
 
               _proto._canAddItem = function _canAddItem (activeItems, value) {
-                var canAddItem = true
-                var notice = typeof this.config.addItemText === 'function' ? this.config.addItemText(value) : this.config.addItemText
+                let canAddItem = true
+                let notice =
+                  typeof this.config.addItemText === 'function'
+                    ? this.config.addItemText(value)
+                    : this.config.addItemText
 
                 if (!this._isSelectOneElement) {
-                  var isDuplicateValue = existsInArray(activeItems, value)
+                  let isDuplicateValue = existsInArray(activeItems, value)
 
                   if (this.config.maxItemCount > 0 && this.config.maxItemCount <= activeItems.length) {
                     // If there is a max entry limit and we have reached that limit
                     // don't update
                     canAddItem = false
-                    notice = typeof this.config.maxItemText === 'function' ? this.config.maxItemText(this.config.maxItemCount) : this.config.maxItemText
+                    notice =
+                      typeof this.config.maxItemText === 'function'
+                        ? this.config.maxItemText(this.config.maxItemCount)
+                        : this.config.maxItemText
                   }
 
                   if (!this.config.duplicateItemsAllowed && isDuplicateValue && canAddItem) {
                     canAddItem = false
-                    notice = typeof this.config.uniqueItemText === 'function' ? this.config.uniqueItemText(value) : this.config.uniqueItemText
+                    notice =
+                      typeof this.config.uniqueItemText === 'function'
+                        ? this.config.uniqueItemText(value)
+                        : this.config.uniqueItemText
                   }
 
-                  if (this._isTextElement && this.config.addItems && canAddItem && typeof this.config.addItemFilter === 'function' && !this.config.addItemFilter(value)) {
+                  if (
+                    this._isTextElement &&
+                    this.config.addItems &&
+                    canAddItem &&
+                    typeof this.config.addItemFilter === 'function' &&
+                    !this.config.addItemFilter(value)
+                  ) {
                     canAddItem = false
-                    notice = typeof this.config.customAddItemText === 'function' ? this.config.customAddItemText(value) : this.config.customAddItemText
+                    notice =
+                      typeof this.config.customAddItemText === 'function'
+                        ? this.config.customAddItemText(value)
+                        : this.config.customAddItemText
                   }
                 }
 
                 return {
                   response: canAddItem,
-                  notice: notice
+                  notice
                 }
               }
 
               _proto._searchChoices = function _searchChoices (value) {
-                var newValue = typeof value === 'string' ? value.trim() : value
-                var currentValue = typeof this._currentValue === 'string' ? this._currentValue.trim() : this._currentValue
+                let newValue = typeof value === 'string' ? value.trim() : value
+                let currentValue =
+                  typeof this._currentValue === 'string' ? this._currentValue.trim() : this._currentValue
 
-                if (newValue.length < 1 && newValue === currentValue + ' ') {
+                if (newValue.length < 1 && newValue === `${currentValue  } `) {
                   return 0
                 } // If new value matches the desired length and is not the same as the current value with a space
 
-                var haystack = this._store.searchableChoices
-                var needle = newValue
-                var keys = [].concat(this.config.searchFields)
-                var options = Object.assign(this.config.fuseOptions, {
-                  keys: keys
+                let haystack = this._store.searchableChoices
+                let needle = newValue
+                let keys = [].concat(this.config.searchFields)
+                let options = Object.assign(this.config.fuseOptions, {
+                  keys
                 })
-                var fuse = new fuse_default.a(haystack, options)
-                var results = fuse.search(needle)
+                let fuse = new fuse_default.a(haystack, options)
+                let results = fuse.search(needle)
                 this._currentValue = newValue
                 this._highlightPosition = 0
                 this._isSearching = true
@@ -4168,8 +5042,8 @@ var choices = createCommonjsModule(function (module, exports) {
               }
 
               _proto._addEventListeners = function _addEventListeners () {
-                var _document = document
-                var documentElement = _document.documentElement // capture events - can cancel event processing or propagation
+                let _document = document
+                let documentElement = _document.documentElement // capture events - can cancel event processing or propagation
 
                 documentElement.addEventListener('touchend', this._onTouchEnd, true)
                 this.containerOuter.element.addEventListener('keydown', this._onKeyDown, true)
@@ -4214,8 +5088,8 @@ var choices = createCommonjsModule(function (module, exports) {
               }
 
               _proto._removeEventListeners = function _removeEventListeners () {
-                var _document2 = document
-                var documentElement = _document2.documentElement
+                let _document2 = document
+                let documentElement = _document2.documentElement
                 documentElement.removeEventListener('touchend', this._onTouchEnd, true)
                 this.containerOuter.element.removeEventListener('keydown', this._onKeyDown, true)
                 this.containerOuter.element.removeEventListener('mousedown', this._onMouseDown, true)
@@ -4243,66 +5117,77 @@ var choices = createCommonjsModule(function (module, exports) {
                */
 
               _proto._onKeyDown = function _onKeyDown (event) {
-                var _keyDownActions
+                let _keyDownActions
 
-                var target = event.target
-                var keyCode = event.keyCode
-                var ctrlKey = event.ctrlKey
-                var metaKey = event.metaKey
-                var activeItems = this._store.activeItems
-                var hasFocusedInput = this.input.isFocussed
-                var hasActiveDropdown = this.dropdown.isActive
-                var hasItems = this.itemList.hasChildren()
-                var keyString = String.fromCharCode(keyCode)
-                var BACK_KEY = KEY_CODES.BACK_KEY
-                var DELETE_KEY = KEY_CODES.DELETE_KEY
-                var ENTER_KEY = KEY_CODES.ENTER_KEY
-                var A_KEY = KEY_CODES.A_KEY
-                var ESC_KEY = KEY_CODES.ESC_KEY
-                var UP_KEY = KEY_CODES.UP_KEY
-                var DOWN_KEY = KEY_CODES.DOWN_KEY
-                var PAGE_UP_KEY = KEY_CODES.PAGE_UP_KEY
-                var PAGE_DOWN_KEY = KEY_CODES.PAGE_DOWN_KEY
-                var hasCtrlDownKeyPressed = ctrlKey || metaKey // If a user is typing and the dropdown is not active
+                let target = event.target
+                let keyCode = event.keyCode
+                let ctrlKey = event.ctrlKey
+                let metaKey = event.metaKey
+                let activeItems = this._store.activeItems
+                let hasFocusedInput = this.input.isFocussed
+                let hasActiveDropdown = this.dropdown.isActive
+                let hasItems = this.itemList.hasChildren()
+                let keyString = String.fromCharCode(keyCode)
+                let BACK_KEY = KEY_CODES.BACK_KEY
+                let DELETE_KEY = KEY_CODES.DELETE_KEY
+                let ENTER_KEY = KEY_CODES.ENTER_KEY
+                let A_KEY = KEY_CODES.A_KEY
+                let ESC_KEY = KEY_CODES.ESC_KEY
+                let UP_KEY = KEY_CODES.UP_KEY
+                let DOWN_KEY = KEY_CODES.DOWN_KEY
+                let PAGE_UP_KEY = KEY_CODES.PAGE_UP_KEY
+                let PAGE_DOWN_KEY = KEY_CODES.PAGE_DOWN_KEY
+                let hasCtrlDownKeyPressed = ctrlKey || metaKey // If a user is typing and the dropdown is not active
 
                 if (!this._isTextElement && /[a-zA-Z0-9-_ ]/.test(keyString)) {
                   this.showDropdown()
                 } // Map keys to key actions
 
-                var keyDownActions = (_keyDownActions = {}, _keyDownActions[A_KEY] = this._onAKey, _keyDownActions[ENTER_KEY] = this._onEnterKey, _keyDownActions[ESC_KEY] = this._onEscapeKey, _keyDownActions[UP_KEY] = this._onDirectionKey, _keyDownActions[PAGE_UP_KEY] = this._onDirectionKey, _keyDownActions[DOWN_KEY] = this._onDirectionKey, _keyDownActions[PAGE_DOWN_KEY] = this._onDirectionKey, _keyDownActions[DELETE_KEY] = this._onDeleteKey, _keyDownActions[BACK_KEY] = this._onDeleteKey, _keyDownActions) // If keycode has a function, run it
+                let keyDownActions =
+                  ((_keyDownActions = {}),
+                  (_keyDownActions[A_KEY] = this._onAKey),
+                  (_keyDownActions[ENTER_KEY] = this._onEnterKey),
+                  (_keyDownActions[ESC_KEY] = this._onEscapeKey),
+                  (_keyDownActions[UP_KEY] = this._onDirectionKey),
+                  (_keyDownActions[PAGE_UP_KEY] = this._onDirectionKey),
+                  (_keyDownActions[DOWN_KEY] = this._onDirectionKey),
+                  (_keyDownActions[PAGE_DOWN_KEY] = this._onDirectionKey),
+                  (_keyDownActions[DELETE_KEY] = this._onDeleteKey),
+                  (_keyDownActions[BACK_KEY] = this._onDeleteKey),
+                  _keyDownActions) // If keycode has a function, run it
 
                 if (keyDownActions[keyCode]) {
                   keyDownActions[keyCode]({
-                    event: event,
-                    target: target,
-                    keyCode: keyCode,
-                    metaKey: metaKey,
-                    activeItems: activeItems,
-                    hasFocusedInput: hasFocusedInput,
-                    hasActiveDropdown: hasActiveDropdown,
-                    hasItems: hasItems,
-                    hasCtrlDownKeyPressed: hasCtrlDownKeyPressed
+                    event,
+                    target,
+                    keyCode,
+                    metaKey,
+                    activeItems,
+                    hasFocusedInput,
+                    hasActiveDropdown,
+                    hasItems,
+                    hasCtrlDownKeyPressed
                   })
                 }
               }
 
               _proto._onKeyUp = function _onKeyUp (_ref2) {
-                var target = _ref2.target
-                var keyCode = _ref2.keyCode
-                var value = this.input.value
-                var activeItems = this._store.activeItems
+                let target = _ref2.target
+                let keyCode = _ref2.keyCode
+                let value = this.input.value
+                let activeItems = this._store.activeItems
 
-                var canAddItem = this._canAddItem(activeItems, value)
+                let canAddItem = this._canAddItem(activeItems, value)
 
-                var backKey = KEY_CODES.BACK_KEY
-                var deleteKey = KEY_CODES.DELETE_KEY // We are typing into a text input and have a value, we want to show a dropdown
+                let backKey = KEY_CODES.BACK_KEY
+                let deleteKey = KEY_CODES.DELETE_KEY // We are typing into a text input and have a value, we want to show a dropdown
                 // notice. Otherwise hide the dropdown
 
                 if (this._isTextElement) {
-                  var canShowDropdownNotice = canAddItem.notice && value
+                  let canShowDropdownNotice = canAddItem.notice && value
 
                   if (canShowDropdownNotice) {
-                    var dropdownItem = this._getTemplate('notice', canAddItem.notice)
+                    let dropdownItem = this._getTemplate('notice', canAddItem.notice)
 
                     this.dropdown.element.innerHTML = dropdownItem.outerHTML
                     this.showDropdown(true)
@@ -4310,9 +5195,9 @@ var choices = createCommonjsModule(function (module, exports) {
                     this.hideDropdown(true)
                   }
                 } else {
-                  var userHasRemovedValue = (keyCode === backKey || keyCode === deleteKey) && !target.value
-                  var canReactivateChoices = !this._isTextElement && this._isSearching
-                  var canSearch = this._canSearch && canAddItem.response
+                  let userHasRemovedValue = (keyCode === backKey || keyCode === deleteKey) && !target.value
+                  let canReactivateChoices = !this._isTextElement && this._isSearching
+                  let canSearch = this._canSearch && canAddItem.response
 
                   if (userHasRemovedValue && canReactivateChoices) {
                     this._isSearching = false
@@ -4327,13 +5212,14 @@ var choices = createCommonjsModule(function (module, exports) {
               }
 
               _proto._onAKey = function _onAKey (_ref3) {
-                var hasItems = _ref3.hasItems
-                var hasCtrlDownKeyPressed = _ref3.hasCtrlDownKeyPressed
+                let hasItems = _ref3.hasItems
+                let hasCtrlDownKeyPressed = _ref3.hasCtrlDownKeyPressed
 
                 // If CTRL + A or CMD + A have been pressed and there are items to select
                 if (hasCtrlDownKeyPressed && hasItems) {
                   this._canSearch = false
-                  var shouldHightlightAll = this.config.removeItems && !this.input.value && this.input.element === document.activeElement
+                  let shouldHightlightAll =
+                    this.config.removeItems && !this.input.value && this.input.element === document.activeElement
 
                   if (shouldHightlightAll) {
                     this.highlightAll()
@@ -4342,23 +5228,23 @@ var choices = createCommonjsModule(function (module, exports) {
               }
 
               _proto._onEnterKey = function _onEnterKey (_ref4) {
-                var event = _ref4.event
-                var target = _ref4.target
-                var activeItems = _ref4.activeItems
-                var hasActiveDropdown = _ref4.hasActiveDropdown
-                var enterKey = KEY_CODES.ENTER_KEY
-                var targetWasButton = target.hasAttribute('data-button')
+                let event = _ref4.event
+                let target = _ref4.target
+                let activeItems = _ref4.activeItems
+                let hasActiveDropdown = _ref4.hasActiveDropdown
+                let enterKey = KEY_CODES.ENTER_KEY
+                let targetWasButton = target.hasAttribute('data-button')
 
                 if (this._isTextElement && target.value) {
-                  var value = this.input.value
+                  let value = this.input.value
 
-                  var canAddItem = this._canAddItem(activeItems, value)
+                  let canAddItem = this._canAddItem(activeItems, value)
 
                   if (canAddItem.response) {
                     this.hideDropdown(true)
 
                     this._addItem({
-                      value: value
+                      value
                     })
 
                     this._triggerChange(value)
@@ -4374,7 +5260,7 @@ var choices = createCommonjsModule(function (module, exports) {
                 }
 
                 if (hasActiveDropdown) {
-                  var highlightedChoice = this.dropdown.getChild('.' + this.config.classNames.highlightedState)
+                  let highlightedChoice = this.dropdown.getChild(`.${  this.config.classNames.highlightedState}`)
 
                   if (highlightedChoice) {
                     // add enter keyCode value
@@ -4393,7 +5279,7 @@ var choices = createCommonjsModule(function (module, exports) {
               }
 
               _proto._onEscapeKey = function _onEscapeKey (_ref5) {
-                var hasActiveDropdown = _ref5.hasActiveDropdown
+                let hasActiveDropdown = _ref5.hasActiveDropdown
 
                 if (hasActiveDropdown) {
                   this.hideDropdown(true)
@@ -4402,30 +5288,30 @@ var choices = createCommonjsModule(function (module, exports) {
               }
 
               _proto._onDirectionKey = function _onDirectionKey (_ref6) {
-                var event = _ref6.event
-                var hasActiveDropdown = _ref6.hasActiveDropdown
-                var keyCode = _ref6.keyCode
-                var metaKey = _ref6.metaKey
-                var downKey = KEY_CODES.DOWN_KEY
-                var pageUpKey = KEY_CODES.PAGE_UP_KEY
-                var pageDownKey = KEY_CODES.PAGE_DOWN_KEY // If up or down key is pressed, traverse through options
+                let event = _ref6.event
+                let hasActiveDropdown = _ref6.hasActiveDropdown
+                let keyCode = _ref6.keyCode
+                let metaKey = _ref6.metaKey
+                let downKey = KEY_CODES.DOWN_KEY
+                let pageUpKey = KEY_CODES.PAGE_UP_KEY
+                let pageDownKey = KEY_CODES.PAGE_DOWN_KEY // If up or down key is pressed, traverse through options
 
                 if (hasActiveDropdown || this._isSelectOneElement) {
                   this.showDropdown()
                   this._canSearch = false
-                  var directionInt = keyCode === downKey || keyCode === pageDownKey ? 1 : -1
-                  var skipKey = metaKey || keyCode === pageDownKey || keyCode === pageUpKey
-                  var selectableChoiceIdentifier = '[data-choice-selectable]'
-                  var nextEl
+                  let directionInt = keyCode === downKey || keyCode === pageDownKey ? 1 : -1
+                  let skipKey = metaKey || keyCode === pageDownKey || keyCode === pageUpKey
+                  let selectableChoiceIdentifier = '[data-choice-selectable]'
+                  let nextEl
 
                   if (skipKey) {
                     if (directionInt > 0) {
-                      nextEl = this.dropdown.element.querySelector(selectableChoiceIdentifier + ':last-of-type')
+                      nextEl = this.dropdown.element.querySelector(`${selectableChoiceIdentifier  }:last-of-type`)
                     } else {
                       nextEl = this.dropdown.element.querySelector(selectableChoiceIdentifier)
                     }
                   } else {
-                    var currentEl = this.dropdown.element.querySelector('.' + this.config.classNames.highlightedState)
+                    let currentEl = this.dropdown.element.querySelector(`.${  this.config.classNames.highlightedState}`)
 
                     if (currentEl) {
                       nextEl = getAdjacentEl(currentEl, selectableChoiceIdentifier, directionInt)
@@ -4450,10 +5336,10 @@ var choices = createCommonjsModule(function (module, exports) {
               }
 
               _proto._onDeleteKey = function _onDeleteKey (_ref7) {
-                var event = _ref7.event
-                var target = _ref7.target
-                var hasFocusedInput = _ref7.hasFocusedInput
-                var activeItems = _ref7.activeItems
+                let event = _ref7.event
+                let target = _ref7.target
+                let hasFocusedInput = _ref7.hasFocusedInput
+                let activeItems = _ref7.activeItems
 
                 // If backspace or delete key is pressed and the input has no value
                 if (hasFocusedInput && !target.value && !this._isSelectOneElement) {
@@ -4470,13 +5356,14 @@ var choices = createCommonjsModule(function (module, exports) {
               }
 
               _proto._onTouchEnd = function _onTouchEnd (event) {
-                var _ref8 = event || event.touches[0]
-                var target = _ref8.target
+                let _ref8 = event || event.touches[0]
+                let target = _ref8.target
 
-                var touchWasWithinContainer = this._wasTap && this.containerOuter.element.contains(target)
+                let touchWasWithinContainer = this._wasTap && this.containerOuter.element.contains(target)
 
                 if (touchWasWithinContainer) {
-                  var containerWasExactTarget = target === this.containerOuter.element || target === this.containerInner.element
+                  let containerWasExactTarget =
+                    target === this.containerOuter.element || target === this.containerInner.element
 
                   if (containerWasExactTarget) {
                     if (this._isTextElement) {
@@ -4497,7 +5384,7 @@ var choices = createCommonjsModule(function (module, exports) {
                */
 
               _proto._onMouseDown = function _onMouseDown (event) {
-                var target = event.target
+                let target = event.target
 
                 if (!(target instanceof HTMLElement)) {
                   return
@@ -4505,10 +5392,13 @@ var choices = createCommonjsModule(function (module, exports) {
 
                 if (IS_IE11 && this.choiceList.element.contains(target)) {
                   // check if click was on a scrollbar area
-                  var firstChoice =
+                  let firstChoice =
                     /** @type {HTMLElement} */
                     this.choiceList.element.firstElementChild
-                  var isOnScrollbar = this._direction === 'ltr' ? event.offsetX >= firstChoice.offsetWidth : event.offsetX < firstChoice.offsetLeft
+                  let isOnScrollbar =
+                    this._direction === 'ltr'
+                      ? event.offsetX >= firstChoice.offsetWidth
+                      : event.offsetX < firstChoice.offsetLeft
                   this._isScrollingOnIe = isOnScrollbar
                 }
 
@@ -4516,12 +5406,12 @@ var choices = createCommonjsModule(function (module, exports) {
                   return
                 }
 
-                var item = target.closest('[data-button],[data-item],[data-choice]')
+                let item = target.closest('[data-button],[data-item],[data-choice]')
 
                 if (item instanceof HTMLElement) {
-                  var hasShiftKey = event.shiftKey
-                  var activeItems = this._store.activeItems
-                  var dataset = item.dataset
+                  let hasShiftKey = event.shiftKey
+                  let activeItems = this._store.activeItems
+                  let dataset = item.dataset
 
                   if ('button' in dataset) {
                     this._handleButtonAction(activeItems, item)
@@ -4540,7 +5430,7 @@ var choices = createCommonjsModule(function (module, exports) {
                */
 
               _proto._onMouseOver = function _onMouseOver (_ref9) {
-                var target = _ref9.target
+                let target = _ref9.target
 
                 if (target instanceof HTMLElement && 'choice' in target.dataset) {
                   this._highlightChoice(target)
@@ -4548,8 +5438,8 @@ var choices = createCommonjsModule(function (module, exports) {
               }
 
               _proto._onClick = function _onClick (_ref10) {
-                var target = _ref10.target
-                var clickWasWithinContainer = this.containerOuter.element.contains(target)
+                let target = _ref10.target
+                let clickWasWithinContainer = this.containerOuter.element.contains(target)
 
                 if (clickWasWithinContainer) {
                   if (!this.dropdown.isActive && !this.containerOuter.isDisabled) {
@@ -4561,11 +5451,15 @@ var choices = createCommonjsModule(function (module, exports) {
                       this.showDropdown()
                       this.containerOuter.focus()
                     }
-                  } else if (this._isSelectOneElement && target !== this.input.element && !this.dropdown.element.contains(target)) {
+                  } else if (
+                    this._isSelectOneElement &&
+                    target !== this.input.element &&
+                    !this.dropdown.element.contains(target)
+                  ) {
                     this.hideDropdown()
                   }
                 } else {
-                  var hasHighlightedItems = this._store.highlightedActiveItems.length > 0
+                  let hasHighlightedItems = this._store.highlightedActiveItems.length > 0
 
                   if (hasHighlightedItems) {
                     this.unhighlightAll()
@@ -4577,77 +5471,90 @@ var choices = createCommonjsModule(function (module, exports) {
               }
 
               _proto._onFocus = function _onFocus (_ref11) {
-                var _this17 = this
-                var _focusActions
+                let _this17 = this
+                let _focusActions
 
-                var target = _ref11.target
-                var focusWasWithinContainer = this.containerOuter.element.contains(target)
+                let target = _ref11.target
+                let focusWasWithinContainer = this.containerOuter.element.contains(target)
 
                 if (!focusWasWithinContainer) {
                   return
                 }
 
-                var focusActions = (_focusActions = {}, _focusActions[TEXT_TYPE] = function () {
-                  if (target === _this17.input.element) {
+                let focusActions =
+                  ((_focusActions = {}),
+                  (_focusActions[TEXT_TYPE] = function () {
+                    if (target === _this17.input.element) {
+                      _this17.containerOuter.addFocusState()
+                    }
+                  }),
+                  (_focusActions[SELECT_ONE_TYPE] = function () {
                     _this17.containerOuter.addFocusState()
-                  }
-                }, _focusActions[SELECT_ONE_TYPE] = function () {
-                  _this17.containerOuter.addFocusState()
 
-                  if (target === _this17.input.element) {
-                    _this17.showDropdown(true)
-                  }
-                }, _focusActions[SELECT_MULTIPLE_TYPE] = function () {
-                  if (target === _this17.input.element) {
-                    _this17.showDropdown(true) // If element is a select box, the focused element is the container and the dropdown
-                    // isn't already open, focus and show dropdown
+                    if (target === _this17.input.element) {
+                      _this17.showDropdown(true)
+                    }
+                  }),
+                  (_focusActions[SELECT_MULTIPLE_TYPE] = function () {
+                    if (target === _this17.input.element) {
+                      _this17.showDropdown(true) // If element is a select box, the focused element is the container and the dropdown
+                      // isn't already open, focus and show dropdown
 
-                    _this17.containerOuter.addFocusState()
-                  }
-                }, _focusActions)
+                      _this17.containerOuter.addFocusState()
+                    }
+                  }),
+                  _focusActions)
                 focusActions[this.passedElement.element.type]()
               }
 
               _proto._onBlur = function _onBlur (_ref12) {
-                var _this18 = this
+                let _this18 = this
 
-                var target = _ref12.target
-                var blurWasWithinContainer = this.containerOuter.element.contains(target)
+                let target = _ref12.target
+                let blurWasWithinContainer = this.containerOuter.element.contains(target)
 
                 if (blurWasWithinContainer && !this._isScrollingOnIe) {
-                  var _blurActions
+                  let _blurActions
 
-                  var activeItems = this._store.activeItems
-                  var hasHighlightedItems = activeItems.some(function (item) {
+                  let activeItems = this._store.activeItems
+                  let hasHighlightedItems = activeItems.some((item) => {
                     return item.highlighted
                   })
-                  var blurActions = (_blurActions = {}, _blurActions[TEXT_TYPE] = function () {
-                    if (target === _this18.input.element) {
+                  let blurActions =
+                    ((_blurActions = {}),
+                    (_blurActions[TEXT_TYPE] = function () {
+                      if (target === _this18.input.element) {
+                        _this18.containerOuter.removeFocusState()
+
+                        if (hasHighlightedItems) {
+                          _this18.unhighlightAll()
+                        }
+
+                        _this18.hideDropdown(true)
+                      }
+                    }),
+                    (_blurActions[SELECT_ONE_TYPE] = function () {
                       _this18.containerOuter.removeFocusState()
 
-                      if (hasHighlightedItems) {
-                        _this18.unhighlightAll()
+                      if (
+                        target === _this18.input.element ||
+                        (target === _this18.containerOuter.element && !_this18._canSearch)
+                      ) {
+                        _this18.hideDropdown(true)
                       }
+                    }),
+                    (_blurActions[SELECT_MULTIPLE_TYPE] = function () {
+                      if (target === _this18.input.element) {
+                        _this18.containerOuter.removeFocusState()
 
-                      _this18.hideDropdown(true)
-                    }
-                  }, _blurActions[SELECT_ONE_TYPE] = function () {
-                    _this18.containerOuter.removeFocusState()
+                        _this18.hideDropdown(true)
 
-                    if (target === _this18.input.element || target === _this18.containerOuter.element && !_this18._canSearch) {
-                      _this18.hideDropdown(true)
-                    }
-                  }, _blurActions[SELECT_MULTIPLE_TYPE] = function () {
-                    if (target === _this18.input.element) {
-                      _this18.containerOuter.removeFocusState()
-
-                      _this18.hideDropdown(true)
-
-                      if (hasHighlightedItems) {
-                        _this18.unhighlightAll()
+                        if (hasHighlightedItems) {
+                          _this18.unhighlightAll()
+                        }
                       }
-                    }
-                  }, _blurActions)
+                    }),
+                    _blurActions)
                   blurActions[this.passedElement.element.type]()
                 } else {
                   // On IE11, clicking the scollbar blurs our input and thus
@@ -4663,22 +5570,24 @@ var choices = createCommonjsModule(function (module, exports) {
               }
 
               _proto._highlightChoice = function _highlightChoice (el) {
-                var _this19 = this
+                let _this19 = this
 
                 if (el === void 0) {
                   el = null
                 }
 
-                var choices = Array.from(this.dropdown.element.querySelectorAll('[data-choice-selectable]'))
+                let choices = Array.from(this.dropdown.element.querySelectorAll('[data-choice-selectable]'))
 
                 if (!choices.length) {
                   return
                 }
 
-                var passedEl = el
-                var highlightedChoices = Array.from(this.dropdown.element.querySelectorAll('.' + this.config.classNames.highlightedState)) // Remove any highlighted choices
+                let passedEl = el
+                let highlightedChoices = Array.from(
+                  this.dropdown.element.querySelectorAll(`.${  this.config.classNames.highlightedState}`)
+                ) // Remove any highlighted choices
 
-                highlightedChoices.forEach(function (choice) {
+                highlightedChoices.forEach((choice) => {
                   choice.classList.remove(_this19.config.classNames.highlightedState)
                   choice.setAttribute('aria-selected', 'false')
                 })
@@ -4715,27 +5624,27 @@ var choices = createCommonjsModule(function (module, exports) {
               }
 
               _proto._addItem = function _addItem (_ref13) {
-                var value = _ref13.value
-                var _ref13$label = _ref13.label
-                var label = _ref13$label === void 0 ? null : _ref13$label
-                var _ref13$choiceId = _ref13.choiceId
-                var choiceId = _ref13$choiceId === void 0 ? -1 : _ref13$choiceId
-                var _ref13$groupId = _ref13.groupId
-                var groupId = _ref13$groupId === void 0 ? -1 : _ref13$groupId
-                var _ref13$customProperti = _ref13.customProperties
-                var customProperties = _ref13$customProperti === void 0 ? null : _ref13$customProperti
-                var _ref13$placeholder = _ref13.placeholder
-                var placeholder = _ref13$placeholder === void 0 ? false : _ref13$placeholder
-                var _ref13$keyCode = _ref13.keyCode
-                var keyCode = _ref13$keyCode === void 0 ? null : _ref13$keyCode
-                var passedValue = typeof value === 'string' ? value.trim() : value
-                var passedKeyCode = keyCode
-                var passedCustomProperties = customProperties
-                var items = this._store.items
-                var passedLabel = label || passedValue
-                var passedOptionId = choiceId || -1
-                var group = groupId >= 0 ? this._store.getGroupById(groupId) : null
-                var id = items ? items.length + 1 : 1 // If a prepended value has been passed, prepend it
+                let value = _ref13.value
+                let _ref13$label = _ref13.label
+                let label = _ref13$label === void 0 ? null : _ref13$label
+                let _ref13$choiceId = _ref13.choiceId
+                let choiceId = _ref13$choiceId === void 0 ? -1 : _ref13$choiceId
+                let _ref13$groupId = _ref13.groupId
+                let groupId = _ref13$groupId === void 0 ? -1 : _ref13$groupId
+                let _ref13$customProperti = _ref13.customProperties
+                let customProperties = _ref13$customProperti === void 0 ? null : _ref13$customProperti
+                let _ref13$placeholder = _ref13.placeholder
+                let placeholder = _ref13$placeholder === void 0 ? false : _ref13$placeholder
+                let _ref13$keyCode = _ref13.keyCode
+                let keyCode = _ref13$keyCode === void 0 ? null : _ref13$keyCode
+                let passedValue = typeof value === 'string' ? value.trim() : value
+                let passedKeyCode = keyCode
+                let passedCustomProperties = customProperties
+                let items = this._store.items
+                let passedLabel = label || passedValue
+                let passedOptionId = choiceId || -1
+                let group = groupId >= 0 ? this._store.getGroupById(groupId) : null
+                let id = items ? items.length + 1 : 1 // If a prepended value has been passed, prepend it
 
                 if (this.config.prependValue) {
                   passedValue = this.config.prependValue + passedValue.toString()
@@ -4745,23 +5654,25 @@ var choices = createCommonjsModule(function (module, exports) {
                   passedValue += this.config.appendValue.toString()
                 }
 
-                this._store.dispatch(items_addItem({
-                  value: passedValue,
-                  label: passedLabel,
-                  id: id,
-                  choiceId: passedOptionId,
-                  groupId: groupId,
-                  customProperties: customProperties,
-                  placeholder: placeholder,
-                  keyCode: passedKeyCode
-                }))
+                this._store.dispatch(
+                  items_addItem({
+                    value: passedValue,
+                    label: passedLabel,
+                    id,
+                    choiceId: passedOptionId,
+                    groupId,
+                    customProperties,
+                    placeholder,
+                    keyCode: passedKeyCode
+                  })
+                )
 
                 if (this._isSelectOneElement) {
                   this.removeActiveItems(id)
                 } // Trigger change event
 
                 this.passedElement.triggerEvent(EVENTS.addItem, {
-                  id: id,
+                  id,
                   value: passedValue,
                   label: passedLabel,
                   customProperties: passedCustomProperties,
@@ -4776,27 +5687,27 @@ var choices = createCommonjsModule(function (module, exports) {
                   return this
                 }
 
-                var id = item.id
-                var value = item.value
-                var label = item.label
-                var choiceId = item.choiceId
-                var groupId = item.groupId
-                var group = groupId >= 0 ? this._store.getGroupById(groupId) : null
+                let id = item.id
+                let value = item.value
+                let label = item.label
+                let choiceId = item.choiceId
+                let groupId = item.groupId
+                let group = groupId >= 0 ? this._store.getGroupById(groupId) : null
 
                 this._store.dispatch(items_removeItem(id, choiceId))
 
                 if (group && group.value) {
                   this.passedElement.triggerEvent(EVENTS.removeItem, {
-                    id: id,
-                    value: value,
-                    label: label,
+                    id,
+                    value,
+                    label,
                     groupValue: group.value
                   })
                 } else {
                   this.passedElement.triggerEvent(EVENTS.removeItem, {
-                    id: id,
-                    value: value,
-                    label: label
+                    id,
+                    value,
+                    label
                   })
                 }
 
@@ -4804,85 +5715,91 @@ var choices = createCommonjsModule(function (module, exports) {
               }
 
               _proto._addChoice = function _addChoice (_ref14) {
-                var value = _ref14.value
-                var _ref14$label = _ref14.label
-                var label = _ref14$label === void 0 ? null : _ref14$label
-                var _ref14$isSelected = _ref14.isSelected
-                var isSelected = _ref14$isSelected === void 0 ? false : _ref14$isSelected
-                var _ref14$isDisabled = _ref14.isDisabled
-                var isDisabled = _ref14$isDisabled === void 0 ? false : _ref14$isDisabled
-                var _ref14$groupId = _ref14.groupId
-                var groupId = _ref14$groupId === void 0 ? -1 : _ref14$groupId
-                var _ref14$customProperti = _ref14.customProperties
-                var customProperties = _ref14$customProperti === void 0 ? null : _ref14$customProperti
-                var _ref14$placeholder = _ref14.placeholder
-                var placeholder = _ref14$placeholder === void 0 ? false : _ref14$placeholder
-                var _ref14$keyCode = _ref14.keyCode
-                var keyCode = _ref14$keyCode === void 0 ? null : _ref14$keyCode
+                let value = _ref14.value
+                let _ref14$label = _ref14.label
+                let label = _ref14$label === void 0 ? null : _ref14$label
+                let _ref14$isSelected = _ref14.isSelected
+                let isSelected = _ref14$isSelected === void 0 ? false : _ref14$isSelected
+                let _ref14$isDisabled = _ref14.isDisabled
+                let isDisabled = _ref14$isDisabled === void 0 ? false : _ref14$isDisabled
+                let _ref14$groupId = _ref14.groupId
+                let groupId = _ref14$groupId === void 0 ? -1 : _ref14$groupId
+                let _ref14$customProperti = _ref14.customProperties
+                let customProperties = _ref14$customProperti === void 0 ? null : _ref14$customProperti
+                let _ref14$placeholder = _ref14.placeholder
+                let placeholder = _ref14$placeholder === void 0 ? false : _ref14$placeholder
+                let _ref14$keyCode = _ref14.keyCode
+                let keyCode = _ref14$keyCode === void 0 ? null : _ref14$keyCode
 
                 if (typeof value === 'undefined' || value === null) {
                   return
                 } // Generate unique id
 
-                var choices = this._store.choices
-                var choiceLabel = label || value
-                var choiceId = choices ? choices.length + 1 : 1
-                var choiceElementId = this._baseId + '-' + this._idNames.itemChoice + '-' + choiceId
+                let choices = this._store.choices
+                let choiceLabel = label || value
+                let choiceId = choices ? choices.length + 1 : 1
+                let choiceElementId = `${this._baseId  }-${  this._idNames.itemChoice  }-${  choiceId}`
 
-                this._store.dispatch(choices_addChoice({
-                  id: choiceId,
-                  groupId: groupId,
-                  elementId: choiceElementId,
-                  value: value,
-                  label: choiceLabel,
-                  disabled: isDisabled,
-                  customProperties: customProperties,
-                  placeholder: placeholder,
-                  keyCode: keyCode
-                }))
+                this._store.dispatch(
+                  choices_addChoice({
+                    id: choiceId,
+                    groupId,
+                    elementId: choiceElementId,
+                    value,
+                    label: choiceLabel,
+                    disabled: isDisabled,
+                    customProperties,
+                    placeholder,
+                    keyCode
+                  })
+                )
 
                 if (isSelected) {
                   this._addItem({
-                    value: value,
+                    value,
                     label: choiceLabel,
-                    choiceId: choiceId,
-                    customProperties: customProperties,
-                    placeholder: placeholder,
-                    keyCode: keyCode
+                    choiceId,
+                    customProperties,
+                    placeholder,
+                    keyCode
                   })
                 }
               }
 
               _proto._addGroup = function _addGroup (_ref15) {
-                var _this20 = this
+                let _this20 = this
 
-                var group = _ref15.group
-                var id = _ref15.id
-                var _ref15$valueKey = _ref15.valueKey
-                var valueKey = _ref15$valueKey === void 0 ? 'value' : _ref15$valueKey
-                var _ref15$labelKey = _ref15.labelKey
-                var labelKey = _ref15$labelKey === void 0 ? 'label' : _ref15$labelKey
-                var groupChoices = isType('Object', group) ? group.choices : Array.from(group.getElementsByTagName('OPTION'))
-                var groupId = id || Math.floor(new Date().valueOf() * Math.random())
-                var isDisabled = group.disabled ? group.disabled : false
+                let group = _ref15.group
+                let id = _ref15.id
+                let _ref15$valueKey = _ref15.valueKey
+                let valueKey = _ref15$valueKey === void 0 ? 'value' : _ref15$valueKey
+                let _ref15$labelKey = _ref15.labelKey
+                let labelKey = _ref15$labelKey === void 0 ? 'label' : _ref15$labelKey
+                let groupChoices = isType('Object', group)
+                  ? group.choices
+                  : Array.from(group.getElementsByTagName('OPTION'))
+                let groupId = id || Math.floor(new Date().valueOf() * Math.random())
+                let isDisabled = group.disabled ? group.disabled : false
 
                 if (groupChoices) {
-                  this._store.dispatch(groups_addGroup({
-                    value: group.label,
-                    id: groupId,
-                    active: true,
-                    disabled: isDisabled
-                  }))
+                  this._store.dispatch(
+                    groups_addGroup({
+                      value: group.label,
+                      id: groupId,
+                      active: true,
+                      disabled: isDisabled
+                    })
+                  )
 
-                  var addGroupChoices = function addGroupChoices (choice) {
-                    var isOptDisabled = choice.disabled || choice.parentNode && choice.parentNode.disabled
+                  let addGroupChoices = function addGroupChoices (choice) {
+                    let isOptDisabled = choice.disabled || (choice.parentNode && choice.parentNode.disabled)
 
                     _this20._addChoice({
                       value: choice[valueKey],
                       label: isType('Object', choice) ? choice[labelKey] : choice.innerHTML,
                       isSelected: choice.selected,
                       isDisabled: isOptDisabled,
-                      groupId: groupId,
+                      groupId,
                       customProperties: choice.customProperties,
                       placeholder: choice.placeholder
                     })
@@ -4890,34 +5807,43 @@ var choices = createCommonjsModule(function (module, exports) {
 
                   groupChoices.forEach(addGroupChoices)
                 } else {
-                  this._store.dispatch(groups_addGroup({
-                    value: group.label,
-                    id: group.id,
-                    active: false,
-                    disabled: group.disabled
-                  }))
+                  this._store.dispatch(
+                    groups_addGroup({
+                      value: group.label,
+                      id: group.id,
+                      active: false,
+                      disabled: group.disabled
+                    })
+                  )
                 }
               }
 
               _proto._getTemplate = function _getTemplate (template) {
-                var _this$_templates$temp
+                let _this$_templates$temp
 
                 if (!template) {
                   return null
                 }
 
-                var classNames = this.config.classNames
+                let classNames = this.config.classNames
 
-                for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+                for (
+                  var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1;
+                  _key < _len;
+                  _key++
+                ) {
                   args[_key - 1] = arguments[_key]
                 }
 
-                return (_this$_templates$temp = this._templates[template]).call.apply(_this$_templates$temp, [this, classNames].concat(args))
+                return (_this$_templates$temp = this._templates[template]).call.apply(
+                  _this$_templates$temp,
+                  [this, classNames].concat(args)
+                )
               }
 
               _proto._createTemplates = function _createTemplates () {
-                var callbackOnCreateTemplates = this.config.callbackOnCreateTemplates
-                var userTemplates = {}
+                let callbackOnCreateTemplates = this.config.callbackOnCreateTemplates
+                let userTemplates = {}
 
                 if (callbackOnCreateTemplates && typeof callbackOnCreateTemplates === 'function') {
                   userTemplates = callbackOnCreateTemplates.call(this, strToEl)
@@ -4928,7 +5854,14 @@ var choices = createCommonjsModule(function (module, exports) {
 
               _proto._createElements = function _createElements () {
                 this.containerOuter = new container_Container({
-                  element: this._getTemplate('containerOuter', this._direction, this._isSelectElement, this._isSelectOneElement, this.config.searchEnabled, this.passedElement.element.type),
+                  element: this._getTemplate(
+                    'containerOuter',
+                    this._direction,
+                    this._isSelectElement,
+                    this._isSelectOneElement,
+                    this.config.searchEnabled,
+                    this.passedElement.element.type
+                  ),
                   classNames: this.config.classNames,
                   type: this.passedElement.element.type,
                   position: this.config.position
@@ -5008,10 +5941,10 @@ var choices = createCommonjsModule(function (module, exports) {
               }
 
               _proto._addPredefinedGroups = function _addPredefinedGroups (groups) {
-                var _this21 = this
+                let _this21 = this
 
                 // If we have a placeholder option
-                var placeholderChoice = this.passedElement.placeholderOption
+                let placeholderChoice = this.passedElement.placeholderOption
 
                 if (placeholderChoice && placeholderChoice.parentNode.tagName === 'SELECT') {
                   this._addChoice({
@@ -5023,33 +5956,33 @@ var choices = createCommonjsModule(function (module, exports) {
                   })
                 }
 
-                groups.forEach(function (group) {
+                groups.forEach((group) => {
                   return _this21._addGroup({
-                    group: group,
+                    group,
                     id: group.id || null
                   })
                 })
               }
 
               _proto._addPredefinedChoices = function _addPredefinedChoices (choices) {
-                var _this22 = this
+                let _this22 = this
 
                 // If sorting is enabled or the user is searching, filter choices
                 if (this.config.shouldSort) {
                   choices.sort(this.config.sorter)
                 }
 
-                var hasSelectedChoice = choices.some(function (choice) {
+                let hasSelectedChoice = choices.some((choice) => {
                   return choice.selected
                 })
-                var firstEnabledChoiceIndex = choices.findIndex(function (choice) {
+                let firstEnabledChoiceIndex = choices.findIndex((choice) => {
                   return choice.disabled === undefined || !choice.disabled
                 })
-                choices.forEach(function (choice, index) {
-                  var value = choice.value
-                  var label = choice.label
-                  var customProperties = choice.customProperties
-                  var placeholder = choice.placeholder
+                choices.forEach((choice, index) => {
+                  let value = choice.value
+                  let label = choice.label
+                  let customProperties = choice.customProperties
+                  let placeholder = choice.placeholder
 
                   if (_this22._isSelectElement) {
                     // If the choice is actually a group
@@ -5065,27 +5998,28 @@ var choices = createCommonjsModule(function (module, exports) {
                        *
                        * Otherwise we pre-select the first enabled choice in the array ("select-one" only)
                        */
-                      var shouldPreselect = _this22._isSelectOneElement && !hasSelectedChoice && index === firstEnabledChoiceIndex
-                      var isSelected = shouldPreselect ? true : choice.selected
-                      var isDisabled = choice.disabled
+                      let shouldPreselect =
+                        _this22._isSelectOneElement && !hasSelectedChoice && index === firstEnabledChoiceIndex
+                      let isSelected = shouldPreselect ? true : choice.selected
+                      let isDisabled = choice.disabled
 
                       _this22._addChoice({
-                        value: value,
-                        label: label,
-                        isSelected: isSelected,
-                        isDisabled: isDisabled,
-                        customProperties: customProperties,
-                        placeholder: placeholder
+                        value,
+                        label,
+                        isSelected,
+                        isDisabled,
+                        customProperties,
+                        placeholder
                       })
                     }
                   } else {
                     _this22._addChoice({
-                      value: value,
-                      label: label,
+                      value,
+                      label,
                       isSelected: choice.selected,
                       isDisabled: choice.disabled,
-                      customProperties: customProperties,
-                      placeholder: placeholder
+                      customProperties,
+                      placeholder
                     })
                   }
                 })
@@ -5095,9 +6029,9 @@ var choices = createCommonjsModule(function (module, exports) {
                */
 
               _proto._addPredefinedItems = function _addPredefinedItems (items) {
-                var _this23 = this
+                let _this23 = this
 
-                items.forEach(function (item) {
+                items.forEach((item) => {
                   if (typeof item === 'object' && item.value) {
                     _this23._addItem({
                       value: item.value,
@@ -5117,10 +6051,10 @@ var choices = createCommonjsModule(function (module, exports) {
               }
 
               _proto._setChoiceOrItem = function _setChoiceOrItem (item) {
-                var _this24 = this
+                let _this24 = this
 
-                var itemType = getType(item).toLowerCase()
-                var handleType = {
+                let itemType = getType(item).toLowerCase()
+                let handleType = {
                   object: function object () {
                     if (!item.value) {
                       return
@@ -5165,11 +6099,11 @@ var choices = createCommonjsModule(function (module, exports) {
               }
 
               _proto._findAndSelectChoiceByValue = function _findAndSelectChoiceByValue (val) {
-                var _this25 = this
+                let _this25 = this
 
-                var choices = this._store.choices // Check 'value' property exists and the choice isn't already selected
+                let choices = this._store.choices // Check 'value' property exists and the choice isn't already selected
 
-                var foundChoice = choices.find(function (choice) {
+                let foundChoice = choices.find((choice) => {
                   return _this25.config.valueComparer(choice.value, val)
                 })
 
@@ -5188,14 +6122,14 @@ var choices = createCommonjsModule(function (module, exports) {
 
               _proto._generatePlaceholderValue = function _generatePlaceholderValue () {
                 if (this._isSelectElement) {
-                  var placeholderOption = this.passedElement.placeholderOption
+                  let placeholderOption = this.passedElement.placeholderOption
                   return placeholderOption ? placeholderOption.text : false
                 }
 
-                var _this$config4 = this.config
-                var placeholder = _this$config4.placeholder
-                var placeholderValue = _this$config4.placeholderValue
-                var dataset = this.passedElement.element.dataset
+                let _this$config4 = this.config
+                let placeholder = _this$config4.placeholder
+                let placeholderValue = _this$config4.placeholderValue
+                let dataset = this.passedElement.element.dataset
 
                 if (placeholder) {
                   if (placeholderValue) {
@@ -5211,14 +6145,17 @@ var choices = createCommonjsModule(function (module, exports) {
               }
 
               return Choices
-            }())
+            })()
 
-        /* harmony default export */ var scripts_choices = __webpack_exports__.default = (choices_Choices)
-        /***/ }
-      /******/ ]).default
+          /* harmony default export */ let scripts_choices = (__webpack_exports__.default = choices_Choices)
+          /***/
+        }
+        /******/
+      ]
+    ).default
   })
 })
 
-var choices$1 = unwrapExports(choices)
+let choices$1 = unwrapExports(choices)
 
 export default choices$1

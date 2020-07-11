@@ -134,7 +134,7 @@ export class Waves extends HTMLElement {
     this.container = this.root.querySelector('.waves-container')
     this.waves = this.root.querySelector('.waves')
     if (image) {
-      this.root.querySelector('img').addEventListener('load', function (e) {
+      this.root.querySelector('img').addEventListener('load', e => {
         e.currentTarget.style.opacity = 1
       })
     }

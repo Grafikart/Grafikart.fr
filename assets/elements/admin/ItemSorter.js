@@ -22,7 +22,7 @@ function createLi (item) {
       </svg>
     </button>
   `
-  li.querySelector('button').addEventListener('click', async function (e) {
+  li.querySelector('button').addEventListener('click', async e => {
     if (confirm('Sûr ?')) {
       e.preventDefault()
       const loader = showLoader(li)

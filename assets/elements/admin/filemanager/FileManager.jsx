@@ -77,7 +77,7 @@ export function FileManager ({ dragOver, apiEndpoint, onSelectFile }) {
               </div>
             ) : (
               folders.map(folder => (
-                <Folder folder={folder} currentFolder={currentFolder} onSelect={handleSelectFolder} />
+                <Folder key={folder} folder={folder} currentFolder={currentFolder} onSelect={handleSelectFolder} />
               ))
             )}
           </div>
@@ -100,7 +100,7 @@ export function FileManager ({ dragOver, apiEndpoint, onSelectFile }) {
             </thead>
             <tbody>
               {files.map(file => (
-                <File file={file} onDelete={handleDelete} onSelect={onSelectFile} />
+                <File key={file} file={file} onDelete={handleDelete} onSelect={onSelectFile} />
               ))}
             </tbody>
           </table>
@@ -175,7 +175,9 @@ function Folder ({ folder, onSelect, currentFolder }) {
         <span>{folder.count}</span>
       </div>
       {isSelected &&
-        folder.children.map(child => <Folder folder={child} onSelect={onSelect} currentFolder={currentFolder} />)}
+        folder.children.map(child => (
+          <Folder key={folder} folder={child} onSelect={onSelect} currentFolder={currentFolder} />
+        ))}
     </>
   )
 }

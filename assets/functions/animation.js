@@ -8,10 +8,10 @@ import { windowHeight } from '/functions/window.js'
  * @returns {Promise<boolean>}
  */
 export function slideUp (element, duration = 500) {
-  return new Promise(function (resolve, reject) {
-    element.style.height = element.offsetHeight + 'px'
+  return new Promise(resolve => {
+    element.style.height = `${element.offsetHeight}px`
     element.style.transitionProperty = 'height, margin, padding'
-    element.style.transitionDuration = duration + 'ms'
+    element.style.transitionDuration = `${duration}ms`
     element.offsetHeight // eslint-disable-line no-unused-expressions
     element.style.overflow = 'hidden'
     element.style.height = 0
@@ -19,7 +19,7 @@ export function slideUp (element, duration = 500) {
     element.style.paddingBottom = 0
     element.style.marginTop = 0
     element.style.marginBottom = 0
-    window.setTimeout(function () {
+    window.setTimeout(() => {
       element.style.display = 'none'
       element.style.removeProperty('height')
       element.style.removeProperty('padding-top')
@@ -41,7 +41,7 @@ export function slideUp (element, duration = 500) {
  * @returns {Promise<boolean>}
  */
 export async function slideUpAndRemove (element, duration = 500) {
-  const r = await slideUp(element)
+  const r = await slideUp(element, duration)
   element.parentNode.removeChild(element)
   return r
 }
@@ -53,7 +53,7 @@ export async function slideUpAndRemove (element, duration = 500) {
  * @returns {Promise<boolean>}
  */
 export function slideDown (element, duration = 500) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(resolve => {
     element.style.removeProperty('display')
     let display = window.getComputedStyle(element).display
     if (display === 'none') display = 'block'
@@ -67,13 +67,13 @@ export function slideDown (element, duration = 500) {
     element.style.marginBottom = 0
     element.offsetHeight // eslint-disable-line no-unused-expressions
     element.style.transitionProperty = 'height, margin, padding'
-    element.style.transitionDuration = duration + 'ms'
-    element.style.height = height + 'px'
+    element.style.transitionDuration = `${duration}ms`
+    element.style.height = `${height}px`
     element.style.removeProperty('padding-top')
     element.style.removeProperty('padding-bottom')
     element.style.removeProperty('margin-top')
     element.style.removeProperty('margin-bottom')
-    window.setTimeout(function () {
+    window.setTimeout(() => {
       element.style.removeProperty('height')
       element.style.removeProperty('overflow')
       element.style.removeProperty('transition-duration')

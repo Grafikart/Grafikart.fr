@@ -135,7 +135,9 @@ export function useJsonFetchOrFlash (url, success, params = {}) {
  * useEffect pour une fonction asynchrone
  */
 export function useAsyncEffect (fn, deps = []) {
+  /* eslint-disable */
   useEffect(() => {
     fn()
   }, deps)
+  /* eslint-enable */
 }

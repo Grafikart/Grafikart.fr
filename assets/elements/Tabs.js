@@ -15,7 +15,7 @@ export default class Tabs extends HTMLElement {
     Array.from(this.children).forEach((_, i) => {
       const tab = this.children[i]
       const control = tab.getAttribute('aria-controls')
-      const target = document.querySelector('#' + control)
+      const target = document.querySelector(`#${control}`)
       if (control === window.location.hash.replace('#', '')) {
         hashTarget = target
         hashTab = tab
@@ -26,12 +26,12 @@ export default class Tabs extends HTMLElement {
       tab.setAttribute('tabindex', '-1')
       tab.setAttribute('aria-selected', 'false')
       tab.setAttribute('aria-controls', control)
-      tab.setAttribute('id', 'tab-' + control)
+      tab.setAttribute('id', `tab-${control}`)
       tab.dataset.control = target
 
       // On ajoute les attributs aria sur la cible
       target.setAttribute('role', 'tabpanel')
-      target.setAttribute('aria-labelledby', 'tab-' + control)
+      target.setAttribute('aria-labelledby', `tab-${control}`)
       target.setAttribute('hidden', 'hidden')
 
       // Navigation à la souris
@@ -80,21 +80,21 @@ export default class Tabs extends HTMLElement {
     // Si un onglet est actif on le désactive
     const currentTab = this.querySelector('[aria-selected="true"]')
     if (currentTab !== null) {
-      const target = document.querySelector('#' + currentTab.getAttribute('aria-controls'))
+      const target = document.querySelector(`#${currentTab.getAttribute('aria-controls')}`)
       target.setAttribute('hidden', 'hidden')
       currentTab.setAttribute('aria-selected', 'false')
       currentTab.setAttribute('tabindex', '-1')
     }
 
     // On active l'onglet ciblé
-    const target = document.querySelector('#' + tab.getAttribute('aria-controls'))
+    const target = document.querySelector(`#${tab.getAttribute('aria-controls')}`)
     target.removeAttribute('hidden')
     tab.setAttribute('aria-selected', 'true')
     tab.setAttribute('tabindex', '0')
 
     // On met à jour l'url
     if (changeHash) {
-      window.history.replaceState({}, '', '#' + tab.getAttribute('aria-controls'))
+      window.history.replaceState({}, '', `#${tab.getAttribute('aria-controls')}`)
     }
   }
 }

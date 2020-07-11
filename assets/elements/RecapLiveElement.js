@@ -38,8 +38,8 @@ export class RecapLiveElement extends HTMLElement {
     this.showLoader()
     e.currentTarget.classList.add('is-active')
     const year = e.currentTarget.text
-    const url = this.path + `/${year}`
-    const response = await fetch(url + '?ajax=1')
+    const url = `${this.path}/${year}`
+    const response = await fetch(`${url}?ajax=1`)
     if (response.status >= 200 && response.status < 300) {
       const data = await response.text()
       this.liveList.innerHTML = data

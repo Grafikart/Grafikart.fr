@@ -82,9 +82,9 @@ export class TimeAgo extends HTMLElement {
       }
     }
     if (seconds >= 0) {
-      this.innerHTML = prefix + ' ' + term.text.replace('%d', Math.round(seconds / term.divide))
+      this.innerHTML = `${prefix} ${term.text.replace('%d', Math.round(seconds / term.divide))}`
     } else {
-      this.innerHTML = 'Dans ' + term.text.replace('%d', Math.round(Math.abs(seconds) / term.divide))
+      this.innerHTML = `Dans ${term.text.replace('%d', Math.round(Math.abs(seconds) / term.divide))}`
     }
     let nextTick = Math.abs(seconds) % term.divide
     if (nextTick === 0) {

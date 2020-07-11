@@ -10,14 +10,14 @@
   font-weight: bold;
   color: #ffffff;
   cursor: pointer;
-  transition: filter 0.3s, background .3s, color .3s;
+  transition: filter 0.3s, background 0.3s, color 0.3s;
   font-size: 0.9em;
   filter: brightness(1);
 
   &[disabled] {
     cursor: default;
     filter: grayscale(1);
-    opacity: .7;
+    opacity: 0.7;
   }
 
   &:hover[disabled] {
@@ -38,7 +38,7 @@
 // Bouton avec un effet de profondeur "Web 2.0"
 .btn-gradient {
   @extend %btn;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .2) 100%) var(--contrast);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 100%) var(--contrast);
 }
 
 .btn-primary {
@@ -55,7 +55,7 @@
   &:hover {
     filter: none;
     background: var(--contrast);
-    color: #FFF;
+    color: #fff;
   }
 }
 
@@ -67,9 +67,9 @@
 .btn-secondary {
   @extend %btn;
   font-weight: normal;
-  color: var(--color)!important;
-  background: #FFFF;
-  border: 1px solid var(--border)!important;
+  color: var(--color) !important;
+  background: #ffff;
+  border: 1px solid var(--border) !important;
 }
 
 .btn-big {

@@ -16,8 +16,7 @@ export function ForumActions ({ message, topic }) {
   } else if (topic) {
     endpoint = `/api/forum/topics/${topic}`
   } else {
-    console.error('Impossible de charger le formulaire de signalement')
-    return
+    throw new Error('Impossible de charger le formulaire de signalement')
   }
 
   // On prépare les hooks
@@ -25,7 +24,7 @@ export function ForumActions ({ message, topic }) {
 
   // Handler
   const handleDeleteClick = useCallback(
-    async function (e) {
+    async e => {
       if (!confirm('Voulez vous vraiment supprimer ce message ?')) {
         return
       }
@@ -40,10 +39,10 @@ export function ForumActions ({ message, topic }) {
 
   // Rendu
   return (
-    <Fragment>
+    <>
       {deleteCalled === null && <DeleteButton loading={deleteLoading} onClick={handleDeleteClick} />}
       <ReportButton message={message} topic={topic} />
-    </Fragment>
+    </>
   )
 }
 
@@ -94,8 +93,7 @@ function ReportForm ({ onSuccess, message, topic }) {
   } else if (topic) {
     initialData.topic = `/api/forum/topics/${topic}`
   } else {
-    console.error('Impossible de charger le forumulaire de signalement')
-    return
+    throw new Error('Impossible de charger le forumulaire de signalement')
   }
   const placeholder = 'Indiquez en quoi ce sujet ne convient pas'
   const action = '/api/forum/reports'

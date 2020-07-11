@@ -76,7 +76,7 @@ export class YoutubePlayer extends HTMLElement {
       /** @var {PlayButton} button **/
       const button = document.querySelector(newValue)
       if (button !== null) {
-        button.setAttribute('video', '#' + this.id)
+        button.setAttribute('video', `#${this.id}`)
       }
     }
   }
@@ -126,9 +126,9 @@ export class YoutubePlayer extends HTMLElement {
   /**
    * @param {YT.PlayerEvent} event
    */
-  onYoutubePlayerReady (event) {
+  onYoutubePlayerReady () {
     this.startTimer()
-    this.dispatchEvent(new global.Event('play'))
+    this.dispatchEvent(new Event('play'))
   }
 
   /**
@@ -238,7 +238,7 @@ export class YoutubePlayer extends HTMLElement {
  * @returns {Promise<YT>}
  */
 async function loadYoutubeApi () {
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     if (YT) {
       resolve(YT)
     }

@@ -2,16 +2,14 @@
  * Debounce un callback
  */
 export function debounce (func, wait, immediate) {
-  var timeout
-  return function () {
-    var context = this
-    var args = arguments
+  let timeout
+  return function (...args) {
     clearTimeout(timeout)
-    timeout = setTimeout(function () {
+    timeout = setTimeout(() => {
       timeout = null
-      if (!immediate) func.apply(context, args)
+      if (!immediate) func.apply(this, args)
     }, wait)
-    if (immediate && !timeout) func.apply(context, args)
+    if (immediate && !timeout) func.apply(this, args)
   }
 }
 
@@ -21,7 +19,7 @@ export function debounce (func, wait, immediate) {
  * @param {number} duration
  */
 export function wait (duration) {
-  return new Promise(function (resolve) {
+  return new Promise(resolve => {
     window.setTimeout(resolve, duration)
   })
 }

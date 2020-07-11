@@ -4,7 +4,8 @@ import { Icon } from '/components/Icon.jsx'
 import { SlideIn } from '/components/Animation/SlideIn.jsx'
 import { isAuthenticated, lastNotificationRead } from '/functions/auth.js'
 import { Spinner } from '/components/Animation/Spinner.jsx'
-import { loadNotifications } from '../api/notifications.js'
+import { loadNotifications } from '/api/notifications.js'
+import { useAsyncEffect } from '/functions/hooks'
 
 const OPEN = 0
 const CLOSE = 1
@@ -22,9 +23,6 @@ function countUnread (notifications, notificationReadAt) {
  * @constructor
  */
 export function Notifications () {
-  // Le système de notification ne fonction que pour les utilisateurs
-  if (!isAuthenticated()) return null
-
   // Hooks
   const [state, setState] = useState(CLOSE)
   const [notifications, pushNotification] = usePrepend()
@@ -42,7 +40,7 @@ export function Notifications () {
   }
 
   // On charge les notification la première fois
-  useEffect(async () => {
+  useAsyncEffect(async () => {
     await loadNotifications()
     setLoading(false)
   }, [])
@@ -57,6 +55,9 @@ export function Notifications () {
       window.removeEventListener('gnotification', onNotification)
     }
   }, [pushNotification])
+
+  // Le système de notification ne fonction que pour les utilisateurs
+  if (!isAuthenticated()) return null
 
   return (
     <>
@@ -97,7 +98,7 @@ function Popup ({ notifications = [], onClickOutside = () => {}, loading = false
       <div className='notifications_body'>
         {loading && <Spinner />}
         {notifications.map(n => (
-          <Notification notificationReadAt={notificationReadAt} {...n} />
+          <Notification key={n.id} notificationReadAt={notificationReadAt} {...n} />
         ))}
         <a href='/notifications' className='notifications_footer'>
           Toutes les notifications

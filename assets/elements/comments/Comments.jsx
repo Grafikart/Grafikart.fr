@@ -1,9 +1,9 @@
 import { canManage, isAuthenticated } from '/functions/auth.js'
 import { Icon } from '/components/Icon.jsx'
 import { memo } from 'preact/compat'
-import { useCallback, useState, useRef, useEffect, useMemo } from 'preact/hooks'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'preact/hooks'
 import { useAsyncEffect } from '/functions/hooks.js'
-import { findAllComments, updateComment, deleteComment, addComment } from '/api/comments.js'
+import { addComment, deleteComment, findAllComments, updateComment } from '/api/comments.js'
 import { PrimaryButton, SecondaryButton } from '/components/Button.jsx'
 import { Flex } from '/components/Layout.jsx'
 import { Field } from '/components/Form.jsx'
@@ -45,7 +45,7 @@ export function Comments ({ target }) {
   // On focalise se focalise sur un commentaire
   useEffect(() => {
     if (focus) {
-      scrollTo(document.getElementById('c' + state.focus))
+      scrollTo(document.getElementById(`c${state.focus}`))
       setState(s => ({ ...s, focus: null }))
     }
   }, [state.focus])
@@ -80,7 +80,7 @@ export function Comments ({ target }) {
   }, [])
   const handleCancelReply = useCallback(() => {
     setState(s => ({ ...s, reply: null }))
-  })
+  }, [])
 
   // On crée un nouveau commentaire
   const handleCreate = useCallback(
@@ -145,8 +145,8 @@ export function Comments ({ target }) {
 /**
  * Affiche un commentaire
  */
-const Comment = memo(function ({ comment, editing, onEdit, onUpdate, onDelete, onReply, children, replies }) {
-  const anchor = '#c' + comment.id
+const Comment = memo(({ comment, editing, onEdit, onUpdate, onDelete, onReply, children }) => {
+  const anchor = `#c${comment.id}`
   const canEdit = canManage(comment.userId)
   const className = ['comment']
   const textarea = useRef(null)
@@ -205,7 +205,7 @@ const Comment = memo(function ({ comment, editing, onEdit, onUpdate, onDelete, o
   }
 
   return (
-    <div className={className.join(' ')} id={'c' + comment.id}>
+    <div className={className.join(' ')} id={`c${comment.id}`}>
       <img src={comment.avatar} alt='' className='comment__avatar' />
       <div className='comment__meta'>
         <div className='comment__author'>{comment.username}</div>
@@ -247,11 +247,11 @@ function CommentForm ({ onSubmit, parent, onCancel = null }) {
   const ref = useRef(null)
 
   const handleSubmit = useCallback(
-    async function (e) {
+    async e => {
       const form = e.target
       e.preventDefault()
       setLoading(true)
-      const [_, errors] = await catchViolations(onSubmit(Object.fromEntries(new FormData(form)), parent))
+      const errors = (await catchViolations(onSubmit(Object.fromEntries(new FormData(form)), parent)))[1]
       if (errors) {
         setErrors(errors)
       } else {
@@ -259,7 +259,7 @@ function CommentForm ({ onSubmit, parent, onCancel = null }) {
       }
       setLoading(false)
     },
-    [onSubmit]
+    [onSubmit, parent]
   )
 
   const handleCancel = function (e) {
@@ -267,14 +267,11 @@ function CommentForm ({ onSubmit, parent, onCancel = null }) {
     onCancel()
   }
 
-  useEffect(
-    function () {
-      if (parent && ref.current) {
-        scrollTo(ref.current)
-      }
-    },
-    [parent]
-  )
+  useEffect(() => {
+    if (parent && ref.current) {
+      scrollTo(ref.current)
+    }
+  }, [parent])
 
   return (
     <form className='grid' onSubmit={handleSubmit} ref={ref}>

@@ -1,14 +1,10 @@
-import { render, h } from 'preact'
+import { h, render } from 'preact'
 import { Comments as CommentsComponent } from './Comments.jsx'
 
 /**
  * @property {IntersectionObserver} observer
  */
 export class Comments extends HTMLElement {
-  constructor () {
-    super()
-  }
-
   connectedCallback () {
     this.observer = new IntersectionObserver(observables => {
       observables.forEach(observable => {
