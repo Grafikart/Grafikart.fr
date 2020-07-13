@@ -4,7 +4,7 @@ import { createElement } from '/functions/dom.js'
  * @property {HTMLDivElement} container
  * @property {monaco} editor
  */
-export default class DiffEditor extends HTMLTextAreaElement {
+export class DiffEditor extends HTMLTextAreaElement {
   async connectedCallback () {
     // On charge monaco
     const { default: monaco } = await import('/libs/monaco.js')
@@ -44,5 +44,3 @@ export default class DiffEditor extends HTMLTextAreaElement {
     }
   }
 }
-
-customElements.define('diff-editor', DiffEditor, { extends: 'textarea' })
