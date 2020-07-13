@@ -6,10 +6,8 @@ use App\Domain\Auth\Event\BadPasswordLoginEvent;
 use App\Domain\Auth\Exception\TooManyBadCredentialsException;
 use App\Domain\Auth\Service\LoginAttemptService;
 use Psr\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -131,12 +129,9 @@ class Authenticator extends AbstractFormLoginAuthenticator implements PasswordAu
         return $this->urlGenerator->generate('auth_login');
     }
 
-    public function start(Request $request, AuthenticationException $authException = null): Response
+    public function start(Request $request, AuthenticationException $authException = null): RedirectResponse
     {
         $url = $this->getLoginUrl();
-        if ('json' === $request->getContentType()) {
-            return new JsonResponse([], Response::HTTP_FORBIDDEN);
-        }
 
         return new RedirectResponse($url);
     }

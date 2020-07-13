@@ -1,6 +1,6 @@
 /**
  * Loader animé
  */
-export function Loader ({ ...props }) {
-  return <spinning-dots {...props} />
+export function Loader ({ className = 'icon', ...props }) {
+  return <spinning-dots className={className} {...props} />
 }

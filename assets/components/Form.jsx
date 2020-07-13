@@ -89,7 +89,7 @@ function FieldEditor (props) {
       ref.current.syncEditor()
     }
   }, [props.value])
-  return <textarea {...props} is='markdown-editor' ref={ref}/>
+  return <textarea {...props} is='markdown-editor' ref={ref} />
 }
 
 /**
@@ -109,19 +109,13 @@ export const FormContext = createContext({
  * @param onChange
  * @param className
  * @param children
- * @param action
- * @param method
+ * @param {string} action URL de l'action à appeler pour traiter le formulaire
+ * @param {object} data Données à envoyer à l'API et à fusionner avec les données du formulaire
+ * @param {string} method Méthode d'envoie des données
  * @param onSuccess Fonction appelée en cas de retour valide de l'API (reçoit les données de l'API en paramètre)
  */
-export function FetchForm ({
-  onChange,
-  children,
-  action,
-  className,
-  method = 'POST',
-  onSuccess = () => {}
-}) {
-  const [{loading, errors}, setState] = useState({
+export function FetchForm ({ data = {}, children, action, className, method = 'POST', onSuccess = () => {} }) {
+  const [{ loading, errors }, setState] = useState({
     loading: false,
     errors: []
   })
@@ -140,9 +134,9 @@ export function FetchForm ({
     e.preventDefault()
     setState({ loading: true, errors: [] })
     const form = e.target
-    const data = Object.fromEntries(new FormData(form))
+    const formData = { ...data, ...Object.fromEntries(new FormData(form)) }
     try {
-      const response = await jsonFetch(action, { method, body: data })
+      const response = await jsonFetch(action, { method, body: formData })
       onSuccess(response)
       form.reset()
     } catch (e) {
@@ -157,16 +151,18 @@ export function FetchForm ({
     setState(s => ({ ...s, loading: false }))
   }
 
-  return <FormContext.Provider value={{ loading, errors, emptyError }}>
-    <form onSubmit={handleSubmit} className={className}>
-      {mainError && (
-        <alert-message type='error' duration='4' onClose={() => emptyError('main')}>
-          {mainError}
-        </alert-message>
-      )}
-      {children}
-    </form>
-  </FormContext.Provider>
+  return (
+    <FormContext.Provider value={{ loading, errors, emptyError }}>
+      <form onSubmit={handleSubmit} className={className}>
+        {mainError && (
+          <alert-message type='error' duration='4' onClose={() => emptyError('main')}>
+            {mainError}
+          </alert-message>
+        )}
+        {children}
+      </form>
+    </FormContext.Provider>
+  )
 }
 
 /**
@@ -181,8 +177,7 @@ export function FormField ({ type = 'text', name, children, ...props }) {
   const { errors, emptyError, loading } = useContext(FormContext)
   const error = errors[name] || null
   return (
-    <Field type={type} name={name} error={error} onInput={() => emptyError(name)}
-           readonly={loading} {...props}>
+    <Field type={type} name={name} error={error} onInput={() => emptyError(name)} readonly={loading} {...props}>
       {children}
     </Field>
   )

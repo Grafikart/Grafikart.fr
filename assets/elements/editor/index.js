@@ -29,10 +29,12 @@ export class MarkdownEditor extends HTMLTextAreaElement {
     toolbar.onFullScreen = this.toggleFullscreen
     editor.onChange = value => {
       this.value = value
-      this.dispatchEvent(new Event('input', {
-        bubbles: true,
-        cancelable: true,
-      }))
+      this.dispatchEvent(
+        new Event('input', {
+          bubbles: true,
+          cancelable: true
+        })
+      )
     }
     this.syncEditor = () => editor.setValue(this.value)
     if (this.form) {
@@ -51,7 +53,7 @@ export class MarkdownEditor extends HTMLTextAreaElement {
     }
   }
 
-  onFormReset (e) {
+  onFormReset () {
     if (this.editor) {
       this.editor.setValue('')
     }

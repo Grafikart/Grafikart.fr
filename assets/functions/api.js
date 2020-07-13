@@ -1,7 +1,7 @@
 /**
  *
  * @param {RequestInfo} url
- * @param {RequestInit} params
+ * @param params
  * @return {Promise<Object>}
  */
 export async function jsonFetch (url, params = {}) {
@@ -13,15 +13,14 @@ export async function jsonFetch (url, params = {}) {
   if (params.body && typeof params.body === 'object') {
     params.body = JSON.stringify(params.body)
   }
-  params = Object.assign(
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      }
+  params = {
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json'
     },
-    params
-  )
+    ...params
+  }
+
   const response = await fetch(url, params)
   if (response.status === 204) {
     return null

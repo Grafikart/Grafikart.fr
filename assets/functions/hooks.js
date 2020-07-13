@@ -115,8 +115,8 @@ export function useJsonFetch (url, params = {}, autofetch = true) {
  * @param {object} params
  * @return {(boolean|*[]|{}|load)[]}
  */
-export function useJsonFetchOrFlash (url, success, params = {}) {
-  const [loading, setLoading] = useState(true)
+export function useJsonFetchAndFlash (url, params = {}) {
+  const [loading, setLoading] = useState(false)
   const [data, setData] = useState(null)
   const fetch = async function () {
     setLoading(true)
@@ -128,7 +128,7 @@ export function useJsonFetchOrFlash (url, success, params = {}) {
     }
     setLoading(false)
   }
-  return [loading, data, fetch]
+  return { loading, data, fetch }
 }
 
 /**

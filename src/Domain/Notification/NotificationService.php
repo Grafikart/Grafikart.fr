@@ -54,13 +54,15 @@ class NotificationService
     {
         /** @var string $url */
         $url = $this->serializer->serialize($entity, PathEncoder::FORMAT);
+        /** @var NotificationRepository $repository */
+        $repository = $this->em->getRepository(Notification::class);
         $notification = (new Notification())
             ->setMessage($message)
             ->setUrl($url)
             ->setTarget($this->getHashForEntity($entity))
             ->setCreatedAt(new \DateTime())
             ->setUser($user);
-        $this->getRepository()->persistOrUpdate($notification);
+        $repository->persistOrUpdate($notification);
         $this->em->flush();
         $this->dispatcher->dispatch(new NotificationCreatedEvent($notification));
 
@@ -89,10 +91,5 @@ class NotificationService
         }
 
         return $hash;
-    }
-
-    private function getRepository(): NotificationRepository
-    {
-        return $this->em->getRepository(Notification::class);
     }
 }

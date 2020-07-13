@@ -25,7 +25,7 @@ export function Button ({ children, className = '', loading = false, ...props })
   )
 }
 
-export function RoundedButton ({ children, loading = false, type = '', title = '', ...props }) {
+export function RoundedButton ({ children, loading = true, type = '', title = '', ...props }) {
   return (
     <button
       className={`rounded-button ${type}`}
@@ -34,7 +34,7 @@ export function RoundedButton ({ children, loading = false, type = '', title = '
       role='tooltip'
       {...props}
     >
-      <span>{loading ? children : <spinning-dots className='icon' />}</span>
+      <span>{loading ? <Loader /> : children}</span>
     </button>
   )
 }

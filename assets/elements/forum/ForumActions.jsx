@@ -1,11 +1,10 @@
 import { FetchForm, FormField, FormPrimaryButton } from '/components/Form.jsx'
-import { useClickOutside, useJsonFetchOrFlash, useToggle } from '/functions/hooks.js'
-import { useCallback, useRef, useState } from 'preact/hooks'
+import { useClickOutside, useJsonFetchAndFlash, useToggle } from '/functions/hooks.js'
+import { useRef } from 'preact/hooks'
 import { SlideIn } from '/components/Animation/SlideIn.jsx'
 import { flash } from '/elements/Alert.js'
 import { Icon } from '/components/Icon.jsx'
 import { RoundedButton } from '/components/Button.jsx'
-import { slideUp } from '/functions/animation.js'
 import { closest } from '/functions/dom.js'
 
 export function ForumActions ({ message, topic }) {
@@ -19,36 +18,32 @@ export function ForumActions ({ message, topic }) {
     throw new Error('Impossible de charger le formulaire de signalement')
   }
 
-  // On prépare les hooks
-  const [deleteLoading, deleteCalled, deleteFetch] = useJsonFetchOrFlash(endpoint, { method: 'DELETE' })
-
-  // Handler
-  const handleDeleteClick = useCallback(
-    async e => {
-      if (!confirm('Voulez vous vraiment supprimer ce message ?')) {
-        return
-      }
-      const message = closest(e.target, '.forum-message')
-      await deleteFetch()
-      flash('Votre message a bien été supprimé')
-      await slideUp(message)
-      message.remove()
-    },
-    [endpoint]
-  )
-
   // Rendu
   return (
     <>
-      {deleteCalled === null && <DeleteButton loading={deleteLoading} onClick={handleDeleteClick} />}
+      <DeleteButton endpoint={endpoint} />
       <ReportButton message={message} topic={topic} />
     </>
   )
 }
 
-function DeleteButton (props) {
+function DeleteButton ({ endpoint }) {
+  // On prépare les hooks
+  const { loading: deleteLoading, fetch: deleteFetch } = useJsonFetchAndFlash(endpoint, { method: 'DELETE' })
+
+  // Handler
+  const handleDeleteClick = async e => {
+    if (!confirm('Voulez vous vraiment supprimer ce message ?')) {
+      return
+    }
+    const message = closest(e.target, '.forum-message')
+    await deleteFetch()
+    flash('Votre message a bien été supprimé')
+    message.remove()
+  }
+
   return (
-    <RoundedButton type='danger' title='Supprimer ce message' {...props}>
+    <RoundedButton type='danger' title='Supprimer ce message' loading={deleteLoading} onClick={handleDeleteClick}>
       <Icon name='trash' />
     </RoundedButton>
   )
@@ -87,31 +82,23 @@ function ReportButton ({ message, topic }) {
  * Formulaire de signalement
  */
 function ReportForm ({ onSuccess, message, topic }) {
-  const initialData = { reason: 'Ceci est un spam', message: null, topic: null }
+  const data = { message: null, topic: null }
   if (message) {
-    initialData.message = `/api/forum/messages/${message}`
+    data.message = `/api/forum/messages/${message}`
   } else if (topic) {
-    initialData.topic = `/api/forum/topics/${topic}`
+    data.topic = `/api/forum/topics/${topic}`
   } else {
-    throw new Error('Impossible de charger le forumulaire de signalement')
+    throw new Error('Impossible de charger le formulaire de signalement')
   }
   const placeholder = 'Indiquez en quoi ce sujet ne convient pas'
   const action = '/api/forum/reports'
-  const [value, setValue] = useState(initialData)
   const onReportSuccess = function () {
-    setValue(initialData)
     flash('Merci pour votre signalement')
     onSuccess()
   }
 
   return (
-    <FetchForm
-      value={value}
-      onChange={setValue}
-      className='forum-report stack'
-      action={action}
-      onSuccess={onReportSuccess}
-    >
+    <FetchForm data={data} className='forum-report stack' action={action} onSuccess={onReportSuccess}>
       <FormField type='textarea' name='reason' required placeholder={placeholder} autofocus>
         Raison du signalement
       </FormField>
