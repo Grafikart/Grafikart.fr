@@ -60,6 +60,6 @@ class TwigTimeExtension extends AbstractExtension
      */
     public function ago(\DateTimeInterface $date, string $prefix = ''): string
     {
-        return "<time-ago time=\"{$date->getTimestamp()}\" prefix=\"{$prefix}\"/>";
+        return "<time-ago time=\"{$date->getTimestamp()}\" prefix=\"{$prefix}\"></time-ago>";
     }
 }

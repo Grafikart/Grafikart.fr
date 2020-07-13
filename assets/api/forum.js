@@ -5,12 +5,11 @@
  * @param {string|number|null} topic
  * @return {string}
  */
-export function resolveEndpoint({message, topic}) {
+export function resolveEndpoint ({ message, topic }) {
   if (message) {
     return `/api/forum/messages/${message}`
   } else if (topic) {
     return `/api/forum/topics/${topic}`
-  } else {
-    throw new Error('Impossible de charger le composant d\'édition')
   }
+  throw new Error("Impossible de charger le composant d'édition")
 }

@@ -28,4 +28,11 @@ class TopicService
         $this->em->flush();
         $this->dispatcher->dispatch(new TopicCreatedEvent($topic));
     }
+
+    public function updateTopic(Topic $topic): void
+    {
+        $topic->setUpdatedAt(new \DateTime());
+        $this->em->persist($topic);
+        $this->em->flush();
+    }
 }

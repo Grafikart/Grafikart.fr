@@ -155,7 +155,7 @@ export function FetchForm ({ data = {}, children, action, className, method = 'P
     <FormContext.Provider value={{ loading, errors, emptyError }}>
       <form onSubmit={handleSubmit} className={className}>
         {mainError && (
-          <alert-message type='error' duration='4' onClose={() => emptyError('main')}>
+          <alert-message type='danger' onClose={() => emptyError('main')}>
             {mainError}
           </alert-message>
         )}

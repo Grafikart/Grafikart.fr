@@ -20,12 +20,12 @@ function highlight ($codes) {
       if (cls.endsWith(lang)) {
         lazy = true
         scriptjs(`//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/languages/${lang}.min.js`, () => {
-          global.hljs.highlightBlock(code)
+          window.hljs.highlightBlock(code)
         })
       }
     })
     if (lazy === false) {
-      global.hljs.highlightBlock(code)
+      window.hljs.highlightBlock(code)
     }
   })
 }
@@ -36,14 +36,14 @@ function highlight ($codes) {
 function bindHighlight () {
   const $codes = document.querySelectorAll('pre code')
   if ($codes.length > 0) {
-    if (global.hljs) {
+    if (window.hljs) {
       highlight($codes)
     } else {
       const link = document.createElement('link')
       link.setAttribute('rel', 'stylesheet')
       document.querySelector('head').appendChild(link)
       scriptjs('//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js', () => {
-        global.hljs.configure({ tabReplace: '    ' })
+        window.hljs.configure({ tabReplace: '    ' })
         highlight($codes)
       })
     }

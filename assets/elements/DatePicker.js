@@ -46,7 +46,8 @@ export default class DatePicker extends HTMLInputElement {
       altFormat: 'd F Y H:i',
       dateFormat: 'Y-m-d H:i:s',
       altInput: true,
-      enableTime: true
+      enableTime: true,
+      defaultHour: this.getAttribute('hour')
     })
   }
 

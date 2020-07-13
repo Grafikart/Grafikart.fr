@@ -21,8 +21,11 @@ class ForumController extends AbstractController
     private TopicRepository $topicRepository;
     private PaginatorInterface $paginator;
 
-    public function __construct(TagRepository $tagRepository, TopicRepository $topicRepository, PaginatorInterface $paginator)
-    {
+    public function __construct(
+        TagRepository $tagRepository,
+        TopicRepository $topicRepository,
+        PaginatorInterface $paginator
+    ) {
         $this->tagRepository = $tagRepository;
         $this->topicRepository = $topicRepository;
         $this->paginator = $paginator;
@@ -50,7 +53,7 @@ class ForumController extends AbstractController
             $service->createTopic($topic);
             $this->addFlash('success', 'Le sujet a bien été créé');
 
-            return $this->redirectToRoute('forum');
+            return $this->redirectToRoute('forum_show', ['id' => $topic->getId()]);
         }
 
         return $this->render('forum/new.html.twig', [
@@ -81,6 +84,27 @@ class ForumController extends AbstractController
             'topic' => $topic,
             'messages' => $topic->getMessages(),
             'menu' => 'forum',
+        ]);
+    }
+
+    /**
+     * @Route("/forum/{id<\d+>}/edit", name="forum_edit")
+     */
+    public function edit(Topic $topic, Request $request, TopicService $service): Response
+    {
+        $this->denyAccessUnlessGranted(ForumVoter::DELETE_TOPIC);
+        $form = $this->createForm(ForumTopicForm::class, $topic);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $service->updateTopic($topic);
+            $this->addFlash('success', 'Le sujet a bien été créé');
+
+            return $this->redirectToRoute('forum_show', ['id' => $topic->getId()]);
+        }
+
+        return $this->render('forum/edit.html.twig', [
+            'form' => $form->createView(),
+            'id' => $topic->getId(),
         ]);
     }
 }

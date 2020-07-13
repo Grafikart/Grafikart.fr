@@ -30,6 +30,25 @@ class LiveService
         return null === $option ? null : $this->serializer->deserialize($option, Live::class, 'json');
     }
 
+    /**
+     * Programme un nouveau live.
+     */
+    public function programLive(\DateTime $date)
+    {
+        $snippet = new \Google_Service_YouTube_LiveBroadcastSnippet();
+        $snippet->setTitle('LiveCoding : Développement du nouveau site');
+        $snippet->setDescription("Editeur : PHPStorm https://www.grafikart.fr/formations/phpstorm
+Couleur de l'éditeur : Material Theme UI Palenight (https://plugins.jetbrains.com/plugin/8006-material-theme-ui)
+OS : Arch Linux avec l'environnement de bureau i3 https://www.grafikart.fr/tutoriels/i3wm-presentation-916");
+        $snippet->setScheduledStartTime($date);
+        $status = new \Google_Service_YouTube_LiveBroadcastStatus();
+        $status->setPrivacyStatus('unlisted');
+        $broadcast = new \Google_Service_YouTube_LiveBroadcast();
+        $broadcast->setSnippet($snippet);
+        $broadcast = $this->youTube->liveBroadcasts->insert('id,snippet,contentDetails,status', $broadcast);
+        $this->setCurrentLive($broadcast->getId());
+    }
+
     public function setCurrentLive(?string $live): void
     {
         if (null === $live) {

@@ -33,8 +33,14 @@ export function ForumDelete ({ message, topic, owner }) {
     return null
   }
 
-  return (<> - <button className="text-danger" onClick={handleDeleteClick} disabled={deleteLoading}>
-    {deleteLoading && <Loader style={{width: 12, marginRight: 5}}/>}
-    Supprimer
-  </button></>)
+  return (
+    <>
+      {' '}
+      -{' '}
+      <button className='text-danger' onClick={handleDeleteClick} disabled={deleteLoading}>
+        {deleteLoading && <Loader style={{ width: 12, marginRight: 5 }} />}
+        Supprimer
+      </button>
+    </>
+  )
 }

@@ -17,7 +17,7 @@ export function ForumEdit ({ message, topic, owner }) {
   const endpoint = resolveEndpoint({ message, topic })
 
   // Handler
-  async function handleClick () {
+  async function startEditing () {
     // On récupère le contenu original
     if (rawContent === null) {
       setLoading(true)
@@ -51,35 +51,54 @@ export function ForumEdit ({ message, topic, owner }) {
     return null
   }
 
-  return (<span ref={element}>
-    {state === 'view' && <>
-      - <button onClick={handleClick}>
-      {loading && <Loader style={{ width: 12, marginRight: 5 }}/>}
-      Editer
-    </button>
-    </>}
-    {state === 'edit' &&
-    <ForumEditor
-      container={container.current}
-      endpoint={endpoint}
-      content={rawContent}
-      onSuccess={handleSuccess}
-      onCancel={handleCancel}
-      />}
-  </span>)
+  if (topic) {
+    return (
+      <>
+        - <a href={`/forum/${topic}/edit`}>Editer</a>
+      </>
+    )
+  }
+
+  return (
+    <span ref={element}>
+      {state === 'view' && (
+        <>
+          -{' '}
+          <button onClick={startEditing}>
+            {loading && <Loader style={{ width: 12, marginRight: 5 }} />}
+            Editer
+          </button>
+        </>
+      )}
+      {state === 'edit' && (
+        <ForumEditor
+          container={container.current}
+          endpoint={endpoint}
+          content={rawContent}
+          onSuccess={handleSuccess}
+          onCancel={handleCancel}
+        />
+      )}
+    </span>
+  )
 }
 
 /**
  * Génère un éditeur pour l'édition d'un message sur le forum
  */
 function ForumEditor ({ container, endpoint, onCancel, content, onSuccess }) {
-  return createPortal(<FetchForm action={endpoint} method="PUT" onSuccess={onSuccess}>
-    <Stack>
-      <FormField name="content" defaultValue={content} type="editor"/>
-      <Flex>
-        <FormPrimaryButton>Editer</FormPrimaryButton>
-        <SecondaryButton onClick={onCancel} type="button">Annuler</SecondaryButton>
-      </Flex>
-    </Stack>
-  </FetchForm>, container)
+  return createPortal(
+    <FetchForm action={endpoint} method='PUT' onSuccess={onSuccess}>
+      <Stack>
+        <FormField name='content' defaultValue={content} type='editor' />
+        <Flex>
+          <FormPrimaryButton>Editer</FormPrimaryButton>
+          <SecondaryButton onClick={onCancel} type='button'>
+            Annuler
+          </SecondaryButton>
+        </Flex>
+      </Stack>
+    </FetchForm>,
+    container
+  )
 }

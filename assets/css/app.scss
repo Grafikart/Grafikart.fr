@@ -110,6 +110,7 @@ body::after {
 @import 'modules/highlight';
 @import 'modules/pricing';
 @import 'modules/notifications';
+@import 'modules/toolips';
 
 // Pages
 // ==================
@@ -127,6 +128,3 @@ body::after {
 // @import "pages/single";
 // @import "pages/single";
 // @import "pages/single";
-
-// TODO : Voir comment importer dans le cas de vite
-// @import '~microtip/microtip.css';

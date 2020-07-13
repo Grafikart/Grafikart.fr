@@ -4,19 +4,10 @@ import { useRef } from 'preact/hooks'
 import { SlideIn } from '/components/Animation/SlideIn.jsx'
 import { flash } from '/elements/Alert.js'
 
-export function ForumActions ({ message, topic }) {
-  // Rendu
-  return (
-    <>
-      <ReportButton message={message} topic={topic} />
-    </>
-  )
-}
-
 /**
  * Bouton de signalement avec formulaire en tooltip
  */
-function ReportButton ({ message, topic }) {
+export function ForumReport ({ message, topic }) {
   // Hooks
   const ref = useRef(null)
   const [showForm, toggleForm] = useToggle(false)

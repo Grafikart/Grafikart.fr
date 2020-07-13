@@ -66,6 +66,11 @@ export class ApiError {
 
   // Renvoie les violations indexé par propertyPath
   get violations () {
+    if (!this.data.violations) {
+      return {
+        main: `${this.data.title} ${this.data.detail}`
+      }
+    }
     return this.data.violations.reduce((acc, violation) => {
       if (acc[violation.propertyPath]) {
         acc[violation.propertyPath].push(violation.message)

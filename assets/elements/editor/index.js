@@ -51,6 +51,9 @@ export class MarkdownEditor extends HTMLTextAreaElement {
     if (this.form) {
       this.form.removeEventListener('reset', this.onFormReset)
     }
+    if (this.container) {
+      this.container.remove()
+    }
   }
 
   onFormReset () {

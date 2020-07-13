@@ -44,6 +44,7 @@
 .btn-primary {
   @extend %btn;
   background: var(--contrast);
+  border: solid 1px var(--contrast);
 }
 
 .btn-primary-outlined {
