@@ -108,6 +108,14 @@ class Report
         return $this;
     }
 
+    /**
+     * @return Message|Topic
+     */
+    public function getTarget()
+    {
+        return $this->message ?: $this->topic;
+    }
+
     public function getReason(): string
     {
         return $this->reason;

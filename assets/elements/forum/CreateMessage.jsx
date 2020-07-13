@@ -7,7 +7,7 @@ import { slideDown } from '/functions/animation.js'
 
 export function CreateMessage ({ topic, parent }) {
   const [value, setValue] = useState({ content: '' })
-  const endpoint = `/api/topics/${topic}/messages`
+  const endpoint = `/api/forum/topics/${topic}/messages`
   const onSuccess = function (data) {
     const message = strToDom(data.html)
     parent.insertAdjacentElement('beforebegin', message)

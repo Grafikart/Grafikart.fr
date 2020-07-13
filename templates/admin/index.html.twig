@@ -4,82 +4,114 @@
 
 {% block body %}
 
-  <div class="grid" style="--col:460px">
-    <!-- Commentaires -->
-    <section class="stack" style="--gap:1">
-      <div class="flex">
-        <h1 class="dashboard-title">
-          {{ icon('comments') }} Derniers commentaires
-        </h1>
-        {{ paginate_nav(comments) }}
-      </div>
-      <div class="dashboard-card stack-separated">
-        {% for comment in comments %}
-          <article class="dashboard-comment stack" style="--gap:1">
-            <div class="flex">
-              <h3>
-                <strong>{{ icon('user') }} {{ comment.username }}</strong>,
-                {{ comment.target.title }}
-              </h3>
-              <ajax-delete class="dashboard-comment__delete"
-                           target=".dashboard-comment"
-                           url="{{ path('api_comments_delete_item', {id: comment.id}) }}">
-                {{ icon('delete') }}
-              </ajax-delete>
-            </div>
-            <p>{{ comment.content | nl2br }}</p>
-          </article>
-        {% endfor %}
-      </div>
-    </section>
+  <div class="stack-large">
 
-    <!-- Notifications -->
-    <section class="stack" style="--gap:1">
-      <div class="flex">
-        <h1 class="dashboard-title">
-          {{ icon('bell') }} Notifier
-        </h1>
+
+    <div class="grid2">
+
+      <!-- Commentaires -->
+      <section class="stack" style="--gap:1">
+        <div class="flex">
+          <h1 class="dashboard-title">
+            {{ icon('comments') }} Derniers commentaires
+          </h1>
+          {{ paginate_nav(comments) }}
+        </div>
+        <div class="dashboard-card stack-separated">
+          {% for comment in comments %}
+            <article class="dashboard-comment stack" style="--gap:1">
+              <div class="flex">
+                <h3>
+                  <strong>{{ icon('user') }} {{ comment.username }}</strong>,
+                  {{ comment.target.title }}
+                </h3>
+                <ajax-delete class="dashboard-comment__delete"
+                             target=".dashboard-comment"
+                             url="{{ path('api_comments_delete_item', {id: comment.id}) }}">
+                  {{ icon('delete') }}
+                </ajax-delete>
+              </div>
+              <p>{{ comment.content | nl2br }}</p>
+            </article>
+          {% endfor %}
+        </div>
+      </section>
+
+      <div class="stack-large">
+
+        {% if reports is not empty %}
+          <div class="stack">
+            <h1 class="dashboard-title">
+              {{ icon('comments') }} Signalements
+            </h1>
+            <div class="dashboard-card stack-separated">
+              {% for report in reports %}
+                <article class="dashboard-comment stack" style="--gap:1">
+                  <div class="flex">
+                    <h3>
+                      <strong>{{ icon('user') }} {{ report.author.username }}</strong> a signalé <strong>{{ icon('user') }} {{ report.target.author.username }}</strong> sur
+                      <a href="{{ path(report.target) }}">
+                        {{ report.topic ? report.topic.name : report.message.topic.name }}
+                      </a>
+                    </h3>
+                  </div>
+                  <p>{{ report.reason }}</p>
+                </article>
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+
+        <!-- Notifications -->
+        <section class="stack" style="--gap:1">
+          <div class="flex">
+            <h1 class="dashboard-title">
+              {{ icon('bell') }} Notifier
+            </h1>
+          </div>
+          <div class="dashboard-card">
+            <form-notification></form-notification>
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+    {% if revisions is not empty %}
+      <div class="dashboard-title mt2">
+        {{ icon('clock') }} Révisions
       </div>
       <div class="dashboard-card">
-        <form-notification></form-notification>
-      </div>
-    </section>
-  </div>
-
-  {% if revisions is not empty %}
-    <div class="dashboard-title mt2">
-      {{ icon('clock') }} Révisions
-    </div>
-    <div class="dashboard-card">
-      <table class="table">
-        <thead>
-        <tr>
-          <th>Article</th>
-          <th>Auteur</th>
-          <th>Date</th>
-          <th class="text-right">Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for revision in revisions %}
+        <table class="table">
+          <thead>
           <tr>
-            <td>
-              <a href="{{ path('admin_revision_show', {id: revision.id}) }}">
-                {{ revision.target.title }}
-              </a>
-            </td>
-            <td>{{ revision.author.username }}</td>
-            <td>{{ revision.createdAt | date }}</td>
-            <td>
-              <div class="dashboard-actions">
-                <a href="{{ path('admin_revision_show', {id: revision.id}) }}">{{ icon('edit') }}</a>
-              </div>
-            </td>
+            <th>Article</th>
+            <th>Auteur</th>
+            <th>Date</th>
+            <th class="text-right">Actions</th>
           </tr>
-        {% endfor %}
-        </tbody>
-      </table>
-    </div>
-  {% endif %}
+          </thead>
+          <tbody>
+          {% for revision in revisions %}
+            <tr>
+              <td>
+                <a href="{{ path('admin_revision_show', {id: revision.id}) }}">
+                  {{ revision.target.title }}
+                </a>
+              </td>
+              <td>{{ revision.author.username }}</td>
+              <td>{{ revision.createdAt | date }}</td>
+              <td>
+                <div class="dashboard-actions">
+                  <a href="{{ path('admin_revision_show', {id: revision.id}) }}">{{ icon('edit') }}</a>
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% endif %}
+  </div>
 
 {% endblock %}

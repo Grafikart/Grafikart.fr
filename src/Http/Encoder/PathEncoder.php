@@ -6,11 +6,15 @@ use ApiPlatform\Core\Api\UrlGeneratorInterface;
 use Symfony\Component\Serializer\Encoder\EncoderInterface;
 
 /**
- * Convertit un tableau de taille 2 en chemin.
+ * Convertit un tableau (issue du pathNormalizer) en chemin.
  *
  * ## Exemple
  *
- * ['blog_show', ['slug' => 'demo', 'id' => 3]
+ * [
+ *      'path' => 'blog_show',
+ *      'params' => ['slug' => 'demo', 'id' => 3],
+ *      'hash' => 'c3'
+ * ]
  */
 class PathEncoder implements EncoderInterface
 {
@@ -30,7 +34,9 @@ class PathEncoder implements EncoderInterface
     {
         ['path' => $path, 'params' => $params] = $data;
 
-        return $this->urlGenerator->generate($path, $params);
+        $hash = isset($data['hash']) ? '#'.$data['hash'] : '';
+
+        return $this->urlGenerator->generate($path, $params).$hash;
     }
 
     /**

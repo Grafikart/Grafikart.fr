@@ -1,3 +1,15 @@
+.header-nav .has-live .icon {
+  animation: liveRunning 3s infinite linear;
+}
+
+@keyframes liveRunning {
+  0% {color: var(--red) }
+  30% {color: var(--red) }
+  50% {color: inherit }
+  70% {color: var(--red) }
+  100% {color: var(--red) }
+}
+
 // Live courant
 // ==================
 .live-current {

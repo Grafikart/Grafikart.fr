@@ -132,7 +132,8 @@
 .grid2 {
   width: 100%;
   display: grid !important;
-  grid-gap: space(2);
+  --gap: 2;
+  grid-gap: calc(var(--gap) * var(--space));
   grid-template-columns: 1fr;
 
   @include up(500) {

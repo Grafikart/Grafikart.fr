@@ -2,6 +2,7 @@
 
 namespace App\Http\Normalizer;
 
+use App\Domain\Forum\Entity\Message;
 use App\Domain\Forum\Entity\Tag;
 use App\Domain\Forum\Entity\Topic;
 use App\Http\Encoder\PathEncoder;
@@ -24,6 +25,12 @@ class ForumPathNormalizer implements NormalizerInterface
                 'path' => 'forum_show',
                 'params' => ['id' => $object->getId()],
             ];
+        } elseif ($object instanceof Message) {
+            return [
+                'path' => 'forum_show',
+                'params' => ['id' => $object->getTopic()->getId()],
+                'hash' => 'message-'.$object->getId(),
+            ];
         }
         throw new \RuntimeException("Can't normalize path");
     }
@@ -33,7 +40,7 @@ class ForumPathNormalizer implements NormalizerInterface
      */
     public function supportsNormalization($data, string $format = null)
     {
-        return ($data instanceof Tag || $data instanceof Topic)
+        return ($data instanceof Tag || $data instanceof Topic || $data instanceof Message)
             && PathEncoder::FORMAT === $format;
     }
 }
