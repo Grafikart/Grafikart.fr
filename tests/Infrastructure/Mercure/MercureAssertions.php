@@ -6,11 +6,8 @@ use Symfony\Component\Mercure\Update;
 
 trait MercureAssertions
 {
-
     /**
-     * Vérifie qu'une publication a eu lieu sur Mercure
-     *
-     * @param string $topic
+     * Vérifie qu'une publication a eu lieu sur Mercure.
      */
     public function assertPublishedOnTopic(string $topic): void
     {
@@ -19,5 +16,4 @@ trait MercureAssertions
         $update = PublisherStub::$lastUpdate;
         $this->assertContains($topic, $update->getTopics());
     }
-
 }

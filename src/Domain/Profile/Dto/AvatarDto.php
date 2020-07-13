@@ -8,7 +8,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class AvatarDto
 {
-
     /**
      * @Assert\NotBlank()
      * @Assert\Image(mimeTypes={"image/jpeg", "image/png"}, minWidth=110, maxHeight=1400, maxWidth=1400, minHeight=110)
@@ -21,5 +20,4 @@ class AvatarDto
         $this->file = $file;
         $this->user = $user;
     }
-
 }

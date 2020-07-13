@@ -8,7 +8,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class SpamSubscriber implements EventSubscriberInterface
 {
-
     private TopicRepository $topicRepository;
 
     public function __construct(TopicRepository $topicRepository)
@@ -19,7 +18,7 @@ class SpamSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            PreTopicCreatedEvent::class => 'checkTopic'
+            PreTopicCreatedEvent::class => 'checkTopic',
         ];
     }
 

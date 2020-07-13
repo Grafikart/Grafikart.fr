@@ -37,19 +37,21 @@ class CommentApiProvider implements CollectionDataProviderInterface, RestrictedD
     public function getCollection(string $resourceClass, string $operationName = null): array
     {
         $request = $this->requestStack->getCurrentRequest();
-        if ($request === null) {
+        if (null === $request) {
             throw new RuntimeException('Requête introuvable');
         }
-        $contentId = (int)$request->get('content');
-        if ($contentId === 0) {
+        $contentId = (int) $request->get('content');
+        if (0 === $contentId) {
             throw new HttpException(Response::HTTP_BAD_REQUEST, 'Aucun contenu ne correspond à cet ID');
         }
-        return array_map(fn(Comment $comment) => CommentResource::fromComment($comment),
+
+        return array_map(fn (Comment $comment) => CommentResource::fromComment($comment),
             $this->commentRepository->findForApi($contentId));
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
+     *
      * @param int|array $id
      */
     public function getItem(string $resourceClass, $id, string $operationName = null, array $context = [])
@@ -57,6 +59,7 @@ class CommentApiProvider implements CollectionDataProviderInterface, RestrictedD
         if (is_array($id)) {
             throw new RuntimeException('id as array not expected');
         }
-        return CommentResource::fromComment($this->commentRepository->findPartial((int)$id));
+
+        return CommentResource::fromComment($this->commentRepository->findPartial((int) $id));
     }
 }

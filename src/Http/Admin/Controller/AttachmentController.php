@@ -4,7 +4,6 @@ namespace App\Http\Admin\Controller;
 
 use App\Domain\Attachment\Attachment;
 use App\Domain\Attachment\Repository\AttachmentRepository;
-use App\Domain\Attachment\Validator\AttachmentPathValidator;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -23,7 +22,6 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
  */
 class AttachmentController extends BaseController
 {
-
     private ValidatorInterface $validator;
     private UploaderHelper $uploaderHelper;
 
@@ -35,11 +33,12 @@ class AttachmentController extends BaseController
     public function validateRequest(Request $request): array
     {
         $errors = $this->validator->validate($request->files->get('file'), [
-            new Image()
+            new Image(),
         ]);
-        if ($errors->count() === 0) {
+        if (0 === $errors->count()) {
             return [true, null];
         }
+
         return [false, new JsonResponse(['error' => $errors->get(0)->getMessage()], 422)];
     }
 
@@ -59,11 +58,12 @@ class AttachmentController extends BaseController
         ['path' => $path, 'q' => $q] = $this->getFilterParams($request);
         if (!empty($q)) {
             $attachments = $repository->search($q);
-        } else if ($path === null) {
+        } elseif (null === $path) {
             $attachments = $repository->findLatest();
         } else {
             $attachments = $repository->findForPath($request->get('path'));
         }
+
         return $this->json($attachments);
     }
 
@@ -76,13 +76,14 @@ class AttachmentController extends BaseController
         if (!$valid) {
             return $response;
         }
-        if ($attachment === null) {
+        if (null === $attachment) {
             $attachment = new Attachment();
         }
         $attachment->setFile($request->files->get('file'));
         $attachment->setCreatedAt(new \DateTime());
         $em->persist($attachment);
         $em->flush();
+
         return $this->json($attachment);
     }
 
@@ -93,6 +94,7 @@ class AttachmentController extends BaseController
     {
         $em->remove($attachment);
         $em->flush();
+
         return $this->json([]);
     }
 
@@ -106,7 +108,7 @@ class AttachmentController extends BaseController
         $resolver->setAllowedTypes('path', ['string', 'null']);
         $resolver->setAllowedTypes('q', ['string', 'null']);
         $resolver->setAllowedValues('path', function ($value) {
-            return $value === null || preg_match('/^2\d{3}\/(1[0-2]|0[1-9])$/', $value) > 0;
+            return null === $value || preg_match('/^2\d{3}\/(1[0-2]|0[1-9])$/', $value) > 0;
         });
 
         try {
@@ -115,5 +117,4 @@ class AttachmentController extends BaseController
             throw new HttpException(Response::HTTP_UNPROCESSABLE_ENTITY, $exception->getMessage());
         }
     }
-
 }

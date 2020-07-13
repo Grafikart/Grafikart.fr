@@ -12,7 +12,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class ForumTagCrudData extends AutomaticCrudData
 {
-
     /**
      * @Assert\NotBlank()
      */
@@ -29,7 +28,7 @@ class ForumTagCrudData extends AutomaticCrudData
     public ?string $color;
 
     /**
-     * @var Tag $parent
+     * @var Tag
      */
     public ?Tag $parent;
 

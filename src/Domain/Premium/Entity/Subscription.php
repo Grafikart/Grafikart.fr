@@ -11,7 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Subscription
 {
-
     const ACTIVE = 1;
     const INACTIVE = 0;
 
@@ -56,7 +55,6 @@ class Subscription
 
     use StripeEntity;
 
-
     public function getId(): ?int
     {
         return $this->id;
@@ -65,6 +63,7 @@ class Subscription
     public function setId(?int $id): Subscription
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -76,6 +75,7 @@ class Subscription
     public function setState(int $state): Subscription
     {
         $this->state = $state;
+
         return $this;
     }
 
@@ -87,6 +87,7 @@ class Subscription
     public function setNextPayment(\DateTimeInterface $nextPayment): Subscription
     {
         $this->nextPayment = $nextPayment;
+
         return $this;
     }
 
@@ -98,6 +99,7 @@ class Subscription
     public function setPlan(Plan $plan): Subscription
     {
         $this->plan = $plan;
+
         return $this;
     }
 
@@ -109,6 +111,7 @@ class Subscription
     public function setUser(User $user): Subscription
     {
         $this->user = $user;
+
         return $this;
     }
 
@@ -120,6 +123,7 @@ class Subscription
     public function setCreatedAt(\DateTimeInterface $createdAt): Subscription
     {
         $this->createdAt = $createdAt;
+
         return $this;
     }
 
@@ -131,8 +135,7 @@ class Subscription
     public function setTax(float $tax): self
     {
         $this->tax = $tax;
+
         return $this;
     }
-
-
 }

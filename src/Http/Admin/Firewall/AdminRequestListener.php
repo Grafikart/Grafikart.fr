@@ -10,11 +10,10 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
- * Limite l'accès à l'administration en vérifiant le rôle de l'utilisateur
+ * Limite l'accès à l'administration en vérifiant le rôle de l'utilisateur.
  */
 class AdminRequestListener implements EventSubscriberInterface
 {
-
     private AuthorizationCheckerInterface $auth;
     private string $adminPrefix;
 
@@ -22,7 +21,7 @@ class AdminRequestListener implements EventSubscriberInterface
     {
         return [
             ControllerEvent::class => 'onController',
-            RequestEvent::class    => 'onRequest'
+            RequestEvent::class => 'onRequest',
         ];
     }
 
@@ -37,10 +36,10 @@ class AdminRequestListener implements EventSubscriberInterface
         if (!$event->isMasterRequest()) {
             return;
         }
-        $uri = '/' . trim($event->getRequest()->getRequestUri(), '/') . '/';
-        $prefix = '/' . trim($this->adminPrefix, '/') . '/';
+        $uri = '/'.trim($event->getRequest()->getRequestUri(), '/').'/';
+        $prefix = '/'.trim($this->adminPrefix, '/').'/';
         if (
-            substr($uri, 0, mb_strlen($prefix)) === $prefix  &&
+            substr($uri, 0, mb_strlen($prefix)) === $prefix &&
             !$this->auth->isGranted('CMS_MANAGE')
         ) {
             $exception = new AccessDeniedException();
@@ -50,14 +49,14 @@ class AdminRequestListener implements EventSubscriberInterface
     }
 
     /**
-     * Vérifie que l'utilisateur peux accéder aux controller de l'administration
+     * Vérifie que l'utilisateur peux accéder aux controller de l'administration.
      *
      * Cette sécurité fait doublon avec l'évènement RequestEvent, mais permet une sécurité supplémentaire dans le cas
      * ou une action d'un controller se retrouve dans une URL qui n'est pas préfixé par le chemin de l'administration
      */
     public function onController(ControllerEvent $event): void
     {
-        if ($event->isMasterRequest() === false) {
+        if (false === $event->isMasterRequest()) {
             return;
         }
         $controller = $event->getController();

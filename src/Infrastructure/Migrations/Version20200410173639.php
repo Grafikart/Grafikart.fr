@@ -12,15 +12,15 @@ use Doctrine\Migrations\AbstractMigration;
  */
 final class Version20200410173639 extends AbstractMigration
 {
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return '';
     }
 
-    public function up(Schema $schema) : void
+    public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'postgresql', 'Migration can only be executed safely on \'postgresql\'.');
+        $this->abortIf('postgresql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'postgresql\'.');
 
         $this->addSql('ALTER TABLE forum_tag ADD parent_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE forum_tag ADD color VARCHAR(255) DEFAULT NULL');
@@ -28,10 +28,10 @@ final class Version20200410173639 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_EEA7C17E727ACA70 ON forum_tag (parent_id)');
     }
 
-    public function down(Schema $schema) : void
+    public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'postgresql', 'Migration can only be executed safely on \'postgresql\'.');
+        $this->abortIf('postgresql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'postgresql\'.');
 
         $this->addSql('ALTER TABLE forum_tag DROP CONSTRAINT FK_EEA7C17E727ACA70');
         $this->addSql('DROP INDEX IDX_EEA7C17E727ACA70');

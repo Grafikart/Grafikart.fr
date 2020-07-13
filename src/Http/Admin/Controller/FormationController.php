@@ -12,11 +12,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/formation", name="formation_")
+ *
  * @method getRepository() App\Domain\Formation\$formation\$formation\Forma
  */
 final class FormationController extends CrudController
 {
-
     protected string $templatePath = 'formation';
     protected string $menuItem = 'formation';
     protected string $entity = Formation::class;
@@ -24,7 +24,7 @@ final class FormationController extends CrudController
     protected array $events = [
         'update' => ContentUpdatedEvent::class,
         'delete' => ContentDeletedEvent::class,
-        'create' => ContentCreatedEvent::class
+        'create' => ContentCreatedEvent::class,
     ];
 
     /**
@@ -40,6 +40,7 @@ final class FormationController extends CrudController
             ->addSelect('t', 'tu')
             ->orderby('row.createdAt', 'DESC')
         ;
+
         return $this->crudIndex($query);
     }
 
@@ -50,6 +51,7 @@ final class FormationController extends CrudController
     {
         $entity = (new Formation())->setAuthor($this->getUser());
         $data = new FormationCrudData($entity);
+
         return $this->crudNew($data);
     }
 
@@ -59,6 +61,7 @@ final class FormationController extends CrudController
     public function edit(Formation $formation): Response
     {
         $data = (new FormationCrudData($formation))->setEntityManager($this->em);
+
         return $this->crudEdit($data);
     }
 
@@ -69,5 +72,4 @@ final class FormationController extends CrudController
     {
         return $this->crudDelete($formation);
     }
-
 }

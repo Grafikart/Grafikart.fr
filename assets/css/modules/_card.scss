@@ -8,8 +8,8 @@
   border: 1px solid var(--border);
   box-shadow: 0 2px 4px var(--shadow);
   border-radius: 3px;
-  transition: .3s;
-  font-size: .9em;
+  transition: 0.3s;
+  font-size: 0.9em;
 }
 
 .card-big,
@@ -50,7 +50,7 @@
   align-items: center;
 }
 .card__description {
-  opacity: .65;
+  opacity: 0.65;
 }
 .card__title {
   font-family: $font-alt;
@@ -75,7 +75,7 @@
   padding: 0 var(--card-padding);
 
   & > * {
-    opacity: .65;
+    opacity: 0.65;
   }
 
   & > *:last-child {
@@ -86,24 +86,26 @@
   position: relative;
   z-index: 3;
 }
-.card a:hover {
+.card a:not([class^='btn']):hover {
   color: var(--contrast);
 }
 .card__link {
   display: block;
-  position: absolute!important;
+  position: absolute !important;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   width: 100%;
   height: 100%;
-  z-index: 2!important;
+  z-index: 2 !important;
   border: 1px solid transparent;
-  transition: .3s;
+  transition: 0.3s;
+  border-radius: 3px;
+  cursor: pointer;
 }
 
-.card:hover {
+.card__link:hover {
   border: 1px solid var(--contrast);
 }
 
@@ -114,17 +116,17 @@
   outline: solid 4px var(--contrast);
 }
 .card.is-completed::after {
-  content:'';
+  content: '';
   position: absolute;
   top: 7px;
   right: 4px;
 
   width: 17px;
   height: 13px;
-  background: url(../../images/check.svg);
+  background: url(..//images/check.svg);
 }
 .card.is-completed::before {
-  content:'';
+  content: '';
   width: 0;
   height: 0;
 
@@ -132,7 +134,7 @@
   top: -1px;
   right: -1px;
   border-left: solid 48px transparent;
-  border-top: solid 48px  var(--contrast);
+  border-top: solid 48px var(--contrast);
 }
 
 // Illustration
@@ -150,17 +152,17 @@
   }
 
   &::before {
-    content:'';
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(#121C42, .85);
+    background-color: rgba(#121c42, 0.85);
   }
 
   &::after {
-    content:attr(data-text);
+    content: attr(data-text);
     position: absolute;
     top: calc(50% - 44px);
     left: 0;
@@ -168,7 +170,7 @@
     text-align: center;
     font-weight: bold;
     font-family: $font-alt;
-    color: #FFF;
+    color: #fff;
   }
 
   .play {
@@ -178,7 +180,7 @@
     width: 24px;
     height: 24px;
     transform: translate(-50%, -50%);
-    background: url(../../images/play.svg) center center no-repeat;
+    background: url(..//images/play.svg) center center no-repeat;
   }
 }
 

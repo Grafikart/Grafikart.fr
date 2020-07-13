@@ -2,21 +2,28 @@
   <div class="forum-avatar">
     <img src="{{ message.author | avatar }}" alt="" class="forum-message__avatar">
   </div>
-  <div class="forum-message__header">
+  <div class="forum-message__header hstack">
     <div>
       <div class="forum-message__author">{{ message.author.username }}</div>
-      <a class="forum-message__date" href="#message-{{ message.id }}">{{ message.createdAt | ago }}</a>
+      <div class="forum-message__date">
+        <a href="#message-{{ message.id }}">{{ message.createdAt | ago }}</a>
+        <forum-edit message="{{ message.id }}" owner="{{ message.author.id }}"></forum-edit>
+        <forum-delete message="{{ message.id }}" owner="{{ message.author.id }}"></forum-delete>
+      </div>
     </div>
     {% if message.accepted %}
       <div class="forum-message__accepted badge badge-success">
         Réponse acceptée
       </div>
     {% endif %}
-    <forum-actions
+    <forum-report
       message="{{ message.id }}"
-      class="forum-message__actions"></forum-actions>
+      class="forum-message__actions"></forum-report>
   </div>
-  <div class="forum-message__body formatted card" style="padding:1rem;">
-    {{ message.content | markdown_untrusted }}
+  <div class="forum-message__body">
+    <div class="js-content formatted card" style="padding:1rem;">
+      {{ message.content | markdown_untrusted }}
+    </div>
+    <div class="js-forum-edit"></div>
   </div>
 </div>

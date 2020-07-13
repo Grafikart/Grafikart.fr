@@ -8,7 +8,6 @@ use Twig\TokenParser\AbstractTokenParser;
 
 class CacheTokenParser extends AbstractTokenParser
 {
-
     /**
      * @return CacheNode<AbstractExpression>
      */
@@ -27,7 +26,7 @@ class CacheTokenParser extends AbstractTokenParser
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getTag(): string
     {

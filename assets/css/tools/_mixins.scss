@@ -1,19 +1,25 @@
-@import "functions";
+@import 'functions';
 
 // Responsive
 // ==================
 @mixin up($size) {
   $size: strip-unit($size);
-  @media (min-width: $size * 1px) { @content; }
+  @media (min-width: $size * 1px) {
+    @content;
+  }
 }
 @mixin down($size) {
   $size: strip-unit($size);
-  @media (max-width: $size * 1px) { @content; }
+  @media (max-width: $size * 1px) {
+    @content;
+  }
 }
 @mixin between($down, $up) {
   $down: strip-unit($down);
   $up: strip-unit($up);
-  @media (min-width: $down * 1px) and (max-width: $up * 1px) { @content; }
+  @media (min-width: $down * 1px) and (max-width: $up * 1px) {
+    @content;
+  }
 }
 
 // Espacement
@@ -35,19 +41,19 @@
   $src: null;
 
   $extmods: (
-    eot: "?",
-    svg: "#" + str-replace($name, " ", "_")
+    eot: '?',
+    svg: '#' + str-replace($name, ' ', '_')
   );
 
   $formats: (
-    otf: "opentype",
-    ttf: "truetype"
+    otf: 'opentype',
+    ttf: 'truetype'
   );
 
   @each $ext in $exts {
     $extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
     $format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
-    $src: append($src, url(quote($path + "." + $extmod)) format(quote($format)), comma);
+    $src: append($src, url(quote($path + '.' + $extmod)) format(quote($format)), comma);
   }
 
   @if length($weight) == 1 {
@@ -60,18 +66,19 @@
   } @else {
     $weights: $weight;
     @each $weight in $weights {
-      $suffix: map-get((
-        200: ExtraLight,
-        300: Light,
-        400: Regular,
-        500: Medium,
-        600: SemiBold,
-        700: Bold,
-        900: Black
-      ), $weight);
-      @include font-face($name, $path + "-" + $suffix,
-      $weight, $style, $exts)
+      $suffix: map-get(
+        (
+          200: ExtraLight,
+          300: Light,
+          400: Regular,
+          500: Medium,
+          600: SemiBold,
+          700: Bold,
+          900: Black
+        ),
+        $weight
+      );
+      @include font-face($name, $path + '-' + $suffix, $weight, $style, $exts);
     }
   }
 }
-

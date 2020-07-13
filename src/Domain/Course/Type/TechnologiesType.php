@@ -12,11 +12,10 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Représente un champs permettant de rentrer des technologies sur le site en suivant le format Nom:version en se basant sur
+ * Représente un champs permettant de rentrer des technologies sur le site en suivant le format Nom:version en se basant sur.
  */
 class TechnologiesType extends TextType implements DataTransformerInterface
 {
-
     private TechnologyRepository $repository;
 
     public function __construct(TechnologyRepository $repository)
@@ -41,7 +40,7 @@ class TechnologiesType extends TextType implements DataTransformerInterface
             'required' => false,
             'attr' => [
                 'is' => 'input-choices',
-            ]
+            ],
         ]);
         parent::configureOptions($resolver);
     }
@@ -51,10 +50,12 @@ class TechnologiesType extends TextType implements DataTransformerInterface
         if (!is_array($technologies)) {
             return null;
         }
+
         return implode(',', array_map(function (Technology $technology): ?string {
             if ($technology->getVersion()) {
-                return $technology->getName() . ':' . $technology->getVersion();
+                return $technology->getName().':'.$technology->getVersion();
             }
+
             return $technology->getName();
         }, $technologies));
     }
@@ -71,7 +72,7 @@ class TechnologiesType extends TextType implements DataTransformerInterface
         // On construit un tableau contenant les nom des techno en clef et la version en valeur
         $versions = [];
         $technologies = explode(',', $value);
-        foreach($technologies as $technology) {
+        foreach ($technologies as $technology) {
             $parts = explode(':', trim($technology));
             if (!empty($parts[0])) {
                 $versions[$parts[0]] = $parts[1] ?? null;
@@ -80,9 +81,9 @@ class TechnologiesType extends TextType implements DataTransformerInterface
 
         // On trouve les technologies depuis la base de données
         $technologies = $this->repository->findByNames(array_keys($versions));
-        $technologiesByName = collect($technologies)->keyBy(fn($t) => $t->getName())->toArray();
+        $technologiesByName = collect($technologies)->keyBy(fn ($t) => $t->getName())->toArray();
 
-        foreach($versions as $name => $version) {
+        foreach ($versions as $name => $version) {
             // Si la technologie n'existe pas déjà on la crée
             if (!isset($technologiesByName[$name])) {
                 $technologies[] = (new Technology())
@@ -92,6 +93,7 @@ class TechnologiesType extends TextType implements DataTransformerInterface
                 $technologiesByName[$name]->setVersion($version);
             }
         }
+
         return $technologies;
     }
 }

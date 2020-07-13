@@ -9,7 +9,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class NotificationsController extends AbstractController
 {
-
     /**
      * @Route("/notifications", name="notifications")
      * @IsGranted("ROLE_USER")
@@ -17,10 +16,9 @@ class NotificationsController extends AbstractController
     public function index(NotificationService $service): Response
     {
         $notifications = $service->forUser($this->getUser());
+
         return $this->render('notifications/index.html.twig', [
-            'notifications' => $notifications
+            'notifications' => $notifications,
         ]);
     }
-
-
 }

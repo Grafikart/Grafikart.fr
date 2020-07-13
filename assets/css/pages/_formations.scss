@@ -1,7 +1,7 @@
 .formations {
   @extend %container;
   display: grid;
-  grid-template-columns: repeat( auto-fill, minmax(400px, 1fr) );
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   grid-gap: space(4);
   grid-auto-flow: dense;
 }
@@ -50,7 +50,7 @@
 }
 .formation-argument li::before {
   transform: translateY(5px);
-  content:'';
+  content: '';
   display: inline-block;
   width: 15px;
   flex: none;
@@ -97,16 +97,16 @@
   top: 0;
   right: 0;
   bottom: 0;
-  background-color: #121C42;
+  background-color: #121c42;
 }
 .cursus-card__image img {
-  opacity: .30;
+  opacity: 0.3;
   width: 100%;
   height: 100%;
   border-radius: 10px;
 }
 .cursus-card__footer {
-  opacity: .65;
+  opacity: 0.65;
   padding: 0;
   background-color: transparent;
   margin-top: space(3);

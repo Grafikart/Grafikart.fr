@@ -1,37 +1,43 @@
 App\Domain\Forum\Entity\Report:
-  shortName: "forum/report"
+  shortName: 'forum/report'
   collectionOperations:
     post:
       security: is_granted("forumReport")
       denormalization_context:
-        groups: ["create:report"]
-        swagger_definition_name: "ReportCreate"
+        groups: ['create:report']
+        swagger_definition_name: 'ReportCreate'
       normalization_context:
-        groups: ["read:report"]
-        swagger_definition_name: "ReportRead"
+        groups: ['read:report']
+        swagger_definition_name: 'ReportRead'
       openapi_context:
         summary: Crée un nouveau signalement
   itemOperations:
     get:
-      controller: "EmptyController"
+      controller: 'EmptyController'
 
 App\Domain\Forum\Entity\Topic:
-  shortName: "forum/topic"
+  shortName: 'forum/topic'
   collectionOperations: []
   itemOperations:
     get:
       normalization_context:
-        groups: ["read:topic"]
+        groups: ['read:topic']
 
 App\Domain\Forum\Entity\Message:
-  shortName: "forum/message"
+  shortName: 'forum/message'
   collectionOperations: []
   itemOperations:
     get:
       normalization_context:
-        groups: ["read:message"]
+        groups: ['read:message']
     delete:
       security: is_granted("DELETE_FORUM_MESSAGE", object)
+    put:
+      denormalization_context:
+        groups: ['update:message']
+      normalization_context:
+        groups: ['updated:message', 'read:message']
+      security: is_granted("UPDATE_FORUM_MESSAGE", object)
 
 App\Domain\Notification\Entity\Notification:
   collectionOperations:
@@ -39,13 +45,13 @@ App\Domain\Notification\Entity\Notification:
       security: is_granted("ROLE_USER")
       pagination_client_items_per_page: true
       normalization_context:
-        groups: ["read:notification"]
+        groups: ['read:notification']
     post:
       security: is_granted("CREATE_NOTIFICATION")
       normalization_context:
-        groups: ["read:notification"]
+        groups: ['read:notification']
       denormalization_context:
-        groups: ["create:notification"]
+        groups: ['create:notification']
   itemOperations:
     get:
-      controller: "EmptyController"
+      controller: 'EmptyController'

@@ -10,11 +10,10 @@ use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Security\Core\Security;
 
 /**
- * Filtre les notifications à renvoyer par l'API
+ * Filtre les notifications à renvoyer par l'API.
  */
 final class NotificationQueryExtention implements QueryCollectionExtensionInterface
 {
-
     private Security $security;
 
     public function __construct(Security $security)
@@ -28,7 +27,7 @@ final class NotificationQueryExtention implements QueryCollectionExtensionInterf
         string $resourceClass,
         string $operationName = null
     ): void {
-        if ($resourceClass !== Notification::class) {
+        if (Notification::class !== $resourceClass) {
             return;
         }
         $user = $this->security->getUser();
@@ -41,5 +40,4 @@ final class NotificationQueryExtention implements QueryCollectionExtensionInterf
                 ->setParameter('user', $user);
         }
     }
-
 }

@@ -10,11 +10,13 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class ForumVoter extends Voter
 {
-
-    const CREATE = "forumCreate";
-    const REPORT = "forumReport";
-    const CREATE_MESSAGE = "forumCreateMessage";
+    const CREATE = 'forumCreate';
+    const REPORT = 'forumReport';
+    const CREATE_MESSAGE = 'forumCreateMessage';
     const DELETE_MESSAGE = 'DELETE_FORUM_MESSAGE';
+    const UPDATE_MESSAGE = 'UPDATE_FORUM_MESSAGE';
+    const UPDATE_TOPIC = 'UPDATE_TOPIC';
+    const DELETE_TOPIC = 'DELETE_TOPIC';
 
     protected function supports(string $attribute, $subject)
     {
@@ -31,6 +33,10 @@ class ForumVoter extends Voter
         switch ($attribute) {
             case self::CREATE_MESSAGE:
                 return $this->canCreateTopic($user, $subject);
+            case self::UPDATE_TOPIC:
+            case self::DELETE_TOPIC:
+                return $this->canUpdateTopic($user, $subject);
+            case self::UPDATE_MESSAGE:
             case self::DELETE_MESSAGE:
                 return $this->ownMessage($user, $subject);
             case self::CREATE:
@@ -49,5 +55,10 @@ class ForumVoter extends Voter
     protected function ownMessage(User $user, Message $message): bool
     {
         return $message->getAuthor()->getId() === $user->getId();
+    }
+
+    private function canUpdateTopic(User $user, Topic $topic)
+    {
+        return $topic->getAuthor()->getId() === $user->getId();
     }
 }

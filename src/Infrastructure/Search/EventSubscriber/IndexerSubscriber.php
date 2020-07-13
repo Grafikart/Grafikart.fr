@@ -9,7 +9,6 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class IndexerSubscriber implements EventSubscriberInterface
 {
-
     private IndexerInterface $indexer;
     private NormalizerInterface $normalizer;
 
@@ -22,7 +21,7 @@ class IndexerSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            ContentUpdatedEvent::class => 'indexContent'
+            ContentUpdatedEvent::class => 'indexContent',
         ];
     }
 

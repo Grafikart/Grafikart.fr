@@ -12,12 +12,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProgressionController extends AbstractController
 {
-
     /**
      * @Route("/progress/{content}/{progress}", name="progress", methods={"POST"}, requirements={"progress"= "^([1-9][0-9]?|100)$"})
      * @IsGranted(App\Http\Security\ContentVoter::PROGRESS, subject="content")
-     * @param Content $content
-     * @param int $progress
      */
     public function progress(
         Content $content,
@@ -28,7 +25,7 @@ class ProgressionController extends AbstractController
         $user = $this->getUser();
         $dispatcher->dispatch(new ProgressEvent($content, $user, $progress));
         $em->flush();
+
         return new JsonResponse([]);
     }
-
 }

@@ -6,7 +6,6 @@ use App\Domain\Forum\Entity\Topic;
 
 class TopicCreatedEvent
 {
-
     private Topic $topic;
 
     public function __construct(Topic $topic)
@@ -18,5 +17,4 @@ class TopicCreatedEvent
     {
         return $this->topic;
     }
-
 }

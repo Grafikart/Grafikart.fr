@@ -6,13 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait PremiumTrait
 {
-
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private ?\DateTimeInterface $premiumEnd = null;
 
-    public function isPremium (): bool
+    public function isPremium(): bool
     {
         return $this->premiumEnd > new \DateTime();
     }
@@ -26,6 +25,4 @@ trait PremiumTrait
     {
         $this->premiumEnd = $premiumEnd;
     }
-
-
 }

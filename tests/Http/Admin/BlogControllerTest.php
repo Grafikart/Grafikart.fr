@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class BlogControllerTest extends WebTestCase
 {
-
     use FixturesTrait;
 
     public function testAccessDeniedBlog(): void
@@ -32,5 +31,4 @@ class BlogControllerTest extends WebTestCase
         $this->client->request('GET', '/admin/blog');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
-
 }

@@ -13,7 +13,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CourseController extends AbstractController
 {
-
     /**
      * @Route("/tutoriels", name="course_index")
      */
@@ -25,16 +24,17 @@ class CourseController extends AbstractController
             $page,
             26,
             [
-                'whiteList' => []
+                'whiteList' => [],
             ]
         );
-        if ($courses->count() === 0) {
+        if (0 === $courses->count()) {
             throw new NotFoundHttpException('Aucun tutoriels ne correspond à cette page');
         }
+
         return $this->render('courses/index.html.twig', [
             'courses' => $courses,
             'page' => $page,
-            'menu' => 'courses'
+            'menu' => 'courses',
         ]);
     }
 
@@ -46,12 +46,13 @@ class CourseController extends AbstractController
         if ($course->getSlug() !== $slug) {
             return $this->redirectToRoute('course_show', [
                 'id' => $course->getId(),
-                'slug' => $course->getSlug()
+                'slug' => $course->getSlug(),
             ], 301);
         }
+
         return $this->render('courses/show.html.twig', [
             'course' => $course,
-            'menu' => 'courses'
+            'menu' => 'courses',
         ]);
     }
 }

@@ -6,7 +6,6 @@ use PHPUnit\Framework\TestCase;
 
 class AutomaticCrudDataTest extends TestCase
 {
-
     public function dataProvider(): iterable
     {
         $obj = new \stdClass();
@@ -42,6 +41,4 @@ class AutomaticCrudDataTest extends TestCase
         $data->hydrate();
         $this->assertEquals('Hello', $obj->getName());
     }
-
-
 }

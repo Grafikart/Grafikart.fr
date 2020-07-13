@@ -13,7 +13,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class PasswordServiceTest extends TestCase
 {
-
     private \App\Domain\Password\PasswordService $service;
 
     public function setUp(): void
@@ -41,5 +40,4 @@ class PasswordServiceTest extends TestCase
         $this->assertTrue($this->service->isExpired((new PasswordResetToken())->setCreatedAt(new \DateTime('-40 minutes'))));
         $this->assertFalse($this->service->isExpired((new PasswordResetToken())->setCreatedAt(new \DateTime('-10 minutes'))));
     }
-
 }

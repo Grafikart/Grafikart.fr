@@ -9,7 +9,6 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class LoginAttemptService
 {
-
     const ATTEMPTS = 3;
 
     private LoginAttemptRepository $repository;
@@ -18,8 +17,7 @@ class LoginAttemptService
     public function __construct(
         LoginAttemptRepository $repository,
         EntityManagerInterface $em
-    )
-    {
+    ) {
         $this->repository = $repository;
         $this->em = $em;
     }
@@ -36,6 +34,4 @@ class LoginAttemptService
     {
         return $this->repository->countRecentFor($user, 30) >= self::ATTEMPTS;
     }
-
-
 }

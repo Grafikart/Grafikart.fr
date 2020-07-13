@@ -10,7 +10,6 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class TopicService
 {
-
     private EventDispatcherInterface $dispatcher;
     private EntityManagerInterface $em;
 
@@ -30,4 +29,10 @@ class TopicService
         $this->dispatcher->dispatch(new TopicCreatedEvent($topic));
     }
 
+    public function updateTopic(Topic $topic): void
+    {
+        $topic->setUpdatedAt(new \DateTime());
+        $this->em->persist($topic);
+        $this->em->flush();
+    }
 }

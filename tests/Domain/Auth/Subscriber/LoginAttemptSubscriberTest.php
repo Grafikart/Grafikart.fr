@@ -12,7 +12,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 class LoginAttemptSubscriberTest extends EventSubscriberTest
 {
     /**
-     * @var MockObject|LoginAttemptService $service
+     * @var MockObject|LoginAttemptService
      */
     private MockObject $service;
 
@@ -31,17 +31,18 @@ class LoginAttemptSubscriberTest extends EventSubscriberTest
 
     private function getSubscriber(): LoginAttemptSubscriber
     {
-        /** @var MockObject|LoginAttemptService $service */
+        /* @var MockObject|LoginAttemptService $service */
         $this->service = $this->getMockBuilder(LoginAttemptService::class)
             ->disableOriginalConstructor()
             ->getMock();
+
         return new LoginAttemptSubscriber($this->service);
     }
 
     private function getEvent(): BadPasswordLoginEvent
     {
         $user = new User();
+
         return new BadPasswordLoginEvent($user);
     }
-
 }

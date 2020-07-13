@@ -10,7 +10,6 @@ use Symfony\Component\Cache\CacheItem;
 
 class TwigCacheExtensionTest extends TestCase
 {
-
     /**
      * @var MockObject|AdapterInterface cache
      */
@@ -20,11 +19,10 @@ class TwigCacheExtensionTest extends TestCase
 
     public function setUp(): void
     {
-        /** @var MockObject|AdapterInterface cache */
+        /* @var MockObject|AdapterInterface cache */
         $this->cache = $this->getMockBuilder(AdapterInterface::class)->getMock();
         $this->extension = new TwigCacheExtension($this->cache);
     }
-
 
     public function cacheKeys(): iterable
     {
@@ -33,12 +31,12 @@ class TwigCacheExtensionTest extends TestCase
 
         $fake = new FakeClass();
         yield [
-            $fake->getId() . 'FakeClass' . $fake->getUpdatedAt()->getTimestamp(),
-            $fake
+            $fake->getId().'FakeClass'.$fake->getUpdatedAt()->getTimestamp(),
+            $fake,
         ];
         yield [
-            'card-' . $fake->getId() . 'FakeClass' . $fake->getUpdatedAt()->getTimestamp(),
-            ['card', $fake]
+            'card-'.$fake->getId().'FakeClass'.$fake->getUpdatedAt()->getTimestamp(),
+            ['card', $fake],
         ];
     }
 
@@ -86,8 +84,4 @@ class TwigCacheExtensionTest extends TestCase
         $value = $this->extension->getCacheValue('demo');
         $this->assertEquals(null, $value);
     }
-
-
-
-
 }

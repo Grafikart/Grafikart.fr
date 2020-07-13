@@ -11,11 +11,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Permet la gestion du blog
+ * Permet la gestion du blog.
  */
 final class BlogController extends CrudController
 {
-
     protected string $templatePath = 'blog';
     protected string $menuItem = 'blog';
     protected string $entity = Post::class;
@@ -23,7 +22,7 @@ final class BlogController extends CrudController
     protected array $events = [
         'update' => PostUpdatedEvent::class,
         'delete' => PostDeletedEvent::class,
-        'create' => PostCreatedEvent::class
+        'create' => PostCreatedEvent::class,
     ];
 
     /**
@@ -42,6 +41,7 @@ final class BlogController extends CrudController
         $data = new PostCrudData();
         $data->author = $this->getUser();
         $data->entity = new Post();
+
         return $this->crudNew($data);
     }
 
@@ -51,6 +51,7 @@ final class BlogController extends CrudController
     public function edit(Post $post): Response
     {
         $data = PostCrudData::makeFromPost($post);
+
         return $this->crudEdit($data);
     }
 
@@ -61,5 +62,4 @@ final class BlogController extends CrudController
     {
         return $this->crudDelete($post);
     }
-
 }

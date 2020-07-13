@@ -9,7 +9,6 @@ use App\Tests\KernelTestCase;
 
 class TechnologyRepositoryTest extends KernelTestCase
 {
-
     use FixturesTrait;
 
     private array $data = [];
@@ -17,7 +16,7 @@ class TechnologyRepositoryTest extends KernelTestCase
     public function pickRandomTechnogies(): iterable
     {
         $size = 9;
-        for($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 5; ++$i) {
             yield [collect(range(1, $size))->shuffle()->slice(0, rand(1, $size))->map(fn ($k) => "technology$k")->toArray()];
         }
     }
@@ -32,9 +31,8 @@ class TechnologyRepositoryTest extends KernelTestCase
         $names = array_map(fn (Technology $entity) => $entity->getName(), $expectedEntities);
         $entities = self::$container->get(TechnologyRepository::class)->findByNames($names);
         $this->assertSameSize($expectedEntities, $entities);
-        foreach($expectedEntities as $entity) {
+        foreach ($expectedEntities as $entity) {
             $this->assertContains($entity, $entities);
         }
     }
-
 }

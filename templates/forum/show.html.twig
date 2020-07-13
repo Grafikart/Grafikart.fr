@@ -6,24 +6,31 @@
 
   <div class="container stack topic-page">
 
-    <h1 class="forum-message__title">{{ topic.name }}</h1>
+    <h1 class="h2">{{ topic.name }}</h1>
 
     <div class="forum-message">
-      <div class="forum-message__header">
+      <div class="forum-message__header hstack">
         <div class="forum-avatar">
           <img src="{{ topic.author | avatar }}" alt="">
         </div>
         <div>
           <a class="forum-message__author" href="{{ path(topic.author) }}">{{ topic.author.username }}</a>
-          <div class="forum-message__date">{{ topic.createdAt | ago }}</div>
+          <div class="forum-message__date">
+            {{ topic.createdAt | ago }}
+            <forum-edit topic="{{ topic.id }}" owner="{{ topic.author.id }}"></forum-edit>
+            <forum-delete topic="{{ topic.id }}" owner="{{ topic.author.id }}"></forum-delete>
+          </div>
         </div>
       </div>
-      <div class="forum-message__body formatted">
-        {{ topic.content | markdown_untrusted }}
+      <div class="forum-message__body">
+        <div class="js-content formatted formatted">
+          {{ topic.content | markdown_untrusted }}
+        </div>
+        <div class="js-forum-edit"></div>
       </div>
-      <forum-actions
+      <forum-report
         topic="{{ topic.id }}"
-        class="forum-message__actions"></forum-actions>
+        class="forum-message__actions"></forum-report>
     </div>
 
     <h2 class="section-title">{{ topic.messageCount }} Réponses</h2>

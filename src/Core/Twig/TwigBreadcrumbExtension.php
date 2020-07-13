@@ -9,7 +9,6 @@ use Twig\TwigFunction;
 
 class TwigBreadcrumbExtension extends AbstractExtension
 {
-
     private UrlGeneratorInterface $urlGenerator;
 
     /**
@@ -28,8 +27,8 @@ class TwigBreadcrumbExtension extends AbstractExtension
         return [
             new TwigFunction('breadcrumb', [$this, 'breadcrumb'], [
                 'needs_environment' => true,
-                'is_safe'           => ['html']
-            ])
+                'is_safe' => ['html'],
+            ]),
         ];
     }
 
@@ -39,16 +38,16 @@ class TwigBreadcrumbExtension extends AbstractExtension
         foreach ($this->breadcrumbsGenerator as $generator) {
             if ($generator->support($object)) {
                 $items = $generator->generate($object);
-                foreach($items as $label => $path) {
+                foreach ($items as $label => $path) {
                     if (is_array($path)) {
                         $items[$label] = $this->urlGenerator->generate($path[0], $path[1] ?? []);
                     }
                 }
             }
         }
+
         return $env->render('partials/breadcrumb.html.twig', [
-            'items' => $items
+            'items' => $items,
         ]);
     }
-
 }

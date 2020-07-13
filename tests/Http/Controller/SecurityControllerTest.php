@@ -8,12 +8,11 @@ use App\Tests\WebTestCase;
 
 class SecurityControllerTest extends WebTestCase
 {
-
     use FixturesTrait;
 
     public function testLoginTitle(): void
     {
-        $title = "Se connecter";
+        $title = 'Se connecter';
         $crawler = $this->client->request('GET', '/login');
         $this->assertEquals($title, $crawler->filter('h1')->text(), $crawler->filter('title')->text());
     }
@@ -25,7 +24,7 @@ class SecurityControllerTest extends WebTestCase
         $form = $crawler->selectButton('Se connecter')->form();
         $form->setValues([
             'email' => 'john@doe.fr',
-            'password' => '00000'
+            'password' => '00000',
         ]);
         $this->client->submit($form);
         $this->assertResponseRedirects();
@@ -35,7 +34,6 @@ class SecurityControllerTest extends WebTestCase
 
     public function testGoodPasswordWorks(): void
     {
-
         /** @var array<string,User> $users */
         $users = $this->loadFixtures(['users']);
         $crawler = $this->client->request('GET', '/login');
@@ -43,7 +41,7 @@ class SecurityControllerTest extends WebTestCase
         $form = $crawler->selectButton('Se connecter')->form();
         $form->setValues([
             'email' => $users['user1']->getEmail(),
-            'password' => '0000'
+            'password' => '0000',
         ]);
         $this->client->submit($form);
         $this->assertResponseRedirects('/');
@@ -51,16 +49,15 @@ class SecurityControllerTest extends WebTestCase
 
     public function testAttemptLimit(): void
     {
-
         /** @var array<string,User> $users */
         $users = $this->loadFixtures(['users']);
         $crawler = $this->client->request('GET', '/login');
         $this->expectFormErrors(0);
-        for ($i = 0; $i < 4; $i++) {
+        for ($i = 0; $i < 4; ++$i) {
             $form = $crawler->selectButton('Se connecter')->form();
             $form->setValues([
                 'email' => $users['user1']->getEmail(),
-                'password' => '00000'
+                'password' => '00000',
             ]);
             $this->client->submit($form);
             $this->assertResponseRedirects();

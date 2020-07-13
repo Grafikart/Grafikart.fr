@@ -7,14 +7,13 @@ namespace App\Tests;
  */
 class RepositoryTestCase extends KernelTestCase
 {
-
     /**
      * @var E
      */
     protected $repository = null;
 
     /**
-     * @var class-string<E> $entity
+     * @var class-string<E>
      */
     protected $repositoryClass = null;
 
@@ -23,6 +22,4 @@ class RepositoryTestCase extends KernelTestCase
         parent::setUp();
         $this->repository = self::$container->get($this->repositoryClass);
     }
-
-
 }

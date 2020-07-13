@@ -8,27 +8,26 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class CoursePathNormalizer implements NormalizerInterface
 {
-
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function normalize($object, string $format = null, array $context = [])
     {
         if ($object instanceof Course) {
             return [
                 'path' => 'course_show',
-                'params' => ['slug' => $object->getSlug(), 'id' => $object->getId()]
+                'params' => ['slug' => $object->getSlug(), 'id' => $object->getId()],
             ];
         }
         throw new \RuntimeException("Can't normalize path");
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function supportsNormalization($data, string $format = null)
     {
         return ($data instanceof Course)
-            && $format === PathEncoder::FORMAT;
+            && PathEncoder::FORMAT === $format;
     }
 }

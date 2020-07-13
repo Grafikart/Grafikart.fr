@@ -2,35 +2,35 @@
 // ==================
 :root {
   --color-dark: #000;
-  --color: #121C42;
-  --color-light: #121C4299;
-  --color-inversed: #EFFBEC;
-  --color-transparent: #{rgba(#121C42, 0)};
-  --color-btn: #EFFBEC;
-  --contrast: #4869EE;
+  --color: #121c42;
+  --color-light: #121c4299;
+  --color-inversed: #effbec;
+  --color-transparent: #{rgba(#121c42, 0)};
+  --contrast: #4869ee;
+  --contrast25: #4869ee3f;
   --gap: 20px;
   --space: 8px;
-  --border: #D5E3EC;
-  --border-light: #D5E3EC7F;
-  --background: #F7FAFB;
-  --background-light: #FFF;
-  --shadow: #D8E1E8;
+  --border: #d5e3ec;
+  --border-light: #d5e3ec7f;
+  --background: #f7fafb;
+  --background-light: #fff;
+  --shadow: #d8e1e8;
   --list-hover: var(--background);
-  --play: #F3F9FB; // Couleur de fond du bouton play
+  --play: #f3f9fb; // Couleur de fond du bouton play
   --space-section: 150px;
-  --card-footer: #F7FAFD;
+  --card-footer: #f7fafd;
   --card-padding: 16px;
   --header-height: 137px;
-  --red: #FB4635;
-  --green: #41CF7C;
-  --yellow: #FEB32B;
+  --red: #f25353;
+  --green: #41cf7c;
+  --yellow: #feb32b;
 }
 
 .dark {
-  --color-dark: #FFF;
-  --color: #EFFBEC;
-  --color-light: #EFFBEC99;
-  --color-inversed: #121C42;
+  --color-dark: #fff;
+  --color: #effbec;
+  --color-light: #effbec99;
+  --color-inversed: #121c42;
   --contrast: #61a0f6;
   --gap: 20px;
   --space: 8px;
@@ -45,12 +45,12 @@
 
 // Outils
 // ==================
-@import "tools/reset";
-@import "tools/functions";
-@import "tools/mixins";
-@import "tools/layout";
-@import "tools/typography";
-@import "tools/animations";
+@import 'tools/reset';
+@import 'tools/functions';
+@import 'tools/mixins';
+@import 'tools/layout';
+@import 'tools/typography';
+@import 'tools/animations';
 
 // Generic
 // ==================
@@ -59,19 +59,19 @@ body {
   font-size: 16px;
   color: var(--color);
   line-height: 1.6;
-  background:  var(--background);
+  background: var(--background);
   scroll-margin: 100px 0 0 0;
 }
 
 body.light {
-  background:  var(--background-light);
+  background: var(--background-light);
   &::after {
     display: none;
   }
 }
 
 body::after {
-  content:'';
+  content: '';
   display: block;
   position: absolute;
   top: 0;
@@ -80,52 +80,51 @@ body::after {
   height: 506px;
   z-index: -1;
   pointer-events: none;
-  background: url(../images/logo.svg) top left / 100% 100% no-repeat;
+  background: url(/images/logo.svg) top left / 100% 100% no-repeat;
 }
 
 ::selection {
   background: var(--contrast);
-  color: #FFF;
+  color: #fff;
 }
 
 // Modules
 // ==================
-@import "modules/header";
-@import "modules/card";
-@import "modules/color";
-@import "modules/scrollbar";
-@import "modules/btn";
-@import "modules/pagination";
-@import "modules/form";
-@import "modules/alert";
-@import "modules/formatted";
-@import "modules/table";
-@import "modules/modal";
-@import "modules/list";
-@import "modules/comments";
-@import "modules/page";
-@import "modules/breadcrumb";
-@import "modules/hero";
-@import "modules/nav";
-@import "modules/highlight";
-@import "modules/pricing";
-@import "modules/notifications";
+@import 'modules/header';
+@import 'modules/card';
+@import 'modules/color';
+@import 'modules/scrollbar';
+@import 'modules/btn';
+@import 'modules/pagination';
+@import 'modules/form';
+@import 'modules/alert';
+@import 'modules/formatted';
+@import 'modules/table';
+@import 'modules/modal';
+@import 'modules/list';
+@import 'modules/comments';
+@import 'modules/page';
+@import 'modules/breadcrumb';
+@import 'modules/hero';
+@import 'modules/nav';
+@import 'modules/highlight';
+@import 'modules/pricing';
+@import 'modules/notifications';
+@import 'modules/toolips';
 
 // Pages
 // ==================
-@import "pages/live";
-@import "pages/course";
-@import "pages/chapters";
-@import "pages/auth";
-@import "pages/blog";
-@import "pages/dashboard";
-@import "pages/env";
-@import "pages/formations";
-@import "pages/home";
-@import "pages/forum";
-@import "pages/user";
+@import 'pages/live';
+@import 'pages/course';
+@import 'pages/chapters';
+@import 'pages/auth';
+@import 'pages/blog';
+@import 'pages/dashboard';
+@import 'pages/env';
+@import 'pages/formations';
+@import 'pages/home';
+@import 'pages/forum';
+@import 'pages/user';
 // @import "pages/single";
 // @import "pages/single";
 // @import "pages/single";
-
-@import '~microtip/microtip';

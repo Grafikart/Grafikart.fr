@@ -10,7 +10,6 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class CourseRepository extends ServiceEntityRepository
 {
-
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Course::class);
@@ -49,5 +48,4 @@ class CourseRepository extends ServiceEntityRepository
             ->getQuery()
             ;
     }
-
 }

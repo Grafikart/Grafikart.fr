@@ -11,7 +11,6 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class ForumImporter extends MySQLImporter
 {
-
     public function import(SymfonyStyle $io): void
     {
         $io->title('Import des forum');
@@ -31,7 +30,7 @@ class ForumImporter extends MySQLImporter
         $io->title('Importation des tags');
         $io->progressStart(count($rows));
         $this->disableAutoIncrement(Tag::class);
-        foreach($rows as $row) {
+        foreach ($rows as $row) {
             $tag = (new Tag())
                 ->setId($row['id'])
                 ->setSlug((new Slugify())->slugify($row['name']))
@@ -142,7 +141,6 @@ class ForumImporter extends MySQLImporter
         $this->resetSequence('forum_message', $row['id'] ?? 1);
         $io->progressFinish();
         $io->success(sprintf('Importation des %d messages', $offset));
-
     }
 
     public function support(string $type): bool

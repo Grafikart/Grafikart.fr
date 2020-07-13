@@ -7,24 +7,24 @@ use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 
 class FormationNormalizer implements ContextAwareNormalizerInterface
 {
-
     public function supportsNormalization($data, string $format = null, array $context = [])
     {
-        return $data instanceof Formation && $format === 'search';
+        return $data instanceof Formation && 'search' === $format;
     }
 
     public function normalize($object, string $format = null, array $context = [])
     {
         if (!$object instanceof Formation) {
-            throw new \InvalidArgumentException('Unexpected type for normalization, expected Formation, got ' . get_class($object));
+            throw new \InvalidArgumentException('Unexpected type for normalization, expected Formation, got '.get_class($object));
         }
+
         return [
-            'id' => (string)$object->getId(),
+            'id' => (string) $object->getId(),
             'content' => $object->getContent(),
             'title' => $object->getTitle(),
-            'category' => array_map(fn($t) => $t->getName(), $object->getMainTechnologies()),
+            'category' => array_map(fn ($t) => $t->getName(), $object->getMainTechnologies()),
             'type' => 'formation',
-            'created_at' => $object->getCreatedAt()->getTimestamp()
+            'created_at' => $object->getCreatedAt()->getTimestamp(),
         ];
     }
 }

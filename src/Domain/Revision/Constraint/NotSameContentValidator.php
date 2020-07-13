@@ -10,13 +10,11 @@ use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
 class NotSameContentValidator extends ConstraintValidator
 {
-
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function validate($value, Constraint $constraint): void
     {
-
         if (!$constraint instanceof NotSameContent) {
             throw new UnexpectedTypeException($constraint, NotSameContent::class);
         }
@@ -29,9 +27,8 @@ class NotSameContentValidator extends ConstraintValidator
             throw new UnexpectedValueException($value, Revision::class);
         }
 
-        if ($value->getTarget() !== null && $value->getContent() === $value->getTarget()->getContent()) {
+        if (null !== $value->getTarget() && $value->getContent() === $value->getTarget()->getContent()) {
             $this->context->buildViolation($constraint->message)->addViolation();
         }
-
     }
 }

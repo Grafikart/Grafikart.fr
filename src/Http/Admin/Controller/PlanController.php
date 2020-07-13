@@ -12,7 +12,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class PlanController extends CrudController
 {
-
     protected string $templatePath = 'plan';
     protected string $menuItem = 'plan';
     protected string $entity = Plan::class;
@@ -26,6 +25,7 @@ class PlanController extends CrudController
     {
         $plan = new Plan();
         $data = new CrudPlanData($plan);
+
         return $this->crudNew($data);
     }
 
@@ -35,6 +35,7 @@ class PlanController extends CrudController
     public function edit(Plan $plan): Response
     {
         $data = new CrudPlanData($plan);
+
         return $this->crudEdit($data);
     }
 
@@ -44,14 +45,15 @@ class PlanController extends CrudController
     public function clone(Plan $plan): Response
     {
         $data = new CrudPlanData(clone $plan);
+
         return $this->crudNew($data);
     }
 
     /**
      * @Route("/{id}", methods={"DELETE"})
      */
-    public function delete(Plan $plan): Response {
+    public function delete(Plan $plan): Response
+    {
         return $this->crudDelete($plan, 'admin_premium');
     }
-
 }

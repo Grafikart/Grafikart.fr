@@ -6,5 +6,3 @@ App\Domain\Attachment\Attachment:
     createdAt: <dateTime()>
     fileName: file<current()>.jpg
     fileSize: <numberBetween(10,1000)>
-
-

@@ -8,9 +8,8 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class AdminVoter extends Voter
 {
-
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function supports(string $attribute, $subject)
     {
@@ -18,7 +17,7 @@ class AdminVoter extends Voter
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token)
     {
@@ -28,6 +27,6 @@ class AdminVoter extends Voter
             return false;
         }
 
-        return $user->getUsername() === 'Grafikart';
+        return 'Grafikart' === $user->getUsername();
     }
 }

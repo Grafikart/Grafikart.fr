@@ -3,13 +3,13 @@ parameters:
 
 services:
   _defaults:
-    autowire: true      # Automatically injects dependencies in your services.
+    autowire: true # Automatically injects dependencies in your services.
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
     public: false
 
   App\Domain\Live\LiveSyncService:
     class: App\Domain\Live\LiveSyncService
-    arguments: {$playlistID: '%app.live_playlist%'}
+    arguments: { $playlistID: '%app.live_playlist%' }
 
   Google_Service_YouTube_Resource_PlaylistItems:
     class: '\Google_Service_YouTube_Resource_PlaylistItems'

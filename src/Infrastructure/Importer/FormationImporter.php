@@ -13,7 +13,6 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 final class FormationImporter extends Neo4jImporter
 {
-
     public function import(SymfonyStyle $io): void
     {
         $this->importFormations($io);
@@ -42,8 +41,8 @@ final class FormationImporter extends Neo4jImporter
                 ->setShort($data['short'] ?? null)
                 // TODO : gérer l'import d'image via les attachments
                 // ->setImage($data['image'] ?? null)
-                ->setCreatedAt(new \DateTime("@" . $data['created_at']))
-                ->setUpdatedAt(new \DateTime("@" . $data['updated_at']))
+                ->setCreatedAt(new \DateTime('@'.$data['created_at']))
+                ->setUpdatedAt(new \DateTime('@'.$data['updated_at']))
                 ->setTitle($data['name'])
                 ->setSlug($data['slug'])
                 ->setContent($data['content'] ?? null)
@@ -85,7 +84,7 @@ final class FormationImporter extends Neo4jImporter
     {
         /** @var Formation|null $formation */
         $formation = $this->em->getRepository(Formation::class)->findOneBy(['slug' => $formationSlug]);
-        if ($formation === null) {
+        if (null === $formation) {
             throw new \Exception("Impossible de trouver la formation \"$formationSlug\"");
         }
         $rows = $this->neo4jQuery(
@@ -103,8 +102,8 @@ final class FormationImporter extends Neo4jImporter
             /** @var int[] $courses */
             $courses = iterator_to_array($row->offsetGet(1));
             $chapters[] = [
-                'title'   => $row->offsetGet(0),
-                'courses' => $courses
+                'title' => $row->offsetGet(0),
+                'courses' => $courses,
             ];
             foreach ($courses as $id) {
                 /** @var Course $course */
@@ -126,11 +125,13 @@ final class FormationImporter extends Neo4jImporter
         $technologies = array_reduce($this->em
             ->createQuery('SELECT t FROM App\Domain\Course\Entity\Technology as t')
             ->getResult(), function (array $acc, Technology $item) {
-            $acc[$item->getSlug()] = $item;
-            return $acc;
-        }, []);
+                $acc[$item->getSlug()] = $item;
+
+                return $acc;
+            }, []);
         $formations = array_reduce($this->em->getRepository(Formation::class)->findAll(), function (array $acc, Formation $f) {
             $acc[$f->getSlug()] = $f;
+
             return $acc;
         }, []);
         $io->progressStart($rows->count());
@@ -139,12 +140,12 @@ final class FormationImporter extends Neo4jImporter
         foreach ($rows as $row) {
             $formationSlug = $row->offsetGet(0);
             $technologySlug = $row->offsetGet(2);
-            $key = $formationSlug . '=' . $technologySlug;
+            $key = $formationSlug.'='.$technologySlug;
             /** @var Relationship $relation */
             $relation = $row->offsetGet(1);
             $usage = (new TechnologyUsage())
                 ->setVersion($relation->getProperty('version'))
-                ->setSecondary($relation->getType() === 'USE')
+                ->setSecondary('USE' === $relation->getType())
                 ->setTechnology($technologies[$technologySlug])
                 ->setContent($formations[$formationSlug]);
             if (!in_array($key, $keys)) {
@@ -160,6 +161,6 @@ final class FormationImporter extends Neo4jImporter
 
     public function support(string $type): bool
     {
-        return $type === 'formations';
+        return 'formations' === $type;
     }
 }

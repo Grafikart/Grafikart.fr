@@ -16,14 +16,13 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
-
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
     }
 
     /**
-     * Requête permettant de récupérer un utilisateur pour le login
+     * Requête permettant de récupérer un utilisateur pour le login.
      */
     public function findForAuth(string $username): ?User
     {
@@ -37,7 +36,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function upgradePassword(UserInterface $user, string $newEncodedPassword): void
     {

@@ -13,7 +13,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class TechnologyController extends CrudController
 {
-
     protected string $templatePath = 'technology';
     protected string $menuItem = 'technology';
     protected string $entity = Technology::class;
@@ -33,6 +32,7 @@ class TechnologyController extends CrudController
             ->orderBy('row.id', 'DESC')
             ->addSelect('COUNT(usage.technology) as count')
         ;
+
         return $this->crudIndex($query);
     }
 
@@ -43,6 +43,7 @@ class TechnologyController extends CrudController
     {
         $technology = new Technology();
         $data = new TechnologyCrudData($technology);
+
         return $this->crudNew($data);
     }
 
@@ -52,7 +53,7 @@ class TechnologyController extends CrudController
     public function edit(Technology $technology): Response
     {
         $data = new TechnologyCrudData($technology);
+
         return $this->crudEdit($data);
     }
-
 }

@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ImportedFile extends UploadedFile
 {
-
     public function __construct(string $path)
     {
         $originalName = pathinfo($path, PATHINFO_BASENAME);
@@ -35,6 +34,7 @@ class ImportedFile extends UploadedFile
                 throw new FileException(sprintf('Could not move the file "%s" to "%s"', $this->getPathname(), $target));
             }
             @chmod($target, 0666 & ~umask());
+
             return $target;
         }
 
@@ -45,5 +45,4 @@ class ImportedFile extends UploadedFile
     {
         return true;
     }
-
 }

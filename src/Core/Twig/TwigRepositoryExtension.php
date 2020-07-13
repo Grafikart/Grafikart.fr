@@ -8,7 +8,6 @@ use Twig\TwigFunction;
 
 class TwigRepositoryExtension extends AbstractExtension
 {
-
     private EntityManagerInterface $em;
 
     public function __construct(EntityManagerInterface $em)
@@ -25,8 +24,7 @@ class TwigRepositoryExtension extends AbstractExtension
 
     /**
      * @param class-string<mixed> $repositoryClass
-     * @param string $method
-     * @param array $params
+     *
      * @return mixed
      */
     public function repositoryCall(string $repositoryClass, string $method, array $params = [])
@@ -34,9 +32,7 @@ class TwigRepositoryExtension extends AbstractExtension
         $repository = $this->em->getRepository($repositoryClass);
         /** @var callable $callable */
         $callable = [$repository, $method];
+
         return call_user_func_array($callable, $params);
-
     }
-
-
 }

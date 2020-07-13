@@ -10,7 +10,6 @@ use App\Tests\ValidatorTestCase;
 
 class NotSameContentValidatorTest extends ValidatorTestCase
 {
-
     public function dataProvider(): iterable
     {
         $post = (new Post())->setContent('aa');
@@ -20,16 +19,14 @@ class NotSameContentValidatorTest extends ValidatorTestCase
         yield [true, $revision2];
     }
 
-
     /**
      * @dataProvider dataProvider
      */
-    public function testNotSameValidator (bool $expectViolation, Revision $revision): void
+    public function testNotSameValidator(bool $expectViolation, Revision $revision): void
     {
         $context = $this->getContext($expectViolation);
         $validator = new NotSameContentValidator();
         $validator->initialize($context);
         $validator->validate($revision, new NotSameContent());
     }
-
 }

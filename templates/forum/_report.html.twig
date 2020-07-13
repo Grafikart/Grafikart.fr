@@ -1,7 +1,0 @@
-{% if topic is defined %}
-  {% set data = {topic: path('api_topics_get_item', {id: topic})} %}
-{% elseif message is defined %}
-
-{% endif %}
-
-<div class="js-report" data-data="{{ data | json_encode }}" data-endpoint="{{ path('api_reports_post_collection') }}"></div>

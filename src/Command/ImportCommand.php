@@ -33,7 +33,7 @@ class ImportCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $type = $input->getArgument('type');
 
-        if ($type === 'reset') {
+        if ('reset' === $type) {
             $this->importerHandler->resetContent();
         } else {
             if (false === $this->importerHandler->getImporter($type, $io)) {

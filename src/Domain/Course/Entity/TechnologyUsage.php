@@ -10,7 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TechnologyUsage
 {
-
     /**
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="App\Domain\Course\Entity\Technology", inversedBy="usages", cascade={"persist"})

@@ -1,4 +1,4 @@
-FROM node:12-alpine
+FROM node:14-alpine
 
 RUN mkdir -m 777 /.npm
 RUN mkdir -m 777 /.yarn

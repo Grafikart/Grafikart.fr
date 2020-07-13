@@ -18,8 +18,8 @@ class NotificationApiTest extends ApiTestCase
             [
                 'message' => 'Hello world',
                 'channel' => 'global',
-                'url' => 'https://grafikart.fr/grafikart/live'
-            ]
+                'url' => 'https://grafikart.fr/grafikart/live',
+            ],
         ];
     }
 
@@ -41,7 +41,7 @@ class NotificationApiTest extends ApiTestCase
         $users = $this->loadFixtures(['users']);
         $this->login($users['user_admin']);
         $this->client->request('POST', '/api/notifications', [
-            'json' => $data
+            'json' => $data,
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
     }
@@ -54,7 +54,7 @@ class NotificationApiTest extends ApiTestCase
         $users = $this->loadFixtures(['users']);
         $this->login($users['user_admin']);
         $this->client->request('POST', '/api/notifications', [
-            'json' => $data
+            'json' => $data,
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_CREATED);
     }
@@ -67,9 +67,8 @@ class NotificationApiTest extends ApiTestCase
         $users = $this->loadFixtures(['users']);
         $this->login($users['user_admin']);
         $this->client->request('POST', '/api/notifications', [
-            'json' => $data
+            'json' => $data,
         ]);
         $this->assertPublishedOnTopic('/notifications/global');
     }
-
 }

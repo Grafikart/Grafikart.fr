@@ -12,9 +12,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class RevisionController extends AbstractController
 {
-
     /**
-     * Affiche la page qui permet la soumission d'une révision
+     * Affiche la page qui permet la soumission d'une révision.
      *
      * @Route("/revision/{id}", name="revision")
      * @IsGranted(App\Http\Security\RevisionVoter::ADD)
@@ -33,10 +32,10 @@ class RevisionController extends AbstractController
                     "Votre modification a bien été enregistrée, vous pouvez revenir sur vos changements tant qu'ils n'ont pas été validés");
             }
         }
+
         return $this->render('content/revision.html.twig', [
             'revision' => $revision,
-            'form'     => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
-
 }

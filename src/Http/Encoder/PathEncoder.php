@@ -6,7 +6,7 @@ use ApiPlatform\Core\Api\UrlGeneratorInterface;
 use Symfony\Component\Serializer\Encoder\EncoderInterface;
 
 /**
- * Convertit un tableau de taille 2 en chemin
+ * Convertit un tableau de taille 2 en chemin.
  *
  * ## Exemple
  *
@@ -29,6 +29,7 @@ class PathEncoder implements EncoderInterface
     public function encode($data, string $format, array $context = []): string
     {
         ['path' => $path, 'params' => $params] = $data;
+
         return $this->urlGenerator->generate($path, $params);
     }
 
@@ -39,5 +40,4 @@ class PathEncoder implements EncoderInterface
     {
         return self::FORMAT === $format;
     }
-
 }

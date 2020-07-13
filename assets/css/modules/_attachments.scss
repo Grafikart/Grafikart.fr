@@ -6,7 +6,7 @@
   min-height: 100px;
   border: solid 1px var(--border);
   background: var(--background);
-  transition: .2s;
+  transition: 0.2s;
 }
 
 .input-attachment:hover {
@@ -15,7 +15,7 @@
 }
 
 .input-attachment::after {
-  content:'';
+  content: '';
   position: absolute;
   z-index: 1;
   top: 50%;
@@ -23,14 +23,14 @@
   transform: translate(-50%, -50%);
   width: 100px;
   height: 100px;
-  opacity: .06;
-  background: url(../../images/upload.svg) center center / 100% 100% no-repeat;
+  opacity: 0.06;
+  background: url(..//images/upload.svg) center center / 100% 100% no-repeat;
 }
 
 .input-attachment.is-hovered {
   background-color: var(--contrast);
   .input-attachment__preview {
-    opacity: .6;
+    opacity: 0.6;
   }
 }
 
@@ -40,7 +40,7 @@
   width: 100%;
   height: 100%;
   background: transparent center center / cover no-repeat;
-  transition: .2s;
+  transition: 0.2s;
 }
 
 .input-attachment__loader {

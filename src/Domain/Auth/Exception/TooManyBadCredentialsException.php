@@ -7,7 +7,6 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 class TooManyBadCredentialsException extends AuthenticationException
 {
-
     private User $user;
 
     public function __construct(User $user)
@@ -25,5 +24,4 @@ class TooManyBadCredentialsException extends AuthenticationException
     {
         return 'Too many attempt.';
     }
-
 }

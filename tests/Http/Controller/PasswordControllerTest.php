@@ -9,7 +9,6 @@ use App\Tests\WebTestCase;
 
 class PasswordControllerTest extends WebTestCase
 {
-
     const RESET_PASSWORD_PATH = '/password/new';
     const RESET_PASSWORD_BUTTON = 'M\'envoyer les instructions';
 
@@ -93,11 +92,11 @@ class PasswordControllerTest extends WebTestCase
         $tokens = $this->loadFixtures(['password-reset']);
         /** @var PasswordResetToken $token */
         $token = $tokens['recent_password_token'];
-        $crawler = $this->client->request('GET', self::RESET_PASSWORD_PATH . "/{$token->getUser()->getId()}/{$token->getToken()}");
+        $crawler = $this->client->request('GET', self::RESET_PASSWORD_PATH."/{$token->getUser()->getId()}/{$token->getToken()}");
         $this->client->submitForm('Réinitialiser mon mot de passe', [
             'password' => [
                 'first' => 'pazjejoazuaziuaazenonazbfiumqksdmù',
-                'second' => 'pazjejoazuaziuaazenonazbfiumqksdmù'
+                'second' => 'pazjejoazuaziuaazenonazbfiumqksdmù',
             ],
         ]);
         $this->assertResponseRedirects();
@@ -111,7 +110,7 @@ class PasswordControllerTest extends WebTestCase
         $tokens = $this->loadFixtures(['password-reset']);
         /** @var PasswordResetToken $token */
         $token = $tokens['password_token'];
-        $this->client->request('GET', self::RESET_PASSWORD_PATH . "/{$token->getUser()->getId()}/{$token->getToken()}");
+        $this->client->request('GET', self::RESET_PASSWORD_PATH."/{$token->getUser()->getId()}/{$token->getToken()}");
         $this->assertResponseRedirects();
         $this->client->followRedirect();
         $this->expectErrorAlert();

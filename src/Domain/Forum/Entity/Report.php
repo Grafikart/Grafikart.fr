@@ -18,7 +18,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Report
 {
-
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -69,6 +68,7 @@ class Report
     public function setId(?int $id): Report
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -80,6 +80,7 @@ class Report
     public function setAuthor(User $author): Report
     {
         $this->author = $author;
+
         return $this;
     }
 
@@ -91,6 +92,7 @@ class Report
     public function setTopic(?Topic $topic): Report
     {
         $this->topic = $topic;
+
         return $this;
     }
 
@@ -102,6 +104,7 @@ class Report
     public function setMessage(?Message $message): Report
     {
         $this->message = $message;
+
         return $this;
     }
 
@@ -113,6 +116,7 @@ class Report
     public function setReason(string $reason): Report
     {
         $this->reason = $reason;
+
         return $this;
     }
 
@@ -124,7 +128,7 @@ class Report
     public function setCreatedAt(\DateTimeInterface $createdAt): Report
     {
         $this->createdAt = $createdAt;
+
         return $this;
     }
-
 }

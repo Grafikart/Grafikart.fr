@@ -8,19 +8,19 @@
 }
 .pagination li a,
 .pagination li span {
-  margin: space(.5);
-  padding: space(.5) space(1);
+  margin: space(0.5);
+  padding: space(0.5) space(1);
   min-width: 35px;
 }
 .pagination span {
-  opacity: .6;
+  opacity: 0.6;
 }
 .pagination a {
   @extend %card;
 }
 .pagination a:hover {
   background: var(--contrast);
-  color: var(--color-btn)
+  color: var(--color-inversed);
 }
 
 // Variations
@@ -47,7 +47,7 @@
   padding-left: 16px;
 }
 .pagination-nav a + a::before {
-  content:'';
+  content: '';
   position: absolute;
   left: 8px;
   top: calc(50% - 5px);
@@ -61,11 +61,11 @@
   height: 12px;
 }
 .pagination-nav a {
-  opacity: .4;
+  opacity: 0.4;
 }
 .pagination-nav a:hover {
-  opacity: .6;
+  opacity: 0.6;
 }
-.pagination-nav a[rel="prev"] svg {
+.pagination-nav a[rel='prev'] svg {
   transform: rotate(180deg);
 }

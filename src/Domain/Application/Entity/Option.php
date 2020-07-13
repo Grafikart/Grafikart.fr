@@ -10,7 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Option
 {
-
     /**
      * @ORM\Id()
      * @ORM\Column(type="string")
@@ -30,6 +29,7 @@ class Option
     public function setKey(string $key): Option
     {
         $this->key = $key;
+
         return $this;
     }
 
@@ -41,7 +41,7 @@ class Option
     public function setValue(string $value): Option
     {
         $this->value = $value;
+
         return $this;
     }
-
 }

@@ -9,7 +9,6 @@ use Symfony\Component\Mime\Email;
 
 class ProfileSubscriber implements EventSubscriberInterface
 {
-
     private EmailFactory $factory;
     private MailerInterface $mailer;
 
@@ -25,7 +24,7 @@ class ProfileSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            EmailVerificationEvent::class => 'onEmailChange'
+            EmailVerificationEvent::class => 'onEmailChange',
         ];
     }
 
@@ -34,17 +33,17 @@ class ProfileSubscriber implements EventSubscriberInterface
         // On envoie un email pour confirmer le compte
         $email = $this->factory->makeFromTemplate('mails/profile/email-confirmation.twig', [
             'token' => $event->emailVerification->getToken(),
-            'username' => $event->emailVerification->getAuthor()->getUsername()
+            'username' => $event->emailVerification->getAuthor()->getUsername(),
         ])
             ->to($event->emailVerification->getEmail())
             ->priority(Email::PRIORITY_HIGH)
-            ->subject("Mise à jour de votre adresse mail");
+            ->subject('Mise à jour de votre adresse mail');
         $this->mailer->send($email);
 
         // On notifie l'utilisateur concernant le changement
         $email = $this->factory->makeFromTemplate('mails/profile/email-notification.twig', [
             'username' => $event->emailVerification->getAuthor()->getUsername(),
-            'email' => $event->emailVerification->getEmail()
+            'email' => $event->emailVerification->getEmail(),
         ])
             ->to($event->emailVerification->getAuthor()->getEmail())
             ->subject("Demande de changement d'email en attente");

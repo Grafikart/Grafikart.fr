@@ -10,5 +10,3 @@ App\Domain\Blog\Post:
     category: '@category*'
   post{16} (extends post):
     category: '@category2'
-
-

@@ -16,7 +16,7 @@ class ExistsValidator extends ConstraintValidator
     }
 
     /**
-     * @param mixed $value
+     * @param mixed  $value
      * @param Exists $constraint
      */
     public function validate($value, Constraint $constraint): void
@@ -27,7 +27,7 @@ class ExistsValidator extends ConstraintValidator
 
         $entity = $this->em->find($constraint->class, $value);
 
-        if ($entity === null) {
+        if (null === $entity) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $value)
                 ->addViolation();

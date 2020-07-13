@@ -8,14 +8,13 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class LoginAttemptRepository extends ServiceEntityRepository
 {
-
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, LoginAttempt::class);
     }
 
     /**
-     * Compte le nombre de tentative de connexion pour un utilisateur
+     * Compte le nombre de tentative de connexion pour un utilisateur.
      */
     public function countRecentFor(\App\Domain\Auth\User $user, int $minutes): int
     {
@@ -29,5 +28,4 @@ class LoginAttemptRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleScalarResult();
     }
-
 }

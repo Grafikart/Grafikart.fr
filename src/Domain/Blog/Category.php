@@ -36,6 +36,7 @@ class Category
 
     /**
      * @ORM\OneToMany(targetEntity="App\Domain\Blog\Post", mappedBy="category")
+     *
      * @var Collection<int,Post>
      */
     private Collection $posts;
@@ -53,6 +54,7 @@ class Category
     public function setId(int $id): self
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -64,6 +66,7 @@ class Category
     public function setName(string $name): Category
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -75,6 +78,7 @@ class Category
     public function setSlug(string $slug): Category
     {
         $this->slug = $slug;
+
         return $this;
     }
 
@@ -86,6 +90,7 @@ class Category
     public function setPostsCount(int $postsCount): Category
     {
         $this->postsCount = $postsCount;
+
         return $this;
     }
 
@@ -119,5 +124,4 @@ class Category
 
         return $this;
     }
-
 }

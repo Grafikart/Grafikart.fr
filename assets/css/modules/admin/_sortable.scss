@@ -21,7 +21,7 @@
   color: transparent;
 }
 .sortable-item.sortable-ghost::after {
-  opacity: .4;
+  opacity: 0.4;
 }
 .sortable-item ul {
   margin-top: 10px;
@@ -30,7 +30,6 @@
 // Niveau 2
 // =============
 .sortable-items > li .sortable-item {
-
   margin-left: space(3);
 
   &::after {
@@ -41,7 +40,7 @@
     right: 0;
     bottom: 0;
     background: var(--border);
-    opacity: .1;
+    opacity: 0.1;
     pointer-events: none;
   }
   &::before {
@@ -53,7 +52,8 @@
     left: -24px;
     top: calc(50% - 8px);
     cursor: move;
-    background: linear-gradient(to bottom, var(--background-handle) 0px, var(--background-handle) 2px, transparent 4px) top left / 100% 6px repeat;
+    background: linear-gradient(to bottom, var(--background-handle) 0px, var(--background-handle) 2px, transparent 4px)
+      top left / 100% 6px repeat;
   }
 }
 
@@ -62,19 +62,18 @@
   top: 13px;
   right: space(1.5);
 }
-.sortable-item__delete,
-{
+.sortable-item__delete {
   position: absolute;
   top: calc(50% - 8px);
   right: space(1);
   color: var(--border);
-  transition: .3s;
+  transition: 0.3s;
 }
-.sortable-item__delete svg{
+.sortable-item__delete svg {
   width: 16px;
   height: 16px;
 }
-.sortable-item__delete:hover{
+.sortable-item__delete:hover {
   color: var(--red);
 }
 .sortable-item__loader {

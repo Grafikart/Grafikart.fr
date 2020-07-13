@@ -7,10 +7,8 @@ use App\Domain\Blog\Post;
 
 class PostUpdatedEvent extends ContentUpdatedEvent
 {
-
     public function __construct(Post $content)
     {
         parent::__construct($content);
     }
-
 }

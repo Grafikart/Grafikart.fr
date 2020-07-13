@@ -13,7 +13,6 @@ use PHPUnit\Framework\TestCase;
 
 class CourseCrudDataTest extends TestCase
 {
-
     private MockObject $em;
 
     /**
@@ -33,22 +32,22 @@ class CourseCrudDataTest extends TestCase
         yield [
             ['PHP'],
             ['PHP'],
-            []
+            [],
         ];
         yield [
             ['PHP', 'Laravel'],
             ['Golang', 'Laravel'],
-            ['PHP']
+            ['PHP'],
         ];
         yield [
             ['PHP', 'Laravel'],
             [],
-            ['PHP', 'Laravel']
+            ['PHP', 'Laravel'],
         ];
     }
 
     /**
-     * On vérifie que la classe déclenche bien la demande de suppression au niveau de l'entityManager
+     * On vérifie que la classe déclenche bien la demande de suppression au niveau de l'entityManager.
      *
      * @dataProvider getData
      */
@@ -94,7 +93,7 @@ class CourseCrudDataTest extends TestCase
         if (!isset($this->technologies[$key])) {
             $this->technologies[$key] = (new Technology())->setName($name);
         }
+
         return $this->technologies[$key];
     }
-
 }

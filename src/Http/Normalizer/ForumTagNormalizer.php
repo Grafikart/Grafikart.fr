@@ -8,7 +8,6 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class ForumTagNormalizer implements NormalizerInterface
 {
-
     private UrlGeneratorInterface $urlGenerator;
 
     public function __construct(UrlGeneratorInterface $urlGenerator)
@@ -17,7 +16,7 @@ class ForumTagNormalizer implements NormalizerInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function normalize($object, string $format = null, array $context = [])
     {
@@ -29,17 +28,17 @@ class ForumTagNormalizer implements NormalizerInterface
                 'url' => $this->urlGenerator->generate('admin_forum-tag_edit', ['id' => $object->getId()]),
                 'children' => $object->getChildren()->map(function (Tag $tag) {
                     return $this->normalize($tag);
-                })->toArray()
+                })->toArray(),
             ];
         }
         throw new \RuntimeException("Can't normalize path");
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function supportsNormalization($data, string $format = null)
     {
-        return $data instanceof Tag && $format === 'json';
+        return $data instanceof Tag && 'json' === $format;
     }
 }

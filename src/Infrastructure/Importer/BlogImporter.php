@@ -10,7 +10,6 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 final class BlogImporter extends MySQLImporter
 {
-
     public function import(SymfonyStyle $io): void
     {
         $this->importCategory($io);
@@ -58,10 +57,10 @@ final class BlogImporter extends MySQLImporter
         $io->title('Importation des articles');
         $io->progressStart(count($rows));
         foreach ($rows as $row) {
-            $filePath  = $this->kernel->getProjectDir() . '/public/old/posts/1/' . $row['image'];
+            $filePath = $this->kernel->getProjectDir().'/public/old/posts/1/'.$row['image'];
             $attachment = null;
             if (file_exists($filePath)) {
-                $file = new ImportedFile($this->kernel->getProjectDir() . '/public/old/posts/1/' . $row['image']);
+                $file = new ImportedFile($this->kernel->getProjectDir().'/public/old/posts/1/'.$row['image']);
                 $attachment = (new Attachment())
                     ->setFile($file)
                     ->setCreatedAt(new \DateTime($row['created_at']));
@@ -80,7 +79,7 @@ final class BlogImporter extends MySQLImporter
                 ->setOnline($row['online'])
                 ->setImage($attachment)
                 ->setAuthor($user);
-            if (!in_array((int)$row['user_id'], [49939])) {
+            if (!in_array((int) $row['user_id'], [49939])) {
                 $this->em->persist($entity);
             }
             $io->progressAdvance();

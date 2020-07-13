@@ -14,14 +14,14 @@
   margin-left: auto;
   margin-right: auto;
   position: relative;
-  background-color: #9FB3C8;
-  border: solid 2px #9FB3C8;
+  background-color: #9fb3c8;
+  border: solid 2px #9fb3c8;
 }
 .profil-header__avatar img {
   width: 100%;
   height: 100%;
   border-radius: 110px;
-  transition: opacity .3s;
+  transition: opacity 0.3s;
 }
 .profil-header__avatar input {
   cursor: pointer;
@@ -49,12 +49,12 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  transition: .3s;
+  transition: 0.3s;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #FFF;
-  background-color: #9FB3C8;
+  color: #fff;
+  background-color: #9fb3c8;
 
   .icon {
     width: 18px;
@@ -65,13 +65,12 @@
   transform: translateY(0);
 }
 .profil-header__avatar:hover img {
-  opacity: .7;
+  opacity: 0.7;
 }
 .profil-header .badge-secondary {
-  background-color: #9FB3C8;
-  color: #FFF;
+  background-color: #9fb3c8;
+  color: #fff;
 }
-
 
 @include up(600) {
   .profil-header {

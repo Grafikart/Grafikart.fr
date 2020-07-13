@@ -8,7 +8,6 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class Option implements OptionInterface
 {
-
     private EntityManagerInterface $em;
 
     public function __construct(EntityManagerInterface $em)
@@ -16,17 +15,17 @@ class Option implements OptionInterface
         $this->em = $em;
     }
 
-
     public function get(string $key): ?string
     {
         $option = $this->em->getRepository(OptionEntity::class)->find($key);
-        return $option === null ? null : $option->getValue();
+
+        return null === $option ? null : $option->getValue();
     }
 
     public function set(string $key, string $value): void
     {
         $option = $this->em->getRepository(OptionEntity::class)->find($key);
-        if ($option === null) {
+        if (null === $option) {
             $option = (new OptionEntity())
                 ->setKey($key)
                 ->setValue($value);
@@ -40,7 +39,7 @@ class Option implements OptionInterface
     public function delete(string $key): void
     {
         $option = $this->em->getRepository(OptionEntity::class)->find($key);
-        if ($option !== null) {
+        if (null !== $option) {
             $this->em->remove($option);
         }
         $this->em->flush();

@@ -17,11 +17,11 @@ install: public/assets vendor/autoload.php ## Installe les différentes dépenda
 .PHONY: build-docker
 build-docker:
 	# $(dc) pull --ignore-pull-failures
-	# $(dc) build --force-rm
-	$(dc) build php
+	$(dc) build --force-rm --pull php
+	$(dc) build --force-rm --pull node
 
 .PHONY: dev
-dev: vendor/autoload.php node_modules/time ## Lance le serveur de développement
+dev: vendor/autoload.php ## node_modules/time ## Lance le serveur de développement
 	$(dc) up
 
 .PHONY: clean
@@ -74,6 +74,11 @@ tt: vendor/autoload.php ## Lance le watcher phpunit
 lint: vendor/autoload.php ## Analyse le code
 	docker run -v $(PWD):/app --rm phpstan/phpstan analyse
 
+.PHONY: format
+format:
+	npm run lint
+	vendor/bin/php-cs-fixer fix
+
 .PHONY: doc
 doc: ## Génère le sommaire de la documentation
 	npx doctoc ./README.md
@@ -87,5 +92,6 @@ node_modules/time: yarn.lock
 	touch node_modules/time
 
 public/assets: node_modules/time
+	$(dr) --no-deps node npx sass assets/css/app.scss assets/css/app.css
 	$(dr) --no-deps node yarn run build
 

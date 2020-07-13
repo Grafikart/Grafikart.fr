@@ -12,12 +12,11 @@ use Twig\Node\Node;
  **/
 class CacheNode extends Node
 {
-
     private static int $cacheCount = 1;
 
     /**
      * @param AbstractExpression<AbstractExpression> $key
-     * @param Node<AbstractExpression> $body
+     * @param Node<AbstractExpression>               $body
      */
     public function __construct(AbstractExpression $key, Node $body, int $lineno, string $tag = null)
     {
@@ -25,7 +24,7 @@ class CacheNode extends Node
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function compile(Compiler $compiler)
     {
@@ -42,7 +41,7 @@ class CacheNode extends Node
             ->write("ob_start();\n")
             ->subcompile($this->getNode('body'))
             ->write("\$twigCacheBody{$i} = ob_get_clean();\n")
-            ->write("\$twigCacheExtension->setCacheValue(")
+            ->write('$twigCacheExtension->setCacheValue(')
             ->subcompile($this->getNode('key'))
             ->raw(',')
             ->raw("\$twigCacheBody{$i});\n")

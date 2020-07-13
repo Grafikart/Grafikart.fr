@@ -9,7 +9,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ForumTagChoiceType extends EntityType
 {
-
     public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
@@ -23,5 +22,4 @@ class ForumTagChoiceType extends EntityType
             'choice_label' => 'name',
         ]);
     }
-
 }
