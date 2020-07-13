@@ -17,16 +17,14 @@ export function CreateMessage ({ topic, parent }) {
 
   return (
     isAuthenticated() && (
-      <>
-        <FetchForm action={endpoint} value={value} onChange={setValue} onSuccess={onSuccess}>
-          <Stack>
-            <FormField placeholder='Votre message' name='content' type='editor'>
-              Votre message
-            </FormField>
-            <FormPrimaryButton>Répondre</FormPrimaryButton>
-          </Stack>
-        </FetchForm>
-      </>
+      <FetchForm action={endpoint} value={value} onChange={setValue} onSuccess={onSuccess}>
+        <Stack>
+          <FormField placeholder='Votre message' name='content' type='editor'>
+            Votre message
+          </FormField>
+          <FormPrimaryButton>Répondre</FormPrimaryButton>
+        </Stack>
+      </FetchForm>
     )
   )
 }

@@ -167,13 +167,6 @@
   }
 }
 
-.forum-message__title {
-  font-family: Rubik;
-  font-weight: 500;
-  color: var(--color-dark);
-  font-size: 2em;
-}
-
 .forum-message__header,
 .forum-message__footer {
   --gap: 2;
@@ -225,7 +218,6 @@
 
 .forum-message__actions {
   display: flex;
-  width: 100%;
   flex-wrap: wrap;
   justify-content: flex-end;
   margin-left: auto;

@@ -27,6 +27,7 @@
   },
   "scripts": {
     "lint": "prettier-standard --lint \"assets/**/*.{js,css,jsx}\"",
+    "lint-staged": "prettier-standard --lint --changed \"assets/**/*.{js,css,jsx}\"",
     "dev": "rm -rf public/assets/time && npx vite",
     "build": "rm -rf public/assets && npx rollup -c rollup.config.js && touch public/assets/time",
     "test": "jest"

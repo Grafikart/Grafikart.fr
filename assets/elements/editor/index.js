@@ -5,11 +5,14 @@ import { createElement } from '/functions/dom.js'
 
 /**
  * @property {HTMLDivElement} container
+ * @property {HTMLFormElement|null} form
+ * @property {Editor|null} editor
  */
 export class MarkdownEditor extends HTMLTextAreaElement {
   constructor () {
     super()
     this.toggleFullscreen = this.toggleFullscreen.bind(this)
+    this.onFormReset = this.onFormReset.bind(this)
   }
 
   async connectedCallback () {
@@ -26,13 +29,32 @@ export class MarkdownEditor extends HTMLTextAreaElement {
     toolbar.onFullScreen = this.toggleFullscreen
     editor.onChange = value => {
       this.value = value
-      this.dispatchEvent(new CustomEvent('input'))
+      this.dispatchEvent(new Event('input', {
+        bubbles: true,
+        cancelable: true,
+      }))
     }
     this.syncEditor = () => editor.setValue(this.value)
+    if (this.form) {
+      this.form.addEventListener('reset', this.onFormReset)
+    }
 
     // On ajoute au dom
     this.insertAdjacentElement('beforebegin', this.container)
     this.style.display = 'none'
+    this.editor = editor
+  }
+
+  disconnectedCallback () {
+    if (this.form) {
+      this.form.removeEventListener('reset', this.onFormReset)
+    }
+  }
+
+  onFormReset (e) {
+    if (this.editor) {
+      this.editor.setValue('')
+    }
   }
 
   toggleFullscreen () {

@@ -1,136 +1,10 @@
 import { createContext } from 'preact'
 import { jsonFetch } from '/functions/api.js'
-import { useEffect, useLayoutEffect, useRef, useState } from 'preact/hooks'
+import { useContext, useEffect, useLayoutEffect, useRef, useState } from 'preact/hooks'
 import { PrimaryButton } from './Button.jsx'
 import { useAutofocus } from '/functions/hooks.js'
-import { Loader } from './Loader.jsx'
 import { flash } from '/elements/Alert.js'
-
-export const FormContext = createContext({
-  data: {},
-  errors: {},
-  loading: false,
-  setValue: () => {},
-  emptyError: () => {}
-})
-
-/**
- * Hook permettant de gérer le traitement Ajax d'un formulaire
- *
- * @param {string[]} method
- * @param {string} url
- * @return {array}
- */
-function useForm (method, url, value, onSuccess) {
-  const [errors, setErrors] = useState({})
-  const [loading, setLoading] = useState(false)
-  const emptyError = name => {
-    delete errors[name]
-    setErrors(errors)
-  }
-  const onSubmit = async e => {
-    e.preventDefault()
-    setLoading(true)
-    try {
-      const data = await jsonFetch(url, { method, body: JSON.stringify(value) })
-      onSuccess(data)
-    } catch (e) {
-      if (e.violations) {
-        setErrors(
-          e.violations.reduce((acc, { propertyPath, message }) => {
-            if (propertyPath === '') {
-              propertyPath = 'main'
-            }
-            acc[propertyPath] = message
-            return acc
-          }, {})
-        )
-      } else if (e.detail) {
-        flash(e.detail, 'danger', null)
-      } else {
-        throw e
-      }
-    }
-    setLoading(false)
-  }
-
-  return [
-    errors, // Object contenant les erreurs {[champ]: message}
-    loading, // Booleen représentant l'état du chargement
-    onSubmit, // Evènement à lancer pour déclencher une soumission du formulaire
-    emptyError // Fonction permettant de supprimer une erreur emptyError(champ)
-  ]
-}
-
-/**
- * Formulaire Ajax
- *
- * @param {object} value Donnée à transmetter au serveur et aux champs
- * @param onChange
- * @param className
- * @param children
- * @param action
- * @param method
- * @param onSuccess Fonction appelée en cas de retour valide de l'API (reçoit les données de l'API en paramètre)
- */
-export function FetchForm ({
-  value,
-  onChange,
-  children,
-  action,
-  className = null,
-  method = 'POST',
-  onSuccess = () => {}
-}) {
-  const setValue = (name, newValue) => onChange({ ...value, [name]: newValue })
-  const [errors, loading, onSubmit, emptyError] = useForm(method, action, value, onSuccess)
-  const contextData = { data: value, errors, loading, setValue, emptyError }
-  const mainError = errors.main || null
-
-  return (
-    <FormContext.Provider value={contextData}>
-      <form onSubmit={onSubmit} className={className}>
-        {mainError && (
-          <alert-message type='error' duration='4' onClose={() => emptyError('main')}>
-            {mainError}
-          </alert-message>
-        )}
-        {children}
-      </form>
-    </FormContext.Provider>
-  )
-}
-
-/**
- * Représente un champs, dans le contexte du formulaire
- *
- * @param {string} type
- * @param {string} name
- * @return {*}
- * @constructor
- */
-export function FormField ({ type = 'text', name, children, ...props }) {
-  return (
-    <FormContext.Consumer>
-      {({ data, setValue, errors, emptyError, loading }) => {
-        const value = data[name] || null
-        const error = errors[name] || null
-        const onInput = function (e) {
-          if (error) {
-            emptyError(name)
-          }
-          setValue(name, e.target.value)
-        }
-
-        return (
-          <Field type={type} name={name} value={value} error={error} onInput={onInput} readonly={loading} {...props}>
-            {children}
-          </Field>
-        )
-      }}
-    </FormContext.Consumer>
-  )
-}
+import { ApiError } from '/functions/api'
 
 /**
  * Représente un champs, dans le contexte du formulaire
@@ -155,8 +29,8 @@ export function Field ({ name, onInput, value, error, children, type = 'text', c
     if (dirty === false) {
       setDirty(true)
     }
-    if (props.onInput) {
-      props.onInput(e)
+    if (onInput) {
+      onInput(e)
     }
   }
 
@@ -215,7 +89,103 @@ function FieldEditor (props) {
       ref.current.syncEditor()
     }
   }, [props.value])
-  return <textarea {...props} is='markdown-editor' ref={ref} />
+  return <textarea {...props} is='markdown-editor' ref={ref}/>
+}
+
+/**
+ * Version contextualisée des champs pour le formulaire
+ */
+
+export const FormContext = createContext({
+  errors: {},
+  loading: false,
+  emptyError: () => {}
+})
+
+/**
+ * Formulaire Ajax
+ *
+ * @param {object} value Donnée à transmettre au serveur et aux champs
+ * @param onChange
+ * @param className
+ * @param children
+ * @param action
+ * @param method
+ * @param onSuccess Fonction appelée en cas de retour valide de l'API (reçoit les données de l'API en paramètre)
+ */
+export function FetchForm ({
+  onChange,
+  children,
+  action,
+  className,
+  method = 'POST',
+  onSuccess = () => {}
+}) {
+  const [{loading, errors}, setState] = useState({
+    loading: false,
+    errors: []
+  })
+  const mainError = errors.main || null
+
+  // Vide l'erreur associée à un champs donnée
+  const emptyError = name => {
+    if (!errors[name]) return null
+    const newErrors = { ...errors }
+    delete newErrors[name]
+    setState(s => ({ ...s, errors: newErrors }))
+  }
+
+  // On soumet le formulaire au travers d'une requête Ajax
+  const handleSubmit = async e => {
+    e.preventDefault()
+    setState({ loading: true, errors: [] })
+    const form = e.target
+    const data = Object.fromEntries(new FormData(form))
+    try {
+      const response = await jsonFetch(action, { method, body: data })
+      onSuccess(response)
+      form.reset()
+    } catch (e) {
+      if (e instanceof ApiError) {
+        setState(s => ({ ...s, errors: e.violations }))
+      } else if (e.detail) {
+        flash(e.detail, 'danger', null)
+      } else {
+        throw e
+      }
+    }
+    setState(s => ({ ...s, loading: false }))
+  }
+
+  return <FormContext.Provider value={{ loading, errors, emptyError }}>
+    <form onSubmit={handleSubmit} className={className}>
+      {mainError && (
+        <alert-message type='error' duration='4' onClose={() => emptyError('main')}>
+          {mainError}
+        </alert-message>
+      )}
+      {children}
+    </form>
+  </FormContext.Provider>
+}
+
+/**
+ * Représente un champs, dans le contexte du formulaire
+ *
+ * @param {string} type
+ * @param {string} name
+ * @return {*}
+ * @constructor
+ */
+export function FormField ({ type = 'text', name, children, ...props }) {
+  const { errors, emptyError, loading } = useContext(FormContext)
+  const error = errors[name] || null
+  return (
+    <Field type={type} name={name} error={error} onInput={() => emptyError(name)}
+           readonly={loading} {...props}>
+      {children}
+    </Field>
+  )
 }
 
 /**
@@ -227,18 +197,12 @@ function FieldEditor (props) {
  * @constructor
  */
 export function FormPrimaryButton ({ children, ...props }) {
-  return (
-    <FormContext.Consumer>
-      {({ loading, errors }) => {
-        const disabled = loading || Object.keys(errors).filter(k => k !== 'main').length > 0
+  const { loading, errors } = useContext(FormContext)
+  const disabled = loading || Object.keys(errors).filter(k => k !== 'main').length > 0
 
-        return (
-          <PrimaryButton disabled={disabled} {...props}>
-            {loading && <Loader className='icon' />}
-            {children}
-          </PrimaryButton>
-        )
-      }}
-    </FormContext.Consumer>
+  return (
+    <PrimaryButton loading={loading} disabled={disabled} {...props}>
+      {children}
+    </PrimaryButton>
   )
 }
