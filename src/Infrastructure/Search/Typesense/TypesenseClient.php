@@ -6,7 +6,6 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class TypesenseClient
 {
-
     private string $host;
     private string $apiKey;
     private HttpClientInterface $client;
@@ -36,10 +35,10 @@ class TypesenseClient
     private function api(string $endpoint, array $data = [], string $method = 'POST'): array
     {
         $response = $this->client->request($method, "http://{$this->host}/{$endpoint}", [
-            'json'    => $data,
+            'json' => $data,
             'headers' => [
-                'X-TYPESENSE-API-KEY' => $this->apiKey
-            ]
+                'X-TYPESENSE-API-KEY' => $this->apiKey,
+            ],
         ]);
         if ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300) {
             return json_decode($response->getContent(), true);

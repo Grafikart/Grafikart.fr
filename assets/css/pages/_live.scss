@@ -36,7 +36,7 @@
   @extend %container-margin;
   display: block;
   position: relative;
-  transition: .3s;
+  transition: 0.3s;
 }
 .live-recap__header {
   font-size: 18px;
@@ -49,7 +49,7 @@
   @extend %hero-title;
 }
 .live-recap__body {
-  transition: .5s;
+  transition: 0.5s;
 }
 .live-recap__header {
   grid-column: 1 / span 1;
@@ -68,12 +68,12 @@
   left: 0;
   transform: translateX(100px);
   width: calc(100% - 400px);
-  transition: .8s cubic-bezier(0, .51, .2, .99);
+  transition: 0.8s cubic-bezier(0, 0.51, 0.2, 0.99);
 }
 .live-recap youtube-player {
   position: relative;
   z-index: 5;
-  animation: fadeIn .3s;
+  animation: fadeIn 0.3s;
 }
 .live-recap play-button {
   display: none;
@@ -86,14 +86,14 @@
 }
 .live-years .loader {
   color: inherit;
-  opacity: .6;
+  opacity: 0.6;
 }
 .live-years a {
   padding: space(1) space(2);
   display: block;
   border-bottom: 2px solid transparent;
-  transition: .3s;
-  opacity: .6;
+  transition: 0.3s;
+  opacity: 0.6;
 }
 .live-years a.is-active,
 .live-years a:hover {
@@ -109,14 +109,14 @@
   display: flex;
   padding: 1.5em;
   border-bottom: solid 1px var(--border);
-  transition: background .3s;
+  transition: background 0.3s;
   align-items: center;
 }
 .live__image {
   display: block;
   position: relative;
   width: var(--thumbnail);
-  height: calc(var(--thumbnail) * .5625);
+  height: calc(var(--thumbnail) * 0.5625);
   flex: none;
   margin-right: 1em;
 }
@@ -124,18 +124,18 @@
 .live__image::before {
   z-index: 1;
   content: '';
-  background: linear-gradient(to top, var(--color), #121C4266);
+  background: linear-gradient(to top, var(--color), #121c4266);
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  transition: .3s;
+  transition: 0.3s;
 }
 .live__image::before {
   z-index: 2;
-  opacity: .8;
-  background: url(../../images/play.svg) center center / 20px 20px no-repeat;
+  opacity: 0.8;
+  background: url(..//images/play.svg) center center / 20px 20px no-repeat;
 }
 .live__image img {
   width: 100%;
@@ -151,7 +151,7 @@
 }
 .live__date {
   font-size: 0.9em;
-  opacity: .60;
+  opacity: 0.6;
   font-weight: 300;
 }
 .live:hover,
@@ -162,7 +162,7 @@
     opacity: 1 !important;
   }
   .live__image::after {
-    opacity: .9;
+    opacity: 0.9;
   }
 }
 
@@ -189,7 +189,7 @@
       grid-column: 1 / span 2;
       grid-row: 1 / 1;
       padding-left: calc(100% - 400px);
-      height: calc((var(--container-width) - 400px) * .5625);
+      height: calc((var(--container-width) - 400px) * 0.5625);
     }
     .live__image {
       display: none;
@@ -211,4 +211,3 @@
     transform: translateY(-100%);
   }
 }
-

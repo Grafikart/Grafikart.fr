@@ -11,7 +11,6 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class NotificationServiceTest extends TestCase
 {
-
     private EntityManagerInterface $em;
     private SerializerInterface $serializer;
     private EventDispatcherInterface $dispatcher;
@@ -43,5 +42,4 @@ class NotificationServiceTest extends TestCase
         );
         $this->service->notifyChannel('demo', 'Bonjour', $entity);
     }
-
 }

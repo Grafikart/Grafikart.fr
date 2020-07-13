@@ -73,7 +73,8 @@ abstract class Content
 
     /**
      * @ORM\OneToMany(targetEntity="App\Domain\Course\Entity\TechnologyUsage", mappedBy="content", cascade={"persist"})
-     * @var Collection<int, TechnologyUsage> $technologyUsages
+     *
+     * @var Collection<int, TechnologyUsage>
      */
     private Collection $technologyUsages;
 
@@ -89,6 +90,7 @@ abstract class Content
 
     /**
      * @param int $id
+     *
      * @return $this
      */
     public function setId(?int $id): self
@@ -105,6 +107,7 @@ abstract class Content
 
     /**
      * @param string $title
+     *
      * @return $this
      */
     public function setTitle(?string $title): self
@@ -121,6 +124,7 @@ abstract class Content
 
     /**
      * @param string $slug
+     *
      * @return $this
      */
     public function setSlug(?string $slug): self
@@ -137,6 +141,7 @@ abstract class Content
 
     /**
      * @param string $content
+     *
      * @return $this
      */
     public function setContent(?string $content): self
@@ -155,7 +160,6 @@ abstract class Content
     }
 
     /**
-     * @param TechnologyUsage $technologyUsage
      * @return $this
      */
     public function addTechnologyUsage(TechnologyUsage $technologyUsage): self
@@ -171,9 +175,9 @@ abstract class Content
     /**
      * @return Technology[]
      */
-    public function getTechnologies (): array
+    public function getTechnologies(): array
     {
-        return $this->getTechnologyUsages()->map(fn(TechnologyUsage $usage) => $usage->getTechnology())->toArray();
+        return $this->getTechnologyUsages()->map(fn (TechnologyUsage $usage) => $usage->getTechnology())->toArray();
     }
 
     /**
@@ -204,7 +208,7 @@ abstract class Content
 
         // On commence par synchronisé les usages
         /** @var TechnologyUsage $usage */
-        foreach($this->getTechnologyUsages() as $usage) {
+        foreach ($this->getTechnologyUsages() as $usage) {
             $usage->setVersion($usage->getTechnology()->getVersion());
             $usage->setSecondary($usage->getTechnology()->isSecondary());
         }
@@ -212,7 +216,7 @@ abstract class Content
         // On ajoute les nouveaux usage
         /** @var Technology[] $newUsage */
         $newUsage = array_diff($technologies, $currentTechnologies);
-        foreach($newUsage as $technology) {
+        foreach ($newUsage as $technology) {
             $usage = (new TechnologyUsage())
                 ->setSecondary($technology->isSecondary())
                 ->setTechnology($technology)
@@ -223,7 +227,7 @@ abstract class Content
         // On supprime les technologies qui n'existe pas dans notre nouvelle liste
         $removed = [];
         $newUsage = [];
-        foreach($this->technologyUsages as $usage) {
+        foreach ($this->technologyUsages as $usage) {
             if (!in_array($usage->getTechnology(), $technologies)) {
                 $removed[] = $usage;
             } else {
@@ -246,6 +250,7 @@ abstract class Content
                 $technologies[] = $usage->getTechnology()->setVersion($usage->getVersion());
             }
         }
+
         return $technologies;
     }
 
@@ -255,12 +260,12 @@ abstract class Content
     }
 
     /**
-     * @param \DateTimeInterface|null $createdAt
      * @return $this
      */
     public function setCreatedAt(?\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
         return $this;
     }
 
@@ -270,30 +275,27 @@ abstract class Content
     }
 
     /**
-     * @param \DateTimeInterface|null $updated_at
      * @return $this
      */
     public function setUpdatedAt(?\DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
+
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isOnline(): bool
     {
         return $this->online;
     }
 
     /**
-     * @param bool $online
      * @return $this
      */
     public function setOnline(bool $online): self
     {
         $this->online = $online;
+
         return $this;
     }
 
@@ -303,12 +305,12 @@ abstract class Content
     }
 
     /**
-     * @param Attachment|null $image
      * @return $this
      */
     public function setImage(?Attachment $image): self
     {
         $this->image = $image;
+
         return $this;
     }
 
@@ -319,13 +321,13 @@ abstract class Content
 
     /**
      * @param User $author
+     *
      * @return $this
      */
     public function setAuthor(?User $author): self
     {
         $this->author = $author;
+
         return $this;
     }
-
-
 }

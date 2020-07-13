@@ -17,9 +17,9 @@ Le dossier **/src** ne ressemble pas forcément à la structure que l'on peut at
 - **Http**, contient les classes qui permettent d'intéragir avec le système depuis des appels HTTP.
 - **Core**, contient les classes qui sont génériques (ajout de fonctions à Twig, ajout de type de formulaires...) et qui n'ont pas nécessairement leur place ailleurs.
 - **Domain**, contient les classes qui permettent de gérer la logique métier de l'application. Ces classes doivent être tant que possible indépendante et isolées les unes des autres. La communication avec les domaines peut se faire de 3 façons :
-    - Via un **Service** qui contient les méthodes qui seront utilisé depuis la couche HTTP / Command
-    - Via un **système d'évènement**
-    - Via un **repository** qui permettra au controllers ou au command de récupérer les informations nécessaires.
+  - Via un **Service** qui contient les méthodes qui seront utilisé depuis la couche HTTP / Command
+  - Via un **système d'évènement**
+  - Via un **repository** qui permettra au controllers ou au command de récupérer les informations nécessaires.
 - **Infrastructure**, définit les élément d'infrastructure qui permet au domaine de communiquer avec le système (couche de persistence fichier, envoie d'emails, base de données...).
 
 ### Pourquoi ne pas utiliser la structure de Symfony ?

@@ -17,7 +17,6 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ProgressionSubscriberTest extends TestCase
 {
-
     /**
      * @var MockObject|ProgressRepository
      */
@@ -46,6 +45,7 @@ class ProgressionSubscriberTest extends TestCase
     {
         $content = (new Course())->setId(100);
         $user = (new User())->setId(10);
+
         return new ProgressEvent($content, $user, $progress);
     }
 
@@ -54,10 +54,11 @@ class ProgressionSubscriberTest extends TestCase
         $this->repository->expects($this->once())->method('findOneBy')->with(
             $this->equalTo([
                 'content' => $event->getContent(),
-                'author'  => $event->getUser()
+                'author' => $event->getUser(),
             ])
         )->willReturn($progress);
         $this->em->expects($this->exactly($persistCalls))->method('persist');
+
         return new ProgressionSubscriber($this->em, $this->dispatcher);
     }
 
@@ -81,7 +82,7 @@ class ProgressionSubscriberTest extends TestCase
         $this->assertNotEquals($progress->getCreatedAt(), $progress->getUpdatedAt());
     }
 
-    public function dataFormationProgressionUpdater (): iterable
+    public function dataFormationProgressionUpdater(): iterable
     {
         yield [1, 10];
         yield [3, 30];
@@ -99,11 +100,11 @@ class ProgressionSubscriberTest extends TestCase
         $formation = new Formation();
         $courses = [];
         $ids = [];
-        for($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 10; ++$i) {
             $course = (new Course())->setId($i);
             $formation->addCourse($course);
             $courses[] = $course;
-            if ($i !== 1) {
+            if (1 !== $i) {
                 $ids[] = $i;
             }
         }
@@ -124,5 +125,4 @@ class ProgressionSubscriberTest extends TestCase
 
         $this->getSubscriber($event, null, 1)->onProgress($event);
     }
-
 }

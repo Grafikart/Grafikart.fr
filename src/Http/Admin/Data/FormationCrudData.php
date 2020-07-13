@@ -19,7 +19,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class FormationCrudData implements CrudDataInterface
 {
-
     private Formation $formation;
 
     private ?EntityManagerInterface $em = null;
@@ -111,24 +110,24 @@ class FormationCrudData implements CrudDataInterface
         $this->formation->setContent($this->content);
         $this->formation->setLinks($this->links);
         $this->formation->setLevel($this->level);
-        foreach($this->mainTechnologies as $technology) {
+        foreach ($this->mainTechnologies as $technology) {
             $technology->setSecondary(false);
         }
-        foreach($this->secondaryTechnologies as $technology) {
+        foreach ($this->secondaryTechnologies as $technology) {
             $technology->setSecondary(true);
         }
         $removed = $this->formation->syncTechnologies(array_merge($this->mainTechnologies, $this->secondaryTechnologies));
-        if($this->em) {
-            foreach($removed as $usage) {
+        if ($this->em) {
+            foreach ($removed as $usage) {
                 $this->em->remove($usage);
             }
         }
         /** @var Course $course */
-        foreach($this->formation->getCourses() as $course) {
+        foreach ($this->formation->getCourses() as $course) {
             $course->setFormation(null);
         }
-        foreach($this->chapters as $chapter) {
-            foreach($chapter->getCourses() as $course) {
+        foreach ($this->chapters as $chapter) {
+            foreach ($chapter->getCourses() as $course) {
                 $course->setFormation($this->formation);
             }
         }
@@ -142,7 +141,7 @@ class FormationCrudData implements CrudDataInterface
         return $this;
     }
 
-    public function getId (): ?int
+    public function getId(): ?int
     {
         return $this->getEntity()->getId();
     }

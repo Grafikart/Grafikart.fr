@@ -37,7 +37,6 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class ChaptersForm extends TextareaType implements DataTransformerInterface
 {
-
     private UrlGeneratorInterface $urlGenerator;
     private EntityManagerInterface $em;
 
@@ -53,11 +52,11 @@ class ChaptersForm extends TextareaType implements DataTransformerInterface
         $resolver->setDefaults([
             'html5' => false,
             'label' => false,
-            'attr'  => [
-                'endpoint'      => $this->urlGenerator->generate('admin_course_title', ['id' => ':id']),
+            'attr' => [
+                'endpoint' => $this->urlGenerator->generate('admin_course_title', ['id' => ':id']),
                 'endpoint-edit' => $this->urlGenerator->generate('admin_course_edit', ['id' => ':id']),
-                'is'            => 'chapters-editor'
-            ]
+                'is' => 'chapters-editor',
+            ],
         ]);
     }
 
@@ -68,7 +67,7 @@ class ChaptersForm extends TextareaType implements DataTransformerInterface
     }
 
     /**
-     * Transforme un tableau de chapitre en JSON
+     * Transforme un tableau de chapitre en JSON.
      *
      * @param Chapter[] $value
      */
@@ -76,33 +75,36 @@ class ChaptersForm extends TextareaType implements DataTransformerInterface
     {
         return json_encode(collect($value)->map(function (Chapter $chapter) {
             return [
-                'title'   => $chapter->getTitle(),
+                'title' => $chapter->getTitle(),
                 'courses' => collect($chapter->getCourses())->map(function (Course $course) {
                     return [
                         'title' => $course->getTitle(),
-                        'id'    => $course->getId()
+                        'id' => $course->getId(),
                     ];
-                })
+                }),
             ];
         })->toArray()) ?: '';
     }
 
     /**
-     * Transforme un JSON en tableau de chapitres
+     * Transforme un JSON en tableau de chapitres.
      *
      * @param string $value
+     *
      * @return Chapter[]
      */
     public function reverseTransform($value): array
     {
         $chapters = json_decode($value, true);
-        if ($chapters === null) {
-            throw new \RuntimeException('Impossible de parser le JSON des chapitres : ' . $value);
+        if (null === $chapters) {
+            throw new \RuntimeException('Impossible de parser le JSON des chapitres : '.$value);
         }
+
         return array_map(function ($chapter) {
             $courses = array_map(function ($course) {
                 return $this->em->getReference(Course::class, $course['id']);
             }, $chapter['courses']);
+
             return (new Chapter())
                 ->setTitle($chapter['title'])
                 ->setCourses($courses);

@@ -8,7 +8,6 @@ use App\Infrastructure\Storage\VideoMetaReader;
 
 class CourseDurationUpdater
 {
-
     private string $videosPath;
     private VideoMetaReader $metaReader;
 
@@ -27,5 +26,4 @@ class CourseDurationUpdater
             }
         }
     }
-
 }

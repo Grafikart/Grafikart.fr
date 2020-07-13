@@ -3,7 +3,6 @@
 namespace App\Core\Twig;
 
 use App\Domain\Application\Entity\Content;
-use App\Domain\History\HistoryService;
 use App\Domain\History\Repository\ProgressRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -12,7 +11,6 @@ use Twig\TwigFunction;
 
 class TwigHistoryExtension extends AbstractExtension
 {
-
     private ProgressRepository $repository;
 
     public function __construct(ProgressRepository $repository)
@@ -27,18 +25,17 @@ class TwigHistoryExtension extends AbstractExtension
                 'show_history',
                 [$this, 'showHistory'],
                 ['is_safe' => ['html'], 'needs_context' => true]
-            )
+            ),
         ];
     }
 
     /**
      * @param Content[]|ArrayCollection<Content> $contents
-     * @return string|null
      */
     public function showHistory(array $context, $contents): ?string
     {
         $user = $context['app']->getUser();
-        if ($user === null) {
+        if (null === $user) {
             return null;
         }
         if ($contents instanceof Collection) {
@@ -46,12 +43,13 @@ class TwigHistoryExtension extends AbstractExtension
         }
         $progress = $this->repository->findForContents($user, $contents);
         $ids = [];
-        foreach($progress as $p) {
+        foreach ($progress as $p) {
             if ($content = $p->getContent()) {
                 $ids[$content->getId()] = $p->getPercent();
             }
         }
         $ids = json_encode($ids);
+
         return <<<HTML
         <script>
           (function () {
@@ -65,5 +63,4 @@ class TwigHistoryExtension extends AbstractExtension
         </script>
         HTML;
     }
-
 }

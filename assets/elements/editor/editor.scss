@@ -1,0 +1,116 @@
+.mdeditor {
+  position: relative;
+  background-color: #fff;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.05);
+  border: solid 1px var(--border);
+  background: var(--background);
+  transition: box-shadow 0.3s;
+}
+.mdeditor--fullscreen {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+.mdeditor__editor {
+  top: 34px;
+  left: 0;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  z-index: 2;
+  background: var(--background);
+}
+.mdeditor .Code-Mirror-wrap {
+  height: 100%;
+}
+.mdeditor__toolbar {
+  position: relative;
+  display: flex;
+  z-index: 3;
+  height: 34px;
+  background-color: #fff;
+  box-shadow: 0 1px 2px rgba(#000, 0.2);
+
+  button {
+    height: 34px;
+    width: 34px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    outline: none;
+
+    &:hover {
+      background-color: #f5f5f5;
+    }
+  }
+
+  svg {
+    margin-top: 3px;
+    fill: #1d1d1d;
+    width: 15px;
+    height: 15px;
+  }
+}
+.mdeditor__toolbarright {
+  margin-left: auto;
+}
+
+// CodeMirror
+// ======================
+.mdeditor .CodeMirror-cursor {
+  background-color: transparent !important;
+  border-left: 2px solid var(--contrast) !important;
+}
+.mdeditor__editor .CodeMirror-selected {
+  background: var(--border);
+}
+.mdeditor .cm-header.cm-header-2 {
+  font-family: Montserrat;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 32px;
+  line-height: 1.2;
+  padding-top: 31px;
+  margin-bottom: 2px;
+}
+.mdeditor .cm-header.cm-header-3 {
+  font-family: Montserrat;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1.2;
+  margin-top: space(2);
+  margin-bottom: 2px;
+}
+.mdeditor .cm-header.cm-header-4 {
+  font-family: Montserrat;
+  margin-top: space(2);
+}
+.mdeditor .CodeMirror pre.CodeMirror-line {
+  font-family: Roboto;
+}
+.mdeditor .cm-comment {
+  font-family: monospace;
+}
+.mdeditor .CodeMirror-scroll {
+  background: var(--background);
+  min-height: 100px;
+}
+.mdeditor .CodeMirror {
+  height: auto;
+}
+.CodeMirror-scroll {
+  padding: 10px;
+}
+.mdeditor--fullscreen .mdeditor__editor {
+  position: absolute;
+  height: calc(100% - 34px);
+}
+.mdeditor--fullscreen .CodeMirror {
+  height: 100%;
+}

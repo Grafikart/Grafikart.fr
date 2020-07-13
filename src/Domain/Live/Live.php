@@ -14,18 +14,17 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class Live
 {
-
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
      */
-    private int $id = 0;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private string $name = '';
+    private string $name;
 
     /**
      * @ORM\Column(type="text")
@@ -69,6 +68,7 @@ class Live
         $thumbnail = $video->getSnippet()->getThumbnails()->getMaxres();
         /** @var Google_Service_YouTube_Thumbnail|null $thumbnail */
         $thumbnail = $thumbnail ?: $video->getSnippet()->getThumbnails()->getHigh();
+
         return (new self())
             ->setCreatedAt($publishedAt)
             ->setYoutubeId($video->getId())
@@ -77,6 +77,13 @@ class Live
             ->setImage($thumbnail ? new RemoteFile($thumbnail->getUrl()) : null)
             ->setDuration(new \DateInterval($video->getContentDetails()->getDuration()))
             ->setUpdatedAt($publishedAt);
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getId(): ?int
@@ -108,8 +115,9 @@ class Live
         return $this;
     }
 
-    public function getYoutubeUrl(): ?string {
-        return 'https://youtu.be/' . $this->youtubeId;
+    public function getYoutubeUrl(): ?string
+    {
+        return 'https://youtu.be/'.$this->youtubeId;
     }
 
     public function getYoutubeId(): ?string
@@ -155,6 +163,7 @@ class Live
 
     /**
      * @param int|\DateInterval $duration
+     *
      * @return $this
      */
     public function setDuration($duration): self
@@ -164,6 +173,7 @@ class Live
         } else {
             $this->duration = $duration;
         }
+
         return $this;
     }
 
@@ -175,6 +185,7 @@ class Live
     public function setImage(?File $image): Live
     {
         $this->image = $image;
+
         return $this;
     }
 
@@ -186,7 +197,7 @@ class Live
     public function setImageName(?string $imageName): Live
     {
         $this->imageName = $imageName;
+
         return $this;
     }
-
 }

@@ -3,11 +3,13 @@
 namespace App\Infrastructure\Payment\Stripe;
 
 use App\Domain\Auth\User;
-use Stripe\{Customer, Plan, Stripe, Subscription};
+use Stripe\Customer;
+use Stripe\Plan;
+use Stripe\Stripe;
+use Stripe\Subscription;
 
 class StripeApi
 {
-
     public function __construct(string $privateKey)
     {
         Stripe::setApiKey($privateKey);
@@ -21,11 +23,11 @@ class StripeApi
             $customer = new Customer($user->getStripeId());
         } else {
             $customer = Customer::create([
-                'payment_method'   => $paymentMethodId,
-                'email'            => $user->getEmail(),
+                'payment_method' => $paymentMethodId,
+                'email' => $user->getEmail(),
                 'invoice_settings' => [
-                    'default_payment_method' => $paymentMethodId
-                ]
+                    'default_payment_method' => $paymentMethodId,
+                ],
             ]);
             $user->setStripeId($customer->id);
         }
@@ -42,6 +44,7 @@ class StripeApi
             'expand' => ['latest_invoice.payment_intent'],
         ]);
         $subscription = (new \App\Domain\Premium\Entity\Subscription())->setStripeId($stripeSubscription->id);
+
         return $subscription;
     }
 
@@ -49,5 +52,4 @@ class StripeApi
     {
         return Plan::retrieve($planId);
     }
-
 }

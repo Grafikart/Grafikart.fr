@@ -4,40 +4,68 @@
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
-    "@babel/plugin-transform-react-jsx": "^7.9.4",
-    "@symfony/webpack-encore": "^0.28.2",
+    "@babel/core": "^7.10.4",
+    "@babel/plugin-transform-react-jsx": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "@koa/cors": "^3.1.0",
+    "@prefresh/vite": "^0.10.0",
+    "@rollup/plugin-babel": "^5.0.4",
+    "@rollup/plugin-commonjs": "^13.0.0",
+    "@rollup/plugin-node-resolve": "^8.1.0",
     "@types/youtube": "^0.0.38",
     "babel-plugin-jsx-pragmatic": "^1.0.2",
     "doctoc": "^1.4.0",
+    "eslint-config-preact": "^1.1.1",
     "jest": "^25.1.0",
+    "prettier": "^2.0.5",
+    "prettier-standard": "^16.4.1",
+    "rollup": "^2.21.0",
+    "rollup-plugin-postcss": "^3.1.2",
+    "rollup-plugin-root-import": "^1.0.0",
     "sass": "^1.26.5",
-    "sass-loader": "^7.0.1",
-    "standard": "^14.3.1",
-    "style-loader": "^1.1.3",
-    "svelte-loader": "^2.13.6"
+    "vite": "^1.0.0-beta.11"
   },
   "scripts": {
-    "lint": "standard \"assets/js/**/*.js\" --fix",
-    "dev-server": "encore dev-server --hot --public http://grafikart.localhost:8080 --host 0.0.0.0  --disable-host-check",
-    "dev": "encore dev",
-    "watch": "encore dev --watch",
-    "build": "encore production --progress",
+    "lint": "prettier-standard --lint \"assets/**/*.{js,css,jsx}\"",
+    "lint-staged": "prettier-standard --lint --changed \"assets/**/*.{js,css,jsx}\"",
+    "dev": "rm -rf public/assets/time && npx vite",
+    "build": "rm -rf public/assets && npx rollup -c rollup.config.js && touch public/assets/time",
     "test": "jest"
   },
   "dependencies": {
-    "@grafikart/spinning-dots-element": "^0.0.3",
+    "@grafikart/spinning-dots-element": "^1.0.0",
     "@sb-elements/all": "^0.3.2",
     "@types/jest": "^25.1.3",
     "choices.js": "^9.0.1",
     "codemirror": "^5.52.0",
     "flatpickr": "^4.6.3",
     "htm": "^3.0.3",
-    "microtip": "^0.2.2",
     "monaco-editor": "^0.20.0",
     "preact": "^10.4.1",
     "scriptjs": "^2.5.9",
     "sortablejs": "^1.10.2",
-    "svelte": "^3.18.2",
     "turbolinks": "^5.2.0"
+  },
+  "eslintConfig": {
+    "extends": "preact",
+    "rules": {
+      "react/jsx-fragments": 0,
+      "import/no-absolute-path": 0
+    },
+    "env": {
+      "browser": true
+    }
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "/functions/(.*)$": "<rootDir>/../../assets/functions/$1",
+      "/elements/(.*)$": "<rootDir>/../../assets/elements/$1"
+    },
+    "moduleDirectories": [
+      "node_modules",
+      "bower_components",
+      "assets"
+    ],
+    "rootDir": "tests/js"
   }
 }

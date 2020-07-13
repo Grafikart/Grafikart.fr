@@ -12,7 +12,6 @@ use PHPUnit\Framework\TestCase;
 
 class LoginAttemptServiceTest extends TestCase
 {
-
     public function testAddAttempt(): void
     {
         /** @var MockObject|EntityManagerInterface $em */
@@ -34,5 +33,4 @@ class LoginAttemptServiceTest extends TestCase
 
         $service->addAttempt($user);
     }
-
 }

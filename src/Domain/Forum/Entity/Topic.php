@@ -7,6 +7,7 @@ use App\Domain\Auth\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -20,6 +21,7 @@ class Topic
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
      * @ApiProperty(identifier=true)
+     * @Groups({"read:topic"})
      */
     private ?int $id = null;
 
@@ -27,12 +29,14 @@ class Topic
      * @ORM\Column(type="string", length=70)
      * @Assert\NotBlank()
      * @Assert\Length(min="5", max="70")
+     * @Groups({"read:topic"})
      */
     private ?string $name = null;
 
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank()
+     * @Groups({"read:topic"})
      */
     private ?string $content = null;
 
@@ -61,6 +65,7 @@ class Topic
      * @ORM\JoinTable(name="forum_topic_tag")
      * @Assert\NotBlank()
      * @Assert\Count(min="1")
+     * @Groups({"read:topic"})
      */
     private Collection $tags;
 

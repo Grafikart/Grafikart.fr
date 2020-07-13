@@ -9,7 +9,6 @@ use Twig\TwigFunction;
 
 class TwigPriceExtension extends AbstractExtension
 {
-
     private VatService $vatService;
 
     public function __construct(VatService $vatService)
@@ -20,7 +19,7 @@ class TwigPriceExtension extends AbstractExtension
     public function getFunctions()
     {
         return [
-            new TwigFunction('vat_with_suffix', [$this, 'vatWithSuffix'], ['is_safe' => ['html']])
+            new TwigFunction('vat_with_suffix', [$this, 'vatWithSuffix'], ['is_safe' => ['html']]),
         ];
     }
 
@@ -33,7 +32,7 @@ class TwigPriceExtension extends AbstractExtension
         } else {
             $suffix = '<sup>€</sup>';
         }
-        return $vatPrice . $suffix;
-    }
 
+        return $vatPrice.$suffix;
+    }
 }

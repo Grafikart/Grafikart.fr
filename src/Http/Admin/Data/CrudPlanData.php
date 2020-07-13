@@ -2,12 +2,10 @@
 
 namespace App\Http\Admin\Data;
 
-use App\Infrastructure\Payment\Validator\StripePlan;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class CrudPlanData extends AutomaticCrudData
 {
-
     /**
      * @Assert\NotBlank()
      */
@@ -25,9 +23,9 @@ class CrudPlanData extends AutomaticCrudData
     public int $duration = 1;
 
     /**
-     * @Assert\NotBlank()
-     * @StripePlan()
+     * TODO : Remttre en place les assertions
+     * Assert\NotBlank()
+     * StripePlan().
      */
     public ?string $stripeId = null;
-
 }

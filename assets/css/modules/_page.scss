@@ -18,7 +18,7 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: space(3);
-  color: #FFF;
+  color: #fff;
 }
 .wave-header__body {
   @extend %hero-text;
@@ -61,7 +61,7 @@
     display: block;
   }
   .wave-header__image::after {
-    content:'';
+    content: '';
     position: absolute;
     bottom: -15px;
     left: 0;

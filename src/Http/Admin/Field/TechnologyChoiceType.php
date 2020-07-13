@@ -8,14 +8,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TechnologyChoiceType extends EntityType
 {
-
     public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
         $resolver->setDefaults([
             'class' => Technology::class,
-            'multiple' => true
+            'multiple' => true,
         ]);
     }
-
 }

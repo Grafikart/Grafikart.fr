@@ -7,7 +7,6 @@ use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class KernelTestCase extends \Symfony\Bundle\FrameworkBundle\Test\KernelTestCase
 {
-
     protected KernelBrowser $client;
     protected EntityManagerInterface $em;
 
@@ -22,5 +21,4 @@ class KernelTestCase extends \Symfony\Bundle\FrameworkBundle\Test\KernelTestCase
     {
         $this->em->remove($this->em->getRepository(get_class($entity))->find($entity->getId()));
     }
-
 }

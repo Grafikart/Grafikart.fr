@@ -10,7 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Transaction
 {
-
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -67,6 +66,7 @@ class Transaction
     public function setId(?int $id): Transaction
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -78,6 +78,7 @@ class Transaction
     public function setDuration(int $duration): Transaction
     {
         $this->duration = $duration;
+
         return $this;
     }
 
@@ -89,6 +90,7 @@ class Transaction
     public function setPrice(float $price): Transaction
     {
         $this->price = $price;
+
         return $this;
     }
 
@@ -100,6 +102,7 @@ class Transaction
     public function setTax(float $tax): Transaction
     {
         $this->tax = $tax;
+
         return $this;
     }
 
@@ -111,6 +114,7 @@ class Transaction
     public function setMethod(string $method): Transaction
     {
         $this->method = $method;
+
         return $this;
     }
 
@@ -122,6 +126,7 @@ class Transaction
     public function setMethodRef(?string $methodRef): Transaction
     {
         $this->methodRef = $methodRef;
+
         return $this;
     }
 
@@ -133,6 +138,7 @@ class Transaction
     public function setRefunded(bool $refunded): Transaction
     {
         $this->refunded = $refunded;
+
         return $this;
     }
 
@@ -144,6 +150,7 @@ class Transaction
     public function setCreatedAt(\DateTime $createdAt): Transaction
     {
         $this->createdAt = $createdAt;
+
         return $this;
     }
 
@@ -155,7 +162,7 @@ class Transaction
     public function setAuthor(User $author): Transaction
     {
         $this->author = $author;
+
         return $this;
     }
-
 }

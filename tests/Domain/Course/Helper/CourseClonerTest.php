@@ -10,7 +10,6 @@ use PHPUnit\Framework\TestCase;
 
 class CourseClonerTest extends TestCase
 {
-
     public function testCourseCloning(): void
     {
         // On crée le cours
@@ -39,5 +38,4 @@ class CourseClonerTest extends TestCase
     {
         return (new Technology())->setName($name);
     }
-
 }

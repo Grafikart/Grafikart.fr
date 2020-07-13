@@ -1,14 +1,11 @@
 <?php
 
-
 namespace App\Domain\Notification\Entity;
-
 
 use Doctrine\ORM\Mapping as ORM;
 
 trait Notifiable
 {
-
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
@@ -23,5 +20,4 @@ trait Notifiable
     {
         $this->notificationsReadAt = $notificationsReadAt;
     }
-
 }

@@ -10,7 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class LoginAttempt
 {
-
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -47,6 +46,7 @@ class LoginAttempt
     public function setUser(User $user): self
     {
         $this->user = $user;
+
         return $this;
     }
 
@@ -58,8 +58,7 @@ class LoginAttempt
     public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
+
         return $this;
     }
-
-
 }

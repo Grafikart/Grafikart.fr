@@ -11,7 +11,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends CrudController
 {
-
     protected string $templatePath = 'user';
     protected string $menuItem = 'user';
     protected string $entity = User::class;
@@ -29,8 +28,8 @@ class UserController extends CrudController
 
     public function applySearch(string $search, QueryBuilder $query): QueryBuilder
     {
-        return $query->where("LOWER(row.username) = :search")
-            ->orWhere("row.email = :search")
+        return $query->where('LOWER(row.username) = :search')
+            ->orWhere('row.email = :search')
             ->setParameter('search', strtolower($search));
     }
 
@@ -42,10 +41,10 @@ class UserController extends CrudController
         /** @var UserRepository $repository */
         $repository = $this->em->getRepository(User::class);
         $q = strtolower($q);
-        if ($q === 'moi') {
+        if ('moi' === $q) {
             return new JsonResponse([[
                 'id' => $this->getUser()->getId(),
-                'username' => $this->getUser()->getUsername()
+                'username' => $this->getUser()->getUsername(),
             ]]);
         }
         $users = $repository
@@ -56,8 +55,7 @@ class UserController extends CrudController
             ->setMaxResults(25)
             ->getQuery()
             ->getResult();
+
         return new JsonResponse($users);
-
     }
-
 }

@@ -14,7 +14,6 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class AttachmentRepository extends ServiceEntityRepository
 {
-
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Attachment::class);
@@ -29,9 +28,10 @@ class AttachmentRepository extends ServiceEntityRepository
             ->orderBy('year', 'DESC')
             ->getQuery()
             ->getResult();
-        return array_map(fn(array $row) => [
-            'path' => $row['year'] . '/' . str_pad($row['month'], 2, '0', STR_PAD_LEFT),
-            'count' => $row['count']
+
+        return array_map(fn (array $row) => [
+            'path' => $row['year'].'/'.str_pad($row['month'], 2, '0', STR_PAD_LEFT),
+            'count' => $row['count'],
         ], $rows);
     }
 
@@ -48,14 +48,12 @@ class AttachmentRepository extends ServiceEntityRepository
             ->where('a.createdAt BETWEEN :start AND :end')
             ->setParameters([
                 'start' => $start,
-                'end' => $end
+                'end' => $end,
             ])
             ->orderBy('a.createdAt', 'DESC')
             ->setMaxResults(50)
             ->getQuery()
             ->getResult();
-
-
     }
 
     /**
@@ -83,5 +81,4 @@ class AttachmentRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-
 }

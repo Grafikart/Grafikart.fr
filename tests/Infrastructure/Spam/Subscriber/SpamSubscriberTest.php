@@ -11,7 +11,6 @@ use App\Tests\EventSubscriberTest;
 
 class SpamSubscriberTest extends EventSubscriberTest
 {
-
     public function getEvents(): iterable
     {
         yield [PreTopicCreatedEvent::class];
@@ -25,7 +24,8 @@ class SpamSubscriberTest extends EventSubscriberTest
         $this->assertSubsribeTo(SpamSubscriber::class, $eventName);
     }
 
-    public function getData () : iterable {
+    public function getData(): iterable
+    {
         yield [2, true];
         yield [3, true];
         yield [4, false];
@@ -34,7 +34,8 @@ class SpamSubscriberTest extends EventSubscriberTest
     /**
      * @dataProvider getData
      */
-    public function testFlagAsSpamCorrectly (int $topicCount, bool $expectedSpam): void {
+    public function testFlagAsSpamCorrectly(int $topicCount, bool $expectedSpam): void
+    {
         $user = new User();
         $repository = $this->getMockBuilder(TopicRepository::class)
             ->disableOriginalConstructor()
@@ -42,11 +43,9 @@ class SpamSubscriberTest extends EventSubscriberTest
         $repository->expects($this->once())->method('countForUser')->with($user)->willReturn($topicCount);
         $topic = (new Topic())
             ->setAuthor($user);
-        ;
+
         $subscriber = new SpamSubscriber($repository);
         $this->dispatch($subscriber, new PreTopicCreatedEvent($topic));
         $this->assertSame($expectedSpam, $topic->isSpam());
-
     }
-
 }

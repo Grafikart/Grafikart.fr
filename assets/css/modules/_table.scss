@@ -5,8 +5,8 @@
 .table thead th {
   font-weight: 300;
   text-transform: uppercase;
-  opacity: .6;
-  font-size: .9em;
+  opacity: 0.6;
+  font-size: 0.9em;
   text-align: left;
 }
 .table thead th svg {
@@ -36,8 +36,8 @@
   display: block;
   width: 16px;
   height: 16px;
-  opacity: .15;
-  transition: .3s;
+  opacity: 0.15;
+  transition: 0.3s;
 
   &:hover {
     opacity: 1;

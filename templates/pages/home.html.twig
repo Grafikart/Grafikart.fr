@@ -20,8 +20,8 @@
             gratuits.
           </p>
           <div class="hstack">
-            <div class="btn-big btn-primary">Créer votre compte</div>
-            <div class="btn-big">Suivre un cursus</div>
+            <div class="btn-primary btn-big">Créer votre compte</div>
+            <div class="btn-primary-outlined btn-big">Suivre un cursus</div>
           </div>
         </div>
         <div class="home-intro__illustration">
@@ -39,7 +39,7 @@
           <p class="hero-text">Les cursus sont une série de vidéo sélectionnées manuellement pour vous faire atteindre
             un objectif spécifique</p>
           <div>
-            <a class="btn-big" href="#">Parcourir les cursus</a>
+            <a class="btn-primary btn-big" href="#">Parcourir les cursus</a>
           </div>
         </div>
       </div>
@@ -78,7 +78,7 @@
         <p class="hero-text">Les cursus sont une série de vidéo sélectionnées manuellement pour vous faire atteindre un
           objectif spécifique</p>
         <div>
-          <a class="btn-big" href="{{ path('course_index') }}">Découvrir les derniers tutoriels</a>
+          <a class="btn-primary-outlined btn-big" href="{{ path('course_index') }}">Découvrir les derniers tutoriels</a>
         </div>
       </div>
       <div class="home-push__mosaic">
@@ -142,7 +142,7 @@
             Améliorez-vous et apprenez de nouvelles choses grâce à 513 heures de tutoriels vidéos gratuits.
           </div>
           <div class="mt1 mb3">
-            <a class="btn-big" href="{{ path('blog_index') }}">Accéder au blog</a>
+            <a class="btn-primary-outlined btn-big" href="{{ path('blog_index') }}">Accéder au blog</a>
           </div>
           {% set post = posts[0] %}
           {% include 'pages/_homepost.twig' with {width: 385, height: 182, post: posts[0]} %}

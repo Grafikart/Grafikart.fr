@@ -14,12 +14,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class UpdateProfileForm extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         parent::buildForm($builder, $options);
         $builder->add('email', EmailType::class, [
-            'required'       => true
+            'required' => true,
         ])
             ->add('country', CountryType::class, [
                 'required' => true,
@@ -30,8 +29,7 @@ class UpdateProfileForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => ProfileUpdateDto::class
+            'data_class' => ProfileUpdateDto::class,
         ]);
     }
-
 }

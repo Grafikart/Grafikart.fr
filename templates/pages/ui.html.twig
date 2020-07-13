@@ -1,0 +1,354 @@
+{% extends 'base.html.twig' %}
+
+{% set colors = [
+  "color-dark",
+  "color",
+  "color-light",
+  "color-inversed",
+  "contrast",
+  "contrast25",
+  "red",
+  "green",
+  "yellow",
+  "color-transparent",
+  "border",
+  "border-light",
+  "background",
+  "background-light",
+  "shadow",
+  "play",
+  "card-footer",
+] %}
+
+{% block body %}
+  <div class="container stack" style="--gap:6">
+    <div class="grid2">
+      <div>
+          <div class="h1 mb1">Titre de premier niveau</div>
+          <div class="h2 mb1">Titre de second niveau</div>
+          <div class="h3 mb1">Titre de troisième niveau</div>
+          <div class="h4 mb1">Titre de quatrième niveau</div>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquam consequatur dolor est ex, excepturi
+            explicabo iusto libero minus nostrum obcaecati omnis perferendis provident reprehenderit sapiente, soluta unde
+            veniam voluptates?
+          </p>
+      </div>
+      <div>
+        <div class="hero-title">Titre .hero-title</div>
+        <p class="hero-text">.hero-text ipsum dolor sit amet, consectetur adipisicing elit. Adipisci atque dolorem eligendi esse et porro repellendus? Autem consectetur deserunt dolor laborum, tenetur unde! Facilis hic ipsa, iste itaque quam quidem.</p>
+
+        <div class="section-title mt4">Titre de section .section-title</div>
+        <div>
+          <span class="text-danger">Texte d'alerte .text-danger</span>
+          <span class="text-muted">Texte d'alerte .text-muted</span>
+        </div>
+        <div>
+          <span class="badge badge-success">.badge.badge-success</span>
+          <span class="badge badge-secondary">.badge.badge-secondary</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="h1 mb1">Couleurs</div>
+      <div class="hstack">
+        {% for color in colors %}
+          <div>
+            <span style="font-size: 0.8em;">{{ color }}</span>
+            <div style="width: 70px;height: 70px;background:var(--{{ color }});"></div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div>
+      <h1 class="h1 mb1">Boutons</h1>
+      <div class="stack">
+        <div class="hstack">
+          <a href="#" class="btn-primary">Bouton .btn-primary</a>
+          <a href="#" class="btn-secondary">Bouton .btn-secondary</a>
+          <a href="#" class="btn-danger">Bouton .btn-danger</a>
+          <a href="#" class="btn-danger" disabled>Bouton [disabled]</a>
+          <a href="#" class="btn-danger" disabled>
+            <spinning-dots class="icon"></spinning-dots>
+            Bouton avec icône</a>
+        </div>
+        <div class="hstack">
+          <a href="#" class="btn-primary-outlined">Bouton .btn-primary-outlined</a>
+        </div>
+        <div class="hstack">
+          <a class="btn-big btn-primary" href="#">Bouton .btn-big</a>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h1 class="mb1 h1">Navigations</h1>
+      <div class="grid2" style="--gap:4">
+        <div>
+          .nav-pills>a
+          <nav class="nav-pills">
+            {% for i in 1..3 %}
+              <a href="#" {% if i == 2 %}aria-selected="true" {% endif %}>Onglet #{{ i }}</a>
+            {% endfor %}
+          </nav>
+        </div>
+        <div>
+          .tabs-toggle>button
+          <nav class="tabs-toggle">
+            {% for i in 1..2 %}
+              <button {% if i == 2 %}aria-selected="true" {% endif %}>Onglet #{{ i }}</button>
+            {% endfor %}
+          </nav>
+        </div>
+        <div>
+          ul.pagination>li>a
+          <ul class="pagination">
+            {% for i in 1..10 %}
+              {% if i == 3 %}
+                <li><span>{{ i }}</span></li>
+              {% else %}
+                <li><a href="#">{{ i }}</a></li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+        <div>
+          ul.tabs-bar>a
+          <ul class="tabs-bar">
+            {% for i in 1..3 %}
+              <a href="#" {% if i == 2 %}aria-selected="true" {% endif %}>Element #{{ i }}</a>
+            {% endfor %}
+          </ul>
+        </div>
+        <div>
+          .list-group>a
+          <div class="list-group">
+            {% for i in 1..3 %}
+              <a href="#" class="flex">
+                Element #{{ i }}
+                <span class="badge">1</span>
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+        <div>
+          .list-cursus>*
+          <div class="list-cursus">
+            {% for i in 1..3 %}
+              <a href="#">
+                Element #{{ i }}
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h1 class="h1 mb1">Carte</h1>
+      <div class="grid2" style="--gap:4;">
+        <div class="hstack">
+          <div>
+            .card
+            <div class="card" style="width: 100px; height: 100px;"></div>
+          </div>
+          <div>
+            .card-big
+            <div class="card-big" style="width: 100px; height: 100px;"></div>
+          </div>
+        </div>
+        <div>
+          .card>(.card__body>.card__title+.card__description)+.card__footer
+          <div class="card">
+            <div class="card__body">
+              <div class="card__title">Titre de la carte</div>
+              <div class="card__description">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi enim fugit illum iure nemo pariatur sint
+                vitae. Architecto cupiditate delectus eos est non quis reiciendis suscipit totam veritatis voluptas. Vero?
+              </div>
+            </div>
+            <div class="card__footer">Un footer</div>
+          </div>
+        </div>
+        <div>
+          Ajouter un a.card__link à l'intérieur d'une carte la rend entièrement clicable
+          <div class="card">
+            <div class="card__body">
+              <div class="card__title">Titre de la carte</div>
+              <div class="card__description">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi enim fugit illum iure nemo pariatur sint
+                vitae. Architecto cupiditate delectus eos est non quis reiciendis suscipit totam veritatis voluptas. Vero?
+              </div>
+            </div>
+            <a class="card__link" href="#"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h1 class="h1 mb1">Layout</h1>
+      <p class="mb2">
+        Les espacements peuvent être pilotés au moyen de la variable <code>--gap</code> qui est multiplié par l'espace
+        (8px)<br/>
+        Chaque élément réinitialise la valeur de gap, la valeur ne "cascade" pas.
+      </p>
+      <div class="stack">
+        <div>
+          .stack
+          <div class="stack">
+            {% for i in 1..3 %}
+              <div class="card" style="height:40px;"></div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div>
+          .stack-separated
+          <div class="stack-separated">
+            {% for i in 1..3 %}
+              <div class="card" style="height:40px;"></div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div>
+          .hstack
+          <div class="hstack">
+            {% for i in 1..50 %}
+              <div class="card" style="height:40px; width: 40px;"></div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div>
+          .flex
+          <div class="flex">
+            {% for i in 1..3 %}
+              <div class="card" style="height:40px; width: 40px;"></div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div>
+          .flex.flex-start
+          <div class="flex flex-start">
+            {% for i in 1..3 %}
+              <div class="card" style="height:40px; width: 40px;"></div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div>
+          .flex.flex-end
+          <div class="flex flex-end">
+            {% for i in 1..3 %}
+              <div class="card" style="height:40px; width: 40px;"></div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div>
+          .layout-sidebar
+          <div class="layout-sidebar">
+            {% for i in 1..2 %}
+              <div class="card" style="height:40px;"></div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div>
+          .grid (utilisé pour les formulaire en général)
+          <div class="grid">
+            {% for i in 1..6 %}
+              <div class="card center text-muted {% if i == 5 %}full{% endif %}" style="height:40px;">{% if i == 5 %}.full{% endif %}</div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div>
+          .grid2
+          <div class="grid2">
+            {% for i in 1..6 %}
+              <div class="card" style="height:40px;"></div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="h1 mb1">Formulaires</div>
+      <div class="stack card p2">
+
+        <div class="form-group">
+          <label for="input1">.form-group>label+input</label>
+          <input name="url" id="input2">
+        </div>
+
+        <div class="form-switch form-group">
+          <div class="form-check">
+            <input type="checkbox" id="switch" is="input-switch" class="form-check-input" value="1"
+                   checked="checked"/>
+            <label class="form-check-label" for="switch">.form-switch.form-group>.form-check>input.form-check-input+label.form-check-label</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="inputfile">.form-group>label+input[type=file]</label>
+          <input name="url" id="inputfile" type="file">
+        </div>
+
+        <div class="form-group">
+          <label for="inputselect">.form-group>label+select</label>
+          <select name="url" id="inputselect">
+            <option value="1">Value 1</option>
+            <option value="2">Value 2</option>
+            <option value="3">Value 3</option>
+            <option value="4">Value 4</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="input2">.form-group>label+input[is="input-choices"]</label>
+          <input type="text" id="input2" is="input-choices" value="React"/>
+        </div>
+
+        <div class="form-group">
+          <label for="input3">.form-group>label+textarea</label>
+          <textarea id="input3"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="input3">.form-group>label+textarea[is="markdown-editor"]</label>
+          <textarea id="input3" is="markdown-editor"></textarea>
+        </div>
+
+      </div>
+    </div>
+
+    <div>
+      <h1 class="h1">Alerts</h1>
+      <alert-message type="info">
+        <strong>Ceci est un exemple alert-message[type=info]</strong><br/>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus alias assumenda blanditiis delectus.
+        </p>
+      </alert-message>
+      <alert-message type="success">
+        <strong>Ceci est un exemple alert-message[type=success]</strong><br/>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus alias assumenda blanditiis delectus.
+        </p>
+      </alert-message>
+      <alert-message type="danger">
+        <strong>Ceci est un exemple alert-message[type=danger]</strong><br/>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus alias assumenda blanditiis delectus.
+        </p>
+      </alert-message>
+    </div>
+  </div>
+{% endblock %}

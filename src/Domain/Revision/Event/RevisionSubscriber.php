@@ -9,7 +9,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class RevisionSubscriber implements EventSubscriberInterface
 {
-
     private EntityManagerInterface $em;
     private EventDispatcherInterface $dispatcher;
 
@@ -22,7 +21,7 @@ class RevisionSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            RevisionRefusedEvent::class  => 'onRevisionRefused',
+            RevisionRefusedEvent::class => 'onRevisionRefused',
             RevisionAcceptedEvent::class => 'onRevisionAccepted',
         ];
     }

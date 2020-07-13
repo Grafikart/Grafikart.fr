@@ -31,7 +31,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class CommentResource
 {
-
     /**
      * @Groups({"read"})
      * @ApiProperty(identifier=true)
@@ -79,7 +78,7 @@ class CommentResource
     public ?int $parent = 0;
 
     /**
-     * Garde une trace de l'entité qui a servi à créer la resource
+     * Garde une trace de l'entité qui a servi à créer la resource.
      */
     public ?Comment $entity = null;
 
@@ -88,7 +87,7 @@ class CommentResource
      */
     public ?int $userId = null;
 
-    static public function fromComment(Comment $comment): CommentResource
+    public static function fromComment(Comment $comment): CommentResource
     {
         $resource = new self();
         $author = $comment->getAuthor();
@@ -96,12 +95,12 @@ class CommentResource
         $resource->username = $comment->getUsername();
         $resource->content = $comment->getContent();
         $resource->createdAt = $comment->getCreatedAt()->getTimestamp();
-        $resource->parent = $comment->getParent() !== null ? $comment->getParent()->getId() : null;
+        $resource->parent = null !== $comment->getParent() ? $comment->getParent()->getId() : null;
         $gravatar = md5($comment->getEmail());
         $resource->avatar = "https://1.gravatar.com/avatar/{$gravatar}?s=200&r=pg&d=mp";
         $resource->entity = $comment;
         $resource->userId = $author ? $author->getId() : null;
+
         return $resource;
     }
-
 }

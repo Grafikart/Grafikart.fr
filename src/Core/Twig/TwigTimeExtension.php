@@ -7,7 +7,6 @@ use Twig\TwigFilter;
 
 class TwigTimeExtension extends AbstractExtension
 {
-
     /**
      * @return array<TwigFilter>
      */
@@ -16,26 +15,27 @@ class TwigTimeExtension extends AbstractExtension
         return [
             new TwigFilter('duration', [$this, 'duration']),
             new TwigFilter('ago', [$this, 'ago'], ['is_safe' => ['html']]),
-            new TwigFilter('duration_short', [$this, 'shortDuration'], ['is_safe' => ['html']])
+            new TwigFilter('duration_short', [$this, 'shortDuration'], ['is_safe' => ['html']]),
         ];
     }
 
     /**
-     * Génère une durée au format "30 min"
+     * Génère une durée au format "30 min".
      */
     public function duration(int $duration): string
     {
         $minutes = round($duration / 60);
         if ($minutes < 60) {
-            return $minutes . ' min';
+            return $minutes.' min';
         }
         $hours = floor($minutes / 60);
-        $minutes = str_pad((string)($minutes - ($hours * 60)), 2, '0', STR_PAD_LEFT);
+        $minutes = str_pad((string) ($minutes - ($hours * 60)), 2, '0', STR_PAD_LEFT);
+
         return "{$hours}h{$minutes}";
     }
 
     /**
-     * Génère une durée au format court hh:mm:ss
+     * Génère une durée au format court hh:mm:ss.
      */
     public function shortDuration(int $duration): string
     {
@@ -48,18 +48,18 @@ class TwigTimeExtension extends AbstractExtension
             $minutes = $minutes - ($hours * 60);
             $times = [$hours, $minutes, $seconds];
         }
+
         return implode(':', array_map(
-            fn (int $duration) => str_pad(strval($duration), 2, "0", STR_PAD_LEFT),
+            fn (int $duration) => str_pad(strval($duration), 2, '0', STR_PAD_LEFT),
             $times
         ));
     }
 
     /**
-     * Génère une date au format "Il y a" gràce à un CustomElement
+     * Génère une date au format "Il y a" gràce à un CustomElement.
      */
-    public function ago (\DateTimeInterface $date, string $prefix = ''): string
+    public function ago(\DateTimeInterface $date, string $prefix = ''): string
     {
-        return "<time-ago time=\"{$date->getTimestamp()}\" prefix=\"{$prefix}\"/>";
+        return "<time-ago time=\"{$date->getTimestamp()}\" prefix=\"{$prefix}\"></time-ago>";
     }
-
 }

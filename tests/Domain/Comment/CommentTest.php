@@ -9,7 +9,6 @@ use App\Tests\KernelTestCase;
 
 class CommentTest extends KernelTestCase
 {
-
     use FixturesTrait;
 
     public function testCascadeDeleteForUser(): void
@@ -32,7 +31,6 @@ class CommentTest extends KernelTestCase
         $this->assertEquals(0, $count2);
     }
 
-
     public function testGetUserNameWithAttachedUser(): void
     {
         $user = new User();
@@ -49,5 +47,4 @@ class CommentTest extends KernelTestCase
             $comment->getEmail()
         );
     }
-
 }

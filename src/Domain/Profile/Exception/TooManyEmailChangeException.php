@@ -6,7 +6,6 @@ use App\Domain\Profile\Entity\EmailVerification;
 
 class TooManyEmailChangeException extends \Exception
 {
-
     public EmailVerification $emailVerification;
 
     public function __construct(EmailVerification $emailVerification)
@@ -14,5 +13,4 @@ class TooManyEmailChangeException extends \Exception
         parent::__construct();
         $this->emailVerification = $emailVerification;
     }
-
 }

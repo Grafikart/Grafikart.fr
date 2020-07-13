@@ -6,7 +6,6 @@ use App\Domain\Auth\User;
 
 final class PasswordRecoveredEvent
 {
-
     private User $user;
 
     public function __construct(User $user)
@@ -18,5 +17,4 @@ final class PasswordRecoveredEvent
     {
         return $this->user;
     }
-
 }

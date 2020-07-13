@@ -20,7 +20,7 @@
 }
 .dashboard-search input {
   max-width: 300px;
-  background: url(../../images/input-search.svg) right 16px center / 12px 12px no-repeat;
+  background: url(..//images/input-search.svg) right 16px center / 12px 12px no-repeat;
 }
 .dashboard-actions {
   width: 100%;
@@ -33,7 +33,7 @@
 }
 .dashboard-btn {
   @extend .btn-gradient;
-  font-size: .9em;
+  font-size: 0.9em;
 }
 .dashboard .mdeditor {
   box-shadow: none;
@@ -71,7 +71,7 @@
   margin-bottom: space(1);
 }
 .dashboard-comment p {
-  opacity: .6;
+  opacity: 0.6;
 }
 .dashboard-comment .icon-user {
   height: 12px;
@@ -84,7 +84,7 @@
 .dashboard-comment__delete {
   color: var(--border);
   cursor: pointer;
-  transition: .3s;
+  transition: 0.3s;
 
   .dashboard-comment:hover & {
     display: block;
@@ -105,9 +105,9 @@
     height: 100%;
   }
   & > *:first-child {
-    grid-column: 1 / -2!important;
+    grid-column: 1 / -2 !important;
   }
   & > *:last-child {
-    grid-column: -2 / -1!important;
+    grid-column: -2 / -1 !important;
   }
 }

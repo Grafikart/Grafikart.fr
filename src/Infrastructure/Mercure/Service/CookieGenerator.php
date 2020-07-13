@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Cookie;
 
 class CookieGenerator
 {
-
     private string $secret;
 
     public function __construct(string $secret)
@@ -23,9 +22,9 @@ class CookieGenerator
         $token = (new Builder())
             ->withClaim('mercure', [
                 'subscribe' => [
-                    '/notifications/user/' . $user->getId(),
-                    '/notifications/{channel}'
-                ]
+                    '/notifications/user/'.$user->getId(),
+                    '/notifications/{channel}',
+                ],
             ])
             ->getToken(new Sha256(), new Key($this->secret));
 

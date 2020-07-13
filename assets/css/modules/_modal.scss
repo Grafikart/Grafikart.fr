@@ -41,8 +41,6 @@ modal-dialog .card {
   animation: 0.4s slideIn both;
 }
 
-
-
 modal-box,
 .modal {
   position: fixed;
@@ -54,24 +52,24 @@ modal-box,
   left: 0;
   right: 0;
   bottom: 0;
-  background: #000000A5;
+  background: #000000a5;
   overflow: auto;
-  animation: .5s fadeIn both;
+  animation: 0.5s fadeIn both;
 }
 
 modal-box.is-closing,
- .modal.is-closing {
-   animation: .5s fadeOut both;
- }
+.modal.is-closing {
+  animation: 0.5s fadeOut both;
+}
 
 modal-box > *,
 .modal > * {
-  animation: .4s slideIn both;
+  animation: 0.4s slideIn both;
 }
 
 modal-box.is-closing > *,
 .modal.is-closing > * {
-  animation: .4s slideOut both;
+  animation: 0.4s slideOut both;
 }
 
 file-manager {

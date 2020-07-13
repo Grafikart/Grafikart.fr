@@ -10,7 +10,6 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 
 class RevisionService
 {
-
     private EventDispatcherInterface $eventDispatcher;
     private EntityManagerInterface $em;
     private RevisionRepository $repository;
@@ -26,12 +25,12 @@ class RevisionService
     }
 
     /**
-     * Propose une modification au contenu
+     * Propose une modification au contenu.
      */
     public function submitRevision(Revision $revision): void
     {
         $revision->setCreatedAt(new \DateTime());
-        $isNew = $revision->getId() === null;
+        $isNew = null === $revision->getId();
         if ($isNew) {
             $this->em->persist($revision);
         }
@@ -42,18 +41,18 @@ class RevisionService
     }
 
     /**
-     * Renvoie la révision courante pour le contenu/utilisateur ou génère une nouvelle révision
+     * Renvoie la révision courante pour le contenu/utilisateur ou génère une nouvelle révision.
      */
     public function revisionFor(User $user, Content $content): Revision
     {
         $revision = $this->repository->findFor($user, $content);
-        if ($revision !== null) {
+        if (null !== $revision) {
             return $revision;
         }
+
         return (new Revision())
             ->setContent($content->getContent())
             ->setTarget($content)
             ->setAuthor($user);
     }
-
 }

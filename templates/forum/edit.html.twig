@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Créer un nouveau sujet' %}
+
+{% block body %}
+
+  <section class="container">
+    <h2 class="hero-title mb2">
+      Editer votre <strong>sujet</strong>
+    </h2>
+    <div class="stack-large">
+      {{ form_start(form, {attr: {class: 'grid fit', style: '--col:45%'}}) }}
+        {{ form_row(form.name, {label: 'Titre'}) }}
+        {{ form_row(form.tags, {label: 'Tags'}) }}
+      {{ form_row(form.content, {label: false}) }}
+      <div class="full text-right">
+        <a href="{{ path('forum_show', {id: id}) }}" class="btn-secondary btn-big">Annuler</a>
+        <button type="submit" class="btn-primary btn-big">Modifier le sujet</button>
+      </div>
+      {{ form_end(form) }}
+    </div>
+  </section>
+
+
+{% endblock %}

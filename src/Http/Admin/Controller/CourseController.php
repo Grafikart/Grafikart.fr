@@ -15,11 +15,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/course", name="course_")
+ *
  * @method getRepository() App\Domain\Course\Repository\CourseRepository\CourseRepository
  */
 final class CourseController extends CrudController
 {
-
     protected string $templatePath = 'course';
     protected string $menuItem = 'course';
     protected string $entity = Course::class;
@@ -27,7 +27,7 @@ final class CourseController extends CrudController
     protected array $events = [
         'update' => ContentUpdatedEvent::class,
         'delete' => ContentDeletedEvent::class,
-        'create' => ContentCreatedEvent::class
+        'create' => ContentCreatedEvent::class,
     ];
 
     /**
@@ -47,6 +47,7 @@ final class CourseController extends CrudController
                 ->andWhere('t.slug = :technology')
                 ->setParameter('technology', $request->query->get('technology'));
         }
+
         return $this->crudIndex($query);
     }
 
@@ -57,6 +58,7 @@ final class CourseController extends CrudController
     {
         $entity = (new Course())->setAuthor($this->getUser());
         $data = new CourseCrudData($entity);
+
         return $this->crudNew($data);
     }
 
@@ -66,6 +68,7 @@ final class CourseController extends CrudController
     public function edit(Course $course): Response
     {
         $data = (new CourseCrudData($course))->setEntityManager($this->em);
+
         return $this->crudEdit($data);
     }
 
@@ -76,6 +79,7 @@ final class CourseController extends CrudController
     {
         $course = CourseCloner::clone($course);
         $data = new CourseCrudData($course);
+
         return $this->crudNew($data);
     }
 
@@ -88,7 +92,7 @@ final class CourseController extends CrudController
     }
 
     /**
-     * Endpoint pour récupérer le titre d'un cours depuis son Id
+     * Endpoint pour récupérer le titre d'un cours depuis son Id.
      *
      * @Route("/{id}/title", name="title")
      */
@@ -96,8 +100,7 @@ final class CourseController extends CrudController
     {
         return new JsonResponse([
             'id' => $course->getId(),
-            'title' => $course->getTitle()
+            'title' => $course->getTitle(),
         ]);
     }
-
 }

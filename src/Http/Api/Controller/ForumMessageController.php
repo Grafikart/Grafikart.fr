@@ -12,13 +12,16 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/forum")
+ */
 class ForumMessageController extends AbstractController
 {
-
     /**
-     * @Route("/topics/{id}/messages", name="messages_post_collection", methods={"POST"})
+     * @Route("/topics/{id}/messages", name="api_forum/messages_post_collection", methods={"POST"})
      */
     public function create(
         Topic $topic,
@@ -28,7 +31,7 @@ class ForumMessageController extends AbstractController
         EventDispatcherInterface $dispatcher
     ): JsonResponse {
         $this->denyAccessUnlessGranted(ForumVoter::CREATE_MESSAGE, $topic);
-        $data = json_decode((string)$request->getContent(), true);
+        $data = json_decode((string) $request->getContent(), true);
         $message = (new Message())
             ->setCreatedAt(new \DateTime())
             ->setUpdatedAt(new \DateTime())
@@ -39,10 +42,10 @@ class ForumMessageController extends AbstractController
         $em->persist($message);
         $em->flush();
         $dispatcher->dispatch(new MessageCreatedEvent($message));
-        return new JsonResponse([
-            'id'   => $message->getId(),
-            'html' => $this->renderView('forum/_message.html.twig', ['message' => $message])
-        ], 201);
-    }
 
+        return new JsonResponse([
+            'id' => $message->getId(),
+            'html' => $this->renderView('forum/_message.html.twig', ['message' => $message]),
+        ], Response::HTTP_CREATED);
+    }
 }

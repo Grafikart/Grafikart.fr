@@ -4,6 +4,8 @@ namespace App\Domain\Forum\Entity;
 
 use App\Domain\Auth\User;
 use Doctrine\ORM\Mapping as ORM;
+use Parsedown;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -16,6 +18,7 @@ class Message
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
+     * @Groups({"read:message"})
      */
     private ?int $id = null;
 
@@ -40,6 +43,7 @@ class Message
      * @ORM\Column(type="text")
      * @Assert\NotBlank(groups={"create"})
      * @Assert\Length(min=10, groups={"create"})
+     * @Groups({"read:message", "update:message"})
      */
     private ?string $content = null;
 
@@ -63,6 +67,7 @@ class Message
     public function setId(int $id): self
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -112,6 +117,14 @@ class Message
         $this->content = $content;
 
         return $this;
+    }
+
+    /**
+     * @Groups({"updated:message"})
+     */
+    public function getFormattedContent(): ?string
+    {
+        return (new Parsedown())->setSafeMode(true)->text($this->content);
     }
 
     public function getCreatedAt(): ?\DateTimeInterface

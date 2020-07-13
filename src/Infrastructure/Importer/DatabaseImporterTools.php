@@ -1,15 +1,12 @@
 <?php
 
-
 namespace App\Infrastructure\Importer;
-
 
 use Doctrine\ORM\Id\AssignedGenerator;
 use Doctrine\ORM\Mapping\ClassMetadata;
 
 trait DatabaseImporterTools
 {
-
     private array $idGenerator = [];
 
     /**
@@ -49,7 +46,6 @@ trait DatabaseImporterTools
         // On vide la table
         $connection = $this->em->getConnection();
         $platform = $connection->getDatabasePlatform();
-        $connection->exec($platform->getTruncateTableSQL($tableName, false) . ' RESTART IDENTITY CASCADE');
+        $connection->exec($platform->getTruncateTableSQL($tableName, false).' RESTART IDENTITY CASCADE');
     }
-
 }

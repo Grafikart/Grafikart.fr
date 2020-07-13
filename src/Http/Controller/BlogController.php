@@ -16,7 +16,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class BlogController extends AbstractController
 {
-
     /**
      * @Route("/blog", name="blog_index")
      */
@@ -24,6 +23,7 @@ class BlogController extends AbstractController
     {
         $title = 'Blog';
         $query = $repo->queryAll();
+
         return $this->renderListing($title, $query, $paginator, $request);
     }
 
@@ -34,6 +34,7 @@ class BlogController extends AbstractController
     {
         $title = $category->getName();
         $query = $repo->queryAll($category);
+
         return $this->renderListing($title, $query, $paginator, $request);
     }
 
@@ -44,7 +45,7 @@ class BlogController extends AbstractController
     {
         return $this->render('blog/show.html.twig', [
             'post' => $post,
-            'menu' => 'blog'
+            'menu' => 'blog',
         ]);
     }
 
@@ -59,15 +60,15 @@ class BlogController extends AbstractController
         if ($page > 1) {
             $title .= ", page $page";
         }
-        if ($posts->count() === 0) {
+        if (0 === $posts->count()) {
             throw new NotFoundHttpException('Aucun articles ne correspond à cette page');
         }
+
         return $this->render('blog/index.html.twig', [
             'posts' => $posts,
             'page' => $page,
             'title' => $title,
-            'menu' => 'blog'
+            'menu' => 'blog',
         ]);
     }
-
 }

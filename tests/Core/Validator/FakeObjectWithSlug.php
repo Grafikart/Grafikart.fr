@@ -1,12 +1,9 @@
 <?php
 
-
 namespace App\Tests\Core\Validator;
-
 
 class FakeObjectWithSlug
 {
-
     public string $slug;
     private ?int $id;
 
@@ -20,5 +17,4 @@ class FakeObjectWithSlug
     {
         return $this->id;
     }
-
 }

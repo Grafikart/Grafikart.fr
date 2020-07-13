@@ -16,14 +16,12 @@ class RevisionVoter extends Voter
     {
         return in_array($attribute, [
             self::ADD,
-        ]) && $subject === null;
+        ]) && null === $subject;
     }
 
     /**
-     * @param string $attribute
+     * @param string                  $attribute
      * @param Comment|CommentResource $subject
-     * @param TokenInterface $token
-     * @return bool
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
@@ -35,5 +33,4 @@ class RevisionVoter extends Voter
 
         return true;
     }
-
 }

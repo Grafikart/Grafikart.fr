@@ -1,10 +1,11 @@
 // Chaines
 // ==================
-@function str-replace($string, $search, $replace: "") {
+@function str-replace($string, $search, $replace: '') {
   $index: str-index($string, $search);
 
   @if $index {
-    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+    @return str-slice($string, 1, $index - 1) + $replace +
+      str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
   }
 
   @return $string;
@@ -25,7 +26,7 @@
 
 // Typographie
 // ==================
-$base-font-size: 16!default;
+$base-font-size: 16 !default;
 @function em($pixels, $context: $base-font-size) {
   @if (unitless($pixels)) {
     $pixels: $pixels * 1px;
@@ -47,7 +48,7 @@ $base-font-size: 16!default;
 
 // Maths
 // ==================
-@function dround ($number, $digits: 2, $mode: round) {
+@function dround($number, $digits: 2, $mode: round) {
   $n: 1;
   // $number must be a number
   @if type-of($number) != number {

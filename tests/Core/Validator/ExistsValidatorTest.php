@@ -9,7 +9,6 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class ExistsValidatorTest extends ValidatorTestCase
 {
-
     public function dataProvider(): iterable
     {
         $constraint = new Exists(['class' => 'EntityClass']);
@@ -28,7 +27,7 @@ class ExistsValidatorTest extends ValidatorTestCase
     /**
      * @dataProvider dataProvider
      */
-    public function testNotSameValidator (bool $expectViolation, $value, Exists $constraint, EntityManagerInterface $em): void
+    public function testNotSameValidator(bool $expectViolation, $value, Exists $constraint, EntityManagerInterface $em): void
     {
         // On mock l'entity manager
         // Le test
@@ -37,5 +36,4 @@ class ExistsValidatorTest extends ValidatorTestCase
         $existsValidator->initialize($context);
         $existsValidator->validate($value, $constraint);
     }
-
 }

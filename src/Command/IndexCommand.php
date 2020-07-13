@@ -48,25 +48,26 @@ class IndexCommand extends Command
         $io->progressStart();
 
         $courses = $this->courseRepository->findAll();
-        foreach($courses as $course) {
+        foreach ($courses as $course) {
             $io->progressAdvance();
-            $this->indexer->index((array)$this->normalizer->normalize($course, 'search'));
+            $this->indexer->index((array) $this->normalizer->normalize($course, 'search'));
         }
 
         $formations = $this->formationRepository->findAll();
-        foreach($formations as $formation) {
+        foreach ($formations as $formation) {
             $io->progressAdvance();
-            $this->indexer->index((array)$this->normalizer->normalize($formation, 'search'));
+            $this->indexer->index((array) $this->normalizer->normalize($formation, 'search'));
         }
 
         $topics = $this->topicRepository->findAllBatched();
-        foreach($topics as $topic) {
+        foreach ($topics as $topic) {
             $io->progressAdvance();
-            $this->indexer->index((array)$this->normalizer->normalize($topic, 'search'));
+            $this->indexer->index((array) $this->normalizer->normalize($topic, 'search'));
         }
 
         $io->progressFinish();
         $io->success('ça marche');
+
         return 0;
     }
 }

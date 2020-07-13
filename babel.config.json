@@ -11,13 +11,15 @@
     ]
   ],
   "plugins": [
-    "@babel/plugin-syntax-dynamic-import",
-    ["@babel/plugin-transform-react-jsx", { "pragma": "h" }],
-    ["babel-plugin-jsx-pragmatic", {
-      "module": "preact",
-      "import": "h",
-      "export": "h"
-    }]
+    ["@babel/plugin-transform-react-jsx", { "pragma": "h", "pragmaFrag": "Fragment" }],
+    [
+      "babel-plugin-jsx-pragmatic",
+      {
+        "module": "preact",
+        "import": "h, Fragment",
+        "export": "h, Fragment"
+      }
+    ]
   ],
   "env": {
     "test": {

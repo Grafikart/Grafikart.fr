@@ -25,13 +25,13 @@ class ProgressRepository extends ServiceEntityRepository
     {
         return $this->findOneBy([
             'content' => $content,
-            'author' => $user
+            'author' => $user,
         ]);
     }
 
     /**
-     * @param User $user
      * @param Content[] $contents
+     *
      * @return Progress[]
      */
     public function findForContents(User $user, array $contents): array
@@ -40,9 +40,8 @@ class ProgressRepository extends ServiceEntityRepository
             ->leftJoin('p.content', 'c')
             ->addSelect('partial c.{id}')
             ->where('p.content IN (:ids)')
-            ->setParameter('ids', array_map(fn(Content $c) => $c->getId(), $contents))
+            ->setParameter('ids', array_map(fn (Content $c) => $c->getId(), $contents))
             ->getQuery()
             ->getResult();
     }
-
 }

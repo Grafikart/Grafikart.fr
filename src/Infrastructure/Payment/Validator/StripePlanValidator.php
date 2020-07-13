@@ -32,6 +32,5 @@ class StripePlanValidator extends ConstraintValidator
                 ->setParameter('{{ value }}', $value)
                 ->addViolation();
         }
-
     }
 }

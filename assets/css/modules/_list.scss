@@ -3,7 +3,7 @@
 .badge {
   background-color: var(--background);
   display: inline-block;
-  padding: .25em .6em;
+  padding: 0.25em 0.6em;
   border-radius: 10rem;
   font-size: 75%;
   line-height: 1;
@@ -13,13 +13,13 @@
   position: relative;
   &::before {
     position: absolute;
-    content:'';
+    content: '';
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     background: var(--green);
-    opacity: .1;
+    opacity: 0.1;
     border-radius: 10rem;
   }
 }
@@ -36,14 +36,14 @@
   font-size: 14px;
   color: var(--contrast);
   &::after {
-    content:'';
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     background: currentColor;
-    opacity: .2;
+    opacity: 0.2;
     z-index: -1;
     border-radius: 100px;
   }
@@ -63,7 +63,7 @@
   font-weight: bold;
 
   &::after {
-    content:'';
+    content: '';
     z-index: -1;
     position: absolute;
     top: 0;
@@ -71,7 +71,7 @@
     right: 0;
     bottom: 0;
     background: currentColor;
-    opacity: .2;
+    opacity: 0.2;
     border-radius: 20px;
   }
 }
@@ -89,7 +89,7 @@
 .pill-grey {
   color: var(--color);
   &::after {
-    opacity: .1;
+    opacity: 0.1;
   }
 }
 
@@ -105,7 +105,7 @@
 }
 .list-cursus > *::before,
 .list-cursus > *::after {
-  content: "";
+  content: '';
   position: absolute;
   background-color: var(--border-light);
 }
@@ -141,9 +141,9 @@
 .list-group > * {
   position: relative;
   display: block;
-  padding: .75rem 0;
+  padding: 0.75rem 0;
   border-bottom: 1px solid var(--border);
-  transition: .3s;
+  transition: 0.3s;
 
   &:first-child {
     border-top: 1px solid var(--border);
@@ -172,7 +172,7 @@
   height: 1rem;
   margin-right: space(1);
 }
-.tabs-bar a[aria-selected="true"] {
+.tabs-bar a[aria-selected='true'] {
   color: var(--contrast);
   border-bottom: 3px solid var(--contrast);
 }

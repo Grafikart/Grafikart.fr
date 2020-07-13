@@ -8,7 +8,6 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 final class DataImporterHandler
 {
-
     use DatabaseImporterTools;
 
     private EntityManagerInterface $em;
@@ -23,9 +22,6 @@ final class DataImporterHandler
 
     /**
      * @param string|string[]|null $type
-     * @param SymfonyStyle         $io
-     *
-     * @return bool
      */
     public function getImporter($type, SymfonyStyle $io): bool
     {

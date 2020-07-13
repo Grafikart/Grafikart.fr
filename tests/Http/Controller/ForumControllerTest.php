@@ -7,12 +7,11 @@ use App\Tests\WebTestCase;
 
 class ForumControllerTest extends WebTestCase
 {
-
     use FixturesTrait;
 
     public function testForum(): void
     {
-        $title = "Forum";
+        $title = 'Forum';
         $crawler = $this->client->request('GET', '/forum');
         $this->assertResponseStatusCodeSame(200);
         $this->assertEquals($title, $crawler->filter('h1')->text());
@@ -31,5 +30,4 @@ class ForumControllerTest extends WebTestCase
         $this->client->request('GET', '/forum/new');
         $this->assertResponseStatusCodeSame(200);
     }
-
 }

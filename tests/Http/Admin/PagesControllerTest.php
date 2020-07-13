@@ -7,7 +7,6 @@ use App\Tests\WebTestCase;
 
 class PagesControllerTest extends WebTestCase
 {
-
     use FixturesTrait;
 
     public function testAdminPage(): void
@@ -17,5 +16,4 @@ class PagesControllerTest extends WebTestCase
         $this->client->request('GET', '/admin/');
         $this->expectTitle('Dashboard');
     }
-
 }

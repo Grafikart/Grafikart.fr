@@ -30,13 +30,13 @@ services:
   node:
     build:
       context: ./tools/docker/node
-    command: yarn run dev-server
+    command: yarn run dev
     working_dir: /usr/src/app
-    user: "${USER_ID}:${GROUP_ID}"
+    user: '${USER_ID}:${GROUP_ID}'
     volumes:
       - .:/usr/src/app
     ports:
-      - 8080:8080
+      - 3000:3000
   db:
     image: postgres:12
     environment:

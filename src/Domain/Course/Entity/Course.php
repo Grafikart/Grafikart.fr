@@ -14,7 +14,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class Course extends Content
 {
-
     use LevelTrait;
 
     /**
@@ -45,7 +44,6 @@ class Course extends Content
 
     /**
      * @Vich\UploadableField(mapping="sources", fileNameProperty="source")
-     * @var File|null
      */
     private ?File $sourceFile = null;
 
@@ -174,6 +172,7 @@ class Course extends Content
     public function setSourceFile(?File $sourceFile): Course
     {
         $this->sourceFile = $sourceFile;
+
         return $this;
     }
 
@@ -188,5 +187,4 @@ class Course extends Content
 
         return $this;
     }
-
 }

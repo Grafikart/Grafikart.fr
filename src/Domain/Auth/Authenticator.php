@@ -6,10 +6,8 @@ use App\Domain\Auth\Event\BadPasswordLoginEvent;
 use App\Domain\Auth\Exception\TooManyBadCredentialsException;
 use App\Domain\Auth\Service\LoginAttemptService;
 use Psr\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -44,8 +42,7 @@ class Authenticator extends AbstractFormLoginAuthenticator implements PasswordAu
         CsrfTokenManagerInterface $csrfTokenManager,
         UserPasswordEncoderInterface $passwordEncoder,
         EventDispatcherInterface $eventDispatcher
-    )
-    {
+    ) {
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
@@ -97,6 +94,7 @@ class Authenticator extends AbstractFormLoginAuthenticator implements PasswordAu
         if ($user instanceof User && $this->loginAttemptService->limitReachedFor($user)) {
             throw new TooManyBadCredentialsException($user);
         }
+
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
     }
 
@@ -122,6 +120,7 @@ class Authenticator extends AbstractFormLoginAuthenticator implements PasswordAu
         ) {
             $this->eventDispatcher->dispatch(new BadPasswordLoginEvent($this->user));
         }
+
         return parent::onAuthenticationFailure($request, $exception);
     }
 
@@ -130,15 +129,10 @@ class Authenticator extends AbstractFormLoginAuthenticator implements PasswordAu
         return $this->urlGenerator->generate('auth_login');
     }
 
-    /**
-     * @return Response
-     */
-    public function start(Request $request, AuthenticationException $authException = null): Response
+    public function start(Request $request, AuthenticationException $authException = null): RedirectResponse
     {
         $url = $this->getLoginUrl();
-        if ($request->getContentType() === 'json') {
-            return new JsonResponse([], Response::HTTP_FORBIDDEN);
-        }
+
         return new RedirectResponse($url);
     }
 }

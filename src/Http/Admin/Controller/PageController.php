@@ -10,7 +10,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class PageController extends BaseController
 {
-
     /**
      * @Route("", name="home")
      */
@@ -21,11 +20,10 @@ final class PageController extends BaseController
     ): Response {
         $revisions = $revisionRepository->findLatest();
         $comments = $paginator->paginate($commentRepository->queryLatest());
+
         return $this->render('admin/index.html.twig', [
             'revisions' => $revisions,
-            'comments'  => $comments
+            'comments' => $comments,
         ]);
     }
-
-
 }

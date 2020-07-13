@@ -1,16 +1,18 @@
 // Variables
 // ==================
-$font: "Roboto", "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-$font-alt: "Montserrat", "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+$font: 'SF Pro', 'Roboto', 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+  'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+$font-alt: 'Gotham', 'Montserrat', 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+  'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
 // $font: "Rubik";
 // $font-alt: $font;
 
 // Font face
 // ==================
-/*
-@include font-face('a', './fonts/HKGrotesk-Regular', 300 400 600 700, null, woff2 woff ttf svg eot);
-*/
+// https://gist.github.com/mfd/f3d96ec7f0e8f034cc22ea73b3797b59
+@include font-face('Gotham', '/fonts/GothamPro', 500 700, null, woff2);
+@include font-face('SF Pro', '/fonts/SFPro', 400 700, null, woff2);
 
 %hero-title,
 .hero-title {
@@ -107,10 +109,10 @@ $font-alt: "Montserrat", "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe 
 // Alignements
 // ==================
 .text-right {
-  text-align: right!important;
+  text-align: right !important;
 }
 .text-center {
-  text-align: center!important;
+  text-align: center !important;
 }
 .text-inversed {
   color: var(--color-inversed);
@@ -122,5 +124,5 @@ $font-alt: "Montserrat", "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe 
   color: var(--red);
 }
 .text-muted {
-  color: var(--color-light)
+  color: var(--color-light);
 }

@@ -4,7 +4,6 @@ namespace App\Domain\Live;
 
 class LiveCreatedEvent
 {
-
     private Live $live;
 
     public function __construct(Live $live)
@@ -16,5 +15,4 @@ class LiveCreatedEvent
     {
         return $this->live;
     }
-
 }

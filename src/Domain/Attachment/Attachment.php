@@ -21,7 +21,6 @@ class Attachment
 
     /**
      * @Vich\UploadableField(mapping="attachments", fileNameProperty="fileName", size="fileSize")
-     * @var File|null
      */
     private ?File $file = null;
 
@@ -53,6 +52,7 @@ class Attachment
     public function setFileName(?string $fileName): self
     {
         $this->fileName = $fileName ?: '';
+
         return $this;
     }
 
@@ -76,6 +76,7 @@ class Attachment
     public function setFile(?File $file): Attachment
     {
         $this->file = $file;
+
         return $this;
     }
 
@@ -87,6 +88,7 @@ class Attachment
     public function setFileSize(?int $fileSize): Attachment
     {
         $this->fileSize = $fileSize ?: 0;
+
         return $this;
     }
 
@@ -94,5 +96,4 @@ class Attachment
     {
         return $this->fileName;
     }
-
 }

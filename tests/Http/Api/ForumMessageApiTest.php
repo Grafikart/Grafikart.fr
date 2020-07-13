@@ -18,7 +18,7 @@ class ForumMessageApiTest extends ApiTestCase
         $data = $this->loadFixtures(['forums']);
         /** @var Message $message */
         $message = $data['message1'];
-        $this->client->request('DELETE', '/api/forum/messages/' . $message->getId());
+        $this->client->request('DELETE', '/api/forum/messages/'.$message->getId());
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
@@ -28,7 +28,7 @@ class ForumMessageApiTest extends ApiTestCase
         /** @var Message $message */
         $message = $data['message1'];
         $this->login($message->getAuthor());
-        $this->client->request('DELETE', '/api/forum/messages/' . $message->getId());
+        $this->client->request('DELETE', '/api/forum/messages/'.$message->getId());
         $this->assertResponseStatusCodeSame(Response::HTTP_NO_CONTENT);
     }
 }

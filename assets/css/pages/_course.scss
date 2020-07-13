@@ -1,7 +1,7 @@
 .courses {
   @extend %container;
   display: grid;
-  grid-template-columns: repeat( auto-fill, minmax(245px, 1fr) );
+  grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));
   grid-gap: space(4);
   grid-auto-flow: dense;
 }
@@ -43,7 +43,7 @@
   position: relative;
   width: 100%;
   padding: var(--card-padding);
-  font-size: .9em;
+  font-size: 0.9em;
   display: flex;
   flex-direction: column;
   @extend %card;
@@ -53,7 +53,7 @@
   z-index: 3;
 }
 .course a:hover {
-  color: var(--contrast)
+  color: var(--contrast);
 }
 .course > * {
   margin-bottom: space(2);
@@ -84,7 +84,7 @@
   height: 40px;
 }
 .course__content {
-  opacity: .65;
+  opacity: 0.65;
 }
 .course .course__link {
   display: block;
@@ -102,11 +102,11 @@
   align-items: center;
   min-height: 36px;
   background: var(--card-footer);
-  margin: auto calc(var(--card-padding) * -1) calc(var(--card-padding) * -1)!important;
+  margin: auto calc(var(--card-padding) * -1) calc(var(--card-padding) * -1) !important;
   padding: 0 var(--card-padding);
 }
 .course__footer > * {
-  opacity: .65;
+  opacity: 0.65;
 }
 .course__footer > *:last-child {
   margin-left: auto;
@@ -121,7 +121,6 @@
 // Page
 // ==================
 .course-page {
-
 }
 .requirements {
   @extend %card;
@@ -162,7 +161,7 @@
   .course-header {
     display: grid;
     grid-template-columns: 1fr auto var(--sidebar-width) 1fr;
-    grid-template-areas: "space player sidebar space2";
+    grid-template-areas: 'space player sidebar space2';
   }
   .course-header__sidebar {
     position: relative;

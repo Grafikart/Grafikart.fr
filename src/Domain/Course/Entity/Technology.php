@@ -49,6 +49,7 @@ class Technology
 
     /**
      * @ORM\OneToMany(targetEntity="App\Domain\Course\Entity\TechnologyUsage", mappedBy="technology", orphanRemoval=true)
+     *
      * @var Collection<int, TechnologyUsage>
      */
     private Collection $usages;
@@ -65,12 +66,14 @@ class Technology
     /**
      * @ORM\ManyToMany(targetEntity="App\Domain\Course\Entity\Technology", inversedBy="requiredBy")
      * @ORM\JoinTable(name="technology_requirement")
+     *
      * @var Collection<int, Technology>
      */
     private Collection $requirements;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Domain\Course\Entity\Technology", mappedBy="requirements")
+     *
      * @var Collection<int, Technology>
      */
     private Collection $requiredBy;
@@ -100,7 +103,7 @@ class Technology
     public function setName(?string $name): self
     {
         $this->name = $name;
-        if ($this->slug === null && $this->name) {
+        if (null === $this->slug && $this->name) {
             $this->slug = (new Slugify())->slugify($this->name);
         }
 
@@ -178,6 +181,7 @@ class Technology
     public function setVersion(?string $version): self
     {
         $this->version = $version;
+
         return $this;
     }
 
@@ -189,6 +193,7 @@ class Technology
     public function setSecondary(bool $secondary): self
     {
         $this->secondary = $secondary;
+
         return $this;
     }
 
@@ -205,6 +210,7 @@ class Technology
     public function setImageFile(?File $imageFile): Technology
     {
         $this->imageFile = $imageFile;
+
         return $this;
     }
 
@@ -216,6 +222,7 @@ class Technology
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): Technology
     {
         $this->updatedAt = $updatedAt;
+
         return $this;
     }
 
@@ -264,5 +271,4 @@ class Technology
     {
         return $this->requiredBy;
     }
-
 }

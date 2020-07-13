@@ -16,7 +16,6 @@ use Knp\Component\Pager\PaginatorInterface;
  */
 class CommentRepository extends ServiceEntityRepository
 {
-
     private PaginatorInterface $paginator;
 
     public function __construct(ManagerRegistry $registry, PaginatorInterface $paginator)
@@ -26,15 +25,15 @@ class CommentRepository extends ServiceEntityRepository
     }
 
     /**
-     * Récupère les commentaires pour le listing de l'API en évitant la liaison content
+     * Récupère les commentaires pour le listing de l'API en évitant la liaison content.
      *
-     * @param int $content
      * @return array<Comment>
      */
     public function findForApi(int $content): array
     {
         // Force l'enregistrement de l'entité dans l'entity manager pour éviter les requêtes supplémentaires
         $post = $this->_em->getReference(\App\Domain\Blog\Post::class, $content);
+
         return $this->createQueryBuilder('c')
             ->select('c, u')
             ->orderBy('c.createdAt', 'ASC')
@@ -46,9 +45,7 @@ class CommentRepository extends ServiceEntityRepository
     }
 
     /**
-     * Renvoie un commentaire en évitant la liaison content
-     *
-     * @param int $id
+     * Renvoie un commentaire en évitant la liaison content.
      */
     public function findPartial(int $id): Comment
     {
@@ -61,9 +58,10 @@ class CommentRepository extends ServiceEntityRepository
             ->getQuery()
             ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)
             ->getOneOrNullResult();
-        if ($result === null) {
+        if (null === $result) {
             throw new EntityNotFoundException();
         }
+
         return $result;
     }
 
@@ -77,5 +75,4 @@ class CommentRepository extends ServiceEntityRepository
             ->setMaxResults(5)
             ->getQuery();
     }
-
 }

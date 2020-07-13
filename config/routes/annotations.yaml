@@ -1,6 +1,6 @@
 controllers:
-    resource: ../../src/Http/Controller/
-    type: annotation
+  resource: ../../src/Http/Controller/
+  type: annotation
 admin_controllers:
   name_prefix: admin_
   prefix: '%admin_prefix%'

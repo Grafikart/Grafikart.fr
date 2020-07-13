@@ -2,17 +2,15 @@
 
 namespace App\Tests\Http\Admin;
 
-use App\Domain\Auth\User;
 use App\Tests\FixturesTrait;
 use App\Tests\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Test fonctionnel pour vérifier que l'accès à l'administraiton est bien sécurisé
+ * Test fonctionnel pour vérifier que l'accès à l'administraiton est bien sécurisé.
  */
 class AdminSecurityTest extends WebTestCase
 {
-
     use FixturesTrait;
 
     private array $users = [];
@@ -39,11 +37,10 @@ class AdminSecurityTest extends WebTestCase
             $this->login($this->users[$user]);
         }
         $verb = 'ne devrait pas';
-        if ($responseCode === Response::HTTP_OK) {
+        if (Response::HTTP_OK === $responseCode) {
             $verb = 'devrait';
         }
         $this->client->request('GET', '/admin/');
         $this->assertResponseStatusCodeSame($responseCode, "L'utilisateur {$user} $verb pouvoir voir l'admin");
     }
-
 }

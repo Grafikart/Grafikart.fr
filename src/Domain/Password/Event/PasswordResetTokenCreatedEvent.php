@@ -7,7 +7,6 @@ use App\Domain\Password\Entity\PasswordResetToken;
 
 final class PasswordResetTokenCreatedEvent
 {
-
     private PasswordResetToken $token;
 
     public function __construct(PasswordResetToken $token)
@@ -24,5 +23,4 @@ final class PasswordResetTokenCreatedEvent
     {
         return $this->token;
     }
-
 }

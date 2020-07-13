@@ -44,7 +44,6 @@ class User implements UserInterface, \Serializable
 
     /**
      * @Vich\UploadableField(mapping="avatars", fileNameProperty="avatarName")
-     * @var File|null
      */
     private ?File $avatarFile = null;
 
@@ -121,18 +120,19 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getRoles()
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
+
         return array_unique($roles);
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getSalt(): ?string
     {
@@ -140,7 +140,7 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function eraseCredentials(): void
     {
@@ -154,6 +154,7 @@ class User implements UserInterface, \Serializable
     public function setAvatarFile(?File $avatarFile): User
     {
         $this->avatarFile = $avatarFile;
+
         return $this;
     }
 
@@ -165,6 +166,7 @@ class User implements UserInterface, \Serializable
     public function setAvatarName(?string $avatarName): User
     {
         $this->avatarName = $avatarName;
+
         return $this;
     }
 
@@ -194,11 +196,11 @@ class User implements UserInterface, \Serializable
 
     public function serialize(): string
     {
-        return serialize(array(
+        return serialize([
             $this->id,
             $this->username,
             $this->password,
-        ));
+        ]);
     }
 
     /**
@@ -221,7 +223,7 @@ class User implements UserInterface, \Serializable
     public function setCountry(?string $country): User
     {
         $this->country = $country;
+
         return $this;
     }
-
 }

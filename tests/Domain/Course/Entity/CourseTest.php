@@ -10,41 +10,40 @@ use PHPUnit\Framework\TestCase;
 
 class CourseTest extends TestCase
 {
-
     public function getData()
     {
         yield [
             [
-                ['PHP', null, true]
+                ['PHP', null, true],
             ],
             [
-                ['PHP', '5.4', true]
-            ]
+                ['PHP', '5.4', true],
+            ],
         ];
         yield [
             [],
             [
-                ['PHP', '5.4', true]
-            ]
+                ['PHP', '5.4', true],
+            ],
         ];
         yield [
             [
                 ['PHP', '5.4', true],
-                ['Laravel', null, true]
+                ['Laravel', null, true],
             ],
             [
                 ['Laravel', '5.4', true],
-                ['Golang', null, true]
+                ['Golang', null, true],
             ],
-            ['PHP']
+            ['PHP'],
         ];
         yield [
             [
                 ['PHP', '5.4', true],
-                ['Laravel', null, true]
+                ['Laravel', null, true],
             ],
             [],
-            ['Laravel', 'PHP']
+            ['Laravel', 'PHP'],
         ];
     }
 
@@ -77,6 +76,7 @@ class CourseTest extends TestCase
         $technologies = array_map(function ($technology) use ($dict) {
             [$name, $version, $secondary] = $technology;
             $technology = $dict[$name] ?? (new Technology());
+
             return $technology
                 ->setName($name)
                 ->setSecondary($secondary)
@@ -87,7 +87,7 @@ class CourseTest extends TestCase
 
         // On fait les assertions
         $this->assertSameSize($syncTechnologies, $course->getTechnologyUsages());
-        foreach($syncTechnologies as $k => [$name, $version, $secondary]) {
+        foreach ($syncTechnologies as $k => [$name, $version, $secondary]) {
             $this->assertEquals($name, $course->getTechnologyUsages()[$k]->getTechnology()->getName());
             $this->assertEquals($version, $course->getTechnologyUsages()[$k]->getVersion());
             $this->assertEquals($secondary, $course->getTechnologyUsages()[$k]->isSecondary());
@@ -96,5 +96,4 @@ class CourseTest extends TestCase
         $removedNames = array_map(fn (TechnologyUsage $u) => $u->getTechnology()->getName(), $removed);
         $this->assertEqualsCanonicalizing($expectedReturn, $removedNames);
     }
-
 }

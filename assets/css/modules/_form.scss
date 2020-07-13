@@ -1,17 +1,17 @@
 // Libraries
 // ==================
-@import "./choices.scss";
+@import './choices.scss';
 
 // Label
 // ==================
 label {
   text-transform: uppercase;
   font-weight: 300;
-  font-size: .85em;
+  font-size: 0.85em;
 }
 
 input:disabled {
-  opacity: .7;
+  opacity: 0.7;
 }
 
 // Champs texte
@@ -61,7 +61,7 @@ input:disabled {
   align-items: center;
 }
 .form-check label::before {
-  content:'';
+  content: '';
   display: inline-block;
   width: 18px;
   height: 18px;
@@ -71,8 +71,8 @@ input:disabled {
   margin-right: space(1);
 }
 .form-check label::after {
-  transition: transform .2s;
-  content:'';
+  transition: transform 0.2s;
+  content: '';
   position: absolute;
   top: calc(50% - 9px);
   left: 4px;
@@ -85,7 +85,7 @@ input:disabled {
   transform: scale(1);
 }
 .form-check input::after {
-  content:'lol';
+  content: 'lol';
 }
 
 // Switch
@@ -119,10 +119,10 @@ input:disabled {
   box-shadow: 0 1px 4px rgba(213, 222, 233, 0.2);
   border-radius: 100px;
   margin-right: space(1);
-  transition: background .3s;
+  transition: background 0.3s;
 
   &::before {
-    content:'';
+    content: '';
     display: block;
     height: 24px;
     width: 24px;
@@ -130,7 +130,7 @@ input:disabled {
     border: 1px solid var(--border);
     box-shadow: 0 1px 4px rgba(213, 222, 233, 0.2);
     border-radius: 100px;
-    transition: transform .3s
+    transition: transform 0.3s;
   }
 }
 input:checked + label .switch {
@@ -151,24 +151,23 @@ input:checked + label .switch::before {
 // Validation
 // ==================
 .form-error {
-  color: #FB4635;
-  font-size: .8em;
-  margin-top: .5em;
+  color: #fb4635;
+  font-size: 0.8em;
+  margin-top: 0.5em;
   line-height: 1.2;
 
   * > * {
-    margin-top: .5em;
+    margin-top: 0.5em;
   }
 }
 .form-group input.is-invalid,
-.form-group textarea.is-invalid
-{
-  border-color: #FB4635;
+.form-group textarea.is-invalid {
+  border-color: #fb4635;
 }
 .invalid-feedback {
-  color: #FB4635;
+  color: #fb4635;
   margin-top: space(1);
-  font-size: .9em;
+  font-size: 0.9em;
 }
 
 // Accessibilité
@@ -181,7 +180,7 @@ form button:focus,
 input:focus + label .switch,
 %input-active {
   border-color: var(--contrast);
-  box-shadow: 0px 0px 3px var(--contrast);
+  box-shadow: 0 0 0 3px var(--contrast25);
 }
 
 // Misc
@@ -192,8 +191,8 @@ button:hover .icon-delete {
 
 // InputTag
 // ==========================================================================
-.form-group .choices[data-type="text"] .choices__inner,
-.form-group .choices[data-type="select-multiple"] .choices__inner {
+.form-group .choices[data-type='text'] .choices__inner,
+.form-group .choices[data-type='select-multiple'] .choices__inner {
   padding: 0 8px;
   display: flex;
   min-height: 45px;
@@ -207,7 +206,7 @@ button:hover .icon-delete {
   padding: 0;
   margin: 0;
   min-height: 0px;
-  box-shadow: none!important;
+  box-shadow: none !important;
   &.choices__input--cloned {
     width: 1ch;
   }
@@ -219,11 +218,11 @@ button:hover .icon-delete {
   background: var(--contrast);
   margin-top: 4px;
   margin-bottom: 4px;
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 .choices__list--multiple.choices__list {
   margin-right: space(1);
-  background: transparent!important;
+  background: transparent !important;
 }
 .choices__list--multiple {
   margin-right: space(1);

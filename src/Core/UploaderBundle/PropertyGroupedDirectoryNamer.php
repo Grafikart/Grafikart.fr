@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Core\UploaderBundle;
 
@@ -9,7 +11,6 @@ use Vich\UploaderBundle\Naming\DirectoryNamerInterface;
 
 class PropertyGroupedDirectoryNamer implements DirectoryNamerInterface, ConfigurableInterface
 {
-
     private int $modulo;
     private string $property;
 
@@ -17,13 +18,14 @@ class PropertyGroupedDirectoryNamer implements DirectoryNamerInterface, Configur
     {
         $accessor = new PropertyAccessor();
         $value = $accessor->getValue($object, $this->property);
-        return (string)ceil($value / $this->modulo);
+
+        return (string) ceil($value / $this->modulo);
     }
 
     public function configure(array $options): void
     {
         $options = array_merge(['property' => 'id', 'modulo' => 1000], $options);
         $this->property = $options['property'];
-        $this->modulo = (int)$options['modulo'];
+        $this->modulo = (int) $options['modulo'];
     }
 }

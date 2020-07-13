@@ -8,7 +8,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ForumMessageSubscriber implements EventSubscriberInterface
 {
-
     private NotificationService $service;
 
     public function __construct(NotificationService $service)
@@ -19,7 +18,7 @@ class ForumMessageSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            MessageCreatedEvent::class => ['onMessageCreated']
+            MessageCreatedEvent::class => ['onMessageCreated'],
         ];
     }
 

@@ -16,14 +16,12 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class PostRepository extends ServiceEntityRepository
 {
-
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Post::class);
     }
 
     /**
-     * @param int $limit
      * @return Post[]
      */
     public function findRecent(int $limit): array
@@ -52,5 +50,4 @@ class PostRepository extends ServiceEntityRepository
 
         return $query->getQuery();
     }
-
 }

@@ -10,9 +10,8 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
  */
 class ValidatorTestCase extends KernelTestCase
 {
-
     /**
-     * Génère un contexte qui attend (ou non) une violation
+     * Génère un contexte qui attend (ou non) une violation.
      **/
     protected function getContext(bool $expectedViolation): ExecutionContextInterface
     {
@@ -32,7 +31,7 @@ class ValidatorTestCase extends KernelTestCase
                 ->expects($this->never())
                 ->method('buildViolation');
         }
+
         return $context;
     }
-
 }

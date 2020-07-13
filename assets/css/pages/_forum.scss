@@ -29,13 +29,13 @@
   width: 100%;
   height: 100%;
   border-radius: 100%;
-  opacity: .7;
+  opacity: 0.7;
   background: var(--green);
 }
 
 .is-solved .forum-avatar::after {
   opacity: 1;
-  background: url(../../images/check.svg) center center / 50% 50% no-repeat;
+  background: url(..//images/check.svg) center center / 50% 50% no-repeat;
 }
 
 // Réponse acceptée
@@ -52,7 +52,7 @@
   height: 18px;
   border-radius: 15px;
   border: 2px solid var(--background);
-  background: url(../../images/check.svg) center center / 70% 70% no-repeat var(--green);
+  background: url(..//images/check.svg) center center / 70% 70% no-repeat var(--green);
 }
 
 // Listing sujet
@@ -63,7 +63,7 @@
   grid-gap: space(2);
   padding: space(2);
   position: relative;
-  transition: .3s;
+  transition: 0.3s;
 }
 
 .forum-topic a {
@@ -100,7 +100,7 @@
 }
 
 .forum-topic__tags a[style] {
-  color: #FFF;
+  color: #fff;
 }
 
 .forum-topic__tags a {
@@ -127,7 +127,7 @@
 
 .forum-topic__count {
   text-align: right;
-  font-size: .9em;
+  font-size: 0.9em;
   color: var(--color-light);
 }
 
@@ -160,22 +160,16 @@
 .forum-message {
   @extend %stack;
 
-  p, ul, ol {
+  p,
+  ul,
+  ol {
     margin-bottom: 1rem;
   }
-}
-
-.forum-message__title {
-  font-family: Rubik;
-  font-weight: 500;
-  color: var(--color-dark);
-  font-size: 2em;
 }
 
 .forum-message__header,
 .forum-message__footer {
   --gap: 2;
-  @extend %hstack;
   position: relative;
   display: flex;
   align-items: center;
@@ -192,7 +186,7 @@
 }
 
 .forum-message__date {
-  font-size: .9em;
+  font-size: 0.9em;
   white-space: nowrap;
   color: var(--color-light);
 }
@@ -220,12 +214,10 @@
 }
 
 .forum-message__header {
-
 }
 
 .forum-message__actions {
   display: flex;
-  width: 100%;
   flex-wrap: wrap;
   justify-content: flex-end;
   margin-left: auto;
@@ -233,7 +225,6 @@
   & > * + * {
     margin-left: space(1);
   }
-
 }
 
 // Tag
@@ -268,7 +259,7 @@
   color: var(--color-light);
 }
 .forum-report:disabled {
-  opacity: .6;
+  opacity: 0.6;
 }
 .forum-report__form {
   @extend %card;
@@ -282,7 +273,7 @@
 }
 
 .forum-report__form::after {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   top: -10px;
