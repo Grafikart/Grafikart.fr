@@ -20,7 +20,7 @@ function getItems (endpoint, search) {
  * @property {choices} Choices
  * @property {string} endpoint
  */
-class UserSelect extends HTMLSelectElement {
+export class UserSelect extends HTMLSelectElement {
   connectedCallback () {
     if (this.timer) {
       clearTimeout(this.timer)
@@ -52,5 +52,3 @@ class UserSelect extends HTMLSelectElement {
     }
   }
 }
-
-customElements.define('user-select', UserSelect, { extends: 'select' })

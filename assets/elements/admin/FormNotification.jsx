@@ -1,8 +1,7 @@
-import preactCustomElement from '/functions/preact.js'
 import { FetchForm, FormField, FormPrimaryButton } from '/components/Form.jsx'
 import { flash } from '/elements/Alert.js'
 
-function FormNotification () {
+export function FormNotification () {
   const onSuccess = function () {
     flash('Notification envoyée avec succès')
   }
@@ -15,5 +14,3 @@ function FormNotification () {
     </FetchForm>
   )
 }
-
-preactCustomElement('form-notification', FormNotification)

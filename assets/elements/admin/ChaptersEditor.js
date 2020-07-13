@@ -98,7 +98,7 @@ function AddButton ({ placeholder, onAdd }) {
  * @typedef {{title: string, courses: ICourse[]}} IChapter
  * @typedef {{id: number, title: string}} ICourse
  */
-export default class ChaptersEditor extends HTMLTextAreaElement {
+export class ChaptersEditor extends HTMLTextAreaElement {
   constructor () {
     super()
     this.sortables = []
@@ -262,5 +262,3 @@ export default class ChaptersEditor extends HTMLTextAreaElement {
     }
   }
 }
-
-customElements.define('chapters-editor', ChaptersEditor, { extends: 'textarea' })
