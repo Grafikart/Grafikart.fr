@@ -92,5 +92,6 @@ node_modules/time: yarn.lock
 	touch node_modules/time
 
 public/assets: node_modules/time
+	$(dr) --no-deps node npx sass assets/css/app.scss assets/css/app.css
 	$(dr) --no-deps node yarn run build
 

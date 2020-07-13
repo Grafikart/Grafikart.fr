@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from 'preact/hooks'
-import { useClickOutside, usePrepend } from '/functions/hooks.js'
+import { useAsyncEffect, useClickOutside, usePrepend } from '/functions/hooks.js'
 import { Icon } from '/components/Icon.jsx'
 import { SlideIn } from '/components/Animation/SlideIn.jsx'
 import { isAuthenticated, lastNotificationRead } from '/functions/auth.js'
 import { Spinner } from '/components/Animation/Spinner.jsx'
 import { loadNotifications } from '/api/notifications.js'
-import { useAsyncEffect } from '/functions/hooks'
 
 const OPEN = 0
 const CLOSE = 1

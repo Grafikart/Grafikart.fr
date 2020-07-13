@@ -1,10 +1,9 @@
 import { createContext } from 'preact'
-import { jsonFetch } from '/functions/api.js'
+import { ApiError, jsonFetch } from '/functions/api.js'
 import { useContext, useEffect, useLayoutEffect, useRef, useState } from 'preact/hooks'
 import { PrimaryButton } from './Button.jsx'
 import { useAutofocus } from '/functions/hooks.js'
 import { flash } from '/elements/Alert.js'
-import { ApiError } from '/functions/api'
 
 /**
  * Représente un champs, dans le contexte du formulaire
