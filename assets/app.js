@@ -1,5 +1,6 @@
 import './css/app.css'
 
+import 'preact/debug'
 import './elements/index.js'
 import './pages/index.js'
 

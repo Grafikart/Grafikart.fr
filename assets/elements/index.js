@@ -14,10 +14,10 @@ import { AutoScroll } from './AutoScroll.js'
 import { AnimatedEditor } from './AnimatedEditor.js'
 import { AutoSubmit } from './AutoSubmit.js'
 import { Notifications } from './Notifications.jsx'
-import { CreateMessage, ForumActions } from './forum/index.js'
 import SpinningDots from '@grafikart/spinning-dots-element'
 import { ModalDialog, NavTabs, TextareaAutogrow } from '@sb-elements/all'
 import preactCustomElement from '/functions/preact.js'
+import './forum/index.js'
 
 // Custom Elements
 customElements.define('nav-tabs', NavTabs)
@@ -36,8 +36,6 @@ customElements.define('ajax-delete', AjaxDelete)
 customElements.define('animated-editor', AnimatedEditor)
 customElements.define('spinning-dots', SpinningDots)
 preactCustomElement('site-notifications', Notifications)
-preactCustomElement('forum-create-message', CreateMessage, ['topic'])
-preactCustomElement('forum-actions', ForumActions, ['message', 'topic'])
 
 // CustomElement étendus
 customElements.define('input-switch', Switch, { extends: 'input' })

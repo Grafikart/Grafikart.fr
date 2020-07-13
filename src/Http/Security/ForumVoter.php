@@ -14,6 +14,7 @@ class ForumVoter extends Voter
     const REPORT = 'forumReport';
     const CREATE_MESSAGE = 'forumCreateMessage';
     const DELETE_MESSAGE = 'DELETE_FORUM_MESSAGE';
+    const UPDATE_MESSAGE = 'UPDATE_FORUM_MESSAGE';
 
     protected function supports(string $attribute, $subject)
     {
@@ -30,6 +31,7 @@ class ForumVoter extends Voter
         switch ($attribute) {
             case self::CREATE_MESSAGE:
                 return $this->canCreateTopic($user, $subject);
+            case self::UPDATE_MESSAGE:
             case self::DELETE_MESSAGE:
                 return $this->ownMessage($user, $subject);
             case self::CREATE:

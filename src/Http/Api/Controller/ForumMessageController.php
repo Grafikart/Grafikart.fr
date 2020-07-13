@@ -12,12 +12,17 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/forum")
+ */
 class ForumMessageController extends AbstractController
 {
+
     /**
-     * @Route("/topics/{id}/messages", name="messages_post_collection", methods={"POST"})
+     * @Route("/topics/{id}/messages", name="api_forum/messages_post_collection", methods={"POST"})
      */
     public function create(
         Topic $topic,
@@ -42,6 +47,6 @@ class ForumMessageController extends AbstractController
         return new JsonResponse([
             'id' => $message->getId(),
             'html' => $this->renderView('forum/_message.html.twig', ['message' => $message]),
-        ], 201);
+        ], Response::HTTP_CREATED);
     }
 }

@@ -1,51 +1,15 @@
 import { FetchForm, FormField, FormPrimaryButton } from '/components/Form.jsx'
-import { useClickOutside, useJsonFetchAndFlash, useToggle } from '/functions/hooks.js'
+import { useClickOutside, useToggle } from '/functions/hooks.js'
 import { useRef } from 'preact/hooks'
 import { SlideIn } from '/components/Animation/SlideIn.jsx'
 import { flash } from '/elements/Alert.js'
-import { Icon } from '/components/Icon.jsx'
-import { RoundedButton } from '/components/Button.jsx'
-import { closest } from '/functions/dom.js'
 
 export function ForumActions ({ message, topic }) {
-  // On récupère le endpoint à appeler pour la suppresion (ou l'édition)
-  let endpoint = null
-  if (message) {
-    endpoint = `/api/forum/messages/${message}`
-  } else if (topic) {
-    endpoint = `/api/forum/topics/${topic}`
-  } else {
-    throw new Error('Impossible de charger le formulaire de signalement')
-  }
-
   // Rendu
   return (
     <>
-      <DeleteButton endpoint={endpoint} />
       <ReportButton message={message} topic={topic} />
     </>
-  )
-}
-
-function DeleteButton ({ endpoint }) {
-  // On prépare les hooks
-  const { loading: deleteLoading, fetch: deleteFetch } = useJsonFetchAndFlash(endpoint, { method: 'DELETE' })
-
-  // Handler
-  const handleDeleteClick = async e => {
-    if (!confirm('Voulez vous vraiment supprimer ce message ?')) {
-      return
-    }
-    const message = closest(e.target, '.forum-message')
-    await deleteFetch()
-    flash('Votre message a bien été supprimé')
-    message.remove()
-  }
-
-  return (
-    <RoundedButton type='danger' title='Supprimer ce message' loading={deleteLoading} onClick={handleDeleteClick}>
-      <Icon name='trash' />
-    </RoundedButton>
   )
 }
 

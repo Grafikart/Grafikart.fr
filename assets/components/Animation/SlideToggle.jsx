@@ -1,5 +1,5 @@
 import { useRef, useState } from 'preact/hooks'
-import { useAsyncEffect } from '/functions/hooks'
+import { useAsyncEffect } from '/functions/hooks.js'
 
 export default function SlideToggle ({ visible, className = null, children }) {
   const [height, setHeight] = useState(0)

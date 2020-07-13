@@ -4,6 +4,7 @@ import { useContext, useEffect, useLayoutEffect, useRef, useState } from 'preact
 import { PrimaryButton } from './Button.jsx'
 import { useAutofocus } from '/functions/hooks.js'
 import { flash } from '/elements/Alert.js'
+import { SecondaryButton } from '/components/Button.jsx'
 
 /**
  * Représente un champs, dans le contexte du formulaire
@@ -198,5 +199,24 @@ export function FormPrimaryButton ({ children, ...props }) {
     <PrimaryButton loading={loading} disabled={disabled} {...props}>
       {children}
     </PrimaryButton>
+  )
+}
+
+/**
+ * Représente un bouton, dans le contexte du formulaire
+ *
+ * @param children
+ * @param props
+ * @return {*}
+ * @constructor
+ */
+export function FormSecondaryButton ({ children, ...props }) {
+  const { loading, errors } = useContext(FormContext)
+  const disabled = loading || Object.keys(errors).filter(k => k !== 'main').length > 0
+
+  return (
+    <SecondaryButton loading={loading} disabled={disabled} {...props}>
+      {children}
+    </SecondaryButton>
   )
 }
