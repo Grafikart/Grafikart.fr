@@ -76,7 +76,7 @@ lint: vendor/autoload.php ## Analyse le code
 
 .PHONY: format
 format:
-	npm run lint
+	npx prettier-standard --lint --staged --changed "assets/**/*.{js,css,jsx}"
 	vendor/bin/php-cs-fixer fix
 
 .PHONY: doc
