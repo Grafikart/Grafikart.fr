@@ -113,7 +113,12 @@ class Report
      */
     public function getTarget()
     {
-        return $this->message ?: $this->topic;
+        if ($this->message) {
+            return $this->message;
+        } elseif ($this->topic) {
+            return $this->topic;
+        }
+        throw new \RuntimeException("Ce signalement n'est pas rattaché à un contenu");
     }
 
     public function getReason(): string

@@ -57,7 +57,7 @@
     "hautelook/alice-bundle": "^2.7",
     "justinrainbow/json-schema": "^5.2",
     "phpstan/phpstan": "^0.12.7",
-    "phpstan/phpstan-doctrine": "^0.12.9",
+    "phpstan/phpstan-doctrine": "^0.12.17",
     "phpstan/phpstan-mockery": "^0.12.3",
     "phpstan/phpstan-phpunit": "^0.12.6",
     "phpstan/phpstan-symfony": "^0.12.6",

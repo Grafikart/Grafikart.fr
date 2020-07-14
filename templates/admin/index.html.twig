@@ -54,8 +54,16 @@
                         {{ report.topic ? report.topic.name : report.message.topic.name }}
                       </a>
                     </h3>
+                    <ajax-delete class="dashboard-comment__delete"
+                                 target=".dashboard-comment"
+                                 url="{{ path('api_forum/reports_delete_item', {id: report.id}) }}">
+                      {{ icon('delete') }}
+                    </ajax-delete>
                   </div>
                   <p>{{ report.reason }}</p>
+                  <form action="{{ path('admin_user_ban', {id: report.target.author.id}) }}" onsubmit="return confirm('Voulez vous vraiment bannir cet utilisateur ')" method="post">
+                    <button class="btn-danger btn-small">Bannir</button>
+                  </form>
                 </article>
               {% endfor %}
             </div>

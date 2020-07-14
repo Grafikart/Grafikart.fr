@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/Grafikart/Grafikart.fr.svg?branch=master)](https://travis-ci.org/Grafikart/Grafikart.fr)
 [![Tests](https://github.com/Grafikart/Grafikart.fr/workflows/Tests/badge.svg)](https://github.com/Grafikart/Grafikart.fr/actions?query=workflow%3ATests)
+[![SymfonyInsight](https://insight.symfony.com/projects/0aed16f6-8916-4755-be7f-4adcadca72fe/mini.svg)](https://insight.symfony.com/projects/0aed16f6-8916-4755-be7f-4adcadca72fe)
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
 

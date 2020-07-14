@@ -138,7 +138,10 @@ abstract class CrudController extends BaseController
 
     public function getRepository(): EntityRepository
     {
-        return $this->em->getRepository($this->entity);
+        /** @var EntityRepository $repository */
+        $repository = $this->em->getRepository($this->entity);
+
+        return $repository;
     }
 
     protected function applySearch(string $search, QueryBuilder $query): QueryBuilder
