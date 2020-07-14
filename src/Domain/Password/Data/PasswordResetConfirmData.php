@@ -8,7 +8,6 @@ final class PasswordResetConfirmData
 {
     /**
      * @Assert\NotBlank()
-     * @Assert\NotCompromisedPassword()
      * @Assert\Length(min="6")
      */
     public string $password = '';
