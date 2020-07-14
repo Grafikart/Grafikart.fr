@@ -57,7 +57,7 @@ class ForumVoter extends Voter
         return $message->getAuthor()->getId() === $user->getId();
     }
 
-    private function canUpdateTopic(User $user, Topic $topic)
+    private function canUpdateTopic(User $user, Topic $topic): bool
     {
         return $topic->getAuthor()->getId() === $user->getId();
     }

@@ -14,6 +14,8 @@ App\Domain\Forum\Entity\Report:
   itemOperations:
     get:
       controller: 'EmptyController'
+    delete:
+      security: is_granted("DELETE_FORUM_REPORT", object)
 
 App\Domain\Forum\Entity\Topic:
   shortName: 'forum/topic'
@@ -55,3 +57,4 @@ App\Domain\Notification\Entity\Notification:
   itemOperations:
     get:
       controller: 'EmptyController'
+

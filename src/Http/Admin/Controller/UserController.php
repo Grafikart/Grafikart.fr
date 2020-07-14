@@ -4,8 +4,10 @@ namespace App\Http\Admin\Controller;
 
 use App\Domain\Auth\User;
 use App\Domain\Auth\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -57,5 +59,18 @@ class UserController extends CrudController
             ->getResult();
 
         return new JsonResponse($users);
+    }
+
+    /**
+     * @Route("/users/{id}/ban", methods={"POST"}, name="user_ban")
+     */
+    public function ban(User $user, EntityManagerInterface $em): RedirectResponse
+    {
+        $username = $user->getUsername();
+        $em->remove($user);
+        $em->flush();
+        $this->addFlash('success', "L'utilisateur $username a été banni");
+
+        return $this->redirectToRoute('admin_home');
     }
 }

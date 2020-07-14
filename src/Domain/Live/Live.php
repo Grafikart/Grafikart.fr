@@ -47,11 +47,6 @@ class Live
     private \DateTimeInterface $createdAt;
 
     /**
-     * @ORM\Column(type="datetime")
-     */
-    private \DateTimeInterface $updated_at;
-
-    /**
      * @Vich\UploadableField(mapping="lives", fileNameProperty="imageName")
      */
     private ?File $image = null;
@@ -75,8 +70,7 @@ class Live
             ->setName($video->getSnippet()->getTitle())
             ->setDescription($video->getSnippet()->getDescription())
             ->setImage($thumbnail ? new RemoteFile($thumbnail->getUrl()) : null)
-            ->setDuration(new \DateInterval($video->getContentDetails()->getDuration()))
-            ->setUpdatedAt($publishedAt);
+            ->setDuration(new \DateInterval($video->getContentDetails()->getDuration()));
     }
 
     public function setId(int $id): self
@@ -132,7 +126,7 @@ class Live
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
     }
@@ -140,18 +134,6 @@ class Live
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updated_at;
-    }
-
-    public function setUpdatedAt(\DateTimeInterface $updated_at): self
-    {
-        $this->updated_at = $updated_at;
 
         return $this;
     }

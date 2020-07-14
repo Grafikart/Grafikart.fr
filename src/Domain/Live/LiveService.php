@@ -33,7 +33,7 @@ class LiveService
     /**
      * Programme un nouveau live.
      */
-    public function programLive(\DateTime $date)
+    public function programLive(\DateTime $date): void
     {
         $snippet = new \Google_Service_YouTube_LiveBroadcastSnippet();
         $snippet->setTitle('LiveCoding : Développement du nouveau site');
@@ -67,8 +67,7 @@ OS : Arch Linux avec l'environnement de bureau i3 https://www.grafikart.fr/tutor
             ->setId(0)
             ->setYoutubeId($video->getId())
             ->setName($video->getSnippet()->getTitle())
-            ->setCreatedAt($publishedAt)
-            ->setUpdatedAt($publishedAt);
+            ->setCreatedAt($publishedAt);
         $this->option->set(self::OPTION_KEY, $this->serializer->serialize($live, 'json'));
     }
 }

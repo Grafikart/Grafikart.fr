@@ -76,6 +76,12 @@
   }
 }
 
+// Block
+// =============
+.inline {
+  display: inline;
+}
+
 // Horizontal
 // ==================
 .flex {
@@ -136,7 +142,7 @@
   grid-gap: calc(var(--gap) * var(--space));
   grid-template-columns: 1fr;
 
-  @include up(500) {
+  @include up(730) {
     grid-template-columns: repeat(2, 1fr);
   }
 }

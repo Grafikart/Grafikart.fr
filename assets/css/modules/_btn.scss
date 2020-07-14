@@ -1,5 +1,5 @@
 %btn {
-  padding: 10px 16px;
+  padding: 9px 16px;
   border: none;
   display: inline-flex;
   align-items: center;
@@ -88,6 +88,12 @@
   }
 }
 
+.btn-small {
+  padding: 5px 10px;
+  font-size: 0.8em;
+}
+
+/**
 .text-inversed .btn-big {
   color: inherit;
   border-color: currentColor;
@@ -98,6 +104,7 @@
     border-color: var(--color-inversed);
   }
 }
+ */
 
 .stack > button {
   justify-self: flex-start;
