@@ -18,7 +18,17 @@ import { SecondaryButton } from '/components/Button.jsx'
  * @return {*}
  * @constructor
  */
-export function Field ({ name, onInput, value, error, children, type = 'text', className = '', wrapperClass='', ...props }) {
+export function Field ({
+  name,
+  onInput,
+  value,
+  error,
+  children,
+  type = 'text',
+  className = '',
+  wrapperClass = '',
+  ...props
+}) {
   // Hooks
   const [dirty, setDirty] = useState(false)
   const ref = useRef(null)
@@ -156,7 +166,7 @@ export function FetchForm ({ data = {}, children, action, className, method = 'P
     <FormContext.Provider value={{ loading, errors, emptyError }}>
       <form onSubmit={handleSubmit} className={className}>
         {mainError && (
-          <alert-message type='danger' onClose={() => emptyError('main')}>
+          <alert-message type='danger' onClose={() => emptyError('main')} className='full'>
             {mainError}
           </alert-message>
         )}

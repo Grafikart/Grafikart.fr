@@ -188,6 +188,9 @@
     "fzaninotto/faker": {
         "version": "v1.9.1"
     },
+    "geertw/ip-anonymizer": {
+        "version": "v1.1.0"
+    },
     "google/apiclient": {
         "version": "2.0",
         "recipe": {

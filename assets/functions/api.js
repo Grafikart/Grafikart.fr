@@ -68,7 +68,7 @@ export class ApiError {
   get violations () {
     if (!this.data.violations) {
       return {
-        main: `${this.data.title} ${this.data.detail}`
+        main: `${this.data.title} ${this.data.detail || ''}`
       }
     }
     return this.data.violations.reduce((acc, violation) => {
