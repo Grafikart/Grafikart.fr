@@ -3,7 +3,7 @@
 {% block title 'Tous les tutoriels' ~ ((page > 1) ? (', page' ~ page) : '') %}
 
 {% block body %}
-  <div class="courses">
+  <div class="courses my5">
     <div class="course-hero {% if page > 1 %}is-paginated{% endif %}">
       {% if page == 1 %}
         <h1>Tous les tutoriels</h1>
