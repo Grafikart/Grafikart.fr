@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% set bodyClass = 'light' %}
+
 {% block body %}
 
   {% cache [course, 'single'] %}
@@ -8,45 +10,49 @@
       {{ breadcrumb(course) }}
     </div>
 
-    <div class="course-header container-full">
-      <div class="course-header__player stack">
-        <youtube-player
-          video="{{ course.youtubeId }}"
-          poster="{{ image_url(course.image) }}"
-          title="{{ course.title }}"
-          button="#chapter{{ course.id }} play-button"
-          id="coursePlayer"
-          class="shadow"></youtube-player>
-        <div class="flex">
-          <div class="inline-1">
-            {% if course.premium %}
-              <div class="pill pill-yellow">Premium</div>
-            {% endif %}
-            <div class="pill pill-green">Facile</div>
-          </div>
-          <div class="inline-1">
-            <a href="#" class="pill">
-              {{ icon('lines') }}
-              Voir la démo
-            </a>
-            {% if course.source is not empty %}
-              <a href="#" class="pill">
-                {{ icon('lines') }}
-                Télécharger les sources
-              </a>
-            {% endif %}
-            <a href="#" class="pill">
-              {{ icon('video') }}
-              Télécharger la vidéo
-            </a>
-          </div>
-        </div>
-      </div>
+    <div class="container layout-sidebar my4">
+      <youtube-player
+        video="{{ course.youtubeId }}"
+        poster="{{ image_url(course.image) }}"
+        title="{{ course.title }}"
+        button="#chapter{{ course.id }} play-button"
+        id="coursePlayer"
+        class="shadow"></youtube-player>
       {% if course.formation %}
-        <div class="course-header__sidebar">
+        <div style="overflow: auto; height: 100px;">
           {% include 'chapters/_summary.html.twig' with {chapters: course.formation.chapters, current: "#chapter" ~ course.id} only %}
         </div>
       {% endif %}
+    </div>
+
+    <div class="tabs-bar container">
+        <a href="#">Demo1</a>
+        <a href="#">Demo2</a>
+    </div>
+
+    <div class="flex">
+      <div class="inline-1">
+        {% if course.premium %}
+          <div class="pill pill-yellow">Premium</div>
+        {% endif %}
+        <div class="pill pill-green">Facile</div>
+      </div>
+      <div class="inline-1">
+        <a href="#" class="pill">
+          {{ icon('lines') }}
+          Voir la démo
+        </a>
+        {% if course.source is not empty %}
+          <a href="#" class="pill">
+            {{ icon('lines') }}
+            Télécharger les sources
+          </a>
+        {% endif %}
+        <a href="#" class="pill">
+          {{ icon('video') }}
+          Télécharger la vidéo
+        </a>
+      </div>
     </div>
 
     <div class="layout-sidebar">
@@ -96,7 +102,7 @@
   {% endcache %}
 
   {% if course.formation %}
-  {{ show_history(course.formation.courses) }}
+    {{ show_history(course.formation.courses) }}
   {% endif %}
 
 {% endblock %}

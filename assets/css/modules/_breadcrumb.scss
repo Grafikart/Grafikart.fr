@@ -1,9 +1,10 @@
 .breadcrumb {
-  height: 40px;
+  height: space(6);
   color: var(--color-light);
-  font-size: 0.9em;
+  font-size: 0.8em;
   display: flex;
   align-items: center;
+  margin-top: space(-6);
 }
 .breadcrumb svg {
   width: 16px;

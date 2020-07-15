@@ -148,15 +148,6 @@
 
 // En tête des tutoriels (avec player video)
 // =============
-.course-header {
-  --sidebar-width: 385px;
-  align-items: stretch;
-  margin-bottom: space(8);
-}
-.course-header__sidebar {
-  display: none;
-}
-
 @include up(700) {
   .course-header {
     display: grid;

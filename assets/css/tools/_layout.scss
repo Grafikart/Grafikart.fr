@@ -151,7 +151,8 @@
   grid-template-columns: repeat(auto-fit, minmax(var(--col, 275px), 1fr));
 }
 
-.grid .full {
+.grid .full,
+.grid2 .full {
   grid-column: 1 / -1;
 }
 
@@ -243,6 +244,9 @@
   .py#{$i} {
     padding-top: space($i);
     padding-bottom: space($i);
+  }
+  .my#{$i} {
+    margin-top: space($i);
   }
   .mt#{$i} {
     margin-top: space($i);

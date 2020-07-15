@@ -16,6 +16,7 @@ import { AutoSubmit } from './AutoSubmit.js'
 import { Notifications } from './Notifications.jsx'
 import SpinningDots from '@grafikart/spinning-dots-element'
 import { ModalDialog, NavTabs, TextareaAutogrow } from '@sb-elements/all'
+import { ContactForm } from '/elements/ContactForm.jsx'
 import preactCustomElement from '/functions/preact.js'
 import './forum/index.js'
 
@@ -36,6 +37,7 @@ customElements.define('ajax-delete', AjaxDelete)
 customElements.define('animated-editor', AnimatedEditor)
 customElements.define('spinning-dots', SpinningDots)
 preactCustomElement('site-notifications', Notifications)
+preactCustomElement('contact-form', ContactForm)
 
 // CustomElement étendus
 customElements.define('input-switch', Switch, { extends: 'input' })

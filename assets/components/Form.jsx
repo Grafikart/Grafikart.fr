@@ -18,7 +18,7 @@ import { SecondaryButton } from '/components/Button.jsx'
  * @return {*}
  * @constructor
  */
-export function Field ({ name, onInput, value, error, children, type = 'text', className = '', ...props }) {
+export function Field ({ name, onInput, value, error, children, type = 'text', className = '', wrapperClass='', ...props }) {
   // Hooks
   const [dirty, setDirty] = useState(false)
   const ref = useRef(null)
@@ -57,7 +57,7 @@ export function Field ({ name, onInput, value, error, children, type = 'text', c
   }, [error, dirty])
 
   return (
-    <div className='form-group' ref={ref}>
+    <div className={`form-group ${wrapperClass}`} ref={ref}>
       <label htmlFor={name}>{children}</label>
       {(() => {
         switch (type) {
@@ -145,6 +145,7 @@ export function FetchForm ({ data = {}, children, action, className, method = 'P
       } else if (e.detail) {
         flash(e.detail, 'danger', null)
       } else {
+        flash(e, 'danger', null)
         throw e
       }
     }
