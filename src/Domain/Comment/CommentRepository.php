@@ -6,7 +6,6 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityNotFoundException;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
-use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @method Comment|null find($id, $lockMode = null, $lockVersion = null)
@@ -16,12 +15,9 @@ use Knp\Component\Pager\PaginatorInterface;
  */
 class CommentRepository extends ServiceEntityRepository
 {
-    private PaginatorInterface $paginator;
-
-    public function __construct(ManagerRegistry $registry, PaginatorInterface $paginator)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Comment::class);
-        $this->paginator = $paginator;
     }
 
     /**
@@ -32,7 +28,7 @@ class CommentRepository extends ServiceEntityRepository
     public function findForApi(int $content): array
     {
         // Force l'enregistrement de l'entité dans l'entity manager pour éviter les requêtes supplémentaires
-        $post = $this->_em->getReference(\App\Domain\Blog\Post::class, $content);
+        $this->_em->getReference(\App\Domain\Blog\Post::class, $content);
 
         return $this->createQueryBuilder('c')
             ->select('c, u')

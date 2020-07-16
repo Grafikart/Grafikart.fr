@@ -7,13 +7,6 @@ use Symfony\Component\Process\Process;
 
 class VideoMetaReader
 {
-    private string $ffprobeBinary;
-
-    public function __construct(string $ffprobeBinary = 'ffprobe')
-    {
-        $this->ffprobeBinary = $ffprobeBinary;
-    }
-
     public function getDuration(string $videoPath): ?int
     {
         if (!file_exists($videoPath)) {

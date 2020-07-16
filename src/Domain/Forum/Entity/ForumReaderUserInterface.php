@@ -2,7 +2,7 @@
 
 namespace App\Domain\Forum\Entity;
 
-interface ForumReaderUser
+interface ForumReaderUserInterface
 {
     public function getForumReadTime(): ?\DateTimeInterface;
 }

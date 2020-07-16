@@ -2,7 +2,7 @@
 
 namespace App\Domain\Auth;
 
-use App\Domain\Forum\Entity\ForumReaderUser;
+use App\Domain\Forum\Entity\ForumReaderUserInterface;
 use App\Domain\Notification\Entity\Notifiable;
 use App\Domain\Premium\Entity\PremiumTrait;
 use App\Infrastructure\Payment\Stripe\StripeEntity;
@@ -16,7 +16,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Table(name="`user`")
  * @Vich\Uploadable()
  */
-class User implements UserInterface, \Serializable, ForumReaderUser
+class User implements UserInterface, \Serializable, ForumReaderUserInterface
 {
     /**
      * @ORM\Id()

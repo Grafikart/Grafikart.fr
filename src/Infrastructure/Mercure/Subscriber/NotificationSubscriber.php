@@ -7,20 +7,17 @@ use App\Domain\Notification\Event\NotificationCreatedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Mercure\PublisherInterface;
 use Symfony\Component\Mercure\Update;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class NotificationSubscriber implements EventSubscriberInterface
 {
     private SerializerInterface $serializer;
     private PublisherInterface $publisher;
-    private NormalizerInterface $normalizer;
 
-    public function __construct(SerializerInterface $serializer, PublisherInterface $publisher, NormalizerInterface $normalizer)
+    public function __construct(SerializerInterface $serializer, PublisherInterface $publisher)
     {
         $this->serializer = $serializer;
         $this->publisher = $publisher;
-        $this->normalizer = $normalizer;
     }
 
     public static function getSubscribedEvents(): array

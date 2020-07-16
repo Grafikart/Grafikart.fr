@@ -15,7 +15,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 /**
  * @IsGranted("ATTACHMENT")
@@ -23,7 +22,6 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 class AttachmentController extends BaseController
 {
     private ValidatorInterface $validator;
-    private UploaderHelper $uploaderHelper;
 
     public function __construct(ValidatorInterface $validator)
     {

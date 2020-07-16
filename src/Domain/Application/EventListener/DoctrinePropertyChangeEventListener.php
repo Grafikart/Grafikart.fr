@@ -2,7 +2,6 @@
 
 namespace App\Domain\Application\EventListener;
 
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
@@ -28,7 +27,7 @@ class DoctrinePropertyChangeEventListener
      *
      * @return void
      */
-    public function prePersist($entity, LifecycleEventArgs $event)
+    public function prePersist($entity)
     {
         foreach ($this->listeners as $key => $listeners) {
             if ($value = $this->propertyAccessor->getValue($entity, $key)) {

@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/forum")
+ *
  * @method \App\Domain\Auth\User getUser()
  */
 class ForumController extends AbstractController

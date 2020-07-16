@@ -10,7 +10,6 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class TwigPathExtension extends AbstractExtension
 {
-    private UploaderHelper $uploaderHelper;
     private ImageResizer $imageResizer;
     private UploaderHelper $helper;
 

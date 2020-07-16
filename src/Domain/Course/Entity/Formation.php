@@ -162,7 +162,7 @@ class Formation extends Content
     {
         $courses = $this->getCourses();
         $coursesById = [];
-        foreach ($this->getCourses() as $course) {
+        foreach ($courses as $course) {
             $coursesById[$course->getId()] = $course;
         }
 

@@ -2,19 +2,11 @@
 
 namespace App\Domain\Attachment\Validator;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 class AttachmentExistValidator extends ConstraintValidator
 {
-    private EntityManagerInterface $em;
-
-    public function __construct(EntityManagerInterface $em)
-    {
-        $this->em = $em;
-    }
-
     /**
      * @param mixed           $value
      * @param AttachmentExist $constraint
