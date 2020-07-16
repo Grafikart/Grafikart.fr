@@ -79,7 +79,7 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
     {
         $crawler = $this->client->getCrawler();
         $this->assertEquals(
-            $title,
+            $title.' | Grafikart',
             $crawler->filter('title')->text(),
             $crawler->filter('title')->text()
         );

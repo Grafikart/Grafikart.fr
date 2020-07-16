@@ -3,6 +3,7 @@
 namespace App\Core\Twig;
 
 use Psr\Cache\CacheItemPoolInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -14,11 +15,13 @@ class TwigAssetExtension extends AbstractExtension
     private string $assetPath;
     private CacheItemPoolInterface $cache;
     const CACHE_KEY = 'asset_time';
+    private RequestStack $requestStack;
 
-    public function __construct(string $assetPath, CacheItemPoolInterface $cache)
+    public function __construct(string $assetPath, CacheItemPoolInterface $cache, RequestStack $requestStack)
     {
         $this->assetPath = $assetPath;
         $this->cache = $cache;
+        $this->requestStack = $requestStack;
     }
 
     public function getFunctions(): array
@@ -57,8 +60,11 @@ class TwigAssetExtension extends AbstractExtension
     private function uri(string $name): string
     {
         $time = $this->getTime();
-        if (0 === $time) {
-            return "http://{$_SERVER['SERVER_NAME']}:3000/{$name}";
+        $request = $this->requestStack->getCurrentRequest();
+        if (0 === $time && $request) {
+            $host = $request->getHost();
+
+            return "http://{$host}:3000/{$name}";
         }
 
         return "/assets/$name?$time";
@@ -79,10 +85,12 @@ class TwigAssetExtension extends AbstractExtension
         $script = '<script src="'.$this->uri($name.'.js').'" type="module" defer></script>';
 
         // Si on est en mode développement on injecte le système de Hot Reload de vite
-        if (0 === $this->getTime()) {
+        $request = $this->requestStack->getCurrentRequest();
+        if (0 === $this->getTime() && $request) {
+            $host = $request->getHost();
             $script = <<<HTML
                 <script type="module">
-                import "http://{$_SERVER['SERVER_NAME']}:3000/vite/hmr"
+                import "http://{$host}:3000/vite/hmr"
                 window.process = { env: { NODE_ENV: "development" }}
                 </script>
                 $script

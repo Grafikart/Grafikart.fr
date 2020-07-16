@@ -3,7 +3,6 @@
 namespace App\Tests\Domain\Auth;
 
 use App\Domain\Auth\Authenticator;
-use App\Domain\Auth\Exception\TooManyBadCredentialsException;
 use App\Domain\Auth\Service\LoginAttemptService;
 use App\Domain\Auth\User;
 use App\Domain\Auth\UserRepository;
@@ -92,19 +91,5 @@ class AuthenticatorTest extends TestCase
         ;
 
         $this->authenticator->getUser(['email' => 'john1@doe.fr', 'csrf_token' => 'a'], $provider);
-    }
-
-    public function testThrowExceptionIfTooManyLoginAttempts(): void
-    {
-        $this->loginAttemptService
-            ->expects($this->once())
-            ->method('limitReachedFor')
-            ->willReturn(true);
-
-        $user = new User();
-
-        $this->expectException(TooManyBadCredentialsException::class);
-
-        $this->authenticator->checkCredentials([], $user);
     }
 }

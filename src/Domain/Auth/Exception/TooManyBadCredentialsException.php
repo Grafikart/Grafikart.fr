@@ -2,26 +2,16 @@
 
 namespace App\Domain\Auth\Exception;
 
-use App\Domain\Auth\User;
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 
-class TooManyBadCredentialsException extends AuthenticationException
+class TooManyBadCredentialsException extends CustomUserMessageAuthenticationException
 {
-    private User $user;
-
-    public function __construct(User $user)
-    {
-        $this->user = $user;
-        parent::__construct('Too many attempt.', 0, null);
-    }
-
-    public function getUser(): User
-    {
-        return $this->user;
-    }
-
-    public function getMessageKey()
-    {
-        return 'Too many attempt.';
+    public function __construct(
+        string $message = 'Le compte a été verrouillé suite à de trop nombreuses tentatives de connexion',
+        array $messageData = [],
+        int $code = 0,
+        \Throwable $previous = null
+    ) {
+        parent::__construct($message, $messageData, $code, $previous);
     }
 }

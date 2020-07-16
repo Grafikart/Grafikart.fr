@@ -3,7 +3,6 @@
 namespace App\Domain\Auth;
 
 use App\Domain\Auth\Event\BadPasswordLoginEvent;
-use App\Domain\Auth\Exception\TooManyBadCredentialsException;
 use App\Domain\Auth\Service\LoginAttemptService;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -93,9 +92,6 @@ class Authenticator extends AbstractFormLoginAuthenticator implements PasswordAu
     public function checkCredentials($credentials, UserInterface $user): bool
     {
         $this->user = $user;
-        if ($user instanceof User && $this->loginAttemptService->limitReachedFor($user)) {
-            throw new TooManyBadCredentialsException($user);
-        }
 
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
     }

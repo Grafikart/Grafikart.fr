@@ -40,8 +40,10 @@ export function Notifications () {
 
   // On charge les notification la première fois
   useAsyncEffect(async () => {
-    await loadNotifications()
-    setLoading(false)
+    if (isAuthenticated()) {
+      await loadNotifications()
+      setLoading(false)
+    }
   }, [])
 
   // On écoute l'arrivé de nouveaux évènement depuis l'API ou le SSE

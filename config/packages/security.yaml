@@ -16,6 +16,7 @@ security:
       security: false
     main:
       anonymous: lazy
+      user_checker: App\Domain\Auth\Security\UserChecker
       guard:
         authenticators:
           - App\Domain\Auth\Authenticator

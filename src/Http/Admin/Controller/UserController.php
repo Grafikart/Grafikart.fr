@@ -2,6 +2,7 @@
 
 namespace App\Http\Admin\Controller;
 
+use App\Domain\Auth\Service\UserBanService;
 use App\Domain\Auth\User;
 use App\Domain\Auth\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -52,7 +53,7 @@ class UserController extends CrudController
         $users = $repository
             ->createQueryBuilder('u')
             ->select('u.id', 'u.username')
-            ->where('LOWER(u.username) LIKE :username')
+            ->where('u.username ILIKE :username')
             ->setParameter('username', "%$q%")
             ->setMaxResults(25)
             ->getQuery()
@@ -64,10 +65,10 @@ class UserController extends CrudController
     /**
      * @Route("/users/{id}/ban", methods={"POST"}, name="user_ban")
      */
-    public function ban(User $user, EntityManagerInterface $em): RedirectResponse
+    public function ban(User $user, EntityManagerInterface $em, UserBanService $banService): RedirectResponse
     {
         $username = $user->getUsername();
-        $em->remove($user);
+        $banService->ban($user);
         $em->flush();
         $this->addFlash('success', "L'utilisateur $username a été banni");
 

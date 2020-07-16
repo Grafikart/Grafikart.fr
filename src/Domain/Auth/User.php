@@ -75,6 +75,11 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface
      */
     private ?\DateTimeInterface $forumReadTime = null;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private ?\DateTimeInterface $bannedAt = null;
+
     use PremiumTrait;
     use StripeEntity;
     use Notifiable;
@@ -220,7 +225,7 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface
             $this->id,
             $this->username,
             $this->password,
-            ] = unserialize($serialized);
+        ] = unserialize($serialized);
     }
 
     public function getCountry(): ?string
@@ -245,5 +250,22 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface
         $this->forumReadTime = $forumReadTime;
 
         return $this;
+    }
+
+    public function getBannedAt(): ?\DateTimeInterface
+    {
+        return $this->bannedAt;
+    }
+
+    public function setBannedAt(?\DateTimeInterface $bannedAt): User
+    {
+        $this->bannedAt = $bannedAt;
+
+        return $this;
+    }
+
+    public function isBanned(): bool
+    {
+        return null !== $this->bannedAt;
     }
 }

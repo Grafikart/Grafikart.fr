@@ -24,11 +24,19 @@ class PagesController extends AbstractController
     }
 
     /**
-     * @Route("/env", name="env")
+     * @Route("/a-propos", name="env")
      */
     public function env(): Response
     {
         return $this->render('pages/env.html.twig');
+    }
+
+    /**
+     * @Route("/politique-de-confidentialite", name="confidentialite")
+     */
+    public function confidentialite(): Response
+    {
+        return $this->render('pages/confidentialite.html.twig');
     }
 
     /**

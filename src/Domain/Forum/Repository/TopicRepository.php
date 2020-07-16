@@ -60,4 +60,14 @@ class TopicRepository extends ServiceEntityRepository
     {
         return $this->count(['author' => $user]);
     }
+
+    public function deleteForUser(User $user): void
+    {
+        $this->createQueryBuilder('t')
+            ->where('t.author = :user')
+            ->setParameter('user', $user)
+            ->delete()
+        ->getQuery()
+        ->execute();
+    }
 }

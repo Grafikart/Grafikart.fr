@@ -3,6 +3,7 @@ import { useClickOutside, useToggle } from '/functions/hooks.js'
 import { useRef } from 'preact/hooks'
 import { SlideIn } from '/components/Animation/SlideIn.jsx'
 import { flash } from '/elements/Alert.js'
+import { isAuthenticated } from '/functions/auth.js'
 
 /**
  * Bouton de signalement avec formulaire en tooltip
@@ -13,6 +14,10 @@ export function ForumReport ({ message, topic }) {
   const [showForm, toggleForm] = useToggle(false)
   const [success, toggleSuccess] = useToggle(false)
   useClickOutside(ref, toggleForm)
+
+  if (!isAuthenticated()) {
+    return null
+  }
 
   return (
     <div style={{ position: 'relative' }}>
