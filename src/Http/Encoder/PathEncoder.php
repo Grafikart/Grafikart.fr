@@ -2,7 +2,7 @@
 
 namespace App\Http\Encoder;
 
-use ApiPlatform\Core\Api\UrlGeneratorInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Serializer\Encoder\EncoderInterface;
 
 /**
@@ -35,8 +35,9 @@ class PathEncoder implements EncoderInterface
         ['path' => $path, 'params' => $params] = $data;
 
         $hash = isset($data['hash']) ? '#'.$data['hash'] : '';
+        $url = $context['url'] ?? false;
 
-        return $this->urlGenerator->generate($path, $params).$hash;
+        return $this->urlGenerator->generate($path, $params, $url ? UrlGeneratorInterface::ABSOLUTE_URL : \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_PATH).$hash;
     }
 
     /**
