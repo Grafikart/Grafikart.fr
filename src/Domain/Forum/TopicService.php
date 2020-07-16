@@ -108,4 +108,14 @@ class TopicService
 
         return $ids;
     }
+
+    /**
+     * @return User[]
+     */
+    public function usersToNotify(Topic $topic): array
+    {
+        return [
+            $topic->getAuthor(),
+        ];
+    }
 }
