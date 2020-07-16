@@ -167,6 +167,7 @@
 
 .forum-message {
   @extend %stack;
+  grid-row-gap: var(--space);
 
   p,
   ul,

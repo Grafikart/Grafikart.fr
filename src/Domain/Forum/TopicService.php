@@ -3,6 +3,7 @@
 namespace App\Domain\Forum;
 
 use App\Domain\Auth\User;
+use App\Domain\Forum\Entity\Message;
 use App\Domain\Forum\Entity\ReadTime;
 use App\Domain\Forum\Entity\Topic;
 use App\Domain\Forum\Event\PreTopicCreatedEvent;
@@ -112,7 +113,7 @@ class TopicService
     /**
      * @return User[]
      */
-    public function usersToNotify(Topic $topic): array
+    public function usersToNotify(Message $topic): array
     {
         return [
             $topic->getAuthor(),

@@ -5,22 +5,19 @@ namespace App\Infrastructure\Mailing;
 use App\Domain\Forum\Event\MessageCreatedEvent;
 use App\Domain\Forum\TopicService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Mailer\MailerInterface;
 
 class ForumSubscriber implements EventSubscriberInterface
 {
     private EmailFactory $emailFactory;
-    private MailerInterface $mailer;
+    private Mailer $mailer;
     private TopicService $topicService;
 
     public function __construct(
-        EmailFactory $emailFactory,
-        MailerInterface $mailer,
+        Mailer $mailer,
         TopicService $topicService
     ) {
-        $this->emailFactory = $emailFactory;
-        $this->mailer = $mailer;
         $this->topicService = $topicService;
+        $this->mailer = $mailer;
     }
 
     public static function getSubscribedEvents(): array
@@ -32,14 +29,15 @@ class ForumSubscriber implements EventSubscriberInterface
 
     public function onMessage(MessageCreatedEvent $event): void
     {
-        $users = $this->topicService->usersToNotify($event->getMessage()->getTopic());
+        $users = $this->topicService->usersToNotify($event->getMessage());
         if (empty($users)) {
             return;
         }
         $author = $event->getMessage()->getAuthor();
         foreach ($users as $user) {
-            $message = $this->emailFactory->makeFromTemplate('mails/forum/new_post.html.twig', [
+            $message = $this->mailer->createEmail('mails/forum/new_post.twig', [
                 'author' => $author,
+                'message' => $event->getMessage(),
                 'topic' => $event->getMessage()->getTopic(),
                 'is_topic_owner' => true, // TODO : ajouter la logique ici
             ]);

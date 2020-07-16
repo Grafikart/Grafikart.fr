@@ -23,6 +23,7 @@ class Mailer
         $html = $this->twig->render($template, array_merge($data, ['layout' => 'mails/base.html.twig']));
         $this->twig->addGlobal('format', 'text');
         $text = $this->twig->render($template, array_merge($data, ['layout' => 'mails/base.text.twig']));
+
         return (new Email())
             ->from('noreply@grafikart.fr')
             ->html($html)

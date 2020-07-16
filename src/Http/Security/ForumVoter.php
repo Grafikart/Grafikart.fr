@@ -33,7 +33,7 @@ class ForumVoter extends Voter
 
         switch ($attribute) {
             case self::CREATE_MESSAGE:
-                return $this->canCreateTopic($user, $subject);
+                return $this->canCreateMessageForTopic($user, $subject);
             case self::UPDATE_TOPIC:
             case self::DELETE_TOPIC:
                 return $this->canUpdateTopic($user, $subject);
@@ -49,7 +49,7 @@ class ForumVoter extends Voter
         return false;
     }
 
-    protected function canCreateTopic(User $user, Topic $topic): bool
+    protected function canCreateMessageForTopic(User $user, Topic $topic): bool
     {
         return !$topic->isSpam();
     }

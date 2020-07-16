@@ -24,10 +24,9 @@ class SpamSubscriber implements EventSubscriberInterface
 
     public function checkTopic(PreTopicCreatedEvent $topicCreatedEvent): void
     {
-        $topic = $topicCreatedEvent->getTopic();
-        $topicCount = $this->topicRepository->countForUser($topic->getAuthor());
-        if ($topicCount <= 3) {
-            $topic->setSpam(true);
-        }
+        // $topic = $topicCreatedEvent->getTopic();
+        // $topicCount = $this->topicRepository->countForUser($topic->getAuthor());
+        // TODO: Définir la logique pour le topic du spam
+        // $topic->setSpam(true);
     }
 }
