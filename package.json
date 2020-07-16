@@ -14,7 +14,6 @@
     "@rollup/plugin-node-resolve": "^8.1.0",
     "@types/youtube": "^0.0.38",
     "babel-plugin-jsx-pragmatic": "^1.0.2",
-    "chalk": "^4.1.0",
     "doctoc": "^1.4.0",
     "eslint-config-preact": "^1.1.1",
     "jest": "^25.1.0",

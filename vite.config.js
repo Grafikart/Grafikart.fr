@@ -2,7 +2,6 @@
 const prefresh = require('@prefresh/vite')
 const cors = require('@koa/cors')
 const path = require('path')
-const chalk = require('chalk')
 const sass = require('sass')
 const fs = require('fs')
 
