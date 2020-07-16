@@ -4,7 +4,6 @@ App\Domain\Live\Live:
     description: <sentence()>
     youtube_id: XPsy1cbE0Qk
     duration: <numberBetween(10, 25000)>
-    updated_at: <dateTimeBetween("first day of this year", "last day of this year")>
     created_at: <dateTimeBetween("first day of this year", "last day of this year")>
 
 App\Domain\Blog\Post:
