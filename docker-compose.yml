@@ -68,7 +68,7 @@ services:
   redis:
     image: redis:5-alpine
   typesense:
-    image: typesense/typesense:0.12.0-rc2
+    image: typesense/typesense:0.14.0
     environment:
       TYPESENSE_DATA_DIR: /data
       TYPESENSE_API_KEY: typesensekey
