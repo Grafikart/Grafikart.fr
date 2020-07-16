@@ -31,8 +31,8 @@ class UserController extends CrudController
 
     public function applySearch(string $search, QueryBuilder $query): QueryBuilder
     {
-        return $query->where('LOWER(row.username) = :search')
-            ->orWhere('row.email = :search')
+        return $query->where('row.username ILIKE :search')
+            ->orWhere('row.email ILIKE :search')
             ->setParameter('search', strtolower($search));
     }
 
