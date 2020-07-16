@@ -17,10 +17,11 @@ class ForumVoter extends Voter
     const UPDATE_MESSAGE = 'UPDATE_FORUM_MESSAGE';
     const UPDATE_TOPIC = 'UPDATE_TOPIC';
     const DELETE_TOPIC = 'DELETE_TOPIC';
+    const READ_TOPICS = 'READ_TOPICS';
 
     protected function supports(string $attribute, $subject)
     {
-        return in_array($attribute, [self::CREATE, self::REPORT, self::CREATE_MESSAGE, self::DELETE_MESSAGE]);
+        return in_array($attribute, [self::CREATE, self::REPORT, self::CREATE_MESSAGE, self::DELETE_MESSAGE, self::READ_TOPICS]);
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
@@ -39,6 +40,7 @@ class ForumVoter extends Voter
             case self::UPDATE_MESSAGE:
             case self::DELETE_MESSAGE:
                 return $this->ownMessage($user, $subject);
+            case self::READ_TOPICS:
             case self::CREATE:
             case self::REPORT:
                 return true;

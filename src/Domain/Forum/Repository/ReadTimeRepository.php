@@ -10,7 +10,7 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class ReadTimeRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry, string $entityClass = ReadTime::class)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, ReadTime::class);
     }
@@ -21,7 +21,6 @@ class ReadTimeRepository extends ServiceEntityRepository
     public function updateReadTimeForTopic(Topic $topic, User $user): ReadTime
     {
         // On cherche si on a déjà une lecture enregistrée
-        /** @var ReadTime $lastReadTime */
         $lastReadTime = $this->createQueryBuilder('r')
             ->where('r.topic = :topic')
             ->andWhere('r.owner = :user')
@@ -53,8 +52,10 @@ class ReadTimeRepository extends ServiceEntityRepository
 
     /**
      * @param Topic[] $topics
+     *
+     * @return ReadTime[]
      */
-    public function findByTopicsAndUser(array $topics, User $user): array
+    public function findReadByTopicsAndUser(array $topics, User $user): array
     {
         return $this->createQueryBuilder('r')
             ->join('r.topic', 'topic')
@@ -63,9 +64,19 @@ class ReadTimeRepository extends ServiceEntityRepository
             ->andWhere('topic.updatedAt < r.readAt')
             ->setParameters([
                 'topics' => $topics,
-                'user' => $user
+                'user' => $user,
             ])
             ->getQuery()
             ->getResult();
+    }
+
+    public function deleteAllForUser(User $user): void
+    {
+        $this->createQueryBuilder('r')
+            ->where('r.owner = :user')
+            ->setParameter('user', $user)
+            ->delete()
+            ->getQuery()
+            ->execute();
     }
 }

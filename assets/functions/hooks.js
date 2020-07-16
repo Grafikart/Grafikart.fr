@@ -67,22 +67,25 @@ export function useAutofocus (ref, focus) {
  *
  * @param {string} url
  * @param {object} params
- * @return {(boolean|*[]|{}|load)[]}
+ * @return {{data: Object|null, fetch: fetch, loading: boolean, done: boolean}}
  */
 export function useJsonFetchAndFlash (url, params = {}) {
-  const [loading, setLoading] = useState(false)
-  const [data, setData] = useState(null)
+  const [state, setState] = useState({
+    loading: false,
+    data: null,
+    done: false
+  })
   const fetch = async function () {
-    setLoading(true)
+    setState(s => ({ ...s, loading: true }))
     try {
       const response = await jsonFetch(url, params)
-      setData(response)
+      setState(s => ({ ...s, loading: false, data: response, done: true }))
     } catch (e) {
       flash(e, 'error')
     }
-    setLoading(false)
+    setState(s => ({ ...s, loading: false }))
   }
-  return { loading, data, fetch }
+  return { ...state, fetch }
 }
 
 /**

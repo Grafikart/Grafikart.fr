@@ -2,6 +2,7 @@
 
 namespace App\Domain\Auth;
 
+use App\Domain\Forum\Entity\ForumReaderUser;
 use App\Domain\Notification\Entity\Notifiable;
 use App\Domain\Premium\Entity\PremiumTrait;
 use App\Infrastructure\Payment\Stripe\StripeEntity;
@@ -15,7 +16,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Table(name="`user`")
  * @Vich\Uploadable()
  */
-class User implements UserInterface, \Serializable
+class User implements UserInterface, \Serializable, ForumReaderUser
 {
     /**
      * @ORM\Id()
@@ -66,6 +67,13 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=2, nullable=true)
      */
     private ?string $country = null;
+
+    /**
+     * Date de dernière lecture du forum.
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private ?\DateTimeInterface $forumReadTime = null;
 
     use PremiumTrait;
     use StripeEntity;
@@ -223,6 +231,18 @@ class User implements UserInterface, \Serializable
     public function setCountry(?string $country): User
     {
         $this->country = $country;
+
+        return $this;
+    }
+
+    public function getForumReadTime(): ?\DateTimeInterface
+    {
+        return $this->forumReadTime;
+    }
+
+    public function setForumReadTime(?\DateTimeInterface $forumReadTime): User
+    {
+        $this->forumReadTime = $forumReadTime;
 
         return $this;
     }

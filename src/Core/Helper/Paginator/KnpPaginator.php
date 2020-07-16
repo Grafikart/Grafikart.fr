@@ -21,7 +21,7 @@ RequestStack $requestStack)
         $this->requestStack = $requestStack;
     }
 
-    public function paginate(Query $query): iterable
+    public function paginate(Query $query): \Traversable
     {
         $request = $this->requestStack->getCurrentRequest();
         $page = $request ? $request->query->getInt('page', 1) : 1;

@@ -16,9 +16,18 @@ export function SecondaryButton ({ children, ...props }) {
   )
 }
 
-export function Button ({ children, className = '', loading = false, ...props }) {
+/**
+ *
+ * @param {*} children
+ * @param {string} className
+ * @param {string} size
+ * @param {boolean} loading
+ * @param {Object} props
+ * @return {*}
+ */
+export function Button ({ children, className = '', loading = false, size, ...props }) {
   return (
-    <button className={`btn ${className}`} disabled={loading} {...props}>
+    <button className={`btn ${className} ${size && `btn-${size}`}`} disabled={loading} {...props}>
       {loading && <Loader className='icon' />}
       {children}
     </button>

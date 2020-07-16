@@ -11,5 +11,5 @@ interface PaginatorInterface
 {
     public function allowSort(string ...$fields): self;
 
-    public function paginate(Query $query): iterable;
+    public function paginate(Query $query): \Traversable;
 }

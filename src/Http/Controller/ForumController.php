@@ -3,6 +3,7 @@
 namespace App\Http\Controller;
 
 use App\Core\Helper\Paginator\PaginatorInterface;
+use App\Domain\Auth\User;
 use App\Domain\Forum\Entity\Forum;
 use App\Domain\Forum\Entity\Tag;
 use App\Domain\Forum\Entity\Topic;
@@ -50,10 +51,10 @@ class ForumController extends AbstractController
         $topics = $this->paginator->paginate($this->topicRepository->queryAllForTag($tag));
 
         return $this->render('forum/index.html.twig', [
-            'tags'       => $this->tagRepository->findTree(),
-            'topics'     => $topics,
-            'menu'       => 'forum',
-            'read_times' => $this->topicService->readTimes(iterator_to_array($topics), $this->getUser())
+            'tags' => $this->tagRepository->findTree(),
+            'topics' => $topics,
+            'menu' => 'forum',
+            'read_times' => $this->topicService->getReadTopicsIds(iterator_to_array($topics), $this->getUser()),
         ]);
     }
 
@@ -62,13 +63,15 @@ class ForumController extends AbstractController
      */
     public function show(Topic $topic): Response
     {
-        if ($this->getUser()) {
-            $this->topicService->readTopic($topic, $this->getUser());
+        $user = $this->getUser();
+        if ($user) {
+            $this->topicService->readTopic($topic, $user);
         }
+
         return $this->render('forum/show.html.twig', [
-            'topic'    => $topic,
+            'topic' => $topic,
             'messages' => $topic->getMessages(),
-            'menu'     => 'forum',
+            'menu' => 'forum',
         ]);
     }
 
@@ -78,8 +81,10 @@ class ForumController extends AbstractController
     public function create(Request $request): Response
     {
         $this->denyAccessUnlessGranted(ForumVoter::CREATE);
+        /** @var User $user */
+        $user = $this->getUser();
         $topic = (new Topic())->setContent($this->renderView('forum/template/placeholder.text.twig'));
-        $topic->setAuthor($this->getUser());
+        $topic->setAuthor($user);
         $form = $this->createForm(ForumTopicForm::class, $topic);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -111,7 +116,7 @@ class ForumController extends AbstractController
 
         return $this->render('forum/edit.html.twig', [
             'form' => $form->createView(),
-            'id'   => $topic->getId(),
+            'id' => $topic->getId(),
         ]);
     }
 }

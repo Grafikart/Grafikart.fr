@@ -23,7 +23,7 @@ class TopicService
     }
 
     /**
-     * Crée un nouveau sujet
+     * Crée un nouveau sujet.
      */
     public function createTopic(Topic $topic): void
     {
@@ -36,7 +36,7 @@ class TopicService
     }
 
     /**
-     * Met à jour un sujet
+     * Met à jour un sujet.
      */
     public function updateTopic(Topic $topic): void
     {
@@ -45,9 +45,9 @@ class TopicService
     }
 
     /**
-     * Marque un sujet comme lu
+     * Marque un sujet comme lu.
      */
-    public function readTopic(Topic $topic, User $user)
+    public function readTopic(Topic $topic, User $user): void
     {
         /** @var ReadTimeRepository $repository */
         $repository = $this->em->getRepository(ReadTime::class);
@@ -56,17 +56,56 @@ class TopicService
     }
 
     /**
-     * Récupère les dates de dernières lectures pour les sujet indiqués
-     *
-     * @param Topic[] $topics
-     * @return int[]
+     * Marque tous les sujets du forum comme lu.
      */
-    public function readTimes(array $topics, ?User $user): array
+    public function readAllTopics(User $user): void
     {
         /** @var ReadTimeRepository $repository */
         $repository = $this->em->getRepository(ReadTime::class);
-        return array_map(function (ReadTime $t) {
-            return $t->getTopic()->getId();
-        }, $repository->findByTopicsAndUser($topics, $user));
+        $repository->deleteAllForUser($user);
+        $user->setForumReadTime(new \DateTime());
+        $this->em->flush();
+    }
+
+    /**
+     * Récupère les dates de dernières lectures pour les sujet indiqués.
+     *
+     * @param Topic[] $topics
+     *
+     * @return array<int|null>
+     */
+    public function getReadTopicsIds(array $topics, ?User $user): array
+    {
+        if (null === $user) {
+            return [];
+        }
+        $ids = [];
+        $unreadTopics = $topics;
+
+        // On extrait tous les sujet ayant une date inférieur à celle de l'utilisateur
+        if ($user->getForumReadTime()) {
+            $unreadTopics = [];
+            foreach ($topics as $topic) {
+                if ($topic->getUpdatedAt() < $user->getForumReadTime()) {
+                    $ids[] = $topic->getId();
+                } else {
+                    $unreadTopics[] = $topic;
+                }
+            }
+        }
+
+        if (empty($unreadTopics)) {
+            return $ids;
+        }
+
+        // Pour les sujets restants, on regarde la table de lecture des sujets
+        /** @var ReadTimeRepository $repository */
+        $repository = $this->em->getRepository(ReadTime::class);
+        $readTimes = $repository->findReadByTopicsAndUser($unreadTopics, $user);
+        foreach ($readTimes as $readTime) {
+            $ids[] = $readTime->getTopic()->getId();
+        }
+
+        return $ids;
     }
 }

@@ -23,7 +23,6 @@
           Tous les sujets
         </a>
       </li>
-      {#
       {% for tag in tags %}
         <li>
           <a href="{{ path(tag) }}">
@@ -41,12 +40,13 @@
           </ul>
         </li>
       {% endfor %}
-      #}
     </ul>
   </div>
 
   <main class="forum-page__main stack">
-
+    <div class="flex flex-end">
+      <forum-read endpoint="{{ path('api_forum/read_all') }}"></forum-read>
+    </div>
     {% for topic in topics %}
       {% include('forum/_topic.html.twig') %}
     {% endfor %}

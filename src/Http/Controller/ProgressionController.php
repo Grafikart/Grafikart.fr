@@ -3,6 +3,7 @@
 namespace App\Http\Controller;
 
 use App\Domain\Application\Entity\Content;
+use App\Domain\Auth\User;
 use App\Domain\History\Event\ProgressEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -10,6 +11,9 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @method User getUser()
+ */
 class ProgressionController extends AbstractController
 {
     /**

@@ -73,6 +73,13 @@ export class FloatingAlert extends Alert {
   }
 }
 
+/**
+ * Affiche un message flash flottant sur la page
+ *
+ * @param {string} message
+ * @param {string} type
+ * @param {number} duration
+ */
 export function flash (message, type = 'success', duration = 2) {
   const alert = new FloatingAlert()
   if (duration) {

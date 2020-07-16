@@ -11,7 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ReadTime
 {
-
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -44,6 +43,7 @@ class ReadTime
     public function setId(?int $id): ReadTime
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -55,6 +55,7 @@ class ReadTime
     public function setTopic(Topic $topic): ReadTime
     {
         $this->topic = $topic;
+
         return $this;
     }
 
@@ -66,6 +67,7 @@ class ReadTime
     public function setOwner(User $owner): ReadTime
     {
         $this->owner = $owner;
+
         return $this;
     }
 
@@ -77,7 +79,7 @@ class ReadTime
     public function setReadAt(\DateTimeInterface $readAt): ReadTime
     {
         $this->readAt = $readAt;
+
         return $this;
     }
-
 }
