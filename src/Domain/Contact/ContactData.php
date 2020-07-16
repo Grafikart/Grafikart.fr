@@ -15,7 +15,6 @@ class ContactData
     /**
      * @Assert\NotBlank()
      * @Assert\Email()
-     * @Assert\Length(min="3")
      */
     public string $email;
 
