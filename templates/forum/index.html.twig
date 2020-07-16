@@ -23,6 +23,7 @@
           Tous les sujets
         </a>
       </li>
+      {#
       {% for tag in tags %}
         <li>
           <a href="{{ path(tag) }}">
@@ -40,13 +41,28 @@
           </ul>
         </li>
       {% endfor %}
+      #}
     </ul>
   </div>
 
   <main class="forum-page__main stack">
+
     {% for topic in topics %}
       {% include('forum/_topic.html.twig') %}
     {% endfor %}
   </main>
 </div>
+
+<script>
+  // On marque les sujet comme lu (on isole cette partie afin de pouvoir mettre en cache le reste de la page)
+  (function () {
+    const ids = {{ read_times | json_encode }}
+    const elements = ids.map(id => document.getElementById(`topic-${id}`))
+    Array.from(elements).forEach(el => {
+      el.classList.add('is-read')
+    })
+  })()
+</script>
 {% endblock %}
+
+

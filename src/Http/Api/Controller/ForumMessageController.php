@@ -38,6 +38,7 @@ class ForumMessageController extends AbstractController
             ->setTopic($topic)
             ->setContent($data['content'] ?? null)
             ->setAuthor($this->getUser());
+        $topic->setUpdatedAt(new \DateTime());
         $validator->validate($message, ['groups' => ['create']]);
         $em->persist($message);
         $em->flush();

@@ -76,6 +76,14 @@
   box-shadow: 0 2px 4px var(--shadow);
 }
 
+.forum-topic.is-read {
+  filter: grayscale(1);
+  opacity: .6;
+  .forum-topic__title {
+    color: var(--color-light);
+  }
+}
+
 .forum-topic__title {
   display: block;
   margin-right: 100px;
@@ -211,9 +219,6 @@
   .hjs {
     background-color: var(--background);
   }
-}
-
-.forum-message__header {
 }
 
 .forum-message__actions {

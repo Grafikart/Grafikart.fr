@@ -121,6 +121,12 @@ small {
 .text-inversed {
   color: var(--color-inversed);
 }
+.underline {
+  text-decoration: underline;
+}
+a.underline:hover {
+  text-decoration: none;
+}
 .reader-only {
   display: none;
 }

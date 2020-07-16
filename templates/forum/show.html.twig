@@ -1,27 +1,29 @@
 {% extends 'base.html.twig' %}
 
+{% set bodyClass = 'light' %}
+
 {% block title topic.name %}
 
 {% block body %}
 
-  <div class="container stack topic-page">
+  <div class="page-header container">
+    <h1 class="h2 mb2">{{ topic.name }}</h1>
+    <div class="flex flex-start">
+      <a href="{{ path(topic.author) }}" class="flex underline flex-start mr1">
+        <img src="{{ topic.author | avatar }}" alt="" class="rounded mr1" width="25">
+        {{ topic.author.username }}
+      </a>
+      <small class="text-muted">
+        , {{ topic.createdAt | ago }}
+        <forum-edit topic="{{ topic.id }}" owner="{{ topic.author.id }}"></forum-edit>
+        <forum-delete topic="{{ topic.id }}" owner="{{ topic.author.id }}"></forum-delete>
+      </small>
+    </div>
+  </div>
 
-    <h1 class="h2">{{ topic.name }}</h1>
+  <div class="container bg stack topic-page py5">
 
     <div class="forum-message">
-      <div class="forum-message__header hstack">
-        <div class="forum-avatar">
-          <img src="{{ topic.author | avatar }}" alt="">
-        </div>
-        <div>
-          <a class="forum-message__author" href="{{ path(topic.author) }}">{{ topic.author.username }}</a>
-          <div class="forum-message__date">
-            {{ topic.createdAt | ago }}
-            <forum-edit topic="{{ topic.id }}" owner="{{ topic.author.id }}"></forum-edit>
-            <forum-delete topic="{{ topic.id }}" owner="{{ topic.author.id }}"></forum-delete>
-          </div>
-        </div>
-      </div>
       <div class="forum-message__body">
         <div class="js-content formatted formatted">
           {{ topic.content | markdown_untrusted }}

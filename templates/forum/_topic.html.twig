@@ -1,5 +1,5 @@
 {% cache [topic, 'card'] %}
-  <div class="forum-topic{% if topic.solved %} is-solved{% endif %}">
+  <div class="forum-topic{% if topic.solved %} is-solved{% endif %}" id="topic-{{ topic.id }}">
     <div class="forum-avatar">
       <img src="{{ topic.author | avatar }}" alt="">
     </div>
