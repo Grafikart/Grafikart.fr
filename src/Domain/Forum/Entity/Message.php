@@ -9,7 +9,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="MessageRepository")
+ * @ORM\Entity(repositoryClass="App\Domain\Forum\Repository\MessageRepository")
  * @ORM\Table(name="forum_message")
  */
 class Message

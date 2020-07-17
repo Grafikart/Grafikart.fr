@@ -57,7 +57,7 @@ services:
     ports:
       - 8888:8080
   mail:
-    image: schickling/mailcatcher
+    image: maildev/maildev:2.0.0-beta3
     ports:
       - 1080:1080
   spacechop:

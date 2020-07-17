@@ -3,6 +3,7 @@
 namespace App\Domain\Notification;
 
 use App\Domain\Auth\User;
+use App\Domain\Forum\Entity\Message;
 use App\Domain\Notification\Entity\Notification;
 use App\Domain\Notification\Event\NotificationCreatedEvent;
 use App\Domain\Notification\Repository\NotificationRepository;
@@ -56,6 +57,11 @@ class NotificationService
         $url = $this->serializer->serialize($entity, PathEncoder::FORMAT);
         /** @var NotificationRepository $repository */
         $repository = $this->em->getRepository(Notification::class);
+
+        // Si on notifie à propos d'un message du forum, la cible devient le topic
+        if ($entity instanceof Message) {
+            $entity = $entity->getTopic();
+        }
         $notification = (new Notification())
             ->setMessage($message)
             ->setUrl($url)

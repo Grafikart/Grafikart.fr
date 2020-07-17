@@ -1,8 +1,9 @@
-import { useJsonFetchAndFlash } from '/functions/hooks.js'
+import { useJsonFetchOrFlash } from '/functions/hooks.js'
 import { closest } from '/functions/dom.js'
 import { flash } from '/elements/Alert.js'
 import { canManage } from '/functions/auth.js'
 import { Loader } from '/components/Loader.jsx'
+import { useEffect, useRef } from 'preact/hooks'
 
 export function ForumDelete ({ message, topic, owner }) {
   let endpoint = null
@@ -15,17 +16,22 @@ export function ForumDelete ({ message, topic, owner }) {
   }
 
   // On prépare les hooks
-  const { loading: deleteLoading, fetch: deleteFetch } = useJsonFetchAndFlash(endpoint, { method: 'DELETE' })
+  const button = useRef(null)
+  const { loading: deleteLoading, fetch: deleteFetch, done } = useJsonFetchOrFlash(endpoint, { method: 'DELETE' })
+  useEffect(() => {
+    if (done) {
+      const message = closest(button.current, '.forum-message')
+      flash('Votre message a bien été supprimé')
+      message.remove()
+    }
+  }, [done])
 
   // Handler
-  const handleDeleteClick = async e => {
+  const handleDeleteClick = async () => {
     if (!confirm('Voulez vous vraiment supprimer ce message ?')) {
       return
     }
-    const message = closest(e.target, '.forum-message')
     await deleteFetch()
-    flash('Votre message a bien été supprimé')
-    message.remove()
   }
 
   // L'utilisateur ne peut pas intervenir sur ce sujet
@@ -37,7 +43,7 @@ export function ForumDelete ({ message, topic, owner }) {
     <>
       {' '}
       -{' '}
-      <button className='text-danger' onClick={handleDeleteClick} disabled={deleteLoading}>
+      <button className='text-danger' onClick={handleDeleteClick} disabled={deleteLoading} ref={button}>
         {deleteLoading && <Loader style={{ width: 12, marginRight: 5 }} />}
         Supprimer
       </button>

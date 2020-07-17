@@ -3,11 +3,13 @@
 namespace App\Domain\Forum;
 
 use App\Domain\Auth\User;
+use App\Domain\Forum\Entity\Message;
 use App\Domain\Forum\Entity\ReadTime;
 use App\Domain\Forum\Entity\Topic;
 use App\Domain\Forum\Event\PreTopicCreatedEvent;
 use App\Domain\Forum\Event\TopicCreatedEvent;
 use App\Domain\Forum\Repository\ReadTimeRepository;
+use App\Domain\Forum\Repository\TopicRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -107,5 +109,30 @@ class TopicService
         }
 
         return $ids;
+    }
+
+    /**
+     * Récupère la liste des utilisateur à notifier en lien avec un message.
+     *
+     * @return User[]
+     */
+    public function usersToNotify(Message $message): array
+    {
+        /** @var TopicRepository $repository */
+        $repository = $this->em->getRepository(Topic::class);
+
+        return $repository->findUsersToNotify($message);
+    }
+
+    /**
+     * Indique que les utilisateurs ont été notifié par email.
+     *
+     * @param User[] $users
+     */
+    public function updateNotificationStatusFor(Message $message, array $users): void
+    {
+        /** @var ReadTimeRepository $repository */
+        $repository = $this->em->getRepository(ReadTime::class);
+        $repository->updateNotificationStatusForUsers($message->getTopic(), $users);
     }
 }
