@@ -4,20 +4,25 @@
 
 {% block body %}
 
-  {%- if is_topic_owner -%}
-    # {{ author.username }} a répondu a votre sujet _"{{ topic.name }}"_
-  {%- else -%}
-    # {{ author.username }} a participé au sujet _"{{ topic.name }}"_
-  {%- endif ~%}
+  {% apply markdown_email %}
 
-  {%~ if format == 'html' -%}
-    {{~ e.section(message.content | markdown_untrusted) ~}}
-  {%- endif -%}
+    {% if is_topic_owner %}
+      {{ author.username }} a répondu a votre sujet _"{{ topic.name }}"_
+    {% else %}
+      {{ author.username }} a participé au sujet _"{{ topic.name }}"_
+    {% endif %}
+    ===============
 
-  {%~ if is_topic_owner -%}
-**N'oubliez pas** de valider cette réponse si elle vous convient.
-  {%- endif ~%}
+    {% if format == 'html' %}
+      {{ e.section(message.content | markdown_untrusted) }}
+    {% endif %}
 
-  {{~ e.button('Voir le message sur le forum', url(message)) ~}}
+    {% if is_topic_owner %}
+      **N'oubliez pas** de valider cette réponse si elle vous convient.
+    {% endif %}
+
+  {% endapply %}
+
+  {{ e.button('Voir le message sur le forum', url(message)) }}
 
 {% endblock %}

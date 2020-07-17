@@ -43,9 +43,7 @@
               <!-- Body content -->
               <tr>
                 <td class="content-cell">
-                  {%- apply markdown -%}
-                  {%- block body '' -%}
-                  {%- endapply -%}
+                  {% block body '' %}
                 </td>
               </tr>
             </table>
