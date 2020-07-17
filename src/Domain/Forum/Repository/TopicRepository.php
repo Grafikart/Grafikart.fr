@@ -3,10 +3,12 @@
 namespace App\Domain\Forum\Repository;
 
 use App\Domain\Auth\User;
+use App\Domain\Forum\Entity\Message;
 use App\Domain\Forum\Entity\Tag;
 use App\Domain\Forum\Entity\Topic;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 class TopicRepository extends ServiceEntityRepository
@@ -69,5 +71,54 @@ class TopicRepository extends ServiceEntityRepository
             ->delete()
         ->getQuery()
         ->execute();
+    }
+
+    /**
+     * Récupère la liste des utilisateurs ayant participé au forum mais n'ayant pas déjà été notifié.
+     *
+     * @return User[]
+     */
+    public function findUsersToNotify(Message $message): array
+    {
+        $topic = $message->getTopic();
+        $rsm = new ResultSetMappingBuilder($this->getEntityManager());
+        $rsm->addRootEntityFromClassMetadata(User::class, 'u');
+        $selectClause = $rsm->generateSelectClause(['u' => 'u']);
+
+        // On trouve les utilisateurs qui ont posté des messages sur le sujet en question
+        $query = $this->getEntityManager()
+            ->createNativeQuery(<<<SQL
+                SELECT $selectClause
+                FROM forum_message m
+                LEFT JOIN forum_read_time rt on m.topic_id = rt.topic_id AND m.author_id = rt.owner_id
+                LEFT JOIN "user" u on u.id = m.author_id
+                WHERE
+                      m.topic_id = :topic AND
+                      (rt.notified IS false OR rt.notified IS NULL) AND
+                      m.author_id != :user
+                GROUP BY u.id
+            SQL, $rsm);
+        $query->setParameter('topic', $topic->getId());
+        $query->setParameter('user', $message->getAuthor()->getId());
+        $users = $query->getResult();
+
+        // Si l'auteur du message est l'auteur du topic on s'arrète ici
+        if ($message->getAuthor()->getId() === $message->getTopic()->getAuthor()->getId()) {
+            return array_unique($users, SORT_REGULAR);
+        }
+
+        // On récupère l'auteur du sujet si il n'a pas déjà été notifié
+        $query = $this->getEntityManager()
+            ->createNativeQuery(<<<SQL
+                SELECT $selectClause
+                FROM forum_topic t
+                LEFT JOIN forum_read_time rt on t.id = rt.topic_id AND t.author_id = rt.owner_id
+                LEFT JOIN "user" u on u.id = t.author_id
+                WHERE t.id = :topic AND (rt.notified IS false OR rt.notified IS NULL)
+            SQL, $rsm);
+        $query->setParameter('topic', $topic->getId());
+        $users = array_merge($users, $query->getResult());
+
+        return array_unique($users, SORT_REGULAR);
     }
 }

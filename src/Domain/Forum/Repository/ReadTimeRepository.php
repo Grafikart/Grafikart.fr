@@ -21,6 +21,7 @@ class ReadTimeRepository extends ServiceEntityRepository
     public function updateReadTimeForTopic(Topic $topic, User $user): ReadTime
     {
         // On cherche si on a déjà une lecture enregistrée
+        /** @var ReadTime|null $lastReadTime */
         $lastReadTime = $this->createQueryBuilder('r')
             ->where('r.topic = :topic')
             ->andWhere('r.owner = :user')
@@ -30,6 +31,10 @@ class ReadTimeRepository extends ServiceEntityRepository
             ])
             ->getQuery()
             ->getOneOrNullResult();
+
+        if ($lastReadTime && $lastReadTime->isNotified()) {
+            $lastReadTime->setNotified(false);
+        }
 
         // Le sujet n'a pas été mis à jour depuis
         if ($lastReadTime && $lastReadTime->getReadAt() > $topic->getUpdatedAt()) {
@@ -78,5 +83,37 @@ class ReadTimeRepository extends ServiceEntityRepository
             ->delete()
             ->getQuery()
             ->execute();
+    }
+
+    /**
+     * Sauvegarde le fait que les utilisateurs se sont fait notifier d'un nouveau message.
+     *
+     * @param User[] $users
+     */
+    public function updateNotificationStatusForUsers(Topic $topic, array $users): void
+    {
+        // On met à jour les notifications que l'on déjà
+        /** @var ReadTime[] $readTimes */
+        $readTimes = $this->createQueryBuilder('r')
+            ->where('r.topic = :topic')
+            ->setParameter('topic', $topic)
+            ->getQuery()
+            ->getResult();
+        foreach ($readTimes as $readTime) {
+            $readTime->setNotified(true);
+            $users = array_filter($users, fn (User $u) => $u->getId() !== $readTime->getOwner()->getId());
+        }
+
+        // On crée de nouveaux readTime pour les utilisateur n'ayant pas déjà lu le sujet
+        foreach ($users as $user) {
+            $lastReadTime = (new ReadTime())
+                ->setTopic($topic)
+                ->setNotified(true)
+                ->setReadAt(new \DateTime('-10 year'))
+                ->setOwner($user);
+            $this->getEntityManager()->persist($lastReadTime);
+        }
+
+        $this->getEntityManager()->flush();
     }
 }

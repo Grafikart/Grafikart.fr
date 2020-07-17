@@ -29,21 +29,30 @@ class ForumSubscriber implements EventSubscriberInterface
 
     public function onMessage(MessageCreatedEvent $event): void
     {
+        // On récupère les utilisateurs à notifier
         $users = $this->topicService->usersToNotify($event->getMessage());
         if (empty($users)) {
             return;
         }
         $author = $event->getMessage()->getAuthor();
+
+        // On envoie les emails à chaque utilisateur
         foreach ($users as $user) {
+            $isTopicOwner = $user->getId() === $event->getMessage()->getTopic()->getAuthor()->getId();
             $message = $this->mailer->createEmail('mails/forum/new_post.twig', [
                 'author' => $author,
                 'message' => $event->getMessage(),
                 'topic' => $event->getMessage()->getTopic(),
-                'is_topic_owner' => true, // TODO : ajouter la logique ici
+                'is_topic_owner' => $isTopicOwner,
             ]);
-            $message->subject("{$author->getUsername()} a répondu à votre sujet");
+            $message->subject($isTopicOwner ?
+                "{$author->getUsername()} a répondu à votre sujet" :
+                "{$author->getUsername()} a répondu à un sujet auquel vous avez participé");
             $message->to($user->getEmail());
             $this->mailer->send($message);
         }
+
+        // On met à jour les status de notifications
+        $this->topicService->updateNotificationStatusFor($event->getMessage(), $users);
     }
 }
