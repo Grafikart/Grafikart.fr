@@ -5,7 +5,7 @@ namespace App\Infrastructure\Mailing;
 use Symfony\Component\Mime\Email;
 use Twig\Environment;
 
-final class EmailFactory
+class EmailFactory
 {
     private Environment $twig;
 

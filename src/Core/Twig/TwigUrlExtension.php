@@ -33,6 +33,7 @@ class TwigUrlExtension extends AbstractExtension
         return [
             new TwigFunction('content_path', [$this, 'contentPath']),
             new TwigFunction('path', [$this, 'pathFor']),
+            new TwigFunction('url', [$this, 'urlFor']),
         ];
     }
 
@@ -70,6 +71,18 @@ class TwigUrlExtension extends AbstractExtension
             return $this->urlGenerator->generate($path, $params);
         }
 
-        return $this->serializer->serialize($path, 'path');
+        return $this->serializer->serialize($path, 'path', ['url' => false]);
+    }
+
+    /**
+     * @param string|object $path
+     */
+    public function urlFor($path, array $params = []): string
+    {
+        if (is_string($path)) {
+            return $this->urlGenerator->generate($path, $params, \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL);
+        }
+
+        return $this->serializer->serialize($path, 'path', ['url' => true]);
     }
 }

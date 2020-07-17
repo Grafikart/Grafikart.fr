@@ -24,9 +24,10 @@ class ForumMessageSubscriber implements EventSubscriberInterface
 
     public function onMessageCreated(MessageCreatedEvent $event): void
     {
-        $name = $event->getMessage()->getAuthor()->getUsername();
-        $topic = $event->getMessage()->getTopic();
+        $message = $event->getMessage();
+        $name = $message->getAuthor()->getUsername();
+        $topic = $message->getTopic();
         $user = $topic->getAuthor();
-        $this->service->notifyUser($user, "**$name** a répondu à votre sujet {$topic->getName()}", $topic);
+        $this->service->notifyUser($user, "**$name** a répondu à votre sujet {$topic->getName()}", $message);
     }
 }

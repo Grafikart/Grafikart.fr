@@ -21,7 +21,7 @@ build-docker:
 	$(dc) build --force-rm --pull node
 
 .PHONY: dev
-dev: vendor/autoload.php ## node_modules/time ## Lance le serveur de développement
+dev: vendor/autoload.php node_modules/time ## Lance le serveur de développement
 	$(dc) up
 
 .PHONY: clean

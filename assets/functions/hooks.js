@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'preact/hooks'
-import { jsonFetch } from '/functions/api.js'
+import { ApiError, jsonFetch } from '/functions/api.js'
 import { flash } from '/elements/Alert.js'
 
 /**
@@ -69,7 +69,7 @@ export function useAutofocus (ref, focus) {
  * @param {object} params
  * @return {{data: Object|null, fetch: fetch, loading: boolean, done: boolean}}
  */
-export function useJsonFetchAndFlash (url, params = {}) {
+export function useJsonFetchOrFlash (url, params = {}) {
   const [state, setState] = useState({
     loading: false,
     data: null,
@@ -81,7 +81,11 @@ export function useJsonFetchAndFlash (url, params = {}) {
       const response = await jsonFetch(url, params)
       setState(s => ({ ...s, loading: false, data: response, done: true }))
     } catch (e) {
-      flash(e, 'error')
+      if (e instanceof ApiError) {
+        flash(e.name, 'danger', 4)
+      } else {
+        flash(e, 'danger', 4)
+      }
     }
     setState(s => ({ ...s, loading: false }))
   }

@@ -1,0 +1,17 @@
+include:
+  - ../../fixtures/templates.yaml
+
+App\Domain\Auth\User:
+  user{1..4} (extends user):
+
+App\Domain\Forum\Entity\Tag:
+  tag{1..4} (extends tag):
+
+App\Domain\Forum\Entity\Topic:
+  topic{1} (extends topic):
+    author: "@user1"
+
+App\Domain\Forum\Entity\Message:
+  message{1..4} (extends forum_message):
+    topic: "@topic1"
+    author: "@user<($current)>"

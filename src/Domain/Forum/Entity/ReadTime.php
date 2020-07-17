@@ -35,6 +35,11 @@ class ReadTime
      */
     private \DateTimeInterface $readAt;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default": false})
+     */
+    private bool $notified = false;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -79,6 +84,18 @@ class ReadTime
     public function setReadAt(\DateTimeInterface $readAt): ReadTime
     {
         $this->readAt = $readAt;
+
+        return $this;
+    }
+
+    public function isNotified(): bool
+    {
+        return $this->notified;
+    }
+
+    public function setNotified(bool $notified): ReadTime
+    {
+        $this->notified = $notified;
 
         return $this;
     }

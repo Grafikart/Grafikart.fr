@@ -1,4 +1,4 @@
-import { useJsonFetchAndFlash } from '/functions/hooks.js'
+import { useJsonFetchOrFlash } from '/functions/hooks.js'
 import { isAuthenticated } from '/functions/auth.js'
 import { SecondaryButton } from '/components/Button.jsx'
 import { Icon } from '/components/Icon.jsx'
@@ -11,7 +11,7 @@ import { flash } from '/elements/Alert.js'
  * @param {string} props.endpoint
  */
 export function ForumRead ({ endpoint }) {
-  const { loading, done, fetch } = useJsonFetchAndFlash(endpoint, { method: 'POST' })
+  const { loading, done, fetch } = useJsonFetchOrFlash(endpoint, { method: 'POST' })
   useEffect(() => {
     if (done) {
       flash('Tous les sujets ont été marqués comme lu')

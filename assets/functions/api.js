@@ -64,6 +64,10 @@ export class ApiError {
     return this.data.violations.filter(v => v.propertyPath === field).map(v => v.message)
   }
 
+  get name () {
+    return `${this.data.title} ${this.data.detail || ''}`
+  }
+
   // Renvoie les violations indexé par propertyPath
   get violations () {
     if (!this.data.violations) {

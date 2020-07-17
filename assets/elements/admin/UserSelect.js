@@ -1,4 +1,4 @@
-import Choices from '/libs/Choices.js'
+import Choices from 'choices.js'
 import { debounce } from '/functions/timers.js'
 
 /**
