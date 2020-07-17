@@ -1,6 +1,5 @@
-import './css/app.css'
+import './css/app.scss'
 
-import 'preact/debug'
 import './elements/index.js'
 import './pages/index.js'
 
@@ -9,7 +8,7 @@ import Turbolinks from 'turbolinks'
 import './modules/scrollreveal.js'
 import './modules/highlight.js'
 import { showHistory } from './modules/history.js'
-import ChoicesJS from '/libs/Choices.js'
+import ChoicesJS from 'choices.js'
 import { $$ } from '/functions/dom.js'
 
 document.addEventListener('turbolinks:load', () => {

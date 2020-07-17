@@ -8,7 +8,7 @@
     "@babel/plugin-transform-react-jsx": "^7.10.4",
     "@babel/preset-env": "^7.10.4",
     "@koa/cors": "^3.1.0",
-    "@prefresh/vite": "^0.10.0",
+    "@prefresh/vite": "^0.9.0",
     "@rollup/plugin-babel": "^5.0.4",
     "@rollup/plugin-commonjs": "^13.0.0",
     "@rollup/plugin-node-resolve": "^8.1.0",
@@ -23,7 +23,7 @@
     "rollup-plugin-postcss": "^3.1.2",
     "rollup-plugin-root-import": "^1.0.0",
     "sass": "^1.26.5",
-    "vite": "^1.0.0-beta.11"
+    "vite": "^1.0.0-beta.12"
   },
   "scripts": {
     "lint": "prettier-standard --lint \"assets/**/*.{js,css,jsx}\"",
