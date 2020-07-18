@@ -18,6 +18,8 @@
     "google/apiclient": "^2.0",
     "intervention/image": "^2.5",
     "knplabs/knp-paginator-bundle": "^5.1",
+    "league/glide": "^1.6",
+    "league/glide-symfony": "^1.0",
     "omnipay/paypal": "^3.0",
     "oneup/flysystem-bundle": "^3.4",
     "paypal/rest-api-sdk-php": "^1.14",

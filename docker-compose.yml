@@ -60,11 +60,6 @@ services:
     image: schickling/mailcatcher
     ports:
       - 1080:1080
-  spacechop:
-    image: spacechop/spacechop:latest
-    volumes:
-      - ./spacechop.yml:/config.yml
-      - ./public/uploads:/mnt/images/uploads
   redis:
     image: redis:5-alpine
   typesense:

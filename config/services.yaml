@@ -5,6 +5,7 @@ parameters:
   sources_path: '%download_path%/sources'
   typesense_key: '%env(resolve:TYPESENSE_KEY)%'
   typesense_host: '%env(resolve:TYPESENSE_HOST)%'
+  image_resize_key: '%env(resolve:IMAGE_RESIZE_KEY)%'
 
 services:
   _defaults:
@@ -76,3 +77,7 @@ services:
 
   App\Core\OptionInterface:
     class: 'App\Domain\Application\Option'
+
+  App\Infrastructure\Image\ImageResizer:
+    class: App\Infrastructure\Image\ImageResizer
+    arguments: ['%image_resize_key%']

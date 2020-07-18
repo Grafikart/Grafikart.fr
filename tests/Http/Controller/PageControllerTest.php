@@ -3,7 +3,6 @@
 namespace App\Tests\Http\Controller;
 
 use App\Tests\WebTestCase;
-use Symfony\Component\HttpFoundation\Response;
 
 class PageControllerTest extends WebTestCase
 {
@@ -18,14 +17,8 @@ class PageControllerTest extends WebTestCase
     public function testMonEnvironnement(): void
     {
         $title = 'Mon environnement';
-        $this->client->request('GET', '/env');
+        $this->client->request('GET', '/a-propos');
         $this->expectTitle($title);
         $this->expectH1($title);
-    }
-
-    public function testAProposRedirect(): void
-    {
-        $this->client->request('GET', '/a-propos');
-        $this->assertResponseRedirects('/env', Response::HTTP_MOVED_PERMANENTLY);
     }
 }
