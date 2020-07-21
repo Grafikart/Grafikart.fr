@@ -14,7 +14,7 @@ class TechnologyRepository extends ServiceEntityRepository
     }
 
     /**
-     * Trouve une technologie par rapport à son nom (non sensible à la casse).
+     * Trouve des technologies par rapport à son nom (non sensible à la casse).
      *
      * @param string[] $names
      *
@@ -27,5 +27,21 @@ class TechnologyRepository extends ServiceEntityRepository
             ->setParameter('name', array_map(fn (string $name) => strtolower($name), $names))
             ->getQuery()
             ->getResult();
+    }
+
+    /**
+     * Trouve une technologie par rapport à son nom (non sensible à la casse).
+     *
+     * @param string $name
+     * @return Technology|null
+     */
+    public function findByName(string $name): ?Technology
+    {
+        return $this->createQueryBuilder('t')
+            ->where('LOWER(t.name) = :technology')
+            ->setMaxResults(1)
+            ->setParameter('technology', strtolower($name))
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 }
