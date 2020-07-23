@@ -30,3 +30,4 @@ doctrine:
       string_functions:
         LPAD: DoctrineExtensions\Query\Mysql\Lpad
         CAST: DoctrineExtensions\Query\Mysql\Cast
+

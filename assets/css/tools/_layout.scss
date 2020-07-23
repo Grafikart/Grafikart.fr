@@ -23,6 +23,15 @@
   position: relative;
 }
 
+.absolute {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
 // Container
 // ==============
 %container,
@@ -241,12 +250,16 @@
   .p#{$i} {
     padding: space($i);
   }
+  .pt#{$i} {
+    padding-top: space($i);
+  }
   .py#{$i} {
     padding-top: space($i);
     padding-bottom: space($i);
   }
   .my#{$i} {
     margin-top: space($i);
+    margin-bottom: space($i);
   }
   .mt#{$i} {
     margin-top: space($i);

@@ -37,7 +37,8 @@
     justify-content: stretch;
   }
 }
-.live-current__body iframe:last-child {
+
+.live-current__body iframe {
   width: 100%;
   min-height: 350px;
 }
@@ -167,7 +168,7 @@
   font-weight: 300;
 }
 .live:hover,
-.live.is-playing {
+.live.is-selected {
   background-color: var(--list-hover);
   color: var(--contrast);
   .live__image::before {

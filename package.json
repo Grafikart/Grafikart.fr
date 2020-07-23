@@ -23,7 +23,7 @@
     "rollup-plugin-postcss": "^3.1.2",
     "rollup-plugin-root-import": "^1.0.0",
     "sass": "^1.26.5",
-    "vite": "^1.0.0-beta.12"
+    "vite": "^1.0.0-rc.3"
   },
   "scripts": {
     "lint": "prettier-standard --lint \"assets/**/*.{js,css,jsx}\"",

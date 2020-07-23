@@ -2,11 +2,8 @@
 const prefresh = require('@prefresh/vite')
 const cors = require('@koa/cors')
 const path = require('path')
-const sass = require('sass')
-const fs = require('fs')
 
 const root = './assets'
-const scss = path.resolve(root, 'css/app.scss')
 
 /**
  * @type { import('vite').UserConfig }

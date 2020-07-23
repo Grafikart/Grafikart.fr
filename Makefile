@@ -5,6 +5,8 @@ dr := $(dc) run --rm
 de := docker-compose exec
 sy := $(de) php bin/console
 drtest := $(dc) -f docker-compose.test.yml run --rm
+# drnode := $(dr) node # Pour le moment node tourne sur l'hôte
+drnode :=
 
 .DEFAULT_GOAL := help
 .PHONY: help
@@ -63,7 +65,7 @@ import: vendor/autoload.php ## Import les données du site actuel
 test: vendor/autoload.php ## Execute les tests
 	$(drtest) phptest bin/console doctrine:schema:validate --skip-sync
 	$(drtest) phptest vendor/bin/phpunit
-	$(dr) --no-deps node yarn run test
+	$(drnode) yarn run test
 
 .PHONY: tt
 tt: vendor/autoload.php ## Lance le watcher phpunit
@@ -88,10 +90,10 @@ vendor/autoload.php: composer.lock
 	touch vendor/autoload.php
 
 node_modules/time: yarn.lock
-	$(dr) --no-deps node yarn
+	$(drnode) yarn
 	touch node_modules/time
 
 public/assets: node_modules/time
-	$(dr) --no-deps node npx sass assets/css/app.scss assets/css/app.css
-	$(dr) --no-deps node yarn run build
+	$(drnode) npx sass assets/css/app.scss assets/css/app.css
+	$(drnode) yarn run build
 

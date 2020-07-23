@@ -32,7 +32,6 @@ export class YoutubePlayer extends HTMLElement {
     this.root = this.attachShadow({ mode: 'open' })
     this.onYoutubePlayerStateChange = this.onYoutubePlayerStateChange.bind(this)
     this.onYoutubePlayerReady = this.onYoutubePlayerReady.bind(this)
-    this.getAttribute('poster')
 
     // Structure HTML
     let poster = this.getAttribute('poster')
@@ -61,6 +60,9 @@ export class YoutubePlayer extends HTMLElement {
         this.removeEventListener('click', onClick)
       }
       this.addEventListener('click', onClick)
+      if (window.location.hash === '#autoplay' && !this.getAttribute('autoplay')) {
+        onClick()
+      }
     }
   }
 
@@ -114,12 +116,19 @@ export class YoutubePlayer extends HTMLElement {
    * @param {YT.OnStateChangeEvent} event
    */
   onYoutubePlayerStateChange (event) {
-    if (event.data === YT.PlayerState.PLAYING) {
-      this.startTimer()
-      this.dispatchEvent(new global.Event('play'))
-    } else if (event.data === YT.PlayerState.ENDED) {
-      this.stopTimer()
-      this.dispatchEvent(new global.Event('ended'))
+    switch (event.data) {
+      case YT.PlayerState.PLAYING:
+        this.startTimer()
+        this.dispatchEvent(new Event('play', {bubbles: true}))
+        break;
+      case YT.PlayerState.ENDED:
+        this.stopTimer()
+        this.dispatchEvent(new Event('ended'))
+        break;
+      case YT.PlayerState.PAUSED:
+        this.stopTimer()
+        this.dispatchEvent(new Event('pause'))
+        break;
     }
   }
 
@@ -128,7 +137,6 @@ export class YoutubePlayer extends HTMLElement {
    */
   onYoutubePlayerReady () {
     this.startTimer()
-    this.dispatchEvent(new Event('play'))
   }
 
   /**
@@ -212,8 +220,16 @@ export class YoutubePlayer extends HTMLElement {
     if (this.timer) {
       return null
     }
-    this.dispatchEvent(new global.Event('timeupdate'))
-    this.timer = window.setInterval(() => this.dispatchEvent(new global.Event('timeupdate')), 1000)
+    this.dispatchEvent(new Event('timeupdate'))
+    this.timer = window.setInterval(() => this.dispatchEvent(new Event('timeupdate')), 1000)
+  }
+
+  pause () {
+    this.player.pauseVideo()
+  }
+
+  play () {
+    this.player.playVideo()
   }
 
   /**

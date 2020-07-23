@@ -1,6 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{% set bodyClass = 'light' %}
 
 {% block body %}
 
@@ -10,8 +9,9 @@
       {{ breadcrumb(course) }}
     </div>
 
-    <div class="container layout-sidebar my4">
+    <div class="container layout-sidebar mt2 mb4">
       <youtube-player
+        id="course-{{ course.id }}"
         video="{{ course.youtubeId }}"
         poster="{{ image_url(course.image) }}"
         title="{{ course.title }}"
@@ -19,12 +19,15 @@
         id="coursePlayer"
         class="shadow"></youtube-player>
       {% if course.formation %}
-        <div style="overflow: auto; height: 100px;">
-          {% include 'chapters/_summary.html.twig' with {chapters: course.formation.chapters, current: "#chapter" ~ course.id} only %}
+        <div class="relative chapters">
+          <div class="absolute pt2">
+            {% include 'chapters/_summary.html.twig' with {class: '', chapters: course.formation.chapters, current: "#chapter" ~ course.id} only %}
+          </div>
         </div>
       {% endif %}
     </div>
 
+    <div class="bg-light">
     <div class="tabs-bar container">
         <a href="#">Demo1</a>
         <a href="#">Demo2</a>
@@ -98,7 +101,7 @@
         </div>
       </div>
     </div>
-
+    </div>
   {% endcache %}
 
   {% if course.formation %}

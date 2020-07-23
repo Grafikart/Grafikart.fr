@@ -60,25 +60,34 @@ export class RecapLiveElement extends HTMLElement {
   play (e) {
     e.preventDefault()
     e.stopPropagation()
-    const live = e.currentTarget
-    const id = live.dataset.youtube
-    if (live.classList.contains('is-playing')) {
+    const liveElement = e.currentTarget
+    const youtubeId = liveElement.dataset.youtube
+
+    // Le live est déjà sélectionné
+    if (liveElement.classList.contains('is-selected')) {
       return
     }
+
+    // On initialise le player Youtube
     if (this.player === undefined) {
       this.player = new YoutubePlayer({ autoplay: 1 })
       this.liveList.insertAdjacentElement('beforebegin', this.player)
     }
-    live.classList.add('is-playing')
-    live.querySelector('play-button').attachVideo(this.player)
-    this.player.setAttribute('video', id)
+
+    // On indique que l'élément est en cours de lecture
+    liveElement.classList.add('is-selected')
     if (this.currentLive) {
-      this.currentLive.querySelector('play-button').detachVideo()
-      this.currentLive.classList.remove('is-playing')
+      this.currentLive.classList.remove('is-selected')
     }
-    this.currentLive = live
+    this.currentLive = liveElement
+
+    // On met à jour le player
+    this.player.setAttribute('id', youtubeId)
+    this.player.setAttribute('video', youtubeId)
     this.classList.add('has-player')
-    live.scrollIntoView({ block: 'center', behavior: 'smooth', inline: 'nearest' })
+
+    // On scroll vers le live sélectionné
+    liveElement.scrollIntoView({ block: 'center', behavior: 'smooth', inline: 'nearest' })
     this.player.scrollIntoView({ block: 'start', behavior: 'smooth', inline: 'nearest' })
   }
 

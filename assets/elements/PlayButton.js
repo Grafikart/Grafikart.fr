@@ -10,6 +10,8 @@
  * @property {ShadowRoot} root
  * @property {HTMLButtonElement} button
  * @property {SVGCircleElement} circle
+ * @property {?function} detachVideo
+ * @property {HTMLVideoElement} video
  */
 export class PlayButton extends HTMLElement {
   static get observedAttributes () {
@@ -30,6 +32,10 @@ export class PlayButton extends HTMLElement {
     `
     this.button = this.root.querySelector('button')
     this.circle = this.root.querySelector('circle')
+    this.detachVideo = null
+    this.onClick = this.onClick.bind(this)
+    this.onVideoPlay = this.onVideoPlay.bind(this)
+    this.button.addEventListener('click', this.onClick)
   }
 
   attributeChangedCallback (name, oldValue, newValue) {
@@ -104,7 +110,7 @@ export class PlayButton extends HTMLElement {
         border-top: 6px solid transparent;
         border-bottom: 6px solid transparent;
       }
-      :host-context(.is-playing) button {
+      :host-context(.is-current) button {
         background-color: #4869EE33 !important;
       }
       :host-context(.is-playing) button::before,
@@ -145,26 +151,77 @@ export class PlayButton extends HTMLElement {
    * @param {YoutubePlayer|HTMLVideoElement} video
    */
   attachVideo (video) {
+    if (this.video) {
+      return;
+    }
+    this.video = video
     this.setAttribute('progress', 0)
     const onTimeUpdate = () => {
       this.setAttribute('progress', ((100 * video.currentTime) / video.duration).toString())
     }
-    const onPlay = () => this.setAttribute('playing', 'playing')
+    const onPlay = () => {
+      this.classList.add('is-current')
+      this.setAttribute('playing', 'playing')
+    }
+    const onPause = () => this.removeAttribute('playing')
     const onEnded = () => this.removeAttribute('playing')
     video.addEventListener('timeupdate', onTimeUpdate)
     video.addEventListener('play', onPlay)
+    video.addEventListener('pause', onPause)
     video.addEventListener('ended', onEnded)
     this.detachVideo = () => {
       video.removeEventListener('timeupdate', onTimeUpdate)
       video.removeEventListener('play', onPlay)
+      video.removeEventListener('pause', onPause)
       video.removeEventListener('ended', onEnded)
       this.removeAttribute('playing')
-      this.detachVideo = function () {}
+      this.classList.remove('is-current')
+      this.video = null
+      this.detachVideo = null
+      console.log(`Je me détache de la vidéo`)
+    }
+    onPlay()
+  }
+
+
+  connectedCallback () {
+    document.addEventListener('play', this.onVideoPlay)
+  }
+
+  /**
+   * Ecoute le lancement de la lecture d'une
+   */
+  onVideoPlay (e) {
+    const video = e.target
+    const id = video.id
+    if (id === this.dataset.videoId) {
+      this.attachVideo(video)
+      this.onplay
+    } else if (this.detachVideo) {
+      this.detachVideo()
     }
   }
 
   /**
-   * Détache le lecteur (supprime les listeners) du bouton de lecture.
+   * Quand on clique sur le bouton lecture
    */
-  detachVideo () {}
+  onClick (e) {
+    if (!this.video) {
+      return;
+    }
+    e.preventDefault();
+    e.stopPropagation()
+    if (this.getAttribute('playing')) {
+      this.video.pause()
+    } else {
+      this.video.play()
+    }
+  }
+
+  disconnectedCallback () {
+    document.removeEventListener('play', this.onVideoPlay)
+    if (this.detachVideo) {
+      this.detachVideo()
+    }
+  }
 }

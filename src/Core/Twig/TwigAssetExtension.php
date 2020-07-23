@@ -90,8 +90,7 @@ class TwigAssetExtension extends AbstractExtension
             $host = $request->getHost();
             $script = <<<HTML
                 <script type="module">
-                import "http://{$host}:3000/vite/hmr"
-                window.process = { env: { NODE_ENV: "development" }}
+                import "http://{$host}:3000/vite/client"
                 </script>
                 $script
             HTML;
