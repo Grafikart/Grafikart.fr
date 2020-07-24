@@ -189,7 +189,7 @@ export class PlayButton extends HTMLElement {
   }
 
   /**
-   * Ecoute le lancement de la lecture d'une
+   * Ecoute le lancement de la lecture d'une vidéo
    */
   onVideoPlay (e) {
     const video = e.target
