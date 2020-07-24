@@ -46,9 +46,7 @@ class UniqueValidator extends ConstraintValidator
             $constraint->field => $value,
         ]);
 
-        if (
-            null !== $result &&
-            (!method_exists($result, 'getId') || $result->getId() !== $obj->getId())
+        if (null !== $result && $result->getId() !== $obj->getId())
         ) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $value)
