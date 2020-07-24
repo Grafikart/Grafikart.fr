@@ -10,16 +10,10 @@ import './modules/highlight.js'
 import { showHistory } from './modules/history.js'
 import ChoicesJS from 'choices.js'
 import { $$ } from '/functions/dom.js'
+import DarkMode from './elements/DarkMode'
 
 document.addEventListener('turbolinks:load', () => {
-  const darkToggle = document.querySelector('#dark-toggle')
-  if (darkToggle) {
-    darkToggle.addEventListener('click', e => {
-      e.stopPropagation()
-      e.preventDefault()
-      document.body.classList.toggle('dark')
-    })
-  }
+  new DarkMode()
 
   // Choices
   $$('select[multiple]').forEach(s => new ChoicesJS(s))

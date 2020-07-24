@@ -1,0 +1,19 @@
+.js-dark{
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--border);
+    color: var(--contrast);
+    border: none;
+    border-radius: 30px;
+    padding: space(1);
+    z-index: 500;
+
+    svg{
+        display: block;
+        width: 24px;
+        height: 24px;
+    }
+
+    &:focus { border: 1px dotted; }
+}

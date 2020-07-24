@@ -22,7 +22,6 @@
     <li><a href="{{ path('forum') }}"  {{ menu_active('forum') }}>{{ icon('comment') }} Forum</a></li>
     <li><a href="{{ path('live') }}" {{ menu_active('live') }} class="{{ is_live_running() ? 'has-live' : '' }}">{{ icon('camera') }} Live {{ next_live_time() }}</a></li>
     <li><a href="{{ path('blog_index') }}" {{ menu_active('blog') }}>{{ icon('pen') }} Blog</a></li>
-    <li id="dark-toggle"><a href="#">Dark</a></li>
   </ul>
   <ul class="header-side">
     <li class="header__notification">
