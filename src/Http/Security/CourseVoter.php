@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 class CourseVoter extends Voter
 {
     const DOWNLOAD_SOURCE = 'DOWNLOAD_SOURCE';
-    const DOWNLOAD_VIDEO = 'DOWNLOAD_SOURCE';
+    const DOWNLOAD_VIDEO = 'DOWNLOAD_VIDEO';
 
     /**
      * {@inheritdoc}
