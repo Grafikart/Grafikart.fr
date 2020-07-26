@@ -28,3 +28,6 @@ App\Domain\Course\Entity\TechnologyUsage:
     version: <numberBetween(100, 5000)>
     technology: '@technology<numberBetween(1, 5)>'
     content: '@course<current()>'
+
+App\Domain\Comment\Comment:
+  comment{1..50} (extends comment):

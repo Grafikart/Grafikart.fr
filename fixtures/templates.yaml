@@ -56,6 +56,10 @@ App\Domain\Comment\Comment:
     username: john<numberBetween(0, 1000)>
     email: john<numberBetween(0, 1000)>\@doe.fr
     createdAt: <dateTimeThisYear()>
+    content: <sentence(100)>
+    parent: '20%? @comment*'
+    author: '@user*'
+    target: '@course*'
 
 App\Domain\Forum\Entity\Tag:
   tag (template):
