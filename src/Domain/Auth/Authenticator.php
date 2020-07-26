@@ -3,7 +3,6 @@
 namespace App\Domain\Auth;
 
 use App\Domain\Auth\Event\BadPasswordLoginEvent;
-use App\Domain\Auth\Exception\TooManyBadCredentialsException;
 use App\Domain\Auth\Service\LoginAttemptService;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -44,8 +43,7 @@ class Authenticator extends AbstractFormLoginAuthenticator implements PasswordAu
         CsrfTokenManagerInterface $csrfTokenManager,
         UserPasswordEncoderInterface $passwordEncoder,
         EventDispatcherInterface $eventDispatcher
-    )
-    {
+    ) {
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
@@ -94,9 +92,7 @@ class Authenticator extends AbstractFormLoginAuthenticator implements PasswordAu
     public function checkCredentials($credentials, UserInterface $user): bool
     {
         $this->user = $user;
-        if ($user instanceof User && $this->loginAttemptService->limitReachedFor($user)) {
-            throw new TooManyBadCredentialsException($user);
-        }
+
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
     }
 
@@ -122,6 +118,7 @@ class Authenticator extends AbstractFormLoginAuthenticator implements PasswordAu
         ) {
             $this->eventDispatcher->dispatch(new BadPasswordLoginEvent($this->user));
         }
+
         return parent::onAuthenticationFailure($request, $exception);
     }
 
@@ -131,14 +128,16 @@ class Authenticator extends AbstractFormLoginAuthenticator implements PasswordAu
     }
 
     /**
-     * @return Response
+     * @return RedirectResponse|JsonResponse
      */
     public function start(Request $request, AuthenticationException $authException = null): Response
     {
         $url = $this->getLoginUrl();
-        if ($request->getContentType() === 'json') {
+
+        if ('json' === $request->getContentType()) {
             return new JsonResponse([], Response::HTTP_FORBIDDEN);
         }
+
         return new RedirectResponse($url);
     }
 }

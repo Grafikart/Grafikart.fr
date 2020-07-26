@@ -6,7 +6,6 @@ use App\Domain\Application\Entity\Content;
 
 class ContentDeletedEvent
 {
-
     private Content $content;
 
     public function __construct(Content $content)
@@ -18,5 +17,4 @@ class ContentDeletedEvent
     {
         return $this->content;
     }
-
 }

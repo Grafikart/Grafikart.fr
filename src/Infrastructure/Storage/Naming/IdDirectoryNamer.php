@@ -8,7 +8,6 @@ use Vich\UploaderBundle\Naming\DirectoryNamerInterface;
 
 class IdDirectoryNamer implements DirectoryNamerInterface
 {
-
     /**
      * @param Content $object
      */

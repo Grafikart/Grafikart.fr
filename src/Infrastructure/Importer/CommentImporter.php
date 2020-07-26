@@ -10,13 +10,12 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 final class CommentImporter extends MySQLImporter
 {
-
     public function import(SymfonyStyle $io): void
     {
         $this->truncate('comment');
         $offset = 0;
         $io->title('Importation des utilisateurs');
-        $query = $this->pdo->prepare("SELECT COUNT(id) as count FROM comments");
+        $query = $this->pdo->prepare('SELECT COUNT(id) as count FROM comments');
         $query->execute();
         $result = $query->fetch();
         $io->progressStart($result['count']);
@@ -82,7 +81,7 @@ final class CommentImporter extends MySQLImporter
             $this->em->clear();
             $offset += 1000;
         }
-        $lastId++;
+        ++$lastId;
         $this->em->getConnection()->exec("ALTER SEQUENCE comment_id_seq RESTART WITH $lastId;");
         $io->progressFinish();
         $io->success(sprintf('Importation de %d commentaires', $result['count']));
@@ -90,7 +89,7 @@ final class CommentImporter extends MySQLImporter
 
     private function attachContent(Comment $comment, string $type, int $id, ?string $slug): bool
     {
-        if ($type === 'Tutoriel' && $id > 0) {
+        if ('Tutoriel' === $type && $id > 0) {
             /** @var Course $course */
             $course = $this->em->getReference(Course::class, $id);
             $comment->setTarget($course);
@@ -98,7 +97,7 @@ final class CommentImporter extends MySQLImporter
             return true;
         }
 
-        if ($type === 'Post' && $id > 0 && $slug) {
+        if ('Post' === $type && $id > 0 && $slug) {
             $post = $this->em->getRepository(Post::class)->findOneBy(['slug' => $slug]);
             if ($post) {
                 $comment->setTarget($post);
@@ -106,11 +105,12 @@ final class CommentImporter extends MySQLImporter
                 return true;
             }
         }
+
         return false;
     }
 
     public function support(string $type): bool
     {
-        return $type === 'comments';
+        return 'comments' === $type;
     }
 }

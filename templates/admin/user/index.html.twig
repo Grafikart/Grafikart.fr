@@ -1,0 +1,54 @@
+{% extends 'admin/layout/card.html.twig' %}
+
+{% block title %}
+    {{ icon('user') }}
+    Gestion des utilisateurs
+{% endblock %}
+
+{% block content %}
+    <div class="flex">
+      <form class="form-group dashboard-search">
+        <input name="q" type="text" placeholder="Rechercher un utilisateur" value="{{ app.request.get('q') }}" >
+      </form>
+    </div>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>{{ sort_by(rows, 'ID', 'row.id') }}</th>
+        <th>Pseudo</th>
+        <th>Email</th>
+        <th class="text-right">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+        {% for row in rows %}
+        <tr>
+          <td class="dashboard-id">
+            {{ row.id }}
+          </td>
+          <td class="dashboard-id">
+            {{ row.username }}
+          </td>
+          <td>
+            {{ row.email }}
+          </td>
+          <td>
+            {#
+            <div class="dashboard-actions">
+              <a href="{{ link }}">{{ icon('edit') }}</a>
+              <form action="{{ path(prefix ~ '_edit', {id: row.id}) }}" method="post" onsubmit="return confirm('Voulez vous vraiment supprimer ce contenu')">
+                <input type="hidden" name="_method" value="DELETE" />
+                <button type="submit">
+                  {{ icon('delete') }}
+                </button>
+              </form>
+            </div>
+            #}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    {{ paginate(rows) }}
+{% endblock %}

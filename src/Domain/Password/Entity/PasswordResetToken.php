@@ -10,7 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class PasswordResetToken
 {
-
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -47,6 +46,7 @@ class PasswordResetToken
     public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
+
         return $this;
     }
 
@@ -58,6 +58,7 @@ class PasswordResetToken
     public function setToken(string $token): self
     {
         $this->token = $token;
+
         return $this;
     }
 
@@ -69,7 +70,7 @@ class PasswordResetToken
     public function setUser(User $user): self
     {
         $this->user = $user;
+
         return $this;
     }
-
 }

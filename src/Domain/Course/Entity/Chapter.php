@@ -4,7 +4,6 @@ namespace App\Domain\Course\Entity;
 
 class Chapter
 {
-
     private string $title;
 
     /**
@@ -13,7 +12,7 @@ class Chapter
     private array $courses = [];
 
     /**
-     * Génère des chapitres à partir du JSON renvoyée par la base
+     * Génère des chapitres à partir du JSON renvoyée par la base.
      *
      * @return Chapter[]
      */
@@ -29,6 +28,7 @@ class Chapter
             }, $c['courses']);
             $chapters[] = $chapter;
         }
+
         return $chapters;
     }
 
@@ -40,6 +40,7 @@ class Chapter
     public function setTitle(string $title): Chapter
     {
         $this->title = $title;
+
         return $this;
     }
 
@@ -51,7 +52,7 @@ class Chapter
     public function setCourses(array $courses): Chapter
     {
         $this->courses = $courses;
+
         return $this;
     }
-
 }

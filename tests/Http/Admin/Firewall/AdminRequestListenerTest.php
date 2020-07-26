@@ -11,8 +11,8 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class AdminRequestListenerTest extends KernelTestCase
 {
-
-    public function urlDataProvier() {
+    public function urlDataProvier()
+    {
         yield ['/admin', '/admin/blog', true];
         yield ['admin', '/admin/blog', true];
         yield ['/admin', '/admin/', true];
@@ -25,7 +25,8 @@ class AdminRequestListenerTest extends KernelTestCase
     /**
      * @dataProvider urlDataProvier
      */
-    public function testRequestListener (string $prefix, string $uri, bool $expectException, bool $isGranted = false) {
+    public function testRequestListener(string $prefix, string $uri, bool $expectException, bool $isGranted = false)
+    {
         $event = $this->getMockBuilder(RequestEvent::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -47,12 +48,11 @@ class AdminRequestListenerTest extends KernelTestCase
             ->willReturn($isGranted);
 
         $listener = new AdminRequestListener($prefix, $authChecker);
-        if ($expectException === true) {
+        if (true === $expectException) {
             $this->expectException(AccessDeniedException::class);
         } else {
             $this->addToAssertionCount(1);
         }
         $listener->onRequest($event);
     }
-
 }

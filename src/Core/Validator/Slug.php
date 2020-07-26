@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Core\Validator;
 
 use Symfony\Component\Validator\Constraints\Regex;
@@ -11,10 +10,9 @@ use Symfony\Component\Validator\Constraints\RegexValidator;
  */
 class Slug extends Regex
 {
-
     public function __construct($options = [])
     {
-        $options['pattern'] =  '/^([a-z0-9]+\-)*[a-z0-9]+$/';
+        $options['pattern'] = '/^([a-z0-9]+\-)*[a-z0-9]+$/';
         parent::__construct($options);
     }
 
@@ -22,5 +20,4 @@ class Slug extends Regex
     {
         return RegexValidator::class;
     }
-
 }

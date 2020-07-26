@@ -2,15 +2,18 @@
 
 namespace App\Domain\Live;
 
+use App\Core\UploaderBundle\RemoteFile;
 use Doctrine\ORM\Mapping as ORM;
 use Google_Service_YouTube_Thumbnail;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Domain\Live\LiveRepository")
+ * @Vich\Uploadable()
  */
 class Live
 {
-
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -26,7 +29,7 @@ class Live
     /**
      * @ORM\Column(type="text")
      */
-    private string $description;
+    private string $description = '';
 
     /**
      * @ORM\Column(type="string", length=20)
@@ -44,25 +47,37 @@ class Live
     private \DateTimeInterface $createdAt;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @Vich\UploadableField(mapping="lives", fileNameProperty="imageName")
      */
-    private \DateTimeInterface $updated_at;
+    private ?File $image = null;
 
-    private string $youtube_thumbnail;
+    /**
+     * @ORM\Column(type="string", name="image", nullable=true)
+     */
+    private ?string $imageName = null;
 
-    public static function fromPlayListItem(\Google_Service_YouTube_PlaylistItem $item): self
+    public static function fromYoutubeVideo(\Google_Service_YouTube_Video $video): self
     {
-        $publishedAt = new \DateTime($item->getSnippet()->getPublishedAt());
+        $publishedAt = new \DateTime($video->getSnippet()->getPublishedAt());
         /** @var Google_Service_YouTube_Thumbnail|null $thumbnail */
-        $thumbnail = $item->getSnippet()->getThumbnails()->getMaxres();
+        $thumbnail = $video->getSnippet()->getThumbnails()->getMaxres();
+        /** @var Google_Service_YouTube_Thumbnail|null $thumbnail */
+        $thumbnail = $thumbnail ?: $video->getSnippet()->getThumbnails()->getHigh();
+
         return (new self())
             ->setCreatedAt($publishedAt)
-            ->setYoutubeId($item->getSnippet()->getResourceId()->getVideoId())
-            ->setName($item->getSnippet()->getTitle())
-            ->setDescription($item->getSnippet()->getDescription())
-            ->setYoutubeThumbnail($thumbnail ? $thumbnail->getUrl() : null)
-            ->setDuration((int)$item->getContentDetails()->getEndAt())
-            ->setUpdatedAt($publishedAt);
+            ->setYoutubeId($video->getId())
+            ->setName($video->getSnippet()->getTitle())
+            ->setDescription($video->getSnippet()->getDescription())
+            ->setImage($thumbnail ? new RemoteFile($thumbnail->getUrl()) : null)
+            ->setDuration(new \DateInterval($video->getContentDetails()->getDuration()));
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getId(): ?int
@@ -94,6 +109,11 @@ class Live
         return $this;
     }
 
+    public function getYoutubeUrl(): ?string
+    {
+        return 'https://youtu.be/'.$this->youtubeId;
+    }
+
     public function getYoutubeId(): ?string
     {
         return $this->youtubeId;
@@ -106,7 +126,7 @@ class Live
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
     }
@@ -118,52 +138,48 @@ class Live
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updated_at;
-    }
-
-    public function setUpdatedAt(\DateTimeInterface $updated_at): self
-    {
-        $this->updated_at = $updated_at;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getYoutubeThumbnail(): string
-    {
-        return $this->youtube_thumbnail;
-    }
-
-    /**
-     * @param string $youtube_thumbnail
-     */
-    public function setYoutubeThumbnail(?string $youtube_thumbnail): self
-    {
-        $this->youtube_thumbnail = $youtube_thumbnail ?? "https://i.ytimg.com/vi/{$this->getYoutubeId()}/maxresdefault.jpg";
-
-        return $this;
-    }
-
-    public function getThumbnailPath(): string
-    {
-        return "lives/{$this->getYoutubeId()}.jpg";
-    }
-
     public function getDuration(): int
     {
         return $this->duration;
     }
 
-    public function setDuration(int $duration): self
+    /**
+     * @param int|\DateInterval $duration
+     *
+     * @return $this
+     */
+    public function setDuration($duration): self
     {
-        $this->duration = $duration;
+        if ($duration instanceof \DateInterval) {
+            $this->duration = 3600 * $duration->h + 60 * $duration->i + $duration->s;
+        } else {
+            $this->duration = $duration;
+        }
 
         return $this;
     }
 
+    public function getImage(): ?File
+    {
+        return $this->image;
+    }
 
+    public function setImage(?File $image): Live
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    public function setImageName(?string $imageName): Live
+    {
+        $this->imageName = $imageName;
+
+        return $this;
+    }
 }

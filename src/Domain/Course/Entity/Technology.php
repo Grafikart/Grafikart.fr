@@ -49,6 +49,7 @@ class Technology
 
     /**
      * @ORM\OneToMany(targetEntity="App\Domain\Course\Entity\TechnologyUsage", mappedBy="technology", orphanRemoval=true)
+     *
      * @var Collection<int, TechnologyUsage>
      */
     private Collection $usages;
@@ -62,9 +63,31 @@ class Technology
      */
     private ?\DateTimeInterface $updatedAt = null;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Domain\Course\Entity\Technology", inversedBy="requiredBy")
+     * @ORM\JoinTable(name="technology_requirement")
+     *
+     * @var Collection<int, Technology>
+     */
+    private Collection $requirements;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Domain\Course\Entity\Technology", mappedBy="requirements")
+     *
+     * @var Collection<int, Technology>
+     */
+    private Collection $requiredBy;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private ?string $type = null;
+
     public function __construct()
     {
         $this->usages = new ArrayCollection();
+        $this->requirements = new ArrayCollection();
+        $this->requiredBy = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -80,7 +103,7 @@ class Technology
     public function setName(?string $name): self
     {
         $this->name = $name;
-        if ($this->slug === null && $this->name) {
+        if (null === $this->slug && $this->name) {
             $this->slug = (new Slugify())->slugify($this->name);
         }
 
@@ -158,6 +181,7 @@ class Technology
     public function setVersion(?string $version): self
     {
         $this->version = $version;
+
         return $this;
     }
 
@@ -169,6 +193,7 @@ class Technology
     public function setSecondary(bool $secondary): self
     {
         $this->secondary = $secondary;
+
         return $this;
     }
 
@@ -185,6 +210,7 @@ class Technology
     public function setImageFile(?File $imageFile): Technology
     {
         $this->imageFile = $imageFile;
+
         return $this;
     }
 
@@ -196,7 +222,53 @@ class Technology
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): Technology
     {
         $this->updatedAt = $updatedAt;
+
         return $this;
     }
 
+    /**
+     * @return Collection<int, Technology>
+     */
+    public function getRequirements(): Collection
+    {
+        return $this->requirements;
+    }
+
+    public function addRequirement(self $requirement): self
+    {
+        if (!$this->requirements->contains($requirement)) {
+            $this->requirements[] = $requirement;
+        }
+
+        return $this;
+    }
+
+    public function removeRequirement(self $requirement): self
+    {
+        if ($this->requirements->contains($requirement)) {
+            $this->requirements->removeElement($requirement);
+        }
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(?string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Technology>
+     */
+    public function getRequiredBy()
+    {
+        return $this->requiredBy;
+    }
 }

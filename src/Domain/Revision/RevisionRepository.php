@@ -15,7 +15,6 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class RevisionRepository extends ServiceEntityRepository
 {
-
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Revision::class);
@@ -36,10 +35,9 @@ class RevisionRepository extends ServiceEntityRepository
             ->andWhere('r.target = :target')
             ->setParameters([
                 'author' => $user,
-                'target' => $content
+                'target' => $content,
             ])
             ->getQuery()
             ->getOneOrNullResult();
     }
-
 }

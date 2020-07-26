@@ -1,0 +1,14 @@
+include:
+  - ../../fixtures/templates.yaml
+
+App\Domain\Auth\User:
+  user{1..4} (extends user):
+
+App\Domain\Forum\Entity\Tag:
+  tag{1..4} (extends tag):
+
+App\Domain\Forum\Entity\Topic:
+  topic{1..2} (extends topic):
+
+App\Domain\Forum\Entity\Message:
+  message{1..2} (extends forum_message):

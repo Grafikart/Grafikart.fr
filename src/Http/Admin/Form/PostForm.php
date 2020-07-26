@@ -9,7 +9,6 @@ use App\Domain\Attachment\Type\AttachmentType;
 use App\Domain\Blog\Category;
 use App\Http\Admin\Data\PostCrudData;
 use App\Http\Admin\Field\UserChoiceType;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -18,14 +17,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PostForm extends AbstractType
 {
-
-    private EntityManagerInterface $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
-    {
-        $this->entityManager = $entityManager;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -35,7 +26,7 @@ class PostForm extends AbstractType
             ->add('createdAt', DateTimeType::class)
             ->add('category', EntityType::class, [
                 'class' => Category::class,
-                'choice_label' => 'name'
+                'choice_label' => 'name',
             ])
             ->add('author', UserChoiceType::class)
             ->add('content', EditorType::class)
@@ -48,5 +39,4 @@ class PostForm extends AbstractType
             'data_class' => PostCrudData::class,
         ]);
     }
-
 }

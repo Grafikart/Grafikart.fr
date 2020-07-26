@@ -11,7 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Post extends Content
 {
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Blog\Category", inversedBy="posts")
      * @ORM\JoinColumn(onDelete="SET NULL")
@@ -30,11 +29,12 @@ class Post extends Content
         return $this;
     }
 
-    public function hasVideo (): bool
+    public function hasVideo(): bool
     {
-        if ($this->getContent() !== null) {
-            return preg_match('/^[^\s]*youtube.com/mi', $this->getContent()) === 1;
+        if (null !== $this->getContent()) {
+            return 1 === preg_match('/^[^\s]*youtube.com/mi', $this->getContent());
         }
+
         return false;
     }
 }

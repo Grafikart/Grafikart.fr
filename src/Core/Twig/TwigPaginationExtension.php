@@ -10,7 +10,6 @@ use Twig\TwigFunction;
 
 class TwigPaginationExtension extends AbstractExtension
 {
-
     private Processor $processor;
 
     public function __construct(Processor $processor)
@@ -49,9 +48,9 @@ class TwigPaginationExtension extends AbstractExtension
         array $viewParams = []
     ): string {
         $pagination->setTemplate('partials/pagination-nav.html.twig');
+
         return $this->render($env, $pagination, $queryParams, $viewParams);
     }
-
 
     public function sortBy(
         Environment $env,
@@ -63,10 +62,8 @@ class TwigPaginationExtension extends AbstractExtension
         ?string $template = null
     ): string {
         return $env->render(
-            $template ?: (string)$pagination->getSortableTemplate(),
+            $template ?: (string) $pagination->getSortableTemplate(),
             $this->processor->sortable($pagination, $title, $key, $options, $params)
         );
     }
-
-
 }

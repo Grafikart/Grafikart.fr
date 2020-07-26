@@ -21,9 +21,9 @@
     </div>
     <footer class="card__footer">
       {% if course.formation %}
-      <div>
-        {{ icon('lines') }} {{ course.formation.title }}
-      </div>
+        <div>
+          {{ icon('lines') }} {{ course.formation.title }}
+        </div>
       {% endif %}
       <div>
         {{ icon('clock') }} {{ course.duration | duration }}

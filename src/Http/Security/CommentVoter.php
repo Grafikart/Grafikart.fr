@@ -22,10 +22,8 @@ class CommentVoter extends Voter
     }
 
     /**
-     * @param string $attribute
+     * @param string                  $attribute
      * @param Comment|CommentResource $subject
-     * @param TokenInterface $token
-     * @return bool
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
@@ -39,11 +37,10 @@ class CommentVoter extends Voter
             $subject = $subject->entity;
         }
 
-        if ($subject === null) {
+        if (null === $subject) {
             return false;
         }
 
-        return $subject->getAuthor() !== null && $subject->getAuthor()->getId() === $user->getId();
+        return null !== $subject->getAuthor() && $subject->getAuthor()->getId() === $user->getId();
     }
-
 }

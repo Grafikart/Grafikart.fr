@@ -1,0 +1,33 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+
+  <iframe src="{{ path('admin_email', {format: 'html'}) }}" frameborder="0"></iframe>
+  <iframe src="{{ path('admin_email', {format: 'text'}) }}" frameborder="0"></iframe>
+
+{% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  <style>
+    .dashboard {
+      padding: 0!important;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .dashboard iframe {
+      width: 100%;
+      height: 100vh;
+    }
+    @media screen and (max-width: 1200px) {
+      .dashboard {
+        padding: 0!important;
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+      .dashboard iframe {
+        height: 50vh;
+      }
+    }
+  </style>
+{% endblock %}

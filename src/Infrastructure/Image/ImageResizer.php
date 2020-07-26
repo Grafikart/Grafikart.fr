@@ -2,30 +2,37 @@
 
 namespace App\Infrastructure\Image;
 
-use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
+use League\Glide\Urls\UrlBuilderFactory;
 
 /**
- * Renvoie une URL redimensionnée pour une image donnée
+ * Renvoie une URL redimensionnée pour une image donnée.
  */
 class ImageResizer
 {
+    /**
+     * Clef permettant de signer les URLs pour le redimensionnement
+     * (cf https://glide.thephpleague.com/1.0/config/security/).
+     */
+    private string $signKey;
 
-    private UploaderHelper $helper;
-
-    public function __construct(UploaderHelper $helper)
+    public function __construct(string $signKey)
     {
-        $this->helper = $helper;
+        $this->signKey = $signKey;
     }
 
     public function resize(?string $url, ?int $width = null, ?int $height = null): string
     {
-        if ($url === null || empty($url)) {
+        $base = '/resize';
+        if (null === $url || empty($url)) {
             return '';
         }
-        if ($width === null && $height === null) {
-            return "/resize/jpg" . $url;
+        if (null === $width && null === $height) {
+            $url = '/resize/jpg'.$url;
+        } else {
+            $url = "{$base}/{$width}/{$height}{$url}";
         }
-        return "/resize/r_{$width}_{$height}{$url}";
-    }
+        $urlBuilder = UrlBuilderFactory::create('/', $this->signKey);
 
+        return $urlBuilder->getUrl($url);
+    }
 }

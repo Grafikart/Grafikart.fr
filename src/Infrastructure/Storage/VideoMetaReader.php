@@ -7,14 +7,6 @@ use Symfony\Component\Process\Process;
 
 class VideoMetaReader
 {
-
-    private string $ffprobeBinary;
-
-    public function __construct(string $ffprobeBinary = 'ffprobe')
-    {
-        $this->ffprobeBinary = $ffprobeBinary;
-    }
-
     public function getDuration(string $videoPath): ?int
     {
         if (!file_exists($videoPath)) {
@@ -28,19 +20,19 @@ class VideoMetaReader
             'format=duration',
             '-of',
             'default=noprint_wrappers=1:nokey=1',
-            $videoPath
+            $videoPath,
         ]);
         try {
             $process->mustRun();
-            return (int)$process->getOutput();
+
+            return (int) $process->getOutput();
         } catch (ProcessFailedException $exception) {
             $error = sprintf(
-                "Impossible de récupérer la durée de la vidéo %s, %s",
+                'Impossible de récupérer la durée de la vidéo %s, %s',
                 $videoPath,
                 $exception->getMessage()
             );
             throw new \RuntimeException($error);
         }
     }
-
 }

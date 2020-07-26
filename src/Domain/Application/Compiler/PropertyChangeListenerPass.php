@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * Créer un système capable de suivre les changement de propriétés au sein de certaines entités
+ * Créer un système capable de suivre les changement de propriétés au sein de certaines entités.
  *
  * Tout service taggé avec doctrine.orm.property_change_listener peut observer les changement d'une propriété et voir
  * une de ces méthode appellée lors d'un changement.
@@ -25,7 +25,7 @@ use Symfony\Component\DependencyInjection\Reference;
 class PropertyChangeListenerPass implements CompilerPassInterface
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function process(ContainerBuilder $container): void
     {
@@ -41,17 +41,17 @@ class PropertyChangeListenerPass implements CompilerPassInterface
         }
 
         // On crée un listener par entité à observer
-        foreach($entities as $entity => $listeners) {
+        foreach ($entities as $entity => $listeners) {
             $properties = [];
             /**
-             * @var string $listenerId
+             * @var string        $listenerId
              * @var array{entity: string, method: string, property: string} $listenerAttributes
              */
-            foreach($listeners as $listenerId => $listenerAttributes) {
+            foreach ($listeners as $listenerId => $listenerAttributes) {
                 $properties[$listenerAttributes['property']] = $properties[$listenerAttributes['property']] ?? [];
                 $properties[$listenerAttributes['property']][] = array_merge($listenerAttributes, ['listener' => new Reference($listenerId)]);
             }
-            $id = 'doctrine.orm.property_change_listener' . $entity;
+            $id = 'doctrine.orm.property_change_listener'.$entity;
             $definition = new Definition(DoctrinePropertyChangeEventListener::class, [$properties]);
             $definition->setLazy(true);
             $definition->setAutowired(true);
@@ -68,6 +68,4 @@ class PropertyChangeListenerPass implements CompilerPassInterface
             $container->setDefinition($id, $definition);
         }
     }
-
 }
-

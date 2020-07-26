@@ -10,16 +10,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PasswordResetRequestForm extends AbstractType
 {
-
     /**
      * @param FormBuilderInterface<FormBuilderInterface> $builder
-     * @param array<string,mixed> $options
+     * @param array<string,mixed>                        $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('email', EmailType::class, [
-                'required' => true
+                'required' => true,
             ])
         ;
     }
@@ -35,5 +34,4 @@ class PasswordResetRequestForm extends AbstractType
     {
         return '';
     }
-
 }

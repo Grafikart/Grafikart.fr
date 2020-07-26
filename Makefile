@@ -5,6 +5,8 @@ dr := $(dc) run --rm
 de := docker-compose exec
 sy := $(de) php bin/console
 drtest := $(dc) -f docker-compose.test.yml run --rm
+# drnode := $(dr) node # Pour le moment node tourne sur l'hôte
+drnode :=
 
 .DEFAULT_GOAL := help
 .PHONY: help
@@ -16,8 +18,9 @@ install: public/assets vendor/autoload.php ## Installe les différentes dépenda
 
 .PHONY: build-docker
 build-docker:
-	$(dc) pull --ignore-pull-failures
-	$(dc) build --force-rm
+	# $(dc) pull --ignore-pull-failures
+	$(dc) build --force-rm --pull php
+	$(dc) build --force-rm --pull node
 
 .PHONY: dev
 dev: vendor/autoload.php node_modules/time ## Lance le serveur de développement
@@ -33,9 +36,17 @@ seed: vendor/autoload.php ## Génère des données dans la base de données (doc
 	$(sy) doctrine:schema:validate -q
 	$(sy) hautelook:fixtures:load -q
 
+.PHONY: migration
+migration: vendor/autoload.php ## Génère les migrations
+	$(sy) make:migration
+
 .PHONY: migrate
-migrate: vendor/autoload.php ## Migre la base de donnée (docker-compose up doit être lancé)
+migrate: vendor/autoload.php ## Migre la base de données (docker-compose up doit être lancé)
 	$(sy) doctrine:migrations:migrate -q
+
+.PHONY: rollback
+rollback:
+	$(sy) doctrine:migration:migrate prev
 
 .PHONY: import
 import: vendor/autoload.php ## Import les données du site actuel
@@ -47,20 +58,28 @@ import: vendor/autoload.php ## Import les données du site actuel
 	$(sy) app:import formations
 	$(sy) app:import blog
 	$(sy) app:import comments
+	$(sy) app:import forum
 	$(dc) -f docker-compose.import.yml stop
 
 .PHONY: test
 test: vendor/autoload.php ## Execute les tests
+	$(drtest) phptest bin/console doctrine:schema:validate --skip-sync
 	$(drtest) phptest vendor/bin/phpunit
-	$(dr) --no-deps node yarn run test
+	$(drnode) yarn run test
 
 .PHONY: tt
 tt: vendor/autoload.php ## Lance le watcher phpunit
+	$(de) php bin/console cache:clear --env=test
 	$(drtest) phptest vendor/bin/phpunit-watcher watch --filter="nothing"
 
 .PHONY: lint
 lint: vendor/autoload.php ## Analyse le code
 	docker run -v $(PWD):/app --rm phpstan/phpstan analyse
+
+.PHONY: format
+format:
+	npx prettier-standard --lint --changed "assets/**/*.{js,css,jsx}"
+	vendor/bin/php-cs-fixer fix
 
 .PHONY: doc
 doc: ## Génère le sommaire de la documentation
@@ -71,8 +90,10 @@ vendor/autoload.php: composer.lock
 	touch vendor/autoload.php
 
 node_modules/time: yarn.lock
-	$(dr) --no-deps node yarn
+	$(drnode) yarn
 	touch node_modules/time
 
 public/assets: node_modules/time
-	$(dr) --no-deps node yarn run build
+	$(drnode) npx sass assets/css/app.scss assets/css/app.css
+	$(drnode) yarn run build
+

@@ -12,7 +12,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ProgressionSubscriber implements EventSubscriberInterface
 {
-
     private EntityManagerInterface $em;
     private EventDispatcherInterface $dispatcher;
 
@@ -27,7 +26,7 @@ class ProgressionSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            ProgressEvent::class => 'onProgress'
+            ProgressEvent::class => 'onProgress',
         ];
     }
 
@@ -36,9 +35,9 @@ class ProgressionSubscriber implements EventSubscriberInterface
         $repository = $this->em->getRepository(Progress::class);
         $progress = $repository->findOneBy([
             'content' => $event->getContent(),
-            'author'  => $event->getUser()
+            'author' => $event->getUser(),
         ]);
-        if ($progress === null) {
+        if (null === $progress) {
             $progress = (new Progress())
                 ->setUpdatedAt(new \DateTime())
                 ->setCreatedAt(new \DateTime())
@@ -56,26 +55,25 @@ class ProgressionSubscriber implements EventSubscriberInterface
         if (
             $event->getContent() instanceof Course &&
             $event->getContent()->getFormation() &&
-            $event->getPercent() === 100
+            100 === $event->getPercent()
         ) {
             /** @var Formation $formation */
             $formation = $event->getContent()->getFormation();
             $courses = $formation->getCourses();
             // On récupère les Ids des tutoriels dans la formation qui ne sont pas le tutoriel de l'évènement
             $courseIds = $courses
-                ->map(fn(Course $c) => $c->getId())
-                ->filter(fn(int $id) => $id !== $event->getContent()->getId())
+                ->map(fn (Course $c) => $c->getId())
+                ->filter(fn (int $id) => $id !== $event->getContent()->getId())
                 ->getValues();
             // On compte le nbre de tutoriels finis
             $count = $repository->count([
                 'content' => $courseIds,
-                'percent' => 100
+                'percent' => 100,
             ]) + 1;
 
             // On dispatch l'évènement au parent
-            $percent = (int)round(100 * $count / count($courses));
+            $percent = (int) round(100 * $count / count($courses));
             $this->dispatcher->dispatch(new ProgressEvent($formation, $event->getUser(), $percent));
-
         }
     }
 }

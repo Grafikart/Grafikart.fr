@@ -15,7 +15,6 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class UserChoiceType extends AbstractType implements DataTransformerInterface
 {
-
     private EntityManagerInterface $em;
     private UrlGeneratorInterface $url;
 
@@ -35,7 +34,7 @@ class UserChoiceType extends AbstractType implements DataTransformerInterface
         $choices = [];
         $user = $form->getData();
         if ($user instanceof User) {
-            $choices = [new ChoiceView($user, (string)$user->getId(), $user->getUsername())];
+            $choices = [new ChoiceView($user, (string) $user->getId(), $user->getUsername())];
         }
         $view->vars['choice_translation_domain'] = false;
         $view->vars['expanded'] = false;
@@ -53,8 +52,8 @@ class UserChoiceType extends AbstractType implements DataTransformerInterface
             'compound' => false,
             'attr' => [
                 'is' => 'user-select',
-                'endpoint' => $this->url->generate('admin_user_autocomplete')
-            ]
+                'endpoint' => $this->url->generate('admin_user_autocomplete'),
+            ],
         ]);
     }
 
@@ -68,7 +67,7 @@ class UserChoiceType extends AbstractType implements DataTransformerInterface
      */
     public function transform($user): string
     {
-        return $user === null ? '' : (string)$user->getId();
+        return null === $user ? '' : (string) $user->getId();
     }
 
     /**

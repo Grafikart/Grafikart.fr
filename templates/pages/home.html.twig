@@ -1,5 +1,162 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
+{% set bodyClass = 'light' %}
 
+{% block title 'Grafikart | Tutoriels et Formations vidéos sur le développement web' %}
+
+{% block body %}
+  <main class="homepage">
+
+    <section class="container">
+      <div class="home-intro">
+        <div class="home-intro__body stack">
+          <div class="hero-title">
+            Apprenez des<br>
+            nouvelles <br>
+            choses.
+          </div>
+          <p class="hero-text">
+            Améliorez-vous et apprenez de nouvelles choses grâce à <strong>513 heures</strong> de tutoriels vidéos
+            gratuits.
+          </p>
+          <div class="hstack">
+            <div class="btn-primary btn-big">Créer votre compte</div>
+            <div class="btn-primary-outlined btn-big">Suivre un cursus</div>
+          </div>
+        </div>
+        <div class="home-intro__illustration">
+          <animated-editor width="678" height="402"></animated-editor>
+          <img src="{{ asset('images/racoon.svg') }}" alt="" width="366" class="home-intro__mascot">
+        </div>
+      </div>
+    </section>
+
+    <section class="home-cursus container">
+
+      <div class="home-cursus__body">
+        <div class="stack container">
+          <h2 class="hero-title">Apprendre avec des cursus</h2>
+          <p class="hero-text">Les cursus sont une série de vidéo sélectionnées manuellement pour vous faire atteindre
+            un objectif spécifique</p>
+          <div>
+            <a class="btn-primary btn-big" href="#">Parcourir les cursus</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="home-cursus__push">
+        {% for i in 1..3 %}
+          <div class="card card-big card-illustration">
+            <div class="card__body stack">
+              <div class="card__icons">
+                <a href="#"><img src="/uploads/icons/css.svg" alt=""></a>
+                <a href="#"><img src="/uploads/icons/php.png" alt=""></a>
+              </div>
+              <h3 class="card__title">
+                Développeur backend PHP
+              </h3>
+              <p>
+                Dans ce cursus vous apprendrez tout ce qu'il y a à savoir sur le développement d'application PHP. Nous
+                commenceront par les bases de l'HTML et du CSS puis nous découvrirons comment utiliser PHP pour
+                dynamiser les contenus
+              </p>
+              <p><em>122 heures</em></p>
+            </div>
+            <a href="#" class="card__illustration" data-text="Voir ce cursus">
+              <img alt="" src="https://i.picsum.photos/id/98{{ i }}/250/348.jpg">
+              <span class="play"></span>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+
+    </section>
+
+    <section class="home-push container">
+      <div class="home-push__body stack">
+        <h2 class="hero-title">Apprendre grâce à plusieurs formats</h2>
+        <p class="hero-text">Les cursus sont une série de vidéo sélectionnées manuellement pour vous faire atteindre un
+          objectif spécifique</p>
+        <div>
+          <a class="btn-primary-outlined btn-big" href="{{ path('course_index') }}">Découvrir les derniers tutoriels</a>
+        </div>
+      </div>
+      <div class="home-push__mosaic">
+
+        <div style="background-color:var(--border); height:400px">
+        </div>
+
+        <div class="card card-big">
+          <a class="badge-rounded" href="{{ path('formation_index') }}">Les dernières formations</a>
+          <div class="home-list stack-separated">
+            {% for formation in formations %}
+              <div class="home-list__item">
+                <a class="card__title" href="{{ path(formation) }}">{{ formation.title }}</a>
+                <div>{{ formation.chapters | length }} chapitres</div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="card card-big">
+          <a class="badge-rounded" href="{{ path('course_index') }}">Les derniers tutoriels</a>
+          <div class="home-list stack-separated">
+            {% for course in courses %}
+              <div class="home-list__item has-icon">
+                {% if course.mainTechnologies | length > 0 %}
+                  {% set technology = course.mainTechnologies[0] %}
+                  <a href="{{ path(technology) }}" class="course__icon" tabindex="-1">
+                    <img src="{{ uploads_path('icons/' ~ technology.image) }}" alt="{{ technology.name }}">
+                  </a>
+                {% endif %}
+                <a class="card__title" href="{{ path(course) }}">{{ course.title }}</a>
+                <div>{{ course.duration | duration }}</div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div style="background-color:var(--border); height:283px">
+        </div>
+
+      </div>
+    </section>
+
+    <section class="home-premium container">
+      <h1 class="hero-title">Devenir premium</h1>
+      <div class="hero-text formatted">
+        Devenir premium sur Grafikart, c'est <strong>soutenir</strong> la création de nouveaux contenus chaque semaine
+        et accéder à du contenu exclusif pour apprendre et s'améliorer (comme le téléchargement des vidéos et des
+        sources).
+      </div>
+      <div class="home-premium__prices">
+        {% include 'partials/premium.html.twig' %}
+      </div>
+    </section>
+
+    <section class="home-blog container">
+      <div class="col">
+        <div class="home-blog__body stack">
+          <h1 class="hero-title">Des nouvelles du blog</h1>
+          <div class="hero-text formatted">
+            Améliorez-vous et apprenez de nouvelles choses grâce à 513 heures de tutoriels vidéos gratuits.
+          </div>
+          <div class="mt1 mb3">
+            <a class="btn-primary-outlined btn-big" href="{{ path('blog_index') }}">Accéder au blog</a>
+          </div>
+          {% set post = posts[0] %}
+          {% include 'pages/_homepost.twig' with {width: 385, height: 182, post: posts[0]} %}
+        </div>
+      </div>
+      <div class="col">
+        {% include 'pages/_homepost.twig' with {width: 385, height: 465, post: posts[1]} %}
+      </div>
+      <div class="col stack-separated">
+        {% for post in posts | slice(2, 3) %}
+          {% include 'pages/_homepost.twig' with {width: 97, height: 93} %}
+        {% endfor %}
+      </div>
+    </section>
+
+  </main>
 {% endblock %}

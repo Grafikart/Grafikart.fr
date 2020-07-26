@@ -12,7 +12,7 @@ class ContentVoter extends Voter
     const PROGRESS = 'progress';
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function supports(string $attribute, $subject)
     {
@@ -22,7 +22,7 @@ class ContentVoter extends Voter
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token)
     {

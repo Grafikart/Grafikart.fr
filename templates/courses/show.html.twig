@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 
+
 {% block body %}
 
   {% cache [course, 'single'] %}
@@ -8,45 +9,53 @@
       {{ breadcrumb(course) }}
     </div>
 
-    <div class="course-header container-full">
-      <div class="course-header__player stack">
-        <youtube-player
-          video="{{ course.youtubeId }}"
-          poster="{{ image_url(course.image) }}"
-          title="{{ course.title }}"
-          button="#chapter{{ course.id }} play-button"
-          id="coursePlayer"
-          class="shadow"></youtube-player>
-        <div class="flex">
-          <div class="inline-1">
-            {% if course.premium %}
-              <div class="pill pill-yellow">Premium</div>
-            {% endif %}
-            <div class="pill pill-green">Facile</div>
-          </div>
-          <div class="inline-1">
-            <a href="#" class="pill">
-              {{ icon('lines') }}
-              Voir la démo
-            </a>
-            {% if course.source is not empty %}
-              <a href="#" class="pill">
-                {{ icon('lines') }}
-                Télécharger les sources
-              </a>
-            {% endif %}
-            <a href="#" class="pill">
-              {{ icon('video') }}
-              Télécharger la vidéo
-            </a>
-          </div>
-        </div>
-      </div>
+    <div class="container layout-sidebar mt2 mb4">
+      <youtube-player
+        id="course-{{ course.id }}"
+        video="{{ course.youtubeId }}"
+        poster="{{ image_url(course.image) }}"
+        title="{{ course.title }}"
+        button="#chapter{{ course.id }} play-button"
+        id="coursePlayer"
+        class="shadow"></youtube-player>
       {% if course.formation %}
-        <div class="course-header__sidebar">
-          {% include 'chapters/_summary.html.twig' with {chapters: course.formation.chapters, current: "#chapter" ~ course.id} only %}
+        <div class="relative chapters">
+          <div class="absolute pt2">
+            {% include 'chapters/_summary.html.twig' with {class: '', chapters: course.formation.chapters, current: "#chapter" ~ course.id} only %}
+          </div>
         </div>
       {% endif %}
+    </div>
+
+    <div class="bg-light">
+    <div class="tabs-bar container">
+        <a href="#">Demo1</a>
+        <a href="#">Demo2</a>
+    </div>
+
+    <div class="flex">
+      <div class="inline-1">
+        {% if course.premium %}
+          <div class="pill pill-yellow">Premium</div>
+        {% endif %}
+        <div class="pill pill-green">Facile</div>
+      </div>
+      <div class="inline-1">
+        <a href="#" class="pill">
+          {{ icon('lines') }}
+          Voir la démo
+        </a>
+        {% if course.source is not empty %}
+          <a href="#" class="pill">
+            {{ icon('lines') }}
+            Télécharger les sources
+          </a>
+        {% endif %}
+        <a href="#" class="pill">
+          {{ icon('video') }}
+          Télécharger la vidéo
+        </a>
+      </div>
     </div>
 
     <div class="layout-sidebar">
@@ -63,7 +72,7 @@
         <div class="stack-large">
           <div>
             <div class="requirements__title">Technologies utilisées</div>
-            <div class="list">
+            <div class="list-group">
               <a class="flex" href="#">Twig <span class="badge">3.0</span></a>
               <a class="flex" href="#">Composer <span class="badge">3.0</span></a>
               <a class="flex" href="#">PHP <span class="badge">3.0</span></a>
@@ -92,11 +101,11 @@
         </div>
       </div>
     </div>
-
+    </div>
   {% endcache %}
 
   {% if course.formation %}
-  {{ show_history(course.formation.courses) }}
+    {{ show_history(course.formation.courses) }}
   {% endif %}
 
 {% endblock %}

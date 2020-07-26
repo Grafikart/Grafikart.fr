@@ -1,0 +1,16 @@
+{% extends 'admin/layout/card.html.twig' %}
+
+{% block title %}
+  {{ icon('tag') }}
+  Gestion des tags
+{% endblock %}
+
+{% block content %}
+
+  <div class="flex">
+    <a style="margin-left: auto;" href="{{ path(prefix ~ '_new') }}" class="dashboard-btn">Ajouter un tag</a>
+  </div>
+
+  <item-sorter items="{{ tags }}" endpoint="{{ path('admin_forum-tag_positions') }}"></item-sorter>
+
+{% endblock %}

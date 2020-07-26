@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/Grafikart/Grafikart.fr.svg?branch=master)](https://travis-ci.org/Grafikart/Grafikart.fr)
 [![Tests](https://github.com/Grafikart/Grafikart.fr/workflows/Tests/badge.svg)](https://github.com/Grafikart/Grafikart.fr/actions?query=workflow%3ATests)
+[![SymfonyInsight](https://insight.symfony.com/projects/0aed16f6-8916-4755-be7f-4adcadca72fe/mini.svg)](https://insight.symfony.com/projects/0aed16f6-8916-4755-be7f-4adcadca72fe)
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
 
@@ -10,15 +11,22 @@ Dépôt pour la nouvelle version de Grafikart.fr. L'objectif est de rendre le pr
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Pourquoi une refonte ?](#pourquoi-une-refonte-)
 - [Etat d'avancement](#etat-davancement)
+- [Participer (faire une PR)](#participer-faire-une-pr)
 - [Objectifs, pourquoi une refonte ?](#objectifs-pourquoi-une-refonte-)
   - [Problèmes techniques](#probl%C3%A8mes-techniques)
   - [Problème d'organisation / d'UX](#probl%C3%A8me-dorganisation--dux)
   - [Rendre le code Open Source](#rendre-le-code-open-source)
 - [Design](#design)
+- [Tips](#tips)
+- [Fonts à tester](#fonts-%C3%A0-tester)
+- [Référence](#r%C3%A9f%C3%A9rence)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+## Etat d'avancement
+
+L'avancement peut être suivi sur la [board trello de grafikart](https://trello.com/b/oKnfpVtU/grafikart)
 
 ## Participer (faire une PR)
 
@@ -55,6 +63,7 @@ Les contenus ne sont pas correctement mis en avant et il n'est pas évident pour
 - Les contenus premiums ne sont pas forcément mis en avant et on ne sait pas trop ce qui est disponible et ce qui ne l'est pas.
 - Un système de progression doit être mis en place pour permettre de reprendre une formation ou une vidéo.
 - Le système de pricing n'est pas clair, on a les même fonctionnalités pour 3.5€,10€,37€ et la seule différence est marquée en gris en haut à droite (temps d'abonnement)
+
 ### Rendre le code Open Source
 
 La version actuelle du site contient beaucoup de chose en dur ce qui empèche le code d'être partagé sans risque. L'objectif de cette version est donc de créer un code qui puisse être utilisé et lancé facilement par les personnes qui souhaitent collaborer.
@@ -64,7 +73,6 @@ La version actuelle du site contient beaucoup de chose en dur ce qui empèche le
 Pour le design j'utilise [Figma](https://www.figma.com) car c'est l'outil le plus simple à utiliser pour collaborer rapidement.
 
 - [Maquettes Figma](https://www.figma.com/file/HnamCOnYf7eWZCtRIru5o1/Site?node-id=17%3A2)
-
 
 ## Tips
 
@@ -91,3 +99,15 @@ Pour le design j'utilise [Figma](https://www.figma.com) car c'est l'outil le plu
 95%         F2
 100%        FF
 ```
+
+## Fonts à tester
+
+- Sofia Pro
+- Bruta Pro
+
+## Référence
+
+Pour évaluer l'efficacité de la nouvelle version :
+
+- application.js version actuelle : 174ko / 490ko
+- application.css version actuelle : 32ko / 131ko

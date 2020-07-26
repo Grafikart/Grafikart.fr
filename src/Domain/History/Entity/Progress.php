@@ -7,13 +7,13 @@ use App\Domain\Auth\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\Domain\History\Entity\ProgressRepository")
+ * @ORM\Entity(repositoryClass="App\Domain\History\Repository\ProgressRepository")
  */
 class Progress
 {
     /**
      * @ORM\Id()
-     * @ORM\GeneratedValue()
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
      */
     private ?int $id = null;

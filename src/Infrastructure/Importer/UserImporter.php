@@ -8,7 +8,6 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 final class UserImporter implements TypeImporterInterface
 {
-
     use DatabaseImporterTools;
 
     private \PDO $pdo;
@@ -32,7 +31,7 @@ final class UserImporter implements TypeImporterInterface
         $this->truncate('`user`');
         $offset = 0;
         $io->title('Importation des utilisateurs');
-        $query = $this->pdo->prepare("SELECT COUNT(id) as count FROM users");
+        $query = $this->pdo->prepare('SELECT COUNT(id) as count FROM users');
         $query->execute();
         $result = $query->fetch();
         $io->progressStart($result['count']);
@@ -45,7 +44,7 @@ final class UserImporter implements TypeImporterInterface
             if (empty($oldUsers)) {
                 break;
             }
-            foreach($oldUsers as $oldUser) {
+            foreach ($oldUsers as $oldUser) {
                 $user = (new User())
                     ->setId($oldUser['id'])
                     ->setUsername($oldUser['username'])
@@ -65,6 +64,6 @@ final class UserImporter implements TypeImporterInterface
 
     public function support(string $type): bool
     {
-        return $type === 'users';
+        return 'users' === $type;
     }
 }

@@ -6,11 +6,10 @@ use Doctrine\ORM\Query;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
- * Implémentation basée sur KnpPaginatorBundle
+ * Implémentation basée sur KnpPaginatorBundle.
  */
 class KnpPaginator implements PaginatorInterface
 {
-
     private \Knp\Component\Pager\PaginatorInterface $paginator;
     private RequestStack $requestStack;
     private array $sortableFields = [];
@@ -22,13 +21,14 @@ RequestStack $requestStack)
         $this->requestStack = $requestStack;
     }
 
-    public function paginate(Query $query): iterable
+    public function paginate(Query $query): \Traversable
     {
         $request = $this->requestStack->getCurrentRequest();
         $page = $request ? $request->query->getInt('page', 1) : 1;
+
         return $this->paginator->paginate($query, $page, $query->getMaxResults() ?: 15, [
             'sortFieldWhitelist' => $this->sortableFields,
-            'filterFieldWhitelist'=> [],
+            'filterFieldWhitelist' => [],
         ]);
     }
 

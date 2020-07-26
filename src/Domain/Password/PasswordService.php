@@ -3,7 +3,6 @@
 namespace App\Domain\Password;
 
 use App\Domain\Auth\Exception\UserNotFoundException;
-use App\Domain\Auth\User;
 use App\Domain\Auth\UserRepository;
 use App\Domain\Password\Data\PasswordResetRequestData;
 use App\Domain\Password\Entity\PasswordResetToken;
@@ -17,7 +16,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class PasswordService
 {
-
     const EXPIRE_IN = 30; // Temps d'expiration d'un token
 
     private UserRepository $userRepository;
@@ -34,9 +32,7 @@ class PasswordService
         EntityManagerInterface $em,
         EventDispatcherInterface $dispatcher,
         UserPasswordEncoderInterface $encoder
-    )
-    {
-
+    ) {
         $this->userRepository = $userRepository;
         $this->tokenRepository = $tokenRepository;
         $this->em = $em;
@@ -46,21 +42,22 @@ class PasswordService
     }
 
     /**
-     * Lance une demande de réinitialisation de mot de passe
+     * Lance une demande de réinitialisation de mot de passe.
+     *
      * @throws \App\Domain\Password\Exception\OngoingPasswordResetException
      * @throws UserNotFoundException
      */
     public function resetPassword(PasswordResetRequestData $data): void
     {
         $user = $this->userRepository->findOneBy(['email' => $data->getEmail()]);
-        if ($user === null) {
+        if (null === $user) {
             throw new UserNotFoundException();
         }
         $token = $this->tokenRepository->findOneBy(['user' => $user]);
-        if ($token !== null && !$this->isExpired($token)) {
+        if (null !== $token && !$this->isExpired($token)) {
             throw new OngoingPasswordResetException();
         }
-        if ($token === null) {
+        if (null === $token) {
             $token = new PasswordResetToken();
             $this->em->persist($token);
         }
@@ -73,7 +70,8 @@ class PasswordService
 
     public function isExpired(PasswordResetToken $token): bool
     {
-        $expirationDate = new \DateTime('-' . self::EXPIRE_IN . ' minutes');
+        $expirationDate = new \DateTime('-'.self::EXPIRE_IN.' minutes');
+
         return $token->getCreatedAt() < $expirationDate;
     }
 
@@ -85,5 +83,4 @@ class PasswordService
         $this->em->flush();
         $this->dispatcher->dispatch(new PasswordRecoveredEvent($user));
     }
-
 }

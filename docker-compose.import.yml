@@ -2,7 +2,7 @@ version: '3.1'
 services:
   php:
     build:
-      context: ./docker/php
+      context: ./tools/docker/php
       args:
         USER_ID: ${USER_ID}
         GROUP_ID: ${GROUP_ID}
@@ -18,7 +18,7 @@ services:
       - 7474:7474
       - 7687:7687
     volumes:
-      - ~/.config/neo4j/data:/data
+      - ~/App/neo4j/data:/data
   db:
     image: postgres:12
     environment:

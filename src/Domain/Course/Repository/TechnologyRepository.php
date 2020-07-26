@@ -8,16 +8,16 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class TechnologyRepository extends ServiceEntityRepository
 {
-
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Technology::class);
     }
 
     /**
-     * Trouve une technologie par rapport à son nom (non sensible à la casse)
+     * Trouve des technologies par rapport à son nom (non sensible à la casse).
      *
      * @param string[] $names
+     *
      * @return Technology[]
      */
     public function findByNames(array $names): array
@@ -29,4 +29,19 @@ class TechnologyRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * Trouve une technologie par rapport à son nom (non sensible à la casse).
+     *
+     * @param string $name
+     * @return Technology|null
+     */
+    public function findByName(string $name): ?Technology
+    {
+        return $this->createQueryBuilder('t')
+            ->where('LOWER(t.name) = :technology')
+            ->setMaxResults(1)
+            ->setParameter('technology', strtolower($name))
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

@@ -1,0 +1,18 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: false
+    public: false
+
+  search_http_client:
+    class: Symfony\Component\HttpClient\CurlHttpClient
+
+  App\Infrastructure\Search\Typesense\TypesenseClient:
+    class: App\Infrastructure\Search\Typesense\TypesenseClient
+    arguments: ['%typesense_host%', '%typesense_key%', '@search_http_client']
+
+  App\Infrastructure\Search\IndexerInterface:
+    class: App\Infrastructure\Search\Typesense\TypesenseIndexer
+
+  App\Infrastructure\Search\SearchInterface:
+    class: App\Infrastructure\Search\Typesense\TypesenseSearch

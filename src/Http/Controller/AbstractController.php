@@ -6,13 +6,12 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 
 /**
- * @method getUser() App\Domain\Auth\User
+ * @method \App\Domain\Auth\User|null getUser()
  */
 abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
 {
-
     /**
-     * Affiche la liste de erreurs sous forme de message flash
+     * Affiche la liste de erreurs sous forme de message flash.
      */
     protected function flashErrors(FormInterface $form): void
     {
@@ -24,5 +23,4 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
         }
         $this->addFlash('error', implode("\n", $messages));
     }
-
 }

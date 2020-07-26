@@ -7,7 +7,6 @@ use App\Domain\Auth\User;
 
 class ProgressEvent
 {
-
     private Content $content;
     private int $percent;
     private User $user;
@@ -33,5 +32,4 @@ class ProgressEvent
     {
         return $this->user;
     }
-
 }

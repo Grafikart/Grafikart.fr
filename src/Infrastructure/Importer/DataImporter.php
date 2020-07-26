@@ -19,18 +19,30 @@ abstract class DataImporter implements TypeImporterInterface
     }
 
     /**
-     * Convertit le chemin d'un "ancien" fichier en Attachment
+     * Convertit le chemin d'un "ancien" fichier en Attachment.
      */
     protected function oldFileToAttachment(string $filename, \DateTime $createdAt): ?Attachment
     {
         $filePath = "{$this->kernel->getProjectDir()}/public/old/{$filename}";
         if (file_exists($filePath)) {
             $file = new ImportedFile($filePath);
+
             return (new Attachment())
                 ->setFile($file)
                 ->setCreatedAt($createdAt);
         }
+
         return null;
     }
 
+    /**
+     * Réinitialise une séquence pgsql.
+     *
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    public function resetSequence(string $table, int $lastId): void
+    {
+        $lastId = $lastId + 1;
+        $this->em->getConnection()->exec("ALTER SEQUENCE {$table}_id_seq RESTART WITH {$lastId};");
+    }
 }

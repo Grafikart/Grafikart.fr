@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Formation extends Content
 {
+    use LevelTrait;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -20,6 +21,7 @@ class Formation extends Content
 
     /**
      * @ORM\Column(type="json")
+     *
      * @return array{title: string, courses: int[]}[]
      */
     private array $chapters = [];
@@ -31,9 +33,15 @@ class Formation extends Content
 
     /**
      * @ORM\OneToMany(targetEntity="App\Domain\Course\Entity\Course", mappedBy="formation")
+     *
      * @var Collection<int, Course>
      */
     private $courses;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private ?string $links = null;
 
     public function __construct()
     {
@@ -49,11 +57,12 @@ class Formation extends Content
     public function setShort(?string $short): self
     {
         $this->short = $short;
+
         return $this;
     }
 
     /**
-     * Initialise les chapitres depuis le JSON
+     * Initialise les chapitres depuis le JSON.
      *
      * @return Chapter[]
      */
@@ -63,16 +72,16 @@ class Formation extends Content
     }
 
     /**
-     * Rempli le champs JSON à partir d'un tableau d'objet chapitres
+     * Rempli le champs JSON à partir d'un tableau d'objet chapitres.
      *
-     * @var Chapter[] $chapters
+     * @var Chapter[]
      */
     public function setChapters(array $chapters): self
     {
         $this->chapters = array_map(function (Chapter $chapter) {
             return [
                 'title' => $chapter->getTitle(),
-                'courses' => array_map(fn (Course $course) => $course->getId(), $chapter->getCourses())
+                'courses' => array_map(fn (Course $course) => $course->getId(), $chapter->getCourses()),
             ];
         }, $chapters);
 
@@ -80,7 +89,7 @@ class Formation extends Content
     }
 
     /**
-     * Renvoie les données brut (JSON)
+     * Renvoie les données brut (JSON).
      */
     public function getRawChapters(): array
     {
@@ -101,6 +110,7 @@ class Formation extends Content
     {
         return array_reduce($this->courses->toArray(), function (int $acc, Course $item) {
             $acc += $item->getDuration();
+
             return $acc;
         }, 0);
     }
@@ -152,9 +162,22 @@ class Formation extends Content
     {
         $courses = $this->getCourses();
         $coursesById = [];
-        foreach($this->getCourses() as $course) {
+        foreach ($courses as $course) {
             $coursesById[$course->getId()] = $course;
         }
+
         return $coursesById;
+    }
+
+    public function getLinks(): ?string
+    {
+        return $this->links;
+    }
+
+    public function setLinks(?string $links): self
+    {
+        $this->links = $links;
+
+        return $this;
     }
 }

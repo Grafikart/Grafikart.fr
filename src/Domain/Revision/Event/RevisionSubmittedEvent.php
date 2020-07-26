@@ -6,7 +6,6 @@ use App\Domain\Revision\Revision;
 
 class RevisionSubmittedEvent
 {
-
     private Revision $revision;
 
     public function __construct(Revision $revision)
@@ -18,5 +17,4 @@ class RevisionSubmittedEvent
     {
         return $this->revision;
     }
-
 }

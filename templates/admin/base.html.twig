@@ -2,16 +2,15 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>{% apply striptags %}{% block title ''  %}{% endapply %}</title>
+  <title>{% apply striptags %}{% block title '' %}{% endapply %} | Grafikart</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700|Roboto:300,400&display=swap" rel="stylesheet">
   {% block stylesheets %}
     {{ encore_entry_link_tags('app') }}
     {{ encore_entry_link_tags('admin') }}
   {% endblock %}
   {% block javascripts %}
-    {{ encore_entry_script_tags('app') | replace({'<script': '<script defer'}) | raw }}
-    {{ encore_entry_script_tags('admin') | replace({'<script': '<script defer'}) | raw }}
+    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('admin') }}
   {% endblock %}
   <meta name="turbolinks-cache-control" content="no-cache" />
 </head>
@@ -23,8 +22,15 @@
     <li><a href="{{ path('admin_course_index') }}" {{ menu_active('course') }}>{{ icon('video') }} Tutoriels</a></li>
     <li><a href="{{ path('admin_formation_index') }}" {{ menu_active('formation') }}>{{ icon('lines') }} Formation</a></li>
     <li><a href="{{ path('admin_technology_index') }}" {{ menu_active('technology') }}>{{ icon('lines') }} Technologie</a></li>
+    <li><a href="{{ path('admin_forum-tag_index') }}" {{ menu_active('forum_tag') }}>{{ icon('comments') }} Forum</a></li>
+    <li><a href="{{ path('admin_user_index') }}" {{ menu_active('user') }}>{{ icon('user') }} Utilisateurs</a></li>
+    <li><a href="{{ path('admin_live_index') }}" {{ menu_active('live') }}>{{ icon('video') }} Live</a></li>
+    <li><a href="{{ path('admin_premium_index') }}" {{ menu_active('premium') }}>{{ icon('star') }} Premium</a></li>
   </ul>
   <ul class="header-side">
+    <li class="header__notification">
+      <site-notifications></site-notifications>
+    </li>
     <li class="header__search"><a href="#">{{ icon('search') }}</a></li>
     {% if app.user %}
       <li class="header__account"><a href="{{ path('auth_logout') }}">{{ icon('user') }} {{ app.user.username }}</a></li>
@@ -33,11 +39,19 @@
     {% endif %}
   </ul>
 </nav>
-<div class="dashboard">
+<div class="dashboard py5">
 
   {% include 'partials/flash.html.twig' %}
 
-  {% block body %}{% endblock %}
+  {% block body '' %}
 </div>
+<script>
+  window.grafikart = {
+    ADMIN: {{ is_granted('SUPERADMIN') ? 'true' : 'false' }},
+    USER: {{ app.user ? app.user.id : 'null' }},
+    MERCURE_URL: "{{ mercure_subscribe_url }}",
+    NOTIFICATION: new Date({{ (app.user and app.user.notificationsReadAt) ? app.user.notificationsReadAt.timestamp : 0 }} * 1000)
+  }
+</script>
 </body>
 </html>

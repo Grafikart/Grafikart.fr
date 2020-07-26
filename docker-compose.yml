@@ -11,7 +11,7 @@ services:
       - php
   php:
     build:
-      context: ./docker/php
+      context: ./tools/docker/php
       args:
         USER_ID: ${USER_ID}
         GROUP_ID: ${GROUP_ID}
@@ -21,20 +21,21 @@ services:
       - db
       - mail
       - redis
+      - mercure
     depends_on:
       - db
     environment:
       PHP_IDE_CONFIG: serverName=grafikart
-  node:
-    build:
-      context: ./docker/node
-    command: yarn run dev-server
-    working_dir: /usr/src/app
-    user: "${USER_ID}:${GROUP_ID}"
-    volumes:
-      - .:/usr/src/app
-    ports:
-      - 8080:8080
+  # node:
+  #   build:
+  #     context: ./tools/docker/node
+  #   command: yarn run dev
+  #   working_dir: /usr/src/app
+  #   user: '${USER_ID}:${GROUP_ID}'
+  #   volumes:
+  #     - .:/usr/src/app
+  #   ports:
+  #     - 3000:3000
   db:
     image: postgres:12
     environment:
@@ -45,28 +46,42 @@ services:
       - 5432:5432 # On expose le port pour pouvoir inspecter la base pendant la phase de développement
     volumes:
       - db-data:/var/lib/postgresql/data
-  adminer:
-    image: adminer
-    environment:
-      ADMINER_DESIGN: pepa-linha
-      ADMINER_DEFAULT_SERVER: db
-    links:
-      - db
-    ports:
-      - 8888:8080
+  # adminer:
+  #   image: adminer
+  #   environment:
+  #     ADMINER_DESIGN: pepa-linha
+  #     ADMINER_DEFAULT_SERVER: db
+  #   links:
+  #     - db
+  #   ports:
+  #     - 8888:8080
   mail:
-    image: schickling/mailcatcher
+    image: maildev/maildev:2.0.0-beta3
     ports:
       - 1080:1080
-  spacechop:
-    image: spacechop/spacechop:latest
-    volumes:
-      - ./spacechop.yml:/config.yml
-      - ./public/uploads:/mnt/images/uploads
   redis:
     image: redis:5-alpine
-
+  # typesense:
+  #   image: typesense/typesense:0.14.0
+  #   environment:
+  #     TYPESENSE_DATA_DIR: /data
+  #     TYPESENSE_API_KEY: typesensekey
+  #   volumes:
+  #     - search-data:/data
+  #   ports:
+  #     - 8108:8108
+  mercure:
+    image: dunglas/mercure
+    environment:
+      JWT_KEY: mercure_subscriber
+      PUBLISHER_JWT_KEY: mercure_publisher
+      ALLOW_ANONYMOUS: 0
+      CORS_ALLOWED_ORIGINS: 'http://grafikart.localhost:8000'
+    ports:
+      - 8001:80
 
 volumes:
   db-data:
     driver: local
+  # search-data:
+  #   driver: local

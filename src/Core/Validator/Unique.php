@@ -1,13 +1,11 @@
 <?php
 
-
 namespace App\Core\Validator;
-
 
 use Symfony\Component\Validator\Constraint;
 
 /**
- * Contrainte pour vérifier l'unicité d'un enregistrement
+ * Contrainte pour vérifier l'unicité d'un enregistrement.
  *
  * Pour fonctionner on part du principe que l'objet et l'entité aura une méthode "getId()"
  *
@@ -15,7 +13,6 @@ use Symfony\Component\Validator\Constraint;
  */
 class Unique extends Constraint
 {
-
     public string $message = 'Cette valeur est déjà utilisée';
 
     public ?string $entityClass = null;
@@ -26,9 +23,9 @@ class Unique extends Constraint
     {
         return ['field'];
     }
+
     public function getTargets()
     {
         return self::CLASS_CONSTRAINT;
     }
-
 }

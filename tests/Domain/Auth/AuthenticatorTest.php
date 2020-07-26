@@ -3,7 +3,6 @@
 namespace App\Tests\Domain\Auth;
 
 use App\Domain\Auth\Authenticator;
-use App\Domain\Auth\Exception\TooManyBadCredentialsException;
 use App\Domain\Auth\Service\LoginAttemptService;
 use App\Domain\Auth\User;
 use App\Domain\Auth\UserRepository;
@@ -52,23 +51,23 @@ class AuthenticatorTest extends TestCase
 
     protected function setUp(): void
     {
-        /** @var MockObject|EntityManagerInterface entityManager */
+        /* @var MockObject|EntityManagerInterface entityManager */
         $this->userRepository = $this->getMockBuilder(UserRepository::class)
             ->disableOriginalConstructor()->getMock();
         $this->loginAttemptService = $this->getMockBuilder(LoginAttemptService::class)
             ->disableOriginalConstructor()->getMock();
-        /** @var MockObject|UrlGeneratorInterface urlGenerator */
+        /* @var MockObject|UrlGeneratorInterface urlGenerator */
         $this->urlGenerator = $this->getMockBuilder(UrlGeneratorInterface::class)->getMock();
-        /** @var MockObject|CsrfTokenManagerInterface csrfTokenManager */
+        /* @var MockObject|CsrfTokenManagerInterface csrfTokenManager */
         $this->csrfTokenManager = $this->getMockBuilder(CsrfTokenManagerInterface::class)->getMock();
         $this->csrfTokenManager
             ->expects($this->any())
             ->method('isTokenValid')
             ->willReturn(true);
 
-        /** @var MockObject|UserPasswordEncoderInterface passwordEncoder */
+        /* @var MockObject|UserPasswordEncoderInterface passwordEncoder */
         $this->passwordEncoder = $this->getMockBuilder(UserPasswordEncoderInterface::class)->getMock();
-        /** @var MockObject|EventDispatcherInterface eventDispatcher */
+        /* @var MockObject|EventDispatcherInterface eventDispatcher */
         $this->eventDispatcher = $this->getMockBuilder(EventDispatcherInterface::class)->getMock();
         $this->authenticator = new Authenticator(
             $this->userRepository,
@@ -93,20 +92,4 @@ class AuthenticatorTest extends TestCase
 
         $this->authenticator->getUser(['email' => 'john1@doe.fr', 'csrf_token' => 'a'], $provider);
     }
-
-    public function testThrowExceptionIfTooManyLoginAttempts(): void
-    {
-        $this->loginAttemptService
-            ->expects($this->once())
-            ->method('limitReachedFor')
-            ->willReturn(true);
-
-        $user = new User();
-
-        $this->expectException(TooManyBadCredentialsException::class);
-
-        $this->authenticator->checkCredentials([], $user);
-    }
-
-
 }

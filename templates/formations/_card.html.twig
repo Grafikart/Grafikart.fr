@@ -1,5 +1,5 @@
 {% cache [formation, 'card'] %}
-  <article class="card">
+  <article class="card card--formation">
     <div class="card__body stack">
       <div class="card__icons">
         {% for technology in formation.mainTechnologies %}
@@ -8,11 +8,13 @@
           </a>
         {% endfor %}
       </div>
-      <h2 class="card__title">
+
+      <h2 class="card__title" style="margin-bottom: 4px;">
         <a href="{{ path('formation_show', {slug: formation.slug}) }}" tabindex="-1">
           {{ formation.title }}
         </a>
       </h2>
+
       <div class="card__description">
         {{ formation.content | markdown | striptags | excerpt(130) }}
       </div>
@@ -20,12 +22,8 @@
          class="card__link"></a>
     </div>
     <footer class="card__footer">
-      <div>
-        {{ icon('lines') }} {{ formation.courses | length }} Chapitres
-      </div>
-      <div>
-        {{ icon('clock') }} {{ formation.duration | duration }}
-      </div>
+      <div>{{ icon('lines') }} {{ formation.courses | length }} Chapitres</div>
+      <div>{{ icon('clock') }} {{ formation.duration | duration }}</div>
     </footer>
   </article>
 {% endcache %}

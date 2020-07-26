@@ -1,21 +1,52 @@
-.list > * {
-  display: flex;
-  padding: space(1) 0;
-}
-
-.list > a:hover {
-  background: var(--background);
-}
-
 // Badge
 // ==================
 .badge {
   background-color: var(--background);
   display: inline-block;
-  padding: .25em .6em;
+  padding: 0.25em 0.6em;
   border-radius: 10rem;
   font-size: 75%;
   line-height: 1;
+}
+.badge-success {
+  color: var(--green);
+  position: relative;
+  &::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--green);
+    opacity: 0.1;
+    border-radius: 10rem;
+  }
+}
+.badge-secondary {
+  background-color: var(--border);
+}
+
+.badge-rounded {
+  position: relative;
+  display: inline-block;
+  padding: 8px 16px;
+  font-family: $font-alt;
+  font-weight: bold;
+  font-size: 14px;
+  color: var(--contrast);
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: currentColor;
+    opacity: 0.2;
+    z-index: -1;
+    border-radius: 100px;
+  }
 }
 
 // Pills
@@ -32,7 +63,7 @@
   font-weight: bold;
 
   &::after {
-    content:'';
+    content: '';
     z-index: -1;
     position: absolute;
     top: 0;
@@ -40,28 +71,108 @@
     right: 0;
     bottom: 0;
     background: currentColor;
-    opacity: .2;
+    opacity: 0.2;
     border-radius: 20px;
   }
 }
-
 .pill svg {
   width: 16px;
   height: 16px;
   margin-right: space(1);
 }
-
 .pill-green {
   color: var(--green);
 }
-
 .pill-yellow {
   color: var(--yellow);
 }
-
 .pill-grey {
   color: var(--color);
   &::after {
-    opacity: .1;
+    opacity: 0.1;
   }
+}
+
+// Liste avec une connexion sur le côté
+// =============
+.list-cursus {
+  --gap: 3;
+  @extend %stack;
+  padding-left: 50px;
+}
+.list-cursus > * {
+  position: relative;
+}
+.list-cursus > *::before,
+.list-cursus > *::after {
+  content: '';
+  position: absolute;
+  background-color: var(--border-light);
+}
+.list-cursus > *::before {
+  top: 0;
+  bottom: 0;
+  width: 8px;
+  left: -43px;
+}
+.list-cursus > *::before {
+  top: 0;
+  bottom: -40px;
+  width: 8px;
+  left: -43px;
+}
+.list-cursus > *:first-child::before {
+  top: 50%;
+}
+.list-cursus > *:last-child::before {
+  bottom: 50%;
+}
+.list-cursus > *::after {
+  display: block;
+  width: 27px;
+  height: 27px;
+  top: calc(50% - 13px);
+  left: -52px;
+  border-radius: 50%;
+}
+
+// List séparé par un -
+// =============
+.list-group > * {
+  position: relative;
+  display: block;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border);
+  transition: 0.3s;
+
+  &:first-child {
+    border-top: 1px solid var(--border);
+  }
+
+  &:hover {
+    padding-left: space(1);
+    background: var(--background-light);
+  }
+}
+
+// Tabs bar
+// =============
+.tabs-bar {
+  display: flex;
+  border-bottom: 3px solid var(--border-light);
+}
+.tabs-bar a {
+  display: block;
+  padding: space(2);
+  font-size: 1.2em;
+  margin-bottom: -3px;
+}
+.tabs-bar .icon {
+  width: 1rem;
+  height: 1rem;
+  margin-right: space(1);
+}
+.tabs-bar a[aria-selected='true'] {
+  color: var(--contrast);
+  border-bottom: 3px solid var(--contrast);
 }

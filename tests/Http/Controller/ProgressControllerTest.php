@@ -9,10 +9,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ProgressControllerTest extends ApiTestCase
 {
-
     use FixturesTrait;
 
-    public function testProgressNeedAuthentication (): void
+    public function testProgressNeedAuthentication(): void
     {
         $data = $this->loadFixtures(['courses']);
         $course = $data['course1'];
@@ -20,7 +19,7 @@ class ProgressControllerTest extends ApiTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
-    public function testProgressWithAuthenticatedUser (): void
+    public function testProgressWithAuthenticatedUser(): void
     {
         $data = $this->loadFixtures(['courses']);
         $course = $data['course1'];
@@ -29,7 +28,7 @@ class ProgressControllerTest extends ApiTestCase
         $this->assertResponseIsSuccessful();
     }
 
-    public function testRejectNumberAbove100 (): void
+    public function testRejectNumberAbove100(): void
     {
         $data = $this->loadFixtures(['courses']);
         $course = $data['course1'];
@@ -38,7 +37,7 @@ class ProgressControllerTest extends ApiTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
     }
 
-    public function testRejectNumberIs0 (): void
+    public function testRejectNumberIs0(): void
     {
         $data = $this->loadFixtures(['courses']);
         $course = $data['course1'];
@@ -47,16 +46,16 @@ class ProgressControllerTest extends ApiTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
     }
 
-    public function testRejectNotExistingContent (): void
+    public function testRejectNotExistingContent(): void
     {
         $data = $this->loadFixtures(['courses']);
         $course = $data['course1'];
         $this->login($data['user1']);
-        $this->client->request('POST', "/progress/200/101");
+        $this->client->request('POST', '/progress/200/101');
         $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
     }
 
-    public function testProgressUpdateDatabase (): void
+    public function testProgressUpdateDatabase(): void
     {
         $data = $this->loadFixtures(['courses']);
         $course = $data['course1'];
@@ -65,5 +64,4 @@ class ProgressControllerTest extends ApiTestCase
         $count = self::$container->get('doctrine')->getRepository(Progress::class)->count([]);
         $this->assertEquals(1, $count);
     }
-
 }

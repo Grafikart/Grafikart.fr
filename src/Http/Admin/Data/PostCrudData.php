@@ -11,7 +11,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 final class PostCrudData implements CrudDataInterface
 {
-
     /**
      * @Assert\NotBlank()
      */
@@ -51,6 +50,7 @@ final class PostCrudData implements CrudDataInterface
         $data->online = $post->isOnline();
         $data->image = $post->getImage();
         $data->entity = $post;
+
         return $data;
     }
 
@@ -91,7 +91,7 @@ final class PostCrudData implements CrudDataInterface
     public function setAuthor(User $author): PostCrudData
     {
         $this->author = $author;
+
         return $this;
     }
-
 }

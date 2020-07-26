@@ -2,6 +2,7 @@
 
 namespace App\Http\Admin\Data;
 
+use App\Core\Validator\Slug;
 use App\Core\Validator\Unique;
 use App\Domain\Attachment\Attachment;
 use App\Domain\Auth\User;
@@ -11,7 +12,6 @@ use App\Domain\Course\Entity\Formation;
 use App\Domain\Course\Entity\Technology;
 use App\Http\Form\AutomaticForm;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Core\Validator\Slug;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -19,7 +19,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class FormationCrudData implements CrudDataInterface
 {
-
     private Formation $formation;
 
     private ?EntityManagerInterface $em = null;
@@ -59,6 +58,10 @@ class FormationCrudData implements CrudDataInterface
 
     public ?string $short;
 
+    public ?string $links;
+
+    public int $level;
+
     /**
      * @var Chapter[]
      */
@@ -70,7 +73,7 @@ class FormationCrudData implements CrudDataInterface
         $this->title = $formation->getTitle();
         $this->slug = $formation->getSlug();
         $this->author = $formation->getAuthor();
-        $this->createdAt = $formation->getCreatedAt() ?: new \DateTime();
+        $this->createdAt = $formation->getCreatedAt();
         $this->youtubePlaylist = $formation->getYoutubePlaylist();
         $this->online = $formation->isOnline();
         $this->image = $formation->getImage();
@@ -79,6 +82,8 @@ class FormationCrudData implements CrudDataInterface
         $this->short = $formation->getShort();
         $this->content = $formation->getContent();
         $this->chapters = $formation->getChapters();
+        $this->links = $formation->getLinks();
+        $this->level = $formation->getLevel();
     }
 
     public function getEntity(): Formation
@@ -103,24 +108,26 @@ class FormationCrudData implements CrudDataInterface
         $this->formation->setImage($this->image);
         $this->formation->setShort($this->short);
         $this->formation->setContent($this->content);
-        foreach($this->mainTechnologies as $technology) {
+        $this->formation->setLinks($this->links);
+        $this->formation->setLevel($this->level);
+        foreach ($this->mainTechnologies as $technology) {
             $technology->setSecondary(false);
         }
-        foreach($this->secondaryTechnologies as $technology) {
+        foreach ($this->secondaryTechnologies as $technology) {
             $technology->setSecondary(true);
         }
         $removed = $this->formation->syncTechnologies(array_merge($this->mainTechnologies, $this->secondaryTechnologies));
-        if($this->em) {
-            foreach($removed as $usage) {
+        if ($this->em) {
+            foreach ($removed as $usage) {
                 $this->em->remove($usage);
             }
         }
         /** @var Course $course */
-        foreach($this->formation->getCourses() as $course) {
+        foreach ($this->formation->getCourses() as $course) {
             $course->setFormation(null);
         }
-        foreach($this->chapters as $chapter) {
-            foreach($chapter->getCourses() as $course) {
+        foreach ($this->chapters as $chapter) {
+            foreach ($chapter->getCourses() as $course) {
                 $course->setFormation($this->formation);
             }
         }
@@ -134,7 +141,7 @@ class FormationCrudData implements CrudDataInterface
         return $this;
     }
 
-    public function getId (): ?int
+    public function getId(): ?int
     {
         return $this->getEntity()->getId();
     }

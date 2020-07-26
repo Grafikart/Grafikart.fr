@@ -6,7 +6,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 final class PasswordResetRequestData
 {
-
     /**
      * @Assert\Email()
      * @Assert\NotBlank()
@@ -21,9 +20,7 @@ final class PasswordResetRequestData
     public function setEmail(string $email): PasswordResetRequestData
     {
         $this->email = $email;
+
         return $this;
     }
-
-
-
 }
