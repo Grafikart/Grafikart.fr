@@ -121,7 +121,10 @@
 // Page
 // ==================
 .course-page {
+  background: var(--background-light);
+  border-top: solid 1px var(--border);
 }
+
 .requirements {
   @extend %card;
   padding: space(3);

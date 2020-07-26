@@ -16,7 +16,6 @@ class TypesenseIndexer implements IndexerInterface
 
     public function index(array $data): void
     {
-        return;
         try {
             $this->client->get("collections/content/documents/{$data['id']}");
             $this->client->delete("collections/content/documents/{$data['id']}");

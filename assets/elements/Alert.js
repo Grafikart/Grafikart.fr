@@ -14,7 +14,10 @@ export class Alert extends HTMLElement {
   }
 
   connectedCallback () {
-    this.type = this.type || this.getAttribute('type') || 'error'
+    this.type = this.type || this.getAttribute('type')
+    if (this.type === 'error' || !this.type) {
+      this.type = 'danger'
+    }
     const text = this.innerHTML
     const duration = this.getAttribute('duration')
     let progressBar = ''

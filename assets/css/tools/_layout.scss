@@ -212,13 +212,14 @@
   flex-wrap: wrap;
   --gap: 2;
   margin: calc(var(--gap) * var(--space) * -0.5);
+  margin-bottom: calc(var(--gap) * var(--space));
   margin-top: 0;
 }
 
 .hstack > * {
   margin-left: calc(var(--gap) * var(--space) * 0.5);
   margin-right: calc(var(--gap) * var(--space) * 0.5);
-  margin-bottom: calc(var(--gap) * var(--space));
+  margin-bottom: calc(var(--gap) * var(--space) * -1);
 }
 
 .hstack-large > * + * {

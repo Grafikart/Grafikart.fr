@@ -9,7 +9,7 @@
       {{ breadcrumb(course) }}
     </div>
 
-    <div class="container layout-sidebar mt2 mb4">
+    <div class="container layout-sidebar mt2 mb5">
       <youtube-player
         id="course-{{ course.id }}"
         video="{{ course.youtubeId }}"
@@ -27,80 +27,80 @@
       {% endif %}
     </div>
 
-    <div class="bg-light">
-    <div class="tabs-bar container">
-        <a href="#">Demo1</a>
-        <a href="#">Demo2</a>
-    </div>
+    <div class="course-page container">
 
-    <div class="flex">
-      <div class="inline-1">
-        {% if course.premium %}
-          <div class="pill pill-yellow">Premium</div>
-        {% endif %}
-        <div class="pill pill-green">Facile</div>
-      </div>
-      <div class="inline-1">
-        <a href="#" class="pill">
-          {{ icon('lines') }}
-          Voir la démo
-        </a>
-        {% if course.source is not empty %}
-          <a href="#" class="pill">
-            {{ icon('lines') }}
-            Télécharger les sources
-          </a>
-        {% endif %}
-        <a href="#" class="pill">
-          {{ icon('video') }}
-          Télécharger la vidéo
-        </a>
-      </div>
-    </div>
-
-    <div class="layout-sidebar">
-      <div class="stack">
-        <div class="formatted">
-          <h1>{{ course.title }}</h1>
-
-          {{ course.content | markdown }}
+      <div class="flex py3">
+        <div class="hstack">
+          {% if course.premium %}
+            <div class="pill pill-yellow">Premium</div>
+          {% endif %}
+          <div class="pill pill-green">Facile</div>
         </div>
-
-        {% include 'partials/comments.html.twig' with {target: course} only %}
+        <div class="hstack">
+          {% if course.demo %}
+            <a href="{{ course.demo }}" class="pill" target="_blank"
+               title="Démonstration du tutoriel {{ course.title }}">
+              {{ icon('lines') }}
+              Voir la démo
+            </a>
+          {% endif %}
+          {% if course.source is not empty %}
+            <a href="{{ path('course_download_source', {id: course.id}) }}" class="pill">
+              {{ icon('lines') }}
+              Télécharger les sources
+            </a>
+          {% endif %}
+          <a href="{{ path('course_download_video', {id: course.id}) }}" class="pill">
+            {{ icon('video') }}
+            Télécharger la vidéo
+          </a>
+        </div>
       </div>
-      <div>
-        <div class="stack-large">
-          <div>
-            <div class="requirements__title">Technologies utilisées</div>
-            <div class="list-group">
-              <a class="flex" href="#">Twig <span class="badge">3.0</span></a>
-              <a class="flex" href="#">Composer <span class="badge">3.0</span></a>
-              <a class="flex" href="#">PHP <span class="badge">3.0</span></a>
-            </div>
+
+      <div class="layout-sidebar">
+        <div class="stack">
+          <div class="formatted">
+            <h1>{{ course.title }}</h1>
+
+            {{ course.content | markdown }}
           </div>
-          <div>
-            <div class="flex">
-              <img class="author_avatar" src="https://www.grafikart.fr/uploads/avatars/1/1.jpg" alt=""
-                   style="width: 50px;border-radius: 50px;">
-              <div style="width: 100%; margin-left: 20px;">
-                <strong style="font-weight: bold;">Auteur : </strong><br>
-                <a title="Grafikart" class="author_name" href="/profil/1">Grafikart</a>
+
+          {% include 'partials/comments.html.twig' with {target: course} only %}
+        </div>
+        <div>
+          <div class="stack-large">
+            <admin-edit hidden></admin-edit>
+            <div>
+              <div class="requirements__title">Technologies utilisées</div>
+              <div class="list-group">
+                <a class="flex" href="#">Twig <span class="badge">3.0</span></a>
+                <a class="flex" href="#">Composer <span class="badge">3.0</span></a>
+                <a class="flex" href="#">PHP <span class="badge">3.0</span></a>
               </div>
             </div>
-          </div>
-          <div>
-            <div class="requirements__title">Actions secondaires</div>
-            <div class="stack">
-              <button class="btn btn-big">Marquer comme lu</button>
-              <button class="btn btn-big">Proposer une modification</button>
+            <div>
+              <div class="flex">
+                <img class="author_avatar" src="https://www.grafikart.fr/uploads/avatars/1/1.jpg" alt=""
+                     style="width: 50px;border-radius: 50px;">
+                <div style="width: 100%; margin-left: 20px;">
+                  <strong style="font-weight: bold;">Auteur : </strong><br>
+                  <a title="Grafikart" class="author_name" href="/profil/1">Grafikart</a>
+                </div>
+              </div>
             </div>
-          </div>
-          <div>
-            <div class="requirements__title">Partage social</div>
+            <div>
+              <div class="requirements__title">Actions secondaires</div>
+              <div class="stack">
+                <button class="btn btn-big">Marquer comme lu</button>
+                <button class="btn btn-big">Proposer une modification</button>
+              </div>
+            </div>
+            <div>
+              <div class="requirements__title">Partage social</div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
     </div>
   {% endcache %}
 
@@ -110,3 +110,13 @@
 
 {% endblock %}
 
+{% block javascripts %}
+  {% if is_granted('ADMIN') %}
+    <script>
+      window.grafikart = {
+        EDIT_LINK: "{{ path('admin_course_edit', {id: course.id}) }}"
+      }
+    </script>
+  {% endif %}
+  {{ parent() }}
+{% endblock %}

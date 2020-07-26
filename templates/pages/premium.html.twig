@@ -86,6 +86,8 @@
 
 {% block body %}
 
+  {% include('partials/flash.html.twig') with {floating: true} %}
+
   <div class="container" style="padding-top: 100px;">
 
     <section id="page-header" class="stack text-inversed" style="padding-bottom: 200px;">

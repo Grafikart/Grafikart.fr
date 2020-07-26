@@ -26,6 +26,7 @@ security:
         secret: '%kernel.secret%'
         lifetime: 604800 # 1 week in seconds
         path: /
+      access_denied_handler: App\Http\Security\AccessDeniedHandler
       # activate different ways to authenticate
       # https://symfony.com/doc/current/security.html#firewalls-authentication
       # https://symfony.com/doc/current/security/impersonating_user.html

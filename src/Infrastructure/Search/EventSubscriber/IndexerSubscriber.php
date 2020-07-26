@@ -21,7 +21,8 @@ class IndexerSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            ContentUpdatedEvent::class => 'indexContent',
+            // TODO : indexer directement sur pgsql
+            // ContentUpdatedEvent::class => 'indexContent',
         ];
     }
 

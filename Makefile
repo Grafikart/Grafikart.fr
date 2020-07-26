@@ -24,7 +24,15 @@ build-docker:
 
 .PHONY: dev
 dev: vendor/autoload.php node_modules/time ## Lance le serveur de développement
+	make -j 2 server
+
+.PHONY: server
+server:
 	$(dc) up
+
+.PHONY: front
+front:
+	$(drnode) yarn run dev
 
 .PHONY: clean
 clean: ## Nettoie les containers

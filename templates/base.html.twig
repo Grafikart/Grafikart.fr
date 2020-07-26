@@ -39,7 +39,7 @@
 </nav>
 {% block body %}{% endblock %}
 <script>
-  window.grafikart = {
+  window.grafikart = {...(window.grafikart || {}),
     ADMIN: {{ is_granted('SUPERADMIN') ? 'true' : 'false' }},
     USER: {{ app.user ? app.user.id : 'null' }},
     MERCURE_URL: "{{ mercure_subscribe_url }}",

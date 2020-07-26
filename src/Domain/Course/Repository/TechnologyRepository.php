@@ -31,9 +31,6 @@ class TechnologyRepository extends ServiceEntityRepository
 
     /**
      * Trouve une technologie par rapport à son nom (non sensible à la casse).
-     *
-     * @param string $name
-     * @return Technology|null
      */
     public function findByName(string $name): ?Technology
     {
