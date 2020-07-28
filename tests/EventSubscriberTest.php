@@ -19,7 +19,7 @@ abstract class EventSubscriberTest extends KernelTestCase
     /**
      * Vérifie qu'un subscriber écoute bien un évènement donnée au niveau du kernel.
      */
-    protected function assertSubsribeTo(string $subscriberClass, string $event): void
+    protected function assertSubscribeTo(string $subscriberClass, string $event): void
     {
         self::bootKernel();
         /** @var EventDispatcherInterface $dispatcher */
