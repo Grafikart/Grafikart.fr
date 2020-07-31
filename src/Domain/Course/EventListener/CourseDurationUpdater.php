@@ -26,4 +26,8 @@ class CourseDurationUpdater
             }
         }
     }
+
+    public function getVideosPath() {
+        return $this->videosPath;
+    }
 }

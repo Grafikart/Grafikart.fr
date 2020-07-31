@@ -1,7 +1,4 @@
 {
-    "api-platform/api-pack": {
-        "version": "v1.2.1"
-    },
     "api-platform/core": {
         "version": "2.5",
         "recipe": {

@@ -72,7 +72,7 @@ class ForumSubscriberTest extends EventSubscriberTest
             ]);
         $message = (new Message())
             ->setAuthor((new User())->setUsername('John Doe'))
-            ->setTopic(new Topic());
+            ->setTopic((new Topic())->setAuthor(new User()));
         $mailer->expects($this->exactly(2))->method('send');
         $this->dispatch($subscriber, new MessageCreatedEvent($message));
     }
