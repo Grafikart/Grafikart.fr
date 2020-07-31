@@ -23,7 +23,7 @@
     "rollup-plugin-postcss": "^3.1.2",
     "rollup-plugin-root-import": "^1.0.0",
     "sass": "^1.26.5",
-    "vite": "^1.0.0-rc.3"
+    "vite": "^1.0.0-rc.4"
   },
   "scripts": {
     "lint": "prettier-standard --lint \"assets/**/*.{js,css,jsx}\"",
@@ -41,7 +41,7 @@
     "flatpickr": "^4.6.3",
     "htm": "^3.0.3",
     "monaco-editor": "^0.20.0",
-    "preact": "^10.4.1",
+    "preact": "^10.4.6",
     "scriptjs": "^2.5.9",
     "sortablejs": "^1.10.2",
     "turbolinks": "^5.2.0"

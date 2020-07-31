@@ -15,7 +15,8 @@ security:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
       security: false
     main:
-      anonymous: lazy
+      anonymous: true
+      lazy: true
       user_checker: App\Domain\Auth\Security\UserChecker
       guard:
         authenticators:
