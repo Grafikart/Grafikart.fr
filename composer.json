@@ -8,7 +8,7 @@
     "ext-ctype": "*",
     "ext-iconv": "*",
     "ext-json": "*",
-    "api-platform/core": "^2.1",
+    "api-platform/core": "^2.5",
     "beberlei/doctrineextensions": "^1.2",
     "cocur/slugify": "^4.0",
     "doctrine/annotations": "^1.0",

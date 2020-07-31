@@ -8,7 +8,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ForumSubscriber implements EventSubscriberInterface
 {
-    private EmailFactory $emailFactory;
     private Mailer $mailer;
     private TopicService $topicService;
 

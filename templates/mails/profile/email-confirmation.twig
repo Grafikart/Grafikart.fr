@@ -1,11 +1,17 @@
-{% extends 'mails/base.' ~ format ~ '.twig' %}
+{% extends layout %}
+
+{% import "mails/macros.twig" as e %}
 
 {% block body %}
 
-## Changement d'email pour {{ username }}
+  {% apply markdown_email %}
 
-Un changement d'adresse email a été demandé pour votre compte Grafikart.fr. Si vous n'êtes pas à l'origine de cette demande vous pouvez ignorer cet email. Sinon, merci de confirmer votre demande de changement en cliquant sur le lien suivant.
+    ## Changement d'email pour {{ username }}
 
-{% include 'mails/parts/button.' ~ format ~ '.twig' with {url: url('user_email_confirm', {token: token}), title: 'Confirmer cet email'} %}
+    Un changement d'adresse email a été demandé pour votre compte Grafikart.fr. Si vous n'êtes pas à l'origine de cette demande vous pouvez ignorer cet email. Sinon, merci de confirmer votre demande de changement en cliquant sur le lien suivant.
+
+  {% endapply %}
+
+  {{ e.button('Confirmer cet email', url('user_email_confirm', {token: token})) }}
 
 {% endblock %}

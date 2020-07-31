@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 class PasswordController extends AbstractController
 {
@@ -31,7 +32,7 @@ class PasswordController extends AbstractController
                 $this->addFlash('success', 'Les instructions pour réinitialiser votre mot de passe vous ont été envoyées');
 
                 return $this->redirectToRoute('auth_login');
-            } catch (\Exception $e) {
+            } catch (AuthenticationException $e) {
                 $error = $e;
             }
         }
