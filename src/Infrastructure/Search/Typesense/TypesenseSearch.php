@@ -14,7 +14,7 @@ class TypesenseSearch implements SearchInterface
         $this->client = $client;
     }
 
-    public function search(string $q, array $types = []): array
+    public function search(?string $q, array $types = []): array
     {
         $query = [
             'q' => $q,

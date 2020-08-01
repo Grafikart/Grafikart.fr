@@ -27,7 +27,8 @@ class CourseDurationUpdater
         }
     }
 
-    public function getVideosPath() {
+    public function getVideosPath(): string
+    {
         return $this->videosPath;
     }
 }
