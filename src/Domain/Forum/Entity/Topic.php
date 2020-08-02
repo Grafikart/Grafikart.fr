@@ -135,7 +135,7 @@ class Topic
         return $this;
     }
 
-    public function getSolved(): ?bool
+    public function isSolved(): ?bool
     {
         return $this->solved;
     }

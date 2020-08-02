@@ -4,6 +4,7 @@ namespace App\Tests;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client;
 use App\Domain\Auth\User;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
@@ -23,10 +24,16 @@ class ApiTestCase extends \ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCa
     ];
     protected Client $client;
 
+    protected EntityManagerInterface $em;
+
     public function setUp(): void
     {
         parent::setUp();
         $this->client = static::createClient();
+        /** @var EntityManagerInterface $em */
+        $em = self::$container->get(EntityManagerInterface::class);
+        $this->em = $em;
+        $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
         $this->client->setDefaultOptions(self::DEFAULT_OPTIONS);
     }
 

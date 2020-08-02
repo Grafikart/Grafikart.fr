@@ -51,4 +51,17 @@ class ForumMessageController extends AbstractController
             'html' => $this->renderView('forum/_message.html.twig', ['message' => $message]),
         ], Response::HTTP_CREATED);
     }
+
+    /**
+     * @Route("/messages/{id}/solve", name="api_forum/messages_solve_item ", methods={"POST"})
+     */
+    public function solve(Message $message, EntityManagerInterface  $em): Response
+    {
+        $this->denyAccessUnlessGranted(ForumVoter::SOLVE_MESSAGE, $message);
+        $message->setAccepted(true);
+        $message->getTopic()->setSolved(true);
+        $em->flush();
+
+        return new Response(null, Response::HTTP_NO_CONTENT);
+    }
 }

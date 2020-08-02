@@ -189,6 +189,8 @@
 }
 
 .forum-message__author {
+  display: flex;
+  align-items: center;
   font-family: $font-alt;
   font-weight: 500;
   color: var(--color-dark);
@@ -198,6 +200,10 @@
   font-size: 0.9em;
   white-space: nowrap;
   color: var(--color-light);
+
+  button:hover {
+    text-decoration: underline;
+  }
 }
 
 .forum-message__body {

@@ -38,5 +38,5 @@ export function canManage (userId) {
   if (!userId) {
     return false
   }
-  return window.grafikart.USER === userId
+  return window.grafikart.USER === parseInt(userId, 10)
 }

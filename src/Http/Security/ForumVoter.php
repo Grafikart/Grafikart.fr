@@ -5,6 +5,7 @@ namespace App\Http\Security;
 use App\Domain\Auth\User;
 use App\Domain\Forum\Entity\Message;
 use App\Domain\Forum\Entity\Topic;
+use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
@@ -18,10 +19,11 @@ class ForumVoter extends Voter
     const UPDATE_TOPIC = 'UPDATE_TOPIC';
     const DELETE_TOPIC = 'DELETE_TOPIC';
     const READ_TOPICS = 'READ_TOPICS';
+    const SOLVE_MESSAGE = 'SOLVE_MESSAGE';
 
     protected function supports(string $attribute, $subject)
     {
-        return in_array($attribute, [self::CREATE, self::REPORT, self::CREATE_MESSAGE, self::DELETE_MESSAGE, self::READ_TOPICS]);
+        return in_array($attribute, [self::CREATE, self::REPORT, self::CREATE_MESSAGE, self::DELETE_MESSAGE, self::READ_TOPICS, self::SOLVE_MESSAGE]);
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
@@ -40,6 +42,8 @@ class ForumVoter extends Voter
             case self::UPDATE_MESSAGE:
             case self::DELETE_MESSAGE:
                 return $this->ownMessage($user, $subject);
+            case self::SOLVE_MESSAGE:
+                return $this->canSolve($user, $subject);
             case self::READ_TOPICS:
             case self::CREATE:
             case self::REPORT:
@@ -62,5 +66,10 @@ class ForumVoter extends Voter
     private function canUpdateTopic(User $user, Topic $topic): bool
     {
         return $topic->getAuthor()->getId() === $user->getId();
+    }
+
+    private function canSolve(User $user, Message $message): bool
+    {
+        return $message->getTopic()->getAuthor()->getId() === $user->getId();
     }
 }

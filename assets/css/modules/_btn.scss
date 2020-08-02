@@ -93,19 +93,6 @@
   font-size: 0.8em;
 }
 
-/**
-.text-inversed .btn-big {
-  color: inherit;
-  border-color: currentColor;
-
-  &:hover {
-    color: var(--contrast);
-    background-color: var(--color-inversed);
-    border-color: var(--color-inversed);
-  }
-}
- */
-
 .stack > button {
   justify-self: flex-start;
 }
@@ -113,17 +100,42 @@
 // Bouton rond
 // =============
 .rounded-button {
+  box-sizing: content-box;
   width: 37px;
   height: 37px;
+  border-radius: 37px;
   position: relative;
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   outline: none;
+  z-index: 0;
 
-  & ~ .rounded-button {
-    margin-left: space(1);
+  &::after {
+    content:'';
+    position: absolute;
+    top: calc(50% - 9px);
+    left: calc(50% - 9px);
+    width: 18px;
+    height: 18px;
+    z-index: -1;
+    border-radius: 50%;
+    background: var(--icon-background);
+  }
+
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: var(--icon-background);
+    content:'';
+    border-radius: 37px;
+    z-index: -1;
+    transition: transform .3s;
+    opacity: .2;
   }
 
   .icon {
@@ -131,56 +143,30 @@
     height: 14px;
   }
 
-  span::after {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    content: '';
-    background: var(--border-light);
-    border-radius: 100%;
-    transition: transform 0.3s;
-  }
-
-  span {
-    width: 20px;
-    height: 20px;
-    border-radius: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: url(..//images/hexagon.svg) center center / 18px 18px no-repeat;
-  }
-
-  span:hover::after {
+  &:hover::before {
     transform: scale(1.2);
+  }
+
+  &:disabled {
+    opacity: .4;
+  }
+}
+
+.rounded-button.warning {
+  &::after {
+    background: url(/images/hexagon.svg) center center / 18px 18px;
+    border-radius: 0;
+  }
+  &::before {
+    background: var(--border-light);
+    opacity: 1;
   }
 }
 
 .rounded-button.danger {
-  span::after {
-    background-color: var(--red);
-    opacity: 0.2;
-  }
-  span {
-    background: var(--red);
-    color: #fff;
-  }
+  --icon-background: var(--red);
 }
 
-/*
-.rounded-button span {
-  color: #FFF;
-  width: 37px;
-  height: 37px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 37px;
-  font-weight: 700;
-  font-family: $font-alt;
-  font-size: 14px;
-  background: url(..//images/hexagon.svg) center center / 18px 18px no-repeat var(--border-light);
+.rounded-button.success {
+  --icon-background: var(--green);
 }
-*/

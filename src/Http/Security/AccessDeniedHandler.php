@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Http\Authorization\AccessDeniedHandlerInterface;
@@ -16,13 +17,11 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
 {
     private UrlGeneratorInterface $urlGenerator;
     private Environment $twig;
-    private SessionInterface $session;
 
-    public function __construct(SessionInterface $session, UrlGeneratorInterface $urlGenerator, Environment $twig)
+    public function __construct(UrlGeneratorInterface $urlGenerator, Environment $twig)
     {
         $this->urlGenerator = $urlGenerator;
         $this->twig = $twig;
-        $this->session = $session;
     }
 
     public function handle(Request $request, AccessDeniedException $accessDeniedException)
@@ -34,7 +33,10 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
                 CourseVoter::DOWNLOAD_VIDEO,
                 CourseVoter::DOWNLOAD_SOURCE,
             ])) {
-                $this->session->getBag((new FlashBag())->getName())->set('error', 'Vous devez être premium pour pouvoir télécharger les sources ou les vidéos');
+                $session = $request->getSession();
+                if ($session instanceof Session) {
+                    $session->getFlashBag()->add('error', 'Vous devez être premium pour pouvoir télécharger les sources ou les vidéos');
+                }
 
                 return new RedirectResponse($this->urlGenerator->generate('premium'));
             }

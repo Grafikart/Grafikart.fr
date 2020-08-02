@@ -4,21 +4,30 @@
   </div>
   <div class="forum-message__header hstack">
     <div>
-      <div class="forum-message__author">{{ message.author.username }}</div>
+      <div class="forum-message__author">
+        {{ message.author.username }}
+        {% if message.accepted %}
+          <div class="ml1 forum-message__accepted badge badge-success">
+            Réponse acceptée
+          </div>
+        {% endif %}
+      </div>
       <div class="forum-message__date">
         <a href="#message-{{ message.id }}">{{ message.createdAt | ago }}</a>
         <forum-edit message="{{ message.id }}" owner="{{ message.author.id }}"></forum-edit>
         <forum-delete message="{{ message.id }}" owner="{{ message.author.id }}"></forum-delete>
       </div>
     </div>
-    {% if message.accepted %}
-      <div class="forum-message__accepted badge badge-success">
-        Réponse acceptée
-      </div>
-    {% endif %}
-    <forum-report
-      message="{{ message.id }}"
-      class="forum-message__actions"></forum-report>
+    <div class="forum-message__actions">
+      <forum-report message="{{ message.id }}"></forum-report>
+      <forum-solve
+        message="{{ message.id }}"
+        topicAuthor="{{ message.topic.id }}"
+        {% if message.accepted %}
+          disabled
+        {% endif %}
+      ></forum-solve>
+    </div>
   </div>
   <div class="forum-message__body">
     <div class="js-content formatted card" style="padding:1rem;">

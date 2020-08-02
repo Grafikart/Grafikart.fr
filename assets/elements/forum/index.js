@@ -4,9 +4,11 @@ import { ForumReport } from '/elements/forum/ForumReport.jsx'
 import { ForumDelete } from '/elements/forum/ForumDelete.jsx'
 import { ForumEdit } from '/elements/forum/ForumEdit.jsx'
 import { ForumRead } from '/elements/forum/ForumRead.jsx'
+import { ForumSolve } from '/elements/forum/ForumSolve.jsx'
 
 preactCustomElement('forum-delete', ForumDelete)
 preactCustomElement('forum-edit', ForumEdit)
 preactCustomElement('forum-create-message', CreateMessage, ['topic'])
 preactCustomElement('forum-report', ForumReport, ['message', 'topic'])
+preactCustomElement('forum-solve', ForumSolve, ['message', 'topicAuthor', 'disabled'])
 preactCustomElement('forum-read', ForumRead, ['endpoint'])

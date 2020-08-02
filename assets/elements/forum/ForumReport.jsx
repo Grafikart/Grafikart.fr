@@ -22,14 +22,12 @@ export function ForumReport ({ message, topic }) {
   return (
     <div style={{ position: 'relative' }}>
       <button
-        className='rounded-button'
+        className='rounded-button warning'
         onClick={toggleForm}
         disabled={success}
-        aria-label='Signaler le message'
-        data-microtip-position='top'
-        role='tooltip'
+        title='Signaler le message'
       >
-        <span>!</span>
+        !
       </button>
       <SlideIn show={showForm && !success} className='forum-report__form' forwardedRef={ref}>
         <ReportForm message={message} topic={topic} onSuccess={toggleSuccess} />
