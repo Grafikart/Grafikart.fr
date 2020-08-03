@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     normalizationContext={"groups"={"read"}},
  *     denormalizationContext={"groups"={"write"}},
  *     itemOperations={
-"get"={
+ *         "get"={
  *             "controller"=NotFoundAction::class,
  *             "read"=false,
  *             "output"=false,
