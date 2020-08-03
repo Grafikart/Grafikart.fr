@@ -22,7 +22,7 @@ export class Comments extends HTMLElement {
   }
 
   attachComments () {
-    const target = this.getAttribute('target')
+    const target = parseInt(this.getAttribute('target'))
     render(h(CommentsComponent, { target }), this)
     this.observer.disconnect()
   }

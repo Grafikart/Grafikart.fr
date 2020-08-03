@@ -14,7 +14,7 @@ import { catchViolations } from '/functions/api.js'
 /**
  * Affiche les commentaires associé à un contenu
  *
- * @param {{target: string}} param0
+ * @param {{target: number}} param0
  */
 export function Comments ({ target }) {
   const [state, setState] = useState({
