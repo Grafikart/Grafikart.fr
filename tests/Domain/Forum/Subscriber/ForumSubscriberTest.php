@@ -13,7 +13,7 @@ class ForumSubscriberTest extends EventSubscriberTest
 {
     public function testSubscribeToTheRightEvents()
     {
-        $this->assertSubsribeTo(ForumSubscriber::class, UserBannedEvent::class);
+        $this->assertSubscribeTo(ForumSubscriber::class, UserBannedEvent::class);
     }
 
     public function testDeleteUserContent()

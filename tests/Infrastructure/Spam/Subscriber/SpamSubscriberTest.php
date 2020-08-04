@@ -21,7 +21,7 @@ class SpamSubscriberTest extends EventSubscriberTest
      */
     public function testSubscribeToCorrectEvents(string $eventName): void
     {
-        $this->assertSubsribeTo(SpamSubscriber::class, $eventName);
+        $this->assertSubscribeTo(SpamSubscriber::class, $eventName);
     }
 
     public function getData(): iterable

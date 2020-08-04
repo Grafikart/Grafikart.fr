@@ -33,7 +33,7 @@ class ForumSubscriberTest extends EventSubscriberTest
 
     public function testSubscribeToTheRightEvents(): void
     {
-        $this->assertSubsribeTo(ForumSubscriber::class, MessageCreatedEvent::class);
+        $this->assertSubscribeTo(ForumSubscriber::class, MessageCreatedEvent::class);
     }
 
     public function testSendNoEmailIfNoOneToNotify(): void
