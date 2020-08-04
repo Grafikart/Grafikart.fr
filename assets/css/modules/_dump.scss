@@ -1,0 +1,24 @@
+pre.dump {
+  outline: 1px dotted rgba(#000, 0.1);
+  padding: 1rem;
+
+  .string {
+    color: green;
+  }
+
+  .number {
+    color: darkorange;
+  }
+
+  .boolean {
+    color: blue;
+  }
+
+  .null {
+    color: magenta;
+  }
+
+  .key {
+    color: red;
+  }
+}
