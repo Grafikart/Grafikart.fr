@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Http\Controller;
+namespace App\Tests\Http\Api;
 
 use App\Domain\History\Entity\Progress;
 use App\Tests\ApiTestCase;
@@ -15,7 +15,7 @@ class ProgressControllerTest extends ApiTestCase
     {
         $data = $this->loadFixtures(['courses']);
         $course = $data['course1'];
-        $this->client->request('POST', "/progress/{$course->getId()}/100");
+        $this->client->request('POST', "/api/progress/{$course->getId()}/100");
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
@@ -24,7 +24,7 @@ class ProgressControllerTest extends ApiTestCase
         $data = $this->loadFixtures(['courses']);
         $course = $data['course1'];
         $this->login($data['user1']);
-        $this->client->request('POST', "/progress/{$course->getId()}/100");
+        $this->client->request('POST', "/api/progress/{$course->getId()}/100");
         $this->assertResponseIsSuccessful();
     }
 
@@ -33,7 +33,7 @@ class ProgressControllerTest extends ApiTestCase
         $data = $this->loadFixtures(['courses']);
         $course = $data['course1'];
         $this->login($data['user1']);
-        $this->client->request('POST', "/progress/{$course->getId()}/101");
+        $this->client->request('POST', "/api/progress/{$course->getId()}/101");
         $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
     }
 
@@ -42,7 +42,7 @@ class ProgressControllerTest extends ApiTestCase
         $data = $this->loadFixtures(['courses']);
         $course = $data['course1'];
         $this->login($data['user1']);
-        $this->client->request('POST', "/progress/{$course->getId()}/0");
+        $this->client->request('POST', "/api/progress/{$course->getId()}/0");
         $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
     }
 
@@ -51,7 +51,7 @@ class ProgressControllerTest extends ApiTestCase
         $data = $this->loadFixtures(['courses']);
         $course = $data['course1'];
         $this->login($data['user1']);
-        $this->client->request('POST', '/progress/200/101');
+        $this->client->request('POST', '/api/progress/200/101');
         $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
     }
 
@@ -60,7 +60,7 @@ class ProgressControllerTest extends ApiTestCase
         $data = $this->loadFixtures(['courses']);
         $course = $data['course1'];
         $this->login($data['user1']);
-        $this->client->request('POST', "/progress/{$course->getId()}/100");
+        $this->client->request('POST', "/api/progress/{$course->getId()}/100");
         $count = self::$container->get('doctrine')->getRepository(Progress::class)->count([]);
         $this->assertEquals(1, $count);
     }

@@ -3,6 +3,8 @@
 namespace App\Http\Controller;
 
 use App\Domain\Auth\User;
+use App\Domain\History\HistoryService;
+use App\Domain\History\Repository\ProgressRepository;
 use App\Domain\Profile\Dto\AvatarDto;
 use App\Domain\Profile\Dto\ProfileUpdateDto;
 use App\Domain\Profile\ProfileService;
@@ -16,10 +18,26 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
+/**
+ * @method getUser() User
+ */
 class UserController extends AbstractController
 {
+
     /**
-     * @Route("/profil", name="user_edit")
+     * @Route("/profil", name="user_profil")
+     * @IsGranted("ROLE_USER")
+     */
+    public function index(HistoryService $service): Response
+    {
+        $watchlist = $service->getLastWatchedContent($this->getUser());
+        return $this->render('profil/profil.html.twig', [
+            'watchlist' => $watchlist
+        ]);
+    }
+
+    /**
+     * @Route("/profil/edit", name="user_edit")
      * @IsGranted("ROLE_USER")
      */
     public function edit(
@@ -54,7 +72,8 @@ class UserController extends AbstractController
             $service->updateProfile($data, $em);
             $em->flush();
             if ($user->getEmail() !== $data->email) {
-                $this->addFlash('success', "Votre profil a bien été mis à jour, un email a été envoyé à {$data->email} pour confirmer votre changement");
+                $this->addFlash('success',
+                    "Votre profil a bien été mis à jour, un email a été envoyé à {$data->email} pour confirmer votre changement");
             } else {
                 $this->addFlash('success', 'Votre profil a bien été mis à jour');
             }
@@ -64,8 +83,8 @@ class UserController extends AbstractController
 
         return $this->render('profil/edit.html.twig', [
             'form_password' => $formPassword->createView(),
-            'form_update' => $formUpdate->createView(),
-            'user' => $user,
+            'form_update'   => $formUpdate->createView(),
+            'user'          => $user,
         ]);
     }
 
@@ -84,7 +103,7 @@ class UserController extends AbstractController
         $data = new AvatarDto($request->files->get('avatar'), $user);
         $errors = $validator->validate($data);
         if ($errors->count() > 0) {
-            $this->addFlash('error', (string) $errors->get(0)->getMessage());
+            $this->addFlash('error', (string)$errors->get(0)->getMessage());
         } else {
             $service->updateAvatar($data);
             $em->flush();

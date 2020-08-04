@@ -20,6 +20,7 @@ import { ContactForm } from './ContactForm.jsx'
 import preactCustomElement from '/functions/preact.js'
 import EditButton from './admin/EditButton.js'
 import './forum/index.js'
+import { ProgressTracker } from '/elements/courses/ProgressTracker.js'
 
 // Custom Elements
 customElements.define('nav-tabs', NavTabs)
@@ -38,6 +39,7 @@ customElements.define('ajax-delete', AjaxDelete)
 customElements.define('animated-editor', AnimatedEditor)
 customElements.define('spinning-dots', SpinningDots)
 customElements.define('admin-edit', EditButton)
+customElements.define('progress-tracker', ProgressTracker)
 preactCustomElement('site-notifications', Notifications)
 preactCustomElement('contact-form', ContactForm)
 

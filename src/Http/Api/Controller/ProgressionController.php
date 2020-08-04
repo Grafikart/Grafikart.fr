@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controller;
+namespace App\Http\Api\Controller;
 
 use App\Domain\Application\Entity\Content;
 use App\Domain\Auth\User;
 use App\Domain\History\Event\ProgressEvent;
+use App\Http\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -17,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProgressionController extends AbstractController
 {
     /**
-     * @Route("/progress/{content}/{progress}", name="progress", methods={"POST"}, requirements={"progress"= "^([1-9][0-9]?|100)$"})
+     * @Route("/progress/{content}/{progress}", name="progress", methods={"POST"}, requirements={"progress"= "^([1-9][0-9]{0,2}|1000)$"})
      * @IsGranted(App\Http\Security\ContentVoter::PROGRESS, subject="content")
      */
     public function progress(

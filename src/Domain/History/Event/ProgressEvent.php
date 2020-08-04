@@ -8,13 +8,13 @@ use App\Domain\Auth\User;
 class ProgressEvent
 {
     private Content $content;
-    private int $percent;
+    private int $progress;
     private User $user;
 
-    public function __construct(Content $content, User $user, int $percent)
+    public function __construct(Content $content, User $user, int $progress)
     {
         $this->content = $content;
-        $this->percent = $percent;
+        $this->progress = $progress;
         $this->user = $user;
     }
 
@@ -23,9 +23,9 @@ class ProgressEvent
         return $this->content;
     }
 
-    public function getPercent(): int
+    public function getProgress(): int
     {
-        return $this->percent;
+        return $this->progress;
     }
 
     public function getUser(): User

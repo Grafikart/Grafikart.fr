@@ -78,7 +78,7 @@ class ProgressionSubscriberTest extends TestCase
             ->setCreatedAt(new \DateTime('@1231203'))
             ->setUpdatedAt(new \DateTime('@1231203'));
         $this->getSubscriber($event, $progress, 0)->onProgress($event);
-        $this->assertEquals(60, $progress->getPercent());
+        $this->assertEquals(60, $progress->getProgress());
         $this->assertNotEquals($progress->getCreatedAt(), $progress->getUpdatedAt());
     }
 

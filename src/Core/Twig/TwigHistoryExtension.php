@@ -45,7 +45,7 @@ class TwigHistoryExtension extends AbstractExtension
         $ids = [];
         foreach ($progress as $p) {
             if ($content = $p->getContent()) {
-                $ids[$content->getId()] = $p->getPercent();
+                $ids[$content->getId()] = $p->getProgress();
             }
         }
         $ids = json_encode($ids);

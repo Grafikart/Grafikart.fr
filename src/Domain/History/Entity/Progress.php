@@ -11,6 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Progress
 {
+
+    public const TOTAL = 1000;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -33,7 +36,7 @@ class Progress
     /**
      * @ORM\Column(type="integer")
      */
-    private int $percent = 0;
+    private int $progress = 0;
 
     /**
      * @ORM\Column(type="datetime")
@@ -74,16 +77,20 @@ class Progress
         return $this;
     }
 
-    public function getPercent(): ?int
+    public function getProgress(): ?int
     {
-        return $this->percent;
+        return $this->progress;
     }
 
-    public function setPercent(int $percent): self
+    public function setProgress(int $progress): self
     {
-        $this->percent = $percent;
+        $this->progress = $progress;
 
         return $this;
+    }
+
+    public function isFinished (): bool {
+        return $this->progress === self::TOTAL;
     }
 
     public function getCreatedAt(): ?\DateTimeInterface

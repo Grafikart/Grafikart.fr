@@ -43,19 +43,19 @@ class ProgressionSubscriber implements EventSubscriberInterface
                 ->setCreatedAt(new \DateTime())
                 ->setAuthor($event->getUser())
                 ->setContent($event->getContent())
-                ->setPercent($event->getPercent());
+                ->setProgress($event->getProgress());
             $this->em->persist($progress);
         } else {
             $progress
                 ->setUpdatedAt(new \DateTime())
-                ->setPercent($event->getPercent());
+                ->setProgress($event->getProgress());
         }
 
         // On vient de finir un tutoriel, on met alors à jour la progression dans la formation
         if (
             $event->getContent() instanceof Course &&
             $event->getContent()->getFormation() &&
-            100 === $event->getPercent()
+            100 === $event->getProgress()
         ) {
             /** @var Formation $formation */
             $formation = $event->getContent()->getFormation();
@@ -68,11 +68,11 @@ class ProgressionSubscriber implements EventSubscriberInterface
             // On compte le nbre de tutoriels finis
             $count = $repository->count([
                 'content' => $courseIds,
-                'percent' => 100,
+                'progress' => Progress::TOTAL,
             ]) + 1;
 
             // On dispatch l'évènement au parent
-            $percent = (int) round(100 * $count / count($courses));
+            $percent = (int) round(Progress::TOTAL * $count / count($courses));
             $this->dispatcher->dispatch(new ProgressEvent($formation, $event->getUser(), $percent));
         }
     }

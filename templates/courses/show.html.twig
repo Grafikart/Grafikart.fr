@@ -10,14 +10,16 @@
     </div>
 
     <div class="container layout-sidebar mt2 mb5">
-      <youtube-player
-        id="course-{{ course.id }}"
-        video="{{ course.youtubeId }}"
-        poster="{{ image_url(course.image) }}"
-        title="{{ course.title }}"
-        button="#chapter{{ course.id }} play-button"
-        id="coursePlayer"
-        class="shadow"></youtube-player>
+      <progress-tracker contentId="{{ course.id }}">
+        <youtube-player
+          id="course-{{ course.id }}"
+          video="{{ course.youtubeId }}"
+          poster="{{ image_url(course.image) }}"
+          title="{{ course.title }}"
+          button="#chapter{{ course.id }} play-button"
+          id="coursePlayer"
+          class="shadow"></youtube-player>
+      </progress-tracker>
       {% if course.formation %}
         <div class="relative chapters">
           <div class="absolute pt2">
