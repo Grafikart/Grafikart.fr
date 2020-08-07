@@ -1,4 +1,5 @@
 modal-dialog {
+  --modal-padding: 24px;
   position: fixed;
   top: 0;
   left: 0;
@@ -12,13 +13,7 @@ modal-dialog {
 
   opacity: 1;
   transition: 0.3s;
-}
-
-.modal-box {
-  width: 430px;
-  max-width: calc(100vw - 40px);
-  background-color: var(--background-light);
-  border: solid 1px var(--border);
+  animation: modalIn .3s;
 }
 
 modal-dialog[hidden] {
@@ -26,50 +21,51 @@ modal-dialog[hidden] {
   transform: scale(1.05);
   pointer-events: none;
 }
+
+.modal-box {
+  position: relative;
+  width: 430px;
+  max-width: calc(100vw - 40px);
+  background-color: var(--background-light);
+  border: solid 1px var(--border);
+  padding: var(--modal-padding);
+  border-radius: 8px;
+}
+
+.modal-box header {
+  @extend %h2;
+  text-align: center;
+}
+
 .modal-close {
+  width: 15px;
+  height: 15px;
   background-color: transparent;
   position: absolute;
-  top: 12px;
-  right: 10px;
+  top: var(--modal-padding);
+  right: var(--modal-padding);
   border: none;
   cursor: pointer;
-}
-modal-dialog .card {
-  position: relative;
-  max-width: 500px;
-  width: calc(100vw - 40px);
-  animation: 0.4s slideIn both;
+
+  .icon {
+    width: 100%;
+    height: 100%;
+  }
+
+  &:hover {
+    color: var(--contrast);
+  }
 }
 
-modal-box,
-.modal {
-  position: fixed;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: #000000a5;
-  overflow: auto;
-  animation: 0.5s fadeIn both;
-}
-
-modal-box.is-closing,
-.modal.is-closing {
-  animation: 0.5s fadeOut both;
-}
-
-modal-box > *,
-.modal > * {
-  animation: 0.4s slideIn both;
-}
-
-modal-box.is-closing > *,
-.modal.is-closing > * {
-  animation: 0.4s slideOut both;
+@keyframes modalIn {
+  0% {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 file-manager {

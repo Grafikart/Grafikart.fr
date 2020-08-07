@@ -77,6 +77,11 @@ class Progress
         return $this;
     }
 
+    public function getRatio (): ?float
+    {
+        return $this->progress / self::TOTAL;
+    }
+
     public function getProgress(): ?int
     {
         return $this->progress;

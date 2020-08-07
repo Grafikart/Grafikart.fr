@@ -25,9 +25,7 @@ class HistoryService
      */
     public function getLastWatchedContent(User $user): array
     {
-        return $this->progressRepository->findBy([
-            'author' => $user
-        ]) ?: [];
+        return $this->progressRepository->findLastForUser($user);
     }
 
 }

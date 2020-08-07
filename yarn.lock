@@ -930,10 +930,10 @@
   resolved "https://registry.yarnpkg.com/@glimmer/util/-/util-0.41.4.tgz#508fd82ca40305416e130f0da7b537295ded7989"
   integrity sha512-DwS94K+M0vtG+cymxH0rslJr09qpdjyOLdCjmpKcG/nNiZQfMA1ybAaFEmwk9UaVlUG9STENFeQwyrLevJB+7g==
 
-"@grafikart/spinning-dots-element@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@grafikart/spinning-dots-element/-/spinning-dots-element-1.0.0.tgz#1d3de4ee7bae2d52f0cadcb1a881596d97a831cb"
-  integrity sha512-KijKnCA/Vo5VNzt68CgBO13EWE/D1XpqDyXqL4OZghekg/aCT7ihg6yYN62tXziA7x8IyvzE3kCybELcHDM+QA==
+"@grafikart/spinning-dots-element@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@grafikart/spinning-dots-element/-/spinning-dots-element-1.1.0.tgz#640949f1ecc132356586eda1c2f4fb58757dae43"
+  integrity sha512-GrgVm/9roqLhzuOUeTytCU/Lwk4zjBws64SziL0D8ZsGYnTISSvOZjmRvzrPkGMMN4wgKdTYRUO5pg81nPP7Bw==
 
 "@iarna/toml@2.2.3":
   version "2.2.3"
@@ -2245,6 +2245,11 @@ caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001093:
   version "1.0.30001109"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001109.tgz#a9f3f26a0c3753b063d7acbb48dfb9c0e46f2b19"
   integrity sha512-4JIXRodHzdS3HdK8nSgIqXYLExOvG+D2/EenSvcub2Kp3QEADjo2v2oUn5g0n0D+UNwG9BtwKOyGcSq2qvQXvQ==
+
+canvas-confetti@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/canvas-confetti/-/canvas-confetti-1.2.0.tgz#5591764e1126adb08710d20bc9ba63842a3d8ee6"
+  integrity sha512-0B49O9CfLciAYz4hriu9pvWNGkCtVcpvyNFKWZI+JVWJM5nJTMg5MX3cFzatyeYcOL6bR1Jw3yhZKbgt03O8/Q==
 
 capture-exit@^2.0.0:
   version "2.0.0"

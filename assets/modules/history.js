@@ -17,7 +17,7 @@ export function showHistory (progress) {
       element.setAttribute('progress', p)
 
       // Sinon on ajoute la class "is-completed" aux éléments qui ont été terminés
-    } else if (p === 100) {
+    } else if (p === 1000) {
       element.classList.add('is-completed')
     }
   })

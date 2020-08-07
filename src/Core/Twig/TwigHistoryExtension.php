@@ -59,7 +59,6 @@ class TwigHistoryExtension extends AbstractExtension
             }
             window.addEventListener("turbolinks:load", a)
           })()
-
         </script>
         HTML;
     }

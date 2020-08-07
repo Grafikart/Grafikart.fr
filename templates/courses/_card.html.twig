@@ -19,6 +19,9 @@
       <a href="{{ path('course_show', {slug: course.slug, id: course.id}) }}" title="{{ course.title }}"
          class="card__link"></a>
     </div>
+    {% if progress is defined %}
+      <div class="card__progress"><span style="width:{{ progress * 100 }}%"></span></div>
+    {% endif %}
     <footer class="card__footer">
       {% if course.formation %}
         <div>

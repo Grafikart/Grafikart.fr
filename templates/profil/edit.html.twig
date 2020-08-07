@@ -1,27 +1,34 @@
 {% extends 'base.html.twig' %}
 
-{% block title 'Mon compte' %}
+{% block title 'Modifier mes informations' %}
+
+{% set bodyClass = 'light' %}
 
 {% block body %}
 
-  <div class="container py5">
 
-    <div class="profil-header">
-      <form class="profil-header__avatar" enctype="multipart/form-data" method="post" action="{{ path('user_avatar') }}" is="auto-submit">
-        <img src="{{ user | avatar }}" alt="">
-        <div class="profil-header__upload">
-          {{ icon('cloud') }}
-        </div>
-        <input type="file" name="avatar"/>
-      </form>
-      <div class="profil-header__body">
-        <h1 class="h1">Mon profil</h1>
-        <p>
-          <span class="badge badge-secondary">Compte standard</span>
-          Inscrit depuis 10 ans
-        </p>
+<header class="page-header container">
+  <div class="profil-header">
+    <form class="profil-header__avatar" enctype="multipart/form-data" method="post" action="{{ path('user_avatar') }}" is="auto-submit">
+      <img src="{{ user | avatar }}" alt="">
+      <div class="profil-header__upload">
+        {{ icon('cloud') }}
       </div>
+      <input type="file" name="avatar"/>
+    </form>
+    <div class="profil-header__body">
+      <h1 class="h1">Mon profil</h1>
+      <p>
+        <span class="badge badge-secondary">Compte standard</span>
+        Inscrit depuis 10 ans
+      </p>
     </div>
+  </div>
+</header>
+
+  {% include 'profil/_tabs.html.twig' with {active: 'edit'} %}
+
+  <div class="container bg py5">
 
     {% include 'partials/flash.html.twig' %}
 

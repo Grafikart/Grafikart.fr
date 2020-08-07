@@ -12,21 +12,17 @@
     </div>
   </header>
 
-  <div class="tabs-bar container">
-    <a href="#formations" aria-selected="true">
-      {{ icon('lines') }}
-      Mon profil
-    </a>
-    <a href="#courses">
-      {{ icon('user') }}
-      Editer
-    </a>
-  </div>
+  {% include 'profil/_tabs.html.twig' with {active: 'profil'} %}
 
   <div class="bg container py5">
-    {% for progress in watchlist %}
-      {% include 'courses/_card.html.twig' with {course: progress.content} %}
-    {% endfor %}
+    <div class="stack">
+      <h2 class="h3">Vidéos <strong>en cours de visionnage</strong></h2>
+      <div class="courses">
+        {% for progress in watchlist %}
+          {% include 'courses/_card.html.twig' with {course: progress.content, progress: progress.ratio} %}
+        {% endfor %}
+      </div>
+    </div>
   </div>
 
 

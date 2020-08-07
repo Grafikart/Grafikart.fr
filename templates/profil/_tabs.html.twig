@@ -1,0 +1,10 @@
+<div class="tabs-bar container">
+  <a href="{{ path('user_profil') }}" {% if active == 'profil' %}aria-selected="true"{% endif %}>
+    {{ icon('lines') }}
+    Mon profil
+  </a>
+  <a href="{{ path('user_edit') }}" {% if active == 'edit' %}aria-selected="true"{% endif %}>
+    {{ icon('user') }}
+    Editer
+  </a>
+</div>

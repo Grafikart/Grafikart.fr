@@ -4,7 +4,6 @@ import { YoutubePlayer } from './YoutubePlayer.js'
 import { Waves } from './Waves.js'
 import { Alert, FloatingAlert } from './Alert.js'
 import { Switch } from './Switch.js'
-import { Modal } from './Modal.js'
 import { Comments } from './comments/index.js'
 import { TimeAgo } from './TimeAgo.js'
 import { Choices } from './Choices.js'
@@ -29,7 +28,6 @@ customElements.define('modal-dialog', ModalDialog)
 customElements.define('alert-message', Alert)
 customElements.define('alert-floating', FloatingAlert)
 customElements.define('youtube-player', YoutubePlayer)
-customElements.define('modal-box', Modal)
 customElements.define('live-recap', RecapLiveElement)
 customElements.define('play-button', PlayButton)
 customElements.define('waves-shape', Waves)

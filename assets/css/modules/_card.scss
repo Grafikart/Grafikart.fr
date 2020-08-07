@@ -78,6 +78,10 @@
   background: var(--card-footer);
   padding: 0 var(--card-padding);
 
+  .card__progress ~ & {
+    margin-top: 0;
+  }
+
   & > * {
     opacity: 0.65;
   }
@@ -111,6 +115,16 @@
 
 .card__link:hover {
   border: 1px solid var(--contrast);
+}
+
+.card__progress {
+  margin-top: auto;
+  background: var(--border);
+  span {
+    height: 3px;
+    display: block;
+    background: var(--contrast);
+  }
 }
 
 // Complété

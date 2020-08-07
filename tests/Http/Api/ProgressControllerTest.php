@@ -24,7 +24,7 @@ class ProgressControllerTest extends ApiTestCase
         $data = $this->loadFixtures(['courses']);
         $course = $data['course1'];
         $this->login($data['user1']);
-        $this->client->request('POST', "/api/progress/{$course->getId()}/100");
+        $this->client->request('POST', "/api/progress/{$course->getId()}/1000");
         $this->assertResponseIsSuccessful();
     }
 
@@ -33,7 +33,7 @@ class ProgressControllerTest extends ApiTestCase
         $data = $this->loadFixtures(['courses']);
         $course = $data['course1'];
         $this->login($data['user1']);
-        $this->client->request('POST', "/api/progress/{$course->getId()}/101");
+        $this->client->request('POST', "/api/progress/{$course->getId()}/1001");
         $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
     }
 
@@ -60,7 +60,7 @@ class ProgressControllerTest extends ApiTestCase
         $data = $this->loadFixtures(['courses']);
         $course = $data['course1'];
         $this->login($data['user1']);
-        $this->client->request('POST', "/api/progress/{$course->getId()}/100");
+        $this->client->request('POST', "/api/progress/{$course->getId()}/1000");
         $count = self::$container->get('doctrine')->getRepository(Progress::class)->count([]);
         $this->assertEquals(1, $count);
     }

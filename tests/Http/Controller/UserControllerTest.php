@@ -22,14 +22,14 @@ class UserControllerTest extends WebTestCase
         $this->login($data['user1']);
         $crawler = $this->client->request('GET', '/profil');
         $this->assertResponseStatusCodeSame(200);
-        $this->assertEquals('Mon profil', $crawler->filter('h1')->text(), $crawler->filter('title')->text());
+        $this->assertEquals('Mon compte', $crawler->filter('h1')->text(), $crawler->filter('title')->text());
     }
 
     public function testShowAlertWhenProfileUpdated(): void
     {
         $data = $this->loadFixtures(['users']);
         $this->login($data['user1']);
-        $crawler = $this->client->request('GET', '/profil');
+        $crawler = $this->client->request('GET', '/profil/edit');
         $form = $crawler->selectButton('Modifier mon profil')->form();
 
         $this->client->submit($form);
@@ -43,7 +43,7 @@ class UserControllerTest extends WebTestCase
         /** @var User[] $data */
         $data = $this->loadFixtures(['users']);
         $this->login($data['user1']);
-        $crawler = $this->client->request('GET', '/profil');
+        $crawler = $this->client->request('GET', '/profil/edit');
         $form = $crawler->selectButton('Modifier mon profil')->form();
         $form->setValues([
             'update_profile_form[email]' => $data['user2']->getEmail(),
@@ -57,7 +57,7 @@ class UserControllerTest extends WebTestCase
         /** @var User[] $data */
         $data = $this->loadFixtures(['users']);
         $this->login($data['user1']);
-        $crawler = $this->client->request('GET', '/profil');
+        $crawler = $this->client->request('GET', '/profil/edit');
         $form = $crawler->selectButton('Modifier mon profil')->form();
         $form->setValues([
             'update_profile_form[email]' => 'john@azeazeazea.fr',
