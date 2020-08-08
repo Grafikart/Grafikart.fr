@@ -21,10 +21,10 @@
 ] %}
 
 {% block body %}
-  <div class="container stack" style="--gap:6">
+  <div class="container stack-separated py5" style="--gap:6">
     <div class="grid2">
       <div>
-          <div class="h1 mb1">Titre de premier niveau</div>
+          <div class="h1 mb2">Titre de premier niveau</div>
           <div class="h2 mb1">Titre de second niveau</div>
           <div class="h3 mb1">Titre de troisième niveau</div>
           <div class="h4 mb1">Titre de quatrième niveau</div>
@@ -51,7 +51,7 @@
     </div>
 
     <div>
-      <div class="h1 mb1">Couleurs</div>
+      <div class="h1 mb2">Couleurs</div>
       <div class="hstack">
         {% for color in colors %}
           <div>
@@ -63,7 +63,7 @@
     </div>
 
     <div>
-      <h1 class="h1 mb1">Boutons</h1>
+      <h1 class="h1 mb2">Boutons</h1>
       <div class="stack">
         <div class="hstack">
           <a href="#" class="btn-primary">Bouton .btn-primary</a>
@@ -87,10 +87,10 @@
     </div>
 
     <div>
-      <h1 class="mb1 h1">Navigations</h1>
+      <h1 class="h1 mb2">Navigations</h1>
       <div class="grid2" style="--gap:4">
         <div>
-          .nav-pills>a
+          <small class="text-muted">.nav-pills>a</small>
           <nav class="nav-pills">
             {% for i in 1..3 %}
               <a href="#" {% if i == 2 %}aria-selected="true" {% endif %}>Onglet #{{ i }}</a>
@@ -98,7 +98,7 @@
           </nav>
         </div>
         <div>
-          .tabs-toggle>button
+          <small class="text-muted">.tabs-toggle>button</small>
           <nav class="tabs-toggle">
             {% for i in 1..2 %}
               <button {% if i == 2 %}aria-selected="true" {% endif %}>Onglet #{{ i }}</button>
@@ -106,7 +106,7 @@
           </nav>
         </div>
         <div>
-          ul.pagination>li>a
+          <small class="text-muted">ul.pagination>li>a</small>
           <ul class="pagination">
             {% for i in 1..10 %}
               {% if i == 3 %}
@@ -118,7 +118,7 @@
           </ul>
         </div>
         <div>
-          ul.tabs-bar>a
+          <small class="text-muted">ul.tabs-bar>a</small>
           <ul class="tabs-bar">
             {% for i in 1..3 %}
               <a href="#" {% if i == 2 %}aria-selected="true" {% endif %}>Element #{{ i }}</a>
@@ -126,7 +126,7 @@
           </ul>
         </div>
         <div>
-          .list-group>a
+          <small class="text-muted">.list-group>a</small>
           <div class="list-group">
             {% for i in 1..3 %}
               <a href="#" class="flex">
@@ -137,7 +137,7 @@
           </div>
         </div>
         <div>
-          .list-cursus>*
+          <small class="text-muted">.list-cursus>*</small>
           <div class="list-cursus">
             {% for i in 1..3 %}
               <a href="#">
@@ -150,20 +150,20 @@
     </div>
 
     <div>
-      <h1 class="h1 mb1">Carte</h1>
+      <h1 class="h1 mb2">Carte</h1>
       <div class="grid2" style="--gap:4;">
-        <div class="hstack">
+        <div class="hstack full">
           <div>
-            .card
+            <small class="text-muted">.card</small>
             <div class="card" style="width: 100px; height: 100px;"></div>
           </div>
           <div>
-            .card-big
+            <small class="text-muted">.card-big</small>
             <div class="card-big" style="width: 100px; height: 100px;"></div>
           </div>
         </div>
         <div>
-          .card>(.card__body>.card__title+.card__description)+.card__footer
+          <small class="text-muted">.card>(.card__body>.card__title+.card__description)+.card__footer</small>
           <div class="card">
             <div class="card__body">
               <div class="card__title">Titre de la carte</div>
@@ -176,8 +176,21 @@
           </div>
         </div>
         <div>
-          Ajouter un a.card__link à l'intérieur d'une carte la rend entièrement clicable
+          <small class="text-muted">Ajouter un a.card__link à l'intérieur d'une carte la rend entièrement clicable</small>
           <div class="card">
+            <div class="card__body">
+              <div class="card__title">Titre de la carte</div>
+              <div class="card__description">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi enim fugit illum iure nemo pariatur sint
+                vitae. Architecto cupiditate delectus eos est non quis reiciendis suscipit totam veritatis voluptas. Vero?
+              </div>
+            </div>
+            <a class="card__link" href="#"></a>
+          </div>
+        </div>
+        <div>
+          <small class="text-muted">.is-completed</small>
+          <div class="card is-completed">
             <div class="card__body">
               <div class="card__title">Titre de la carte</div>
               <div class="card__description">
@@ -192,7 +205,7 @@
     </div>
 
     <div>
-      <h1 class="h1 mb1">Layout</h1>
+      <h1 class="h1 mb2">Layout</h1>
       <p class="mb2">
         Les espacements peuvent être pilotés au moyen de la variable <code>--gap</code> qui est multiplié par l'espace
         (8px)<br/>
@@ -200,7 +213,7 @@
       </p>
       <div class="stack">
         <div>
-          .stack
+          <small class="text-muted">.stack</small>
           <div class="stack">
             {% for i in 1..3 %}
               <div class="card" style="height:40px;"></div>
@@ -209,7 +222,7 @@
         </div>
 
         <div>
-          .stack-separated
+          <small class="text-muted">.stack-separated</small>
           <div class="stack-separated">
             {% for i in 1..3 %}
               <div class="card" style="height:40px;"></div>
@@ -218,7 +231,7 @@
         </div>
 
         <div>
-          .hstack
+          <small class="text-muted">.hstack</small>
           <div class="hstack">
             {% for i in 1..50 %}
               <div class="card" style="height:40px; width: 40px;"></div>
@@ -227,7 +240,7 @@
         </div>
 
         <div>
-          .flex
+          <small class="text-muted">.flex</small>
           <div class="flex">
             {% for i in 1..3 %}
               <div class="card" style="height:40px; width: 40px;"></div>
@@ -236,7 +249,7 @@
         </div>
 
         <div>
-          .flex.flex-start
+          <small class="text-muted">.flex.flex-start</small>
           <div class="flex flex-start">
             {% for i in 1..3 %}
               <div class="card" style="height:40px; width: 40px;"></div>
@@ -245,7 +258,7 @@
         </div>
 
         <div>
-          .flex.flex-end
+          <small class="text-muted">.flex.flex-end</small>
           <div class="flex flex-end">
             {% for i in 1..3 %}
               <div class="card" style="height:40px; width: 40px;"></div>
@@ -254,7 +267,7 @@
         </div>
 
         <div>
-          .layout-sidebar
+          <small class="text-muted">.layout-sidebar</small>
           <div class="layout-sidebar">
             {% for i in 1..2 %}
               <div class="card" style="height:40px;"></div>
@@ -263,7 +276,7 @@
         </div>
 
         <div>
-          .grid (utilisé pour les formulaire en général)
+          <small class="text-muted">.grid (utilisé pour les formulaire en général)</small>
           <div class="grid">
             {% for i in 1..6 %}
               <div class="card center text-muted {% if i == 5 %}full{% endif %}" style="height:40px;">{% if i == 5 %}.full{% endif %}</div>
@@ -272,7 +285,7 @@
         </div>
 
         <div>
-          .grid2
+          <small class="text-muted">.grid2</small>
           <div class="grid2">
             {% for i in 1..6 %}
               <div class="card" style="height:40px;"></div>
@@ -283,7 +296,7 @@
     </div>
 
     <div>
-      <div class="h1 mb1">Formulaires</div>
+      <div class="h1 mb2">Formulaires</div>
       <div class="stack card p2">
 
         <div class="form-group">
@@ -352,6 +365,20 @@
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus alias assumenda blanditiis delectus.
         </p>
       </alert-message>
+    </div>
+
+    <div>
+      <h1 class="h1 mb2">Skeleton</h1>
+      <div class="comment">
+        <skeleton-box class='comment__avatar' width="40" height="40" rounded></skeleton-box>
+        <div class='comment__meta'>
+          <skeleton-box class='comment__author' text='John Doe comm'></skeleton-box>
+          <div class='comment_actions'>
+            <skeleton-box class='comment__date' text='Il y a 9 mois'></skeleton-box>
+          </div>
+        </div>
+        <skeleton-box class="comment__content" width="921" height="90"></skeleton-box>
+      </div>
     </div>
   </div>
 {% endblock %}

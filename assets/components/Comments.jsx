@@ -51,7 +51,7 @@ export function Comments ({ target, parent }) {
     }
   }, [target, parent])
 
-  // On focalise se focalise sur un commentaire
+  // On se focalise sur un commentaire
   useEffect(() => {
     if (state.focus) {
       scrollTo(document.getElementById(`c${state.focus}`))
@@ -59,7 +59,7 @@ export function Comments ({ target, parent }) {
     }
   }, [state.focus])
 
-  // On comment l'édition d'un commentaire
+  // On commence l'édition d'un commentaire
   const handleEdit = useCallback(comment => {
     setState(s => ({ ...s, editing: s.editing === comment.id ? null : comment.id }))
   }, [])

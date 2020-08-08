@@ -24,6 +24,8 @@
   --red: #f25353;
   --green: #41cf7c;
   --yellow: #feb32b;
+  --skeleton: var(--border-light);
+  --skeleton-wave: var(--border-light);
 }
 
 .dark {
@@ -41,6 +43,8 @@
   --play: #1d1d3a;
   --list-hover: #282a5a;
   --card-footer: #{darken(#202248, 3)};
+  --skeleton: #ffffff21;
+  --skeleton-wave: #ffffff14;
 }
 
 // Outils

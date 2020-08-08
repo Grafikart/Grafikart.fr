@@ -1,7 +1,7 @@
 import { Alert } from '../Alert.js'
 import SpinningDots from '@grafikart/spinning-dots-element'
 import FileManager from '/elements/admin/filemanager/index.js'
-import { Modal } from '../Modal.js'
+import { ModalDialog } from '@sb-elements/all'
 
 /**
  * @property {number|null} timer
@@ -75,9 +75,9 @@ export default class InputAttachment extends HTMLInputElement {
   }
 
   onClick (e) {
-    // TODO : Prévoir une modale
     e.preventDefault()
-    const modal = new Modal()
+    const modal = new ModalDialog()
+    modal.setAttribute('overlay-close', 'overlay-close')
     const fm = new FileManager()
     modal.appendChild(fm)
     fm.addEventListener('file', e => {
