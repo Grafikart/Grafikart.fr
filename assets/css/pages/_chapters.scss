@@ -1,6 +1,6 @@
 .chapters {
-  @extend %card;
   @extend .stack-separated;
+  font-size: .9rem;
   padding: space(3) 0;
 }
 .chapters-split {
@@ -25,14 +25,11 @@
 .chapters__item {
   display: flex;
   align-items: center;
-}
-.chapters__item {
-  display: flex;
-  align-items: center;
   line-height: 1.4;
   padding: space(1) space(3);
 }
 .chapters__title {
+  margin-right: space(1);
   transform: translateY(-1px);
 }
 .chapters__duration {

@@ -3,6 +3,7 @@ import { isAuthenticated } from '/functions/auth.js'
 import { ModalDialog } from '@sb-elements/all'
 import confetti from 'canvas-confetti'
 import { wait } from '/functions/timers.js'
+import { strToDom } from '/functions/dom.js'
 
 const TIME_FOR_TRACKING = 10 // Nombre de secondes consécutives avant de considérer un visionnage
 
@@ -13,6 +14,9 @@ const TIME_FOR_TRACKING = 10 // Nombre de secondes consécutives avant de consid
  * @property {contentId} string
  */
 export class ProgressTracker extends HTMLElement {
+  static get observedAttributes () {
+    return ['progress']
+  }
 
   constructor () {
     super()
@@ -30,45 +34,25 @@ export class ProgressTracker extends HTMLElement {
     }
     this.video.addEventListener('timeupdate', this.onProgress)
     this.video.addEventListener('ended', this.onEnd)
+    const progress = this.getAttribute('progress')
+  }
+
+  attributeChangedCallback (name, oldValue, newValue) {
+    if (name === 'progress' && newValue) {
+      this.firstElementChild.setAttribute('start', Math.floor(parseInt(this.getAttribute('duration'), 10) * parseFloat(newValue)))
+    }
   }
 
   async onEnd () {
-    await wait(1000)
-    const dialog = new ModalDialog()
-    dialog.setAttribute('overlay-close', 'overlay-close')
-    dialog.setAttribute('hidden', 'hidden')
-    dialog.innerHTML = `<div class="modal-box">
-      <header>Félicitations ! </header>
-      <div class="text-center py2">
-        <img src="/images/success.svg" alt="" style="max-width: 80%;">
-      </div>
-      <p>Bravo pour votre avancement plus que 10 chapitres à tenir</p>
-      <footer class="text-center mt3">
-        <button data-dismiss class="btn btn-block btn-primary">
-          Voir le chapitre suivant
-        </button>
-      </footer>
-      <button
-        data-dismiss
-        aria-label="Close"
-        class="modal-close"
-      >
-      <svg class="icon icon-cross">
-  <use xlink:href="/sprite.svg#cross"></use>
-</svg>
-</button>
-    </div>`
+    await wait(300)
+    const {message} =  await jsonFetch(`/api/progress/${this.contentId}/1000`, { method: 'POST' }).catch(console.error)
+    document.body.appendChild(strToDom(message))
     confetti({
       particleCount: 100,
       zIndex: 3000,
       spread: 70,
       origin: { y: 0.6 }
     });
-    jsonFetch(`/api/progress/${this.contentId}/1000`, { method: 'POST' }).catch(console.error)
-    document.body.appendChild(dialog)
-    window.requestAnimationFrame(() => {
-      dialog.removeAttribute('hidden')
-    })
   }
 
   async onProgress () {

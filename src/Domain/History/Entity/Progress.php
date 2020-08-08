@@ -121,4 +121,11 @@ class Progress
 
         return $this;
     }
+
+    public function setRatio(float $ratio): self
+    {
+        $this->progress = (int)floor($ratio * self::TOTAL);
+
+        return $this;
+    }
 }

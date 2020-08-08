@@ -21,4 +21,20 @@ class FormationTest extends TestCase
         $formation->addCourse($expected);
         $this->assertEquals($expected, $formation->getCoursesById()[12]);
     }
+
+    public function testNextCourseId() {
+        $formation = new Formation();
+        $courses = [];
+        for ($i = 1; $i <= 5; $i++) {
+            $courses[] = $formation->addCourse(Helper::makeCourse(2));
+        }
+        $formation->setRawChapters([
+            ['title' => 'Demo', 'courses' => [4, 3]],
+            ['title' => 'Demo', 'courses' => [1, 5, 2]],
+        ]);
+        $this->assertEquals(null, $formation->getNextCourseId(2));
+        $this->assertEquals(3, $formation->getNextCourseId(4));
+        $this->assertEquals(1, $formation->getNextCourseId(3));
+        $this->assertEquals(2, $formation->getNextCourseId(5));
+    }
 }

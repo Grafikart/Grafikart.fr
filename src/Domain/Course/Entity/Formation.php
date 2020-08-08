@@ -127,6 +127,20 @@ class Formation extends Content
         return $this;
     }
 
+    public function getNextCourseId(?int $id): ?int
+    {
+        if (null === $id) {
+            return null;
+        }
+        $ids = array_reduce($this->getRawChapters(), fn ($acc, $chapter) => array_merge($acc, $chapter['courses']), []);
+        $index = array_search($id, $ids);
+        if (false === $index) {
+            return null;
+        }
+
+        return $ids[(int) $index + 1] ?? null;
+    }
+
     /**
      * @return Collection<int, Course>
      */

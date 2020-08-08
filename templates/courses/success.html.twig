@@ -1,0 +1,24 @@
+<modal-dialog overlay-close>
+  <div class="modal-box">
+    <header>Félicitations ! </header>
+    <div class="text-center py2">
+      <img src="/images/success.svg" alt="" style="max-width: 80%;">
+    </div>
+    <!-- TODO : Remplacer cette phrase -->
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A blanditiis consequatur dolores enim magnam, nostrum odio omnis provident quidem quod reprehenderit ut! Autem deserunt eligendi facere nostrum quo, repellendus voluptate?</p>
+    <footer class="text-center mt3">
+      {% if button %}
+        <a data-dismiss class="btn btn-block btn-primary" href="{{ path(button.target) }}#{{ button.anchor }}">
+          {{ button.title }}
+        </a>
+      {% endif %}
+    </footer>
+    <button
+      data-dismiss
+      aria-label="Close"
+      class="modal-close"
+    >
+      {{ icon('cross') }}
+    </button>
+  </div>
+</modal-dialog>

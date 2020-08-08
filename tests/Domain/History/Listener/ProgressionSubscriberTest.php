@@ -41,7 +41,7 @@ class ProgressionSubscriberTest extends TestCase
         $this->dispatcher = $this->getMockBuilder(EventDispatcherInterface::class)->getMock();
     }
 
-    private function getEvent(int $progress = 60): ProgressEvent
+    private function getEvent(float $progress = 0.6): ProgressEvent
     {
         $content = (new Course())->setId(100);
         $user = (new User())->setId(10);
@@ -78,24 +78,21 @@ class ProgressionSubscriberTest extends TestCase
             ->setCreatedAt(new \DateTime('@1231203'))
             ->setUpdatedAt(new \DateTime('@1231203'));
         $this->getSubscriber($event, $progress, 0)->onProgress($event);
-        $this->assertEquals(60, $progress->getProgress());
+        $this->assertEquals(0.6, $progress->getRatio());
         $this->assertNotEquals($progress->getCreatedAt(), $progress->getUpdatedAt());
     }
 
     public function dataFormationProgressionUpdater(): iterable
     {
-        yield [1, 10];
-        yield [3, 30];
+        yield [1, .1];
+        yield [3, .3];
     }
 
     /**
      * @dataProvider dataFormationProgressionUpdater
      */
-    public function testUpdateProgressionForFormation(int $completedCourses, int $expectedPercent): void
+    public function testUpdateProgressionForFormation(int $completedCourses, float $expectedProgress): void
     {
-        // On crée un évènement
-        $event = $this->getEvent();
-
         // On crée une formation avec 10 cours
         $formation = new Formation();
         $courses = [];
@@ -111,13 +108,13 @@ class ProgressionSubscriberTest extends TestCase
 
         // On crée l'event
         $user = (new User())->setId(10);
-        $event = new ProgressEvent($courses[1], $user, 100);
+        $event = new ProgressEvent($courses[1], $user, 1);
 
         $this->repository->expects($this->once())->method('count')->with(
-            $this->equalTo(['content' => $ids, 'percent' => 100])
+            $this->equalTo(['content' => $ids, 'progress' => 1000])
         )->willReturn($completedCourses - 1);
 
-        $expected = new ProgressEvent($formation, $event->getUser(), $expectedPercent);
+        $expected = new ProgressEvent($formation, $event->getUser(), $expectedProgress);
 
         $this->dispatcher->expects($this->once())->method('dispatch')->with(
             $this->equalTo($expected)

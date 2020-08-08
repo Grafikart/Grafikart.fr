@@ -5,6 +5,7 @@ namespace App\Domain\History\Repository;
 use App\Domain\Application\Entity\Content;
 use App\Domain\Auth\User;
 use App\Domain\Course\Entity\Course;
+use App\Domain\Course\Entity\Formation;
 use App\Domain\History\Entity\Progress;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;

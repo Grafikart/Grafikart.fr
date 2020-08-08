@@ -10,7 +10,7 @@
     </div>
 
     <div class="container layout-sidebar mt2 mb5">
-      <progress-tracker contentId="{{ course.id }}">
+      <progress-tracker contentId="{{ course.id }}" data-history="{{ course.id }}" duration="{{ course.duration }}">
         <youtube-player
           id="course-{{ course.id }}"
           video="{{ course.youtubeId }}"
@@ -21,9 +21,9 @@
           class="shadow"></youtube-player>
       </progress-tracker>
       {% if course.formation %}
-        <div class="relative chapters">
-          <div class="absolute pt2">
-            {% include 'chapters/_summary.html.twig' with {class: '', chapters: course.formation.chapters, current: "#chapter" ~ course.id} only %}
+        <div class="relative card">
+          <div class="absolute">
+            {% include 'chapters/_summary.html.twig' with {chapters: course.formation.chapters, current: "#chapter" ~ course.id} only %}
           </div>
         </div>
       {% endif %}

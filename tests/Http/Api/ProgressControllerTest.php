@@ -49,7 +49,6 @@ class ProgressControllerTest extends ApiTestCase
     public function testRejectNotExistingContent(): void
     {
         $data = $this->loadFixtures(['courses']);
-        $course = $data['course1'];
         $this->login($data['user1']);
         $this->client->request('POST', '/api/progress/200/101');
         $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);

@@ -8,10 +8,10 @@ use App\Domain\Auth\User;
 class ProgressEvent
 {
     private Content $content;
-    private int $progress;
+    private float $progress;
     private User $user;
 
-    public function __construct(Content $content, User $user, int $progress)
+    public function __construct(Content $content, User $user, float $progress)
     {
         $this->content = $content;
         $this->progress = $progress;
@@ -23,7 +23,7 @@ class ProgressEvent
         return $this->content;
     }
 
-    public function getProgress(): int
+    public function getProgress(): float
     {
         return $this->progress;
     }

@@ -107,6 +107,7 @@ class CourseCrudData implements CrudDataInterface
         $this->entity->setDemo($this->demo);
         $this->entity->setOnline($this->online);
         $this->entity->setSourceFile($this->sourceFile);
+        $this->entity->setYoutubeId($this->youtube);
         $this->entity->setPremium($this->premium);
         $this->entity->setContent($this->content);
         $this->entity->setCreatedAt($this->createdAt);

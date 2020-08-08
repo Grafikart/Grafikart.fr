@@ -4,11 +4,15 @@ namespace App\Http\Api\Controller;
 
 use App\Domain\Application\Entity\Content;
 use App\Domain\Auth\User;
+use App\Domain\Course\Entity\Course;
+use App\Domain\Course\Entity\Formation;
+use App\Domain\History\Entity\Progress;
 use App\Domain\History\Event\ProgressEvent;
 use App\Http\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -28,9 +32,40 @@ class ProgressionController extends AbstractController
         EntityManagerInterface $em
     ): JsonResponse {
         $user = $this->getUser();
-        $dispatcher->dispatch(new ProgressEvent($content, $user, $progress));
+        $dispatcher->dispatch(new ProgressEvent($content, $user, $progress / Progress::TOTAL));
         $em->flush();
 
-        return new JsonResponse([]);
+        if (Progress::TOTAL !== $progress) {
+            return new JsonResponse([]);
+        }
+
+        $button = null;
+        if ($content instanceof Course && $content->getFormation() instanceof Formation) {
+            /** @var Formation $formation */
+            $formation = $content->getFormation();
+            $nextChapterId = $formation->getNextCourseId($content->getId());
+            if ($nextChapterId) {
+                $button = [
+                    'title' => 'Voir le chapitre suivant',
+                    'anchor' => 'autoplay',
+                    'target' => $em->getRepository(Course::class)->find($nextChapterId),
+                ];
+            }
+        } elseif ($content instanceof Course) {
+            $technologies = $content->getMainTechnologies();
+            if (count($technologies) > 0) {
+                $button = [
+                    'title' => "Voir d'autre vidéos {$technologies[0]->getName()}",
+                    'anchor' => 'tutoriels',
+                    'target' => $technologies[0],
+                ];
+            }
+        }
+
+        return new JsonResponse([
+            'message' => $this->renderView('courses/success.html.twig', [
+                'button' => $button,
+            ]),
+        ]);
     }
 }

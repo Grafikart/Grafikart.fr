@@ -1,5 +1,5 @@
 {% cache [course, 'card'] %}
-  <article class="card" data-history="{{ course.id }}">
+  <article class="card" data-history="{{ course.id }}" {% if progress is defined %}style="--progress: {{ progress }}"{% endif %}>
     <div class="card__body stack">
       <div class="card__icons">
         {% for technology in course.mainTechnologies %}
@@ -19,9 +19,7 @@
       <a href="{{ path('course_show', {slug: course.slug, id: course.id}) }}" title="{{ course.title }}"
          class="card__link"></a>
     </div>
-    {% if progress is defined %}
-      <div class="card__progress"><span style="width:{{ progress * 100 }}%"></span></div>
-    {% endif %}
+    <div class="card__progress"><span></span></div>
     <footer class="card__footer">
       {% if course.formation %}
         <div>

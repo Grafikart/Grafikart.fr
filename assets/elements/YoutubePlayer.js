@@ -103,7 +103,8 @@ export class YoutubePlayer extends HTMLElement {
         modestbranding: 1,
         controls: 1,
         showinfo: 0,
-        rel: 0
+        rel: 0,
+        start:this.getAttribute('start')
       },
       events: {
         onStateChange: this.onYoutubePlayerStateChange,
