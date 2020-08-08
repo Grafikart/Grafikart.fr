@@ -2,12 +2,10 @@ import { canManage, isAuthenticated } from '/functions/auth.js'
 import { Icon } from '/components/Icon.jsx'
 import { memo } from 'preact/compat'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'preact/hooks'
-import { useAsyncEffect } from '/functions/hooks.js'
 import { addComment, deleteComment, findAllComments, updateComment } from '/api/comments.js'
 import { PrimaryButton, SecondaryButton } from '/components/Button.jsx'
 import { Flex } from '/components/Layout.jsx'
 import { Field } from '/components/Form.jsx'
-import { Loader } from '/components/Loader.jsx'
 import { scrollTo } from '/functions/animation.js'
 import { catchViolations } from '/functions/api.js'
 
@@ -16,14 +14,14 @@ import { catchViolations } from '/functions/api.js'
  *
  * @param {{target: string}} param0
  */
-export function Comments ({ target }) {
+export function Comments ({ target, parent }) {
   const [state, setState] = useState({
     editing: null, // ID du commentaire en cours d'édition
     comments: null, // Liste des commentaires
     focus: null, // Commentaire à focus
     reply: null // Commentaire auquel on souhaite répondre
   })
-  const count = state.comments ? state.comments.length : 0
+  const count = state.comments ? state.comments.length : null
   const comments = useMemo(() => {
     if (state.comments === null) {
       return null
@@ -37,14 +35,25 @@ export function Comments ({ target }) {
   }
 
   // On charge les commentaire dès l'affichage du composant
-  useAsyncEffect(async () => {
-    const comments = await findAllComments(target)
-    setState(s => ({ ...s, comments }))
-  }, [target])
+  useEffect(() => {
+    const observer = new IntersectionObserver(observables => {
+      observables.forEach(async observable => {
+        // L'élément devient visible
+        if (observable.intersectionRatio > 0) {
+          const comments = await findAllComments(target)
+          setState(s => ({ ...s, comments }))
+        }
+      })
+    })
+    observer.observe(parent)
+    return () => {
+      observer.disconnect()
+    }
+  }, [target, parent])
 
   // On focalise se focalise sur un commentaire
   useEffect(() => {
-    if (focus) {
+    if (state.focus) {
       scrollTo(document.getElementById(`c${state.focus}`))
       setState(s => ({ ...s, focus: null }))
     }
@@ -97,21 +106,19 @@ export function Comments ({ target }) {
     [target]
   )
 
-  // On affiche le chargement en attendant
-  if (comments === null) {
-    return <Loader />
-  }
-
   // On rend la liste des commentaires
   return (
     <div className='comment-area'>
       <div className='comments__title'>
-        {count} Commentaire{count > 1 ? 's' : ''}
+        {count === null ?
+          <skeleton-box text="3 Commentaires"></skeleton-box> :
+          <>{count} Commentaire{count > 1 ? 's' : ''}</>
+        }
       </div>
       <CommentForm onSubmit={handleCreate} />
       <hr />
       <div className='comment-list'>
-        {comments.map(comment => (
+        {comments ? comments.map(comment => (
           <Comment
             key={comment.id}
             comment={comment}
@@ -136,11 +143,24 @@ export function Comments ({ target }) {
               <CommentForm onSubmit={handleCreate} parent={comment.id} onCancel={handleCancelReply} />
             )}
           </Comment>
-        ))}
+        )) : <><FakeComment /><FakeComment /><FakeComment /></>}
       </div>
     </div>
   )
 }
+
+const FakeComment = memo(() => {
+  return <div class="comment">
+    <skeleton-box className='comment__avatar' width="40" height="40" rounded/>
+    <div className='comment__meta'>
+      <skeleton-box className='comment__author' text='John Doe comm'/>
+      <div className='comment_actions'>
+        <skeleton-box className='comment__date' text='Il y a 9 mois'/>
+      </div>
+    </div>
+    <skeleton-box className="comment__content" width="921" height="90"/>
+  </div>
+})
 
 /**
  * Affiche un commentaire

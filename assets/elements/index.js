@@ -3,8 +3,9 @@ import { PlayButton } from './PlayButton.js'
 import { YoutubePlayer } from './YoutubePlayer.js'
 import { Waves } from './Waves.js'
 import { Alert, FloatingAlert } from './Alert.js'
+import Skeleton from './Skeleton.js'
 import { Switch } from './Switch.js'
-import { Comments } from './comments/index.js'
+import { Comments } from '../components/Comments.jsx'
 import { TimeAgo } from './TimeAgo.js'
 import { Choices } from './Choices.js'
 import { MarkdownEditor } from './editor/index.js'
@@ -31,15 +32,16 @@ customElements.define('youtube-player', YoutubePlayer)
 customElements.define('live-recap', RecapLiveElement)
 customElements.define('play-button', PlayButton)
 customElements.define('waves-shape', Waves)
-customElements.define('comments-area', Comments)
 customElements.define('time-ago', TimeAgo)
 customElements.define('ajax-delete', AjaxDelete)
 customElements.define('animated-editor', AnimatedEditor)
 customElements.define('spinning-dots', SpinningDots)
 customElements.define('admin-edit', EditButton)
 customElements.define('progress-tracker', ProgressTracker)
+customElements.define('skeleton-box', Skeleton)
 preactCustomElement('site-notifications', Notifications)
 preactCustomElement('contact-form', ContactForm)
+preactCustomElement('comments-area', Comments, ['target'])
 
 // CustomElement étendus
 customElements.define('input-switch', Switch, { extends: 'input' })
