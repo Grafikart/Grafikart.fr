@@ -55,7 +55,7 @@ class ProgressionController extends AbstractController
             $technologies = $content->getMainTechnologies();
             if (count($technologies) > 0) {
                 $button = [
-                    'title' => "Voir d'autre vidéos {$technologies[0]->getName()}",
+                    'title' => "Voir d'autres vidéos {$technologies[0]->getName()}",
                     'anchor' => 'tutoriels',
                     'target' => $technologies[0],
                 ];
