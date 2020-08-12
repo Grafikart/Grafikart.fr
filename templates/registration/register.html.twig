@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title "Inscription" %}
+
+{% block body %}
+  <div class="auth-container my5">
+
+    {% include 'partials/flash.html.twig' %}
+
+    <h1 class="auth-title fade">S'inscrire</h1>
+
+    {{ form_start(form, {attr: {class: 'auth-form fade fade-1'}}) }}
+      {{ form_row(form.username) }}
+      {{ form_row(form.email) }}
+      {{ form_row(form.plainPassword) }}
+      <button type="submit" class="btn-gradient">S'inscrire</button>
+      <p>
+        <small class="text-muted">Vos données personnelles (email et nom d'utilisateur) ne sont utilisées qu'à des fin d'authentification et ne sont pas partagé avec des tiers (<a
+            href="{{ path('confidentialite') }}">En savoir plus</a>).</small>
+      </p>
+    {{ form_end(form) }}
+
+  </div>
+  <waves-shape target=".auth-form"></waves-shape>
+{% endblock %}

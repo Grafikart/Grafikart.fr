@@ -7,6 +7,7 @@ use App\Domain\Notification\Entity\Notifiable;
 use App\Domain\Premium\Entity\PremiumTrait;
 use App\Infrastructure\Payment\Stripe\StripeEntity;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -15,9 +16,16 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Entity(repositoryClass="App\Domain\Auth\UserRepository")
  * @ORM\Table(name="`user`")
  * @Vich\Uploadable()
+ * @UniqueEntity(fields={"email"})
+ * @UniqueEntity(fields={"username"})
  */
 class User implements UserInterface, \Serializable, ForumReaderUserInterface
 {
+
+    use PremiumTrait;
+    use StripeEntity;
+    use Notifiable;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -80,9 +88,10 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface
      */
     private ?\DateTimeInterface $bannedAt = null;
 
-    use PremiumTrait;
-    use StripeEntity;
-    use Notifiable;
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private ?string $confirmationToken = null;
 
     public function getId(): ?int
     {
@@ -268,4 +277,17 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface
     {
         return null !== $this->bannedAt;
     }
+
+    public function getConfirmationToken(): ?string
+    {
+        return $this->confirmationToken;
+    }
+
+    public function setConfirmationToken(?string $confirmationToken): User
+    {
+        $this->confirmationToken = $confirmationToken;
+
+        return $this;
+    }
+
 }

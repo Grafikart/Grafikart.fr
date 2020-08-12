@@ -2,6 +2,7 @@
 
 namespace App\Infrastructure\Mailing;
 
+use App\Domain\Auth\Event\UserCreatedEvent;
 use App\Domain\Password\Event\PasswordResetTokenCreatedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -21,6 +22,7 @@ class AuthSubscriber implements EventSubscriberInterface
     {
         return [
             PasswordResetTokenCreatedEvent::class => 'onPasswordRequest',
+            UserCreatedEvent::class => 'onRegister'
         ];
     }
 
@@ -33,6 +35,16 @@ class AuthSubscriber implements EventSubscriberInterface
         ])
             ->to($event->getUser()->getEmail())
             ->subject('Grafikart | Réinitialisation de votre mot de passe');
+        $this->mailer->send($email);
+    }
+
+    public function onRegister(UserCreatedEvent $event): void
+    {
+        $email = $this->mailer->createEmail('mails/auth/register.twig', [
+            'user' => $event->getUser(),
+        ])
+            ->to($event->getUser()->getEmail())
+            ->subject('Grafikart | Confirmation du compte');
         $this->mailer->send($email);
     }
 }

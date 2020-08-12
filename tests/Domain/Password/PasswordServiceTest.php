@@ -5,7 +5,7 @@ namespace App\Tests\Domain\Password;
 use App\Domain\Auth\UserRepository;
 use App\Domain\Password\Entity\PasswordResetToken;
 use App\Domain\Password\Repository\PasswordResetTokenRepository;
-use App\Domain\Password\TokenGeneratorService;
+use App\Core\Security\TokenGeneratorService;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;

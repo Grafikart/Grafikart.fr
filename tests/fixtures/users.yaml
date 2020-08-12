@@ -7,3 +7,8 @@ App\Domain\Auth\User:
   user_admin (extends user):
     username: Grafikart
     email: fake@email.fr
+
+  user_unconfirmed (extends user):
+    username: Unconfirmed
+    email: unconfirmed@email.fr
+    confirmationToken: thisisaconfirmationtoken

@@ -2,6 +2,7 @@
 
 namespace App\Domain\Password;
 
+use App\Core\Security\TokenGeneratorService;
 use App\Domain\Auth\Exception\UserNotFoundException;
 use App\Domain\Auth\UserRepository;
 use App\Domain\Password\Data\PasswordResetRequestData;

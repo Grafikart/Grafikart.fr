@@ -65,4 +65,21 @@ class SecurityControllerTest extends WebTestCase
         }
         $this->assertStringContainsString('verrouillé', $crawler->filter('alert-message')->text());
     }
+
+    public function testPreventLoginUnconfirmedUser(): void
+    {
+        /** @var array<string,User> $users */
+        $users = $this->loadFixtures(['users']);
+        $crawler = $this->client->request('GET', '/login');
+        $this->expectFormErrors(0);
+        $form = $crawler->selectButton('Se connecter')->form();
+        $form->setValues([
+            'email' => $users['user_unconfirmed']->getEmail(),
+            'password' => '00000',
+        ]);
+        $this->client->submit($form);
+        $this->assertResponseRedirects();
+        $this->client->followRedirect();
+        $this->expectErrorAlert();
+    }
 }

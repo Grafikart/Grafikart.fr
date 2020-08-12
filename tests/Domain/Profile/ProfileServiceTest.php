@@ -3,7 +3,7 @@
 namespace App\Tests\Domain\Profile;
 
 use App\Domain\Auth\User;
-use App\Domain\Password\TokenGeneratorService;
+use App\Core\Security\TokenGeneratorService;
 use App\Domain\Profile\Dto\ProfileUpdateDto;
 use App\Domain\Profile\Entity\EmailVerification;
 use App\Domain\Profile\Event\EmailVerificationEvent;

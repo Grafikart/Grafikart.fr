@@ -36,6 +36,9 @@ final class UserImporter implements TypeImporterInterface
         $result = $query->fetch();
         $io->progressStart($result['count']);
         $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
+        $oldUser = [
+            'id' => 0
+        ];
         while (true) {
             $query = $this->pdo->prepare("SELECT id, username, email, encrypted_password FROM users  ORDER BY id ASC LIMIT $offset, 1000");
             $query->execute();
@@ -58,6 +61,8 @@ final class UserImporter implements TypeImporterInterface
             $this->em->clear();
             $offset += 1000;
         }
+        $id = $oldUser['id'] + 1;
+        $this->em->getConnection()->exec("ALTER SEQUENCE user_id_seq RESTART WITH $id;");
         $io->progressFinish();
         $io->success(sprintf('Importation de %d utilisateurs', $result['count']));
     }

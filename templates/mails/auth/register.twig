@@ -1,0 +1,22 @@
+{% extends layout %}
+
+{% import "mails/macros.twig" as e %}
+
+{% block body %}
+
+  {% apply markdown_email %}
+
+    Bienvenue sur Grafikart !
+    ===============================
+
+    Vous venez de créer un compte sur Grafikart.fr. Pour activer votre compte il vous suffit de cliquer sur ce lien
+
+  {% endapply %}
+
+  {{ e.button('Valider mon compte', url('register_confirm', {id: user.id, token: user.confirmationToken})) }}
+
+  {% apply markdown_email %}
+  Si vous n'êtes pas à l'origine de la création de ce compte ne tenez pas compte de cet email, le compte sera automatiquement supprimé.
+  {% endapply %}
+
+{% endblock %}

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Password;
+namespace App\Core\Security;
 
 class TokenGeneratorService
 {

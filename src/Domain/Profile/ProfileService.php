@@ -2,7 +2,7 @@
 
 namespace App\Domain\Profile;
 
-use App\Domain\Password\TokenGeneratorService;
+use App\Core\Security\TokenGeneratorService;
 use App\Domain\Profile\Dto\AvatarDto;
 use App\Domain\Profile\Dto\ProfileUpdateDto;
 use App\Domain\Profile\Entity\EmailVerification;
