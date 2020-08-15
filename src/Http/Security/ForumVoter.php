@@ -5,7 +5,6 @@ namespace App\Http\Security;
 use App\Domain\Auth\User;
 use App\Domain\Forum\Entity\Message;
 use App\Domain\Forum\Entity\Topic;
-use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
@@ -13,9 +12,9 @@ class ForumVoter extends Voter
 {
     const CREATE = 'forumCreate';
     const REPORT = 'forumReport';
-    const CREATE_MESSAGE = 'forumCreateMessage';
-    const DELETE_MESSAGE = 'DELETE_FORUM_MESSAGE';
+    const CREATE_MESSAGE = 'CREATE_FORUM_MESSAGE';
     const UPDATE_MESSAGE = 'UPDATE_FORUM_MESSAGE';
+    const DELETE_MESSAGE = 'DELETE_FORUM_MESSAGE';
     const UPDATE_TOPIC = 'UPDATE_TOPIC';
     const DELETE_TOPIC = 'DELETE_TOPIC';
     const READ_TOPICS = 'READ_TOPICS';
@@ -23,7 +22,15 @@ class ForumVoter extends Voter
 
     protected function supports(string $attribute, $subject)
     {
-        return in_array($attribute, [self::CREATE, self::REPORT, self::CREATE_MESSAGE, self::DELETE_MESSAGE, self::READ_TOPICS, self::SOLVE_MESSAGE]);
+        return in_array($attribute, [
+            self::CREATE,
+            self::REPORT,
+            self::CREATE_MESSAGE,
+            self::UPDATE_MESSAGE,
+            self::DELETE_MESSAGE,
+            self::READ_TOPICS,
+            self::SOLVE_MESSAGE
+        ]);
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
