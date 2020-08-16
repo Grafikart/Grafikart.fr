@@ -17,8 +17,8 @@ class RevisionService
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         RevisionRepository $repository,
-        EntityManagerInterface $em)
-    {
+        EntityManagerInterface $em
+    ) {
         $this->eventDispatcher = $eventDispatcher;
         $this->em = $em;
         $this->repository = $repository;

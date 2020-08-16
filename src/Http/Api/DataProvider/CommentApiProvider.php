@@ -45,8 +45,10 @@ class CommentApiProvider implements CollectionDataProviderInterface, RestrictedD
             throw new HttpException(Response::HTTP_BAD_REQUEST, 'Aucun contenu ne correspond à cet ID');
         }
 
-        return array_map(fn (Comment $comment) => CommentResource::fromComment($comment),
-            $this->commentRepository->findForApi($contentId));
+        return array_map(
+            fn (Comment $comment) => CommentResource::fromComment($comment),
+            $this->commentRepository->findForApi($contentId)
+        );
     }
 
     /**

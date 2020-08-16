@@ -14,7 +14,8 @@ class HistoryService
      */
     private ProgressRepository $progressRepository;
 
-    public function __construct(ProgressRepository  $progressRepository) {
+    public function __construct(ProgressRepository  $progressRepository)
+    {
 
         $this->progressRepository = $progressRepository;
     }
@@ -27,5 +28,4 @@ class HistoryService
     {
         return $this->progressRepository->findLastForUser($user);
     }
-
 }

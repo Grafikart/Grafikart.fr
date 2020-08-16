@@ -31,8 +31,7 @@ class ApiNotificationSubscriber implements EventSubscriberInterface
     {
         $controllerResult = $event->getControllerResult();
         $request = $event->getRequest();
-        if (
-            !$controllerResult instanceof Notification
+        if (!$controllerResult instanceof Notification
             || !($attributes = RequestAttributesExtractor::extractAttributes($request))
             || !$attributes['persist']
             || 'POST' !== $request->getMethod()

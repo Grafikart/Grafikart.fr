@@ -152,19 +152,19 @@ class TopicRepository extends ServiceEntityRepository
 
         // On convertit les résultat en objet Topic
         $topics = array_map(function ($row) {
-           $topic = (new Topic())
+            $topic = (new Topic())
             ->setCreatedAt(new \DateTime($row['created_at']))
             ->setName($row['name'])
             ->setContent($row['excerpt'])
             ->setId($row['id'])
             ->setSolved($row['solved'])
             ->setMessageCount($row['message_count']);
-           $author = (new User())
+            $author = (new User())
                ->setAvatarName($row['avatar_name'])
                ->setId($row['user_id'])
                ->setUsername($row['username']);
-           $topic->setAuthor($author);
-           return $topic;
+            $topic->setAuthor($author);
+            return $topic;
         }, $query->fetchAll());
 
         return [$topics, $count];

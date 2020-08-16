@@ -77,7 +77,7 @@ class Progress
         return $this;
     }
 
-    public function getRatio (): ?float
+    public function getRatio(): ?float
     {
         return $this->progress / self::TOTAL;
     }
@@ -94,7 +94,8 @@ class Progress
         return $this;
     }
 
-    public function isFinished (): bool {
+    public function isFinished(): bool
+    {
         return $this->progress === self::TOTAL;
     }
 

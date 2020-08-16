@@ -21,8 +21,8 @@ class TwigUrlExtension extends AbstractExtension
     public function __construct(
         UrlGeneratorInterface $urlGenerator,
         UploaderHelper $uploaderHelper,
-        SerializerInterface $serializer)
-    {
+        SerializerInterface $serializer
+    ) {
         $this->urlGenerator = $urlGenerator;
         $this->serializer = $serializer;
         $this->uploaderHelper = $uploaderHelper;

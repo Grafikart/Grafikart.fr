@@ -9,7 +9,8 @@ class UserCreatedEvent
 
     private User $user;
 
-    public function __construct (User  $user) {
+    public function __construct(User  $user)
+    {
         $this->user = $user;
     }
 
@@ -17,5 +18,4 @@ class UserCreatedEvent
     {
         return $this->user;
     }
-
 }

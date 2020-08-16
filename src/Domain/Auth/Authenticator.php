@@ -112,8 +112,7 @@ class Authenticator extends AbstractFormLoginAuthenticator implements PasswordAu
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): RedirectResponse
     {
-        if (
-            $this->user instanceof User &&
+        if ($this->user instanceof User &&
             $exception instanceof BadCredentialsException
         ) {
             $this->eventDispatcher->dispatch(new BadPasswordLoginEvent($this->user));

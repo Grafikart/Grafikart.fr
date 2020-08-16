@@ -38,8 +38,7 @@ class AdminRequestListener implements EventSubscriberInterface
         }
         $uri = '/'.trim($event->getRequest()->getRequestUri(), '/').'/';
         $prefix = '/'.trim($this->adminPrefix, '/').'/';
-        if (
-            substr($uri, 0, mb_strlen($prefix)) === $prefix &&
+        if (substr($uri, 0, mb_strlen($prefix)) === $prefix &&
             !$this->auth->isGranted('CMS_MANAGE')
         ) {
             $exception = new AccessDeniedException();

@@ -289,5 +289,4 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface
 
         return $this;
     }
-
 }

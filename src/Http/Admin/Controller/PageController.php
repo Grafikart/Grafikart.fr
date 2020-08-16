@@ -18,7 +18,7 @@ final class PageController extends BaseController
         PaginatorInterface $paginator,
         RevisionRepository $revisionRepository,
         CommentRepository $commentRepository,
-    ReportRepository $reportRepository
+        ReportRepository $reportRepository
     ): Response {
         return $this->render('admin/index.html.twig', [
             'revisions' => $revisionRepository->findLatest(),

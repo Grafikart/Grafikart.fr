@@ -22,7 +22,8 @@ class FormationTest extends TestCase
         $this->assertEquals($expected, $formation->getCoursesById()[12]);
     }
 
-    public function testNextCourseId() {
+    public function testNextCourseId()
+    {
         $formation = new Formation();
         $courses = [];
         for ($i = 1; $i <= 5; $i++) {

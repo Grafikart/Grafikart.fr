@@ -32,8 +32,10 @@ class RevisionController extends AbstractController
                 $this->flashErrors($form);
             } else {
                 $service->submitRevision($revision);
-                $this->addFlash('success',
-                    "Votre modification a bien été enregistrée, vous pouvez revenir sur vos changements tant qu'ils n'ont pas été validés");
+                $this->addFlash(
+                    'success',
+                    "Votre modification a bien été enregistrée, vous pouvez revenir sur vos changements tant qu'ils n'ont pas été validés"
+                );
             }
         }
 

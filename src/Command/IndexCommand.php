@@ -29,8 +29,8 @@ class IndexCommand extends Command
         TopicRepository $topicRepository,
         CourseRepository $courseRepository,
         EntityManagerInterface $em,
-        NormalizerInterface $normalizer)
-    {
+        NormalizerInterface $normalizer
+    ) {
         parent::__construct();
         $this->indexer = $indexer;
         $this->formationRepository = $formationRepository;

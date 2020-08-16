@@ -40,8 +40,10 @@ class RegistrationController extends AbstractController
             $em->flush();
             $dispatcher->dispatch(new UserCreatedEvent($user));
 
-            $this->addFlash('success',
-                'Un message avec un lien de confirmation vous a été envoyé par mail. Veuillez suivre ce lien pour activer votre compte.');
+            $this->addFlash(
+                'success',
+                'Un message avec un lien de confirmation vous a été envoyé par mail. Veuillez suivre ce lien pour activer votre compte.'
+            );
 
             return $this->redirectToRoute('register');
         }

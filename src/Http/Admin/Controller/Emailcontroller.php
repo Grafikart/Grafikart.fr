@@ -25,7 +25,7 @@ class Emailcontroller extends BaseController
         string $format,
         Mailer $mailer,
         TopicRepository $topicRepository,
-    MessageRepository $messageRepository
+        MessageRepository $messageRepository
     ): Response {
         $topic = $topicRepository->findOneBy(['author' => $this->getUser()]);
         $message = $messageRepository->findOneBy(['author' => $this->getUser()]);

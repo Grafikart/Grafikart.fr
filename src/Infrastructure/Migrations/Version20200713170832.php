@@ -54,8 +54,10 @@ SQL);
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf('postgresql' !== $this->connection->getDatabasePlatform()->getName(),
-            'Migration can only be executed safely on \'postgresql\'.');
+        $this->abortIf(
+            'postgresql' !== $this->connection->getDatabasePlatform()->getName(),
+            'Migration can only be executed safely on \'postgresql\'.'
+        );
 
         $this->addSql('DROP TRIGGER countMessageForTopicsTrigger ON forum_message;');
         $this->addSql('DROP FUNCTION countMessageForTopics;');

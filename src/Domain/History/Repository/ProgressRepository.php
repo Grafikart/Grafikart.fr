@@ -63,6 +63,5 @@ class ProgressRepository extends ServiceEntityRepository
             ])
             ->getQuery()
             ->getResult();
-
     }
 }

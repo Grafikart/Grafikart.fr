@@ -75,6 +75,7 @@
     "phpstan/phpstan-symfony": "^0.12.6",
     "phpunit/phpunit": "^8.5",
     "spatie/phpunit-watcher": "^1.22",
+    "squizlabs/php_codesniffer": "^3.5",
     "symfony/debug-pack": "*",
     "symfony/maker-bundle": "^1.0",
     "symfony/profiler-pack": "*",

@@ -107,6 +107,4 @@ class RegistrationControllerTest extends WebTestCase
         $this->client->followRedirect();
         $this->expectErrorAlert();
     }
-
-
 }
