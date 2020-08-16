@@ -46,15 +46,15 @@ services:
       - 5432:5432 # On expose le port pour pouvoir inspecter la base pendant la phase de développement
     volumes:
       - db-data:/var/lib/postgresql/data
-  # adminer:
-  #   image: adminer
-  #   environment:
-  #     ADMINER_DESIGN: pepa-linha
-  #     ADMINER_DEFAULT_SERVER: db
-  #   links:
-  #     - db
-  #   ports:
-  #     - 8888:8080
+  adminer:
+    image: adminer
+    environment:
+      ADMINER_DESIGN: pepa-linha
+      ADMINER_DEFAULT_SERVER: db
+    links:
+      - db
+    ports:
+      - 8888:8080
   mail:
     image: maildev/maildev:2.0.0-beta3
     ports:

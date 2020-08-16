@@ -82,7 +82,7 @@ tt: vendor/autoload.php ## Lance le watcher phpunit
 
 .PHONY: lint
 lint: vendor/autoload.php ## Analyse le code
-	docker run -v $(PWD):/app --rm phpstan/phpstan analyse
+	$(dr) php vendor/bin/phpstan analyse
 
 .PHONY: format
 format:

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% set bodyClass = 'light' %}
+{% set bodyClass = 'header-light' %}
 
 {% block title topic.name %}
 
@@ -21,7 +21,7 @@
     </div>
   </div>
 
-  <div class="container bg stack topic-page py5">
+  <div class="container stack topic-page py5">
 
     <div class="forum-message">
       <div class="forum-message__body">
@@ -35,7 +35,7 @@
         class="forum-message__actions"></forum-report>
     </div>
 
-    <h2 class="section-title">{{ topic.messageCount }} Réponses</h2>
+    <h2 class="section-title mt3">{{ topic.messageCount }} Réponses</h2>
 
     <div class="forum-messages">
       {% for message in messages %}

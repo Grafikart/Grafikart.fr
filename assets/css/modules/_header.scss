@@ -1,10 +1,10 @@
 .header {
-  @extend %container-margin;
+  @extend %container;
   position: relative;
   font-family: $font-alt;
   font-weight: 500;
   line-height: 1;
-  margin-top: space(6);
+  padding-top: space(6);
   padding-bottom: space(3);
   z-index: 5;
 
@@ -16,9 +16,17 @@
     right: 0;
     bottom: 0;
     background-color: var(--border);
+    max-width: var(--container-width);
+    margin-left: auto;
+    margin-right: auto;
     height: 1px;
   }
 }
+
+.header-light .header {
+  background-color: var(--background-light);
+}
+
 .header.is-inversed {
   color: var(--color-inversed);
   border-bottom-color: var(--color-inversed);

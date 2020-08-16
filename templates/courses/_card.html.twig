@@ -13,7 +13,7 @@
           {{ course.title }}
         </a>
       </h2>
-      <div class="card__description">
+      <div class="card__description text-small">
         {{ course.content | markdown | striptags | excerpt(130) }}
       </div>
       <a href="{{ path('course_show', {slug: course.slug, id: course.id}) }}" title="{{ course.title }}"

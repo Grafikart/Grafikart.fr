@@ -119,4 +119,26 @@ class ForumController extends AbstractController
             'id' => $topic->getId(),
         ]);
     }
+
+    /**
+     * @Route("/forum/search", name="forum_search")
+     */
+    public function search(
+        Request $request,
+        TopicRepository $topicRepository,
+        \Knp\Component\Pager\PaginatorInterface $paginator
+    ): Response {
+        $q = $request->get('q');
+        $page = $request->get('page', 1);
+        [$items, $total] = $topicRepository->search($q, $page);
+        $topics = $paginator->paginate([], 1, 10, ['whiteList' => []]);
+        $topics->setTotalItemCount($total);
+        $topics->setItems($items);
+        $topics->setCurrentPageNumber($page);
+
+        return $this->render('forum/search.html.twig', [
+            'q' => $q,
+            'topics' => $topics,
+        ]);
+    }
 }

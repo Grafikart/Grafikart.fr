@@ -74,6 +74,10 @@ body.light {
   }
 }
 
+body.header-light::after {
+  display: none;
+}
+
 body::after {
   content: '';
   display: block;

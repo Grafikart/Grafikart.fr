@@ -1,0 +1,4 @@
+<form class="form-group flex" style="width: 100%; margin-left: 70px;" action="{{ path('forum_search') }}">
+  <input type="text" name="q" placeholder="Rechercher un sujet" value="{{ q is defined ? q : '' }}">
+  <button type="submit" class="btn-primary">Rechercher</button>
+</form>

@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Recherche "' ~ q ~ '"' %}
+
+{% set bodyClass = 'header-light' %}
+
+{% block body %}
+
+  <div class="container page-header flex">
+    <h1 class="hero-title">Forum</h1>
+    {% include 'forum/_searchform.html.twig' %}
+  </div>
+
+  <div class="container py5">
+
+    <div class="forum-page__main stack">
+      {% for topic in topics %}
+        <div class="forum-topic{% if topic.solved %} is-solved{% endif %}" id="topic-{{ topic.id }}">
+          <div class="forum-avatar">
+            <img src="{{ topic.author | avatar }}" alt="">
+          </div>
+          <div class="forum-topic__body">
+            <a class="forum-topic__title" href="{{ path(topic) }}">
+{{ topic.id }} - {{ topic.name | striptags('<mark>') | raw }}
+            </a>
+            <div class="forum-topic__meta">
+              <a
+                href="{{ path(topic.author) }}">{{ topic.author.username }}</a>, {{ topic.createdAt | ago }}
+            </div>
+            <p class="mt1">
+              <small>
+                {{ topic.content | striptags('<mark>') | raw }}
+              </small>
+            </p>
+          </div>
+          <div class="forum-topic__count">
+            {{ icon('comments') }}
+            {{ topic.messageCount }}
+          </div>
+          <a href="{{ path(topic) }}" aria-hidden="true" class="forum-topic__link" tabindex="-1"></a>
+        </div>
+      {% endfor %}
+    </div>
+
+    {{ paginate(topics) }}
+
+  </div>
+
+{% endblock %}
+

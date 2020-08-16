@@ -8,10 +8,7 @@
 
 <div class="container page-header flex">
   <h1 class="hero-title">Forum</h1>
-  <div class="form-group flex" style="width: 100%; margin-left: 70px;">
-    <input type="text" name="q" placeholder="Rechercher un sujet">
-    <button type="submit" class="btn-primary">Rechercher</button>
-  </div>
+  {% include 'forum/_searchform.html.twig' %}
 </div>
 
 <div class="forum-page bg py3">
