@@ -8,20 +8,14 @@ use App\Domain\History\Repository\ProgressRepository;
 
 class HistoryService
 {
-
-    /**
-     * @var ProgressRepository
-     */
     private ProgressRepository $progressRepository;
 
-    public function __construct(ProgressRepository  $progressRepository)
+    public function __construct(ProgressRepository $progressRepository)
     {
-
         $this->progressRepository = $progressRepository;
     }
 
     /**
-     * @param User $user
      * @return Progress[]
      */
     public function getLastWatchedContent(User $user): array

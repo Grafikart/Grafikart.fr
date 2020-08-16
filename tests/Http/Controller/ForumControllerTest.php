@@ -2,7 +2,6 @@
 
 namespace App\Tests\Http\Controller;
 
-use App\Domain\Forum\Entity\Message;
 use App\Tests\FixturesTrait;
 use App\Tests\WebTestCase;
 

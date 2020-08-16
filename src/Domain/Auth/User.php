@@ -21,7 +21,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class User implements UserInterface, \Serializable, ForumReaderUserInterface
 {
-
     use PremiumTrait;
     use StripeEntity;
     use Notifiable;

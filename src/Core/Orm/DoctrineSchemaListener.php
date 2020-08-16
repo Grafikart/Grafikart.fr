@@ -10,15 +10,14 @@ use Doctrine\ORM\Tools\Event\GenerateSchemaEventArgs;
 use Doctrine\ORM\Tools\ToolEvents;
 
 /**
- * Pour éviter que doctrine cherche à écraser ce que l'on a fait dans les migrations
+ * Pour éviter que doctrine cherche à écraser ce que l'on a fait dans les migrations.
  */
 class DoctrineSchemaListener implements EventSubscriber
 {
-
     /**
-     * Ignore les colonnes utilisé pour les recherches
+     * Ignore les colonnes utilisé pour les recherches.
      */
-    public function onSchemaColumnDefinition(SchemaColumnDefinitionEventArgs $eventArgs)
+    public function onSchemaColumnDefinition(SchemaColumnDefinitionEventArgs $eventArgs): void
     {
         if ('search_vector' === ($eventArgs->getTableColumn()['field'] ?? null)) {
             $eventArgs->preventDefault();
@@ -26,9 +25,9 @@ class DoctrineSchemaListener implements EventSubscriber
     }
 
     /**
-     * Ignore les index utilisés pour les recherches
+     * Ignore les index utilisés pour les recherches.
      */
-    public function onSchemaIndexDefinition(SchemaIndexDefinitionEventArgs $eventArgs)
+    public function onSchemaIndexDefinition(SchemaIndexDefinitionEventArgs $eventArgs): void
     {
         if ('search_idx' === ($eventArgs->getTableIndex()['name'] ?? null)) {
             $eventArgs->preventDefault();
@@ -36,13 +35,13 @@ class DoctrineSchemaListener implements EventSubscriber
     }
 
     /**
-     * Supprime les "CREATE SCHEMA public" dans les migrations
+     * Supprime les "CREATE SCHEMA public" dans les migrations.
      */
-    public function postGenerateSchema(GenerateSchemaEventArgs $eventArgs)
+    public function postGenerateSchema(GenerateSchemaEventArgs $eventArgs): void
     {
         $schema = $eventArgs->getSchema();
 
-        if (! $schema->hasNamespace('public')) {
+        if (!$schema->hasNamespace('public')) {
             $schema->createNamespace('public');
         }
     }
@@ -57,7 +56,7 @@ class DoctrineSchemaListener implements EventSubscriber
         return [
             Events::onSchemaColumnDefinition,
             Events::onSchemaIndexDefinition,
-            ToolEvents::postGenerateSchema
+            ToolEvents::postGenerateSchema,
         ];
     }
 }

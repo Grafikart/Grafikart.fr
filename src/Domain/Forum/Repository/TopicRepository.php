@@ -7,7 +7,6 @@ use App\Domain\Forum\Entity\Message;
 use App\Domain\Forum\Entity\Tag;
 use App\Domain\Forum\Entity\Topic;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\DBAL\Statement;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -164,6 +163,7 @@ class TopicRepository extends ServiceEntityRepository
                ->setId($row['user_id'])
                ->setUsername($row['username']);
             $topic->setAuthor($author);
+
             return $topic;
         }, $query->fetchAll());
 

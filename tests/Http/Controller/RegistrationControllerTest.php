@@ -28,13 +28,13 @@ class RegistrationControllerTest extends WebTestCase
         $form = $crawler->selectButton(self::SIGNUP_BUTTON)->form();
         $form->setValues([
             'registration_form' => [
-                'username'      => "Jane Doe",
-                'email'         => "jane@doe.fr",
+                'username' => 'Jane Doe',
+                'email' => 'jane@doe.fr',
                 'plainPassword' => [
-                    'first'  => "jane@doe.fr",
-                    'second' => "jane@doe.fr"
+                    'first' => 'jane@doe.fr',
+                    'second' => 'jane@doe.fr',
                 ],
-            ]
+            ],
         ]);
         $this->client->submit($form);
         $this->expectFormErrors(0);
@@ -49,13 +49,13 @@ class RegistrationControllerTest extends WebTestCase
         $form = $crawler->selectButton(self::SIGNUP_BUTTON)->form();
         $formValues = [
             'registration_form' => [
-                'username'      => "Jane Doe",
-                'email'         => $users['user1']->getEmail(),
+                'username' => 'Jane Doe',
+                'email' => $users['user1']->getEmail(),
                 'plainPassword' => [
-                    'first'  => "jane@doe.fr",
-                    'second' => "jane@doe.fr"
+                    'first' => 'jane@doe.fr',
+                    'second' => 'jane@doe.fr',
                 ],
-            ]
+            ],
         ];
         $form->setValues($formValues);
         $this->client->submit($form);
@@ -74,7 +74,7 @@ class RegistrationControllerTest extends WebTestCase
         $users = $this->loadFixtures(['users']);
         $user = $users['user_unconfirmed'];
 
-        $this->client->request('GET', self::CONFIRMATION_PATH . $user->getId() . '?token=azeazeaze');
+        $this->client->request('GET', self::CONFIRMATION_PATH.$user->getId().'?token=azeazeaze');
         $this->assertResponseRedirects(self::SIGNUP_PATH);
         $this->client->followRedirect();
         $this->expectErrorAlert();
@@ -88,7 +88,7 @@ class RegistrationControllerTest extends WebTestCase
         $user->setCreatedAt(new \DateTime());
         $this->em->flush();
 
-        $this->client->request('GET', self::CONFIRMATION_PATH . $user->getId() . '?token=' . $user->getConfirmationToken());
+        $this->client->request('GET', self::CONFIRMATION_PATH.$user->getId().'?token='.$user->getConfirmationToken());
         $this->assertResponseRedirects();
         $this->client->followRedirect();
         $this->expectSuccessAlert();
@@ -102,7 +102,7 @@ class RegistrationControllerTest extends WebTestCase
         $user->setCreatedAt(new \DateTime('-1 day'));
         $this->em->flush();
 
-        $this->client->request('GET', self::CONFIRMATION_PATH . $user->getId() . '?token=' . $user->getConfirmationToken());
+        $this->client->request('GET', self::CONFIRMATION_PATH.$user->getId().'?token='.$user->getConfirmationToken());
         $this->assertResponseRedirects(self::SIGNUP_PATH);
         $this->client->followRedirect();
         $this->expectErrorAlert();

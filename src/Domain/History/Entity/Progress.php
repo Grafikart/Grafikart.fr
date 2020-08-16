@@ -11,7 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Progress
 {
-
     public const TOTAL = 1000;
 
     /**
@@ -96,7 +95,7 @@ class Progress
 
     public function isFinished(): bool
     {
-        return $this->progress === self::TOTAL;
+        return self::TOTAL === $this->progress;
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
@@ -125,7 +124,7 @@ class Progress
 
     public function setRatio(float $ratio): self
     {
-        $this->progress = (int)floor($ratio * self::TOTAL);
+        $this->progress = (int) floor($ratio * self::TOTAL);
 
         return $this;
     }

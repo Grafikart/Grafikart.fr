@@ -38,6 +38,35 @@
   </ul>
 </nav>
 {% block body %}{% endblock %}
+<footer class="footer">
+  <div>
+    <p class="text-muted mb2">
+      Après avoir appris sur Internet quoi de plus normal que de partager à son tour ? Passionné par le web depuis un peu plus de 15 ans maintenant j'aime partager mes compétences et mes découvertes avec les personnes qui ont cette même passion pour le web
+    </p>
+    {% include 'partials/social.html.twig' %}
+  </div>
+  <div>
+    <div class="footer-title">Mes derniers tweets</div>
+    <div class="footer-tweets">
+      {% for tweet in last_tweets() %}
+      <div class="footer-tweet">
+        {{ icon('quotes') }}
+        {{ tweet.content | autolink | raw}}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div>
+    <div class="footer-title">Me contacter</div>
+    <ul>
+      <li><a href="{{ path('contact') }}">{{ icon('email') }} Par email</a></li>
+      <li><a href="{{ path('tchat') }}">{{ icon('tchat') }} Tchat</a></li>
+      <li><a href="https://www.youtube.com/user/grafikarttv">{{ icon('video') }} Chaine youtube</a></li>
+      <li><a href="{{ path('ui') }}">{{ icon('info') }} A propos</a></li>
+      <li><a href="{{ path('confidentialite') }}">{{ icon('fingerprint') }} Politique de confidentialité</a></li>
+    </ul>
+  </div>
+</footer>
 <script>
   window.grafikart = {...(window.grafikart || {}),
     ADMIN: {{ is_granted('SUPERADMIN') ? 'true' : 'false' }},

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Core\Orm\Types;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;

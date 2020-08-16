@@ -8,7 +8,6 @@ use Symfony\Component\Mime\Email;
 
 class ProfileSubscriber implements EventSubscriberInterface
 {
-
     private Mailer $mailer;
 
     public function __construct(Mailer $mailer)

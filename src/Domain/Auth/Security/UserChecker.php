@@ -42,7 +42,7 @@ class UserChecker implements UserCheckerInterface
         if ($user instanceof User && $user->isBanned()) {
             throw new UserBannedException();
         }
-        if ($user instanceof User && $user->getConfirmationToken() !== null) {
+        if ($user instanceof User && null !== $user->getConfirmationToken()) {
             throw new UserNotFoundException();
         }
 

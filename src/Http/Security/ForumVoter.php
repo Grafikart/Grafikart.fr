@@ -29,7 +29,7 @@ class ForumVoter extends Voter
             self::UPDATE_MESSAGE,
             self::DELETE_MESSAGE,
             self::READ_TOPICS,
-            self::SOLVE_MESSAGE
+            self::SOLVE_MESSAGE,
         ]);
     }
 

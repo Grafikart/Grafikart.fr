@@ -26,7 +26,7 @@ class FormationTest extends TestCase
     {
         $formation = new Formation();
         $courses = [];
-        for ($i = 1; $i <= 5; $i++) {
+        for ($i = 1; $i <= 5; ++$i) {
             $courses[] = $formation->addCourse(Helper::makeCourse($i));
         }
         $formation->setRawChapters([

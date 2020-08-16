@@ -22,7 +22,7 @@ class AuthSubscriber implements EventSubscriberInterface
     {
         return [
             PasswordResetTokenCreatedEvent::class => 'onPasswordRequest',
-            UserCreatedEvent::class => 'onRegister'
+            UserCreatedEvent::class => 'onRegister',
         ];
     }
 

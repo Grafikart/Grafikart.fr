@@ -6,6 +6,8 @@ parameters:
   typesense_key: '%env(resolve:TYPESENSE_KEY)%'
   typesense_host: '%env(resolve:TYPESENSE_HOST)%'
   image_resize_key: '%env(resolve:IMAGE_RESIZE_KEY)%'
+  twitter_key: '%env(resolve:TWITTER_KEY)%'
+  twitter_secret: '%env(resolve:TWITTER_SECRET)%'
 
 services:
   _defaults:
@@ -85,3 +87,6 @@ services:
   App\Core\Orm\DoctrineSchemaListener:
     tags:
       - { name: 'doctrine.event_subscriber' }
+
+  App\Core\Services\TwitterService:
+    arguments: ['%twitter_key%', '%twitter_secret%']

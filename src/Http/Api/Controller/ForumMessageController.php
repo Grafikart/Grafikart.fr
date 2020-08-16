@@ -55,7 +55,7 @@ class ForumMessageController extends AbstractController
     /**
      * @Route("/messages/{id}/solve", name="api_forum/messages_solve_item ", methods={"POST"})
      */
-    public function solve(Message $message, EntityManagerInterface  $em): Response
+    public function solve(Message $message, EntityManagerInterface $em): Response
     {
         $this->denyAccessUnlessGranted(ForumVoter::SOLVE_MESSAGE, $message);
         $message->setAccepted(true);

@@ -1,0 +1,66 @@
+// Footer
+// =============
+.footer {
+  @extend %container;
+  padding-top: space(6);
+  padding-bottom: space(6);
+  background: var(--background); // linear-gradient(#00000003, #00000003);
+  border-top: solid 4px var(--border-light);
+  grid-gap: space(4);
+}
+
+.footer ul li {
+  margin-bottom: space(.5);
+  color: var(--color-light)
+}
+
+.footer li a {
+  display: flex;
+  align-items: center;
+}
+
+.footer li a .icon {
+  margin-top: -2px;
+  width: 17px;
+  height: 17px;
+  margin-right: space(.5);
+}
+
+.footer a:hover {
+  color: var(--contrast);
+}
+
+.footer-title {
+  @extend %h4;
+  font-weight: bold;
+  margin-bottom: space(2);
+}
+
+// Tweet
+// =============
+.footer-tweets {
+  @extend %stack;
+  color: var(--color-light);
+}
+.footer-tweet a {
+  text-decoration: underline;
+}
+.footer-tweet {
+  position: relative;
+  padding-left: space(3);
+}
+.footer-tweet .icon {
+  position: absolute;
+  color: var(--border);
+  left: -5px;
+  width: 24px;
+  height: 24px;
+}
+
+@include up(800) {
+  .footer {
+    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 440fr 375fr 200fr;
+  }
+}

@@ -88,7 +88,7 @@ body::after {
   height: 506px;
   z-index: -1;
   pointer-events: none;
-  background: url(/images/logo.svg) top left / 100% 100% no-repeat;
+  background: url(/images/logo-overlay.svg) top left / 100% 100% no-repeat;
 }
 
 ::selection {
@@ -118,6 +118,7 @@ body::after {
 @import 'modules/highlight';
 @import 'modules/pricing';
 @import 'modules/notifications';
+@import 'modules/footer';
 // @import 'modules/tooltips';
 
 // Pages

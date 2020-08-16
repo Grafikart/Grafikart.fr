@@ -6,6 +6,7 @@ use App\Domain\Blog\Repository\PostRepository;
 use App\Domain\Course\Repository\CourseRepository;
 use App\Domain\Course\Repository\FormationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -45,5 +46,13 @@ class PagesController extends AbstractController
     public function ui(): Response
     {
         return $this->render('pages/ui.html.twig');
+    }
+
+    /**
+     * @Route("/tchat", name="tchat")
+     */
+    public function tchat(): RedirectResponse
+    {
+        return new RedirectResponse('https://discordapp.com/invite/rAuuD7Q');
     }
 }
