@@ -24,6 +24,8 @@ App\Domain\Forum\Entity\Topic:
     get:
       normalization_context:
         groups: ['read:topic']
+    delete:
+      security: is_granted("DELETE_TOPIC", object)
 
 App\Domain\Forum\Entity\Message:
   shortName: 'forum/message'

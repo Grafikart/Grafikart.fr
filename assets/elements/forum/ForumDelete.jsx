@@ -1,9 +1,10 @@
-import { useJsonFetchOrFlash } from '/functions/hooks.js'
+import { useAsyncEffect, useJsonFetchOrFlash } from '/functions/hooks.js'
 import { closest } from '/functions/dom.js'
 import { flash } from '/elements/Alert.js'
 import { canManage } from '/functions/auth.js'
 import { Loader } from '/components/Loader.jsx'
 import { useEffect, useRef } from 'preact/hooks'
+import { redirect } from '/functions/url.js'
 
 export function ForumDelete ({ message, topic, owner }) {
   let endpoint = null
@@ -18,13 +19,18 @@ export function ForumDelete ({ message, topic, owner }) {
   // On prépare les hooks
   const button = useRef(null)
   const { loading: deleteLoading, fetch: deleteFetch, done } = useJsonFetchOrFlash(endpoint, { method: 'DELETE' })
-  useEffect(() => {
+  useAsyncEffect(async () => {
     if (done) {
-      const message = closest(button.current, '.forum-message')
-      flash('Votre message a bien été supprimé')
-      message.remove()
+      if (message) {
+        const message = closest(button.current, '.forum-message')
+        flash('Votre message a bien été supprimé')
+        message.remove()
+      } else {
+        await redirect('/forum')
+        flash('Votre sujet a bien été supprimé')
+      }
     }
-  }, [done])
+  }, [done, message, topic])
 
   // Handler
   const handleDeleteClick = async () => {

@@ -41,7 +41,7 @@ class ForumMessageApiTest extends ApiTestCase
         $this->login($message->getAuthor());
         $this->client->request('PUT', '/api/forum/messages/'.$message->getId(), [
             'json' => [
-                'content' => $message->getContent() . ' UPDATED'
+                'content' => $message->getContent().' UPDATED',
             ],
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
@@ -63,7 +63,7 @@ class ForumMessageApiTest extends ApiTestCase
         $this->login($user2);
         $this->client->request('PUT', '/api/forum/messages/'.$message->getId(), [
             'json' => [
-                'content' => $message->getContent() . ' UPDATED'
+                'content' => $message->getContent().' UPDATED',
             ],
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
