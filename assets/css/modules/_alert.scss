@@ -116,6 +116,13 @@
   z-index: 100;
 }
 
+.formatted .alert {
+  display: block;
+  border-top: var(--border) solid 1px;
+  border-right: var(--border) solid 1px;
+  border-left: var(--border) solid 1px;
+}
+
 // Bullets
 // ==================
 .bullet {
