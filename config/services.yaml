@@ -81,3 +81,7 @@ services:
   App\Infrastructure\Image\ImageResizer:
     class: App\Infrastructure\Image\ImageResizer
     arguments: ['%image_resize_key%']
+
+  App\Core\Orm\DoctrineSchemaListener:
+    tags:
+      - { name: 'doctrine.event_subscriber' }

@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Domain\Forum\Repository\TopicRepository")
- * @ORM\Table(name="forum_topic",indexes={@ORM\Index(name="search_idx", columns={"name", "content"})})
+ * @ORM\Table(name="forum_topic")
  */
 class Topic
 {
