@@ -21,6 +21,12 @@ trait LevelTrait
         HARD => 'Expert',
     ];
 
+    public static array $colors = [
+        EASY => 'green',
+        MEDIUM => 'yellow',
+        HARD => 'red',
+    ];
+
     public function getLevel(): int
     {
         return $this->level;
@@ -29,6 +35,11 @@ trait LevelTrait
     public function getLevelName(): string
     {
         return self::$levels[$this->level];
+    }
+
+    public function getLevelColor(): string
+    {
+        return self::$colors[$this->level];
     }
 
     public function setLevel(int $level): self

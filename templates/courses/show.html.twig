@@ -9,7 +9,7 @@
       {{ breadcrumb(course) }}
     </div>
 
-    <div class="container layout-sidebar mt2 mb5">
+    <div class="container {{ course.formation ? 'layout-sidebar' : '' }} mt2 mb5">
       <progress-tracker contentId="{{ course.id }}" data-history="{{ course.id }}" duration="{{ course.duration }}">
         <youtube-player
           id="course-{{ course.id }}"
@@ -36,7 +36,7 @@
           {% if course.premium %}
             <div class="pill pill-yellow">Premium</div>
           {% endif %}
-          <div class="pill pill-green">Facile</div>
+          {% include 'partials/level.html.twig' with {content: course} %}
         </div>
         <div class="hstack">
           {% if course.demo %}
@@ -75,9 +75,14 @@
             <div>
               <div class="requirements__title">Technologies utilisées</div>
               <div class="list-group">
-                <a class="flex" href="#">Twig <span class="badge">3.0</span></a>
-                <a class="flex" href="#">Composer <span class="badge">3.0</span></a>
-                <a class="flex" href="#">PHP <span class="badge">3.0</span></a>
+                {% for technology in course.mainTechnologies %}
+                <a class="flex" href="{{ path(technology) }}">
+                  {{ technology.name }}
+                  {% if technology.version %}
+                    <span class="badge">{{ technology.version }}</span>
+                  {% endif %}
+                </a>
+                {% endfor %}
               </div>
             </div>
             <div>
@@ -91,14 +96,13 @@
               </div>
             </div>
             <div>
-              <div class="requirements__title">Actions secondaires</div>
-              <div class="stack">
-                <button class="btn btn-big">Marquer comme lu</button>
-                <button class="btn btn-big">Proposer une modification</button>
-              </div>
-            </div>
-            <div>
-              <div class="requirements__title">Partage social</div>
+              <div class="requirements__title">Partager</div>
+              <a href="https://twitter.com/intent/tweet?via=grafikart_fr&tw_p=tweetbutton&url={{ url(course) | url_encode }}" is="social-share" target="_blank">
+                <img src="/images/social/twitter.svg" alt="">
+              </a>
+              <a href="https://www.facebook.com/sharer/sharer.php?u={{ url(course) | url_encode }}" is="social-share" target="_blank">
+                <img src="/images/social/facebook.svg" alt="">
+              </a>
             </div>
           </div>
         </div>

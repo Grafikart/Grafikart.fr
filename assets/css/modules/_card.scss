@@ -33,8 +33,6 @@
 .card .icon {
   vertical-align: middle;
   transform: translateY(-2px);
-  width: 12px;
-  height: 12px;
 }
 
 // Carte
@@ -76,6 +74,7 @@
   min-height: 36px;
   background: var(--card-footer);
   padding: 0 var(--card-padding);
+  font-size: .9rem;
 
   .card__progress ~ & {
     margin-top: 0;
@@ -83,9 +82,15 @@
 
   & > * {
     opacity: 0.65;
+    white-space: nowrap;
+  }
+
+  & > * {
+    margin-right: space(2);
   }
 
   & > *:last-child {
+    margin-right: 0;
     margin-left: auto;
   }
 }

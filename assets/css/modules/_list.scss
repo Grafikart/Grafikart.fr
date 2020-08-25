@@ -70,7 +70,7 @@
     right: 0;
     bottom: 0;
     background: currentColor;
-    opacity: 0.2;
+    opacity: 0.1;
     border-radius: 20px;
   }
 }
@@ -85,11 +85,26 @@
 .pill-yellow {
   color: var(--yellow);
 }
+.pill-red {
+  color: var(--red);
+}
 .pill-grey {
   color: var(--color);
 
   &::after {
     opacity: 0.1;
+  }
+}
+.pill-course-level {
+  position: absolute;
+  font-size: 11px;
+  height: 18px;
+  padding: 0 9px;
+  top: space(2);
+  right: space(2);
+  font-weight: normal;
+  &::after {
+    border-radius:3px;
   }
 }
 

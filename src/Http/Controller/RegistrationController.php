@@ -26,6 +26,10 @@ class RegistrationController extends AbstractController
         TokenGeneratorService $tokenGenerator,
         EventDispatcherInterface $dispatcher
     ): Response {
+        $loggedInUser = $this->getUser();
+        if ($loggedInUser) {
+            return $this->redirectToRoute('user_profil');
+        }
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);

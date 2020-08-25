@@ -21,6 +21,7 @@ import preactCustomElement from '/functions/preact.js'
 import EditButton from './admin/EditButton.js'
 import './forum/index.js'
 import { ProgressTracker } from '/elements/courses/ProgressTracker.js'
+import Sharer from '/elements/Sharer.js'
 
 // Custom Elements
 customElements.define('nav-tabs', NavTabs)
@@ -39,6 +40,7 @@ customElements.define('spinning-dots', SpinningDots)
 customElements.define('admin-edit', EditButton)
 customElements.define('progress-tracker', ProgressTracker)
 customElements.define('skeleton-box', Skeleton)
+customElements.define('social-share', Sharer, { extends: 'a' })
 preactCustomElement('site-notifications', Notifications)
 preactCustomElement('contact-form', ContactForm)
 preactCustomElement('comments-area', Comments, ['target'])

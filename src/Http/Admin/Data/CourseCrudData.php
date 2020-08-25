@@ -7,6 +7,7 @@ use App\Core\Validator\Slug;
 use App\Domain\Attachment\Attachment;
 use App\Domain\Auth\User;
 use App\Domain\Course\Entity\Course;
+use const App\Domain\Course\Entity\MEDIUM;
 use App\Domain\Course\Entity\Technology;
 use App\Http\Form\AutomaticForm;
 use Doctrine\ORM\EntityManagerInterface;
@@ -53,6 +54,8 @@ class CourseCrudData implements CrudDataInterface
 
     public ?int $duration = 0;
 
+    public int $level = MEDIUM;
+
     public ?Attachment $image = null;
 
     public ?Attachment $youtubeThumbnail = null;
@@ -94,6 +97,7 @@ class CourseCrudData implements CrudDataInterface
         $this->secondaryTechnologies = $course->getSecondaryTechnologies();
         $this->youtubeThumbnail = $course->getYoutubeThumbnail();
         $this->duration = $course->getDuration();
+        $this->level = $course->getLevel();
     }
 
     public function hydrate(): void
@@ -112,6 +116,7 @@ class CourseCrudData implements CrudDataInterface
         $this->entity->setContent($this->content);
         $this->entity->setCreatedAt($this->createdAt);
         $this->entity->setUpdatedAt(new \DateTime());
+        $this->entity->setLevel($this->level);
         foreach ($this->mainTechnologies as $technology) {
             $technology->setSecondary(false);
         }

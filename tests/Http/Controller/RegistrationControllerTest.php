@@ -14,7 +14,7 @@ class RegistrationControllerTest extends WebTestCase
     private const CONFIRMATION_PATH = '/inscription/confirmation/';
     private const SIGNUP_BUTTON = "S'inscrire";
 
-    public function testForum(): void
+    public function testSEO(): void
     {
         $crawler = $this->client->request('GET', self::SIGNUP_PATH);
         $this->assertResponseStatusCodeSame(200);
@@ -106,5 +106,14 @@ class RegistrationControllerTest extends WebTestCase
         $this->assertResponseRedirects(self::SIGNUP_PATH);
         $this->client->followRedirect();
         $this->expectErrorAlert();
+    }
+
+    public function testRedirectIfLogged(): void
+    {
+        /** @var User[] $data */
+        $data = $this->loadFixtures(['users']);
+        $this->login($data['user1']);
+        $this->client->request('GET', self::SIGNUP_PATH);
+        $this->assertResponseRedirects('/profil');
     }
 }

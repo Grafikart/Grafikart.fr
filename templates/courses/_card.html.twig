@@ -20,15 +20,16 @@
          class="card__link"></a>
     </div>
     <div class="card__progress"><span></span></div>
-    <footer class="card__footer">
+    <footer class="card__footer text-small">
       {% if course.formation %}
-        <div>
-          {{ icon('lines') }} {{ course.formation.title }}
+        <div class="text-truncate">
+          {{ icon('list', 20) }} {{ course.formation.title }}
         </div>
       {% endif %}
       <div>
-        {{ icon('clock') }} {{ course.duration | duration }}
+        {{ icon('clock', 14) }} {{ course.duration | duration }}
       </div>
     </footer>
+    {% include 'partials/level.html.twig' with {content: course, class: 'pill-course-level'} %}
   </article>
 {% endcache %}
