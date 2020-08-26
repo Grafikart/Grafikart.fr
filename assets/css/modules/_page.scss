@@ -16,6 +16,7 @@
 // ==========================================================================
 .wave-header {
   @extend %container;
+  padding-top: space(6);
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: space(3);

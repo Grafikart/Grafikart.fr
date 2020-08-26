@@ -14,61 +14,63 @@
   <meta name="turbolinks-cache-control" content="no-cache"/>
 </head>
 <body {% if bodyClass is defined %}class="{{ bodyClass }}"{% endif %}>
-<nav class="header {% if headerWhite is defined %}is-white{% endif %}" id="header">
-  <ul class="header-nav">
-    <li class="header__home"><a href="{{ path('home') }}" title="Accueil">{{ icon('home') }}</a></li>
-    <li><a href="{{ path('course_index') }}" {{ menu_active('courses') }}>{{ icon('video') }} Tutoriels</a></li>
-    <li><a href="#">{{ icon('lines') }} Formations</a></li>
-    <li><a href="{{ path('forum') }}"  {{ menu_active('forum') }}>{{ icon('comment') }} Forum</a></li>
-    <li><a href="{{ path('live') }}" {{ menu_active('live') }} class="{{ is_live_running() ? 'has-live' : '' }}">{{ icon('camera') }} Live {{ next_live_time() }}</a></li>
-    <li><a href="{{ path('blog_index') }}" {{ menu_active('blog') }}>{{ icon('pen') }} Blog</a></li>
-  </ul>
-  <ul class="header-side">
-    <li class="header__notification">
-      <site-notifications></site-notifications>
-    </li>
-    <li class="header__search"><a href="#">{{ icon('search') }}</a></li>
-    {% if app.user %}
-      <li class="header__account"><a href="{{ path('auth_logout') }}">{{ icon('user') }} <span>{{ app.user.username }}</span></a>
-      </li>
-    {% else %}
-      <li class="header__account"><a href="{{ path('auth_login') }}">{{ icon('user') }} Se connecter</a></li>
-    {% endif %}
-    <li class="header__burger">
-      <button id="js-burger"><span>Afficher le menu</span></button>
-    </li>
-  </ul>
-</nav>
-{% block body %}{% endblock %}
-<footer class="footer">
-  <div>
-    <p class="text-muted mb2">
-      Après avoir appris sur Internet quoi de plus normal que de partager à son tour ? Passionné par le web depuis un peu plus de 15 ans maintenant j'aime partager mes compétences et mes découvertes avec les personnes qui ont cette même passion pour le web
-    </p>
-    {% include 'partials/social.html.twig' %}
-  </div>
-  <div>
-    <div class="footer-title">Mes derniers tweets</div>
-    <div class="footer-tweets">
-      {% for tweet in last_tweets() %}
-      <div class="footer-tweet">
-        {{ icon('quotes') }}
-        {{ tweet.content | autolink | raw}}
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-  <div>
-    <div class="footer-title">Me contacter</div>
-    <ul>
-      <li><a href="{{ path('contact') }}">{{ icon('email') }} Par email</a></li>
-      <li><a href="{{ path('tchat') }}">{{ icon('tchat') }} Tchat</a></li>
-      <li><a href="https://www.youtube.com/user/grafikarttv">{{ icon('video') }} Chaine youtube</a></li>
-      <li><a href="{{ path('env') }}">{{ icon('info') }} A propos</a></li>
-      <li><a href="{{ path('confidentialite') }}">{{ icon('fingerprint') }} Politique de confidentialité</a></li>
+<div class="page-wrapper">
+  <nav class="header {% if headerWhite is defined %}is-white{% endif %}" id="header">
+    <ul class="header-nav">
+      <li class="header__home"><a href="{{ path('home') }}" title="Accueil">{{ icon('home') }}</a></li>
+      <li><a href="{{ path('course_index') }}" {{ menu_active('courses') }}>{{ icon('video') }} Tutoriels</a></li>
+      <li><a href="#">{{ icon('lines') }} Formations</a></li>
+      <li><a href="{{ path('forum') }}"  {{ menu_active('forum') }}>{{ icon('comment') }} Forum</a></li>
+      <li><a href="{{ path('live') }}" {{ menu_active('live') }} class="{{ is_live_running() ? 'has-live' : '' }}">{{ icon('camera') }} Live {{ next_live_time() }}</a></li>
+      <li><a href="{{ path('blog_index') }}" {{ menu_active('blog') }}>{{ icon('pen') }} Blog</a></li>
     </ul>
-  </div>
-</footer>
+    <ul class="header-side">
+      <li class="header__notification">
+        <site-notifications></site-notifications>
+      </li>
+      <li class="header__search"><a href="#">{{ icon('search') }}</a></li>
+      {% if app.user %}
+        <li class="header__account"><a href="{{ path('auth_logout') }}">{{ icon('user') }} <span>{{ app.user.username }}</span></a>
+        </li>
+      {% else %}
+        <li class="header__account"><a href="{{ path('auth_login') }}">{{ icon('user') }} <span>Se connecter</span></a></li>
+      {% endif %}
+      <li class="header__burger">
+        <button id="js-burger"><span>Afficher le menu</span></button>
+      </li>
+    </ul>
+  </nav>
+  {% block body %}{% endblock %}
+  <footer class="footer">
+    <div>
+      <p class="text-muted mb2">
+        Après avoir appris sur Internet quoi de plus normal que de partager à son tour ? Passionné par le web depuis un peu plus de 15 ans maintenant j'aime partager mes compétences et mes découvertes avec les personnes qui ont cette même passion pour le web
+      </p>
+      {% include 'partials/social.html.twig' %}
+    </div>
+    <div>
+      <div class="footer-title">Mes derniers tweets</div>
+      <div class="footer-tweets">
+        {% for tweet in last_tweets() %}
+          <div class="footer-tweet">
+            {{ icon('quotes') }}
+            {{ tweet.content | autolink | raw}}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div>
+      <div class="footer-title">Me contacter</div>
+      <ul>
+        <li><a href="{{ path('contact') }}">{{ icon('email') }} Par email</a></li>
+        <li><a href="{{ path('tchat') }}">{{ icon('tchat') }} Tchat</a></li>
+        <li><a href="https://www.youtube.com/user/grafikarttv">{{ icon('video') }} Chaine youtube</a></li>
+        <li><a href="{{ path('env') }}">{{ icon('info') }} A propos</a></li>
+        <li><a href="{{ path('confidentialite') }}">{{ icon('fingerprint') }} Politique de confidentialité</a></li>
+      </ul>
+    </div>
+  </footer>
+</div>
 <script>
   window.grafikart = {...(window.grafikart || {}),
     ADMIN: {{ is_granted('SUPERADMIN') ? 'true' : 'false' }},

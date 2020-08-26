@@ -2,6 +2,7 @@
 // =============
 .footer {
   @extend %container;
+  margin-top: auto;
   padding-top: space(6);
   padding-bottom: space(6);
   background: var(--background); // linear-gradient(#00000003, #00000003);

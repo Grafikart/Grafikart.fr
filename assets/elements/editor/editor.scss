@@ -19,6 +19,7 @@
 .mdeditor__editor {
   top: 34px;
   left: 0;
+  height: calc(100% - 34px);
   width: 100%;
   overflow-x: hidden;
   overflow-y: scroll;

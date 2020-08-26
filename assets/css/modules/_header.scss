@@ -211,6 +211,16 @@
     display: block;
     border: none !important;
   }
+  .header.is-open {
+    color: var(--color);
+  }
+  .header.is-open a{
+    opacity: 1;
+  }
+  .header.is-open a:hover{
+    opacity: 1;
+    color: var(--contrast);
+  }
   .header.is-open .header-nav {
     display: grid;
     grid-gap: space(4);
