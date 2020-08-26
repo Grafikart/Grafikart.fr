@@ -105,12 +105,6 @@
   padding-right: calc(1 * var(--space));
 }
 
-@include down(800) {
-  .header {
-    display: none;
-  }
-}
-
 // Déclinaison bleu
 // =============
 .header-filled {
@@ -168,3 +162,117 @@
     border-color: #2d47b8;
   }
 }
+
+.header__burger {
+  display: none;
+  margin-left: space(1);
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+  }
+  span::after, span::before, span {
+    content:'';
+    display: block;
+    width:12px;
+    height: 2px;
+    background: currentColor;
+    position: relative;
+    transition: .3s;
+  }
+  span::after {
+    top:-6px;
+  }
+  span::before {
+    bottom:-4px;
+  }
+  span {
+    font-size: 0;
+    text-indent: -3000px;
+  }
+}
+
+@include down(880) {
+  .header__burger {
+    display: block;
+  }
+  .header {
+    padding-top: space(4);
+  }
+  .header__account span {
+    display: none;
+  }
+  .header .header-nav li:last-child {
+    display: none;
+  }
+  .header .header-nav .header__home {
+    display: block;
+    border: none !important;
+  }
+  .header.is-open .header-nav {
+    display: grid;
+    grid-gap: space(4);
+    grid-template-columns: 1fr;
+    justify-items: center;
+    align-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.99);
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 4px var(--shadow);
+    border-radius: 3px;
+    transition: 0.3s;
+    z-index: 3;
+    padding: space(2);
+
+    & li {
+      display: block;
+      width: 200px;
+      margin-left: 0 !important;
+      animation: slideIn .5s both;
+      font-size: 1.4rem;
+    }
+
+    .header__home {
+      display: none;
+    }
+
+    @for $i from 1 through 6 {
+      & li:nth-child(#{$i}) {
+        animation-delay: .05s * $i;
+      }
+    }
+  }
+  .header.is-open .header-side {
+    position: fixed;
+    top: space(3);
+    right: space(2);
+    z-index: 4;
+  }
+  .header.is-open .header__burger {
+    span::after {
+      top: -2px;
+      transform: rotate(0deg);
+    }
+    span {
+      transform: rotate(-135deg);
+    }
+    span::before {
+      bottom: 0;
+      transform: rotate(-90deg);
+    }
+  }
+}
+
+@include down(700) {
+  .header .header-nav li {
+    display: none;
+  }
+}
+
+

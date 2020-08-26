@@ -9,7 +9,7 @@ import './modules/scrollreveal.js'
 import './modules/highlight.js'
 import { showHistory } from './modules/history.js'
 import ChoicesJS from 'choices.js'
-import { $$ } from '/functions/dom.js'
+import { $$, $ } from '/functions/dom.js'
 
 document.addEventListener('turbolinks:load', () => {
   const darkToggle = document.querySelector('#dark-toggle')
@@ -18,6 +18,14 @@ document.addEventListener('turbolinks:load', () => {
       e.stopPropagation()
       e.preventDefault()
       document.body.classList.toggle('dark')
+    })
+  }
+
+  // Header toggle
+  const burgerButton = $('#js-burger')
+  if (burgerButton) {
+    burgerButton.addEventListener('click', function () {
+      $('#header').classList.toggle('is-open')
     })
   }
 

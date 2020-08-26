@@ -14,7 +14,7 @@
   <meta name="turbolinks-cache-control" content="no-cache"/>
 </head>
 <body {% if bodyClass is defined %}class="{{ bodyClass }}"{% endif %}>
-<nav class="header {% if headerWhite is defined %}is-white{% endif %}">
+<nav class="header {% if headerWhite is defined %}is-white{% endif %}" id="header">
   <ul class="header-nav">
     <li class="header__home"><a href="{{ path('home') }}" title="Accueil">{{ icon('home') }}</a></li>
     <li><a href="{{ path('course_index') }}" {{ menu_active('courses') }}>{{ icon('video') }} Tutoriels</a></li>
@@ -22,7 +22,6 @@
     <li><a href="{{ path('forum') }}"  {{ menu_active('forum') }}>{{ icon('comment') }} Forum</a></li>
     <li><a href="{{ path('live') }}" {{ menu_active('live') }} class="{{ is_live_running() ? 'has-live' : '' }}">{{ icon('camera') }} Live {{ next_live_time() }}</a></li>
     <li><a href="{{ path('blog_index') }}" {{ menu_active('blog') }}>{{ icon('pen') }} Blog</a></li>
-    <li id="dark-toggle"><a href="#">Dark</a></li>
   </ul>
   <ul class="header-side">
     <li class="header__notification">
@@ -30,11 +29,14 @@
     </li>
     <li class="header__search"><a href="#">{{ icon('search') }}</a></li>
     {% if app.user %}
-      <li class="header__account"><a href="{{ path('auth_logout') }}">{{ icon('user') }} {{ app.user.username }}</a>
+      <li class="header__account"><a href="{{ path('auth_logout') }}">{{ icon('user') }} <span>{{ app.user.username }}</span></a>
       </li>
     {% else %}
       <li class="header__account"><a href="{{ path('auth_login') }}">{{ icon('user') }} Se connecter</a></li>
     {% endif %}
+    <li class="header__burger">
+      <button id="js-burger"><span>Afficher le menu</span></button>
+    </li>
   </ul>
 </nav>
 {% block body %}{% endblock %}
