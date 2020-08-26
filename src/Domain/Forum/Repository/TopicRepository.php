@@ -18,6 +18,41 @@ class TopicRepository extends ServiceEntityRepository
         parent::__construct($registry, Topic::class);
     }
 
+    /**
+     * Récupère les derniers sujets créés par l'utilisateur.
+     *
+     * @return Topic[]
+     */
+    public function findLastByUser(User $user): array
+    {
+        return $this->createQueryBuilder('t')
+            ->where('t.author = :user')
+            ->orderBy('t.updatedAt', 'DESC')
+            ->setMaxResults(5)
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * Récupère les derniers sujets sur lesquels l'utilisateur a participé.
+     *
+     * @return Topic[]
+     */
+    public function findLastWithUser(User $user): array
+    {
+        return $this->createQueryBuilder('t')
+            ->where('m.author = :user')
+            ->where('t.author != :user')
+            ->join('t.messages', 'm')
+            ->orderBy('t.updatedAt', 'DESC')
+            ->groupBy('t.id')
+            ->setMaxResults(5)
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
+    }
+
     public function queryAllForTag(?Tag $tag): Query
     {
         $query = $this->createQueryBuilder('t')

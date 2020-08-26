@@ -74,6 +74,11 @@
 .forum-topic:hover {
   background: var(--background-light);
   box-shadow: 0 2px 4px var(--shadow);
+
+  .card & {
+    background-color: transparent;
+    box-shadow: none;
+  }
 }
 
 .forum-topic.is-read {

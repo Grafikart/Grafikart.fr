@@ -15,12 +15,36 @@
   {% include 'profil/_tabs.html.twig' with {active: 'profil'} %}
 
   <div class="bg container py5">
-    <div class="stack">
-      <h2 class="h3">Vidéos <strong>en cours de visionnage</strong></h2>
-      <div class="courses">
-        {% for progress in watchlist %}
-          {% include 'courses/_card.html.twig' with {course: progress.content, progress: progress.ratio} %}
-        {% endfor %}
+    <div class="stack" style="--gap: 7;">
+      <div class="stack">
+        <h2 class="h3">Vidéos <strong>en cours de visionnage</strong></h2>
+        <div class="courses">
+          {% for progress in watchlist %}
+            {% include 'courses/_card.html.twig' with {course: progress.content, progress: progress.ratio} %}
+          {% endfor %}
+        </div>
+      </div>
+      <div class="grid2" style="--gap: 4;">
+        {% if lastTopics | length > 0 %}
+        <div class="stack">
+          <h2 class="h3">Mes <strong>derniers sujets</strong></h2>
+          <div class="card p2 stack-separated" style="--gap: 1">
+            {% for topic in lastTopics %}
+              {% include('forum/_topic.html.twig') %}
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+        {% if lastMessageTopics | length > 0 %}
+        <div class="stack">
+          <h2 class="h3">Les sujets auxquels <strong>je participe</strong></h2>
+          <div class="card p2 stack-separated" style="--gap: 1">
+            {% for topic in lastMessageTopics %}
+              {% include('forum/_topic.html.twig') %}
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
       </div>
     </div>
   </div>

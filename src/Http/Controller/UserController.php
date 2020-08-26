@@ -3,6 +3,7 @@
 namespace App\Http\Controller;
 
 use App\Domain\Auth\User;
+use App\Domain\Forum\Repository\TopicRepository;
 use App\Domain\History\HistoryService;
 use App\Domain\Profile\Dto\AvatarDto;
 use App\Domain\Profile\Dto\ProfileUpdateDto;
@@ -26,12 +27,17 @@ class UserController extends AbstractController
      * @Route("/profil", name="user_profil")
      * @IsGranted("ROLE_USER")
      */
-    public function index(HistoryService $service): Response
+    public function index(HistoryService $service, TopicRepository $topicRepository): Response
     {
-        $watchlist = $service->getLastWatchedContent($this->getUser());
+        $user = $this->getUser();
+        $watchlist = $service->getLastWatchedContent($user);
+        $lastTopics = $topicRepository->findLastByUser($user);
+        $lastMessageTopics = $topicRepository->findLastWithUser($user);
 
         return $this->render('profil/profil.html.twig', [
             'watchlist' => $watchlist,
+            'lastTopics' => $lastTopics,
+            'lastMessageTopics' => $lastMessageTopics,
         ]);
     }
 
