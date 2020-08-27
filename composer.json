@@ -21,6 +21,7 @@
     "google/apiclient": "^2.0",
     "intervention/image": "^2.5",
     "knplabs/knp-paginator-bundle": "^5.1",
+    "knpuniversity/oauth2-client-bundle": "^2.3",
     "lcobucci/jwt": "^3.3",
     "league/glide": "^1.6",
     "league/glide-symfony": "^1.0",
@@ -61,7 +62,8 @@
     "twig/cssinliner-extra": "^3.0",
     "twig/extra-bundle": "^3.0",
     "twig/markdown-extra": "^3.0",
-    "vich/uploader-bundle": "^1.13"
+    "vich/uploader-bundle": "^1.13",
+    "wohali/oauth2-discord-new": "^1.0"
   },
   "require-dev": {
     "dama/doctrine-test-bundle": "^6.3",

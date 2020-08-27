@@ -238,6 +238,18 @@
     "knplabs/knp-paginator-bundle": {
         "version": "v5.1.1"
     },
+    "knpuniversity/oauth2-client-bundle": {
+        "version": "1.20",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.20",
+            "ref": "80acc9223a205cbf5d9828fd616c82a374d281dd"
+        },
+        "files": [
+            "config/packages/knpu_oauth2_client.yaml"
+        ]
+    },
     "laminas/laminas-code": {
         "version": "3.4.1"
     },
@@ -258,6 +270,9 @@
     },
     "league/glide-symfony": {
         "version": "1.0.4"
+    },
+    "league/oauth2-client": {
+        "version": "2.5.0"
     },
     "moneyphp/money": {
         "version": "v3.3.1"
@@ -938,6 +953,9 @@
     },
     "willdurand/negotiation": {
         "version": "v2.3.1"
+    },
+    "wohali/oauth2-discord-new": {
+        "version": "v1.0.0"
     },
     "yosymfony/resource-watcher": {
         "version": "v2.0.1"

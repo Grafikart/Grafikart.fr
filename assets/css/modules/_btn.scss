@@ -176,3 +176,10 @@
 .rounded-button.success {
   --icon-background: var(--green);
 }
+
+// Couleurs
+// =============
+.btn-discord {
+  @extend %btn;
+  background: #7289da;
+}
