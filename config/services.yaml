@@ -1,13 +1,11 @@
 parameters:
-  admin_prefix: '%env(resolve:ADMIN_PREFIX)%'
-  download_path: '%kernel.project_dir%/downloads'
-  videos_path: '%download_path%/videos'
-  sources_path: '%download_path%/sources'
-  typesense_key: '%env(resolve:TYPESENSE_KEY)%'
-  typesense_host: '%env(resolve:TYPESENSE_HOST)%'
+  admin_prefix:     '%env(resolve:ADMIN_PREFIX)%'
+  download_path:    '%kernel.project_dir%/downloads'
+  videos_path:      '%download_path%/videos'
+  sources_path:     '%download_path%/sources'
   image_resize_key: '%env(resolve:IMAGE_RESIZE_KEY)%'
-  twitter_key: '%env(resolve:TWITTER_KEY)%'
-  twitter_secret: '%env(resolve:TWITTER_SECRET)%'
+  twitter_key:      '%env(resolve:TWITTER_KEY)%'
+  twitter_secret:   '%env(resolve:TWITTER_SECRET)%'
 
 services:
   _defaults:
@@ -36,39 +34,31 @@ services:
     tags: ['controller.service_arguments']
 
   Everyman\Neo4j\Client:
-    class: 'Everyman\Neo4j\Client'
     factory: ['App\Core\Services\Neo4jClientFactory', 'createClient']
     arguments: ['neo4j', 'neo4j', 'neo']
 
   App\Infrastructure\Storage\Naming\IdDirectoryNamer:
-    class: App\Infrastructure\Storage\Naming\IdDirectoryNamer
     public: true
 
   App\Http\Admin\Firewall\AdminRequestListener:
-    class: App\Http\Admin\Firewall\AdminRequestListener
     arguments: ['%admin_prefix%']
 
-  Knp\Bundle\PaginatorBundle\Helper\Processor:
-    class: Knp\Bundle\PaginatorBundle\Helper\Processor
+  Knp\Bundle\PaginatorBundle\Helper\Processor: ~
 
   App\Core\Helper\Paginator\PaginatorInterface:
     class: App\Core\Helper\Paginator\KnpPaginator
 
   App\Core\Twig\TwigBreadcrumbExtension:
-    class: App\Core\Twig\TwigBreadcrumbExtension
     arguments: [!tagged_iterator app.breadcrumb]
 
   App\Core\UploaderBundle\PropertyGroupedDirectoryNamer:
-    class: App\Core\UploaderBundle\PropertyGroupedDirectoryNamer
     public: true
 
   App\Infrastructure\Mercure\Service\CookieGenerator:
-    class: App\Infrastructure\Mercure\Service\CookieGenerator
     arguments:
       $secret: '%env(resolve:MERCURE_SUBSCRIBER_KEY)%'
 
   App\Core\Twig\TwigAssetExtension:
-    class: App\Core\Twig\TwigAssetExtension
     arguments:
       $assetPath: '%kernel.project_dir%/public/assets'
 
@@ -81,12 +71,10 @@ services:
     class: 'App\Domain\Application\Option'
 
   App\Infrastructure\Image\ImageResizer:
-    class: App\Infrastructure\Image\ImageResizer
     arguments: ['%image_resize_key%']
 
   App\Core\Orm\DoctrineSchemaListener:
-    tags:
-      - { name: 'doctrine.event_subscriber' }
+    tags: ['doctrine.event_subscriber']
 
   App\Core\Services\TwitterService:
     arguments: ['%twitter_key%', '%twitter_secret%']

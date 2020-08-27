@@ -1,15 +1,15 @@
+parameters:
+  typesense_key:    '%env(resolve:TYPESENSE_KEY)%'
+  typesense_host:   '%env(resolve:TYPESENSE_HOST)%'
+
 services:
   _defaults:
     autowire: true
     autoconfigure: false
     public: false
 
-  search_http_client:
-    class: Symfony\Component\HttpClient\CurlHttpClient
-
   App\Infrastructure\Search\Typesense\TypesenseClient:
-    class: App\Infrastructure\Search\Typesense\TypesenseClient
-    arguments: ['%typesense_host%', '%typesense_key%', '@search_http_client']
+    arguments: ['%typesense_host%', '%typesense_key%']
 
   App\Infrastructure\Search\IndexerInterface:
     class: App\Infrastructure\Search\Typesense\TypesenseIndexer
