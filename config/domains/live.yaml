@@ -8,8 +8,7 @@ services:
     public: false
 
   App\Domain\Live\LiveSyncService:
-    class: App\Domain\Live\LiveSyncService
-    arguments: { $playlistID: '%app.live_playlist%' }
+    $playlistID: '%app.live_playlist%'
 
   Google_Service_YouTube_Resource_PlaylistItems:
     class: '\Google_Service_YouTube_Resource_PlaylistItems'
