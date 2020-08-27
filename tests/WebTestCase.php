@@ -53,7 +53,7 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
      */
     public function expectSuccessAlert(): void
     {
-        $this->assertEquals(1, $this->client->getCrawler()->filter('alert-message[type="success"]')->count());
+        $this->assertEquals(1, $this->client->getCrawler()->filter('alert-message[type="success"], alert-floating[type="success"]')->count());
     }
 
     public function expectFormErrors(?int $expectedErrors = null): void
