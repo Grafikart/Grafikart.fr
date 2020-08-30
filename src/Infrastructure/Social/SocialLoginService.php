@@ -31,16 +31,18 @@ class SocialLoginService
         $this->session->set(self::SESSION_KEY, $data);
     }
 
-    public function hydrate(\App\Domain\Auth\User $user): void
+    public function hydrate(\App\Domain\Auth\User $user): bool
     {
         $oauthData = $this->session->get(self::SESSION_KEY);
-        if (null === $oauthData) {
-            return;
+        if (null === $oauthData || !isset($oauthData['email'])) {
+            return false;
         }
-        $user->setEmail($oauthData['email'] ?? '');
+        $user->setEmail($oauthData['email']);
         $user->setGithubId($oauthData['github_id'] ?? null);
-        $user->setUsername($oauthData['username'] ?? '');
+        $user->setUsername($oauthData['username']);
         $user->setConfirmationToken(null);
+
+        return true;
     }
 
     public function getOauthType(): ?string

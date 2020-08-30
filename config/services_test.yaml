@@ -8,3 +8,5 @@ services:
   App\Tests\Infrastructure\Mercure\PublisherStub:
     class: App\Tests\Infrastructure\Mercure\PublisherStub
     decorates: mercure.hub.default.publisher
+  App\Infrastructure\Social\SocialLoginService:
+    autowire: true

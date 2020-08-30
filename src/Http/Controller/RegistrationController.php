@@ -39,12 +39,8 @@ class RegistrationController extends AbstractController
         }
 
         $user = new User();
-        $user->setConfirmationToken($tokenGenerator->generate(60));
-
         // Si l'utilisateur provient de l'oauth, on préremplit ses données
-        $socialLoginService->hydrate($user);
-        $isOauthUser = null === $user->getConfirmationToken();
-
+        $isOauthUser = $request->get('oauth') ? $socialLoginService->hydrate($user) : false;
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
@@ -56,6 +52,7 @@ class RegistrationController extends AbstractController
                 ) : ''
             );
             $user->setCreatedAt(new \DateTime());
+            $user->setConfirmationToken($isOauthUser ? null : $tokenGenerator->generate(60));
             $em->persist($user);
             $em->flush();
             $dispatcher->dispatch(new UserCreatedEvent($user, $isOauthUser));
