@@ -25,6 +25,7 @@
     "lcobucci/jwt": "^3.3",
     "league/glide": "^1.6",
     "league/glide-symfony": "^1.0",
+    "league/oauth2-github": "^2.0",
     "nelmio/cors-bundle": "^1.5 || ^2.0",
     "omnipay/paypal": "^3.0",
     "oneup/flysystem-bundle": "^3.4",

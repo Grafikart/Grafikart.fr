@@ -6,6 +6,7 @@ use App\Domain\Auth\User;
 use App\Http\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Client\Provider\DiscordClient;
+use KnpU\OAuth2ClientBundle\Exception\MissingAuthorizationCodeException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,14 +29,18 @@ class DiscordController extends AbstractController
      */
     public function check(DiscordClient $client, EntityManagerInterface $em): RedirectResponse
     {
-        /** @var DiscordResourceOwner $client */
-        $discordUser = $client->fetchUser();
-        /** @var User $user */
-        $user = $this->getUser();
+        try {
+            /** @var DiscordResourceOwner $client */
+            $discordUser = $client->fetchUser();
+            /** @var User $user */
+            $user = $this->getUser();
 
-        $user->setDiscordId($discordUser->getId());
-        $em->flush();
-        $this->addFlash('success', 'Votre compte discord a bien été lié');
+            $user->setDiscordId($discordUser->getId());
+            $em->flush();
+            $this->addFlash('success', 'Votre compte discord a bien été lié');
+        } catch (MissingAuthorizationCodeException $e) {
+            // Do nothing
+        }
 
         return $this->redirectToRoute('user_edit');
     }

@@ -179,7 +179,26 @@
 
 // Couleurs
 // =============
+.btn-social {
+  @extend %btn;
+  text-align: center;
+  display: block;
+  padding: 12px 16px;
+  border-radius: 3px;
+
+  .icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: space(2);
+  }
+}
 .btn-discord {
   @extend %btn;
   background: #7289da;
+}
+
+.btn-github {
+  color: #FFF;
+  background: #444;
 }

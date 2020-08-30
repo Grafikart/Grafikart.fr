@@ -3,9 +3,11 @@
 namespace App\Http\Controller;
 
 use App\Core\Security\TokenGeneratorService;
+use App\Domain\Auth\Authenticator;
 use App\Domain\Auth\Event\UserCreatedEvent;
 use App\Domain\Auth\User;
 use App\Http\Form\RegistrationFormType;
+use App\Infrastructure\Social\SocialLoginService;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -13,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 
 class RegistrationController extends AbstractController
 {
@@ -24,25 +27,52 @@ class RegistrationController extends AbstractController
         UserPasswordEncoderInterface $passwordEncoder,
         EntityManagerInterface $em,
         TokenGeneratorService $tokenGenerator,
-        EventDispatcherInterface $dispatcher
+        EventDispatcherInterface $dispatcher,
+        SocialLoginService $socialLoginService,
+        GuardAuthenticatorHandler $guardAuthenticatorHandler,
+        Authenticator $authenticator
     ): Response {
+        // Si l'utilisateur est connecté, on le redirige vers la home
         $loggedInUser = $this->getUser();
         if ($loggedInUser) {
             return $this->redirectToRoute('user_profil');
         }
+
         $user = new User();
+        $user->setConfirmationToken($tokenGenerator->generate(60));
+
+        // Si l'utilisateur provient de l'oauth, on préremplit ses données
+        $socialLoginService->hydrate($user);
+        $isOauthUser = null === $user->getConfirmationToken();
+
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword(
-                $passwordEncoder->encodePassword($user, $form->get('plainPassword')->getData())
+                $form->has('plainPassword') ? $passwordEncoder->encodePassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                ) : ''
             );
             $user->setCreatedAt(new \DateTime());
-            $user->setConfirmationToken($tokenGenerator->generate(60));
             $em->persist($user);
             $em->flush();
-            $dispatcher->dispatch(new UserCreatedEvent($user));
+            $dispatcher->dispatch(new UserCreatedEvent($user, $isOauthUser));
+
+            if ($isOauthUser) {
+                $this->addFlash(
+                    'success',
+                    'Votre compte a été créé avec succès'
+                );
+
+                return $guardAuthenticatorHandler->authenticateUserAndHandleSuccess(
+                    $user,
+                    $request,
+                    $authenticator,
+                    'main'
+                ) ?: $this->redirectToRoute('user_edit');
+            }
 
             $this->addFlash(
                 'success',
@@ -54,6 +84,8 @@ class RegistrationController extends AbstractController
 
         return $this->render('registration/register.html.twig', [
             'form' => $form->createView(),
+            'oauth_registration' => $request->get('oauth'),
+            'oauth_type' => $socialLoginService->getOauthType(),
         ]);
     }
 

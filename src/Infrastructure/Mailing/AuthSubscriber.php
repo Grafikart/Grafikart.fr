@@ -40,6 +40,9 @@ class AuthSubscriber implements EventSubscriberInterface
 
     public function onRegister(UserCreatedEvent $event): void
     {
+        if ($event->isUsingOauth()) {
+            return;
+        }
         $email = $this->mailer->createEmail('mails/auth/register.twig', [
             'user' => $event->getUser(),
         ])

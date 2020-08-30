@@ -36,6 +36,17 @@
         <button type="submit" class="btn-gradient">Se connecter</button>
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
       </form>
+
+      <div class="mt5 fade fade-2">
+        <h2 class="section-title">Utiliser les réseaux sociaux</h2>
+        <a href="{{ path('oauth_connect', {service: 'github'}) }}" class="btn-social btn-github">
+          <svg class="icon">
+            <use xlink:href="/social.svg#github"></use>
+          </svg>
+          Se connecter avec github
+        </a>
+      </div>
+
     </div>
     <waves-shape target=".auth-form"></waves-shape>
 {% endblock %}

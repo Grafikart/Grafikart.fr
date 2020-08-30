@@ -5,8 +5,8 @@ namespace App\Domain\Auth;
 use App\Domain\Forum\Entity\ForumReaderUserInterface;
 use App\Domain\Notification\Entity\Notifiable;
 use App\Domain\Premium\Entity\PremiumTrait;
-use App\Domain\Social\Entity\DiscordTrait;
 use App\Infrastructure\Payment\Stripe\StripeEntity;
+use App\Infrastructure\Social\Entity\SocialLoggableTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
@@ -25,7 +25,7 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface
     use PremiumTrait;
     use StripeEntity;
     use Notifiable;
-    use DiscordTrait;
+    use SocialLoggableTrait;
 
     /**
      * @ORM\Id()
@@ -289,5 +289,10 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface
         $this->confirmationToken = $confirmationToken;
 
         return $this;
+    }
+
+    public function canLogin(): bool
+    {
+        return !$this->isBanned() && null === $this->getConfirmationToken();
     }
 }

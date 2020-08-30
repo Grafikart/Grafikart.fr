@@ -19,8 +19,10 @@ security:
       lazy: true
       user_checker: App\Domain\Auth\Security\UserChecker
       guard:
+        entry_point: App\Domain\Auth\Authenticator
         authenticators:
           - App\Domain\Auth\Authenticator
+          - App\Infrastructure\Social\Authenticator\GithubAuthenticator
       logout:
         path: auth_logout
       remember_me:

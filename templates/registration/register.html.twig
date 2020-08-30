@@ -7,12 +7,28 @@
 
     {% include 'partials/flash.html.twig' %}
 
-    <h1 class="auth-title fade">S'inscrire</h1>
+    <h1 class="auth-title fade">
+      {% if oauth_type %}
+        Se connecter avec {{ oauth_type }}
+      {% else %}
+        S'inscrire
+      {% endif %}
+    </h1>
+
+    {% if oauth_registration %}
+    <alert-message type="info">
+      Vous y êtes presque, il ne vous reste plus qu'à choisir votre nom d'utilisateur
+    </alert-message>
+    {% endif %}
 
     {{ form_start(form, {attr: {class: 'auth-form fade fade-1'}}) }}
       {{ form_row(form.username) }}
-      {{ form_row(form.email) }}
-      {{ form_row(form.plainPassword) }}
+      {% if form.email is defined %}
+        {{ form_row(form.email) }}
+      {% endif %}
+      {% if form.plainPassword is defined %}
+        {{ form_row(form.plainPassword) }}
+      {% endif %}
       <button type="submit" class="btn-gradient">S'inscrire</button>
       <p>
         <small class="text-muted">Vos données personnelles (email et nom d'utilisateur) ne sont utilisées qu'à des fin d'authentification et ne sont pas partagé avec des tiers (<a

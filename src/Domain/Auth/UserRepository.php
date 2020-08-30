@@ -36,6 +36,27 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     /**
+     * Cherche un utilisateur pour l'oauth.
+     */
+    public function findForOauth(string $service, ?string $serviceId, ?string $email): ?User
+    {
+        if (null === $serviceId || null === $email) {
+            return null;
+        }
+
+        return $this->createQueryBuilder('u')
+            ->where('u.email = :email')
+            ->orWhere("u.{$service}Id = :serviceId")
+            ->setMaxResults(1)
+            ->setParameters([
+                'email' => $email,
+                'serviceId' => $serviceId,
+            ])
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function upgradePassword(UserInterface $user, string $newEncodedPassword): void
