@@ -9,5 +9,4 @@ services:
     public: false
 
   App\Infrastructure\Payment\Stripe\StripeApi:
-    class: App\Infrastructure\Payment\Stripe\StripeApi
     arguments: ['%stripe_secret_key%']

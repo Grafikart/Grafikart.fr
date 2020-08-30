@@ -1,4 +1,8 @@
 services:
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
   importer.pdo:
     class: \PDO
     autowire: false
@@ -6,32 +10,32 @@ services:
       - 'mysql:host=mariadb;dbname=grafikart_dev;charset=UTF8'
       - 'root'
       - 'root'
+
   App\Infrastructure\Importer\BlogImporter:
-    autowire: true
     tags: ['importer.handler']
     arguments:
       $pdo: '@importer.pdo'
+
   App\Infrastructure\Importer\UserImporter:
-    autowire: true
     tags: ['importer.handler']
     arguments:
       $pdo: '@importer.pdo'
+
   App\Infrastructure\Importer\CommentImporter:
-    autowire: true
     tags: ['importer.handler']
     arguments:
       $pdo: '@importer.pdo'
+
   App\Infrastructure\Importer\CoursesImporter:
-    autowire: true
     tags: ['importer.handler']
+
   App\Infrastructure\Importer\FormationImporter:
-    autowire: true
     tags: ['importer.handler']
+
   App\Infrastructure\Importer\ForumImporter:
-    autowire: true
     tags: ['importer.handler']
     arguments:
       $pdo: '@importer.pdo'
 
   App\Infrastructure\Importer\DataImporterHandler:
-    arguments: [!tagged_iterator importer.handler, '@doctrine.orm.entity_manager']
+    $handlers: !tagged_iterator importer.handler
