@@ -8,3 +8,9 @@ install:
 script:
   - make lint
   - make test
+cache:
+  directories:
+    - node_modules
+    - vendor
+    - $HOME/.cache/yarn
+    - $HOME/.composer/cache/files
