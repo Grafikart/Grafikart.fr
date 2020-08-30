@@ -6,7 +6,7 @@ import { jsonFetch } from '/functions/api.js'
  */
 
 /**
- * @param {string} target
+ * @param {number} target
  * @return {Promise<CommentResource[]>}
  */
 export async function findAllComments (target) {

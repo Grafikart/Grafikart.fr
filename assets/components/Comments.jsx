@@ -12,9 +12,10 @@ import { catchViolations } from '/functions/api.js'
 /**
  * Affiche les commentaires associé à un contenu
  *
- * @param {{target: string}} param0
+ * @param {{target: number}} param0
  */
 export function Comments ({ target, parent }) {
+  target = parseInt(target, 10);
   const [state, setState] = useState({
     editing: null, // ID du commentaire en cours d'édition
     comments: null, // Liste des commentaires
