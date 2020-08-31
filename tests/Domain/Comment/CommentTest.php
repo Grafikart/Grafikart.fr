@@ -24,7 +24,7 @@ class CommentTest extends KernelTestCase
     public function testCascadeDeleteForContent(): void
     {
         $data = $this->loadFixtures(['comments']);
-        $count1 = $this->em->getRepository(Comment::class)->count([]);
+        $this->em->getRepository(Comment::class)->count([]);
         $this->remove($data['post1']);
         $this->em->flush();
         $count2 = $this->em->getRepository(Comment::class)->count([]);

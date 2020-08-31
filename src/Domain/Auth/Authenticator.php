@@ -3,7 +3,6 @@
 namespace App\Domain\Auth;
 
 use App\Domain\Auth\Event\BadPasswordLoginEvent;
-use App\Domain\Auth\Service\LoginAttemptService;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -34,11 +33,9 @@ class Authenticator extends AbstractFormLoginAuthenticator implements PasswordAu
     private ?UserInterface $user = null;
     private EventDispatcherInterface $eventDispatcher;
     private UserRepository $userRepository;
-    private LoginAttemptService $loginAttemptService;
 
     public function __construct(
         UserRepository $userRepository,
-        LoginAttemptService $loginAttemptService,
         UrlGeneratorInterface $urlGenerator,
         CsrfTokenManagerInterface $csrfTokenManager,
         UserPasswordEncoderInterface $passwordEncoder,
@@ -49,7 +46,6 @@ class Authenticator extends AbstractFormLoginAuthenticator implements PasswordAu
         $this->passwordEncoder = $passwordEncoder;
         $this->eventDispatcher = $eventDispatcher;
         $this->userRepository = $userRepository;
-        $this->loginAttemptService = $loginAttemptService;
     }
 
     public function supports(Request $request)

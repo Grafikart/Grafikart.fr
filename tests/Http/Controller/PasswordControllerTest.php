@@ -92,7 +92,7 @@ class PasswordControllerTest extends WebTestCase
         $tokens = $this->loadFixtures(['password-reset']);
         /** @var PasswordResetToken $token */
         $token = $tokens['recent_password_token'];
-        $crawler = $this->client->request('GET', self::RESET_PASSWORD_PATH."/{$token->getUser()->getId()}/{$token->getToken()}");
+        $this->client->request('GET', self::RESET_PASSWORD_PATH."/{$token->getUser()->getId()}/{$token->getToken()}");
         $this->client->submitForm('Réinitialiser mon mot de passe', [
             'password' => [
                 'first' => 'pazjejoazuaziuaazenonazbfiumqksdmù',

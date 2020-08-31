@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Admin\Field;
+namespace App\Http\Admin\Form\Field;
 
 use App\Domain\Course\Entity\Technology;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;

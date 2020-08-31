@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Admin\Field;
+namespace App\Http\Admin\Form\Field;
 
 use App\Domain\Forum\Entity\Tag;
 use Doctrine\ORM\EntityRepository;

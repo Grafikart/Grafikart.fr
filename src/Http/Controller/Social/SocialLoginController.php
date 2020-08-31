@@ -6,8 +6,8 @@ use App\Http\Controller\AbstractController;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class SocialLoginController extends AbstractController
 {
@@ -22,7 +22,7 @@ class SocialLoginController extends AbstractController
     public function connect(string $service, ClientRegistry $clientRegistry): RedirectResponse
     {
         if (!in_array($service, array_keys(self::SCOPES))) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedException();
         }
 
         return $clientRegistry->getClient($service)->redirect(self::SCOPES[$service], []);

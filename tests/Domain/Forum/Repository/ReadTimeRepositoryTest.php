@@ -54,7 +54,6 @@ class ReadTimeRepositoryTest extends RepositoryTestCase
         $data = $this->loadFixtures(['forums']);
         $topic = $data['topic1'];
         $user = $data['user1'];
-        $user2 = $data['user2'];
         $topic->setUpdatedAt(new \DateTime('-5 day'));
         $oldReadDate = new \DateTime('-1 day');
         $lastReadTime = (new ReadTime())
@@ -71,7 +70,6 @@ class ReadTimeRepositoryTest extends RepositoryTestCase
     {
         $data = $this->loadFixtures(['forum_topic']);
         $user1 = $data['user1'];
-        $user2 = $data['user2'];
         $topic = $data['topic1'];
         $this->repository->updateReadTimeForTopic($topic, $user1);
         $this->em->flush();
