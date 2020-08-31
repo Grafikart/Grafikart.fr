@@ -9,9 +9,6 @@ use League\OAuth2\Client\Provider\GoogleUser;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
-/**
- * Class GithubAuthenticator.
- */
 class GoogleAuthenticator extends AbstractSocialAuthenticator
 {
     use TargetPathTrait;

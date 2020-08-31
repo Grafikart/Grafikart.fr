@@ -15,9 +15,6 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-/**
- * Class GithubAuthenticator.
- */
 class GithubAuthenticator extends AbstractSocialAuthenticator
 {
     use TargetPathTrait;
