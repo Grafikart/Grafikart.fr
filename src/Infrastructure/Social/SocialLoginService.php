@@ -3,6 +3,7 @@
 namespace App\Infrastructure\Social;
 
 use League\OAuth2\Client\Provider\GithubResourceOwner;
+use League\OAuth2\Client\Provider\GoogleUser;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -27,6 +28,13 @@ class SocialLoginService
                 'type' => 'Github',
                 'username' => $resourceOwner->getNickname(),
             ];
+        } elseif ($resourceOwner instanceof GoogleUser) {
+            $data = [
+                'email' => $resourceOwner->getEmail(),
+                'google_id' => $resourceOwner->getId(),
+                'type' => 'Google',
+                'username' => $resourceOwner->getName(),
+            ];
         }
         $this->session->set(self::SESSION_KEY, $data);
     }
@@ -39,6 +47,7 @@ class SocialLoginService
         }
         $user->setEmail($oauthData['email']);
         $user->setGithubId($oauthData['github_id'] ?? null);
+        $user->setGoogleId($oauthData['google_id'] ?? null);
         $user->setUsername($oauthData['username']);
         $user->setConfirmationToken(null);
 

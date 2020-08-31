@@ -37,15 +37,23 @@
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
       </form>
 
-      <div class="mt5 fade fade-2">
+      <section class="mt5 fade fade-2">
         <h2 class="section-title">Utiliser les réseaux sociaux</h2>
-        <a href="{{ path('oauth_connect', {service: 'github'}) }}" class="btn-social btn-github">
-          <svg class="icon">
-            <use xlink:href="/social.svg#github"></use>
-          </svg>
-          Se connecter avec github
-        </a>
-      </div>
+        <div class="stack">
+          <a href="{{ path('oauth_connect', {service: 'github'}) }}" class="btn-social btn-github">
+            <svg class="icon">
+              <use xlink:href="/social.svg#github"></use>
+            </svg>
+            Se connecter avec github
+          </a>
+          <a href="{{ path('oauth_connect', {service: 'google'}) }}" class="btn-social btn-google">
+            <svg class="icon">
+              <use xlink:href="/social.svg#google"></use>
+            </svg>
+            Se connecter avec google
+          </a>
+        </div>
+      </section>
 
     </div>
     <waves-shape target=".auth-form"></waves-shape>

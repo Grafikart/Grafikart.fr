@@ -73,4 +73,9 @@ trait SocialLoggableTrait
 
         return $this;
     }
+
+    public function useOauth(): bool
+    {
+        return null !== $this->googleId || null !== $this->facebookId || null !== $this->githubId;
+    }
 }

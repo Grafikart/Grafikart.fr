@@ -4,6 +4,7 @@ namespace App\Infrastructure\Social\Authenticator;
 
 use App\Domain\Auth\User;
 use App\Domain\Auth\UserRepository;
+use App\Infrastructure\Social\Exception\NotVerifiedEmailException;
 use App\Infrastructure\Social\SocialLoginService;
 use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
@@ -73,6 +74,6 @@ class GithubAuthenticator extends AbstractSocialAuthenticator
             }
         }
 
-        return $githubUser;
+        throw new NotVerifiedEmailException();
     }
 }

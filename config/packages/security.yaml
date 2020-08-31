@@ -23,6 +23,7 @@ security:
         authenticators:
           - App\Domain\Auth\Authenticator
           - App\Infrastructure\Social\Authenticator\GithubAuthenticator
+          - App\Infrastructure\Social\Authenticator\GoogleAuthenticator
       logout:
         path: auth_logout
       remember_me:

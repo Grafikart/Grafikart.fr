@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\Search;
 
-interface  SearchInterface
+interface SearchInterface
 {
     /**
      * @param string[] $types

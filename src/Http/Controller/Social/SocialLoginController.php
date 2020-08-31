@@ -5,6 +5,7 @@ namespace App\Http\Controller\Social;
 use App\Http\Controller\AbstractController;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -12,6 +13,7 @@ class SocialLoginController extends AbstractController
 {
     private const SCOPES = [
         'github' => ['user:email'],
+        'google' => [],
     ];
 
     /**
@@ -31,8 +33,8 @@ class SocialLoginController extends AbstractController
      *
      * @Route("/oauth/check/{service}", name="oauth_check")
      */
-    public function check(): void
+    public function check(): Response
     {
-        return;
+        return new Response();
     }
 }

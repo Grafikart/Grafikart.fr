@@ -28,7 +28,7 @@ class RegistrationFormType extends AbstractType
             $builder->add('email', EmailType::class, ['label' => 'Adresse email']);
         }
 
-        if ($user && !$user->getGithubId()) {
+        if ($user && !$user->useOauth()) {
             $builder
                 ->add('plainPassword', RepeatedType::class, [
                     'mapped' => false,
