@@ -84,11 +84,39 @@
       <p>
         Reliez votre compte discord à Grafikart pour accéder au salon premium et obtenir un rôle spécial.
       </p>
-      <div>
+      <div class="mb3">
         <a href="{{ path('oauth_discord') }}" class="btn-discord">
           <img src="/images/social/discord.svg" alt="" class="icon">
           {{ app.user.discordId ? 'Changer de compte' : 'Se connecter avec discord' }}
         </a>
+      </div>
+      <h3 class="h4">Connexion social</h3>
+      <p>Reliez votre compte à un réseau social afin de l'utiliser comme mode de connexion</p>
+      <div class="stack mb4">
+        <div>
+          <a href="{{ path('oauth_connect', {service: 'github'}) }}" class="btn-secondary">
+            <svg class="icon">
+              <use xlink:href="/social.svg#github"></use>
+            </svg>
+            Se connecter avec github
+          </a>
+        </div>
+        <div>
+          <a href="{{ path('oauth_connect', {service: 'google'}) }}" class="btn-secondary">
+            <svg class="icon">
+              <use xlink:href="/social.svg#google"></use>
+            </svg>
+            Se connecter avec google
+          </a>
+        </div>
+        <div>
+          <a href="{{ path('oauth_connect', {service: 'facebook'}) }}" class="btn-secondary">
+            <svg class="icon">
+              <use xlink:href="/social.svg#facebook"></use>
+            </svg>
+            Se connecter avec facebook
+          </a>
+        </div>
       </div>
     </aside>
   </div>

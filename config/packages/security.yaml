@@ -24,6 +24,7 @@ security:
           - App\Domain\Auth\Authenticator
           - App\Infrastructure\Social\Authenticator\GithubAuthenticator
           - App\Infrastructure\Social\Authenticator\GoogleAuthenticator
+          - App\Infrastructure\Social\Authenticator\FacebookAuthenticator
       logout:
         path: auth_logout
       remember_me:
@@ -39,5 +40,4 @@ security:
   # Easy way to control access for large sections of your site
   # Note: Only the *first* access control that matches will be used
   access_control:
-    # - { path: ^/admin, roles: ROLE_ADMIN }
     # - { path: ^/profile, roles: ROLE_USER }

@@ -14,18 +14,25 @@ class SocialLoginController extends AbstractController
     private const SCOPES = [
         'github' => ['user:email'],
         'google' => [],
+        'facebook' => ['email'],
     ];
+    private ClientRegistry $clientRegistry;
+
+    public function __construct(ClientRegistry $clientRegistry)
+    {
+        $this->clientRegistry = $clientRegistry;
+    }
 
     /**
      * @Route("/oauth/connect/{service}", name="oauth_connect")
      */
-    public function connect(string $service, ClientRegistry $clientRegistry): RedirectResponse
+    public function connect(string $service): RedirectResponse
     {
         if (!in_array($service, array_keys(self::SCOPES))) {
             throw new AccessDeniedException();
         }
 
-        return $clientRegistry->getClient($service)->redirect(self::SCOPES[$service], []);
+        return $this->clientRegistry->getClient($service)->redirect(self::SCOPES[$service], ['a' => 1]);
     }
 
     /**

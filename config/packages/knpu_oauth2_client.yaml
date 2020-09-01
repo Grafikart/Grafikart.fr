@@ -20,3 +20,11 @@ knpu_oauth2_client:
             redirect_route: oauth_check
             redirect_params:
                 service: google
+        facebook:
+          type: facebook
+          client_id: '%env(FACEBOOK_ID)%'
+          client_secret: '%env(FACEBOOK_SECRET)%'
+          redirect_route: oauth_check
+          redirect_params:
+            service: facebook
+          graph_api_version: v8.0

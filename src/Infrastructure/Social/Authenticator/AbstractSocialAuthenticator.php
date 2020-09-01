@@ -4,7 +4,6 @@ namespace App\Infrastructure\Social\Authenticator;
 
 use App\Domain\Auth\User;
 use App\Domain\Auth\UserRepository;
-use App\Infrastructure\Social\Exception\NotVerifiedEmailException;
 use App\Infrastructure\Social\SocialLoginService;
 use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
@@ -18,6 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
@@ -87,11 +87,12 @@ abstract class AbstractSocialAuthenticator extends SocialAuthenticator
         if ($request->hasSession()) {
             $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);
         }
-        if ($exception instanceof NotVerifiedEmailException) {
-            return new RedirectResponse($this->router->generate('auth_login'));
+
+        if ($exception instanceof UsernameNotFoundException) {
+            return new RedirectResponse($this->router->generate('register', ['oauth' => 1]));
         }
 
-        return new RedirectResponse($this->router->generate('register', ['oauth' => 1]));
+        return new RedirectResponse($this->router->generate('auth_login'));
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey): RedirectResponse

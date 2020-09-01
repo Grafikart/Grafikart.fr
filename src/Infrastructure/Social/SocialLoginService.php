@@ -2,6 +2,7 @@
 
 namespace App\Infrastructure\Social;
 
+use League\OAuth2\Client\Provider\FacebookUser;
 use League\OAuth2\Client\Provider\GithubResourceOwner;
 use League\OAuth2\Client\Provider\GoogleUser;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
@@ -35,6 +36,13 @@ class SocialLoginService
                 'type' => 'Google',
                 'username' => $resourceOwner->getName(),
             ];
+        } elseif ($resourceOwner instanceof FacebookUser) {
+            $data = [
+                'email' => $resourceOwner->getEmail(),
+                'facebook_id' => $resourceOwner->getId(),
+                'type' => 'Facebook',
+                'username' => $resourceOwner->getName(),
+            ];
         }
         $this->session->set(self::SESSION_KEY, $data);
     }
@@ -48,6 +56,7 @@ class SocialLoginService
         $user->setEmail($oauthData['email']);
         $user->setGithubId($oauthData['github_id'] ?? null);
         $user->setGoogleId($oauthData['google_id'] ?? null);
+        $user->setFacebookId($oauthData['facebook_id'] ?? null);
         $user->setUsername($oauthData['username']);
         $user->setConfirmationToken(null);
 

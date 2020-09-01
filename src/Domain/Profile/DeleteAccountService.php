@@ -11,7 +11,6 @@ use Symfony\Component\Security\Http\Event\LogoutEvent;
 
 class DeleteAccountService
 {
-
     public const DAYS = 5;
     private EntityManagerInterface $em;
     private TokenStorageInterface $tokenStorage;

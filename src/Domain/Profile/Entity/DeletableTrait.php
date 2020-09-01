@@ -6,10 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait DeletableTrait
 {
-
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @var \DateTimeInterface|null
      */
     private ?\DateTimeInterface $deleteAt;
 

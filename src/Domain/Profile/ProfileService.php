@@ -3,7 +3,6 @@
 namespace App\Domain\Profile;
 
 use App\Core\Security\TokenGeneratorService;
-use App\Domain\Auth\User;
 use App\Domain\Profile\Dto\AvatarDto;
 use App\Domain\Profile\Dto\ProfileUpdateDto;
 use App\Domain\Profile\Entity\EmailVerification;
@@ -19,9 +18,7 @@ class ProfileService
     private TokenGeneratorService $tokenGeneratorService;
     private EmailVerificationRepository $emailVerificationRepository;
     private EventDispatcherInterface $dispatcher;
-    /**
-     * @var EntityManagerInterface
-     */
+
     private EntityManagerInterface $em;
 
     public function __construct(

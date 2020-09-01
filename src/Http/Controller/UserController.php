@@ -141,18 +141,19 @@ class UserController extends AbstractController
         $data = json_decode($request->getContent(), true);
         if (!$this->isCsrfTokenValid('delete-account', $data['csrf'] ?? '')) {
             return new JsonResponse([
-                'title'  => 'Token CSRF invalide',
+                'title' => 'Token CSRF invalide',
             ], Response::HTTP_BAD_REQUEST);
         }
         if (!$passwordEncoder->isPasswordValid($user, $data['password'] ?? '')) {
             return new JsonResponse([
-                'title'  => 'Impossible de supprimer le compte, mot de passe invalide',
+                'title' => 'Impossible de supprimer le compte, mot de passe invalide',
             ], Response::HTTP_UNAUTHORIZED);
         }
 
         $service->deleteUser($user, $request);
+
         return new JsonResponse([
-            'message' => 'Votre demande de suppression de compte a bien été prise en compte. Votre compte sera supprimé automatiquement au bout de ' . DeleteAccountService::DAYS . ' jours'
+            'message' => 'Votre demande de suppression de compte a bien été prise en compte. Votre compte sera supprimé automatiquement au bout de '.DeleteAccountService::DAYS.' jours',
         ]);
     }
 }

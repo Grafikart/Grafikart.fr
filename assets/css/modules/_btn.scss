@@ -195,6 +195,7 @@
     left: space(2);
   }
 }
+
 .btn-discord {
   @extend %btn;
   background: #7289da;
@@ -208,4 +209,9 @@
 .btn-google {
   color: #FFF;
   background: #dd4b39;
+}
+
+.btn-facebook {
+  color: #FFF;
+  background: #47639e;
 }
