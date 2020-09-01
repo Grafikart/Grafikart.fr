@@ -5,6 +5,7 @@ namespace App\Domain\Auth;
 use App\Domain\Forum\Entity\ForumReaderUserInterface;
 use App\Domain\Notification\Entity\Notifiable;
 use App\Domain\Premium\Entity\PremiumTrait;
+use App\Domain\Profile\Entity\DeletableTrait;
 use App\Infrastructure\Payment\Stripe\StripeEntity;
 use App\Infrastructure\Social\Entity\SocialLoggableTrait;
 use Doctrine\ORM\Mapping as ORM;
@@ -26,6 +27,7 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface
     use StripeEntity;
     use Notifiable;
     use SocialLoggableTrait;
+    use DeletableTrait;
 
     /**
      * @ORM\Id()

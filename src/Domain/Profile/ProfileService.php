@@ -3,6 +3,7 @@
 namespace App\Domain\Profile;
 
 use App\Core\Security\TokenGeneratorService;
+use App\Domain\Auth\User;
 use App\Domain\Profile\Dto\AvatarDto;
 use App\Domain\Profile\Dto\ProfileUpdateDto;
 use App\Domain\Profile\Entity\EmailVerification;
@@ -18,15 +19,21 @@ class ProfileService
     private TokenGeneratorService $tokenGeneratorService;
     private EmailVerificationRepository $emailVerificationRepository;
     private EventDispatcherInterface $dispatcher;
+    /**
+     * @var EntityManagerInterface
+     */
+    private EntityManagerInterface $em;
 
     public function __construct(
         TokenGeneratorService $tokenGeneratorService,
         EmailVerificationRepository $emailVerificationRepository,
-        EventDispatcherInterface $dispatcher
+        EventDispatcherInterface $dispatcher,
+        EntityManagerInterface $em
     ) {
         $this->tokenGeneratorService = $tokenGeneratorService;
         $this->emailVerificationRepository = $emailVerificationRepository;
         $this->dispatcher = $dispatcher;
+        $this->em = $em;
     }
 
     public function updateAvatar(AvatarDto $data): void
@@ -43,7 +50,7 @@ class ProfileService
         $data->user->setUpdatedAt(new \DateTime());
     }
 
-    public function updateProfile(ProfileUpdateDto $data, EntityManagerInterface $em): void
+    public function updateProfile(ProfileUpdateDto $data): void
     {
         $data->user->setCountry($data->country);
         if ($data->email !== $data->user->getEmail()) {
@@ -52,7 +59,7 @@ class ProfileService
                 throw new TooManyEmailChangeException($lastRequest);
             } else {
                 if ($lastRequest) {
-                    $em->remove($lastRequest);
+                    $this->em->remove($lastRequest);
                 }
             }
             $emailVerification = (new EmailVerification())
@@ -60,14 +67,14 @@ class ProfileService
                 ->setAuthor($data->user)
                 ->setCreatedAt(new \DateTime())
                 ->setToken($this->tokenGeneratorService->generate());
-            $em->persist($emailVerification);
+            $this->em->persist($emailVerification);
             $this->dispatcher->dispatch(new EmailVerificationEvent($emailVerification));
         }
     }
 
-    public function updateEmail(EmailVerification $emailVerification, EntityManagerInterface $em): void
+    public function updateEmail(EmailVerification $emailVerification): void
     {
         $emailVerification->getAuthor()->setEmail($emailVerification->getEmail());
-        $em->remove($emailVerification);
+        $this->em->remove($emailVerification);
     }
 }

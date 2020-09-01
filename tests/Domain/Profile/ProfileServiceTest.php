@@ -24,6 +24,11 @@ class ProfileServiceTest extends TestCase
      */
     private EventDispatcherInterface $dispatcher;
 
+    /**
+     * @var EntityManagerInterface|MockObject
+     */
+    private EntityManagerInterface $em;
+
     public function getService(?EmailVerification $formerVerification = null)
     {
         $tokenGenerator = $this->getMockBuilder(TokenGeneratorService::class)->getMock();
@@ -31,8 +36,9 @@ class ProfileServiceTest extends TestCase
         $repository = $this->getMockBuilder(EmailVerificationRepository::class)->disableOriginalConstructor()->getMock();
         $repository->expects($this->any())->method('findLastForUser')->willReturn($formerVerification);
         $this->dispatcher = $this->getMockBuilder(EventDispatcherInterface::class)->getMock();
+        $this->em = $this->getMockBuilder(EntityManagerInterface::class)->getMock();
 
-        return new ProfileService($tokenGenerator, $repository, $this->dispatcher);
+        return new ProfileService($tokenGenerator, $repository, $this->dispatcher, $this->em);
     }
 
     public function testNothingHappensWhenNotChangingEmail()
@@ -42,10 +48,9 @@ class ProfileServiceTest extends TestCase
         $data = new ProfileUpdateDto($user);
         $service = $this->getService();
 
-        $em = $this->getMockBuilder(EntityManagerInterface::class)->getMock();
-        $em->expects($this->never())->method('persist');
+        $this->em->expects($this->never())->method('persist');
         $this->dispatcher->expects($this->never())->method('dispatch');
-        $service->updateProfile($data, $em);
+        $service->updateProfile($data);
     }
 
     public function testGenerateEmailChangeVerificationOnChangingEmail()
@@ -56,14 +61,13 @@ class ProfileServiceTest extends TestCase
         $data->email = 'john2@doe.fr';
         $service = $this->getService();
 
-        $em = $this->getMockBuilder(EntityManagerInterface::class)->getMock();
-        $em->expects($this->once())->method('persist')->with(
+        $this->em->expects($this->once())->method('persist')->with(
             $this->callback(function (EmailVerification $entity) use ($data) {
                 return $entity->getEmail() === $data->email
                     && self::TOKEN === $entity->getToken();
             })
         );
-        $service->updateProfile($data, $em);
+        $service->updateProfile($data);
     }
 
     public function testDispatchEventOnEmailChange()
@@ -74,10 +78,9 @@ class ProfileServiceTest extends TestCase
         $data->email = 'john2@doe.fr';
         $service = $this->getService();
 
-        $em = $this->getMockBuilder(EntityManagerInterface::class)->getMock();
-        $em->expects($this->once())->method('persist');
+        $this->em->expects($this->once())->method('persist');
         $this->dispatcher->expects($this->once())->method('dispatch')->with($this->isInstanceOf(EmailVerificationEvent::class));
-        $service->updateProfile($data, $em);
+        $service->updateProfile($data);
     }
 
     public function testThrowExceptionIfEmailAlreadyChangeLastHour()
@@ -90,11 +93,10 @@ class ProfileServiceTest extends TestCase
             (new EmailVerification())->setCreatedAt(new \DateTime('-10 minutes'))
         );
 
-        $em = $this->getMockBuilder(EntityManagerInterface::class)->getMock();
-        $em->expects($this->never())->method('persist');
+        $this->em->expects($this->never())->method('persist');
         $this->dispatcher->expects($this->never())->method('dispatch');
         $this->expectException(TooManyEmailChangeException::class);
-        $service->updateProfile($data, $em);
+        $service->updateProfile($data);
     }
 
     public function testDeletePreviousEmailVerification()
@@ -106,9 +108,8 @@ class ProfileServiceTest extends TestCase
         $oldVerification = (new EmailVerification())->setCreatedAt(new \DateTime('-10 hours'));
         $service = $this->getService($oldVerification);
 
-        $em = $this->getMockBuilder(EntityManagerInterface::class)->getMock();
-        $em->expects($this->once())->method('persist');
-        $em->expects($this->once())->method('remove')->with($oldVerification);
-        $service->updateProfile($data, $em);
+        $this->em->expects($this->once())->method('persist');
+        $this->em->expects($this->once())->method('remove')->with($oldVerification);
+        $service->updateProfile($data);
     }
 }

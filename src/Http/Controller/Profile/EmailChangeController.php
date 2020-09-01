@@ -22,7 +22,7 @@ class EmailChangeController extends AbstractController
         if ($emailVerification->isExpired()) {
             $this->addFlash('error', 'Cette demande de confirmation a expirée');
         } else {
-            $service->updateEmail($emailVerification, $em);
+            $service->updateEmail($emailVerification);
             $em->flush();
             $this->addFlash('success', 'Votre email a bien été modifié');
         }

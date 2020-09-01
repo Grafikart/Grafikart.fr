@@ -91,7 +91,9 @@
 .btn-block {
   @extend .btn-big;
   width: 100%;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-small {

@@ -30,7 +30,7 @@
       </li>
       <li class="header__search"><a href="#">{{ icon('search') }}</a></li>
       {% if app.user %}
-        <li class="header__account"><a href="{{ path('auth_logout') }}">{{ icon('user') }} <span>{{ app.user.username }}</span></a>
+        <li class="header__account"><a href="{{ path('user_profil') }}">{{ icon('user') }} <span>{{ app.user.username }}</span></a>
         </li>
       {% else %}
         <li class="header__account"><a href="{{ path('auth_login', {_target_path: app.request.pathInfo}) }}">{{ icon('user') }} <span>Se connecter</span></a></li>

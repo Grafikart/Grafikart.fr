@@ -81,7 +81,7 @@ export class FloatingAlert extends Alert {
  *
  * @param {string} message
  * @param {string} type
- * @param {number} duration
+ * @param {number|null} duration
  */
 export function flash (message, type = 'success', duration = 2) {
   const alert = new FloatingAlert()

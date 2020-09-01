@@ -74,10 +74,7 @@
             Ou vous souhaitez supprimer toutes les informations associées à ce compte ?
           </p>
           <p class="text-right">
-            <a href="#" class="btn-danger">
-              {{ icon('trash') }}
-              Supprimer mon compte
-            </a>
+            <delete-account days="5" url="{{ path('user_profil') }}" csrf="{{ csrf_token('delete-account') }}"></delete-account>
           </p>
         </div>
       </section>

@@ -1,10 +1,9 @@
 import { createContext } from 'preact'
 import { ApiError, jsonFetch } from '/functions/api.js'
 import { useContext, useEffect, useLayoutEffect, useRef, useState } from 'preact/hooks'
-import { PrimaryButton } from './Button.jsx'
 import { useAutofocus } from '/functions/hooks.js'
 import { flash } from '/elements/Alert.js'
-import { SecondaryButton } from '/components/Button.jsx'
+import { Button, SecondaryButton, PrimaryButton } from '/components/Button.jsx'
 
 /**
  * Représente un champs, dans le contexte du formulaire
@@ -56,6 +55,7 @@ export function Field ({
     value,
     className,
     onInput: handleInput,
+    type,
     ...props
   }
 
@@ -122,9 +122,18 @@ export const FormContext = createContext({
  * @param {string} action URL de l'action à appeler pour traiter le formulaire
  * @param {object} data Données à envoyer à l'API et à fusionner avec les données du formulaire
  * @param {string} method Méthode d'envoie des données
+ * @param {bool} floatingAlert
  * @param onSuccess Fonction appelée en cas de retour valide de l'API (reçoit les données de l'API en paramètre)
  */
-export function FetchForm ({ data = {}, children, action, className, method = 'POST', onSuccess = () => {} }) {
+export function FetchForm ({
+  data = {},
+  children,
+  action,
+  className,
+  method = 'POST',
+  onSuccess = () => {},
+  floatingAlert = false
+}) {
   const [{ loading, errors }, setState] = useState({
     loading: false,
     errors: []
@@ -166,7 +175,11 @@ export function FetchForm ({ data = {}, children, action, className, method = 'P
     <FormContext.Provider value={{ loading, errors, emptyError }}>
       <form onSubmit={handleSubmit} className={className}>
         {mainError && (
-          <alert-message type='danger' onClose={() => emptyError('main')} className='full'>
+          <alert-message
+            type='danger'
+            onClose={() => emptyError('main')}
+            className={floatingAlert ? 'is-floating' : 'full'}
+          >
             {mainError}
           </alert-message>
         )}
@@ -229,5 +242,24 @@ export function FormSecondaryButton ({ children, ...props }) {
     <SecondaryButton loading={loading} disabled={disabled} {...props}>
       {children}
     </SecondaryButton>
+  )
+}
+
+/**
+ * Représente un bouton, dans le contexte du formulaire
+ *
+ * @param children
+ * @param props
+ * @return {*}
+ * @constructor
+ */
+export function FormButton ({ children, ...props }) {
+  const { loading, errors } = useContext(FormContext)
+  const disabled = loading || Object.keys(errors).filter(k => k !== 'main').length > 0
+
+  return (
+    <Button loading={loading} disabled={disabled} {...props}>
+      {children}
+    </Button>
   )
 }

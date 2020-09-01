@@ -253,34 +253,47 @@
 
 // Spaces
 // =============
+.mla {
+  margin-left: auto;
+}
 @for $i from 1 through 5 {
-  .p#{$i} {
-    padding: space($i);
-  }
-  .pt#{$i} {
-    padding-top: space($i);
-  }
-  .pb#{$i} {
-    padding-bottom: space($i);
-  }
-  .py#{$i} {
-    padding-top: space($i);
-    padding-bottom: space($i);
-  }
-  .my#{$i} {
-    margin-top: space($i);
-    margin-bottom: space($i);
-  }
-  .mt#{$i} {
-    margin-top: space($i);
-  }
-  .mb#{$i} {
-    margin-bottom: space($i);
-  }
-  .mr#{$i} {
-    margin-right: space($i);
-  }
-  .ml#{$i} {
-    margin-left: space($i);
+  body {
+    .p#{$i} {
+      padding: space($i);
+    }
+
+    .pt#{$i} {
+      padding-top: space($i);
+    }
+
+    .pb#{$i} {
+      padding-bottom: space($i);
+    }
+
+    .py#{$i} {
+      padding-top: space($i);
+      padding-bottom: space($i);
+    }
+
+    .my#{$i} {
+      margin-top: space($i);
+      margin-bottom: space($i);
+    }
+
+    .mt#{$i} {
+      margin-top: space($i);
+    }
+
+    .mb#{$i} {
+      margin-bottom: space($i);
+    }
+
+    .mr#{$i} {
+      margin-right: space($i);
+    }
+
+    .ml#{$i} {
+      margin-left: space($i);
+    }
   }
 }

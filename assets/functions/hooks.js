@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'preact/hooks'
+import { useEffect, useState, useCallback } from 'preact/hooks'
 import { ApiError, jsonFetch } from '/functions/api.js'
 import { flash } from '/elements/Alert.js'
 
@@ -101,4 +101,34 @@ export function useAsyncEffect (fn, deps = []) {
     fn()
   }, deps)
   /* eslint-enable */
+}
+
+export const PROMISE_PENDING = 0
+export const PROMISE_DONE = 1
+export const PROMISE_ERROR = -1
+
+/**
+ * Décore une promesse et renvoie son état
+ */
+export default function usePromiseFn (fn) {
+  const [state, setState] = useState(null)
+  const resetState = useCallback(() => {
+    setState(null)
+  }, [])
+
+  const wrappedFn = useCallback(
+    async (...args) => {
+      setState(PROMISE_PENDING)
+      try {
+        await fn(...args)
+        setState(PROMISE_DONE)
+      } catch (e) {
+        setState(PROMISE_ERROR)
+        throw e
+      }
+    },
+    [fn]
+  )
+
+  return [state, wrappedFn, resetState]
 }

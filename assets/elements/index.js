@@ -22,6 +22,7 @@ import EditButton from './admin/EditButton.js'
 import './forum/index.js'
 import { ProgressTracker } from '/elements/courses/ProgressTracker.js'
 import Sharer from '/elements/Sharer.js'
+import DeleteAccount from '/elements/DeleteAccount.jsx'
 
 // Custom Elements
 customElements.define('nav-tabs', NavTabs)
@@ -44,6 +45,7 @@ customElements.define('social-share', Sharer, { extends: 'a' })
 preactCustomElement('site-notifications', Notifications)
 preactCustomElement('contact-form', ContactForm)
 preactCustomElement('comments-area', Comments, ['target'])
+preactCustomElement('delete-account', DeleteAccount, ['url', 'csrf'])
 
 // CustomElement étendus
 customElements.define('input-switch', Switch, { extends: 'input' })
