@@ -47,6 +47,34 @@ class SecurityControllerTest extends WebTestCase
         $this->assertResponseRedirects('/');
     }
 
+    public function testRedirectAfterLogin(): void
+    {
+        /** @var array<string,User> $users */
+        $users = $this->loadFixtures(['users']);
+        $crawler = $this->client->request('GET', '/login?_target_path=/tutoriels');
+        $form = $crawler->selectButton('Se connecter')->form();
+        $form->setValues([
+            'email' => $users['user1']->getEmail(),
+            'password' => '0000',
+        ]);
+        $this->client->submit($form);
+        $this->assertResponseRedirects('/tutoriels');
+    }
+
+    public function testBlockRedirectToOtherDomains(): void
+    {
+        /** @var array<string,User> $users */
+        $users = $this->loadFixtures(['users']);
+        $crawler = $this->client->request('GET', '/login?_target_path=https://google.com');
+        $form = $crawler->selectButton('Se connecter')->form();
+        $form->setValues([
+            'email' => $users['user1']->getEmail(),
+            'password' => '0000',
+        ]);
+        $this->client->submit($form);
+        $this->assertResponseRedirects('/');
+    }
+
     public function testAttemptLimit(): void
     {
         /** @var array<string,User> $users */
