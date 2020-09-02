@@ -31,7 +31,7 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
         parent::tearDown();
     }
 
-    public function jsonRequest(string $method, string $url, ?array $data): string
+    public function jsonRequest(string $method, string $url, ?array $data = null): string
     {
         $this->client->request($method, $url, [], [], [
             'CONTENT_TYPE' => 'application/json',
@@ -116,6 +116,7 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
     {
         $csrf = uniqid();
         self::$container->get(TokenStorageInterface::class)->setToken($key, $csrf);
+
         return $csrf;
     }
 }

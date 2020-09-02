@@ -95,7 +95,7 @@ class UserController extends AbstractController
         return $this->render('profil/edit.html.twig', [
             'form_password' => $formPassword->createView(),
             'form_update' => $formUpdate->createView(),
-            'user' => $user
+            'user' => $user,
         ]);
     }
 
@@ -169,7 +169,8 @@ class UserController extends AbstractController
         $user = $this->getUser();
         $user->setDeleteAt(null);
         $em->flush();
-        $this->addFlash('success', "La suppression de votre compte a bien été annulée");
+        $this->addFlash('success', 'La suppression de votre compte a bien été annulée');
+
         return $this->redirectToRoute('user_edit');
     }
 }

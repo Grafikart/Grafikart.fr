@@ -25,7 +25,7 @@ class AuthSubscriber implements EventSubscriberInterface
         return [
             PasswordResetTokenCreatedEvent::class => 'onPasswordRequest',
             UserCreatedEvent::class => 'onRegister',
-            UserDeleteRequestEvent::class => 'onDelete'
+            UserDeleteRequestEvent::class => 'onDelete',
         ];
     }
 
@@ -58,7 +58,7 @@ class AuthSubscriber implements EventSubscriberInterface
     {
         $email = $this->mailer->createEmail('mails/auth/delete.twig', [
             'user' => $event->getUser(),
-            'days' => DeleteAccountService::DAYS
+            'days' => DeleteAccountService::DAYS,
         ])
             ->to($event->getUser()->getEmail())
             ->subject('Grafikart | Suppression de votre compte');

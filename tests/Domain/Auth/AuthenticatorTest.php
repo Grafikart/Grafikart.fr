@@ -10,6 +10,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
@@ -61,12 +62,16 @@ class AuthenticatorTest extends TestCase
         $this->passwordEncoder = $this->getMockBuilder(UserPasswordEncoderInterface::class)->getMock();
         /* @var MockObject|EventDispatcherInterface eventDispatcher */
         $this->eventDispatcher = $this->getMockBuilder(EventDispatcherInterface::class)->getMock();
+        /* @var MockObject|UrlMatcherInterface $urlMatcher */
+        $urlMatcher = $this->getMockBuilder(UrlMatcherInterface::class)->getMock();
+        $urlMatcher->expects($this->any())->method('match')->willReturn([]);
         $this->authenticator = new Authenticator(
             $this->userRepository,
             $this->urlGenerator,
             $this->csrfTokenManager,
             $this->passwordEncoder,
-            $this->eventDispatcher
+            $this->eventDispatcher,
+            $urlMatcher
         );
     }
 

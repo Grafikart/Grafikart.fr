@@ -8,8 +8,6 @@ use App\Domain\Profile\Event\UserDeleteRequestEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Http\Event\LogoutEvent;
 
 class DeleteAccountService
 {
@@ -32,7 +30,7 @@ class DeleteAccountService
     {
         $this->authService->logout($request);
         $this->dispatcher->dispatch(new UserDeleteRequestEvent($user));
-        $user->setDeleteAt(new \DateTimeImmutable("+ " . (string)self::DAYS . " days"));
+        $user->setDeleteAt(new \DateTimeImmutable('+ '.(string) self::DAYS.' days'));
         $this->em->flush();
     }
 }

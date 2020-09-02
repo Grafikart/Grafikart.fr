@@ -6,10 +6,6 @@ use App\Domain\Auth\User;
 
 class UserDeleteRequestEvent
 {
-
-    /**
-     * @var User
-     */
     private User $user;
 
     public function __construct(User $user)

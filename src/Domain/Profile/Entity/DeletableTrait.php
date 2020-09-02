@@ -9,7 +9,7 @@ trait DeletableTrait
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
-    private ?\DateTimeImmutable $deleteAt;
+    private ?\DateTimeImmutable $deleteAt = null;
 
     public function getDeleteAt(): ?\DateTimeImmutable
     {

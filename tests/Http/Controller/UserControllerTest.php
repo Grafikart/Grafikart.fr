@@ -72,12 +72,12 @@ class UserControllerTest extends WebTestCase
 
     public function testSendEmailOnDeleteRequest(): void
     {
-        /** @var User[] $data */
+        /* @var User[] $data */
         ['user1' => $user] = $this->loadFixtures(['users']);
         $this->login($user);
         $this->jsonRequest('DELETE', '/profil', [
             'password' => '0000',
-            'csrf' => $this->setCsrf('delete-account')
+            'csrf' => $this->setCsrf('delete-account'),
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $this->assertEmailCount(1);
