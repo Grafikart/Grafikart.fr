@@ -20,4 +20,8 @@ Les sources sont dispo sur github : https://github.com/Grafikart/Grafikart.fr
 
 ## !framework
 
-Le site est développé avec Symfony côté backend, et il n'y a pas de framework côté front-end (un peu de react par-ci par-là)
+Le site est développé avec Symfony côté backend, et il n'y a pas de framework côté front-end (un peu de react par-ci par-là). Plus d'infos ici : https://github.com/Grafikart/Grafikart.fr/issues/1
+
+## !why
+
+Pourquoi Symfony et pas Laravel ? Bonne question, la réponse ici : https://github.com/Grafikart/Grafikart.fr/issues/1
