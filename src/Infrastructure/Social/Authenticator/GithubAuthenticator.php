@@ -5,34 +5,16 @@ namespace App\Infrastructure\Social\Authenticator;
 use App\Domain\Auth\User;
 use App\Domain\Auth\UserRepository;
 use App\Infrastructure\Social\Exception\NotVerifiedEmailException;
-use App\Infrastructure\Social\SocialLoginService;
-use Doctrine\ORM\EntityManagerInterface;
-use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use League\OAuth2\Client\Provider\GithubResourceOwner;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use League\OAuth2\Client\Token\AccessToken;
-use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class GithubAuthenticator extends AbstractSocialAuthenticator
 {
-    use TargetPathTrait;
-
-    private HttpClientInterface $http;
-
     protected string $serviceName = 'github';
-
-    public function __construct(
-        ClientRegistry $clientRegistry,
-        EntityManagerInterface $em,
-        RouterInterface $router,
-        SocialLoginService $socialLoginService,
-        HttpClientInterface $httpClient
-    ) {
-        parent::__construct($clientRegistry, $em, $router, $socialLoginService);
-        $this->http = $httpClient;
-    }
 
     public function getUserFromResourceOwner(ResourceOwnerInterface $githubUser, UserRepository $repository): ?User
     {
@@ -52,7 +34,7 @@ class GithubAuthenticator extends AbstractSocialAuthenticator
     {
         /** @var GithubResourceOwner $githubUser */
         $githubUser = parent::getResourceOwnerFromCredentials($credentials);
-        $response = $this->http->request(
+        $response = HttpClient::create()->request(
             'GET',
             'https://api.github.com/user/emails',
             [

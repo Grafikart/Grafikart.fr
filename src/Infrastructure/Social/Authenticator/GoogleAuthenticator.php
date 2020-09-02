@@ -11,8 +11,6 @@ use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 class GoogleAuthenticator extends AbstractSocialAuthenticator
 {
-    use TargetPathTrait;
-
     protected string $serviceName = 'google';
 
     public function getUserFromResourceOwner(ResourceOwnerInterface $googleUser, UserRepository $repository): ?User

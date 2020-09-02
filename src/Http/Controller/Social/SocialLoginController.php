@@ -2,8 +2,11 @@
 
 namespace App\Http\Controller\Social;
 
+use App\Domain\Auth\AuthService;
 use App\Http\Controller\AbstractController;
+use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,20 +31,38 @@ class SocialLoginController extends AbstractController
      */
     public function connect(string $service): RedirectResponse
     {
-        if (!in_array($service, array_keys(self::SCOPES))) {
-            throw new AccessDeniedException();
-        }
+        $this->ensureServiceAccepted($service);
 
         return $this->clientRegistry->getClient($service)->redirect(self::SCOPES[$service], ['a' => 1]);
     }
 
     /**
-     * This is handled by the GithubAuthenticator.
-     *
+     * @Route("/oauth/unlink/{service}", name="oauth_unlink")
+     * @IsGranted("ROLE_USER")
+     */
+    public function disconnect(string $service, AuthService $authService, EntityManagerInterface $em): RedirectResponse
+    {
+        $this->ensureServiceAccepted($service);
+        $method = 'set'.ucfirst($service).'Id';
+        $authService->getUser()->$method(null);
+        $em->flush();
+        $this->addFlash('success', 'Votre compte a bien été dissocié de '.$service);
+
+        return $this->redirectToRoute('user_edit');
+    }
+
+    /**
      * @Route("/oauth/check/{service}", name="oauth_check")
      */
     public function check(): Response
     {
         return new Response();
+    }
+
+    private function ensureServiceAccepted(string $service): void
+    {
+        if (!in_array($service, array_keys(self::SCOPES))) {
+            throw new AccessDeniedException();
+        }
     }
 }

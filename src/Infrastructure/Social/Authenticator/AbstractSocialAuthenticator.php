@@ -2,9 +2,11 @@
 
 namespace App\Infrastructure\Social\Authenticator;
 
+use App\Domain\Auth\AuthService;
 use App\Domain\Auth\User;
 use App\Domain\Auth\UserRepository;
-use App\Infrastructure\Social\SocialLoginService;
+use App\Infrastructure\Social\Exception\UserAuthenticatedException;
+use App\Infrastructure\Social\Exception\UserOauthNotFoundException;
 use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Client\OAuth2Client;
@@ -17,7 +19,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
@@ -26,23 +27,22 @@ abstract class AbstractSocialAuthenticator extends SocialAuthenticator
 {
     use TargetPathTrait;
 
-    protected EntityManagerInterface $em;
-    protected ClientRegistry $clientRegistry;
-    private RouterInterface $router;
-
-    private SocialLoginService $socialLoginService;
     protected string $serviceName = '';
+    private ClientRegistry $clientRegistry;
+    protected EntityManagerInterface $em;
+    private RouterInterface $router;
+    private AuthService $authService;
 
     public function __construct(
         ClientRegistry $clientRegistry,
         EntityManagerInterface $em,
         RouterInterface $router,
-        SocialLoginService $socialLoginService
+        AuthService $authService
     ) {
         $this->clientRegistry = $clientRegistry;
         $this->em = $em;
         $this->router = $router;
-        $this->socialLoginService = $socialLoginService;
+        $this->authService = $authService;
     }
 
     public function supports(Request $request): bool
@@ -70,13 +70,15 @@ abstract class AbstractSocialAuthenticator extends SocialAuthenticator
     public function getUser($credentials, UserProviderInterface $userProvider): ?User
     {
         $resourceOwner = $this->getResourceOwnerFromCredentials($credentials);
+        $user = $this->authService->getUserOrNull();
+        if ($user) {
+            throw new UserAuthenticatedException($user, $resourceOwner);
+        }
         /** @var UserRepository $repository */
         $repository = $this->em->getRepository(User::class);
         $user = $this->getUserFromResourceOwner($resourceOwner, $repository);
         if (null === $user) {
-            $this->socialLoginService->persist($resourceOwner);
-
-            return null;
+            throw new UserOauthNotFoundException($resourceOwner);
         }
 
         return $user;
@@ -84,12 +86,16 @@ abstract class AbstractSocialAuthenticator extends SocialAuthenticator
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): RedirectResponse
     {
-        if ($request->hasSession()) {
-            $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);
+        if ($exception instanceof UserOauthNotFoundException) {
+            return new RedirectResponse($this->router->generate('register', ['oauth' => 1]));
         }
 
-        if ($exception instanceof UsernameNotFoundException) {
-            return new RedirectResponse($this->router->generate('register', ['oauth' => 1]));
+        if ($exception instanceof UserAuthenticatedException) {
+            return new RedirectResponse($this->router->generate('user_edit'));
+        }
+
+        if ($request->hasSession()) {
+            $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);
         }
 
         return new RedirectResponse($this->router->generate('auth_login'));

@@ -11,8 +11,6 @@ use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 class FacebookAuthenticator extends AbstractSocialAuthenticator
 {
-    use TargetPathTrait;
-
     protected string $serviceName = 'facebook';
 
     public function getUserFromResourceOwner(ResourceOwnerInterface $facebookUser, UserRepository $repository): ?User

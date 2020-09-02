@@ -107,27 +107,27 @@
       <p>Reliez votre compte à un réseau social afin de l'utiliser comme mode de connexion</p>
       <div class="stack mb4">
         <div>
-          <a href="{{ path('oauth_connect', {service: 'github'}) }}" class="btn-secondary">
+          <a href="{{ path(user.githubId ? 'oauth_unlink' : 'oauth_connect', {service: 'github'}) }}" class="btn-secondary">
             <svg class="icon">
               <use xlink:href="/social.svg#github"></use>
             </svg>
-            Lier votre compte github
+            {{ user.githubId ? 'Dissocier' : 'Lier' }} votre compte github
           </a>
         </div>
         <div>
-          <a href="{{ path('oauth_connect', {service: 'google'}) }}" class="btn-secondary">
+          <a href="{{ path(user.googleId ? 'oauth_unlink' : 'oauth_connect', {service: 'google'}) }}" class="btn-secondary">
             <svg class="icon">
               <use xlink:href="/social.svg#google"></use>
             </svg>
-            Lier votre compte google
+             {{ user.googleId ? 'Dissocier' : 'Lier' }} votre compte google
           </a>
         </div>
         <div>
-          <a href="{{ path('oauth_connect', {service: 'facebook'}) }}" class="btn-secondary">
+          <a href="{{ path(user.facebookId ? 'oauth_unlink' : 'oauth_connect', {service: 'facebook'}) }}" class="btn-secondary">
             <svg class="icon">
               <use xlink:href="/social.svg#facebook"></use>
             </svg>
-            Lier votre compte facebook
+             {{ user.facebookId ? 'Dissocier' : 'Lier' }} votre compte facebook
           </a>
         </div>
       </div>
