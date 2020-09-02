@@ -51,7 +51,7 @@ class SecurityControllerTest extends WebTestCase
     {
         /** @var array<string,User> $users */
         $users = $this->loadFixtures(['users']);
-        $crawler = $this->client->request('GET', '/login?_target_path=/tutoriels');
+        $crawler = $this->client->request('GET', '/login?redirect=/tutoriels');
         $form = $crawler->selectButton('Se connecter')->form();
         $form->setValues([
             'email' => $users['user1']->getEmail(),
@@ -65,7 +65,7 @@ class SecurityControllerTest extends WebTestCase
     {
         /** @var array<string,User> $users */
         $users = $this->loadFixtures(['users']);
-        $crawler = $this->client->request('GET', '/login?_target_path=https://google.com');
+        $crawler = $this->client->request('GET', '/login?redirect=https://google.com');
         $form = $crawler->selectButton('Se connecter')->form();
         $form->setValues([
             'email' => $users['user1']->getEmail(),

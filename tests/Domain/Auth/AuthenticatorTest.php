@@ -3,7 +3,6 @@
 namespace App\Tests\Domain\Auth;
 
 use App\Domain\Auth\Authenticator;
-use App\Domain\Auth\Service\LoginAttemptService;
 use App\Domain\Auth\User;
 use App\Domain\Auth\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,11 +20,6 @@ class AuthenticatorTest extends TestCase
      * @var MockObject|UserRepository
      */
     private MockObject $userRepository;
-
-    /**
-     * @var MockObject|LoginAttemptService
-     */
-    private MockObject $loginAttemptService;
 
     /**
      * @var MockObject|UrlGeneratorInterface
@@ -54,8 +48,6 @@ class AuthenticatorTest extends TestCase
         /* @var MockObject|EntityManagerInterface entityManager */
         $this->userRepository = $this->getMockBuilder(UserRepository::class)
             ->disableOriginalConstructor()->getMock();
-        $this->loginAttemptService = $this->getMockBuilder(LoginAttemptService::class)
-            ->disableOriginalConstructor()->getMock();
         /* @var MockObject|UrlGeneratorInterface urlGenerator */
         $this->urlGenerator = $this->getMockBuilder(UrlGeneratorInterface::class)->getMock();
         /* @var MockObject|CsrfTokenManagerInterface csrfTokenManager */
@@ -71,7 +63,6 @@ class AuthenticatorTest extends TestCase
         $this->eventDispatcher = $this->getMockBuilder(EventDispatcherInterface::class)->getMock();
         $this->authenticator = new Authenticator(
             $this->userRepository,
-            $this->loginAttemptService,
             $this->urlGenerator,
             $this->csrfTokenManager,
             $this->passwordEncoder,

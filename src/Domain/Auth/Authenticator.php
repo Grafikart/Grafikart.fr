@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -33,19 +34,22 @@ class Authenticator extends AbstractFormLoginAuthenticator implements PasswordAu
     private ?UserInterface $user = null;
     private EventDispatcherInterface $eventDispatcher;
     private UserRepository $userRepository;
+    private UrlMatcherInterface $urlMatcher;
 
     public function __construct(
         UserRepository $userRepository,
         UrlGeneratorInterface $urlGenerator,
         CsrfTokenManagerInterface $csrfTokenManager,
         UserPasswordEncoderInterface $passwordEncoder,
-        EventDispatcherInterface $eventDispatcher
+        EventDispatcherInterface $eventDispatcher,
+        UrlMatcherInterface $urlMatcher
     ) {
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
         $this->eventDispatcher = $eventDispatcher;
         $this->userRepository = $userRepository;
+        $this->urlMatcher = $urlMatcher;
     }
 
     public function supports(Request $request)
@@ -99,6 +103,15 @@ class Authenticator extends AbstractFormLoginAuthenticator implements PasswordAu
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey): RedirectResponse
     {
+        if ($redirect = $request->get('redirect')) {
+            try {
+                $this->urlMatcher->match($redirect);
+
+                return new RedirectResponse($redirect);
+            } catch (\Exception $e) {
+                // Do nothing
+            }
+        }
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
