@@ -70,12 +70,25 @@
             <strong>Danger zone</strong>
           </h2>
           <p style="font-size: 1.2rem;">
-            Vous n'êtes pas satisfait du contenu du site ?<br>
-            Ou vous souhaitez supprimer toutes les informations associées à ce compte ?
+            {% if user.deleteAt %}
+              Votre compte sera supprimé automatiquement <strong>{{ user.deleteAt | ago('dans') }}</strong>
+            {% else %}
+              Vous n'êtes pas satisfait du contenu du site ?<br>
+              Ou vous souhaitez supprimer toutes les informations associées à ce compte ?
+            {% endif %}
           </p>
-          <p class="text-right">
+          <div class="text-right">
+            {% if user.deleteAt %}
+            <form action="{{ path('user_cancel_delete') }}" method="post">
+              <button class="btn-secondary">
+                {{ icon('trash') }}
+                Annuler la suppression
+              </button>
+            </form>
+            {% else %}
             <delete-account days="5" url="{{ path('user_profil') }}" csrf="{{ csrf_token('delete-account') }}"></delete-account>
-          </p>
+            {% endif %}
+          </div>
         </div>
       </section>
     </main>
@@ -87,7 +100,7 @@
       <div class="mb3">
         <a href="{{ path('oauth_discord') }}" class="btn-discord">
           <img src="/images/social/discord.svg" alt="" class="icon">
-          {{ app.user.discordId ? 'Changer de compte' : 'Se connecter avec discord' }}
+          {{ user.discordId ? 'Changer de compte' : 'Se connecter avec discord' }}
         </a>
       </div>
       <h3 class="h4">Connexion social</h3>

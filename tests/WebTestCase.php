@@ -8,6 +8,7 @@ use PHPUnit\Runner\Exception;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
 
 class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
 {
@@ -30,12 +31,12 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
         parent::tearDown();
     }
 
-    public function jsonRequest(string $method, string $url): string
+    public function jsonRequest(string $method, string $url, ?array $data): string
     {
         $this->client->request($method, $url, [], [], [
             'CONTENT_TYPE' => 'application/json',
             'HTTP_Accept' => 'application/json',
-        ]);
+        ], $data ? json_encode($data) : null);
 
         return $this->client->getResponse()->getContent();
     }
@@ -109,5 +110,12 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
 
         // On ajoute le cookie au client
         $this->client->getCookieJar()->set($cookie);
+    }
+
+    public function setCsrf(string $key): string
+    {
+        $csrf = uniqid();
+        self::$container->get(TokenStorageInterface::class)->setToken($key, $csrf);
+        return $csrf;
     }
 }

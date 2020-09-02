@@ -56,9 +56,9 @@ services:
     ports:
       - 8888:8080
   mail:
-    image: maildev/maildev:2.0.0-beta3
+    image: mailhog/mailhog
     ports:
-      - 1080:1080
+      - 1080:8025
   redis:
     image: redis:5-alpine
   # typesense:

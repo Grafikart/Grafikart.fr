@@ -5,6 +5,7 @@ namespace App\Tests\Http\Controller;
 use App\Domain\Auth\User;
 use App\Tests\FixturesTrait;
 use App\Tests\WebTestCase;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserControllerTest extends WebTestCase
 {
@@ -67,5 +68,18 @@ class UserControllerTest extends WebTestCase
         $this->assertResponseRedirects();
         $this->client->followRedirect();
         $this->expectSuccessAlert();
+    }
+
+    public function testSendEmailOnDeleteRequest(): void
+    {
+        /** @var User[] $data */
+        ['user1' => $user] = $this->loadFixtures(['users']);
+        $this->login($user);
+        $this->jsonRequest('DELETE', '/profil', [
+            'password' => '0000',
+            'csrf' => $this->setCsrf('delete-account')
+        ]);
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $this->assertEmailCount(1);
     }
 }

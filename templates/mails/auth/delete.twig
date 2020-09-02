@@ -1,0 +1,18 @@
+{% extends layout %}
+
+{% import "mails/macros.twig" as e %}
+
+{% block body %}
+
+  {% apply markdown_email %}
+
+    Suppression de votre compte Grafikart
+    ===============================
+
+    Vous venez de demander la suppression de votre compte sur Grafikart.fr. Cette suppression sera effective dans **{{ days }} jours**. Si vous êtes à l'origine de cette demande vous pouvez ignorer cet email.
+
+  {% endapply %}
+
+  {{ e.button('Annuler la suppression', url('user_edit')) }}
+
+{% endblock %}

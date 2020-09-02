@@ -14,6 +14,7 @@ use App\Http\Form\UpdateProfileForm;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -59,6 +60,7 @@ class UserController extends AbstractController
         $formPassword = $this->createForm(UpdatePasswordForm::class);
         $formUpdate = $this->createForm(UpdateProfileForm::class, new ProfileUpdateDto($user));
         $action = $request->get('action');
+        $days = DeleteAccountService::DAYS;
         if ('update' === $action) {
             $formUpdate->handleRequest($request);
         } elseif ('password' === $action) {
@@ -93,7 +95,7 @@ class UserController extends AbstractController
         return $this->render('profil/edit.html.twig', [
             'form_password' => $formPassword->createView(),
             'form_update' => $formUpdate->createView(),
-            'user' => $user,
+            'user' => $user
         ]);
     }
 
@@ -155,5 +157,19 @@ class UserController extends AbstractController
         return new JsonResponse([
             'message' => 'Votre demande de suppression de compte a bien été prise en compte. Votre compte sera supprimé automatiquement au bout de '.DeleteAccountService::DAYS.' jours',
         ]);
+    }
+
+    /**
+     * @Route("/profil/cancel-delete", methods={"POST"}, name="user_cancel_delete")
+     * @IsGranted("ROLE_USER")
+     */
+    public function cancelDelete(EntityManagerInterface $em): RedirectResponse
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        $user->setDeleteAt(null);
+        $em->flush();
+        $this->addFlash('success', "La suppression de votre compte a bien été annulée");
+        return $this->redirectToRoute('user_edit');
     }
 }
