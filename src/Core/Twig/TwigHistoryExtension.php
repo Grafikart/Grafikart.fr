@@ -44,9 +44,7 @@ class TwigHistoryExtension extends AbstractExtension
         $progress = $this->repository->findForContents($user, $contents);
         $ids = [];
         foreach ($progress as $p) {
-            if ($content = $p->getContent()) {
-                $ids[$content->getId()] = $p->getRatio();
-            }
+            $ids[$p->getContent()->getId()] = $p->getRatio();
         }
         $ids = json_encode($ids);
 

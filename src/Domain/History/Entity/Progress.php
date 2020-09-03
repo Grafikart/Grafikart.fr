@@ -24,13 +24,13 @@ class Progress
      * @ORM\ManyToOne(targetEntity="App\Domain\Auth\User")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
-    private ?User $author = null;
+    private User $author;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Application\Entity\Content")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
-    private ?Content $content = null;
+    private Content $content;
 
     /**
      * @ORM\Column(type="integer")
@@ -52,24 +52,24 @@ class Progress
         return $this->id;
     }
 
-    public function getAuthor(): ?User
+    public function getAuthor(): User
     {
         return $this->author;
     }
 
-    public function setAuthor(?User $author): self
+    public function setAuthor(User $author): self
     {
         $this->author = $author;
 
         return $this;
     }
 
-    public function getContent(): ?Content
+    public function getContent(): Content
     {
         return $this->content;
     }
 
-    public function setContent(?Content $content): self
+    public function setContent(Content $content): self
     {
         $this->content = $content;
 

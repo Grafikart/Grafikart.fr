@@ -16,14 +16,21 @@
 
   <div class="bg container py5">
     <div class="stack" style="--gap: 7;">
+      {% if watchlist | length > 0 %}
       <div class="stack">
         <h2 class="h3">Vidéos <strong>en cours de visionnage</strong></h2>
         <div class="courses">
           {% for progress in watchlist %}
-            {% include 'courses/_card.html.twig' with {course: progress.content, progress: progress.ratio} %}
+            <div class="relative" id="progress{{ progress.id }}">
+              <ajax-delete class="progress-delete" url="{{ path('delete_progress', {id: progress.id}) }}" target="#progress{{ progress.id }}">
+                {{ icon('delete') }}
+              </ajax-delete>
+              {% include 'courses/_card.html.twig' with {course: progress.content, progress: progress.ratio} %}
+            </div>
           {% endfor %}
         </div>
       </div>
+      {% endif %}
       <div class="grid2" style="--gap: 4;">
         {% if lastTopics | length > 0 %}
         <div class="stack">

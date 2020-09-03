@@ -1,5 +1,4 @@
 import { jsonFetch } from '/functions/api.js'
-import { slideUpAndRemove } from '/functions/animation.js'
 import LoaderOverlay from '/elements/LoaderOverlay.js'
 import { FloatingAlert } from '/elements/Alert.js'
 import { closest } from '/functions/dom.js'
@@ -27,7 +26,7 @@ export class AjaxDelete extends HTMLElement {
       try {
         await jsonFetch(this.getAttribute('url'), { method: 'DELETE' })
         loader.hide()
-        await slideUpAndRemove(parent)
+        parent.remove()
       } catch (e) {
         loader.hide()
         document.body.appendChild(new FloatingAlert({ message: e.detail }))
