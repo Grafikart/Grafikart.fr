@@ -63,4 +63,31 @@ class ProgressControllerTest extends ApiTestCase
         $count = self::$container->get('doctrine')->getRepository(Progress::class)->count([]);
         $this->assertEquals(1, $count);
     }
+
+    public function testDeleteSuccess()
+    {
+        /** @var Progress $progress */
+        ['progress' => $progress] = $this->loadFixtures(['progress']);
+        $this->login($progress->getAuthor());
+        $this->client->request('DELETE', '/api/progress/' . $progress->getId());
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+    }
+
+    public function testDeleteFailUnauthenticated()
+    {
+        /** @var Progress $progress */
+        ['progress' => $progress] = $this->loadFixtures(['progress']);
+        $this->client->request('DELETE', '/api/progress/' . $progress->getId());
+        $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
+    }
+
+    public function testDeleteFailOnBadUser()
+    {
+        /** @var Progress $progress */
+        /** @var Progress $user */
+        ['progress' => $progress, 'user2' => $user] = $this->loadFixtures(['progress']);
+        $this->login($user);
+        $this->client->request('DELETE', '/api/progress/' . $progress->getId());
+        $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
+    }
 }

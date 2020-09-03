@@ -18,21 +18,30 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @method User getUser()
  */
-class ProgressionController extends AbstractController
+class ProgressController extends AbstractController
 {
+    private EventDispatcherInterface $dispatcher;
+    private EntityManagerInterface $em;
+
+    public function __construct(
+        EventDispatcherInterface $dispatcher,
+        EntityManagerInterface $em
+    ) {
+        $this->dispatcher = $dispatcher;
+        $this->em = $em;
+    }
+
     /**
      * @Route("/progress/{content}/{progress}", name="progress", methods={"POST"}, requirements={"progress"= "^([1-9][0-9]{0,2}|1000)$"})
      * @IsGranted(App\Http\Security\ContentVoter::PROGRESS, subject="content")
      */
     public function progress(
         Content $content,
-        int $progress,
-        EventDispatcherInterface $dispatcher,
-        EntityManagerInterface $em
+        int $progress
     ): JsonResponse {
         $user = $this->getUser();
-        $dispatcher->dispatch(new ProgressEvent($content, $user, $progress / Progress::TOTAL));
-        $em->flush();
+        $this->dispatcher->dispatch(new ProgressEvent($content, $user, $progress / Progress::TOTAL));
+        $this->em->flush();
 
         if (Progress::TOTAL !== $progress) {
             return new JsonResponse([]);
@@ -47,7 +56,7 @@ class ProgressionController extends AbstractController
                 $button = [
                     'title' => 'Voir le chapitre suivant',
                     'anchor' => 'autoplay',
-                    'target' => $em->getRepository(Course::class)->find($nextChapterId),
+                    'target' => $this->em->getRepository(Course::class)->find($nextChapterId),
                 ];
             }
         } elseif ($content instanceof Course) {
@@ -66,5 +75,16 @@ class ProgressionController extends AbstractController
                 'button' => $button,
             ]),
         ]);
+    }
+
+    /**
+     * @Route("/progress/{id}", name="delete_progress", methods={"DELETE"})
+     * @IsGranted("DELETE_PROGRESS", subject="progress")
+     */
+    public function deleteProgress(Progress $progress): JsonResponse
+    {
+        $this->em->remove($progress);
+        $this->em->flush();
+        return new JsonResponse([]);
     }
 }
