@@ -69,4 +69,14 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->persist($user);
         $this->_em->flush();
     }
+
+    public function cleanUsers(): int
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.deleteAt IS NOT NULL')
+            ->andWhere('u.deleteAt < NOW()')
+            ->delete(User::class, 'u')
+            ->getQuery()
+            ->execute();
+    }
 }
