@@ -81,7 +81,7 @@ class Formation extends Content
         if (null === $id) {
             return null;
         }
-        $ids = array_reduce($this->getRawChapters(), fn ($acc, $chapter) => array_merge($acc, $chapter['courses']), []);
+        $ids = array_reduce($this->getRawChapters(), fn ($acc, $chapter) => array_merge($acc, $chapter['modules']), []);
         $index = array_search($id, $ids);
         if (false === $index) {
             return null;
