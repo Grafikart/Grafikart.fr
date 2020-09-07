@@ -7,7 +7,6 @@ use App\Domain\Auth\UserRepository;
 use App\Infrastructure\Social\Exception\NotVerifiedEmailException;
 use League\OAuth2\Client\Provider\GoogleUser;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
-use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 class GoogleAuthenticator extends AbstractSocialAuthenticator
 {

@@ -2,30 +2,36 @@
 
 namespace App\Domain\Course\Entity;
 
+use App\Domain\Application\Entity\Content;
+
 class Chapter
 {
     private string $title;
 
     /**
-     * @var Course[]
+     * @var array<Content>
      */
-    private array $courses = [];
+    private array $modules = [];
 
     /**
      * Génère des chapitres à partir du JSON renvoyée par la base.
      *
      * @return Chapter[]
      */
-    public static function makeFromFormation(Formation $formation): array
+    public static function makeFromContent(Content $target): array
     {
-        $formationsById = $formation->getCoursesById();
+        if ($target instanceof Formation) {
+            $modulesById = $target->getCoursesById();
+        } elseif ($target instanceof Cursus) {
+            $modulesById = $target->getModulesById();
+        } else {
+            throw new \RuntimeException('Type innattendu');
+        }
         $chapters = [];
-        foreach ($formation->getRawChapters() as $c) {
+        foreach ($target->getRawChapters() as $c) {
             $chapter = new self();
             $chapter->title = $c['title'];
-            $chapter->courses = array_map(function (int $id) use ($formationsById) {
-                return $formationsById[$id];
-            }, $c['courses']);
+            $chapter->modules = array_map(fn (int $id) => $modulesById[$id], $c['modules']);
             $chapters[] = $chapter;
         }
 
@@ -44,14 +50,20 @@ class Chapter
         return $this;
     }
 
-    public function getCourses(): array
+    /**
+     * @return Content[]
+     */
+    public function getModules(): array
     {
-        return $this->courses;
+        return $this->modules;
     }
 
-    public function setCourses(array $courses): Chapter
+    /**
+     * @param Content[] $content
+     */
+    public function setModules(array $content): Chapter
     {
-        $this->courses = $courses;
+        $this->modules = $content;
 
         return $this;
     }

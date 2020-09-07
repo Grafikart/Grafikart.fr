@@ -9,8 +9,6 @@ use League\OAuth2\Client\Provider\GithubResourceOwner;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use League\OAuth2\Client\Token\AccessToken;
 use Symfony\Component\HttpClient\HttpClient;
-use Symfony\Component\Security\Http\Util\TargetPathTrait;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class GithubAuthenticator extends AbstractSocialAuthenticator
 {

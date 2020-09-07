@@ -17,7 +17,7 @@ class CourseControllerTest extends WebTestCase
         ['course1' => $course] = $this->loadFixtures(['courses']);
         $this->client->request('GET', "/tutoriels/{$course->getSlug()}-{$course->getId()}");
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
-        $this->expectTitle('Tutoriel Vidéo ' . $course->getTitle());
+        $this->expectTitle('Tutoriel Vidéo '.$course->getTitle());
     }
 
     public function testDownloadVideoUnauthenticated(): void

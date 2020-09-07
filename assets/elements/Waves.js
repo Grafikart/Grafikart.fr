@@ -169,6 +169,9 @@ export class Waves extends HTMLElement {
       top = top + height / 2 - 117
     } else if (this.position === 'bottom') {
       top = top + height
+    } else if (this.position === 'bottomWave') {
+      top = top + height
+      this.container.style.boxSizing = 'border-box'
     }
     this.container.style.height = `${top}px`
   }

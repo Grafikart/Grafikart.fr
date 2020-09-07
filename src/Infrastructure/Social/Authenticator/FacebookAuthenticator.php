@@ -7,7 +7,6 @@ use App\Domain\Auth\UserRepository;
 use App\Infrastructure\Social\Exception\EmailAlreadyUsedException;
 use League\OAuth2\Client\Provider\FacebookUser;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
-use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 class FacebookAuthenticator extends AbstractSocialAuthenticator
 {

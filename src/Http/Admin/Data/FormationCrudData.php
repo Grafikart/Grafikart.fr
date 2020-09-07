@@ -127,7 +127,8 @@ class FormationCrudData implements CrudDataInterface
             $course->setFormation(null);
         }
         foreach ($this->chapters as $chapter) {
-            foreach ($chapter->getCourses() as $course) {
+            /** @var Course $course */
+            foreach ($chapter->getModules() as $course) {
                 $course->setFormation($this->formation);
             }
         }

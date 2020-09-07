@@ -11,9 +11,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class UserCleanCommand extends Command
 {
     protected static $defaultName = 'app:user:clean';
-    /**
-     * @var UserRepository
-     */
+
     private UserRepository $userRepository;
 
     public function __construct(UserRepository $userRepository)

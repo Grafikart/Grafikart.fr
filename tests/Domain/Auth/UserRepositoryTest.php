@@ -12,7 +12,6 @@ use App\Tests\RepositoryTestCase;
  */
 class UserRepositoryTest extends RepositoryTestCase
 {
-
     use FixturesTrait;
 
     protected $repositoryClass = UserRepository::class;

@@ -13,18 +13,12 @@ use Doctrine\ORM\Mapping as ORM;
 class Formation extends Content
 {
     use LevelTrait;
+    use ChapterableTrait;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
     private ?string $short = null;
-
-    /**
-     * @ORM\Column(type="json")
-     *
-     * @return array{title: string, courses: int[]}[]
-     */
-    private array $chapters = [];
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -57,51 +51,6 @@ class Formation extends Content
     public function setShort(?string $short): self
     {
         $this->short = $short;
-
-        return $this;
-    }
-
-    /**
-     * Initialise les chapitres depuis le JSON.
-     *
-     * @return Chapter[]
-     */
-    public function getChapters(): array
-    {
-        return Chapter::makeFromFormation($this);
-    }
-
-    /**
-     * Rempli le champs JSON à partir d'un tableau d'objet chapitres.
-     *
-     * @var Chapter[]
-     */
-    public function setChapters(array $chapters): self
-    {
-        $this->chapters = array_map(function (Chapter $chapter) {
-            return [
-                'title' => $chapter->getTitle(),
-                'courses' => array_map(fn (Course $course) => $course->getId(), $chapter->getCourses()),
-            ];
-        }, $chapters);
-
-        return $this;
-    }
-
-    /**
-     * Renvoie les données brut (JSON).
-     */
-    public function getRawChapters(): array
-    {
-        return $this->chapters;
-    }
-
-    /**
-     * @param list<array{title: string, courses: int[]}> $chapters
-     */
-    public function setRawChapters(array $chapters): self
-    {
-        $this->chapters = $chapters;
 
         return $this;
     }

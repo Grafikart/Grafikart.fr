@@ -18,6 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
  *     "course" = "App\Domain\Course\Entity\Course",
  *     "formation" = "App\Domain\Course\Entity\Formation",
  *     "post" = "App\Domain\Blog\Post",
+ *     "cursus" = "App\Domain\Course\Entity\Cursus",
  * })
  */
 abstract class Content

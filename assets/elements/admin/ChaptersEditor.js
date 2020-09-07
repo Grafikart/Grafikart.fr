@@ -27,10 +27,10 @@ function Chapter ({ chapter, onUpdate, onRemove, onAdd, editPath }) {
         </svg>
       </button>
       <ul>
-        ${chapter.courses.map(
+        ${chapter.modules.map(
           c =>
             html`
-              <${Course} course=${c} onRemove=${onRemove} editPath=${editPath} />
+              <${Module} course=${c} onRemove=${onRemove} editPath=${editPath} />
             `
         )}
         <${AddButton} placeholder="Ajouter un cours" onAdd=${onAdd} />
@@ -46,7 +46,7 @@ function Chapter ({ chapter, onUpdate, onRemove, onAdd, editPath }) {
  * @param {function} onRemove
  * @return {HTMLLIElement}
  */
-function Course ({ course, onRemove, editPath }) {
+function Module ({ course, onRemove, editPath }) {
   const url = editPath.replace(':id', course.id)
   return html`
     <li class="chapters-editor__course" data-title=${course.title} data-id=${course.id}>
@@ -95,7 +95,7 @@ function AddButton ({ placeholder, onAdd }) {
  *
  * @property {HTMLUListElement} list <ul> contenant la liste des chapitres
  * @property {string} editPath URL d'édition d'un cours
- * @typedef {{title: string, courses: ICourse[]}} IChapter
+ * @typedef {{title: string, modules: ICourse[]}} IChapter
  * @typedef {{id: number, title: string}} ICourse
  */
 export class ChaptersEditor extends HTMLTextAreaElement {
@@ -164,7 +164,7 @@ export class ChaptersEditor extends HTMLTextAreaElement {
     const endpoint = this.getAttribute('endpoint').replace(':id', value)
     try {
       const course = await jsonFetch(endpoint)
-      const courseLi = Course({ course, onRemove: this.removeCourse, editPath: this.editPath })
+      const courseLi = Module({ course, onRemove: this.removeCourse, editPath: this.editPath })
       li.insertAdjacentElement('beforebegin', courseLi)
       this.updateInput()
     } catch (e) {
@@ -192,7 +192,7 @@ export class ChaptersEditor extends HTMLTextAreaElement {
   addChapter (title, li) {
     const chapter = {
       title,
-      courses: []
+      modules: []
     }
     const chapterLi = html`
       <${Chapter}
@@ -231,15 +231,15 @@ export class ChaptersEditor extends HTMLTextAreaElement {
   updateInput () {
     const newChapters = []
     Array.from(this.list.children).forEach(li => {
-      const courses = li.querySelectorAll('li')
+      const modules = li.querySelectorAll('li')
       // Il n'y a plus de cours dans ce chapitre
-      if (courses.length === 0) {
+      if (modules.length === 0) {
         return
       }
       // On ajoute le chapitre au tableau
       newChapters.push({
         title: li.querySelector('input').value,
-        courses: Array.from(courses)
+        modules: Array.from(modules)
           .map(l => {
             if (l.dataset.id === undefined) {
               return null

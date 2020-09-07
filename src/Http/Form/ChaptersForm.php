@@ -2,8 +2,8 @@
 
 namespace App\Http\Form;
 
+use App\Domain\Application\Entity\Content;
 use App\Domain\Course\Entity\Chapter;
-use App\Domain\Course\Entity\Course;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -53,8 +53,8 @@ class ChaptersForm extends TextareaType implements DataTransformerInterface
             'html5' => false,
             'label' => false,
             'attr' => [
-                'endpoint' => $this->urlGenerator->generate('admin_course_title', ['id' => ':id']),
-                'endpoint-edit' => $this->urlGenerator->generate('admin_course_edit', ['id' => ':id']),
+                'endpoint' => $this->urlGenerator->generate('admin_content_title', ['id' => ':id']),
+                'endpoint-edit' => $this->urlGenerator->generate('admin_content_edit', ['id' => ':id']),
                 'is' => 'chapters-editor',
             ],
         ]);
@@ -76,10 +76,10 @@ class ChaptersForm extends TextareaType implements DataTransformerInterface
         return json_encode(collect($value)->map(function (Chapter $chapter) {
             return [
                 'title' => $chapter->getTitle(),
-                'courses' => collect($chapter->getCourses())->map(function (Course $course) {
+                'modules' => collect($chapter->getModules())->map(function (Content $content) {
                     return [
-                        'title' => $course->getTitle(),
-                        'id' => $course->getId(),
+                        'title' => $content->getTitle(),
+                        'id' => $content->getId(),
                     ];
                 }),
             ];
@@ -101,13 +101,13 @@ class ChaptersForm extends TextareaType implements DataTransformerInterface
         }
 
         return array_map(function ($chapter) {
-            $courses = array_map(function ($course) {
-                return $this->em->getReference(Course::class, $course['id']);
-            }, $chapter['courses']);
+            $content = array_map(function ($content) {
+                return $this->em->getReference(Content::class, $content['id']);
+            }, $chapter['modules']);
 
             return (new Chapter())
                 ->setTitle($chapter['title'])
-                ->setCourses($courses);
+                ->setModules($content);
         }, $chapters);
     }
 }

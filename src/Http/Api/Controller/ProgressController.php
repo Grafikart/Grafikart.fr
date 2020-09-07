@@ -85,6 +85,7 @@ class ProgressController extends AbstractController
     {
         $this->em->remove($progress);
         $this->em->flush();
+
         return new JsonResponse([]);
     }
 }

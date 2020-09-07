@@ -15,7 +15,7 @@
       <div class="wave-header__image">
         <img src="{{ uploads_path('icons/' ~ formation.mainTechnologies[0].image) }}" alt="">
       </div>
-      <waves-shape class="waves" position="bottom" target=".wave-header"></waves-shape>
+      <waves-shape class="waves" position="bottomWave" target=".wave-header"></waves-shape>
     </header>
 
     <section class="formation-single">
@@ -54,7 +54,7 @@
           </div>
         </div>
 
-        {% set course = formation.chapters[0].courses[0] %}
+        {% set course = formation.chapters[0].modules[0] %}
         <youtube-player
           video="{{ course.youtubeId }}"
           poster="{{ image_url(course.image) }}"

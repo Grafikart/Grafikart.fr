@@ -3,7 +3,6 @@
 namespace App\Http\Security;
 
 use App\Domain\Auth\User;
-use App\Domain\Course\Entity\Course;
 use App\Domain\History\Entity\Progress;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -29,7 +28,7 @@ class ProgressVoter extends Voter
     {
         $user = $token->getUser();
 
-        return $user instanceof User  &&
+        return $user instanceof User &&
             $subject instanceof Progress &&
             $subject->getAuthor()->getId() === $user->getId();
     }

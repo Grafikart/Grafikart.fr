@@ -69,7 +69,7 @@ class ProgressControllerTest extends ApiTestCase
         /** @var Progress $progress */
         ['progress' => $progress] = $this->loadFixtures(['progress']);
         $this->login($progress->getAuthor());
-        $this->client->request('DELETE', '/api/progress/' . $progress->getId());
+        $this->client->request('DELETE', '/api/progress/'.$progress->getId());
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
 
@@ -77,7 +77,7 @@ class ProgressControllerTest extends ApiTestCase
     {
         /** @var Progress $progress */
         ['progress' => $progress] = $this->loadFixtures(['progress']);
-        $this->client->request('DELETE', '/api/progress/' . $progress->getId());
+        $this->client->request('DELETE', '/api/progress/'.$progress->getId());
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
@@ -87,7 +87,7 @@ class ProgressControllerTest extends ApiTestCase
         /** @var Progress $user */
         ['progress' => $progress, 'user2' => $user] = $this->loadFixtures(['progress']);
         $this->login($user);
-        $this->client->request('DELETE', '/api/progress/' . $progress->getId());
+        $this->client->request('DELETE', '/api/progress/'.$progress->getId());
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 }

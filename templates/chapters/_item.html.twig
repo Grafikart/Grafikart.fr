@@ -1,7 +1,7 @@
 <div>
   <h3 class="chapters__section">{{ chapter.title }}</h3>
   <div class="chapters__list">
-    {% for course in chapter.courses %}
+    {% for course in chapter.modules %}
       <a href="{{ path(course) }}#autoplay" class="chapters__item" id="chapter{{ course.id }}">
         <play-button class="chapters__play" data-video-id="course-{{ course.id }}" tabindex="-1" data-history="{{ course.id }}"></play-button>
         <span class="chapters__title">{{ course.title }}</span>

@@ -4,10 +4,7 @@ namespace App\Tests;
 
 use App\Domain\Auth\User;
 use Doctrine\ORM\EntityManagerInterface;
-use PHPUnit\Runner\Exception;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
-use Symfony\Component\BrowserKit\Cookie;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
 
 class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
@@ -91,25 +88,7 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
         if (null === $user) {
             return;
         }
-        // On récupère l'instance dans l'entityManager pour éviter la deAuthenticate dans le ContextListener
-        /** @var EntityManagerInterface $em */
-        $em = self::$container->get(EntityManagerInterface::class);
-        $managedUser = $em->getRepository(User::class)->find($user->getId());
-        if (null === $managedUser) {
-            throw new Exception("Impossible de retrouver l'utilisateur {$user->getId()}");
-        }
-
-        // On crée le cookie
-        $session = self::$container->get('session');
-        $firewallName = 'main';
-        $firewallContext = $firewallName;
-        $token = new UsernamePasswordToken($managedUser, null, $firewallName, $managedUser->getRoles());
-        $session->set('_security_'.$firewallContext, serialize($token));
-        $session->save();
-        $cookie = new Cookie($session->getName(), $session->getId());
-
-        // On ajoute le cookie au client
-        $this->client->getCookieJar()->set($cookie);
+        $this->client->loginUser($user);
     }
 
     public function setCsrf(string $key): string
