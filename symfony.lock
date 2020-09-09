@@ -271,6 +271,9 @@
     "league/glide-symfony": {
         "version": "1.0.4"
     },
+    "league/mime-type-detection": {
+        "version": "1.4.0"
+    },
     "league/oauth2-client": {
         "version": "2.5.0"
     },
