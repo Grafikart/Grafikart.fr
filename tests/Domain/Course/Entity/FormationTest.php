@@ -29,8 +29,8 @@ class FormationTest extends TestCase
             $formation->addCourse(Helper::makeCourse($i));
         }
         $formation->setRawChapters([
-            ['title' => 'Demo', 'courses' => [4, 3]],
-            ['title' => 'Demo', 'courses' => [1, 5, 2]],
+            ['title' => 'Demo', 'modules' => [4, 3]],
+            ['title' => 'Demo', 'modules' => [1, 5, 2]],
         ]);
         $this->assertEquals(null, $formation->getNextCourseId(2));
         $this->assertEquals(3, $formation->getNextCourseId(4));
