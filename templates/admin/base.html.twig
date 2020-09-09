@@ -41,7 +41,7 @@
 </nav>
 <div class="dashboard py5">
 
-  {% include 'partials/flash.html.twig' %}
+  {% include 'partials/flash.html.twig' with {floating: true, duration: 2} %}
 
   {% block body '' %}
 </div>

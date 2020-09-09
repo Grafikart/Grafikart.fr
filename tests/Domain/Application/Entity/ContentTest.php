@@ -49,4 +49,20 @@ class ContentTest extends TestCase
         $technologies = $content->getMainTechnologies();
         $this->assertCount(1, $technologies);
     }
+
+    public function testExcerpt(): void
+    {
+        $course = new Course();
+        $course->setContent("Dans ce tutoriel je vous propose de réfléchir à la mise en place d'un système de permissions en PHP. L'objectif est de mettre en place un système qui nous permettra de vérifier si l'utilisateur est autorisée à effectuer une action spécifique au sein de notre application.
+
+00:00 Présentation des systèmes de permissions existants
+09:50 On crée notre propre système
+
+## Les stratégies
+
+A travers mon exploration de différents frameworks / technologies j'ai pu découvrir différentes approches du problèmes.
+
+### Permissions hiérarchique");
+        $this->assertEquals("Dans ce tutoriel je vous propose de réfléchir à la mise en place d'un système de permissions en PHP. L'objectif est de mettre en place un système qui nous permettra de vérifier si l'utilisateur est autorisée à effectuer une action spécifique au sein de notre application.", $course->getExcerpt());
+    }
 }

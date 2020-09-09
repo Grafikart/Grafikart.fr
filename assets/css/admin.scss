@@ -6,3 +6,29 @@
 @import 'modules/attachments';
 @import 'modules/admin/chapters';
 @import 'modules/admin/sortable';
+
+// Icone pour l'upload de vidéo youtube
+// =============
+.sync-icon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 43px;
+  height: 43px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-light);
+  transition: .3s;
+  .icon {
+    width: 24px;
+    height: 24px;
+    transition: .3s;
+  }
+  &:hover {
+    color: var(--color);
+  }
+  &:hover .icon {
+    transform: rotate(180deg);
+  }
+}

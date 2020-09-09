@@ -27,7 +27,12 @@
     <div class="grid">
       {{ form_row(form.videoPath, {label: 'Video'}) }}
       {{ form_row(form.demo) }}
-      {{ form_row(form.youtube) }}
+      <div class="relative">
+        {{ form_row(form.youtube) }}
+        <button class="sync-icon" type="submit" name="upload" value="1">
+          {{ icon('sync') }}
+        </button>
+      </div>
       {{ form_row(form.duration) }}
       {{ form_row(form.deprecatedBy, {label: 'Déprécié par'}) }}
       {{ form_row(form.sourceFile) }}

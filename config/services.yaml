@@ -67,6 +67,10 @@ services:
     factory: ['App\Core\Services\Api\GoogleServiceFactory', 'getYoutubeService']
     arguments: ['@Google_Client']
 
+  App\Infrastructure\Youtube\YoutubeUploader:
+    arguments:
+      $videoPath: '%videos_path%'
+
   App\Core\OptionInterface:
     class: 'App\Domain\Application\Option'
 

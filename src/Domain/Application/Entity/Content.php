@@ -140,6 +140,17 @@ abstract class Content
         return $this->content;
     }
 
+    public function getExcerpt(): string
+    {
+        if (null === $this->content) {
+            return '';
+        }
+
+        $parts = preg_split("/(\r\n|\r|\n){2}/", $this->content);
+
+        return false === $parts ? '' : strip_tags($parts[0]);
+    }
+
     /**
      * @param string $content
      *

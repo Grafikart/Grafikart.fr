@@ -15,7 +15,7 @@ trait ChapterableTrait
     protected array $chapters = [];
 
     /**
-     * @param list<array{title: string, courses: int[]}> $chapters
+     * @param list<array{title: string, modules: int[]}> $chapters
      */
     public function setRawChapters(array $chapters): self
     {

@@ -2,14 +2,20 @@
 
 namespace App\Http\Admin\Controller;
 
+use ApiPlatform\Core\Api\UrlGeneratorInterface;
 use App\Domain\Application\Event\ContentCreatedEvent;
 use App\Domain\Application\Event\ContentDeletedEvent;
 use App\Domain\Application\Event\ContentUpdatedEvent;
 use App\Domain\Course\Entity\Course;
 use App\Domain\Course\Helper\CourseCloner;
+use App\Domain\Course\Repository\CourseRepository;
 use App\Http\Admin\Data\CourseCrudData;
+use App\Infrastructure\Youtube\YoutubeUploader;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -62,17 +68,21 @@ final class CourseController extends CrudController
     }
 
     /**
-     * @Route("/{id}", name="edit", methods={"POST", "GET"})
+     * @Route("/{id<\d+>}", name="edit", methods={"POST", "GET"})
      */
-    public function edit(Course $course): Response
+    public function edit(Request $request, Course $course): Response
     {
         $data = (new CourseCrudData($course))->setEntityManager($this->em);
+        $response = $this->crudEdit($data);
+        if ($request->request->get('upload')) {
+            return $this->redirectToRoute('admin_course_upload', ['id' => $course->getId()]);
+        }
 
-        return $this->crudEdit($data);
+        return $response;
     }
 
     /**
-     * @Route("/{id}/clone", name="clone", methods={"GET","POST"})
+     * @Route("/{id<\d+>}/clone", name="clone", methods={"GET","POST"})
      */
     public function clone(Course $course): Response
     {
@@ -83,10 +93,33 @@ final class CourseController extends CrudController
     }
 
     /**
-     * @Route("/{id}", methods={"DELETE"})
+     * @Route("/{id<\d+>}", methods={"DELETE"})
      */
     public function delete(Course $course): Response
     {
         return $this->crudDelete($course);
+    }
+
+    /**
+     * Lance l'upload (ou la mise à jour) d'une video sur youtube.
+     *
+     * @Route("/upload", methods={"GET"}, name="upload")
+     */
+    public function upload(Request $request, CourseRepository $repository, YoutubeUploader $uploader, SessionInterface $session, EntityManagerInterface $em): Response
+    {
+        $sessionKey = 'course_upload_id';
+        $courseId = $request->get('id') ?: $session->get($sessionKey);
+        $session->set($sessionKey, $courseId);
+        $code = $request->get('code');
+        $uploader->setRedirectUri($this->generateUrl('admin_course_upload', [], UrlGeneratorInterface::ABS_URL));
+        if (null === $code) {
+            return new RedirectResponse($uploader->getAuthUrl());
+        }
+        $course = $repository->find($courseId);
+        $course->setYoutubeId($uploader->upload($course, $code));
+        $em->flush();
+        $this->addFlash('success', 'La vidéo a bien été mis à jour sur Youtube');
+
+        return $this->redirectToRoute('admin_course_edit', ['id' => $courseId]);
     }
 }

@@ -103,7 +103,7 @@ final class FormationImporter extends Neo4jImporter
             $courses = iterator_to_array($row->offsetGet(1));
             $chapters[] = [
                 'title' => $row->offsetGet(0),
-                'courses' => $courses,
+                'modules' => $courses,
             ];
             foreach ($courses as $id) {
                 /** @var Course $course */
