@@ -6,7 +6,7 @@ use App\Infrastructure\Social\Exception\UserAuthenticatedException;
 use App\Infrastructure\Social\Exception\UserOauthNotFoundException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\AuthenticationEvents;
 use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
@@ -15,17 +15,14 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class AuthenticationFailureListener implements EventSubscriberInterface
 {
     private NormalizerInterface $normalizer;
-    private SessionInterface $session;
-    private FlashBagInterface $flashBag;
-
     private EntityManagerInterface $em;
+    private SessionInterface $session;
 
-    public function __construct(NormalizerInterface $normalizer, SessionInterface $session, FlashBagInterface $flashBag, EntityManagerInterface $em)
+    public function __construct(NormalizerInterface $normalizer, SessionInterface $session, EntityManagerInterface $em)
     {
         $this->normalizer = $normalizer;
-        $this->session = $session;
-        $this->flashBag = $flashBag;
         $this->em = $em;
+        $this->session = $session;
     }
 
     public static function getSubscribedEvents()
@@ -61,6 +58,8 @@ class AuthenticationFailureListener implements EventSubscriberInterface
         $setter = 'set'.ucfirst($data['type']).'Id';
         $user->$setter($resourceOwner->getId());
         $this->em->flush();
-        $this->flashBag->set('success', 'Votre compte a bien été associé à '.$data['type']);
+        if ($this->session instanceof Session) {
+            $this->session->getFlashBag()->set('success', 'Votre compte a bien été associé à '.$data['type']);
+        }
     }
 }
