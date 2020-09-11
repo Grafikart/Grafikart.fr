@@ -14,10 +14,11 @@ class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
 
-    public function boot()
+    public function boot(): void
     {
-        date_default_timezone_set( 'Europe/Paris' );
-        return parent::boot();
+        date_default_timezone_set('Europe/Paris');
+        parent::boot();
+        return;
     }
 
     protected function configureContainer(ContainerConfigurator $container): void
