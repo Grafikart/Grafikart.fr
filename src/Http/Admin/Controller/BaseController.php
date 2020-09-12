@@ -2,7 +2,7 @@
 
 namespace App\Http\Admin\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Http\Controller\AbstractController;
 
 /**
  * @method getUser() App\Domain\Auth\User

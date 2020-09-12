@@ -8,19 +8,25 @@ use Google_Service_YouTube_Video;
 use Google_Service_YouTube_VideoSnippet;
 use Google_Service_YouTube_VideoStatus;
 use Symfony\Component\Serializer\SerializerInterface;
+use Vich\UploaderBundle\Storage\StorageInterface;
 
+/**
+ * Transforme un cours en objet / tableau adapté à l'API Youtube.
+ */
 class CourseTransformer
 {
-
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
+    private StorageInterface $storage;
+    private string $videosPath;
 
-    public function __construct(SerializerInterface $serializer)
-    {
-
+    public function __construct(
+        SerializerInterface $serializer,
+        StorageInterface $storage,
+        string $videosPath
+    ) {
         $this->serializer = $serializer;
+        $this->storage = $storage;
+        $this->videosPath = $videosPath;
     }
 
     public function transform(Course $course): \Google_Service_YouTube_Video
@@ -69,5 +75,32 @@ Discord ► https://grafikart.fr/tchat");
         }
 
         return $video;
+    }
+
+    public function videoData(Course $course): array
+    {
+        return [
+            'data' => file_get_contents($this->videosPath.'/'.$course->getVideoPath()),
+            'mimeType' => 'application/octet-stream',
+            'uploadType' => 'multipart',
+        ];
+    }
+
+    public function thumbnailData(Course $course): array
+    {
+        $thumbnail = $course->getYoutubeThumbnail();
+        if (null === $thumbnail) {
+            throw new \RuntimeException('Impossible de résoudre la miniature pour cette vidéo');
+        }
+        $thumbnailPath = $this->storage->resolvePath($thumbnail, 'file');
+        if (null === $thumbnailPath) {
+            throw new \RuntimeException('Impossible de résoudre la miniature pour cette vidéo');
+        }
+
+        return [
+            'data' => file_get_contents($thumbnailPath),
+            'mimeType' => 'application/octet-stream',
+            'uploadType' => 'multipart',
+        ];
     }
 }

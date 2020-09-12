@@ -12,6 +12,8 @@ services:
     autowire: true # Automatically injects dependencies in your services.
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
     public: false
+    bind:
+      $videosPath: '%videos_path%'
 
   _instanceof:
     App\Core\Twig\BreadcrumbInterface:
@@ -62,12 +64,7 @@ services:
     arguments:
       $assetPath: '%kernel.project_dir%/public/assets'
 
-  Google_Service_YouTube:
-    class: '\Google_Service_YouTube'
-    factory: ['App\Core\Services\Api\GoogleServiceFactory', 'getYoutubeService']
-    arguments: ['@Google_Client']
-
-  App\Infrastructure\Youtube\YoutubeUploader:
+  App\Infrastructure\Youtube\YoutubeUploaderService:
     arguments:
       $videoPath: '%videos_path%'
 
@@ -82,3 +79,6 @@ services:
 
   App\Core\Services\TwitterService:
     arguments: ['%twitter_key%', '%twitter_secret%']
+
+  App\Infrastructure\Queue\FailedJobsService:
+    arguments: ['@messenger.transport.failed']

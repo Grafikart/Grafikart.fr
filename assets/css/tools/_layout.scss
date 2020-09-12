@@ -222,6 +222,10 @@
   margin-top: 0;
 }
 
+.nowrap {
+  flex-wrap: nowrap;
+}
+
 .hstack > * {
   margin-left: calc(var(--gap) * var(--space) * 0.5);
   margin-right: calc(var(--gap) * var(--space) * 0.5);

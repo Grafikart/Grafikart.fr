@@ -8,10 +8,9 @@ use App\Domain\Application\Event\ContentDeletedEvent;
 use App\Domain\Application\Event\ContentUpdatedEvent;
 use App\Domain\Course\Entity\Course;
 use App\Domain\Course\Helper\CourseCloner;
-use App\Domain\Course\Repository\CourseRepository;
 use App\Http\Admin\Data\CourseCrudData;
-use App\Infrastructure\Youtube\YoutubeUploader;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Infrastructure\Youtube\YoutubeScopes;
+use App\Infrastructure\Youtube\YoutubeUploaderService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,6 +24,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 final class CourseController extends CrudController
 {
+    private const UPLOAD_SESSION_KEY = 'course_upload_id';
     protected string $templatePath = 'course';
     protected string $menuItem = 'course';
     protected string $entity = Course::class;
@@ -70,12 +70,14 @@ final class CourseController extends CrudController
     /**
      * @Route("/{id<\d+>}", name="edit", methods={"POST", "GET"})
      */
-    public function edit(Request $request, Course $course): Response
+    public function edit(Request $request, Course $course, SessionInterface $session): Response
     {
         $data = (new CourseCrudData($course))->setEntityManager($this->em);
         $response = $this->crudEdit($data);
         if ($request->request->get('upload')) {
-            return $this->redirectToRoute('admin_course_upload', ['id' => $course->getId()]);
+            $session->set(self::UPLOAD_SESSION_KEY, $course->getId());
+
+            return $this->redirectToRoute('admin_course_upload');
         }
 
         return $response;
@@ -105,20 +107,36 @@ final class CourseController extends CrudController
      *
      * @Route("/upload", methods={"GET"}, name="upload")
      */
-    public function upload(Request $request, CourseRepository $repository, YoutubeUploader $uploader, SessionInterface $session, EntityManagerInterface $em): Response
-    {
-        $sessionKey = 'course_upload_id';
-        $courseId = $request->get('id') ?: $session->get($sessionKey);
-        $session->set($sessionKey, $courseId);
-        $code = $request->get('code');
-        $uploader->setRedirectUri($this->generateUrl('admin_course_upload', [], UrlGeneratorInterface::ABS_URL));
-        if (null === $code) {
-            return new RedirectResponse($uploader->getAuthUrl());
+    public function upload(
+        Request $request,
+        SessionInterface $session,
+        \Google_Client $googleClient
+    ): Response {
+        // Si on n'a pas d'id dans la session, on redirige
+        $courseId = $session->get(self::UPLOAD_SESSION_KEY);
+        if (null === $courseId) {
+            $this->addFlash('danger', "Impossible d'uploader la vidéo, id manquante dans la session");
+
+            return $this->redirectToRoute('admin_course_index');
         }
-        $course = $repository->find($courseId);
-        $course->setYoutubeId($uploader->upload($course, $code));
-        $em->flush();
-        $this->addFlash('success', 'La vidéo a bien été mis à jour sur Youtube');
+
+        // On génère récupère le code d'auth
+        $redirectUri = $this->generateUrl('admin_course_upload', [], UrlGeneratorInterface::ABS_URL);
+        $code = $request->get('code');
+        $googleClient->setRedirectUri($redirectUri);
+        if (null === $code) {
+            return new RedirectResponse($googleClient->createAuthUrl(YoutubeScopes::UPLOAD));
+        }
+
+        // Si on a un code d'auth, on envoie la tache à la file d'attente
+        $googleClient->fetchAccessTokenWithAuthCode($request->get('code'));
+        $this->dispatchMethod(
+            YoutubeUploaderService::class,
+            'upload',
+            [(int) $courseId, $googleClient->getAccessToken()]
+        );
+        $this->addFlash('success', "La vidéo est en cours d'envoi sur Youtube");
+        $session->remove(self::UPLOAD_SESSION_KEY);
 
         return $this->redirectToRoute('admin_course_edit', ['id' => $courseId]);
     }

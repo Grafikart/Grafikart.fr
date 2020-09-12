@@ -1,4 +1,4 @@
-FROM grafikart/php:1.0.0
+FROM grafikart/php:1.0.1
 
 ARG USER_ID
 ARG GROUP_ID

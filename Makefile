@@ -20,6 +20,7 @@ install: public/assets vendor/autoload.php ## Installe les différentes dépenda
 build-docker:
 	# $(dc) pull --ignore-pull-failures
 	$(dc) build --force-rm --pull php
+	$(dc) build --force-rm --pull messenger
 	# $(dc) build --force-rm --pull node
 
 .PHONY: dev

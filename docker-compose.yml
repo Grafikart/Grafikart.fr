@@ -17,25 +17,12 @@ services:
         GROUP_ID: ${GROUP_ID}
     volumes:
       - .:/var/www:delegated
-    links:
-      - db
-      - mail
-      - redis
-      - mercure
     depends_on:
       - db
     environment:
       PHP_IDE_CONFIG: serverName=grafikart
-  # node:
-  #   build:
-  #     context: ./tools/docker/node
-  #   command: yarn run dev
-  #   working_dir: /usr/src/app
-  #   user: '${USER_ID}:${GROUP_ID}'
-  #   volumes:
-  #     - .:/usr/src/app
-  #   ports:
-  #     - 3000:3000
+      MESSENGER_TRANSPORT_DSN: redis://redis:6379/messages
+      MESSENGER_TRANSPORT_FAILED_DSN: redis://redis:6379/messages_failed
   db:
     image: postgres:12-alpine
     environment:
@@ -51,8 +38,6 @@ services:
     environment:
       ADMINER_DESIGN: pepa-linha
       ADMINER_DEFAULT_SERVER: db
-    links:
-      - db
     ports:
       - 8888:8080
   mail:
@@ -79,6 +64,27 @@ services:
       CORS_ALLOWED_ORIGINS: 'http://grafikart.localhost:8000'
     ports:
       - 8001:80
+  messenger:
+    build:
+      context: ./tools/docker/php
+      args:
+        USER_ID: ${USER_ID}
+        GROUP_ID: ${GROUP_ID}
+    volumes:
+      - .:/var/www:delegated
+    depends_on:
+      - db
+    restart: unless-stopped
+    command: ['php', 'bin/console', 'messenger:consume', 'async', '--limit=10', '-vv']
+    environment:
+      MESSENGER_TRANSPORT_DSN: redis://redis:6379/messages
+      MESSENGER_TRANSPORT_FAILED_DSN: redis://redis:6379/messages_failed
+  redis-gui:
+    image: rediscommander/redis-commander
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - "8081:8081"
 
 volumes:
   db-data:
