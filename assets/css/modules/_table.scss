@@ -32,7 +32,7 @@
 .table tbody tr {
   border-bottom: 1px solid var(--border);
 }
-.table a svg {
+.table a:not([class^="btn"]) svg, .table button:not([class^="btn"]) svg {
   display: block;
   width: 16px;
   height: 16px;
