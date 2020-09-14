@@ -32,12 +32,12 @@ class PathEncoder implements EncoderInterface
      */
     public function encode($data, string $format, array $context = []): string
     {
-        ['path' => $path, 'params' => $params] = $data;
+        ['path' => $path, 'params' => $params] = array_merge(['params' => []], $data);
 
         $hash = isset($data['hash']) ? '#'.$data['hash'] : '';
         $url = $context['url'] ?? false;
 
-        return $this->urlGenerator->generate($path, $params, $url ? UrlGeneratorInterface::ABSOLUTE_URL : \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_PATH).$hash;
+        return $this->urlGenerator->generate($path, $params, $url ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH).$hash;
     }
 
     /**

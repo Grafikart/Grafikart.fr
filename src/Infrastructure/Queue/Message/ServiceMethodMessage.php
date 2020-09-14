@@ -4,7 +4,6 @@ namespace App\Infrastructure\Queue\Message;
 
 class ServiceMethodMessage
 {
-
     private string $serviceName;
     private string $method;
     private array $params;

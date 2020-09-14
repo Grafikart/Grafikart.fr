@@ -8,8 +8,10 @@ use App\Domain\Notification\Entity\Notification;
 use App\Domain\Notification\Event\NotificationCreatedEvent;
 use App\Domain\Notification\Repository\NotificationRepository;
 use App\Http\Encoder\PathEncoder;
+use App\Http\Security\ChannelVoter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class NotificationService
@@ -17,28 +19,31 @@ class NotificationService
     private EntityManagerInterface $em;
     private SerializerInterface $serializer;
     private EventDispatcherInterface $dispatcher;
+    private Security $security;
 
     public function __construct(
         SerializerInterface $serializer,
         EntityManagerInterface $em,
-        EventDispatcherInterface $dispatcher
+        EventDispatcherInterface $dispatcher,
+        Security $security
     ) {
         $this->em = $em;
         $this->serializer = $serializer;
         $this->dispatcher = $dispatcher;
+        $this->security = $security;
     }
 
     /**
      * Envoie une notification sur un canal particulier.
      */
-    public function notifyChannel(string $channel, string $message, object $entity): Notification
+    public function notifyChannel(string $channel, string $message, ?object $entity = null): Notification
     {
         /** @var string $url */
-        $url = $this->serializer->serialize($entity, PathEncoder::FORMAT);
+        $url = $entity ? $this->serializer->serialize($entity, PathEncoder::FORMAT) : null;
         $notification = (new Notification())
             ->setMessage($message)
             ->setUrl($url)
-            ->setTarget($this->getHashForEntity($entity))
+            ->setTarget($entity ? $this->getHashForEntity($entity) : null)
             ->setCreatedAt(new \DateTime())
             ->setChannel($channel);
         $this->em->persist($notification);
@@ -83,7 +88,25 @@ class NotificationService
         /** @var NotificationRepository $repository */
         $repository = $this->em->getRepository(Notification::class);
 
-        return $repository->findRecentForUser($user);
+        return $repository->findRecentForUser($user, $this->getChannelsForUser($user));
+    }
+
+    /**
+     * Renvoie les salons auquel l'utilisateur peut s'abonner.
+     *
+     * @return string[]
+     */
+    public function getChannelsForUser(User $user): array
+    {
+        $channels = [
+            'user/'.$user->getId(),
+        ];
+
+        if ($this->security->isGranted(ChannelVoter::LISTEN_ADMIN)) {
+            $channels[] = 'admin';
+        }
+
+        return $channels;
     }
 
     /**

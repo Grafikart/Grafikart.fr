@@ -35,7 +35,7 @@
               <td>
                 <div class="hstack nowrap">
                   <form action="{{ path('admin_job_retry', {id: job.id}) }}" method="post">
-                    <button class="btn-small btn-secondary">{{ icon('trash') }} Relancer</button>
+                    <button class="btn-small btn-secondary">{{ icon('sync') }} Relancer</button>
                   </form>
                   <form action="{{ path('admin_job_delete', {id: job.id}) }}" method="post">
                     <input type="hidden" name="_method" value="DELETE">

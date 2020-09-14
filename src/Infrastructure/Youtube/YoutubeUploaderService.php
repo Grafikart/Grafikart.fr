@@ -30,7 +30,7 @@ class YoutubeUploaderService
     public function upload(int $courseId, array $accessToken): string
     {
         $course = $this->em->getRepository(Course::class)->find($courseId);
-        if ($course === null) {
+        if (null === $course) {
             throw new \RuntimeException("Impossible de trouver le cours #{$courseId}");
         }
         $this->googleClient->setAccessToken($accessToken);

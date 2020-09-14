@@ -2,19 +2,21 @@
 
 namespace App\Infrastructure\Mailing;
 
+use App\Infrastructure\Queue\Message\ServiceMethodMessage;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Mime\Email;
 use Twig\Environment;
 
 class Mailer
 {
-    private MailerInterface $mailer;
     private Environment $twig;
+    private MessageBusInterface $messageBus;
 
-    public function __construct(MailerInterface $mailer, Environment $twig)
+    public function __construct(Environment $twig, MessageBusInterface $messageBus)
     {
-        $this->mailer = $mailer;
         $this->twig = $twig;
+        $this->messageBus = $messageBus;
     }
 
     public function createEmail(string $template, array $data = []): Email
@@ -32,6 +34,8 @@ class Mailer
 
     public function send(Email $email): void
     {
-        $this->mailer->send($email);
+        $this->messageBus->dispatch(
+            new ServiceMethodMessage(MailerInterface::class, 'send', [$email])
+        );
     }
 }

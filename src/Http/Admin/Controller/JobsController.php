@@ -22,6 +22,7 @@ class JobsController extends BaseController
     {
         $this->failedJobsService->deleteJob($id);
         $this->addFlash('success', 'La tâche a bien été supprimée');
+
         return $this->redirectToRoute('admin_home');
     }
 
@@ -32,6 +33,7 @@ class JobsController extends BaseController
     {
         $this->failedJobsService->retryJob($id);
         $this->addFlash('success', 'La tâche a bien été relancée');
+
         return $this->redirectToRoute('admin_home');
     }
 }

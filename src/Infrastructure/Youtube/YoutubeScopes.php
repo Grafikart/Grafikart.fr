@@ -4,7 +4,6 @@ namespace App\Infrastructure\Youtube;
 
 class YoutubeScopes
 {
-
     public const READONLY = [
         'https://www.googleapis.com/auth/youtube.readonly',
     ];

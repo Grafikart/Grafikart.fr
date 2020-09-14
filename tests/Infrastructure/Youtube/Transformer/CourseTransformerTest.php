@@ -14,7 +14,6 @@ use Vich\UploaderBundle\Storage\StorageInterface;
 
 class CourseTransformerTest extends TestCase
 {
-
     private const FILENAME = 'fakeFile.txt';
     private CourseTransformer $transformer;
     private \PHPUnit\Framework\MockObject\MockObject $storage;
@@ -69,7 +68,7 @@ class CourseTransformerTest extends TestCase
         $this->storage->expects($this->once())
             ->method('resolvePath')
             ->with($attachment, 'file')
-            ->willReturn(__DIR__ . '/' . self::FILENAME);
+            ->willReturn(__DIR__.'/'.self::FILENAME);
         $this->assertEquals(
             [
                 'data' => 'fake content',

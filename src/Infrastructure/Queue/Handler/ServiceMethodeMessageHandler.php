@@ -6,6 +6,7 @@ use App\Domain\Live\LiveSyncService;
 use App\Infrastructure\Queue\Message\ServiceMethodMessage;
 use App\Infrastructure\Youtube\YoutubeUploaderService;
 use Psr\Container\ContainerInterface;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Contracts\Service\ServiceSubscriberInterface;
 
@@ -23,7 +24,7 @@ class ServiceMethodeMessageHandler implements MessageHandlerInterface, ServiceSu
         /** @var callable $callable */
         $callable = [
             $this->container->get($message->getServiceName()),
-            $message->getMethod()
+            $message->getMethod(),
         ];
         call_user_func_array($callable, $message->getParams());
     }
@@ -31,8 +32,9 @@ class ServiceMethodeMessageHandler implements MessageHandlerInterface, ServiceSu
     public static function getSubscribedServices()
     {
         return [
-            LiveSyncService::class        => LiveSyncService::class,
-            YoutubeUploaderService::class => YoutubeUploaderService::class
+            LiveSyncService::class => LiveSyncService::class,
+            YoutubeUploaderService::class => YoutubeUploaderService::class,
+            MailerInterface::class => MailerInterface::class,
         ];
     }
 }

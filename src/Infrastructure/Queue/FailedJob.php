@@ -7,7 +7,6 @@ use Symfony\Component\Messenger\Stamp\RedeliveryStamp;
 
 class FailedJob
 {
-
     private RedeliveryStamp $lastStamp;
     private Envelope $envelope;
     private int $id;
@@ -52,6 +51,7 @@ class FailedJob
     public function getTrace(): string
     {
         $exception = $this->lastStamp->getFlattenException();
+
         return $exception ? $exception->getTraceAsString() : '';
     }
 

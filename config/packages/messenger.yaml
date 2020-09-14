@@ -8,7 +8,7 @@ framework:
             async:
               dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
               retry_strategy:
-                max_retries: 1
+                max_retries: 0
                 delay: 5000
             failed: '%env(MESSENGER_TRANSPORT_FAILED_DSN)%'
             sync: 'sync://'

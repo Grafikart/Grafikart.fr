@@ -67,6 +67,7 @@ class LiveSyncService
         foreach ($newLives as $live) {
             $this->dispatcher->dispatch(new LiveCreatedEvent($live));
         }
+
         return $newLives;
     }
 }

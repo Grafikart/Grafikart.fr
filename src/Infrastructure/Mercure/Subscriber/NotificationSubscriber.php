@@ -37,7 +37,7 @@ class NotificationSubscriber implements EventSubscriberInterface
         $update = new Update("/notifications/$channel", $this->serializer->serialize($notification, 'json', [
             'groups' => ['read:notification'],
             'iri' => false,
-        ]));
+        ]), true);
         $this->publisher->__invoke($update);
     }
 }
