@@ -6,6 +6,8 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\QueryCollectionExtensionInter
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use App\Domain\Auth\User;
 use App\Domain\Notification\Entity\Notification;
+use App\Domain\Notification\NotificationService;
+use App\Domain\Notification\Repository\NotificationRepository;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Security\Core\Security;
 
@@ -15,10 +17,12 @@ use Symfony\Component\Security\Core\Security;
 final class NotificationQueryExtention implements QueryCollectionExtensionInterface
 {
     private Security $security;
+    private NotificationService $notificationService;
 
-    public function __construct(Security $security)
+    public function __construct(Security $security, NotificationService $notificationService)
     {
         $this->security = $security;
+        $this->notificationService = $notificationService;
     }
 
     public function applyToCollection(
@@ -33,11 +37,13 @@ final class NotificationQueryExtention implements QueryCollectionExtensionInterf
         $user = $this->security->getUser();
         if ($user instanceof User) {
             $rootAlias = $queryBuilder->getRootAliases()[0];
-            $queryBuilder->where(sprintf('%1$s.user = :user OR %1$s.user IS NULL', $rootAlias))
+            $queryBuilder->where(sprintf('%1$s.user = :user', $rootAlias))
+                ->orWhere(sprintf('%1$s.user IS NULL AND %1$s.channel IN (:channels)', $rootAlias))
                 ->andWhere(sprintf('%s.createdAt < NOW()', $rootAlias))
                 ->orderBy(sprintf('%s.createdAt', $rootAlias), 'DESC')
                 ->setMaxResults(5)
-                ->setParameter('user', $user);
+                ->setParameter('user', $user)
+                ->setParameter('channels', $this->notificationService->getChannelsForUser($user));
         }
     }
 }

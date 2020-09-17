@@ -3,6 +3,7 @@
 namespace App\Core\Orm;
 
 use Doctrine\Common\EventSubscriber;
+use Doctrine\DBAL\Event\ConnectionEventArgs;
 use Doctrine\DBAL\Event\SchemaColumnDefinitionEventArgs;
 use Doctrine\DBAL\Event\SchemaIndexDefinitionEventArgs;
 use Doctrine\DBAL\Events;
@@ -47,6 +48,14 @@ class DoctrineSchemaListener implements EventSubscriber
     }
 
     /**
+     * Force la timezone pour ne pas avoir de problème
+     */
+    public function postConnect(ConnectionEventArgs $args): void
+    {
+        $args->getConnection()->exec("set timezone to 'Europe/Paris';");
+    }
+
+    /**
      * Returns an array of events this subscriber wants to listen to.
      *
      * @return string[]
@@ -57,6 +66,7 @@ class DoctrineSchemaListener implements EventSubscriber
             Events::onSchemaColumnDefinition,
             Events::onSchemaIndexDefinition,
             ToolEvents::postGenerateSchema,
+            Events::postConnect,
         ];
     }
 }

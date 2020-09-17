@@ -7,6 +7,7 @@ use App\Domain\Notification\NotificationService;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class NotificationServiceTest extends TestCase
@@ -22,7 +23,9 @@ class NotificationServiceTest extends TestCase
         $this->em = $this->getMockBuilder(EntityManagerInterface::class)->getMock();
         $this->dispatcher = $this->getMockBuilder(EventDispatcherInterface::class)->getMock();
         $this->serializer->expects($this->any())->method('serialize')->willReturn('/chemin');
-        $this->service = new NotificationService($this->serializer, $this->em, $this->dispatcher);
+        $security = $this->getMockBuilder(Security::class)->disableOriginalConstructor()->getMock();
+        $security->expects($this->any())->method('isGranted')->willReturn(true);
+        $this->service = new NotificationService($this->serializer, $this->em, $this->dispatcher, $security);
     }
 
     public function testDispatchEvent(): void

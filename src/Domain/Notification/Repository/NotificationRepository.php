@@ -25,12 +25,13 @@ class NotificationRepository extends ServiceEntityRepository
      *
      * @return Notification[]
      */
-    public function findRecentForUser(User $user, array $channels): array
+    public function findRecentForUser(User $user, array $channels = ['public']): array
     {
         return array_map(fn ($n) => (clone $n)->setUser($user), $this->createQueryBuilder('notif')
             ->orderBy('notif.createdAt', 'DESC')
             ->setMaxResults(10)
-            ->andWhere('notif.user = :user OR notif.channel IN (:channels)')
+            ->where('notif.user = :user')
+            ->orWhere('notif.user IS NULL AND notif.channel IN (:channels)')
             ->setParameter('user', $user)
             ->setParameter('channels', $channels)
             ->getQuery()

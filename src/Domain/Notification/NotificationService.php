@@ -91,6 +91,12 @@ class NotificationService
         return $repository->findRecentForUser($user, $this->getChannelsForUser($user));
     }
 
+    public function readAll(User $user): void
+    {
+        $user->setNotificationsReadAt(new \DateTimeImmutable());
+        $this->em->flush();
+    }
+
     /**
      * Renvoie les salons auquel l'utilisateur peut s'abonner.
      *
@@ -100,6 +106,7 @@ class NotificationService
     {
         $channels = [
             'user/'.$user->getId(),
+            'public',
         ];
 
         if ($this->security->isGranted(ChannelVoter::LISTEN_ADMIN)) {

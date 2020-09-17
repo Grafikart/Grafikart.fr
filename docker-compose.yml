@@ -29,6 +29,8 @@ services:
       POSTGRES_PASSWORD: grafikart
       POSTGRES_USER: grafikart
       POSTGRES_DB: grafikart
+      TZ: Europe/Paris
+      PGTZ: Europe/Paris
     ports:
       - 5432:5432 # On expose le port pour pouvoir inspecter la base pendant la phase de développement
     volumes:

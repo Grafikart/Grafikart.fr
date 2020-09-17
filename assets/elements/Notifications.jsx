@@ -5,6 +5,7 @@ import { SlideIn } from '/components/Animation/SlideIn.jsx'
 import { isAuthenticated, lastNotificationRead } from '/functions/auth.js'
 import { Spinner } from '/components/Animation/Spinner.jsx'
 import { loadNotifications } from '/api/notifications.js'
+import { jsonFetch } from '/functions/api.js'
 
 const OPEN = 0
 const CLOSE = 1
@@ -27,11 +28,15 @@ export function Notifications () {
   const [notifications, pushNotification] = usePrepend()
   const [notificationReadAt, setNotificationReadAt] = useState(lastNotificationRead())
   const [loading, setLoading] = useState(true)
+  const unreadCount = countUnread(notifications, notificationReadAt)
 
   // Méthodes
   const openMenu = e => {
     e.preventDefault()
     setState(OPEN)
+    if (unreadCount > 0) {
+      jsonFetch('/api/notifications/read', {method: 'post'}).catch(console.error)
+    }
   }
   const closeMenu = () => {
     setNotificationReadAt(new Date())
@@ -65,7 +70,7 @@ export function Notifications () {
       <button onClick={openMenu}>
         <Icon name='bell' />
       </button>
-      <Badge count={countUnread(notifications, notificationReadAt)} />
+      <Badge count={unreadCount} />
       <SlideIn className='notifications' show={state === OPEN}>
         <Popup
           loading={loading}
@@ -101,10 +106,10 @@ function Popup ({ notifications = [], onClickOutside = () => {}, loading = false
         {notifications.map(n => (
           <Notification key={n.id} notificationReadAt={notificationReadAt} {...n} />
         ))}
-        <a href='/notifications' className='notifications_footer'>
-          Toutes les notifications
-        </a>
       </div>
+      <a href='/notifications' className='notifications_footer'>
+        Toutes les notifications
+      </a>
     </div>
   )
 }

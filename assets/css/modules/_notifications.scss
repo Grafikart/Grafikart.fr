@@ -32,6 +32,10 @@
   font-size: 14px;
   line-height: 1.4;
 }
+.notifications_body {
+  max-height: 300px;
+  overflow: auto;
+}
 .notifications_body::after {
   content: '';
   display: block;
@@ -78,9 +82,10 @@
   font-weight: bold;
 }
 .notifications_footer {
+  border-top: 1px solid var(--border-light);
   text-align: center;
   display: block;
-  padding: space(1) 0;
+  padding: space(1.5) 0;
 
   &:hover {
     background-color: var(--background);

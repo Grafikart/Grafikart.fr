@@ -14,7 +14,7 @@ function emitEvent (notification) {
  */
 export async function loadNotifications () {
   // On récupère les dernières notifications en AJAX
-  const notifications = await fetchAll(4)
+  const notifications = await fetchAll(15)
   notifications.reverse()
   notifications.forEach(emitEvent)
 
