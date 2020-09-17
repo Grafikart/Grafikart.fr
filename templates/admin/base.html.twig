@@ -14,7 +14,7 @@
   {% endblock %}
   <meta name="turbolinks-cache-control" content="no-cache" />
 </head>
-<body>
+<body class="{{ app.user and app.user.darkMode ? 'dark' : '' }}">
 <nav class="header {% if headerWhite is defined %}is-white{% endif %}">
   <ul class="header-nav">
     <li class="header__home"><a href="{{ path('admin_home') }}" title="Accueil">{{ icon('home') }}</a></li>

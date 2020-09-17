@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'header-light' %}
+
+{% block title 'Cursus ' ~ cursus.title %}
+
+{% block body %}
+
+
+  <header class="page-header container">
+    <div class="stack w100">
+      <h1 class="h1">{{ cursus.title }}</h1>
+      <div class="formatted">{{ cursus.content | markdown }}</div>
+    </div>
+  </header>
+
+  <div class="cursus-page stack py5">
+    {% for chapter in cursus.chapters %}
+      <section class="stack">
+        <h2 class="h2 cursus-page__chapter"><span class="text-muted">{{ loop.index }}.</span> {{ chapter.title }}</h2>
+        <div class="courses">
+          {% for module in chapter.modules %}
+            {% if module.isCourse %}
+              {% include 'courses/_card.html.twig' with {course: module} %}
+            {% else %}
+              {% include 'formations/_card.html.twig' with {formation: module} %}
+            {% endif %}
+          {% endfor %}
+        </div>
+      </section>
+    {% endfor %}
+  </div>
+
+{% endblock %}
+
+{% block javascripts %}
+  {% if is_granted('ADMIN') %}
+    <script>
+      window.grafikart = {
+        EDIT_LINK: "{{ path('admin_cursus_edit', {id: cursus.id}) }}"
+      }
+    </script>
+  {% endif %}
+  {{ parent() }}
+{% endblock %}

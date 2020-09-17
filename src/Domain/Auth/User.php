@@ -96,6 +96,11 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface
      */
     private ?string $confirmationToken = null;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default": false})
+     */
+    private ?bool $darkMode = false;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -296,5 +301,16 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface
     public function canLogin(): bool
     {
         return !$this->isBanned() && null === $this->getConfirmationToken();
+    }
+
+    public function getDarkMode(): ?bool
+    {
+        return $this->darkMode;
+    }
+
+    public function setDarkMode(?bool $darkMode): User
+    {
+        $this->darkMode = $darkMode;
+        return $this;
     }
 }

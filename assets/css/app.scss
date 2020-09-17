@@ -11,7 +11,7 @@
   --gap: 20px;
   --space: 8px;
   --border: #d5e3ec;
-  --border-light: #d5e3ec7f;
+  --border-light: #e6eff4;
   --background: #f7fafb;
   --background-light: #fff;
   --shadow: #d8e1e8;
@@ -37,8 +37,9 @@
   --gap: 20px;
   --space: 8px;
   --border: #122c45;
-  --background: #11172e;
-  --background-light: #202248;
+  --border-light: #161e3b;
+  --background: #202248;
+  --background-light: #171933;
   --shadow: #0b0c1a;
   --play: #1d1d3a;
   --list-hover: #282a5a;
@@ -125,6 +126,7 @@ body::after {
 // ==================
 @import 'pages/live';
 @import 'pages/course';
+@import 'pages/cursus';
 @import 'pages/chapters';
 @import 'pages/auth';
 @import 'pages/blog';

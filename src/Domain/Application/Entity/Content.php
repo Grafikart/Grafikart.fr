@@ -4,6 +4,8 @@ namespace App\Domain\Application\Entity;
 
 use App\Domain\Attachment\Attachment;
 use App\Domain\Auth\User;
+use App\Domain\Course\Entity\Course;
+use App\Domain\Course\Entity\Formation;
 use App\Domain\Course\Entity\Technology;
 use App\Domain\Course\Entity\TechnologyUsage;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -341,5 +343,15 @@ abstract class Content
         $this->author = $author;
 
         return $this;
+    }
+
+    public function isCourse(): bool
+    {
+        return $this instanceof Course;
+    }
+
+    public function isFormation(): bool
+    {
+        return $this instanceof Formation;
     }
 }

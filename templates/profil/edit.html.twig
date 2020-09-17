@@ -93,6 +93,13 @@
       </section>
     </main>
     <aside class="stack">
+      <h3 class="h4">Mode nuit</h3>
+      <div class="flex">
+        <p>
+          <input id="darkmode" type="checkbox" is="dark-mode-toggle" {{ app.user.darkMode ? 'checked' : '' }}>
+          <label for="darkmode"></label>
+        </p>
+      </div>
       <h3 class="h4">Connexion Discord</h3>
       <p>
         Reliez votre compte discord à Grafikart pour accéder au salon premium et obtenir un rôle spécial.

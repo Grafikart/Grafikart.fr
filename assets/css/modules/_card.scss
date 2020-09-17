@@ -116,11 +116,9 @@
   border-radius: 3px;
   cursor: pointer;
 }
-
 .card__link:hover {
   border: 1px solid var(--contrast);
 }
-
 .card__progress {
   opacity: 0;
   margin-top: auto;
@@ -132,9 +130,37 @@
     background: var(--contrast);
   }
 }
-
 .card[style^='--progress'] .card__progress {
   opacity: 1!important;
+}
+.card--stacked {
+  &::after, &::before {
+    content:'';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    transition: .3s;
+    @extend %card;
+  }
+  &::after {
+    transform: translate(6px, 6px);
+  }
+  &::before {
+    opacity: 0;
+    transform: translate(0px, 0px);
+  }
+  &:hover {
+    &::after {
+      transform: translate(6px, 6px) rotate(3deg);
+    }
+    &::before {
+      opacity: 1;
+      transform: translate(0px, 0px) rotate(-3deg);
+    }
+  }
 }
 
 // Complété
@@ -223,8 +249,3 @@
   }
 }
 
-// Space
-// =============
-.p3 {
-  padding: space(3);
-}

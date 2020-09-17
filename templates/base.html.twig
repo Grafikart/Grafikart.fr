@@ -13,7 +13,7 @@
   <link rel="manifest" href="/manifest.webmanifest">
   <meta name="turbolinks-cache-control" content="no-cache"/>
 </head>
-<body {% if bodyClass is defined %}class="{{ bodyClass }}"{% endif %}>
+<body class="{{ bodyClass is defined ? bodyClass : '' }} {{ app.user and app.user.darkMode ? 'dark' : '' }}">
 <div class="page-wrapper">
   <nav class="header {% if headerWhite is defined %}is-white{% endif %}" id="header">
     <ul class="header-nav">

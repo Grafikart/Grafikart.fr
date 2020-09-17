@@ -1,5 +1,5 @@
 {% cache [formation, 'card'] %}
-  <article class="card card--formation">
+  <article class="card card--stacked">
     <div class="card__body stack">
       <div class="card__icons">
         {% for technology in formation.mainTechnologies %}
@@ -22,8 +22,8 @@
          class="card__link"></a>
     </div>
     <footer class="card__footer">
-      <div>{{ icon('lines') }} {{ formation.courses | length }} Chapitres</div>
-      <div>{{ icon('clock') }} {{ formation.duration | duration }}</div>
+      <div>{{ icon('lines', 12) }} {{ formation.courses | length }} Chapitres</div>
+      <div>{{ icon('clock', 14) }} {{ formation.duration | duration }}</div>
     </footer>
   </article>
 {% endcache %}

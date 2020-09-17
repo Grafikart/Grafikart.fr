@@ -1,4 +1,7 @@
-FROM grafikart/php:1.0.1
+FROM grafikart/php:1.0.2
+
+# On désactive xdebug
+RUN printf '%s%s' ";" "$(cat /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini)" > "/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini"
 
 ARG USER_ID
 ARG GROUP_ID

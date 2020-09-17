@@ -1,0 +1,37 @@
+.cursus-page {
+  @extend %container-margin;
+  position: relative;
+  --gap: 8;
+}
+
+.cursus-page::after {
+  content:'';
+  position: absolute;
+  top: 0;
+  left: 15px;
+  bottom: 0;
+  width: 12px;
+  z-index: -2;
+  background-color: var(--border-light);
+}
+
+.cursus-page__chapter {
+  padding-left: 50px;
+  position: relative;
+}
+
+.cursus-page__chapter::before,
+.cursus-page__chapter::after {
+  content:'';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 4px;
+  bottom: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  z-index: -1;
+  background: var(--background);
+  border: 7px solid var(--border-light);
+}
