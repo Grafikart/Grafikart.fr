@@ -11,7 +11,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class NotificationController extends AbstractController
 {
-
     /**
      * @Route("/notifications/read", name="api_notification_read", methods={"POST"})
      * @IsGranted("ROLE_USER")

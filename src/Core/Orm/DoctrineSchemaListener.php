@@ -48,7 +48,7 @@ class DoctrineSchemaListener implements EventSubscriber
     }
 
     /**
-     * Force la timezone pour ne pas avoir de problème
+     * Force la timezone pour ne pas avoir de problème.
      */
     public function postConnect(ConnectionEventArgs $args): void
     {

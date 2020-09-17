@@ -64,10 +64,6 @@ services:
     arguments:
       $assetPath: '%kernel.project_dir%/public/assets'
 
-  App\Infrastructure\Youtube\YoutubeUploaderService:
-    arguments:
-      $videoPath: '%videos_path%'
-
   App\Core\OptionInterface:
     class: 'App\Domain\Application\Option'
 

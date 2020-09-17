@@ -311,6 +311,7 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface
     public function setDarkMode(?bool $darkMode): User
     {
         $this->darkMode = $darkMode;
+
         return $this;
     }
 }

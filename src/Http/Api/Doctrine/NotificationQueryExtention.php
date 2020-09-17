@@ -7,7 +7,6 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use App\Domain\Auth\User;
 use App\Domain\Notification\Entity\Notification;
 use App\Domain\Notification\NotificationService;
-use App\Domain\Notification\Repository\NotificationRepository;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Security\Core\Security;
 
