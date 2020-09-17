@@ -60,7 +60,6 @@ class UserController extends AbstractController
         $formPassword = $this->createForm(UpdatePasswordForm::class);
         $formUpdate = $this->createForm(UpdateProfileForm::class, new ProfileUpdateDto($user));
         $action = $request->get('action');
-        $days = DeleteAccountService::DAYS;
         if ('update' === $action) {
             $formUpdate->handleRequest($request);
         } elseif ('password' === $action) {

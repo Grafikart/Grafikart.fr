@@ -9,7 +9,6 @@ use Google_Service_YouTube;
 
 class YoutubeUploaderService
 {
-    private string $videoPath;
     private CourseTransformer $transformer;
     private \Google_Client $googleClient;
 
@@ -18,10 +17,8 @@ class YoutubeUploaderService
     public function __construct(
         \Google_Client $googleClient,
         EntityManagerInterface $em,
-        CourseTransformer $transformer,
-        string $videoPath
+        CourseTransformer $transformer
     ) {
-        $this->videoPath = $videoPath;
         $this->transformer = $transformer;
         $this->googleClient = $googleClient;
         $this->em = $em;
