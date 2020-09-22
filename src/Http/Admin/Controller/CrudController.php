@@ -80,10 +80,11 @@ abstract class CrudController extends BaseController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var E $entity */
             $entity = $data->getEntity();
+            $old = clone $entity;
             $data->hydrate();
             $this->em->flush();
             if ($this->events['update'] ?? null) {
-                $this->dispatcher->dispatch(new $this->events['update']($entity));
+                $this->dispatcher->dispatch(new $this->events['update']($entity, $old));
             }
             $this->addFlash('success', 'Le contenu a bien été modifié');
 

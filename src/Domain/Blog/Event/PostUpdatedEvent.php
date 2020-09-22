@@ -7,8 +7,8 @@ use App\Domain\Blog\Post;
 
 class PostUpdatedEvent extends ContentUpdatedEvent
 {
-    public function __construct(Post $content)
+    public function __construct(Post $content, Post $previous)
     {
-        parent::__construct($content);
+        parent::__construct($content, $previous);
     }
 }

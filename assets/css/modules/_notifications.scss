@@ -57,10 +57,18 @@
   border-bottom: 1px solid var(--border-light);
 }
 .notifications_item {
-  display: flex;
+  font-weight: 400;
+  display: block;
   padding: space(2);
   position: relative;
   border-bottom: 1px solid var(--border-light);
+
+  strong {
+    color: var(--color-dark);
+  }
+  em {
+    font-style: italic;
+  }
 }
 .notifications_item:hover {
   background-color: var(--background);
@@ -74,9 +82,6 @@
   height: 32px;
   margin-right: 13px;
   border-radius: 32px;
-}
-.notifications_text {
-  font-weight: 300;
 }
 .notifications_text strong {
   font-weight: bold;

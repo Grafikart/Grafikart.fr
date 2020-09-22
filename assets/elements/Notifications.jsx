@@ -35,7 +35,7 @@ export function Notifications () {
     e.preventDefault()
     setState(OPEN)
     if (unreadCount > 0) {
-      jsonFetch('/api/notifications/read', {method: 'post'}).catch(console.error)
+      jsonFetch('/api/notifications/read', { method: 'post' }).catch(console.error)
     }
   }
   const closeMenu = () => {
@@ -120,11 +120,6 @@ function Popup ({ notifications = [], onClickOutside = () => {}, loading = false
 function Notification ({ url, message, createdAt, notificationReadAt }) {
   const isRead = notificationReadAt > createdAt
   const className = `notifications_item ${isRead ? 'is-read' : ''}`
-  return (
-    <a href={url} className={className}>
-      <div className='notifications_text'>
-        <p>{message}</p>
-      </div>
-    </a>
-  )
+  // eslint-disable-next-line react/no-danger
+  return <a href={url} className={className} dangerouslySetInnerHTML={{ __html: message }} />
 }

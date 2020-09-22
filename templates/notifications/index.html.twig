@@ -7,19 +7,22 @@
   <div class="container stack py5">
     <h1 class="hero-title">Mes notifications</h1>
 
-    <div class="stack-separated">
-      {% for notification in notifications %}
-      <div class="formatted">
-        {% if notification.read %}
-          <span style="color: goldenrod">
+    <div class="card p3">
+      <div class="stack-separated">
+        {% for notification in notifications %}
+          <div class="formatted">
+            {% if notification.read %}
+              <span style="color: goldenrod">
             {{ icon('star') }}
           </span>
-        {% endif %}
-        <strong>{{ notification.message }}</strong> - {{ notification.url }}<br>
-        {{ notification.createdAt | ago }}
+            {% endif %}
+            <a href="{{ notification.url }}"><strong>{{ notification.message }}</strong></a><br/>
+
+            {{ notification.createdAt | ago }}
+          </div>
+        {% endfor %}
       </div>
-      {% endfor %}
     </div>
-  </div>
+    </div>
 
 {% endblock %}

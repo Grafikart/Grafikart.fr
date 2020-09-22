@@ -27,17 +27,7 @@
     <li><a href="{{ path('admin_live_index') }}" {{ menu_active('live') }}>{{ icon('video') }} Live</a></li>
     <li><a href="{{ path('admin_premium_index') }}" {{ menu_active('premium') }}>{{ icon('star') }} Premium</a></li>
   </ul>
-  <ul class="header-side">
-    <li class="header__notification">
-      <site-notifications></site-notifications>
-    </li>
-    <li class="header__search"><a href="#">{{ icon('search') }}</a></li>
-    {% if app.user %}
-      <li class="header__account"><a href="{{ path('auth_logout') }}">{{ icon('user') }} {{ app.user.username }}</a></li>
-    {% else %}
-      <li class="header__account"><a href="{{ path('auth_login') }}">{{ icon('user') }} Se connecter</a></li>
-    {% endif %}
-  </ul>
+  {% include 'partials/header-side.html.twig' %}
 </nav>
 <div class="dashboard py5">
 

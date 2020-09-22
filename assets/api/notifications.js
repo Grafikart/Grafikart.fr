@@ -1,5 +1,7 @@
 import { jsonFetch } from '/functions/api.js'
 
+let isMercureConnected = false
+
 function emitEvent (notification) {
   notification.createdAt = new Date(notification.createdAt)
   window.dispatchEvent(
@@ -19,11 +21,14 @@ export async function loadNotifications () {
   notifications.forEach(emitEvent)
 
   // On se connecte au SSE
-  const url = new URL(window.grafikart.MERCURE_URL)
-  url.searchParams.append('topic', '/notifications/{channel}')
-  url.searchParams.append('topic', `/notifications/user/${window.grafikart.USER}`)
-  const eventSource = new EventSource(url, { withCredentials: true })
-  eventSource.onmessage = e => emitEvent(JSON.parse(e.data))
+  if (isMercureConnected === false) {
+    const url = new URL(window.grafikart.MERCURE_URL)
+    url.searchParams.append('topic', '/notifications/{channel}')
+    url.searchParams.append('topic', `/notifications/user/${window.grafikart.USER}`)
+    const eventSource = new EventSource(url, { withCredentials: true })
+    eventSource.onmessage = e => emitEvent(JSON.parse(e.data))
+    isMercureConnected = true
+  }
   return notifications
 }
 

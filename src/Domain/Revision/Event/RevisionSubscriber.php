@@ -34,9 +34,11 @@ class RevisionSubscriber implements EventSubscriberInterface
 
     public function onRevisionAccepted(RevisionAcceptedEvent $event): void
     {
-        $event->getRevision()->getTarget()->setContent($event->getRevision()->getContent());
+        $content = $event->getRevision()->getTarget();
+        $previous = clone $content;
+        $content->setContent($event->getRevision()->getContent());
         $this->em->remove($event->getRevision());
         $this->em->flush();
-        $this->dispatcher->dispatch(new ContentUpdatedEvent($event->getRevision()->getTarget()));
+        $this->dispatcher->dispatch(new ContentUpdatedEvent($content, $previous));
     }
 }

@@ -17,9 +17,9 @@ export function usePrepend (initialValue = []) {
   const [value, setValue] = useState(initialValue)
   return [
     value,
-    item => {
+    useCallback(item => {
       setValue(v => [item, ...v])
-    }
+    }, [])
   ]
 }
 

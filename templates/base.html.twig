@@ -24,21 +24,7 @@
       <li><a href="{{ path('live') }}" {{ menu_active('live') }} class="{{ is_live_running() ? 'has-live' : '' }}">{{ icon('camera') }} Live {{ next_live_time() }}</a></li>
       <li><a href="{{ path('blog_index') }}" {{ menu_active('blog') }}>{{ icon('pen') }} Blog</a></li>
     </ul>
-    <ul class="header-side">
-      <li class="header__notification">
-        <site-notifications></site-notifications>
-      </li>
-      <li class="header__search"><a href="#">{{ icon('search') }}</a></li>
-      {% if app.user %}
-        <li><a href="{{ path('user_profil') }}">{{ icon('user') }} <span>{{ app.user.username }}</span></a>
-        <li class="header__logout"><a href="{{ path('auth_logout') }}">{{ icon('logout') }} <span>Se déconnecter</span></a></li>
-      {% else %}
-        <li><a href="{{ path('auth_login', {redirect: app.request.pathInfo}) }}">{{ icon('user') }} <span>Se connecter</span></a></li>
-      {% endif %}
-      <li class="header__burger">
-        <button id="js-burger"><span>Afficher le menu</span></button>
-      </li>
-    </ul>
+    {% include 'partials/header-side.html.twig' %}
   </nav>
   {% block body %}{% endblock %}
   <footer class="footer">
