@@ -63,12 +63,19 @@
 .header-nav li {
   display: block;
 }
-.header-nav a:hover,
-.header-nav a[aria-current] {
+.header a:hover,
+.header button:hover,
+.header a[aria-current] {
   color: var(--contrast);
 }
 .header-nav > * + * {
   margin-left: space(6);
+}
+.header-side {
+  margin-right: space(-2);
+}
+.header-side > li {
+  margin-right: space(2);
 }
 .header__home {
   display: flex;
@@ -88,7 +95,6 @@
   justify-content: flex-start;
   height: 16px;
   border-right: 1px solid currentColor;
-  margin-right: space(2);
   padding-right: space(1);
 }
 
@@ -101,8 +107,15 @@
 }
 .header__notification {
   position: relative;
-  margin-right: calc(2 * var(--space));
   padding-right: calc(1 * var(--space));
+}
+.header__logout {
+  span {
+    display: none;
+  }
+  svg {
+    margin-right: 0;
+  }
 }
 
 // Déclinaison bleu
@@ -162,7 +175,6 @@
     border-color: #2d47b8;
   }
 }
-
 .header__burger {
   display: none;
   margin-left: space(1);

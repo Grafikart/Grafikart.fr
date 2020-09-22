@@ -145,4 +145,7 @@
   <symbol id="sync" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
     <path fill="currentColor" fill-rule="evenodd" d="M6.876 15.124A6.002 6.002 0 0017.658 14h2.09a8.003 8.003 0 01-14.316 2.568L3 19v-6h6l-2.124 2.124zm10.249-6.25A6.004 6.004 0 006.34 10H4.25a8.005 8.005 0 0114.32-2.57L21 5v6h-6l2.125-2.125z"/>
   </symbol>
+  <symbol id="logout" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M0 2.667C0 1.2 1.2 0 2.666 0H13.33v2.667H2.666v18.666H13.33V24H2.666A2.674 2.674 0 010 21.333V2.667zm18.897 8l-3.38-3.382L17.4 5.4 24 12l-6.599 6.6-1.884-1.885 3.38-3.382h-8.78v-2.666h8.78z" fill="currentColor"/>
+  </symbol>
 </svg>
