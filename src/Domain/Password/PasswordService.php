@@ -79,6 +79,7 @@ class PasswordService
     public function updatePassword(string $password, PasswordResetToken $token): void
     {
         $user = $token->getUser();
+        $user->setConfirmationToken(null);
         $user->setPassword($this->encoder->encodePassword($user, $password));
         $this->em->remove($token);
         $this->em->flush();
