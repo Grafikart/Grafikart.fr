@@ -12,18 +12,22 @@ use App\Http\Api\Resource\CommentResource;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class CommentApiProvider implements CollectionDataProviderInterface, RestrictedDataProviderInterface, ItemDataProviderInterface
 {
     private RequestStack $requestStack;
     private CommentRepository $commentRepository;
+    private UploaderHelper $uploader;
 
     public function __construct(
         RequestStack $requestStack,
-        CommentRepository $commentRepository
+        CommentRepository $commentRepository,
+        UploaderHelper $uploader
     ) {
         $this->requestStack = $requestStack;
         $this->commentRepository = $commentRepository;
+        $this->uploader = $uploader;
     }
 
     public function supports(string $resourceClass, string $operationName = null, array $context = []): bool
@@ -46,7 +50,7 @@ class CommentApiProvider implements CollectionDataProviderInterface, RestrictedD
         }
 
         return array_map(
-            fn (Comment $comment) => CommentResource::fromComment($comment),
+            fn (Comment $comment) => CommentResource::fromComment($comment, $this->uploader),
             $this->commentRepository->findForApi($contentId)
         );
     }
@@ -62,6 +66,6 @@ class CommentApiProvider implements CollectionDataProviderInterface, RestrictedD
             throw new RuntimeException('id as array not expected');
         }
 
-        return CommentResource::fromComment($this->commentRepository->findPartial((int) $id));
+        return CommentResource::fromComment($this->commentRepository->findPartial((int) $id), $this->uploader);
     }
 }

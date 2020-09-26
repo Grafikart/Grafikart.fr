@@ -8,6 +8,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Domain\Comment\Comment;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 /**
  * @ApiResource(
@@ -87,17 +88,20 @@ class CommentResource
      */
     public ?int $userId = null;
 
-    public static function fromComment(Comment $comment): CommentResource
+    public static function fromComment(Comment $comment, ?UploaderHelper $uploader): CommentResource
     {
         $resource = new self();
         $author = $comment->getAuthor();
+        if ($author && $uploader) {
+            $avatarPath = $uploader->asset($author, 'avatarFile');
+        }
         $resource->id = $comment->getId();
         $resource->username = $comment->getUsername();
         $resource->content = $comment->getContent();
         $resource->createdAt = $comment->getCreatedAt()->getTimestamp();
         $resource->parent = null !== $comment->getParent() ? $comment->getParent()->getId() : null;
         $gravatar = md5($comment->getEmail());
-        $resource->avatar = "https://1.gravatar.com/avatar/{$gravatar}?s=200&r=pg&d=mp";
+        $resource->avatar = $avatarPath ?? "https://1.gravatar.com/avatar/{$gravatar}?s=200&r=pg&d=mp";
         $resource->entity = $comment;
         $resource->userId = $author ? $author->getId() : null;
 

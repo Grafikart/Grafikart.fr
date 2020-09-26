@@ -10,25 +10,32 @@ use App\Domain\Comment\Comment;
 use App\Http\Api\Resource\CommentResource;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Security;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class CommentPersister implements ContextAwareDataPersisterInterface
 {
     private ValidatorInterface $validator;
     private Security $security;
     private EntityManagerInterface $em;
+    private UploaderHelper $uploader;
 
     public function __construct(
         ValidatorInterface $validator,
         Security $security,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        UploaderHelper $uploader
     ) {
         $this->validator = $validator;
         $this->security = $security;
         $this->em = $em;
+        $this->uploader = $uploader;
     }
 
     /**
      * @param object $data
+     * @param array  $context
+     *
+     * @return bool
      */
     public function supports($data, array $context = []): bool
     {
@@ -37,8 +44,10 @@ class CommentPersister implements ContextAwareDataPersisterInterface
 
     /**
      * @param CommentResource $data
+     * @param array           $context
      *
-     * @throws \Exception
+     * @return CommentResource
+     * @throws \Doctrine\ORM\ORMException
      */
     public function persist($data, array $context = []): CommentResource
     {
@@ -72,7 +81,7 @@ class CommentPersister implements ContextAwareDataPersisterInterface
         }
         $this->em->flush();
 
-        return CommentResource::fromComment($comment);
+        return CommentResource::fromComment($comment, $this->uploader);
     }
 
     /**
