@@ -98,7 +98,7 @@
     <path fill="currentColor" d="M8.15 14.78l3.84-3.86-3.84-3.86 1.18-1.18 5.04 5.04-5.04 5.04z"/>
   </symbol>
   <symbol id="lock" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-    <path fill="#000" fill-rule="evenodd"
+    <path fill="currentColor" fill-rule="evenodd"
           d="M7 10V7a5 5 0 1110 0v3h1a2 2 0 012 2v8a2 2 0 01-2 2H6a2 2 0 01-2-2v-8a2 2 0 012-2h1zm-1 2v8h12v-8H6zm3-2h6V7a3 3 0 00-6 0v3zm5 4h2v4h-2v-4z"
           clip-rule="evenodd"/>
   </symbol>

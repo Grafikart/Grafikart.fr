@@ -24,6 +24,8 @@ import { ProgressTracker } from '/elements/courses/ProgressTracker.js'
 import Sharer from '/elements/Sharer.js'
 import DeleteAccount from '/elements/DeleteAccount.jsx'
 import { DarkModeToggle } from '/elements/DarkModeToggle.js'
+import { PremiumButton } from '/elements/premium/PremiumButton.jsx'
+import { BadgeUnlock } from '/elements/BadgeUnlock.jsx'
 
 // Custom Elements
 customElements.define('nav-tabs', NavTabs)
@@ -47,6 +49,8 @@ preactCustomElement('site-notifications', Notifications)
 preactCustomElement('contact-form', ContactForm)
 preactCustomElement('comments-area', Comments, ['target'])
 preactCustomElement('delete-account', DeleteAccount, ['url', 'csrf'])
+preactCustomElement('premium-button', PremiumButton, ['plan', 'children'])
+preactCustomElement('badge-unlock', BadgeUnlock, ['name', 'description'])
 
 // CustomElement étendus
 customElements.define('input-switch', Switch, { extends: 'input' })

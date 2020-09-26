@@ -31,9 +31,9 @@
       les sources
     </div>
     <div class="pricing__action">
-      <a class="btn-primary" href="{{ path('premium') }}">
+      <premium-button plan="{{ plan.id }}">
         Devenir premium ({{ plan.duration }} mois)
-      </a>
+      </premium-button>
     </div>
   </div>
 {% endfor %}

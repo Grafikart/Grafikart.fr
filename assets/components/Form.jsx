@@ -70,6 +70,10 @@ export function Field ({
     <div className={`form-group ${wrapperClass}`} ref={ref}>
       <label htmlFor={name}>{children}</label>
       {(() => {
+        if (props.component) {
+          const Component = props.component
+          return <Component {...attr} />
+        }
         switch (type) {
           case 'textarea':
             return <FieldTextarea {...attr} />

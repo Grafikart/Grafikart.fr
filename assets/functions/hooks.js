@@ -110,7 +110,7 @@ export const PROMISE_ERROR = -1
 /**
  * Décore une promesse et renvoie son état
  */
-export default function usePromiseFn (fn) {
+export function usePromiseFn (fn) {
   const [state, setState] = useState(null)
   const resetState = useCallback(() => {
     setState(null)

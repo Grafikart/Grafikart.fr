@@ -73,4 +73,7 @@
   .premium-grid > *:last-child {
     grid-column: 1 / span 1;
   }
+  .premium-grid__body {
+    margin-top: 60px;
+  }
 }

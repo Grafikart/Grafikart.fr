@@ -1,17 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% set bodyClass = 'header-light' %}
-
 {% block title 'Cursus ' ~ cursus.title %}
 
 {% block body %}
 
-
-  <header class="page-header container">
-    <div class="stack w100">
-      <h1 class="h1">{{ cursus.title }}</h1>
-      <div class="formatted">{{ cursus.content | markdown }}</div>
+  <header class="wave-header">
+    <div class="wave-header__body stack">
+      <h1 class="wave-header__title">{{ cursus.title }}</h1>
+      <p>{{ cursus.content }}</p>
     </div>
+    <waves-shape class="waves" position="bottomWave" target=".wave-header" background="{{ image_url(cursus.image) }}" ></waves-shape>
   </header>
 
   <div class="cursus-page stack py5">

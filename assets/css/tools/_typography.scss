@@ -87,6 +87,7 @@ $font-alt: 'Gotham', 'Montserrat', 'Open Sans', -apple-system, BlinkMacSystemFon
   font-style: normal;
   font-weight: normal;
   font-size: 24px;
+  line-height: 1.3;
 
   strong {
     font-weight: bold;
@@ -120,6 +121,9 @@ small, .text-small {
 }
 .text-inversed {
   color: var(--color-inversed);
+}
+.bold {
+  font-weight: bold;
 }
 .underline {
   text-decoration: underline;

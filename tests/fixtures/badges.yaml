@@ -1,0 +1,15 @@
+include:
+  - ../../fixtures/templates.yaml
+
+App\Domain\Auth\User:
+  user{1..5} (extends user):
+
+App\Domain\Badge\Entity\Badge:
+  badgegamer:
+    __construct: ['Gamer', '<sentence(1, true)>', 'gamer']
+
+  badgecomment5:
+    __construct: [ 'Comment', '<sentence(1, true)>', 'comments', 5 ]
+
+  badgecomment10:
+    __construct: [ 'Comment', '<sentence(1, true)>', 'comments', 10 ]

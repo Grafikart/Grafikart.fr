@@ -1,0 +1,100 @@
+%badges {
+  background-image: url(/images/badges.png);
+  width: 160px;
+  height: 160px;
+  opacity: 0;
+}
+
+.badge-modal {
+  width: 430px;
+}
+
+.badge-modal_sprite {
+  animation: badgeBounce .3s ease-in-out .1s +
+        .2s * 3 forwards;
+}
+
+.badge-modal hr {
+  width: 100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.badge-modal_sprite {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  margin: -80px auto 0;
+
+  & > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+@each $v in (0, 1, 2) {
+  .badge-modal_sprite#{$v + 1} {
+    @extend %badges;
+    background-position: 0 (($v + 3) * -160px);
+    animation: badgeSlideDown .3s ease-in .2s * ($v) both;
+    animation-fill-mode: forwards;
+  }
+
+  .badge-modal_sprite-blue .badge-modal_sprite#{$v + 1} {
+    background-position: 0 ($v * -160px);
+  }
+}
+
+.badge-modal_icon {
+  opacity: 0;
+  animation: badgeSlideDownLast .2s ease-out .2s +
+        .2s * 2;
+  animation-fill-mode: forwards;
+}
+
+
+@keyframes badgeFade {
+  0% {
+    opacity: 0;
+    transform: scale(1.3);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes badgeSlideDown {
+  0% {
+    transform: scale(.8);
+    opacity: 0.2;
+  }
+  100% {
+    transform: scale(1) ;
+    opacity: 1;
+  }
+}
+
+@keyframes badgeSlideDownLast {
+  0% {
+    transform: scale(1.6);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes badgeBounce {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

@@ -3,6 +3,7 @@
 namespace App\Infrastructure\Image;
 
 use League\Glide\Urls\UrlBuilderFactory;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * Renvoie une URL redimensionnée pour une image donnée.
@@ -14,22 +15,26 @@ class ImageResizer
      * (cf https://glide.thephpleague.com/1.0/config/security/).
      */
     private string $signKey;
+    /**
+     * @var UrlGeneratorInterface
+     */
+    private UrlGeneratorInterface $urlGenerator;
 
-    public function __construct(string $signKey)
+    public function __construct(string $signKey, UrlGeneratorInterface $urlGenerator)
     {
         $this->signKey = $signKey;
+        $this->urlGenerator = $urlGenerator;
     }
 
     public function resize(?string $url, ?int $width = null, ?int $height = null): string
     {
-        $base = '/resize';
         if (null === $url || empty($url)) {
             return '';
         }
         if (null === $width && null === $height) {
-            $url = '/resize/jpg'.$url;
+            $url = $this->urlGenerator->generate('image_jpg', ['path' => $url]);
         } else {
-            $url = "{$base}/{$width}/{$height}{$url}";
+            $url = $this->urlGenerator->generate('image_resizer', ['path' => $url, 'width' => $width, 'height' => $height]);
         }
         $urlBuilder = UrlBuilderFactory::create('/', $this->signKey);
 

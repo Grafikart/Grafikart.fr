@@ -120,6 +120,7 @@ body::after {
 @import 'modules/pricing';
 @import 'modules/notifications';
 @import 'modules/footer';
+@import 'modules/stepper';
 // @import 'modules/tooltips';
 
 // Pages
@@ -136,6 +137,8 @@ body::after {
 @import 'pages/home';
 @import 'pages/forum';
 @import 'pages/user';
+@import 'pages/premium';
+@import 'pages/badges';
 // @import "pages/single";
 // @import "pages/single";
 // @import "pages/single";
