@@ -12,9 +12,6 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 class BadgeService
 {
     private EntityManagerInterface $em;
-    /**
-     * @var EventDispatcherInterface
-     */
     private EventDispatcherInterface $dispatcher;
 
     public function __construct(EntityManagerInterface $em, EventDispatcherInterface $dispatcher)

@@ -3,15 +3,14 @@
 namespace App\Domain\Badge\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Domain\Badge\Repository\BadgeRepository")
  */
 class Badge
 {
+    public const REQUEST_UNLOCKABLE = ['gamer', 'lochness'];
 
-    public const REQUEST_UNLOCKABLE = ['gamer'];
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -49,7 +48,7 @@ class Badge
      */
     private string $theme = 'grey';
 
-    public function __construct(string $name, string $description, string $action, int $actionCount = 0)
+    public function __construct(string $name = '', string $description = '', string $action = '', int $actionCount = 0)
     {
         $this->name = $name;
         $this->description = $description;

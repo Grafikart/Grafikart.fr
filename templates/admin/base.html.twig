@@ -14,7 +14,7 @@
   {% endblock %}
   <meta name="turbolinks-cache-control" content="no-cache" />
 </head>
-<body class="{{ app.user and app.user.darkMode ? 'dark' : '' }}">
+<body class="admin {{ app.user and app.user.darkMode ? 'dark' : '' }}">
 <nav class="header {% if headerWhite is defined %}is-white{% endif %}">
   <ul class="header-nav">
     <li class="header__home"><a href="{{ path('admin_home') }}" title="Accueil">{{ icon('home') }}</a></li>
@@ -26,6 +26,7 @@
     <li><a href="{{ path('admin_user_index') }}" {{ menu_active('user') }}>{{ icon('user') }} Utilisateurs</a></li>
     <li><a href="{{ path('admin_live_index') }}" {{ menu_active('live') }}>{{ icon('video') }} Live</a></li>
     <li><a href="{{ path('admin_premium_index') }}" {{ menu_active('premium') }}>{{ icon('star') }} Premium</a></li>
+    <li><a href="{{ path('admin_badge_index') }}" {{ menu_active('premium') }}>{{ icon('star') }} Badges</a></li>
   </ul>
   {% include 'partials/header-side.html.twig' %}
 </nav>
@@ -35,6 +36,7 @@
 
   {% block body '' %}
 </div>
+<spotlight-bar></spotlight-bar>
 <script>
   window.grafikart = {
     ADMIN: {{ is_granted('SUPERADMIN') ? 'true' : 'false' }},

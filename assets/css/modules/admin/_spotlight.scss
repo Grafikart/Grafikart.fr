@@ -1,0 +1,38 @@
+.spotlight {
+  padding: space(1);
+}
+
+.spotlight input {
+  position: relative;
+  z-index: 4;
+}
+
+.spotlight-suggestions {
+  position: absolute;
+  z-index: 3;
+  top: calc(100% - 8px);
+  padding: space(1) 0;
+  left: -1px;
+  right: -1px;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  color: var(--color-light);
+}
+
+.spotlight-suggestions mark {
+  background-color: var(--contrast);
+  color: #FFF;
+  font-weight: bold;
+}
+
+.spotlight-suggestions a {
+  display: block;
+  padding: 5px space(2);
+}
+
+.spotlight-suggestions a:hover,
+.spotlight-suggestions a.active {
+  background-color: var(--border-light);
+}

@@ -1,3 +1,9 @@
+export const HTTP_UNPROCESSABLE_ENTITY = 422
+export const HTTP_NOT_FOUND = 404
+export const HTTP_FORBIDDEN = 403
+export const HTTP_OK = 200
+export const HTTP_NO_CONTENT = 204
+
 /**
  *
  * @param {RequestInfo} url
@@ -29,7 +35,7 @@ export async function jsonFetch (url, params = {}) {
   if (response.ok) {
     return data
   }
-  throw new ApiError(data)
+  throw new ApiError(data, response.status)
 }
 
 /**
@@ -55,8 +61,9 @@ export async function catchViolations (p) {
  * }} data
  */
 export class ApiError {
-  constructor (data) {
+  constructor (data, status) {
     this.data = data
+    this.status = status
   }
 
   // Récupère la liste de violation pour un champs donnée

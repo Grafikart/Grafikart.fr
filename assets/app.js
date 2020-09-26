@@ -7,6 +7,7 @@ import Turbolinks from 'turbolinks'
 
 import './modules/scrollreveal.js'
 import './modules/highlight.js'
+import './modules/lochness.js'
 import { showHistory } from './modules/history.js'
 import ChoicesJS from 'choices.js'
 import { $$, $ } from '/functions/dom.js'

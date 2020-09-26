@@ -12,12 +12,12 @@ use Doctrine\Migrations\AbstractMigration;
  */
 final class Version20200926085339 extends AbstractMigration
 {
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return '';
     }
 
-    public function up(Schema $schema) : void
+    public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE TABLE badge (id SERIAL NOT NULL, name VARCHAR(255) NOT NULL, description VARCHAR(255) NOT NULL, position INT DEFAULT 0 NOT NULL, action VARCHAR(255) NOT NULL, action_count INT DEFAULT 0 NOT NULL, theme VARCHAR(255) DEFAULT \'grey\' NOT NULL, PRIMARY KEY(id))');
@@ -28,7 +28,7 @@ final class Version20200926085339 extends AbstractMigration
         $this->addSql('ALTER TABLE badge_unlock ADD CONSTRAINT FK_585813AAF7A2C2FC FOREIGN KEY (badge_id) REFERENCES badge (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
     }
 
-    public function down(Schema $schema) : void
+    public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE badge_unlock DROP CONSTRAINT FK_585813AAF7A2C2FC');

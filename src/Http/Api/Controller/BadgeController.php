@@ -13,7 +13,6 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class BadgeController extends BaseController
 {
-
     private BadgeService $service;
 
     public function __construct(BadgeService $service)
@@ -28,13 +27,14 @@ class BadgeController extends BaseController
     public function unlock(string $badgeName): JsonResponse
     {
         if (!in_array($badgeName, Badge::REQUEST_UNLOCKABLE)) {
-            throw new AccessDeniedException("Aucun badge ne correspond à ce nom");
+            throw new AccessDeniedException('Aucun badge ne correspond à ce nom');
         }
 
         $unlocks = $this->service->unlock($this->getUser(), $badgeName);
-        if ($unlocks === null || empty($unlocks)) {
+        if (null === $unlocks || empty($unlocks)) {
             return new JsonResponse(null, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
+
         return $this->json($unlocks[0]->getBadge());
     }
 }

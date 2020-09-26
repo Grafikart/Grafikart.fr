@@ -9,6 +9,7 @@ import { ChaptersEditor } from './elements/admin/ChaptersEditor.js'
 import { ItemSorter } from './elements/admin/ItemSorter.js'
 import { FormNotification } from './elements/admin/FormNotification.jsx'
 import preactCustomElement from './functions/preact'
+import { Spotlight } from '/elements/admin/Spotlight.jsx'
 
 customElements.define('input-attachment', InputAttachment, { extends: 'input' })
 customElements.define('file-manager', FileManager)
@@ -18,3 +19,4 @@ customElements.define('chapters-editor', ChaptersEditor, { extends: 'textarea' }
 customElements.define('item-sorter', ItemSorter)
 customElements.define('user-select', UserSelect, { extends: 'select' })
 preactCustomElement('form-notification', FormNotification)
+preactCustomElement('spotlight-bar', Spotlight)

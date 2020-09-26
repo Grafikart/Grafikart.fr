@@ -7,7 +7,7 @@ import { flash } from '/elements/Alert.js'
  */
 export function useToggle (initialValue = null) {
   const [value, setValue] = useState(initialValue)
-  return [value, () => setValue(!value)]
+  return [value, useCallback(() => setValue(v => !v), [])]
 }
 
 /**

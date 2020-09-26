@@ -8,7 +8,6 @@ use App\Domain\Badge\Entity\BadgeUnlock;
 
 class BadgeUnlockEvent
 {
-
     private BadgeUnlock $unlock;
 
     public function __construct(BadgeUnlock $unlock)

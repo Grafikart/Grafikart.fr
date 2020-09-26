@@ -68,7 +68,7 @@ export function Field ({
 
   return (
     <div className={`form-group ${wrapperClass}`} ref={ref}>
-      <label htmlFor={name}>{children}</label>
+      {children && <label htmlFor={name}>{children}</label>}
       {(() => {
         if (props.component) {
           const Component = props.component

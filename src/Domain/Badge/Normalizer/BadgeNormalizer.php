@@ -7,7 +7,6 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class BadgeNormalizer implements NormalizerInterface
 {
-
     /**
      * @return array
      */
@@ -21,12 +20,12 @@ class BadgeNormalizer implements NormalizerInterface
             'name' => $object->getName(),
             'description' => $object->getDescription(),
             'image' => 'https://www.grafikart.fr/uploads/badges/11.png',
-            'theme' => $object->getTheme()
+            'theme' => $object->getTheme(),
         ];
     }
 
     public function supportsNormalization($data, string $format = null)
     {
-        return $data instanceof Badge && $format === 'json';
+        return $data instanceof Badge && 'json' === $format;
     }
 }

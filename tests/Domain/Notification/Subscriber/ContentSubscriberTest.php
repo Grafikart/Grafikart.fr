@@ -10,7 +10,6 @@ use PHPUnit\Framework\TestCase;
 
 class ContentSubscriberTest extends TestCase
 {
-
     public function testNotificationSentWhenCourseBecomeOnline()
     {
         $course = (new Course())

@@ -4,7 +4,6 @@ namespace App\Core\Helper;
 
 class TimeHelper
 {
-
     /**
      * Génère une durée au format "30 min".
      */
