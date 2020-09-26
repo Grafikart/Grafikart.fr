@@ -13,6 +13,9 @@
             "src/Entity/.gitignore"
         ]
     },
+    "aura/sql": {
+        "version": "3.0.0"
+    },
     "beberlei/doctrineextensions": {
         "version": "v1.2.6"
     },

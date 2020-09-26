@@ -10,6 +10,7 @@
     "ext-json": "*",
     "ext-redis": "*",
     "api-platform/core": "^2.5",
+    "aura/sql": "^3.0",
     "beberlei/doctrineextensions": "^1.2",
     "cocur/slugify": "^4.0",
     "doctrine/annotations": "^1.0",

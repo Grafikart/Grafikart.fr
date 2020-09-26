@@ -4,12 +4,13 @@ services:
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
   importer.pdo:
-    class: \PDO
+    class: Aura\Sql\ExtendedPdo
     autowire: false
     arguments:
       - 'mysql:host=mariadb;dbname=grafikart_dev;charset=UTF8'
       - 'root'
       - 'root'
+      - {19: 2}
 
   App\Infrastructure\Importer\BlogImporter:
     tags: ['importer.handler']
