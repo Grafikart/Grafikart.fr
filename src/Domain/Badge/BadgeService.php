@@ -46,7 +46,7 @@ class BadgeService
             $this->em->persist($unlock);
             $unlocks[] = $unlock;
         }
-        // $this->em->flush();
+        $this->em->flush();
 
         foreach ($unlocks as $unlock) {
             $this->dispatcher->dispatch(new BadgeUnlockEvent($unlock));
