@@ -66,12 +66,13 @@ class Badge
      */
     private \DateTimeInterface $updatedAt;
 
-    public function __construct(string $name = '', string $description = '', string $action = '', int $actionCount = 0)
+    public function __construct(string $name = '', string $description = '', string $action = '', int $actionCount = 0, string $theme = 'grey')
     {
         $this->name = $name;
         $this->description = $description;
         $this->action = $action;
         $this->actionCount = $actionCount;
+        $this->theme = $theme;
         $this->updatedAt = new \DateTimeImmutable();
     }
 
@@ -167,6 +168,7 @@ class Badge
     public function setImage(?string $image): Badge
     {
         $this->image = $image;
+
         return $this;
     }
 
@@ -178,6 +180,7 @@ class Badge
     public function setImageFile(?File $imageFile): Badge
     {
         $this->imageFile = $imageFile;
+
         return $this;
     }
 
@@ -189,11 +192,12 @@ class Badge
     public function setUpdatedAt(\DateTimeInterface $updatedAt): Badge
     {
         $this->updatedAt = $updatedAt;
+
         return $this;
     }
 
     public function imageName(): string
     {
-        return $this->action . '-' . $this->actionCount;
+        return $this->action.'-'.$this->actionCount;
     }
 }

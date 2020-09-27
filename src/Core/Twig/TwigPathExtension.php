@@ -43,11 +43,11 @@ class TwigPathExtension extends AbstractExtension
 
         $path = $this->helper->asset($entity);
 
-        if ($path === null) {
+        if (null === $path) {
             return null;
         }
 
-        if (pathinfo($path, PATHINFO_EXTENSION) !== 'jpg') {
+        if ('jpg' !== pathinfo($path, PATHINFO_EXTENSION)) {
             return $path;
         }
 
