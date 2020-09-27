@@ -8,10 +8,11 @@ use App\Domain\Forum\Entity\ReadTime;
 use App\Domain\Forum\Entity\Topic;
 use App\Domain\Forum\Event\PreTopicCreatedEvent;
 use App\Domain\Forum\Event\TopicCreatedEvent;
+use App\Domain\Forum\Event\TopicResolvedEvent;
 use App\Domain\Forum\Repository\ReadTimeRepository;
 use App\Domain\Forum\Repository\TopicRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 
 class TopicService
 {
@@ -134,5 +135,16 @@ class TopicService
         /** @var ReadTimeRepository $repository */
         $repository = $this->em->getRepository(ReadTime::class);
         $repository->updateNotificationStatusForUsers($message->getTopic(), $users);
+    }
+
+    /**
+     * Marque le message comme résolution du topic
+     */
+    public function messageSolveTopic(Message $message): void
+    {
+        $message->setAccepted(true);
+        $message->getTopic()->setSolved(true);
+        $this->dispatcher->dispatch(new TopicResolvedEvent($message));
+        $this->em->flush();
     }
 }

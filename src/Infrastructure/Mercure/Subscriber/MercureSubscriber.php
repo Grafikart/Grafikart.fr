@@ -5,6 +5,7 @@ namespace App\Infrastructure\Mercure\Subscriber;
 use App\Domain\Auth\User;
 use App\Domain\Badge\Event\BadgeUnlockEvent;
 use App\Domain\Notification\Event\NotificationCreatedEvent;
+use App\Infrastructure\Queue\EnqueueMethod;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Mercure\PublisherInterface;
 use Symfony\Component\Mercure\Update;
@@ -14,11 +15,16 @@ class MercureSubscriber implements EventSubscriberInterface
 {
     private SerializerInterface $serializer;
     private PublisherInterface $publisher;
+    /**
+     * @var EnqueueMethod
+     */
+    private EnqueueMethod $enqueue;
 
-    public function __construct(SerializerInterface $serializer, PublisherInterface $publisher)
+    public function __construct(SerializerInterface $serializer, PublisherInterface $publisher, EnqueueMethod $enqueue)
     {
         $this->serializer = $serializer;
         $this->publisher = $publisher;
+        $this->enqueue = $enqueue;
     }
 
     public static function getSubscribedEvents(): array
@@ -43,7 +49,7 @@ class MercureSubscriber implements EventSubscriberInterface
             'groups' => ['read:notification'],
             'iri' => false,
         ]), true);
-        $this->publisher->__invoke($update);
+        $this->enqueue->enqueue(PublisherInterface::class, '__invoke', [$update]);
     }
 
     public function publishBadgeUnlock(BadgeUnlockEvent $event): void
@@ -54,6 +60,6 @@ class MercureSubscriber implements EventSubscriberInterface
             'type' => 'badge',
             'data' => $badge
         ], 'json'), true);
-        $this->publisher->__invoke($update);
+        $this->enqueue->enqueue(PublisherInterface::class, '__invoke', [$update]);
     }
 }

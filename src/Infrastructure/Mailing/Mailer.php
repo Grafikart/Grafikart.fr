@@ -2,6 +2,7 @@
 
 namespace App\Infrastructure\Mailing;
 
+use App\Infrastructure\Queue\EnqueueMethod;
 use App\Infrastructure\Queue\Message\ServiceMethodMessage;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -11,12 +12,12 @@ use Twig\Environment;
 class Mailer
 {
     private Environment $twig;
-    private MessageBusInterface $messageBus;
+    private EnqueueMethod $enqueue;
 
-    public function __construct(Environment $twig, MessageBusInterface $messageBus)
+    public function __construct(Environment $twig, EnqueueMethod $enqueue)
     {
         $this->twig = $twig;
-        $this->messageBus = $messageBus;
+        $this->enqueue = $enqueue;
     }
 
     public function createEmail(string $template, array $data = []): Email
@@ -34,8 +35,6 @@ class Mailer
 
     public function send(Email $email): void
     {
-        $this->messageBus->dispatch(
-            new ServiceMethodMessage(MailerInterface::class, 'send', [$email])
-        );
+        $this->enqueue->enqueue(MailerInterface::class, 'send', [$email]);
     }
 }

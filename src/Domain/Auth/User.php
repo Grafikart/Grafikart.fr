@@ -70,9 +70,9 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface
     private ?\DateTimeInterface $updatedAt = null;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime", nullable=false)
      */
-    private ?\DateTimeInterface $createdAt = null;
+    private \DateTimeInterface $createdAt;
 
     /**
      * @ORM\Column(type="string", length=2, nullable=true)
@@ -212,7 +212,7 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
     }

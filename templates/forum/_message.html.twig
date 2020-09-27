@@ -22,7 +22,7 @@
       <forum-report message="{{ message.id }}"></forum-report>
       <forum-solve
         message="{{ message.id }}"
-        topicAuthor="{{ message.topic.id }}"
+        topic-author="{{ message.topic.author.id }}"
         {% if message.accepted %}
           disabled
         {% endif %}

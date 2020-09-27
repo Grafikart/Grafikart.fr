@@ -38,7 +38,7 @@ final class UserImporter implements TypeImporterInterface
             'id' => 0,
         ];
         while (true) {
-            $query = $this->pdo->prepare("SELECT id, username, email, encrypted_password FROM users  ORDER BY id ASC LIMIT $offset, 1000");
+            $query = $this->pdo->prepare("SELECT id, username, email, created_at, encrypted_password FROM users  ORDER BY id ASC LIMIT $offset, 1000");
             $query->execute();
             /** @var array<string,mixed> $oldUsers */
             $oldUsers = $query->fetchAll();
@@ -50,6 +50,7 @@ final class UserImporter implements TypeImporterInterface
                     ->setId($oldUser['id'])
                     ->setUsername($oldUser['username'])
                     ->setPassword($oldUser['encrypted_password'])
+                    ->setCreatedAt(new \DateTime($oldUser['created_at']))
                     ->setEmail($oldUser['email']);
                 $this->em->persist($user);
                 $this->disableAutoIncrement($user);

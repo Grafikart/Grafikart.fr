@@ -6,6 +6,7 @@ use ApiPlatform\Core\Validator\ValidatorInterface;
 use App\Domain\Forum\Entity\Message;
 use App\Domain\Forum\Entity\Topic;
 use App\Domain\Forum\Event\MessageCreatedEvent;
+use App\Domain\Forum\TopicService;
 use App\Http\Controller\AbstractController;
 use App\Http\Security\ForumVoter;
 use Doctrine\ORM\EntityManagerInterface;
@@ -22,6 +23,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ForumMessageController extends AbstractController
 {
+
     /**
      * @Route("/topics/{id}/messages", name="api_forum/messages_post_collection", methods={"POST"})
      */
@@ -55,12 +57,10 @@ class ForumMessageController extends AbstractController
     /**
      * @Route("/messages/{id}/solve", name="api_forum/messages_solve_item ", methods={"POST"})
      */
-    public function solve(Message $message, EntityManagerInterface $em): Response
+    public function solve(Message $message, TopicService $service): Response
     {
         $this->denyAccessUnlessGranted(ForumVoter::SOLVE_MESSAGE, $message);
-        $message->setAccepted(true);
-        $message->getTopic()->setSolved(true);
-        $em->flush();
+        $service->messageSolveTopic($message);
 
         return new Response(null, Response::HTTP_NO_CONTENT);
     }

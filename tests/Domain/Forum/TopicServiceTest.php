@@ -3,10 +3,14 @@
 namespace App\Tests\Domain\Forum;
 
 use App\Domain\Auth\User;
+use App\Domain\Forum\Entity\Message;
 use App\Domain\Forum\Entity\Topic;
+use App\Domain\Forum\Event\TopicResolvedEvent;
 use App\Domain\Forum\TopicService;
 use App\Tests\FixturesTrait;
 use App\Tests\KernelTestCase;
+use Doctrine\ORM\EntityManagerInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 
 class TopicServiceTest extends KernelTestCase
 {
@@ -82,5 +86,19 @@ class TopicServiceTest extends KernelTestCase
                 $this->topic2,
             ], $this->user)
         );
+    }
+
+    public function testSolveEmitEvent(): void
+    {
+        $message = new Message();
+        $topic = new Topic();
+        $message->setTopic($topic);
+        $em = $this->createMock(EntityManagerInterface::class);
+        $dispatcher = $this->createMock(EventDispatcherInterface::class);
+        $dispatcher->expects($this->once())->method('dispatch')->with($this->isInstanceOf(TopicResolvedEvent::class));
+        $service = new TopicService($dispatcher, $em);
+        $service->messageSolveTopic($message);
+        $this->assertTrue($topic->isSolved());
+        $this->assertTrue($message->isAccepted());
     }
 }
