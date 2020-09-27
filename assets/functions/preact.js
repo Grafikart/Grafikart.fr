@@ -133,6 +133,7 @@ function toVdom (element, nodeName) {
       props[toCamelCase(a[i].name)] = a[i].value
     }
   }
+  props.parent = element
 
   for (i = cn.length; i--; ) {
     const vnode = toVdom(cn[i], null)

@@ -8,6 +8,7 @@ import { Flex } from '/components/Layout.jsx'
 import { Field } from '/components/Form.jsx'
 import { scrollTo } from '/functions/animation.js'
 import { catchViolations } from '/functions/api.js'
+import { useVisibility, useAsyncEffect } from '/functions/hooks.js'
 
 /**
  * Affiche les commentaires associé à un contenu
@@ -15,7 +16,7 @@ import { catchViolations } from '/functions/api.js'
  * @param {{target: number}} param0
  */
 export function Comments ({ target, parent }) {
-  target = parseInt(target, 10);
+  target = parseInt(target, 10)
   const [state, setState] = useState({
     editing: null, // ID du commentaire en cours d'édition
     comments: null, // Liste des commentaires
@@ -23,6 +24,7 @@ export function Comments ({ target, parent }) {
     reply: null // Commentaire auquel on souhaite répondre
   })
   const count = state.comments ? state.comments.length : null
+  const isVisible = useVisibility(parent)
   const comments = useMemo(() => {
     if (state.comments === null) {
       return null
@@ -36,21 +38,12 @@ export function Comments ({ target, parent }) {
   }
 
   // On charge les commentaire dès l'affichage du composant
-  useEffect(() => {
-    const observer = new IntersectionObserver(observables => {
-      observables.forEach(async observable => {
-        // L'élément devient visible
-        if (observable.intersectionRatio > 0) {
-          const comments = await findAllComments(target)
-          setState(s => ({ ...s, comments }))
-        }
-      })
-    })
-    observer.observe(parent)
-    return () => {
-      observer.disconnect()
+  useAsyncEffect(async () => {
+    if (isVisible) {
+      const comments = await findAllComments(target)
+      setState(s => ({ ...s, comments }))
     }
-  }, [target, parent])
+  }, [target, isVisible])
 
   // On se focalise sur un commentaire
   useEffect(() => {
@@ -111,56 +104,69 @@ export function Comments ({ target, parent }) {
   return (
     <div className='comment-area'>
       <div className='comments__title'>
-        {count === null ?
-          <skeleton-box text="3 Commentaires"></skeleton-box> :
-          <>{count} Commentaire{count > 1 ? 's' : ''}</>
-        }
+        {count === null ? (
+          <skeleton-box text='3 Commentaires' />
+        ) : (
+          <>
+            {count} Commentaire{count > 1 ? 's' : ''}
+          </>
+        )}
       </div>
       <CommentForm onSubmit={handleCreate} />
       <hr />
       <div className='comment-list'>
-        {comments ? comments.map(comment => (
-          <Comment
-            key={comment.id}
-            comment={comment}
-            editing={state.editing === comment.id}
-            onEdit={handleEdit}
-            onUpdate={handleUpdate}
-            onDelete={handleDelete}
-            onReply={handleReply}
-          >
-            {repliesFor(comment).map(reply => (
-              <Comment
-                key={reply.id}
-                comment={reply}
-                editing={state.editing === reply.id}
-                onEdit={handleEdit}
-                onUpdate={handleUpdate}
-                onDelete={handleDelete}
-                onReply={handleReply}
-              />
-            ))}
-            {state.reply === comment.id && (
-              <CommentForm onSubmit={handleCreate} parent={comment.id} onCancel={handleCancelReply} />
-            )}
-          </Comment>
-        )) : <><FakeComment /><FakeComment /><FakeComment /></>}
+        {comments ? (
+          comments.map(comment => (
+            <Comment
+              key={comment.id}
+              comment={comment}
+              editing={state.editing === comment.id}
+              onEdit={handleEdit}
+              onUpdate={handleUpdate}
+              onDelete={handleDelete}
+              onReply={handleReply}
+            >
+              {repliesFor(comment).map(reply => (
+                <Comment
+                  key={reply.id}
+                  comment={reply}
+                  editing={state.editing === reply.id}
+                  onEdit={handleEdit}
+                  onUpdate={handleUpdate}
+                  onDelete={handleDelete}
+                  onReply={handleReply}
+                />
+              ))}
+              {state.reply === comment.id && (
+                <CommentForm onSubmit={handleCreate} parent={comment.id} onCancel={handleCancelReply} />
+              )}
+            </Comment>
+          ))
+        ) : (
+          <>
+            <FakeComment />
+            <FakeComment />
+            <FakeComment />
+          </>
+        )}
       </div>
     </div>
   )
 }
 
 const FakeComment = memo(() => {
-  return <div class="comment">
-    <skeleton-box className='comment__avatar' width="40" height="40" rounded/>
-    <div className='comment__meta'>
-      <skeleton-box className='comment__author' text='John Doe comm'/>
-      <div className='comment_actions'>
-        <skeleton-box className='comment__date' text='Il y a 9 mois'/>
+  return (
+    <div class='comment'>
+      <skeleton-box className='comment__avatar' width='40' height='40' rounded />
+      <div className='comment__meta'>
+        <skeleton-box className='comment__author' text='John Doe comm' />
+        <div className='comment_actions'>
+          <skeleton-box className='comment__date' text='Il y a 9 mois' />
+        </div>
       </div>
+      <skeleton-box className='comment__content' width='921' height='90' />
     </div>
-    <skeleton-box className="comment__content" width="921" height="90"/>
-  </div>
+  )
 })
 
 /**
