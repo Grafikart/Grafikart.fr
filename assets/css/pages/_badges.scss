@@ -2,9 +2,79 @@
   background-image: url(/images/badges.png);
   width: 160px;
   height: 160px;
-  opacity: 0;
 }
 
+.badge-icon {
+  width: 160px;
+  height: 160px;
+  position: relative;
+  background-image: url(/images/badges.png);
+
+  &::before, &::after {
+    transition: transform .3s;
+    content:'';
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    @extend %badges;
+  }
+
+  img {
+    transition: .3s;
+    position: absolute;
+    z-index: 3;
+  }
+}
+
+.badge-icon-grey {
+  background-position: 0 -160px * 3;
+}
+
+.badge-icon-grey::before {
+  background-position: 0 -160px * 4;
+}
+
+.badge-icon-grey::after {
+  background-position: 0 -160px * 5;
+}
+
+.badge-icon-blue::before {
+  background-position: 0 -160px;
+}
+
+.badge-icon-blue::after {
+  background-position: 0 -160px * 2;
+}
+
+// Effet de hover
+// =============
+.badge-hover {
+  flex: none;
+  width: 90px;
+  height: 90px;
+  .badge-icon {
+    transition: .3s;
+    transform: translate(-35px, -35px) scale(.6);
+  }
+  &:hover {
+    .badge-icon {
+      transform: translate(-35px, -35px) scale(.8);
+    }
+    .badge-icon::before {
+      transform: scale(.93);
+    }
+    .badge-icon::after {
+      transform: scale(.95);
+    }
+    .badge-icon img {
+      transform: scale(1.1);
+    }
+  }
+}
+
+// Modal de déblocage de badge
+// =============
 .badge-modal {
   width: 430px;
 }
@@ -53,7 +123,6 @@
   animation-fill-mode: forwards;
 }
 
-
 @keyframes badgeFade {
   0% {
     opacity: 0;
@@ -71,7 +140,7 @@
     opacity: 0.2;
   }
   100% {
-    transform: scale(1) ;
+    transform: scale(1);
     opacity: 1;
   }
 }

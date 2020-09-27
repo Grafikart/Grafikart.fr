@@ -26,7 +26,7 @@ class BadgeUnlock
 
     /**
      * @ORM\ManyToOne(targetEntity=Badge::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private Badge $badge;
 

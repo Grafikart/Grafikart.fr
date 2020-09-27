@@ -3,9 +3,12 @@
 namespace App\Domain\Badge\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Domain\Badge\Repository\BadgeRepository")
+ * @Vich\Uploadable()
  */
 class Badge
 {
@@ -48,12 +51,28 @@ class Badge
      */
     private string $theme = 'grey';
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $image = null;
+
+    /**
+     * @Vich\UploadableField(fileNameProperty="image", mapping="badges")
+     */
+    private ?File $imageFile = null;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=false)
+     */
+    private \DateTimeInterface $updatedAt;
+
     public function __construct(string $name = '', string $description = '', string $action = '', int $actionCount = 0)
     {
         $this->name = $name;
         $this->description = $description;
         $this->action = $action;
         $this->actionCount = $actionCount;
+        $this->updatedAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -138,5 +157,43 @@ class Badge
         $this->theme = $theme;
 
         return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): Badge
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(?File $imageFile): Badge
+    {
+        $this->imageFile = $imageFile;
+        return $this;
+    }
+
+    public function getUpdatedAt(): \DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): Badge
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    public function imageName(): string
+    {
+        return $this->action . '-' . $this->actionCount;
     }
 }
