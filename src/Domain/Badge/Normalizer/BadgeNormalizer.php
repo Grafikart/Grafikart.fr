@@ -2,15 +2,21 @@
 
 namespace App\Domain\Badge\Normalizer;
 
+use App\Core\Normalizer;
 use App\Domain\Badge\Entity\Badge;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
-class BadgeNormalizer implements NormalizerInterface
+class BadgeNormalizer extends Normalizer
 {
-    /**
-     * @return array
-     */
-    public function normalize($object, string $format = null, array $context = [])
+
+    private UploaderHelper $uploaderHelper;
+
+    public function __construct(UploaderHelper $uploaderHelper)
+    {
+        $this->uploaderHelper = $uploaderHelper;
+    }
+
+    public function normalize($object, string $format = null, array $context = []): array
     {
         if (!($object instanceof Badge)) {
             throw new \RuntimeException();
@@ -19,12 +25,12 @@ class BadgeNormalizer implements NormalizerInterface
         return [
             'name' => $object->getName(),
             'description' => $object->getDescription(),
-            'image' => 'https://www.grafikart.fr/uploads/badges/11.png',
+            'image' => $this->uploaderHelper->asset($object),
             'theme' => $object->getTheme(),
         ];
     }
 
-    public function supportsNormalization($data, string $format = null)
+    public function supportsNormalization($data, string $format = null): bool
     {
         return $data instanceof Badge && 'json' === $format;
     }

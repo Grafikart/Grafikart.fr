@@ -2,10 +2,10 @@
 
 namespace App\Infrastructure\Social\Normalizer;
 
+use App\Core\Normalizer;
 use League\OAuth2\Client\Provider\FacebookUser;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class FacebookNormalizer implements NormalizerInterface
+class FacebookNormalizer extends Normalizer
 {
     /**
      * @param FacebookUser $object
@@ -20,7 +20,7 @@ class FacebookNormalizer implements NormalizerInterface
         ];
     }
 
-    public function supportsNormalization($data, string $format = null)
+    public function supportsNormalization($data, string $format = null): bool
     {
         return $data instanceof FacebookUser;
     }

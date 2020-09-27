@@ -26,6 +26,15 @@ export function lastNotificationRead () {
 }
 
 /**
+ * Renvoie l'id de l'utilisateur
+ *
+ * @return {number|null}
+ */
+export function getUserId () {
+  return window.grafikart.USER
+}
+
+/**
  * Vérifie si l'utilisateur connecté correspond à l'id passé en paramètre
  *
  * @param {number} userId

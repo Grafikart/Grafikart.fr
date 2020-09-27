@@ -2,12 +2,12 @@
 
 namespace App\Domain\Attachment\Normalizer;
 
+use App\Core\Normalizer;
 use App\Domain\Attachment\Attachment;
 use App\Infrastructure\Image\ImageResizer;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
-class AttachmentApiNormalizer implements NormalizerInterface
+class AttachmentApiNormalizer extends Normalizer
 {
     private ImageResizer $resizer;
     private UploaderHelper $uploaderHelper;

@@ -3,13 +3,14 @@
 namespace App\Infrastructure\Mercure\Subscriber;
 
 use App\Domain\Auth\User;
+use App\Domain\Badge\Event\BadgeUnlockEvent;
 use App\Domain\Notification\Event\NotificationCreatedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Mercure\PublisherInterface;
 use Symfony\Component\Mercure\Update;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class NotificationSubscriber implements EventSubscriberInterface
+class MercureSubscriber implements EventSubscriberInterface
 {
     private SerializerInterface $serializer;
     private PublisherInterface $publisher;
@@ -24,6 +25,7 @@ class NotificationSubscriber implements EventSubscriberInterface
     {
         return [
             NotificationCreatedEvent::class => ['publishNotification'],
+            BadgeUnlockEvent::class => ['publishBadgeUnlock'],
         ];
     }
 
@@ -34,10 +36,24 @@ class NotificationSubscriber implements EventSubscriberInterface
         if (null === $channel && $notification->getUser() instanceof User) {
             $channel = 'user/'.$notification->getUser()->getId();
         }
-        $update = new Update("/notifications/$channel", $this->serializer->serialize($notification, 'json', [
+        $update = new Update("/notifications/$channel", $this->serializer->serialize([
+            'type' => 'notification',
+            'data' => $notification
+        ], 'json', [
             'groups' => ['read:notification'],
             'iri' => false,
         ]), true);
+        $this->publisher->__invoke($update);
+    }
+
+    public function publishBadgeUnlock(BadgeUnlockEvent $event): void
+    {
+        $badge = $event->getBadge();
+        $user = $event->getUser();
+        $update = new Update("/notifications/user/{$user->getId()}", $this->serializer->serialize([
+            'type' => 'badge',
+            'data' => $badge
+        ], 'json'), true);
         $this->publisher->__invoke($update);
     }
 }

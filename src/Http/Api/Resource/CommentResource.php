@@ -6,6 +6,7 @@ use ApiPlatform\Core\Action\NotFoundAction;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Domain\Comment\Comment;
+use App\Domain\Comment\CommentData;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -29,7 +30,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     }
  * )
  */
-class CommentResource
+class CommentResource extends CommentData
 {
     /**
      * @Groups({"read"})

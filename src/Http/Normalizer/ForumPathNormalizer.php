@@ -2,18 +2,15 @@
 
 namespace App\Http\Normalizer;
 
+use App\Core\Normalizer;
 use App\Domain\Forum\Entity\Message;
 use App\Domain\Forum\Entity\Tag;
 use App\Domain\Forum\Entity\Topic;
 use App\Http\Encoder\PathEncoder;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class ForumPathNormalizer implements NormalizerInterface
+class ForumPathNormalizer extends Normalizer
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function normalize($object, string $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = []): array
     {
         if ($object instanceof Tag) {
             return [
@@ -35,10 +32,7 @@ class ForumPathNormalizer implements NormalizerInterface
         throw new \RuntimeException("Can't normalize path");
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function supportsNormalization($data, string $format = null)
+    public function supportsNormalization($data, string $format = null): bool
     {
         return ($data instanceof Tag || $data instanceof Topic || $data instanceof Message)
             && PathEncoder::FORMAT === $format;

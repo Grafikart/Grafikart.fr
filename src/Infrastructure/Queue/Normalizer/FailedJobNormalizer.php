@@ -2,16 +2,13 @@
 
 namespace App\Infrastructure\Queue\Normalizer;
 
+use App\Core\Normalizer;
 use App\Http\Encoder\PathEncoder;
 use App\Infrastructure\Queue\FailedJob;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class FailedJobNormalizer implements NormalizerInterface
+class FailedJobNormalizer extends Normalizer
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function normalize($object, string $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = []): array
     {
         if ($object instanceof FailedJob) {
             return [
@@ -21,10 +18,7 @@ class FailedJobNormalizer implements NormalizerInterface
         throw new \RuntimeException("Can't normalize path");
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function supportsNormalization($data, string $format = null)
+    public function supportsNormalization($data, string $format = null): bool
     {
         return ($data instanceof FailedJob)
             && PathEncoder::FORMAT === $format;

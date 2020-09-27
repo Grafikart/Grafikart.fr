@@ -19,7 +19,7 @@ class BadgeUnlockRepositoryTest extends RepositoryTestCase
 
     public function testHasUnlockedWithNoBadge()
     {
-        ['badgegamer' => $badge, 'user1' => $user] = $this->loadFixtures(['badges']);
+        ['user1' => $user] = $this->loadFixtures(['badges']);
         $this->assertFalse($this->repository->hasUnlocked($user, 'gamer'));
     }
 
@@ -29,6 +29,14 @@ class BadgeUnlockRepositoryTest extends RepositoryTestCase
         $this->em->persist(new BadgeUnlock($user, $badge));
         $this->em->flush();
         $this->assertTrue($this->repository->hasUnlocked($user, 'gamer'));
+    }
+
+    public function testHasUnlockedWithBadgeAboveLimit()
+    {
+        ['badgecomment5' => $badge, 'user1' => $user] = $this->loadFixtures(['badges']);
+        $this->em->persist(new BadgeUnlock($user, $badge));
+        $this->em->flush();
+        $this->assertFalse($this->repository->hasUnlocked($user, 'comments', 100));
     }
 
     public function testFindUnlockableBadges()

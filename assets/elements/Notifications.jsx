@@ -4,7 +4,7 @@ import { Icon } from '/components/Icon.jsx'
 import { SlideIn } from '/components/Animation/SlideIn.jsx'
 import { isAuthenticated, lastNotificationRead } from '/functions/auth.js'
 import { Spinner } from '/components/Animation/Spinner.jsx'
-import { loadNotifications } from '/api/notifications.js'
+import { loadNotifications, onNotification } from '/api/notifications.js'
 import { jsonFetch } from '/functions/api.js'
 
 const OPEN = 0
@@ -52,15 +52,7 @@ export function Notifications () {
   }, [])
 
   // On écoute l'arrivé de nouveaux évènement depuis l'API ou le SSE
-  useEffect(() => {
-    const onNotification = e => {
-      pushNotification(e.detail)
-    }
-    window.addEventListener('gnotification', onNotification)
-    return () => {
-      window.removeEventListener('gnotification', onNotification)
-    }
-  }, [pushNotification])
+  useEffect(() => onNotification('notification', pushNotification), [pushNotification])
 
   // Le système de notification ne fonction que pour les utilisateurs
   if (!isAuthenticated()) return null

@@ -3,10 +3,11 @@
 namespace App\Http\Normalizer;
 
 use ApiPlatform\Core\Api\UrlGeneratorInterface;
+use App\Core\Normalizer;
 use App\Domain\Forum\Entity\Tag;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class ForumTagNormalizer implements NormalizerInterface
+class ForumTagNormalizer extends Normalizer
 {
     private UrlGeneratorInterface $urlGenerator;
 
@@ -15,10 +16,7 @@ class ForumTagNormalizer implements NormalizerInterface
         $this->urlGenerator = $urlGenerator;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function normalize($object, string $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = []): array
     {
         if ($object instanceof Tag) {
             return [
@@ -34,10 +32,7 @@ class ForumTagNormalizer implements NormalizerInterface
         throw new \RuntimeException("Can't normalize path");
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function supportsNormalization($data, string $format = null)
+    public function supportsNormalization($data, string $format = null): bool
     {
         return $data instanceof Tag && 'json' === $format;
     }
