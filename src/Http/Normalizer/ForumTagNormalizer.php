@@ -5,7 +5,6 @@ namespace App\Http\Normalizer;
 use ApiPlatform\Core\Api\UrlGeneratorInterface;
 use App\Core\Normalizer;
 use App\Domain\Forum\Entity\Tag;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class ForumTagNormalizer extends Normalizer
 {

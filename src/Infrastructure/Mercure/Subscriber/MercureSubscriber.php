@@ -15,9 +15,7 @@ class MercureSubscriber implements EventSubscriberInterface
 {
     private SerializerInterface $serializer;
     private PublisherInterface $publisher;
-    /**
-     * @var EnqueueMethod
-     */
+
     private EnqueueMethod $enqueue;
 
     public function __construct(SerializerInterface $serializer, PublisherInterface $publisher, EnqueueMethod $enqueue)
@@ -44,7 +42,7 @@ class MercureSubscriber implements EventSubscriberInterface
         }
         $update = new Update("/notifications/$channel", $this->serializer->serialize([
             'type' => 'notification',
-            'data' => $notification
+            'data' => $notification,
         ], 'json', [
             'groups' => ['read:notification'],
             'iri' => false,
@@ -58,7 +56,7 @@ class MercureSubscriber implements EventSubscriberInterface
         $user = $event->getUser();
         $update = new Update("/notifications/user/{$user->getId()}", $this->serializer->serialize([
             'type' => 'badge',
-            'data' => $badge
+            'data' => $badge,
         ], 'json'), true);
         $this->enqueue->enqueue(PublisherInterface::class, '__invoke', [$update]);
     }

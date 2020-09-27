@@ -3,6 +3,7 @@
 namespace App\Domain\Badge;
 
 use App\Domain\Auth\User;
+use App\Domain\Badge\Entity\Badge;
 use App\Domain\Badge\Entity\BadgeUnlock;
 use App\Domain\Badge\Event\BadgeUnlockEvent;
 use App\Domain\Badge\Repository\BadgeUnlockRepository;
@@ -50,5 +51,27 @@ class BadgeService
         }
 
         return $unlocks;
+    }
+
+    /**
+     * Renvoie les badges disponibles sur le site.
+     *
+     * @return Badge[]
+     */
+    public function getBadges(): array
+    {
+        return $this->em->getRepository(Badge::class)->findAll();
+    }
+
+    /**
+     * Renvoie les badges débloqués par l'utilisateur.
+     *
+     * @return BadgeUnlock[]
+     */
+    public function getUnlocksForUser(User $user): array
+    {
+        return collect($this->em->getRepository(BadgeUnlock::class)->findBy([
+            'owner' => $user,
+        ]))->keyBy(fn (BadgeUnlock $u) => $u->getBadge()->getId())->toArray();
     }
 }

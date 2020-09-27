@@ -12,7 +12,7 @@ class Slug extends Regex
 {
     public function __construct($options = [])
     {
-        $options['pattern'] = '/^([a-z0-9]+\-)*[a-z0-9]+$/';
+        $options['pattern'] = '/^([a-z0-9A-Z]+\-)*[a-z0-9A-Z]+$/';
         parent::__construct($options);
     }
 

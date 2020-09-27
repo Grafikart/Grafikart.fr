@@ -23,7 +23,7 @@ class BadgeUnlockRepository extends ServiceEntityRepository
 
     public function hasUnlocked(User $user, string $action, int $count = 0): bool
     {
-        return (int)$this->getEntityManager()->createQuery(<<<DQL
+        return 0 === (int) $this->getEntityManager()->createQuery(<<<DQL
           SELECT COUNT(b.id) as c FROM App\Domain\Badge\Entity\Badge b
           WHERE NOT EXISTS (
             SELECT bu.id FROM App\Domain\Badge\Entity\BadgeUnlock bu WHERE bu.badge = b.id AND bu.owner = :user
@@ -31,7 +31,7 @@ class BadgeUnlockRepository extends ServiceEntityRepository
           AND b.action = :action AND b.actionCount <= :count
         DQL)
             ->setParameters(compact('user', 'action', 'count'))
-            ->getSingleScalarResult() === 0;
+            ->getSingleScalarResult();
     }
 
     /**

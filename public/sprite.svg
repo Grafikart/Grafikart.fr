@@ -148,4 +148,5 @@
   <symbol id="logout" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" clip-rule="evenodd" d="M0 2.667C0 1.2 1.2 0 2.666 0H13.33v2.667H2.666v18.666H13.33V24H2.666A2.674 2.674 0 010 21.333V2.667zm18.897 8l-3.38-3.382L17.4 5.4 24 12l-6.599 6.6-1.884-1.885 3.38-3.382h-8.78v-2.666h8.78z" fill="currentColor"/>
   </symbol>
+  <symbol viewBox="0 0 8 8" id="badge" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 0C2.9 0 2 .9 2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM3 4.81V8l1-1 1 1V4.81c-.31.11-.65.19-1 .19s-.69-.08-1-.19z" fill="currentColor"/></symbol>
 </svg>

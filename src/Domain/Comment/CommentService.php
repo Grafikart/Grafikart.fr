@@ -9,18 +9,10 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 
 class CommentService
 {
-
-    /**
-     * @var AuthService
-     */
     private AuthService $auth;
-    /**
-     * @var EntityManagerInterface
-     */
+
     private EntityManagerInterface $em;
-    /**
-     * @var EventDispatcherInterface
-     */
+
     private EventDispatcherInterface $dispatcher;
 
     public function __construct(AuthService $auth, EntityManagerInterface $em, EventDispatcherInterface $dispatcher)
@@ -48,6 +40,7 @@ class CommentService
         $this->em->persist($comment);
         $this->em->flush();
         $this->dispatcher->dispatch(new CommentCreatedEvent($comment));
+
         return $comment;
     }
 
@@ -55,6 +48,7 @@ class CommentService
     {
         $comment->setContent($content);
         $this->em->flush();
+
         return $comment;
     }
 

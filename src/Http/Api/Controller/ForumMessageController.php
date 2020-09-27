@@ -23,7 +23,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ForumMessageController extends AbstractController
 {
-
     /**
      * @Route("/topics/{id}/messages", name="api_forum/messages_post_collection", methods={"POST"})
      */

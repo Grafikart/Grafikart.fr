@@ -4,7 +4,6 @@ namespace App\Domain\Comment;
 
 abstract class CommentData
 {
-
     public ?int $id = null;
 
     public ?string $username = null;

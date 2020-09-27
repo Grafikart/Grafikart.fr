@@ -138,7 +138,7 @@ class TopicService
     }
 
     /**
-     * Marque le message comme résolution du topic
+     * Marque le message comme résolution du topic.
      */
     public function messageSolveTopic(Message $message): void
     {

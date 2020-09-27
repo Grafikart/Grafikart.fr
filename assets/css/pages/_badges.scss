@@ -1,7 +1,21 @@
+.badges {
+  display: grid;
+  grid-gap: space(2);
+  grid-row-gap: space(4);
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+}
+
 %badges {
   background-image: url(/images/badges.png);
   width: 160px;
   height: 160px;
+}
+
+.badge-placeholder {
+  background-image: url(/images/badge-placeholder.png);
+  width: 87px;
+  height: 87px;
+  margin: 0 auto;
 }
 
 .badge-icon {
@@ -53,6 +67,8 @@
   flex: none;
   width: 90px;
   height: 90px;
+  margin-left: auto;
+  margin-right: auto;
   .badge-icon {
     transition: .3s;
     transform: translate(-35px, -35px) scale(.6);

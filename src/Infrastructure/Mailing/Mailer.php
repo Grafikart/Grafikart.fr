@@ -3,9 +3,7 @@
 namespace App\Infrastructure\Mailing;
 
 use App\Infrastructure\Queue\EnqueueMethod;
-use App\Infrastructure\Queue\Message\ServiceMethodMessage;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Mime\Email;
 use Twig\Environment;
 

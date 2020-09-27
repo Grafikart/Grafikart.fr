@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'header-light' %}
+
+{% block title 'Mes badges' %}
+
+{% block body %}
+
+  <header class="page-header technology-header container">
+    <div class="stack w100">
+      <h1 class="h1">Mes badges</h1>
+    </div>
+  </header>
+
+  {% include 'profil/_tabs.html.twig' with {active: 'badges'} %}
+
+  <div class="container py4 badges">
+    {% for badge in badges %}
+      <div>
+        {% if unlocks[badge.id] is defined %}
+        <div class="badge-hover">
+          <div class="badge-icon badge-icon-{{ badge.theme }}">
+            {{ image(badge) }}
+          </div>
+        </div>
+        {% else %}
+          <div class="badge-placeholder mb1"></div>
+        {% endif %}
+        <div class="text-big bold text-center {% if unlocks[badge.id] is not defined %}text-muted{% endif %}">{{ badge.name }}</div>
+        <div class="text-muted text-center">{{ badge.description }}</div>
+      </div>
+    {% endfor %}
+  </div>
+
+{% endblock %}
+
+

@@ -8,7 +8,6 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class BadgeNormalizer extends Normalizer
 {
-
     private UploaderHelper $uploaderHelper;
 
     public function __construct(UploaderHelper $uploaderHelper)

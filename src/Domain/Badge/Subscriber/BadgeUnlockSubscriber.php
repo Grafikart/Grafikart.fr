@@ -17,7 +17,6 @@ use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 class BadgeUnlockSubscriber implements EventSubscriberInterface
 {
-
     private BadgeService $service;
     private EntityManagerInterface $em;
 
@@ -30,10 +29,10 @@ class BadgeUnlockSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            CommentCreatedEvent::class   => 'onCommentCreated',
-            TopicCreatedEvent::class     => 'onTopicCreated',
-            TopicResolvedEvent::class    => 'onTopicSolved',
-            InteractiveLoginEvent::class => 'onLogin'
+            CommentCreatedEvent::class => 'onCommentCreated',
+            TopicCreatedEvent::class => 'onTopicCreated',
+            TopicResolvedEvent::class => 'onTopicSolved',
+            InteractiveLoginEvent::class => 'onLogin',
         ];
     }
 
@@ -62,7 +61,7 @@ class BadgeUnlockSubscriber implements EventSubscriberInterface
         /** @var CommentRepository $repository */
         $repository = $this->em->getRepository(Message::class);
         $this->service->unlock($author, 'answers', $repository->count([
-            'author'   => $author,
+            'author' => $author,
             'accepted' => true,
         ]));
     }
@@ -73,6 +72,6 @@ class BadgeUnlockSubscriber implements EventSubscriberInterface
         if (!($user instanceof User)) {
             return;
         }
-        $this->service->unlock($user, 'years', (int)$user->getCreatedAt()->diff(new \DateTime())->format('%y'));
+        $this->service->unlock($user, 'years', (int) $user->getCreatedAt()->diff(new \DateTime())->format('%y'));
     }
 }

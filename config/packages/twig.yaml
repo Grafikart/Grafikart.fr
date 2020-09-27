@@ -7,3 +7,5 @@ twig:
     interval_format: '%%d days'
   globals:
     mercure_subscribe_url: '%env(resolve:MERCURE_SUBSCRIBE_URL)%'
+  paths:
+    '%kernel.project_dir%/src/Infrastructure/Maker/templates': maker

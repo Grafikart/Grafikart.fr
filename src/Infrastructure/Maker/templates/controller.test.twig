@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Tests\Http\Controller{{ namespace }};
+
+use App\Tests\FixturesTrait;
+use App\Tests\WebTestCase;
+
+class {{ class_name }}Test extends WebTestCase
+{
+    use FixturesTrait;
+
+    public function testIndex(): void
+    {
+        $this->loadFixtures([]);
+        $this->client->request('GET', '/demo');
+        $this->assertResponseStatusCodeSame(200);
+        $this->expectH1('Demo');
+        $this->expectTitle('Demo');
+    }
+}
