@@ -9,6 +9,10 @@ const root = './assets'
  * @type { import('vite').UserConfig }
  */
 const config = {
+  alias: {
+    'react': 'preact/compat',
+    'react-dom': 'preact/compat',
+  },
   jsx: 'preact',
   plugins: [prefresh()],
   root,

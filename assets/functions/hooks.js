@@ -28,6 +28,9 @@ export function usePrepend (initialValue = []) {
  */
 export function useClickOutside (ref, cb) {
   useEffect(() => {
+    if (cb === null) {
+      return
+    }
     const escCb = e => {
       if (e.key === 'Escape' && ref.current) {
         cb()

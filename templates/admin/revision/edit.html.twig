@@ -25,7 +25,7 @@
 
     <div class="form-group">
         <textarea class="card" name="content" id="" cols="30" is="diff-editor"
-                  original="{{ revision.target.content | e('html_attr') }}">{{ revision.content }}</textarea>
+                  original="{{ revision.target.content | e('html_attr') }}" updated="{{ revision.content | e('html_attr') }}"></textarea>
     </div>
 
   </form>
