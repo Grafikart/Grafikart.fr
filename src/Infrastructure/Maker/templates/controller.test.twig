@@ -1,6 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
+{% if api %}
+namespace App\Tests\Http\Api\Controller{{ namespace }};
+{% else %}
 namespace App\Tests\Http\Controller{{ namespace }};
+{% endif %}
 
 use App\Tests\FixturesTrait;
 use App\Tests\WebTestCase;

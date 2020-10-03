@@ -1,45 +1,92 @@
-import { Button, PrimaryButton } from '/components/Button.jsx'
+import { PrimaryButton } from '/components/Button.jsx'
 import { Modal } from '/components/Modal.jsx'
 import { useToggle } from '/functions/hooks.js'
-import { Field } from '/components/Form.jsx'
-import { AddressField } from '/components/AddressField.jsx'
-import { Stepper, Step } from '/components/Stepper.jsx'
+import { Step, Stepper } from '/components/Stepper.jsx'
+import { Slider } from '/components/Slider.jsx'
+import { useCallback, useState } from 'preact/hooks'
+import confetti from 'canvas-confetti'
+import { PaymentMethods } from '/elements/premium/PaymentMethods.jsx'
+import { InvoiceAddress } from '/elements/premium/InvoiceAddress.jsx'
+import { ApiError, jsonFetch } from '/functions/api.js'
+import { flash } from '/elements/Alert.js'
 
-export function PremiumButton ({ children }) {
+export function PremiumButton ({ children, plan, price, duration }) {
   const [modal, toggleModal] = useToggle(false)
+  const [step, setStep] = useState(3)
+  const [address, setAddressState] = useState({
+    firstname: 'John',
+    lastname: 'Doe',
+    address: '120 Avenue de test',
+    city: 'Montpellier',
+    postalCode: '34000',
+    countryCode: 'FR'
+  })
+  const description = `Compte premium ${duration} mois`
+  price = parseFloat(price)
+  const vat = address.countryCode === 'FR' ? parseFloat((0.2 * price).toFixed(2)) : 0
 
-  const handleAutocomplete = ({ country, city, address }) => {
-    document.querySelector('#country').value = country
-    document.querySelector('#city').value = city
-    document.querySelector('#address').value = address
+  const setAddress = address => {
+    setAddressState(address)
+    setStep(2)
   }
+
+  const handlePaypal = useCallback(async orderId => {
+    try {
+      await jsonFetch(`/api/premium/paypal/${orderId}`, { method: 'POST' })
+      setStep(3)
+      confetti({
+        particleCount: 100,
+        zIndex: 3000,
+        spread: 70,
+        origin: { y: 0.6 }
+      })
+    } catch (e) {
+      if (e instanceof ApiError) {
+        flash(e.name, 'danger', null)
+      }
+    }
+  }, [])
 
   return (
     <>
       <PrimaryButton onClick={toggleModal}>{children}</PrimaryButton>
       {modal && (
-        <Modal className='premium-modal'>
-          <Stepper step={1} class='mb4'>
+        <Modal class='premium-modal pb4' onClose={toggleModal}>
+          <Stepper step={step} class='p4'>
             <Step>Facturations</Step>
-            <Step>Méthode de paiement</Step>
+            <Step>Paiement</Step>
             <Step>Récapitulatif</Step>
           </Stepper>
 
-          <div className='grid2'>
-            <Field name='firstname'>Prénom</Field>
-            <Field name='lastname'>Nom</Field>
-            <div className='full'>
-              <Field name='address' component={AddressField} onChange={handleAutocomplete}>
-                Adresse
-              </Field>
+          <Slider slide={step}>
+            <div class='px4'>
+              <InvoiceAddress onSubmit={setAddress} address={address} />
             </div>
-            <Field name='city'>Ville</Field>
-            <Field name='country'>Pays</Field>
-          </div>
 
-          <hr class='my4' />
+            <div class='px4'>
+              <PaymentMethods
+                plan={plan}
+                price={price}
+                vat={vat}
+                description={description}
+                onPaypalApproval={handlePaypal}
+              />
+            </div>
 
-          <Button class='btn-primary btn-block'>Devenir premium</Button>
+            <div class='px4'>
+              <h1 class='h1 text-center mb2'>Bravo !</h1>
+              <div class='text-center mb3'>
+                <img src='/images/success.svg' alt='' style='max-width: 80%;' />
+              </div>
+              <p>Votre paiement a été accepter, vous êtes maintenant premium pour {duration} mois.</p>
+
+              <hr class='my4' />
+
+              <a class='btn-primary btn-block' href='/tutoriels/premium'>
+                Voir les tutoriels premiums
+              </a>
+            </div>
+          </Slider>
         </Modal>
       )}
     </>

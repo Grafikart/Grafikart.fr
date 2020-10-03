@@ -4,6 +4,8 @@ import { useContext, useEffect, useLayoutEffect, useRef, useState } from 'preact
 import { useAutofocus } from '/functions/hooks.js'
 import { flash } from '/elements/Alert.js'
 import { Button, SecondaryButton, PrimaryButton } from '/components/Button.jsx'
+import { Flex } from '/components/Layout.jsx'
+import { classNames } from '/functions/dom.js'
 
 /**
  * Représente un champs, dans le contexte du formulaire
@@ -85,6 +87,22 @@ export function Field ({
       })()}
       {showError && <div className='invalid-feedback'>{error}</div>}
     </div>
+  )
+}
+
+/**
+ * Bouton radio avec un label sur le côté
+ */
+export function Radio ({ children, ...props }) {
+  return (
+    <Flex center gap={1}>
+      <span class={classNames('form-radio', props.checked && 'is-checked')}>
+        <input type='radio' {...props} />
+      </span>
+      <label htmlFor={props.id} class='flex'>
+        {children}
+      </label>
+    </Flex>
   )
 }
 

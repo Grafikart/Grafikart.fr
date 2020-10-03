@@ -162,6 +162,18 @@
   }
 }
 
+.grid3 {
+  width: 100%;
+  display: grid !important;
+  --gap: 2;
+  grid-gap: calc(var(--gap) * var(--space));
+  grid-template-columns: 1fr;
+
+  @include up(730) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 .grid.fit {
   grid-template-columns: repeat(auto-fit, minmax(var(--col, 275px), 1fr));
 }
@@ -274,6 +286,11 @@
       padding-bottom: space($i);
     }
 
+    .px#{$i} {
+      padding-left: space($i);
+      padding-right: space($i);
+    }
+
     .py#{$i} {
       padding-top: space($i);
       padding-bottom: space($i);
@@ -282,6 +299,15 @@
     .my#{$i} {
       margin-top: space($i);
       margin-bottom: space($i);
+    }
+
+    .m#{$i} {
+      margin: space($i);
+    }
+
+    .mx#{$i} {
+      margin-left: space($i);
+      margin-right: space($i);
     }
 
     .mt#{$i} {

@@ -1,0 +1,19 @@
+.slider {
+  position: relative;
+  display: flex;
+  transition: .6s cubic-bezier(.3,.85,.36,.99);
+}
+
+.slider > * {
+  width: 100%;
+  flex: 1;
+  opacity: 0;
+  max-height: 0;
+  transition: .6s;
+}
+
+.slider .slider-active {
+  max-height: none;
+  opacity: 1;
+}
+

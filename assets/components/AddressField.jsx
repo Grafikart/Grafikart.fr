@@ -13,7 +13,7 @@ export function AddressField ({ onChange, onInput, ...props }) {
         container: input.current,
         type: 'address'
       })
-      placesAutocomplete.on('change', e =>
+      placesAutocomplete.on('change', e => {
         onChange({
           country: e.suggestion.country,
           countryCode: e.suggestion.countryCode,
@@ -21,7 +21,7 @@ export function AddressField ({ onChange, onInput, ...props }) {
           address: e.suggestion.name,
           postalCode: e.suggestion.postcode
         })
-      )
+      })
     })
     return () => {
       if (placesAutocomplete) {

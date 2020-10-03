@@ -7,21 +7,21 @@ use Doctrine\ORM\Mapping as ORM;
 trait PremiumTrait
 {
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime_immutable", nullable=true)
      */
-    private ?\DateTimeInterface $premiumEnd = null;
+    protected ?\DateTimeImmutable $premiumEnd = null;
 
     public function isPremium(): bool
     {
         return $this->premiumEnd > new \DateTime();
     }
 
-    public function getPremiumEnd(): ?\DateTimeInterface
+    public function getPremiumEnd(): ?\DateTimeImmutable
     {
         return $this->premiumEnd;
     }
 
-    public function setPremiumEnd(?\DateTimeInterface $premiumEnd): void
+    public function setPremiumEnd(?\DateTimeImmutable $premiumEnd): void
     {
         $this->premiumEnd = $premiumEnd;
     }

@@ -31,7 +31,7 @@
     "nelmio/cors-bundle": "^1.5 || ^2.0",
     "omnipay/paypal": "^3.0",
     "oneup/flysystem-bundle": "^3.4",
-    "paypal/rest-api-sdk-php": "^1.14",
+    "paypal/paypal-checkout-sdk": "^1.0",
     "phpdocumentor/reflection-docblock": "^3.0 || ^4.0 || ^5.0",
     "predis/predis": "^1.1",
     "sensio/framework-extra-bundle": "^5.1",
