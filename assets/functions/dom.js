@@ -115,3 +115,13 @@ export function $$ (selector) {
 export function classNames (...classnames) {
   return classnames.filter(classname => classname !== null && classname !== false).join(' ')
 }
+
+/**
+ * Convertit les données d'un formulaire en objet JavaScript
+ *
+ * @param {HTMLFormElement} form
+ * @return {{[p: string]: string}}
+ */
+export function formDataToObj (form) {
+  return Object.fromEntries(new FormData(form))
+}

@@ -5,6 +5,7 @@ export function AddressField ({ onChange, onInput, ...props }) {
   const input = useRef(null)
 
   useEffect(() => {
+    /*
     let placesAutocomplete = null
     scriptjs('https://cdn.jsdelivr.net/npm/places.js@1.19.0', () => {
       placesAutocomplete = window.places({
@@ -13,7 +14,7 @@ export function AddressField ({ onChange, onInput, ...props }) {
         container: input.current,
         type: 'address'
       })
-      placesAutocomplete.on('change', e =>
+      placesAutocomplete.on('change', e => {
         onChange({
           country: e.suggestion.country,
           countryCode: e.suggestion.countryCode,
@@ -21,13 +22,14 @@ export function AddressField ({ onChange, onInput, ...props }) {
           address: e.suggestion.name,
           postalCode: e.suggestion.postcode
         })
-      )
+      })
     })
     return () => {
       if (placesAutocomplete) {
         placesAutocomplete.destroy()
       }
     }
+     */
   }, [onChange])
 
   return <input type='text' ref={input} {...props} />

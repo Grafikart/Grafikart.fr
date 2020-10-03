@@ -274,6 +274,11 @@
       padding-bottom: space($i);
     }
 
+    .px#{$i} {
+      padding-left: space($i);
+      padding-right: space($i);
+    }
+
     .py#{$i} {
       padding-top: space($i);
       padding-bottom: space($i);
@@ -282,6 +287,15 @@
     .my#{$i} {
       margin-top: space($i);
       margin-bottom: space($i);
+    }
+
+    .m#{$i} {
+      margin: space($i);
+    }
+
+    .mx#{$i} {
+      margin-left: space($i);
+      margin-right: space($i);
     }
 
     .mt#{$i} {

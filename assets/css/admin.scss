@@ -33,3 +33,8 @@
     transform: rotate(180deg);
   }
 }
+
+// Corrige un bug sur l'éditeur de diff
+span[class$="word-diff"] {
+  display: inline !important;
+}

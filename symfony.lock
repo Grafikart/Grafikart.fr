@@ -350,6 +350,12 @@
             "config/packages/oneup_flysystem.yaml"
         ]
     },
+    "paypal/paypal-checkout-sdk": {
+        "version": "1.0.1"
+    },
+    "paypal/paypalhttp": {
+        "version": "1.0.0"
+    },
     "paypal/rest-api-sdk-php": {
         "version": "1.14.0"
     },
