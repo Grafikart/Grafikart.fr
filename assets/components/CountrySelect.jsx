@@ -4,9 +4,12 @@ import { useState } from 'preact/hooks'
 
 let cachedCountries = null
 
-export function CountryField ({ ...props }) {
-  console.log(props)
-
+/**
+ * Champs select contenant la liste des pays (avec code pays)
+ * @param props comme un select
+ * @return {JSX.Element}
+ */
+export function CountrySelect ({ ...props }) {
   const [countries, setCountries] = useState(null)
 
   useAsyncEffect(async () => {
@@ -26,7 +29,11 @@ export function CountryField ({ ...props }) {
   return (
     <select {...props}>
       {Object.keys(countries).map(countryCode => (
-        <option defaultSelected={countryCode === 'FR' ? true : undefined} value={countryCode}>
+        <option
+          key={countryCode}
+          defaultSelected={countryCode === props.defaultValue ? true : undefined}
+          value={countryCode}
+        >
           {countries[countryCode]}
         </option>
       ))}

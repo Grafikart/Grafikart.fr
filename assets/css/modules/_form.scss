@@ -230,3 +230,44 @@ button:hover .icon-delete {
 .form-group .choices {
   margin-bottom: 0;
 }
+
+// Radio
+// =============
+.form-radio {
+  position: relative;
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  transition: border .3s;
+
+  &::after {
+    content:'';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: background-color .3s;
+  }
+
+  &.is-checked {
+    border-color: var(--contrast);
+  }
+
+  &.is-checked::after {
+    background: var(--contrast);
+  }
+
+  input {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}

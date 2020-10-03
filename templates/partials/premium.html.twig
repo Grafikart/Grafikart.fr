@@ -31,12 +31,9 @@
       les sources
     </div>
     <div class="pricing__action">
-      {{ plan | json_encode }}
-      {% if plan.duration == 1 %}
       <premium-button plan="{{ plan.id }}" price="{{ plan.price }}" duration="{{ plan.duration }}">
         Devenir premium ({{ plan.duration }} mois)
       </premium-button>
-      {% endif %}
     </div>
   </div>
 {% endfor %}

@@ -8,10 +8,12 @@
   width: 100%;
   flex: 1;
   opacity: 0;
+  max-height: 0;
   transition: .6s;
 }
 
 .slider .slider-active {
+  max-height: none;
   opacity: 1;
 }
 

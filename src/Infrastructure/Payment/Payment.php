@@ -5,13 +5,15 @@ namespace App\Infrastructure\Payment;
 class Payment
 {
 
-    public int $planId;
+    public string $id;
 
-    public string $paymentId;
+    public int $planId;
 
     public float $amount;
 
-    public string $fullName = '';
+    public string $firstname = '';
+
+    public string $lastname = '';
 
     public string $address = '';
 
@@ -22,5 +24,4 @@ class Payment
     public string $countryCode = 'FR';
 
     public float $vat = 0;
-
 }

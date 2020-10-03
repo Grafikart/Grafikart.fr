@@ -12,5 +12,4 @@ class PaymentFailedException extends \Exception
         $data = json_decode($exception->getMessage(), true);
         return new self($data['details'][0]['description'] ?? $exception->getMessage());
     }
-
 }

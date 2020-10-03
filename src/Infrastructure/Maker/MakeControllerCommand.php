@@ -28,7 +28,7 @@ class MakeControllerCommand extends AbstractMakeCommand
         /** @var string $controllerPath */
         $controllerPath = $input->getArgument('controllerName');
         if (substr($controllerPath, -1 * strlen('Controller')) !== 'Controller') {
-            $controllerPath .= 'Controlller';
+            $controllerPath .= 'Controller';
         }
         if (!is_string($controllerPath)) {
             throw new \RuntimeException('controllerPath doit être une chaine de caractère');
