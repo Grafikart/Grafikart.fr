@@ -11,7 +11,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class MakeControllerCommand extends AbstractMakeCommand
 {
-    protected static $defaultName = 'make:controller';
+    protected static $defaultName = 'do:controller';
 
     protected function configure(): void
     {

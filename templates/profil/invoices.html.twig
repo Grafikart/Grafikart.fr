@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'header-light' %}
+
+{% block title 'Mes factures' %}
+
+{% block body %}
+
+  <header class="page-header technology-header container">
+    <div class="stack w100">
+      <h1 class="h1">Mes factures</h1>
+    </div>
+  </header>
+
+  {% include 'profil/_tabs.html.twig' with {active: 'invoices'} %}
+
+  <div class="container py4">
+    {% if transactions is empty %}
+      <div class="py4 text-muted text-center h3">
+        Vous n'avez aucune facture :(
+      </div>
+    {% else %}
+    <table class="table">
+      <thead>
+      <tr>
+        <th width="180">Date</th>
+        <th>Description</th>
+        <th>Prix</th>
+        <th width="200"></th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for transaction in transactions %}
+      <tr>
+        <td>{{ transaction.createdAt | format_date('long') }}</td>
+        <td>Compte premium {{ transaction.duration }} mois</td>
+        <td>{{ transaction.price | format_currency('EUR') }}</td>
+        <td class="text-right">
+          <a target="_blank" href="{{ path('user_invoice', {id: transaction.id}) }}" class="btn-primary">Télécharger la facture</a>
+        </td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+  </div>
+
+{% endblock %}
+
+

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <style>
+    html, body, div, span, applet, object, iframe,
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, acronym, address, big, cite, code,
+    del, dfn, em, img, ins, kbd, q, s, samp,
+    small, strike, strong, sub, sup, tt, var,
+    b, u, i, center,
+    dl, dt, dd, ol, ul, li,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td,
+    article, aside, canvas, details, embed,
+    figure, figcaption, footer, header, hgroup,
+    menu, nav, output, ruby, section, summary,
+    time, mark, audio, video {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font-size: 100%;
+      font: inherit;
+      vertical-align: baseline;
+    }
+
+    /* HTML5 display-role reset for older browsers */
+    article, aside, details, figcaption, figure,
+    footer, header, hgroup, menu, nav, section {
+      display: block;
+    }
+
+    body {
+      line-height: 1;
+    }
+
+    ol, ul {
+      list-style: none;
+    }
+
+    blockquote, q {
+      quotes: none;
+    }
+
+    blockquote:before, blockquote:after,
+    q:before, q:after {
+      content: "";
+      content: none;
+    }
+
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+
+    /*
+    * Base
+    */
+    body {
+      color: #222222;
+      font-family: "Helvetica Neue", Arial, Verdana, "Nimbus Sans L", sans-serif;
+      font-weight: normal;
+      height: 100%;
+      line-height: normal;
+      text-rendering: optimizeLegibility;
+    }
+
+    h1 {
+      font-size: 3em;
+      font-weight: bold;
+      line-height: 1.1em;
+      margin: 0px 0px 70px 0;
+      min-height: 80px;
+      padding: 0px;
+      width: 300px;
+    }
+
+    strong {
+      font-weight: bold;
+    }
+
+    .cb {
+      clear: both;
+      height: 20px;
+    }
+
+    .tleft {
+      text-align: left !important;
+    }
+
+    .tright {
+      text-align: right !important;
+    }
+
+    .footer {
+      position: absolute;
+      border-top: 1px solid #cccccc;
+      padding: 1em 5px 0 5px;
+      margin: 0;
+    }
+
+    /*
+    * Adress
+    */
+    .address {
+      overflow: hidden;
+    }
+    .address_label {
+      color: #555;
+      float: left;
+      font-size: 1em;
+      font-weight: normal;
+      margin: 0;
+      padding-top: 4px;
+      text-align: right;
+      width: 105px;
+    }
+    .address_content {
+      border-left: 1px solid #cccccc;
+      margin-left: 115px;
+      padding: 4px 0 4px 10px;
+    }
+    .address_content strong {
+      display: block;
+      font-size: 1.2em;
+      padding-bottom: 2px;
+    }
+
+    .from {
+      position: absolute;
+      top: 7px;
+      right: 0;
+      width: 50%;
+    }
+
+    .to {
+      float: left;
+      width: 50%;
+    }
+
+    /*
+    * Infos
+    */
+    .infos {
+      float: right;
+      width: 50%;
+    }
+    .infos table {
+      width: 100%;
+    }
+    .infos .label {
+      text-align: right;
+      width: 105px;
+      color: #555;
+      font-size: inherit;
+      padding: 4px 10px 4px 0px;
+      min-height: 17px;
+      white-space: nowrap;
+      vertical-align: top;
+    }
+    .infos .def {
+      border-left: 1px solid #cccccc;
+      min-height: 17px;
+      padding: 4px 10px;
+      vertical-align: top;
+    }
+
+    /*
+    * Table
+    */
+    .items {
+      border-collapse: collapse;
+      margin: 50px 0;
+      width: 100%;
+    }
+    .items tbody tr:nth-child(odd) {
+      background-color: #f6f6f6;
+    }
+    .items th {
+      border-bottom: 1px solid #cccccc;
+      border-right: 1px solid #cccccc;
+      line-height: 1.1em;
+      font-size: 0.9em;
+      padding: 10px ;
+      text-align: left;
+      vertical-align: top;
+      font-weight: bold;
+      color: #000;
+    }
+    .items td {
+      border-bottom: 1px solid #cccccc;
+      border-right: 1px solid #cccccc;
+      float: none;
+      font-weight: normal;
+      padding: 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .items .total {
+      background: transparent !important;
+    }
+    .items .total td {
+      border: none;
+    }
+    .items .total td.label {
+      text-align: right;
+    }
+    .items .total-first td {
+      padding-top: 28px;
+    }
+    .items .total-big td {
+      padding-top: 1.1em;
+      font-size: 1.3em;
+      font-weight: bold;
+    }
+  </style>
+  <script defer>
+    window.addEventListener("afterprint", function(event) {
+      window.close()
+    })
+    window.print()
+  </script>
+  <title>Facture-Grafikart-{{ transaction.id }}</title>
+</head>
+<body>
+<h1>
+  Facture
+</h1>
+<div class="adress from">
+  <div class="address_label">
+    De
+  </div>
+  <div class="address_content">
+    <strong>EURL Boyer Jonathan <br></strong>34000 Montpellier <br>
+    SIRET : 79457631400015 <br>
+    N° TVA intracommunautaire : <br>
+    FR 29 794576314
+  </div>
+</div>
+<div class="adress to">
+  <div class="address_label tleft">
+    Pour
+  </div>
+  <div class="address_content">
+    <strong>{{ transaction.fullName }}</strong>
+    {{ transaction.address }}<br>
+    {{ transaction.postalCode }} {{ transaction.city }}<br>
+    {{ transaction.country }}
+  </div>
+  <div class="cb"></div>
+  <div class="address_label tleft">
+    Sujet
+  </div>
+  <div class="address_content">
+    {{ transaction.description }}
+  </div>
+</div>
+<div class="infos">
+  <table border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+    <tr>
+      <td class="label">
+        Facture n°
+      </td>
+      <td class="def">
+        <strong>GRAF{{ transaction.createdAt.format('Y') }}-{{ transaction.id }}</strong>
+      </td>
+    </tr>
+    <tr>
+      <td class="label">
+        Emise le
+      </td>
+      <td class="def">
+        {{ transaction.createdAt.format('d/m/Y') }}
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="cb"></div>
+<table class="items">
+  <thead>
+  <tr>
+    <th>
+      Description
+    </th>
+    <th class="tright" width="78">
+      Prix HT
+    </th>
+    <th class="tright" width="108">
+      Prix TTC
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ transaction.description }}</td>
+      <td class="tright">{{ transaction.price | format_currency('EUR') }}</td>
+      <td class="tright">
+        <strong>{{ transaction.total | format_currency('EUR') }}</strong>
+      </td>
+    </tr>
+    <tr class="total total-first">
+      <td class="label" colspan="2">Sous-total</td>
+      <td class="tright">
+        <strong>
+          {{ transaction.price | format_currency('EUR') }}
+        </strong>
+      </td>
+    </tr>
+    <tr class="total">
+      <td class="label" colspan="2"> Taxe (20.00%)</td>
+      <td class="tright">
+        <strong>
+          {{ transaction.tax | format_currency('EUR') }}
+        </strong>
+      </td>
+    </tr>
+
+    <tr class="total total-big">
+      <td class="label" colspan="2">Total</td>
+      <td class="tright">
+        <strong>{{ transaction.total | format_currency('EUR') }}</strong>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="cb"></div>
+<div class="footer">
+  EURL au capital de 5000 euros - RCS Montpellier B 794 576 314 <br>
+  Adhérent d’un centre de gestion agrée, acceptant à ce titre les règlements par chèque<br>
+  Loi 83-629 du 12/07/83, art. 8 : « L'autorisation administrative ne confère aucun caractère officiel à l'entreprise ou
+  aux personnes qui en bénéficient. Elle n'engage en aucune manière la responsabilité des pouvoirs publics.»<br>
+</div>
+</body>
+</html>

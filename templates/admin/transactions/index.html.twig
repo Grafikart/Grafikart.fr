@@ -1,0 +1,53 @@
+{% extends 'admin/layout/card.html.twig' %}
+
+{% block title %}
+    {{ icon('index') }}
+    Gestion des transactions
+{% endblock %}
+
+{% block content %}
+    <div class="flex">
+      <form class="form-group dashboard-search">
+        <input name="q" type="text" placeholder="Rechercher une transaction" value="{{ app.request.get('q') }}" >
+      </form>
+    </div>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Date</th>
+        <th>Prix</th>
+        <th>Pseudo</th>
+        <th>Email</th>
+        <th>Methode</th>
+        <th>Durée</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+        {% for row in rows %}
+        <tr>
+          <td>{{ row.createdAt.format('d/m/Y') }}</td>
+          <td>{{ row.total | format_currency('EUR') }}</td>
+          <td>{{ row.author.username }}</td>
+          <td>{{ row.author.email }}</td>
+          <td>
+            {% if row.paypal %}
+            <a class="pill pill-small pill-yellow" href="https://www.paypal.com/myaccount/transactions/?free_text_search={{ row.methodRef }}&account_subscription_type=ALL&filter_id=&currency=ALL&issuance_product_name=&asset_names=&asset_symbols=&type=&status=&start_date=2010-07-09&end_date=2120-10-07">
+              {{ row.method }}
+            </a>
+            {% endif %}
+          </td>
+          <td>{{ row.duration }}</td>
+          <td class="text-right">
+            <button class="btn-danger">
+              {{ icon('pen') }}
+              Rembourser
+            </button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    {{ paginate(rows) }}
+{% endblock %}

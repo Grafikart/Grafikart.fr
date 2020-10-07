@@ -66,6 +66,7 @@
     "tightenco/collect": "^7.19",
     "twig/cssinliner-extra": "^3.0",
     "twig/extra-bundle": "^3.0",
+    "twig/intl-extra": "^3.0",
     "twig/markdown-extra": "^3.0",
     "vich/uploader-bundle": "^1.13",
     "wohali/oauth2-discord-new": "^1.0"

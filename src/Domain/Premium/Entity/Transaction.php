@@ -4,12 +4,17 @@ namespace App\Domain\Premium\Entity;
 
 use App\Domain\Auth\User;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Intl\Countries;
 
 /**
  * @ORM\Entity(repositoryClass="App\Domain\Premium\Repository\TransactionRepository")
  */
 class Transaction
 {
+
+    public const PAYPAL = 'paypal';
+    public const STRIPE = 'stripe';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -113,6 +118,11 @@ class Transaction
         return $this;
     }
 
+    public function getTotal(): float
+    {
+        return $this->price + $this->tax;
+    }
+
     public function getPrice(): float
     {
         return $this->price;
@@ -197,6 +207,16 @@ class Transaction
         return $this;
     }
 
+    public function getDescription(): string
+    {
+        return "Compte premium {$this->duration} mois";
+    }
+
+    public function getFullName(): string
+    {
+        return $this->lastname . ' ' . $this->firstname;
+    }
+
     public function getFirstname(): ?string
     {
         return $this->firstname;
@@ -261,5 +281,15 @@ class Transaction
     {
         $this->countryCode = $countryCode;
         return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return Countries::getNames()[$this->countryCode] ?? null;
+    }
+
+    public function isPaypal(): bool
+    {
+        return $this->method === self::PAYPAL;
     }
 }

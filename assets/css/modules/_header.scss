@@ -63,6 +63,9 @@
 .header-nav li {
   display: block;
 }
+.header-nav li[hidden] {
+  display: none;
+}
 .header a:hover,
 .header button:hover,
 .header a[aria-current] {

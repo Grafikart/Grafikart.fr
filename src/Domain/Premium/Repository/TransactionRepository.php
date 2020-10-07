@@ -2,6 +2,7 @@
 
 namespace App\Domain\Premium\Repository;
 
+use App\Domain\Auth\User;
 use App\Domain\Premium\Entity\Transaction;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -17,6 +18,19 @@ class TransactionRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Transaction::class);
+    }
+
+    /**
+     * @return Transaction[]
+     */
+    public function findFor(User $user): array
+    {
+        return $this->createQueryBuilder('t')
+            ->where('t.author = :user')
+            ->orderBy('t.createdAt', 'DESC')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
     }
 
     // /**

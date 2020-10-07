@@ -967,6 +967,9 @@
     "twig/extra-bundle": {
         "version": "v3.0.1"
     },
+    "twig/intl-extra": {
+        "version": "v3.0.5"
+    },
     "twig/markdown-extra": {
         "version": "v3.0.3"
     },

@@ -43,7 +43,7 @@
     opacity: 1;
   }
 }
-.table a:hover {
+.table a:not([class^='btn']):hover {
   color: var(--contrast);
 }
 .table tbody > a {
