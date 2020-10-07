@@ -12,7 +12,7 @@ import { flash } from '/elements/Alert.js'
 
 export function PremiumButton ({ children, plan, price, duration }) {
   const [modal, toggleModal] = useToggle(false)
-  const [step, setStep] = useState(3)
+  const [step, setStep] = useState(1)
   const [address, setAddressState] = useState({
     firstname: 'John',
     lastname: 'Doe',

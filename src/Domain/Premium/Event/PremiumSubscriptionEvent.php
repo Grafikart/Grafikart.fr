@@ -13,4 +13,9 @@ class PremiumSubscriptionEvent
     {
         $this->user = $user;
     }
+
+    public function getUser(): User
+    {
+        return $this->user;
+    }
 }

@@ -11,6 +11,7 @@ use App\Domain\Forum\Entity\Message;
 use App\Domain\Forum\Entity\Topic;
 use App\Domain\Forum\Event\TopicCreatedEvent;
 use App\Domain\Forum\Event\TopicResolvedEvent;
+use App\Domain\Premium\Event\PremiumSubscriptionEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
@@ -33,6 +34,7 @@ class BadgeUnlockSubscriber implements EventSubscriberInterface
             TopicCreatedEvent::class => 'onTopicCreated',
             TopicResolvedEvent::class => 'onTopicSolved',
             InteractiveLoginEvent::class => 'onLogin',
+            PremiumSubscriptionEvent::class => 'onPremium'
         ];
     }
 
@@ -73,5 +75,10 @@ class BadgeUnlockSubscriber implements EventSubscriberInterface
             return;
         }
         $this->service->unlock($user, 'years', (int) $user->getCreatedAt()->diff(new \DateTime())->format('%y'));
+    }
+
+    public function onPremium(PremiumSubscriptionEvent $event): void
+    {
+        $this->service->unlock($event->getUser(), 'premium');
     }
 }

@@ -15,7 +15,7 @@
   <meta name="turbolinks-cache-control" content="no-cache" />
 </head>
 <body class="admin {{ app.user and app.user.darkMode ? 'dark' : '' }}">
-<nav class="header container-full {% if headerWhite is defined %}is-white{% endif %}">
+<nav class="header container {% if headerWhite is defined %}is-white{% endif %}">
   <ul class="header-nav">
     <li class="header__home"><a href="{{ path('admin_home') }}" title="Accueil">{{ icon('home') }}</a></li>
     <li><a href="{{ path('admin_blog_index') }}" {{ menu_active('blog') }}>{{ icon('pen') }} Blog</a></li>
@@ -28,7 +28,16 @@
     <li><a href="{{ path('admin_premium_index') }}" {{ menu_active('premium') }}>{{ icon('star') }} Premium</a></li>
     <li><a href="{{ path('admin_badge_index') }}" {{ menu_active('premium') }}>{{ icon('star') }} Badges</a></li>
   </ul>
-  {% include 'partials/header-side.html.twig' %}
+  <ul class="header-side">
+    <li class="header__notification">
+      <site-notifications></site-notifications>
+    </li>
+    <li class="header__logout"><a href="/">{{ icon('logout') }}</a></li>
+    <li class="header__burger">
+      <button id="js-burger"><span>Afficher le menu</span></button>
+    </li>
+  </ul>
+
 </nav>
 <div class="dashboard py5">
 
