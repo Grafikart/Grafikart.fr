@@ -1,0 +1,28 @@
+<?php declare(strict_types=1);
+
+namespace App{{ namespace }};
+
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+{% for event in events %}
+use {{ event.namespace }};
+{% endfor %}
+
+class {{ class_name }} implements EventSubscriberInterface
+{
+
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            {%~ for event in events %}
+            {{ event.class_name }}::class => 'on{{ event.class_name | replace({'Event': ''}) }}',
+            {%~ endfor %}
+        ];
+    }
+
+    {%~ for event in events %}
+    public static function on{{ event.class_name | replace({'Event': ''}) }}(): void
+    {
+    }
+    {%~ endfor %}
+
+}

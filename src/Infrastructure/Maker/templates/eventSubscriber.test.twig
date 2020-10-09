@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Tests{{ namespace }};
+
+use App\Tests\EventSubscriberTest;
+use App{{ namespace }};
+{% for event in events %}
+use {{ event.namespace }};
+{% endfor %}
+
+class {{ class_name }}Test extends EventSubscriberTest
+{
+
+    public function testSubscribeToEvents()
+    {
+      {%~ for event in events %}
+        $this->assertSubscribeTo({{ class_name }}::class, {{ event.class_name }}::class);
+      {%~ endfor %}
+    }
+
+    public function testEventTriggersTheRightThing()
+    {
+        $event = new {{ events[0].class_name }}();
+        $service->expects($this->once())->method()->with();
+        $this->dispatch($subscriber, $event);
+    }
+}
