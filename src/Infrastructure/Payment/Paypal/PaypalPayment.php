@@ -6,13 +6,12 @@ use App\Infrastructure\Payment\Payment;
 
 class PaypalPayment extends Payment
 {
-
     public function __construct(\stdClass $order)
     {
         $unit = $order->purchase_units[0];
         $item = $unit->items[0];
         $this->id = $order->id;
-        $this->planId = (int)$unit->custom_id;
+        $this->planId = (int) $unit->custom_id;
         $this->firstname = $order->payer->name->given_name;
         $this->lastname = $order->payer->name->surname;
         $this->address = $unit->shipping->address->address_line_1;

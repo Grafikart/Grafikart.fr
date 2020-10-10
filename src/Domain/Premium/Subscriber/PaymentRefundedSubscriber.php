@@ -1,22 +1,21 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Domain\Premium\Subscriber;
 
 use App\Domain\Premium\Event\PremiumCancelledEvent;
 use App\Domain\Premium\Repository\TransactionRepository;
+use App\Infrastructure\Payment\Event\PaymentRefundedEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use App\Infrastructure\Payment\Event\PaymentRefundedEvent;
 
 class PaymentRefundedSubscriber implements EventSubscriberInterface
 {
-
     private TransactionRepository $transactionRepository;
     private EventDispatcherInterface $dispatcher;
-    /**
-     * @var EntityManagerInterface
-     */
+
     private EntityManagerInterface $em;
 
     public function __construct(TransactionRepository $transactionRepository, EventDispatcherInterface $dispatcher, EntityManagerInterface $em)
@@ -36,14 +35,14 @@ class PaymentRefundedSubscriber implements EventSubscriberInterface
     public function onPaymentReimbursed(PaymentRefundedEvent $event): void
     {
         $transaction = $this->transactionRepository->findOneBy(['methodRef' => $event->getPayment()->id]);
-        if ($transaction === null) {
+        if (null === $transaction) {
             return;
         }
 
         // On réduit la durée d'abonnement de l'utilisateur
         $user = $transaction->getAuthor();
         $premiumEnd = $user->getPremiumEnd();
-        if ($premiumEnd !== null) {
+        if (null !== $premiumEnd) {
             $user->setPremiumEnd($premiumEnd->sub(new \DateInterval("P{$transaction->getDuration()}M")));
         }
 

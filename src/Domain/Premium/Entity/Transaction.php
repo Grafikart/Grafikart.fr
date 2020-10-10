@@ -11,7 +11,6 @@ use Symfony\Component\Intl\Countries;
  */
 class Transaction
 {
-
     public const PAYPAL = 'paypal';
     public const STRIPE = 'stripe';
 
@@ -92,7 +91,6 @@ class Transaction
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private ?string $countryCode = null;
-
 
     public function getId(): ?int
     {
@@ -214,7 +212,7 @@ class Transaction
 
     public function getFullName(): string
     {
-        return $this->lastname . ' ' . $this->firstname;
+        return $this->lastname.' '.$this->firstname;
     }
 
     public function getFirstname(): ?string
@@ -225,6 +223,7 @@ class Transaction
     public function setFirstname(?string $firstname): Transaction
     {
         $this->firstname = $firstname;
+
         return $this;
     }
 
@@ -236,6 +235,7 @@ class Transaction
     public function setLastname(?string $lastname): Transaction
     {
         $this->lastname = $lastname;
+
         return $this;
     }
 
@@ -247,6 +247,7 @@ class Transaction
     public function setAddress(?string $address): Transaction
     {
         $this->address = $address;
+
         return $this;
     }
 
@@ -258,6 +259,7 @@ class Transaction
     public function setCity(?string $city): Transaction
     {
         $this->city = $city;
+
         return $this;
     }
 
@@ -269,6 +271,7 @@ class Transaction
     public function setPostalCode(?string $postalCode): Transaction
     {
         $this->postalCode = $postalCode;
+
         return $this;
     }
 
@@ -280,6 +283,7 @@ class Transaction
     public function setCountryCode(?string $countryCode): Transaction
     {
         $this->countryCode = $countryCode;
+
         return $this;
     }
 
@@ -290,6 +294,6 @@ class Transaction
 
     public function isPaypal(): bool
     {
-        return $this->method === self::PAYPAL;
+        return self::PAYPAL === $this->method;
     }
 }

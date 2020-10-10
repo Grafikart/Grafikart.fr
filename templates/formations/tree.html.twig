@@ -1,0 +1,182 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+  <div class="tree">
+      <h1 class="h1 text-center mb2">Apprenez le développement web</h1>
+      <div class="hero-text text-center mb3" style="max-width: 630px; margin-left: auto; margin-right: auto;">
+        Apprenez les bases du développement web et apprenez pas à pas comment construire un site web complet.
+      </div>
+      &nbsp;
+      {% include 'formations/_tree-card.html.twig' with {slug: 'html', cls: 'is-root'} %}
+      <div class="tree-link"></div>
+      {% include 'formations/_tree-card.html.twig' with {slug: 'css'} %}
+      <div class="tree-link" id="wave-anchor"></div>
+      {% include 'formations/_tree-card.html.twig' with {slug: 'upload-site'} %}
+      <div class="tree-link"></div>
+      {% include 'formations/_tree-card.html.twig' with {slug: 'apprendre-algorithmique'} %}
+      <div class="tree-category has-video">
+        Quel langage choisir ?
+        <strong>Orientation</strong>
+        <a href="https://www.youtube.com/watch?v=3yWEsqqyvp4" class="tree-play" data-youtube></a>
+      </div>
+      <div class="tree-split">
+        <!-- FRONTEND -->
+        <div class="tree-row">
+          <div class="tree-category">Spécialisation <strong>Frontend</strong></div>
+          {% include 'formations/_tree-card.html.twig' with {slug: 'debuter-javascript'} %}
+          <div class="tree-link"></div>
+          {% include 'formations/_tree-card.html.twig' with {slug: 'git'} %}
+          <div class="tree-link"></div>
+          {% include 'formations/_tree-card.html.twig' with {slug: 'webpack'} %}
+          <div class="tree-category">
+            Spécialisation
+            <strong>Framework</strong>
+          </div>
+          <div class="tree-choices">
+            {% for lang in ['react', 'vuejs'] %}
+              <div class="tree-choice {% if lang == 'react' %}is-active{% endif %}" data-choice="{{ lang }}"
+                   style="width: 50%">
+                <img src="{{ uploads_path('icons/' ~ lang ~ '.svg') }}" alt="">
+              </div>
+            {% endfor %}
+          </div>
+          <div class="tree-hidden is-visible" id="tree-react">
+            {% include 'formations/_tree-card.html.twig' with {slug: 'react'} %}
+          </div>
+          <div class="tree-hidden" id="tree-vuejs">
+            {% include 'formations/_tree-card.html.twig' with {slug: 'vuejs'} %}
+          </div>
+        </div>
+
+        <!-- BACKEND -->
+        <div class="tree-row">
+          <div class="tree-category">Spécialisation <strong>backend</strong></div>
+          <div class="tree-choices">
+            {% for lang in ['php', 'ruby', 'nodejs'] %}
+              <div class="tree-choice {% if lang == 'php' %}is-active{% endif %}" data-choice="{{ lang }}"
+                   style="width: 50%">
+                <img src="{{ uploads_path('icons/' ~ lang ~ '.svg') }}" alt="">
+              </div>
+            {% endfor %}
+          </div>
+
+          <!-- PHP -->
+          <div class="tree-hidden is-visible" id="tree-php">
+            {% include 'formations/_tree-card.html.twig' with {slug: 'php'} %}
+            <div class="tree-link"></div>
+            {% include 'formations/_tree-card.html.twig' with {slug: 'mysql'} %}
+            <div class="tree-link"></div>
+            {% include 'formations/_tree-card.html.twig' with {slug: 'programmation-objet-php'} %}
+            <div class="tree-link"></div>
+            {% include 'formations/_tree-card.html.twig' with {slug: 'git'} %}
+            <div class="tree-category has-video">
+              Quel framework choisir ?
+              <strong>Orientation</strong>
+              <a href="https://www.youtube.com/watch?v=tdZtQsu821M" class="tree-play" data-youtube></a>
+            </div>
+            <div class="tree-choices">
+              {% for lang in ['symfony', 'laravel'] %}
+                <div class="tree-choice {% if lang == 'symfony' %}is-active{% endif %}" style="width: 50%;" data-choice="{{ lang }}">
+                  <img src="{{ uploads_path('icons/' ~ lang ~ '.svg') }}" alt="">
+                </div>
+              {% endfor %}
+            </div>
+            <div class="tree-hidden" id="tree-laravel">
+              {% include 'formations/_tree-card.html.twig' with {slug: 'laravel'} %}
+            </div>
+            <div class="tree-hidden is-visible" id="tree-symfony">
+              {% include 'formations/_tree-card.html.twig' with {slug: 'symfony-4-pratique'} %}
+            </div>
+          </div>
+
+          <!-- Ruby -->
+          <div class="tree-hidden" id="tree-ruby">
+            {% include 'formations/_tree-card.html.twig' with {slug: 'ruby'} %}
+            <div class="tree-link"></div>
+            {% include 'formations/_tree-card.html.twig' with {slug: 'mysql'} %}
+            <div class="tree-link"></div>
+            {% include 'formations/_tree-card.html.twig' with {slug: 'ruby-on-rails'} %}
+            <div class="tree-link"></div>
+            {% include 'formations/_tree-card.html.twig' with {slug: 'git'} %}
+          </div>
+
+          <!-- Nodejs -->
+          <div class="tree-hidden" id="tree-nodejs">
+            {% include 'formations/_tree-card.html.twig' with {slug: 'debuter-javascript'} %}
+            <div class="tree-link"></div>
+            {% include 'formations/_tree-card.html.twig' with {slug: 'nodejs'} %}
+            <div class="tree-link"></div>
+            {% include 'formations/_tree-card.html.twig' with {slug: 'git'} %}
+          </div>
+        </div>
+      </div>
+
+  </div>
+
+  <script>
+    Array.from(document.querySelectorAll('.tree-choices')).forEach($choices => {
+      let choices = $choices.querySelectorAll('.tree-choice')
+      let activeChoice = $choices.querySelector('.is-active')
+      let active = false
+      if (activeChoice) {
+        active = document.querySelector('#tree-' + activeChoice.dataset.choice)
+      }
+      Array.from(choices).forEach(function (choice) {
+        choice.addEventListener('click', function () {
+          if (active) {
+            $choices.querySelector('.tree-choice.is-active').classList.remove('is-active')
+            active.classList.remove('is-visible')
+          }
+          choice.classList.add('is-active')
+          active = document.querySelector('#tree-' + choice.dataset.choice)
+          active.classList.add('is-visible')
+        })
+      })
+    })
+
+    class Youtube {
+
+      static init () {
+        this.element = null
+        document.querySelectorAll('[data-youtube]').forEach(link => {
+          link.addEventListener('click', (e) => {
+            e.preventDefault()
+            this.onClick(link)
+          })
+        })
+      }
+
+      static onClick (link) {
+        let youtubeID = link.getAttribute('href').split('=')[1]
+        this.element = this.popup(youtubeID)
+        document.body.appendChild(this.element)
+      }
+
+      static close () {
+        this.element.parentNode.removeChild(this.element)
+        this.element = null
+      }
+
+      static popup (youtube) {
+        let element = document.createElement('div')
+        element.classList.add('youtube-popup')
+        element.innerHTML = `<div class="youtube-popup__close">
+          <svg class="icon icon-user">
+            <use xlink:href="/sprite.svg#cross"></use>
+          </svg>
+        </div>
+      <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${youtube}?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`
+        element.querySelector('.youtube-popup__close').addEventListener('click', e => {
+          e.preventDefault()
+          this.close()
+        })
+        return element
+      }
+
+    }
+
+    Youtube.init()
+  </script>
+
+{% endblock %}

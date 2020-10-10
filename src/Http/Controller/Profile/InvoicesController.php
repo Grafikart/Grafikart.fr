@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Http\Controller\Profile;
 
@@ -14,7 +16,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class InvoicesController extends AbstractController
 {
-
     private TransactionRepository $repository;
 
     public function __construct(TransactionRepository $transactionRepository)
@@ -29,8 +30,9 @@ class InvoicesController extends AbstractController
     public function index(): Response
     {
         $transactions = $this->repository->findfor($this->getUser());
+
         return $this->render('profil/invoices.html.twig', [
-            'transactions' => $transactions
+            'transactions' => $transactions,
         ]);
     }
 
@@ -41,9 +43,10 @@ class InvoicesController extends AbstractController
     public function show(int $id): Response
     {
         $transaction = $this->repository->findOneBy([
-            'id'     => $id,
-            'author' => $this->getUser()
+            'id' => $id,
+            'author' => $this->getUser(),
         ]);
+
         return $this->render('profil/invoice.html.twig', [
             'transaction' => $transaction,
         ]);

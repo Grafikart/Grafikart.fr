@@ -6,7 +6,6 @@ use App\Infrastructure\Payment\Payment;
 
 class PaymentRefundedEvent
 {
-
     private Payment $payment;
 
     public function __construct(Payment $payment)

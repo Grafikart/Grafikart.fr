@@ -27,7 +27,7 @@ class MakeControllerCommand extends AbstractMakeCommand
         $io = new SymfonyStyle($input, $output);
         /** @var string $controllerPath */
         $controllerPath = $input->getArgument('controllerName');
-        if (substr($controllerPath, -1 * strlen('Controller')) !== 'Controller') {
+        if ('Controller' !== substr($controllerPath, -1 * strlen('Controller'))) {
             $controllerPath .= 'Controller';
         }
         if (!is_string($controllerPath)) {
@@ -43,10 +43,10 @@ class MakeControllerCommand extends AbstractMakeCommand
         }
 
         $api = $input->getOption('api');
-        if ($api === false) {
-            $basePath = "src/Http/Controller/";
+        if (false === $api) {
+            $basePath = 'src/Http/Controller/';
         } else {
-            $basePath = "src/Http/Api/Controller/";
+            $basePath = 'src/Http/Api/Controller/';
         }
 
         $params = [
@@ -56,7 +56,7 @@ class MakeControllerCommand extends AbstractMakeCommand
         ];
 
         $this->createFile('controller', $params, "{$basePath}{$controllerPath}.php");
-        $this->createFile('controller.test', $params, str_replace("src/", "tests/", $basePath) . "{$controllerPath}Test.php");
+        $this->createFile('controller.test', $params, str_replace('src/', 'tests/', $basePath)."{$controllerPath}Test.php");
 
         $io->success('Le controller a bien été créé');
 

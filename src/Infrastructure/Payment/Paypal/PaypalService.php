@@ -11,7 +11,6 @@ use PayPalHttp\HttpException;
 
 class PaypalService
 {
-
     private PayPalHttpClient $client;
 
     public function __construct(PayPalHttpClient $client)
@@ -20,7 +19,7 @@ class PaypalService
     }
 
     /**
-     * On crée un paiement à partir de l'id de la commande
+     * On crée un paiement à partir de l'id de la commande.
      */
     public function createPayment(string $orderId): Payment
     {
@@ -34,7 +33,7 @@ class PaypalService
             $unit = $order->purchase_units[0];
             $item = $unit->items[0];
             $payment->id = $order->id;
-            $payment->planId = (int)$unit->custom_id;
+            $payment->planId = (int) $unit->custom_id;
             $payment->firstname = $order->payer->name->given_name;
             $payment->lastname = $order->payer->name->surname;
             $payment->address = $unit->shipping->address->address_line_1;
@@ -51,15 +50,16 @@ class PaypalService
     }
 
     /**
-     * Lance la "capture" du paiement
+     * Lance la "capture" du paiement.
      */
     public function capture(Payment $payment): Payment
     {
         try {
             /** @var \stdClass $capture */
             $capture = $this->client->execute(new OrdersCaptureRequest($payment->id))->result;
-            if ($capture->status === 'COMPLETED') {
+            if ('COMPLETED' === $capture->status) {
                 $payment->id = $capture->purchase_units[0]->payments->captures[0]->id;
+
                 return $payment;
             }
             throw new PaymentFailedException('Impossible de capturer ce paiement');

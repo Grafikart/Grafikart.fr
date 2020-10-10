@@ -2,12 +2,7 @@
 
 namespace App\Http\Admin\Controller;
 
-use App\Domain\Application\Event\ContentCreatedEvent;
-use App\Domain\Application\Event\ContentDeletedEvent;
-use App\Domain\Application\Event\ContentUpdatedEvent;
-use App\Domain\Course\Entity\Cursus;
 use App\Domain\Premium\Entity\Transaction;
-use App\Http\Admin\Data\CursusCrudData;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

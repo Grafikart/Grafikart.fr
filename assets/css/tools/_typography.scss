@@ -32,10 +32,14 @@ $font-alt: 'Gotham', 'Montserrat', 'Open Sans', -apple-system, BlinkMacSystemFon
 
 %hero-text,
 .hero-text {
-  font-size: 18px;
+  font-size: 16px;
 
   strong {
     font-weight: bold;
+  }
+
+  a {
+    text-decoration: underline;
   }
 
   @include up(600) {

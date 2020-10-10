@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Http\Api\Controller;
 
@@ -20,7 +22,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class StripeController extends AbstractController
 {
-
     private StripeApi $stripeApi;
     private EventDispatcherInterface $dispatcher;
     private EntityManagerInterface $em;
@@ -52,28 +53,30 @@ class StripeController extends AbstractController
     }
 
     /**
-     * Un paiement "one shot" a été terminé sur stripe
+     * Un paiement "one shot" a été terminé sur stripe.
      */
     public function onCheckoutCompleted(Session $session): JsonResponse
     {
-        $payment = new StripePayment($this->stripeApi->getPaymentIntent((string)$session->payment_intent), $session);
+        $payment = new StripePayment($this->stripeApi->getPaymentIntent((string) $session->payment_intent), $session);
         $user = $this->em->getRepository(User::class)->findOneBy(['stripeId' => $session->customer]);
-        if ($user === null) {
+        if (null === $user) {
             return $this->json(['title' => "Impossible de trouver l'utilisateur correspondant à la transaction"], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
         $this->dispatcher->dispatch(new PaymentEvent($payment, $user));
+
         return $this->json([]);
     }
 
     public function onRefund(Charge $charge): JsonResponse
     {
         $payment = new Payment();
-        $payment->id = (string)$charge->payment_intent;
+        $payment->id = (string) $charge->payment_intent;
         $this->dispatcher->dispatch(new PaymentRefundedEvent($payment));
+
         return $this->json([]);
     }
 
-    /**
+    /*
     public function chargeSucceeded (Charge $charge): JsonResponse
     {
         dump(

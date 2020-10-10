@@ -1,0 +1,13 @@
+{% set formation = formations[slug] %}
+<div class="tree-item {{ cls is defined ? cls : '' }}" id="i{{ slug }}">
+  <a href="{{ path(formation) }}" class="tree-item__title">{{ formation.title }}</a>
+  <a href="{{ path(formation) }}" class="tree-item__link">Voir la formation</a>
+  <div class="tree-item__body">{{ formation.short }}</div>
+    {% for technology in formation.mainTechnologies %}
+      {% if loop.last %}
+      <a href="{{ path(formation) }}" class="tree-item__icon">
+        <img src="{{ uploads_path('icons/' ~ technology.image) }}" alt="{{ technology.name }}">
+      </a>
+      {% endif %}
+    {% endfor %}
+</div>

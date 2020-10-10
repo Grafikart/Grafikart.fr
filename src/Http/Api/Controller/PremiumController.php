@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Http\Api\Controller;
 
@@ -31,6 +33,7 @@ class PremiumController extends AbstractController
             $payment = $paypal->createPayment($orderId);
             $payment = $paypal->capture($payment);
             $dispatcher->dispatch(new PaymentEvent($payment, $this->getUser()));
+
             return $this->json([]);
         } catch (PaymentFailedException $e) {
             return $this->json(['title' => 'Erreur lors du paiement', 'detail' => $e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -46,11 +49,11 @@ class PremiumController extends AbstractController
         try {
             $api->createCustomer($this->getUser());
             $em->flush();
+
             return $this->json([
-                'id' => $api->createPaymentSession($this->getUser(), $plan)
+                'id' => $api->createPaymentSession($this->getUser(), $plan),
             ]);
         } catch (\Exception $e) {
-            dd($e);
             return $this->json(['title' => "Impossible de contacter l'API Stripe"], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }

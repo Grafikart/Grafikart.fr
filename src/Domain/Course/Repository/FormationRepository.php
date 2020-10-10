@@ -15,6 +15,17 @@ class FormationRepository extends ServiceEntityRepository
     }
 
     /**
+     * @return formation[]
+     */
+    public function findAll()
+    {
+        return $this->createQueryBuilder('f')
+            ->orderBy('f.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
      * @return Formation[]
      */
     public function findRecent(int $limit): array

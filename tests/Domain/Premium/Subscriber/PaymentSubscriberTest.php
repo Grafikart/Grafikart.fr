@@ -8,18 +8,16 @@ use App\Domain\Premium\Entity\Transaction;
 use App\Domain\Premium\Event\PremiumSubscriptionEvent;
 use App\Domain\Premium\Exception\PaymentPlanMissMatchException;
 use App\Domain\Premium\Repository\PlanRepository;
-use App\Infrastructure\Payment\Event\PaymentRefundedEvent;
-use App\Infrastructure\Payment\Payment;
-use App\Tests\EventSubscriberTest;
 use App\Domain\Premium\Subscriber\PaymentSubscriber;
 use App\Infrastructure\Payment\Event\PaymentEvent;
+use App\Infrastructure\Payment\Payment;
+use App\Tests\EventSubscriberTest;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 class PaymentSubscriberTest extends EventSubscriberTest
 {
-
     public function testSubscribeToEvents()
     {
         $this->assertSubscribeTo(PaymentSubscriber::class, PaymentEvent::class);
@@ -35,12 +33,13 @@ class PaymentSubscriberTest extends EventSubscriberTest
         $planRepository
             ->expects($this->once())
             ->method('findOneBy')
-            ->willReturnCallback(fn($params) => $params['price'] === $plan->getPrice() ? $plan : null);
+            ->willReturnCallback(fn ($params) => $params['price'] === $plan->getPrice() ? $plan : null);
         $em->expects($this->once())->method('getRepository')->with(Plan::class)->willReturn($planRepository);
         $dispatcher = $this->createMock(EventDispatcherInterface::class);
         $dispatcher->expects($this->any())->method('dispatch');
 
         $subscriber = new PaymentSubscriber($em, $dispatcher);
+
         return [$subscriber, $em, $dispatcher];
     }
 
@@ -50,6 +49,7 @@ class PaymentSubscriberTest extends EventSubscriberTest
         $payment->id = 'platform_id';
         $payment->amount = 100;
         $user = new User();
+
         return new PaymentEvent($payment, $user);
     }
 
@@ -67,7 +67,7 @@ class PaymentSubscriberTest extends EventSubscriberTest
         /** @var MockObject $em */
         [$subscriber, $em] = $this->getSubscriber();
         $em->expects($this->once())->method('persist')->with($this->callback(function (Transaction $transaction) {
-            return $transaction->getPrice() == 100;
+            return 100 == $transaction->getPrice();
         }));
         $em->expects($this->once())->method('flush');
         $this->dispatch($subscriber, $this->getEvent());

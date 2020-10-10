@@ -6,17 +6,16 @@ use App\Domain\Auth\User;
 use App\Domain\Premium\Entity\Transaction;
 use App\Domain\Premium\Event\PremiumCancelledEvent;
 use App\Domain\Premium\Repository\TransactionRepository;
-use App\Infrastructure\Payment\Payment;
-use App\Tests\EventSubscriberTest;
 use App\Domain\Premium\Subscriber\PaymentRefundedSubscriber;
 use App\Infrastructure\Payment\Event\PaymentRefundedEvent;
+use App\Infrastructure\Payment\Payment;
+use App\Tests\EventSubscriberTest;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 class PaymentRefundedSubscriberTest extends EventSubscriberTest
 {
-
     public function testSubscribeToEvents()
     {
         $this->assertSubscribeTo(PaymentRefundedSubscriber::class, PaymentRefundedEvent::class);
@@ -29,10 +28,11 @@ class PaymentRefundedSubscriberTest extends EventSubscriberTest
             ->expects($this->once())
             ->method('findOneBy')
             ->willReturn($transaction);
-        ;
+
         $dispatcher = $this->createMock(EventDispatcherInterface::class);
         $em = $this->createMock(EntityManagerInterface::class);
         $subscriber = new PaymentRefundedSubscriber($transactionRepository, $dispatcher, $em);
+
         return [$subscriber, $dispatcher, $em];
     }
 
@@ -45,8 +45,7 @@ class PaymentRefundedSubscriberTest extends EventSubscriberTest
         $payment->id = 'platform_id';
 
         [$subscriber, $dispatcher] = $this->getSubscriber($transaction);
-        $dispatcher->expects($this->once())->method('dispatch')->with($this->callback(fn (PremiumCancelledEvent $event) =>
-            $event->getUser() === $transaction->getAuthor()));
+        $dispatcher->expects($this->once())->method('dispatch')->with($this->callback(fn (PremiumCancelledEvent $event) => $event->getUser() === $transaction->getAuthor()));
         $event = new PaymentRefundedEvent($payment);
         $this->dispatch($subscriber, $event);
     }

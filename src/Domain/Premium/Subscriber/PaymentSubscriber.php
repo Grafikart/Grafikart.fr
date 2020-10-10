@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Domain\Premium\Subscriber;
 
@@ -6,19 +8,16 @@ use App\Domain\Premium\Entity\Plan;
 use App\Domain\Premium\Entity\Transaction;
 use App\Domain\Premium\Event\PremiumSubscriptionEvent;
 use App\Domain\Premium\Exception\PaymentPlanMissMatchException;
+use App\Infrastructure\Payment\Event\PaymentEvent;
 use App\Infrastructure\Payment\Stripe\StripePayment;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use App\Infrastructure\Payment\Event\PaymentEvent;
 
 class PaymentSubscriber implements EventSubscriberInterface
 {
-
     private EntityManagerInterface $em;
-    /**
-     * @var EventDispatcherInterface
-     */
+
     private EventDispatcherInterface $dispatcher;
 
     public function __construct(EntityManagerInterface $em, EventDispatcherInterface $dispatcher)
@@ -40,7 +39,7 @@ class PaymentSubscriber implements EventSubscriberInterface
         $payment = $event->getPayment();
         $user = $event->getUser();
         $plan = $this->em->getRepository(Plan::class)->findOneBy(['price' => $payment->amount]);
-        if ($plan === null) {
+        if (null === $plan) {
             throw new PaymentPlanMissMatchException();
         }
         $type = 'paypal';

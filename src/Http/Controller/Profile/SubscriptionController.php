@@ -1,9 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Http\Controller\Profile;
 
 use App\Domain\Auth\User;
-use App\Domain\Premium\Repository\TransactionRepository;
 use App\Http\Controller\AbstractController;
 use App\Infrastructure\Payment\Stripe\StripeApi;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -16,7 +17,6 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class SubscriptionController extends AbstractController
 {
-
     private StripeApi $api;
 
     public function __construct(StripeApi $api)
@@ -32,10 +32,12 @@ class SubscriptionController extends AbstractController
     {
         $user = $this->getUser();
         $redirectUrl = $this->generateUrl('user_invoices', [], UrlGeneratorInterface::ABSOLUTE_URL);
-        if ($user->getStripeId() === null) {
+        if (null === $user->getStripeId()) {
             $this->addFlash('error', "Vous n'avez pas d'abonnement actif");
+
             return $this->redirect($redirectUrl);
         }
+
         return $this->redirect($this->api->getBillingUrl($user, $redirectUrl));
     }
 }

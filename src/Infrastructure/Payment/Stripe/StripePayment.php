@@ -9,10 +9,9 @@ use Stripe\PaymentIntent;
 
 class StripePayment extends Payment
 {
-
     public function __construct(PaymentIntent $intent, Session $checkoutSession)
     {
-        if ($checkoutSession->metadata === null) {
+        if (null === $checkoutSession->metadata) {
             throw new \RuntimeException("Impossible de récupérer l'id du plan");
         }
         $planId = $checkoutSession->metadata['plan_id'];
@@ -22,7 +21,7 @@ class StripePayment extends Payment
         $this->planId = $planId;
         $this->firstname = $charge->billing_details['name'];
         $this->lastname = '';
-        $this->address = $charge->billing_details['address']['line1'] . "\n" . $charge->billing_details['address']['line2'];
+        $this->address = $charge->billing_details['address']['line1']."\n".$charge->billing_details['address']['line2'];
         $this->city = $charge->billing_details['address']['city'];
         $this->postalCode = $charge->billing_details['address']['postal_code'];
         $this->countryCode = $charge->billing_details['address']['country'];

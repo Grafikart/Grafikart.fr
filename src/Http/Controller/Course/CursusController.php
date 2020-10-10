@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controller;
+namespace App\Http\Controller\Course;
 
 use App\Domain\Course\Entity\Cursus;
+use App\Http\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 

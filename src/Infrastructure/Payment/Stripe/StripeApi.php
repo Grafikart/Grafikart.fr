@@ -3,8 +3,6 @@
 namespace App\Infrastructure\Payment\Stripe;
 
 use App\Domain\Auth\User;
-use App\Infrastructure\Payment\Payment;
-use Psr\Http\Message\RequestInterface;
 use Stripe\Customer;
 use Stripe\PaymentIntent;
 use Stripe\Plan;
@@ -18,12 +16,12 @@ class StripeApi
 
     public function __construct(string $privateKey)
     {
-        \Stripe\Stripe::setApiVersion('2020-08-27');
-        $this->stripe = new \Stripe\StripeClient($privateKey);
+        Stripe::setApiVersion('2020-08-27');
+        $this->stripe = new StripeClient($privateKey);
     }
 
     /**
-     * Crée un customer stripe et sauvegarde l'id dans l'utilisateur
+     * Crée un customer stripe et sauvegarde l'id dans l'utilisateur.
      */
     public function createCustomer(User $user): User
     {
@@ -32,12 +30,13 @@ class StripeApi
         }
         $client = $this->stripe->customers->create([
             'metadata' => [
-                'user_id' => (string)$user->getId()
+                'user_id' => (string) $user->getId(),
             ],
-            'email'    => $user->getEmail(),
-            'name'     => $user->getUsername(),
+            'email' => $user->getEmail(),
+            'name' => $user->getUsername(),
         ]);
         $user->setStripeId($client->id);
+
         return $user;
     }
 
@@ -57,28 +56,29 @@ class StripeApi
     }
 
     /**
-     * Crée une session et renvoie l'URL de paiement
+     * Crée une session et renvoie l'URL de paiement.
      */
     public function createSuscriptionSession(User $user): string
     {
         $session = $this->stripe->checkout->sessions->create([
-            'cancel_url'           => 'http://grafikart.localhost:8000/premium',
-            'success_url'          => 'http://grafikart.localhost:8000/premium',
-            'mode'                 => 'subscription',
+            'cancel_url' => 'http://grafikart.localhost:8000/premium',
+            'success_url' => 'http://grafikart.localhost:8000/premium',
+            'mode' => 'subscription',
             'payment_method_types' => [
-                'card'
+                'card',
             ],
-            'customer'             => $user->getStripeId(),
-            'line_items'           => [
+            'customer' => $user->getStripeId(),
+            'line_items' => [
                 [
-                    'price'     => 'price_1HaIopFCMNgisvowydRrRRez',
-                    'quantity'  => 1,
+                    'price' => 'price_1HaIopFCMNgisvowydRrRRez',
+                    'quantity' => 1,
                     'dynamic_tax_rates' => ['txr_1HadF1FCMNgisvow1UK5XVDi'],
-                ]
-            ]
+                ],
+            ],
         ]);
+
         return $session->id;
-        /**
+        /*
          * $session = $this->stripe->billingPortal->sessions->create([
          * 'customer' => $user->getStripeId(),
          * 'return_url' => 'http://grafikart.localhost:8000/premium',
@@ -89,42 +89,43 @@ class StripeApi
     public function createPaymentSession(User $user, \App\Domain\Premium\Entity\Plan $plan): string
     {
         $session = $this->stripe->checkout->sessions->create([
-            'cancel_url'           => 'http://grafikart.localhost:8000/premium',
-            'success_url'          => 'http://grafikart.localhost:8000/premium',
-            'mode'                 => 'payment',
+            'cancel_url' => 'http://grafikart.localhost:8000/premium',
+            'success_url' => 'http://grafikart.localhost:8000/premium',
+            'mode' => 'payment',
             'payment_method_types' => [
-                'card'
+                'card',
             ],
-            'customer'             => $user->getStripeId(),
+            'customer' => $user->getStripeId(),
             'metadata' => [
-                'plan_id' => $plan->getId()
+                'plan_id' => $plan->getId(),
             ],
-            'line_items'           => [
+            'line_items' => [
                 [
-                    'price_data'        => [
-                        'currency'     => 'eur',
+                    'price_data' => [
+                        'currency' => 'eur',
                         'product_data' => [
-                            'name'   => $plan->getName(),
+                            'name' => $plan->getName(),
                             'images' => ['https://www.grafikart.fr/assets/logo-footer-f0a333a1c7b2c1833354864ad7c405e0396d894732bf03abb902f2281e6c942e.png'],
                         ],
-                        'unit_amount'  => $plan->getPrice() * 100
+                        'unit_amount' => $plan->getPrice() * 100,
                     ],
-                    'quantity'          => 1,
+                    'quantity' => 1,
                     // 'tax_rates' => ['txr_1HaHcHFCMNgisvowtytneRQe'],
                     'dynamic_tax_rates' => ['txr_1HadF1FCMNgisvow1UK5XVDi'],
-                ]
-            ]
+                ],
+            ],
         ]);
+
         return $session->id;
     }
 
     /**
-     * Renvoie l'url du profil d'abonnement stripe
+     * Renvoie l'url du profil d'abonnement stripe.
      */
     public function getBillingUrl(User $user, string $returnUrl): string
     {
         return $this->stripe->billingPortal->sessions->create([
-            'customer'   => $user->getStripeId(),
+            'customer' => $user->getStripeId(),
             'return_url' => $returnUrl,
         ])->url;
     }

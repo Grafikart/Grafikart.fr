@@ -11,7 +11,6 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class BadgeUnlockSubscriberTest extends EventSubscriberTest
 {
-
     public function testSubscribeToEvents()
     {
         $this->assertSubscribeTo(BadgeUnlockSubscriber::class, PremiumSubscriptionEvent::class);

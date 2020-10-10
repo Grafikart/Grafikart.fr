@@ -3,8 +3,6 @@
 namespace App\Infrastructure\Maker;
 
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Finder\Finder;
@@ -35,17 +33,17 @@ abstract class AbstractMakeCommand extends Command
     }
 
     /**
-     * Demande à l'utilisateur de choisir une class parmis une liste correspondant au motif
+     * Demande à l'utilisateur de choisir une class parmis une liste correspondant au motif.
      */
     protected function askClasses(string $question, string $pattern, SymfonyStyle $io): array
     {
         // On construit la liste utilisé pour l'autocompletion
         $classes = [];
-        $files = (new Finder())->in("{$this->projectDir}/src")->name("*Event.php")->files();
+        $files = (new Finder())->in("{$this->projectDir}/src")->name('*Event.php')->files();
         /** @var SplFileInfo $file */
         foreach ($files as $file) {
             $filename = str_replace('.php', '', $file->getBasename());
-            $namespace = 'App\\' . str_replace('/', '\\', $file->getRelativePath()) . '\\' . $filename;
+            $namespace = 'App\\'.str_replace('/', '\\', $file->getRelativePath()).'\\'.$filename;
             $classes[$filename] = $namespace;
         }
 
@@ -55,7 +53,7 @@ abstract class AbstractMakeCommand extends Command
         $answers = [];
         while (true) {
             $class = $io->askQuestion($q);
-            if ($class === null) {
+            if (null === $class) {
                 return $answers;
             }
             $answers[] = [

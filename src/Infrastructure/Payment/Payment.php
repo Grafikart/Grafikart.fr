@@ -4,7 +4,6 @@ namespace App\Infrastructure\Payment;
 
 class Payment
 {
-
     public string $id;
 
     public float $amount;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Http\Controller;
+namespace App\Tests\Http\Controller\Course;
 
 use App\Domain\Course\Entity\Course;
 use App\Tests\FixturesTrait;

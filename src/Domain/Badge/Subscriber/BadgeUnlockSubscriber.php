@@ -34,7 +34,7 @@ class BadgeUnlockSubscriber implements EventSubscriberInterface
             TopicCreatedEvent::class => 'onTopicCreated',
             TopicResolvedEvent::class => 'onTopicSolved',
             InteractiveLoginEvent::class => 'onLogin',
-            PremiumSubscriptionEvent::class => 'onPremium'
+            PremiumSubscriptionEvent::class => 'onPremium',
         ];
     }
 
