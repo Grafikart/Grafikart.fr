@@ -1,40 +1,60 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace App\Domain\Premium;
+namespace App\Domain\Premium\Subscriber;
 
-use App\Domain\Auth\AuthService;
 use App\Domain\Premium\Entity\Plan;
 use App\Domain\Premium\Entity\Transaction;
 use App\Domain\Premium\Event\PremiumSubscriptionEvent;
-use App\Infrastructure\Payment\Payment;
+use App\Domain\Premium\Exception\PaymentPlanMissMatchException;
+use App\Infrastructure\Payment\Stripe\StripePayment;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use App\Infrastructure\Payment\Event\PaymentEvent;
 
-class PremiumService
+class PaymentSubscriber implements EventSubscriberInterface
 {
 
-    private AuthService $auth;
     private EntityManagerInterface $em;
+    /**
+     * @var EventDispatcherInterface
+     */
     private EventDispatcherInterface $dispatcher;
 
-    public function __construct(AuthService $auth, EntityManagerInterface $em, EventDispatcherInterface $dispatcher)
+    public function __construct(EntityManagerInterface $em, EventDispatcherInterface $dispatcher)
     {
-        $this->auth = $auth;
         $this->em = $em;
         $this->dispatcher = $dispatcher;
     }
 
-    public function recordPayment(Payment $payment): void
+    public static function getSubscribedEvents(): array
     {
-        /** @var Plan $plan */
-        $plan = $this->em->getRepository(Plan::class)->find($payment->planId);
-        $user = $this->auth->getUser();
+        return [
+            PaymentEvent::class => 'onPayment',
+        ];
+    }
+
+    public function onPayment(PaymentEvent $event): void
+    {
+        // On regarde si le paiement correspond à un plan
+        $payment = $event->getPayment();
+        $user = $event->getUser();
+        $plan = $this->em->getRepository(Plan::class)->findOneBy(['price' => $payment->amount]);
+        if ($plan === null) {
+            throw new PaymentPlanMissMatchException();
+        }
+        $type = 'paypal';
+        if ($payment instanceof StripePayment) {
+            $type = 'stripe';
+        }
+
+        // On enregistre la transaction
         $transaction = (new Transaction())
             ->setPrice($payment->amount)
             ->setTax($payment->vat)
-            ->setAuthor($user)
+            ->setAuthor($event->getUser())
             ->setDuration($plan->getDuration())
-            ->setMethod('paypal')
+            ->setMethod($type)
             ->setFirstname($payment->firstname)
             ->setLastname($payment->lastname)
             ->setCity($payment->city)
@@ -44,11 +64,15 @@ class PremiumService
             ->setMethodRef($payment->id)
             ->setCreatedAt(new \DateTime());
         $this->em->persist($transaction);
+
+        // On met à jour la date de fin de premium de l'utilisateur
         $now = new \DateTimeImmutable();
         $premiumEnd = $user->getPremiumEnd() ?: new \DateTimeImmutable();
         // Si l'utilisateur a déjà une date de fin de premium dans le futur, alors on incrémentera son compte
         $premiumEnd = $premiumEnd > $now ? $premiumEnd : new \DateTimeImmutable();
         $user->setPremiumEnd($premiumEnd->add(new \DateInterval("P{$plan->getDuration()}M")));
+
+        // Flush & dispatch
         $this->em->flush();
         $this->dispatcher->dispatch(new PremiumSubscriptionEvent($user));
     }

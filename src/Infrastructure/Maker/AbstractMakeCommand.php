@@ -37,13 +37,13 @@ abstract class AbstractMakeCommand extends Command
     /**
      * Demande à l'utilisateur de choisir une class parmis une liste correspondant au motif
      */
-    protected function askClasses (string $question, string $pattern, SymfonyStyle $io): array
+    protected function askClasses(string $question, string $pattern, SymfonyStyle $io): array
     {
         // On construit la liste utilisé pour l'autocompletion
         $classes = [];
         $files = (new Finder())->in("{$this->projectDir}/src")->name("*Event.php")->files();
         /** @var SplFileInfo $file */
-        foreach($files as $file) {
+        foreach ($files as $file) {
             $filename = str_replace('.php', '', $file->getBasename());
             $namespace = 'App\\' . str_replace('/', '\\', $file->getRelativePath()) . '\\' . $filename;
             $classes[$filename] = $namespace;
@@ -53,7 +53,7 @@ abstract class AbstractMakeCommand extends Command
         $q = new Question($question);
         $q->setAutocompleterValues(array_keys($classes));
         $answers = [];
-        while(true) {
+        while (true) {
             $class = $io->askQuestion($q);
             if ($class === null) {
                 return $answers;

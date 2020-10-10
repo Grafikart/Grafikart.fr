@@ -20,7 +20,7 @@ class {{ class_name }} implements EventSubscriberInterface
     }
 
     {%~ for event in events %}
-    public static function on{{ event.class_name | replace({'Event': ''}) }}(): void
+    public function on{{ event.class_name | replace({'Event': ''}) }}({{ event.class_name }} $event): void
     {
     }
     {%~ endfor %}

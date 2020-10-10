@@ -1,10 +1,13 @@
-import { Field, Radio } from '/components/Form.jsx'
+import { Radio } from '/components/Form.jsx'
 import { useEffect, useRef, useState } from 'preact/hooks'
 import scriptjs from 'scriptjs'
 import { Flex, Stack } from '/components/Layout.jsx'
 import { useToggle } from '/functions/hooks.js'
-import { Button } from '/components/Button.jsx'
+import { Button, PrimaryButton } from '/components/Button.jsx'
 import { formatMoney } from '/functions/string.js'
+import { ApiError, jsonFetch } from '/functions/api.js'
+import { flash } from '/elements/Alert.js'
+import { importScript } from '/functions/script.js'
 
 export const PAYMENT_CARD = 'CARD'
 export const PAYMENT_PAYPAL = 'PAYPAL'
@@ -52,7 +55,7 @@ export function PaymentMethods ({ plan, price, description, vat = 0, onPaypalApp
       {method === PAYMENT_PAYPAL ? (
         <PaymentPaypal planId={plan} price={price} vat={vat} description={description} onApprove={onPaypalApproval} />
       ) : (
-        <PaymentCard />
+        <PaymentCard plan={plan} />
       )}
     </>
   )
@@ -148,20 +151,26 @@ function PaymentPaypal ({ planId, vat, price, description, onApprove }) {
   )
 }
 
-function PaymentCard () {
+function PaymentCard ({ plan }) {
+  const [loading, toggleLoading] = useState(false)
+  const startPayment = async () => {
+    toggleLoading()
+    try {
+      const Stripe = await importScript('https://js.stripe.com/v3/', 'Stripe')
+      const stripe = new Stripe('pk_test_4xz0aH0LjCHk6XQOsKJy1qZh')
+      const { id } = await jsonFetch(`/api/premium/${plan}/stripe/checkout`, { method: 'POST' })
+      stripe.redirectToCheckout({ sessionId: id })
+    } catch (e) {
+      flash(e instanceof ApiError ? e.name : e, 'error')
+    }
+    toggleLoading()
+  }
+
   return (
-    <div class='grid2'>
-      <div class='full'>
-        <Field name='card' required>
-          Numéro de carte
-        </Field>
-      </div>
-      <Field name='card' required>
-        Date d'expiration
-      </Field>
-      <Field name='card' required>
-        Code de sécurité
-      </Field>
+    <div>
+      <PrimaryButton size='block' onClick={startPayment} loading={loading}>
+        Payer avec stripe
+      </PrimaryButton>
     </div>
   )
 }

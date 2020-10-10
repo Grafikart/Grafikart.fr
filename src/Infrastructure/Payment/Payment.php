@@ -7,9 +7,9 @@ class Payment
 
     public string $id;
 
-    public int $planId;
-
     public float $amount;
+
+    public int $planId;
 
     public string $firstname = '';
 

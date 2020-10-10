@@ -2,69 +2,24 @@
 
 namespace App\Infrastructure\Payment\Paypal;
 
-use App\Infrastructure\Payment\Exception\PaymentFailedException;
 use App\Infrastructure\Payment\Payment;
-use PayPalCheckoutSdk\Core\PayPalHttpClient;
-use PayPalCheckoutSdk\Orders\OrdersCaptureRequest;
-use PayPalCheckoutSdk\Orders\OrdersGetRequest;
-use PayPalHttp\HttpException;
 
-class PaypalPayment
+class PaypalPayment extends Payment
 {
 
-    private PayPalHttpClient $client;
-
-    public function __construct(PayPalHttpClient $client)
+    public function __construct(\stdClass $order)
     {
-        $this->client = $client;
-    }
-
-    /**
-     * On crée un paiement à partir de l'id de la commande
-     */
-    public function createPayment(string $orderId): Payment
-    {
-        try {
-            // On récupère les information de la commaande
-            /** @var \stdClass $order */
-            $order = $this->client->execute(new OrdersGetRequest($orderId))->result;
-
-            // On normalise le paiement
-            $payment = new Payment();
-            $unit = $order->purchase_units[0];
-            $item = $unit->items[0];
-            $payment->id = $order->id;
-            $payment->planId = (int)$unit->custom_id;
-            $payment->firstname = $order->payer->name->given_name;
-            $payment->lastname = $order->payer->name->surname;
-            $payment->address = $unit->shipping->address->address_line_1;
-            $payment->city = $unit->shipping->address->admin_area_2;
-            $payment->postalCode = $unit->shipping->address->postal_code;
-            $payment->countryCode = $unit->shipping->address->country_code;
-            $payment->amount = floatval($item->unit_amount->value);
-            $payment->vat = floatval($item->tax->value);
-
-            return $payment;
-        } catch (HttpException $e) {
-            throw PaymentFailedException::fromPaypalHttpException($e);
-        }
-    }
-
-    /**
-     * Lance la "capture" du paiement
-     */
-    public function capture(Payment $payment): Payment
-    {
-        try {
-            /** @var \stdClass $capture */
-            $capture = $this->client->execute(new OrdersCaptureRequest($payment->id))->result;
-            if ($capture->status === 'COMPLETED') {
-                $payment->id = $capture->purchase_units[0]->payments->captures[0]->id;
-                return $payment;
-            }
-            throw new PaymentFailedException('Impossible de capturer ce paiement');
-        } catch (HttpException $e) {
-            throw PaymentFailedException::fromPaypalHttpException($e);
-        }
+        $unit = $order->purchase_units[0];
+        $item = $unit->items[0];
+        $this->id = $order->id;
+        $this->planId = (int)$unit->custom_id;
+        $this->firstname = $order->payer->name->given_name;
+        $this->lastname = $order->payer->name->surname;
+        $this->address = $unit->shipping->address->address_line_1;
+        $this->city = $unit->shipping->address->admin_area_2;
+        $this->postalCode = $unit->shipping->address->postal_code;
+        $this->countryCode = $unit->shipping->address->country_code;
+        $this->amount = floatval($item->unit_amount->value);
+        $this->vat = floatval($item->tax->value);
     }
 }

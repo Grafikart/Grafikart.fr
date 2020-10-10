@@ -21,8 +21,10 @@ trait PremiumTrait
         return $this->premiumEnd;
     }
 
-    public function setPremiumEnd(?\DateTimeImmutable $premiumEnd): void
+    public function setPremiumEnd(?\DateTimeImmutable $premiumEnd): self
     {
         $this->premiumEnd = $premiumEnd;
+
+        return $this;
     }
 }

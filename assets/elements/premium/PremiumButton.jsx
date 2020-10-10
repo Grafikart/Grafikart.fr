@@ -78,7 +78,7 @@ export function PremiumButton ({ children, plan, price, duration }) {
               <div class='text-center mb3'>
                 <img src='/images/success.svg' alt='' style='max-width: 80%;' />
               </div>
-              <p>Votre paiement a été accepter, vous êtes maintenant premium pour {duration} mois.</p>
+              <p>Votre paiement a été accepté, vous êtes maintenant premium pour {duration} mois.</p>
 
               <hr class='my4' />
 

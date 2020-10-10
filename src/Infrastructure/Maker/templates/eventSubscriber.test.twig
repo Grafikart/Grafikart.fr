@@ -3,7 +3,7 @@
 namespace App\Tests{{ namespace }};
 
 use App\Tests\EventSubscriberTest;
-use App{{ namespace }};
+use App{{ namespace }}\{{ class_name }};
 {% for event in events %}
 use {{ event.namespace }};
 {% endfor %}

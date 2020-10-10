@@ -25,7 +25,7 @@ class MakeSubscriberCommand extends AbstractMakeCommand
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $events = $this->askClasses("Quel évènement écouter ?", "*Event", $io);
+        $events = $this->askClasses("Quel évènement écouter", "*Event", $io);
 
         /** @var string $subscriberPath */
         $subscriberPath = $input->getArgument('subscriberName');

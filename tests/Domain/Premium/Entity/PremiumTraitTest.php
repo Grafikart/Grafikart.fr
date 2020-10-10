@@ -15,14 +15,14 @@ class PremiumTraitTest extends TestCase
     public function testPremiumExpired()
     {
         $user = new PremiumTraitUser();
-        $user->setPremiumEnd(new \DateTime('-1 year'));
+        $user->setPremiumEnd(new \DateTimeImmutable('-1 year'));
         $this->assertFalse($user->isPremium());
     }
 
     public function testPremium()
     {
         $user = new PremiumTraitUser();
-        $user->setPremiumEnd(new \DateTime('+1 year'));
+        $user->setPremiumEnd(new \DateTimeImmutable('+1 year'));
         $this->assertTrue($user->isPremium());
     }
 }
