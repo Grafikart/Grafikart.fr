@@ -77,7 +77,7 @@ class TwigAssetExtension extends AbstractExtension
             return ''; // Le CSS est chargé depuis le JS dans l'environnement de dev
         }
 
-        return '<link rel="stylesheet" media="screen" href="'.$this->uri($name.'.css').'"/>';
+        return '<link rel="stylesheet" media="screen" href="'.$uri.'"/>';
     }
 
     public function script(string $name): string
