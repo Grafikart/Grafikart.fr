@@ -7,6 +7,7 @@ import Skeleton from './Skeleton.js'
 import { Switch } from './Switch.js'
 import { Comments } from '../components/Comments.jsx'
 import { TimeAgo } from './TimeAgo.js'
+import { TimeCountdown } from './TimeCountdown.js'
 import { Choices } from './Choices.js'
 import { MarkdownEditor } from './editor/index.js'
 import { AjaxDelete } from './AjaxDelete.js'
@@ -38,6 +39,7 @@ customElements.define('live-recap', RecapLiveElement)
 customElements.define('play-button', PlayButton)
 customElements.define('waves-shape', Waves)
 customElements.define('time-ago', TimeAgo)
+customElements.define('time-countdown', TimeCountdown)
 customElements.define('ajax-delete', AjaxDelete)
 customElements.define('animated-editor', AnimatedEditor)
 customElements.define('spinning-dots', SpinningDots)

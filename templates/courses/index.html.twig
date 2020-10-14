@@ -3,24 +3,50 @@
 {% block title 'Tous les tutoriels' ~ ((page > 1) ? (', page' ~ page) : '') %}
 
 {% block body %}
-  <div class="courses my5">
-    <div class="course-hero {% if page > 1 %}is-paginated{% endif %}">
-      {% if page == 1 %}
-        <h1>Tous les tutoriels</h1>
-        <p>
-          Envie d'apprendre de nouvelles choses et maitriser de nouvelles technologies ?<br>
-          Alors vous êtes sur le bon chemin...
-        </p>
-      {% else %}
-        <h1>Tous les tutoriels<em><br>page {{ page }}</em></h1>
-      {% endif %}
-    </div>
-    {% for course in courses %}
-      {% include 'courses/_card.html.twig' %}
-    {% endfor %}
-  </div>
+  <div class="container py5">
 
-  {{ paginate(courses) }}
+    <div class="filter text-right pb2">
+      <div class="hstack" style="justify-content: flex-end; align-items: center;">
+        <small class="text-muted">Filtrer :</small>
+        <div class="form-group">
+          <select name="level" class="form-control" style="padding: 3px; min-height: auto;">
+            <option selected>Difficulté</option>
+            <option value="a">Débutant</option>
+            <option value="b">Débutant</option>
+            <option value="c">Débutant</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <select name="level" class="form-control" style="padding: 3px; min-height: auto;">
+            <option selected>Technologie</option>
+            <option value="a">Débutant</option>
+            <option value="b">Débutant</option>
+            <option value="c">Débutant</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="courses">
+      <div class="course-hero {% if page > 1 %}is-paginated{% endif %}">
+        {% if page == 1 %}
+          <h1>Tous les tutoriels</h1>
+          <p>
+            Envie d'apprendre de nouvelles choses et maitriser de nouvelles technologies ?<br>
+            Alors vous êtes sur le bon chemin...
+          </p>
+        {% else %}
+          <h1>Tous les tutoriels<em><br>page {{ page }}</em></h1>
+        {% endif %}
+      </div>
+      {% for course in courses %}
+        {% include 'courses/_card.html.twig' %}
+      {% endfor %}
+    </div>
+
+    {{ paginate(courses) }}
+
+  </div>
 
   {{ show_history(courses.items) }}
 

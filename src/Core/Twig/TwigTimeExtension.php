@@ -16,6 +16,7 @@ class TwigTimeExtension extends AbstractExtension
         return [
             new TwigFilter('duration', [$this, 'duration']),
             new TwigFilter('ago', [$this, 'ago'], ['is_safe' => ['html']]),
+            new TwigFilter('countdown', [$this, 'countdown'], ['is_safe' => ['html']]),
             new TwigFilter('duration_short', [$this, 'shortDuration'], ['is_safe' => ['html']]),
         ];
     }
@@ -57,5 +58,10 @@ class TwigTimeExtension extends AbstractExtension
         $prefixAttribute = !empty($prefix) ? " prefix=\"{$prefix}\"" : '';
 
         return "<time-ago time=\"{$date->getTimestamp()}\"$prefixAttribute></time-ago>";
+    }
+
+    public function countdown(\DateTimeInterface $date): string
+    {
+        return "<time-countdown time=\"{$date->getTimestamp()}\"></time-countdown>";
     }
 }

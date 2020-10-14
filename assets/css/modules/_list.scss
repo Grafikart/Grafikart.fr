@@ -98,14 +98,22 @@
     opacity: 0.1;
   }
 }
-.pill-course-level {
-  position: absolute;
+.pill-xsmall {
   font-size: 11px;
   height: 18px;
   padding: 0 9px;
-  top: space(2);
-  right: space(2);
   font-weight: normal;
+  line-height: 18px;
+
+  .icon {
+    transform: none;
+    vertical-align: middle;
+    margin-right: space(.5);
+    display: block;
+    width: 12px;
+    height: 12px;
+  }
+
   &::after {
     border-radius:3px;
   }

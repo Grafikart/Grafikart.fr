@@ -1,6 +1,8 @@
 {% cache [course, 'card'] %}
-  <article class="card" data-history="{{ course.id }}" {% if progress is defined %}style="--progress: {{ progress }}"{% endif %}>
+  <article class="card {{ course.premium ? 'card-premium' : '' }} {{ course.scheduled ? 'card-scheduled' : '' }}" data-history="{{ course.id }}" {% if progress is defined %}style="--progress: {{ progress }}"{% endif %}>
     <div class="card__body stack">
+
+      {# Langages utilisés #}
       <div class="card__icons">
         {% for technology in course.mainTechnologies %}
           <a href="{{ path('technology_show', {slug: technology.slug}) }}" class="course__icon" tabindex="-1">
@@ -8,17 +10,31 @@
           </a>
         {% endfor %}
       </div>
+
+      {# Titre du tutoriel #}
       <h2 class="card__title">
         <a href="{{ path('course_show', {slug: course.slug, id: course.id}) }}" tabindex="-1">
           {{ course.title }}
         </a>
       </h2>
+
+      {# Description courte #}
       <div class="card__description text-small">
-        {{ course.content | markdown | striptags | excerpt(130) }}
+        <p>
+          {{ course.content | markdown | striptags | excerpt(130) }}
+        </p>
+        {% if course.scheduled %}
+          <div class="countdown">
+            <small>Disponible dans</small>
+            <strong>{{ course.createdAt | countdown }}</strong>
+          </div>
+        {% endif %}
       </div>
       <a href="{{ path('course_show', {slug: course.slug, id: course.id}) }}" title="{{ course.title }}"
          class="card__link"></a>
     </div>
+
+    {# Barre de progression #}
     <div class="card__progress"><span></span></div>
     <footer class="card__footer text-small">
       {% if course.formation %}
@@ -30,6 +46,15 @@
         {{ icon('clock', 14) }} {{ course.duration | duration }}
       </div>
     </footer>
-    {% include 'partials/level.html.twig' with {content: course, class: 'pill-course-level'} %}
+
+    {# Difficulté #}
+    <div class="card__pills">
+
+      {% include 'partials/level.html.twig' with {content: course} %}
+
+      {% if course.premium %}
+        <div class="pill pill-xsmall pill-yellow">{{ icon('star') }} Premium</div>
+      {% endif %}
+    </div>
   </article>
 {% endcache %}

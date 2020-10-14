@@ -41,6 +41,30 @@ class CourseController extends AbstractController
             'menu' => 'courses',
         ]);
     }
+    /**
+     * @Route("/tutoriels/premium", name="course_premium")
+     */
+    public function premium(CourseRepository $repo, PaginatorInterface $paginator, Request $request): Response
+    {
+        $page = $request->query->getInt('page', 1);
+        $courses = $paginator->paginate(
+            $repo->queryAllPremium(),
+            $page,
+            26,
+            [
+                'whiteList' => [],
+            ]
+        );
+        if (0 === $courses->count()) {
+            throw new NotFoundHttpException('Aucun tutoriels ne correspond à cette page');
+        }
+
+        return $this->render('courses/premium.html.twig', [
+            'courses' => $courses,
+            'page' => $page,
+            'menu' => 'courses',
+        ]);
+    }
 
     /**
      * @Route("/tutoriels/{slug<[a-z0-9A-Z\-]+>}-{id<\d+>}", name="course_show")

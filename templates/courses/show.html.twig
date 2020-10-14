@@ -11,6 +11,14 @@
     </div>
 
     <div class="container {{ course.formation ? 'layout-sidebar' : '' }} mt2 mb5">
+      {% if course.scheduled %}
+        <div class="course-countdown" style="background-image: url({{ image_url(course.image) }})">
+          <div>
+            <em>Disponible dans</em>
+            <span class="course-countdown_timer">{{ course.createdAt | countdown }}</span>
+          </div>
+        </div>
+      {% else %}
       <progress-tracker contentId="{{ course.id }}" data-history="{{ course.id }}" duration="{{ course.duration }}">
         <youtube-player
           id="course-{{ course.id }}"
@@ -21,6 +29,7 @@
           id="coursePlayer"
           class="shadow"></youtube-player>
       </progress-tracker>
+      {% endif %}
       {% if course.formation %}
         <div class="relative card">
           <div class="absolute">

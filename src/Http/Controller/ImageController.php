@@ -2,7 +2,6 @@
 
 namespace App\Http\Controller;
 
-use App\Http\Admin\Controller\BaseController;
 use League\Glide\Responses\SymfonyResponseFactory;
 use League\Glide\ServerFactory;
 use League\Glide\Signatures\SignatureException;
@@ -13,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ImageController extends BaseController
+class ImageController extends AbstractController
 {
     private string $cachePath;
     private string $resizeKey;

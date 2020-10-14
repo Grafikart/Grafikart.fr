@@ -11,13 +11,32 @@ class CourseControllerTest extends WebTestCase
 {
     use FixturesTrait;
 
-    public function testShowSuccess()
+    public function testShowSuccessAndRightTitle()
     {
         /** @var Course $course */
         ['course1' => $course] = $this->loadFixtures(['courses']);
         $this->client->request('GET', "/tutoriels/{$course->getSlug()}-{$course->getId()}");
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $this->expectTitle('Tutoriel Vidéo '.$course->getTitle());
+        $this->expectH1($course->getTitle());
+    }
+
+    public function testIndexSuccess()
+    {
+        $this->loadFixtures(['courses']);
+        $this->client->request('GET', "/tutoriels");
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $this->expectTitle('Tous les tutoriels');
+        $this->expectH1('Tous les tutoriels');
+    }
+
+    public function testPremiumSuccess()
+    {
+        $this->loadFixtures(['courses']);
+        $this->client->request('GET', "/tutoriels/premium");
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $this->expectTitle('Tous les tutoriels premiums');
+        $this->expectH1('Tous les tutoriels premiums');
     }
 
     public function testDownloadVideoUnauthenticated(): void

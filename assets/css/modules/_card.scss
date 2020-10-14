@@ -50,7 +50,7 @@
   flex: none;
   align-items: center;
 }
-.card__description {
+.card__description p {
   opacity: 0.65;
 }
 .card__title {
@@ -92,6 +92,17 @@
   & > *:last-child {
     margin-right: 0;
     margin-left: auto;
+  }
+}
+.card__pills {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: space(2);
+  right: space(2);
+
+  > * + * {
+    margin-left: space(1);
   }
 }
 .card a {
@@ -159,6 +170,47 @@
     &::before {
       opacity: 1;
       transform: translate(0px, 0px) rotate(-3deg);
+    }
+  }
+}
+
+// Premium
+// =============
+.card-premium {
+  box-shadow: 0 0 0 4px var(--yellow-alpha);
+
+  .card__link:hover {
+    border: 1px solid var(--yellow);
+  }
+}
+.user-premium .card__description .countdown {
+  display: none;
+}
+.user-not-premium .card-scheduled .card__description {
+  position: relative;
+  p {
+    opacity: .2;
+    filter: blur(4px);
+  }
+  .countdown {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    em {
+      font-size: 0.9rem;
+    }
+    strong {
+      line-height: 1;
+      font-size: 1.5rem;
+      color: var(--color-dark);
+      font-weight: bold;
     }
   }
 }

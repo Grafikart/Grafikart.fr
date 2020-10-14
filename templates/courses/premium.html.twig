@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Tous les tutoriels premiums' ~ ((page > 1) ? (', page' ~ page) : '') %}
+
+{% block body %}
+  <div class="container py5">
+
+    <div class="courses">
+      <div class="course-hero {% if page > 1 %}is-paginated{% endif %}">
+        {% if page == 1 %}
+          <h1>Tous les tutoriels premiums</h1>
+          <p>
+            Pour consulter ces tutoriels vous devez vous abonner.
+          </p>
+        {% else %}
+          <h1>Tous les tutoriels<em><br>page {{ page }}</em></h1>
+        {% endif %}
+      </div>
+      {% for course in courses %}
+        {% include 'courses/_card.html.twig' %}
+      {% endfor %}
+    </div>
+
+    {{ paginate(courses) }}
+
+  </div>
+
+  {{ show_history(courses.items) }}
+
+{% endblock %}
