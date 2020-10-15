@@ -1,23 +1,25 @@
 {% extends 'base.html.twig' %}
 
+{% set bodyClass = 'header-light' %}
+
 {% block body %}
-  <div class="container">
+
+  <div class="container page-header flex">
     <h1 class="hero-title">Résultat pour votre recherche "<em>{{ q }}</em>"</h1>
-    <div class="formatted">
-      <ul>
+  </div>
+
+  <div class="container py5">
+      <ul class="stack-large">
         {% for result in results %}
-          <li style="margin-bottom: 1rem;">
-            <span style="font-weight: bold;">{{ result.document.title }} // {{ result.document.type }}#{{ result.document.id }}</span><br>
-            {% for h in result.highlights%}
-              {% if h.field != 'category' %}
-              {{ h.snippet | raw }}
-              {% endif %}
-              <br>
-            {% endfor %}
+          <li>
+            <h2 class="h4"><a href="{{ result.url }}">{{ result.title | raw }}</a></h2>
+            <p class="text-muted text-small">Il y a 3 jours</p>
+            <p class="mt1">
+              {{ result.excerpt | raw | nl2br }}
+            </p>
           </li>
         {% endfor %}
       </ul>
-    </div>
   </div>
 {% endblock %}
 

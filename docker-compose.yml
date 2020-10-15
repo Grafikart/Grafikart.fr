@@ -48,15 +48,15 @@ services:
       - 1080:8025
   redis:
     image: redis:5-alpine
-  # typesense:
-  #   image: typesense/typesense:0.14.0
-  #   environment:
-  #     TYPESENSE_DATA_DIR: /data
-  #     TYPESENSE_API_KEY: typesensekey
-  #   volumes:
-  #     - search-data:/data
-  #   ports:
-  #     - 8108:8108
+  typesense:
+    image: typesense/typesense:0.15.0
+    environment:
+      TYPESENSE_DATA_DIR: /data
+      TYPESENSE_API_KEY: typesensekey
+    volumes:
+      - search-data:/data
+    ports:
+      - 8108:8108
   mercure:
     image: dunglas/mercure
     environment:
@@ -91,5 +91,5 @@ services:
 volumes:
   db-data:
     driver: local
-  # search-data:
-  #   driver: local
+  search-data:
+    driver: local

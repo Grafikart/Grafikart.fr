@@ -30,6 +30,7 @@ class TypesenseIndexer implements IndexerInterface
                         ['name' => 'category', 'type' => 'string[]'],
                         ['name' => 'type', 'type' => 'string', 'facet' => true],
                         ['name' => 'created_at', 'type' => 'int32'],
+                        ['name' => 'url', 'type' => 'string'],
                     ],
                     'default_sorting_field' => 'created_at',
                 ]);
@@ -37,6 +38,14 @@ class TypesenseIndexer implements IndexerInterface
             } elseif (Response::HTTP_NOT_FOUND === $exception->status) {
                 $this->client->post('collections/content/documents', $data);
             }
+        }
+    }
+
+    public function clean(): void
+    {
+        try {
+            $this->client->delete('collections/content');
+        } catch (TypesenseException $e) {
         }
     }
 }

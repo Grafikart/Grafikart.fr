@@ -2,9 +2,8 @@
 
 namespace App\Command;
 
-use App\Domain\Course\Repository\CourseRepository;
-use App\Domain\Course\Repository\FormationRepository;
-use App\Domain\Forum\Repository\TopicRepository;
+use App\Domain\Course\Entity\Course;
+use App\Domain\Course\Entity\Formation;
 use App\Infrastructure\Search\IndexerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
@@ -17,27 +16,18 @@ class IndexCommand extends Command
 {
     protected static $defaultName = 'app:index';
     private IndexerInterface $indexer;
-    private FormationRepository $formationRepository;
-    private CourseRepository $courseRepository;
     private NormalizerInterface $normalizer;
-    private TopicRepository $topicRepository;
     private EntityManagerInterface $em;
 
     public function __construct(
         IndexerInterface $indexer,
-        FormationRepository $formationRepository,
-        TopicRepository $topicRepository,
-        CourseRepository $courseRepository,
         EntityManagerInterface $em,
         NormalizerInterface $normalizer
     ) {
         parent::__construct();
         $this->indexer = $indexer;
-        $this->formationRepository = $formationRepository;
-        $this->courseRepository = $courseRepository;
-        $this->normalizer = $normalizer;
-        $this->topicRepository = $topicRepository;
         $this->em = $em;
+        $this->normalizer = $normalizer;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -46,27 +36,28 @@ class IndexCommand extends Command
 
         $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
         $io->progressStart();
+        $this->indexer->clean();
 
-        $courses = $this->courseRepository->findAll();
+        // On importe les cours
+        /** @var Course[] $courses */
+        $courses = $this->em->getRepository(Course::class)->findAll();
         foreach ($courses as $course) {
             $io->progressAdvance();
             $this->indexer->index((array) $this->normalizer->normalize($course, 'search'));
         }
+        $this->em->clear();
 
-        $formations = $this->formationRepository->findAll();
+        // On importe les formations
+        /** @var Formation[] $formations */
+        $formations = $this->em->getRepository(Formation::class)->findAll();
         foreach ($formations as $formation) {
             $io->progressAdvance();
             $this->indexer->index((array) $this->normalizer->normalize($formation, 'search'));
         }
-
-        $topics = $this->topicRepository->findAllBatched();
-        foreach ($topics as $topic) {
-            $io->progressAdvance();
-            $this->indexer->index((array) $this->normalizer->normalize($topic, 'search'));
-        }
+        $this->em->clear();
 
         $io->progressFinish();
-        $io->success('ça marche');
+        $io->success('Les contenus ont bien été indexés');
 
         return 0;
     }

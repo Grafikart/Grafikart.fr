@@ -10,4 +10,9 @@ interface IndexerInterface
      * @param array $data {id: string, title: string, content: string, created_at: int, category: string[]}
      */
     public function index(array $data): void;
+
+    /**
+     * Vide l'index de toute données.
+     */
+    public function clean(): void;
 }

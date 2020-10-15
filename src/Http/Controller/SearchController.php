@@ -36,9 +36,12 @@ class SearchController extends AbstractController
             }
         }
 
+        $results = $search->search($q, []);
+
         return $this->render('pages/search.html.twig', [
             'q' => $q,
-            'results' => $search->search($q, [])['hits'],
+            'total' => $results->getTotal(),
+            'results' => $results->getItems(),
         ]);
     }
 }

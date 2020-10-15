@@ -41,6 +41,7 @@ class CourseController extends AbstractController
             'menu' => 'courses',
         ]);
     }
+
     /**
      * @Route("/tutoriels/premium", name="course_premium")
      */

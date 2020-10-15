@@ -24,7 +24,7 @@ class CourseControllerTest extends WebTestCase
     public function testIndexSuccess()
     {
         $this->loadFixtures(['courses']);
-        $this->client->request('GET', "/tutoriels");
+        $this->client->request('GET', '/tutoriels');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $this->expectTitle('Tous les tutoriels');
         $this->expectH1('Tous les tutoriels');
@@ -33,7 +33,7 @@ class CourseControllerTest extends WebTestCase
     public function testPremiumSuccess()
     {
         $this->loadFixtures(['courses']);
-        $this->client->request('GET', "/tutoriels/premium");
+        $this->client->request('GET', '/tutoriels/premium');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $this->expectTitle('Tous les tutoriels premiums');
         $this->expectH1('Tous les tutoriels premiums');
