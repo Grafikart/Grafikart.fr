@@ -1,3 +1,34 @@
+// Listing
+// =============
+.cursus-listing {
+  --padding: 70px;
+}
+.cursus-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
+  grid-gap: space(4);
+  grid-auto-flow: dense;
+
+  @include down(660) {
+    grid-template-columns: 1fr;
+  }
+}
+.cursus-section {
+  @extend %container;
+  padding-top: var(--padding);
+  padding-bottom: var(--padding);
+  background: var(--background-light);
+}
+.cursus-section:first-child {
+  padding-bottom: calc(var(--padding) * .5);
+  background: linear-gradient(to top, var(--background), var(--background)) left bottom/100% 250px no-repeat var(--background-light);
+}
+.cursus-section:nth-child(2n) {
+  background: var(--background);
+}
+
+// Page cursus
+// =============
 .cursus-page {
   @extend %container-margin;
   position: relative;

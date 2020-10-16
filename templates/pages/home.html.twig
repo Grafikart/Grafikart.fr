@@ -39,34 +39,14 @@
           <p class="hero-text">Les cursus sont une série de vidéo sélectionnées manuellement pour vous faire atteindre
             un objectif spécifique</p>
           <div>
-            <a class="btn-primary btn-big" href="#">Parcourir les cursus</a>
+            <a class="btn-primary btn-big" href="{{ path('cursus_index') }}">Parcourir les cursus</a>
           </div>
         </div>
       </div>
 
       <div class="home-cursus__push">
-        {% for i in 1..3 %}
-          <div class="card card-big card-illustration">
-            <div class="card__body stack">
-              <div class="card__icons">
-                <a href="#"><img src="/uploads/icons/css.svg" alt=""></a>
-                <a href="#"><img src="/uploads/icons/php.png" alt=""></a>
-              </div>
-              <h3 class="card__title">
-                Développeur backend PHP
-              </h3>
-              <p>
-                Dans ce cursus vous apprendrez tout ce qu'il y a à savoir sur le développement d'application PHP. Nous
-                commenceront par les bases de l'HTML et du CSS puis nous découvrirons comment utiliser PHP pour
-                dynamiser les contenus
-              </p>
-              <p><em>122 heures</em></p>
-            </div>
-            <a href="#" class="card__illustration" data-text="Voir ce cursus">
-              <img alt="" src="https://i.picsum.photos/id/98{{ i }}/250/348.jpg">
-              <span class="play"></span>
-            </a>
-          </div>
+        {% for c in cursus %}
+          {% include 'cursus/_card.html.twig' with {cursus: c} %}
         {% endfor %}
       </div>
 

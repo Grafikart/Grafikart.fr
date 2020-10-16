@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'header-light' %}
+
+{% block body %}
+
+  <div class="cursus-listing">
+
+    {# Choix du parcours #}
+    <div class="cursus-section text-center stack-large">
+      <div class="hero-title">
+        Quel <strong>parcours</strong><br>
+        choisir ?
+      </div>
+      <p class="hero-text container-narrow">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. At dolore ea est eum fugit nemo non odio reiciendis ullam veniam. At debitis eius explicabo, in laboriosam maxime modi obcaecati. Illo!
+      </p>
+      <div>
+        <div style="max-width: 800px; margin-left: auto; margin-right: auto;">
+          <youtube-player video="3yWEsqqyvp4" poster="https://www.grafikart.fr/uploads/tutoriels/1/background_122.jpg" title="Par quoi commencer ?"></youtube-player>
+        </div>
+      </div>
+    </div>
+
+    {# Développeur front-end #}
+    <div class="cursus-section stack-large">
+      <h2 class="hero-title">
+        Développeur<br/>
+        <strong>Front-end</strong>
+      </h2>
+      <p class="hero-text">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. At dolore ea est eum fugit nemo non odio reiciendis ullam veniam. At debitis eius explicabo, in laboriosam maxime modi obcaecati. Illo!
+      </p>
+      <div class="cursus-grid">
+        {% for c in cursus %}
+          {% include "cursus/_card.html.twig" with {cursus: c} %}
+        {% endfor %}
+      </div>
+    </div>
+
+    {# Développeur back-end #}
+    <div class="cursus-section stack-large">
+      <h2 class="hero-title">
+        Développeur<br/>
+        <strong>Back-end</strong>
+      </h2>
+      <p class="hero-text">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. At dolore ea est eum fugit nemo non odio reiciendis ullam veniam. At debitis eius explicabo, in laboriosam maxime modi obcaecati. Illo!
+      </p>
+      <div class="cursus-grid">
+        {% for c in cursus %}
+          {% include "cursus/_card.html.twig" with {cursus: c} %}
+        {% endfor %}
+      </div>
+    </div>
+
+    {# Administration système #}
+    <div class="cursus-section stack-large">
+      <h2 class="hero-title">
+        Administration<br/>
+        <strong>système</strong>
+      </h2>
+      <p class="hero-text">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. At dolore ea est eum fugit nemo non odio reiciendis ullam veniam. At debitis eius explicabo, in laboriosam maxime modi obcaecati. Illo!
+      </p>
+      <div class="cursus-grid">
+        {% for c in cursus %}
+          {% include "cursus/_card.html.twig" with {cursus: c} %}
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+
+{% endblock %}
+

@@ -25,7 +25,7 @@ class FormationController extends AbstractController
     }
 
     /**
-     * @Route("/cursus", name="formation_map")
+     * @Route("/formations/guide", name="formation_map")
      */
     public function tree(EntityManagerInterface $em): Response
     {

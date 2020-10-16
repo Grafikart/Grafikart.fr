@@ -12,4 +12,17 @@ class CursusRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Cursus::class);
     }
+
+    /**
+     * @return Cursus[]
+     */
+    public function findRecent(int $limit): array
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.online = true')
+            ->orderBy('c.createdAt', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
 }

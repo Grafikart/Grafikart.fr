@@ -1,0 +1,24 @@
+<div class="card card-big card-illustration">
+  <div class="card__body stack">
+    <div class="card__icons">
+      {% for technology in cursus.mainTechnologies %}
+        <a href="{{ path('technology_show', {slug: technology.slug}) }}" class="course__icon" tabindex="-1">
+          <img src="{{ uploads_path('icons/' ~ technology.image) }}" alt="{{ technology.name }}">
+        </a>
+      {% endfor %}
+    </div>
+    <h3 class="card__title">
+      <a href="{{ path(cursus) }}">
+        {{ cursus.title }}
+      </a>
+    </h3>
+    <p>
+      {{ cursus.content  | markdown | striptags | excerpt(230) }}
+    </p>
+    <p><em>122 heures</em></p>
+  </div>
+  <a href="{{ path(cursus) }}" class="card__illustration" data-text="Voir ce cursus">
+    <img src="{{ image_url(cursus.image, 250, 340) }}" alt="">
+    <span class="play"></span>
+  </a>
+</div>

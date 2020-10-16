@@ -67,7 +67,7 @@ import: vendor/autoload.php ## Import les données du site actuel
 	$(sy) app:import formations
 	$(sy) app:import blog
 	$(sy) app:import comments
-	$(sy) app:import forum
+	# $(sy) app:import forum
 	# $(sy) app:import badges
 	$(dc) -f docker-compose.import.yml stop
 
