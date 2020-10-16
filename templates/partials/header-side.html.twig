@@ -2,7 +2,9 @@
   <li class="header__notification">
     <site-notifications></site-notifications>
   </li>
-  <li class="header__search"><a href="#">{{ icon('search') }}</a></li>
+  <li class="header__search">
+    <search-button></search-button>
+  </li>
   {% if app.user %}
     <li><a href="{{ path('user_profil') }}">{{ icon('user') }} <span>{{ app.user.username }}</span></a>
     <li class="header__logout"><a href="{{ path('auth_logout') }}">{{ icon('logout') }} <span>Se déconnecter</span></a></li>

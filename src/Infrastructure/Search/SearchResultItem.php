@@ -6,5 +6,6 @@ interface SearchResultItem
 {
     public function getTitle(): string;
     public function getExcerpt(): string;
+    public function getType(): string;
     public function getUrl(): string;
 }

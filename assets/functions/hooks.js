@@ -78,20 +78,24 @@ export function useJsonFetchOrFlash (url, params = {}) {
     data: null,
     done: false
   })
-  const fetch = async function () {
-    setState(s => ({ ...s, loading: true }))
-    try {
-      const response = await jsonFetch(url, params)
-      setState(s => ({ ...s, loading: false, data: response, done: true }))
-    } catch (e) {
-      if (e instanceof ApiError) {
-        flash(e.name, 'danger', 4)
-      } else {
-        flash(e, 'danger', 4)
+  const fetch = useCallback(
+    async (localUrl, localParams) => {
+      setState(s => ({ ...s, loading: true }))
+      try {
+        const response = await jsonFetch(localUrl || url, localParams || params)
+        setState(s => ({ ...s, loading: false, data: response, done: true }))
+        return response
+      } catch (e) {
+        if (e instanceof ApiError) {
+          flash(e.name, 'danger', 4)
+        } else {
+          flash(e, 'danger', 4)
+        }
       }
-    }
-    setState(s => ({ ...s, loading: false }))
-  }
+      setState(s => ({ ...s, loading: false }))
+    },
+    [url, params]
+  )
   return { ...state, fetch }
 }
 

@@ -15,13 +15,13 @@ class TypesenseSearch implements SearchInterface
         $this->client = $client;
     }
 
-    public function search(string $q, array $types = []): SearchResult
+    public function search(string $q, array $types = [], int $limit = 50): SearchResult
     {
         $query = [
             'q' => $q,
             'query_by' => 'title,category,content',
             'highlight_full_fields' => 'content,title',
-            'per_page' => 10,
+            'per_page' => $limit,
             'num_typos' => 1,
         ];
         if (!empty($types)) {

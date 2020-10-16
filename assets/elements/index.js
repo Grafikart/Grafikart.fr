@@ -27,6 +27,7 @@ import DeleteAccount from '/elements/DeleteAccount.jsx'
 import { DarkModeToggle } from '/elements/DarkModeToggle.js'
 import { PremiumButton } from '/elements/premium/PremiumButton.jsx'
 import { BadgeUnlock } from '/elements/BadgeUnlock.jsx'
+import { Search } from '/elements/search/Search.jsx'
 
 // Custom Elements
 customElements.define('nav-tabs', NavTabs)
@@ -53,6 +54,7 @@ preactCustomElement('comments-area', Comments, ['target'])
 preactCustomElement('delete-account', DeleteAccount, ['url', 'csrf'])
 preactCustomElement('premium-button', PremiumButton, ['plan', 'children'])
 preactCustomElement('badge-unlock', BadgeUnlock, ['name', 'description'])
+preactCustomElement('search-button', Search)
 
 // CustomElement étendus
 customElements.define('input-switch', Switch, { extends: 'input' })

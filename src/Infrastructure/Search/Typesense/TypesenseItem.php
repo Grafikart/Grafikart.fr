@@ -53,4 +53,16 @@ class TypesenseItem implements SearchResultItem
     {
         return $this->item['document']['url'];
     }
+
+    public function getType(): string
+    {
+        $type = $this->item['document']['type'];
+        if ($type === 'course') {
+            return 'Tutoriel';
+        }
+        if ($type === 'formation') {
+            return 'Formation';
+        }
+        return $type;
+    }
 }
