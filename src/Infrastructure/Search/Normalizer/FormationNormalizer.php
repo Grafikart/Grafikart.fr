@@ -9,13 +9,11 @@ use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 
 class FormationNormalizer implements ContextAwareNormalizerInterface
 {
-
     private FormationPathNormalizer $pathNormalizer;
     private UrlGeneratorInterface $urlGenerator;
 
     public function __construct(FormationPathNormalizer $pathNormalizer, UrlGeneratorInterface $urlGenerator)
     {
-
         $this->pathNormalizer = $pathNormalizer;
         $this->urlGenerator = $urlGenerator;
     }

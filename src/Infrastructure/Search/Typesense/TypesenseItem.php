@@ -6,9 +6,8 @@ use App\Infrastructure\Search\SearchResultItem;
 
 class TypesenseItem implements SearchResultItem
 {
-
     /**
-     * An item store by typesense
+     * An item store by typesense.
      *
      *  {
      *    document: {
@@ -32,10 +31,11 @@ class TypesenseItem implements SearchResultItem
     public function getTitle(): string
     {
         foreach ($this->item['highlights'] as $higlight) {
-            if ($higlight['field'] === 'title') {
+            if ('title' === $higlight['field']) {
                 return $higlight['value'];
             }
         }
+
         return $this->item['document']['title'];
     }
 
@@ -43,15 +43,16 @@ class TypesenseItem implements SearchResultItem
     {
         // Si un extrait est souligné on prend la ligne qui correspond
         foreach ($this->item['highlights'] as $higlight) {
-            if ($higlight['field'] === 'content') {
+            if ('content' === $higlight['field']) {
                 $lines = preg_split("/((\r?\n)|(\r\n?))/", $higlight['value']);
                 if ($lines) {
                     foreach ($lines as $line) {
-                        if (strpos($line, '<mark>') !== false) {
+                        if (false !== strpos($line, '<mark>')) {
                             return $line;
                         }
                     }
                 }
+
                 return $higlight['snippet'];
             }
         }
@@ -78,21 +79,22 @@ class TypesenseItem implements SearchResultItem
     public function getType(): string
     {
         $type = $this->item['document']['type'];
-        if ($type === 'course') {
+        if ('course' === $type) {
             return 'Tutoriel';
         }
-        if ($type === 'formation') {
+        if ('formation' === $type) {
             return 'Formation';
         }
-        if ($type === 'post') {
+        if ('post' === $type) {
             return 'Article';
         }
+
         return $type;
     }
 
     public function getCreatedAt(): \DateTimeInterface
     {
-        return new \DateTimeImmutable("@" . $this->item['document']['created_at']);
+        return new \DateTimeImmutable('@'.$this->item['document']['created_at']);
     }
 
     /**

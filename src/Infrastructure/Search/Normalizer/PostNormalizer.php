@@ -4,8 +4,6 @@ namespace App\Infrastructure\Search\Normalizer;
 
 use ApiPlatform\Core\Api\UrlGeneratorInterface;
 use App\Domain\Blog\Post;
-use App\Domain\Course\Entity\Course;
-use App\Http\Normalizer\CoursePathNormalizer;
 use App\Http\Normalizer\PostPathNormalizer;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 
@@ -35,7 +33,7 @@ class PostNormalizer implements ContextAwareNormalizerInterface
 
         return [
             'id' => (string) $object->getId(),
-            'content' => MarkdownTransformer::toText((string)$object->getContent()),
+            'content' => MarkdownTransformer::toText((string) $object->getContent()),
             'url' => $this->urlGenerator->generate($url['path'], $url['params']),
             'title' => $title,
             'category' => [],

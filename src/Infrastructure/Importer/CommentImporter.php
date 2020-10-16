@@ -14,7 +14,7 @@ final class CommentImporter extends MySQLImporter
     {
         $this->truncate('comment');
         $offset = 0;
-        $io->title('Importation des utilisateurs');
+        $io->title('Importation des commentaires');
         $query = $this->pdo->prepare('SELECT COUNT(id) as count FROM comments');
         $query->execute();
         $result = $query->fetch();

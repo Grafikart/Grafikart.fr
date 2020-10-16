@@ -38,7 +38,7 @@ class CourseNormalizer implements ContextAwareNormalizerInterface
 
         return [
             'id' => (string) $object->getId(),
-            'content' => MarkdownTransformer::toText((string)$object->getContent()),
+            'content' => MarkdownTransformer::toText((string) $object->getContent()),
             'url' => $this->urlGenerator->generate($url['path'], $url['params']),
             'title' => $title,
             'category' => array_map(fn ($t) => $t->getName(), $object->getMainTechnologies()),

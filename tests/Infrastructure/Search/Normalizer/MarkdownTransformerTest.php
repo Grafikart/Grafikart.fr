@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class MarkdownTransformerTest extends TestCase
 {
-
     public function testCleanCode()
     {
         $this->assertEquals('Je fais un test pour voir', MarkdownTransformer::toText('Je **fais** un test pour _voir_'));

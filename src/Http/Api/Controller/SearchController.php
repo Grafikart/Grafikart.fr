@@ -14,7 +14,6 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class SearchController extends AbstractController
 {
-
     private SearchInterface $search;
     private TechnologyRepository $technologyRepository;
     private SerializerInterface $serializer;
@@ -46,15 +45,15 @@ class SearchController extends AbstractController
 
         // On trouve les contenus qui correspondent à la recheche
         $results = $this->search->search($q, [], 5);
-        $contentMatches = array_map(fn(SearchResultItem $item) => [
+        $contentMatches = array_map(fn (SearchResultItem $item) => [
             'title' => $item->getTitle(),
-            'url'   => $item->getUrl(),
+            'url' => $item->getUrl(),
             'category' => $item->getType(),
         ], $results->getItems());
 
         return $this->json([
             'items' => array_merge($technologiesMatches, $contentMatches),
-            'hits' => $results->getTotal()
+            'hits' => $results->getTotal(),
         ]);
     }
 }

@@ -50,7 +50,7 @@ final class UserImporter implements TypeImporterInterface
                     ->setId($oldUser['id'])
                     ->setUsername($oldUser['username'])
                     ->setPassword($oldUser['encrypted_password'])
-                    ->setCreatedAt(new \DateTime($oldUser['created_at']))
+                    ->setCreatedAt('0000-00-00 00:00:00' === $oldUser['created_at'] ? new \DateTime('@0') : new \DateTime($oldUser['created_at']))
                     ->setEmail($oldUser['email']);
                 $this->em->persist($user);
                 $this->disableAutoIncrement($user);

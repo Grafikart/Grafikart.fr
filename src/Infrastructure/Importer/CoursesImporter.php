@@ -7,6 +7,7 @@ use App\Domain\Auth\User;
 use App\Domain\Course\Entity\Course;
 use App\Domain\Course\Entity\Technology;
 use App\Domain\Course\Entity\TechnologyUsage;
+use App\Domain\Course\Repository\CourseRepository;
 use Everyman\Neo4j\Node;
 use Everyman\Neo4j\Query\Row;
 use Everyman\Neo4j\Relationship;
@@ -19,6 +20,7 @@ final class CoursesImporter extends Neo4jImporter
         $this->importTechnologies($io);
         $this->importCourses($io);
         $this->importCourseTechnologyRelations($io);
+        $this->importDepreciations($io);
     }
 
     private function importTechnologies(SymfonyStyle $io): void
@@ -178,6 +180,29 @@ final class CoursesImporter extends Neo4jImporter
         $this->em->flush();
         $io->progressFinish();
         $io->success(sprintf('Import de %d relations', $rows->count()));
+    }
+
+    private function importDepreciations(SymfonyStyle $io): void
+    {
+        $io->title('Import des dépréciations');
+        $rows = $this->neo4jQuery(<<<CYPHER
+            MATCH (old:Tutoriel)<-[:DEPRECATE]-(t:Tutoriel)
+            RETURN t, old
+        CYPHER
+        );
+        $io->progressStart();
+        /** @var CourseRepository $courseRepository */
+        $courseRepository = $this->em->getRepository(Course::class);
+        /** @var Row<mixed> $row */
+        foreach ($rows as $row) {
+            $newCourse = $row->offsetGet(0)->getProperty('uuid');
+            $oldCourse = $row->offsetGet(1)->getProperty('uuid');
+            $courseRepository->find($oldCourse)->setDeprecatedBy($courseRepository->find($newCourse));
+            $io->progressAdvance();
+        }
+        $io->progressFinish();
+        $this->em->flush();
+        $this->em->clear();
     }
 
     public function support(string $type): bool

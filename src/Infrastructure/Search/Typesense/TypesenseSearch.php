@@ -30,6 +30,7 @@ class TypesenseSearch implements SearchInterface
         }
 
         ['found' => $found, 'hits' => $items] = $this->client->get('collections/content/documents/search?'.build_query($query));
-        return new SearchResult(array_map(fn(array $item) => new TypesenseItem($item), $items), $found);
+
+        return new SearchResult(array_map(fn (array $item) => new TypesenseItem($item), $items), $found);
     }
 }

@@ -43,7 +43,7 @@ class TechnologyRepository extends ServiceEntityRepository
     }
 
     /**
-     * Trouve toutes les technologies qui commence par le mot
+     * Trouve toutes les technologies qui commence par le mot.
      */
     public function searchByName(string $q): array
     {

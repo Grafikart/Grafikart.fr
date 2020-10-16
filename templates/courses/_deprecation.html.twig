@@ -1,0 +1,5 @@
+{% if course.deprecatedBy %}
+  <alert-message type="warning">
+    <strong>Ce tutoriel est déprécié !</strong> un tutoriel plus récent est maintenant disponible : <a href="{{ path(course.deprecatedBy) }}">{{ course.deprecatedBy.title }}</a>.
+  </alert-message>
+{% endif %}

@@ -10,6 +10,10 @@
       {{ breadcrumb(course) }}
     </div>
 
+    <div class="container">
+      {% include 'courses/_deprecation.html.twig' %}
+    </div>
+
     <div class="container {{ course.formation ? 'layout-sidebar' : '' }} mt2 mb5">
       {% if course.scheduled %}
         <div class="course-countdown" style="background-image: url({{ image_url(course.image) }})">
@@ -73,7 +77,11 @@
         <div class="stack">
           <div class="formatted">
             <h1>{{ course.title }}</h1>
+          </div>
 
+          {% include 'courses/_deprecation.html.twig' %}
+
+          <div class="formatted">
             {{ course.content | markdown }}
           </div>
 

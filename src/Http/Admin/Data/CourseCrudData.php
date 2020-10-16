@@ -75,7 +75,7 @@ class CourseCrudData implements CrudDataInterface
      */
     public array $secondaryTechnologies = [];
 
-    private ?EntityManagerInterface $em = null;
+    private EntityManagerInterface $em;
 
     public function __construct(Course $course)
     {
@@ -97,6 +97,8 @@ class CourseCrudData implements CrudDataInterface
         $this->secondaryTechnologies = $course->getSecondaryTechnologies();
         $this->youtubeThumbnail = $course->getYoutubeThumbnail();
         $this->duration = $course->getDuration();
+        $deprecatedBy = $course->getDeprecatedBy();
+        $this->deprecatedBy = $deprecatedBy ? $deprecatedBy->getId() : null;
         $this->level = $course->getLevel();
     }
 
@@ -105,6 +107,8 @@ class CourseCrudData implements CrudDataInterface
         $this->entity->setTitle($this->title);
         $this->entity->setSlug($this->slug);
         $this->entity->setAuthor($this->author);
+        $deprecatedBy = $this->deprecatedBy;
+        $this->entity->setDeprecatedBy($deprecatedBy ? $this->em->find(Course::class, $deprecatedBy) : null);
         $this->entity->setVideoPath($this->videoPath);
         $this->entity->setImage($this->image);
         $this->entity->setYoutubeThumbnail($this->youtubeThumbnail);
@@ -124,10 +128,8 @@ class CourseCrudData implements CrudDataInterface
             $technology->setSecondary(true);
         }
         $removed = $this->entity->syncTechnologies(array_merge($this->mainTechnologies, $this->secondaryTechnologies));
-        if ($this->em) {
-            foreach ($removed as $usage) {
-                $this->em->remove($usage);
-            }
+        foreach ($removed as $usage) {
+            $this->em->remove($usage);
         }
     }
 

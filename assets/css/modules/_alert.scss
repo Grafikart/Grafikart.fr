@@ -1,16 +1,23 @@
 // Alerts
 // ==================
 .alert {
+  @extend %card;
   margin: space(3) auto;
-  background: var(--background-light);
   padding: space(2);
-  border-radius: 4px;
   display: flex;
   align-items: center;
   animation: alertIn 0.5s both;
   line-height: 1.2;
   position: relative;
   border-bottom: 3px solid var(--border);
+
+  a {
+    text-decoration: underline;
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
 }
 .alert strong {
   font-weight: bold;
@@ -44,24 +51,31 @@
   color: var(--color) !important;
 }
 .alert-danger {
-  border-bottom-color: #fb4635;
+  border-bottom-color: var(--red);
 
   svg:first-child {
-    color: #fb4635;
+    color: var(--red);
   }
 }
 .alert-success {
-  border-bottom-color: #23db72;
+  border-bottom-color: var(--green);
 
   svg:first-child {
-    color: #23db72;
+    color: var(--green);
   }
 }
 .alert-info {
-  border-bottom-color: #4869ee;
+  border-bottom-color: var(--contrast);
 
   svg:first-child {
-    color: #4869ee;
+    color: var(--contrast);
+  }
+}
+.alert-warning {
+  border-bottom-color: var(--yellow);
+
+  svg:first-child {
+    color: var(--yellow);
   }
 }
 
