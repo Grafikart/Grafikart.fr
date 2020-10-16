@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Domain\Blog\Post;
 use App\Domain\Course\Entity\Course;
 use App\Domain\Course\Entity\Formation;
 use App\Infrastructure\Search\IndexerInterface;
@@ -39,22 +40,15 @@ class IndexCommand extends Command
         $this->indexer->clean();
 
         // On importe les cours
-        /** @var Course[] $courses */
-        $courses = $this->em->getRepository(Course::class)->findAll();
-        foreach ($courses as $course) {
-            $io->progressAdvance();
-            $this->indexer->index((array) $this->normalizer->normalize($course, 'search'));
+        $types = [Course::class, Formation::class, Post::class];
+        foreach ($types as $type) {
+            $items = $this->em->getRepository($type)->findBy(['online' => true]);
+            foreach ($items as $item) {
+                $io->progressAdvance();
+                $this->indexer->index((array) $this->normalizer->normalize($item, 'search'));
+            }
+            $this->em->clear();
         }
-        $this->em->clear();
-
-        // On importe les formations
-        /** @var Formation[] $formations */
-        $formations = $this->em->getRepository(Formation::class)->findAll();
-        foreach ($formations as $formation) {
-            $io->progressAdvance();
-            $this->indexer->index((array) $this->normalizer->normalize($formation, 'search'));
-        }
-        $this->em->clear();
 
         $io->progressFinish();
         $io->success('Les contenus ont bien été indexés');

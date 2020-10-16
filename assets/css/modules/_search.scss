@@ -1,3 +1,38 @@
+.search-header {
+  @include up(850) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  & > *:first-child {
+    flex: none;
+    margin-right: space(4);
+  }
+
+  search-input {
+    display: block;
+    margin-top: space(2);
+    max-width: 100%;
+    width: 100%;
+    @include up(850) {
+      flex-grow: 1;
+      margin-left: 70px;
+      margin-top: 0;
+    }
+  }
+
+  .search-input_suggestions {
+    @extend %card;
+    margin-top: 0;
+    background-color: var(--background-light);
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+}
+
 .search-popup {
   position: fixed;
   top: 0;
@@ -9,9 +44,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  animation: SearchPopup .3s;
 }
 
-.search-popup_input {
+@keyframes SearchPopup {
+  from {
+    opacity: 0;
+  }
+}
+
+.search-popup .search-input {
   position: fixed;
   left: auto;
   right: auto;
@@ -22,27 +64,43 @@
   padding: space(1);
   border-radius: 4px;
   margin-bottom: 40%;
+  animation: SearchPopupInput .3s;
 }
 
-.search-popup_input input {
+.search-popup .search-input button {
+  left: space(3);
+}
+
+.search-input {
+  position: relative;
+  width: 100%;
+}
+
+@keyframes SearchPopupInput {
+  from {
+    transform: translateY(-20px);
+  }
+}
+
+.search-input input {
   padding-left: 45px;
   border-radius: 3px;
 }
 
-.search-popup_input button {
+.search-input button {
   display: inline-flex;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  left: space(3);
+  left: space(2);
 }
 
-.search-popup_input .icon {
+.search-input .icon {
   width: 16px;
   height: 16px;
 }
 
-.search-popup_loader {
+.search-input_loader {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -52,7 +110,7 @@
   color: var(--contrast);
 }
 
-.search-popup_suggestions {
+.search-input_suggestions {
   position: absolute;
   background: var(--background);
   top: 100%;
@@ -95,10 +153,10 @@
   }
 }
 
-.search-popup_category {
+.search-input_category {
   color: var(--color-light);
   text-align: right;
-  width: 90px;
+  width: 101px;
   flex: none;
   padding-right: space(1);
   margin-right: space(1);
@@ -106,7 +164,11 @@
 }
 
 @media screen and (max-height: 900px) {
-  .search-popup_input {
+  .search-popup .search-input {
     top: 20px;
   }
+}
+
+.search-result a:hover {
+  color: var(--contrast);
 }

@@ -4,22 +4,68 @@
 
 {% block body %}
 
-  <div class="container page-header flex">
-    <h1 class="hero-title">Résultat pour votre recherche "<em>{{ q }}</em>"</h1>
+  <div class="container page-header search-header">
+    {% if q is empty %}
+      <h1 class="hero-title">Ooops !</h1>
+    {% elseif results is empty %}
+      <h1 class="hero-title">Aucun résultats</h1>
+    {% else %}
+      <h1 class="hero-title">{{ total }} Résultat{{ total > 1 ? 's' : '' }}</h1>
+    {% endif %}
+      <search-input default-value="{{ q }}"></search-input>
   </div>
 
   <div class="container py5">
+    {% if q is empty %}
+      <div class="formatted">
+        <p>
+          Essayez de taper au moins un mot clé. sinon je ne sais pas quoi vous trouver :(
+        </p>
+        <p>
+          Sérieusement je ne peux vraiment pas vous trouver ce que vous cherchez si vous ne m'aidez pas un peu.<br/>
+          Alors je sais, parfois on arrive sur une nouvelle page et on ne sait plus ce que l'on cherche, ça arrive !<br/>
+          Dans ce cas là Il va falloir travailler un peu votre mémoire
+        </p>
+
+        <div class="ratio">
+          <iframe width="560" height="315" src="//www.youtube-nocookie.com/embed/Crh3MtpVZxM?rel=0&showinfo=0" frameborder="0" allow="encrypted-media; picture-in-picture" allowfullscreen=""></iframe>
+        </div>
+
+      </div>
+    {% elseif results is empty %}
+      <p class="text-center text-muted h3">
+        Aucun résultat ne semble correspondre à votre recherche :(
+      </p>
+
+    {% else %}
       <ul class="stack-large">
         {% for result in results %}
-          <li>
-            <h2 class="h4"><a href="{{ result.url }}">{{ result.title | raw }}</a></h2>
-            <p class="text-muted text-small">Il y a 3 jours</p>
+          <li class="search-result">
+            <h2 class="h4">
+              <a href="{{ result.url }}">{{ result.title | raw }}</a>
+            </h2>
+            <p class="text-muted text-small">
+              {% if result.type == 'Formation' %}
+                {{ icon('lines', 14) }}
+              {% elseif result.type == 'Tutoriel' %}
+                {{ icon('video', 14) }}
+              {% else %}
+                {{ icon('pen', 14) }}
+              {% endif %}
+              {{ result.type }} {{ result.categories | join(', ') }} |
+              {{ result.createdAt | ago }}
+            </p>
             <p class="mt1">
               {{ result.excerpt | raw | nl2br }}
             </p>
           </li>
         {% endfor %}
       </ul>
+    {% endif %}
+
+    <div class="mt5">
+      {{ paginate(results) }}
+    </div>
   </div>
 {% endblock %}
 

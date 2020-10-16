@@ -19,7 +19,7 @@ export function Search () {
   // Racourci clavier pour ouvrir la boite de recherche
   useEffect(() => {
     const handler = e => {
-      if (['p', 'k', ' '].includes(e.key) && e.ctrlKey === true) {
+      if (['k', ' '].includes(e.key) && e.ctrlKey === true) {
         e.preventDefault()
         toggleSearchBar()
       }
@@ -38,13 +38,17 @@ export function Search () {
   )
 }
 
-function SearchBar ({ onClose }) {
+export function SearchInput ({ defaultValue }) {
   const input = useRef(null)
-  const [query, setQuery] = useState('')
+  const [query, setQuery] = useState(defaultValue || '')
   const { loading, fetch, data } = useJsonFetchOrFlash()
   const [selectedItem, setSelectedItem] = useState(null)
 
   let results = data?.items || []
+  if (query === '') {
+    results = []
+  }
+
   const hits = data?.hits || 0
 
   if (query !== '' && results.length > 0) {
@@ -57,10 +61,13 @@ function SearchBar ({ onClose }) {
     ]
   }
 
-  const suggest = debounce(async e => {
-    await fetch(`${SEARCH_API}?q=${encodeURI(e.target.value)}`)
-    setSelectedItem(null)
-  }, 300)
+  const suggest = useCallback(
+    debounce(async e => {
+      await fetch(`${SEARCH_API}?q=${encodeURI(e.target.value)}`)
+      setSelectedItem(null)
+    }, 300),
+    []
+  )
 
   const onInput = e => {
     setQuery(e.target.value)
@@ -117,9 +124,45 @@ function SearchBar ({ onClose }) {
 
   useEffect(() => {
     input.current.focus()
+  }, [])
+
+  return (
+    <form action={SEARCH_URL} onSubmit={onSubmit} class='search-input form-group' onClick={e => e.stopPropagation()}>
+      <input
+        autofocus
+        type='text'
+        name='q'
+        ref={input}
+        onInput={onInput}
+        autocomplete='off'
+        value={query}
+        placeholder='Rechercher un contenu...'
+      />
+      <button type='submit'>
+        <Icon name='search' />
+      </button>
+      {loading && <Loader class='search-input_loader' />}
+      {results.length > 0 && (
+        <ul class='search-input_suggestions'>
+          {results.map((r, index) => (
+            <li key={r.url}>
+              <a class={classNames(index === selectedItem && 'focused')} href={r.url}>
+                {r.category && <span class='search-input_category'>{r.category}</span>}
+                <span dangerouslySetInnerHTML={{ __html: r.title }} />
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </form>
+  )
+}
+
+function SearchBar ({ onClose }) {
+  useEffect(() => {
     const handler = e => {
       if (e.key === 'Escape') {
-        input.current.blur()
+        onClose()
       }
     }
     window.addEventListener('keyup', handler)
@@ -127,27 +170,9 @@ function SearchBar ({ onClose }) {
   }, [onClose])
 
   return createPortal(
-    <form class='search-popup' action={SEARCH_URL} onSubmit={onSubmit}>
-      <div class='search-popup_input form-group'>
-        <input autofocus type='text' name='q' ref={input} onInput={onInput} autocomplete='off' value={query} />
-        <button type='submit'>
-          <Icon name='search' />
-        </button>
-        {loading && <Loader class='search-popup_loader' />}
-        {results.length > 0 && (
-          <ul class='search-popup_suggestions'>
-            {results.map((r, index) => (
-              <li key={r.url}>
-                <a class={classNames(index === selectedItem && 'focused')} href={r.url}>
-                  {r.category && <span class='search-popup_category'>{r.category}</span>}
-                  <span dangerouslySetInnerHTML={{ __html: r.title }} />
-                </a>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-    </form>,
+    <div class='search-popup' onclick={onClose}>
+      <SearchInput />
+    </div>,
     document.body
   )
 }

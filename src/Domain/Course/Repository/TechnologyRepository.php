@@ -41,4 +41,16 @@ class TechnologyRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    /**
+     * Trouve toutes les technologies qui commence par le mot
+     */
+    public function searchByName(string $q): array
+    {
+        return $this->createQueryBuilder('t')
+            ->where('LOWER(t.name) LIKE :q')
+            ->setParameter('q', "$q%")
+            ->getQuery()
+            ->getResult();
+    }
 }

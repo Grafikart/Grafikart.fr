@@ -37,7 +37,7 @@ class SearchController extends AbstractController
         }
 
         // On trouve les technologies qui correspondent à la recherche
-        $technologies = $this->technologyRepository->findByNames([$q]);
+        $technologies = $this->technologyRepository->searchByName($q);
         $technologiesMatches = array_map(fn (Technology $technology) => [
             'title' => $technology->getName(),
             'url' => $this->serializer->serialize($technology, 'path'),

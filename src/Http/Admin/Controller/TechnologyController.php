@@ -48,6 +48,14 @@ class TechnologyController extends CrudController
     }
 
     /**
+     * @Route("/{id}", name="delete", methods={"DELETE"})
+     */
+    public function delete(Technology $technology): Response
+    {
+        return $this->crudDelete($technology);
+    }
+
+    /**
      * @Route("/{id}", name="edit")
      */
     public function edit(Technology $technology): Response
