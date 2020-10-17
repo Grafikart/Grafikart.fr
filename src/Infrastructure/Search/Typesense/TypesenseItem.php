@@ -30,9 +30,9 @@ class TypesenseItem implements SearchResultItem
 
     public function getTitle(): string
     {
-        foreach ($this->item['highlights'] as $higlight) {
-            if ('title' === $higlight['field']) {
-                return $higlight['value'];
+        foreach ($this->item['highlights'] as $highlight) {
+            if ('title' === $highlight['field']) {
+                return $highlight['value'];
             }
         }
 
@@ -42,9 +42,9 @@ class TypesenseItem implements SearchResultItem
     public function getExcerpt(): string
     {
         // Si un extrait est souligné on prend la ligne qui correspond
-        foreach ($this->item['highlights'] as $higlight) {
-            if ('content' === $higlight['field']) {
-                $lines = preg_split("/((\r?\n)|(\r\n?))/", $higlight['value']);
+        foreach ($this->item['highlights'] as $highlight) {
+            if ('content' === $highlight['field']) {
+                $lines = preg_split("/((\r?\n)|(\r\n?))/", $highlight['value']);
                 if ($lines) {
                     foreach ($lines as $line) {
                         if (false !== strpos($line, '<mark>')) {
@@ -53,7 +53,7 @@ class TypesenseItem implements SearchResultItem
                     }
                 }
 
-                return $higlight['snippet'];
+                return $highlight['snippet'];
             }
         }
 
