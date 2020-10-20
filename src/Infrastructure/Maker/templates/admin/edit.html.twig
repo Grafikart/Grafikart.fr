@@ -1,0 +1,12 @@
+{{ ("
+{% extends 'admin/layout/card.html.twig' %}
+
+{% block title %}
+  {{ icon('pen') }}
+  Editer
+{% endblock %}
+
+{% block content %}
+  {% include 'admin/" | raw ~ slug ~ "/_form.html.twig' %}
+{% endblock %}
+" | raw) | raw}}

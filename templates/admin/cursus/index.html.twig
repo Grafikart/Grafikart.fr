@@ -10,7 +10,10 @@
       <form class="form-group dashboard-search">
         <input name="q" type="text" placeholder="Rechercher une formation" value="{{ app.request.get('q') }}" >
       </form>
-      <a href="{{ path(prefix ~ '_new') }}" class="dashboard-btn">Ajouter un cursus</a>
+      <div class="hstack" style="--gap:1;">
+        <a href="{{ path('admin_cursuscategory_index') }}" class="dashboard-btn btn-secondary">Gérer les catégories</a>
+        <a href="{{ path(prefix ~ '_new') }}" class="dashboard-btn">Ajouter</a>
+      </div>
     </div>
     <table class="table">
       <thead>

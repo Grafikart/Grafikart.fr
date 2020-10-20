@@ -16,7 +16,7 @@ class CursusController extends AbstractController
     public function index(CursusRepository $cursusRepository): Response
     {
         return $this->render('cursus/index.html.twig', [
-            'cursus' => $cursusRepository->findBy(['online' => true]),
+            'cursus_categories' => $cursusRepository->findByCategory(),
         ]);
     }
 

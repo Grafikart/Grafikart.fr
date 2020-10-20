@@ -22,53 +22,22 @@
       </div>
     </div>
 
-    {# Développeur front-end #}
+    {% for cursus_category in cursus_categories %}
+      {% set category = cursus_category[0].category %}
     <div class="cursus-section stack-large">
       <h2 class="hero-title">
-        Développeur<br/>
-        <strong>Front-end</strong>
+        {{ category.name | raw}}
       </h2>
       <p class="hero-text">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. At dolore ea est eum fugit nemo non odio reiciendis ullam veniam. At debitis eius explicabo, in laboriosam maxime modi obcaecati. Illo!
+        {{ category.description }}
       </p>
       <div class="cursus-grid">
-        {% for c in cursus %}
-          {% include "cursus/_card.html.twig" with {cursus: c} %}
+        {% for cursus in cursus_category %}
+          {% include "cursus/_card.html.twig" %}
         {% endfor %}
       </div>
     </div>
-
-    {# Développeur back-end #}
-    <div class="cursus-section stack-large">
-      <h2 class="hero-title">
-        Développeur<br/>
-        <strong>Back-end</strong>
-      </h2>
-      <p class="hero-text">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. At dolore ea est eum fugit nemo non odio reiciendis ullam veniam. At debitis eius explicabo, in laboriosam maxime modi obcaecati. Illo!
-      </p>
-      <div class="cursus-grid">
-        {% for c in cursus %}
-          {% include "cursus/_card.html.twig" with {cursus: c} %}
-        {% endfor %}
-      </div>
-    </div>
-
-    {# Administration système #}
-    <div class="cursus-section stack-large">
-      <h2 class="hero-title">
-        Administration<br/>
-        <strong>système</strong>
-      </h2>
-      <p class="hero-text">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. At dolore ea est eum fugit nemo non odio reiciendis ullam veniam. At debitis eius explicabo, in laboriosam maxime modi obcaecati. Illo!
-      </p>
-      <div class="cursus-grid">
-        {% for c in cursus %}
-          {% include "cursus/_card.html.twig" with {cursus: c} %}
-        {% endfor %}
-      </div>
-    </div>
+    {% endfor %}
 
   </div>
 

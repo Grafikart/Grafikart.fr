@@ -20,6 +20,11 @@ class Cursus extends Content
      */
     private Collection $modules;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=CursusCategory::class)
+     */
+    private ?CursusCategory $category = null;
+
     public function __construct()
     {
         parent::__construct();
@@ -59,6 +64,18 @@ class Cursus extends Content
         if ($this->modules->contains($module)) {
             $this->modules->removeElement($module);
         }
+
+        return $this;
+    }
+
+    public function getCategory(): ?CursusCategory
+    {
+        return $this->category;
+    }
+
+    public function setCategory(CursusCategory $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

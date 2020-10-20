@@ -88,7 +88,7 @@ abstract class CrudController extends BaseController
             }
             $this->addFlash('success', 'Le contenu a bien été modifié');
 
-            return $this->redirectToRoute($this->routePrefix.'_edit', ['id' => $entity->getId()]);
+            return $this->redirectToRoute($this->routePrefix.'_index');
         }
 
         return $this->render("admin/{$this->templatePath}/edit.html.twig", [

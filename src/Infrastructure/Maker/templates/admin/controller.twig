@@ -1,0 +1,57 @@
+<?php
+
+namespace App\Http\Admin\Controller;
+
+use {{ entity }};
+use App\Http\Admin\Data\{{ entity_name }}CrudData;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+
+/**
+ * @Route("/{{ route }}", name="{{ slug }}_")
+ */
+class {{ entity_name }}Controller extends CrudController
+{
+    protected string $templatePath = '{{ slug }}';
+    protected string $menuItem = '{{ slug }}';
+    protected string $entity = {{ entity_name }}::class;
+    protected string $routePrefix = 'admin_{{ slug }}';
+    protected string $searchField = 'name';
+
+    /**
+     * @Route("/", name="index")
+     */
+    public function index(): Response
+    {
+        return $this->crudIndex();
+    }
+
+    /**
+     * @Route("/new", name="new")
+     */
+    public function new(): Response
+    {
+        ${{ slug}} = new {{ entity_name }}();
+        $data = new {{ entity_name }}CrudData(${{ slug }});
+
+        return $this->crudNew($data);
+    }
+
+    /**
+     * @Route("/{id}", name="delete", methods={"DELETE"})
+     */
+    public function delete({{ entity_name}} ${{ slug }}): Response
+    {
+        return $this->crudDelete(${{ slug }});
+    }
+
+    /**
+     * @Route("/{id}", name="edit")
+     */
+    public function edit({{ entity_name}} ${{ slug }}): Response
+    {
+        $data = new {{ entity_name }}CrudData(${{ slug }});
+
+        return $this->crudEdit($data);
+    }
+}

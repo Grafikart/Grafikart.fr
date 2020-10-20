@@ -8,9 +8,11 @@ use App\Core\Type\SwitchType;
 use App\Domain\Attachment\Attachment;
 use App\Domain\Attachment\Type\AttachmentType;
 use App\Domain\Auth\User;
+use App\Domain\Course\Entity\CursusCategory;
 use App\Domain\Course\Entity\Formation;
 use App\Domain\Course\Type\TechnologiesType;
 use App\Domain\Forum\Entity\Tag;
+use App\Http\Admin\Form\Field\CursusCategoryChoiceType;
 use App\Http\Admin\Form\Field\ForumTagChoiceType;
 use App\Http\Admin\Form\Field\TechnologyChoiceType;
 use App\Http\Admin\Form\Field\UserChoiceType;
@@ -41,10 +43,12 @@ class AutomaticForm extends AbstractType
         Tag::class => ForumTagChoiceType::class,
         DateTimeInterface::class => DateTimeType::class,
         UploadedFile::class => FileType::class,
+        CursusCategory::class => CursusCategoryChoiceType::class,
     ];
 
     const NAMES = [
         'content' => EditorType::class,
+        'description' => TextareaType::class,
         'short' => TextareaType::class,
         'mainTechnologies' => TechnologiesType::class,
         'secondaryTechnologies' => TechnologiesType::class,

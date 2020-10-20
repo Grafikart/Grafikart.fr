@@ -8,6 +8,7 @@ use App\Domain\Attachment\Attachment;
 use App\Domain\Auth\User;
 use App\Domain\Course\Entity\Chapter;
 use App\Domain\Course\Entity\Cursus;
+use App\Domain\Course\Entity\CursusCategory;
 use App\Domain\Course\Entity\Technology;
 use App\Http\Form\AutomaticForm;
 use Doctrine\ORM\EntityManagerInterface;
@@ -58,6 +59,8 @@ class CursusCrudData implements CrudDataInterface
      */
     public array $chapters;
 
+    public ?CursusCategory $category;
+
     public function __construct(Cursus $cursus)
     {
         $this->cursus = $cursus;
@@ -71,6 +74,7 @@ class CursusCrudData implements CrudDataInterface
         $this->secondaryTechnologies = $cursus->getSecondaryTechnologies();
         $this->content = $cursus->getContent();
         $this->chapters = $cursus->getChapters();
+        $this->category = $cursus->getCategory();
     }
 
     public function getEntity(): Cursus
@@ -93,6 +97,9 @@ class CursusCrudData implements CrudDataInterface
         $this->cursus->setOnline($this->online);
         $this->cursus->setImage($this->image);
         $this->cursus->setContent($this->content);
+        if ($this->category) {
+            $this->cursus->setCategory($this->category);
+        }
         foreach ($this->mainTechnologies as $technology) {
             $technology->setSecondary(false);
         }

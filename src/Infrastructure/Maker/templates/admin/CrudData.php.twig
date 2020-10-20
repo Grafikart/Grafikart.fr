@@ -1,0 +1,16 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Http\Admin\Data;
+
+use App\Core\Validator\Slug;
+use {{ entity }};
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * @property {{ entity_name }} $entity
+ */
+class {{ entity_name }}CrudData extends AutomaticCrudData
+{
+}
