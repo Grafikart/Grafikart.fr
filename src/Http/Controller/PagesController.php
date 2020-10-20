@@ -21,7 +21,7 @@ class PagesController extends AbstractController
         return $this->render('pages/home.html.twig', [
             'courses' => $courseRepository->findRecent(3),
             'formations' => $formationRepository->findRecent(3),
-            'cursus' => $cursusRepository->findRecent(3),
+            'cursus' => $cursusRepository->findRecent(4),
             'posts' => $postRepository->findRecent(5),
         ]);
     }

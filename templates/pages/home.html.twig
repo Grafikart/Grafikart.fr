@@ -44,11 +44,11 @@
         </div>
       </div>
 
-      <div class="home-cursus__push">
+      <cycle-classes class="home-cursus__push">
         {% for c in cursus %}
           {% include 'cursus/_card.html.twig' with {cursus: c} %}
         {% endfor %}
-      </div>
+      </cycle-classes>
 
     </section>
 

@@ -63,29 +63,45 @@
   position: relative;
 }
 
-.home-cursus__push > *:first-child {
-  position: relative;
-  z-index: 4;
-}
-
-.home-cursus__push > *:nth-child(2) {
+.home-cursus__push .card {
   position: absolute;
+  transform-origin: 50% 50%;
   top: 0;
   left: 50%;
+  transform: translate(-50%, 0px);
+  transition: .7s;
+  opacity: 0;
+}
+
+.home-cursus__push .item-0 {
+  transform: translate(-50%, -30px) scale(1.1);
+  z-index: 5;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.home-cursus__push .item-1 {
+  z-index: 4;
+  animation: HomeCursusIn 5s infinite both;
+  transform: translate(-50%, 0px);
+  opacity: 1;
+}
+
+.home-cursus__push .item-2 {
   transform: translate(-50%, 30px) scale(0.9);
   z-index: 3;
+  opacity: 1;
 
   .card__illustration {
     opacity: 0;
   }
 }
 
-.home-cursus__push > *:nth-child(3) {
-  position: absolute;
-  top: 0;
-  left: 50%;
+.home-cursus__push .item-3 {
   transform: translate(-50%, 60px) scale(0.8);
   z-index: 2;
+  transition: 0s;
+  opacity: 1;
 
   .card__illustration {
     opacity: 0;

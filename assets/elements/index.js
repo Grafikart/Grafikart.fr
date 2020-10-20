@@ -28,6 +28,7 @@ import { DarkModeToggle } from '/elements/DarkModeToggle.js'
 import { PremiumButton } from '/elements/premium/PremiumButton.jsx'
 import { BadgeUnlock } from '/elements/BadgeUnlock.jsx'
 import { Search, SearchInput } from '/elements/search/Search.jsx'
+import { CycleClasses } from '/elements/CycleClasses.js'
 
 // Custom Elements
 customElements.define('nav-tabs', NavTabs)
@@ -48,6 +49,7 @@ customElements.define('admin-edit', EditButton)
 customElements.define('progress-tracker', ProgressTracker)
 customElements.define('skeleton-box', Skeleton)
 customElements.define('social-share', Sharer, { extends: 'a' })
+customElements.define('cycle-classes', CycleClasses)
 preactCustomElement('site-notifications', Notifications)
 preactCustomElement('contact-form', ContactForm)
 preactCustomElement('comments-area', Comments, ['target'])
