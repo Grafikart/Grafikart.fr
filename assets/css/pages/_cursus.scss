@@ -34,7 +34,6 @@
   position: relative;
   --gap: 8;
 }
-
 .cursus-page::after {
   content:'';
   position: absolute;
@@ -45,12 +44,10 @@
   z-index: -2;
   background-color: var(--border-light);
 }
-
 .cursus-page__chapter {
   padding-left: 50px;
   position: relative;
 }
-
 .cursus-page__chapter::before,
 .cursus-page__chapter::after {
   content:'';
@@ -65,4 +62,26 @@
   z-index: -1;
   background: var(--background);
   border: 7px solid var(--border-light);
+}
+.cursus-header {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  grid-gap: space(4);
+  align-items: flex-start;
+}
+.cursus-header__technologies {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: space(4);
+}
+
+.cursus-header__technologies a {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.cursus-header__technologies img {
+  display: block;
+  width: 100%;
 }

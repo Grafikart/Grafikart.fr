@@ -31,4 +31,17 @@ class TwigExtensionTest extends TestCase
         $extension = new TwigExtension();
         $this->assertEquals('<p>Salut les <strong>gens</strong></p>', $extension->markdown('Salut les **gens**'));
     }
+
+    public function testMarkdownParseTimecodes(): void
+    {
+        $extension = new TwigExtension();
+        $this->assertEquals('<p><a href="#t0">00:00</a> Test de sommaire<br />
+<a href="#t60">01:00</a> Premier chapitre<br />
+<a href="#t3860">01:04:20</a> Premier chapitre</p>', $extension->markdown(<<<MARKDOWN
+00:00 Test de sommaire
+01:00 Premier chapitre
+01:04:20 Premier chapitre
+MARKDOWN
+        ));
+    }
 }

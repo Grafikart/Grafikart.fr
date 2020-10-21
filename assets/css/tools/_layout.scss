@@ -252,13 +252,13 @@
 // ==================
 .layout-sidebar {
   @extend %container;
-  --gap: 3;
+  --gap: 5;
   display: grid;
   grid-gap: calc(var(--gap) * var(--space));
   grid-template-columns: 1fr;
 
   @include up(1100) {
-    grid-template-columns: 1fr 385px;
+    grid-template-columns: 1fr 300px;
   }
 }
 

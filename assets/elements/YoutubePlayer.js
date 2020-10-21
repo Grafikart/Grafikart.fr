@@ -53,10 +53,7 @@ export class YoutubePlayer extends HTMLElement {
     // Evènements
     if (poster !== '') {
       const onClick = () => {
-        this.root.querySelector('.poster').setAttribute('aria-hidden', 'true')
-        this.setAttribute('autoplay', 'autoplay')
-        this.removeAttribute('poster')
-        this.loadPlayer(this.getAttribute('video'))
+        this.startPlay()
         this.removeEventListener('click', onClick)
       }
       this.addEventListener('click', onClick)
@@ -64,6 +61,16 @@ export class YoutubePlayer extends HTMLElement {
         onClick()
       }
     }
+  }
+
+  /**
+   * Démarre la lecture de la vidéo pour la première fois
+   */
+  startPlay () {
+    this.root.querySelector('.poster').setAttribute('aria-hidden', 'true')
+    this.setAttribute('autoplay', 'autoplay')
+    this.removeAttribute('poster')
+    this.loadPlayer(this.getAttribute('video'))
   }
 
   disconnectedCallback () {
@@ -104,7 +111,7 @@ export class YoutubePlayer extends HTMLElement {
         controls: 1,
         showinfo: 0,
         rel: 0,
-        start:this.getAttribute('start')
+        start: this.getAttribute('start')
       },
       events: {
         onStateChange: this.onYoutubePlayerStateChange,
@@ -120,16 +127,16 @@ export class YoutubePlayer extends HTMLElement {
     switch (event.data) {
       case YT.PlayerState.PLAYING:
         this.startTimer()
-        this.dispatchEvent(new Event('play', {bubbles: true}))
-        break;
+        this.dispatchEvent(new Event('play', { bubbles: true }))
+        break
       case YT.PlayerState.ENDED:
         this.stopTimer()
         this.dispatchEvent(new Event('ended'))
-        break;
+        break
       case YT.PlayerState.PAUSED:
         this.stopTimer()
         this.dispatchEvent(new Event('pause'))
-        break;
+        break
     }
   }
 
@@ -247,6 +254,20 @@ export class YoutubePlayer extends HTMLElement {
    */
   get currentTime () {
     return this.player ? this.player.getCurrentTime() : null
+  }
+
+  /**
+   * Définit la position de lecture
+   *
+   * @param {number} t
+   */
+  set currentTime (t) {
+    if (this.player) {
+      this.player.seekTo(t)
+    } else {
+      this.setAttribute('start', t.toString())
+      this.startPlay()
+    }
   }
 }
 

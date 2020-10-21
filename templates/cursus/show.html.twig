@@ -1,15 +1,23 @@
 {% extends 'base.html.twig' %}
 
+{% set bodyClass = 'header-light' %}
+
 {% block title 'Cursus ' ~ cursus.title %}
 
 {% block body %}
 
-  <header class="wave-header">
-    <div class="wave-header__body stack">
-      <h1 class="wave-header__title">{{ cursus.title }}</h1>
+  <header class="page-header container cursus-header">
+    <div>
+      <h1 class="h1 mb2">{{ cursus.title }}</h1>
       <p>{{ cursus.content }}</p>
     </div>
-    <waves-shape class="waves" position="bottomWave" target=".wave-header" background="{{ image_url(cursus.image) }}" ></waves-shape>
+    <div class="cursus-header__technologies">
+      {% for technology in cursus.mainTechnologies %}
+        <a href="{{ path('technology_show', {slug: technology.slug}) }}" class="course__icon" tabindex="-1">
+          <img src="{{ uploads_path('icons/' ~ technology.image) }}" alt="{{ technology.name }}">
+        </a>
+      {% endfor %}
+    </div>
   </header>
 
   <div class="cursus-page stack py5">

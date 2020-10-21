@@ -85,12 +85,19 @@ class TwigExtension extends AbstractExtension
         if (null === $content) {
             return '';
         }
-        $content = (new Parsedown())->setSafeMode(false)->text($content);
+        $content = (new Parsedown())->setBreaksEnabled(true)->setSafeMode(false)->text($content);
         $content = preg_replace(
             '/<p><a href\="(http|https):\/\/www.youtube.com\/watch\?v=([^\""]+)">[^<]*<\/a><\/p>/',
             '<div class="video"><div class="ratio"><iframe width="560" height="315" src="//www.youtube-nocookie.com/embed/$2" frameborder="0" allowfullscreen=""></iframe></div></div>',
             $content
         );
+        $content = preg_replace_callback('/((\d{2}:){1,2}\d{2}) ([^<]*)/', function ($matches) {
+            $times = array_reverse(explode(':', $matches[1]));
+            $title = $matches[3];
+            $timecode = (int) ($times[2] ?? 0) * 60 * 60 + (int) $times[1] * 60 + (int) $times[0];
+
+            return "<a href=\"#t{$timecode}\">{$matches[1]}</a> $title";
+        }, $content) ?: $content;
 
         return $content;
     }
