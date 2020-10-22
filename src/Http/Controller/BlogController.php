@@ -16,26 +16,37 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class BlogController extends AbstractController
 {
+    private PostRepository $postRepository;
+    private CategoryRepository $categoryRepository;
+    private PaginatorInterface $paginator;
+
+    public function __construct(PostRepository $postRepository, CategoryRepository $categoryRepository, PaginatorInterface $paginator)
+    {
+        $this->postRepository = $postRepository;
+        $this->categoryRepository = $categoryRepository;
+        $this->paginator = $paginator;
+    }
+
     /**
      * @Route("/blog", name="blog_index")
      */
-    public function index(PostRepository $repo, CategoryRepository $categoryRepository, PaginatorInterface $paginator, Request $request): Response
+    public function index(Request $request): Response
     {
         $title = 'Blog';
-        $query = $repo->queryAll();
+        $query = $this->postRepository->queryAll();
 
-        return $this->renderListing($title, $query, $paginator, $request);
+        return $this->renderListing($title, $query, $request);
     }
 
     /**
      * @Route("/blog/category/{slug}", name="blog_category")
      */
-    public function category(Category $category, PostRepository $repo, PaginatorInterface $paginator, Request $request): Response
+    public function category(Category $category, Request $request): Response
     {
         $title = $category->getName();
-        $query = $repo->queryAll($category);
+        $query = $this->postRepository->queryAll($category);
 
-        return $this->renderListing($title, $query, $paginator, $request);
+        return $this->renderListing($title, $query, $request, ['category' => $category]);
     }
 
     /**
@@ -49,10 +60,10 @@ class BlogController extends AbstractController
         ]);
     }
 
-    private function renderListing(string $title, Query $query, PaginatorInterface $paginator, Request $request): Response
+    private function renderListing(string $title, Query $query, Request $request, array $params = []): Response
     {
         $page = $request->query->getInt('page', 1);
-        $posts = $paginator->paginate(
+        $posts = $this->paginator->paginate(
             $query,
             $page,
             10
@@ -63,12 +74,14 @@ class BlogController extends AbstractController
         if (0 === $posts->count()) {
             throw new NotFoundHttpException('Aucun articles ne correspond à cette page');
         }
+        $categories = $this->categoryRepository->findWithCount();
 
-        return $this->render('blog/index.html.twig', [
+        return $this->render('blog/index.html.twig', array_merge([
             'posts' => $posts,
+            'categories' => $categories,
             'page' => $page,
             'title' => $title,
             'menu' => 'blog',
-        ]);
+        ], $params));
     }
 }

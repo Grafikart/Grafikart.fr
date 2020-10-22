@@ -71,6 +71,12 @@
   color: var(--color) !important;
   background: #ffff;
   border: 1px solid var(--border) !important;
+
+  &:focus,
+  &[aria-expanded="true"] {
+    color: var(--contrast);
+    border-color: var(--contrast) !important;
+  }
 }
 
 .btn-big {

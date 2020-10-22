@@ -123,6 +123,17 @@
 
 // Page
 // ==================
+.course-top-sidebar {
+  @extend %container;
+  --gap: 3;
+  display: grid;
+  grid-gap: calc(var(--gap) * var(--space));
+  grid-template-columns: 1fr;
+
+  @include up(1100) {
+    grid-template-columns: 1fr 385px;
+  }
+}
 .course-page {
   background: var(--background-light);
   border-top: solid 1px var(--border);

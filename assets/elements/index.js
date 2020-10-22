@@ -8,7 +8,7 @@ import { Switch } from './Switch.js'
 import { Comments } from '../components/Comments.jsx'
 import { TimeAgo } from './TimeAgo.js'
 import { TimeCountdown } from './TimeCountdown.js'
-import { Choices } from './Choices.js'
+import { InputChoices } from './Choices.js'
 import { MarkdownEditor } from './editor/index.js'
 import { AjaxDelete } from './AjaxDelete.js'
 import { AutoScroll } from './AutoScroll.js'
@@ -29,6 +29,7 @@ import { PremiumButton } from '/elements/premium/PremiumButton.jsx'
 import { BadgeUnlock } from '/elements/BadgeUnlock.jsx'
 import { Search, SearchInput } from '/elements/search/Search.jsx'
 import { CycleClasses } from '/elements/CycleClasses.js'
+import { Dropdown } from '/elements/Dropdown.js'
 
 // Custom Elements
 customElements.define('nav-tabs', NavTabs)
@@ -50,6 +51,7 @@ customElements.define('progress-tracker', ProgressTracker)
 customElements.define('skeleton-box', Skeleton)
 customElements.define('social-share', Sharer, { extends: 'a' })
 customElements.define('cycle-classes', CycleClasses)
+customElements.define('drop-down', Dropdown)
 preactCustomElement('site-notifications', Notifications)
 preactCustomElement('contact-form', ContactForm)
 preactCustomElement('comments-area', Comments, ['target'])
@@ -61,7 +63,7 @@ preactCustomElement('search-input', SearchInput)
 
 // CustomElement étendus
 customElements.define('input-switch', Switch, { extends: 'input' })
-customElements.define('input-choices', Choices, { extends: 'input' })
+customElements.define('input-choices', InputChoices, { extends: 'input' })
 customElements.define('markdown-editor', MarkdownEditor, { extends: 'textarea' })
 customElements.define('auto-scroll', AutoScroll, { extends: 'div' })
 customElements.define('auto-submit', AutoSubmit, { extends: 'form' })

@@ -153,4 +153,7 @@
     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 12h-6l-2 3h-4l-2-3H2"/>
     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5l-3 7v6a2 2 0 002 2h16a2 2 0 002-2v-6l-3-7a2 2 0 00-2-1H7a2 2 0 00-2 1v0z"/>
   </symbol>
+  <symbol id="arrow-down" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+    <path fill="currentColor" d="M5 6l5 5 5-5 2 1-7 7-7-7 2-1z"/>
+  </symbol>
 </svg>
