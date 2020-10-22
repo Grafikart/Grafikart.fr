@@ -5,8 +5,7 @@ dr := $(dc) run --rm
 de := docker-compose exec
 sy := $(de) php bin/console
 drtest := $(dc) -f docker-compose.test.yml run --rm
-# drnode := $(dr) node # Pour le moment node tourne sur l'hôte
-drnode :=
+drnode := $(dr) node
 
 .DEFAULT_GOAL := help
 .PHONY: help
@@ -21,7 +20,7 @@ build-docker:
 	# $(dc) pull --ignore-pull-failures
 	$(dc) build --force-rm --pull php
 	$(dc) build --force-rm --pull messenger
-	# $(dc) build --force-rm --pull node
+	$(dc) build --force-rm --pull node
 
 .PHONY: dev
 dev: vendor/autoload.php node_modules/time ## Lance le serveur de développement

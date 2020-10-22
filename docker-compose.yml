@@ -23,6 +23,11 @@ services:
       PHP_IDE_CONFIG: serverName=grafikart
       MESSENGER_TRANSPORT_DSN: redis://redis:6379/messages
       MESSENGER_TRANSPORT_FAILED_DSN: redis://redis:6379/messages_failed
+  node:
+    build:
+      context: ./tools/docker/node
+    volumes:
+      - .:/var/www:delegated
   db:
     image: postgres:12-alpine
     environment:
