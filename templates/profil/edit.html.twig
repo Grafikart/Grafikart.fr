@@ -31,9 +31,7 @@
   {% include 'partials/flash.html.twig' with {floating: true} %}
 
   <div class="layout-sidebar py5" style="--gap:5;">
-    <main>
-      <section class="stack-large">
-
+    <main class="stack-large">
         {# Edition de profil #}
         {{ form_start(form_update, {attr: {class: 'stack'}}) }}
         <h2 class="h3">
@@ -90,9 +88,13 @@
             {% endif %}
           </div>
         </div>
-      </section>
     </main>
     <aside class="stack">
+      <div class="mb2">
+        {{ render(controller(
+          'App\\Http\\Controller\\Template\\PremiumStateController::state'
+        )) }}
+      </div>
       <h3 class="h4">Mode nuit</h3>
       <div class="flex">
         <p>

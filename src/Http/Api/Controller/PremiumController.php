@@ -15,6 +15,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -44,14 +45,15 @@ class PremiumController extends AbstractController
      * @Route("/premium/{id}/stripe/checkout", name="premium_stripe_checkout", methods={"POST"})
      * @IsGranted("ROLE_USER")
      */
-    public function stripe(Plan $plan, StripeApi $api, EntityManagerInterface $em): JsonResponse
+    public function stripe(Plan $plan, StripeApi $api, EntityManagerInterface $em, Request $request): JsonResponse
     {
+        $isSubscription = $request->get('subscription') === '1';
         try {
             $api->createCustomer($this->getUser());
             $em->flush();
 
             return $this->json([
-                'id' => $api->createPaymentSession($this->getUser(), $plan),
+                'id' => $isSubscription ? $api->createSuscriptionSession($this->getUser(), $plan) : $api->createPaymentSession($this->getUser(), $plan),
             ]);
         } catch (\Exception $e) {
             return $this->json(['title' => "Impossible de contacter l'API Stripe"], Response::HTTP_UNPROCESSABLE_ENTITY);

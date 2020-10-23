@@ -7,12 +7,12 @@ use App\Infrastructure\Payment\Stripe\StripeEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Domain\Premium\Repository\PlanRepository")
+ * @ORM\Entity(repositoryClass="App\Domain\Premium\Repository\SubscriptionRepository")
  */
 class Subscription
 {
-    const ACTIVE = 1;
-    const INACTIVE = 0;
+    public const ACTIVE = 1;
+    public const INACTIVE = 0;
 
     /**
      * @ORM\Id()
@@ -47,11 +47,6 @@ class Subscription
      * @ORM\Column(type="datetime")
      */
     private \DateTimeInterface $createdAt;
-
-    /**
-     * @ORM\Column(type="float")
-     */
-    private float $tax = 0;
 
     use StripeEntity;
 
@@ -127,15 +122,8 @@ class Subscription
         return $this;
     }
 
-    public function getTax(): float
+    public function isActive(): bool
     {
-        return $this->tax;
-    }
-
-    public function setTax(float $tax): self
-    {
-        $this->tax = $tax;
-
-        return $this;
+        return $this->getState() === self::ACTIVE;
     }
 }

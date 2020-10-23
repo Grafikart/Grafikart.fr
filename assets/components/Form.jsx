@@ -106,6 +106,22 @@ export function Radio ({ children, ...props }) {
   )
 }
 
+/**
+ * Bouton checkbox avec un label sur le côté
+ */
+export function Checkbox ({ children, ...props }) {
+  return (
+    <Flex center gap={1}>
+      <span class={classNames('form-checkbox', props.checked && 'is-checked')}>
+        <input type='checkbox' {...props} />
+      </span>
+      <label htmlFor={props.id} class='flex'>
+        {children}
+      </label>
+    </Flex>
+  )
+}
+
 function FieldTextarea (props) {
   return <textarea {...props} />
 }

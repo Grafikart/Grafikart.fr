@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Controller\Profile;
 
 use App\Domain\Auth\User;
+use App\Domain\Premium\Entity\Subscription;
+use App\Domain\Premium\Repository\SubscriptionRepository;
 use App\Domain\Premium\Repository\TransactionRepository;
 use App\Http\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;

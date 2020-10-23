@@ -98,6 +98,10 @@ body::after {
   color: #fff;
 }
 
+.split-background {
+  background: linear-gradient(to top, var(--background-light), var(--background-light)) left top/100% var(--split) no-repeat var(--background);
+}
+
 // Modules
 // ==================
 @import 'modules/header';

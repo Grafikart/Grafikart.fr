@@ -10,6 +10,7 @@ use App\Domain\Premium\Event\PremiumSubscriptionEvent;
 use App\Domain\Premium\Exception\PaymentPlanMissMatchException;
 use App\Infrastructure\Payment\Event\PaymentEvent;
 use App\Infrastructure\Payment\Stripe\StripePayment;
+use App\Infrastructure\Payment\Stripe\StripeSubscriptionPayment;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

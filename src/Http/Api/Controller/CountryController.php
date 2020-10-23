@@ -14,7 +14,6 @@ class CountryController extends AbstractController
 {
     /**
      * @Route("/country", name="country")
-     * @IsGranted("ROLE_USER")
      */
     public function index(): JsonResponse
     {

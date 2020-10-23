@@ -73,6 +73,7 @@
   border: 1px solid var(--border) !important;
 
   &:focus,
+  &.active,
   &[aria-expanded="true"] {
     color: var(--contrast);
     border-color: var(--contrast) !important;
@@ -105,6 +106,25 @@
 .btn-small {
   padding: 5px 10px;
   font-size: 0.8em;
+}
+
+.btn-group {
+  display: inline-flex;
+
+  & > .active {
+    z-index: 2;
+    position: relative;
+  }
+
+  & > * {
+    z-index: 1;
+    border-radius: 0 4px 4px 0;
+    margin-left: -1px;
+  }
+
+  & > *:first-child {
+    border-radius: 4px 0 0 4px;
+  }
 }
 
 .stack > button {

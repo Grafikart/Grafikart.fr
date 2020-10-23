@@ -233,7 +233,8 @@ button:hover .icon-delete {
 
 // Radio
 // =============
-.form-radio {
+.form-radio,
+.form-checkbox {
   position: relative;
   display: block;
   width: 20px;
@@ -269,5 +270,23 @@ button:hover .icon-delete {
     left: 0;
     right: 0;
     bottom: 0;
+  }
+}
+
+// Checkbox
+// =============
+.form-checkbox {
+  border-radius: 3px;
+
+  &::after {
+    border-radius: 2px;
+  }
+
+  &.is-checked {
+    border-color: var(--contrast);
+  }
+
+  &.is-checked::after {
+    background: var(--contrast);
   }
 }

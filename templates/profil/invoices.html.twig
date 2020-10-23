@@ -16,54 +16,48 @@
 
 
 
-<div class="layout-sidebar py5" style="--gap:5;">
-  <main>
-    <h2 class="h3 mb3">
-      {{ icon('inbox') }}
-      <strong>Mes derniers paiements</strong>
-    </h2>
-    {% if transactions is empty %}
-      <div class="py4 text-muted text-center h3">
-        Vous n'avez aucune facture :(
-      </div>
-    {% else %}
-      <table class="table">
-        <thead>
-        <tr>
-          <th width="180">Date</th>
-          <th>Description</th>
-          <th>Prix</th>
-          <th width="200"></th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for transaction in transactions %}
+  <div class="layout-sidebar py5" style="--gap:5;">
+    <main>
+      <h2 class="h3 mb3">
+        {{ icon('inbox') }}
+        <strong>Mes derniers paiements</strong>
+      </h2>
+      {% if transactions is empty %}
+        <div class="py4 text-muted text-center h3">
+          Vous n'avez aucune facture :(
+        </div>
+      {% else %}
+        <table class="table">
+          <thead>
           <tr>
-            <td>{{ transaction.createdAt | format_date('long') }}</td>
-            <td>Compte premium {{ transaction.duration }} mois</td>
-            <td>{{ transaction.price | format_currency('EUR') }}</td>
-            <td class="text-right">
-              <a target="_blank" href="{{ path('user_invoice', {id: transaction.id}) }}" class="btn-secondary">Télécharger la facture</a>
-            </td>
+            <th width="180">Date</th>
+            <th>Description</th>
+            <th>Prix</th>
+            <th width="200"></th>
           </tr>
-        {% endfor %}
-        </tbody>
-      </table>
-    {% endif %}
-  </main>
-  <aside>
-    <h2 class="h3 mb3">
-      {{ icon('user') }}
-      Mon abonnement
-    </h2>
-    <p class="mb2">
-      Vous pouvez consulter l'état de votre abonnement et gérer vos informations directement depuis <strong>Stripe</strong>.
-    </p>
-    <form action="{{ path('user_subscription') }}" method="post">
-      <button class="btn-primary">Gérer mon abonnement</button>
-    </form>
-  </aside>
-</div>
+          </thead>
+          <tbody>
+          {% for transaction in transactions %}
+            <tr>
+              <td>{{ transaction.createdAt | format_date('long') }}</td>
+              <td>Compte premium {{ transaction.duration }} mois</td>
+              <td>{{ transaction.price | format_currency('EUR') }}</td>
+              <td class="text-right">
+                <a target="_blank" href="{{ path('user_invoice', {id: transaction.id}) }}" class="btn-secondary">Télécharger
+                  la facture</a>
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+    </main>
+    <aside>
+      {{ render(controller(
+        'App\\Http\\Controller\\Template\\PremiumStateController::state'
+      )) }}
+    </aside>
+  </div>
 
 {% endblock %}
 
