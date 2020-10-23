@@ -1,12 +1,16 @@
 // Badge
 // ==================
 .badge {
+  display: inline-flex;
+  align-items: center;
   background-color: var(--background);
-  display: inline-block;
   padding: 0.25em 0.6em;
   border-radius: 10rem;
   font-size: 75%;
   line-height: 1;
+  .icon {
+    margin-right: space(1);
+  }
 }
 .badge-success {
   color: var(--green);

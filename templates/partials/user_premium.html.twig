@@ -1,3 +1,6 @@
+{#
+  Affiche l'état de l'abonnement de l'utilisateur
+#}
 <div>
   {% if subscription %}
     <h2 class="h3 mb2">
@@ -10,16 +13,16 @@
         <strong>{{ subscription.nextPayment | format_date('short') }}</strong>.
       </p>
 
-      <form action="{{ path('user_subscription') }}" method="post">
-        <button class="btn-primary">Gérer mon abonnement</button>
+      <form action="{{ path('user_subscription') }}" method="post" target="_blank">
+        <button class="btn-primary">{{ icon('pen') }} Gérer mon abonnement</button>
       </form>
     {% else %}
       <p class="mb2 formatted">
         Vous avez annulé votre abonnement. Il sera automatiquement suspendu après le
         <strong>{{ subscription.nextPayment | format_date('short') }}</strong>
       </p>
-      <form action="{{ path('user_subscription') }}" method="post">
-        <button class="btn-primary">Réactiver mon abonnement</button>
+      <form action="{{ path('user_subscription') }}" method="post" target="_blank">
+        <button class="btn-primary">{{ icon('pen') }} Réactiver mon abonnement</button>
       </form>
     {% endif %}
   {% elseif (user.premium) %}

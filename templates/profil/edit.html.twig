@@ -6,25 +6,7 @@
 
 {% block body %}
 
-
-<header class="page-header container">
-  <div class="profil-header">
-    <form class="profil-header__avatar" enctype="multipart/form-data" method="post" action="{{ path('user_avatar') }}" is="auto-submit">
-      <img src="{{ user | avatar }}" alt="">
-      <div class="profil-header__upload">
-        {{ icon('cloud') }}
-      </div>
-      <input type="file" name="avatar"/>
-    </form>
-    <div class="profil-header__body">
-      <h1 class="h1">Mon profil</h1>
-      <p>
-        <span class="badge badge-secondary">Compte standard</span>
-        Inscrit depuis 10 ans
-      </p>
-    </div>
-  </div>
-</header>
+  {% include 'profil/_header.html.twig' with {title: 'Mon profil'} %}
 
   {% include 'profil/_tabs.html.twig' with {active: 'edit'} %}
 
@@ -32,62 +14,63 @@
 
   <div class="layout-sidebar py5" style="--gap:5;">
     <main class="stack-large">
-        {# Edition de profil #}
-        {{ form_start(form_update, {attr: {class: 'stack'}}) }}
-        <h2 class="h3">
-          {{ icon('user') }}
-          <strong>Mes informations</strong>
-        </h2>
-        <div class="card p3 grid">
-          {{ form_row(form_update.email) }}
-          {{ form_row(form_update.country) }}
-        </div>
-        <div class="text-right">
-          <button type="submit" class="btn-primary" name="action" value="update">Modifier mon profil</button>
-        </div>
-        {{ form_end(form_update) }}
+      {# Edition de profil #}
+      {{ form_start(form_update, {attr: {class: 'stack'}}) }}
+      <h2 class="h3">
+        {{ icon('user') }}
+        <strong>Mes informations</strong>
+      </h2>
+      <div class="card p3 grid">
+        {{ form_row(form_update.email) }}
+        {{ form_row(form_update.country) }}
+      </div>
+      <div class="text-right">
+        <button type="submit" class="btn-primary" name="action" value="update">Modifier mon profil</button>
+      </div>
+      {{ form_end(form_update) }}
 
-        {# Edition du mot de passe #}
-        {{ form_start(form_password, {attr: {class: 'stack'}}) }}
-        <h2 class="h3">
-          {{ icon('lock') }}
-          <strong>Mot de passe</strong>
-        </h2>
-        <div class="card p3 grid2">
-          {{ form_row(form_password.password) }}
-        </div>
-        <div class="text-right">
-          <button type="submit" class="btn-primary" name="action" value="password">Modifier mon mot de passe</button>
-        </div>
-        {{ form_end(form_password) }}
+      {# Edition du mot de passe #}
+      {{ form_start(form_password, {attr: {class: 'stack'}}) }}
+      <h2 class="h3">
+        {{ icon('lock') }}
+        <strong>Mot de passe</strong>
+      </h2>
+      <div class="card p3 grid2">
+        {{ form_row(form_password.password) }}
+      </div>
+      <div class="text-right">
+        <button type="submit" class="btn-primary" name="action" value="password">Modifier mon mot de passe</button>
+      </div>
+      {{ form_end(form_password) }}
 
-        {# Suppression du compte #}
-        <div class="stack">
-          <h2 class="text-danger h3">
-            {{ icon('trash') }}
-            <strong>Danger zone</strong>
-          </h2>
-          <p style="font-size: 1.2rem;">
-            {% if user.deleteAt %}
-              Votre compte sera supprimé automatiquement <strong>{{ user.deleteAt | ago('dans') }}</strong>
-            {% else %}
-              Vous n'êtes pas satisfait du contenu du site ?<br>
-              Ou vous souhaitez supprimer toutes les informations associées à ce compte ?
-            {% endif %}
-          </p>
-          <div class="text-right">
-            {% if user.deleteAt %}
+      {# Suppression du compte #}
+      <div class="stack">
+        <h2 class="text-danger h3">
+          {{ icon('trash') }}
+          <strong>Danger zone</strong>
+        </h2>
+        <p style="font-size: 1.2rem;">
+          {% if user.deleteAt %}
+            Votre compte sera supprimé automatiquement <strong>{{ user.deleteAt | ago('dans') }}</strong>
+          {% else %}
+            Vous n'êtes pas satisfait du contenu du site ?<br>
+            Ou vous souhaitez supprimer toutes les informations associées à ce compte ?
+          {% endif %}
+        </p>
+        <div class="text-right">
+          {% if user.deleteAt %}
             <form action="{{ path('user_cancel_delete') }}" method="post">
               <button class="btn-secondary">
                 {{ icon('trash') }}
                 Annuler la suppression
               </button>
             </form>
-            {% else %}
-            <delete-account days="5" url="{{ path('user_profil') }}" csrf="{{ csrf_token('delete-account') }}"></delete-account>
-            {% endif %}
-          </div>
+          {% else %}
+            <delete-account days="5" url="{{ path('user_profil') }}"
+                            csrf="{{ csrf_token('delete-account') }}"></delete-account>
+          {% endif %}
         </div>
+      </div>
     </main>
     <aside class="stack">
       <div class="mb2">
@@ -116,7 +99,8 @@
       <p>Reliez votre compte à un réseau social afin de l'utiliser comme mode de connexion</p>
       <div class="stack mb4">
         <div>
-          <a href="{{ path(user.githubId ? 'oauth_unlink' : 'oauth_connect', {service: 'github'}) }}" class="btn-secondary">
+          <a href="{{ path(user.githubId ? 'oauth_unlink' : 'oauth_connect', {service: 'github'}) }}"
+             class="btn-secondary">
             <svg class="icon">
               <use xlink:href="/social.svg#github"></use>
             </svg>
@@ -124,19 +108,21 @@
           </a>
         </div>
         <div>
-          <a href="{{ path(user.googleId ? 'oauth_unlink' : 'oauth_connect', {service: 'google'}) }}" class="btn-secondary">
+          <a href="{{ path(user.googleId ? 'oauth_unlink' : 'oauth_connect', {service: 'google'}) }}"
+             class="btn-secondary">
             <svg class="icon">
               <use xlink:href="/social.svg#google"></use>
             </svg>
-             {{ user.googleId ? 'Dissocier' : 'Lier' }} votre compte google
+            {{ user.googleId ? 'Dissocier' : 'Lier' }} votre compte google
           </a>
         </div>
         <div>
-          <a href="{{ path(user.facebookId ? 'oauth_unlink' : 'oauth_connect', {service: 'facebook'}) }}" class="btn-secondary">
+          <a href="{{ path(user.facebookId ? 'oauth_unlink' : 'oauth_connect', {service: 'facebook'}) }}"
+             class="btn-secondary">
             <svg class="icon">
               <use xlink:href="/social.svg#facebook"></use>
             </svg>
-             {{ user.facebookId ? 'Dissocier' : 'Lier' }} votre compte facebook
+            {{ user.facebookId ? 'Dissocier' : 'Lier' }} votre compte facebook
           </a>
         </div>
       </div>

@@ -6,11 +6,8 @@
 
 {% block body %}
 
-  <header class="page-header technology-header container">
-    <div class="stack w100">
-      <h1 class="h1">Mes badges</h1>
-    </div>
-  </header>
+
+  {% include 'profil/_header.html.twig' with {title: 'Mes badges', user: app.user} %}
 
   {% include 'profil/_tabs.html.twig' with {active: 'badges'} %}
 
