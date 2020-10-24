@@ -3,6 +3,7 @@
 /public/icons
 /public/old
 /public/uploads
+/src/.preload.php
 *.sql
 
 # Assets
