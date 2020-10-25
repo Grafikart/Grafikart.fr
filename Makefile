@@ -5,8 +5,7 @@ dr := $(dc) run --rm
 de := docker-compose exec
 sy := $(de) php bin/console
 drtest := $(dc) -f docker-compose.test.yml run --rm
-# drnode := $(dr) node # Pour le moment node tourne sur l'hôte
-drnode :=
+drnode := $(dr) node
 
 .DEFAULT_GOAL := help
 .PHONY: help
@@ -18,22 +17,14 @@ install: public/assets vendor/autoload.php ## Installe les différentes dépenda
 
 .PHONY: build-docker
 build-docker:
-	# $(dc) pull --ignore-pull-failures
-	$(dc) build --force-rm --pull php
-	$(dc) build --force-rm --pull messenger
-	# $(dc) build --force-rm --pull node
+	$(dc) pull --ignore-pull-failures
+	$(dc) build php
+	$(dc) build messenger
+	$(dc) build node
 
 .PHONY: dev
 dev: vendor/autoload.php node_modules/time ## Lance le serveur de développement
-	make -j 2 server
-
-.PHONY: server
-server:
 	$(dc) up
-
-.PHONY: front
-front:
-	$(drnode) yarn run dev
 
 .PHONY: clean
 clean: ## Nettoie les containers
