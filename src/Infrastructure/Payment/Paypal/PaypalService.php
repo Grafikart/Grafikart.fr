@@ -27,11 +27,9 @@ class PaypalService
             // On récupère les information de la commaande
             /** @var \stdClass $order */
             $order = $this->client->execute(new OrdersGetRequest($orderId))->result;
-
             // On normalise le paiement
             $payment = new Payment();
             $unit = $order->purchase_units[0];
-            $item = $unit->items[0];
             $payment->id = $order->id;
             $payment->planId = (int) $unit->custom_id;
             $payment->firstname = $order->payer->name->given_name;
@@ -40,8 +38,8 @@ class PaypalService
             $payment->city = $unit->shipping->address->admin_area_2;
             $payment->postalCode = $unit->shipping->address->postal_code;
             $payment->countryCode = $unit->shipping->address->country_code;
-            $payment->amount = floatval($item->unit_amount->value);
-            $payment->vat = floatval($item->tax->value);
+            $payment->amount = floatval($unit->amount->value);
+            $payment->vat = floatval($unit->amount->breakdown->tax_total->value);
 
             return $payment;
         } catch (HttpException $e) {

@@ -67,11 +67,11 @@ class StripeApi
     /**
      * Crée une session et renvoie l'URL de paiement.
      */
-    public function createSuscriptionSession(User $user, Plan $plan): string
+    public function createSuscriptionSession(User $user, Plan $plan, string $url): string
     {
         $session = $this->stripe->checkout->sessions->create([
-            'cancel_url'           => 'http://grafikart.localhost:8000/premium',
-            'success_url'          => 'http://grafikart.localhost:8000/premium',
+            'cancel_url'           => $url,
+            'success_url'          => $url . '?success=1',
             'mode'                 => 'subscription',
             'payment_method_types' => [
                 'card',
@@ -94,11 +94,11 @@ class StripeApi
         return $session->id;
     }
 
-    public function createPaymentSession(User $user, Plan $plan): string
+    public function createPaymentSession(User $user, Plan $plan, string $url): string
     {
         $session = $this->stripe->checkout->sessions->create([
-            'cancel_url'           => 'http://grafikart.localhost:8000/premium',
-            'success_url'          => 'http://grafikart.localhost:8000/premium',
+            'cancel_url'           => $url,
+            'success_url'          => $url . '?success=1',
             'mode'                 => 'payment',
             'payment_method_types' => [
                 'card',

@@ -2,7 +2,6 @@
 
 namespace App\Http\Admin\Controller;
 
-use ApiPlatform\Core\Api\UrlGeneratorInterface;
 use App\Domain\Application\Event\ContentCreatedEvent;
 use App\Domain\Application\Event\ContentDeletedEvent;
 use App\Domain\Application\Event\ContentUpdatedEvent;
@@ -16,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @Route("/course", name="course_")
@@ -121,7 +121,7 @@ final class CourseController extends CrudController
         }
 
         // On génère récupère le code d'auth
-        $redirectUri = $this->generateUrl('admin_course_upload', [], UrlGeneratorInterface::ABS_URL);
+        $redirectUri = $this->generateUrl('admin_course_upload', [], UrlGeneratorInterface::ABSOLUTE_URL);
         $code = $request->get('code');
         $googleClient->setRedirectUri($redirectUri);
         if (null === $code) {

@@ -1,8 +1,11 @@
 {% extends 'base.html.twig' %}
 
+{% set bodyClass = 'header-light' %}
+{% set title = 'Toutes les formation' %}
+
 {% block body %}
 
-  <div class="formations py5">
+  <main class="formations split-background container py5" style="--split:380px">
     <div class="course-hero">
       <h1>Toutes les <strong>formations</strong></h1>
       <div>
@@ -14,7 +17,7 @@
     {% for formation in formations %}
       {% include 'formations/_card.html.twig' %}
     {% endfor %}
-  </div>
+  </main>
 
 {% endblock %}
 

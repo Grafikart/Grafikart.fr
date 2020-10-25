@@ -5,7 +5,7 @@
 {% block title 'Tous les tutoriels' ~ ((page > 1) ? (', page' ~ page) : '') %}
 
 {% block body %}
-  <div class="split-background container py5" style="--split:380px">
+  <main class="split-background container py5" style="--split:380px">
 
     <div class="courses">
       <div class="course-hero {% if page > 1 %}is-paginated{% endif %}">
@@ -26,7 +26,7 @@
 
     {{ paginate(courses) }}
 
-  </div>
+  </main>
 
   {{ show_history(courses.items) }}
 

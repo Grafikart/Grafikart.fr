@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @method User getUser()
@@ -25,7 +26,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PremiumController extends AbstractController
 {
     /**
-     * @Route("/premium/paypal/{orderId}", name="premium_paypal")
+     * @Route("/premium/paypal/{orderId}", name="premium_paypal", methods={"POST"})
      * @IsGranted("ROLE_USER")
      */
     public function paypal(string $orderId, PaypalService $paypal, EventDispatcherInterface $dispatcher): JsonResponse
@@ -45,15 +46,16 @@ class PremiumController extends AbstractController
      * @Route("/premium/{id}/stripe/checkout", name="premium_stripe_checkout", methods={"POST"})
      * @IsGranted("ROLE_USER")
      */
-    public function stripe(Plan $plan, StripeApi $api, EntityManagerInterface $em, Request $request): JsonResponse
+    public function stripe(Plan $plan, StripeApi $api, EntityManagerInterface $em, Request $request, UrlGeneratorInterface $urlGenerator): JsonResponse
     {
         $isSubscription = $request->get('subscription') === '1';
+        $url = $urlGenerator->generate('premium', [], UrlGeneratorInterface::ABSOLUTE_URL);
         try {
             $api->createCustomer($this->getUser());
             $em->flush();
 
             return $this->json([
-                'id' => $isSubscription ? $api->createSuscriptionSession($this->getUser(), $plan) : $api->createPaymentSession($this->getUser(), $plan),
+                'id' => $isSubscription ? $api->createSuscriptionSession($this->getUser(), $plan, $url) : $api->createPaymentSession($this->getUser(), $plan, $url),
             ]);
         } catch (\Exception $e) {
             return $this->json(['title' => "Impossible de contacter l'API Stripe"], Response::HTTP_UNPROCESSABLE_ENTITY);
