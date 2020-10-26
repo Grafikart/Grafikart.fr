@@ -124,6 +124,6 @@ class Subscription
 
     public function isActive(): bool
     {
-        return $this->getState() === self::ACTIVE;
+        return self::ACTIVE === $this->getState();
     }
 }

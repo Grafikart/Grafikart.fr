@@ -34,10 +34,10 @@ class StripeApi
         }
         $client = $this->stripe->customers->create([
             'metadata' => [
-                'user_id' => (string)$user->getId(),
+                'user_id' => (string) $user->getId(),
             ],
-            'email'    => $user->getEmail(),
-            'name'     => $user->getUsername(),
+            'email' => $user->getEmail(),
+            'name' => $user->getUsername(),
         ]);
         $user->setStripeId($client->id);
 
@@ -70,22 +70,22 @@ class StripeApi
     public function createSuscriptionSession(User $user, Plan $plan, string $url): string
     {
         $session = $this->stripe->checkout->sessions->create([
-            'cancel_url'           => $url,
-            'success_url'          => $url . '?success=1',
-            'mode'                 => 'subscription',
+            'cancel_url' => $url,
+            'success_url' => $url.'?success=1',
+            'mode' => 'subscription',
             'payment_method_types' => [
                 'card',
             ],
-            'subscription_data'  => [
+            'subscription_data' => [
                 'metadata' => [
                     'plan_id' => $plan->getId(),
-                ]
+                ],
             ],
-            'customer'             => $user->getStripeId(),
-            'line_items'           => [
+            'customer' => $user->getStripeId(),
+            'line_items' => [
                 [
-                    'price'             => $plan->getStripeId(),
-                    'quantity'          => 1,
+                    'price' => $plan->getStripeId(),
+                    'quantity' => 1,
                     'dynamic_tax_rates' => self::TAXES,
                 ],
             ],
@@ -97,32 +97,32 @@ class StripeApi
     public function createPaymentSession(User $user, Plan $plan, string $url): string
     {
         $session = $this->stripe->checkout->sessions->create([
-            'cancel_url'           => $url,
-            'success_url'          => $url . '?success=1',
-            'mode'                 => 'payment',
+            'cancel_url' => $url,
+            'success_url' => $url.'?success=1',
+            'mode' => 'payment',
             'payment_method_types' => [
                 'card',
             ],
-            'customer'             => $user->getStripeId(),
-            'metadata'             => [
+            'customer' => $user->getStripeId(),
+            'metadata' => [
                 'plan_id' => $plan->getId(),
             ],
-            'payment_intent_data'  => [
+            'payment_intent_data' => [
                 'metadata' => [
                     'plan_id' => $plan->getId(),
-                ]
+                ],
             ],
-            'line_items'           => [
+            'line_items' => [
                 [
-                    'price_data'        => [
-                        'currency'     => 'eur',
+                    'price_data' => [
+                        'currency' => 'eur',
                         'product_data' => [
-                            'name'   => $plan->getName(),
+                            'name' => $plan->getName(),
                             'images' => ['https://www.grafikart.fr/assets/logo-footer-f0a333a1c7b2c1833354864ad7c405e0396d894732bf03abb902f2281e6c942e.png'],
                         ],
-                        'unit_amount'  => $plan->getPrice() * 100,
+                        'unit_amount' => $plan->getPrice() * 100,
                     ],
-                    'quantity'          => 1,
+                    'quantity' => 1,
                     'dynamic_tax_rates' => self::TAXES,
                 ],
             ],
@@ -137,7 +137,7 @@ class StripeApi
     public function getBillingUrl(User $user, string $returnUrl): string
     {
         return $this->stripe->billingPortal->sessions->create([
-            'customer'   => $user->getStripeId(),
+            'customer' => $user->getStripeId(),
             'return_url' => $returnUrl,
         ])->url;
     }
@@ -151,6 +151,7 @@ class StripeApi
     {
         /** @var Session[] $sessions */
         $sessions = $this->stripe->checkout->sessions->all(['payment_intent' => $paymentIntent])->data;
+
         return $sessions[0];
     }
 }

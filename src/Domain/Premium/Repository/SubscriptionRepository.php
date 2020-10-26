@@ -19,7 +19,7 @@ class SubscriptionRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('sub')
             ->where('sub.user = :user')
             ->setParameters([
-                'user'  => $user,
+                'user' => $user,
             ])
             ->setMaxResults(1)
             ->getQuery()

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controller;
+namespace App\Http\Controller\Course;
 
 use App\Core\Helper\Paginator\PaginatorInterface;
 use App\Domain\Course\Entity\Formation;
@@ -36,7 +36,8 @@ class TechnologyController extends AbstractController
         return $this->render('courses/technology.html.twig', [
             'technology' => $technology,
             'showTabs' => count($formations) > 3,
-            'formations' => $formationsPerLevel,
+            'formations' => $formations,
+            'formationsPerLevel' => $formationsPerLevel,
             'courses' => $paginator->paginate($courseRepository->queryForTechnology($technology)),
             'next' => $nextTechnologies,
             'menu' => 'courses',

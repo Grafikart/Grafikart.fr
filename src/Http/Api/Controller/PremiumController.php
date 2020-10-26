@@ -48,7 +48,7 @@ class PremiumController extends AbstractController
      */
     public function stripe(Plan $plan, StripeApi $api, EntityManagerInterface $em, Request $request, UrlGeneratorInterface $urlGenerator): JsonResponse
     {
-        $isSubscription = $request->get('subscription') === '1';
+        $isSubscription = '1' === $request->get('subscription');
         $url = $urlGenerator->generate('premium', [], UrlGeneratorInterface::ABSOLUTE_URL);
         try {
             $api->createCustomer($this->getUser());

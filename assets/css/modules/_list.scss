@@ -165,6 +165,19 @@
   border-radius: 50%;
 }
 
+.list-cursus > .is-completed::before {
+  background-color: var(--contrast);
+}
+
+.list-cursus > .is-completed + *:not(.is-completed)::before {
+  background: linear-gradient(to bottom, var(--contrast), var(--border-light)) top left / 100% 45px no-repeat var(--border-light);
+}
+
+.list-cursus > .is-completed::after {
+  background-color: var(--contrast);
+  // background: url(/images/check.svg) center center / 14px 14px no-repeat var(--contrast);
+}
+
 // List séparé par un -
 // =============
 .list-group > * {

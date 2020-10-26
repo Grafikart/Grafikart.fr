@@ -8,7 +8,6 @@ use Stripe\Checkout\Session;
 use Stripe\Invoice;
 use Stripe\InvoiceLineItem;
 use Stripe\PaymentIntent;
-use Stripe\StripeObject;
 
 class StripePayment extends Payment
 {

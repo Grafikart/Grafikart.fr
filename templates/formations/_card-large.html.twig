@@ -1,7 +1,7 @@
 {% cache [formation, 'card'] %}
-  <article class="card card--formation">
-    <div class="card__body stack">
-      <div class="flex-md">
+  <div data-history="{{ formation.id }}">
+    <article class="card" data-history="{{ formation.id }}">
+      <div class="card__body stack">
 
         <h2 class="card__title" style="margin-bottom: 4px;">
           <a href="{{ path('formation_show', {slug: formation.slug}) }}" tabindex="-1">
@@ -9,19 +9,16 @@
           </a>
         </h2>
 
-        <div class="flex text-muted hstack" style="--gap:1">
-          <div>{{ icon('list', 20) }} {{ formation.courses | length }} Chapitres</div>
-          <div>{{ icon('clock', 14) }} {{ formation.duration | duration }}</div>
+        <div class="card__description">
+          {{ formation.content | markdown | striptags | excerpt(130) }}
         </div>
-
+        <a href="{{ path('formation_show', {slug: formation.slug}) }}" title="{{ formation.title }}"
+           class="card__link"></a>
       </div>
-
-      <div class="card__description">
-        {{ formation.short }}
-      </div>
-
-      <a href="{{ path('formation_show', {slug: formation.slug}) }}" title="{{ formation.title }}"
-         class="card__link"></a>
-    </div>
-  </article>
+      <footer class="card__footer">
+        <div>{{ icon('lines', 12) }} {{ formation.courses | length }} Chapitres</div>
+        <div>{{ icon('clock', 14) }} {{ formation.duration | duration }}</div>
+      </footer>
+    </article>
+  </div>
 {% endcache %}

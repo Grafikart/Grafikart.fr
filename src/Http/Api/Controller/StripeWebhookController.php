@@ -12,22 +12,15 @@ use App\Infrastructure\Payment\Event\PaymentEvent;
 use App\Infrastructure\Payment\Event\PaymentRefundedEvent;
 use App\Infrastructure\Payment\Payment;
 use App\Infrastructure\Payment\Stripe\StripeApi;
-use App\Infrastructure\Payment\Stripe\StripePayment;
 use App\Infrastructure\Payment\Stripe\StripePaymentFactory;
-use App\Infrastructure\Payment\Stripe\StripeSubscriptionPayment;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NoResultException;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Stripe\Charge;
-use Stripe\Checkout\Session;
 use Stripe\Event;
-use Stripe\Invoice;
-use Stripe\InvoiceLineItem;
 use Stripe\PaymentIntent;
 use Stripe\Subscription as StripeSubscription;
-use Stripe\SubscriptionItem;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class StripeWebhookController extends AbstractController
@@ -35,9 +28,7 @@ class StripeWebhookController extends AbstractController
     private StripeApi $stripeApi;
     private EventDispatcherInterface $dispatcher;
     private EntityManagerInterface $em;
-    /**
-     * @var StripePaymentFactory
-     */
+
     private StripePaymentFactory $paymentFactory;
 
     public function __construct(
@@ -75,16 +66,17 @@ class StripeWebhookController extends AbstractController
 
     public function onPaymentIntentSucceeded(PaymentIntent $intent): JsonResponse
     {
-        $user = $this->getUserFromCustomer((string)$intent->customer);
+        $user = $this->getUserFromCustomer((string) $intent->customer);
         $payment = $this->paymentFactory->createPaymentFromIntent($intent);
         $this->dispatcher->dispatch(new PaymentEvent($payment, $user));
+
         return new JsonResponse([]);
     }
 
     public function onRefund(Charge $charge): JsonResponse
     {
         $payment = new Payment();
-        $payment->id = (string)$charge->payment_intent;
+        $payment->id = (string) $charge->payment_intent;
         $this->dispatcher->dispatch(new PaymentRefundedEvent($payment));
 
         return $this->json([]);
@@ -93,18 +85,19 @@ class StripeWebhookController extends AbstractController
     public function onSubscriptionCreated(StripeSubscription $stripeSubscription): JsonResponse
     {
         $plan = $this->em->getRepository(Plan::class)->find($stripeSubscription->metadata['plan_id']);
-        if ($plan === null) {
+        if (null === $plan) {
             throw new NoResultException();
         }
         $subscription = (new Subscription())
             ->setState(Subscription::ACTIVE)
             ->setNextPayment(new \DateTimeImmutable("@{$stripeSubscription->current_period_end}"))
             ->setPlan($plan)
-            ->setUser($this->getUserFromCustomer((string)$stripeSubscription->customer))
+            ->setUser($this->getUserFromCustomer((string) $stripeSubscription->customer))
             ->setCreatedAt(new \DateTimeImmutable())
             ->setStripeId($stripeSubscription->id);
         $this->em->persist($subscription);
         $this->em->flush();
+
         return new JsonResponse([]);
     }
 
@@ -121,6 +114,7 @@ class StripeWebhookController extends AbstractController
             $subscription->setNextPayment(new \DateTimeImmutable("@{$stripeSubscription->current_period_end}"));
         }
         $this->em->flush();
+
         return new JsonResponse([]);
     }
 
@@ -132,15 +126,17 @@ class StripeWebhookController extends AbstractController
         }
         $this->em->remove($subscription);
         $this->em->flush();
+
         return new JsonResponse([]);
     }
 
     private function getUserFromCustomer(string $customerId): User
     {
         $user = $this->em->getRepository(User::class)->findOneBy(['stripeId' => $customerId]);
-        if ($user === null) {
+        if (null === $user) {
             throw new \Exception("Impossible de trouver l'utilisateur correspondant au paiement");
         }
+
         return $user;
     }
 }

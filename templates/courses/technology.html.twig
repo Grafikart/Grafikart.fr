@@ -17,9 +17,8 @@
   </header>
 
   {% if showTabs %}
-
   <nav-tabs class="tabs-bar container">
-    <a href="#formations" aria-selected="true">
+    <a href="#formationsPerLevel" aria-selected="true">
       {{ icon('lines') }}
       Formations
     </a>
@@ -34,29 +33,29 @@
 
     <div class="stack" style="--gap: 7">
       {# Formations #}
-      {% if formations is not empty %}
-      <section id="formations" class="stack" style="--gap:7">
-        {% if formations[0] %}
+      {% if formationsPerLevel is not empty %}
+      <section id="formationsPerLevel" class="stack" style="--gap:7">
+        {% if formationsPerLevel[0] %}
           <div class="stack">
             <h2 class="h3"><strong>Apprendre</strong> les bases</h2>
             <div class="list-cursus">
-              {% for formation in formations[0] %}
+              {% for formation in formationsPerLevel[0] %}
                 {% include 'formations/_card-large.html.twig' %}
               {% endfor %}
             </div>
           </div>
         {% endif %}
-        {% if formations[1] is defined or formations[2] is defined %}
+        {% if formationsPerLevel[1] is defined or formationsPerLevel[2] is defined %}
           <div class="stack">
             <h2 class="h3">Se <strong>perfectionner</strong></h2>
             <div class="list-cursus">
-              {% if formations[1] is defined %}
-                {% for formation in formations[1] %}
+              {% if formationsPerLevel[1] is defined %}
+                {% for formation in formationsPerLevel[1] %}
                   {% include 'formations/_card-large.html.twig' %}
                 {% endfor %}
               {% endif %}
-              {% if formations[2] is defined %}
-                {% for formation in formations[2] %}
+              {% if formationsPerLevel[2] is defined %}
+                {% for formation in formationsPerLevel[2] %}
                   {% include 'formations/_card-large.html.twig' %}
                 {% endfor %}
               {% endif %}
@@ -111,8 +110,7 @@
 
   </div>
 
-
-
+  {{ show_history(formations | merge(courses.items)) }}
 
 {% endblock %}
 

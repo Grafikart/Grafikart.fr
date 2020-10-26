@@ -7,7 +7,6 @@ use Stripe\PaymentIntent;
 
 class StripePaymentFactory
 {
-
     private PlanRepository $planRepository;
     private StripeApi $api;
 
@@ -22,13 +21,15 @@ class StripePaymentFactory
         // Le paiement provient d'un abonnement et dispose d'une facture
         if ($intent->invoice) {
             $invoice = $this->api->getInvoice($intent->invoice);
-            $subscription = $this->api->getSubscription((string)$invoice->subscription);
-            $invoice->metadata = $subscription->metadata;
+            $subscription = $this->api->getSubscription((string) $invoice->subscription);
+            $intent->metadata = $subscription->metadata;
+
             return new StripePayment($intent, $invoice);
         }
 
         // Le paiement provient d'une checkout session
         $session = $this->api->getCheckoutSessionFromIntent($intent->id);
+
         return new StripePayment($intent, $session);
     }
 }
