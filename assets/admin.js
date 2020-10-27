@@ -1,5 +1,3 @@
-import './css/admin.scss'
-
 import { DatePicker } from './elements/DatePicker.js'
 import { UserSelect } from './elements/admin/UserSelect.js'
 import InputAttachment from './elements/admin/InputAttachment.js'

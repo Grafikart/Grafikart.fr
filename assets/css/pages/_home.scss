@@ -68,8 +68,14 @@
   transform-origin: 50% 50%;
   top: 0;
   left: 50%;
-  transform: translate(-50%, 0px);
+  transform: translate(-50%, 60px) scale(0.8);
+  z-index: 2;
   transition: .7s;
+  opacity: 0;
+}
+
+.home-cursus__push .card__illustration {
+  transition: opacity .3s;
   opacity: 0;
 }
 
@@ -82,9 +88,12 @@
 
 .home-cursus__push .item-1 {
   z-index: 4;
-  animation: HomeCursusIn 5s infinite both;
   transform: translate(-50%, 0px);
   opacity: 1;
+
+  .card__illustration {
+    opacity: 1;
+  }
 }
 
 .home-cursus__push .item-2 {
@@ -93,7 +102,7 @@
   opacity: 1;
 
   .card__illustration {
-    opacity: 0;
+    opacity: .2;
   }
 }
 
@@ -104,7 +113,7 @@
   opacity: 1;
 
   .card__illustration {
-    opacity: 0;
+    opacity: .1;
   }
 }
 

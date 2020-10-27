@@ -19,6 +19,7 @@ class PagesController extends AbstractController
     public function home(CourseRepository $courseRepository, FormationRepository $formationRepository, PostRepository $postRepository, CursusRepository $cursusRepository): Response
     {
         return $this->render('pages/home.html.twig', [
+            'menu' => 'home',
             'courses' => $courseRepository->findRecent(3),
             'formations' => $formationRepository->findRecent(3),
             'cursus' => $cursusRepository->findRecent(4),

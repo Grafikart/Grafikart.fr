@@ -20,8 +20,7 @@ export class CycleClasses extends HTMLElement {
   }
 
   cycle () {
-    const [first, ...other] = this.elements
-    this.elements = [...other, first]
+    this.elements = [this.elements[this.elements.length - 1], ...this.elements.slice(0, this.elements.length - 1)]
     this.applyClasses()
     this.timer = window.setTimeout(this.cycle.bind(this), DURATION)
   }

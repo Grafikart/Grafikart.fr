@@ -73,8 +73,11 @@ class TwigAssetExtension extends AbstractExtension
     public function link(string $name): string
     {
         $uri = $this->uri($name.'.css');
-        if (strpos($uri, ':3000')) {
-            return ''; // Le CSS est chargé depuis le JS dans l'environnement de dev
+        $request = $this->requestStack->getCurrentRequest();
+        if (strpos($uri, ':3000') && $request) {
+            $host = $request->getHost();
+
+            return "<script src=\"//{$host}:3000/css/{$name}.scss?import\" type=\"module\"></script>"; // On inject le CSS via du JS
         }
 
         return '<link rel="stylesheet" media="screen" href="'.$this->uri($name.'.css').'"/>';
@@ -90,7 +93,7 @@ class TwigAssetExtension extends AbstractExtension
             $host = $request->getHost();
             $script = <<<HTML
                 <script type="module">
-                import "http://{$host}:3000/vite/client"
+                import "//{$host}:3000/vite/client"
                 </script>
                 $script
             HTML;
