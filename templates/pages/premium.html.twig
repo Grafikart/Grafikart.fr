@@ -46,19 +46,19 @@
   {% if app.request.get('success') %}
   <modal-dialog overlay-close>
     <section class=modal-box premium-modal">
-      <h1 class="h1 text-center mb2">Bravo !</h1>
       <con-fetti>
-      <div class="text-center mb3">
-        <img src="/images/success.svg" alt="" style="max-width: 80%;" />
-      </div>
+        <div class="text-center" style="margin-top: -115px;">
+          <img src="/images/illustrations/payment.svg" alt="" style="max-width: 200px;" />
+        </div>
       </con-fetti>
-      <p class="formatted">
-        Vous êtes maintenant premium jusqu'au <strong>{{ app.user.premiumEnd | format_date('long') }}</strong>.
+      <h1 class="h1 text-center">Merci</h1>
+      <p class="formatted text-center mb3">
+        Vous êtes maintenant premium jusqu'au <br/><strong>{{ app.user.premiumEnd | format_date('long') }}</strong>.
       </p>
 
-      <hr class="my4" />
 
-      <a class="btn-primary btn-block" href="/tutoriels/premium">
+      <a class="btn-primary btn-block" href="{{ path('course_premium') }}">
+        {{ icon('star') }}
         Voir les tutoriels premiums
       </a>
     </section>

@@ -79,3 +79,6 @@ services:
 
   App\Infrastructure\Queue\FailedJobsService:
     arguments: ['@messenger.transport.failed']
+
+  App\Domain\Premium\VideoUrlGenerator:
+    arguments: ['%env(STREAMING_BASE)%', '%env(STREAMING_SIGNATURE)%']

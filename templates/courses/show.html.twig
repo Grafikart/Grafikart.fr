@@ -15,13 +15,33 @@
     </div>
 
     <div class="container {{ course.formation ? 'course-top-sidebar' : '' }} mt2 mb5">
-      {% if course.scheduled %}
+      {% if course.scheduled and not app.user.premium %}
         <div class="course-countdown" style="background-image: url({{ image_url(course.image) }})">
           <div>
             <em>Disponible dans</em>
             <span class="course-countdown_timer">{{ course.createdAt | countdown }}</span>
           </div>
         </div>
+      {% elseif course.premium and not app.user.premium %}
+        <div class="course-countdown" style="background-image: url({{ image_url(course.image) }})">
+          <div>
+            <p class="mb1">Contenu destiné aux membres premiums</p>
+            <p>
+              <a href="{{ path('premium') }}" class="btn-secondary">{{ icon('star') }} Devenir premium</a>
+            </p>
+          </div>
+        </div>
+      {% elseif (course.scheduled or course.premium) and app.user.premium %}
+        <progress-tracker contentId="{{ course.id }}" data-history="{{ course.id }}" duration="{{ course.duration }}">
+          <premium-player
+            id="course-{{ course.id }}"
+            video="{{ path('api_video_url', {id: course.id}) }}"
+            poster="{{ image_url(course.image) }}"
+            title="{{ course.title }}"
+            button="#chapter{{ course.id }} play-button"
+            id="coursePlayer"
+            class="shadow"></premium-player>
+        </progress-tracker>
       {% else %}
       <progress-tracker contentId="{{ course.id }}" data-history="{{ course.id }}" duration="{{ course.duration }}">
         <youtube-player

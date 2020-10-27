@@ -1,3 +1,5 @@
+import { flash } from '/elements/Alert.js'
+
 export const HTTP_UNPROCESSABLE_ENTITY = 422
 export const HTTP_NOT_FOUND = 404
 export const HTTP_FORBIDDEN = 403
@@ -5,7 +7,6 @@ export const HTTP_OK = 200
 export const HTTP_NO_CONTENT = 204
 
 /**
- *
  * @param {RequestInfo} url
  * @param params
  * @return {Promise<Object>}
@@ -36,6 +37,24 @@ export async function jsonFetch (url, params = {}) {
     return data
   }
   throw new ApiError(data, response.status)
+}
+
+/**
+ * @param {RequestInfo} url
+ * @param params
+ * @return {Promise<Object>}
+ */
+export async function jsonFetchOrFlash (url, params = {}) {
+  try {
+    return await jsonFetch(url, params)
+  } catch (e) {
+    if (e instanceof ApiError) {
+      flash(e.name, 'danger', 4)
+    } else {
+      flash(e, 'danger', 4)
+    }
+    return null
+  }
 }
 
 /**
