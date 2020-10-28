@@ -3,6 +3,7 @@ import { isAuthenticated } from '/functions/auth.js'
 import { jsonFetch } from '/functions/api.js'
 
 let isMercureConnected = false
+let audio = null
 
 /**
  * Écoute une notification provenant de mercure
@@ -42,7 +43,10 @@ function connectToMercure () {
   url.searchParams.append('topic', '/notifications/{channel}')
   url.searchParams.append('topic', `/notifications/user/${window.grafikart.USER}`)
   const eventSource = new EventSource(url, { withCredentials: true })
-  eventSource.onmessage = e => emitEvent(JSON.parse(e.data))
+  eventSource.onmessage = e => {
+    playNotification()
+    emitEvent(JSON.parse(e.data))
+  }
   isMercureConnected = true
 }
 
@@ -57,13 +61,22 @@ function emitEvent ({ type, data }) {
   )
 }
 
+/**
+ * Emet un son lors d'une notification
+ */
+function playNotification () {
+  if (audio === null) {
+    audio = new Audio('/notification.mp3')
+  }
+  audio.play()
+}
+
 // On se connecte au SSE
 if (isMercureConnected === false) {
   const url = new URL(window.grafikart.MERCURE_URL)
   url.searchParams.append('topic', `/badges/user/${window.grafikart.USER}`)
   const eventSource = new EventSource(url, { withCredentials: true })
   eventSource.onmessage = e => {
-    console.log(e)
     const badge = JSON.parse(e.data)
     document.body.append(
       strToDom(

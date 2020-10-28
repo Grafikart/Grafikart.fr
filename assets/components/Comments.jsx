@@ -17,6 +17,7 @@ import { useVisibility, useAsyncEffect } from '/functions/hooks.js'
  */
 export function Comments ({ target, parent }) {
   target = parseInt(target, 10)
+  const element = useRef(null)
   const [state, setState] = useState({
     editing: null, // ID du commentaire en cours d'édition
     comments: null, // Liste des commentaires
@@ -36,22 +37,6 @@ export function Comments ({ target, parent }) {
   function repliesFor (comment) {
     return state.comments.filter(c => c.parent === comment.id)
   }
-
-  // On charge les commentaire dès l'affichage du composant
-  useAsyncEffect(async () => {
-    if (isVisible) {
-      const comments = await findAllComments(target)
-      setState(s => ({ ...s, comments }))
-    }
-  }, [target, isVisible])
-
-  // On se focalise sur un commentaire
-  useEffect(() => {
-    if (state.focus) {
-      scrollTo(document.getElementById(`c${state.focus}`))
-      setState(s => ({ ...s, focus: null }))
-    }
-  }, [state.focus])
 
   // On commence l'édition d'un commentaire
   const handleEdit = useCallback(comment => {
@@ -94,15 +79,43 @@ export function Comments ({ target, parent }) {
         ...s,
         focus: newComment.id,
         reply: null,
-        comments: [newComment, ...s.comments]
+        comments: [...s.comments, newComment]
       }))
     },
     [target]
   )
 
+  // On scroll jusqu'à l'élément si l'ancre commence par un "c"
+  useAsyncEffect(async () => {
+    if (window.location.hash.startsWith('#c')) {
+      const comments = await findAllComments(target)
+      setState(s => ({
+        ...s,
+        comments,
+        focus: window.location.hash.replace('#c', '')
+      }))
+    }
+  }, [element])
+
+  // On charge les commentaire dès l'affichage du composant
+  useAsyncEffect(async () => {
+    if (isVisible) {
+      const comments = await findAllComments(target)
+      setState(s => ({ ...s, comments }))
+    }
+  }, [target, isVisible])
+
+  // On se focalise sur un commentaire
+  useEffect(() => {
+    if (state.focus && comments) {
+      scrollTo(document.getElementById(`c${state.focus}`))
+      setState(s => ({ ...s, focus: null }))
+    }
+  }, [state.focus, comments])
+
   // On rend la liste des commentaires
   return (
-    <div className='comment-area'>
+    <div className='comment-area' ref={element}>
       <div className='comments__title'>
         {count === null ? (
           <skeleton-box text='3 Commentaires' />
@@ -211,7 +224,7 @@ const Comment = memo(({ comment, editing, onEdit, onUpdate, onDelete, onReply, c
     }
   }, [editing])
 
-  let content = <div onDoubleClick={handleEdit}>{comment.content}</div>
+  let content = <div class='formatted' onDoubleClick={handleEdit} dangerouslySetInnerHTML={{ __html: comment.html }} />
   if (editing) {
     content = (
       <form onSubmit={handleUpdate} className='form-group stack'>

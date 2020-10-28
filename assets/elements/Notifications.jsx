@@ -12,7 +12,7 @@ const CLOSE = 1
 
 function countUnread (notifications, notificationReadAt) {
   return notifications.filter(({ createdAt }) => {
-    return notificationReadAt < createdAt
+    return notificationReadAt < Date.parse(createdAt)
   }).length
 }
 
