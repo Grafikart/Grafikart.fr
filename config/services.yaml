@@ -80,5 +80,9 @@ services:
   App\Infrastructure\Queue\FailedJobsService:
     arguments: ['@messenger.transport.failed']
 
+  App\Infrastructure\Queue\ScheduledJobsService:
+    arguments:
+      $dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+
   App\Domain\Premium\VideoUrlGenerator:
     arguments: ['%env(STREAMING_BASE)%', '%env(STREAMING_SIGNATURE)%']

@@ -12,7 +12,9 @@
       <h1 class="h1">{{ title }}</h1>
       <p class="hstack" style="--gap:1">
         {% include 'partials/user_badge.html.twig' %}
-        <small>Inscrit depuis 10 ans</small>
+        <small>
+          Inscrit {{ user.createdAt | ago('depuis') }}
+        </small>
       </p>
     </div>
   </div>
