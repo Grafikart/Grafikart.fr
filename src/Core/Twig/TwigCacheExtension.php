@@ -29,10 +29,13 @@ class TwigCacheExtension extends AbstractExtension
     }
 
     /**
-     * @param CacheableInterface|string|array|null $item
+     * @param CacheableInterface|string|array|null|boolean $item
      */
     public function getCacheKey($item): string
     {
+        if (is_bool($item)) {
+            return $item ? '1' : '0';
+        }
         if (empty($item)) {
             throw new \Exception('Clef de cache invalide');
         }
