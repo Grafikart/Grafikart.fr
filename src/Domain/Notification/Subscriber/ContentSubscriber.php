@@ -5,6 +5,7 @@ namespace App\Domain\Notification\Subscriber;
 use App\Core\Helper\TimeHelper;
 use App\Domain\Application\Event\ContentUpdatedEvent;
 use App\Domain\Course\Entity\Course;
+use App\Domain\Course\Entity\Formation;
 use App\Domain\Course\Entity\Technology;
 use App\Domain\Notification\NotificationService;
 use App\Infrastructure\Queue\EnqueueMethod;
@@ -29,19 +30,25 @@ class ContentSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * Quand un tutoriel passe en ligne, on envoie une notification globale
+     * Quand un tutoriel/formation passe en ligne, on envoie une notification globale
      */
     public function onUpdate(ContentUpdatedEvent $event): void
     {
         $content = $event->getContent();
-        if ($content instanceof Course &&
+        if (($content instanceof Course || $content instanceof Formation) &&
             true === $content->isOnline() &&
             false === $event->getPrevious()->isOnline()
         ) {
             $technologies = implode(', ', array_map(fn (Technology $t) => $t->getName(), $content->getMainTechnologies()));
             $duration = TimeHelper::duration($content->getDuration());
-            $message = "Nouveau tutoriel {$technologies} !<br> <strong>{$content->getTitle()}</strong> <em>({$duration})</em>";
-            // Le tutoriel est publié de suite
+
+            if ($content instanceof Course) {
+                $message = "Nouveau tutoriel {$technologies} !<br> <strong>{$content->getTitle()}</strong> <em>({$duration})</em>";
+            } else {
+                $message = "Nouvelle formation {$technologies}  disponible !<br> <strong>{$content->getTitle()}</strong>";
+            }
+
+            // Le contenu est publié de suite
             if ($content->getCreatedAt() < new \DateTimeImmutable()) {
                 $this->service->notifyChannel('public', $message, $content);
             } else {
