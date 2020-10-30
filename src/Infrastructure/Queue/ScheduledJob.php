@@ -5,7 +5,6 @@ namespace App\Infrastructure\Queue;
 use App\Infrastructure\Queue\Message\ServiceMethodMessage;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Stamp\DelayStamp;
-use Symfony\Component\Messenger\Stamp\RedeliveryStamp;
 
 class ScheduledJob
 {
@@ -44,6 +43,7 @@ class ScheduledJob
         if ($message instanceof ServiceMethodMessage) {
             return $message->getParams();
         }
+
         return [];
     }
 
@@ -52,6 +52,7 @@ class ScheduledJob
         /** @var DelayStamp $delay */
         $delay = $this->envelope->last(DelayStamp::class);
         $delaySeconds = $delay->getDelay() / 1000;
+
         return (new \DateTimeImmutable())->add(new \DateInterval("PT{$delaySeconds}S"));
     }
 }

@@ -102,6 +102,10 @@ body::after {
   background: linear-gradient(to top, var(--background-light), var(--background-light)) left top/100% var(--split) no-repeat var(--background);
 }
 
+con-fetti {
+  display: block;
+}
+
 // Modules
 // ==================
 @import 'modules/header';

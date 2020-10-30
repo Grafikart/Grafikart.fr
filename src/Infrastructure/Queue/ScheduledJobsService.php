@@ -2,13 +2,10 @@
 
 namespace App\Infrastructure\Queue;
 
-use Symfony\Component\Messenger\Bridge\Redis\Transport\RedisTransport;
-use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Transport\Serialization\PhpSerializer;
 
 class ScheduledJobsService
 {
-
     private string $dsn;
 
     public function __construct(string $dsn)
@@ -24,6 +21,7 @@ class ScheduledJobsService
         if (!$redis->connect($url['host'], $url['port'])) {
             throw new \RuntimeException('Impossible de se connecter à redis');
         }
+
         return $redis;
     }
 
@@ -40,6 +38,7 @@ class ScheduledJobsService
         $index = 0;
         $jobs = array_map(function (string $message) use ($serializer, &$index) {
             $data = json_decode(unserialize($message), true);
+
             return new ScheduledJob($serializer->decode($data), $index++);
         }, $messages);
 

@@ -154,3 +154,6 @@ a.underline:hover {
 .text-big {
   font-size: 1.1em;
 }
+.ignore-br br {
+  display: none;
+}

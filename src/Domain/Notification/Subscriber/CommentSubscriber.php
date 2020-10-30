@@ -44,10 +44,11 @@ class CommentSubscriber implements EventSubscriberInterface
                 return $author ? $author->getId() : null;
             });
 
-        $excerpt = substr($parent->getContent(), 0, 40);
+        $excerpt = htmlentities(substr($parent->getContent(), 0, 40));
+        $author = htmlentities($comment->getUsername());
 
         foreach ($comments as $c) {
-            $this->notificationService->notifyUser($c->getAuthor(), "**{$comment->getUsername()}** a répondu au commentaire *{$excerpt}*", $parent);
+            $this->notificationService->notifyUser($c->getAuthor(), "<strong>{$author}</strong> a répondu au commentaire « {$excerpt} »", $parent);
         }
     }
 }

@@ -31,7 +31,7 @@ class Topic
      * @Assert\Length(min="5", max="70")
      * @Groups({"read:topic"})
      */
-    private ?string $name = null;
+    private string $name = '';
 
     /**
      * @ORM\Column(type="text")
@@ -111,7 +111,7 @@ class Topic
         return $this;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -244,6 +244,16 @@ class Topic
     public function getLastMessage(): ?Message
     {
         return $this->lastMessage;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages->add($message);
+            $message->setTopic($this);
+        }
+
+        return $this;
     }
 
     public function setLastMessage(?Message $lastMessage): self

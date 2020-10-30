@@ -112,6 +112,14 @@ function Popup ({ notifications = [], onClickOutside = () => {}, loading = false
 function Notification ({ url, message, createdAt, notificationReadAt }) {
   const isRead = notificationReadAt > createdAt
   const className = `notifications_item ${isRead ? 'is-read' : ''}`
+  const time = Date.parse(createdAt) / 1000
   // eslint-disable-next-line react/no-danger
-  return <a href={url} className={className} dangerouslySetInnerHTML={{ __html: message }} />
+  return (
+    <a href={url} className={className}>
+      <div dangerouslySetInnerHTML={{ __html: message }} />
+      <small class='text-muted'>
+        <time-ago time={time} />
+      </small>
+    </a>
+  )
 }

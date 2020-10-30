@@ -3,7 +3,6 @@
 namespace App\Infrastructure\Queue;
 
 use App\Infrastructure\Queue\Message\ServiceMethodMessage;
-use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\DelayStamp;
 
@@ -23,7 +22,7 @@ class EnqueueMethod
     {
         $stamps = [];
         // Le service doit être appelé avec un délai
-        if ($date !== null) {
+        if (null !== $date) {
             $delay = 1000 * ($date->getTimestamp() - time());
             if ($delay > 0) {
                 $stamps[] = new DelayStamp($delay);

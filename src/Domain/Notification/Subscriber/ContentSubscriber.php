@@ -30,7 +30,7 @@ class ContentSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * Quand un tutoriel/formation passe en ligne, on envoie une notification globale
+     * Quand un tutoriel/formation passe en ligne, on envoie une notification globale.
      */
     public function onUpdate(ContentUpdatedEvent $event): void
     {
@@ -43,9 +43,9 @@ class ContentSubscriber implements EventSubscriberInterface
             $duration = TimeHelper::duration($content->getDuration());
 
             if ($content instanceof Course) {
-                $message = "Nouveau tutoriel {$technologies} !<br> <strong>{$content->getTitle()}</strong> <em>({$duration})</em>";
+                $message = "Nouveau tutoriel {$technologies} !<br> <strong>{$content->getTitle()}</strong> <strong>({$duration})</strong>";
             } else {
-                $message = "Nouvelle formation {$technologies}  disponible !<br> <strong>{$content->getTitle()}</strong>";
+                $message = "Nouvelle formation {$technologies} disponible :  <strong>{$content->getTitle()}</strong>";
             }
 
             // Le contenu est publié de suite
@@ -55,7 +55,7 @@ class ContentSubscriber implements EventSubscriberInterface
                 $this->enqueueMethod->enqueue(NotificationService::class, 'notifyChannel', [
                     'public',
                     $message,
-                    $content
+                    $content,
                 ], $content->getCreatedAt());
             }
         }

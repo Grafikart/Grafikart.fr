@@ -6,7 +6,6 @@ use App\Core\Helper\Paginator\PaginatorInterface;
 use App\Domain\Comment\CommentRepository;
 use App\Domain\Forum\Repository\ReportRepository;
 use App\Domain\Revision\RevisionRepository;
-use App\Infrastructure\Queue\EnqueueMethod;
 use App\Infrastructure\Queue\FailedJobsService;
 use App\Infrastructure\Queue\ScheduledJobsService;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,7 +29,7 @@ final class PageController extends BaseController
             'comments' => $paginator->paginate($commentRepository->queryLatest()),
             'reports' => $reportRepository->findAll(),
             'failed_jobs' => $failedJobsService->getJobs(),
-            'scheduled_jobs' => $scheduledJobsService->getJobs()
+            'scheduled_jobs' => $scheduledJobsService->getJobs(),
         ]);
     }
 }
