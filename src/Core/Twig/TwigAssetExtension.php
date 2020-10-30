@@ -73,11 +73,8 @@ class TwigAssetExtension extends AbstractExtension
     public function link(string $name): string
     {
         $uri = $this->uri($name.'.css');
-        $request = $this->requestStack->getCurrentRequest();
-        if (strpos($uri, ':3000') && $request) {
-            $host = $request->getHost();
-
-            return "<script src=\"//{$host}:3000/css/{$name}.scss?import\" type=\"module\"></script>"; // On inject le CSS via du JS
+        if (strpos($uri, ':3000')) {
+            return ''; // Le CSS est chargé depuis le JS dans l'environnement de dev
         }
 
         return '<link rel="stylesheet" media="screen" href="'.$this->uri($name.'.css').'"/>';

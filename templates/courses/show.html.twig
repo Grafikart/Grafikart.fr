@@ -6,7 +6,7 @@
 
 {% block body %}
 
-  {% cache [course, 'single'] %}
+  {% cache [course, 'single', user_premium] %}
 
     <div class="container">
       {{ breadcrumb(course) }}
