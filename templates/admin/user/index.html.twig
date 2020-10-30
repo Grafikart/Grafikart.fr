@@ -17,33 +17,33 @@
         <th>{{ sort_by(rows, 'ID', 'row.id') }}</th>
         <th>Pseudo</th>
         <th>Email</th>
+        <th>Premium</th>
         <th class="text-right">Actions</th>
       </tr>
       </thead>
       <tbody>
-        {% for row in rows %}
+        {% for user in rows %}
         <tr>
           <td class="dashboard-id">
-            {{ row.id }}
+            {{ user.id }}
           </td>
           <td class="dashboard-id">
-            {{ row.username }}
+            {{ user.username }}
           </td>
           <td>
-            {{ row.email }}
+            {{ user.email }}
+          </td>
+          <td class="dashboard-id">
+              {{ user.premium ? user.premiumEnd | ago('Pour') : '' }}
           </td>
           <td>
-            {#
             <div class="dashboard-actions">
-              <a href="{{ link }}">{{ icon('edit') }}</a>
-              <form action="{{ path(prefix ~ '_edit', {id: row.id}) }}" method="post" onsubmit="return confirm('Voulez vous vraiment supprimer ce contenu')">
-                <input type="hidden" name="_method" value="DELETE" />
-                <button type="submit">
-                  {{ icon('delete') }}
+              <form action="{{ path(prefix ~ '_ban', {id: user.id}) }}" method="post" onsubmit="return confirm('Voulez vous vraiment bannir cet utilisateur ?')">
+                <button class="btn-danger" type="submit" {{ user.premium ? 'disabled' : '' }}>
+                  {{ icon('delete') }} Bannir
                 </button>
               </form>
             </div>
-            #}
           </td>
         </tr>
         {% endfor %}

@@ -10,6 +10,7 @@ use App\Http\Form\RegistrationFormType;
 use App\Infrastructure\Social\SocialLoginService;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,6 +40,7 @@ class RegistrationController extends AbstractController
         }
 
         $user = new User();
+        $rootErrors = [];
         // Si l'utilisateur provient de l'oauth, on préremplit ses données
         $isOauthUser = $request->get('oauth') ? $socialLoginService->hydrate($user) : false;
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -53,6 +55,7 @@ class RegistrationController extends AbstractController
             );
             $user->setCreatedAt(new \DateTime());
             $user->setConfirmationToken($isOauthUser ? null : $tokenGenerator->generate(60));
+            $user->setNotificationsReadAt(new \DateTimeImmutable());
             $em->persist($user);
             $em->flush();
             $dispatcher->dispatch(new UserCreatedEvent($user, $isOauthUser));
@@ -77,10 +80,18 @@ class RegistrationController extends AbstractController
             );
 
             return $this->redirectToRoute('register');
+        } elseif ($form->isSubmitted()) {
+            /** @var FormError $error */
+            foreach ($form->getErrors() as $error) {
+                if (null === $error->getCause()) {
+                    $rootErrors[] = $error;
+                }
+            }
         }
 
         return $this->render('registration/register.html.twig', [
             'form' => $form->createView(),
+            'errors' => $rootErrors,
             'oauth_registration' => $request->get('oauth'),
             'oauth_type' => $socialLoginService->getOauthType(),
         ]);
@@ -103,7 +114,6 @@ class RegistrationController extends AbstractController
 
             return $this->redirectToRoute('register');
         }
-
         $user->setConfirmationToken(null);
         $em->flush();
         $this->addFlash('success', 'Votre compte a été validé.');

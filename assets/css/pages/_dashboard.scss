@@ -66,6 +66,9 @@
 .dashboard-comment {
   position: relative;
 }
+.dashboard-comment a {
+  text-decoration: underline;
+}
 .dashboard-comment strong {
   font-weight: bold;
   margin-bottom: space(1);
@@ -77,8 +80,10 @@
   height: 12px;
   width: 12px;
 }
-.dashboard-comment__delete  .icon {
+.dashboard-comment__delete .icon {
+  display: block;
   color: var(--border);
+  cursor: pointer;
   width: 16px;
   height: 16px;
 }

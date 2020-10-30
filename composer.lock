@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0e7ba878aeb42173316816ddcc266a7a",
+    "content-hash": "0afd74248e5d5e940fefa8f78236ce3f",
     "packages": [
         {
             "name": "api-platform/core",
@@ -3993,6 +3993,94 @@
                 "crossdomain"
             ],
             "time": "2020-07-22T11:44:28+00:00"
+        },
+        {
+            "name": "nucleos/antispam-bundle",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nucleos/NucleosAntiSpamBundle.git",
+                "reference": "a4294ba517c0b9adfdcf2671d4dc34de7eb7e4a0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nucleos/NucleosAntiSpamBundle/zipball/a4294ba517c0b9adfdcf2671d4dc34de7eb7e4a0",
+                "reference": "a4294ba517c0b9adfdcf2671d4dc34de7eb7e4a0",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pcre": "*",
+                "php": "^7.2",
+                "symfony/config": "^4.2 || ^5.0",
+                "symfony/dependency-injection": "^4.2 || ^5.0",
+                "symfony/event-dispatcher": "^4.2 || ^5.0",
+                "symfony/expression-language": "^4.2 || ^5.0",
+                "symfony/form": "^4.2 || ^5.0",
+                "symfony/framework-bundle": "^4.2 || ^5.0",
+                "symfony/http-foundation": "^4.2 || ^5.0",
+                "symfony/http-kernel": "^4.2 || ^5.0",
+                "symfony/options-resolver": "^4.2 || ^5.0",
+                "symfony/translation-contracts": "^1.1 || ^2.0",
+                "twig/twig": "^2.4 || ^3.0"
+            },
+            "require-dev": {
+                "bamarni/composer-bin-plugin": "^1.3",
+                "ergebnis/composer-normalize": "^2.0.1",
+                "symfony/browser-kit": "^4.4 || ^5.0",
+                "symfony/translation": "^4.2 || ^5.0",
+                "symfony/twig-bundle": "^4.2 || ^5.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Nucleos\\AntiSpamBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christian Gripp",
+                    "email": "mail@core23.de"
+                }
+            ],
+            "description": "This bundle provides some basic features to reduce spam in symfony forms.",
+            "homepage": "https://nucleos.rocks",
+            "keywords": [
+                "antispam",
+                "bundle",
+                "form",
+                "protection",
+                "spam",
+                "symfony",
+                "twig"
+            ],
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/core23",
+                    "type": "github"
+                },
+                {
+                    "url": "https://ko-fi.com/core23",
+                    "type": "ko-fi"
+                },
+                {
+                    "url": "https://opencollective.com/core23",
+                    "type": "opencollective"
+                },
+                {
+                    "url": "https://donate.core23.de",
+                    "type": "other"
+                }
+            ],
+            "time": "2020-06-20T19:35:43+00:00"
         },
         {
             "name": "ocramius/proxy-manager",

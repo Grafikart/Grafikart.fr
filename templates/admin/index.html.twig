@@ -141,7 +141,8 @@
                 <article class="dashboard-comment stack" style="--gap:1">
                   <div class="flex">
                     <h3>
-                      <strong>{{ icon('user') }} {{ report.author.username }}</strong> a signalé <strong>{{ icon('user') }} {{ report.target.author.username }}</strong> sur
+                      <strong>{{ icon('user') }} {{ report.author.username }}</strong> a signalé
+                      <strong><a href="{{ path('admin_user_index', {q: report.target.author.id}) }}">{{ icon('user') }} {{ report.target.author.username }}</a></strong> sur
                       <a href="{{ path(report.target) }}">
                         {{ report.topic ? report.topic.name : report.message.topic.name }}
                       </a>
@@ -153,9 +154,6 @@
                     </ajax-delete>
                   </div>
                   <p>{{ report.reason }}</p>
-                  <form action="{{ path('admin_user_ban', {id: report.target.author.id}) }}" onsubmit="return confirm('Voulez vous vraiment bannir cet utilisateur ')" method="post">
-                    <button class="btn-danger btn-small">Bannir</button>
-                  </form>
                 </article>
               {% endfor %}
             </div>

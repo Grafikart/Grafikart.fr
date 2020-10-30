@@ -149,7 +149,6 @@ abstract class CrudController extends BaseController
     {
         return $query
             ->where("LOWER(row.{$this->searchField}) LIKE :search")
-            ->orWhere('LOWER(row.id) = :search')
             ->setParameter('search', '%'.strtolower($search).'%');
     }
 }

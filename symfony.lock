@@ -326,6 +326,9 @@
     "nikic/php-parser": {
         "version": "v4.3.0"
     },
+    "nucleos/antispam-bundle": {
+        "version": "2.1.0"
+    },
     "ocramius/package-versions": {
         "version": "1.5.1"
     },

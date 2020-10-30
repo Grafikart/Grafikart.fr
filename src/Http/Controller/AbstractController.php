@@ -6,6 +6,8 @@ use App\Domain\Auth\User;
 use App\Infrastructure\Queue\Message\ServiceMethodMessage;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -44,5 +46,20 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
         }
 
         return $user;
+    }
+
+    /**
+     * Redirige l'utilisateur vers la page précédente ou la route en cas de fallback.
+     */
+    protected function redirectBack(string $route, array $params = []): RedirectResponse
+    {
+        /** @var RequestStack $stack */
+        $stack = $this->get('request_stack');
+        $request = $stack->getCurrentRequest();
+        if ($request && $request->server->get('HTTP_REFERER')) {
+            return $this->redirect($request->server->get('HTTP_REFERER'));
+        }
+
+        return $this->redirectToRoute($route, $params);
     }
 }

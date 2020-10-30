@@ -24,4 +24,5 @@ return [
     DAMA\DoctrineTestBundle\DAMADoctrineTestBundle::class => ['test' => true],
     Symfony\Bundle\MercureBundle\MercureBundle::class => ['all' => true],
     KnpU\OAuth2ClientBundle\KnpUOAuth2ClientBundle::class => ['all' => true],
+    Nucleos\AntiSpamBundle\NucleosAntiSpamBundle::class => ['all' => true],
 ];

@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
@@ -38,11 +39,15 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Length(min=3, max=40)
      */
     private string $username = '';
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Email()
      */
     private string $email = '';
 
@@ -50,6 +55,11 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface
      * @ORM\Column(type="string", length=255)
      */
     private string $password = '';
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private string $goal = '';
 
     /** @var array<string> */
     private array $roles = ['ROLE_USER'];
@@ -311,6 +321,18 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface
     public function setDarkMode(?bool $darkMode): User
     {
         $this->darkMode = $darkMode;
+
+        return $this;
+    }
+
+    public function getGoal(): string
+    {
+        return $this->goal;
+    }
+
+    public function setGoal(string $goal): User
+    {
+        $this->goal = $goal;
 
         return $this;
     }

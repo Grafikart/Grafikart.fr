@@ -50,7 +50,7 @@ class PasswordService
      */
     public function resetPassword(PasswordResetRequestData $data): void
     {
-        $user = $this->userRepository->findOneBy(['email' => $data->getEmail()]);
+        $user = $this->userRepository->findOneBy(['email' => $data->getEmail(), 'bannedAt' => null]);
         if (null === $user) {
             throw new UserNotFoundException();
         }
