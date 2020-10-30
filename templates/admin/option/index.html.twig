@@ -1,0 +1,32 @@
+{% extends 'admin/layout/card.html.twig' %}
+
+{% block title %}
+  Gestion des options
+{% endblock %}
+
+{% block content %}
+  <table class="table">
+    <thead>
+    <tr>
+      <th style="width: 120px;">ID</th>
+      <th class="text-left">Valeur</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for key, value in options %}
+    <tr>
+      <td style="vertical-align: top;">
+        <label for="{{ key }}">{{ key }}</label>
+      </td>
+      <td>
+        <form class="form-group" method="post" is="autosave-blur">
+          <textarea name="value" id="{{ key }}" cols="30" rows="10">{{ value }}</textarea>
+          <input type="hidden" name="key" value="{{ key }}">
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+
+    </tbody>
+  </table>
+{% endblock %}

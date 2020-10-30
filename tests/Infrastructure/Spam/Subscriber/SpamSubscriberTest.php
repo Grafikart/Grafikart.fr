@@ -2,10 +2,10 @@
 
 namespace App\Tests\Infrastructure\Spam\Subscriber;
 
+use App\Core\OptionManagerInterface;
 use App\Domain\Auth\User;
 use App\Domain\Forum\Entity\Topic;
 use App\Domain\Forum\Event\PreTopicCreatedEvent;
-use App\Domain\Forum\Repository\TopicRepository;
 use App\Infrastructure\Spam\Subscriber\SpamSubscriber;
 use App\Tests\EventSubscriberTest;
 
@@ -24,28 +24,23 @@ class SpamSubscriberTest extends EventSubscriberTest
         $this->assertSubscribeTo(SpamSubscriber::class, $eventName);
     }
 
-    public function getData(): iterable
-    {
-        yield [2, true];
-        yield [3, true];
-        yield [4, false];
-    }
-
-    /**
-     * @dataProvider getData
-     */
-    public function testFlagAsSpamCorrectly(int $topicCount, bool $expectedSpam): void
+    public function testFlagAsSpamCorrectly(): void
     {
         $user = new User();
-        $repository = $this->getMockBuilder(TopicRepository::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $repository->expects($this->once())->method('countForUser')->with($user)->willReturn($topicCount);
         $topic = (new Topic())
-            ->setAuthor($user);
+            ->setAuthor($user)
+            ->setContent(<<<MARKDOWN
+                Bonjour,
 
-        $subscriber = new SpamSubscriber($repository);
+                Casino en ligne !
+
+                Voila je rencontre un petit problème avec mon code.
+            MARKDOWN);
+        $optionManager = $this->createMock(OptionManagerInterface::class);
+        $optionManager->expects($this->any())->method('get')->with('spam_words')->willReturn('casino
+homework');
+        $subscriber = new SpamSubscriber($optionManager);
         $this->dispatch($subscriber, new PreTopicCreatedEvent($topic));
-        $this->assertSame($expectedSpam, $topic->isSpam());
+        $this->assertSame(true, $topic->isSpam());
     }
 }

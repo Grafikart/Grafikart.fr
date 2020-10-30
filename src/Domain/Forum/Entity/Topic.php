@@ -4,6 +4,8 @@ namespace App\Domain\Forum\Entity;
 
 use ApiPlatform\Core\Annotation\ApiProperty;
 use App\Domain\Auth\User;
+use App\Infrastructure\Spam\SpammableInterface;
+use App\Infrastructure\Spam\SpamTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -14,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Domain\Forum\Repository\TopicRepository")
  * @ORM\Table(name="forum_topic")
  */
-class Topic
+class Topic implements SpammableInterface
 {
     /**
      * @ORM\Id()

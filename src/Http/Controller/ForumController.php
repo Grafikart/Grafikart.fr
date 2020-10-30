@@ -104,7 +104,7 @@ class ForumController extends AbstractController
      */
     public function edit(Topic $topic, Request $request): Response
     {
-        $this->denyAccessUnlessGranted(ForumVoter::DELETE_TOPIC);
+        $this->denyAccessUnlessGranted(ForumVoter::UPDATE_TOPIC, $topic);
         $form = $this->createForm(ForumTopicForm::class, $topic);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

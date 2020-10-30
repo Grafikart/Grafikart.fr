@@ -86,3 +86,6 @@ services:
 
   App\Domain\Premium\VideoUrlGenerator:
     arguments: ['%env(STREAMING_BASE)%', '%env(STREAMING_SIGNATURE)%']
+
+  App\Infrastructure\Spam\SpamService:
+    arguments: [['App\Domain\Forum\Entity\Topic', 'App\Domain\Forum\Entity\Message']]

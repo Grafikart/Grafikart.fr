@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Forum\Entity;
+namespace App\Infrastructure\Spam;
 
 use Doctrine\ORM\Mapping as ORM;
 

@@ -77,23 +77,27 @@
   height: 12px;
   width: 12px;
 }
-.dashboard-comment .icon-delete {
-  height: 14px;
-  width: 14px;
+.dashboard-comment__delete,
+.dashboard-comment__accept {
+  flex: none;
 }
-.dashboard-comment__delete {
+.dashboard-comment__delete .icon,
+.dashboard-comment__accept .icon {
+  height: 16px;
+  width: 16px;
+}
+.dashboard-comment__accept .icon {
+  color: var(--green);
+}
+
+.dashboard-comment__delete .icon:hover {
+  color: var(--red);
+}
+.dashboard-comment__delete,
+.dashboard-comment__accept {
   color: var(--border);
   cursor: pointer;
   transition: 0.3s;
-
-  .dashboard-comment:hover & {
-    display: block;
-  }
-
-  &:hover {
-    color: var(--red);
-    opacity: 1;
-  }
 }
 
 // Champs Formation

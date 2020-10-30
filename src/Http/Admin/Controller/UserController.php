@@ -8,7 +8,7 @@ use App\Domain\Auth\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -33,6 +33,7 @@ class UserController extends CrudController
     {
         return $query->where('LOWER(row.username) LIKE :search')
             ->orWhere('LOWER(row.email) LIKE :search')
+            ->orWhere('row.id = :search')
             ->setParameter('search', strtolower($search));
     }
 
@@ -63,13 +64,18 @@ class UserController extends CrudController
     }
 
     /**
-     * @Route("/users/{id}/ban", methods={"POST"}, name="user_ban")
+     * @Route("/users/{id}/ban", methods={"POST", "DELETE"}, name="user_ban")
      */
-    public function ban(User $user, EntityManagerInterface $em, UserBanService $banService): RedirectResponse
+    public function ban(User $user, EntityManagerInterface $em, UserBanService $banService, Request $request): Response
     {
         $username = $user->getUsername();
         $banService->ban($user);
         $em->flush();
+
+        if ($request->isXmlHttpRequest()) {
+            return $this->json([]);
+        }
+
         $this->addFlash('success', "L'utilisateur $username a été banni");
 
         return $this->redirectToRoute('admin_home');

@@ -56,6 +56,7 @@ class TopicRepository extends ServiceEntityRepository
     public function queryAllForTag(?Tag $tag): Query
     {
         $query = $this->createQueryBuilder('t')
+            ->where('t.spam = false')
             ->setMaxResults(20)
             ->orderBy('t.createdAt', 'DESC');
         if ($tag) {

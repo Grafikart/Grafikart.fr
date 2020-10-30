@@ -31,6 +31,15 @@
     <li hidden><a href="{{ path('admin_transaction_index') }}" {{ menu_active('premium') }}>{{ icon('star') }} Transactions</a></li>
   </ul>
   <ul class="header-side">
+    {% set spam = count_spam() %}
+    {% if spam > 0 %}
+    <li class="header__notification">
+      <a href="{{ path('admin_spam_index') }}">
+        {{ icon('trash') }}
+        <span class='notification-badge'>{{ spam }}</span>
+      </a>
+    </li>
+    {% endif %}
     <li class="header__notification">
       <site-notifications></site-notifications>
     </li>

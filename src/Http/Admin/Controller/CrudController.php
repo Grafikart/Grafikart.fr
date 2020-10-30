@@ -147,7 +147,9 @@ abstract class CrudController extends BaseController
 
     protected function applySearch(string $search, QueryBuilder $query): QueryBuilder
     {
-        return $query->where("LOWER(row.{$this->searchField}) LIKE :search")
+        return $query
+            ->where("LOWER(row.{$this->searchField}) LIKE :search")
+            ->orWhere('LOWER(row.id) = :search')
             ->setParameter('search', '%'.strtolower($search).'%');
     }
 }

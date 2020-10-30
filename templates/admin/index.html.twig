@@ -112,7 +112,9 @@
             <article class="dashboard-comment stack" style="--gap:1">
               <div class="flex">
                 <h3>
-                  <strong>{{ icon('user') }} {{ comment.username }}</strong>,
+                  <strong>
+                    <a href="{{ path('admin_user_index', {q: comment.author ? comment.author.id : '#'}) }}">{{ icon('user') }} {{ comment.username }}</a>
+                  </strong>,
                   {{ comment.target.title }}
                 </h3>
                 <ajax-delete class="dashboard-comment__delete"
