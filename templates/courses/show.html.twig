@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% set user_premium = app.user and app.user.premium %}
+
 {% block title 'Tutoriel Vidéo ' ~ course.title %}
 
 {% block body %}
@@ -15,14 +17,14 @@
     </div>
 
     <div class="container {{ course.formation ? 'course-top-sidebar' : '' }} mt2 mb5">
-      {% if course.scheduled and not app.user.premium %}
+      {% if course.scheduled and not user_premium %}
         <div class="course-countdown" style="background-image: url({{ image_url(course.image) }})">
           <div>
             <em>Disponible dans</em>
             <span class="course-countdown_timer">{{ course.createdAt | countdown }}</span>
           </div>
         </div>
-      {% elseif course.premium and not app.user.premium %}
+      {% elseif course.premium and not user_premium %}
         <div class="course-countdown" style="background-image: url({{ image_url(course.image) }})">
           <div>
             <p class="mb1">Contenu destiné aux membres premiums</p>
@@ -31,7 +33,7 @@
             </p>
           </div>
         </div>
-      {% elseif (course.scheduled or course.premium) and app.user.premium %}
+      {% elseif (course.scheduled or course.premium) and user_premium %}
         <progress-tracker contentId="{{ course.id }}" data-history="{{ course.id }}" duration="{{ course.duration }}">
           <premium-player
             id="course-{{ course.id }}"

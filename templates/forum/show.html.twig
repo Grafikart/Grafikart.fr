@@ -36,8 +36,10 @@
     <h2 class="section-title mt3">{{ topic.messageCount }} Réponses</h2>
 
     <div class="forum-messages">
-      {% for message in messages %}
-        {% include 'forum/_message.html.twig' %}
+      {% for message in topic.messages %}
+        {% if message.spam == false %}
+          {% include 'forum/_message.html.twig' %}
+        {% endif %}
       {% endfor %}
       <forum-create-message topic="{{ topic.id }}"></forum-create-message>
     </div>

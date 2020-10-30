@@ -70,7 +70,6 @@ class ForumController extends AbstractController
 
         return $this->render('forum/show.html.twig', [
             'topic' => $topic,
-            'messages' => $topic->getMessages(),
             'menu' => 'forum',
         ]);
     }

@@ -3,6 +3,7 @@
 namespace App\Infrastructure\Spam\Subscriber;
 
 use App\Core\OptionManagerInterface;
+use App\Domain\Forum\Event\PreMessageCreatedEvent;
 use App\Domain\Forum\Event\PreTopicCreatedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -20,6 +21,7 @@ class SpamSubscriber implements EventSubscriberInterface
     {
         return [
             PreTopicCreatedEvent::class => 'checkTopic',
+            PreMessageCreatedEvent::class => 'checkMessage',
         ];
     }
 
@@ -30,6 +32,19 @@ class SpamSubscriber implements EventSubscriberInterface
         foreach ($this->getSpamWords() as $word) {
             if (false !== stripos($content, $word)) {
                 $topic->setSpam(true);
+
+                return;
+            }
+        }
+    }
+
+    public function checkMessage(PreMessageCreatedEvent $messageCreatedEvent): void
+    {
+        $message = $messageCreatedEvent->getMessage();
+        $content = (string) $message->getContent();
+        foreach ($this->getSpamWords() as $word) {
+            if (false !== stripos($content, $word)) {
+                $message->setSpam(true);
 
                 return;
             }

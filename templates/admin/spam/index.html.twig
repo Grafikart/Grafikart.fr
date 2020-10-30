@@ -10,6 +10,7 @@
   <div class="stack-large">
 
     <!-- Topic -->
+    {% if topics | length > 0 %}
     <section class="stack" style="--gap:1">
       <div class="flex">
         <h1 class="dashboard-title">
@@ -18,34 +19,14 @@
       </div>
       <div class="dashboard-card stack-separated">
         {% for topic in topics %}
-          <article class="dashboard-comment stack" style="--gap:1">
-            <div class="flex">
-              <h3>
-                <strong>
-                  <a href="{{ path('admin_user_index', {q: topic.author.id}) }}">{{ icon('user') }} {{ topic.author.username }}</a>
-                </strong>,
-                {{ topic.name }}
-              </h3>
-              <div class="hstack" style="--gap:1;">
-                <ajax-delete class="dashboard-comment__delete"
-                             target=".dashboard-comment"
-                             url="{{ path('admin_user_ban', {id: topic.author.id}) }}">
-                  {{ icon('trash') }}
-                </ajax-delete>
-                <ajax-delete class="dashboard-comment__accept"
-                             target=".dashboard-comment"
-                             url="{{ path('admin_spam_undo', {id: topic.id, type: 'topic'}) }}">
-                  {{ icon('check') }}
-                </ajax-delete>
-              </div>
-            </div>
-            <p>{{ topic.content | nl2br }}</p>
-          </article>
+          {% include 'admin/spam/_card.html.twig' with {target: topic, type: 'topic'} %}
         {% endfor %}
       </div>
     </section>
+    {% endif %}
 
     <!-- Message -->
+    {% if messages | length > 0 %}
     <section class="stack" style="--gap:1">
       <div class="flex">
         <h1 class="dashboard-title">
@@ -54,28 +35,11 @@
       </div>
       <div class="dashboard-card stack-separated">
         {% for message in messages %}
-          <article class="dashboard-comment stack" style="--gap:1">
-            <div class="flex">
-              <h3>
-                <strong>
-                  <a href="{{ path('admin_user_index', {q: message.author.id}) }}">{{ icon('user') }} {{ message.author.username }}</a>
-                </strong>,
-                {{ message.topic.name }}
-              </h3>
-              <ajax-delete class="dashboard-comment__delete"
-                           target=".dashboard-comment"
-                           url="{{ path('api_comments_delete_item', {id: message.id}) }}">
-                {{ icon('check') }}
-              </ajax-delete>
-            </div>
-            <p>{{ message.content | nl2br }}</p>
-          </article>
+          {% include 'admin/spam/_card.html.twig' with {target: message, type: 'message'} %}
         {% endfor %}
       </div>
     </section>
+    {% endif %}
   </div>
-
-  {{ dump(topics) }}
-  {{ dump(messages) }}
 
 {% endblock %}

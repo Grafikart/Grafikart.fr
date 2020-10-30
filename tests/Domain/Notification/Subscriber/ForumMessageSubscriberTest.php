@@ -42,6 +42,19 @@ class ForumMessageSubscriberTest extends EventSubscriberTest
         $this->dispatch($subscriber, $event);
     }
 
+    public function testNoNotifyOnSpamMessage()
+    {
+        $user = (new User())->setId(1);
+        $user2 = (new User())->setId(2);
+        $message = (new Message())->setAuthor($user2)->setSpam(true);
+        $topic = (new Topic())->setAuthor($user)->addMessage($message);
+        $event = new MessageCreatedEvent($message);
+        $notification = $this->createMock(NotificationService::class);
+        $notification->expects($this->never())->method('notifyUser');
+        $subscriber = new ForumMessageSubscriber($notification);
+        $this->dispatch($subscriber, $event);
+    }
+
     public function testNotifyEveryParticipant()
     {
         $user = (new User())->setId(1);

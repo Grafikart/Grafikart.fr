@@ -30,6 +30,9 @@ class ScheduledJobsService
      */
     public function getJobs(): array
     {
+        if (!class_exists(\Redis::class)) {
+            return [];
+        }
         $messages = $this->getConnection()->zRange('messages__queue', 0, 10);
         if (empty($messages)) {
             return [];
