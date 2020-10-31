@@ -1,0 +1,217 @@
+.dashboard-page {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  grid-template-rows: 60px 1fr;
+  min-height: 100vh;
+  grid-template-areas:
+      "sidebar header"
+      "sidebar body"
+}
+
+// Sidebar
+// =============
+.dashboard-sidebar {
+  background: var(--background-light);
+  border: 1px solid var(--border);
+  font-size: 15px;
+  grid-area: sidebar;
+}
+.dashboard-sidebar__wrapper {
+  top: 0;
+  position: sticky;
+  max-height: 100vh;
+  overflow: auto;
+  padding: space(1.5) space(3);
+}
+.dashboard-sidebar__main li:first-child {
+  margin-bottom: -6px;
+}
+.dashboard-sidebar__main li a {
+  display: flex;
+  align-items: center;
+  padding: space(1) 0;
+
+  &[aria-current] {
+    border-left: 3px solid var(--contrast);
+    background: var(--background);
+    margin:0 space(-3);
+    padding-left: space(3);
+    color: var(--contrast);
+  }
+}
+
+.dashboard-sidebar__main .title {
+  border-top: 1px solid var(--border-light);
+  margin-top: space(1.5);
+  padding-top: space(1.5);
+  padding-bottom: space(.5);
+  text-transform: uppercase;
+  font-weight: 300;
+  font-size: 0.75em;
+  color: var(--color-light);
+}
+
+.dashboard-sidebar__main .icon {
+  margin-right: space(1);
+  width: 16px;
+  height: 16px;
+}
+
+// Topbar
+// =============
+.dashboard-topbar {
+  padding: 0 space(6);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 60px;
+  background: var(--background-light);
+  border-bottom: 1px solid var(--border);
+  grid-area: header;
+  font-size: 15px;
+}
+.dashboard-topbar svg {
+  width: 12px;
+  height: 12px;
+}
+.dashboard-topbar__nav {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+.dashboard-topbar__nav > li {
+  display: block;
+  margin-left: space(2);
+}
+.dashboard-topbar__nav > li > a,
+.dashboard-topbar__nav > li > button {
+  display: flex;
+  align-items: center;
+}
+.dashboard-topbar__search {
+  input {
+    outline: none;
+    width: 100%;
+    padding: space(1) 0 space(1) space(3);
+    border: none;
+    background: url(../images/input-search.svg) left center / 14px 14px no-repeat;
+  }
+  input::placeholder {
+    opacity: .5;
+  }
+}
+
+// Main
+// =============
+.dashboard-body {
+  padding: space(3) space(6);
+  grid-area: body;
+}
+
+.dashboard-title {
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+.dashboard-title svg {
+  height: 20px;
+  width: 20px;
+  color: var(--contrast);
+}
+.dashboard-card {
+  background: var(--background-light);
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 4px var(--shadow);
+  border-radius: 3px;
+  transition: 0.3s;
+  padding: space(3);
+}
+.dashboard-search {
+  display: flex;
+  flex-basis: 250px;
+}
+.dashboard-search input {
+  max-width: 300px;
+  background: url(../images/input-search.svg) right 16px center / 12px 12px no-repeat;
+  outline: none;
+}
+.dashboard .mdeditor {
+  box-shadow: none;
+  height: 350px;
+}
+.dashboard-actions {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+
+  & > * + * {
+    margin-left: space(1);
+  }
+}
+
+// Grille
+// ==================
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
+  grid-gap: space(3);
+}
+
+// Formulaires
+// =============
+.form-attachment {
+  grid-column: -2 / -1;
+  grid-row-end: span 2;
+}
+.form-editor {
+  grid-column: 1 / -1;
+}
+.form-switch {
+  align-self: flex-end;
+}
+
+// Commentaires
+// =============
+.dashboard-comment {
+  position: relative;
+}
+.dashboard-comment a {
+  text-decoration: underline;
+}
+.dashboard-comment strong {
+  font-weight: bold;
+  margin-bottom: space(1);
+}
+.dashboard-comment p {
+  opacity: 0.6;
+}
+.dashboard-comment .icon-user {
+  height: 12px;
+  width: 12px;
+}
+.dashboard-comment__delete .icon {
+  display: block;
+  color: var(--border);
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+}
+
+.dashboard-comment__delete .icon:hover {
+  color: var(--red);
+}
+
+// Champs Formation
+// =============
+.dashboard-formation-editor {
+  --col: 320px;
+  .mdeditor {
+    min-height: 500px;
+    height: 100%;
+  }
+  & > *:first-child {
+    grid-column: 1 / -2 !important;
+  }
+  & > *:last-child {
+    grid-column: -2 / -1 !important;
+  }
+}

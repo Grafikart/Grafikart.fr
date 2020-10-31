@@ -25,6 +25,7 @@ class OptionController extends BaseController
     public function index(): Response
     {
         return $this->render('admin/option/index.html.twig', [
+            'menu' => 'option',
             'options' => $this->optionManager->all(self::MANAGEABLE_KEYS),
         ]);
     }

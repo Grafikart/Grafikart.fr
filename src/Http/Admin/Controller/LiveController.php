@@ -25,6 +25,7 @@ class LiveController extends BaseController
 
         return $this->render('admin/live/index.html.twig', [
             'lives' => $lives,
+            'menu' => 'live',
             'live' => $service->getCurrentLive(),
         ]);
     }

@@ -28,6 +28,7 @@ final class PageController extends BaseController
             'revisions' => $revisionRepository->findLatest(),
             'comments' => $paginator->paginate($commentRepository->queryLatest()),
             'reports' => $reportRepository->findAll(),
+            'menu' => 'home',
             'failed_jobs' => $failedJobsService->getJobs(),
             'scheduled_jobs' => $scheduledJobsService->getJobs(),
         ]);

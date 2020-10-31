@@ -66,6 +66,7 @@ abstract class CrudController extends BaseController
 
         return $this->render("admin/{$this->templatePath}/index.html.twig", [
             'rows' => $rows,
+            'searchable' => true,
             'menu' => $this->menuItem,
             'prefix' => $this->routePrefix,
         ]);

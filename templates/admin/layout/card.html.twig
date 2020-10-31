@@ -4,8 +4,13 @@
 
   <div class="stack" style="--gap:1">
 
-    <div class="dashboard-title">
-      {% block title '' %}
+    <div class="flex mb1">
+      <div class="dashboard-title">
+        {% block title '' %}
+      </div>
+      <div class="hstack" style="--gap:1;">
+        {% block actions '' %}
+      </div>
     </div>
 
     {% include 'partials/flash.html.twig' %}

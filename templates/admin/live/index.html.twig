@@ -5,12 +5,13 @@
   Gestion des lives
 {% endblock %}
 
+{% block actions %}
+  <form class="form-group" method="post" action="{{ path('admin_live_sync') }}">
+    <button class="btn btn-primary">Synchroniser</button>
+  </form>
+{% endblock %}
+
 {% block content %}
-  <div class="flex form-group flex-end">
-    <form class="form-group" method="post" action="{{ path('admin_live_sync') }}">
-      <button class="btn btn-primary">Synchroniser</button>
-    </form>
-  </div>
   <table class="table">
     <thead>
     <tr>

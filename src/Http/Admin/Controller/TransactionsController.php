@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 final class TransactionsController extends CrudController
 {
     protected string $templatePath = 'transactions';
-    protected string $menuItem = 'transactions';
+    protected string $menuItem = 'transaction';
     protected string $entity = Transaction::class;
     protected string $routePrefix = 'admin_transaction';
     protected string $searchField = 'methodRef';

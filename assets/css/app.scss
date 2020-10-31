@@ -102,6 +102,8 @@ body::after {
   background: linear-gradient(to top, var(--background-light), var(--background-light)) left top/100% var(--split) no-repeat var(--background);
 }
 
+// Force les custom element à être en block
+// =============
 con-fetti {
   display: block;
 }
@@ -143,7 +145,6 @@ con-fetti {
 @import 'pages/chapters';
 @import 'pages/auth';
 @import 'pages/blog';
-@import 'pages/dashboard';
 @import 'pages/env';
 @import 'pages/formations';
 @import 'pages/home';

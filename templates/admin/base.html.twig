@@ -15,48 +15,67 @@
   <meta name="turbolinks-cache-control" content="no-cache" />
 </head>
 <body class="admin {{ app.user and app.user.darkMode ? 'dark' : '' }}">
-<nav class="header container {% if headerWhite is defined %}is-white{% endif %}">
-  <ul class="header-nav">
-    <li class="header__home"><a href="{{ path('admin_home') }}" title="Accueil">{{ icon('home') }}</a></li>
-    <li><a href="{{ path('admin_blog_index') }}" {{ menu_active('blog') }}>{{ icon('pen') }} Blog</a></li>
-    <li><a href="{{ path('admin_course_index') }}" {{ menu_active('course') }}>{{ icon('video') }} Tutoriels</a></li>
-    <li><a href="{{ path('admin_formation_index') }}" {{ menu_active('formation') }}>{{ icon('lines') }} Formation</a></li>
-    <li><a href="{{ path('admin_technology_index') }}" {{ menu_active('technology') }}>{{ icon('lines') }} Technologie</a></li>
-    <li><a href="{{ path('admin_forum-tag_index') }}" {{ menu_active('forum_tag') }}>{{ icon('comments') }} Forum</a></li>
-    <li><a href="{{ path('admin_user_index') }}" {{ menu_active('user') }}>{{ icon('user') }} Utilisateurs</a></li>
-    <li><a href="{{ path('admin_live_index') }}" {{ menu_active('live') }}>{{ icon('video') }} Live</a></li>
-    <li><a href="{{ path('admin_premium_index') }}" {{ menu_active('premium') }}>{{ icon('star') }} Premium</a></li>
-    <li hidden><a href="{{ path('admin_badge_index') }}" {{ menu_active('premium') }}>{{ icon('star') }} Badges</a></li>
-    <li hidden><a href="{{ path('admin_cursus_index') }}" {{ menu_active('cursus') }}>{{ icon('lines') }} Cursus</a></li>
-    <li hidden><a href="{{ path('admin_transaction_index') }}" {{ menu_active('premium') }}>{{ icon('star') }} Transactions</a></li>
-  </ul>
-  <ul class="header-side">
+<div class="dashboard-page">
+  <aside class="dashboard-sidebar">
+    <div class="dashboard-sidebar__wrapper">
+      <ul class="dashboard-sidebar__main">
+        <li><a href="{{ path('admin_home') }}" {{ menu_active('home') }}>{{ icon('home') }} Dashboard</a></li>
+        <li class="title">Tutoriels</li>
+        <li><a href="{{ path('admin_course_index') }}" {{ menu_active('course') }}>{{ icon('video') }} Tutoriels</a></li>
+        <li><a href="{{ path('admin_cursus_index') }}" {{ menu_active('cursus') }}>{{ icon('video') }} Cursus</a></li>
+        <li><a href="{{ path('admin_formation_index') }}" {{ menu_active('formation') }}>{{ icon('lines') }} Formation</a></li>
+        <li><a href="{{ path('admin_technology_index') }}" {{ menu_active('technology') }}>{{ icon('lines') }} Technologie</a></li>
+
+        <li class="title">Premium</li>
+        <li><a href="{{ path('admin_user_index') }}" {{ menu_active('user') }}>{{ icon('user') }} Utilisateurs</a></li>
+        <li><a href="{{ path('admin_transaction_index') }}" {{ menu_active('transaction') }}>{{ icon('refund') }} Transactions</a></li>
+        <li><a href="{{ path('admin_plan_index') }}" {{ menu_active('plan') }}>{{ icon('star') }} Formules</a></li>
+
+        <li class="title">Communauté</li>
+        <li><a href="{{ path('admin_blog_index') }}" {{ menu_active('blog') }}>{{ icon('pen') }} Blog</a></li>
+        <li><a href="{{ path('admin_forum-tag_index') }}" {{ menu_active('forum-tag') }}>{{ icon('comments') }} Forum</a></li>
+        <li class="sep"></li>
+        <li><a href="{{ path('admin_live_index') }}" {{ menu_active('live') }}>{{ icon('video') }} Live</a></li>
+
+        <li class="title">Divers</li>
+        <li><a href="{{ path('admin_badge_index') }}" {{ menu_active('badge') }}>{{ icon('badge') }} Badges</a></li>
+        <li><a href="{{ path('admin_option_index') }}" {{ menu_active('option') }}>{{ icon('edit') }} Options</a></li>
+      </ul>
+    </div>
+  </aside>
+  <aside class="dashboard-topbar">
+    <div class="dashboard-topbar__search">
+      {% if searchable is defined %}
+        <form>
+          <input name="q" type="text" placeholder="Rechercher" value="{{ app.request.get('q') }}" >
+        </form>
+      {% endif %}
+    </div>
+    <ul class="dashboard-topbar__nav">
+      <li class="header__notification">
+        <site-notifications></site-notifications>
+      </li>
     {% set spam = count_spam() %}
     {% if spam > 0 %}
-    <li class="header__notification">
-      <a href="{{ path('admin_spam_index') }}">
-        {{ icon('trash') }}
-        <span class='notification-badge'>{{ spam }}</span>
-      </a>
-    </li>
+      <li class="header__notification">
+        <a href="{{ path('admin_spam_index') }}">
+          {{ icon('trash') }}
+          <span class='notification-badge'>{{ spam }}</span>
+        </a>
+      </li>
     {% endif %}
-    <li class="header__notification">
-      <site-notifications></site-notifications>
-    </li>
-    <li class="header__logout"><a href="/">{{ icon('logout') }}</a></li>
-    <li class="header__burger">
-      <button id="js-burger"><span>Afficher le menu</span></button>
-    </li>
-  </ul>
-
-</nav>
-<div class="dashboard py5">
-
-  {% include 'partials/flash.html.twig' with {floating: true, duration: 2} %}
-
-  {% block body '' %}
+      <li><a href="{{ path('user_profil') }}">{{ icon('user') }} <span>{{ app.user.username }}</span></a>
+      <li class="header__logout"><a href="/">{{ icon('logout') }}</a></li>
+    </ul>
+  </aside>
+  <main class="dashboard-body">
+    {% include 'partials/flash.html.twig' with {floating: true, duration: 2} %}
+    {% block body '' %}
+  </main>
 </div>
+
 <spotlight-bar></spotlight-bar>
+
 <script>
   window.grafikart = {
     ADMIN: {{ is_granted('SUPERADMIN') ? 'true' : 'false' }},
