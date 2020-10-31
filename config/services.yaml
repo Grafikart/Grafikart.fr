@@ -6,6 +6,8 @@ parameters:
   image_resize_key: '%env(resolve:IMAGE_RESIZE_KEY)%'
   twitter_key:      '%env(resolve:TWITTER_KEY)%'
   twitter_secret:   '%env(resolve:TWITTER_SECRET)%'
+  container.dumper.inline_factories: true
+  container.dumper.inline_class_loader: true
 
 services:
   _defaults:

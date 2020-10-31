@@ -296,4 +296,9 @@ class Transaction
     {
         return self::PAYPAL === $this->method;
     }
+
+    public function isStripe(): bool
+    {
+        return self::STRIPE === $this->method;
+    }
 }

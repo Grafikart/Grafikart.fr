@@ -29,7 +29,7 @@ class TwigCacheExtension extends AbstractExtension
     }
 
     /**
-     * @param CacheableInterface|string|array|null|boolean $item
+     * @param CacheableInterface|string|array|bool|null $item
      */
     public function getCacheKey($item): string
     {
