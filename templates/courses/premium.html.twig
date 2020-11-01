@@ -27,6 +27,8 @@
 
   </div>
 
-  {{ show_history(courses.items) }}
+  {% if app.user %}
+    {{ show_history(courses.items) }}
+  {% endif %}
 
 {% endblock %}

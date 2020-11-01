@@ -150,7 +150,7 @@
     </div>
   {% endcache %}
 
-  {% if course.formation %}
+  {% if course.formation and app.user %}
     {{ show_history(course.formation.courses) }}
   {% endif %}
 

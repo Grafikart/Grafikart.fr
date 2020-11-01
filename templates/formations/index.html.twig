@@ -19,7 +19,8 @@
     {% endfor %}
   </main>
 
-  {{ show_history(formations) }}
-
+  {% if app.user %}
+    {{ show_history(formations) }}
+  {% endif %}
 {% endblock %}
 

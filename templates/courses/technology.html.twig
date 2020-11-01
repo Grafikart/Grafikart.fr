@@ -110,7 +110,9 @@
 
   </div>
 
-  {{ show_history(formations | merge(courses.items)) }}
+  {% if app.user %}
+    {{ show_history(formations | merge(courses.items)) }}
+  {% endif %}
 
 {% endblock %}
 
