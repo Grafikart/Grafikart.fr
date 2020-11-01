@@ -1,4 +1,4 @@
-<div class="{{ class ?? 'chapters' }}" is="auto-scroll" data-to="{{ current is defined ? current : '' }}">
+<div class="{{ class ?? 'chapters' }}">
   {% for chapter in chapters %}
     {% include 'chapters/_item.html.twig' %}
   {% endfor %}

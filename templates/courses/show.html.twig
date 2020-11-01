@@ -58,8 +58,8 @@
       {% endif %}
       {% if course.formation %}
         <div class="relative card">
-          <div class="absolute">
-            {% include 'chapters/_summary.html.twig' with {chapters: course.formation.chapters, current: "#chapter" ~ course.id} only %}
+          <div class="absolute" is="auto-scroll" data-to="{{ current is defined ? current : "#chapter" ~ course.id }}">
+            {% include 'chapters/_summary.html.twig' with {chapters: course.formation.chapters} only %}
           </div>
         </div>
       {% endif %}
