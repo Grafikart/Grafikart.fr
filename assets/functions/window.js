@@ -16,6 +16,5 @@ window.addEventListener('focus', function () {
  * Renvoie true si la fenêtre est active ou si elle a été la dernière fenêtre active
  */
 export function isActiveWindow () {
-  console.log(uuid, localStorage.getItem('windowId'), uuid === localStorage.getItem('windowId'))
   return uuid === localStorage.getItem('windowId')
 }
