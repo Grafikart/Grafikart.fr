@@ -7,7 +7,7 @@ use Throwable;
 
 class UserBannedException extends CustomUserMessageAuthenticationException
 {
-    public function __construct($message = 'Ce compte a été bloqué', array $messageData = [], $code = 0, Throwable $previous = null)
+    public function __construct($message = 'Ce compte a été bloqué', array $messageData = [], int $code = 0, Throwable $previous = null)
     {
         parent::__construct($message, $messageData, $code, $previous);
     }
