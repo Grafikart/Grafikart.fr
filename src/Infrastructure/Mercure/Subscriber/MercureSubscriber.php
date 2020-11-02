@@ -30,8 +30,8 @@ class MercureSubscriber implements EventSubscriberInterface
     {
         return [
             NotificationCreatedEvent::class => 'publishNotification',
-            BadgeUnlockEvent::class         => 'publishBadgeUnlock',
-            NotificationReadEvent::class    => 'onNotificationRead'
+            BadgeUnlockEvent::class => 'publishBadgeUnlock',
+            NotificationReadEvent::class => 'onNotificationRead',
         ];
     }
 
@@ -40,14 +40,14 @@ class MercureSubscriber implements EventSubscriberInterface
         $notification = $event->getNotification();
         $channel = $notification->getChannel();
         if (null === $channel && $notification->getUser() instanceof User) {
-            $channel = 'user/' . $notification->getUser()->getId();
+            $channel = 'user/'.$notification->getUser()->getId();
         }
         $update = new Update("/notifications/$channel", $this->serializer->serialize([
             'type' => 'notification',
             'data' => $notification,
         ], 'json', [
             'groups' => ['read:notification'],
-            'iri'    => false,
+            'iri' => false,
         ]), true);
         $this->enqueue->enqueue(PublisherInterface::class, '__invoke', [$update]);
     }
@@ -60,7 +60,7 @@ class MercureSubscriber implements EventSubscriberInterface
             'type' => 'badge',
             'data' => $badge,
         ], 'json'), true);
-        $this->enqueue->enqueue(PublisherInterface::class, '__invoke', [$update]);
+        $this->enqueue->enqueue(PublisherInterface::class, '__invoke', [$update], new \DateTimeImmutable('+ 2 seconds'));
     }
 
     public function onNotificationRead(NotificationReadEvent $event): void

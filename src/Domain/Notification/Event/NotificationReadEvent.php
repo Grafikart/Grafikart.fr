@@ -6,7 +6,6 @@ use App\Domain\Auth\User;
 
 class NotificationReadEvent
 {
-
     private User $user;
 
     public function __construct(User $user)

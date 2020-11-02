@@ -45,7 +45,7 @@
   </aside>
   <aside class="dashboard-topbar">
     <div class="dashboard-topbar__search">
-      {% if searchable is defined %}
+      {% if searchable is defined and searchable %}
         <form>
           <input name="q" type="text" placeholder="Rechercher" value="{{ app.request.get('q') }}" >
         </form>
