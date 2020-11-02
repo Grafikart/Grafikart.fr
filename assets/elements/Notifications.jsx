@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'preact/hooks'
-import { useAsyncEffect, useClickOutside, usePrepend } from '/functions/hooks.js'
+import { useAsyncEffect, useClickOutside, useNotificationCount, usePrepend } from '/functions/hooks.js'
 import { Icon } from '/components/Icon.jsx'
 import { SlideIn } from '/components/Animation/SlideIn.jsx'
 import { isAuthenticated, lastNotificationRead } from '/functions/auth.js'
@@ -29,17 +29,18 @@ export function Notifications () {
   const [notificationReadAt, setNotificationReadAt] = useState(lastNotificationRead())
   const [loading, setLoading] = useState(true)
   const unreadCount = countUnread(notifications, notificationReadAt)
+  useNotificationCount(unreadCount)
 
   // Méthodes
   const openMenu = e => {
     e.preventDefault()
     setState(OPEN)
     if (unreadCount > 0) {
+      setNotificationReadAt(new Date())
       jsonFetch('/api/notifications/read', { method: 'post' }).catch(console.error)
     }
   }
   const closeMenu = () => {
-    setNotificationReadAt(new Date())
     setState(CLOSE)
   }
 
@@ -53,6 +54,14 @@ export function Notifications () {
 
   // On écoute l'arrivé de nouveaux évènement depuis l'API ou le SSE
   useEffect(() => onNotification('notification', pushNotification), [pushNotification])
+
+  // On écoute quand les messages sont marqués comme lu
+  useEffect(() => {
+    return onNotification('markAsRead', () => {
+      console.log('azeazeea')
+      setNotificationReadAt(new Date())
+    })
+  }, [])
 
   // Le système de notification ne fonction que pour les utilisateurs
   if (!isAuthenticated()) return null

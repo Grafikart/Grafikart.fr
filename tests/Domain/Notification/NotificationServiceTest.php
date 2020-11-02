@@ -2,7 +2,9 @@
 
 namespace App\Tests\Domain\Notification;
 
+use App\Domain\Auth\User;
 use App\Domain\Notification\Event\NotificationCreatedEvent;
+use App\Domain\Notification\Event\NotificationReadEvent;
 use App\Domain\Notification\NotificationService;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
@@ -47,5 +49,15 @@ class NotificationServiceTest extends TestCase
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
+    }
+
+    public function testSentReadEvent(): void
+    {
+        $user = (new User());
+        $previousDate = new \DateTimeImmutable('- 10 days');
+        $user->setNotificationsReadAt($previousDate);
+        $this->dispatcher->expects($this->once())->method('dispatch')->with($this->isInstanceOf(NotificationReadEvent::class));
+        $this->service->readAll($user);
+        $this->assertNotEquals($previousDate, $user->getNotificationsReadAt());
     }
 }

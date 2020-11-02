@@ -44,7 +44,9 @@ function connectToMercure () {
   url.searchParams.append('topic', `/notifications/user/${window.grafikart.USER}`)
   const eventSource = new EventSource(url, { withCredentials: true })
   eventSource.onmessage = e => {
-    playNotification()
+    if (e.data.type === 'notification') {
+      playNotification()
+    }
     emitEvent(JSON.parse(e.data))
   }
   isMercureConnected = true

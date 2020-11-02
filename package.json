@@ -40,6 +40,7 @@
     "canvas-confetti": "^1.2.0",
     "choices.js": "^9.0.1",
     "codemirror": "^5.52.0",
+    "favicon-badge": "^2.0.0",
     "flatpickr": "^4.6.3",
     "htm": "^3.0.3",
     "preact": "^10.4.6",
