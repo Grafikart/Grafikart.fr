@@ -62,7 +62,7 @@ Les contenus ne sont pas correctement mis en avant et il n'est pas évident pour
 - Les commentaires ne servent pas forcément à grand-chose en l'état (remplacer peut-être par un système de questions ?).
 - Les contenus premiums ne sont pas forcément mis en avant et on ne sait pas trop ce qui est disponible et ce qui ne l'est pas.
 - Un système de progression doit être mis en place pour permettre de reprendre une formation ou une vidéo.
-- Le système de pricing n'est pas clair, on a les même fonctionnalités pour 3.5€,10€,37€ et la seule différence est marquée en gris en haut à droite (temps d'abonnement).
+- Le système de pricing n'est pas clair, on a les mêmes fonctionnalités pour 3.5€,10€,37€ et la seule différence est marquée en gris en haut à droite (temps d'abonnement).
 
 ### Rendre le code Open Source
 
