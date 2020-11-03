@@ -15,11 +15,12 @@ class CommentTest extends KernelTestCase
     {
         /** @var Comment $comment */
         ['comment_user' => $comment] = $this->loadFixtures(['comments']);
-        $count1 = $this->em->getRepository(Comment::class)->count([]);
+        $commentRepository = $this->em->getRepository(Comment::class);
+        $commentId = $comment->getId();
         $this->remove($comment->getAuthor());
         $this->em->flush();
-        $count2 = $this->em->getRepository(Comment::class)->count([]);
-        $this->assertEquals($count1 - 1, $count2);
+        $this->em->clear();
+        $this->assertEquals(null, $commentRepository->find($commentId));
     }
 
     public function testCascadeDeleteForContent(): void
