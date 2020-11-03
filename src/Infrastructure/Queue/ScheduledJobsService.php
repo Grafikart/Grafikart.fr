@@ -30,7 +30,7 @@ class ScheduledJobsService
      */
     public function getJobs(): array
     {
-        if (!class_exists(\Redis::class)) {
+        if (strpos($this->dsn, 'redis://') !== 0) {
             return [];
         }
         $messages = $this->getConnection()->zRange('messages__queue', 0, 10);
