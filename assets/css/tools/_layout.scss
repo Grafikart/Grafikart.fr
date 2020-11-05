@@ -105,6 +105,10 @@
   justify-content: space-between;
 }
 
+.end {
+  justify-content: flex-end;
+}
+
 .flex-md {
   @include up(500) {
     display: flex;

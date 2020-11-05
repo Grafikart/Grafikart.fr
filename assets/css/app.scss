@@ -24,7 +24,7 @@
   --red: #f25353;
   --green: #41cf7c;
   --yellow: #feb32b;
-  --yellow-alpha: #feb32b4C;
+  --yellow-alpha: #feb32b4c;
   --skeleton: var(--border-light);
   --skeleton-wave: var(--border-light);
 }
@@ -99,7 +99,8 @@ body::after {
 }
 
 .split-background {
-  background: linear-gradient(to top, var(--background-light), var(--background-light)) left top/100% var(--split) no-repeat var(--background);
+  background: linear-gradient(to top, var(--background-light), var(--background-light)) left top/100% var(--split)
+    no-repeat var(--background);
 }
 
 // Force les custom element à être en block

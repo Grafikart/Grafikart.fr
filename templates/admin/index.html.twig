@@ -96,7 +96,6 @@
     </section>
     {% endif %}
 
-
     <div class="grid2">
 
       <!-- Commentaires -->
@@ -159,6 +158,21 @@
             </div>
           </div>
         {% endif %}
+
+        <section class="stack" style="--gap: 1">
+          <div class="flex">
+            <h1 class="dashboard-title">{{ icon('star') }} Actions</h1>
+          </div>
+
+          <div class="dashboard-card">
+            <div class="flex">
+              <form action="{{ path('admin_cache_clean') }}" method="post">
+                <button class="btn btn-small btn-danger">{{ icon('trash') }} Vider le cache</button>
+              </form>
+            </div>
+          </div>
+
+        </section>
 
         <!-- Notifications -->
         <section class="stack" style="--gap:1">
