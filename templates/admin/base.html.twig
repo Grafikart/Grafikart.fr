@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>{% apply striptags %}{% block title '' %}{% endapply %} | Grafikart</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui"/>
   {% block stylesheets %}
     {{ encore_entry_link_tags('app') }}
     {{ encore_entry_link_tags('admin') }}
@@ -12,7 +12,7 @@
     {{ encore_entry_script_tags('app') }}
     {{ encore_entry_script_tags('admin') }}
   {% endblock %}
-  <meta name="turbolinks-cache-control" content="no-cache" />
+  <meta name="turbolinks-cache-control" content="no-cache"/>
 </head>
 <body class="admin {{ app.user and app.user.darkMode ? 'dark' : '' }}">
 <div class="dashboard-page">
@@ -21,19 +21,24 @@
       <ul class="dashboard-sidebar__main">
         <li><a href="{{ path('admin_home') }}" {{ menu_active('home') }}>{{ icon('home') }} Dashboard</a></li>
         <li class="title">Tutoriels</li>
-        <li><a href="{{ path('admin_course_index') }}" {{ menu_active('course') }}>{{ icon('video') }} Tutoriels</a></li>
+        <li><a href="{{ path('admin_course_index') }}" {{ menu_active('course') }}>{{ icon('video') }} Tutoriels</a>
+        </li>
         <li><a href="{{ path('admin_cursus_index') }}" {{ menu_active('cursus') }}>{{ icon('video') }} Cursus</a></li>
-        <li><a href="{{ path('admin_formation_index') }}" {{ menu_active('formation') }}>{{ icon('lines') }} Formation</a></li>
-        <li><a href="{{ path('admin_technology_index') }}" {{ menu_active('technology') }}>{{ icon('lines') }} Technologie</a></li>
+        <li><a href="{{ path('admin_formation_index') }}" {{ menu_active('formation') }}>{{ icon('lines') }}
+            Formation</a></li>
+        <li><a href="{{ path('admin_technology_index') }}" {{ menu_active('technology') }}>{{ icon('lines') }}
+            Technologie</a></li>
 
         <li class="title">Premium</li>
         <li><a href="{{ path('admin_user_index') }}" {{ menu_active('user') }}>{{ icon('user') }} Utilisateurs</a></li>
-        <li><a href="{{ path('admin_transaction_index') }}" {{ menu_active('transaction') }}>{{ icon('refund') }} Transactions</a></li>
+        <li><a href="{{ path('admin_transaction_index') }}" {{ menu_active('transaction') }}>{{ icon('refund') }}
+            Transactions</a></li>
         <li><a href="{{ path('admin_plan_index') }}" {{ menu_active('plan') }}>{{ icon('star') }} Formules</a></li>
 
         <li class="title">Communauté</li>
         <li><a href="{{ path('admin_blog_index') }}" {{ menu_active('blog') }}>{{ icon('pen') }} Blog</a></li>
-        <li><a href="{{ path('admin_forum-tag_index') }}" {{ menu_active('forum-tag') }}>{{ icon('comments') }} Forum</a></li>
+        <li><a href="{{ path('admin_forum-tag_index') }}" {{ menu_active('forum-tag') }}>{{ icon('comments') }}
+            Forum</a></li>
         <li class="sep"></li>
         <li><a href="{{ path('admin_live_index') }}" {{ menu_active('live') }}>{{ icon('video') }} Live</a></li>
 
@@ -47,7 +52,7 @@
     <div class="dashboard-topbar__search">
       {% if searchable is defined and searchable %}
         <form>
-          <input name="q" type="text" placeholder="Rechercher" value="{{ app.request.get('q') }}" >
+          <input name="q" type="text" placeholder="Rechercher" value="{{ app.request.get('q') }}">
         </form>
       {% endif %}
     </div>
@@ -55,16 +60,15 @@
       <li class="header__notification">
         <site-notifications></site-notifications>
       </li>
-    {% set spam = count_spam() %}
-    {% if spam > 0 %}
-      <li class="header__notification">
-        <a href="{{ path('admin_spam_index') }}">
-          {{ icon('trash') }}
-          <span class='notification-badge'>{{ spam }}</span>
-        </a>
-      </li>
-    {% endif %}
-      <li><a href="{{ path('user_profil') }}">{{ icon('user') }} <span>{{ app.user.username }}</span></a>
+      {% set spam = count_spam() %}
+      {% if spam > 0 %}
+        <li class="header__notification">
+          <a href="{{ path('admin_spam_index') }}">
+            {{ icon('trash') }}
+            <span class='notification-badge'>{{ spam }}</span>
+          </a>
+        </li>
+      {% endif %}
       <li class="header__logout"><a href="/">{{ icon('logout') }}</a></li>
     </ul>
   </aside>
@@ -81,7 +85,8 @@
     ADMIN: {{ is_granted('SUPERADMIN') ? 'true' : 'false' }},
     USER: {{ app.user ? app.user.id : 'null' }},
     MERCURE_URL: "{{ mercure_subscribe_url }}",
-    NOTIFICATION: new Date({{ (app.user and app.user.notificationsReadAt) ? app.user.notificationsReadAt.timestamp : 0 }} * 1000)
+    NOTIFICATION: new Date({{ (app.user and app.user.notificationsReadAt) ? app.user.notificationsReadAt.timestamp : 0 }} * 1000
+  )
   }
 </script>
 </body>

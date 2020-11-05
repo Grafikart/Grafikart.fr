@@ -31,22 +31,29 @@
 
 .dark {
   --color-dark: #fff;
-  --color: #effbec;
-  --color-light: #effbec99;
-  --color-inversed: #121c42;
-  --contrast: #61a0f6;
+  --color: #d4dcff;
+  --color-light: #8491c7;
+  --color-inversed: #d4dcff;
+  --contrast: #5396e7;
   --gap: 20px;
   --space: 8px;
-  --border: #122c45;
+  --border: #2a2e5e;
   --border-light: #161e3b;
-  --background: #202248;
-  --background-light: #171933;
-  --shadow: #0b0c1a;
+  --background: #171933;
+  --background-light: #1b1e3d;
+  --card-bg: #22244d;
+  --card-bg-footer: #1d1f42;
+  --shadow: rgba(0, 0, 0, 0.2);
   --play: #1d1d3a;
   --list-hover: #282a5a;
   --card-footer: #{darken(#202248, 3)};
-  --skeleton: #ffffff21;
-  --skeleton-wave: #ffffff14;
+  --skeleton: #0f1224;
+  --skeleton-wave: #171933;
+  --red: #A6333F;
+}
+
+.dark .lighten-dark {
+  filter: brightness(10);
 }
 
 // Outils
@@ -108,6 +115,13 @@ body::after {
 con-fetti {
   display: block;
 }
+.dark youtube-player {
+  --color: #111426;
+}
+.dark waves-shape {
+  --contrast: #4869ee;
+}
+
 
 // Modules
 // ==================

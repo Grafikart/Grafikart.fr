@@ -8,7 +8,7 @@
 
 .card,
 %card {
-  background: var(--background-light);
+  background: var(--card-bg, var(--background-light));
   border: 1px solid var(--border);
   box-shadow: 0 2px 4px var(--shadow);
   border-radius: 3px;
@@ -17,7 +17,7 @@
 
 .card-big,
 %card-big {
-  background: var(--background-light);
+  background: var(--card-bg, var(--background-light));
   border: 1px solid var(--border);
   box-shadow: 0 2px 20px var(--shadow);
   border-radius: 4px;
@@ -51,7 +51,7 @@
   align-items: center;
 }
 .card__description p {
-  opacity: 0.65;
+  color: var(--color-light)
 }
 .card__title {
   font-family: $font-alt;
@@ -72,7 +72,7 @@
   display: flex;
   align-items: center;
   min-height: 36px;
-  background: var(--card-footer);
+  background: var(--card-bg-footer, var(--card-footer));
   padding: 0 var(--card-padding);
   font-size: .9rem;
 
@@ -81,7 +81,7 @@
   }
 
   & > * {
-    opacity: 0.65;
+    color: var(--color-light);
     white-space: nowrap;
   }
 

@@ -164,7 +164,7 @@
 .home-push {
   display: grid;
   grid-gap: space(4);
-  background: linear-gradient(to top, #fff, #fff) left bottom / 100% 90px no-repeat var(--background);
+  background: linear-gradient(to top, var(--background-light), var(--background-light)) left bottom / 100% 90px no-repeat var(--background);
 }
 
 .home-push__mosaic {
