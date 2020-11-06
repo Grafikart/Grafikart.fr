@@ -125,6 +125,33 @@
   transition: 0.3s;
   padding: space(3);
 }
+.dashboard-card__tabs {
+  display: flex;
+  justify-content: flex-start;
+  border-bottom: 1px solid var(--border);
+  margin: space(-3) space(-3) space(3) space(-3);
+  color: var(--color-light);
+  background: var(--background);
+  font-size: .9rem;
+
+  & > * {
+    padding: space(1) space(2);
+    background: var(--background);
+    border-right: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: -1px;
+  }
+
+  & > [aria-selected="true"] {
+    border-right: 1px solid var(--border);
+    border-left: 1px solid var(--border);
+    margin-left: -1px;
+    background: var(--background-light);
+    border-bottom-color: transparent;
+    color: var(--color);
+    margin-bottom: -1px;
+  }
+}
 .dashboard-search {
   display: flex;
   flex-basis: 250px;

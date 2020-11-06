@@ -54,7 +54,7 @@ class Transaction
     /**
      * @ORM\Column(type="datetime")
      */
-    private \DateTime $createdAt;
+    private \DateTimeInterface $createdAt;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Auth\User")
@@ -181,12 +181,12 @@ class Transaction
         return $this;
     }
 
-    public function getCreatedAt(): \DateTime
+    public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTime $createdAt): Transaction
+    public function setCreatedAt(\DateTimeInterface $createdAt): Transaction
     {
         $this->createdAt = $createdAt;
 

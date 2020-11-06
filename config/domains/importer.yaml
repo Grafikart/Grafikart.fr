@@ -43,5 +43,10 @@ services:
     arguments:
       $pdo: '@importer.pdo'
 
+  App\Infrastructure\Importer\TransactionImporter:
+    tags: [ 'importer.handler' ]
+    arguments:
+      $pdo: '@importer.pdo'
+
   App\Infrastructure\Importer\DataImporterHandler:
     $handlers: !tagged_iterator importer.handler

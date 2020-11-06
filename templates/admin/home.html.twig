@@ -7,6 +7,7 @@
   <div class="stack-large">
 
 
+
     {% if scheduled_jobs | length > 0 %}
       <section class="stack" style="--gap:1">
         <div class="flex">
@@ -95,6 +96,22 @@
       </div>
     </section>
     {% endif %}
+
+    <section class="stack" style="--gap: 1;">
+      <div class="flex">
+        <h1 class="dashboard-title">
+          {{ icon('star') }} Abonnements
+        </h1>
+      </div>
+      <div class="dashboard-card">
+        <nav-tabs class="dashboard-card__tabs">
+          <a href="#daily" aria-controls="daily" aria-selected="true">30 derniers jours</a>
+          <a href="#monthly" aria-controls="monthly">24 Derniers mois</a>
+        </nav-tabs>
+        <line-chart id="daily" points="{{ days | json_encode }}" x="date" y="amount"></line-chart>
+        <line-chart id="monthly" points="{{ months | json_encode }}" x="date" y="amount" hidden></line-chart>
+      </div>
+    </section>
 
     <div class="grid2">
 

@@ -55,8 +55,6 @@ services:
       TYPESENSE_API_KEY: typesensekey
     volumes:
       - search-data:/data
-    ports:
-      - 8108:8108
   mercure:
     image: dunglas/mercure
     environment:

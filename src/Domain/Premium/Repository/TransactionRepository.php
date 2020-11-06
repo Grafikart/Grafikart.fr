@@ -33,32 +33,29 @@ class TransactionRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    // /**
-    //  * @return Transation[] Returns an array of Transation objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getMonthlyRevenues(): array
     {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        return $this->aggregateRevenus('yyy-mm', 'mm', 24);
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Transation
+    public function getDailyRevenues(): array
     {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return $this->aggregateRevenus('yyy-mm-dd', 'dd', 30);
     }
-    */
+
+    private function aggregateRevenus(string $group, string $label, int $limit): array
+    {
+        return array_reverse($this->createQueryBuilder('t')
+            ->select(
+                "TO_CHAR(t.createdAt, '$label') as date",
+                "TO_CHAR(t.createdAt, '$group') as fulldate",
+                "SUM(t.price - t.tax) * 0.966 - COUNT(t.price) * 0.25 as amount"
+            )
+            ->groupBy('fulldate', 'date')
+            ->where('t.refunded = false')
+            ->orderBy("fulldate", "DESC")
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult());
+    }
 }

@@ -37,7 +37,9 @@
   "dependencies": {
     "@grafikart/spinning-dots-element": "^1.1.0",
     "@sb-elements/all": "^0.3.2",
+    "@types/chart.js": "^2.9.27",
     "canvas-confetti": "^1.2.0",
+    "chart.js": "^2.9.4",
     "choices.js": "^9.0.1",
     "codemirror": "^5.52.0",
     "favicon-badge": "^2.0.0",
