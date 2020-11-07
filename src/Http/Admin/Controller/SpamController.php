@@ -4,9 +4,13 @@ namespace App\Http\Admin\Controller;
 
 use App\Domain\Forum\Entity\Message;
 use App\Domain\Forum\Entity\Topic;
+use App\Domain\Forum\Repository\MessageRepository;
+use App\Domain\Forum\Repository\TopicRepository;
 use App\Infrastructure\Spam\SpammableInterface;
+use App\Infrastructure\Spam\SpamService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SpamController extends BaseController
 {
     public const TYPES = [
-        'topic' => Topic::class,
+        'topic'   => Topic::class,
         'message' => Message::class,
     ];
 
@@ -31,7 +35,7 @@ class SpamController extends BaseController
     public function index(): Response
     {
         return $this->render('admin/spam/index.html.twig', [
-            'topics' => $this->em->getRepository(Topic::class)->findBy(['spam' => true]),
+            'topics'   => $this->em->getRepository(Topic::class)->findBy(['spam' => true]),
             'messages' => $this->em->getRepository(Message::class)->findBy(['spam' => true]),
         ]);
     }
@@ -54,5 +58,26 @@ class SpamController extends BaseController
         $this->em->flush();
 
         return $this->json([]);
+    }
+
+    /**
+     * Lance la détection des contenu "spams"
+     *
+     * @Route("/spam/detect", name="spam_detect", methods={"POST"})
+     */
+    public function detect(SpamService $spamService): RedirectResponse
+    {
+        /** @var TopicRepository $topicRepository */
+        $topicRepository = $this->em->getRepository(Topic::class);
+        /** @var MessageRepository $messageRepository */
+        $messageRepository = $this->em->getRepository(Topic::class);
+        $topicsCount = $topicRepository->flagAsSpam($spamService->words());
+        $messagesCount = $messageRepository->flagAsSpam($spamService->words());
+        $count = $topicsCount + $messagesCount;
+        $this->addFlash('success', "{$count} spams détectés");
+        if ($count > 0) {
+            return $this->redirectToRoute('admin_spam_index');
+        }
+        return $this->redirectToRoute('admin_home');
     }
 }

@@ -4,11 +4,15 @@ namespace App\Domain\Forum\Repository;
 
 use App\Domain\Auth\User;
 use App\Domain\Forum\Entity\Message;
+use App\Infrastructure\Spam\SpammableRepositoryTrait;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 class MessageRepository extends ServiceEntityRepository
 {
+
+    use SpammableRepositoryTrait;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Message::class);
