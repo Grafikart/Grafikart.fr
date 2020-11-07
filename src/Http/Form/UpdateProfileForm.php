@@ -2,6 +2,7 @@
 
 namespace App\Http\Form;
 
+use App\Core\Type\SwitchType;
 use App\Domain\Profile\Dto\ProfileUpdateDto;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
@@ -22,6 +23,9 @@ class UpdateProfileForm extends AbstractType
         ])
             ->add('country', CountryType::class, [
                 'required' => true,
+            ])
+            ->add('forumNotification', SwitchType::class, [
+                'required' => false,
             ])
         ;
     }

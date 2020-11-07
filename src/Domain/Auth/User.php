@@ -111,6 +111,11 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface
      */
     private ?bool $darkMode = false;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default": true})
+     */
+    private bool $forumMailNotification = true;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -336,4 +341,16 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface
 
         return $this;
     }
+
+    public function hasForumMailNotification(): bool
+    {
+        return $this->forumMailNotification;
+    }
+
+    public function setForumMailNotification(bool $forumMailNotification): User
+    {
+        $this->forumMailNotification = $forumMailNotification;
+        return $this;
+    }
+
 }

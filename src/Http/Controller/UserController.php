@@ -5,124 +5,61 @@ namespace App\Http\Controller;
 use App\Domain\Auth\User;
 use App\Domain\Forum\Repository\TopicRepository;
 use App\Domain\History\HistoryService;
-use App\Domain\Profile\DeleteAccountService;
-use App\Domain\Profile\Dto\AvatarDto;
 use App\Domain\Profile\Dto\ProfileUpdateDto;
 use App\Domain\Profile\ProfileService;
 use App\Http\Form\UpdatePasswordForm;
 use App\Http\Form\UpdateProfileForm;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @method getUser() User
  */
 class UserController extends AbstractController
 {
+
+    private UserPasswordEncoderInterface $passwordEncoder;
+    private EntityManagerInterface $em;
+    /**
+     * @var ProfileService
+     */
+    private ProfileService $profileService;
+
+    public function __construct(
+        UserPasswordEncoderInterface $passwordEncoder,
+        EntityManagerInterface $em,
+        ProfileService $profileService
+    ) {
+
+        $this->passwordEncoder = $passwordEncoder;
+        $this->em = $em;
+        $this->profileService = $profileService;
+    }
+
     /**
      * @Route("/profil", name="user_profil", methods={"GET"})
      * @IsGranted("ROLE_USER")
      */
-    public function index(HistoryService $service, TopicRepository $topicRepository): Response
-    {
+    public
+    function index(
+        HistoryService $history,
+        TopicRepository $topicRepository
+    ): Response {
         $user = $this->getUser();
-        $watchlist = $service->getLastWatchedContent($user);
+        $watchlist = $history->getLastWatchedContent($user);
         $lastTopics = $topicRepository->findLastByUser($user);
         $lastMessageTopics = $topicRepository->findLastWithUser($user);
 
         return $this->render('profil/profil.html.twig', [
-            'watchlist' => $watchlist,
-            'lastTopics' => $lastTopics,
+            'watchlist'         => $watchlist,
+            'lastTopics'        => $lastTopics,
             'lastMessageTopics' => $lastMessageTopics,
         ]);
     }
-
-    /**
-     * @Route("/profil/edit", name="user_edit")
-     * @IsGranted("ROLE_USER")
-     */
-    public function edit(
-        Request $request,
-        UserPasswordEncoderInterface $passwordEncoder,
-        ProfileService $service,
-        EntityManagerInterface $em
-    ): Response {
-        /** @var User $user */
-        $user = $this->getUser();
-        // On crée les formulaires
-        $formPassword = $this->createForm(UpdatePasswordForm::class);
-        $formUpdate = $this->createForm(UpdateProfileForm::class, new ProfileUpdateDto($user));
-        $action = $request->get('action');
-        if ('update' === $action) {
-            $formUpdate->handleRequest($request);
-        } elseif ('password' === $action) {
-            $formPassword->handleRequest($request);
-        }
-        // Traitement du mot de passe
-        if ($formPassword->isSubmitted() && $formPassword->isValid()) {
-            $data = $formPassword->getData();
-            $user->setPassword($passwordEncoder->encodePassword($user, $data['password']));
-            $em->flush();
-            $this->addFlash('success', 'Votre mot de passe a bien été mis à jour');
-
-            return $this->redirectToRoute('user_edit');
-        }
-        // Traitement de la mise à jour de profil
-        if ($formUpdate->isSubmitted() && $formUpdate->isValid()) {
-            $data = $formUpdate->getData();
-            $service->updateProfile($data);
-            $em->flush();
-            if ($user->getEmail() !== $data->email) {
-                $this->addFlash(
-                    'success',
-                    "Votre profil a bien été mis à jour, un email a été envoyé à {$data->email} pour confirmer votre changement"
-                );
-            } else {
-                $this->addFlash('success', 'Votre profil a bien été mis à jour');
-            }
-
-            return $this->redirectToRoute('user_edit');
-        }
-
-        return $this->render('profil/edit.html.twig', [
-            'form_password' => $formPassword->createView(),
-            'form_update' => $formUpdate->createView(),
-            'user' => $user,
-        ]);
-    }
-
-    /**
-     * @Route("/profil/avatar", name="user_avatar", methods={"POST"})
-     * @IsGranted("ROLE_USER")
-     */
-    public function avatar(
-        Request $request,
-        EntityManagerInterface $em,
-        ValidatorInterface $validator,
-        ProfileService $service
-    ): Response {
-        /** @var User $user */
-        $user = $this->getUser();
-        $data = new AvatarDto($request->files->get('avatar'), $user);
-        $errors = $validator->validate($data);
-        if ($errors->count() > 0) {
-            $this->addFlash('error', (string) $errors->get(0)->getMessage());
-        } else {
-            $service->updateAvatar($data);
-            $em->flush();
-            $this->addFlash('success', 'Avatar mis à jour avec succès');
-        }
-
-        return $this->redirectToRoute('user_edit');
-    }
-
     /**
      * @Route("/user/{id}", name="user_show")
      */
@@ -132,44 +69,87 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/profil", methods={"DELETE"})
+     * @Route("/profil/edit", name="user_edit")
      * @IsGranted("ROLE_USER")
      */
-    public function delete(DeleteAccountService $service, Request $request, UserPasswordEncoderInterface $passwordEncoder): JsonResponse
-    {
-        /** @var User $user */
-        $user = $this->getUser();
-        $data = json_decode($request->getContent(), true);
-        if (!$this->isCsrfTokenValid('delete-account', $data['csrf'] ?? '')) {
-            return new JsonResponse([
-                'title' => 'Token CSRF invalide',
-            ], Response::HTTP_BAD_REQUEST);
-        }
-        if (!$passwordEncoder->isPasswordValid($user, $data['password'] ?? '')) {
-            return new JsonResponse([
-                'title' => 'Impossible de supprimer le compte, mot de passe invalide',
-            ], Response::HTTP_UNAUTHORIZED);
+    public
+    function edit(
+        Request $request,
+        EntityManagerInterface $em
+    ): Response {
+        $user = $this->getUserOrThrow();
+
+        // Traitement du mot de passe
+        [$formPassword, $response] = $this->createFormPassword($request);
+        if ($response) {
+            return $response;
         }
 
-        $service->deleteUser($user, $request);
+        [$formUpdate, $response] = $this->createFormProfile($request);
+        if ($response) {
+            return $response;
+        }
 
-        return new JsonResponse([
-            'message' => 'Votre demande de suppression de compte a bien été prise en compte. Votre compte sera supprimé automatiquement au bout de '.DeleteAccountService::DAYS.' jours',
+        return $this->render('profil/edit.html.twig', [
+            'form_password' => $formPassword->createView(),
+            'form_update'   => $formUpdate->createView(),
+            'user'          => $user,
         ]);
     }
 
     /**
-     * @Route("/profil/cancel-delete", methods={"POST"}, name="user_cancel_delete")
-     * @IsGranted("ROLE_USER")
+     * Génère le formulaire de création
      */
-    public function cancelDelete(EntityManagerInterface $em): RedirectResponse
+    private function createFormPassword(Request $request): array
     {
-        /** @var User $user */
-        $user = $this->getUser();
-        $user->setDeleteAt(null);
-        $em->flush();
-        $this->addFlash('success', 'La suppression de votre compte a bien été annulée');
+        $form = $this->createForm(UpdatePasswordForm::class);
+        if ($request->get('action') !== 'password') {
+            return [$form, null];
+        }
 
-        return $this->redirectToRoute('user_edit');
+        $user = $this->getUser();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $user->setPassword($this->passwordEncoder->encodePassword($user, $data['password']));
+            $this->em->flush();
+            $this->addFlash('success', 'Votre mot de passe a bien été mis à jour');
+
+            return [$form, $this->redirectToRoute('user_edit')];
+        }
+
+        return [$form, null];
     }
+
+    /**
+     * Formulaire d'édition de profil
+     */
+    private function createFormProfile(Request $request): array
+    {
+        $user = $this->getUser();
+        $form = $this->createForm(UpdateProfileForm::class, new ProfileUpdateDto($user));
+        if ($request->get('action') !== 'update') {
+            return [$form, null];
+        }
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $this->profileService->updateProfile($data);
+            $this->em->flush();
+            if ($user->getEmail() !== $data->email) {
+                $this->addFlash(
+                    'success',
+                    "Votre profil a bien été mis à jour, un email a été envoyé à {$data->email} pour confirmer votre changement"
+                );
+            } else {
+                $this->addFlash('success', 'Votre profil a bien été mis à jour');
+            }
+
+            return [$form, $this->redirectToRoute('user_edit')];
+        }
+
+        return [$form, null];
+    }
+
 }

@@ -15,17 +15,31 @@
   <div class="layout-sidebar py5" style="--gap:5;">
     <main class="stack-large">
       {# Edition de profil #}
-      {{ form_start(form_update, {attr: {class: 'stack'}}) }}
-      <h2 class="h3">
-        {{ icon('user') }}
-        <strong>Mes informations</strong>
-      </h2>
-      <div class="card p3 grid">
-        {{ form_row(form_update.email) }}
-        {{ form_row(form_update.country) }}
+      {{ form_start(form_update, {attr: {class: 'stack-large'}}) }}
+      <div class="stack">
+        <h2 class="h3">
+          {{ icon('user') }}
+          <strong>Mes informations</strong>
+        </h2>
+        <div class="card p3 grid">
+          {{ form_row(form_update.email) }}
+          {{ form_row(form_update.country) }}
+        </div>
+        <div class="text-right">
+          <button type="submit" class="btn-primary" name="action" value="update">Modifier mon profil</button>
+        </div>
       </div>
-      <div class="text-right">
-        <button type="submit" class="btn-primary" name="action" value="update">Modifier mon profil</button>
+      <div class="stack">
+        <h2 class="h3">
+          {{ icon('comments') }}
+          <strong>Notifications</strong>
+        </h2>
+        <div class="card p3 stack">
+          {{ form_row(form_update.forumNotification, {label: "Recevoir aussi les notifications du forum par Email"}) }}
+        </div>
+        <div class="text-right">
+          <button type="submit" class="btn-primary" name="action" value="update">Modifier mes préférences</button>
+        </div>
       </div>
       {{ form_end(form_update) }}
 

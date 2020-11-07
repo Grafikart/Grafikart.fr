@@ -133,6 +133,7 @@ class TopicRepository extends ServiceEntityRepository
                 LEFT JOIN forum_read_time rt on m.topic_id = rt.topic_id AND m.author_id = rt.owner_id
                 LEFT JOIN "user" u on u.id = m.author_id
                 WHERE
+                      u.forum_mail_notification = true AND
                       m.topic_id = :topic AND
                       (rt.notified IS false OR rt.notified IS NULL) AND
                       m.author_id != :user
@@ -154,7 +155,10 @@ class TopicRepository extends ServiceEntityRepository
                 FROM forum_topic t
                 LEFT JOIN forum_read_time rt on t.id = rt.topic_id AND t.author_id = rt.owner_id
                 LEFT JOIN "user" u on u.id = t.author_id
-                WHERE t.id = :topic AND (rt.notified IS false OR rt.notified IS NULL)
+                WHERE
+                      u.forum_mail_notification = true AND
+                      t.id = :topic AND
+                      (rt.notified IS false OR rt.notified IS NULL)
             SQL, $rsm);
         $query->setParameter('topic', $topic->getId());
         $users = array_merge($users, $query->getResult());

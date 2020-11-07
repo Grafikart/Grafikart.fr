@@ -27,12 +27,14 @@ class ProfileUpdateDto
     public ?string $country;
 
     public User $user;
+    public bool $forumNotification;
 
     public function __construct(User $user)
     {
         $this->email = $user->getEmail();
         $this->country = $user->getCountry();
         $this->user = $user;
+        $this->forumNotification = $user->hasForumMailNotification();
     }
 
     public function getId(): int
