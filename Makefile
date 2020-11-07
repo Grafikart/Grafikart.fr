@@ -76,7 +76,7 @@ tt: vendor/autoload.php ## Lance le watcher phpunit
 
 .PHONY: lint
 lint: vendor/autoload.php ## Analyse le code
-	docker run -v $(PWD):/app --rm phpstan/phpstan analyse
+	docker run -v $(PWD):/app -w /app --rm php:7.4-cli-alpine php -d memory_limit=-1 ./vendor/bin/phpstan analyse
 
 .PHONY: format
 format:
