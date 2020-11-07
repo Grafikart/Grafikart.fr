@@ -13,3 +13,5 @@ parameters:
     - src/Infrastructure/Migrations/*
   checkMissingIterableValueType: false
   checkGenericClassInNonGenericObjectType: false
+  doctrine:
+    objectManagerLoader: tests/object-manager.php

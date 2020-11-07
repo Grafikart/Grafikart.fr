@@ -4,8 +4,6 @@ namespace App\Http\Admin\Controller;
 
 use App\Domain\Forum\Entity\Message;
 use App\Domain\Forum\Entity\Topic;
-use App\Domain\Forum\Repository\MessageRepository;
-use App\Domain\Forum\Repository\TopicRepository;
 use App\Infrastructure\Spam\SpammableInterface;
 use App\Infrastructure\Spam\SpamService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -67,12 +65,8 @@ class SpamController extends BaseController
      */
     public function detect(SpamService $spamService): RedirectResponse
     {
-        /** @var TopicRepository $topicRepository */
-        $topicRepository = $this->em->getRepository(Topic::class);
-        /** @var MessageRepository $messageRepository */
-        $messageRepository = $this->em->getRepository(Topic::class);
-        $topicsCount = $topicRepository->flagAsSpam($spamService->words());
-        $messagesCount = $messageRepository->flagAsSpam($spamService->words());
+        $topicsCount = $this->em->getRepository(Topic::class)->flagAsSpam($spamService->words());
+        $messagesCount = $this->em->getRepository(Message::class)->flagAsSpam($spamService->words());
         $count = $topicsCount + $messagesCount;
         $this->addFlash('success', "{$count} spams détectés");
         if ($count > 0) {
