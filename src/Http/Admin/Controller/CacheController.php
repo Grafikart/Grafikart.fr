@@ -9,7 +9,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CacheController extends AbstractController
 {
-
     /**
      * @Route("/cache/clean", name="cache_clean", methods={"POST"})
      */
@@ -17,6 +16,7 @@ class CacheController extends AbstractController
     {
         $this->addFlash('success', 'Le cache a bien été supprimé');
         $cache->clear();
+
         return $this->redirectToRoute('admin_home');
     }
 }

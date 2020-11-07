@@ -2,6 +2,8 @@
 
 namespace App\Infrastructure\Search\EventSubscriber;
 
+use App\Domain\Application\Event\ContentCreatedEvent;
+use App\Domain\Application\Event\ContentDeletedEvent;
 use App\Domain\Application\Event\ContentUpdatedEvent;
 use App\Infrastructure\Search\IndexerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -21,15 +23,32 @@ class IndexerSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            // TODO : indexer directement sur pgsql
-            // ContentUpdatedEvent::class => 'indexContent',
+            ContentUpdatedEvent::class => 'updateContent',
+            ContentCreatedEvent::class => 'indexContent',
+            ContentDeletedEvent::class => 'removeContent',
         ];
     }
 
-    public function indexContent(ContentUpdatedEvent $event): void
+    public function indexContent(ContentCreatedEvent $event): void
     {
+        /** @var array{id: string, title: string, content: string, created_at: int, category: string[]} $content */
+        $content = $this->normalizer->normalize($event->getContent(), 'search');
+        $this->indexer->index($content);
+    }
+
+    public function removeContent(ContentDeletedEvent $event): void
+    {
+        $this->indexer->remove((string) $event->getContent()->getId());
+    }
+
+    public function updateContent(ContentUpdatedEvent $event): void
+    {
+        /** @var array{id: string, title: string, content: string, created_at: int, category: string[]} $previousData */
+        $previousData = $this->normalizer->normalize($event->getPrevious(), 'search');
         /** @var array{id: string, title: string, content: string, created_at: int, category: string[]} $data */
         $data = $this->normalizer->normalize($event->getContent(), 'search');
-        $this->indexer->index($data);
+        if ($previousData !== $data) {
+            $this->indexer->index($data);
+        }
     }
 }

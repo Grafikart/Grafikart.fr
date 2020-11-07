@@ -64,7 +64,7 @@ final class TransactionImporter implements TypeImporterInterface
                     ->setMethod($oldTransaction['method'])
                     ->setRefunded($oldTransaction['reimbursed'])
                     ->setMethodRef($oldTransaction['paypal_id'])
-                    ->setDuration((int)$oldTransaction['ref_id']);
+                    ->setDuration((int) $oldTransaction['ref_id']);
                 $this->em->persist($transaction);
                 $this->disableAutoIncrement($transaction);
             }
@@ -74,7 +74,7 @@ final class TransactionImporter implements TypeImporterInterface
         }
         $id = $oldTransaction['id'] + 1;
         $this->em->getConnection()->exec("ALTER SEQUENCE transaction_id_seq RESTART WITH $id;");
-        $this->em->getConnection()->exec("REINDEX table transaction;");
+        $this->em->getConnection()->exec('REINDEX table transaction;');
         $io->progressFinish();
         $io->success(sprintf('Importation de %d transactions', $result['count']));
     }

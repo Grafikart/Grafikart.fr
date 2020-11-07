@@ -30,7 +30,7 @@ class ScheduledJobsService
      */
     public function getJobs(): array
     {
-        if (strpos($this->dsn, 'redis://') !== 0) {
+        if (0 !== strpos($this->dsn, 'redis://')) {
             return [];
         }
         $messages = $this->getConnection()->zRange('messages__queue', 0, 10);

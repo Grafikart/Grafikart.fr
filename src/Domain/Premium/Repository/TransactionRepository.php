@@ -49,11 +49,11 @@ class TransactionRepository extends ServiceEntityRepository
             ->select(
                 "TO_CHAR(t.createdAt, '$label') as date",
                 "TO_CHAR(t.createdAt, '$group') as fulldate",
-                "SUM(t.price - t.tax) * 0.966 - COUNT(t.price) * 0.25 as amount"
+                'SUM(t.price - t.tax) * 0.966 - COUNT(t.price) * 0.25 as amount'
             )
             ->groupBy('fulldate', 'date')
             ->where('t.refunded = false')
-            ->orderBy("fulldate", "DESC")
+            ->orderBy('fulldate', 'DESC')
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult());
