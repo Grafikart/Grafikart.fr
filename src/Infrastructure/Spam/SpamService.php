@@ -34,13 +34,14 @@ class SpamService
     }
 
     /**
-     * Renvoie la liste des mots constituant du spam
+     * Renvoie la liste des mots constituant du spam.
      *
      * @return string[]
      */
     public function words(): array
     {
         $spamWords = preg_split('/\r\n|\r|\n/', $this->optionManager->get('spam_words') ?: '');
+
         return is_array($spamWords) ? $spamWords : [];
     }
 }

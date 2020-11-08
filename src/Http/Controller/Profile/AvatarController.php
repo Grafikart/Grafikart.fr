@@ -14,11 +14,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
- * Gère le changement d'avatar de l'utilisateur
+ * Gère le changement d'avatar de l'utilisateur.
  */
 class AvatarController extends AbstractController
 {
-
     /**
      * @Route("/profil/avatar", name="user_avatar", methods={"POST"})
      * @IsGranted("ROLE_USER")
@@ -34,7 +33,7 @@ class AvatarController extends AbstractController
         $data = new AvatarDto($request->files->get('avatar'), $user);
         $errors = $validator->validate($data);
         if ($errors->count() > 0) {
-            $this->addFlash('error', (string)$errors->get(0)->getMessage());
+            $this->addFlash('error', (string) $errors->get(0)->getMessage());
         } else {
             $profileService->updateAvatar($data);
             $em->flush();
@@ -43,5 +42,4 @@ class AvatarController extends AbstractController
 
         return $this->redirectToRoute('user_edit');
     }
-
 }

@@ -315,7 +315,7 @@ class Transaction
     public function setFee(float $fee): self
     {
         $this->fee = $fee;
+
         return $this;
     }
-
 }

@@ -10,7 +10,6 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class MessageRepository extends ServiceEntityRepository
 {
-
     use SpammableRepositoryTrait;
 
     public function __construct(ManagerRegistry $registry)

@@ -21,12 +21,9 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  */
 class UserController extends AbstractController
 {
-
     private UserPasswordEncoderInterface $passwordEncoder;
     private EntityManagerInterface $em;
-    /**
-     * @var ProfileService
-     */
+
     private ProfileService $profileService;
 
     public function __construct(
@@ -34,7 +31,6 @@ class UserController extends AbstractController
         EntityManagerInterface $em,
         ProfileService $profileService
     ) {
-
         $this->passwordEncoder = $passwordEncoder;
         $this->em = $em;
         $this->profileService = $profileService;
@@ -44,8 +40,7 @@ class UserController extends AbstractController
      * @Route("/profil", name="user_profil", methods={"GET"})
      * @IsGranted("ROLE_USER")
      */
-    public
-    function index(
+    public function index(
         HistoryService $history,
         TopicRepository $topicRepository
     ): Response {
@@ -55,11 +50,12 @@ class UserController extends AbstractController
         $lastMessageTopics = $topicRepository->findLastWithUser($user);
 
         return $this->render('profil/profil.html.twig', [
-            'watchlist'         => $watchlist,
-            'lastTopics'        => $lastTopics,
+            'watchlist' => $watchlist,
+            'lastTopics' => $lastTopics,
             'lastMessageTopics' => $lastMessageTopics,
         ]);
     }
+
     /**
      * @Route("/user/{id}", name="user_show")
      */
@@ -72,8 +68,7 @@ class UserController extends AbstractController
      * @Route("/profil/edit", name="user_edit")
      * @IsGranted("ROLE_USER")
      */
-    public
-    function edit(
+    public function edit(
         Request $request,
         EntityManagerInterface $em
     ): Response {
@@ -92,18 +87,18 @@ class UserController extends AbstractController
 
         return $this->render('profil/edit.html.twig', [
             'form_password' => $formPassword->createView(),
-            'form_update'   => $formUpdate->createView(),
-            'user'          => $user,
+            'form_update' => $formUpdate->createView(),
+            'user' => $user,
         ]);
     }
 
     /**
-     * Génère le formulaire de création
+     * Génère le formulaire de création.
      */
     private function createFormPassword(Request $request): array
     {
         $form = $this->createForm(UpdatePasswordForm::class);
-        if ($request->get('action') !== 'password') {
+        if ('password' !== $request->get('action')) {
             return [$form, null];
         }
 
@@ -123,13 +118,13 @@ class UserController extends AbstractController
     }
 
     /**
-     * Formulaire d'édition de profil
+     * Formulaire d'édition de profil.
      */
     private function createFormProfile(Request $request): array
     {
         $user = $this->getUser();
         $form = $this->createForm(UpdateProfileForm::class, new ProfileUpdateDto($user));
-        if ($request->get('action') !== 'update') {
+        if ('update' !== $request->get('action')) {
             return [$form, null];
         }
         $form->handleRequest($request);
@@ -151,5 +146,4 @@ class UserController extends AbstractController
 
         return [$form, null];
     }
-
 }

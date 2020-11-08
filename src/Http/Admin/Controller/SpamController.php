@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SpamController extends BaseController
 {
     public const TYPES = [
-        'topic'   => Topic::class,
+        'topic' => Topic::class,
         'message' => Message::class,
     ];
 
@@ -33,7 +33,7 @@ class SpamController extends BaseController
     public function index(): Response
     {
         return $this->render('admin/spam/index.html.twig', [
-            'topics'   => $this->em->getRepository(Topic::class)->findBy(['spam' => true]),
+            'topics' => $this->em->getRepository(Topic::class)->findBy(['spam' => true]),
             'messages' => $this->em->getRepository(Message::class)->findBy(['spam' => true]),
         ]);
     }
@@ -59,7 +59,7 @@ class SpamController extends BaseController
     }
 
     /**
-     * Lance la détection des contenu "spams"
+     * Lance la détection des contenu "spams".
      *
      * @Route("/spam/detect", name="spam_detect", methods={"POST"})
      */
@@ -72,6 +72,7 @@ class SpamController extends BaseController
         if ($count > 0) {
             return $this->redirectToRoute('admin_spam_index');
         }
+
         return $this->redirectToRoute('admin_home');
     }
 }

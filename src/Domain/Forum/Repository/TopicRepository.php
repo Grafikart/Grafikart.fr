@@ -14,7 +14,6 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class TopicRepository extends ServiceEntityRepository
 {
-
     use SpammableRepositoryTrait;
 
     public function __construct(ManagerRegistry $registry)

@@ -16,7 +16,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AccountDeletionController extends AbstractController
 {
-
     /**
      * @Route("/profil", methods={"DELETE"})
      * @IsGranted("ROLE_USER")
@@ -25,8 +24,7 @@ class AccountDeletionController extends AbstractController
         DeleteAccountService $service,
         UserPasswordEncoderInterface $passwordEncoder,
         Request $request
-    ): JsonResponse
-    {
+    ): JsonResponse {
         /** @var User $user */
         $user = $this->getUser();
         $data = json_decode($request->getContent(), true);
@@ -62,5 +60,4 @@ class AccountDeletionController extends AbstractController
 
         return $this->redirectToRoute('user_edit');
     }
-
 }

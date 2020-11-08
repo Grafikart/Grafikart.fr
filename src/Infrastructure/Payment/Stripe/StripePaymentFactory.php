@@ -19,7 +19,6 @@ class StripePaymentFactory
 
     public function createPaymentFromIntent(PaymentIntent $intent): StripePayment
     {
-
         /** @var Charge $charge */
         $charge = $intent->charges->data[0];
         if (is_string($charge->balance_transaction)) {

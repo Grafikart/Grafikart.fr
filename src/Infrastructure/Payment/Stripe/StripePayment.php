@@ -3,6 +3,7 @@
 namespace App\Infrastructure\Payment\Stripe;
 
 use App\Infrastructure\Payment\Payment;
+use Stripe\BalanceTransaction;
 use Stripe\Charge;
 use Stripe\Checkout\Session;
 use Stripe\Invoice;
@@ -26,7 +27,9 @@ class StripePayment extends Payment
         $this->city = $charge->billing_details['address']['city'];
         $this->postalCode = $charge->billing_details['address']['postal_code'];
         $this->countryCode = $charge->billing_details['address']['country'];
-        $this->fee = $charge->balance_transaction->fee / 100;
+        /** @var BalanceTransaction $transaction */
+        $transaction = $charge->balance_transaction;
+        $this->fee = $transaction->fee / 100;
 
         // Paiement lié à une facture
         if ($extra instanceof Invoice) {

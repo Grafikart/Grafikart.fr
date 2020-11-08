@@ -350,7 +350,7 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface
     public function setForumMailNotification(bool $forumMailNotification): User
     {
         $this->forumMailNotification = $forumMailNotification;
+
         return $this;
     }
-
 }

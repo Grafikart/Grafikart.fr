@@ -30,7 +30,7 @@ class TopicRepositoryTest extends RepositoryTestCase
         $this->assertEquals(0, $this->repository->count([]));
     }
 
-    public function testUsersToNotify ()
+    public function testUsersToNotify()
     {
         /** @var Message $message */
         ['message1' => $message, 'user1' => $user1, 'user2' => $user2] = $this->loadFixtures(['forums']);
@@ -43,7 +43,7 @@ class TopicRepositoryTest extends RepositoryTestCase
         );
     }
 
-    public function testUsersToNotifyExcludeUnwantedEmails ()
+    public function testUsersToNotifyExcludeUnwantedEmails()
     {
         /** @var Message $message */
         /** @var User $user1 */
