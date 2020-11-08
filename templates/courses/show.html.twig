@@ -37,7 +37,7 @@
         <progress-tracker contentId="{{ course.id }}" data-history="{{ course.id }}" duration="{{ course.duration }}">
           <premium-player
             id="course-{{ course.id }}"
-            video="{{ path('api_video_url', {id: course.id}) }}"
+            video="{{ path('stream_video', {video: course.videoPath}) }}"
             poster="{{ image_url(course.image) }}"
             title="{{ course.title }}"
             button="#chapter{{ course.id }} play-button"

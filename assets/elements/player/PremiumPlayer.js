@@ -1,5 +1,4 @@
 import { playerStyle } from './PlayerStyle.js'
-import { jsonFetchOrFlash } from '/functions/api.js'
 import { flash } from '/elements/Alert.js'
 
 /**
@@ -63,16 +62,12 @@ export class PremiumPlayer extends HTMLElement {
   }
 
   /**
-   * @param {string} apiEndpoint
+   * @param {string} url
    * @return {Promise<void>}
    */
-  async loadPlayer (apiEndpoint) {
-    const response = await jsonFetchOrFlash(apiEndpoint, { method: 'POST' })
-    if (response === null) {
-      return
-    }
+  loadPlayer (url) {
     this.video = document.createElement('video')
-    this.video.src = response.url
+    this.video.src = url
     this.video.controls = true
     this.video.autoplay = true
     this.video.currentTime = this.getAttribute('start') ? parseInt(this.getAttribute('start'), 10) : 0

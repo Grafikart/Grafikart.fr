@@ -11,6 +11,7 @@ class CourseVoter extends Voter
 {
     const DOWNLOAD_SOURCE = 'DOWNLOAD_SOURCE';
     const DOWNLOAD_VIDEO = 'DOWNLOAD_VIDEO';
+    const STREAM_VIDEO = 'STREAM_VIDEO';
 
     /**
      * {@inheritdoc}
@@ -20,7 +21,8 @@ class CourseVoter extends Voter
         return in_array($attribute, [
                 self::DOWNLOAD_SOURCE,
                 self::DOWNLOAD_VIDEO,
-            ]) && $subject instanceof Course;
+            ]) && $subject instanceof Course ||
+            in_array($attribute, [self::STREAM_VIDEO]);
     }
 
     /**
