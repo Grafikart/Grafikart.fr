@@ -200,17 +200,27 @@
 // Tabs bar
 // =============
 .tabs-bar {
+  position: relative;
   display: flex;
-  border-bottom: 3px solid var(--border-light);
   overflow-x: auto;
   overflow-y: hidden;
+  &::after {
+    content:'';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: var(--border-light);
+  }
 }
 .tabs-bar a {
   display: block;
   padding: space(2);
   font-size: 1.2em;
-  margin-bottom: -3px;
   white-space: nowrap;
+  position: relative;
+  z-index: 2;
 }
 .tabs-bar .icon {
   width: 1rem;
