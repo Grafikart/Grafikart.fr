@@ -16,6 +16,7 @@ trait SpammableRepositoryTrait
         foreach ($words as $k => $word) {
             $query = $query->orWhere("t.content LIKE :word{$k}")->setParameter("word{$k}", "%{$word}%");
         }
+        $query = $query->andWhere('t.spam = false');
         return $query->update()->set('t.spam', 'true')->getQuery()->execute();
     }
 }
