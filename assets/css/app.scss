@@ -29,7 +29,18 @@
   --skeleton-wave: var(--border-light);
 }
 
-.dark {
+// Outils
+// ==================
+@import 'tools/reset';
+@import 'tools/functions';
+@import 'tools/mixins';
+@import 'tools/layout';
+@import 'tools/typography';
+@import 'tools/animations';
+
+// Dark mode
+// =============
+@include dark() {
   --color-dark: #fff;
   --color: #d4dcff;
   --color-light: #8491c7;
@@ -50,20 +61,18 @@
   --skeleton: #0f1224;
   --skeleton-wave: #171933;
   --red: #A6333F;
-}
 
-.dark .lighten-dark {
-  filter: brightness(10);
-}
+  .lighten-dark {
+    filter: brightness(10);
+  }
 
-// Outils
-// ==================
-@import 'tools/reset';
-@import 'tools/functions';
-@import 'tools/mixins';
-@import 'tools/layout';
-@import 'tools/typography';
-@import 'tools/animations';
+  youtube-player {
+    --color: #111426;
+  }
+  waves-shape {
+    --contrast: #263880;
+  }
+}
 
 // Generic
 // ==================
@@ -88,8 +97,8 @@ body.header-light::after {
 }
 
 body::after {
+  display: none;
   content: '';
-  display: block;
   position: absolute;
   top: 0;
   left: 0;
@@ -98,6 +107,10 @@ body::after {
   z-index: -1;
   pointer-events: none;
   background: url(/images/logo-overlay.svg) top left / 100% 100% no-repeat;
+
+  @include up(700) {
+    display: block;
+  }
 }
 
 ::selection {
@@ -114,12 +127,6 @@ body::after {
 // =============
 con-fetti {
   display: block;
-}
-.dark youtube-player {
-  --color: #111426;
-}
-.dark waves-shape {
-  --contrast: #4869ee;
 }
 
 

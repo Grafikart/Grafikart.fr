@@ -52,7 +52,7 @@ $font-alt: 'Gotham', 'Montserrat', 'Open Sans', -apple-system, BlinkMacSystemFon
   font-family: $font-alt;
   font-size: 18px;
   font-weight: bold;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-light);
   padding-bottom: space(.5);
   margin-bottom: space(2);
 }

@@ -202,12 +202,15 @@
 .tabs-bar {
   display: flex;
   border-bottom: 3px solid var(--border-light);
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 .tabs-bar a {
   display: block;
   padding: space(2);
   font-size: 1.2em;
   margin-bottom: -3px;
+  white-space: nowrap;
 }
 .tabs-bar .icon {
   width: 1rem;

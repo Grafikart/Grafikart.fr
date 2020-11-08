@@ -32,10 +32,37 @@
       <div class="stack">
         <h2 class="h3">
           {{ icon('comments') }}
-          <strong>Notifications</strong>
+          <strong>Préférences</strong>
         </h2>
-        <div class="card p3 stack">
-          {{ form_row(form_update.forumNotification, {label: "Recevoir aussi les notifications du forum par Email"}) }}
+        <div class="card p3 stack-large">
+          <section>
+            <div class="section-title">
+              Notifications
+            </div>
+            {{ form_row(form_update.forumNotification, {label: "Recevoir aussi les notifications du forum par Email"}) }}
+          </section>
+          <section>
+            <div class="section-title">
+              Apparence
+            </div>
+            <div class="stack">
+              <div class="form-switch form-group">
+                <div class="form-switch">
+                  <input type="checkbox" id="update_profile_form_forumNotification"
+                         name="update_profile_form[forumNotification]" is="input-switch" class="form-check-input"
+                         value="1" checked="checked">
+                  <label class="form-check-label" for="update_profile_form_forumNotification">Recevoir aussi les
+                    notifications du forum par Email</label></div>
+              </div>
+              <div class="form-switch form-group">
+                <div class="form-switch"><input type="checkbox" id="update_profile_form_forumNotification"
+                                                name="update_profile_form[forumNotification]" is="input-switch"
+                                                class="form-check-input" value="1" checked="checked">
+                  <label class="form-check-label" for="update_profile_form_forumNotification">Recevoir aussi les
+                    notifications du forum par Email</label></div>
+              </div>
+            </div>
+          </section>
         </div>
         <div class="text-right">
           <button type="submit" class="btn-primary" name="action" value="update">Modifier mes préférences</button>

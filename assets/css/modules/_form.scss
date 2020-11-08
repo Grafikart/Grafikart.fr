@@ -117,6 +117,7 @@ input:disabled {
   }
 }
 .switch {
+  flex: none;
   width: 55px;
   height: 26px;
   display: inline-block;

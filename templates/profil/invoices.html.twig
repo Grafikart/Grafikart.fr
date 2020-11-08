@@ -10,8 +10,6 @@
 
   {% include 'profil/_tabs.html.twig' with {active: 'invoices'} %}
 
-
-
   <div class="layout-sidebar py5" style="--gap:5;">
     <main>
       <h2 class="h3 mb3">
@@ -27,7 +25,7 @@
           <thead>
           <tr>
             <th width="180">Date</th>
-            <th>Description</th>
+            <th class="mobile-hidden">Description</th>
             <th>Prix</th>
             <th width="200"></th>
           </tr>
@@ -35,12 +33,19 @@
           <tbody>
           {% for transaction in transactions %}
             <tr>
-              <td>{{ transaction.createdAt | format_date('long') }}</td>
-              <td>Compte premium {{ transaction.duration }} mois</td>
+              <td>
+                <div class="mobile-hidden">
+                  {{ transaction.createdAt | format_date('long') }}
+                </div>
+                <div class="mobile-only" aria-hidden="true">
+                  {{ transaction.createdAt | format_date('short') }}
+                </div>
+              </td>
+              <td class="mobile-hidden">Compte premium {{ transaction.duration }} mois</td>
               <td>{{ transaction.price | format_currency('EUR') }}</td>
               <td class="text-right">
                 <a target="_blank" href="{{ path('user_invoice', {id: transaction.id}) }}" class="btn-secondary">Télécharger
-                  la facture</a>
+                 <span class="mobile-hidden"> la facture</span></a>
               </td>
             </tr>
           {% endfor %}

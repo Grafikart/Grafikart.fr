@@ -9,7 +9,7 @@
 // ==================
 .course-hero {
   @extend %hero-text;
-  grid-column: 1 / 3;
+  grid-column: 1 -1;
   max-width: 500px;
 
   &.is-paginated {
@@ -130,6 +130,12 @@
   grid-gap: calc(var(--gap) * var(--space));
   grid-template-columns: 1fr;
 
+  @include down(1100) {
+    & > *:last-child {
+      display: none;
+    }
+  }
+
   @include up(1100) {
     grid-template-columns: 1fr 385px;
   }
@@ -137,6 +143,11 @@
 .course-page {
   background: var(--background-light);
   border-top: solid 1px var(--border);
+}
+.course-tabs {
+  @include up(1100) {
+    display: none!important;
+  }
 }
 .course-countdown {
   position: relative;
@@ -187,13 +198,30 @@
   padding-right: space(3);
 }
 .course-actions {
-  text-transform: uppercase;
-  font-size: 20px;
-  font-family: $font-alt;
-  font-weight: bold;
-}
-.course-actions * > * {
-  margin-left: space(1);
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: space(2);
+  justify-items: flex-start;
+
+  & > div:first-child {
+    grid-template-columns: repeat(2, minmax(min-content, max-content));
+  }
+
+  & > div {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: space(2);
+  }
+
+  @include up(600) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    & > div {
+      grid-template-columns: repeat(2, minmax(min-content, max-content));
+    }
+  }
 }
 
 // En tête des tutoriels (avec player video)

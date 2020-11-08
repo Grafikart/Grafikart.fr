@@ -172,3 +172,9 @@
 .search-result a:hover {
   color: var(--contrast);
 }
+
+@include dark() {
+  .search-result mark {
+    background-color: var(--contrast);
+  }
+}

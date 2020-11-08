@@ -65,88 +65,110 @@
       {% endif %}
     </div>
 
-    <div class="course-page container pb5">
+    <div class="course-page pb5">
 
-      <div class="flex py3">
-        <div class="hstack">
-          {% if course.premium %}
-            <div class="pill pill-yellow">Premium</div>
-          {% endif %}
-          {% include 'partials/level.html.twig' with {content: course} %}
-        </div>
-        <div class="hstack">
-          {% if course.demo %}
-            <a href="{{ course.demo }}" class="pill" target="_blank"
-               title="Démonstration du tutoriel {{ course.title }}">
-              {{ icon('lines') }}
-              Voir la démo
-            </a>
-          {% endif %}
-          {% if course.source is not empty %}
-            <a href="{{ path('course_download_source', {id: course.id}) }}" class="pill">
-              {{ icon('lines') }}
-              Télécharger les sources
-            </a>
-          {% endif %}
-          <a href="{{ path('course_download_video', {id: course.id}) }}" class="pill">
-            {{ icon('video') }}
-            Télécharger la vidéo
-          </a>
-        </div>
-      </div>
+      {% if course.formation %}
+      <nav-tabs class="course-tabs tabs-bar container bg-light">
+        <a href="#content" aria-controls="content"  aria-selected="true">
+          {{ icon('edit') }}
+          Description
+        </a>
+        <a href="#sommaire" aria-controls="sommaire" >
+          {{ icon('lines') }}
+          Sommaire
+        </a>
+      </nav-tabs>
+      {% endif %}
 
-      <div class="layout-sidebar">
-        <div class="stack">
-          <div class="formatted">
-            <h1>{{ course.title }}</h1>
+      <div class="container" id="content">
+        <div class="course-actions py3">
+          <div>
+            {% if course.premium %}
+              <div class="pill pill-yellow">Premium</div>
+            {% endif %}
+            {% include 'partials/level.html.twig' with {content: course} %}
           </div>
-
-          {% include 'courses/_deprecation.html.twig' %}
-
-          <div class="formatted">
-            {{ course.content | markdown }}
+          <div>
+            {% if course.demo %}
+              <a href="{{ course.demo }}" class="pill" target="_blank"
+                 title="Démonstration du tutoriel {{ course.title }}">
+                {{ icon('lines') }}
+                Voir la démo
+              </a>
+            {% endif %}
+            {% if course.source is not empty %}
+              <a href="{{ path('course_download_source', {id: course.id}) }}" class="pill">
+                {{ icon('lines') }}
+                Télécharger les sources
+              </a>
+            {% endif %}
+            <a href="{{ path('course_download_video', {id: course.id}) }}" class="pill">
+              {{ icon('video') }}
+              Télécharger la vidéo
+            </a>
           </div>
-
-          {% include 'partials/comments.html.twig' with {target: course} only %}
         </div>
-        <div>
-          <div class="stack-large">
-            <admin-edit hidden></admin-edit>
-            <div>
-              <div class="requirements__title">Technologies utilisées</div>
-              <div class="list-group">
-                {% for technology in course.mainTechnologies %}
-                <a class="flex" href="{{ path(technology) }}">
-                  {{ technology.name }}
-                  {% if technology.version %}
-                    <span class="badge">{{ technology.version }}</span>
-                  {% endif %}
-                </a>
-                {% endfor %}
-              </div>
+
+        <div class="layout-sidebar">
+          <div class="stack">
+            <div class="formatted">
+              <h1>{{ course.title }}</h1>
             </div>
-            <div>
-              <div class="flex">
-                <img class="author_avatar" src="https://www.grafikart.fr/uploads/avatars/1/1.jpg" alt=""
-                     style="width: 50px;border-radius: 50px;">
-                <div style="width: 100%; margin-left: 20px;">
-                  <strong style="font-weight: bold;">Auteur : </strong><br>
-                  <a title="Grafikart" class="author_name" href="/profil/1">Grafikart</a>
+
+            {% include 'courses/_deprecation.html.twig' %}
+
+            <div class="formatted">
+              {{ course.content | markdown }}
+            </div>
+
+            {% include 'partials/comments.html.twig' with {target: course} only %}
+          </div>
+          <div>
+            <div class="stack-large">
+              <admin-edit hidden></admin-edit>
+              <div>
+                <div class="requirements__title">Technologies utilisées</div>
+                <div class="list-group">
+                  {% for technology in course.mainTechnologies %}
+                    <a class="flex" href="{{ path(technology) }}">
+                      {{ technology.name }}
+                      {% if technology.version %}
+                        <span class="badge">{{ technology.version }}</span>
+                      {% endif %}
+                    </a>
+                  {% endfor %}
                 </div>
               </div>
-            </div>
-            <div>
-              <div class="requirements__title">Partager</div>
-              <a href="https://twitter.com/intent/tweet?via=grafikart_fr&tw_p=tweetbutton&url={{ url(course) | url_encode }}" is="social-share" target="_blank">
-                <img src="/images/social/twitter.svg" alt="">
-              </a>
-              <a href="https://www.facebook.com/sharer/sharer.php?u={{ url(course) | url_encode }}" is="social-share" target="_blank">
-                <img src="/images/social/facebook.svg" alt="">
-              </a>
+              <div>
+                <div class="flex">
+                  <img class="author_avatar" src="https://www.grafikart.fr/uploads/avatars/1/1.jpg" alt=""
+                       style="width: 50px;border-radius: 50px;">
+                  <div style="width: 100%; margin-left: 20px;">
+                    <strong style="font-weight: bold;">Auteur : </strong><br>
+                    <a title="Grafikart" class="author_name" href="/profil/1">Grafikart</a>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="requirements__title">Partager</div>
+                <a href="https://twitter.com/intent/tweet?via=grafikart_fr&tw_p=tweetbutton&url={{ url(course) | url_encode }}" is="social-share" target="_blank">
+                  <img src="/images/social/twitter.svg" alt="">
+                </a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ url(course) | url_encode }}" is="social-share" target="_blank">
+                  <img src="/images/social/facebook.svg" alt="">
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      {% if course.formation %}
+      <div class="container" id="sommaire" hidden>
+          {% include 'chapters/_summary.html.twig' with {chapters: course.formation.chapters} only %}
+      </div>
+      {% endif %}
+
     </div>
   {% endcache %}
 

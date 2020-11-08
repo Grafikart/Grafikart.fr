@@ -13,6 +13,7 @@
   transition: filter 0.3s, background 0.3s, color 0.3s;
   font-size: 0.9em;
   filter: brightness(1);
+  white-space: nowrap;
 
   &[disabled] {
     cursor: default;

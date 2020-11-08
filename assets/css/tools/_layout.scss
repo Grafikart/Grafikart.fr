@@ -36,6 +36,8 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  overflow: hidden;
 }
 
 // Container
@@ -329,5 +331,17 @@
     .ml#{$i} {
       margin-left: space($i);
     }
+  }
+}
+
+.mobile-only {
+  @include up(700) {
+    display: none;
+  }
+}
+
+.mobile-hidden {
+  @include down(700) {
+    display: none;
   }
 }

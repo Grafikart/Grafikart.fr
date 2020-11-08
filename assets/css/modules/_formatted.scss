@@ -26,6 +26,7 @@
 
   pre {
     margin: 2em 0;
+    max-width: calc(100vw - #{space(4)});
   }
 
   p,

@@ -65,12 +65,31 @@
 }
 .cursus-header {
   display: grid;
-  grid-template-columns: 750px 1fr;
+  grid-template-columns: 1fr;
   grid-gap: space(4);
   align-items: flex-start;
 
-  > *:first-child {
+  & > *:first-child {
     align-self: center;
+  }
+
+  img {
+    display: none;
+  }
+
+  @include up(700) {
+    grid-template-columns: 1fr 500px;
+
+    & > *:first-child {
+      align-self: center;
+    }
+
+    img {
+      display: block;
+      height: 350px;
+      margin-top: -30px;
+      margin-bottom: -100px;
+    }
   }
 }
 /**
@@ -91,9 +110,3 @@
   width: 100%;
 }
 **/
-
-.cursus-header img {
-  height: 350px;
-  margin-top: -30px;
-  margin-bottom: -100px;
-}
