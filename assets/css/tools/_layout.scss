@@ -263,6 +263,10 @@
   grid-gap: calc(var(--gap) * var(--space));
   grid-template-columns: 1fr;
 
+  & > * {
+    min-width: 0;
+  }
+
   @include up(1100) {
     grid-template-columns: 1fr 300px;
   }

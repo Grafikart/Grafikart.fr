@@ -1,13 +1,14 @@
 ::-webkit-scrollbar {
   width: 7px;
+  height: 7px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--background);
+  background: var(--background-light);
   padding: 1px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-light);
+  background: var(--border);
   border-radius: 4px;
 }
