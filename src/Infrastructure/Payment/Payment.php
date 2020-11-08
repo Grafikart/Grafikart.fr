@@ -23,4 +23,6 @@ class Payment
     public string $countryCode = 'FR';
 
     public float $vat = 0;
+
+    public float $fee = 0;
 }

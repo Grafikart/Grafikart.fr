@@ -56,7 +56,9 @@ class PaypalService
             /** @var \stdClass $capture */
             $capture = $this->client->execute(new OrdersCaptureRequest($payment->id))->result;
             if ('COMPLETED' === $capture->status) {
-                $payment->id = $capture->purchase_units[0]->payments->captures[0]->id;
+                $capture = $capture->purchase_units[0]->payments->captures[0];
+                $payment->id = $capture->id;
+                $payment->fee = $capture->seller_receivable_breakdown->paypal_fee->value;
 
                 return $payment;
             }

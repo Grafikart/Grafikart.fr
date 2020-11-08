@@ -4,6 +4,7 @@ namespace App\Infrastructure\Payment\Stripe;
 
 use App\Domain\Auth\User;
 use App\Domain\Premium\Entity\Plan;
+use Stripe\BalanceTransaction;
 use Stripe\Checkout\Session;
 use Stripe\Customer;
 use Stripe\Invoice;
@@ -153,5 +154,10 @@ class StripeApi
         $sessions = $this->stripe->checkout->sessions->all(['payment_intent' => $paymentIntent])->data;
 
         return $sessions[0];
+    }
+
+    public function getTransaction(string $id): BalanceTransaction
+    {
+        return $this->stripe->balanceTransactions->retrieve($id);
     }
 }

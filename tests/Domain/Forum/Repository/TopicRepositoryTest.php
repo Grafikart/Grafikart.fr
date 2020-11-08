@@ -35,7 +35,7 @@ class TopicRepositoryTest extends RepositoryTestCase
         /** @var Message $message */
         ['message1' => $message, 'user1' => $user1, 'user2' => $user2] = $this->loadFixtures(['forums']);
         $message->setAuthor($user1);
-        $message->getTopic()->getAuthor($user2);
+        $message->getTopic()->setAuthor($user2);
         $this->em->flush();
         $this->assertCount(
             1,
@@ -50,7 +50,7 @@ class TopicRepositoryTest extends RepositoryTestCase
         ['message1' => $message, 'user1' => $user1, 'user2' => $user2] = $this->loadFixtures(['forums']);
         $message->setAuthor($user1);
         $user2->setForumMailNotification(false);
-        $message->getTopic()->getAuthor($user2);
+        $message->getTopic()->setAuthor($user2);
         $this->em->flush();
         $this->assertCount(
             0,

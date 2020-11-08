@@ -26,6 +26,7 @@ class StripePayment extends Payment
         $this->city = $charge->billing_details['address']['city'];
         $this->postalCode = $charge->billing_details['address']['postal_code'];
         $this->countryCode = $charge->billing_details['address']['country'];
+        $this->fee = $charge->balance_transaction->fee / 100;
 
         // Paiement lié à une facture
         if ($extra instanceof Invoice) {

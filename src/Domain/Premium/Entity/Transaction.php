@@ -92,6 +92,11 @@ class Transaction
      */
     private ?string $countryCode = null;
 
+    /**
+     * @ORM\Column(type="float", options={"default": 0})
+     */
+    private float $fee = 0;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -301,4 +306,16 @@ class Transaction
     {
         return self::STRIPE === $this->method;
     }
+
+    public function getFee(): float
+    {
+        return $this->fee;
+    }
+
+    public function setFee(float $fee): self
+    {
+        $this->fee = $fee;
+        return $this;
+    }
+
 }
