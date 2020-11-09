@@ -183,6 +183,11 @@
   display: block;
   @extend %h1;
 }
+@include dark() {
+  .course-countdown {
+    --color: #111426;
+  }
+}
 .requirements {
   @extend %card;
   padding: space(3);
