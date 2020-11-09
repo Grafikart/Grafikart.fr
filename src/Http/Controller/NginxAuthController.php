@@ -13,11 +13,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class NginxAuthController extends AbstractController
 {
     /**
-     * @Route("/stream/{video<.*>}", name="stream_video")
+     * @Route("/downloads/videos/{video<.*>}", name="stream_video")
      */
-    public function check(): Response
+    public function videos(): Response
     {
-        if ($this->isGranted(CourseVoter::STREAM_VIDEO)) {
+        if ($this->isGranted(CourseVoter::DOWNLOAD_VIDEO)) {
+            return new Response(null, Response::HTTP_OK);
+        }
+
+        return new Response(null, Response::HTTP_FORBIDDEN);
+    }
+
+    /**
+     * @Route("/downloads/sources/{source<.*>}", name="download_source")
+     */
+    public function sources(): Response
+    {
+        if ($this->isGranted(CourseVoter::DOWNLOAD_SOURCE)) {
             return new Response(null, Response::HTTP_OK);
         }
 

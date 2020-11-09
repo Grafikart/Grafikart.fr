@@ -3,7 +3,6 @@
 namespace App\Http\Security;
 
 use App\Domain\Auth\User;
-use App\Domain\Course\Entity\Course;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
@@ -11,7 +10,6 @@ class CourseVoter extends Voter
 {
     const DOWNLOAD_SOURCE = 'DOWNLOAD_SOURCE';
     const DOWNLOAD_VIDEO = 'DOWNLOAD_VIDEO';
-    const STREAM_VIDEO = 'STREAM_VIDEO';
 
     /**
      * {@inheritdoc}
@@ -19,10 +17,9 @@ class CourseVoter extends Voter
     protected function supports(string $attribute, $subject)
     {
         return in_array($attribute, [
-                self::DOWNLOAD_SOURCE,
-                self::DOWNLOAD_VIDEO,
-            ]) && $subject instanceof Course ||
-            in_array($attribute, [self::STREAM_VIDEO]);
+            self::DOWNLOAD_SOURCE,
+            self::DOWNLOAD_VIDEO,
+        ]);
     }
 
     /**
