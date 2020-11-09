@@ -46,20 +46,9 @@
               Apparence
             </div>
             <div class="stack">
-              <div class="form-switch form-group">
-                <div class="form-switch">
-                  <input type="checkbox" id="update_profile_form_forumNotification"
-                         name="update_profile_form[forumNotification]" is="input-switch" class="form-check-input"
-                         value="1" checked="checked">
-                  <label class="form-check-label" for="update_profile_form_forumNotification">Recevoir aussi les
-                    notifications du forum par Email</label></div>
-              </div>
-              <div class="form-switch form-group">
-                <div class="form-switch"><input type="checkbox" id="update_profile_form_forumNotification"
-                                                name="update_profile_form[forumNotification]" is="input-switch"
-                                                class="form-check-input" value="1" checked="checked">
-                  <label class="form-check-label" for="update_profile_form_forumNotification">Recevoir aussi les
-                    notifications du forum par Email</label></div>
+              {{ form_row(form_update.useSystemTheme, {label: "Laisse le système choisir le theme"}) }}
+              <div hidden id="theme-selector">
+                {{ form_row(form_update.useDarkTheme, {label: "Utiliser le thème sombre", attr: {hidden: 'hidden'}}) }}
               </div>
             </div>
           </section>
@@ -119,13 +108,6 @@
           'App\\Http\\Controller\\Template\\PremiumStateController::state'
         )) }}
       </div>
-      <h3 class="h4">Mode nuit</h3>
-      <div class="flex">
-        <p>
-          <input id="darkmode" type="checkbox" is="dark-mode-toggle" {{ app.user.darkMode ? 'checked' : '' }}>
-          <label for="darkmode"></label>
-        </p>
-      </div>
       <h3 class="h4">Connexion Discord</h3>
       <p>
         Reliez votre compte discord à Grafikart pour accéder au salon premium et obtenir un rôle spécial.
@@ -170,4 +152,38 @@
     </aside>
   </div>
 
+{% endblock %}
+
+{% block javascripts_footer %}
+  {{ parent() }}
+  <script>
+    const systemThemeSwitch = document.querySelector('#{{ form_update.useSystemTheme.vars.id }}')
+    const themeSwitch = document.querySelector('#{{ form_update.useDarkTheme.vars.id }}')
+    const secondarySwitchContainer = document.querySelector('#theme-selector')
+
+    function onSystemThemeChange ({ target }) {
+      if (target.checked === true) {
+        document.body.classList.remove('theme-dark')
+        document.body.classList.remove('theme-light')
+        secondarySwitchContainer.setAttribute('hidden', 'hidden')
+      } else {
+        onDarkThemeChange({ target: themeSwitch })
+        secondarySwitchContainer.removeAttribute('hidden')
+      }
+    }
+
+    function onDarkThemeChange ({ target }) {
+      if (target.checked === true) {
+        document.body.classList.add('theme-dark')
+        document.body.classList.remove('theme-light')
+      } else {
+        document.body.classList.remove('theme-dark')
+        document.body.classList.add('theme-light')
+      }
+    }
+
+    systemThemeSwitch.addEventListener('change', onSystemThemeChange)
+    themeSwitch.addEventListener('change', onDarkThemeChange)
+    onSystemThemeChange({ target: systemThemeSwitch })
+  </script>
 {% endblock %}

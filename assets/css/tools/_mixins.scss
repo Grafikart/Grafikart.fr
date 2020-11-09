@@ -84,12 +84,24 @@
 }
 
 @mixin dark () {
-  @media (prefers-color-scheme: dark) {
-    :root {
+  @if (&) {
+    @media (prefers-color-scheme: dark) {
+      body:not([class~='theme-light']) & {
+        @content;
+      }
+    }
+    .theme-dark &{
       @content;
     }
-  }
-  .dark {
-    @content;
-  }
+  } @else {
+
+    @media (prefers-color-scheme: dark) {
+      body:not([class~='theme-light']) {
+        @content;
+      }
+    }
+    .theme-dark {
+      @content;
+    }
+}
 }

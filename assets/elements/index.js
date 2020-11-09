@@ -24,7 +24,6 @@ import './forum/index.js'
 import { ProgressTracker } from '/elements/courses/ProgressTracker.js'
 import Sharer from '/elements/Sharer.js'
 import DeleteAccount from '/elements/DeleteAccount.jsx'
-import { DarkModeToggle } from '/elements/DarkModeToggle.js'
 import { PremiumButton } from '/elements/premium/PremiumButton.jsx'
 import { BadgeUnlock } from '/elements/BadgeUnlock.jsx'
 import { Search, SearchInput } from '/elements/search/Search.jsx'
@@ -71,4 +70,3 @@ customElements.define('input-choices', InputChoices, { extends: 'input' })
 customElements.define('markdown-editor', MarkdownEditor, { extends: 'textarea' })
 customElements.define('auto-scroll', AutoScroll, { extends: 'div' })
 customElements.define('auto-submit', AutoSubmit, { extends: 'form' })
-customElements.define('dark-mode-toggle', DarkModeToggle, { extends: 'input' })

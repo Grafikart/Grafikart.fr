@@ -10,7 +10,7 @@
 }
 
 
-@include dark () {
+@include dark {
   .hljs {
     --base:  #A9B1D6;
     --comment:  #5D6791;

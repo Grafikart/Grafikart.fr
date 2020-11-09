@@ -35,6 +35,7 @@ services:
       - 5432:5432 # On expose le port pour pouvoir inspecter la base pendant la phase de développement
     volumes:
       - db-data:/var/lib/postgresql/data
+      - ./var:/var/www/var
   adminer:
     image: adminer
     environment:

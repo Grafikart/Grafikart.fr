@@ -124,6 +124,7 @@ input:disabled {
   background: var(--background);
   border: 1px solid var(--border);
   box-shadow: 0 1px 4px rgba(213, 222, 233, 0.2);
+
   border-radius: 100px;
   margin-right: space(1);
   transition: background 0.3s;
@@ -138,6 +139,16 @@ input:disabled {
     box-shadow: 0 1px 4px rgba(213, 222, 233, 0.2);
     border-radius: 100px;
     transition: transform 0.3s;
+  }
+
+  @include dark {
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+
+    &::before {
+      background: var(--color);
+      border-color: var(--color-light);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    }
   }
 }
 input:checked + label .switch {

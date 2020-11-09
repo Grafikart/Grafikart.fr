@@ -173,7 +173,7 @@
   color: var(--contrast);
 }
 
-@include dark() {
+@include dark {
   .search-result mark {
     background-color: var(--contrast);
   }

@@ -40,7 +40,7 @@
 
 // Dark mode
 // =============
-@include dark() {
+@include dark {
   --color-dark: #fff;
   --color: #d4dcff;
   --color-light: #8491c7;

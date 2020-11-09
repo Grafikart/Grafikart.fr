@@ -183,7 +183,7 @@
   display: block;
   @extend %h1;
 }
-@include dark() {
+@include dark {
   .course-countdown {
     --color: #111426;
   }

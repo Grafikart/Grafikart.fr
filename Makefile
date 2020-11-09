@@ -26,6 +26,14 @@ build-docker:
 dev: vendor/autoload.php node_modules/time ## Lance le serveur de développement
 	$(dc) up
 
+.PHONY: dump
+dump: var/dump ## Génère un dump SQL
+	$(de) db sh -c 'PGPASSWORD="grafikart" pg_dump grafikart -U grafikart > /var/www/var/dump/dump.sql'
+
+.PHONY: dumpimport
+dumpimport: var/dump ## Import un dump SQL
+	$(de) db sh -c 'psql grafikart < /var/www/var/dump/dump.sql'
+
 .PHONY: clean
 clean: ## Nettoie les containers
 	$(dc) -f docker-compose.yml -f docker-compose.test.yml -f docker-compose.import.yml down --volumes
@@ -88,6 +96,7 @@ format:
 doc: ## Génère le sommaire de la documentation
 	npx doctoc ./README.md
 
+
 vendor/autoload.php: composer.lock
 	$(dr) --no-deps php composer install
 	touch vendor/autoload.php
@@ -100,3 +109,5 @@ public/assets: node_modules/time
 	$(drnode) npx sass assets/css/app.scss assets/css/app.css
 	$(drnode) yarn run build
 
+var/dump:
+	mkdir var/dump

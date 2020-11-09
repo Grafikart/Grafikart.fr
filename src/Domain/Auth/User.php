@@ -107,9 +107,9 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface
     private ?string $confirmationToken = null;
 
     /**
-     * @ORM\Column(type="boolean", options={"default": false})
+     * @ORM\Column(type="string", options={"default": null}, nullable=true)
      */
-    private ?bool $darkMode = false;
+    private ?string $theme = null;
 
     /**
      * @ORM\Column(type="boolean", options={"default": true})
@@ -318,18 +318,6 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface
         return !$this->isBanned() && null === $this->getConfirmationToken();
     }
 
-    public function getDarkMode(): ?bool
-    {
-        return $this->darkMode;
-    }
-
-    public function setDarkMode(?bool $darkMode): User
-    {
-        $this->darkMode = $darkMode;
-
-        return $this;
-    }
-
     public function getGoal(): string
     {
         return $this->goal;
@@ -351,6 +339,17 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface
     {
         $this->forumMailNotification = $forumMailNotification;
 
+        return $this;
+    }
+
+    public function getTheme(): ?string
+    {
+        return $this->theme;
+    }
+
+    public function setTheme(?string $theme): User
+    {
+        $this->theme = $theme;
         return $this;
     }
 }

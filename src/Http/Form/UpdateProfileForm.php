@@ -27,6 +27,12 @@ class UpdateProfileForm extends AbstractType
             ->add('forumNotification', SwitchType::class, [
                 'required' => false,
             ])
+            ->add('useSystemTheme', SwitchType::class, [
+                'required' => false,
+            ])
+            ->add('useDarkTheme', SwitchType::class, [
+                'required' => false,
+            ])
         ;
     }
 
