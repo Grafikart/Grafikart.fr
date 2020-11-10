@@ -20,7 +20,7 @@ final class Version20201108102331 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE transaction ADD fee DOUBLE PRECISION DEFAULT \'0\' NOT NULL');
+        $this->addSql('ALTER TABLE transaction ADD IF NOT EXISTS fee DOUBLE PRECISION DEFAULT \'0\' NOT NULL');
     }
 
     public function down(Schema $schema): void
