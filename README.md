@@ -30,11 +30,13 @@ L'avancement peut être suivi sur la [board trello de grafikart](https://trello.
 
 ## Participer (faire une PR)
 
-Le développement a commencé et vous pouvez récupérer le projet et pour travailler dessus. Afin de simplifier la mise en place de l'environnement de dev, **docker** a été choisi :
+Le développement a commencé et vous pouvez récupérer le projet et pour travailler dessus. Afin de simplifier la mise en place de l'environnement de dev, **docker** a été choisi ([docker](https://docs.docker.com/engine/install/) et [docker-compose](https://docs.docker.com/compose/install/) doivent être installés) :
 
 ```bash
-make dev ## Permet de lancer le serveur de développement, accessible ensuite sur http://grafikart.localhost:8000
+make install ## Installe l'environnement de développement
+make dev ## Permet de lancer le serveur de développement
 make seed ## Permet de remplir la base de données
+## Le site est accessible ensuite sur http://grafikart.localhost:8000
 ```
 
 Pour les tests vous pouvez lancer une de ces commandes :
