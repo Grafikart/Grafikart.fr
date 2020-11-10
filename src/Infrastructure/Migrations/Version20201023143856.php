@@ -17,10 +17,6 @@ final class Version20201023143856 extends AbstractMigration
     public function up(Schema $schema): void
     {
         $this->addSql(<<<SQL
-DROP TRIGGER IF EXISTS countMessageForTopicsTrigger ON forum_message;
-SQL);
-
-        $this->addSql(<<<SQL
 DROP FUNCTION IF EXISTS countMessageForTopics;
 SQL);
 
@@ -43,6 +39,10 @@ BEGIN
 END
 $$
     LANGUAGE plpgsql;
+SQL);
+
+        $this->addSql(<<<SQL
+DROP TRIGGER IF EXISTS countMessageForTopicsTrigger ON forum_message;
 SQL);
 
         $this->addSql(<<<SQL
