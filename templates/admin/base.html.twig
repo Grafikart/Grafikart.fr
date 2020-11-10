@@ -14,7 +14,7 @@
   {% endblock %}
   <meta name="turbolinks-cache-control" content="no-cache"/>
 </head>
-<body class="admin {{ app.user and app.user.darkMode ? 'dark' : '' }}">
+<body class="admin {{ app.user and app.user.theme ? 'theme-' ~ app.user.theme : '' }} ">
 <div class="dashboard-page">
   <aside class="dashboard-sidebar">
     <div class="dashboard-sidebar__wrapper">
