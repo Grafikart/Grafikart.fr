@@ -350,6 +350,7 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface
     public function setTheme(?string $theme): User
     {
         $this->theme = $theme;
+
         return $this;
     }
 }

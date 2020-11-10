@@ -37,8 +37,8 @@ class ProfileUpdateDto
         $this->country = $user->getCountry();
         $this->user = $user;
         $this->forumNotification = $user->hasForumMailNotification();
-        $this->useSystemTheme = $user->getTheme() === null;
-        $this->useDarkTheme = $user->getTheme() === 'dark';
+        $this->useSystemTheme = null === $user->getTheme();
+        $this->useDarkTheme = 'dark' === $user->getTheme();
     }
 
     public function getId(): int

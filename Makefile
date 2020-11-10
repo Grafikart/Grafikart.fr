@@ -42,7 +42,7 @@ clean: ## Nettoie les containers
 seed: vendor/autoload.php ## Génère des données dans la base de données (docker-compose up doit être lancé)
 	$(sy) doctrine:migrations:migrate -q
 	$(sy) doctrine:schema:validate -q
-	$(sy) hautelook:fixtures:load -q
+	$(sy) app:seed -q
 
 .PHONY: migration
 migration: vendor/autoload.php ## Génère les migrations
@@ -60,14 +60,14 @@ rollback:
 import: vendor/autoload.php ## Import les données du site actuel
 	$(dc) -f docker-compose.import.yml up -d
 	$(sy) doctrine:migrations:migrate -q
-	# $(sy) app:import reset
-	# $(sy) app:import users
-	# $(sy) app:import tutoriels
-	# $(sy) app:import formations
-	# $(sy) app:import blog
-	# $(sy) app:import comments
-	# $(sy) app:import forum
-	# $(sy) app:import badges
+	$(sy) app:import reset
+	$(sy) app:import users
+	$(sy) app:import tutoriels
+	$(sy) app:import formations
+	$(sy) app:import blog
+	$(sy) app:import comments
+	$(sy) app:import forum
+	$(sy) app:import badges
 	$(sy) app:import transactions
 	$(dc) -f docker-compose.import.yml stop
 
@@ -95,7 +95,6 @@ format:
 .PHONY: doc
 doc: ## Génère le sommaire de la documentation
 	npx doctoc ./README.md
-
 
 vendor/autoload.php: composer.lock
 	$(dr) --no-deps php composer install

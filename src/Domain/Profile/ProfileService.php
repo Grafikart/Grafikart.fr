@@ -51,7 +51,7 @@ class ProfileService
     {
         $data->user->setCountry($data->country);
         $data->user->setForumMailNotification($data->forumNotification);
-        if ($data->useSystemTheme === true) {
+        if (true === $data->useSystemTheme) {
             $data->user->setTheme(null);
         } else {
             $data->user->setTheme($data->useDarkTheme ? 'dark' : 'light');
