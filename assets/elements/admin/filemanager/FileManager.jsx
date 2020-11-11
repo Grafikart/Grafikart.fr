@@ -11,14 +11,12 @@ import { objToSearchParams } from '/functions/url.js'
  * Fichier (retour d'api)
  * @typedef {{id: number, createdAt: number, name: string, size: number, url: string}} ApiFile
  */
-
 export function FileManager ({ dragOver, apiEndpoint, onSelectFile }) {
   const searchInput = useRef(null)
   const [folders, setFolders] = useState(null)
   const [files, setFiles] = useState(null)
   const [currentFolder, setCurrentFolder] = useState(null)
   const handleNewfile = e => {
-    console.log('----', e)
     setFiles(files => [e.detail, ...files])
   }
   const handleSearch = e => {

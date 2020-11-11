@@ -1,7 +1,4 @@
 import { Alert } from '../Alert.js'
-import SpinningDots from '@grafikart/spinning-dots-element'
-import FileManager from '/elements/admin/filemanager/index.js'
-import { ModalDialog } from '@sb-elements/all'
 
 /**
  * @property {number|null} timer
@@ -48,7 +45,7 @@ export default class InputAttachment extends HTMLInputElement {
   async onDrop (e) {
     e.preventDefault()
     this.container.classList.add('is-hovered')
-    const loader = new SpinningDots()
+    const loader = document.createElement('spinning-dots')
     loader.classList.add('input-attachment__loader')
     this.container.appendChild(loader)
     const files = e.dataTransfer.files
@@ -76,9 +73,9 @@ export default class InputAttachment extends HTMLInputElement {
 
   onClick (e) {
     e.preventDefault()
-    const modal = new ModalDialog()
+    const modal = document.createElement('modal-dialog')
     modal.setAttribute('overlay-close', 'overlay-close')
-    const fm = new FileManager()
+    const fm = document.createElement('file-manager')
     modal.appendChild(fm)
     fm.addEventListener('file', e => {
       this.setAttachment(e.detail)

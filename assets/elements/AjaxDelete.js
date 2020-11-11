@@ -1,5 +1,4 @@
 import { jsonFetch } from '/functions/api.js'
-import LoaderOverlay from '/elements/LoaderOverlay.js'
 import { FloatingAlert } from '/elements/Alert.js'
 import { closest } from '/functions/dom.js'
 
@@ -18,7 +17,7 @@ export class AjaxDelete extends HTMLElement {
       // On affiche le loader
       const target = this.getAttribute('target')
       const parent = target ? closest(this, this.getAttribute('target')) : this.parentNode
-      const loader = new LoaderOverlay()
+      const loader = document.createElement('loader-overlay')
       parent.style.position = 'relative'
       parent.appendChild(loader)
 

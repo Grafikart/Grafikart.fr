@@ -66,6 +66,7 @@ services:
   App\Core\Twig\TwigAssetExtension:
     arguments:
       $assetPath: '%kernel.project_dir%/public/assets'
+      $env: '%kernel.environment%'
 
   App\Core\OptionInterface:
     class: 'App\Domain\Application\Option'

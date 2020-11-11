@@ -1,6 +1,5 @@
 import Sortable from 'sortablejs'
 import { jsonFetch } from '/functions/api.js'
-import SpinningDots from '@grafikart/spinning-dots-element'
 
 /**
  * Construit un élément représentant un élément
@@ -45,7 +44,7 @@ function createLi (item) {
  * @return {Element}
  */
 function showLoader (item) {
-  const loader = new SpinningDots()
+  const loader = document.createElement('spinning-dots')
   loader.classList.add('sortable-item__loader')
   item.insertAdjacentElement('afterbegin', loader)
   return loader

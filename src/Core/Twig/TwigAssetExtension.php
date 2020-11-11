@@ -16,12 +16,19 @@ class TwigAssetExtension extends AbstractExtension
     private CacheItemPoolInterface $cache;
     const CACHE_KEY = 'asset_time';
     private RequestStack $requestStack;
+    private bool $isProduction;
+    private ?array $paths = null;
 
-    public function __construct(string $assetPath, CacheItemPoolInterface $cache, RequestStack $requestStack)
-    {
+    public function __construct(
+        string $assetPath,
+        string $env,
+        CacheItemPoolInterface $cache,
+        RequestStack $requestStack
+    ) {
         $this->assetPath = $assetPath;
         $this->cache = $cache;
         $this->requestStack = $requestStack;
+        $this->isProduction = 'prod' === $env;
     }
 
     public function getFunctions(): array
@@ -33,23 +40,27 @@ class TwigAssetExtension extends AbstractExtension
     }
 
     /**
-     * Récupère la date de création des assets.
+     * Récupère le chemin des assets depuis le fichier manifest.json.
      */
-    private function getTime(): int
+    private function getAssetPaths(): array
     {
-        $cached = $this->cache->getItem(self::CACHE_KEY);
-        if (!$cached->isHit()) {
-            $timeFile = $this->assetPath.'/time';
-            $time = 0;
-            if (file_exists($timeFile)) {
-                $time = filemtime($timeFile);
+        if (null === $this->paths) {
+            $cached = $this->cache->getItem(self::CACHE_KEY);
+            if (!$cached->isHit()) {
+                $manifest = $this->assetPath.'/manifest.json';
+                if (file_exists($manifest)) {
+                    $paths = json_decode((string) file_get_contents($manifest), true);
+                    $this->cache->save($cached->set($paths));
+                    $this->paths = $paths;
+                } else {
+                    $this->paths = [];
+                }
+            } else {
+                $this->paths = $cached->get();
             }
-            $this->cache->save($cached->set($time));
-        } else {
-            $time = $cached->get();
         }
 
-        return $time;
+        return $this->paths;
     }
 
     /**
@@ -59,15 +70,15 @@ class TwigAssetExtension extends AbstractExtension
      */
     private function uri(string $name): string
     {
-        $time = $this->getTime();
-        $request = $this->requestStack->getCurrentRequest();
-        if (0 === $time && $request) {
-            $host = $request->getHost();
+        if (!$this->isProduction) {
+            $request = $this->requestStack->getCurrentRequest();
 
-            return "http://{$host}:3000/{$name}";
+            return $request ? "http://{$request->getHost()}:3000/{$name}" : '';
         }
 
-        return "/assets/$name?$time";
+        $name = $this->getAssetPaths()[$name] ?? '';
+
+        return "/assets/$name";
     }
 
     public function link(string $name): string
@@ -85,15 +96,16 @@ class TwigAssetExtension extends AbstractExtension
         $script = '<script src="'.$this->uri($name.'.js').'" type="module" defer></script>';
 
         // Si on est en mode développement on injecte le système de Hot Reload de vite
-        $request = $this->requestStack->getCurrentRequest();
-        if (0 === $this->getTime() && $request) {
-            $host = $request->getHost();
-            $script = <<<HTML
-                <script type="module">
-                import "//{$host}:3000/vite/client"
-                </script>
-                $script
-            HTML;
+        if (!$this->isProduction) {
+            $request = $this->requestStack->getCurrentRequest();
+            if ($request) {
+                $script = <<<HTML
+                    <script type="module">
+                    import "//{$request->getHost()}:3000/vite/client"
+                    </script>
+                    $script
+                HTML;
+            }
         }
 
         return $script;
