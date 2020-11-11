@@ -1,0 +1,19 @@
+---
+- name: Nginx | _letsencrypt directory
+  file: state=directory path=/var/www/_letsencrypt owner=www-data group=www-data
+- name: Nginx | letsencrypt certificates directories
+  file:
+    state: directory
+    path: "/etc/letsencrypt/{{ item }}"
+  loop:
+    - dev
+    - live
+- name: Nginx | SSL init
+  shell:
+    cmd: openssl dhparam -out /etc/nginx/dhparam.pem 2048
+    creates: /etc/nginx/dhparam.pem
+- name: Nginx | Self signed certificate
+  shell:
+    cmd: "openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/letsencrypt/dev/{{ domain }}.key -out /etc/letsencrypt/dev/{{ domain }}.crt -subj '/C=FR/ST=Montpellier/L=Montpellier/O=Grafikart/OU=Webmaster/CN={{ domain }}'"
+    creates: "/etc/letsencrypt/dev/{{ domain }}.key"
+

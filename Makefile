@@ -110,3 +110,10 @@ public/assets: node_modules/time
 
 var/dump:
 	mkdir var/dump
+
+# -----------------------------------
+# Déploiement
+# -----------------------------------
+.PHONY: provision
+provision: ## Configure la machine distante
+	ansible-playbook -i tools/ansible/hosts.yml tools/ansible/install.yml

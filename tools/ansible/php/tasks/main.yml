@@ -1,0 +1,44 @@
+---
+- name: PHP | APT install
+  apt:
+    name:
+      - lsb-release
+      - apt-transport-https
+      - ca-certificates
+    state: present
+- name: PHP | PHP 7.4 GPG Key
+  apt_key:
+    url: https://packages.sury.org/php/apt.gpg
+- name: PHP | PHP 7.4 repository
+  apt_repository:
+    repo: deb https://packages.sury.org/php/ {{ ansible_distribution_release }} main
+    state: present
+- name: PHP | Update apt cache
+  apt:
+    update_cache: yes
+- name: PHP | Install
+  apt:
+    update_cache: yes
+    name:
+      - "php{{ php_version }}-fpm"
+      - "php{{ php_version }}-pgsql"
+      - "php{{ php_version }}-mbstring"
+      - "php{{ php_version }}-xml"
+      - "php{{ php_version }}-zip"
+      - "php{{ php_version }}-opcache"
+    state: present
+- name: PHP | Composer
+  shell:
+    cmd: |
+      php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+      php -r "if (hash_file('sha384', 'composer-setup.php') === 'c31c1e292ad7be5f49291169c0ac8f683499edddcfd4e42232982d0fd193004208a58ff6f353fde0012d35fdd72bc394') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+      php composer-setup.php
+      php -r "unlink('composer-setup.php');"
+      mv composer.phar /usr/local/bin/composer
+    creates: /usr/local/bin/composer
+- name: PHP | Disable Errors
+  lineinfile:
+    dest: "/etc/php/{{ php_version }}/fpm/php.ini"
+    regexp: "display_errors ="
+    line: "display_errors = 0"
+  notify: php restart

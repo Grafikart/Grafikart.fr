@@ -1,0 +1,32 @@
+---
+- name: Nginx | Install
+  apt:
+    name: nginx
+    state: present
+- name: Nginx | Default vhost
+  template:
+    src: default.j2
+    dest: "/etc/nginx/sites-available/default"
+- name: Nginx | création de /etc/nginx/nginxconfig.io
+  file: state=directory path=/etc/nginx/nginxconfig.io
+- name: Nginx | nginx.conf
+  template:
+    src: "{{ item }}.j2"
+    dest: "/etc/nginx/{{ item }}"
+  loop:
+    - nginx.conf
+    - nginxconfig.io/general.conf
+    - nginxconfig.io/letsencrypt.conf
+    - nginxconfig.io/php_fastcgi.conf
+    - nginxconfig.io/security.conf
+- name: "Nginx | Vhost {{ domain }}"
+  template:
+    src: vhost.j2
+    dest: "/etc/nginx/sites-available/{{ domain }}"
+- include_tasks: certificates.yml
+- name: "Nginx | Vhost {{ domain }}"
+  file:
+    path: "/etc/nginx/sites-enabled/{{ domain }}"
+    src: "/etc/nginx/sites-available/{{ domain }}"
+    state: link
+  notify: nginx reload

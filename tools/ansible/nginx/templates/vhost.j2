@@ -1,0 +1,77 @@
+server {
+    listen                  443 ssl http2;
+    listen                  [::]:443 ssl http2;
+    server_name             {{ domain }};
+    set                     $base /home/{{ ansible_user }}/{{ domain }};
+    root                    $base/public;
+
+    # SSL
+{% if self_signed %}
+    ssl_certificate /etc/letsencrypt/dev/{{ domain }}.crt;
+    ssl_certificate_key /etc/letsencrypt/dev/{{ domain }}.key;
+{% else %}
+    ssl_certificate         /etc/letsencrypt/live/{{ domain }}/fullchain.pem;
+    ssl_certificate_key     /etc/letsencrypt/live/{{ domain }}/privkey.pem;
+    ssl_trusted_certificate /etc/letsencrypt/live/{{ domain }}/chain.pem;
+{% endif %}
+
+    # security
+    include                 nginxconfig.io/security.conf;
+
+    # logging
+    access_log              /var/log/nginx/access.log;
+    error_log               /var/log/nginx/{{ domain }}.error.log warn;
+
+    # index.php
+    index                   index.php;
+
+    # index.php fallback
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    # Téléchargements des vidéos et sources
+    location /downloads/ {
+        auth_request     /index.php;
+        auth_request_set $auth_status $upstream_status;
+        alias $base/downloads/;
+    }
+
+    # additional config
+    include nginxconfig.io/general.conf;
+
+    # handle .php
+    location ~ \.php$ {
+        include nginxconfig.io/php_fastcgi.conf;
+    }
+}
+
+# subdomains redirect
+server {
+    listen                  443 ssl http2;
+    listen                  [::]:443 ssl http2;
+    server_name             *.{{ domain }};
+
+    # SSL
+{% if self_signed %}
+    ssl_certificate /etc/letsencrypt/dev/{{ domain }}.crt;
+    ssl_certificate_key /etc/letsencrypt/dev/{{ domain }}.key;
+{% else %}
+    ssl_certificate         /etc/letsencrypt/live/{{ domain }}/fullchain.pem;
+    ssl_certificate_key     /etc/letsencrypt/live/{{ domain }}/privkey.pem;
+    ssl_trusted_certificate /etc/letsencrypt/live/{{ domain }}/chain.pem;
+{% endif %}
+    return                  301 https://{{ domain }}$request_uri;
+}
+
+# HTTP redirect
+server {
+    listen      80;
+    listen      [::]:80;
+    server_name .{{ domain }};
+    include     nginxconfig.io/letsencrypt.conf;
+
+    location / {
+        return 301 https://{{ domain }}$request_uri;
+    }
+}

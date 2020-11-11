@@ -1,0 +1,24 @@
+---
+- name: Outils
+  become: true
+  apt:
+    name:
+      - fish
+      - vim
+      - git
+    state: present
+- name: TOOLS | création de ~/.vim/autoload
+  file: state=directory path=~/.vim/autoload
+- name: TOOLS | Téléchargement plug.vim
+  get_url:
+    url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    dest: ~/.vim/autoload/plug.vim
+- name: TOOLS | Téléchargement .vimrc
+  get_url:
+    url: https://raw.githubusercontent.com/Grafikart/dotfiles/master/config/vim/.vimrc
+    dest: ~/.vimrc
+- name: TOOLS | Passage sur fish
+  become: yes
+  user:
+    name: "{{ ansible_user }}"
+    shell: /usr/bin/fish
