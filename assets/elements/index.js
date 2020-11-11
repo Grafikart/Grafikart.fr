@@ -31,6 +31,7 @@ import { CycleClasses } from '/elements/CycleClasses.js'
 import { Dropdown } from '/elements/Dropdown.js'
 import { Confetti } from '/elements/Confetti.js'
 import { PremiumPlayer } from '/elements/player/PremiumPlayer.js'
+import LoaderOverlay from '/elements/LoaderOverlay.js'
 
 // Custom Elements
 customElements.define('nav-tabs', NavTabs)
@@ -55,6 +56,7 @@ customElements.define('cycle-classes', CycleClasses)
 customElements.define('drop-down', Dropdown)
 customElements.define('con-fetti', Confetti)
 customElements.define('premium-player', PremiumPlayer)
+customElements.define('loader-overlay', LoaderOverlay)
 preactCustomElement('site-notifications', Notifications)
 preactCustomElement('contact-form', ContactForm)
 preactCustomElement('comments-area', Comments, ['target'])

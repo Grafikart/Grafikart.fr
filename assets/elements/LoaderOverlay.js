@@ -38,5 +38,3 @@ export default class LoaderOverlay extends HTMLElement {
     this.style.opacity = 0
   }
 }
-
-customElements.define('loader-overlay', LoaderOverlay)
