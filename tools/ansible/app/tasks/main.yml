@@ -1,6 +1,7 @@
 ---
 - include_tasks: typesense.yml
 - include_tasks: messenger.yml
+- include_tasks: mercure.yml
 - name: Symfony | Clone
   become: no
   git:

@@ -23,6 +23,7 @@
   template:
     src: vhost.j2
     dest: "/etc/nginx/sites-available/{{ domain }}"
+  notify: nginx reload
 - include_tasks: certificates.yml
 - name: "Nginx | Vhost {{ domain }}"
   file:

@@ -1,0 +1,9 @@
+[Unit]
+Description={{ domain }} Mercure
+Documentation=https://github.com/Grafikart/Grafikart.fr
+Requires=network.target remote-fs.target
+After=network.target remote-fs.target
+
+[Service]
+ExecStart=mercure --jwt-key='mercure_subscriber' --publisher-jwt-key='mercure_publisher' --addr=':3000' --cors-allowed-origins='*' --publish-allowed-origins='http://localhost:3000'
+Restart=on-failure

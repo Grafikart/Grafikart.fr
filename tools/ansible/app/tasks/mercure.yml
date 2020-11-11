@@ -1,0 +1,35 @@
+- name: Mercure | Test bin
+  action: stat path=/usr/local/bin/mercure
+  register: mercure_bin
+- name: Mercure | /tmp/mercure
+  when: not mercure_bin.stat.exists
+  file:
+    path: /tmp/mercure
+    state: directory
+- name: Mercure | Untar
+  when: not mercure_bin.stat.exists
+  unarchive:
+    src: https://github.com/dunglas/mercure/releases/download/v0.10.4/mercure_0.10.4_Linux_x86_64.tar.gz
+    remote_src: yes
+    dest: /tmp/mercure
+- name: Mercure | Copy bin
+  when: not mercure_bin.stat.exists
+  copy:
+    src: /tmp/mercure/mercure
+    dest: /usr/local/bin/mercure
+    remote_src: yes
+    mode: +x
+- name: Mercure | Delete
+  file:
+    path: /tmp/mercure
+    state: absent
+- name: Mercure | Service
+  template:
+    src: "mercure.service.j2"
+    dest: "/etc/systemd/system/mercure.service"
+- name: Mercure | Activation du Service
+  systemd:
+    state: started
+    daemon_reload: yes
+    enabled: yes
+    name: "mercure"
