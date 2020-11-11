@@ -54,7 +54,16 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  flex-wrap: wrap;
   opacity: 0.6;
+
+  @include down(700) {
+    & > *:first-child {
+      width: 100%;
+      flex: none;
+      text-align: left;
+    }
+  }
 
   a {
     display: inline-flex;

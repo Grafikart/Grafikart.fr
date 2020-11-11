@@ -50,7 +50,7 @@ class Notification
      * @ORM\Column(type="string", nullable=true)
      * @Groups({"create:notification"})
      */
-    private ?string $channel = null;
+    private ?string $channel = 'public';
 
     /**
      * @ORM\Column(type="string", nullable=true)

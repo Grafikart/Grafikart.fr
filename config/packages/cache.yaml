@@ -2,4 +2,6 @@ framework:
   cache:
     app: cache.adapter.array
     # Pour tester le cache tout en étant en dev
-    # app: cache.adapter.filesystem
+    # prefix_seed: grafikart/site
+    # app: cache.adapter.redis
+    # default_redis_provider: '%env(resolve:REDIS_URL)%'

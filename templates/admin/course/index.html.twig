@@ -1,17 +1,15 @@
 {% extends 'admin/layout/card.html.twig' %}
 
-{% block title %}
-    {{ icon('video') }}
-    Gestion des tutoriels
+{% block title  %}
+  {{ icon('video') }}
+  Gestion des tutoriels
+{% endblock %}
+
+{% block actions %}
+  <a href="{{ path(prefix ~ '_new') }}" class="btn-primary">Ajouter un tutoriel</a>
 {% endblock %}
 
 {% block content %}
-    <div class="flex">
-      <form class="form-group dashboard-search">
-        <input name="q" type="text" placeholder="Rechercher un tutoriel" value="{{ app.request.get('q') }}" >
-      </form>
-      <a href="{{ path(prefix ~ '_new') }}" class="dashboard-btn">Ajouter un tutoriel</a>
-    </div>
     <table class="table">
       <thead>
       <tr>

@@ -5,16 +5,12 @@
     Gestion des cursus
 {% endblock %}
 
+{% block actions %}
+  <a href="{{ path('admin_cursuscategory_index') }}" class="btn-secondary">Gérer les catégories</a>
+  <a href="{{ path(prefix ~ '_new') }}" class="btn-primary">Ajouter un cursus</a>
+{% endblock %}
+
 {% block content %}
-    <div class="flex">
-      <form class="form-group dashboard-search">
-        <input name="q" type="text" placeholder="Rechercher une formation" value="{{ app.request.get('q') }}" >
-      </form>
-      <div class="hstack" style="--gap:1;">
-        <a href="{{ path('admin_cursuscategory_index') }}" class="dashboard-btn btn-secondary">Gérer les catégories</a>
-        <a href="{{ path(prefix ~ '_new') }}" class="dashboard-btn">Ajouter</a>
-      </div>
-    </div>
     <table class="table">
       <thead>
       <tr>

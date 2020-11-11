@@ -54,7 +54,7 @@ class Transaction
     /**
      * @ORM\Column(type="datetime")
      */
-    private \DateTime $createdAt;
+    private \DateTimeInterface $createdAt;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Auth\User")
@@ -91,6 +91,11 @@ class Transaction
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private ?string $countryCode = null;
+
+    /**
+     * @ORM\Column(type="float", options={"default": 0})
+     */
+    private float $fee = 0;
 
     public function getId(): ?int
     {
@@ -181,12 +186,12 @@ class Transaction
         return $this;
     }
 
-    public function getCreatedAt(): \DateTime
+    public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTime $createdAt): Transaction
+    public function setCreatedAt(\DateTimeInterface $createdAt): Transaction
     {
         $this->createdAt = $createdAt;
 
@@ -295,5 +300,22 @@ class Transaction
     public function isPaypal(): bool
     {
         return self::PAYPAL === $this->method;
+    }
+
+    public function isStripe(): bool
+    {
+        return self::STRIPE === $this->method;
+    }
+
+    public function getFee(): float
+    {
+        return $this->fee;
+    }
+
+    public function setFee(float $fee): self
+    {
+        $this->fee = $fee;
+
+        return $this;
     }
 }

@@ -13,8 +13,8 @@
   margin-left: auto;
   margin-right: auto;
   position: relative;
-  background-color: #9fb3c8;
-  border: solid 2px #9fb3c8;
+  background-color: var(--border);
+  border: solid 2px var(--border);
 }
 .profil-header__avatar img {
   width: 100%;
@@ -36,9 +36,6 @@
   justify-content: center;
   align-items: center;
   color: var(--color-light);
-}
-.profil-header__body .badge {
-  margin-right: space(1);
 }
 .profil-header__upload {
   width: 110px;

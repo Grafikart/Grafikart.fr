@@ -1,16 +1,18 @@
 {% extends 'base.html.twig' %}
 
+{% set bodyClass = 'header-light' %}
+
 {% block title 'Tous les tutoriels premiums' ~ ((page > 1) ? (', page' ~ page) : '') %}
 
 {% block body %}
-  <div class="container py5">
+  <div class="container py5 split-background" style="--split:380px">
 
     <div class="courses">
       <div class="course-hero {% if page > 1 %}is-paginated{% endif %}">
         {% if page == 1 %}
-          <h1>Tous les tutoriels premiums</h1>
+          <h1>Tous les tutoriels <strong>premiums</strong></h1>
           <p>
-            Pour consulter ces tutoriels vous devez vous abonner.
+            Le visionnage de ces tutoriel est réservé aux membres premiums
           </p>
         {% else %}
           <h1>Tous les tutoriels<em><br>page {{ page }}</em></h1>
@@ -25,6 +27,8 @@
 
   </div>
 
-  {{ show_history(courses.items) }}
+  {% if app.user %}
+    {{ show_history(courses.items) }}
+  {% endif %}
 
 {% endblock %}

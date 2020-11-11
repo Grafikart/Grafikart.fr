@@ -24,10 +24,8 @@ class MakeAdminCommand extends AbstractMakeCommand
         $io = new SymfonyStyle($input, $output);
 
         $entity = $this->askClass('Pour quelle entité', 'Domain/*/Entity/*', $io);
-        // $route = $io->askQuestion(new Question("Quelle route ?"));
-        // $slug = $io->askQuestion(new Question("Quelle slug ?"));
-        $route = 'cursus_category';
-        $slug = 'cursuscategory';
+        $route = $io->askQuestion(new Question('Quelle route ?'));
+        $slug = $io->askQuestion(new Question('Quelle slug ?'));
         $entityName = $entity['class_name'];
         $entity = $entity['namespace'];
         $params = [

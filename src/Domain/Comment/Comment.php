@@ -4,6 +4,8 @@ namespace App\Domain\Comment;
 
 use App\Domain\Application\Entity\Content;
 use App\Domain\Auth\User;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -45,10 +47,17 @@ class Comment
     private ?User $author;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Comment\Comment")
+     * @ORM\ManyToOne(targetEntity="App\Domain\Comment\Comment", inversedBy="replies")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private ?self $parent = null;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Domain\Comment\Comment", mappedBy="parent")
+     *
+     * @var Collection<int, Comment>
+     */
+    private Collection $replies;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Application\Entity\Content")
@@ -59,6 +68,7 @@ class Comment
     public function __construct()
     {
         $this->createdAt = new \DateTime();
+        $this->replies = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -163,5 +173,20 @@ class Comment
         $this->target = $target;
 
         return $this;
+    }
+
+    public function addReply(Comment $comment): self
+    {
+        if (!$this->replies->contains($comment)) {
+            $this->replies->add($comment);
+            $comment->setParent($this);
+        }
+
+        return $this;
+    }
+
+    public function getReplies(): Collection
+    {
+        return $this->replies;
     }
 }

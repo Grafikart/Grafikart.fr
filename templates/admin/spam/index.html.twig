@@ -1,0 +1,45 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}
+  {{ icon('trash') }}
+  Gestion du spam
+{% endblock %}
+
+{% block body %}
+
+  <div class="stack-large">
+
+    <!-- Topic -->
+    {% if topics | length > 0 %}
+    <section class="stack" style="--gap:1">
+      <div class="flex">
+        <h1 class="dashboard-title">
+          {{ icon('edit') }} {{ topics | length }} Sujets
+        </h1>
+      </div>
+      <div class="dashboard-card stack-separated">
+        {% for topic in topics %}
+          {% include 'admin/spam/_card.html.twig' with {target: topic, type: 'topic'} %}
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+    <!-- Message -->
+    {% if messages | length > 0 %}
+    <section class="stack" style="--gap:1">
+      <div class="flex">
+        <h1 class="dashboard-title">
+          {{ icon('edit') }} {{ messages | length }} Messages
+        </h1>
+      </div>
+      <div class="dashboard-card stack-separated">
+        {% for message in messages %}
+          {% include 'admin/spam/_card.html.twig' with {target: message, type: 'message'} %}
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+  </div>
+
+{% endblock %}

@@ -3,7 +3,7 @@ import ChoicesJS from 'choices.js'
 /**
  * @property {Choices} choices
  */
-export class Choices extends HTMLInputElement {
+export class InputChoices extends HTMLInputElement {
   connectedCallback () {
     if (!this.getAttribute('choicesBinded')) {
       this.setAttribute('choicesBinded', 'true')

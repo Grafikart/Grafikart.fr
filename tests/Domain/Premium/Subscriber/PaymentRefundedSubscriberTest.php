@@ -36,6 +36,24 @@ class PaymentRefundedSubscriberTest extends EventSubscriberTest
         return [$subscriber, $dispatcher, $em];
     }
 
+    public function testDoesNothingIfPaymentAlreadyRefunded()
+    {
+        $user = new User();
+        $initialPremiumEnd = new \DateTimeImmutable('+ 3 months');
+        $user->setPremiumEnd($initialPremiumEnd);
+        $transaction = (new Transaction())
+            ->setDuration(1)
+            ->setRefunded(true)
+            ->setAuthor($user);
+        $payment = new Payment();
+        $payment->id = 'platform_id';
+
+        [$subscriber] = $this->getSubscriber($transaction);
+        $event = new PaymentRefundedEvent($payment);
+        $this->dispatch($subscriber, $event);
+        $this->assertEquals($initialPremiumEnd->getTimestamp(), $user->getPremiumEnd()->getTimestamp());
+    }
+
     public function testDispatchPremiumCancelled()
     {
         $transaction = (new Transaction())

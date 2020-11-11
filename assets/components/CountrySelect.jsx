@@ -28,6 +28,7 @@ export function CountrySelect ({ ...props }) {
 
   return (
     <select {...props}>
+      <option defaultSelected>Veuillez sélectionner un pays</option>
       {Object.keys(countries).map(countryCode => (
         <option
           key={countryCode}

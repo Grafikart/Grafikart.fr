@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback, useRef } from 'preact/hooks'
 import { ApiError, jsonFetch } from '/functions/api.js'
 import { flash } from '/elements/Alert.js'
+import { strToDom } from '/functions/dom.js'
 
 /**
  * Alterne une valeur
@@ -179,4 +180,21 @@ export function useVisibility (node, once = true, options = {}) {
   })
 
   return visible
+}
+
+let favIconBadge = null
+
+export function useNotificationCount (n) {
+  useAsyncEffect(async () => {
+    if (favIconBadge === null) {
+      if (n === 0) {
+        return
+      }
+      await import('favicon-badge')
+      favIconBadge = strToDom(`<favicon-badge src="/favicon.ico" badge="true" badgeSize="6"/>`)
+      document.head.appendChild(favIconBadge)
+      return
+    }
+    favIconBadge.setAttribute('badge', n === 0 ? 'false' : 'true')
+  }, [n])
 }

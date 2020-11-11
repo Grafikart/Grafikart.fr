@@ -32,10 +32,25 @@ App\Domain\Course\Entity\Course:
     duration: <numberBetween(100, 5000)>
     youtube_id: 7UURBqlUUUk
     video_path: video/<numberBetween(100, 5000)>.mp4
-    source: '50%? true: false'
+    source: '50%? 1: 0'
     demo: demo/<numberBetween(100, 5000)>
-    premium: '10%? true: false'
+    premium: '10%? 1: 0'
     author: '@user1'
+    level: <numberBetween(0, 2)>
+
+App\Domain\Course\Entity\Formation:
+  formation (template):
+    title: <sentence(5, true)>
+    slug: <slug()>
+    content: <text(1500)>
+    created_at: <dateTimeThisYear()>
+    updated_at: <dateTimeThisYear()>
+    short: <sentence(3, true)>
+    youtube_playlist: 7UURBqlUUUk
+    links: <sentence(1, true)>
+    level: <numberBetween(0, 2)>
+    author: '@user1'
+    online: true
 
 App\Domain\Course\Entity\Technology:
   technology (template):
@@ -80,6 +95,7 @@ App\Domain\Forum\Entity\Topic:
     solved: 0
     sticky: 0
     author: '@user*'
+    tags: [ '@tag*' ]
 
 App\Domain\Forum\Entity\Message:
   forum_message (template):
@@ -96,3 +112,31 @@ App\Domain\Notification\Entity\Notification:
     channel: <slug()>
     message: <sentence(1)>
     createdAt: <dateTimeThisYear()>
+
+App\Domain\Premium\Entity\Transaction:
+  transaction (template):
+    author: '@user*'
+    duration: 1
+    price: 5
+    tax: 0.4
+    fee: 0.1
+    method: 'paypal'
+    method_ref: '123123'
+    createdAt: <dateTimeThisYear()>
+    firstname: John<current()>
+    lastname: Doe<current()>
+
+App\Domain\Course\Entity\CursusCategory:
+  cursus_category (template):
+    name: <sentence(3)>
+    description: <sentence(400)>
+
+App\Domain\Course\Entity\Cursus:
+  cursus (template):
+    title: <sentence(5, true)>
+    slug: <slug()>
+    content: <text(1500)>
+    created_at: <dateTimeThisYear()>
+    updated_at: <dateTimeThisYear()>
+    online: true
+    author: '@user1'

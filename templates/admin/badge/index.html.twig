@@ -1,17 +1,15 @@
 {% extends 'admin/layout/card.html.twig' %}
 
 {% block title %}
-  {{ icon('lines') }}
+  {{ icon('badge') }}
   Gestion des badges
 {% endblock %}
 
+{% block actions %}
+  <a href="{{ path(prefix ~ '_new') }}" class="btn-primary">Ajouter un badge</a>
+{% endblock %}
+
 {% block content %}
-  <div class="flex">
-    <form class="form-group dashboard-search">
-      <input name="q" type="text" placeholder="Rechercher un badge" value="{{ app.request.get('q') }}" >
-    </form>
-    <a href="{{ path(prefix ~ '_new') }}" class="dashboard-btn">Ajouter un badge</a>
-  </div>
   <table class="table">
     <thead>
     <tr>

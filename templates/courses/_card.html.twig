@@ -50,7 +50,7 @@
     {# Difficulté #}
     <div class="card__pills">
 
-      {% include 'partials/level.html.twig' with {content: course} %}
+      {% include 'partials/level.html.twig' with {content: course, small: true} %}
 
       {% if course.premium %}
         <div class="pill pill-xsmall pill-yellow">{{ icon('star') }} Premium</div>

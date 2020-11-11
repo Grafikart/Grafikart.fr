@@ -28,6 +28,8 @@ class ForumVoter extends Voter
             self::CREATE_MESSAGE,
             self::UPDATE_MESSAGE,
             self::DELETE_MESSAGE,
+            self::UPDATE_TOPIC,
+            self::DELETE_TOPIC,
             self::READ_TOPICS,
             self::SOLVE_MESSAGE,
         ]);

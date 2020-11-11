@@ -12,8 +12,12 @@
 }
 .blog-post {
   display: grid;
-  grid-template-columns: 160px 1fr;
+  grid-template-columns: 1fr;
   grid-gap: space(4);
+
+  @include up(700) {
+    grid-template-columns: 160px 1fr;
+  }
 }
 .blog-post + .blog-post {
   margin-top: space(10);
@@ -23,6 +27,9 @@
 }
 .blog-post__image {
   margin-top: space(1);
+  @include down(700){
+    display: none;
+  }
 }
 .blog-post__image img {
   @extend %card;

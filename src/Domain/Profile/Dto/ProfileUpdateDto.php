@@ -27,12 +27,18 @@ class ProfileUpdateDto
     public ?string $country;
 
     public User $user;
+    public bool $forumNotification;
+    public bool $useSystemTheme;
+    public bool $useDarkTheme;
 
     public function __construct(User $user)
     {
         $this->email = $user->getEmail();
         $this->country = $user->getCountry();
         $this->user = $user;
+        $this->forumNotification = $user->hasForumMailNotification();
+        $this->useSystemTheme = null === $user->getTheme();
+        $this->useDarkTheme = 'dark' === $user->getTheme();
     }
 
     public function getId(): int

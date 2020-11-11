@@ -21,6 +21,7 @@ class FormationController extends AbstractController
 
         return $this->render('formations/index.html.twig', [
             'formations' => $formations,
+            'menu' => 'formations',
         ]);
     }
 
@@ -67,6 +68,7 @@ class FormationController extends AbstractController
     {
         return $this->render('formations/show.html.twig', [
             'formation' => $formation,
+            'menu' => 'formations',
         ]);
     }
 }

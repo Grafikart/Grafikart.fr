@@ -14,6 +14,12 @@ input:disabled {
   opacity: 0.7;
 }
 
+// Honeypot
+// =============
+.form-optional {
+  display: none!important;
+}
+
 // Champs texte
 // ==================
 .form-group input,
@@ -111,12 +117,14 @@ input:disabled {
   }
 }
 .switch {
+  flex: none;
   width: 55px;
   height: 26px;
   display: inline-block;
   background: var(--background);
   border: 1px solid var(--border);
   box-shadow: 0 1px 4px rgba(213, 222, 233, 0.2);
+
   border-radius: 100px;
   margin-right: space(1);
   transition: background 0.3s;
@@ -131,6 +139,16 @@ input:disabled {
     box-shadow: 0 1px 4px rgba(213, 222, 233, 0.2);
     border-radius: 100px;
     transition: transform 0.3s;
+  }
+
+  @include dark {
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+
+    &::before {
+      background: var(--color);
+      border-color: var(--color-light);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    }
   }
 }
 input:checked + label .switch {
@@ -185,7 +203,7 @@ input:focus + label .switch,
 
 // Misc
 // ==================
-button:hover .icon-delete {
+button:not([class]):hover .icon-delete {
   color: var(--red);
 }
 
@@ -233,7 +251,8 @@ button:hover .icon-delete {
 
 // Radio
 // =============
-.form-radio {
+.form-radio,
+.form-checkbox {
   position: relative;
   display: block;
   width: 20px;
@@ -269,5 +288,23 @@ button:hover .icon-delete {
     left: 0;
     right: 0;
     bottom: 0;
+  }
+}
+
+// Checkbox
+// =============
+.form-checkbox {
+  border-radius: 3px;
+
+  &::after {
+    border-radius: 2px;
+  }
+
+  &.is-checked {
+    border-color: var(--contrast);
+  }
+
+  &.is-checked::after {
+    background: var(--contrast);
   }
 }

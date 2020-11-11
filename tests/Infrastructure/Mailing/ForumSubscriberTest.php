@@ -39,9 +39,9 @@ class ForumSubscriberTest extends EventSubscriberTest
     public function testSendNoEmailIfNoOneToNotify(): void
     {
         /**
-         * @var Subscriber $subscriber
-         * @var MockObject $mailer
-         * @var MockObject $topicService
+         * @var ForumSubscriber $subscriber
+         * @var MockObject      $mailer
+         * @var MockObject      $topicService
          */
         [$subscriber, $mailer, $topicService] = $this->getSubscriber();
         $message = (new Message())
@@ -58,9 +58,9 @@ class ForumSubscriberTest extends EventSubscriberTest
     public function testSendTheRightAmountOfEmail(): void
     {
         /**
-         * @var Subscriber $subscriber
-         * @var MockObject $mailer
-         * @var MockObject $topicService
+         * @var ForumSubscriber $subscriber
+         * @var MockObject      $mailer
+         * @var MockObject      $topicService
          */
         [$subscriber, $mailer, $topicService] = $this->getSubscriber();
         $topicService
@@ -74,6 +74,21 @@ class ForumSubscriberTest extends EventSubscriberTest
             ->setAuthor((new User())->setUsername('John Doe'))
             ->setTopic((new Topic())->setAuthor(new User()));
         $mailer->expects($this->exactly(2))->method('send');
+        $this->dispatch($subscriber, new MessageCreatedEvent($message));
+    }
+
+    public function testSendNoEmailIfMessageIsSpam(): void
+    {
+        /**
+         * @var ForumSubscriber $subscriber
+         * @var MockObject      $mailer
+         */
+        [$subscriber, $mailer] = $this->getSubscriber();
+        $message = (new Message())
+            ->setSpam(true)
+            ->setAuthor((new User())->setUsername('John Doe'))
+            ->setTopic((new Topic())->setAuthor(new User()));
+        $mailer->expects($this->never())->method('send');
         $this->dispatch($subscriber, new MessageCreatedEvent($message));
     }
 }

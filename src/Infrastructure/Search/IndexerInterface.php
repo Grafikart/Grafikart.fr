@@ -12,6 +12,11 @@ interface IndexerInterface
     public function index(array $data): void;
 
     /**
+     * Supprime un contenu de l'index.
+     */
+    public function remove(string $id): void;
+
+    /**
      * Vide l'index de toute données.
      */
     public function clean(): void;

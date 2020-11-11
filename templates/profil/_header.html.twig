@@ -1,0 +1,21 @@
+<header class="page-header container">
+  <div class="profil-header">
+    <form class="profil-header__avatar" enctype="multipart/form-data" method="post" action="{{ path('user_avatar') }}"
+          is="auto-submit">
+      <img src="{{ user | avatar }}" alt="">
+      <div class="profil-header__upload">
+        {{ icon('cloud') }}
+      </div>
+      <input type="file" name="avatar"/>
+    </form>
+    <div class="profil-header__body">
+      <h1 class="h1">{{ title }}</h1>
+      <p class="hstack" style="--gap:1">
+        {% include 'partials/user_badge.html.twig' %}
+        <small>
+          Inscrit {{ user.createdAt | ago('depuis') }}
+        </small>
+      </p>
+    </div>
+  </div>
+</header>

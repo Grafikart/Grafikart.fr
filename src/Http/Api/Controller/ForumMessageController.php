@@ -6,6 +6,7 @@ use ApiPlatform\Core\Validator\ValidatorInterface;
 use App\Domain\Forum\Entity\Message;
 use App\Domain\Forum\Entity\Topic;
 use App\Domain\Forum\Event\MessageCreatedEvent;
+use App\Domain\Forum\Event\PreMessageCreatedEvent;
 use App\Domain\Forum\TopicService;
 use App\Http\Controller\AbstractController;
 use App\Http\Security\ForumVoter;
@@ -43,6 +44,7 @@ class ForumMessageController extends AbstractController
             ->setAuthor($this->getUser());
         $topic->setUpdatedAt(new \DateTime());
         $validator->validate($message, ['groups' => ['create']]);
+        $dispatcher->dispatch(new PreMessageCreatedEvent($message));
         $em->persist($message);
         $em->flush();
         $dispatcher->dispatch(new MessageCreatedEvent($message));

@@ -13,6 +13,9 @@ App\Domain\Live\Live:
 App\Domain\Course\Entity\Course:
   course{1..100} (extends course):
 
+App\Domain\Course\Entity\Formation:
+  formation{1..5} (extends formation):
+
 App\Domain\Course\Entity\Technology:
   technology{1..5} (extends technology):
 
@@ -24,10 +27,42 @@ App\Domain\Blog\Post:
     category: '@category*'
 
 App\Domain\Course\Entity\TechnologyUsage:
-  technology_usage{1..100}:
+  technology_usage_course{1..100}:
     version: <numberBetween(100, 5000)>
     technology: '@technology<numberBetween(1, 5)>'
     content: '@course<current()>'
+  technology_usage_formation{1..5}:
+    version: <numberBetween(100, 5000)>
+    technology: '@technology<numberBetween(1, 5)>'
+    content: '@formation<current()>'
 
 App\Domain\Comment\Comment:
   comment{1..50} (extends comment):
+
+App\Domain\Forum\Entity\Tag:
+  tag{1..10} (extends tag):
+
+App\Domain\Forum\Entity\Topic:
+  topic_{1..50} (extends topic):
+
+App\Domain\Forum\Entity\Message:
+  forum_message{1..50} (extends forum_message):
+
+App\Domain\Premium\Entity\Transaction:
+  transaction{1..50} (extends transaction):
+
+App\Domain\Course\Entity\CursusCategory:
+  cursus_category{1..3} (extends cursus_category):
+
+App\Domain\Course\Entity\Cursus:
+  cursus{1..7} (extends cursus):
+
+App\Domain\Premium\Entity\Plan:
+  plan1:
+    name: Compte premium 1 mois
+    price: 5
+    duration: 1
+  plan12:
+    name: Compte premium 12 mois
+    price: 50
+    duration: 12
