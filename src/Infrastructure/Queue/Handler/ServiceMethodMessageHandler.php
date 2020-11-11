@@ -28,7 +28,16 @@ class ServiceMethodMessageHandler implements MessageHandlerInterface, ServiceSub
             $this->container->get($message->getServiceName()),
             $message->getMethod(),
         ];
-        call_user_func_array($callable, $message->getParams());
+        // Dans le cas d'un évènement de publication, échoue silencieusement (pour éviter une boucle de notification)
+        if ($message->getServiceName() === PublisherInterface::class) {
+            try {
+                call_user_func_array($callable, $message->getParams());
+            } catch (\Exception $e) {
+                // Ne rien faire
+            }
+        } else {
+            call_user_func_array($callable, $message->getParams());
+        }
     }
 
     public static function getSubscribedServices()
