@@ -64,7 +64,8 @@ export default class InputAttachment extends HTMLInputElement {
     if (response.ok) {
       this.setAttachment(responseData)
     } else {
-      const alert = new Alert({ message: responseData.error })
+      const alert = document.createElement('alert-message')
+      alert.innerHTML = message
       document.querySelector('.dashboard').appendChild(alert)
     }
     this.container.removeChild(loader)
