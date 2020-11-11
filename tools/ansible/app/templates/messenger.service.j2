@@ -1,0 +1,10 @@
+[Unit]
+Description={{ domain }} Messenger
+Documentation=https://github.com/Grafikart/Grafikart.fr
+Requires=network.target remote-fs.target
+After=network.target remote-fs.target
+
+[Service]
+ExecStart=php {{ root_path }}/bin/console messenger:consume async --time-limit=3600
+Restart=on-failure
+User={{ ansible_user }}

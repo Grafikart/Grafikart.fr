@@ -17,12 +17,18 @@
   apt:
     update_cache: yes
     name:
+      - "php{{ php_version }}-redis"
       - "php{{ php_version }}-fpm"
+      - "php{{ php_version }}-curl"
+      - "php{{ php_version }}-ctype"
+      - "php{{ php_version }}-iconv"
+      - "php{{ php_version }}-json"
       - "php{{ php_version }}-pgsql"
       - "php{{ php_version }}-mbstring"
       - "php{{ php_version }}-xml"
       - "php{{ php_version }}-zip"
       - "php{{ php_version }}-opcache"
+      - "php{{ php_version }}-imagick"
     state: present
 - name: PHP | Composer
   shell:

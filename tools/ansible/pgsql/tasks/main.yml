@@ -28,4 +28,4 @@
   community.general.postgresql_user:
     db: "{{ database }}"
     name: "{{ database }}"
-    password: dotted-statue-hurt
+    password: "{{ database_password }}"

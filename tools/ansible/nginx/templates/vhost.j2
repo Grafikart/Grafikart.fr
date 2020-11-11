@@ -2,7 +2,7 @@ server {
     listen                  443 ssl http2;
     listen                  [::]:443 ssl http2;
     server_name             {{ domain }};
-    set                     $base /home/{{ ansible_user }}/{{ domain }};
+    set                     $base {{ root_path }};
     root                    $base/public;
 
     # SSL

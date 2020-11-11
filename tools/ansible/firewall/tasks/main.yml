@@ -1,11 +1,11 @@
 ---
 - name: Firewall | Install ufw
-  become: true
+  become: yes
   apt:
     name: ufw
     state: present
 - name: Firewall | Policy
-  become: true
+  become: yes
   ufw:
     direction: "{{ item.direction }}"
     policy: "{{ item.policy }}"
@@ -13,12 +13,12 @@
     - {direction: incoming, policy: deny}
     - {direction: outgoing, policy: allow}
 - name: Firewall | ports
-  become: true
+  become: yes
   ufw:
     rule: limit
     port: ssh
 - name: Firewall | http
-  become: true
+  become: yes
   ufw:
     rule: allow
     port: "{{ item }}"
@@ -26,6 +26,6 @@
     - http
     - https
 - name: Firewall | Activation
-  become: true
+  become: yes
   ufw:
     state: enabled

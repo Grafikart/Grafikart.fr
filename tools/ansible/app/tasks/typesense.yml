@@ -1,0 +1,11 @@
+---
+- name: "Typesense | Install"
+  become: yes
+  apt:
+    deb: https://dl.typesense.org/releases/0.16.1/typesense-server-0.16.1-amd64.deb
+- name: Typesense | Key
+  become: yes
+  lineinfile:
+    dest: "/etc/typesense/typesense-server.ini"
+    regexp: "api-key = "
+    line: "api-key = {{ typesense_key }}"

@@ -1,0 +1,11 @@
+---
+- name: Messenger | Service
+  template:
+    src: "messenger.service.j2"
+    dest: "/etc/systemd/system/{{ domain }}.messenger.service"
+- name: Messenger | Activation du Service
+  systemd:
+    state: started
+    daemon_reload: yes
+    enabled: yes
+    name: "{{ domain }}.messenger"

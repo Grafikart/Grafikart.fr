@@ -6,13 +6,15 @@
   community.general.locale_gen:
     name: fr_FR.UTF-8
     state: present
-- name: Outils
+- name: Outils | Install
   apt:
     name:
+      - redis
       - fish
       - vim
       - git
       - ntp
+      - rsync
     state: present
 - name: Outils | création de ~/.vim/autoload
   file: state=directory path=~/.vim/autoload

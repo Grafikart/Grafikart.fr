@@ -3,17 +3,22 @@
 - name: Installation du serveur
   hosts: all
   remote_user: debian
+  become: yes
 
   pre_tasks:
     - name: "APT | Update & Upgrade"
-      become: true
+      become: yes
       apt:
         upgrade: dist
         update_cache: yes
 
+  tasks:
+
   roles:
-    - {role: tools, tags: tools, become: true}
-    - {role: firewall, become: true, tags: firewall}
-    - {role: php, become: true, tags: php}
-    - {role: nginx, become: true, tags: nginx}
-    - {role: pgsql, become: true, tags: pgsql}
+    - {role: tools, tags: tools}
+    - {role: firewall, tags: firewall}
+    - {role: php, tags: php}
+    - {role: nginx, tags: nginx}
+    - {role: pgsql, tags: pgsql}
+    - {role: app, tags: app}
+
