@@ -12,7 +12,8 @@
         update_cache: yes
 
   roles:
-    - {role: tools, tags: tools}
+    - {role: tools, tags: tools, become: true}
     - {role: firewall, become: true, tags: firewall}
     - {role: php, become: true, tags: php}
     - {role: nginx, become: true, tags: nginx}
+    - {role: pgsql, become: true, tags: pgsql}

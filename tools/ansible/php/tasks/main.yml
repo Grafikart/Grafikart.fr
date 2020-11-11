@@ -13,9 +13,6 @@
   apt_repository:
     repo: deb https://packages.sury.org/php/ {{ ansible_distribution_release }} main
     state: present
-- name: PHP | Update apt cache
-  apt:
-    update_cache: yes
 - name: PHP | Install
   apt:
     update_cache: yes

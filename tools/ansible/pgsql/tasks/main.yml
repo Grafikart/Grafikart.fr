@@ -1,0 +1,31 @@
+---
+- name: PostgreSQL | Certificat
+  apt_key:
+    url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+- name: PostgreSQL | PostgreSQL repository
+  apt_repository:
+    repo: deb http://apt.postgresql.org/pub/repos/apt {{ ansible_distribution_release }}-pgdg main
+    state: present
+- name: PostgreSQL | Install
+  apt:
+    name:
+      - postgresql-12
+      - postgresql-contrib
+      - libpq-dev
+      - python-psycopg2
+- name: PostgreSQL | Création de la base de donnée
+  become: yes
+  become_user: postgres
+  community.general.postgresql_db:
+    name: "{{ database }}"
+    encoding: 'UTF-8'
+    lc_collate: 'fr_FR.UTF-8'
+    lc_ctype: 'fr_FR.UTF-8'
+    state: present
+- name: PostgreSQL | Création de l'utilisateur
+  become: yes
+  become_user: postgres
+  community.general.postgresql_user:
+    db: "{{ database }}"
+    name: "{{ database }}"
+    password: dotted-statue-hurt
