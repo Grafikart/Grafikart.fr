@@ -40,6 +40,7 @@ services:
       - 5432:5432 # On expose le port pour pouvoir inspecter la base pendant la phase de développement
     volumes:
       - db-data:/var/lib/postgresql/data
+      - ./var:/var/www/var
   adminer:
     image: adminer
     environment:
@@ -54,7 +55,7 @@ services:
   redis:
     image: redis:5-alpine
   typesense:
-    image: typesense/typesense:0.15.0
+    image: typesense/typesense:0.16.0
     environment:
       TYPESENSE_DATA_DIR: /data
       TYPESENSE_API_KEY: typesensekey
@@ -92,6 +93,16 @@ services:
       - REDIS_HOSTS=local:redis:6379
     ports:
       - "8081:8081"
+  node:
+    build:
+      context: ./tools/docker/node
+    command: yarn run dev
+    working_dir: /usr/src/app
+    user: '${USER_ID}:${GROUP_ID}'
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - 3000:3000
 
 volumes:
   db-data:

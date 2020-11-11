@@ -7,13 +7,16 @@ export function Stack ({ children, gap }) {
   )
 }
 
-export function Flex ({ children, gap, center }) {
+export function Flex ({ children, gap, center, nowrap }) {
   const style = {}
   if (gap) {
     style['--gap'] = gap
   }
   if (center) {
     style['align-items'] = 'center'
+  }
+  if (nowrap) {
+    style['flex-wrap'] = 'nowrap'
   }
   return (
     <div class='hstack' style={style}>

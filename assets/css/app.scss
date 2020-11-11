@@ -24,29 +24,9 @@
   --red: #f25353;
   --green: #41cf7c;
   --yellow: #feb32b;
-  --yellow-alpha: #feb32b4C;
+  --yellow-alpha: #feb32b4c;
   --skeleton: var(--border-light);
   --skeleton-wave: var(--border-light);
-}
-
-.dark {
-  --color-dark: #fff;
-  --color: #effbec;
-  --color-light: #effbec99;
-  --color-inversed: #121c42;
-  --contrast: #61a0f6;
-  --gap: 20px;
-  --space: 8px;
-  --border: #122c45;
-  --border-light: #161e3b;
-  --background: #202248;
-  --background-light: #171933;
-  --shadow: #0b0c1a;
-  --play: #1d1d3a;
-  --list-hover: #282a5a;
-  --card-footer: #{darken(#202248, 3)};
-  --skeleton: #ffffff21;
-  --skeleton-wave: #ffffff14;
 }
 
 // Outils
@@ -57,6 +37,42 @@
 @import 'tools/layout';
 @import 'tools/typography';
 @import 'tools/animations';
+
+// Dark mode
+// =============
+@include dark {
+  --color-dark: #fff;
+  --color: #d4dcff;
+  --color-light: #8491c7;
+  --color-inversed: #d4dcff;
+  --contrast: #5396e7;
+  --gap: 20px;
+  --space: 8px;
+  --border: #2a2e5e;
+  --border-light: #161e3b;
+  --background: #171933;
+  --background-light: #1b1e3d;
+  --card-bg: #22244d;
+  --card-bg-footer: #1d1f42;
+  --shadow: rgba(0, 0, 0, 0.2);
+  --play: #1d1d3a;
+  --list-hover: #282a5a;
+  --card-footer: #{darken(#202248, 3)};
+  --skeleton: #0f1224;
+  --skeleton-wave: #171933;
+  --red: #A6333F;
+
+  .lighten-dark {
+    filter: brightness(10);
+  }
+
+  youtube-player {
+    --color: #111426;
+  }
+  waves-shape {
+    --contrast: #263880;
+  }
+}
 
 // Generic
 // ==================
@@ -81,8 +97,8 @@ body.header-light::after {
 }
 
 body::after {
+  display: none;
   content: '';
-  display: block;
   position: absolute;
   top: 0;
   left: 0;
@@ -91,12 +107,28 @@ body::after {
   z-index: -1;
   pointer-events: none;
   background: url(/images/logo-overlay.svg) top left / 100% 100% no-repeat;
+
+  @include up(700) {
+    display: block;
+  }
 }
 
 ::selection {
   background: var(--contrast);
   color: #fff;
 }
+
+.split-background {
+  background: linear-gradient(to top, var(--background-light), var(--background-light)) left top/100% var(--split)
+    no-repeat var(--background);
+}
+
+// Force les custom element à être en block
+// =============
+con-fetti {
+  display: block;
+}
+
 
 // Modules
 // ==================
@@ -124,6 +156,7 @@ body::after {
 @import 'modules/stepper';
 @import 'modules/slider';
 @import 'modules/search';
+@import 'modules/dropdown';
 // @import 'modules/tooltips';
 
 // Pages
@@ -134,7 +167,6 @@ body::after {
 @import 'pages/chapters';
 @import 'pages/auth';
 @import 'pages/blog';
-@import 'pages/dashboard';
 @import 'pages/env';
 @import 'pages/formations';
 @import 'pages/home';

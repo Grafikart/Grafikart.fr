@@ -44,7 +44,7 @@ final class Version20200410161058 extends AbstractMigration
         $this->addSql('CREATE TABLE content (id SERIAL NOT NULL, attachment_id INT DEFAULT NULL, user_id INT DEFAULT NULL, title VARCHAR(255) NOT NULL, slug VARCHAR(255) NOT NULL, content TEXT NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, online BOOLEAN DEFAULT \'false\' NOT NULL, type VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_FEC530A9464E68B ON content (attachment_id)');
         $this->addSql('CREATE INDEX IDX_FEC530A9A76ED395 ON content (user_id)');
-        $this->addSql('CREATE TABLE attachment (id SERIAL NOT NULL, file_name VARCHAR(255) NOT NULL, file_size INT NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE IF NOT EXISTS attachment (id SERIAL NOT NULL, file_name VARCHAR(255) NOT NULL, file_size INT NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE TABLE password_reset_token (id SERIAL NOT NULL, user_id INT DEFAULT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, token VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_6B7BA4B6A76ED395 ON password_reset_token (user_id)');
         $this->addSql('CREATE TABLE live (id SERIAL NOT NULL, name VARCHAR(255) NOT NULL, description TEXT NOT NULL, youtube_id VARCHAR(20) NOT NULL, duration INT NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');

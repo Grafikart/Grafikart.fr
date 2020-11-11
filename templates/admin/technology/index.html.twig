@@ -5,13 +5,11 @@
     Gestion des technologies
 {% endblock %}
 
+{% block actions %}
+  <a href="{{ path(prefix ~ '_new') }}" class="btn-primary">Ajouter une technologie</a>
+{% endblock %}
+
 {% block content %}
-    <div class="flex">
-      <form class="form-group dashboard-search">
-        <input name="q" type="text" placeholder="Rechercher une technologie" value="{{ app.request.get('q') }}" >
-      </form>
-      <a href="{{ path(prefix ~ '_new') }}" class="dashboard-btn">Ajouter une technologie</a>
-    </div>
     <table class="table">
       <thead>
       <tr>

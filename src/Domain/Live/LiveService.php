@@ -2,17 +2,17 @@
 
 namespace App\Domain\Live;
 
-use App\Core\OptionInterface;
+use App\Core\OptionManagerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class LiveService
 {
     const OPTION_KEY = 'live_id';
-    private OptionInterface $option;
+    private OptionManagerInterface $option;
     private SerializerInterface $serializer;
 
     public function __construct(
-        OptionInterface $option,
+        OptionManagerInterface $option,
         SerializerInterface $serializer
     ) {
         $this->option = $option;

@@ -61,6 +61,7 @@ class PaymentSubscriber implements EventSubscriberInterface
             ->setAddress($payment->address)
             ->setPostalCode($payment->postalCode)
             ->setMethodRef($payment->id)
+            ->setFee($payment->fee)
             ->setCreatedAt(new \DateTime());
         $this->em->persist($transaction);
 

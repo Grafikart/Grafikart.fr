@@ -17,9 +17,7 @@ class TypesenseIndexer implements IndexerInterface
     public function index(array $data): void
     {
         try {
-            $this->client->get("collections/content/documents/{$data['id']}");
-            $this->client->delete("collections/content/documents/{$data['id']}");
-            $this->index($data);
+            $this->client->patch("collections/content/documents/{$data['id']}", $data);
         } catch (TypesenseException $exception) {
             if (Response::HTTP_NOT_FOUND === $exception->status && 'Not Found' === $exception->message) {
                 $this->client->post('collections', [
@@ -34,11 +32,18 @@ class TypesenseIndexer implements IndexerInterface
                     ],
                     'default_sorting_field' => 'created_at',
                 ]);
-                $this->index($data);
+                $this->client->post('collections/content/documents', $data);
             } elseif (Response::HTTP_NOT_FOUND === $exception->status) {
                 $this->client->post('collections/content/documents', $data);
+            } else {
+                throw $exception;
             }
         }
+    }
+
+    public function remove(string $id): void
+    {
+        $this->client->delete("collections/content/documents/$id");
     }
 
     public function clean(): void

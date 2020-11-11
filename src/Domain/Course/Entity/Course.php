@@ -80,6 +80,11 @@ class Course extends Content
         return $this;
     }
 
+    public function isVideoPremium(): bool
+    {
+        return $this->getPremium() || $this->isScheduled();
+    }
+
     public function getYoutubeId(): ?string
     {
         return $this->youtubeId;

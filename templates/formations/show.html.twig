@@ -18,7 +18,7 @@
       <waves-shape class="waves" position="bottomWave" target=".wave-header"></waves-shape>
     </header>
 
-    <section class="formation-single">
+    <main class="formation-single pb5">
       <div class="formation-chapters">
         <h2 class="hero-title">Chapitres</h2>
         {% include 'chapters/_summary.html.twig' with {chapters: formation.chapters, class: 'chapters-split'} only %}
@@ -64,7 +64,7 @@
           class="shadow formation-intro"></youtube-player>
         </div>
       </div>
-    </section>
+    </main>
 
   {% endcache %}
 

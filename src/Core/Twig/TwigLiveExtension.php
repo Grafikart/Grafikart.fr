@@ -32,13 +32,16 @@ class TwigLiveExtension extends AbstractExtension
 
     public function isLiveRuning(): bool
     {
-        $live = $this->liveService->getCurrentLive();
+        return false;
+        // $live = $this->liveService->getCurrentLive();
 
-        return $live && $live->getCreatedAt() < new \DateTime();
+        // return $live && $live->getCreatedAt() < new \DateTime();
     }
 
     public function getNextLiveTime(): string
     {
+        return '';
+        /*
         $live = $this->liveService->getCurrentLive();
         if (null === $live) {
             return '';
@@ -56,5 +59,6 @@ class TwigLiveExtension extends AbstractExtension
         }
 
         return "<small class='text-muted'>(bientôt)</small>";
+        */
     }
 }

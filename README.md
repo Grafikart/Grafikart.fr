@@ -30,14 +30,14 @@ L'avancement peut être suivi sur la [board trello de grafikart](https://trello.
 
 ## Participer (faire une PR)
 
-Le développement a commencé et vous pouvez récupérer le projet et pour travailler dessus. Afin de simplifier la mise en place de l'environnement de dev, **docker** a été choisit :
+Le développement a commencé et vous pouvez récupérer le projet et pour travailler dessus. Afin de simplifier la mise en place de l'environnement de dev, **docker** a été choisi :
 
 ```bash
 make dev ## Permet de lancer le serveur de développement, accessible ensuite sur http://grafikart.localhost:8000
 make seed ## Permet de remplir la base de données
 ```
 
-Pour les tests vous pouvez lancer une de ces commandes
+Pour les tests vous pouvez lancer une de ces commandes :
 
 ```bash
 make test ## Permet de lancer les tests
@@ -62,7 +62,7 @@ Les contenus ne sont pas correctement mis en avant et il n'est pas évident pour
 - Les commentaires ne servent pas forcément à grand-chose en l'état (remplacer peut-être par un système de questions ?).
 - Les contenus premiums ne sont pas forcément mis en avant et on ne sait pas trop ce qui est disponible et ce qui ne l'est pas.
 - Un système de progression doit être mis en place pour permettre de reprendre une formation ou une vidéo.
-- Le système de pricing n'est pas clair, on a les même fonctionnalités pour 3.5€,10€,37€ et la seule différence est marquée en gris en haut à droite (temps d'abonnement)
+- Le système de pricing n'est pas clair, on a les mêmes fonctionnalités pour 3.5€,10€,37€ et la seule différence est marquée en gris en haut à droite (temps d'abonnement).
 
 ### Rendre le code Open Source
 

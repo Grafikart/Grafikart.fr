@@ -43,5 +43,28 @@
   <waves-shape class="waves left" target="#page-header" position="bottom" style="--wave-height: 100px"></waves-shape>
 
 
+  {% if app.request.get('success') %}
+  <modal-dialog overlay-close>
+    <section class=modal-box premium-modal">
+      <con-fetti>
+        <div class="text-center" style="margin-top: -115px;">
+          <img src="/images/illustrations/payment.svg" alt="" style="max-width: 200px;" />
+        </div>
+      </con-fetti>
+      <h1 class="h1 text-center">Merci</h1>
+      <p class="formatted text-center mb3">
+        Vous êtes maintenant premium jusqu'au <br/><strong>{{ app.user.premiumEnd | format_date('long') }}</strong>.
+      </p>
+
+
+      <a class="btn-primary btn-block" href="{{ path('course_premium') }}">
+        {{ icon('star') }}
+        Voir les tutoriels premiums
+      </a>
+    </section>
+  </modal-dialog>
+  {% endif %}
+
+
 {% endblock %}
 

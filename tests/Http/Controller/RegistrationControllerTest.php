@@ -32,6 +32,7 @@ class RegistrationControllerTest extends WebTestCase
             'registration_form' => [
                 'username' => 'Jane Doe',
                 'email' => 'jane@doe.fr',
+                'goal' => 'PHP, JavaScript',
                 'plainPassword' => [
                     'first' => 'jane@doe.fr',
                     'second' => 'jane@doe.fr',
@@ -53,6 +54,7 @@ class RegistrationControllerTest extends WebTestCase
             'registration_form' => [
                 'username' => 'Jane Doe',
                 'email' => $users['user1']->getEmail(),
+                'goal' => 'PHP, JavaScript',
                 'plainPassword' => [
                     'first' => 'jane@doe.fr',
                     'second' => 'jane@doe.fr',
@@ -135,6 +137,7 @@ class RegistrationControllerTest extends WebTestCase
         $form->setValues([
             'registration_form' => [
                 'username' => 'Jane Doe',
+                'goal' => 'PHP, JavaScript',
             ],
         ]);
         $this->client->submit($form);

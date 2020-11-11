@@ -1,0 +1,24 @@
+<article class="dashboard-comment stack" style="--gap:1">
+  <div class="flex">
+    <h3>
+      <strong>
+        <a href="{{ path('admin_user_index', {q: target.author.id}) }}">{{ icon('user') }} {{ target.author.username }}</a>
+      </strong>,
+      {{ type == 'topic' ? target.name : target.topic.name }}
+    </h3>
+    <div class="hstack" style="--gap:1;">
+      <ajax-delete class="btn-secondary btn-small"
+                   target=".dashboard-comment"
+                   url="{{ path('admin_spam_undo', {id: target.id, type: type}) }}">
+        {{ icon('check') }} Non spam
+      </ajax-delete>
+      <ajax-delete class="btn-danger btn-small"
+                   target=".dashboard-comment"
+                   url="{{ path('admin_user_ban', {id: target.author.id}) }}">
+        {{ icon('delete') }}
+        Bannir l'utilisateur
+      </ajax-delete>
+    </div>
+  </div>
+  <p>{{ target.content | nl2br }}</p>
+</article>

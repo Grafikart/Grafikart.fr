@@ -6,6 +6,7 @@ use App\Domain\Auth\User;
 use App\Domain\Forum\Entity\Message;
 use App\Domain\Notification\Entity\Notification;
 use App\Domain\Notification\Event\NotificationCreatedEvent;
+use App\Domain\Notification\Event\NotificationReadEvent;
 use App\Domain\Notification\Repository\NotificationRepository;
 use App\Http\Encoder\PathEncoder;
 use App\Http\Security\ChannelVoter;
@@ -95,6 +96,7 @@ class NotificationService
     {
         $user->setNotificationsReadAt(new \DateTimeImmutable());
         $this->em->flush();
+        $this->dispatcher->dispatch(new NotificationReadEvent($user));
     }
 
     /**

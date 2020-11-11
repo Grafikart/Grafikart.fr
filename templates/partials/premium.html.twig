@@ -8,7 +8,7 @@
 
 {% for plan in plans %}
   <div class="card pricing" id="plan{{ plan.id }}">
-    <div class="pricing__price">{{ vat_with_suffix(plan.price, app.user) }}</div>
+    <div class="pricing__price">{{ plan.price }}<sup>€ TTC</sup></div>
     {# <div class="pricing__eco">(économiser 10%)</div> #}
     <div class="pricing__item">
       Visionner les tutoriels

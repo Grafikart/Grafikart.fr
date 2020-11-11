@@ -1,5 +1,6 @@
 .formations {
   @extend %container;
+  z-index: 1;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-gap: space(4);

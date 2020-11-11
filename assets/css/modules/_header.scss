@@ -111,6 +111,10 @@
 .header__notification {
   position: relative;
   padding-right: calc(1 * var(--space));
+
+  button {
+    display: block;
+  }
 }
 .header__logout {
   span {

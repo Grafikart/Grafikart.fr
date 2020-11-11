@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/plan")
+ * @Route("/plan", name="plan_")
  */
 class PlanController extends CrudController
 {
@@ -19,7 +19,7 @@ class PlanController extends CrudController
     protected array $events = [];
 
     /**
-     * @Route("/new", name="plan_new", methods={"POST", "GET"})
+     * @Route("/new", name="new", methods={"POST", "GET"})
      */
     public function new(): Response
     {
@@ -30,7 +30,17 @@ class PlanController extends CrudController
     }
 
     /**
-     * @Route("/{id}", name="plan_edit", methods={"POST", "GET"})
+     * @Route("/", name="index", methods={"GET"})
+     */
+    public function index(): Response
+    {
+        $query = $this->getRepository()->createQueryBuilder('row');
+
+        return $this->crudIndex($query);
+    }
+
+    /**
+     * @Route("/{id}", name="edit", methods={"POST", "GET"})
      */
     public function edit(Plan $plan): Response
     {
@@ -40,7 +50,7 @@ class PlanController extends CrudController
     }
 
     /**
-     * @Route("/{id}/clone", name="plan_clone", methods={"POST", "GET"})
+     * @Route("/{id}/clone", name="clone", methods={"POST", "GET"})
      */
     public function clone(Plan $plan): Response
     {

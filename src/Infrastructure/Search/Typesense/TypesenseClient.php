@@ -27,6 +27,11 @@ class TypesenseClient
         return $this->api($endpoint, $data, 'POST');
     }
 
+    public function patch(string $endpoint, array $data = []): array
+    {
+        return $this->api($endpoint, $data, 'PATCH');
+    }
+
     public function delete(string $endpoint, array $data = []): array
     {
         return $this->api($endpoint, $data, 'DELETE');

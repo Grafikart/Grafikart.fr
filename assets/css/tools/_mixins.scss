@@ -82,3 +82,26 @@
     }
   }
 }
+
+@mixin dark () {
+  @if (&) {
+    @media (prefers-color-scheme: dark) {
+      body:not([class~='theme-light']) & {
+        @content;
+      }
+    }
+    .theme-dark &{
+      @content;
+    }
+  } @else {
+
+    @media (prefers-color-scheme: dark) {
+      body:not([class~='theme-light']) {
+        @content;
+      }
+    }
+    .theme-dark {
+      @content;
+    }
+}
+}

@@ -1,21 +1,26 @@
 {% extends 'base.html.twig' %}
 
+{% set bodyClass = 'header-light' %}
+{% set title = 'Toutes les formation' %}
+
 {% block body %}
 
-  <div class="formations py5">
+  <main class="formations split-background container py5" style="--split:380px">
     <div class="course-hero">
-      <h1>Toutes les formations</h1>
+      <h1>Toutes les <strong>formations</strong></h1>
       <div>
         <p class="mb1">
           Découvrez une technologie spécifique à travers une série de vidéo qui vous guidera dans votre apprentissage
         </p>
-        <p>Vous ne savez pas par quoi commencer ? <a href="{{ path('formation_map') }}">Laissez vous guider</a>!</p>
       </div>
     </div>
     {% for formation in formations %}
       {% include 'formations/_card.html.twig' %}
     {% endfor %}
-  </div>
+  </main>
 
+  {% if app.user %}
+    {{ show_history(formations) }}
+  {% endif %}
 {% endblock %}
 

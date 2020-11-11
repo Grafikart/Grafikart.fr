@@ -28,6 +28,9 @@ class ForumSubscriber implements EventSubscriberInterface
 
     public function onMessage(MessageCreatedEvent $event): void
     {
+        if ($event->getMessage()->isSpam()) {
+            return;
+        }
         // On récupère les utilisateurs à notifier
         $users = $this->topicService->usersToNotify($event->getMessage());
         if (empty($users)) {

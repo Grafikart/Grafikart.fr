@@ -5,6 +5,7 @@ namespace App\Infrastructure\Mercure\Subscriber;
 use App\Domain\Auth\User;
 use App\Domain\Badge\Event\BadgeUnlockEvent;
 use App\Domain\Notification\Event\NotificationCreatedEvent;
+use App\Domain\Notification\Event\NotificationReadEvent;
 use App\Infrastructure\Queue\EnqueueMethod;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Mercure\PublisherInterface;
@@ -28,8 +29,9 @@ class MercureSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            NotificationCreatedEvent::class => ['publishNotification'],
-            BadgeUnlockEvent::class => ['publishBadgeUnlock'],
+            NotificationCreatedEvent::class => 'publishNotification',
+            BadgeUnlockEvent::class => 'publishBadgeUnlock',
+            NotificationReadEvent::class => 'onNotificationRead',
         ];
     }
 
@@ -58,6 +60,17 @@ class MercureSubscriber implements EventSubscriberInterface
             'type' => 'badge',
             'data' => $badge,
         ], 'json'), true);
+        $this->enqueue->enqueue(PublisherInterface::class, '__invoke', [$update], new \DateTimeImmutable('+ 2 seconds'));
+    }
+
+    public function onNotificationRead(NotificationReadEvent $event): void
+    {
+        $user = $event->getUser();
+        $update = new Update(
+            "/notifications/user/{$user->getId()}",
+            '{"type": "markAsRead"}',
+            true
+        );
         $this->enqueue->enqueue(PublisherInterface::class, '__invoke', [$update]);
     }
 }

@@ -19,9 +19,8 @@
           <div class="forum-avatar">
             <img src="{{ topic.author | avatar }}" alt="">
           </div>
-          <div class="forum-topic__body">
-            <a class="forum-topic__title" href="{{ path(topic) }}">
-{{ topic.id }} - {{ topic.name | striptags('<mark>') | raw }}
+          <div class="forum-topic__body" style="padding-top: 0;">
+            <a class="forum-topic__title" href="{{ path(topic) }}">{{ topic.name | striptags('<mark>') | raw }}
             </a>
             <div class="forum-topic__meta">
               <a

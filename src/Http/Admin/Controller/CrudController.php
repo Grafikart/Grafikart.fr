@@ -66,6 +66,7 @@ abstract class CrudController extends BaseController
 
         return $this->render("admin/{$this->templatePath}/index.html.twig", [
             'rows' => $rows,
+            'searchable' => true,
             'menu' => $this->menuItem,
             'prefix' => $this->routePrefix,
         ]);
@@ -147,7 +148,8 @@ abstract class CrudController extends BaseController
 
     protected function applySearch(string $search, QueryBuilder $query): QueryBuilder
     {
-        return $query->where("LOWER(row.{$this->searchField}) LIKE :search")
+        return $query
+            ->where("LOWER(row.{$this->searchField}) LIKE :search")
             ->setParameter('search', '%'.strtolower($search).'%');
     }
 }

@@ -20,13 +20,13 @@
   <link rel="manifest" href="/manifest.webmanifest">
   <meta name="turbolinks-cache-control" content="no-cache"/>
 </head>
-<body class="{{ bodyClass is defined ? bodyClass : '' }} {{ app.user and app.user.darkMode ? 'dark' : '' }} {{ app.user and app.user.premium ? 'user-premium' : 'user-not-premium' }}">
+<body class="{{ bodyClass is defined ? bodyClass : '' }} {{ app.user and app.user.theme ? 'theme-' ~ app.user.theme : '' }} {{ app.user and app.user.premium ? 'user-premium' : 'user-not-premium' }}">
 <div class="page-wrapper">
   <nav class="header {% if headerWhite is defined %}is-white{% endif %}" id="header">
     <ul class="header-nav">
-      <li class="header__home"><a href="{{ path('home') }}" title="Accueil">{{ icon('home') }}</a></li>
+      <li class="header__home"><a href="{{ path('home') }}"  {{ menu_active('home') }} title="Accueil">{{ icon('home') }}</a></li>
       <li><a href="{{ path('course_index') }}" {{ menu_active('courses') }}>{{ icon('video') }} Tutoriels</a></li>
-      <li><a href="{{ path('formation_index') }}">{{ icon('lines') }} Formations</a></li>
+      <li><a href="{{ path('formation_index') }}" {{ menu_active('formations') }}>{{ icon('lines') }} Formations</a></li>
       <li><a href="{{ path('forum') }}"  {{ menu_active('forum') }}>{{ icon('comment') }} Forum</a></li>
       <li><a href="{{ path('live') }}" {{ menu_active('live') }} class="{{ is_live_running() ? 'has-live' : '' }}">{{ icon('camera') }} Live {{ next_live_time() }}</a></li>
       <li><a href="{{ path('blog_index') }}" {{ menu_active('blog') }}>{{ icon('pen') }} Blog</a></li>
@@ -72,5 +72,6 @@
     NOTIFICATION: new Date({{ (app.user and app.user.notificationsReadAt) ? app.user.notificationsReadAt.timestamp : 0 }} * 1000)
   }
 </script>
+{% block javascripts_footer '' %}
 </body>
 </html>

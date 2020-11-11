@@ -17,22 +17,23 @@ install: public/assets vendor/autoload.php ## Installe les différentes dépenda
 
 .PHONY: build-docker
 build-docker:
-	# $(dc) pull --ignore-pull-failures
-	$(dc) build --force-rm --pull php
-	$(dc) build --force-rm --pull messenger
-	$(dc) build --force-rm --pull node
+	$(dc) pull --ignore-pull-failures
+	$(dc) build php
+	$(dc) build messenger
+	$(dc) build node
+
 
 .PHONY: dev
 dev: vendor/autoload.php node_modules/time ## Lance le serveur de développement
-	make -j 2 server
-
-.PHONY: server
-server:
 	$(dc) up
 
-.PHONY: front
-front:
-	$(drnode) yarn run dev
+.PHONY: dump
+dump: var/dump ## Génère un dump SQL
+	$(de) db sh -c 'PGPASSWORD="grafikart" pg_dump grafikart -U grafikart > /var/www/var/dump/dump.sql'
+
+.PHONY: dumpimport
+dumpimport: var/dump ## Import un dump SQL
+	$(de) db sh -c 'psql grafikart < /var/www/var/dump/dump.sql'
 
 .PHONY: clean
 clean: ## Nettoie les containers
@@ -42,7 +43,7 @@ clean: ## Nettoie les containers
 seed: vendor/autoload.php ## Génère des données dans la base de données (docker-compose up doit être lancé)
 	$(sy) doctrine:migrations:migrate -q
 	$(sy) doctrine:schema:validate -q
-	$(sy) hautelook:fixtures:load -q
+	$(sy) app:seed -q
 
 .PHONY: migration
 migration: vendor/autoload.php ## Génère les migrations
@@ -66,8 +67,9 @@ import: vendor/autoload.php ## Import les données du site actuel
 	$(sy) app:import formations
 	$(sy) app:import blog
 	$(sy) app:import comments
-	# $(sy) app:import forum
-	# $(sy) app:import badges
+	$(sy) app:import forum
+	$(sy) app:import badges
+	$(sy) app:import transactions
 	$(dc) -f docker-compose.import.yml stop
 
 .PHONY: test
@@ -83,7 +85,7 @@ tt: vendor/autoload.php ## Lance le watcher phpunit
 
 .PHONY: lint
 lint: vendor/autoload.php ## Analyse le code
-	docker run -v $(PWD):/app --rm phpstan/phpstan analyse
+	docker run -v $(PWD):/app -w /app --rm php:7.4-cli-alpine php -d memory_limit=-1 ./vendor/bin/phpstan analyse
 
 .PHONY: format
 format:
@@ -107,3 +109,5 @@ public/assets: node_modules/time
 	$(drnode) npx sass assets/css/app.scss assets/css/app.css
 	$(drnode) yarn run build
 
+var/dump:
+	mkdir var/dump

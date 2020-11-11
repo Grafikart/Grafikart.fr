@@ -21,6 +21,17 @@
     </alert-message>
     {% endif %}
 
+    {% if errors | length > 0 %}
+      <alert-message type="danger">
+        {% for error in errors %}
+          {{ error.message }}
+          {% if not loop.last %}
+            <br/>
+          {% endif %}
+        {% endfor %}
+      </alert-message>
+    {% endif %}
+
     {{ form_start(form, {attr: {class: 'auth-form fade fade-1'}}) }}
       {{ form_row(form.username) }}
       {% if form.email is defined %}
@@ -29,6 +40,10 @@
       {% if form.plainPassword is defined %}
         {{ form_row(form.plainPassword) }}
       {% endif %}
+      {{ form_row(form.goal) }}
+      <div class="form-optional" aria-hidden="true">
+        {{ form_row(form.job) }}
+      </div>
       <button type="submit" class="btn-gradient">S'inscrire</button>
       <p>
         <small class="text-muted">Vos données personnelles (email et nom d'utilisateur) ne sont utilisées qu'à des fins d'authentification et ne sont pas partagées avec des tiers (<a

@@ -50,6 +50,12 @@ class ProfileService
     public function updateProfile(ProfileUpdateDto $data): void
     {
         $data->user->setCountry($data->country);
+        $data->user->setForumMailNotification($data->forumNotification);
+        if (true === $data->useSystemTheme) {
+            $data->user->setTheme(null);
+        } else {
+            $data->user->setTheme($data->useDarkTheme ? 'dark' : 'light');
+        }
         if ($data->email !== $data->user->getEmail()) {
             $lastRequest = $this->emailVerificationRepository->findLastForUser($data->user);
             if ($lastRequest && $lastRequest->getCreatedAt() > new \DateTime('-1 hour')) {

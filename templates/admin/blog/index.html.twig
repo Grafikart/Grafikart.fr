@@ -5,13 +5,11 @@
     Gestion des articles
 {% endblock %}
 
+{% block actions %}
+  <a href="{{ path('admin_blog_new') }}" class="btn-primary">Ajouter un article</a>
+{% endblock %}
+
 {% block content %}
-    <div class="flex">
-      <form class="form-group dashboard-search">
-        <input name="q" type="text" placeholder="Rechercher un article" value="{{ app.request.get('q') }}" >
-      </form>
-      <a href="{{ path('admin_blog_new') }}" class="dashboard-btn">Ajouter un article</a>
-    </div>
     <table class="table">
       <thead>
       <tr>

@@ -3,24 +3,32 @@
 namespace App\Http\Admin\Controller;
 
 use App\Infrastructure\Queue\FailedJobsService;
+use App\Infrastructure\Queue\ScheduledJobsService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class JobsController extends BaseController
 {
     private FailedJobsService $failedJobsService;
+    private ScheduledJobsService $scheduledJobsService;
 
-    public function __construct(FailedJobsService $failedJobsService)
+    public function __construct(FailedJobsService $failedJobsService, ScheduledJobsService $scheduledJobsService)
     {
         $this->failedJobsService = $failedJobsService;
+        $this->scheduledJobsService = $scheduledJobsService;
     }
 
     /**
      * @Route("/{id}", methods={"DELETE"}, name="job_delete")
      */
-    public function delete(int $id): RedirectResponse
+    public function delete(int $id, Request $request): RedirectResponse
     {
-        $this->failedJobsService->deleteJob($id);
+        if ($request->get('delayed')) {
+            $this->scheduledJobsService->deleteJob($id);
+        } else {
+            $this->failedJobsService->deleteJob($id);
+        }
         $this->addFlash('success', 'La tâche a bien été supprimée');
 
         return $this->redirectToRoute('admin_home');

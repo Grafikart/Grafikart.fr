@@ -35,7 +35,7 @@ class PaymentRefundedSubscriber implements EventSubscriberInterface
     public function onPaymentReimbursed(PaymentRefundedEvent $event): void
     {
         $transaction = $this->transactionRepository->findOneBy(['methodRef' => $event->getPayment()->id]);
-        if (null === $transaction) {
+        if (null === $transaction || $transaction->isRefunded()) {
             return;
         }
 
