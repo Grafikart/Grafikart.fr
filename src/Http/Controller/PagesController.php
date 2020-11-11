@@ -22,7 +22,7 @@ class PagesController extends AbstractController
             'menu' => 'home',
             'courses' => $courseRepository->findRecent(3),
             'formations' => $formationRepository->findRecent(3),
-            'cursus' => $cursusRepository->findRecent(4),
+            'cursus' => $cursusRepository->findRecent(5),
             'posts' => $postRepository->findRecent(5),
         ]);
     }

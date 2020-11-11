@@ -51,7 +51,14 @@
 
 .home-cursus .card {
   width: 100%;
+  height: 300px;
   max-width: 600px;
+}
+
+.home-cursus .card__body p:first-of-type {
+  height: 150px;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
 }
 
 .home-cursus em {
@@ -110,12 +117,16 @@
 .home-cursus__push .item-3 {
   transform: translate(-50%, 60px) scale(0.8);
   z-index: 2;
-  transition: 0s;
   opacity: 1;
 
   .card__illustration {
     opacity: .1;
   }
+}
+
+.home-cursus__push .item-4 {
+  transform: translate(-50%, 80px) scale(0.7);
+  z-index: 1;
 }
 
 @include up(1000) {
