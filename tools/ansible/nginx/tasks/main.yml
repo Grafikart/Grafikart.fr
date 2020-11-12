@@ -31,3 +31,12 @@
     src: "/etc/nginx/sites-available/{{ domain }}"
     state: link
   notify: nginx reload
+- name: "Nginx | NginxReqLimit fail2ban filter"
+  template:
+    src: fail2ban/nginx-req-limit.conf.j2
+    dest: /etc/fail2ban/filter.d/nginx-req-limit.conf
+- name: "Nginx | fail2ban Jail"
+  template:
+    src: fail2ban/jail.local.j2
+    dest: /etc/fail2ban/jail.local
+  notify: fail2ban restart

@@ -1,0 +1,26 @@
+[DEFAULT]
+ignoreip  = 127.0.0.1
+bantime   = 86400
+banaction = iptables-multiport
+action    = %(action_mwl)s
+
+# JAILS
+[ssh]
+enabled   = true
+maxretry  = 3
+
+[pam-generic]
+enabled   = true
+banaction = iptables-allports
+
+[ssh-ddos]
+enabled   = true
+
+[nginx-req-limit]
+enabled = true
+filter = nginx-req-limit
+action = iptables-multiport[name=ReqLimit, port="http,https", protocol=tcp]
+logpath = /var/log/nginx/{{ domain }}.error.log
+findtime = 600
+bantime = 7200
+maxretry = 10

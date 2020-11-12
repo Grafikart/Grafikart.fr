@@ -6,4 +6,8 @@
 - name: nginx restart
   service:
     name: nginx
-    state: restart
+    state: restarted
+- name: fail2ban restart
+  service:
+    name: fail2ban
+    state: restarted
