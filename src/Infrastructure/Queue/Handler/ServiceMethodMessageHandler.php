@@ -29,7 +29,7 @@ class ServiceMethodMessageHandler implements MessageHandlerInterface, ServiceSub
             $message->getMethod(),
         ];
         // Dans le cas d'un évènement de publication, échoue silencieusement (pour éviter une boucle de notification)
-        if ($message->getServiceName() === PublisherInterface::class) {
+        if (PublisherInterface::class === $message->getServiceName()) {
             try {
                 call_user_func_array($callable, $message->getParams());
             } catch (\Exception $e) {
