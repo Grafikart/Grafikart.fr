@@ -10,7 +10,7 @@ framework:
               retry_strategy:
                 max_retries: 0
                 delay: 5000
-            failed: '%env(MESSENGER_TRANSPORT_FAILED_DSN)%'
+            failed: doctrine://default
             sync: 'sync://'
 
         routing:

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6e4d9da510ff92a66ab2ed1f5466d4e5",
+    "content-hash": "a48ae169780c0e499636de19621015c7",
     "packages": [
         {
             "name": "api-platform/core",
@@ -4406,7 +4406,6 @@
                     "homepage": "https://github.com/paypal/paypalhttp_php/contributors"
                 }
             ],
-            "abandoned": true,
             "time": "2019-11-06T21:27:12+00:00"
         },
         {

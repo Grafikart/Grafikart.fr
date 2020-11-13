@@ -8,6 +8,7 @@ use App\Domain\Forum\Repository\ReportRepository;
 use App\Domain\Premium\Repository\TransactionRepository;
 use App\Domain\Revision\RevisionRepository;
 use App\Infrastructure\Mailing\Mailer;
+use App\Infrastructure\Queue\EnqueueMethod;
 use App\Infrastructure\Queue\FailedJobsService;
 use App\Infrastructure\Queue\ScheduledJobsService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -27,16 +28,21 @@ final class PageController extends BaseController
         ReportRepository $reportRepository,
         FailedJobsService $failedJobsService,
         TransactionRepository $transactionRepository,
-        ScheduledJobsService $scheduledJobsService
+        ScheduledJobsService $scheduledJobsService,
+        EnqueueMethod $enqueueMethod,
+        Request $request
     ): Response {
+        if ($request->get('test')) {
+            $enqueueMethod->enqueue('LAZE', 'lol');
+        }
         return $this->render('admin/home.html.twig', [
-            'revisions' => $revisionRepository->findLatest(),
-            'comments' => $paginator->paginate($commentRepository->queryLatest()),
-            'reports' => $reportRepository->findAll(),
-            'menu' => 'home',
-            'failed_jobs' => $failedJobsService->getJobs(),
-            'months' => $transactionRepository->getMonthlyRevenues(),
-            'days' => $transactionRepository->getDailyRevenues(),
+            'revisions'      => $revisionRepository->findLatest(),
+            'comments'       => $paginator->paginate($commentRepository->queryLatest()),
+            'reports'        => $reportRepository->findAll(),
+            'menu'           => 'home',
+            'failed_jobs'    => $failedJobsService->getJobs(),
+            'months'         => $transactionRepository->getMonthlyRevenues(),
+            'days'           => $transactionRepository->getDailyRevenues(),
             'scheduled_jobs' => $scheduledJobsService->getJobs(),
         ]);
     }
