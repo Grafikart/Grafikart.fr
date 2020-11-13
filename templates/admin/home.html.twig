@@ -6,96 +6,7 @@
 
   <div class="stack-large">
 
-
-
-    {% if scheduled_jobs | length > 0 %}
-      <section class="stack" style="--gap:1">
-        <div class="flex">
-          <h1 class="dashboard-title">
-            {{ icon('warning') }} Tâches programmées
-          </h1>
-        </div>
-        <div class="dashboard-card">
-          <table class="table">
-            <thead>
-            <tr>
-              <th>Date</th>
-              <th>Message</th>
-              <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for job in scheduled_jobs %}
-              <tr>
-                <td style="white-space: nowrap" class="text-muted">
-                  <small>{{ job.publishDate | ago }}</small>
-                </td>
-                <td>
-                  <h4 class="mb1 formatted bold">{{ job.messageClass }}</h4>
-                  <p>
-                    {{ job.params | json_encode }}
-                  </p>
-                </td>
-                <td>
-                  <div class="hstack nowrap">
-                    <form action="{{ path('admin_job_delete', {id: job.id, delayed: true}) }}" method="post">
-                      <input type="hidden" name="_method" value="DELETE">
-                      <button class="btn-small btn-danger">{{ icon('trash') }} Supprimer</button>
-                    </form>
-                  </div>
-                </td>
-              </tr>
-            {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      </section>
-    {% endif %}
-
-    {% if failed_jobs | length > 0 %}
-    <section class="stack" style="--gap:1">
-      <div class="flex">
-        <h1 class="dashboard-title">
-          {{ icon('warning') }} Tâches échouées
-        </h1>
-      </div>
-      <div class="dashboard-card">
-        <table class="table">
-          <thead>
-          <tr>
-            <th>Date</th>
-            <th>Message</th>
-            <th>Action</th>
-          </tr>
-          </thead>
-          <tbody>
-          {% for job in failed_jobs %}
-            <tr>
-              <td style="white-space: nowrap" class="text-muted">
-                <small>{{ job.failedAt | ago }}</small>
-              </td>
-              <td>
-                <h4 class="mb1 formatted"><strong>{{ job.messageClass }}</strong></h4>
-                  <p>{{ job.errorMessage }}</p>
-              </td>
-              <td>
-                <div class="hstack nowrap">
-                  <form action="{{ path('admin_job_retry', {id: job.id}) }}" method="post">
-                    <button class="btn-small btn-secondary">{{ icon('sync') }} Relancer</button>
-                  </form>
-                  <form action="{{ path('admin_job_delete', {id: job.id}) }}" method="post">
-                    <input type="hidden" name="_method" value="DELETE">
-                    <button class="btn-small btn-danger">{{ icon('trash') }} Supprimer</button>
-                  </form>
-                </div>
-              </td>
-            </tr>
-          {% endfor %}
-          </tbody>
-        </table>
-      </div>
-    </section>
-    {% endif %}
+    {% include 'admin/home/_jobs.html.twig' %}
 
     <section class="stack" style="--gap: 1;">
       <div class="flex">
@@ -113,69 +24,16 @@
       </div>
     </section>
 
-    <div class="grid2">
+    <div class="grid2" style="--gap: 4">
 
       <!-- Commentaires -->
-      <section class="stack" style="--gap:1">
-        <div class="flex">
-          <h1 class="dashboard-title">
-            {{ icon('comments') }} Derniers commentaires
-          </h1>
-          {{ paginate_nav(comments) }}
-        </div>
-        <div class="dashboard-card stack-separated">
-          {% for comment in comments %}
-            <article class="dashboard-comment stack" style="--gap:1">
-              <div class="flex">
-                <h3>
-                  <strong>
-                    <a href="{{ path('admin_user_index', {q: comment.author ? comment.author.id : '#'}) }}">{{ icon('user') }} {{ comment.username }}</a>
-                  </strong>,
-                  {{ comment.target.title }}
-                </h3>
-                <ajax-delete class="dashboard-comment__delete"
-                             target=".dashboard-comment"
-                             url="{{ path('api_comments_delete_item', {id: comment.id}) }}">
-                  {{ icon('delete') }}
-                </ajax-delete>
-              </div>
-              <p>{{ comment.content | nl2br }}</p>
-            </article>
-          {% endfor %}
-        </div>
-      </section>
+      {% include 'admin/home/_comments.html.twig' %}
 
       <div class="stack-large">
 
-        {% if reports is not empty %}
-          <div class="stack">
-            <h1 class="dashboard-title">
-              {{ icon('comments') }} Signalements
-            </h1>
-            <div class="dashboard-card stack-separated">
-              {% for report in reports %}
-                <article class="dashboard-comment stack" style="--gap:1">
-                  <div class="flex">
-                    <h3>
-                      <strong>{{ icon('user') }} {{ report.author.username }}</strong> a signalé
-                      <strong><a href="{{ path('admin_user_index', {q: report.target.author.id}) }}">{{ icon('user') }} {{ report.target.author.username }}</a></strong> sur
-                      <a href="{{ path(report.target) }}">
-                        {{ report.topic ? report.topic.name : report.message.topic.name }}
-                      </a>
-                    </h3>
-                    <ajax-delete class="dashboard-comment__delete"
-                                 target=".dashboard-comment"
-                                 url="{{ path('api_forum/reports_delete_item', {id: report.id}) }}">
-                      {{ icon('delete') }}
-                    </ajax-delete>
-                  </div>
-                  <p>{{ report.reason }}</p>
-                </article>
-              {% endfor %}
-            </div>
-          </div>
-        {% endif %}
+        {% include 'admin/home/_reports.html.twig' %}
 
+        <!-- Actions -->
         <section class="stack" style="--gap: 1">
           <div class="flex">
             <h1 class="dashboard-title">{{ icon('star') }} Actions</h1>
@@ -191,7 +49,21 @@
               </form>
             </div>
           </div>
+        </section>
 
+        <section class="stack" style="--gap: 1">
+          <div class="flex">
+            <h1 class="dashboard-title">{{ icon('edit') }} <a href="https://www.mail-tester.com/" rel="noreferrer">Tester les emails</a></h1>
+          </div>
+
+          <div class="dashboard-card">
+            <form action="{{ path('admin_mailtest') }}" method="post" class="flex stretch">
+              <div class="form-group" style="width: 100%">
+                <input class="form-control" placeholder="Email" name="email">
+              </div>
+              <button class="btn btn-secondary">Envoyer</button>
+            </form>
+          </div>
         </section>
 
         <!-- Notifications -->

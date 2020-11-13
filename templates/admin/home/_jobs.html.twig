@@ -1,0 +1,88 @@
+{% if scheduled_jobs | length > 0 %}
+  <section class="stack" style="--gap:1">
+    <div class="flex">
+      <h1 class="dashboard-title">
+        {{ icon('warning') }} Tâches programmées
+      </h1>
+    </div>
+    <div class="dashboard-card">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Date</th>
+          <th>Message</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for job in scheduled_jobs %}
+          <tr>
+            <td style="white-space: nowrap" class="text-muted">
+              <small>{{ job.publishDate | ago }}</small>
+            </td>
+            <td>
+              <h4 class="mb1 formatted bold">{{ job.messageClass }}</h4>
+              <p>
+                {{ job.params | json_encode }}
+              </p>
+            </td>
+            <td>
+              <div class="hstack nowrap">
+                <form action="{{ path('admin_job_delete', {id: job.id, delayed: true}) }}" method="post">
+                  <input type="hidden" name="_method" value="DELETE">
+                  <button class="btn-small btn-danger">{{ icon('trash') }} Supprimer</button>
+                </form>
+              </div>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+{% endif %}
+
+{% if failed_jobs | length > 0 %}
+  <section class="stack" style="--gap:1">
+    <div class="flex">
+      <h1 class="dashboard-title">
+        {{ icon('warning') }} Tâches échouées
+      </h1>
+    </div>
+    <div class="dashboard-card">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Date</th>
+          <th>Message</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for job in failed_jobs %}
+          <tr>
+            <td style="white-space: nowrap" class="text-muted">
+              <small>{{ job.failedAt | ago }}</small>
+            </td>
+            <td>
+              <h4 class="mb1 formatted"><strong>{{ job.messageClass }}</strong></h4>
+              <p>{{ job.errorMessage }}</p>
+            </td>
+            <td>
+              <div class="hstack nowrap">
+                <form action="{{ path('admin_job_retry', {id: job.id}) }}" method="post">
+                  <button class="btn-small btn-secondary">{{ icon('sync') }} Relancer</button>
+                </form>
+                <form action="{{ path('admin_job_delete', {id: job.id}) }}" method="post">
+                  <input type="hidden" name="_method" value="DELETE">
+                  <button class="btn-small btn-danger">{{ icon('trash') }} Supprimer</button>
+                </form>
+              </div>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+{% endif %}

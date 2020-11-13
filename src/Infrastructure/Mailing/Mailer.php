@@ -11,11 +11,13 @@ class Mailer
 {
     private Environment $twig;
     private EnqueueMethod $enqueue;
+    private MailerInterface $mailer;
 
-    public function __construct(Environment $twig, EnqueueMethod $enqueue)
+    public function __construct(Environment $twig, EnqueueMethod $enqueue, MailerInterface $mailer)
     {
         $this->twig = $twig;
         $this->enqueue = $enqueue;
+        $this->mailer = $mailer;
     }
 
     public function createEmail(string $template, array $data = []): Email
@@ -34,5 +36,10 @@ class Mailer
     public function send(Email $email): void
     {
         $this->enqueue->enqueue(MailerInterface::class, 'send', [$email]);
+    }
+
+    public function sendNow(Email $email): void
+    {
+        $this->mailer->send($email);
     }
 }

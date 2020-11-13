@@ -1,0 +1,28 @@
+{% if reports is not empty %}
+  <div class="stack">
+    <h1 class="dashboard-title">
+      {{ icon('comments') }} Signalements
+    </h1>
+    <div class="dashboard-card stack-separated">
+      {% for report in reports %}
+        <article class="dashboard-comment stack" style="--gap:1">
+          <div class="flex">
+            <h3>
+              <strong>{{ icon('user') }} {{ report.author.username }}</strong> a signalé
+              <strong><a href="{{ path('admin_user_index', {q: report.target.author.id}) }}">{{ icon('user') }} {{ report.target.author.username }}</a></strong> sur
+              <a href="{{ path(report.target) }}">
+                {{ report.topic ? report.topic.name : report.message.topic.name }}
+              </a>
+            </h3>
+            <ajax-delete class="dashboard-comment__delete"
+                         target=".dashboard-comment"
+                         url="{{ path('api_forum/reports_delete_item', {id: report.id}) }}">
+              {{ icon('delete') }}
+            </ajax-delete>
+          </div>
+          <p>{{ report.reason }}</p>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
