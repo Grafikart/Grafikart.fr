@@ -1,6 +1,6 @@
 ## !ide
 
-L'éditeur est PHPStorm avec le thème Material Palenight https://plugins.jetbrains.com/plugin/8006-material-theme-ui
+L'éditeur est PHPStorm avec le thème inspiré de Tokyo Night https://github.com/Grafikart/tokyo-night-jetbrains-theme
 
 ## !font
 
@@ -8,7 +8,7 @@ La police utilisée est Jetbrains Mono https://www.jetbrains.com/lp/mono/
 
 ## !theme
 
-Le thème utilisé est Material Palenight https://plugins.jetbrains.com/plugin/8006-material-theme-ui
+Le thème utilisé est inspiré de Tokyo Night https://github.com/Grafikart/tokyo-night-jetbrains-theme
 
 ## !os
 
