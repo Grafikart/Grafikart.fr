@@ -35,7 +35,7 @@
       {# Formations #}
       {% if formationsPerLevel is not empty %}
       <section id="formationsPerLevel" class="stack" style="--gap:7">
-        {% if formationsPerLevel[0] %}
+        {% if formationsPerLevel[0] is defined %}
           <div class="stack">
             <h2 class="h3"><strong>Apprendre</strong> les bases</h2>
             <div class="list-cursus">

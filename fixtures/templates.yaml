@@ -23,7 +23,7 @@ App\Domain\Blog\Category:
 
 App\Domain\Course\Entity\Course:
   course (template):
-    title: <sentence(5, true)>
+    title: <sentence(3, true)>
     slug: <slug()>
     content: <text(1500)>
     created_at: <dateTimeThisYear()>
@@ -42,10 +42,10 @@ App\Domain\Course\Entity\Formation:
   formation (template):
     title: <sentence(5, true)>
     slug: <slug()>
-    content: <text(1500)>
+    content: <text(500)>
     created_at: <dateTimeThisYear()>
     updated_at: <dateTimeThisYear()>
-    short: <sentence(3, true)>
+    short: <sentence(15, true)>
     youtube_playlist: 7UURBqlUUUk
     links: <sentence(1, true)>
     level: <numberBetween(0, 2)>
@@ -56,7 +56,7 @@ App\Domain\Course\Entity\Technology:
   technology (template):
     name: <words(1, true)>
     slug: <slug()>
-    content: <sentence(400)>
+    content: <sentence(45)>
     image: <randomElement(['symfony','vuejs','docker', 'github', 'i3wm', 'jage', 'mjml', 'sass', 'yaml'])>.svg
     updated_at: <dateTimeThisYear()>
 
@@ -129,7 +129,7 @@ App\Domain\Premium\Entity\Transaction:
 App\Domain\Course\Entity\CursusCategory:
   cursus_category (template):
     name: <sentence(3)>
-    description: <sentence(400)>
+    description: <sentence(40)>
 
 App\Domain\Course\Entity\Cursus:
   cursus (template):
@@ -140,3 +140,4 @@ App\Domain\Course\Entity\Cursus:
     updated_at: <dateTimeThisYear()>
     online: true
     author: '@user1'
+    category: '@cursus_category*'

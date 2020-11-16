@@ -1,11 +1,19 @@
+isDocker := $(shell docker info > /dev/null 2>&1 && echo 1)
 user := $(shell id -u)
 group := $(shell id -g)
-dc := USER_ID=$(user) GROUP_ID=$(group) docker-compose
-dr := $(dc) run --rm
-de := docker-compose exec
-sy := $(de) php bin/console
-drtest := $(dc) -f docker-compose.test.yml run --rm
-drnode := $(dr) node
+ifeq ($(isDocker), 1)
+	dc := USER_ID=$(user) GROUP_ID=$(group) docker-compose
+	de := docker-compose exec
+	dr := $(dc) run --rm
+	sy := $(de) php bin/console
+	drtest := $(dc) -f docker-compose.test.yml run --rm
+	node := $(dr) node
+	php := $(dr) --no-deps php
+else
+	sy := php bin/console
+	node :=
+	php := php
+endif
 
 .DEFAULT_GOAL := help
 .PHONY: help
@@ -75,7 +83,7 @@ import: vendor/autoload.php ## Import les données du site actuel
 test: vendor/autoload.php ## Execute les tests
 	$(drtest) phptest bin/console doctrine:schema:validate --skip-sync
 	$(drtest) phptest vendor/bin/phpunit
-	$(drnode) yarn run test
+	$(node) yarn run test
 
 .PHONY: tt
 tt: vendor/autoload.php ## Lance le watcher phpunit
@@ -97,16 +105,16 @@ doc: ## Génère le sommaire de la documentation
 	npx doctoc ./README.md
 
 vendor/autoload.php: composer.lock
-	$(dr) --no-deps php composer install
+	$(php) composer install
 	touch vendor/autoload.php
 
 node_modules/time: yarn.lock
-	$(drnode) yarn
+	$(node) yarn
 	touch node_modules/time
 
 public/assets: node_modules/time
-	$(drnode) npx sass assets/css/app.scss assets/css/app.css
-	$(drnode) yarn run build
+	$(node) npx sass assets/css/app.scss assets/css/app.css
+	$(node) yarn run build
 
 var/dump:
 	mkdir var/dump
