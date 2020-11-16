@@ -66,7 +66,11 @@ rollback:
 
 .PHONY: import
 import: vendor/autoload.php ## Import les données du site actuel
+	$(dc) -f docker-compose.import.yml stop
 	$(dc) -f docker-compose.import.yml up -d
+	rsync -avz --ignore-existing --progress --exclude=avatars --exclude=tmp --exclude=users grafikart:/home/www/grafikart.fr/shared/public/uploads/ ./public/old/
+	# gunzip downloads/grafikart.gz
+	tar -xf downloads/grafikart.tar.gz -C downloads/
 	$(sy) doctrine:migrations:migrate -q
 	$(sy) app:import reset
 	$(sy) app:import users

@@ -48,6 +48,7 @@ final class BadgeImporter extends MySQLImporter
         }
         $id = $row['id'] + 1;
         $this->em->getConnection()->exec("ALTER SEQUENCE badge_id_seq RESTART WITH $id;");
+        $this->em->getConnection()->exec('REINDEX table "badge";');
         $io->progressFinish();
         $io->success(sprintf('Importation de %d badges', count($rows)));
         $this->em->flush();

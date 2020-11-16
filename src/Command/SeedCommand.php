@@ -71,7 +71,9 @@ class SeedCommand extends Command
                 $chapters[] = (new Chapter())
                     ->setTitle("Chapitre {$i}")
                     ->setModules($modules);
-                array_map([$c, 'addModule'], $modules);
+                /** @var callable $callable */
+                $callable = [$c, 'addModule'];
+                array_map($callable, $modules);
             }
             $c->setChapters($chapters);
         }

@@ -83,6 +83,7 @@ final class CommentImporter extends MySQLImporter
         }
         ++$lastId;
         $this->em->getConnection()->exec("ALTER SEQUENCE comment_id_seq RESTART WITH $lastId;");
+        $this->em->getConnection()->exec('REINDEX table "comment";');
         $io->progressFinish();
         $io->success(sprintf('Importation de %d commentaires', $result['count']));
     }
@@ -90,9 +91,13 @@ final class CommentImporter extends MySQLImporter
     private function attachContent(Comment $comment, string $type, int $id, ?string $slug): bool
     {
         if ('Tutoriel' === $type && $id > 0) {
-            /** @var Course $course */
-            $course = $this->em->getReference(Course::class, $id);
+            /** @var ?Course $course */
+            $course = $this->em->find(Course::class, $id);
+            if ($course === null ) {
+                return false;
+            }
             $comment->setTarget($course);
+
 
             return true;
         }

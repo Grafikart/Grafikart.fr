@@ -100,8 +100,11 @@ final class CoursesImporter extends Neo4jImporter
         foreach ($rows as $row) {
             $tutoriel = $row->offsetGet(0)->getProperties();
             $user = $row->offsetGet(1)->getProperties();
-            /** @var User $author */
-            $author = $this->em->getReference(User::class, $user['uuid']);
+            /** @var ?User $author */
+            $author = $this->em->find(User::class, $user['uuid']);
+            if ($author === null) {
+                continue;
+            }
             $createdAt = new \DateTime('@'.$tutoriel['created_at']);
             $course = (new Course())
                 ->setYoutubeId($tutoriel['youtube'] ?? null)
@@ -133,6 +136,7 @@ final class CoursesImporter extends Neo4jImporter
         $this->em->flush();
         $id = $tutoriel['uuid'] + 1;
         $this->em->getConnection()->exec("ALTER SEQUENCE content_id_seq RESTART WITH $id;");
+        $this->em->getConnection()->exec('REINDEX table "content";');
         $this->restoreAutoIncrement(Content::class);
         $this->em->clear();
         $io->success(sprintf('Import de %d cours', $rows->count()));
@@ -165,7 +169,10 @@ final class CoursesImporter extends Neo4jImporter
             /** @var Relationship $relation */
             $relation = $row->offsetGet(1);
             /** @var Content $content */
-            $content = $this->em->getReference(Content::class, $courseId);
+            $content = $this->em->find(Content::class, $courseId);
+            if ($content === null) {
+                continue;
+            }
             $usage = (new TechnologyUsage())
                 ->setVersion($relation->getProperty('version'))
                 ->setSecondary('USE' === $relation->getType())

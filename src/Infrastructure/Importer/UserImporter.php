@@ -48,7 +48,7 @@ final class UserImporter implements TypeImporterInterface
             foreach ($oldUsers as $oldUser) {
                 $user = (new User())
                     ->setId($oldUser['id'])
-                    ->setPremiumEnd(new \DateTimeImmutable($oldUser['premium']))
+                    ->setPremiumEnd($oldUser['premium'] && $oldUser['premium'] !== '0000-00-00 00:00:00' ? new \DateTimeImmutable($oldUser['premium']) : null)
                     ->setUsername($oldUser['username'])
                     ->setPassword($oldUser['encrypted_password'])
                     ->setCreatedAt('0000-00-00 00:00:00' === $oldUser['created_at'] ? new \DateTime('@0') : new \DateTime($oldUser['created_at']))
@@ -63,7 +63,7 @@ final class UserImporter implements TypeImporterInterface
         }
         $id = $oldUser['id'] + 1;
         $this->em->getConnection()->exec("ALTER SEQUENCE user_id_seq RESTART WITH $id;");
-        $this->em->getConnection()->exec('REINDEX table `user`;');
+        $this->em->getConnection()->exec('REINDEX table "user";');
         $io->progressFinish();
         $io->success(sprintf('Importation de %d utilisateurs', $result['count']));
     }

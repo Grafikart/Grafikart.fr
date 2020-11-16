@@ -17,4 +17,17 @@ SET
     google_id = null,
     company_info = null,
     discord_id = null
+WHERE 1 = 1;
+
+UPDATE "user"
+SET
+    facebook_id = NULL,
+    username = CONCAT('john', id, 'doe'),
+    password = '$2y$12$eS7dFH02rFSUn8dqi78sZ.VjMsXsuw0ly2KaxIsqhu7HDrhm4g0cG',
+    email = CONCAT('john', id, '@doe.fr'),
+    last_sign_in_ip = '0.0.0.0',
+    github_id = null,
+    discord_id = null,
+    github_id = null,
+    google_id = null,
 WHERE 1 = 1
