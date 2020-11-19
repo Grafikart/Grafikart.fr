@@ -17,6 +17,8 @@
       - rsync
       - ffmpeg
       - fail2ban
+      - certbot
+      - acl
     state: present
 - name: Outils | création de ~/.vim/autoload
   file: state=directory path=~/.vim/autoload

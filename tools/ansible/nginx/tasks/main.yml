@@ -31,6 +31,13 @@
     src: "/etc/nginx/sites-available/{{ domain }}"
     state: link
   notify: nginx reload
+- include_tasks: letsencrypt.yml
+  when: not self_signed
+- name: "Nginx | Vhost {{ domain }}"
+  template:
+    src: vhost.j2
+    dest: "/etc/nginx/sites-available/{{ domain }}"
+  notify: nginx reload
 - name: "Nginx | NginxReqLimit fail2ban filter"
   template:
     src: fail2ban/nginx-req-limit.conf.j2

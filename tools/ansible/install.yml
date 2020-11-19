@@ -1,8 +1,7 @@
 ---
 # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/
 - name: Installation du serveur
-  hosts: all
-  remote_user: debian
+  hosts: remote
   become: yes
 
   pre_tasks:

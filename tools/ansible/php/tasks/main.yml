@@ -9,9 +9,15 @@
 - name: PHP | PHP 7.4 GPG Key
   apt_key:
     url: https://packages.sury.org/php/apt.gpg
-- name: PHP | PHP 7.4 repository
+- name: PHP | PHP 7.4 Debian repository
+  when: ansible_distribution == 'Debian'
   apt_repository:
     repo: deb https://packages.sury.org/php/ {{ ansible_distribution_release }} main
+    state: present
+- name: PHP | PHP 7.4 Ubuntu repository
+  when: ansible_distribution == 'Ubuntu'
+  apt_repository:
+    repo: ppa:ondrej/php
     state: present
 - name: PHP | Install
   apt:
@@ -31,13 +37,8 @@
       - "php{{ php_version }}-imagick"
     state: present
 - name: PHP | Composer
-  shell:
-    cmd: |
-      php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-      php -r "if (hash_file('sha384', 'composer-setup.php') === 'c31c1e292ad7be5f49291169c0ac8f683499edddcfd4e42232982d0fd193004208a58ff6f353fde0012d35fdd72bc394') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-      php composer-setup.php
-      php -r "unlink('composer-setup.php');"
-      mv composer.phar /usr/local/bin/composer
+  script:
+    cmd: ../files/composer.sh
     creates: /usr/local/bin/composer
 - name: PHP | Disable Errors
   lineinfile:

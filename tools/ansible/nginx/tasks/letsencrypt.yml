@@ -1,0 +1,16 @@
+---
+- name: Nginx | LetsEncrypt Remove cert configuration from vhost
+  notify: nginx reload
+  shell:
+    cmd: |
+      sed -i -r 's/(listen .*443)/\1;#/g; s/(ssl_(certificate|certificate_key|trusted_certificate) )/#;#\1/g' /etc/nginx/sites-available/{{domain}}
+    creates: "/etc/letsencrypt/live/{{ domain }}/fullchain.pem"
+- name: Nginx | LetsEncrypt certbot certificate
+  shell:
+    cmd: "certbot certonly --webroot -d {{ domain }} --email contact@{{ domain }} -w /var/www/_letsencrypt -n --agree-tos --force-renewal"
+    creates: "/etc/letsencrypt/live/{{ domain }}/fullchain.pem"
+- name: Nginx | LetsEncrypt reload nginx on renewal
+  copy:
+    content: "#!/bin/bash\nnginx -t && systemctl reload nginx"
+    dest: /etc/letsencrypt/renewal-hooks/post/nginx-reload.sh
+    mode: 0755

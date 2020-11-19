@@ -1,4 +1,5 @@
 isDocker := $(shell docker info > /dev/null 2>&1 && echo 1)
+server := "ubuntu@beta.grafikart.fr"
 user := $(shell id -u)
 group := $(shell id -g)
 ifeq ($(isDocker), 1)
@@ -20,8 +21,17 @@ endif
 help: ## Affiche cette aide
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
+.PHONY: deploy
+deploy:
+	yarn run build
+	rsync -avz --ignore-existing --progress ./public/assets/ $(server):~/beta.grafikart.fr/public/assets/
+	ssh -A $(server) 'cd beta.grafikart.fr && git pull origin master && make install'
+
 .PHONY: install
 install: public/assets vendor/autoload.php ## Installe les différentes dépendances
+	php bin/console cache:clear
+	php bin/console cache:pool:clear cache.global_clearer
+	chmod 777 -R var/cache
 
 .PHONY: build-docker
 build-docker:
@@ -64,25 +74,6 @@ migrate: vendor/autoload.php ## Migre la base de données (docker-compose up doi
 rollback:
 	$(sy) doctrine:migration:migrate prev
 
-.PHONY: import
-import: vendor/autoload.php ## Import les données du site actuel
-	$(dc) -f docker-compose.import.yml stop
-	$(dc) -f docker-compose.import.yml up -d
-	rsync -avz --ignore-existing --progress --exclude=avatars --exclude=tmp --exclude=users grafikart:/home/www/grafikart.fr/shared/public/uploads/ ./public/old/
-	# gunzip downloads/grafikart.gz
-	tar -xf downloads/grafikart.tar.gz -C downloads/
-	$(sy) doctrine:migrations:migrate -q
-	$(sy) app:import reset
-	$(sy) app:import users
-	$(sy) app:import tutoriels
-	$(sy) app:import formations
-	$(sy) app:import blog
-	$(sy) app:import comments
-	$(sy) app:import forum
-	$(sy) app:import badges
-	$(sy) app:import transactions
-	$(dc) -f docker-compose.import.yml stop
-
 .PHONY: test
 test: vendor/autoload.php ## Execute les tests
 	$(drtest) phptest bin/console doctrine:schema:validate --skip-sync
@@ -99,7 +90,7 @@ lint: vendor/autoload.php ## Analyse le code
 	docker run -v $(PWD):/app -w /app --rm php:7.4-cli-alpine php -d memory_limit=-1 ./vendor/bin/phpstan analyse
 
 .PHONY: format
-format:
+format: ## Formate le code
 	npx prettier-standard --lint --changed "assets/**/*.{js,css,jsx}"
 	./vendor/bin/phpcbf
 	./vendor/bin/php-cs-fixer fix
@@ -108,6 +99,41 @@ format:
 doc: ## Génère le sommaire de la documentation
 	npx doctoc ./README.md
 
+# -----------------------------------
+# Déploiement
+# -----------------------------------
+.PHONY: provision
+provision: ## Configure la machine distante
+	ansible-playbook -i tools/ansible/hosts.yml tools/ansible/install.yml
+
+.PHONY: import
+import: vendor/autoload.php ## Importe les données du site actuel et génère un dump en sortie
+	gunzip -k downloads/grafikart.gz
+	$(dc) -f docker-compose.import.yml stop
+	$(dc) -f docker-compose.import.yml up -d
+	rsync -avz --ignore-existing --progress --exclude=avatars --exclude=tmp --exclude=users grafikart:/home/www/grafikart.fr/shared/public/uploads/ ./public/old/
+	tar -xf downloads/grafikart.tar.gz -C downloads/
+	$(sy) doctrine:migrations:migrate -q
+	$(sy) app:import reset
+	$(sy) app:import users
+	$(sy) app:import tutoriels
+	$(sy) app:import formations
+	$(sy) app:import blog
+	$(sy) app:import comments
+	$(sy) app:import forum
+	$(sy) app:import badges
+	$(sy) app:import transactions
+	$(dc) -f docker-compose.import.yml stop
+	$(dc) up -d
+	$(de) db sh -c 'PGPASSWORD="grafikart" pg_dump grafikart -U grafikart > /var/www/var/dump.sql'
+	$(dc) stop
+	ansible-playbook -i tools/ansible/hosts.yml tools/ansible/import.yml
+	rm -rf var/dump.sql
+	rsync -avz --ignore-existing --progress ./public/uploads/ $(server):~/beta.grafikart.fr/public/uploads/
+
+# -----------------------------------
+# Dépendances
+# -----------------------------------
 vendor/autoload.php: composer.lock
 	$(php) composer install
 	touch vendor/autoload.php
@@ -122,10 +148,3 @@ public/assets: node_modules/time
 
 var/dump:
 	mkdir var/dump
-
-# -----------------------------------
-# Déploiement
-# -----------------------------------
-.PHONY: provision
-provision: ## Configure la machine distante
-	ansible-playbook -i tools/ansible/hosts.yml tools/ansible/install.yml

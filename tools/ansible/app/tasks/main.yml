@@ -13,32 +13,31 @@
   template:
     src: .env.local.j2
     dest: "{{ root_path }}/.env.local"
-# - name: Symfony | Composer install
-#    become: no
-#   community.general.composer:
-#     command: install
-#     working_dir: {{ root_path }}
-# - name: Symfony | Migrate
-#    become: no
-#   shell:
-#     cmd: php bin/console doctrine:migrations:migrate -q
-#     chdir: {{ root_path }}
-# - name: Symfony | build asset
-#   become: no
-#   local_action:
-#     module: shell
-#     cmd: yarn run build
-#     creates: public/assets
-# - name: Symfony | assets
-#   become: no
-#   ansible.posix.synchronize:
-#     src: "{{ playbook_dir }}/../../public/assets"
-#     dest: {{ root_path }}/public/
-#     recursive: yes
-#     owner: no
-#     group: no
+- name: Symfony | Composer install
+  become: no
+  community.general.composer:
+    command: install
+    working_dir: "{{ root_path }}"
+- name: Symfony | Migrate
+  become: no
+  shell:
+    cmd: php bin/console doctrine:migrations:migrate -q
+    chdir: "{{ root_path }}"
+- name: Symfony | build asset
+  become: no
+  local_action:
+    module: shell
+    cmd: yarn run build
+    creates: public/assets
+- name: Symfony | assets
+  become: no
+  ansible.posix.synchronize:
+    src: "{{ playbook_dir }}/../../public/assets"
+    dest: "{{ root_path }}/public/"
+    recursive: yes
+    owner: no
+    group: no
 - name: Symfony | var permission
-  become: yes
   ansible.posix.acl:
     path: "{{ root_path }}/var"
     entity: "{{ ansible_user }}"
@@ -48,7 +47,6 @@
     state: present
     recursive: yes
 - name: Symfony | var permission www-data
-  become: yes
   ansible.posix.acl:
     path: "{{ root_path }}/var"
     entity: "www-data"
@@ -60,7 +58,6 @@
 - name: Symfony | dossier uploads
   file: state=directory path="{{ root_path }}/public/uploads"
 - name: Symfony | uploads permission
-  become: yes
   ansible.posix.acl:
     path: "{{ root_path }}/public/uploads"
     entity: www-data
@@ -70,7 +67,6 @@
     state: present
     recursive: yes
 - name: Symfony | uploads permission
-  become: yes
   ansible.posix.acl:
     path: "{{ root_path }}/public/uploads"
     entity: "{{ ansible_user }}"

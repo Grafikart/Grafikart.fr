@@ -12,7 +12,7 @@
       - postgresql-12
       - postgresql-contrib
       - libpq-dev
-      - python-psycopg2
+      - python3-psycopg2
 - name: PostgreSQL | Création de la base de donnée
   become: yes
   become_user: postgres
@@ -21,6 +21,7 @@
     encoding: 'UTF-8'
     lc_collate: 'fr_FR.UTF-8'
     lc_ctype: 'fr_FR.UTF-8'
+    template: template0
     state: present
 - name: PostgreSQL | Création de l'utilisateur
   become: yes

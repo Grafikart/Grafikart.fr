@@ -1,0 +1,18 @@
+---
+# https://docs.ansible.com/ansible/latest/collections/ansible/builtin/
+- name: Import de la base de données
+  hosts: remote
+  become: yes
+
+  tasks:
+    - name: PostgreSQL | Copie du dump
+      copy:
+        src: ../../var/dump.sql
+        dest: "{{ root_path }}/var/dump.sql"
+    - name: PostgreSQL | Création de la base de donnée
+      become: yes
+      become_user: postgres
+      community.general.postgresql_db:
+        state: restore
+        target: "{{ root_path }}/var/dump.sql"
+        name: "{{ database }}"
