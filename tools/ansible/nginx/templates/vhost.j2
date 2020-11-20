@@ -43,6 +43,12 @@ server {
         try_files $uri $uri/ /index.php?$query_string;
     }
 
+    location ~ ^/media/convert/.*$ {
+        expires    7d;
+        access_log off;
+        try_files $uri /index.php?$query_string;
+    }
+
     # Téléchargements des vidéos et sources
     location /downloads/ {
         auth_request     /index.php;

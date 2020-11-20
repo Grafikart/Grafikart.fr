@@ -31,6 +31,7 @@ class FailedJobsService
         if ($envelopes instanceof Traversable) {
             $envelopes = iterator_to_array($envelopes);
         }
+
         return array_map(fn (Envelope $enveloppe) => new FailedJob($enveloppe), $envelopes);
     }
 

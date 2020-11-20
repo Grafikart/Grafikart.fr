@@ -12,6 +12,7 @@
       - postgresql-12
       - postgresql-contrib
       - libpq-dev
+      - python-psycopg2
       - python3-psycopg2
 - name: PostgreSQL | Création de la base de donnée
   become: yes

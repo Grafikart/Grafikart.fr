@@ -1,7 +1,4 @@
 ---
-- include_tasks: typesense.yml
-- include_tasks: messenger.yml
-- include_tasks: mercure.yml
 - name: Symfony | Clone
   become: no
   git:
@@ -23,6 +20,9 @@
   shell:
     cmd: php bin/console doctrine:migrations:migrate -q
     chdir: "{{ root_path }}"
+- include_tasks: typesense.yml
+- include_tasks: messenger.yml
+- include_tasks: mercure.yml
 - name: Symfony | build asset
   become: no
   local_action:
@@ -55,7 +55,16 @@
     permissions: rwx
     state: present
     recursive: yes
+- name: Symfony | var permission www-data
+  ansible.posix.acl:
+    path: "{{ root_path }}/var"
+    entity: "www-data"
+    etype: user
+    permissions: rwx
+    state: present
+    recursive: yes
 - name: Symfony | dossier uploads
+  become: no
   file: state=directory path="{{ root_path }}/public/uploads"
 - name: Symfony | uploads permission
   ansible.posix.acl:
@@ -63,6 +72,14 @@
     entity: www-data
     etype: user
     default: yes
+    permissions: rwx
+    state: present
+    recursive: yes
+- name: Symfony | uploads permission
+  ansible.posix.acl:
+    path: "{{ root_path }}/public/uploads"
+    entity: www-data
+    etype: user
     permissions: rwx
     state: present
     recursive: yes

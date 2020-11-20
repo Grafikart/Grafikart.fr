@@ -93,11 +93,10 @@ final class CommentImporter extends MySQLImporter
         if ('Tutoriel' === $type && $id > 0) {
             /** @var ?Course $course */
             $course = $this->em->find(Course::class, $id);
-            if ($course === null ) {
+            if (null === $course) {
                 return false;
             }
             $comment->setTarget($course);
-
 
             return true;
         }

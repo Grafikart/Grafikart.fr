@@ -102,7 +102,7 @@ final class CoursesImporter extends Neo4jImporter
             $user = $row->offsetGet(1)->getProperties();
             /** @var ?User $author */
             $author = $this->em->find(User::class, $user['uuid']);
-            if ($author === null) {
+            if (null === $author) {
                 continue;
             }
             $createdAt = new \DateTime('@'.$tutoriel['created_at']);
@@ -168,9 +168,9 @@ final class CoursesImporter extends Neo4jImporter
             $key = $courseId.'='.$technologySlug;
             /** @var Relationship $relation */
             $relation = $row->offsetGet(1);
-            /** @var Content $content */
+            /** @var ?Content $content */
             $content = $this->em->find(Content::class, $courseId);
-            if ($content === null) {
+            if (null === $content) {
                 continue;
             }
             $usage = (new TechnologyUsage())

@@ -25,10 +25,12 @@ help: ## Affiche cette aide
 deploy:
 	yarn run build
 	rsync -avz --ignore-existing --progress ./public/assets/ $(server):~/beta.grafikart.fr/public/assets/
-	ssh -A $(server) 'cd beta.grafikart.fr && git pull origin master && make install'
+	ssh -A $(server) 'cd beta.grafikart.fr && make install'
 
 .PHONY: install
 install: public/assets vendor/autoload.php ## Installe les différentes dépendances
+	git pull origin master
+	make migrate
 	php bin/console cache:clear
 	php bin/console cache:pool:clear cache.global_clearer
 	chmod 777 -R var/cache
@@ -125,6 +127,7 @@ import: vendor/autoload.php ## Importe les données du site actuel et génère u
 	$(sy) app:import transactions
 	$(dc) -f docker-compose.import.yml stop
 	$(dc) up -d
+	sleep 7
 	$(de) db sh -c 'PGPASSWORD="grafikart" pg_dump grafikart -U grafikart > /var/www/var/dump.sql'
 	$(dc) stop
 	ansible-playbook -i tools/ansible/hosts.yml tools/ansible/import.yml

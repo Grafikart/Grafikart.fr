@@ -48,7 +48,7 @@ final class UserImporter implements TypeImporterInterface
             foreach ($oldUsers as $oldUser) {
                 $user = (new User())
                     ->setId($oldUser['id'])
-                    ->setPremiumEnd($oldUser['premium'] && $oldUser['premium'] !== '0000-00-00 00:00:00' ? new \DateTimeImmutable($oldUser['premium']) : null)
+                    ->setPremiumEnd($oldUser['premium'] && '0000-00-00 00:00:00' !== $oldUser['premium'] ? new \DateTimeImmutable($oldUser['premium']) : null)
                     ->setUsername($oldUser['username'])
                     ->setPassword($oldUser['encrypted_password'])
                     ->setCreatedAt('0000-00-00 00:00:00' === $oldUser['created_at'] ? new \DateTime('@0') : new \DateTime($oldUser['created_at']))

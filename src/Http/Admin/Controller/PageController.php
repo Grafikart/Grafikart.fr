@@ -35,14 +35,15 @@ final class PageController extends BaseController
         if ($request->get('test')) {
             $enqueueMethod->enqueue('LAZE', 'lol');
         }
+
         return $this->render('admin/home.html.twig', [
-            'revisions'      => $revisionRepository->findLatest(),
-            'comments'       => $paginator->paginate($commentRepository->queryLatest()),
-            'reports'        => $reportRepository->findAll(),
-            'menu'           => 'home',
-            'failed_jobs'    => $failedJobsService->getJobs(),
-            'months'         => $transactionRepository->getMonthlyRevenues(),
-            'days'           => $transactionRepository->getDailyRevenues(),
+            'revisions' => $revisionRepository->findLatest(),
+            'comments' => $paginator->paginate($commentRepository->queryLatest()),
+            'reports' => $reportRepository->findAll(),
+            'menu' => 'home',
+            'failed_jobs' => $failedJobsService->getJobs(),
+            'months' => $transactionRepository->getMonthlyRevenues(),
+            'days' => $transactionRepository->getDailyRevenues(),
             'scheduled_jobs' => $scheduledJobsService->getJobs(),
         ]);
     }
