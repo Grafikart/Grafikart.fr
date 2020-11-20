@@ -7,6 +7,7 @@
       - ca-certificates
     state: present
 - name: PHP | PHP 7.4 GPG Key
+  when: ansible_distribution == 'Debian'
   apt_key:
     url: https://packages.sury.org/php/apt.gpg
 - name: PHP | PHP 7.4 Debian repository

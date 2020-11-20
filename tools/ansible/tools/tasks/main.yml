@@ -6,6 +6,20 @@
   community.general.locale_gen:
     name: fr_FR.UTF-8
     state: present
+- name: Outils | Fish GPG Key
+  when: ansible_distribution == 'Debian'
+  apt_key:
+    url: https://download.opensuse.org/repositories/shells:fish:release:3/Debian_{{ ansible_distribution_major_release }}/Release.key
+- name: Outils | Fish repository
+  when: ansible_distribution == 'Debian'
+  apt_repository:
+    repo: deb http://download.opensuse.org/repositories/shells:/fish:/release:/3/Debian_{{ ansible_distribution_major_release }}/ /
+    state: present
+- name: Outils | Fish ppa
+  when: ansible_distribution == 'Ubuntu'
+  apt_repository:
+    repo: ppa:fish-shell/release-3
+    state: present
 - name: Outils | Install
   apt:
     name:
@@ -19,6 +33,7 @@
       - fail2ban
       - certbot
       - acl
+      - make
     state: present
 - name: Outils | création de ~/.vim/autoload
   file: state=directory path=~/.vim/autoload

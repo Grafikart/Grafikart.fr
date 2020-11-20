@@ -28,7 +28,7 @@ deploy:
 	ssh -A $(server) 'cd beta.grafikart.fr && make install'
 
 .PHONY: install
-install: public/assets vendor/autoload.php ## Installe les différentes dépendances
+install: vendor/autoload.php ## Installe les différentes dépendances
 	git pull origin master
 	make migrate
 	php bin/console cache:clear
