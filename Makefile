@@ -127,11 +127,10 @@ import: vendor/autoload.php ## Importe les données du site actuel et génère u
 	$(sy) app:import transactions
 	$(dc) -f docker-compose.import.yml stop
 	$(dc) up -d
-	sleep 7
-	$(de) db sh -c 'PGPASSWORD="grafikart" pg_dump grafikart -U grafikart > /var/www/var/dump.sql'
-	$(dc) stop
+	sleep 5
+	$(dc) db sh -c 'PGPASSWORD="grafikart" pg_dump -U grafikart -Ft grafikart --clean > /var/www/var/dump.tar'
 	ansible-playbook -i tools/ansible/hosts.yml tools/ansible/import.yml
-	rm -rf var/dump.sql
+	rm -rf var/dump.tar
 	rsync -avz --ignore-existing --progress ./public/uploads/ $(server):~/beta.grafikart.fr/public/uploads/
 
 # -----------------------------------
