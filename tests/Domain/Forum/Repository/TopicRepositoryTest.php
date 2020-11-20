@@ -33,13 +33,15 @@ class TopicRepositoryTest extends RepositoryTestCase
     public function testUsersToNotify()
     {
         /** @var Message $message */
-        ['message1' => $message, 'user1' => $user1, 'user2' => $user2] = $this->loadFixtures(['forums']);
-        $message->setAuthor($user1);
-        $message->getTopic()->setAuthor($user2);
+        ['message1' => $message, 'message2' => $message2] = $this->loadFixtures(['forums']);
         $this->em->flush();
         $this->assertCount(
             1,
             $this->repository->findUsersToNotify($message)
+        );
+        $this->assertCount(
+            1,
+            $this->repository->findUsersToNotify($message2)
         );
     }
 
@@ -47,10 +49,8 @@ class TopicRepositoryTest extends RepositoryTestCase
     {
         /** @var Message $message */
         /** @var User $user1 */
-        ['message1' => $message, 'user1' => $user1, 'user2' => $user2] = $this->loadFixtures(['forums']);
-        $message->setAuthor($user1);
-        $user2->setForumMailNotification(false);
-        $message->getTopic()->setAuthor($user2);
+        ['message2' => $message, 'user1' => $user] = $this->loadFixtures(['forums']);
+        $user->setForumMailNotification(false);
         $this->em->flush();
         $this->assertCount(
             0,

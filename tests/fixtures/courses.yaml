@@ -6,3 +6,5 @@ App\Domain\Auth\User:
 
 App\Domain\Course\Entity\Course:
   course{1} (extends course):
+  course_premium (extends course):
+    premium: true
