@@ -4,7 +4,7 @@ node_js:
 services:
   - docker
 install:
-  - make install
+  - make vendor/autoload.php
 script:
   - make lint
   - make test
