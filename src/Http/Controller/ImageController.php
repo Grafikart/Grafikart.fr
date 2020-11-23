@@ -20,7 +20,7 @@ class ImageController extends AbstractController
 
     public function __construct(ParameterBagInterface $parameterBag)
     {
-        $this->cachePath = $parameterBag->get('kernel.cache_dir').'/images';
+        $this->cachePath = $parameterBag->get('kernel.project_dir').'/var/cache/images';
         $this->publicPath = $parameterBag->get('kernel.project_dir').'/public';
         $this->resizeKey = $parameterBag->get('image_resize_key');
     }
