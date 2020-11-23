@@ -13,7 +13,7 @@ ifeq ($(isDocker), 1)
 else
 	sy := php bin/console
 	node :=
-	php := php
+	php :=
 endif
 
 .DEFAULT_GOAL := help
