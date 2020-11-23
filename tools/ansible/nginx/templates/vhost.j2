@@ -45,7 +45,7 @@ server {
         try_files $uri $uri/ /index.php?$query_string;
     }
 
-    location ~ ^/media/convert/.*$ {
+    location ~ ^/media/(convert|resize)/.*$ {
         expires    7d;
         access_log off;
         try_files $uri /index.php?$query_string;

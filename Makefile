@@ -25,16 +25,14 @@ help: ## Affiche cette aide
 deploy:
 	yarn run build
 	rsync -avz --ignore-existing --progress ./public/assets/ $(server):~/beta.grafikart.fr/public/assets/
-	ssh -A $(server) 'cd beta.grafikart.fr && make install'
+	ssh -A $(server) 'cd beta.grafikart.fr && git pull origin master && make install'
 
 .PHONY: install
 install: vendor/autoload.php ## Installe les différentes dépendances
-	git pull origin master
 	make migrate
 	php bin/console cache:clear
 	php bin/console cache:pool:clear cache.global_clearer
-	chmod 777 -R var/cache
-	sudo service beta.grafikart.fr.messenger  restart
+	sudo service beta.grafikart.fr.messenger restart
 
 .PHONY: build-docker
 build-docker:
