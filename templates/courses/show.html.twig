@@ -25,7 +25,7 @@
           </div>
         </div>
       {% elseif course.premium and not user_premium %}
-        <div class="course-countdown" style="background-image: url({{ image_url(course.image) }})">
+        <div class="course-countdown" style="background-image: url({{ image_url(course.image, 1330, 750) }})">
           <div>
             <p class="mb1">Contenu destiné aux membres premiums</p>
             <p>
@@ -38,7 +38,7 @@
           <premium-player
             id="course-{{ course.id }}"
             video="{{ path('stream_video', {video: course.videoPath}) }}"
-            poster="{{ image_url(course.image) }}"
+            poster="{{ image_url(course.image, 1330, 750) }}"
             title="{{ course.title }}"
             button="#chapter{{ course.id }} play-button"
             id="coursePlayer"
@@ -49,7 +49,7 @@
         <youtube-player
           id="course-{{ course.id }}"
           video="{{ course.youtubeId }}"
-          poster="{{ image_url(course.image) }}"
+          poster="{{ image_url(course.image, 1330, 750) }}"
           title="{{ course.title }}"
           button="#chapter{{ course.id }} play-button"
           id="coursePlayer"

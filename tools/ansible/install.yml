@@ -20,4 +20,5 @@
     - {role: nginx, tags: nginx}
     - {role: pgsql, tags: pgsql}
     - {role: app, tags: app}
+    - {role: mail, tags: mail}
 

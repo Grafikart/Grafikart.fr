@@ -36,6 +36,7 @@ class ImageController extends AbstractController
             'driver' => 'imagick',
             'response' => new SymfonyResponseFactory(),
             'defaults' => [
+                'q' => 75,
                 'fm' => 'jpg',
                 'fit' => 'crop',
             ],

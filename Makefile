@@ -34,6 +34,7 @@ install: vendor/autoload.php ## Installe les différentes dépendances
 	php bin/console cache:clear
 	php bin/console cache:pool:clear cache.global_clearer
 	chmod 777 -R var/cache
+	sudo service beta.grafikart.fr.messenger  restart
 
 .PHONY: build-docker
 build-docker:
@@ -128,7 +129,7 @@ import: vendor/autoload.php ## Importe les données du site actuel et génère u
 	$(dc) -f docker-compose.import.yml stop
 	$(dc) up -d
 	sleep 5
-	$(dc) db sh -c 'PGPASSWORD="grafikart" pg_dump -U grafikart -Ft grafikart --clean > /var/www/var/dump.tar'
+	$(de) db sh -c 'PGPASSWORD="grafikart" pg_dump -U grafikart -Ft grafikart --clean > /var/www/var/dump.tar'
 	ansible-playbook -i tools/ansible/hosts.yml tools/ansible/import.yml
 	rm -rf var/dump.tar
 	rsync -avz --ignore-existing --progress ./public/uploads/ $(server):~/beta.grafikart.fr/public/uploads/

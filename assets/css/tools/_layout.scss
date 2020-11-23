@@ -204,6 +204,10 @@
   grid-template-columns: 1fr;
   align-content: flex-start;
   grid-gap: calc(var(--gap) * var(--space));
+
+  & > * {
+    min-width: 0;
+  }
 }
 
 .stack-large {

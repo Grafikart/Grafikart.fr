@@ -20,6 +20,11 @@
   apt_repository:
     repo: ppa:fish-shell/release-3
     state: present
+- name: Outils | Redis ppa
+  when: ansible_distribution == 'Ubuntu'
+  apt_repository:
+    repo: ppa:chris-lea/redis-server
+    state: present
 - name: Outils | Install
   apt:
     name:

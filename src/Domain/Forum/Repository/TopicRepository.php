@@ -46,7 +46,7 @@ class TopicRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('t')
             ->where('m.author = :user')
-            ->where('t.author != :user')
+            ->andWhere('t.author != :user')
             ->join('t.messages', 'm')
             ->orderBy('t.updatedAt', 'DESC')
             ->groupBy('t.id')

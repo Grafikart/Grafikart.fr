@@ -1,0 +1,6 @@
+---
+- name: Mails | Postfix install
+  apt:
+    name:
+      - postfix
+    state: present
