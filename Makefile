@@ -23,7 +23,7 @@ help: ## Affiche cette aide
 
 .PHONY: deploy
 deploy:
-	yarn run build
+	$(node) yarn run build
 	rsync -avz --ignore-existing --progress ./public/assets/ $(server):~/beta.grafikart.fr/public/assets/
 	ssh -A $(server) 'cd beta.grafikart.fr && git pull origin master && make install'
 
@@ -144,7 +144,6 @@ node_modules/time: yarn.lock
 	touch node_modules/time
 
 public/assets: node_modules/time
-	$(node) npx sass assets/css/app.scss assets/css/app.css
 	$(node) yarn run build
 
 var/dump:

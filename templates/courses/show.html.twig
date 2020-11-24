@@ -16,7 +16,7 @@
       {% include 'courses/_deprecation.html.twig' %}
     </div>
 
-    <div class="container {{ course.formation ? 'course-top-sidebar' : '' }} mt2 mb5">
+    <div class="container {{ course.formation ? 'course-top-sidebar' : '' }} mb5">
       {% if course.scheduled and not user_premium %}
         <div class="course-countdown" style="background-image: url({{ image_url(course.image) }})">
           <div>

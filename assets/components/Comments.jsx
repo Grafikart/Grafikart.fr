@@ -192,12 +192,10 @@ const Comment = memo(({ comment, editing, onEdit, onUpdate, onDelete, onReply, c
   const textarea = useRef(null)
   const [loading, setLoading] = useState(false)
 
-  function handleEdit (e) {
+  const handleEdit = canEdit ? (e) => {
     e.preventDefault()
-    if (canEdit) {
-      onEdit(comment)
-    }
-  }
+    onEdit(comment)
+  } : null
 
   async function handleUpdate (e) {
     e.preventDefault()
