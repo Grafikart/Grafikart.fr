@@ -28,7 +28,9 @@ export class AjaxDelete extends HTMLElement {
         parent.remove()
       } catch (e) {
         loader.hide()
-        document.body.appendChild(new FloatingAlert({ message: e.detail }))
+        const alert = document.createElement('alert-floating')
+        alert.innerHTML = e.detail
+        document.body.appendChild(alert)
       }
     })
   }

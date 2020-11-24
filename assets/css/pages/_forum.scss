@@ -289,11 +289,17 @@
 // Tag
 // =============
 .forum-tags a {
-  display: inline-block;
+  display: block;
   padding: 5px 0;
 
   &:hover {
     color: var(--contrast);
+  }
+
+  &[aria-selected="true"] {
+    background-color: var(--background-light);
+    box-shadow: 0 2px 4px var(--shadow);
+    border-radius: 2px;
   }
 }
 

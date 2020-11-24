@@ -54,6 +54,7 @@ class ForumController extends AbstractController
             'tags' => $this->tagRepository->findTree(),
             'topics' => $topics,
             'menu' => 'forum',
+            'current_tag' => $tag,
             'read_times' => $this->topicService->getReadTopicsIds(iterator_to_array($topics), $this->getUser()),
         ]);
     }

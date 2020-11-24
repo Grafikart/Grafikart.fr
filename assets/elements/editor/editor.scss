@@ -71,7 +71,8 @@
   background: var(--border);
 }
 .mdeditor .cm-header.cm-header-2 {
-  font-family: Montserrat;
+  font-family: 'Gotham', 'Montserrat', 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+  'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   font-weight: 700;
   font-style: normal;
   font-size: 32px;
@@ -80,7 +81,8 @@
   margin-bottom: 2px;
 }
 .mdeditor .cm-header.cm-header-3 {
-  font-family: Montserrat;
+  font-family: 'Gotham', 'Montserrat', 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+  'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   font-weight: 700;
   font-style: normal;
   font-size: 24px;
@@ -89,11 +91,13 @@
   margin-bottom: 2px;
 }
 .mdeditor .cm-header.cm-header-4 {
-  font-family: Montserrat;
+  font-family: 'Gotham', 'Montserrat', 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+  'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   margin-top: space(2);
 }
 .mdeditor .CodeMirror pre.CodeMirror-line {
-  font-family: Roboto;
+  font-family: 'SF Pro', 'Roboto', 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+  'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 .mdeditor .cm-comment {
   font-family: monospace;

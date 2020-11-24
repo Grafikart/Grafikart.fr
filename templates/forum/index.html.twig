@@ -2,12 +2,12 @@
 
 {% set bodyClass = 'light' %}
 
-{% block title 'Forum' %}
+{% block title 'Forum' ~ (current_tag ? ', ' ~ current_tag.name : '') %}
 
 {% block body %}
 
   <div class="container page-header forum-header">
-    <h1 class="hero-title">Forum</h1>
+    <h1 class="hero-title" style="white-space: nowrap">Forum{% if current_tag %}, {{ current_tag.name }}{% endif %}</h1>
     {% include 'forum/_searchform.html.twig' %}
   </div>
 
@@ -24,14 +24,14 @@
             </li>
             {% for tag in tags %}
               <li>
-                <a href="{{ path(tag) }}">
+                <a href="{{ path(tag) }}" {% if tag == current_tag %}aria-selected="true" {% endif %}>
                   <img src="/icons/{{ tag.name | lower }}.svg" alt="" width="16" height="16">
                   {{ tag.name }}
                 </a>
                 <ul>
                   {% for t in tag.children %}
                     <li>
-                      <a href="{{ path(t) }}">
+                      <a href="{{ path(t) }}" {% if t == current_tag %}aria-selected="true" {% endif %}>
                         {{ t.name }}
                       </a>
                     </li>
@@ -50,6 +50,8 @@
       {% for topic in topics %}
         {% include('forum/_topic.html.twig') %}
       {% endfor %}
+
+      {{ paginate(topics) }}
     </main>
   </div>
 
