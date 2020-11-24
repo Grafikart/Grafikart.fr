@@ -6,5 +6,5 @@ After=network.target remote-fs.target
 
 [Service]
 ExecStart=/usr/bin/php {{ root_path }}/bin/console messenger:consume async --time-limit=3600
-Restart=on-failure
+Restart=always
 User={{ ansible_user }}

@@ -1,4 +1,9 @@
 ---
+- name: Outils | Nginx ppa
+  when: ansible_distribution == 'Ubuntu'
+  apt_repository:
+    repo: ppa:nginx/stable
+    state: present
 - name: Nginx | Install
   apt:
     name: nginx
