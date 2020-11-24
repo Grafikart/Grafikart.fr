@@ -194,7 +194,9 @@ const Comment = memo(({ comment, editing, onEdit, onUpdate, onDelete, onReply, c
 
   function handleEdit (e) {
     e.preventDefault()
-    onEdit(comment)
+    if (canEdit) {
+      onEdit(comment)
+    }
   }
 
   async function handleUpdate (e) {
