@@ -24,7 +24,7 @@ help: ## Affiche cette aide
 .PHONY: deploy
 deploy:
 	$(node) yarn run build
-	rsync -avz --ignore-existing --progress ./public/assets/ $(server):~/beta.grafikart.fr/public/assets/
+	rsync -avz --progress --delete ./public/assets/ $(server):~/beta.grafikart.fr/public/assets/
 	ssh -A $(server) 'cd beta.grafikart.fr && git pull origin master && make install'
 
 .PHONY: install
