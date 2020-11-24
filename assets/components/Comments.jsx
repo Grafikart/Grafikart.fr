@@ -194,7 +194,7 @@ const Comment = memo(({ comment, editing, onEdit, onUpdate, onDelete, onReply, c
 
   function handleEdit (e) {
     e.preventDefault()
-    if (isAuthenticated() && canEdit) {
+    if (canEdit) {
       onEdit(comment)
     }
   }
