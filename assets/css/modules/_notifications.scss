@@ -20,6 +20,7 @@
 // =============
 .notifications {
   @extend %card;
+  color: var(--color);
   position: absolute;
   left: calc(50% - 150px);
   top: calc(100% + 20px);
@@ -105,6 +106,7 @@
   padding: space(1.5) 0;
 
   &:hover {
+    color: var(--color-dark) !important;
     background-color: var(--background);
   }
 }

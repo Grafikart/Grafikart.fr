@@ -9,6 +9,7 @@
 
   & > * {
     padding-top: space(1.5);
+    padding-bottom: space(1.5);
     @extend %card;
   }
 

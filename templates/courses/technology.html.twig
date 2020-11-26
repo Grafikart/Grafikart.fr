@@ -51,12 +51,16 @@
             <div class="list-cursus">
               {% if formationsPerLevel[1] is defined %}
                 {% for formation in formationsPerLevel[1] %}
-                  {% include 'formations/_card-large.html.twig' %}
+                  <div>
+                    {% include 'formations/_card-large.html.twig' %}
+                  </div>
                 {% endfor %}
               {% endif %}
               {% if formationsPerLevel[2] is defined %}
                 {% for formation in formationsPerLevel[2] %}
-                  {% include 'formations/_card-large.html.twig' %}
+                  <div>
+                    {% include 'formations/_card-large.html.twig' %}
+                  </div>
                 {% endfor %}
               {% endif %}
             </div>

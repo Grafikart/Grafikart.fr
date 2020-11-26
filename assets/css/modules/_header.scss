@@ -30,13 +30,16 @@
 .header.is-inversed {
   color: var(--color-inversed);
   border-bottom-color: var(--color-inversed);
+  --shadow: rgba(0, 0, 0, 0.2);
 
-  a {
+  a,
+  button {
     opacity: 0.6;
   }
 
   a:hover,
-  a[aria-current] {
+  a[aria-current],
+  button:hover {
     color: var(--color-inversed);
     opacity: 1;
   }

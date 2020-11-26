@@ -58,7 +58,6 @@ export class Waves extends HTMLElement {
         height: 0;
         box-sizing: content-box;
         padding-bottom: var(--wave-height, 235px);
-        animation: containerIn .4s;
       }
       .waves-container.no-animation * {
         animation: none!important;
@@ -103,16 +102,6 @@ export class Waves extends HTMLElement {
             transform: translateY(0px);
         }
       }
-      @keyframes containerIn {
-        from {
-            opacity: 0;
-            transform: translateY(-30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0px);
-        }
-      }
       </style>
       <div class="waves-container ${className}">
         <div class="waves-background"></div>
@@ -135,7 +124,7 @@ export class Waves extends HTMLElement {
     this.waves = this.root.querySelector('.waves')
     if (image) {
       this.root.querySelector('img').addEventListener('load', e => {
-        e.currentTarget.style.opacity = 1
+        e.currentTarget.style.opacity = .4
       })
     }
     window.requestAnimationFrame(this.matchTarget)

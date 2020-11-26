@@ -26,43 +26,49 @@
       <div class="formation-summary">
         <h2 class="hero-title">Présentation</h2>
         <div class="stack" style="--gap:4">
-        <div class="formatted">
-          {{ formation.content | markdown }}
-          <p class="text-muted">
-            {{ formation.createdAt | ago }}
-          </p>
-        </div>
-        <div class="formation-arguments">
-          <div class="formation-argument">
-            <div class="formation-arguments_title">Liens utiles</div>
-            {{ formation.links | markdown }}
+          <div class="formatted">
+            {{ formation.content | markdown }}
+            <p class="text-muted">
+              {{ formation.createdAt | ago }}
+            </p>
           </div>
-          <div class="formation-argument">
-            <div class="formation-arguments_title">Informations</div>
-            <ul>
-              <li>{{ formation.duration | duration }} de vidéos</li>
-              <li>{{ formation.courses.count }} chapitres</li>
-            </ul>
+          <div class="formation-arguments">
+            <div class="formation-argument">
+              <div class="formation-arguments_title">Liens utiles</div>
+              {{ formation.links | markdown }}
+            </div>
+            <div class="formation-argument">
+              <div class="formation-arguments_title">Informations</div>
+              <ul>
+                <li>{{ formation.duration | duration }} de vidéos</li>
+                <li>{{ formation.courses.count }} chapitres</li>
+              </ul>
+            </div>
+            <div class="formation-argument">
+              <div class="formation-arguments_title">Prérequis</div>
+              <ul>
+                {% for technology in formation.secondaryTechnologies %}
+                  <li><a href="{{ path(technology) }}">{{ technology.name }}</a></li>
+                {% endfor %}
+              </ul>
+            </div>
           </div>
-          <div class="formation-argument">
-            <div class="formation-arguments_title">Prérequis</div>
-            <ul>
-              {% for technology in formation.secondaryTechnologies %}
-                <li><a href="{{ path(technology) }}">{{ technology.name }}</a></li>
-              {% endfor %}
-            </ul>
-          </div>
+
+          {% set course = formation.chapters[0].modules[0] %}
+
+          <progress-tracker contentId="{{ course.id }}" data-history="{{ course.id }}" duration="{{ course.duration }}">
+            <youtube-player
+              id="course-{{ course.id }}"
+              video="{{ course.youtubeId }}"
+              poster="{{ image_url(course.image) }}"
+              duration="{{ course.duration | duration }}"
+              button="#chapter{{ course.id }} play-button"
+              id="coursePlayer"
+              class="shadow formation-intro"></youtube-player>
+          </progress-tracker>
+
         </div>
 
-        {% set course = formation.chapters[0].modules[0] %}
-        <youtube-player
-          video="{{ course.youtubeId }}"
-          poster="{{ image_url(course.image) }}"
-          title="{{ course.title }}"
-          button="#chapter{{ course.id }} play-button"
-          id="coursePlayer"
-          class="shadow formation-intro"></youtube-player>
-        </div>
       </div>
     </main>
 
