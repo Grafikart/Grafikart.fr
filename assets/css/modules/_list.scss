@@ -128,6 +128,9 @@
 .list-cursus {
   @extend %stack;
   padding-left: 50px;
+  @include dark {
+    --border-light: var(--border);
+  }
 }
 .list-cursus > * {
   position: relative;

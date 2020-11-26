@@ -53,6 +53,11 @@
   get_url:
     url: https://raw.githubusercontent.com/Grafikart/dotfiles/master/config/vim/.vimrc
     dest: ~/.vimrc
+- name: Outils | Fish config
+  become: no
+  template:
+    src: config.fish
+    dest: ~/.config/fish/config.fish
 - name: Outils | Passage sur fish
   user:
     name: "{{ ansible_user }}"

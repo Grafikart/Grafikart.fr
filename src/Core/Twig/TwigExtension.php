@@ -86,6 +86,12 @@ class TwigExtension extends AbstractExtension
             return '';
         }
         $content = (new Parsedown())->setBreaksEnabled(true)->setSafeMode(false)->text($content);
+        // On wrap les iframe avec un ratio
+        $content = preg_replace(
+            '/<iframe[^>]*><\/iframe>/',
+            '<div class="ratio">$0</div>',
+            $content
+        );
         // On remplace les liens youtube par un embed
         $content = preg_replace(
             '/<p><a href\="(http|https):\/\/www.youtube.com\/watch\?v=([^\""]+)">[^<]*<\/a><\/p>/',

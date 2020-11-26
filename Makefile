@@ -29,10 +29,11 @@ deploy:
 
 .PHONY: install
 install: vendor/autoload.php ## Installe les différentes dépendances
+	$(php) composer install --no-dev --optimize-autoloader
 	make migrate
-	php bin/console cache:clear
-	php bin/console cache:pool:clear cache.global_clearer
-	sudo service beta.grafikart.fr.messenger restart
+	APP_ENV=prod APP_DEBUG=0 $(sy) cache:clear
+	$(sy) cache:pool:clear cache.global_clearer
+	$(sy) messenger:stop-workers
 
 .PHONY: build-docker
 build-docker:
