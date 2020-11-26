@@ -6,7 +6,6 @@ interface BreadcrumbGeneratorInterface
 {
     /**
      * @param object $entity
-     * @return BreadcrumbItem[]
      */
     public function generate($entity): array;
 

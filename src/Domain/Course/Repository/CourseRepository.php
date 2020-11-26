@@ -60,4 +60,13 @@ class CourseRepository extends ServiceEntityRepository
             ORDER BY c.createdAt DESC
         DQL)->setParameter('technology', $technology);
     }
+
+    public function findTotalDuration(): int
+    {
+        return $this->createQueryBuilder('c')
+            ->select('SUM(c.duration)')
+            ->where('c.online = true')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

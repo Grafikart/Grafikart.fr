@@ -4,6 +4,9 @@
 export default class LoaderOverlay extends HTMLElement {
   constructor () {
     super()
+  }
+
+  connectedCallback () {
     this.style.position = 'absolute'
     this.style.left = '0'
     this.style.right = '0'
@@ -17,9 +20,6 @@ export default class LoaderOverlay extends HTMLElement {
     this.style.justifyContent = 'center'
     this.style.transition = 'opacity .3s'
     this.style.background = 'rgba(255,255,255,.8)'
-  }
-
-  connectedCallback () {
     // On crée le loader
     const loader = document.createElement('spinning-dots')
     loader.style.width = '20px'

@@ -28,14 +28,8 @@ final class PageController extends BaseController
         ReportRepository $reportRepository,
         FailedJobsService $failedJobsService,
         TransactionRepository $transactionRepository,
-        ScheduledJobsService $scheduledJobsService,
-        EnqueueMethod $enqueueMethod,
-        Request $request
+        ScheduledJobsService $scheduledJobsService
     ): Response {
-        if ($request->get('test')) {
-            $enqueueMethod->enqueue('LAZE', 'lol');
-        }
-
         return $this->render('admin/home.html.twig', [
             'revisions' => $revisionRepository->findLatest(),
             'comments' => $paginator->paginate($commentRepository->queryLatest()),

@@ -17,17 +17,21 @@ class CourseBreadcrumbGenerator implements BreadcrumbGeneratorInterface
         $items[] = new BreadcrumbItem('Tutoriels', ['course_index']);
         $categories = [];
         foreach ($course->getMainTechnologies() as $technology) {
-            $categories[] = new BreadcrumbItem($technology->getName(),
-                ['technology_show', ['slug' => $technology->getSlug()]]);
+            $categories[] = new BreadcrumbItem(
+                (string)$technology->getName(),
+                ['technology_show', ['slug' => $technology->getSlug()]]
+            );
         }
         if (count($categories) > 0) {
             $items[] = $categories;
         }
         if ($formation = $course->getFormation()) {
-            $items[] = new BreadcrumbItem($formation->getTitle(),
-                ['formation_show', ['slug' => $formation->getSlug()]]);
+            $items[] = new BreadcrumbItem(
+                (string)$formation->getTitle(),
+                ['formation_show', ['slug' => $formation->getSlug()]]
+            );
         }
-        $items[] = new BreadcrumbItem($course->getTitle(), ['course_show', [
+        $items[] = new BreadcrumbItem((string)$course->getTitle(), ['course_show', [
             'id' => $course->getId(),
             'slug' => $course->getSlug(),
         ]]);
