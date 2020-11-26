@@ -231,7 +231,8 @@
     justify-content: space-between;
 
     & > div {
-      grid-template-columns: repeat(3, minmax(min-content, max-content));
+      display: flex;
+      flex-wrap: wrap;
     }
   }
 }

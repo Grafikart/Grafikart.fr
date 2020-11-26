@@ -83,6 +83,12 @@
   @include dark {
     border-color: #323970 !important;
     background: #323970 !important;
+
+    &:focus,
+    &.active,
+    &[aria-expanded="true"] {
+      border-color: var(--contrast) !important;
+    }
   }
 }
 

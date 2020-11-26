@@ -1,8 +1,19 @@
 <div class="breadcrumb">
-  {% for label, url in items %}
-    <a itemprop="url" title="{{ label }}" href="{{ url }}">
-      <span itemprop="title">{{ label }}</span>
+  {% for item in items %}
+    {% if item is iterable %}
+      {% for child in item %}
+        <a itemprop="url" title="{{ child.title }}" href="{{ path(child.path[0], child.path[1] is defined ? child.path[1] : []) }}">
+          <span itemprop="title">{{ child.title }}</span>
+        </a>
+        {% if not loop.last %}
+          <span class="breadcrumb-separator">&</span>
+        {% endif %}
+      {% endfor %}
+    {% else %}
+    <a itemprop="url" title="{{ item.title }}" href="{{ path(item.path[0], item.path[1] is defined ? item.path[1] : []) }}">
+      <span itemprop="title">{{ item.title }}</span>
     </a>
+    {% endif %}
     {% if not loop.last %}
       {{ icon('breadcrumb') }}
     {% endif %}

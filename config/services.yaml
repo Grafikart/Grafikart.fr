@@ -19,7 +19,7 @@ services:
       $projectDir: '%kernel.project_dir%'
 
   _instanceof:
-    App\Core\Twig\BreadcrumbInterface:
+    App\Core\Breadcrumb\BreadcrumbGeneratorInterface:
       tags: ['app.breadcrumb']
 
   App\:

@@ -16,7 +16,9 @@
       </h2>
 
       <div class="card__description">
-        {{ formation.content | markdown | striptags | excerpt(130) }}
+        <p>
+          {{ formation.content | markdown | striptags | excerpt(130) }}
+        </p>
       </div>
       <a href="{{ path('formation_show', {slug: formation.slug}) }}" title="{{ formation.title }}"
          class="card__link"></a>

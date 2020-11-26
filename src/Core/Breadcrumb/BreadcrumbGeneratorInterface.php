@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Core\Twig;
+namespace App\Core\Breadcrumb;
 
-interface BreadcrumbInterface
+interface BreadcrumbGeneratorInterface
 {
     /**
      * @param object $entity
+     * @return BreadcrumbItem[]
      */
     public function generate($entity): array;
 

@@ -12,6 +12,16 @@
       {{ breadcrumb(course) }}
     </div>
 
+    <div class="container formatted mb3">
+      <h1>
+        {% if course.formation %}
+          {{ "Formation " ~ course.formation.title ~ ' : ' ~ course.title }}
+        {% else %}
+          {{ "Tutoriel " ~ course.mainTechnologies|map(t => "#{t.name}")|join(' & ') ~ ' : ' ~ course.title }}
+        {% endif %}
+      </h1>
+    </div>
+
     <div class="container">
       {% include 'courses/_deprecation.html.twig' %}
     </div>
@@ -39,7 +49,7 @@
             id="course-{{ course.id }}"
             video="{{ path('stream_video', {video: course.videoPath}) }}"
             poster="{{ image_url(course.image, 1330, 750) }}"
-            title="{{ course.title }}"
+            duration="{{ course.duration | duration }}"
             button="#chapter{{ course.id }} play-button"
             id="coursePlayer"
             class="shadow"></premium-player>
@@ -50,8 +60,8 @@
           id="course-{{ course.id }}"
           video="{{ course.youtubeId }}"
           poster="{{ image_url(course.image, 1330, 750) }}"
-          title="{{ course.title }}"
           button="#chapter{{ course.id }} play-button"
+          duration="{{ course.duration | duration }}"
           id="coursePlayer"
           class="shadow"></youtube-player>
       </progress-tracker>
@@ -111,9 +121,6 @@
 
         <div class="layout-sidebar">
           <div class="stack">
-            <div class="formatted">
-              <h1>{{ course.title }}</h1>
-            </div>
 
             {% include 'courses/_deprecation.html.twig' %}
 
@@ -125,7 +132,11 @@
           </div>
           <div>
             <div class="stack-large">
-              <admin-edit hidden></admin-edit>
+              <div class="text-right">
+                <small class="text-muted">
+                  Publié {{ course.createdAt | ago }}
+                </small>
+              </div>
               <div>
                 <div class="requirements__title">Technologies utilisées</div>
                 <div class="list-group">
@@ -158,6 +169,7 @@
                   <img src="/images/social/facebook.svg" alt="">
                 </a>
               </div>
+              <admin-edit hidden></admin-edit>
             </div>
           </div>
         </div>

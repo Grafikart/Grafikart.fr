@@ -2,6 +2,7 @@
 
 namespace App\Core\Twig;
 
+use App\Core\Breadcrumb\BreadcrumbGeneratorInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
@@ -12,7 +13,7 @@ class TwigBreadcrumbExtension extends AbstractExtension
     private UrlGeneratorInterface $urlGenerator;
 
     /**
-     * @var BreadcrumbInterface[]
+     * @var BreadcrumbGeneratorInterface[]
      */
     private iterable $breadcrumbsGenerator;
 
@@ -38,11 +39,6 @@ class TwigBreadcrumbExtension extends AbstractExtension
         foreach ($this->breadcrumbsGenerator as $generator) {
             if ($generator->support($object)) {
                 $items = $generator->generate($object);
-                foreach ($items as $label => $path) {
-                    if (is_array($path)) {
-                        $items[$label] = $this->urlGenerator->generate($path[0], $path[1] ?? []);
-                    }
-                }
             }
         }
 

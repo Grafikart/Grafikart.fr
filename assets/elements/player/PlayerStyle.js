@@ -21,12 +21,20 @@ export const playerStyle = `
   opacity: .8;
 }
 .title {
+  margin-top: 4px;
   color: #FFF;
   font-size: 22px;
   position: relative;
   text-align: center;
   z-index: 3;
   transition: .3s;
+  line-height: 1.2em;
+}
+.title em {
+  display:block;
+  opacity: 0.7;
+  font-size: 0.8em;
+  font-style: normal;
 }
 .play {
   position: relative;
