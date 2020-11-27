@@ -286,7 +286,7 @@
 .mla {
   margin-left: auto;
 }
-@for $i from 1 through 5 {
+@for $i from 0 through 5 {
   body {
     .p#{$i} {
       padding: space($i);

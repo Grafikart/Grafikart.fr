@@ -56,6 +56,23 @@ class TopicRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * Récupère des sujets aléatoirement.
+     */
+    public function findRandom(int $limit): array
+    {
+        $date = new \DateTimeImmutable('-1 months');
+
+        return $this->createQueryBuilder('t')
+            ->where('t.spam = false')
+            ->andWhere('t.createdAt < :date')
+            ->setParameter('date', $date)
+            ->setMaxResults($limit)
+            ->orderBy('RANDOM()')
+            ->getQuery()
+            ->getResult();
+    }
+
     public function queryAllForTag(?Tag $tag): Query
     {
         $query = $this->createQueryBuilder('t')

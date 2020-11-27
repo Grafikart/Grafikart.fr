@@ -1,0 +1,18 @@
+<section>
+  <h2 class="h2 mb3">Profitez en pour apprendre de nouvelles choses</h2>
+  <div class="courses">
+    {% for course in courses %}
+      {% include 'courses/_card.html.twig' %}
+    {% endfor %}
+  </div>
+</section>
+
+<section class="mt5">
+  <h2 class="h2 mb3">Ou aidez une personne à résoudre un problème</h2>
+
+  <main class="forum-page__main stack">
+    {% for topic in topics %}
+      {% include('forum/_topic.html.twig') %}
+    {% endfor %}
+  </main>
+</section>

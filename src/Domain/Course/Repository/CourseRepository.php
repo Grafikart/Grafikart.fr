@@ -69,4 +69,17 @@ class CourseRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleScalarResult();
     }
+
+    /**
+     * @return Course[]
+     */
+    public function findRandom(int $limit): array
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('RANDOM()')
+            ->where('c.online = true')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
 }
