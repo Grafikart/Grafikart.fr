@@ -18,7 +18,8 @@ class CourseControllerTest extends WebTestCase
         $this->client->request('GET', "/tutoriels/{$course->getSlug()}-{$course->getId()}");
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $this->expectTitle('Tutoriel Vidéo '.$course->getTitle());
-        $this->expectH1('Tutoriel : '.$course->getTitle());
+        $technologies = implode(' & ', $course->getTechnologies());
+        $this->expectH1("Tutoriel {$technologies}: " . $course->getTitle());
     }
 
     public function testIndexSuccess()
