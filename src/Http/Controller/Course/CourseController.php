@@ -3,6 +3,7 @@
 namespace App\Http\Controller\Course;
 
 use App\Domain\Course\Entity\Course;
+use App\Domain\Course\Entity\LevelTrait;
 use App\Domain\Course\Repository\CourseRepository;
 use App\Domain\Course\Repository\TechnologyRepository;
 use App\Http\Security\CourseVoter;
@@ -27,7 +28,7 @@ class CourseController extends AbstractController
         // On filtre par niveau
         $level = $request->query->get('level', null);
         $levels = Course::$levels;
-        if (null !== $level) {
+        if ($level !== null) {
             $query = $query->setParameter('level', $level)->andWhere('c.level = :level');
         }
 
@@ -36,7 +37,7 @@ class CourseController extends AbstractController
         $technology = null;
         if ($technologySlug) {
             $technology = $technologyRepository->findOneBy(['slug' => $technologySlug]);
-            if (null !== $technology) {
+            if ($technology !== null) {
                 $query = $query->setParameter('technology', $technology)->leftJoin('c.technologyUsages', 'tu')->andWhere('tu.technology = :technology');
             }
         }
@@ -60,7 +61,7 @@ class CourseController extends AbstractController
             'levels' => $levels,
             'menu' => 'courses',
             'technology_selected' => $technology,
-            'technologies' => $technologyRepository->findByType(),
+            'technologies' => $technologyRepository->findByType()
         ]);
     }
 

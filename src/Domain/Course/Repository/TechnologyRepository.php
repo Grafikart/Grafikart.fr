@@ -16,9 +16,9 @@ class TechnologyRepository extends ServiceEntityRepository
     public function findByType(): array
     {
         $types = [
-            'BackEnd' => ['php', 'laravel', 'symfony', 'wordpress', 'nodejs'],
-            'FrontEnd' => ['html', 'css', 'javascript', 'react', 'vuejs', 'webpack'],
-            'Outils' => ['unix', 'git'],
+            "BackEnd"  => ['php', 'laravel', 'symfony', 'wordpress', 'nodejs'],
+            "FrontEnd" => ['html', 'css', 'javascript', 'react', 'vuejs', 'webpack'],
+            "Outils"   => ['unix', 'git']
         ];
         $slugs = [];
         foreach ($types as $v) {
@@ -28,11 +28,10 @@ class TechnologyRepository extends ServiceEntityRepository
         if (empty($technologies)) {
             return [];
         }
-        $technologies = collect($technologies)->keyBy(fn (Technology $t) => $t->getSlug())->toArray();
+        $technologies = collect($technologies)->keyBy(fn(Technology $t) => $t->getSlug())->toArray();
         foreach ($types as $k => $v) {
-            $types[$k] = collect($v)->map(fn (string $slug) => $technologies[$slug])->toArray();
+            $types[$k] = collect($v)->map(fn(string $slug) => $technologies[$slug])->toArray();
         }
-
         return $types;
     }
 
@@ -47,7 +46,7 @@ class TechnologyRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('c')
             ->where('LOWER(c.name) IN (:name)')
-            ->setParameter('name', array_map(fn (string $name) => strtolower($name), $names))
+            ->setParameter('name', array_map(fn(string $name) => strtolower($name), $names))
             ->getQuery()
             ->getResult();
     }

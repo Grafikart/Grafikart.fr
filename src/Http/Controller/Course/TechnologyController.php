@@ -7,6 +7,7 @@ use App\Domain\Course\Entity\Formation;
 use App\Domain\Course\Entity\Technology;
 use App\Domain\Course\Repository\CourseRepository;
 use App\Domain\Course\Repository\FormationRepository;
+use App\Domain\Course\Repository\TechnologyRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
