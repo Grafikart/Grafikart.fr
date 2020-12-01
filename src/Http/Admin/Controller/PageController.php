@@ -8,7 +8,6 @@ use App\Domain\Forum\Repository\ReportRepository;
 use App\Domain\Premium\Repository\TransactionRepository;
 use App\Domain\Revision\RevisionRepository;
 use App\Infrastructure\Mailing\Mailer;
-use App\Infrastructure\Queue\EnqueueMethod;
 use App\Infrastructure\Queue\FailedJobsService;
 use App\Infrastructure\Queue\ScheduledJobsService;
 use Symfony\Component\HttpFoundation\RedirectResponse;

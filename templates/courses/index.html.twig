@@ -5,7 +5,36 @@
 {% block title 'Tous les tutoriels' ~ ((page > 1) ? (', page' ~ page) : '') %}
 
 {% block body %}
-  <main class="split-background container py5" style="--split:380px">
+
+  <main class="split-background container py5" style="--split:350px">
+
+    <div class="grid-filter flex end mb3">
+      <div class="grid-filter__group">
+        <label for="filter-level">Niveau : </label>
+        <select name="level" id="filter-level" is="select-choices" data-redirect>
+          <option value="">Tous les niveaux</option>
+          {% for key, level in levels  %}
+            <option {{ app.request.get('level') == key ~ '' ? 'selected' : ''}} value="{{ key }}">{{ level }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="grid-filter__group">
+        <label for="filter-technology">Technologie : </label>
+        <select name="technology" id="filter-technology" is="select-choices" data-redirect data-search="{{ path('api_technology_search') }}" data-value="slug" data-label="name">
+          <option value="">Toutes les technologies</option>
+          {% if technology_selected %}
+          <option value="{{ technology_selected.slug }}" selected>{{ technology_selected.name }}</option>
+          {% endif %}
+          {% for key, technologiesGroup in technologies  %}
+            <optgroup label="{{ key }}">
+              {% for technology in technologiesGroup %}
+                <option value="{{ technology.slug }}">{{ technology.name }}</option>
+              {% endfor %}
+            </optgroup>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
 
     <div class="courses">
       <div class="course-hero {% if page > 1 %}is-paginated{% endif %}">

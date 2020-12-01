@@ -8,7 +8,7 @@ import { Switch } from './Switch.js'
 import { Comments } from '../components/Comments.jsx'
 import { TimeAgo } from './TimeAgo.js'
 import { TimeCountdown } from './TimeCountdown.js'
-import { InputChoices } from './Choices.js'
+import { InputChoices, SelectChoices } from './Choices.js'
 import { MarkdownEditor } from './editor/index.js'
 import { AjaxDelete } from './AjaxDelete.js'
 import { AutoScroll } from './AutoScroll.js'
@@ -69,6 +69,7 @@ preactCustomElement('search-input', SearchInput)
 // CustomElement étendus
 customElements.define('input-switch', Switch, { extends: 'input' })
 customElements.define('input-choices', InputChoices, { extends: 'input' })
+customElements.define('select-choices', SelectChoices, { extends: 'select' })
 customElements.define('markdown-editor', MarkdownEditor, { extends: 'textarea' })
 customElements.define('auto-scroll', AutoScroll, { extends: 'div' })
 customElements.define('auto-submit', AutoSubmit, { extends: 'form' })

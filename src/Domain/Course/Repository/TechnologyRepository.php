@@ -13,6 +13,28 @@ class TechnologyRepository extends ServiceEntityRepository
         parent::__construct($registry, Technology::class);
     }
 
+    public function findByType(): array
+    {
+        $types = [
+            "BackEnd"  => ['php', 'laravel', 'symfony', 'wordpress', 'nodejs'],
+            "FrontEnd" => ['html', 'css', 'javascript', 'react', 'vuejs', 'webpack'],
+            "Outils"   => ['unix', 'git']
+        ];
+        $slugs = [];
+        foreach ($types as $v) {
+            $slugs = array_merge($slugs, $v);
+        }
+        $technologies = $this->findBy(['slug' => $slugs]);
+        if (empty($technologies)) {
+            return [];
+        }
+        $technologies = collect($technologies)->keyBy(fn(Technology $t) => $t->getSlug())->toArray();
+        foreach ($types as $k => $v) {
+            $types[$k] = collect($v)->map(fn(string $slug) => $technologies[$slug])->toArray();
+        }
+        return $types;
+    }
+
     /**
      * Trouve des technologies par rapport à son nom (non sensible à la casse).
      *
@@ -24,7 +46,7 @@ class TechnologyRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('c')
             ->where('LOWER(c.name) IN (:name)')
-            ->setParameter('name', array_map(fn (string $name) => strtolower($name), $names))
+            ->setParameter('name', array_map(fn(string $name) => strtolower($name), $names))
             ->getQuery()
             ->getResult();
     }

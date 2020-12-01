@@ -3,7 +3,9 @@
 namespace App\Http\Controller\Course;
 
 use App\Domain\Course\Entity\Course;
+use App\Domain\Course\Entity\LevelTrait;
 use App\Domain\Course\Repository\CourseRepository;
+use App\Domain\Course\Repository\TechnologyRepository;
 use App\Http\Security\CourseVoter;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,11 +20,30 @@ class CourseController extends AbstractController
     /**
      * @Route("/tutoriels", name="course_index")
      */
-    public function index(CourseRepository $repo, PaginatorInterface $paginator, Request $request): Response
+    public function index(CourseRepository $repo, PaginatorInterface $paginator, Request $request, TechnologyRepository $technologyRepository): Response
     {
+        $query = $repo->queryAll();
         $page = $request->query->getInt('page', 1);
+
+        // On filtre par niveau
+        $level = $request->query->get('level', null);
+        $levels = Course::$levels;
+        if ($level !== null) {
+            $query = $query->setParameter('level', $level)->andWhere('c.level = :level');
+        }
+
+        // On filtre sur une technology
+        $technologySlug = $request->query->get('technology', null);
+        $technology = null;
+        if ($technologySlug) {
+            $technology = $technologyRepository->findOneBy(['slug' => $technologySlug]);
+            if ($technology !== null) {
+                $query = $query->setParameter('technology', $technology)->leftJoin('c.technologyUsages', 'tu')->andWhere('tu.technology = :technology');
+            }
+        }
+
         $courses = $paginator->paginate(
-            $repo->queryAll(),
+            $query,
             $page,
             26,
             [
@@ -36,7 +57,11 @@ class CourseController extends AbstractController
         return $this->render('courses/index.html.twig', [
             'courses' => $courses,
             'page' => $page,
+            'level' => $levels[$level] ?? null,
+            'levels' => $levels,
             'menu' => 'courses',
+            'technology_selected' => $technology,
+            'technologies' => $technologyRepository->findByType()
         ]);
     }
 

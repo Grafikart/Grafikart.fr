@@ -210,10 +210,10 @@
 
 .choices__list--dropdown {
   visibility: hidden;
-  z-index: 1;
   position: absolute;
   z-index: 100;
-  width: 100%;
+  min-width: 100%;
+  right: 0;
   border: 1px solid var(--border);
   top: 100%;
   margin-top: -1px;
@@ -292,6 +292,7 @@
 
 .choices__item {
   cursor: default;
+  white-space: nowrap;
 }
 
 .choices__item--selectable {
