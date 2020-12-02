@@ -54,6 +54,7 @@ class TechnologyUsage
     public function setContent(Content $content): self
     {
         $this->content = $content;
+        $this->content->addTechnologyUsage($this);
 
         return $this;
     }

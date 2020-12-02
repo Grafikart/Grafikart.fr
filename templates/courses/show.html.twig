@@ -2,7 +2,13 @@
 
 {% set user_premium = app.user and app.user.premium %}
 
-{% block title 'Tutoriel Vidéo ' ~ course.title %}
+{% block title %}
+{% if course.formation %}
+{{- "Formation " ~ course.formation.title ~ ' : ' ~ course.title -}}
+{% else %}
+{{- "Tutoriel vidéo " ~ course.mainTechnologies|map(t => "#{t.name}")|join(' & ') ~ ' : ' ~ course.title -}}
+{% endif %}
+{% endblock %}
 
 {% block body %}
 

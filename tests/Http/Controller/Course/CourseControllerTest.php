@@ -14,12 +14,12 @@ class CourseControllerTest extends WebTestCase
     public function testShowSuccessAndRightTitle()
     {
         /** @var Course $course */
-        ['course1' => $course] = $this->loadFixtures(['courses']);
+        ['course_with_technology' => $course] = $this->loadFixtures(['courses']);
         $this->client->request('GET', "/tutoriels/{$course->getSlug()}-{$course->getId()}");
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
-        $this->expectTitle('Tutoriel Vidéo '.$course->getTitle());
-        $technologies = implode(' & ', $course->getTechnologies());
-        $this->expectH1("Tutoriel {$technologies}: " . $course->getTitle());
+        $technologies = collect($course->getMainTechnologies())->map->getName()->implode(' & ');
+        $this->expectTitle("Tutoriel vidéo {$technologies} : {$course->getTitle()}");
+        $this->expectH1("Tutoriel {$technologies} : ".$course->getTitle());
     }
 
     public function testIndexSuccess()

@@ -69,7 +69,7 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
         $this->assertEquals(
             $title,
             $crawler->filter('h1')->text(),
-            $crawler->filter('title')->text()
+            '<h1> missmatch'
         );
     }
 
@@ -79,7 +79,7 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
         $this->assertEquals(
             $title.' | Grafikart',
             $crawler->filter('title')->text(),
-            $crawler->filter('title')->text()
+            '<title> missmatch',
         );
     }
 
