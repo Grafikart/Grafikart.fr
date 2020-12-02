@@ -68,6 +68,9 @@
       {% endif %}
       {% if course.formation %}
         <div class="relative card">
+          <button class="chapters-toggle">
+            {{ icon('arrow-down') }}
+          </button>
           <div class="absolute" is="auto-scroll" data-to="{{ current is defined ? current : "#chapter" ~ course.id }}">
             {% include 'chapters/_summary.html.twig' with {chapters: course.formation.chapters} only %}
           </div>
@@ -199,4 +202,16 @@
     </script>
   {% endif %}
   {{ parent() }}
+{% endblock %}
+
+{% block javascripts_footer %}
+  <script>
+    const toggle = document.querySelector('.chapters-toggle')
+    const container = document.querySelector('.course-top-sidebar')
+    if (toggle) {
+      toggle.addEventListener('click',function () {
+        container.classList.toggle('is-folded')
+      })
+    }
+  </script>
 {% endblock %}

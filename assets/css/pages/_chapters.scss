@@ -43,3 +43,53 @@
 .chapters__item.is-selected {
   background: var(--background);
 }
+
+.chapters-toggle {
+  position: absolute;
+  top: calc(50% - 25px);
+  width: 18px;
+  height: 50px;
+  left: -18px;
+  background-color: #fff;
+  background: var(--card-bg, var(--background-light));
+  border: 1px solid var(--border);
+  border-right: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-left-radius: 3px;
+  z-index: 10;
+  border-top-right-radius: 3px;
+  transition: .2s;
+  opacity: 0;
+  transform: translateX(10px);
+
+  &::after {
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: 0;
+    bottom: -20px;
+    content:'';
+  }
+
+  &:hover {
+    background-color: var(--background);
+  }
+
+  .course-top-sidebar:hover & {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+
+  .icon {
+    flex: none;
+    width: 16px;
+    height: 16px;
+    transform: rotate(-90deg);
+  }
+
+  .is-folded & .icon {
+    transform: rotate(90deg);
+  }
+}

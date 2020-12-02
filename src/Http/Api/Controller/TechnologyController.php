@@ -11,20 +11,20 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TechnologyController extends AbstractController
 {
-
     /**
      * @Route("/technologies/search", name="technology_search")
      */
     public function search(Request $request, TechnologyRepository $technologyRepository): JsonResponse
     {
         $search = $request->query->get('q');
-        if ($search === null) {
+        if (null === $search) {
             return $this->json([]);
         }
         $technologies = $technologyRepository->searchByName($search);
-        return $this->json(array_map(fn(Technology $t) => [
+
+        return $this->json(array_map(fn (Technology $t) => [
             'name' => $t->getName(),
-            'slug' => $t->getSlug()
+            'slug' => $t->getSlug(),
         ], $technologies));
     }
 }
