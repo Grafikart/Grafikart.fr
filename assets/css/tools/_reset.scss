@@ -170,3 +170,6 @@ hr {
   padding: 0;
   border: none;
 }
+*:focus:not(:focus-visible) {
+  outline: none;
+}
