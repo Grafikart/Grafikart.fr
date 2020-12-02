@@ -1,0 +1,25 @@
+
+.guirlande {
+  pointer-events: none;
+  z-index: 10;
+  width: 100%;
+  height: 150px;
+  position: absolute;
+  top: 150px;
+  left: 0;
+}
+
+.guirlande1 {
+  height: 120px;
+  background: url(/images/noel/guirlande1.png) repeat-x 300% top;
+  top: -23px;
+}
+.guirlande2 {
+  background: url(/images/noel/guirlande2.png) repeat-x 70% top;
+  top: -71px;
+}
+
+.guirlande3 {
+  background: url(/images/noel/guirlande3.png) repeat-x 10% top;
+  top:-50px;
+}

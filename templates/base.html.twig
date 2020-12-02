@@ -64,6 +64,11 @@
     </div>
   </footer>
 </div>
+{% if 'now' | date('m') == '12' %}
+  <div class="guirlande guirlande1"></div>
+  <div class="guirlande guirlande2"></div>
+  <div class="guirlande guirlande3"></div>
+{% endif %}
 <script>
   window.grafikart = {...(window.grafikart || {}),
     ADMIN: {{ is_granted('SUPERADMIN') ? 'true' : 'false' }},
