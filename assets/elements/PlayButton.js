@@ -178,7 +178,6 @@ export class PlayButton extends HTMLElement {
       this.classList.remove('is-current')
       this.video = null
       this.detachVideo = null
-      console.log(`Je me détache de la vidéo`)
     }
     onPlay()
   }

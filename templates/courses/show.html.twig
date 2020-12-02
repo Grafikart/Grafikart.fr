@@ -206,12 +206,14 @@
 
 {% block javascripts_footer %}
   <script>
-    const toggle = document.querySelector('.chapters-toggle')
-    const container = document.querySelector('.course-top-sidebar')
-    if (toggle) {
-      toggle.addEventListener('click',function () {
-        container.classList.toggle('is-folded')
-      })
-    }
+    (function () {
+      const toggle = document.querySelector('.chapters-toggle')
+      const container = document.querySelector('.course-top-sidebar')
+      if (toggle) {
+        toggle.addEventListener('click',function () {
+          container.classList.toggle('is-folded')
+        })
+      }
+    })()
   </script>
 {% endblock %}
