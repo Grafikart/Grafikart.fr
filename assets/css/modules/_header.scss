@@ -254,13 +254,18 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.99);
+    background: rgba(255, 255, 255, 0.90);
     border: 1px solid var(--border);
     box-shadow: 0 2px 4px var(--shadow);
     border-radius: 3px;
     transition: 0.3s;
     z-index: 3;
+    backdrop-filter: blur(10px);
     padding: space(2);
+
+    @include dark {
+      background: #171933D8;
+    }
 
     & li {
       display: block;
