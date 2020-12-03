@@ -31,12 +31,18 @@
   grid-column-gap: space(2);
   grid-template-areas: 'avatar meta' 'content content' 'replies replies';
 }
+.comment.without-avatar {
+  grid-template-columns: 1fr;
+}
 .comment.is-loading {
   opacity: 0.6;
 }
 .comment__author {
   font-family: $font-alt;
   font-weight: bold;
+}
+.comment__author a:hover {
+  color: var(--contrast);
 }
 .comment__avatar {
   grid-area: avatar;
@@ -119,6 +125,9 @@
 }
 
 @media (hover: hover) {
+  .comment__actions .comment__date {
+    opacity: 1;
+  }
   .comment__actions a {
     opacity: 0;
     transition: opacity 0.3s;

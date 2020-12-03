@@ -2,6 +2,7 @@
 
 namespace App\Domain\Comment;
 
+use App\Domain\Auth\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityNotFoundException;
 use Doctrine\ORM\Query;
@@ -70,5 +71,16 @@ class CommentRepository extends ServiceEntityRepository
             ->addSelect('t', 'a')
             ->setMaxResults(5)
             ->getQuery();
+    }
+
+    public function findLastByUser(User $user): array
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.author = :user')
+            ->orderBy('c.createdAt', 'DESC')
+            ->setMaxResults(4)
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
     }
 }

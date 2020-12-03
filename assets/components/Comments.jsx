@@ -192,10 +192,12 @@ const Comment = memo(({ comment, editing, onEdit, onUpdate, onDelete, onReply, c
   const textarea = useRef(null)
   const [loading, setLoading] = useState(false)
 
-  const handleEdit = canEdit ? (e) => {
-    e.preventDefault()
-    onEdit(comment)
-  } : null
+  const handleEdit = canEdit
+    ? e => {
+        e.preventDefault()
+        onEdit(comment)
+      }
+    : null
 
   async function handleUpdate (e) {
     e.preventDefault()
@@ -250,9 +252,9 @@ const Comment = memo(({ comment, editing, onEdit, onUpdate, onDelete, onReply, c
       <div className='comment__meta'>
         <div className='comment__author'>{comment.username}</div>
         <div className='comment__actions'>
-          <span className='comment__date'>
+          <a className='comment__date' href={`#c${comment.id}`}>
             <time-ago time={comment.createdAt} />
-          </span>
+          </a>
           <a href={anchor} onClick={handleReply}>
             <Icon name='reply' />
             Répondre

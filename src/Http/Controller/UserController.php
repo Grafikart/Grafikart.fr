@@ -3,6 +3,7 @@
 namespace App\Http\Controller;
 
 use App\Domain\Auth\User;
+use App\Domain\Comment\CommentRepository;
 use App\Domain\Forum\Repository\TopicRepository;
 use App\Domain\History\HistoryService;
 use App\Domain\Profile\Dto\ProfileUpdateDto;
@@ -57,11 +58,17 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user/{id}", name="user_show")
+     * @Route("/profil/{id}", name="user_show")
      */
-    public function show(User $user): Response
+    public function show(User $user, TopicRepository $topicRepository, CommentRepository $commentRepository): Response
     {
-        return new Response('Hello');
+        $lastTopics = $topicRepository->findLastByUser($user);
+
+        return $this->render('user/profil.html.twig', [
+            'user' => $user,
+            'lastTopics' => $lastTopics,
+            'comments' => $commentRepository->findLastByUser($user),
+        ]);
     }
 
     /**

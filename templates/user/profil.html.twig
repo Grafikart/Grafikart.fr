@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Mon compte' %}
+
+{% set bodyClass = 'header-light' %}
+{% set lastTopics = [] %}
+{% set comments = [] %}
+
+{% block body %}
+
+  {% include 'profil/_header.html.twig' with {title: user.username, user: user} %}
+
+  <div class="bg container py5">
+    <div class="grid2" style="--gap: 4;">
+      {% if lastTopics | length > 0 %}
+        <div class="stack">
+          <h2 class="h3">Ses derniers sujets</h2>
+          <div class="card p2 stack-separated" style="--gap: 1">
+            {% for topic in lastTopics %}
+              {% include('forum/_topic.html.twig') %}
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+      {% if comments | length > 0 %}
+        <div class="stack">
+          <h2 class="h3">Ses derniers commentaires</h2>
+          <div class="p2 stack-separated" style="--gap: 2">
+            {% for comment in comments %}
+              <div class="comment without-avatar">
+                <div class="comment__meta">
+                  <div class="comment__author">
+                    <span class="text-muted normal">Sur</span>
+                    <a href="{{ path(comment.target) }}#c{{ comment.id }}">
+                      {{ comment.target.title }}
+                    </a>
+                  </div>
+                  <div class="comment__actions">
+                    <a class="comment__date" href="{{ path(comment.target) }}#c{{ comment.id }}">
+                      <time-ago time="{{ comment.createdAt.timestamp }}"/>
+                    </a>
+                  </div>
+                </div>
+                <div class="comment__content">{{ comment.content | markdown_untrusted }}</div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+
+{% endblock %}
