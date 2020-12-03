@@ -6,6 +6,7 @@ use App\Domain\Blog\Repository\PostRepository;
 use App\Domain\Course\Repository\CourseRepository;
 use App\Domain\Course\Repository\CursusRepository;
 use App\Domain\Course\Repository\FormationRepository;
+use App\Domain\Live\LiveRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +17,7 @@ class PagesController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function home(CourseRepository $courseRepository, FormationRepository $formationRepository, PostRepository $postRepository, CursusRepository $cursusRepository): Response
+    public function home(CourseRepository $courseRepository, FormationRepository $formationRepository, PostRepository $postRepository, CursusRepository $cursusRepository, LiveRepository $liveRepository): Response
     {
         return $this->render('pages/home.html.twig', [
             'menu' => 'home',
@@ -24,6 +25,7 @@ class PagesController extends AbstractController
             'hours' => round($courseRepository->findTotalDuration() / 3600),
             'formations' => $formationRepository->findRecent(3),
             'cursus' => $cursusRepository->findRecent(5),
+            'lives' => $liveRepository->findRecent(3),
             'posts' => $postRepository->findRecent(5),
         ]);
     }

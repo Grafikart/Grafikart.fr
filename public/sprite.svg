@@ -78,6 +78,7 @@
       d="M10 9V7.41a1 1 0 00-1.71-.71L3.7 11.29a1 1 0 000 1.41l4.59 4.59a1 1 0 001.71-.7V14.9c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z"
       fill="currentColor"/>
   </symbol>
+  <symbol id="play" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46 46"><path d="M23 0C10.32 0 0 10.32 0 23s10.32 23 23 23 23-10.32 23-23S35.68 0 23 0zm8.55 23.83l-12 8A1 1 0 0118 31V15a1 1 0 011.55-.83l12 8a1 1 0 010 1.66z" fill="currentColor"/></symbol>
   <symbol id="player" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
     <path d="M3 14h10v2H3v-2z" fill="currentColor"/>
     <path fill-rule="evenodd" clip-rule="evenodd"

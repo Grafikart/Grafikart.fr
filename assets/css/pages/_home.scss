@@ -191,7 +191,7 @@
   transform: translateY(50%);
 }
 
-.home-push__mosaic > *:nth-child(2) .badge-rounded {
+.home-push__mosaic > *:nth-child(1) .badge-rounded {
   position: absolute;
   left: space(3);
   top: 0;
@@ -217,16 +217,18 @@
     grid-auto-flow: dense;
     align-items: flex-end;
 
-    & > * {
-      grid-column-end: span 20;
+    & > *:first-child {
+      grid-column: 16 / span 22;
     }
 
-    & > *:nth-child(3) {
+    & > *:nth-child(2) {
+      grid-row: 2 / span 1;
       grid-column-end: span 27;
       align-self: flex-start;
     }
 
-    & > *:nth-child(4) {
+    & > *:nth-child(3) {
+      grid-row: 2 / span 1;
       grid-column-end: span 13;
       align-self: flex-start;
     }

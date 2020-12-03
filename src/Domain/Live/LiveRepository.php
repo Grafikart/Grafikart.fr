@@ -68,4 +68,13 @@ class LiveRepository extends ServiceEntityRepository
 
         return $date ? new \DateTime($date) : null;
     }
+
+    public function findRecent(int $limit): array
+    {
+        return $this->createQueryBuilder('l')
+            ->orderBy('l.createdAt', 'DESC')
+            ->getQuery()
+            ->setMaxResults($limit)
+            ->getResult();
+    }
 }

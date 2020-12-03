@@ -6,6 +6,7 @@ use App\Domain\Application\Event\ContentCreatedEvent;
 use App\Domain\Application\Event\ContentDeletedEvent;
 use App\Domain\Application\Event\ContentUpdatedEvent;
 use App\Domain\Course\Entity\Cursus;
+use App\Domain\Course\Helper\CursusCloner;
 use App\Http\Admin\Data\CursusCrudData;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -63,6 +64,17 @@ final class CursusController extends CrudController
         $data = (new CursusCrudData($cursus))->setEntityManager($this->em);
 
         return $this->crudEdit($data);
+    }
+
+    /**
+     * @Route("/{id<\d+>}/clone", name="clone", methods={"GET","POST"})
+     */
+    public function clone(Cursus $cursus): Response
+    {
+        $cursus = CursusCloner::clone($cursus);
+        $data = new CursusCrudData($cursus);
+
+        return $this->crudNew($data);
     }
 
     /**

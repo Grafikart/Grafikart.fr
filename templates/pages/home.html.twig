@@ -72,14 +72,17 @@
         </div>
         <div class="home-push__mosaic">
 
-          <div style="background-color:var(--border); height:400px">
-          </div>
-
           <div class="card card-big">
             <a class="badge-rounded" href="{{ path('formation_index') }}">Les dernières formations</a>
             <div class="home-list stack-separated">
               {% for formation in formations %}
-                <div class="home-list__item">
+                <div class="home-list__item has-icon">
+                  {% if formation.mainTechnologies | length > 0 %}
+                    {% set technology = formation.mainTechnologies[0] %}
+                    <a href="{{ path(technology) }}" class="course__icon" tabindex="-1">
+                      <img src="{{ uploads_path('icons/' ~ technology.image) }}" alt="{{ technology.name }}">
+                    </a>
+                  {% endif %}
                   <a class="card__title" href="{{ path(formation) }}">{{ formation.title }}</a>
                   <div>{{ formation.chapters | length }} chapitres</div>
                 </div>
@@ -105,7 +108,15 @@
             </div>
           </div>
 
-          <div style="background-color:var(--border); height:283px">
+          <div class="card card-big">
+            <div class="home-list stack-separated" style="--gap: 2">
+              {% for live in lives %}
+                <div class="home-list__item">
+                  <a class="card__title" href="https://www.youtube.com/watch?v={{ live.youtubeId }}">{{ live.name }}</a>
+                  <div>{{ live.createdAt | date("m F Y") }}</div>
+                </div>
+              {% endfor %}
+            </div>
           </div>
 
         </div>

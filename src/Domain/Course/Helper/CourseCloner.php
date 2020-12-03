@@ -12,6 +12,7 @@ class CourseCloner
     public static function clone(Course $course): Course
     {
         $clone = clone $course;
+        $clone->setId(null);
         $clone->setSource(null);
         $clone->setYoutubeId(null);
         $clone->setCreatedAt(clone $course->getCreatedAt());

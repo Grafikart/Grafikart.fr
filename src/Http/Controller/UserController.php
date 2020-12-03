@@ -58,7 +58,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/profil/{id}", name="user_show")
+     * @Route("/profil/{id:\d+}", name="user_show")
      */
     public function show(User $user, TopicRepository $topicRepository, CommentRepository $commentRepository): Response
     {
