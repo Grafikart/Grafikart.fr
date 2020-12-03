@@ -57,7 +57,6 @@
             poster="{{ image_url(course.image, 1330, 750) }}"
             duration="{{ course.duration | duration }}"
             button="#chapter{{ course.id }} play-button"
-            id="coursePlayer"
             class="shadow"></premium-player>
         </progress-tracker>
       {% else %}
@@ -68,7 +67,6 @@
           poster="{{ image_url(course.image, 1330, 750) }}"
           button="#chapter{{ course.id }} play-button"
           duration="{{ course.duration | duration }}"
-          id="coursePlayer"
           class="shadow"></youtube-player>
       </progress-tracker>
       {% endif %}
