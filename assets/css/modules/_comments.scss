@@ -123,7 +123,7 @@
     opacity: 0;
     transition: opacity 0.3s;
   }
-  .comment__actions:hover a {
+  .comment:hover .comment__actions a {
     opacity: 1;
   }
 }
