@@ -40,12 +40,14 @@
   font-family: $font-alt;
 }
 .tabs-toggle button {
+  position: relative;
   width: 50%;
   font-size: 14px;
   font-weight: 600;
   text-transform: uppercase;
   outline: none;
   color: var(--color);
+  z-index: 2;
 }
 .tabs-toggle button:first-child {
   text-align: right;
@@ -57,13 +59,14 @@
 }
 .tabs-toggle button[aria-selected='true'] {
   color: var(--contrast);
+  z-index: 1;
 }
 .tabs-toggle button:first-child::before {
   pointer-events: none;
   content: '';
   position: absolute;
   top: calc(50% - 10px);
-  left: calc(50% - 20px);
+  right: -22px;
   width: 40px;
   height: 20px;
   background: #ffffff;
@@ -77,7 +80,7 @@
   content: '';
   position: absolute;
   top: calc(50% - 8px);
-  left: calc(50% - 18px);
+  right: 0px;
   width: 16px;
   height: 16px;
 
