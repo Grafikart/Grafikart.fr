@@ -8,6 +8,7 @@ export const playerStyle = `
   padding-bottom: 56.25%;
 }
 .poster {
+  border: none;
   cursor: pointer;
   display: flex;
   flex-direction: column;
