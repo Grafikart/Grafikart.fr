@@ -25,14 +25,14 @@ class CourseController extends AbstractController
         $page = $request->query->getInt('page', 1);
 
         // On filtre par niveau
-        $level = $request->query->get('level', null);
+        $level = $request->query->get('level');
         $levels = Course::$levels;
         if (null !== $level) {
             $query = $query->setParameter('level', $level)->andWhere('c.level = :level');
         }
 
         // On filtre sur une technology
-        $technologySlug = $request->query->get('technology', null);
+        $technologySlug = $request->query->get('technology');
         $technology = null;
         if ($technologySlug) {
             $technology = $technologyRepository->findOneBy(['slug' => $technologySlug]);
@@ -49,9 +49,6 @@ class CourseController extends AbstractController
                 'whiteList' => [],
             ]
         );
-        if (0 === $courses->count()) {
-            throw new NotFoundHttpException('Aucun tutoriels ne correspond à cette page');
-        }
 
         return $this->render('courses/index.html.twig', [
             'courses' => $courses,
@@ -61,7 +58,7 @@ class CourseController extends AbstractController
             'menu' => 'courses',
             'technology_selected' => $technology,
             'technologies' => $technologyRepository->findByType(),
-        ]);
+        ], new Response('', $courses->count() > 0 ? 200 : 404));
     }
 
     /**

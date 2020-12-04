@@ -15,7 +15,7 @@ class TwigCacheExtension extends AbstractExtension
     private AdapterInterface $cache;
     private bool $active;
 
-    public function __construct(AdapterInterface $cache, $active = true)
+    public function __construct(AdapterInterface $cache, bool $active = true)
     {
         $this->cache = $cache;
         $this->active = $active;

@@ -1,6 +1,7 @@
 import ChoicesJS from 'choices.js'
 import { redirect } from '/functions/url.js'
 import { jsonFetch } from '/functions/api.js'
+import { debounce } from '/functions/timers.js'
 
 /**
  * @property {Choices} choices
@@ -55,10 +56,13 @@ export class SelectChoices extends HTMLSelectElement {
 
       // La recherche utilise une API
       if (this.dataset.search) {
-        this.addEventListener('search', async e => {
-          const data = await jsonFetch(`${this.dataset.search}?q=${encodeURIComponent(e.detail.value)}`)
-          this.choices.setChoices(data, this.dataset.value || 'value', this.dataset.label || 'label', true)
-        })
+        this.addEventListener(
+          'search',
+          debounce(async e => {
+            const data = await jsonFetch(`${this.dataset.search}?q=${encodeURIComponent(e.detail.value)}`)
+            this.choices.setChoices(data, this.dataset.value || 'value', this.dataset.label || 'label', true)
+          }, 400)
+        )
       }
     }
   }

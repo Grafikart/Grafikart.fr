@@ -8,11 +8,11 @@
 
   <main class="split-background container py5" style="--split:350px">
 
-    <div class="grid-filter flex end mb3">
+    <div class="grid-filter mb3">
       <div class="grid-filter__group">
         <label for="filter-level">Niveau : </label>
         <select name="level" id="filter-level" is="select-choices" data-redirect>
-          <option value="">Tous les niveaux</option>
+          <option value="">Tous</option>
           {% for key, level in levels  %}
             <option {{ app.request.get('level') == key ~ '' ? 'selected' : ''}} value="{{ key }}">{{ level }}</option>
           {% endfor %}
@@ -21,10 +21,12 @@
       <div class="grid-filter__group">
         <label for="filter-technology">Technologie : </label>
         <select name="technology" id="filter-technology" is="select-choices" data-redirect data-search="{{ path('api_technology_search') }}" data-value="slug" data-label="name">
-          <option value="">Toutes les technologies</option>
-          {% if technology_selected %}
-          <option value="{{ technology_selected.slug }}" selected>{{ technology_selected.name }}</option>
-          {% endif %}
+          <optgroup label="">
+            <option value="">Toutes</option>
+            {% if technology_selected %}
+              <option value="{{ technology_selected.slug }}" selected>{{ technology_selected.name }}</option>
+            {% endif %}
+          </optgroup>
           {% for key, technologiesGroup in technologies  %}
             <optgroup label="{{ key }}">
               {% for technology in technologiesGroup %}
@@ -36,6 +38,7 @@
       </div>
     </div>
 
+    {% if courses | length > 0 %}
     <div class="courses">
       <div class="course-hero {% if page > 1 %}is-paginated{% endif %}">
         {% if page == 1 %}
@@ -54,6 +57,14 @@
     </div>
 
     {{ paginate(courses) }}
+    {% else %}
+      <div class="text-center">
+        <h1 class="hero-title mb1">Aucun <strong>tutoriels</strong> :(</h1>
+        <p class="text-big">
+          Aucun contenu ne correspond aux filtres que vous avez sélectionnés.
+        </p>
+      </div>
+    {% endif %}
 
   </main>
 

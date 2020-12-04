@@ -40,8 +40,6 @@
   display: block;
   width: 100%;
   padding: 10px;
-  border-bottom: 1px solid #dddddd;
-  background-color: #ffffff;
   margin: 0;
 }
 
@@ -78,7 +76,7 @@
   height: 0;
   width: 0;
   border-style: solid;
-  border-color: #333333 transparent transparent transparent;
+  border-color: var(--color) transparent transparent transparent;
   border-width: 5px;
   position: absolute;
   right: 11.5px;
@@ -309,10 +307,10 @@
 
 .choices__heading {
   font-weight: 600;
-  font-size: 12px;
   padding: 10px;
-  border-bottom: 1px solid #f7f7f7;
-  color: gray;
+  font-size: .8em;
+  border-top: 1px solid var(--border-light);
+  color: var(--color);
 }
 
 .choices__button {
@@ -332,12 +330,14 @@
 }
 
 .choices__input {
+  color: var(--color);
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  background-color: var(--background-light);
   display: inline-block;
   vertical-align: baseline;
-  background-color: #f9f9f9;
   font-size: 14px;
   margin-bottom: 5px;
-  border: 0;
   border-radius: 0;
   max-width: 100%;
   padding: 4px 0 4px 2px;
@@ -355,5 +355,3 @@
 .choices__placeholder {
   opacity: 0.5;
 }
-
-/*=====  End of Choices  ======*/
