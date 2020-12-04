@@ -2,6 +2,7 @@
 
 namespace App\Domain\Course\Entity;
 
+use App\Core\Twig\CacheExtension\CacheableInterface;
 use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -13,7 +14,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Entity
  * @Vich\Uploadable()
  */
-class Technology
+class Technology implements CacheableInterface
 {
     /**
      * @ORM\Id()

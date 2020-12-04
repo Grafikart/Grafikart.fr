@@ -2,12 +2,16 @@
 
 namespace App\Domain\Course\Repository;
 
+use App\Core\Orm\AbstractRepository;
+use App\Core\Orm\IterableQueryBuilder;
 use App\Domain\Blog\Category;
 use App\Domain\Course\Entity\Cursus;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-class CursusRepository extends ServiceEntityRepository
+/**
+ * @extends AbstractRepository<Cursus>
+ */
+class CursusRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -15,16 +19,14 @@ class CursusRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Cursus[]
+     * @return IterableQueryBuilder<Cursus>
      */
-    public function findRecent(int $limit): array
+    public function findRecent(int $limit): IterableQueryBuilder
     {
-        return $this->createQueryBuilder('c')
+        return $this->createIterableQuery('c')
             ->where('c.online = true')
             ->orderBy('c.createdAt', 'DESC')
-            ->setMaxResults($limit)
-            ->getQuery()
-            ->getResult();
+            ->setMaxResults($limit);
     }
 
     public function findByCategory(): array

@@ -2,10 +2,13 @@
 
 namespace App\Domain\Contact;
 
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Core\Orm\AbstractRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-class ContactRequestRepository extends ServiceEntityRepository
+/**
+ * @extends AbstractRepository<ContactRequest>
+ */
+class ContactRequestRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

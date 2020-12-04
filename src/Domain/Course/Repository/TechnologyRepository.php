@@ -2,11 +2,14 @@
 
 namespace App\Domain\Course\Repository;
 
+use App\Core\Orm\AbstractRepository;
 use App\Domain\Course\Entity\Technology;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-class TechnologyRepository extends ServiceEntityRepository
+/**
+ * @extends AbstractRepository<Technology>
+ */
+class TechnologyRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

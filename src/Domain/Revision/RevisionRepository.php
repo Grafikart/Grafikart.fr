@@ -2,18 +2,15 @@
 
 namespace App\Domain\Revision;
 
+use App\Core\Orm\AbstractRepository;
 use App\Domain\Application\Entity\Content;
 use App\Domain\Auth\User;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Revision|null find($id, $lockMode = null, $lockVersion = null)
- * @method Revision|null findOneBy(array $criteria, array $orderBy = null)
- * @method Revision[]    findAll()
- * @method Revision[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @extends AbstractRepository<Revision>
  */
-class RevisionRepository extends ServiceEntityRepository
+class RevisionRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

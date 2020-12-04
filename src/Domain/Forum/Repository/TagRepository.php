@@ -2,14 +2,14 @@
 
 namespace App\Domain\Forum\Repository;
 
+use App\Core\Orm\AbstractRepository;
 use App\Domain\Forum\Entity\Tag;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Tag[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @extends AbstractRepository<Tag>
  */
-class TagRepository extends ServiceEntityRepository
+class TagRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

@@ -2,12 +2,16 @@
 
 namespace App\Domain\Course\Repository;
 
+use App\Core\Orm\AbstractRepository;
+use App\Core\Orm\IterableQueryBuilder;
 use App\Domain\Course\Entity\Formation;
 use App\Domain\Course\Entity\Technology;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-class FormationRepository extends ServiceEntityRepository
+/**
+ * @extends AbstractRepository<Formation>
+ */
+class FormationRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -26,16 +30,14 @@ class FormationRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Formation[]
+     * @return IterableQueryBuilder<Formation>
      */
-    public function findRecent(int $limit): array
+    public function findRecent(int $limit): IterableQueryBuilder
     {
-        return $this->createQueryBuilder('f')
+        return $this->createIterableQuery('f')
             ->where('f.online = true')
             ->orderBy('f.createdAt', 'DESC')
-            ->setMaxResults($limit)
-            ->getQuery()
-            ->getResult();
+            ->setMaxResults($limit);
     }
 
     public function findForTechnology(Technology $technology): array

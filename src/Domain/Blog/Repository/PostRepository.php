@@ -2,19 +2,17 @@
 
 namespace App\Domain\Blog\Repository;
 
+use App\Core\Orm\AbstractRepository;
+use App\Core\Orm\IterableQueryBuilder;
 use App\Domain\Blog\Category;
 use App\Domain\Blog\Post;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Post|null find($id, $lockMode = null, $lockVersion = null)
- * @method Post|null findOneBy(array $criteria, array $orderBy = null)
- * @method Post[]    findAll()
- * @method Post[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @extends AbstractRepository<Post>
  */
-class PostRepository extends ServiceEntityRepository
+class PostRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -22,17 +20,15 @@ class PostRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Post[]
+     * @return IterableQueryBuilder<Post>
      */
-    public function findRecent(int $limit): array
+    public function findRecent(int $limit): IterableQueryBuilder
     {
-        return $this->createQueryBuilder('p')
+        return $this->createIterableQuery('p')
             ->select('p')
             ->where('p.online = true')
             ->orderBy('p.createdAt', 'DESC')
-            ->setMaxResults($limit)
-            ->getQuery()
-            ->getResult();
+            ->setMaxResults($limit);
     }
 
     public function queryAll(?Category $category = null): Query

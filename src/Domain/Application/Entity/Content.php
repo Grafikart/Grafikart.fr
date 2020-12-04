@@ -2,6 +2,7 @@
 
 namespace App\Domain\Application\Entity;
 
+use App\Core\Twig\CacheExtension\CacheableInterface;
 use App\Domain\Attachment\Attachment;
 use App\Domain\Auth\User;
 use App\Domain\Course\Entity\Course;
@@ -23,7 +24,7 @@ use Doctrine\ORM\Mapping as ORM;
  *     "cursus" = "App\Domain\Course\Entity\Cursus",
  * })
  */
-abstract class Content
+abstract class Content implements CacheableInterface
 {
     /**
      * @ORM\Id()

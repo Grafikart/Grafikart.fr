@@ -2,15 +2,19 @@
 
 namespace App\Domain\Course\Repository;
 
+use App\Core\Orm\AbstractRepository;
+use App\Core\Orm\IterableQueryBuilder;
 use App\Domain\Course\Entity\Course;
 use App\Domain\Course\Entity\Technology;
 use App\Domain\Course\Entity\TechnologyUsage;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
-class CourseRepository extends ServiceEntityRepository
+/**
+ * @extends AbstractRepository<Course>
+ */
+class CourseRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -32,16 +36,14 @@ class CourseRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Course[]
+     * @return IterableQueryBuilder<Course>
      */
-    public function findRecent(int $limit): array
+    public function findRecent(int $limit): IterableQueryBuilder
     {
-        return $this->createQueryBuilder('c')
+        return $this->createIterableQuery('c')
             ->where('c.online = true')
             ->orderBy('c.createdAt', 'DESC')
-            ->setMaxResults($limit)
-            ->getQuery()
-            ->getResult();
+            ->setMaxResults($limit);
     }
 
     public function queryForTechnology(Technology $technology): Query
@@ -58,7 +60,8 @@ class CourseRepository extends ServiceEntityRepository
             )
             AND c.online = true
             ORDER BY c.createdAt DESC
-        DQL)->setParameter('technology', $technology);
+        DQL
+        )->setParameter('technology', $technology);
     }
 
     public function findTotalDuration(): int

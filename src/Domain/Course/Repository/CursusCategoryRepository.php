@@ -2,11 +2,14 @@
 
 namespace App\Domain\Course\Repository;
 
+use App\Core\Orm\AbstractRepository;
 use App\Domain\Course\Entity\CursusCategory;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-class CursusCategoryRepository extends ServiceEntityRepository
+/**
+ * @extends AbstractRepository<CursusCategory>
+ */
+class CursusCategoryRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

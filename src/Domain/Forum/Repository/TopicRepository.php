@@ -2,17 +2,17 @@
 
 namespace App\Domain\Forum\Repository;
 
+use App\Core\Orm\AbstractRepository;
 use App\Domain\Auth\User;
 use App\Domain\Forum\Entity\Message;
 use App\Domain\Forum\Entity\Tag;
 use App\Domain\Forum\Entity\Topic;
 use App\Infrastructure\Spam\SpammableRepositoryTrait;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
-class TopicRepository extends ServiceEntityRepository
+class TopicRepository extends AbstractRepository
 {
     use SpammableRepositoryTrait;
 

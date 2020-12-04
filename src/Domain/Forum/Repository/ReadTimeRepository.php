@@ -2,13 +2,16 @@
 
 namespace App\Domain\Forum\Repository;
 
+use App\Core\Orm\AbstractRepository;
 use App\Domain\Auth\User;
 use App\Domain\Forum\Entity\ReadTime;
 use App\Domain\Forum\Entity\Topic;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-class ReadTimeRepository extends ServiceEntityRepository
+/**
+ * @extends AbstractRepository<ReadTime>
+ */
+class ReadTimeRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

@@ -2,12 +2,15 @@
 
 namespace App\Domain\Profile\Repository;
 
+use App\Core\Orm\AbstractRepository;
 use App\Domain\Auth\User;
 use App\Domain\Profile\Entity\EmailVerification;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-class EmailVerificationRepository extends ServiceEntityRepository
+/**
+ * @extends AbstractRepository<EmailVerification>
+ */
+class EmailVerificationRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

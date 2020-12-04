@@ -295,6 +295,10 @@
     display: grid;
     grid-template-columns: 1fr 250px;
     grid-gap: 30px;
+
+    .homepage & {
+      min-height: 340px;
+    }
   }
   .card__illustration {
     display: block;

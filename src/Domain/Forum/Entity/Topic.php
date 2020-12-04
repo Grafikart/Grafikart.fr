@@ -3,6 +3,7 @@
 namespace App\Domain\Forum\Entity;
 
 use ApiPlatform\Core\Annotation\ApiProperty;
+use App\Core\Twig\CacheExtension\CacheableInterface;
 use App\Domain\Auth\User;
 use App\Infrastructure\Spam\SpammableInterface;
 use App\Infrastructure\Spam\SpamTrait;
@@ -16,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Domain\Forum\Repository\TopicRepository")
  * @ORM\Table(name="forum_topic")
  */
-class Topic implements SpammableInterface
+class Topic implements SpammableInterface, CacheableInterface
 {
     /**
      * @ORM\Id()

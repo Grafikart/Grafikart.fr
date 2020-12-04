@@ -2,6 +2,7 @@
 
 namespace App\Domain\Forum\Entity;
 
+use App\Core\Twig\CacheExtension\CacheableInterface;
 use App\Domain\Auth\User;
 use App\Infrastructure\Spam\SpammableInterface;
 use App\Infrastructure\Spam\SpamTrait;
@@ -14,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Domain\Forum\Repository\MessageRepository")
  * @ORM\Table(name="forum_message")
  */
-class Message implements SpammableInterface
+class Message implements SpammableInterface, CacheableInterface
 {
     /**
      * @ORM\Id()

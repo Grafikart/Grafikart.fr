@@ -2,11 +2,14 @@
 
 namespace App\Domain\Auth\Repository;
 
+use App\Core\Orm\AbstractRepository;
 use App\Domain\Auth\Entity\LoginAttempt;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-class LoginAttemptRepository extends ServiceEntityRepository
+/**
+ * @extends AbstractRepository<LoginAttempt>
+ */
+class LoginAttemptRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

@@ -2,11 +2,14 @@
 
 namespace App\Domain\Forum\Repository;
 
+use App\Core\Orm\AbstractRepository;
 use App\Domain\Forum\Entity\Report;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-class ReportRepository extends ServiceEntityRepository
+/**
+ * @extends AbstractRepository<Report>
+ */
+class ReportRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

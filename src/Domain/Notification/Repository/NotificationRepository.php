@@ -2,18 +2,15 @@
 
 namespace App\Domain\Notification\Repository;
 
+use App\Core\Orm\AbstractRepository;
 use App\Domain\Auth\User;
 use App\Domain\Notification\Entity\Notification;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Notification|null find($id, $lockMode = null, $lockVersion = null)
- * @method Notification|null findOneBy(array $criteria, array $orderBy = null)
- * @method Notification[]    findAll()
- * @method Notification[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @extends AbstractRepository<Notification>
  */
-class NotificationRepository extends ServiceEntityRepository
+class NotificationRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

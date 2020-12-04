@@ -2,6 +2,7 @@
 
 namespace App\Domain\Auth;
 
+use App\Core\Twig\CacheExtension\CacheableInterface;
 use App\Domain\Forum\Entity\ForumReaderUserInterface;
 use App\Domain\Notification\Entity\Notifiable;
 use App\Domain\Premium\Entity\PremiumTrait;
@@ -22,7 +23,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @UniqueEntity(fields={"email"})
  * @UniqueEntity(fields={"username"})
  */
-class User implements UserInterface, \Serializable, ForumReaderUserInterface
+class User implements UserInterface, \Serializable, ForumReaderUserInterface, CacheableInterface
 {
     use PremiumTrait;
     use StripeEntity;

@@ -2,12 +2,15 @@
 
 namespace App\Domain\Premium\Repository;
 
+use App\Core\Orm\AbstractRepository;
 use App\Domain\Auth\User;
 use App\Domain\Premium\Entity\Subscription;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-class SubscriptionRepository extends ServiceEntityRepository
+/**
+ * @extends AbstractRepository<Subscription>
+ */
+class SubscriptionRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

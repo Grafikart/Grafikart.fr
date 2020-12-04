@@ -2,16 +2,14 @@
 
 namespace App\Domain\Premium\Repository;
 
+use App\Core\Orm\AbstractRepository;
 use App\Domain\Premium\Entity\Plan;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Plan|null find($id, $lockMode = null, $lockVersion = null)
- * @method Plan|null findOneBy(array $criteria, array $orderBy = null)
- * @method Plan[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @extends AbstractRepository<Plan>
  */
-class PlanRepository extends ServiceEntityRepository
+class PlanRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

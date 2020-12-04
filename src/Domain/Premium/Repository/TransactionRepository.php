@@ -2,18 +2,15 @@
 
 namespace App\Domain\Premium\Repository;
 
+use App\Core\Orm\AbstractRepository;
 use App\Domain\Auth\User;
 use App\Domain\Premium\Entity\Transaction;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Transaction|null find($id, $lockMode = null, $lockVersion = null)
- * @method Transaction|null findOneBy(array $criteria, array $orderBy = null)
- * @method Transaction[]    findAll()
- * @method Transaction[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @extends AbstractRepository<Transaction>
  */
-class TransactionRepository extends ServiceEntityRepository
+class TransactionRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

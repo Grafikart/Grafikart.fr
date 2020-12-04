@@ -116,6 +116,7 @@ class ForumImporter extends MySQLImporter
                 break;
             }
             foreach ($rows as $row) {
+                /** @var Topic|null $topic */
                 $topic = $this->em->getRepository(Topic::class)->find($row['topic_id']);
                 if ($topic) {
                     /** @var User $user */

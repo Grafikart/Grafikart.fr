@@ -2,19 +2,16 @@
 
 namespace App\Domain\History\Repository;
 
+use App\Core\Orm\AbstractRepository;
 use App\Domain\Application\Entity\Content;
 use App\Domain\Auth\User;
 use App\Domain\History\Entity\Progress;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Progress|null find($id, $lockMode = null, $lockVersion = null)
- * @method Progress|null findOneBy(array $criteria, array $orderBy = null)
- * @method Progress[]    findAll()
- * @method Progress[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @extends AbstractRepository<Progress>
  */
-class ProgressRepository extends ServiceEntityRepository
+class ProgressRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

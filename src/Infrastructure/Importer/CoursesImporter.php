@@ -204,7 +204,7 @@ final class CoursesImporter extends Neo4jImporter
         foreach ($rows as $row) {
             $newCourse = $row->offsetGet(0)->getProperty('uuid');
             $oldCourse = $row->offsetGet(1)->getProperty('uuid');
-            $courseRepository->find($oldCourse)->setDeprecatedBy($courseRepository->find($newCourse));
+            $courseRepository->findOrFail($oldCourse)->setDeprecatedBy($courseRepository->find($newCourse));
             $io->progressAdvance();
         }
         $io->progressFinish();

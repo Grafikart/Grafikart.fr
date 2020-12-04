@@ -2,13 +2,16 @@
 
 namespace App\Domain\Forum\Repository;
 
+use App\Core\Orm\AbstractRepository;
 use App\Domain\Auth\User;
 use App\Domain\Forum\Entity\Message;
 use App\Infrastructure\Spam\SpammableRepositoryTrait;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-class MessageRepository extends ServiceEntityRepository
+/**
+ * @extends AbstractRepository<Message>
+ */
+class MessageRepository extends AbstractRepository
 {
     use SpammableRepositoryTrait;
 

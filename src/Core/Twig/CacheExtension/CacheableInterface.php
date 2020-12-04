@@ -4,7 +4,7 @@ namespace App\Core\Twig\CacheExtension;
 
 interface CacheableInterface
 {
-    public function getUpdatedAt(): \DateTimeInterface;
+    public function getUpdatedAt(): ?\DateTimeInterface;
 
-    public function getId(): int;
+    public function getId(): ?int;
 }

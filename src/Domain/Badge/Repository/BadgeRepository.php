@@ -2,17 +2,14 @@
 
 namespace App\Domain\Badge\Repository;
 
+use App\Core\Orm\AbstractRepository;
 use App\Domain\Badge\Entity\Badge;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Badge|null find($id, $lockMode = null, $lockVersion = null)
- * @method Badge|null findOneBy(array $criteria, array $orderBy = null)
- * @method Badge[]    findAll()
- * @method Badge[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @extends AbstractRepository<Badge>
  */
-class BadgeRepository extends ServiceEntityRepository
+class BadgeRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

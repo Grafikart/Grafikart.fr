@@ -2,17 +2,14 @@
 
 namespace App\Domain\Blog\Repository;
 
+use App\Core\Orm\AbstractRepository;
 use App\Domain\Blog\Category;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Category|null find($id, $lockMode = null, $lockVersion = null)
- * @method Category|null findOneBy(array $criteria, array $orderBy = null)
- * @method Category[]    findAll()
- * @method Category[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @extends AbstractRepository<Category>
  */
-class CategoryRepository extends ServiceEntityRepository
+class CategoryRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
