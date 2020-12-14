@@ -27,7 +27,7 @@ server {
 
     # Mercure
     location /.well-known/mercure/ {
-        proxy_pass http://localhost:3000/.well-known/mercure;
+        proxy_pass http://localhost:8000/.well-known/mercure;
         proxy_read_timeout 24h;
         proxy_http_version 1.1;
         proxy_set_header Connection "";
@@ -63,7 +63,6 @@ server {
 
     # handle .php
     location ~ \.php$ {
-        include nginxconfig.io/php_fastcgi.conf;
     }
 }
 

@@ -16,9 +16,9 @@
   roles:
     - {role: tools, tags: tools}
     - {role: firewall, tags: firewall}
-    - {role: php, tags: php}
+    # - {role: php, tags: php}
     - {role: nginx, tags: nginx}
-    - {role: pgsql, tags: pgsql}
-    - {role: app, tags: app}
-    - {role: mail, tags: mail}
+    # - {role: pgsql, tags: pgsql}
+    # - {role: app, tags: app}
+    # - {role: mail, tags: mail}
 

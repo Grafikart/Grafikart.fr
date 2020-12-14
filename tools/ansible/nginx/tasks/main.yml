@@ -22,8 +22,14 @@
     - nginx.conf
     - nginxconfig.io/general.conf
     - nginxconfig.io/letsencrypt.conf
-    - nginxconfig.io/php_fastcgi.conf
     - nginxconfig.io/security.conf
+- name: Nginx | nginx.conf
+  template:
+    src: "{{ item }}.j2"
+    dest: "/etc/nginx/{{ item }}"
+  when: php_version is defined
+  loop:
+    - nginxconfig.io/php_fastcgi.conf
 - name: "Nginx | Vhost {{ domain }}"
   template:
     src: vhost.j2

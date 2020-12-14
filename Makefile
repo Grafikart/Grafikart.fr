@@ -3,7 +3,9 @@ server := "ubuntu@beta.grafikart.fr"
 user := $(shell id -u)
 group := $(shell id -g)
 ifeq ($(isDocker), 1)
-	dc := USER_ID=$(user) GROUP_ID=$(group) docker-compose
+	dc := USER_ID=$(user) GROUP_ID=$(group) docker-compose -f docker-compose.yml -f docker-compose.dev.yml
+	dcimport := USER_ID=$(user) GROUP_ID=$(group) docker-compose -f docker-compose.import.yml
+	dcprod := docker-compose -f docker-compose.yml -f docker-compose.prod.yml
 	de := docker-compose exec
 	dr := $(dc) run --rm
 	sy := $(de) php bin/console
@@ -46,6 +48,10 @@ build-docker:
 dev: vendor/autoload.php node_modules/time ## Lance le serveur de développement
 	$(dc) up
 
+.PHONY: preprod
+preprod: vendor/autoload.php public/assets ## Lance le serveur de preprod
+	$(dcprod) up
+
 .PHONY: dump
 dump: var/dump ## Génère un dump SQL
 	$(de) db sh -c 'PGPASSWORD="grafikart" pg_dump grafikart -U grafikart > /var/www/var/dump/dump.sql'
@@ -53,10 +59,6 @@ dump: var/dump ## Génère un dump SQL
 .PHONY: dumpimport
 dumpimport: var/dump ## Import un dump SQL
 	$(de) db sh -c 'psql grafikart < /var/www/var/dump/dump.sql'
-
-.PHONY: clean
-clean: ## Nettoie les containers
-	$(dc) -f docker-compose.yml -f docker-compose.test.yml -f docker-compose.import.yml down --volumes
 
 .PHONY: seed
 seed: vendor/autoload.php ## Génère des données dans la base de données (docker-compose up doit être lancé)
@@ -111,8 +113,8 @@ provision: ## Configure la machine distante
 .PHONY: import
 import: vendor/autoload.php ## Importe les données du site actuel et génère un dump en sortie
 	gunzip -k downloads/grafikart.gz
-	$(dc) -f docker-compose.import.yml stop
-	$(dc) -f docker-compose.import.yml up -d
+	$(dcimport) stop
+	$(dcimport) up -d
 	rsync -avz --ignore-existing --progress --exclude=avatars --exclude=tmp --exclude=users grafikart:/home/www/grafikart.fr/shared/public/uploads/ ./public/old/
 	tar -xf downloads/grafikart.tar.gz -C downloads/
 	$(sy) doctrine:migrations:migrate -q
@@ -125,7 +127,7 @@ import: vendor/autoload.php ## Importe les données du site actuel et génère u
 	$(sy) app:import forum
 	$(sy) app:import badges
 	$(sy) app:import transactions
-	$(dc) -f docker-compose.import.yml stop
+	$(dcimport) stop
 	$(dc) up -d
 	sleep 5
 	$(de) db sh -c 'PGPASSWORD="grafikart" pg_dump -U grafikart -Ft grafikart --clean > /var/www/var/dump.tar'

@@ -122,3 +122,8 @@ Pour évaluer l'efficacité de la nouvelle version :
 
 - application.js version actuelle : 174ko / 490ko
 - application.css version actuelle : 32ko / 131ko
+
+## Docker ref
+
+- curl -fsSL https://get.docker.com/rootless | sh
+- systemctl --user enable docker.service

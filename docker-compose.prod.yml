@@ -1,0 +1,13 @@
+version: '3.1'
+services:
+  php:
+    environment:
+      APP_ENV: prod
+    volumes:
+      - ./tools/docker/php/prod.ini:/usr/local/etc/php/conf.d/zz-prod.ini
+  mercure:
+    environment:
+      CORS_ALLOWED_ORIGINS: 'https://beta.grafikart.fr'
+  messenger:
+    environment:
+      APP_ENV: prod

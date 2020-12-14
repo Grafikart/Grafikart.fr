@@ -20,25 +20,19 @@
   apt_repository:
     repo: ppa:fish-shell/release-3
     state: present
-- name: Outils | Redis ppa
-  when: ansible_distribution == 'Ubuntu'
-  apt_repository:
-    repo: ppa:chris-lea/redis-server
-    state: present
 - name: Outils | Install
   apt:
     name:
-      - redis
       - fish
       - vim
       - git
       - ntp
       - rsync
-      - ffmpeg
       - fail2ban
       - certbot
       - acl
       - make
+      - uidmap
     state: present
 - name: Outils | création de ~/.vim/autoload
   file: state=directory path=~/.vim/autoload
