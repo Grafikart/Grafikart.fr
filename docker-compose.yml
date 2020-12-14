@@ -49,8 +49,6 @@ services:
       TYPESENSE_API_KEY: typesensekey
     volumes:
       - search-data:/data
-    ports:
-      - 8108:8108
   mercure:
     restart: unless-stopped
     image: dunglas/mercure
@@ -58,8 +56,6 @@ services:
       JWT_KEY: mercure_subscriber
       PUBLISHER_JWT_KEY: mercure_publisher
       ALLOW_ANONYMOUS: 0
-    ports:
-      - 8001:80
   messenger:
     image: grafikart/php:1.0.3
     volumes:
