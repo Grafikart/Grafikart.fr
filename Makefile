@@ -1,10 +1,9 @@
 isDocker := $(shell docker info > /dev/null 2>&1 && echo 1)
 server := "ubuntu@beta.grafikart.fr"
-user := $(shell id -u)
-group := $(shell id -g)
+
 ifeq ($(isDocker), 1)
-	dc := USER_ID=$(user) GROUP_ID=$(group) docker-compose -f docker-compose.yml -f docker-compose.dev.yml
-	dcimport := USER_ID=$(user) GROUP_ID=$(group) docker-compose -f docker-compose.import.yml
+	dc := docker-compose -f docker-compose.yml -f docker-compose.dev.yml
+	dcimport := docker-compose -f docker-compose.import.yml
 	dcprod := docker-compose -f docker-compose.yml -f docker-compose.prod.yml
 	de := docker-compose exec
 	dr := $(dc) run --rm
@@ -62,7 +61,7 @@ dumpimport: var/dump ## Import un dump SQL
 
 .PHONY: seed
 seed: vendor/autoload.php ## Génère des données dans la base de données (docker-compose up doit être lancé)
-	$(sy) doctrine:migrations:migrate -q
+	$(sy) doctrine:schema:migrate -q
 	$(sy) doctrine:schema:validate -q
 	$(sy) app:seed -q
 

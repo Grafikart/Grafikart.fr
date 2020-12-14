@@ -13,6 +13,7 @@ services:
   adminer:
     image: adminer
     environment:
+      APP_ENV: dev
       ADMINER_DESIGN: pepa-linha
       ADMINER_DEFAULT_SERVER: db
     ports:
@@ -32,7 +33,6 @@ services:
       context: ./tools/docker/node
     command: yarn run dev
     working_dir: /usr/src/app
-    user: '${USER_ID}:${GROUP_ID}'
     volumes:
       - .:/usr/src/app
     ports:

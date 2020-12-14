@@ -12,11 +12,7 @@ services:
       - php
   php:
     restart: unless-stopped
-    build:
-      context: ./tools/docker/php
-      args:
-        USER_ID: ${USER_ID}
-        GROUP_ID: ${GROUP_ID}
+    image: grafikart/php:1.0.3
     volumes:
       - .:/var/www:delegated
     depends_on:
@@ -65,11 +61,7 @@ services:
     ports:
       - 8001:80
   messenger:
-    build:
-      context: ./tools/docker/php
-      args:
-        USER_ID: ${USER_ID}
-        GROUP_ID: ${GROUP_ID}
+    image: grafikart/php:1.0.3
     volumes:
       - .:/var/www:delegated
     depends_on:
