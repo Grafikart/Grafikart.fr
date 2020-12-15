@@ -11,6 +11,7 @@ services:
     links:
       - php
   php:
+    user: '${USER_ID}:${GROUP_ID}'
     restart: unless-stopped
     image: grafikart/php:1.0.3
     volumes:
@@ -57,6 +58,7 @@ services:
       PUBLISHER_JWT_KEY: mercure_publisher
       ALLOW_ANONYMOUS: 0
   messenger:
+    user: '${USER_ID}:${GROUP_ID}'
     image: grafikart/php:1.0.3
     volumes:
       - .:/var/www:delegated

@@ -33,6 +33,11 @@
       - acl
       - make
       - uidmap
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg-agent
+      - software-properties-common
     state: present
 - name: Outils | création de ~/.vim/autoload
   file: state=directory path=~/.vim/autoload
@@ -47,6 +52,11 @@
   get_url:
     url: https://raw.githubusercontent.com/Grafikart/dotfiles/master/config/vim/.vimrc
     dest: ~/.vimrc
+- name: Outils | Fish config directory
+  become: no
+  file:
+    path: ~/.config/fish
+    state: directory
 - name: Outils | Fish config
   become: no
   template:

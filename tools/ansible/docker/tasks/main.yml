@@ -1,0 +1,22 @@
+- name: Docker | Docker GPG Key
+  when: ansible_distribution == 'Debian'
+  apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+- name: Docker | Docker repository
+  when: ansible_distribution == 'Debian'
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable
+    state: present
+- name: Docker | Install
+  apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-compose
+    state: present
+- name: Docker | Add group user
+  user:
+    name: "{{ ansible_user }}"
+    groups: docker
+    append: yes

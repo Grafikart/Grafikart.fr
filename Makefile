@@ -1,10 +1,13 @@
 isDocker := $(shell docker info > /dev/null 2>&1 && echo 1)
 server := "ubuntu@beta.grafikart.fr"
+user := $(shell id -u)
+group := $(shell id -g)
 
 ifeq ($(isDocker), 1)
-	dc := docker-compose -f docker-compose.yml -f docker-compose.dev.yml
+	dc := USER_ID=$(user) GROUP_ID=$(group) docker-compose -f docker-compose.yml -f docker-compose.dev.yml
+	dcimport := USER_ID=$(user) GROUP_ID=$(group) docker-compose -f docker-compose.import.yml
+	dcprod := USER_ID=$(user) GROUP_ID=$(group) docker-compose -f docker-compose.yml -f docker-compose.prod.yml
 	dcimport := docker-compose -f docker-compose.import.yml
-	dcprod := docker-compose -f docker-compose.yml -f docker-compose.prod.yml
 	de := docker-compose exec
 	dr := $(dc) run --rm
 	sy := $(de) php bin/console
@@ -30,11 +33,10 @@ deploy:
 
 .PHONY: install
 install: vendor/autoload.php ## Installe les différentes dépendances
-	$(php) composer install --no-dev --optimize-autoloader
-	make migrate
-	APP_ENV=prod APP_DEBUG=0 $(sy) cache:clear
-	$(sy) cache:pool:clear cache.global_clearer
-	$(sy) messenger:stop-workers
+	APP_ENV=prod APP_DEBUG=0 $(dcprod) run --no-deps php composer install --no-dev --optimize-autoloader
+	APP_ENV=prod APP_DEBUG=0 $(dcprod) run --no-deps php php bin/console cache:clear
+	APP_ENV=prod APP_DEBUG=0 $(dcprod) run --no-deps php php bin/console cache:pool:clear cache.global_clearer
+	USER_ID=$(user) GROUP_ID=$(group) docker
 
 .PHONY: build-docker
 build-docker:
@@ -61,7 +63,7 @@ dumpimport: var/dump ## Import un dump SQL
 
 .PHONY: seed
 seed: vendor/autoload.php ## Génère des données dans la base de données (docker-compose up doit être lancé)
-	$(sy) doctrine:schema:migrate -q
+	$(sy) doctrine:migrations:migrate -q
 	$(sy) doctrine:schema:validate -q
 	$(sy) app:seed -q
 
