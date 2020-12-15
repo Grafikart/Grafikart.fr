@@ -18,7 +18,7 @@
     - {role: docker, tags: docker}
     - {role: firewall, tags: firewall}
     # - {role: php, tags: php}
-    # - {role: nginx, tags: nginx}
+    - {role: nginx, tags: nginx}
     # - {role: pgsql, tags: pgsql}
     # - {role: app, tags: app}
     # - {role: mail, tags: mail}

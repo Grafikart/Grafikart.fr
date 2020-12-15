@@ -1,5 +1,5 @@
 isDocker := $(shell docker info > /dev/null 2>&1 && echo 1)
-server := "ubuntu@beta.grafikart.fr"
+server := "debian@beta.grafikart.fr"
 user := $(shell id -u)
 group := $(shell id -g)
 
@@ -7,7 +7,7 @@ ifeq ($(isDocker), 1)
 	dc := USER_ID=$(user) GROUP_ID=$(group) docker-compose -f docker-compose.yml -f docker-compose.dev.yml
 	dcimport := USER_ID=$(user) GROUP_ID=$(group) docker-compose -f docker-compose.import.yml
 	dcprod := USER_ID=$(user) GROUP_ID=$(group) docker-compose -f docker-compose.yml -f docker-compose.prod.yml
-	dcimport := docker-compose -f docker-compose.import.yml
+	dcimport := USER_ID=$(user) GROUP_ID=$(group) docker-compose -f docker-compose.import.yml
 	de := docker-compose exec
 	dr := $(dc) run --rm
 	sy := $(de) php bin/console
@@ -36,7 +36,7 @@ install: vendor/autoload.php ## Installe les différentes dépendances
 	APP_ENV=prod APP_DEBUG=0 $(dcprod) run --no-deps php composer install --no-dev --optimize-autoloader
 	APP_ENV=prod APP_DEBUG=0 $(dcprod) run --no-deps php php bin/console cache:clear
 	APP_ENV=prod APP_DEBUG=0 $(dcprod) run --no-deps php php bin/console cache:pool:clear cache.global_clearer
-	USER_ID=$(user) GROUP_ID=$(group) docker
+	USER_ID=$(user) GROUP_ID=$(group) docker stack deploy -c docker-compose.yml -c docker-compose.prod.yml grafikart
 
 .PHONY: build-docker
 build-docker:
@@ -114,9 +114,11 @@ provision: ## Configure la machine distante
 .PHONY: import
 import: vendor/autoload.php ## Importe les données du site actuel et génère un dump en sortie
 	gunzip -k downloads/grafikart.gz
-	$(dcimport) stop
+	$(dcimport) down
 	$(dcimport) up -d
+	@echo "Attendre que la base soit initialisée 'docker-compose -f docker-compose.import.yml logs -f mariadb'?: "; read ok;
 	rsync -avz --ignore-existing --progress --exclude=avatars --exclude=tmp --exclude=users grafikart:/home/www/grafikart.fr/shared/public/uploads/ ./public/old/
+	$(dcimport) exec db /docker-entrypoint.sh
 	tar -xf downloads/grafikart.tar.gz -C downloads/
 	$(sy) doctrine:migrations:migrate -q
 	$(sy) app:import reset
@@ -128,10 +130,8 @@ import: vendor/autoload.php ## Importe les données du site actuel et génère u
 	$(sy) app:import forum
 	$(sy) app:import badges
 	$(sy) app:import transactions
-	$(dcimport) stop
-	$(dc) up -d
-	sleep 5
-	$(de) db sh -c 'PGPASSWORD="grafikart" pg_dump -U grafikart -Ft grafikart --clean > /var/www/var/dump.tar'
+	$(dcimport) exec db sh -c 'PGPASSWORD="grafikart" pg_dump -U grafikart -Ft grafikart --clean > /var/www/var/dump.tar'
+	$(dcimport) down
 	ansible-playbook -i tools/ansible/hosts.yml tools/ansible/import.yml
 	rm -rf var/dump.tar
 	rsync -avz --ignore-existing --progress ./public/uploads/ $(server):~/beta.grafikart.fr/public/uploads/

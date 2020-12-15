@@ -1,13 +1,9 @@
-version: '3.1'
+version: '3.9'
 services:
   php:
     image: grafikart/php:1.0.3
     volumes:
       - .:/var/www:delegated
-    links:
-      - db
-      - neo4j
-      - mariadb
   neo4j:
     image: neo4j:3.5.24-enterprise
     command: "/entrypoint.sh"
@@ -27,7 +23,7 @@ services:
       POSTGRES_USER: grafikart
       POSTGRES_DB: grafikart
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - ./var:/var/www/var
   mariadb:
     image: mariadb:10.4
     volumes:
@@ -35,7 +31,3 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: grafikart_dev
-
-volumes:
-  db-data:
-    driver: local

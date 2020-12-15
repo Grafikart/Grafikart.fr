@@ -170,7 +170,7 @@ final class CoursesImporter extends Neo4jImporter
             $relation = $row->offsetGet(1);
             /** @var ?Content $content */
             $content = $this->em->find(Content::class, $courseId);
-            if (null === $content) {
+            if (null === $content || in_array($key, $keys)) {
                 continue;
             }
             $usage = (new TechnologyUsage())
@@ -178,9 +178,7 @@ final class CoursesImporter extends Neo4jImporter
                 ->setSecondary('USE' === $relation->getType())
                 ->setTechnology($technologies[$technologySlug])
                 ->setContent($content);
-            if (!in_array($key, $keys)) {
-                $this->em->persist($usage);
-            }
+            $this->em->persist($usage);
             $keys[] = $key;
             $io->progressAdvance();
         }

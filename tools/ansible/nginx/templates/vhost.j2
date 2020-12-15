@@ -51,6 +51,13 @@ server {
         try_files $uri /index.php?$query_string;
     }
 
+    # Permet d'utiliser un proxy si PHP fonctionnait avec nginx, try_files $uri @php
+    # location @php {
+    #     proxy_pass http://127.0.0.1:8000;
+    #     proxy_set_header Host $host;
+    #     proxy_set_header X-Forwarded-For $remote_addr;
+    # }
+
     # Téléchargements des vidéos et sources
     location ~ ^/downloads/(?<path>.*)$ {
         auth_request     /index.php;
@@ -63,6 +70,15 @@ server {
 
     # handle .php
     location ~ \.php$ {
+        try_files                     $fastcgi_script_name =404;
+        include                       fastcgi_params;
+        fastcgi_pass                  127.0.0.1:9001;
+        fastcgi_index                 index.php;
+        fastcgi_buffers               8 16k;
+        fastcgi_buffer_size           32k;
+        fastcgi_param DOCUMENT_ROOT   /var/www/public;
+        fastcgi_param SCRIPT_FILENAME /var/www/public$fastcgi_script_name;
+        fastcgi_param PHP_ADMIN_VALUE "open_basedir=/var/www/:/usr/lib/php/:/tmp/";
     }
 }
 
