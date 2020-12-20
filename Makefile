@@ -4,9 +4,8 @@ user := $(shell id -u)
 group := $(shell id -g)
 
 ifeq ($(isDocker), 1)
-	dc := USER_ID=$(user) GROUP_ID=$(group) docker-compose -f docker-compose.yml -f docker-compose.dev.yml
+	dc := USER_ID=$(user) GROUP_ID=$(group) docker-compose
 	dcimport := USER_ID=$(user) GROUP_ID=$(group) docker-compose -f docker-compose.import.yml
-	dcprod := USER_ID=$(user) GROUP_ID=$(group) docker-compose -f docker-compose.yml -f docker-compose.prod.yml
 	dcimport := USER_ID=$(user) GROUP_ID=$(group) docker-compose -f docker-compose.import.yml
 	de := docker-compose exec
 	dr := $(dc) run --rm
@@ -38,6 +37,7 @@ install: vendor/autoload.php ## Installe les différentes dépendances
 	APP_ENV=prod APP_DEBUG=0 $(sy) cache:clear
 	$(sy) cache:pool:clear cache.global_clearer
 	$(sy) messenger:stop-workers
+	sudo service php-fpm reload
 
 .PHONY: build-docker
 build-docker:
@@ -49,10 +49,6 @@ build-docker:
 .PHONY: dev
 dev: vendor/autoload.php node_modules/time ## Lance le serveur de développement
 	$(dc) up
-
-.PHONY: preprod
-preprod: vendor/autoload.php public/assets ## Lance le serveur de preprod
-	$(dcprod) up
 
 .PHONY: dump
 dump: var/dump ## Génère un dump SQL

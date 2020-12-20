@@ -2,6 +2,7 @@
 
 namespace App\Domain\Forum\Entity;
 
+use App\Core\Twig\CacheExtension\CacheableInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="App\Domain\Forum\Repository\TagRepository")
  * @ORM\Table(name="forum_tag")
  */
-class Tag
+class Tag implements CacheableInterface
 {
     /**
      * @ORM\Id()

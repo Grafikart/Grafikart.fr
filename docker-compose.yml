@@ -19,6 +19,8 @@ services:
     depends_on:
       - db
     environment:
+      PHP_IDE_CONFIG: serverName=grafikart
+      APP_ENV: dev
       REDIS_URL: redis://redis
       TYPESENSE_KEY: typesensekey
       TYPESENSE_HOST: typesense:8108
@@ -30,6 +32,8 @@ services:
   db:
     restart: unless-stopped
     image: postgres:12-alpine
+    ports:
+      - 5432:5432 # On expose le port pour pouvoir inspecter la base pendant la phase de développement
     environment:
       POSTGRES_PASSWORD: grafikart
       POSTGRES_USER: grafikart
@@ -54,6 +58,7 @@ services:
     restart: unless-stopped
     image: dunglas/mercure
     environment:
+      CORS_ALLOWED_ORIGINS: 'http://grafikart.localhost:8000'
       JWT_KEY: mercure_subscriber
       PUBLISHER_JWT_KEY: mercure_publisher
       ALLOW_ANONYMOUS: 0
@@ -69,7 +74,35 @@ services:
     environment:
       MESSENGER_TRANSPORT_DSN: redis://redis:6379/messages
       MESSENGER_TRANSPORT_FAILED_DSN: redis://redis:6379/messages_failed
-
+  # Dev tools
+  adminer:
+    image: adminer
+    environment:
+      APP_ENV: dev
+      ADMINER_DESIGN: pepa-linha
+      ADMINER_DEFAULT_SERVER: db
+    ports:
+      - 8888:8080
+  mail:
+    image: mailhog/mailhog
+    ports:
+      - 1080:8025
+  redis-gui:
+    image: rediscommander/redis-commander
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - "8081:8081"
+  node:
+    user: '${USER_ID}:${GROUP_ID}'
+    build:
+      context: ./tools/docker/node
+    command: yarn run dev
+    working_dir: /usr/src/app
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - 3000:3000
 volumes:
   db-data:
     driver: local
