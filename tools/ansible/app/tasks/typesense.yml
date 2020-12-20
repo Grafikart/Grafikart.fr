@@ -2,7 +2,7 @@
 - name: "Typesense | Install"
   become: yes
   apt:
-    deb: https://dl.typesense.org/releases/0.16.1/typesense-server-0.16.1-amd64.deb
+    deb: https://dl.typesense.org/releases/0.17.0/typesense-server-0.17.0-amd64.deb
 - name: Typesense | Key
   become: yes
   lineinfile:

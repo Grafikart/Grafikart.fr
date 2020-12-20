@@ -10,4 +10,23 @@
         force: yes
         src: ../../var/dump.tar
         dest: "{{ root_path }}/var/dump.tar"
-
+    - name: PostgreSQL | Reinitialisation de la base de donnée
+      become: yes
+      become_user: postgres
+      community.general.postgresql_db:
+        name: "{{ database }}"
+        encoding: 'UTF-8'
+        lc_collate: 'fr_FR.UTF-8'
+        lc_ctype: 'fr_FR.UTF-8'
+        template: template0
+        state: "{{ item }}"
+      with_items:
+        - absent
+        - present
+    - name: PostgreSQL | Import des données
+      become: yes
+      become_user: postgres
+      community.general.postgresql_db:
+        state: restore
+        target: "{{ root_path }}/var/dump.tar"
+        name: "{{ database }}"

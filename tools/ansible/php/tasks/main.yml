@@ -41,9 +41,8 @@
   script:
     cmd: ../files/composer.sh
     creates: /usr/local/bin/composer
-- name: PHP | Disable Errors
-  lineinfile:
+- name: PHP | Prod confinguration
+  template:
+    src: php.ini
     dest: "/etc/php/{{ php_version }}/fpm/php.ini"
-    regexp: "display_errors ="
-    line: "display_errors = 0"
   notify: php restart

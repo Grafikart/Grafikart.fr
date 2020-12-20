@@ -1,3 +1,13 @@
+- name: Docker | Prerequisites
+  apt:
+    name:
+      - uidmap
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg-agent
+      - software-properties-common
+    state: present
 - name: Docker | Docker GPG Key
   when: ansible_distribution == 'Debian'
   apt_key:

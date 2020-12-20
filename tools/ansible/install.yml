@@ -15,11 +15,11 @@
 
   roles:
     - {role: tools, tags: tools}
-    - {role: docker, tags: docker}
+    - {role: docker, tags: docker, when: docker}
     - {role: firewall, tags: firewall}
-    # - {role: php, tags: php}
+    - {role: php, tags: php, when: not docker}
     - {role: nginx, tags: nginx}
-    # - {role: pgsql, tags: pgsql}
-    # - {role: app, tags: app}
-    # - {role: mail, tags: mail}
+    - {role: pgsql, tags: pgsql, when: not docker}
+    - {role: app, tags: app, when: not docker}
+    - {role: mail, tags: mail, when: not docker}
 

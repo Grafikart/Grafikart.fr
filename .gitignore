@@ -12,6 +12,7 @@
 /public/build/
 npm-debug.log
 yarn-error.log
+.vault_pass
 
 ###> symfony/framework-bundle ###
 /.env.local

@@ -1,0 +1,46 @@
+# Docker / Docker Swarm
+- name: configure ufw before.init to remove existing rules
+  blockinfile:
+    path: /etc/ufw/before.init
+    marker: "# {mark} ANSIBLE MANAGED BLOCK"
+    insertafter: stop\)
+    block: |
+      iptables -F DOCKER-USER || true
+      iptables -A DOCKER-USER -j RETURN || true
+      iptables -X ufw-user-input || true
+
+- name: chmod /etc/ufw/before.init
+  file:
+    path: /etc/ufw/before.init
+    state: touch
+    mode: "a+x"
+
+- name: configure ufw to work with DOCKER-USER chain name
+  blockinfile:
+    path: /etc/ufw/after.rules
+    marker: "# {mark} ANSIBLE MANAGED BLOCK (docker-user)"
+    block: |
+      *filter
+      :DOCKER-USER - [0:0]
+      :ufw-user-input - [0:0]
+      :ufw-after-logging-forward - [0:0]
+
+      -A DOCKER-USER -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+      -A DOCKER-USER -m conntrack --ctstate INVALID -j DROP
+      -A DOCKER-USER -i {{ ansible_default_ipv4.interface }} -j ufw-user-input
+      -A DOCKER-USER -i {{ ansible_default_ipv4.interface }} -j ufw-after-logging-forward
+      -A DOCKER-USER -i {{ ansible_default_ipv4.interface }} -j DROP
+
+      COMMIT
+
+# Optional
+- name: configure ufw ports for docker swarm (TCP)
+  ufw: rule=allow src={{ hostvars[item]['ansible_default_ipv4']['address'] }} port=2377,7946 proto=tcp
+  with_items: "{{ ansible_play_hosts | default(play_hosts) }}"
+  notify: restart ufw
+
+# Optional
+- name: configure ufw ports for docker swarm (UDP)
+  ufw: rule=allow src={{ hostvars[item]['ansible_default_ipv4']['address'] }} port=4789,7946 proto=udp
+  with_items: "{{ ansible_play_hosts | default(play_hosts) }}"
+  notify: restart ufw

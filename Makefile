@@ -33,10 +33,11 @@ deploy:
 
 .PHONY: install
 install: vendor/autoload.php ## Installe les différentes dépendances
-	APP_ENV=prod APP_DEBUG=0 $(dcprod) run --no-deps php composer install --no-dev --optimize-autoloader
-	APP_ENV=prod APP_DEBUG=0 $(dcprod) run --no-deps php php bin/console cache:clear
-	APP_ENV=prod APP_DEBUG=0 $(dcprod) run --no-deps php php bin/console cache:pool:clear cache.global_clearer
-	USER_ID=$(user) GROUP_ID=$(group) docker stack deploy -c docker-compose.yml -c docker-compose.prod.yml grafikart
+	APP_ENV=prod APP_DEBUG=0 $(php) composer install --no-dev --optimize-autoloader
+	make migrate
+	APP_ENV=prod APP_DEBUG=0 $(sy) cache:clear
+	$(sy) cache:pool:clear cache.global_clearer
+	$(sy) messenger:stop-workers
 
 .PHONY: build-docker
 build-docker:
@@ -109,7 +110,7 @@ doc: ## Génère le sommaire de la documentation
 # -----------------------------------
 .PHONY: provision
 provision: ## Configure la machine distante
-	ansible-playbook -i tools/ansible/hosts.yml tools/ansible/install.yml
+	ansible-playbook --vault-password-file .vault_pass -i tools/ansible/hosts.yml tools/ansible/install.yml
 
 .PHONY: import
 import: vendor/autoload.php ## Importe les données du site actuel et génère un dump en sortie

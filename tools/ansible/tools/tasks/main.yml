@@ -23,6 +23,7 @@
 - name: Outils | Install
   apt:
     name:
+      - redis
       - fish
       - vim
       - git
@@ -32,12 +33,6 @@
       - certbot
       - acl
       - make
-      - uidmap
-      - apt-transport-https
-      - ca-certificates
-      - curl
-      - gnupg-agent
-      - software-properties-common
     state: present
 - name: Outils | création de ~/.vim/autoload
   file: state=directory path=~/.vim/autoload
@@ -66,3 +61,15 @@
   user:
     name: "{{ ansible_user }}"
     shell: /usr/bin/fish
+- name: Outils | Fisherman
+  become: no
+  shell:
+    warn: false
+    executable: /usr/bin/fish
+    cmd: curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher && fisher install rafaelrinaldi/pure
+    creates: ~/.config/fisher
+- name: Outils | Systemd user directory
+  become: no
+  file:
+    path: ~/.config/systemd/user
+    state: directory

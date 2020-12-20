@@ -5,7 +5,11 @@ try_files                     $fastcgi_script_name =404;
 include                       fastcgi_params;
 
 # fastcgi settings
+{% if php_version %}
 fastcgi_pass                  unix:/var/run/php/php{{ php_version }}-fpm.sock;
+{% else %}
+fastcgi_pass                  unix:/var/run/php/php{{ php_version }}-fpm.sock;
+{% endif %}
 fastcgi_index                 index.php;
 fastcgi_buffers               8 16k;
 fastcgi_buffer_size           32k;

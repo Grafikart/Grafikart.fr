@@ -22,6 +22,7 @@
     encoding: 'UTF-8'
     lc_collate: 'fr_FR.UTF-8'
     lc_ctype: 'fr_FR.UTF-8'
+    owner: "{{ database }}"
     template: template0
     state: present
 - name: PostgreSQL | Création de l'utilisateur

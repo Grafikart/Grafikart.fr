@@ -24,11 +24,14 @@
     path: /tmp/mercure
     state: absent
 - name: Mercure | Service
+  become: no
   template:
     src: "mercure.service.j2"
-    dest: "/etc/systemd/system/mercure.service"
+    dest: ~/.config/systemd/user/mercure.service
 - name: Mercure | Activation du Service
+  become: no
   systemd:
+    scope: user
     state: started
     daemon_reload: yes
     enabled: yes
