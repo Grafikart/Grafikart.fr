@@ -77,7 +77,7 @@ rollback:
 	$(sy) doctrine:migration:migrate prev
 
 .PHONY: test
-test: vendor/autoload.php ## Execute les tests
+test: vendor/autoload.php node_modules/time ## Execute les tests
 	$(drtest) phptest bin/console doctrine:schema:validate --skip-sync
 	$(drtest) phptest vendor/bin/phpunit
 	$(node) yarn run test

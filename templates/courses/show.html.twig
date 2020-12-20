@@ -29,7 +29,7 @@
     </div>
 
     <div class="container">
-      {% include 'courses/_deprecation.html.twig' %}
+      {% include 'courses/_deprecation.html.twig' with {class: 'mb3'} %}
     </div>
 
     <div class="container {{ course.formation ? 'course-top-sidebar' : '' }}">
@@ -135,7 +135,7 @@
 
             <div class="h2" aria-hidden="true">{{ course.title }}</div>
 
-            {% include 'courses/_deprecation.html.twig' %}
+            {% include 'courses/_deprecation.html.twig' with {class: 'mb0'} %}
 
             <div class="formatted">
               {{ course.content | markdown }}

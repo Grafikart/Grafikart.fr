@@ -4,6 +4,7 @@
   @extend %card;
   margin: space(3) auto;
   padding: space(2);
+  width: 100%;
   display: flex;
   align-items: center;
   animation: alertIn 0.5s both;

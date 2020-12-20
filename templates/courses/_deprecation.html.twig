@@ -1,5 +1,5 @@
 {% if course.deprecatedBy %}
-  <alert-message type="warning">
+  <alert-message type="warning" class="mt0 {{ class is defined ? class : '' }}">
     <strong>Ce tutoriel est déprécié !</strong> Un tutoriel plus récent est maintenant disponible : <a href="{{ path(course.deprecatedBy) }}">{{ course.deprecatedBy.title }}</a>.
   </alert-message>
 {% endif %}

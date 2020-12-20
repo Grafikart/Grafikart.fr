@@ -25,8 +25,9 @@ export class Alert extends HTMLElement {
       progressBar = `<div class="alert__progress" style="animation-duration: ${duration}s">`
       window.setTimeout(this.close, duration * 1000)
     }
-    this.innerHTML = `<div class="alert alert-${this.type}">
-        <svg class="icon icon-${this.icon}">
+    this.classList.add('alert')
+    this.classList.add(`alert-${this.type}`)
+    this.innerHTML = `<svg class="icon icon-${this.icon}">
           <use xlink:href="/sprite.svg#${this.icon}"></use>
         </svg>
         <div>
@@ -37,8 +38,7 @@ export class Alert extends HTMLElement {
             <use xlink:href="/sprite.svg#cross"></use>
           </svg>
         </button>
-        ${progressBar}
-      </div>`
+        ${progressBar}`
     this.querySelector('.alert-close').addEventListener('click', e => {
       e.preventDefault()
       this.close()
