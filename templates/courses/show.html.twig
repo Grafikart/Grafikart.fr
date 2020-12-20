@@ -32,7 +32,7 @@
       {% include 'courses/_deprecation.html.twig' %}
     </div>
 
-    <div class="container {{ course.formation ? 'course-top-sidebar' : '' }} mb5">
+    <div class="container {{ course.formation ? 'course-top-sidebar' : '' }}">
       {% if course.scheduled and not user_premium %}
         <div class="course-countdown" style="background-image: url({{ image_url(course.image) }})">
           <div>
@@ -82,7 +82,38 @@
       {% endif %}
     </div>
 
-    <div class="course-page pb5">
+    <div class="container">
+
+      <div class="course-actions py3">
+        <div>
+          {% if course.premium %}
+            <div class="pill pill-yellow">Premium</div>
+          {% endif %}
+          {% include 'partials/level.html.twig' with {content: course} %}
+        </div>
+        <div>
+          {% if course.demo %}
+            <a href="{{ course.demo }}" class="pill" target="_blank"
+               title="Démonstration du tutoriel {{ course.title }}">
+              {{ icon('lines') }}
+              Voir la démo
+            </a>
+          {% endif %}
+          {% if course.source is not empty %}
+            <a href="{{ path('course_download_source', {id: course.id}) }}" class="pill" data-turbolinks="false" {% if user_premium %}download="Sources {{ course.title }}" {% endif %}>
+              {{ icon('lines') }}
+              Télécharger les sources
+            </a>
+          {% endif %}
+          <a href="{{ path('course_download_video', {id: course.id}) }}" class="pill" data-turbolinks="false" {% if user_premium %}download="{{ course.title }}" {% endif %}>
+            {{ icon('video') }}
+            Télécharger la vidéo
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-page py5">
 
       {% if course.formation %}
       <nav-tabs class="course-tabs tabs-bar container bg-light">
@@ -98,36 +129,11 @@
       {% endif %}
 
       <div class="container" id="content">
-        <div class="course-actions py3">
-          <div>
-            {% if course.premium %}
-              <div class="pill pill-yellow">Premium</div>
-            {% endif %}
-            {% include 'partials/level.html.twig' with {content: course} %}
-          </div>
-          <div>
-            {% if course.demo %}
-              <a href="{{ course.demo }}" class="pill" target="_blank"
-                 title="Démonstration du tutoriel {{ course.title }}">
-                {{ icon('lines') }}
-                Voir la démo
-              </a>
-            {% endif %}
-            {% if course.source is not empty %}
-              <a href="{{ path('course_download_source', {id: course.id}) }}" class="pill" data-turbolinks="false" {% if user_premium %}download="Sources {{ course.title }}" {% endif %}>
-                {{ icon('lines') }}
-                Télécharger les sources
-              </a>
-            {% endif %}
-            <a href="{{ path('course_download_video', {id: course.id}) }}" class="pill" data-turbolinks="false" {% if user_premium %}download="{{ course.title }}" {% endif %}>
-              {{ icon('video') }}
-              Télécharger la vidéo
-            </a>
-          </div>
-        </div>
 
         <div class="layout-sidebar">
           <div class="stack">
+
+            <div class="h2" aria-hidden="true">{{ course.title }}</div>
 
             {% include 'courses/_deprecation.html.twig' %}
 

@@ -37,7 +37,7 @@ install: vendor/autoload.php ## Installe les différentes dépendances
 	APP_ENV=prod APP_DEBUG=0 $(sy) cache:clear
 	$(sy) cache:pool:clear cache.global_clearer
 	$(sy) messenger:stop-workers
-	sudo service php-fpm reload
+	sudo service php7.4-fpm reload
 
 .PHONY: build-docker
 build-docker:
