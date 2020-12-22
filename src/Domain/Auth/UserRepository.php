@@ -46,7 +46,7 @@ class UserRepository extends AbstractRepository implements PasswordUpgraderInter
             ->orWhere("u.{$service}Id = :serviceId")
             ->setMaxResults(1)
             ->setParameters([
-                'email' => $email,
+                'email'     => $email,
                 'serviceId' => $serviceId,
             ])
             ->getQuery()
@@ -75,5 +75,19 @@ class UserRepository extends AbstractRepository implements PasswordUpgraderInter
             ->delete(User::class, 'u')
             ->getQuery()
             ->execute();
+    }
+
+    /**
+     * Renvoie la liste des ids discord des membres premiums
+     * @return string[]
+     */
+    public function findPremiumDiscordIds(): array
+    {
+        return array_map(fn(array $user) => $user['discordId'], $this->createQueryBuilder('u')
+            ->where('u.discordId IS NOT NULL')
+            ->andWhere('u.premiumEnd > NOW()')
+            ->select('u.discordId')
+            ->getQuery()
+            ->getResult());
     }
 }

@@ -5,3 +5,6 @@ Documentation=https://github.com/Grafikart/Grafikart.fr
 [Service]
 ExecStart=/usr/local/bin/mercure --jwt-key='{{ mercure_subscriber_key }}' --publisher-jwt-key='{{ mercure_publisher_key }}' --addr=':3000' --cors-allowed-origins='*' --publish-allowed-origins='http://localhost:3000'
 Restart=on-failure
+
+[Install]
+WantedBy=default.target
