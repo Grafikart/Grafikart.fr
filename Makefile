@@ -30,7 +30,7 @@ deploy:
 	ssh -A $(server) 'cd $(domain) && git pull origin master && make install'
 
 .PHONY: install
-install: vendor/autoload.php node_modules/time ## Installe les différentes dépendances
+install: vendor/autoload.php public/assets/manifest.json ## Installe les différentes dépendances
 	APP_ENV=prod APP_DEBUG=0 $(php) composer install --no-dev --optimize-autoloader
 	make migrate
 	APP_ENV=prod APP_DEBUG=0 $(sy) cache:clear
@@ -149,3 +149,7 @@ public/assets: node_modules/time
 
 var/dump:
 	mkdir var/dump
+
+public/assets/manifest.json: package.json
+	$(node) yarn
+	$(node) yarn run build

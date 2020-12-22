@@ -29,6 +29,7 @@ services:
       MERCURE_PUBLISH_URL: http://mercure/.well-known/mercure
       MESSENGER_TRANSPORT_DSN: redis://redis:6379/messages
       MESSENGER_TRANSPORT_FAILED_DSN: redis://redis:6379/messages_failed
+      MERCURE_SUBSCRIBER_KEY: mercure_subscriber
   db:
     restart: unless-stopped
     image: postgres:12-alpine
@@ -56,12 +57,14 @@ services:
       - search-data:/data
   mercure:
     restart: unless-stopped
-    image: dunglas/mercure
+    image: dunglas/mercure:v0.10.4
     environment:
       CORS_ALLOWED_ORIGINS: 'http://grafikart.localhost:8000'
       JWT_KEY: mercure_subscriber
       PUBLISHER_JWT_KEY: mercure_publisher
       ALLOW_ANONYMOUS: 0
+    ports:
+      - 8001:80
   messenger:
     user: '${USER_ID}:${GROUP_ID}'
     image: grafikart/php:1.0.3

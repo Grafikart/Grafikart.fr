@@ -148,13 +148,22 @@
   position: absolute;
   top: 0;
   left: 0;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(min-content, max-content));
+  display: flex;
+  flex-wrap: nowrap;
   grid-gap: space(1);
+  max-width: 100%;
+  overflow: auto;
 
   @include up(800) {
+    max-width: 200px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
     right: 0;
     left: auto;
+  }
+
+  & > * {
+    white-space: nowrap;
   }
 }
 
