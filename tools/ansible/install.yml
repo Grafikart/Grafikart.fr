@@ -20,6 +20,7 @@
     - {role: php, tags: php, when: not docker}
     - {role: nginx, tags: nginx}
     - {role: pgsql, tags: pgsql, when: not docker}
+    - {role: node, tags: node, when: not docker}
     - {role: app, tags: app, when: not docker}
     - {role: mail, tags: mail, when: not docker}
 

@@ -1,5 +1,6 @@
 isDocker := $(shell docker info > /dev/null 2>&1 && echo 1)
-server := "debian@beta.grafikart.fr"
+domain := "beta.grafikart.fr"
+server := "debian@$(domain)"
 user := $(shell id -u)
 group := $(shell id -g)
 
@@ -26,17 +27,16 @@ help: ## Affiche cette aide
 
 .PHONY: deploy
 deploy:
-	$(node) yarn run build
-	rsync -avz --progress --delete ./public/assets/ $(server):~/beta.grafikart.fr/public/assets/
-	ssh -A $(server) 'cd beta.grafikart.fr && git pull origin master && make install'
+	ssh -A $(server) 'cd $(domain) && git pull origin master && make install'
 
 .PHONY: install
-install: vendor/autoload.php ## Installe les différentes dépendances
+install: vendor/autoload.php node_modules/time ## Installe les différentes dépendances
 	APP_ENV=prod APP_DEBUG=0 $(php) composer install --no-dev --optimize-autoloader
 	make migrate
 	APP_ENV=prod APP_DEBUG=0 $(sy) cache:clear
 	$(sy) cache:pool:clear cache.global_clearer
 	$(sy) messenger:stop-workers
+	$(node) yarn run build
 	sudo service php7.4-fpm reload
 
 .PHONY: build-docker
@@ -131,7 +131,7 @@ import: vendor/autoload.php ## Importe les données du site actuel et génère u
 	$(dcimport) down
 	ansible-playbook -i tools/ansible/hosts.yml tools/ansible/import.yml
 	rm -rf var/dump.tar
-	rsync -avz --ignore-existing --progress ./public/uploads/ $(server):~/beta.grafikart.fr/public/uploads/
+	rsync -avz --ignore-existing --progress ./public/uploads/ $(server):~/$(domain)/public/uploads/
 
 # -----------------------------------
 # Dépendances
