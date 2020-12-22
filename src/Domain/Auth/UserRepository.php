@@ -84,7 +84,7 @@ class UserRepository extends AbstractRepository implements PasswordUpgraderInter
     public function findPremiumDiscordIds(): array
     {
         return array_map(fn(array $user) => $user['discordId'], $this->createQueryBuilder('u')
-            ->where('u.discordId IS NOT NULL')
+            ->where('u.discordId IS NOT NULL AND u.discordId <> \'\'')
             ->andWhere('u.premiumEnd > NOW()')
             ->select('u.discordId')
             ->getQuery()
