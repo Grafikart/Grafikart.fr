@@ -1,4 +1,5 @@
 %btn {
+  text-decoration: none!important;
   padding: 9px 16px;
   border: none;
   display: inline-flex;
@@ -61,6 +62,17 @@
   }
 }
 
+.btn-white-outlined {
+  @extend %btn;
+  border: 1px solid currentColor;
+  box-shadow: none;
+
+  &:hover {
+    filter: none;
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
 .btn-danger {
   @extend %btn;
   background: var(--red);
@@ -102,7 +114,6 @@
   }
 
   .icon {
-    transform: translateY(-1px);
     margin-right: space(2);
   }
 }

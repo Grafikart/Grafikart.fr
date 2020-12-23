@@ -29,6 +29,25 @@
   line-height: 1.4;
   padding: space(1) space(3);
 }
+.chapters__premium {
+  display: flex;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  color: var(--yellow);
+  background-color: var(--yellow-alpha);
+  margin-right: 20px;
+  border-radius: 32px;
+  align-items: center;
+  justify-content: center;
+  .icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+.chapters__premium + * {
+  color: var(--color-light);
+}
 .chapters__title {
   margin-right: space(1);
   transform: translateY(-1px);

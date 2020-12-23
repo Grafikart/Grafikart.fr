@@ -22,7 +22,7 @@ class ProgressRepository extends AbstractRepository
     {
         return $this->findOneBy([
             'content' => $content,
-            'author' => $user,
+            'author'  => $user,
         ]);
     }
 
@@ -37,7 +37,7 @@ class ProgressRepository extends AbstractRepository
             ->leftJoin('p.content', 'c')
             ->addSelect('partial c.{id}')
             ->where('p.content IN (:ids)')
-            ->setParameter('ids', array_map(fn (Content $c) => $c->getId(), $contents))
+            ->setParameter('ids', array_map(fn(Content $c) => $c->getId(), $contents))
             ->getQuery()
             ->getResult();
     }
@@ -52,11 +52,33 @@ class ProgressRepository extends AbstractRepository
             ->orderBy('p.updatedAt', 'DESC')
             ->setMaxResults(4)
             ->setParameters([
-                'user' => $user,
-                'type' => 'course',
+                'user'     => $user,
+                'type'     => 'course',
                 'progress' => Progress::TOTAL,
             ])
             ->getQuery()
             ->getResult();
+    }
+
+    /**
+     * Trouve les ids lu parmis la liste passée en paramètre
+     *
+     * @param User $user
+     * @param array $ids
+     * @return int[]
+     */
+    public function findFinishedIdWithin(User $user, array $ids): array
+    {
+        return array_map(fn(Progress $p) => $p->getContent()->getId(), $this->createQueryBuilder('p')
+            ->where('p.content IN (:ids)')
+            ->andWhere('p.author = :user')
+            ->andWhere('p.progress = :total')
+            ->setParameters([
+                'user'  => $user,
+                'ids'   => $ids,
+                'total' => Progress::TOTAL
+            ])
+            ->getQuery()
+            ->getResult());
     }
 }

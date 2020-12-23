@@ -5,7 +5,7 @@ export default class EditButton extends HTMLElement {
     }
     this.removeAttribute('hidden')
     this.innerHTML = `<div class="flex flex-end">
-      <a class="btn btn-primary" href="${window.grafikart.EDIT_LINK}">
+      <a class="btn-primary" href="${window.grafikart.EDIT_LINK}">
         <svg class="icon icon-edit">
           <use xlink:href="/sprite.svg#edit"></use>
         </svg>

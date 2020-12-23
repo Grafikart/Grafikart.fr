@@ -21,6 +21,9 @@
   grid-template-columns: 1fr;
   grid-gap: space(3);
   color: #fff;
+  padding-bottom: 70px;
+  margin-bottom: -70px;
+  --wave-height: 50px;
 }
 .wave-header__body {
   @extend %hero-text;
@@ -36,41 +39,47 @@
 .wave-header__image img {
   position: relative;
   z-index: 2;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  filter: drop-shadow(0px 0px 6px rgba(0, 0, 0, 0.3));
 }
-@include up(550) {
+.wave-header .waves {
+  --wave-height: 120px;
+  transform: scaleX(-1);
+}
+@include up(690) {
   .wave-header {
-    grid-template-columns: 1fr 200px;
+    grid-template-columns: 1fr 300px;
   }
   .wave-header__image {
     display: block;
     text-align: center;
     align-self: center;
     padding: 0 25px;
+
+    img {
+      height: 200px;
+    }
   }
 }
 @include up(1000) {
   .wave-header {
+    padding-bottom: 0;
+    margin-bottom: 0;
     grid-template-columns: 1fr 400px;
   }
   .wave-header__body {
-    padding-bottom: 120px;
-  }
-  .wave-header .waves {
-    --wave-height: 120px;
-    transform: scaleX(-1);
+    padding-bottom: 100px;
   }
   .wave-header__image {
     display: block;
-  }
-  .wave-header__image::after {
-    content: '';
-    position: absolute;
-    bottom: -15px;
-    left: 0;
-    width: 100%;
-    height: 30px;
-    border-radius: 50% / 15px;
-    background-color: var(--border-light);
+    align-self: flex-start;
+    padding-top: 30px;
+
+    img {
+      height: 250px;
+    }
   }
 }
 

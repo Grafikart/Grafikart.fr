@@ -1,7 +1,7 @@
-// On mémorise si la page précédente avait la vague
 import { offsetTop } from '/functions/dom.js'
 import { debounce } from '/functions/timers.js'
 
+// On mémorise si la page précédente avait la vague
 let previousPageHadWaves = false
 
 /**
@@ -131,7 +131,7 @@ export class Waves extends HTMLElement {
     this.waves = this.root.querySelector('.waves')
     const background = this.root.querySelector('.waves-background')
     if (image) {
-      this.root.querySelector('img').addEventListener('load', e => {
+      this.root.querySelector('img').addEventListener('load', () => {
         background.style.opacity = 0.96
       })
     }

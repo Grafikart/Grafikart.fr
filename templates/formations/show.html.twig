@@ -2,21 +2,37 @@
 
 {% block body %}
 
-  {% cache [formation, 'show'] %}
 
     <header class="wave-header">
       <div class="wave-header__body stack">
         <h1 class="wave-header__title">{{ formation.title }}</h1>
+        {% if formation.short %}
         <p>{{ formation.short }}</p>
-        <p>
-          <button class="btn-primary btn-big" style="color: #FFF; border-color:#FFF;">Continuer</button>
-        </p>
+        {% else %}
+          {{ formation.content | markdown }}
+        {% endif %}
+        {% if progress %}
+          <div class="formation-progress my3">
+            <div class="formation-progress__label">Ma progression</div>
+            <div class="formation-progress__count">Chapitre {{ (progress.ratio * (formation.courses | length)) | round }} / {{ formation.courses | length }}</div>
+            <div class="formation-progress__bar" style="--progress: {{ progress.ratio * 100 }}%"></div>
+          </div>
+          <p>
+            <a href="{{ path('formation_resume', {slug: formation.slug}) }}#autoplay" class="btn-white-outlined btn-big">{{ icon('play') }} Continuer</a>
+          </p>
+        {% else %}
+          <p>
+            <a href="{{ path(formation.firstContent) }}#autoplay" class="btn-white-outlined btn-big">{{ icon('play') }} Commencer</a>
+          </p>
+        {% endif %}
       </div>
       <div class="wave-header__image">
         <img src="{{ uploads_path('icons/' ~ formation.mainTechnologies[0].image) }}" alt="">
       </div>
       <waves-shape class="waves" position="bottomWave" target=".wave-header"></waves-shape>
     </header>
+
+  {% cache [formation, 'show', app.user and app.user.premium] %}
 
     <main class="formation-single pb5">
       <div class="formation-chapters">
@@ -26,11 +42,16 @@
       <div class="formation-summary">
         <h2 class="hero-title">Présentation</h2>
         <div class="stack" style="--gap:4">
-          <div class="formatted">
-            {{ formation.content | markdown }}
-            <p class="text-muted">
-              {{ formation.createdAt | ago }}
-            </p>
+          <div>
+            <div>
+              <div class="formatted">
+                {{ formation.content | markdown }}
+              </div>
+              <admin-edit hidden></admin-edit>
+              <div class="text-muted mt2">
+                {{ formation.createdAt | ago }}
+              </div>
+            </div>
           </div>
           <div class="formation-arguments">
             <div class="formation-argument">
@@ -75,4 +96,15 @@
 
   {{ show_history(formation.courses.toArray) }}
 
+{% endblock %}
+
+{% block javascripts %}
+  {% if is_granted('ADMIN') %}
+    <script>
+      window.grafikart = {
+        EDIT_LINK: "{{ path('admin_formation_edit', {id: formation.id}) }}"
+      }
+    </script>
+  {% endif %}
+  {{ parent() }}
 {% endblock %}

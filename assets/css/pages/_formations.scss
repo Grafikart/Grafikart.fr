@@ -87,6 +87,59 @@
   height: 12px;
 }
 
+// Progression formation
+// =============
+.formation-progress {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  gap: space(1);
+  max-width: 390px;
+}
+.formation-progress__label {
+  text-transform: uppercase;
+  font-size: .9rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.formation-progress__count {
+  text-align: right;
+  font-size: 1rem;
+}
+.formation-progress__bar {
+  grid-column: 1 / span 2;
+  height: 17px;
+  background-color: #fff;
+  border-radius: 17px;
+  padding: 0 6px;
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  &::after,
+  &::before{
+    content:'';
+    display: block;
+    width: var(--progress);
+    height: 6px;
+    border-radius: 6px;
+    background: var(--green);
+    position: relative;
+    z-index: 2;
+    box-shadow: 0px 0px 3px inset #0000000C;
+  }
+
+  &::before {
+    position: absolute;
+    z-index: 1;
+    top: calc(50% - 3px);
+    left: space(1);
+    right: space(1);
+    width: auto;
+    background-color: var(--border);
+  }
+}
+
 // Carte cursus
 // =============
 .cursus-card {
@@ -143,7 +196,6 @@
   padding: space(10) 15px space(6);
   background-size:  100% 550px;
 }
-
 .tree-item {
   @extend %card;
   position: relative;
@@ -156,11 +208,9 @@
   font-size: 14px;
   line-height: 1.8;
 }
-
 .tree-item__body {
   margin-top: space(1);
 }
-
 .tree-item.is-watched {
   border: 1px solid var(--contrast);
   background: var(--contrast);
@@ -173,18 +223,15 @@
     color: rgba(#FFF, .9);
   }
 }
-
 .tree-item.is-root {
   margin-top: 55px;
 }
-
 .tree-item__title {
   font-size: 1rem;
   color: var(--color);
   font-weight: 600;
   margin-bottom: space(1);
 }
-
 .tree-item__link {
   position: absolute;
   top: 23px;
@@ -208,9 +255,7 @@
     background: url(/images/legacy/tree-arrow.png) center center no-repeat;
   }
 }
-
 $icon-size: 75px;
-
 .tree-item__icon {
   position: absolute;
   left: calc(50% - #{$icon-size*0.5});
@@ -219,12 +264,10 @@ $icon-size: 75px;
   height: $icon-size;
   // background: no-repeat center center / contain url(img/tree-icon.png);
 }
-
 .tree-item__icon img {
   width: 100%;
   height: auto;
 }
-
 .tree-link {
   margin: 0 auto;
   width: 8px;
@@ -232,7 +275,6 @@ $icon-size: 75px;
   background-color: var(--border);
   opacity: .4;
 }
-
 .tree-play {
   display: block;
   width: 50px;
@@ -244,13 +286,11 @@ $icon-size: 75px;
   margin: 0 auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.28), inset 0 1px 2px rgba(0, 0, 0, 0.75);
 }
-
 .tree-split {
   position: relative;
   display: flex;
   justify-content: space-around;
 }
-
 .tree-split::before {
   content:'';
   display: block;
@@ -266,13 +306,11 @@ $icon-size: 75px;
   opacity: .4;
   z-index: 100;
 }
-
 .tree-row {
   width: 50%;
   max-width: 540px;
   margin: 0 15px;
 }
-
 .tree-category {
   position: relative;
   padding: 63px 0;
@@ -299,7 +337,6 @@ $icon-size: 75px;
     z-index: -1;
   }
 }
-
 .tree-category strong {
   color: var(--color);
   font-size: 40px;
@@ -307,14 +344,12 @@ $icon-size: 75px;
   letter-spacing: 4px;
   display: block;
 }
-
 .tree-choices {
   display: flex;
   align-items: stretch;
   justify-content: space-between;
   text-align: center;
 }
-
 .tree-choice {
   cursor: pointer;
   position: relative;
@@ -325,7 +360,6 @@ $icon-size: 75px;
   align-items: center;
   filter: grayscale(100%);
 }
-
 .tree-choice.is-active {
   filter: none;
 
@@ -333,7 +367,6 @@ $icon-size: 75px;
     bottom: 0;
   }
 }
-
 .tree-choice::before,
 .tree-choice::after{
   content:'';
@@ -346,7 +379,6 @@ $icon-size: 75px;
   height: 8px;
   transition: bottom .3s;
 }
-
 .tree-choice::after {
   margin-left: -4px;
   left: 50%;
@@ -354,15 +386,12 @@ $icon-size: 75px;
   bottom: 50%;
   height: auto;
 }
-
 .tree-choice:first-child::before {
   left: 50%;
 }
-
 .tree-choice:last-child::before {
   right: 50%;
 }
-
 .tree-choice img {
   position: relative;
   z-index: 1;
@@ -370,19 +399,15 @@ $icon-size: 75px;
   max-height: 100px;
   max-width: 80%;
 }
-
 .tree-choice img[src$="ruby.svg"] {
   max-height: 80px!important;
 }
-
 .tree-hidden {
   display: none;
 }
-
 .tree-hidden.is-visible {
   display: block;
 }
-
 @include down(800) {
   .tree-split {
     display: flex;
@@ -426,13 +451,11 @@ $icon-size: 75px;
   padding: 80px 80px 20px 80px;
   animation: youtubePopup 0.5s both;
 }
-
 .youtube-popup iframe {
   width: 100%;
   height: 100%;
   animation: youtubePopupIframe 0.5s 0.3s both;
 }
-
 .youtube-popup__close {
   position: absolute;
   top: 30px;
@@ -442,16 +465,13 @@ $icon-size: 75px;
   transition: color 0.3s;
   cursor: pointer;
 }
-
 .youtube-popup__close:hover {
   color: #fff;
 }
-
 .youtube-popup__close .icon {
   width: 20px;
   height: 20px;
 }
-
 @keyframes youtubePopup {
   from {
     opacity: 0;
@@ -460,7 +480,6 @@ $icon-size: 75px;
     opacity: 1;
   }
 }
-
 @keyframes youtubePopupIframe {
   from {
     opacity: 0;
