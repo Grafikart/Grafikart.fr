@@ -13,7 +13,7 @@ class SecurityController extends AbstractController
     use TargetPathTrait;
 
     /**
-     * @Route("/login", name="auth_login")
+     * @Route("/connexion", name="auth_login")
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {

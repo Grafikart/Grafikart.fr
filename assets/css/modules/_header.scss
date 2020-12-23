@@ -216,7 +216,7 @@
   }
 }
 
-@include down(880) {
+@include down(985) {
   .header__burger {
     display: block;
   }
@@ -268,7 +268,7 @@
     }
 
     & li {
-      display: block;
+      display: block!important;
       width: 200px;
       margin-left: 0 !important;
       animation: slideIn .5s both;
@@ -276,7 +276,7 @@
     }
 
     .header__home {
-      display: none;
+      display: none!important;
     }
 
     @for $i from 1 through 6 {
@@ -306,10 +306,23 @@
   }
 }
 
-@include down(700) {
+@include down(915) {
   .header .header-nav li {
     display: none;
   }
+  .header .header-nav li:nth-child(1),
+  .header .header-nav li:nth-child(2),
+  .header .header-nav li:nth-child(3),
+  .header .header-nav li:nth-child(4) {
+    display: block;
+  }
 }
 
+@include down(809) {
+  .header .header-nav li:nth-child(2),
+  .header .header-nav li:nth-child(3),
+  .header .header-nav li:nth-child(4) {
+    display: none;
+  }
+}
 

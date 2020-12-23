@@ -36,7 +36,6 @@ install: vendor/autoload.php public/assets/manifest.json ## Installe les différ
 	APP_ENV=prod APP_DEBUG=0 $(sy) cache:clear
 	$(sy) cache:pool:clear cache.global_clearer
 	$(sy) messenger:stop-workers
-	$(node) yarn run build
 	sudo service php7.4-fpm reload
 
 .PHONY: build-docker

@@ -18,6 +18,12 @@ class CountryController extends AbstractController
      */
     public function index(): JsonResponse
     {
-        return $this->json(Countries::getNames());
+        $user = $this->getUserOrThrow();
+        $country = $user->getCountry();
+        $countries = Countries::getNames();
+        if ($country) {
+            $countries = array_merge([$country => $countries[$country]], $countries);
+        }
+        return $this->json($countries);
     }
 }

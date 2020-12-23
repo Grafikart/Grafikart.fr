@@ -46,10 +46,9 @@ export class Alert extends HTMLElement {
   }
 
   close () {
-    const element = this.querySelector('.alert')
-    element.classList.add('out')
+    this.classList.add('out')
     window.setTimeout(async () => {
-      await slideUp(element)
+      await slideUp(this)
       this.parentElement.removeChild(this)
       this.dispatchEvent(new CustomEvent('close'))
     }, 500)

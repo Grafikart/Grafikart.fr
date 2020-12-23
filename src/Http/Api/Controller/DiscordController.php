@@ -11,7 +11,7 @@ class DiscordController extends AbstractController
 {
 
     /**
-     * @Route("/discord/premium", name="country")
+     * @Route("/discord/premium", name="discord_premium")
      */
     public function premium(UserRepository $userRepository): JsonResponse
     {

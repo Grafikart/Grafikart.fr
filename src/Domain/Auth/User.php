@@ -86,7 +86,7 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface, Ca
     private \DateTimeInterface $createdAt;
 
     /**
-     * @ORM\Column(type="string", length=2, nullable=true)
+     * @ORM\Column(type="string", length=2, nullable=true, options={"default": "FR"})
      */
     private ?string $country = null;
 
