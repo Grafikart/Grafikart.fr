@@ -30,6 +30,17 @@
   }
 }
 
+.forum-search {
+  position: relative;
+
+  button {
+    position: absolute;
+    right: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
+
 // Avatar
 // =============
 .forum-avatar {
