@@ -67,6 +67,13 @@ server {
         alias $base/downloads/$path;
     }
 
+    # GoAccess report
+    location ~ ^/report.html$ {
+        auth_request     /index.php;
+        auth_request_set $auth_status $upstream_status;
+	add_header Content-Security-Policy "script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'";
+    }
+
     # additional config
     include nginxconfig.io/general.conf;
 
