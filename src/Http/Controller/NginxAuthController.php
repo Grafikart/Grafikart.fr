@@ -35,4 +35,16 @@ class NginxAuthController extends AbstractController
 
         return new Response(null, Response::HTTP_FORBIDDEN);
     }
+
+    /**
+     * @Route("/report.html", name="report_stats")
+     */
+    public function report(): Response
+    {
+        if ($this->isGranted('admin')) {
+            return new Response(null, Response::HTTP_OK);
+        }
+
+        return new Response(null, Response::HTTP_FORBIDDEN);
+    }
 }

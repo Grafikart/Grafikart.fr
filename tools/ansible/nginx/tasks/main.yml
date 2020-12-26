@@ -1,9 +1,21 @@
 ---
-- name: Outils | Nginx ppa
+- name: Nginx | Ubuntu ppa
   when: ansible_distribution == 'Ubuntu'
   apt_repository:
     repo: ppa:nginx/stable
     state: present
+- name: Nginx | GPG Key
+  when: ansible_distribution == 'Debian'
+  apt_key:
+    url: https://nginx.org/keys/nginx_signing.key
+- name: Nginx | Debian repository
+  when: ansible_distribution == 'Debian'
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+  with_items:
+    - deb https://nginx.org/packages/debian/ {{ ansible_distribution_release }} nginx
+    - deb-src https://nginx.org/packages/debian/ {{ ansible_distribution_release }} nginx
 - name: Nginx | Install
   apt:
     name: nginx

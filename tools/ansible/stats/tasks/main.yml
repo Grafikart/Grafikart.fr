@@ -1,0 +1,17 @@
+---
+- name: GoAccess | GPG Key
+  apt_key:
+    url: https://deb.goaccess.io/gnugpg.key
+- name: GoAccess | repository
+  apt_repository:
+    repo: deb https://deb.goaccess.io/ {{ ansible_distribution_release }} main
+    state: present
+- name: GoAccess | Install
+  apt:
+    name:
+      - goaccess
+      - libncursesw5-dev
+      - libgeoip-dev
+      - libmaxminddb-dev
+      - libssl-dev
+    state: present
