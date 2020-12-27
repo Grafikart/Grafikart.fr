@@ -15,3 +15,9 @@
       - libmaxminddb-dev
       - libssl-dev
     state: present
+- name: GoAccess | Report cron
+  become: no
+  cron:
+    name: goaccess report
+    special_time: hourly
+    job: "goaccess /var/log/nginx/access.log -o {{ root_path }}/public/report.html --log-format=COMBINED"
