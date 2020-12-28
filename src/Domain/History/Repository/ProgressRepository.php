@@ -39,7 +39,11 @@ class ProgressRepository extends AbstractRepository
             ->leftJoin('p.content', 'c')
             ->addSelect('partial c.{id}')
             ->where('p.content IN (:ids)')
-            ->setParameter('ids', array_map(fn(Content $c) => $c->getId(), $contents))
+            ->andWhere('p.author = :user')
+            ->setParameters([
+                'ids' => array_map(fn(Content $c) => $c->getId(), $contents),
+                'user' => $user
+            ])
             ->getQuery()
             ->getResult();
     }
