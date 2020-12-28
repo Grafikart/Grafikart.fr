@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'light' %}
+
+{% block title 'Grafikart | Dernier tutoriels' %}
+
+{% block body %}
+  <main class="home py5">
+    {% if watchlist is not empty %}
+    <section class="container">
+        <div class="courses pb4">
+          {% for progress in watchlist %}
+            {% include 'profil/_progress-card.html.twig' %}
+          {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <section class="container">
+      <div class="courses">
+        <div class="course-hero pt4">
+          <h1>Les derniers <strong>tutoriels</strong></h1>
+          <p>
+            Envie d'apprendre de nouvelle choses ? Voici les derniers contenus disponibles.
+          </p>
+        </div>
+        {% for content in latest_content %}
+          {% if content.isCourse %}
+            {% include 'courses/_card.html.twig' with {course: content} %}
+          {% elseif content.isFormation %}
+            {% include 'formations/_card.html.twig' with {formation: content} %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </section>
+
+  </main>
+
+  {% if app.user %}
+    {{ show_history(latest_content.results) }}
+  {% endif %}
+{% endblock %}

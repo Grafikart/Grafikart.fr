@@ -14,7 +14,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Domain\Application\Repository\ContentRepository")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({
@@ -32,6 +32,8 @@ abstract class Content implements CacheableInterface
      * @ORM\Column(type="integer")
      */
     private ?int $id = null;
+
+    private string $type = '';
 
     /**
      * @ORM\Column(type="string", length=255)

@@ -3,6 +3,7 @@
 namespace App\Domain\Application\Repository;
 
 use App\Core\Orm\AbstractRepository;
+use App\Core\Orm\IterableQueryBuilder;
 use App\Domain\Application\Entity\Content;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -17,14 +18,13 @@ class ContentRepository extends AbstractRepository
     }
 
     /**
-     * @return Content[]
+     * @return IterableQueryBuilder<Content>
      */
-    public function findLatest(int $limit = 5): array
+    public function findLatest(int $limit = 5): IterableQueryBuilder
     {
-        return $this->createQueryBuilder('c')
+        return $this->createIterableQuery('c')
             ->orderBy('c.createdAt', 'DESC')
-            ->setMaxResults($limit)
-            ->getQuery()
-            ->getResult();
+            ->where('c.createdAt < NOW()')->andWhere('c.online = TRUE')
+            ->setMaxResults($limit);
     }
 }

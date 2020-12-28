@@ -142,7 +142,7 @@
     background: var(--contrast);
   }
 }
-.card[style^='--progress'] .card__progress {
+[style^='--progress'] .card__progress {
   opacity: 1!important;
 }
 .card--stacked {

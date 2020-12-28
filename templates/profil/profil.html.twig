@@ -17,12 +17,7 @@
         <h2 class="h3">Vidéos <strong>en cours de visionnage</strong></h2>
         <div class="courses">
           {% for progress in watchlist %}
-            <div class="relative" id="progress{{ progress.id }}">
-              <ajax-delete class="progress-delete" url="{{ path('api_delete_progress', {id: progress.id}) }}" target="#progress{{ progress.id }}">
-                {{ icon('delete') }}
-              </ajax-delete>
-              {% include 'courses/_card.html.twig' with {course: progress.content, progress: progress.ratio} %}
-            </div>
+            {% include 'profil/_progress-card.html.twig' %}
           {% endfor %}
         </div>
       </div>

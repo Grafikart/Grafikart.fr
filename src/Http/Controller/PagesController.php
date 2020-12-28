@@ -14,21 +14,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PagesController extends AbstractController
 {
-    /**
-     * @Route("/", name="home")
-     */
-    public function home(CourseRepository $courseRepository, FormationRepository $formationRepository, PostRepository $postRepository, CursusRepository $cursusRepository, LiveRepository $liveRepository): Response
-    {
-        return $this->render('pages/home.html.twig', [
-            'menu' => 'home',
-            'courses' => $courseRepository->findRecent(3),
-            'hours' => round($courseRepository->findTotalDuration() / 3600),
-            'formations' => $formationRepository->findRecent(3),
-            'cursus' => $cursusRepository->findRecent(5),
-            'lives' => $liveRepository->findRecent(3),
-            'posts' => $postRepository->findRecent(5),
-        ]);
-    }
 
     /**
      * @Route("/a-propos", name="env")

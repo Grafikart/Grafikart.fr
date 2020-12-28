@@ -5,6 +5,8 @@ namespace App\Domain\History\Repository;
 use App\Core\Orm\AbstractRepository;
 use App\Domain\Application\Entity\Content;
 use App\Domain\Auth\User;
+use App\Domain\Course\Entity\Course;
+use App\Domain\Course\Entity\Formation;
 use App\Domain\History\Entity\Progress;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -47,13 +49,12 @@ class ProgressRepository extends AbstractRepository
         return $this->createQueryBuilder('p')
             ->leftJoin('p.content', 'c')
             ->where('p.author = :user')
-            ->andWhere('c INSTANCE OF :type')
+            ->andWhere('(c INSTANCE OF ' . Course::class . ' OR c INSTANCE OF '. Formation::class . ')')
             ->andWhere('p.progress < :progress')
             ->orderBy('p.updatedAt', 'DESC')
             ->setMaxResults(4)
             ->setParameters([
                 'user'     => $user,
-                'type'     => 'course',
                 'progress' => Progress::TOTAL,
             ])
             ->getQuery()

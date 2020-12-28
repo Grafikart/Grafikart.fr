@@ -24,6 +24,9 @@ server {
 
     # index.php
     index                   index.php;
+{% if noindex %}
+    add_header X-Robots-Tag "noindex, nofollow, nosnippet, noarchive";
+{% endif %}
 
     # Mercure
     location /.well-known/mercure/ {
@@ -39,8 +42,6 @@ server {
 
     # index.php fallback
     location / {
-        auth_basic "Beta !";
-        auth_basic_user_file $base/.htpasswd;
         limit_req zone=main burst=10;
         try_files $uri $uri/ /index.php?$query_string;
     }

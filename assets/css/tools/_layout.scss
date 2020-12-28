@@ -111,6 +111,10 @@
   justify-content: flex-end;
 }
 
+.stretch {
+  align-items: stretch;
+}
+
 .flex-md {
   @include up(500) {
     display: flex;

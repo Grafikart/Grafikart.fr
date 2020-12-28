@@ -14,7 +14,7 @@
         {% if progress %}
           <div class="formation-progress my3">
             <div class="formation-progress__label">Ma progression</div>
-            <div class="formation-progress__count">Chapitre {{ (progress.ratio * (formation.courses | length)) | round }} / {{ formation.courses | length }}</div>
+            <div class="formation-progress__count">Chapitre {{ (progress.ratio * (formation.courses | length)) | round(0, 'floor') }} / {{ formation.courses | length }}</div>
             <div class="formation-progress__bar" style="--progress: {{ progress.ratio * 100 }}%"></div>
           </div>
           <p>

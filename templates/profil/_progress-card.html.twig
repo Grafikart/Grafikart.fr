@@ -1,0 +1,11 @@
+<div class="flex stretch relative" id="progress{{ progress.id }}" style="--progress: {{ progress.ratio }}">
+  <ajax-delete class="progress-delete" url="{{ path('api_delete_progress', {id: progress.id}) }}"
+               target="#progress{{ progress.id }}">
+    {{ icon('delete') }}
+  </ajax-delete>
+  {% if progress.content.isCourse %}
+    {% include 'courses/_card.html.twig' with {course: progress.content} %}
+  {% elseif progress.content.isFormation %}
+    {% include 'formations/_card.html.twig' with {formation: progress.content} %}
+  {% endif %}
+</div>

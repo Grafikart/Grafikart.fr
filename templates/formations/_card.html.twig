@@ -23,6 +23,7 @@
       <a href="{{ path('formation_show', {slug: formation.slug}) }}" title="{{ formation.title }}"
          class="card__link"></a>
     </div>
+    <div class="card__progress"><span></span></div>
     <footer class="card__footer">
       <div>{{ icon('lines', 12) }} {{ formation.courses | length }} Chapitres</div>
       <div>{{ icon('clock', 14) }} {{ formation.duration | duration }}</div>
