@@ -13,13 +13,13 @@ class SecurityControllerTest extends WebTestCase
     public function testLoginTitle(): void
     {
         $title = 'Se connecter';
-        $crawler = $this->client->request('GET', '/login');
+        $crawler = $this->client->request('GET', '/connexion');
         $this->assertEquals($title, $crawler->filter('h1')->text(), $crawler->filter('title')->text());
     }
 
     public function testBadPassword(): void
     {
-        $crawler = $this->client->request('GET', '/login');
+        $crawler = $this->client->request('GET', '/connexion');
         $this->expectFormErrors(0);
         $form = $crawler->selectButton('Se connecter')->form();
         $form->setValues([
@@ -36,7 +36,7 @@ class SecurityControllerTest extends WebTestCase
     {
         /** @var array<string,User> $users */
         $users = $this->loadFixtures(['users']);
-        $crawler = $this->client->request('GET', '/login');
+        $crawler = $this->client->request('GET', '/connexion');
         $this->expectFormErrors(0);
         $form = $crawler->selectButton('Se connecter')->form();
         $form->setValues([
@@ -51,7 +51,7 @@ class SecurityControllerTest extends WebTestCase
     {
         /** @var array<string,User> $users */
         $users = $this->loadFixtures(['users']);
-        $crawler = $this->client->request('GET', '/login?redirect=/tutoriels');
+        $crawler = $this->client->request('GET', '/connexion?redirect=/tutoriels');
         $form = $crawler->selectButton('Se connecter')->form();
         $form->setValues([
             'email' => $users['user1']->getEmail(),
@@ -65,7 +65,7 @@ class SecurityControllerTest extends WebTestCase
     {
         /** @var array<string,User> $users */
         $users = $this->loadFixtures(['users']);
-        $crawler = $this->client->request('GET', '/login?redirect=https://google.com');
+        $crawler = $this->client->request('GET', '/connexion?redirect=https://google.com');
         $form = $crawler->selectButton('Se connecter')->form();
         $form->setValues([
             'email' => $users['user1']->getEmail(),
@@ -79,7 +79,7 @@ class SecurityControllerTest extends WebTestCase
     {
         /** @var array<string,User> $users */
         $users = $this->loadFixtures(['users']);
-        $crawler = $this->client->request('GET', '/login');
+        $crawler = $this->client->request('GET', '/connexion');
         $this->expectFormErrors(0);
         for ($i = 0; $i < 4; ++$i) {
             $form = $crawler->selectButton('Se connecter')->form();
@@ -98,7 +98,7 @@ class SecurityControllerTest extends WebTestCase
     {
         /** @var array<string,User> $users */
         $users = $this->loadFixtures(['users']);
-        $crawler = $this->client->request('GET', '/login');
+        $crawler = $this->client->request('GET', '/connexion');
         $this->expectFormErrors(0);
         $form = $crawler->selectButton('Se connecter')->form();
         $form->setValues([

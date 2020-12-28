@@ -16,7 +16,7 @@ class PasswordControllerTest extends WebTestCase
 
     public function testResetPasswordIsReachableFromLogin(): void
     {
-        $crawler = $this->client->request('GET', '/login');
+        $crawler = $this->client->request('GET', '/connexion');
         $crawler = $this->client->click($crawler->selectLink('Mot de passe oublié ?')->link());
         $this->assertEquals('Mot de passe oublié', $crawler->filter('h1')->text());
     }

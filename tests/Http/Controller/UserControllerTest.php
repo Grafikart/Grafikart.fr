@@ -14,7 +14,7 @@ class UserControllerTest extends WebTestCase
     public function testUnauthenticatedIsRedirected(): void
     {
         $this->client->request('GET', '/profil');
-        $this->assertResponseRedirects('/login');
+        $this->assertResponseRedirects('/connexion');
     }
 
     public function testResponseIsOkWhenAuthenticated(): void

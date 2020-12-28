@@ -46,7 +46,7 @@ class CourseControllerTest extends WebTestCase
         /** @var Course $course */
         $course = $data['course1'];
         $this->client->request('GET', "/tutoriels/{$course->getId()}/video");
-        $this->assertResponseRedirects('/login');
+        $this->assertResponseRedirects('/connexion');
     }
 
     public function testDownloadVideoAuthenticatedWithoutPremium(): void

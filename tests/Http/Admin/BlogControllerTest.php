@@ -13,7 +13,7 @@ class BlogControllerTest extends WebTestCase
     public function testAccessDeniedBlog(): void
     {
         $this->client->request('GET', '/admin/blog');
-        $this->assertResponseRedirects('/login');
+        $this->assertResponseRedirects('/connexion');
     }
 
     public function testAccessDeniedForUserBlog(): void

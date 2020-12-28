@@ -20,7 +20,7 @@ class ForumControllerTest extends WebTestCase
     public function testCreateTopicUnauthenticated(): void
     {
         $this->client->request('GET', '/forum/new');
-        $this->assertResponseRedirects('/login');
+        $this->assertResponseRedirects('/connexion');
     }
 
     public function testCreateTopicAuthenticated(): void
