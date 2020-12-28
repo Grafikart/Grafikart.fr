@@ -30,6 +30,7 @@
       - "php{{ php_version }}-ctype"
       - "php{{ php_version }}-iconv"
       - "php{{ php_version }}-json"
+      - "php{{ php_version }}-intl"
       - "php{{ php_version }}-pgsql"
       - "php{{ php_version }}-mbstring"
       - "php{{ php_version }}-xml"
