@@ -8,7 +8,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class RSSController extends AbstractController
 {
-
     /**
      * @Route("/feed.rss", name="rss")
      */
@@ -16,9 +15,10 @@ class RSSController extends AbstractController
     {
         $items = $contentRepository->findLatest();
         $response = $this->render('rss/index.xml.twig', [
-            'items' => $items
+            'items' => $items,
         ]);
         $response->headers->set('Content-Type', 'application/rss+xml; charset=utf-8');
+
         return $response;
     }
 }

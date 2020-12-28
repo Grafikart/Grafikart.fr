@@ -36,6 +36,8 @@ export default sources.map((source) => ({
     commonjs(),
     postcss({
       extract: true,
+      plugins: [],
+      use: ['sass'],
     }),
     babel({
       babelHelpers: "bundled",

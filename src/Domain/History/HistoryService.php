@@ -33,6 +33,7 @@ class HistoryService
                 return $id;
             }
         }
+
         return null;
     }
 }

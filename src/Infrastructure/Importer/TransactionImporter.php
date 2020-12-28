@@ -39,6 +39,7 @@ final class TransactionImporter implements TypeImporterInterface
             $query = $this->pdo->prepare(<<<SQL
             SELECT id, user_id, ref, ref_id, created_at, price, tax, method, paypal_id, reimbursed
             FROM transactions
+            WHERE ref = 'premium'
             ORDER BY id ASC
             LIMIT $offset, $window
             SQL
@@ -55,6 +56,7 @@ final class TransactionImporter implements TypeImporterInterface
                 if (!$user) {
                     continue;
                 }
+                $legacyDuration = 2 === $oldTransaction['price'] ? 1 : 6;
                 $transaction = (new Transaction())
                     ->setId($oldTransaction['id'])
                     ->setAuthor($user)
@@ -64,7 +66,7 @@ final class TransactionImporter implements TypeImporterInterface
                     ->setMethod($oldTransaction['method'])
                     ->setRefunded($oldTransaction['reimbursed'])
                     ->setMethodRef($oldTransaction['paypal_id'])
-                    ->setDuration((int) $oldTransaction['ref_id']);
+                    ->setDuration(((int) $oldTransaction['ref_id']) ?: $legacyDuration);
                 $this->em->persist($transaction);
                 $this->disableAutoIncrement($transaction);
             }

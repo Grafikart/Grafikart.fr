@@ -26,7 +26,7 @@ class FormationController extends AbstractController
 
         return $this->render('formations/index.html.twig', [
             'formations' => $formations,
-            'menu'       => 'formations',
+            'menu' => 'formations',
         ]);
     }
 
@@ -58,10 +58,10 @@ class FormationController extends AbstractController
                 'upload-site',
                 'react',
             ],
-        ]))->keyBy(fn(Formation $f) => $f->getSlug())->toArray();
+        ]))->keyBy(fn (Formation $f) => $f->getSlug())->toArray();
 
         return $this->render('formations/tree.html.twig', [
-            'formations'   => $formations,
+            'formations' => $formations,
             'technologies' => $technologies,
         ]);
     }
@@ -78,18 +78,18 @@ class FormationController extends AbstractController
         if ($user) {
             $progress = $progressRepository->findOneByContent($user, $formation);
         }
+
         return $this->render('formations/show.html.twig', [
             'formation' => $formation,
-            'menu'      => 'formations',
-            'progress'  => $progress,
+            'menu' => 'formations',
+            'progress' => $progress,
         ]);
     }
 
     /**
-     * Redirige vers le prochain chapitre à regarder
+     * Redirige vers le prochain chapitre à regarder.
      *
      * @Route("/formations/{slug}/continue", name="formation_resume")
-     * @param Formation $formation
      */
     public function resume(
         Formation $formation,
@@ -100,12 +100,13 @@ class FormationController extends AbstractController
         $user = $this->getUser();
         $ids = $formation->getModulesIds();
         $nextContentId = $ids[0];
-        if ($user !== null) {
+        if (null !== $user) {
             $nextContentId = $historyService->getNextContentIdToWatch($user, $formation) ?: $ids[0];
         }
         $content = $em->find(Course::class, $nextContentId);
         /** @var array $path */
         $path = $normalizer->normalize($content, 'path');
+
         return $this->redirectToRoute($path['path'], $path['params']);
     }
 }

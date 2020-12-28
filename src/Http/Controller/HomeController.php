@@ -17,11 +17,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-
     private EntityManagerInterface $em;
-    /**
-     * @var HistoryService
-     */
+
     private HistoryService $historyService;
 
     public function __construct(EntityManagerInterface $em, HistoryService $historyService)
@@ -40,29 +37,31 @@ class HomeController extends AbstractController
             return $this->homeLogged($user);
         }
         $courseRepository = $this->em->getRepository(Course::class);
+
         return $this->render('pages/home.html.twig', [
-            'menu'       => 'home',
-            'courses'    => $courseRepository->findRecent(3),
-            'hours'      => round($courseRepository->findTotalDuration() / 3600),
+            'menu' => 'home',
+            'courses' => $courseRepository->findRecent(3),
+            'hours' => round($courseRepository->findTotalDuration() / 3600),
             'formations' => $this->em->getRepository(Formation::class)->findRecent(3),
-            'cursus'     => $this->em->getRepository(Cursus::class)->findRecent(5),
-            'lives'      => $this->em->getRepository(Live::class)->findRecent(3),
-            'posts'      => $this->em->getRepository(Post::class)->findRecent(5),
+            'cursus' => $this->em->getRepository(Cursus::class)->findRecent(5),
+            'lives' => $this->em->getRepository(Live::class)->findRecent(3),
+            'posts' => $this->em->getRepository(Post::class)->findRecent(5),
         ]);
     }
 
     public function homeLogged(User $user): Response
     {
         $watchlist = $this->historyService->getLastWatchedContent($user);
-        $excluded = array_map(fn(Progress $progress) => $progress->getContent()->getId(), $watchlist);
+        $excluded = array_map(fn (Progress $progress) => $progress->getContent()->getId(), $watchlist);
         $content = $this->em->getRepository(Content::class)
             ->findLatest(14)
-            ->andWhere("c INSTANCE OF " . Course::class . " OR c INSTANCE OF " . Formation::class);
+            ->andWhere('c INSTANCE OF '.Course::class.' OR c INSTANCE OF '.Formation::class);
         if (!empty($excluded)) {
-            $content = $content->andWhere("c.id NOT IN (:ids)")->setParameter('ids', $excluded);
+            $content = $content->andWhere('c.id NOT IN (:ids)')->setParameter('ids', $excluded);
         }
+
         return $this->render('pages/home-logged.html.twig', [
-            'menu'       => 'home',
+            'menu' => 'home',
             'latest_content' => $content,
             'watchlist' => $watchlist,
         ]);

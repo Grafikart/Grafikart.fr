@@ -24,6 +24,7 @@ class CountryController extends AbstractController
         if ($country) {
             $countries = array_merge([$country => $countries[$country]], $countries);
         }
+
         return $this->json($countries);
     }
 }

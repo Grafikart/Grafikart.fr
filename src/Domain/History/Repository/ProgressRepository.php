@@ -24,7 +24,7 @@ class ProgressRepository extends AbstractRepository
     {
         return $this->findOneBy([
             'content' => $content,
-            'author'  => $user,
+            'author' => $user,
         ]);
     }
 
@@ -41,8 +41,8 @@ class ProgressRepository extends AbstractRepository
             ->where('p.content IN (:ids)')
             ->andWhere('p.author = :user')
             ->setParameters([
-                'ids' => array_map(fn(Content $c) => $c->getId(), $contents),
-                'user' => $user
+                'ids' => array_map(fn (Content $c) => $c->getId(), $contents),
+                'user' => $user,
             ])
             ->getQuery()
             ->getResult();
@@ -53,12 +53,12 @@ class ProgressRepository extends AbstractRepository
         return $this->createQueryBuilder('p')
             ->leftJoin('p.content', 'c')
             ->where('p.author = :user')
-            ->andWhere('(c INSTANCE OF ' . Course::class . ' OR c INSTANCE OF '. Formation::class . ')')
+            ->andWhere('(c INSTANCE OF '.Course::class.' OR c INSTANCE OF '.Formation::class.')')
             ->andWhere('p.progress < :progress')
             ->orderBy('p.updatedAt', 'DESC')
             ->setMaxResults(4)
             ->setParameters([
-                'user'     => $user,
+                'user' => $user,
                 'progress' => Progress::TOTAL,
             ])
             ->getQuery()
@@ -66,22 +66,20 @@ class ProgressRepository extends AbstractRepository
     }
 
     /**
-     * Trouve les ids lu parmis la liste passée en paramètre
+     * Trouve les ids lu parmis la liste passée en paramètre.
      *
-     * @param User $user
-     * @param array $ids
      * @return int[]
      */
     public function findFinishedIdWithin(User $user, array $ids): array
     {
-        return array_map(fn(Progress $p) => $p->getContent()->getId(), $this->createQueryBuilder('p')
+        return array_map(fn (Progress $p) => $p->getContent()->getId(), $this->createQueryBuilder('p')
             ->where('p.content IN (:ids)')
             ->andWhere('p.author = :user')
             ->andWhere('p.progress = :total')
             ->setParameters([
-                'user'  => $user,
-                'ids'   => $ids,
-                'total' => Progress::TOTAL
+                'user' => $user,
+                'ids' => $ids,
+                'total' => Progress::TOTAL,
             ])
             ->getQuery()
             ->getResult());

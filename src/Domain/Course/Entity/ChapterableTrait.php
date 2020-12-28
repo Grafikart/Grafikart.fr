@@ -51,8 +51,8 @@ trait ChapterableTrait
     {
         $this->chapters = array_map(function (Chapter $chapter) {
             return [
-                'title'   => $chapter->getTitle(),
-                'modules' => array_map(fn(Content $course) => $course->getId(), $chapter->getModules()),
+                'title' => $chapter->getTitle(),
+                'modules' => array_map(fn (Content $course) => $course->getId(), $chapter->getModules()),
             ];
         }, $chapters);
 
@@ -60,7 +60,7 @@ trait ChapterableTrait
     }
 
     /**
-     * Extrait le premier contenu du premier chapitre
+     * Extrait le premier contenu du premier chapitre.
      */
     public function getFirstContent(): Content
     {
@@ -68,7 +68,8 @@ trait ChapterableTrait
     }
 
     /**
-     * Renvoie la liste des ids des contenu organisés
+     * Renvoie la liste des ids des contenu organisés.
+     *
      * @return int[]
      */
     public function getModulesIds(): array
