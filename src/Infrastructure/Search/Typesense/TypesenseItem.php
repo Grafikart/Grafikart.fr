@@ -2,9 +2,9 @@
 
 namespace App\Infrastructure\Search\Typesense;
 
-use App\Infrastructure\Search\SearchResultItem;
+use App\Infrastructure\Search\SearchResultItemInterface;
 
-class TypesenseItem implements SearchResultItem
+class TypesenseItem implements SearchResultItemInterface
 {
     /**
      * An item store by typesense.

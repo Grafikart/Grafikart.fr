@@ -29,7 +29,7 @@ class CourseTransformer
         $this->videosPath = $videosPath;
     }
 
-    public function transform(Course $course): \Google_Service_YouTube_Video
+    public function transform(Course $course): Google_Service_YouTube_Video
     {
         // On construit les informations à envoyer
         $youtubeId = $course->getYoutubeId();

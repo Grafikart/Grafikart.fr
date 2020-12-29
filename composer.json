@@ -76,7 +76,7 @@
   "require-dev": {
     "dama/doctrine-test-bundle": "^6.3",
     "doctrine/doctrine-fixtures-bundle": "^3.3",
-    "hautelook/alice-bundle": "^2.7",
+    "hautelook/alice-bundle": "^2.8",
     "justinrainbow/json-schema": "^5.2",
     "phpstan/phpstan": "^0.12.54",
     "phpstan/phpstan-doctrine": "^0.12.22",
@@ -90,7 +90,7 @@
     "symfony/maker-bundle": "^1.0",
     "symfony/profiler-pack": "*",
     "symfony/test-pack": "*",
-    "theofidry/alice-data-fixtures": "^1.1"
+    "theofidry/alice-data-fixtures": "^1.3"
   },
   "config": {
     "preferred-install": {

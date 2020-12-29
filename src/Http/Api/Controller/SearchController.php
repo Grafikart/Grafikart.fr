@@ -6,7 +6,7 @@ use App\Domain\Course\Entity\Technology;
 use App\Domain\Course\Repository\TechnologyRepository;
 use App\Http\Controller\AbstractController;
 use App\Infrastructure\Search\SearchInterface;
-use App\Infrastructure\Search\SearchResultItem;
+use App\Infrastructure\Search\SearchResultItemInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -45,7 +45,7 @@ class SearchController extends AbstractController
 
         // On trouve les contenus qui correspondent à la recheche
         $results = $this->search->search($q, [], 5);
-        $contentMatches = array_map(fn (SearchResultItem $item) => [
+        $contentMatches = array_map(fn (SearchResultItemInterface $item) => [
             'title' => $item->getTitle(),
             'url' => $item->getUrl(),
             'category' => $item->getType(),

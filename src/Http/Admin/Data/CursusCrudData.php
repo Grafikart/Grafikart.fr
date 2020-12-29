@@ -128,7 +128,7 @@ class CursusCrudData implements CrudDataInterface
         $this->cursus->setChapters($this->chapters);
     }
 
-    public function setEntityManager(\Doctrine\ORM\EntityManagerInterface $em): self
+    public function setEntityManager(EntityManagerInterface $em): self
     {
         $this->em = $em;
 

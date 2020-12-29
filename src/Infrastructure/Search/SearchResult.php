@@ -8,7 +8,7 @@ class SearchResult
     private int $total;
 
     /**
-     * @param SearchResultItem[] $results
+     * @param SearchResultItemInterface[] $results
      */
     public function __construct(array $results, int $total)
     {
@@ -17,7 +17,7 @@ class SearchResult
     }
 
     /**
-     * @return SearchResultItem[]
+     * @return SearchResultItemInterface[]
      */
     public function getItems(): array
     {

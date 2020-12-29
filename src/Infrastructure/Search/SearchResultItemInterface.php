@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\Search;
 
-interface SearchResultItem
+interface SearchResultItemInterface
 {
     public function getTitle(): string;
 
