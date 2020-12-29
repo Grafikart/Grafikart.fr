@@ -110,7 +110,7 @@ class CommentResource extends CommentData
             '<p><pre><code><ul><ol><li>'
         );
         $resource->createdAt = $comment->getCreatedAt()->getTimestamp();
-        $resource->parent = null !== $comment->getParent() ? $comment->getParent()->getId() : null;
+        $resource->parent = null !== $comment->getParent() ? $comment->getParent()->getId() : 0;
         if ($author && $uploaderHelper && $author->getAvatarName()) {
             $resource->avatar = $uploaderHelper->asset($author, 'avatarFile');
         } else {
