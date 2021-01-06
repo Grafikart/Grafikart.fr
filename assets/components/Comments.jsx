@@ -30,7 +30,7 @@ export function Comments ({ target, parent }) {
     if (state.comments === null) {
       return null
     }
-    return state.comments.filter(c => c.parent === null).sort((a, b) => b.createdAt - a.createdAt)
+    return state.comments.filter(c => c.parent === 0).sort((a, b) => b.createdAt - a.createdAt)
   }, [state.comments])
 
   // Trouve les commentaire enfant d'un commentaire
