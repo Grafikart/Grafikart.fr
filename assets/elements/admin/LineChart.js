@@ -22,7 +22,7 @@ export class LineChart extends HTMLElement {
 
   async connectedCallback() {
     /** @var {Chart} Chart **/
-    const { default: Chart } = await import("chart.js");
+    const Chart = await import("chart.js");
     this.style.display = "block";
     this.root.innerHTML = `<style>
       canvas {

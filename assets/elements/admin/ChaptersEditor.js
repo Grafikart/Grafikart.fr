@@ -118,11 +118,10 @@ export class ChaptersEditor extends HTMLTextAreaElement {
   }
 
   connectedCallback () {
-    this.style.display = 'none'
     this.editPath = this.getAttribute('endpoint-edit')
     this.list = this.renderList()
     this.bindSortable()
-    this.insertAdjacentElement('afterend', this.list)
+    this.insertAdjacentElement('beforebegin', this.list)
   }
 
   /**

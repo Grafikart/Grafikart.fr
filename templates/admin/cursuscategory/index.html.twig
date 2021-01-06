@@ -2,19 +2,16 @@
 
 {% block title %}
   {{ icon('lines') }}
-  Gérer les contenus
+  Gérer les catégories
+{% endblock %}
+
+
+{% block actions %}
+  <a href="{{ path('admin_cursus_index') }}" class="btn-secondary">Gérer les cursus</a>
+  <a href="{{ path(prefix ~ '_new') }}" class="btn-primary">Ajouter</a>
 {% endblock %}
 
 {% block content %}
-  <div class="flex">
-    <form class="form-group dashboard-search">
-      <input name="q" type="text" placeholder="Rechercher une technologie" value="{{ app.request.get('q') }}" >
-    </form>
-    <div class="hstack" style="--gap:1;">
-      <a href="{{ path('admin_cursus_index') }}" class="dashboard-btn btn-secondary">Gérer les cursus</a>
-      <a href="{{ path(prefix ~ '_new') }}" class="dashboard-btn">Ajouter</a>
-    </div>
-  </div>
   <table class="table">
     <thead>
     <tr>
