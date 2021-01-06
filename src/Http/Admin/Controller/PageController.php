@@ -42,6 +42,14 @@ final class PageController extends BaseController
     }
 
     /**
+     * @Route("/stats", name="stats")
+     */
+    public function stats(): Response
+    {
+        return $this->render('admin/page/stats.html.twig');
+    }
+
+    /**
      * Envoie un email de test à mail-tester pour vérifier la configuration du serveur.
      *
      * @Route("/mailtester", name="mailtest", methods={"POST"})

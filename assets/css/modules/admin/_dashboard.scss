@@ -104,6 +104,7 @@
 // Main
 // =============
 .dashboard-body {
+  position: relative;
   padding: space(3) space(6);
   grid-area: body;
 }
