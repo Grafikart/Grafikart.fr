@@ -20,7 +20,7 @@ export function PremiumButton({ children, plan, price, duration }) {
 
   if (!isAuthenticated()) {
     return (
-      <a href="/login?redirect=/premium" class="btn-primary btn-block">
+      <a href="/connexion?redirect=/premium" class="btn-primary btn-block">
         Devenir premium
       </a>
     );

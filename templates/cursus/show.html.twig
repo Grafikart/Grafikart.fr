@@ -11,16 +11,19 @@
       <h1 class="h1 mb2">{{ cursus.title }}</h1>
       <p>{{ cursus.content }}</p>
     </div>
-    <div class="text-center">
-      <img src="/images/illustrations/php.svg" alt="">
-      {% if false %}
-      {% for technology in cursus.mainTechnologies %}
-        <a href="{{ path('technology_show', {slug: technology.slug}) }}" class="course__icon" tabindex="-1">
-          <img src="{{ uploads_path('icons/' ~ technology.image) }}" alt="{{ technology.name }}">
-        </a>
-      {% endfor %}
-      {% endif %}
-    </div>
+    {% if false %}
+      <div class="text-center">
+        <img src="/images/illustrations/php.svg" alt="">
+      </div>
+    {% else %}
+      <div class="cursus-header__technologies">
+        {% for technology in cursus.mainTechnologies %}
+          <a href="{{ path('technology_show', {slug: technology.slug}) }}" class="course__icon" tabindex="-1">
+            <img src="{{ uploads_path('icons/' ~ technology.image) }}" alt="{{ technology.name }}">
+          </a>
+        {% endfor %}
+      </div>
+    {% endif %}
   </header>
 
   <div class="cursus-page stack py5">
