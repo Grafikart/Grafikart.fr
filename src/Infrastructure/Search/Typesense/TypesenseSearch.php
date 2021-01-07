@@ -4,7 +4,7 @@ namespace App\Infrastructure\Search\Typesense;
 
 use App\Infrastructure\Search\SearchInterface;
 use App\Infrastructure\Search\SearchResult;
-use function GuzzleHttp\Psr7\build_query;
+use GuzzleHttp\Psr7\Query;
 
 class TypesenseSearch implements SearchInterface
 {
@@ -22,6 +22,7 @@ class TypesenseSearch implements SearchInterface
             'page' => $page,
             'query_by' => 'title,category,content',
             'highlight_full_fields' => 'content,title',
+            'highlight_affix_num_tokens' => 4,
             'per_page' => $limit,
             'num_typos' => 1,
         ];
@@ -29,7 +30,7 @@ class TypesenseSearch implements SearchInterface
             $query['filter_by'] = 'type:['.implode(',', $types).']';
         }
 
-        ['found' => $found, 'hits' => $items] = $this->client->get('collections/content/documents/search?'.build_query($query));
+        ['found' => $found, 'hits' => $items] = $this->client->get('collections/content/documents/search?'.Query::build($query));
 
         return new SearchResult(array_map(fn (array $item) => new TypesenseItem($item), $items), $found);
     }
