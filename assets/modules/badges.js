@@ -63,19 +63,26 @@ export function registerBadgeAlert () {
 /**
  * Enregistre la fonction pour débloquer le monstre du loch-ness
  **/
-window.lochness = async () => {
+window.nessie = () => {
   if (!isAuthenticated()) {
     console.warn('Vous devez être connecté pour trouver Nessie :(')
-    return
+    return ''
   }
-
-  try {
-    await jsonFetch('/api/badges/lochness/unlock', { method: 'POST' })
-  } catch (e) {
-    if (e instanceof ApiError) {
-      if (e.status === HTTP_UNPROCESSABLE_ENTITY) {
-        console.warn('Vous avez déjà trouvé Nessie')
+  jsonFetch('/api/badges/lochness/unlock', { method: 'POST' })
+    .then(() => {
+      console.log(`%c                        _   _       _a_a
+            _   _     _{.\`=\`.}_    {/ ''\\_
+      _    {.\`'\`.}   {.'  _  '.}  {|  ._oo)
+     { \\  {/ .-. \\} {/  .' '.  \\} {/  |
+~^~^~\`~^~\`~^~\`~^~\`~^~^~\`^~^~\`^~^~^~^~^~^~\`^~~\``, `color: #FFF; background-color: #2234ae;
+background-image: linear-gradient(315deg, #2234ae 0%, #191714 74%);`)
+    })
+    .catch((e) => {
+      if (e instanceof ApiError) {
+        if (e.status === HTTP_UNPROCESSABLE_ENTITY) {
+          console.warn('Vous avez déjà trouvé Nessie :(')
+        }
       }
-    }
-  }
+    })
+  return '';
 }
