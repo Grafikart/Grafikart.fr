@@ -49,7 +49,7 @@ services:
     image: redis:6-alpine
   typesense:
     restart: unless-stopped
-    image: typesense/typesense:0.16.0
+    image: typesense/typesense:0.18.0
     environment:
       TYPESENSE_DATA_DIR: /data
       TYPESENSE_API_KEY: typesensekey
