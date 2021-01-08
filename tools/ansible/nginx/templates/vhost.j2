@@ -19,8 +19,8 @@ server {
     include                 nginxconfig.io/security.conf;
 
     # logging
-    access_log              /var/log/nginx/access.log;
-    error_log               /var/log/nginx/{{ domain }}.error.log warn;
+    access_log              {{ root_path }}/var/log/access.log;
+    error_log               {{ root_path }}/var/log/{{ domain }}.error.log warn;
 
     # index.php
     index                   index.php;

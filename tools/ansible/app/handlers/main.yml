@@ -1,0 +1,5 @@
+---
+- name: typesense restart
+  service:
+    name: typesense-server
+    state: restarted
