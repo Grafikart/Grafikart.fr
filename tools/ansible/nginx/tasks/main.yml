@@ -20,6 +20,10 @@
   apt:
     name: nginx
     state: present
+- name: Nginx | création de /etc/nginx/sites-enabled
+  file: state=directory path=/etc/nginx/sites-enabled
+- name: Nginx | création de /etc/nginx/sites-available
+  file: state=directory path=/etc/nginx/sites-available
 - name: Nginx | Default vhost
   template:
     src: default.j2

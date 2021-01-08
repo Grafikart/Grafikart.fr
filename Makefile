@@ -1,6 +1,6 @@
 isDocker := $(shell docker info > /dev/null 2>&1 && echo 1)
 domain := "beta.grafikart.fr"
-server := "debian@$(domain)"
+server := "grafikart@$(domain)"
 user := $(shell id -u)
 group := $(shell id -g)
 
@@ -113,7 +113,7 @@ import: vendor/autoload.php ## Importe les données du site actuel et génère u
 	$(dcimport) down
 	$(dcimport) up -d
 	@echo "Attendre que la base soit initialisée 'docker-compose -f docker-compose.import.yml logs -f mariadb'?: "; read ok;
-	rsync -avz --ignore-existing --progress --exclude=avatars --exclude=tmp --exclude=users grafikart:/home/www/grafikart.fr/shared/public/uploads/ ./public/old/
+	rsync -avz --ignore-existing --progress --exclude=avatars --exclude=tmp --exclude=users old.grafikart:/home/www/grafikart.fr/shared/public/uploads/ ./public/old/
 	$(dcimport) exec db /docker-entrypoint.sh
 	tar -xf downloads/grafikart.tar.gz -C downloads/
 	$(sy) doctrine:migrations:migrate -q

@@ -6,6 +6,12 @@
   community.general.locale_gen:
     name: fr_FR.UTF-8
     state: present
+- name: Outils | Requis
+  apt:
+    name:
+      - gnupg
+      - curl
+    state: present
 - name: Outils | Fish GPG Key
   when: ansible_distribution == 'Debian'
   apt_key:

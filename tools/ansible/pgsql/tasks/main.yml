@@ -14,6 +14,12 @@
       - libpq-dev
       - python-psycopg2
       - python3-psycopg2
+- name: PostgreSQL | Création de l'utilisateur
+  become: yes
+  become_user: postgres
+  community.general.postgresql_user:
+    name: "{{ database }}"
+    password: "{{ database_password }}"
 - name: PostgreSQL | Création de la base de donnée
   become: yes
   become_user: postgres
@@ -25,10 +31,3 @@
     owner: "{{ database }}"
     template: template0
     state: present
-- name: PostgreSQL | Création de l'utilisateur
-  become: yes
-  become_user: postgres
-  community.general.postgresql_user:
-    db: "{{ database }}"
-    name: "{{ database }}"
-    password: "{{ database_password }}"
