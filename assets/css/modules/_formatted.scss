@@ -28,6 +28,11 @@
     margin: 2em 0;
     overflow: auto;
     border: 1px solid var(--border-light);
+
+    @include up(1400) {
+      margin-left: -2rem;
+      margin-right: -2rem;
+    }
   }
 
   p,

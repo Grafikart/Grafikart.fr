@@ -63,7 +63,10 @@
     }
   },
   "jest": {
-    "moduleDirectories": ["node_modules", "assets"],
+    "moduleDirectories": [
+      "node_modules",
+      "assets"
+    ],
     "moduleNameMapper": {
       "^/functions/(.*)$": "<rootDir>/../../assets/functions/$1",
       "^/elements/(.*)$": "<rootDir>/../../assets/elements/$1"

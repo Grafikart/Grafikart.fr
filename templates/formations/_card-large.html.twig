@@ -3,14 +3,14 @@
     <article class="card" data-history="{{ formation.id }}">
       <div class="card__body stack">
 
-        <h2 class="card__title" style="margin-bottom: 4px;">
+        <h2 class="card__title">
           <a href="{{ path('formation_show', {slug: formation.slug}) }}" tabindex="-1">
             {{ formation.title }}
           </a>
         </h2>
 
-        <div class="card__description">
-          {{ formation.content | markdown | striptags | excerpt(130) }}
+        <div class="card__description text-small">
+          <p>{{ formation.content | markdown | striptags | excerpt(130) }}</p>
         </div>
         <a href="{{ path('formation_show', {slug: formation.slug}) }}" title="{{ formation.title }}"
            class="card__link"></a>

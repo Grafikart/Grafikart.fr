@@ -1,27 +1,21 @@
 .hljs {
-  --base:  #545454;
-  --comment:  #696969;
-  --variables: #d91e18;
-  --number: #aa5d00;
-  --attribute: #aa5d00;
-  --string: #008000;
-  --title: #007faa;
-  --keyword: #7928a1;
-}
+  display: block;
+  overflow-x: auto;
+  font-size: 0.9em;
+  background: var(--background-light);
+  box-shadow: 0px 0px 2px var(--shadow);
+  color: var(--base);
+  padding: 1rem;
 
-
-@include dark {
-  .hljs {
-    --base:  #A9B1D6;
-    --comment:  #5D6791;
-    --variables: #BB9AF7;
-    --number: #FD914E;
-    --attribute: #FD914E;
-    --string: #9ECE6A;
-    --title: #7AA2F7;
-    --keyword: #BB9AF7;
-    --background-light: var(--background);
-  }
+  --base:  #A9B1D6;
+  --comment:  #5D6791;
+  --variables: #BB9AF7;
+  --number: #FD914E;
+  --attribute: #FD914E;
+  --string: #9ECE6A;
+  --title: #7AA2F7;
+  --keyword: #BB9AF7;
+  --background-light: #1b1e3d;
 }
 
 .hljs-comment,
@@ -70,16 +64,6 @@
 .hljs-keyword,
 .hljs-selector-tag {
   color: var(--keyword);
-}
-
-.hljs {
-  display: block;
-  overflow-x: auto;
-  font-size: 0.9em;
-  background: var(--background-light);
-  box-shadow: 0px 0px 2px var(--shadow);
-  color: var(--base);
-  padding: 0.5em;
 }
 
 .hljs-emphasis {

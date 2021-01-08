@@ -76,7 +76,11 @@
     background: currentColor;
     opacity: 0.1;
     border-radius: 20px;
+    transition: opacity .3s;
   }
+}
+a.pill:hover::after {
+  opacity: .2;
 }
 .pill-small {
   font-size: 12px;
