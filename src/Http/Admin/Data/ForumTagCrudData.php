@@ -27,6 +27,8 @@ class ForumTagCrudData extends AutomaticCrudData
 
     public ?string $color;
 
+    public bool $visible = true;
+
     /**
      * @var Tag
      */

@@ -83,6 +83,7 @@ class TopicRepository extends AbstractRepository
             $tags = [$tag];
             if ($tag->getChildren()->count() > 0) {
                 $tags = $tag->getChildren()->toArray();
+                $tags[] = $tag;
             }
             $query
                 ->join('t.tags', 'tag')

@@ -13,6 +13,7 @@
 npm-debug.log
 yarn-error.log
 .vault_pass
+Migration.md
 
 ###> symfony/framework-bundle ###
 /.env.local

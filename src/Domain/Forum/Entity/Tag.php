@@ -67,8 +67,14 @@ class Tag implements CacheableInterface
 
     /**
      * @ORM\OneToMany(targetEntity="App\Domain\Forum\Entity\Tag", mappedBy="parent")
+     * @ORM\OrderBy({"position" = "ASC"})
      */
     private Collection $children;
+
+    /**
+     * @ORM\Column (type="boolean", options={"default": true})
+     */
+    private bool $visible = true;
 
     public function __construct()
     {
@@ -240,6 +246,17 @@ class Tag implements CacheableInterface
             }
         }
 
+        return $this;
+    }
+
+    public function isVisible(): bool
+    {
+        return $this->visible;
+    }
+
+    public function setVisible(bool $visible): Tag
+    {
+        $this->visible = $visible;
         return $this;
     }
 }

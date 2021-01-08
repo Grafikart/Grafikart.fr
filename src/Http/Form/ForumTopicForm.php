@@ -5,6 +5,7 @@ namespace App\Http\Form;
 use App\Core\Type\EditorType;
 use App\Domain\Forum\Entity\Tag;
 use App\Domain\Forum\Entity\Topic;
+use App\Domain\Forum\Repository\TagRepository;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -14,18 +15,28 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ForumTopicForm extends AbstractType
 {
+    private TagRepository $tagRepository;
+
+    public function __construct(TagRepository $tagRepository)
+    {
+        $this->tagRepository = $tagRepository;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $tags = $this->tagRepository->findAllOrdered();
         $builder
             ->add('name', TextType::class)
             ->add('tags', EntityType::class, [
                 'required' => false,
                 'multiple' => true,
                 'class' => Tag::class,
-                'query_builder' => function (EntityRepository $repo) {
-                    return $repo->createQueryBuilder('t')->where('t.parent IS NULL')->orderBy('t.name', 'ASC');
+                'choices' => $tags,
+                'query_builder' => null,
+                'choice_label' => function (Tag $tag) {
+                    $prefix = $tag->getParent() ? '⠀⠀' : '';
+                    return $prefix . $tag->getName();
                 },
-                'choice_label' => 'name',
             ])
             ->add('content', EditorType::class);
     }
