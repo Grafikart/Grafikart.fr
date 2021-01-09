@@ -110,7 +110,7 @@ final class CoursesImporter extends Neo4jImporter
                 ->setYoutubeId($tutoriel['youtube'] ?? null)
                 ->setDemo($tutoriel['demo'] ?? null)
                 ->setDuration($tutoriel['duration'] ?? 0)
-                ->setSource($tutoriel['source'] ?? false)
+                ->setSource($tutoriel['source'] ? ($tutoriel['uuid'].'.zip') : null)
                 ->setPremium($tutoriel['premium'] ?? false)
                 ->setVideoPath($tutoriel['video'] ?? null)
                 ->setCreatedAt($createdAt)
