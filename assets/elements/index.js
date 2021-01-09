@@ -32,6 +32,7 @@ import { Dropdown } from '/elements/Dropdown.js'
 import { Confetti } from '/elements/Confetti.js'
 import { PremiumPlayer } from '/elements/player/PremiumPlayer.js'
 import LoaderOverlay from '/elements/LoaderOverlay.js'
+import { ThemeSwitcher } from '/elements/ThemeSwitcher.js'
 
 // Custom Elements
 customElements.define('nav-tabs', NavTabs)
@@ -68,6 +69,7 @@ preactCustomElement('search-input', SearchInput)
 
 // CustomElement étendus
 customElements.define('input-switch', Switch, { extends: 'input' })
+customElements.define('theme-switcher', ThemeSwitcher, { extends: 'input' })
 customElements.define('input-choices', InputChoices, { extends: 'input' })
 customElements.define('select-choices', SelectChoices, { extends: 'select' })
 customElements.define('markdown-editor', MarkdownEditor, { extends: 'textarea' })

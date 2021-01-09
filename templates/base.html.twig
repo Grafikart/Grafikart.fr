@@ -65,6 +65,14 @@
         <li><a href="{{ path('env') }}">{{ icon('info') }} A propos</a></li>
         <li><a href="{{ path('confidentialite') }}">{{ icon('fingerprint') }} Politique de confidentialité</a></li>
       </ul>
+      <div class="footer-title mt3 mb1">Thème</div>
+      <div class="theme-switcher">
+        <input type="checkbox" is="theme-switcher" id="theme-switcher" aria-label="Changer de thème"/>
+        <label for="theme-switcher">
+          {{ icon('moon') }}
+          {{ icon('sun') }}
+        </label>
+      </div>
     </div>
   </footer>
 </div>
@@ -79,8 +87,7 @@
     ADMIN: {{ is_granted('SUPERADMIN') ? 'true' : 'false' }},
     USER: {{ app.user ? app.user.id : 'null' }},
     MERCURE_URL: "{{ mercure_subscribe_url }}",
-    NOTIFICATION: new Date({{ (app.user and app.user.notificationsReadAt) ? app.user.notificationsReadAt.timestamp : 0 }} * 1000
-  )
+    NOTIFICATION: new Date({{ (app.user and app.user.notificationsReadAt) ? app.user.notificationsReadAt.timestamp : 0 }} * 1000)
   }
 </script>
 {% block javascripts_footer '' %}

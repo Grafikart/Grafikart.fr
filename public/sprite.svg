@@ -163,4 +163,10 @@
   <symbol id="chart" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 12">
     <path fill="#000" d="M11.88 10.38H1.12V.62A.13.13 0 001 .5H.12A.13.13 0 000 .63v10.74c0 .07.06.13.13.13h11.74c.07 0 .13-.06.13-.13v-.87a.13.13 0 00-.13-.13zm-9.1-2.42c.05.05.12.05.17 0l2.17-2.15L7.1 7.82c.05.05.13.05.18 0l4.3-4.3a.13.13 0 000-.18l-.62-.62a.13.13 0 00-.18 0L7.2 6.32l-2-2a.13.13 0 00-.17 0L2.16 7.16a.13.13 0 000 .17l.62.62z"/>
   </symbol>
+  <symbol id="moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+  </symbol>
+  <symbol id="sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1-1zm0 17v1-1zm9-8h-1 1zM4 12H3h1zm14.364 6.364l-.707-.707.707.707zM6.343 6.343l-.707-.707.707.707zm12.021-.707l-.707.707.707-.707zM6.343 17.657l-.707.707.707-.707zM16 12a4 4 0 11-8 0 4 4 0 018 0v0z"/>
+  </symbol>
 </svg>

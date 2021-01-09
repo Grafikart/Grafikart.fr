@@ -1,0 +1,37 @@
+.theme-switcher {
+
+  .icon {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    width: 16px;
+    height: 16px;
+    color: var(--yellow);
+    opacity: 1;
+    transition: .3s;
+  }
+
+  .icon-moon {
+    color: var(--contrast-light);
+  }
+
+  input:checked + label .icon {
+    transform: translateX(31px);
+  }
+
+  input:checked + label .icon-sun {
+    opacity: 0;
+  }
+
+  input:not(:checked) + label .icon-moon {
+    opacity: 0;
+  }
+
+  input:checked + label .switch {
+    background: var(--skeleton)!important;
+
+    &::before {
+      background: var(--contrast)!important;
+    }
+  }
+}
