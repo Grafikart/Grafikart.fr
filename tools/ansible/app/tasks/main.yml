@@ -9,6 +9,7 @@
   become: no
   template:
     src: .env.local.j2
+    force: no
     dest: "{{ root_path }}/.env.local"
 - name: Symfony | Composer install
   become: no

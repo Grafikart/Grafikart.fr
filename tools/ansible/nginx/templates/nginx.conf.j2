@@ -26,6 +26,10 @@ http {
     # Logging
     access_log           /var/log/nginx/access.log;
     error_log            /var/log/nginx/error.log warn;
+    log_format combinedt '$remote_addr - $remote_user [$time_local] '
+                         '"$request" $status $body_bytes_sent '
+                         '"$http_referer" "$http_user_agent" '
+                         '$request_time';
 
     # Limits
     limit_req_log_level  warn;

@@ -20,4 +20,4 @@
   cron:
     name: goaccess report
     special_time: hourly
-    job: "goaccess {{ root_path }}/var/log/access.log -o {{ root_path }}/public/report.html --log-format=COMBINED"
+    job: "goaccess {{ root_path }}/var/log/access.log -o {{ root_path }}/public/report.html --log-format='%h %^[%d:%t %^] \"%r\" %s %b \"%R\" \"%u\" %T' --time-format=%T  --date-format='%d/%b/%Y'"
