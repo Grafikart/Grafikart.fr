@@ -35,8 +35,8 @@
             <div class="dashboard-actions">
               <a href="{{ path('admin_transaction_index', {q: 'user:' ~ user.id}) }}" class="btn-secondary">{{ icon('refund') }} Transactions</a>
               <form action="{{ path(prefix ~ '_ban', {id: user.id}) }}" method="post" onsubmit="return confirm('Voulez vous vraiment bannir cet utilisateur ?')">
-                <button class="btn-danger" type="submit" {{ user.premium ? 'disabled' : '' }}>
-                  {{ icon('delete') }} Bannir
+                <button class="btn-danger" type="submit" {{ user.premium || user.banned ? 'disabled' : '' }}>
+                  {{ icon('delete') }} {{ user.banned ? 'Banni !' : 'Bannir' }}
                 </button>
               </form>
             </div>
