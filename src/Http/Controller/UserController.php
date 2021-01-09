@@ -17,9 +17,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-/**
- * @method getUser() User
- */
 class UserController extends AbstractController
 {
     private UserPasswordEncoderInterface $passwordEncoder;
@@ -45,7 +42,7 @@ class UserController extends AbstractController
         HistoryService $history,
         TopicRepository $topicRepository
     ): Response {
-        $user = $this->getUser();
+        $user = $this->getUserOrThrow();
         $watchlist = $history->getLastWatchedContent($user);
         $lastTopics = $topicRepository->findLastByUser($user);
         $lastMessageTopics = $topicRepository->findLastWithUser($user);
@@ -58,7 +55,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/profil/{id:\d+}", name="user_show")
+     * @Route("/profil/{id}", name="user_show", requirements={"id"="\d+"})
      */
     public function show(User $user, TopicRepository $topicRepository, CommentRepository $commentRepository): Response
     {
@@ -66,7 +63,7 @@ class UserController extends AbstractController
 
         return $this->render('user/profil.html.twig', [
             'user' => $user,
-            'lastTopics' => $lastTopics,
+            'last_topics' => $lastTopics,
             'comments' => $commentRepository->findLastByUser($user),
         ]);
     }
@@ -109,7 +106,7 @@ class UserController extends AbstractController
             return [$form, null];
         }
 
-        $user = $this->getUser();
+        $user = $this->getUserOrThrow();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -129,7 +126,7 @@ class UserController extends AbstractController
      */
     private function createFormProfile(Request $request): array
     {
-        $user = $this->getUser();
+        $user = $this->getUserOrThrow();
         $form = $this->createForm(UpdateProfileForm::class, new ProfileUpdateDto($user));
         if ('update' !== $request->get('action')) {
             return [$form, null];

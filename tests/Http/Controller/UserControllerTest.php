@@ -17,6 +17,20 @@ class UserControllerTest extends WebTestCase
         $this->assertResponseRedirects('/connexion');
     }
 
+    public function testProfilePage(): void
+    {
+        /** @var User $user */
+        ['user1' => $user] = $this->loadFixtures(['users']);
+        $this->client->request('GET', "/profil/{$user->getId()}");
+        $this->assertResponseStatusCodeSame(200);
+    }
+
+    public function testProfilePageWithBadId(): void
+    {
+        $this->client->request('GET', '/profil/azijeazejoaz');
+        $this->assertResponseStatusCodeSame(404);
+    }
+
     public function testResponseIsOkWhenAuthenticated(): void
     {
         $data = $this->loadFixtures(['users']);

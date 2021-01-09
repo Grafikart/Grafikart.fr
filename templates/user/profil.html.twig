@@ -3,8 +3,6 @@
 {% block title 'Mon compte' %}
 
 {% set bodyClass = 'header-light' %}
-{% set lastTopics = [] %}
-{% set comments = [] %}
 
 {% block body %}
 
@@ -12,11 +10,11 @@
 
   <div class="bg container py5">
     <div class="grid2" style="--gap: 4;">
-      {% if lastTopics | length > 0 %}
+      {% if last_topics | length > 0 %}
         <div class="stack">
           <h2 class="h3">Ses derniers sujets</h2>
           <div class="card p2 stack-separated" style="--gap: 1">
-            {% for topic in lastTopics %}
+            {% for topic in last_topics %}
               {% include('forum/_topic.html.twig') %}
             {% endfor %}
           </div>
