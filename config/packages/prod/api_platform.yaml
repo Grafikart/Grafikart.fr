@@ -1,2 +1,5 @@
 api_platform:
   enable_swagger_ui: false
+  formats:
+    json: ['application/json']
+    jsonld: ['application/ld+json']
