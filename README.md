@@ -76,6 +76,10 @@ Pour le design j'utilise [Figma](https://www.figma.com) car c'est l'outil le plu
 
 ## Tips
 
+Lien de redirection pour l'oauth https://grafikart.fr/oauth/check/{github|google|facebook}
+
+Gérer l'opacité des couleurs :
+
 ```
 0%          00
 5%          0C
