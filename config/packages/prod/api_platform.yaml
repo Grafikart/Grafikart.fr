@@ -3,3 +3,4 @@ api_platform:
   formats:
     json: ['application/json']
     jsonld: ['application/ld+json']
+    html: ['application/json']
