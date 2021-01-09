@@ -1,7 +1,7 @@
 {% for type, messages in app.session.flashbag.all() %}
   {% if floating is defined %}
     {% for message in messages %}
-      <alert-floating type="{{ type }}" {% if duration is defined %}duration="{{ duration }}"{% endif %}>
+      <alert-floating type="{{ type }}" {% if duration is defined and type == 'success' %}duration="{{ duration }}"{% endif %}>
         {{ message | nl2br }}
       </alert-floating>
     {% endfor %}
