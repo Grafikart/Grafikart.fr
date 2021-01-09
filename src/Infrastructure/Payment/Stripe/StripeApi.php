@@ -17,11 +17,15 @@ use Stripe\Subscription;
 class StripeApi
 {
     private StripeClient $stripe;
-    public const TAXES = ['txr_1HfQaHFCMNgisvowjXXZAA7z'];
+    private array $taxes = [];
 
     public function __construct(string $privateKey)
     {
         Stripe::setApiVersion('2020-08-27');
+        $this->taxes = ['txr_1HfQaHFCMNgisvowjXXZAA7z'];
+        if (strpos($privateKey, 'live') !== false) {
+            $this->taxes = ['txr_1I7c7DFCMNgisvowdAol5zkl'];
+        }
         $this->stripe = new StripeClient($privateKey);
     }
 
@@ -87,7 +91,7 @@ class StripeApi
                 [
                     'price' => $plan->getStripeId(),
                     'quantity' => 1,
-                    'dynamic_tax_rates' => self::TAXES,
+                    'dynamic_tax_rates' => $this->taxes,
                 ],
             ],
         ]);
@@ -124,7 +128,7 @@ class StripeApi
                         'unit_amount' => $plan->getPrice() * 100,
                     ],
                     'quantity' => 1,
-                    'dynamic_tax_rates' => self::TAXES,
+                    'dynamic_tax_rates' => $this->taxes,
                 ],
             ],
         ]);
