@@ -22,7 +22,8 @@ export class LineChart extends HTMLElement {
 
   async connectedCallback() {
     /** @var {Chart} Chart **/
-    const Chart = await import("chart.js");
+    const ChartImport = await import("chart.js");
+    const Chart = ChartImport.default || ChartImport // Handle difference between vite / rollup
     this.style.display = "block";
     this.root.innerHTML = `<style>
       canvas {
