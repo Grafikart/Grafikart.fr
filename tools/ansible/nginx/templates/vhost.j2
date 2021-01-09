@@ -40,7 +40,6 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
 
         access_log    off;
-        log_not_found off;
     }
 
     # index.php fallback
@@ -53,9 +52,6 @@ server {
         expires    7d;
         access_log off;
         try_files $uri /index.php?$query_string;
-
-        access_log    off;
-        log_not_found off;
     }
 
 {% if false %}
