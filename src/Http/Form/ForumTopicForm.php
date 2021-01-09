@@ -6,7 +6,6 @@ use App\Core\Type\EditorType;
 use App\Domain\Forum\Entity\Tag;
 use App\Domain\Forum\Entity\Topic;
 use App\Domain\Forum\Repository\TagRepository;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -35,7 +34,8 @@ class ForumTopicForm extends AbstractType
                 'query_builder' => null,
                 'choice_label' => function (Tag $tag) {
                     $prefix = $tag->getParent() ? '⠀⠀' : '';
-                    return $prefix . $tag->getName();
+
+                    return $prefix.$tag->getName();
                 },
             ])
             ->add('content', EditorType::class);

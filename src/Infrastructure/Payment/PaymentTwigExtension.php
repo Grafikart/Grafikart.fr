@@ -6,11 +6,10 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 /**
- * Ajoute des méthodes permettant de récupérer des infos publics pour les paiements
+ * Ajoute des méthodes permettant de récupérer des infos publics pour les paiements.
  */
 class PaymentTwigExtension extends AbstractExtension
 {
-
     private string $stripePublicKey;
     private string $paypalClientId;
 

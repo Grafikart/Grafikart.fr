@@ -12,9 +12,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProfilController extends AbstractController
 {
-
     /**
-     * Permet le changement de thème pour l'utilisateur
+     * Permet le changement de thème pour l'utilisateur.
      *
      * @Route("/profil/theme", name="profil_theme", methods={"POST"})
      * @IsGranted("ROLE_USER")
@@ -28,6 +27,7 @@ class ProfilController extends AbstractController
         }
         $this->getUserOrThrow()->setTheme($theme);
         $em->flush();
+
         return $this->json(null);
     }
 }

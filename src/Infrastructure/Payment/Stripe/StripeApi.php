@@ -23,7 +23,7 @@ class StripeApi
     {
         Stripe::setApiVersion('2020-08-27');
         $this->taxes = ['txr_1HfQaHFCMNgisvowjXXZAA7z'];
-        if (strpos($privateKey, 'live') !== false) {
+        if (false !== strpos($privateKey, 'live')) {
             $this->taxes = ['txr_1I7c7DFCMNgisvowdAol5zkl'];
         }
         $this->stripe = new StripeClient($privateKey);

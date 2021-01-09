@@ -44,6 +44,7 @@ class TagRepository extends AbstractRepository
                 $tags[] = $child;
             }
         }
+
         return $tags;
     }
 }

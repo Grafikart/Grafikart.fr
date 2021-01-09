@@ -257,6 +257,7 @@ class Tag implements CacheableInterface
     public function setVisible(bool $visible): Tag
     {
         $this->visible = $visible;
+
         return $this;
     }
 }

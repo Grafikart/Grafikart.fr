@@ -10,7 +10,6 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class TwigUrlExtensionTest extends TestCase
 {
-
     private TwigUrlExtension $extension;
 
     public function setUp(): void
