@@ -1,0 +1,34 @@
+parameters:
+  stripe_public_key: '%env(resolve:STRIPE_ID)%'
+  stripe_secret_key: '%env(resolve:STRIPE_SECRET)%'
+  stripe_webhook_secret: '%env(resolve:STRIPE_WEBHOOK_SECRET)%'
+  paypal_id: '%env(resolve:PAYPAL_ID)%'
+  paypal_secret: '%env(resolve:PAYPAL_SECRET)%'
+
+services:
+  _defaults:
+    autowire: true # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+    public: false
+
+  App\Infrastructure\Payment\PaymentTwigExtension:
+    arguments: [ '%stripe_public_key%', '%paypal_id%' ]
+
+  App\Infrastructure\Payment\Stripe\StripeApi:
+    arguments: ['%stripe_secret_key%']
+
+  App\Infrastructure\Payment\Stripe\StripeEventValueResolver:
+    arguments: ['%stripe_webhook_secret%']
+    tags:
+      - { name: controller.argument_value_resolver, priority: 50 }
+
+  paypal_sandbox_environment:
+    class: PayPalCheckoutSdk\Core\SandboxEnvironment
+    arguments: ["%paypal_id%", "%paypal_secret%"]
+
+  paypal_production_environment:
+    class: PayPalCheckoutSdk\Core\ProductionEnvironment
+    arguments: ["%paypal_id%", "%paypal_secret%"]
+
+  PayPalCheckoutSdk\Core\PayPalHttpClient:
+    arguments: ["@paypal_sandbox_environment"]

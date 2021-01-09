@@ -31,7 +31,7 @@
       les sources
     </div>
     <div class="pricing__action">
-      <premium-button plan="{{ plan.id }}" price="{{ plan.price }}" duration="{{ plan.duration }}">
+      <premium-button plan="{{ plan.id }}" price="{{ plan.price }}" duration="{{ plan.duration }}" stripe-key="{{ stripeKey() }}" paypal-id="{{ paypalClientId() }}">
         Devenir premium ({{ plan.duration }} mois)
       </premium-button>
     </div>
