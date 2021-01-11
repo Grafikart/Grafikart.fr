@@ -39,14 +39,14 @@
             <div class="section-title">
               Notifications
             </div>
-            {{ form_row(form_update.forumNotification, {label: "Recevoir aussi les notifications du forum par Email"}) }}
+            {{ form_row(form_update.forumNotification, {label: "Recevoir aussi les notifications du forum par email"}) }}
           </section>
           <section>
             <div class="section-title">
               Apparence
             </div>
             <div class="stack">
-              {{ form_row(form_update.useSystemTheme, {label: "Laisse le système choisir le theme"}) }}
+              {{ form_row(form_update.useSystemTheme, {label: "Laisser le système choisir le thème"}) }}
               <div hidden id="theme-selector">
                 {{ form_row(form_update.useDarkTheme, {label: "Utiliser le thème sombre", attr: {hidden: 'hidden'}}) }}
               </div>
@@ -110,12 +110,12 @@
       </div>
       <h3 class="h4">Connexion Discord</h3>
       <p>
-        Reliez votre compte discord à Grafikart pour accéder au salon premium et obtenir un rôle spécial.
+        Reliez votre compte Discord à Grafikart.fr pour accéder au salon premium et obtenir un rôle spécial.
       </p>
       <div class="mb3">
         <a href="{{ path('oauth_discord') }}" class="btn-discord">
-          <img src="/images/social/discord.svg" alt="" class="icon">
-          {{ user.discordId ? 'Changer de compte' : 'Lier votre compte discord' }}
+          <img src="/images/social/discord.svg" alt class="icon">
+          {{ user.discordId ? 'Changer de compte' : 'Lier votre compte Discord' }}
         </a>
       </div>
       <h3 class="h4">Connexion social</h3>
@@ -127,7 +127,7 @@
             <svg class="icon">
               <use xlink:href="/social.svg#github"></use>
             </svg>
-            {{ user.githubId ? 'Dissocier' : 'Lier' }} votre compte github
+            {{ user.githubId ? 'Dissocier' : 'Lier' }} votre compte GitHub
           </a>
         </div>
         <div>
@@ -136,7 +136,7 @@
             <svg class="icon">
               <use xlink:href="/social.svg#google"></use>
             </svg>
-            {{ user.googleId ? 'Dissocier' : 'Lier' }} votre compte google
+            {{ user.googleId ? 'Dissocier' : 'Lier' }} votre compte Google
           </a>
         </div>
         <div>
@@ -145,7 +145,7 @@
             <svg class="icon">
               <use xlink:href="/social.svg#facebook"></use>
             </svg>
-            {{ user.facebookId ? 'Dissocier' : 'Lier' }} votre compte facebook
+            {{ user.facebookId ? 'Dissocier' : 'Lier' }} votre compte Facebook
           </a>
         </div>
       </div>
