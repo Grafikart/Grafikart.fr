@@ -1,5 +1,6 @@
 <header class="page-header container">
   <div class="profil-header">
+    {% if app.user and app.user.id == user.id %}
     <form class="profil-header__avatar" enctype="multipart/form-data" method="post" action="{{ path('user_avatar') }}"
           is="auto-submit">
       <img src="{{ user | avatar }}" alt="">
@@ -8,6 +9,11 @@
       </div>
       <input type="file" name="avatar"/>
     </form>
+    {% else %}
+    <div class="profil-header__avatar">
+      <img src="{{ user | avatar }}" alt="">
+    </div>
+    {% endif %}
     <div class="profil-header__body">
       <h1 class="h1">{{ title }}</h1>
       <p class="hstack" style="--gap:1">
