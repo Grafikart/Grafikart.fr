@@ -15,9 +15,27 @@
       - libmaxminddb-dev
       - libssl-dev
     state: present
-- name: GoAccess | Report cron
+- name: Goaccess | Service
   become: no
-  cron:
-    name: goaccess report
-    special_time: hourly
-    job: "goaccess {{ root_path }}/var/log/access.log -o {{ root_path }}/public/report.html --log-format='%h %^[%d:%t %^] \"%r\" %s %b \"%R\" \"%u\" %T' --time-format=%T  --date-format='%d/%b/%Y'"
+  template:
+    src: "goaccess.service.j2"
+    dest: ~/.config/systemd/user/goaccess.service
+- name: GoAccess | Activation du Service
+  become: no
+  systemd:
+    scope: user
+    state: started
+    daemon_reload: yes
+    enabled: yes
+    name: "goaccess"
+# - name: GoAccess | +x Report script
+#   become: no
+#   file:
+#     dest: "{{ root_path }}/tools/goaccess/report.sh"
+#     mode: a+x
+# - name: GoAccess | Report cron
+#   become: no
+#   cron:
+#     name: goaccess report
+#     special_time: hourly
+#     job: "{{ root_path }}/tools/goaccess/report.sh"

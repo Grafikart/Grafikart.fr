@@ -22,6 +22,6 @@
     - {role: pgsql, tags: pgsql, when: not docker}
     - {role: node, tags: node, when: not docker}
     - {role: app, tags: app, when: not docker}
-    - {role: mail, tags: mail, when: not docker}
+    # - {role: mail, tags: mail, when: not docker}
     - {role: stats, tags: stats, when: not docker}
 

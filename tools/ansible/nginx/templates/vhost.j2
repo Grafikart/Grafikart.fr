@@ -4,6 +4,10 @@ map $request $loggable {
     default 1;
 }
 
+upstream gwsocket {
+  server 127.0.0.1:7890;
+}
+
 server {
     listen                  443 ssl http2;
     listen                  [::]:443 ssl http2;
@@ -81,6 +85,15 @@ server {
         auth_request     /index.php;
         auth_request_set $auth_status $upstream_status;
 	add_header Content-Security-Policy "script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'";
+    }
+
+    location /goaccessws {
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection $connection_upgrade;
+      proxy_pass http://gwsocket;
+      proxy_buffering off;
+      proxy_read_timeout 7d;
     }
 
     # additional config
