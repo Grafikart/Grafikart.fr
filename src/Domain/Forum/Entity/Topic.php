@@ -120,9 +120,9 @@ class Topic implements SpammableInterface, CacheableInterface
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
-        $this->name = $name;
+        $this->name = $name ?: '';
 
         return $this;
     }
@@ -132,9 +132,9 @@ class Topic implements SpammableInterface, CacheableInterface
         return $this->content;
     }
 
-    public function setContent(string $content): self
+    public function setContent(?string $content): self
     {
-        $this->content = $content;
+        $this->content = $content ? : '' ;
 
         return $this;
     }
