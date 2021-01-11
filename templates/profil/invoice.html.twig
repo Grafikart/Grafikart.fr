@@ -283,43 +283,38 @@
     <th>
       Description
     </th>
-    <th class="tright" width="78">
-      Prix HT
-    </th>
     <th class="tright" width="108">
-      Prix TTC
+      {% if transaction.tax %}
+        Prix HT
+      {% else %}
+        Prix TTC
+      {% endif %}
     </th>
   </tr>
   </thead>
   <tbody>
     <tr>
       <td>{{ transaction.description }}</td>
-      <td class="tright">{{ transaction.price | format_currency('EUR') }}</td>
       <td class="tright">
-        <strong>{{ transaction.total | format_currency('EUR') }}</strong>
+        <strong>{{ (transaction.price - transaction.tax) | format_currency('EUR') }}</strong>
       </td>
     </tr>
-    <tr class="total total-first">
-      <td class="label" colspan="2">Sous-total</td>
-      <td class="tright">
-        <strong>
-          {{ transaction.price | format_currency('EUR') }}
-        </strong>
-      </td>
-    </tr>
+
+    {% if transaction.tax %}
     <tr class="total">
-      <td class="label" colspan="2"> Taxe (20.00%)</td>
+      <td class="label"> Taxe (20.00%)</td>
       <td class="tright">
         <strong>
           {{ transaction.tax | format_currency('EUR') }}
         </strong>
       </td>
     </tr>
+    {% endif %}
 
     <tr class="total total-big">
-      <td class="label" colspan="2">Total</td>
+      <td class="label">Total</td>
       <td class="tright">
-        <strong>{{ transaction.total | format_currency('EUR') }}</strong>
+        <strong>{{ transaction.price | format_currency('EUR') }}</strong>
       </td>
     </tr>
   </tbody>

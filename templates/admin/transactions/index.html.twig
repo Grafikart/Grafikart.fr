@@ -22,7 +22,7 @@
         {% for row in rows %}
         <tr>
           <td>{{ row.createdAt.format('d/m/Y') }}</td>
-          <td>{{ row.total | format_currency('EUR') }}</td>
+          <td>{{ row.price | format_currency('EUR') }}</td>
           <td>{{ row.author.username }}</td>
           <td>{{ row.author.email }}</td>
           <td>

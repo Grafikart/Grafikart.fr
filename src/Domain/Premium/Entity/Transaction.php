@@ -122,11 +122,6 @@ class Transaction
         return $this;
     }
 
-    public function getTotal(): float
-    {
-        return $this->price + $this->tax;
-    }
-
     public function getPrice(): float
     {
         return $this->price;
