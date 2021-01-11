@@ -34,7 +34,7 @@ class Topic implements SpammableInterface, CacheableInterface
      * @Assert\Length(min="5", max="70")
      * @Groups({"read:topic"})
      */
-    private ?string $name = '';
+    private string $name = '';
 
     /**
      * @ORM\Column(type="text")
@@ -122,14 +122,14 @@ class Topic implements SpammableInterface, CacheableInterface
 
     public function setName(?string $name): self
     {
-        $this->name = $name;
+        $this->name = $name ?: '';
 
         return $this;
     }
 
     public function getContent(): ?string
     {
-        return $this->content;
+        return $this->content? : '' ;
     }
 
     public function setContent(?string $content): self
