@@ -39,7 +39,7 @@ class BadgesController extends CrudController
     }
 
     /**
-     * @Route("/{id}", name="edit", methods={"POST", "GET"})
+     * @Route("/{id<\d+>}", name="edit", methods={"POST", "GET"})
      */
     public function edit(Badge $plan): Response
     {
@@ -49,7 +49,7 @@ class BadgesController extends CrudController
     }
 
     /**
-     * @Route("/{id}/clone", name="clone", methods={"POST", "GET"})
+     * @Route("/{id<\d+>}/clone", name="clone", methods={"POST", "GET"})
      */
     public function clone(Badge $plan): Response
     {
@@ -59,7 +59,7 @@ class BadgesController extends CrudController
     }
 
     /**
-     * @Route("/{id}", methods={"DELETE"})
+     * @Route("/{id<\d+>}", methods={"DELETE"})
      */
     public function delete(Badge $plan): Response
     {

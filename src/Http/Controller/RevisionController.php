@@ -19,7 +19,7 @@ class RevisionController extends AbstractController
     /**
      * Affiche la page qui permet la soumission d'une révision.
      *
-     * @Route("/revision/{id}", name="revision")
+     * @Route("/revision/{id<\d+>}", name="revision")
      * @IsGranted(App\Http\Security\RevisionVoter::ADD)
      */
     public function show(Content $content, Request $request, RevisionService $service): Response

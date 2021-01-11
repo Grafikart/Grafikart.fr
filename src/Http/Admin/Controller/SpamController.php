@@ -39,7 +39,7 @@ class SpamController extends BaseController
     }
 
     /**
-     * @Route("/unspam/{type}/{id}", name="spam_undo", methods={"DELETE"})
+     * @Route("/unspam/{type}/{id<\d+>}", name="spam_undo", methods={"DELETE"})
      */
     public function unspam(string $type, int $id): JsonResponse
     {

@@ -43,7 +43,7 @@ class PremiumController extends AbstractController
     }
 
     /**
-     * @Route("/premium/{id}/stripe/checkout", name="premium_stripe_checkout", methods={"POST"})
+     * @Route("/premium/{id<\d+>}/stripe/checkout", name="premium_stripe_checkout", methods={"POST"})
      * @IsGranted("ROLE_USER")
      */
     public function stripe(Plan $plan, StripeApi $api, EntityManagerInterface $em, Request $request, UrlGeneratorInterface $urlGenerator): JsonResponse

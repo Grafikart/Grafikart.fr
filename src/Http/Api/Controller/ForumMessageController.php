@@ -25,7 +25,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ForumMessageController extends AbstractController
 {
     /**
-     * @Route("/topics/{id}/messages", name="api_forum/messages_post_collection", methods={"POST"})
+     * @Route("/topics/{id<\d+>}/messages", name="api_forum/messages_post_collection", methods={"POST"})
      */
     public function create(
         Topic $topic,
@@ -56,7 +56,7 @@ class ForumMessageController extends AbstractController
     }
 
     /**
-     * @Route("/messages/{id}/solve", name="api_forum/messages_solve_item ", methods={"POST"})
+     * @Route("/messages/{id<\d+>}/solve", name="api_forum/messages_solve_item ", methods={"POST"})
      */
     public function solve(Message $message, TopicService $service): Response
     {

@@ -48,7 +48,7 @@ class TechnologyController extends CrudController
     }
 
     /**
-     * @Route("/{id}", name="delete", methods={"DELETE"})
+     * @Route("/{id<\d+>}", name="delete", methods={"DELETE"})
      */
     public function delete(Technology $technology): Response
     {
@@ -56,7 +56,7 @@ class TechnologyController extends CrudController
     }
 
     /**
-     * @Route("/{id}", name="edit")
+     * @Route("/{id<\d+>}", name="edit")
      */
     public function edit(Technology $technology): Response
     {

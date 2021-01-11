@@ -37,7 +37,7 @@ class InvoicesController extends AbstractController
     }
 
     /**
-     * @Route("/profil/factures/{id}", name="user_invoice")
+     * @Route("/profil/factures/{id<\d+>}", name="user_invoice")
      * @IsGranted("ROLE_USER")
      */
     public function show(int $id): Response

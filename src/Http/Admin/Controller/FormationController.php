@@ -56,7 +56,7 @@ final class FormationController extends CrudController
     }
 
     /**
-     * @Route("/{id}", name="edit", methods={"POST", "GET"})
+     * @Route("/{id<\d+>}", name="edit", methods={"POST", "GET"})
      */
     public function edit(Formation $formation): Response
     {
@@ -66,7 +66,7 @@ final class FormationController extends CrudController
     }
 
     /**
-     * @Route("/{id}", methods={"DELETE"})
+     * @Route("/{id<\d+>}", methods={"DELETE"})
      */
     public function delete(Formation $formation): Response
     {

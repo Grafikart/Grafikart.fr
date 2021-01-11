@@ -41,7 +41,7 @@ class CursusCategoryController extends CrudController
     }
 
     /**
-     * @Route("/{id}", name="delete", methods={"DELETE"})
+     * @Route("/{id<\d+>}", name="delete", methods={"DELETE"})
      */
     public function delete(CursusCategory $cursuscategory): Response
     {
@@ -49,7 +49,7 @@ class CursusCategoryController extends CrudController
     }
 
     /**
-     * @Route("/{id}", name="edit")
+     * @Route("/{id<\d+>}", name="edit")
      */
     public function edit(CursusCategory $cursuscategory): Response
     {

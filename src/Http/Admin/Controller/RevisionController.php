@@ -29,7 +29,7 @@ final class RevisionController extends CrudController
     ];
 
     /**
-     * @Route("/revision/{id}", methods={"GET", "POST"}, name="revision_show")
+     * @Route("/revision/{id<\d+>}", methods={"GET", "POST"}, name="revision_show")
      */
     public function edit(Revision $revision, Request $request, EventDispatcherInterface $dispatcher): Response
     {
@@ -53,7 +53,7 @@ final class RevisionController extends CrudController
     }
 
     /**
-     * @Route("/revision/{id}", methods={"DELETE"})
+     * @Route("/revision/{id<\d+>}", methods={"DELETE"})
      */
     public function delete(Revision $revision, EventDispatcherInterface $dispatcher): Response
     {

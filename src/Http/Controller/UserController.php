@@ -55,7 +55,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/profil/{id}", name="user_show", requirements={"id"="\d+"})
+     * @Route("/profil/{id<\d+>}", name="user_show", requirements={"id"="\d+"})
      */
     public function show(User $user, TopicRepository $topicRepository, CommentRepository $commentRepository): Response
     {

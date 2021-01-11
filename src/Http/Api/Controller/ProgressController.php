@@ -78,7 +78,7 @@ class ProgressController extends AbstractController
     }
 
     /**
-     * @Route("/progress/{id}", name="delete_progress", methods={"DELETE"})
+     * @Route("/progress/{id<\d+>}", name="delete_progress", methods={"DELETE"})
      * @IsGranted("DELETE_PROGRESS", subject="progress")
      */
     public function deleteProgress(Progress $progress): JsonResponse

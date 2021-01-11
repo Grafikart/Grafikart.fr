@@ -32,7 +32,7 @@ final class TransactionsController extends CrudController
     }
 
     /**
-     * @Route("/transaction/{id}", name="show", methods={"DELETE"})
+     * @Route("/transaction/{id<\d+>}", name="show", methods={"DELETE"})
      */
     public function delete(Transaction $transaction, EventDispatcherInterface $dispatcher): Response
     {

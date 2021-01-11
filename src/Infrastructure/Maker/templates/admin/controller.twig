@@ -38,7 +38,7 @@ class {{ entity_name }}Controller extends CrudController
     }
 
     /**
-     * @Route("/{id}", name="delete", methods={"DELETE"})
+     * @Route("/{id<\d+>}", name="delete", methods={"DELETE"})
      */
     public function delete({{ entity_name}} ${{ slug }}): Response
     {
@@ -46,7 +46,7 @@ class {{ entity_name }}Controller extends CrudController
     }
 
     /**
-     * @Route("/{id}", name="edit")
+     * @Route("/{id<\d+>}", name="edit")
      */
     public function edit({{ entity_name}} ${{ slug }}): Response
     {

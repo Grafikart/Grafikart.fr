@@ -46,7 +46,7 @@ final class BlogController extends CrudController
     }
 
     /**
-     * @Route("/blog/{id}", name="blog_edit", methods={"POST", "GET"})
+     * @Route("/blog/{id<\d+>}", name="blog_edit", methods={"POST", "GET"})
      */
     public function edit(Post $post): Response
     {
@@ -56,7 +56,7 @@ final class BlogController extends CrudController
     }
 
     /**
-     * @Route("/blog/{id}", methods={"DELETE"})
+     * @Route("/blog/{id<\d+>}", methods={"DELETE"})
      */
     public function delete(Post $post): Response
     {

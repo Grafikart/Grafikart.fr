@@ -57,7 +57,7 @@ final class ForumTagController extends CrudController
     }
 
     /**
-     * @Route("/forum-tag/{id}", methods={"DELETE"})
+     * @Route("/forum-tag/{id<\d+>}", methods={"DELETE"})
      */
     public function delete(Request $request, Tag $post): Response
     {

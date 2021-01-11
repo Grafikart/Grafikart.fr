@@ -98,7 +98,7 @@ class RegistrationController extends AbstractController
     }
 
     /**
-     * @Route("/inscription/confirmation/{id}", name="register_confirm")
+     * @Route("/inscription/confirmation/{id<\d+>}", name="register_confirm")
      */
     public function confirmToken(User $user, Request $request, EntityManagerInterface $em): RedirectResponse
     {

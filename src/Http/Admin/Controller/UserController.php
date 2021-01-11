@@ -68,7 +68,7 @@ class UserController extends CrudController
     }
 
     /**
-     * @Route("/users/{id}/ban", methods={"POST", "DELETE"}, name="user_ban")
+     * @Route("/users/{id<\d+>}/ban", methods={"POST", "DELETE"}, name="user_ban")
      */
     public function ban(User $user, EntityManagerInterface $em, UserBanService $banService, Request $request): Response
     {

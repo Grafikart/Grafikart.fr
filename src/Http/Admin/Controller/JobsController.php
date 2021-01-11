@@ -20,7 +20,7 @@ class JobsController extends BaseController
     }
 
     /**
-     * @Route("/{id}", methods={"DELETE"}, name="job_delete")
+     * @Route("/{id<\d+>}", methods={"DELETE"}, name="job_delete")
      */
     public function delete(int $id, Request $request): RedirectResponse
     {
@@ -35,7 +35,7 @@ class JobsController extends BaseController
     }
 
     /**
-     * @Route("/{id}/retry", methods={"POST"}, name="job_retry")
+     * @Route("/{id<\d+>}/retry", methods={"POST"}, name="job_retry")
      */
     public function retry(int $id): RedirectResponse
     {
