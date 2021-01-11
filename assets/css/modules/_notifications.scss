@@ -118,11 +118,10 @@
     top: 0;
     left: auto;
     right: 0;
-    bottom: 0;
   }
   .notifications_body {
-    height: calc(100vh - 90px);
-    max-height: calc(100vh - 90px);
+    height: calc(100vh - 220px);
+    max-height: calc(100vh - 220px);
   }
   .notifications_title button {
     display: block;
