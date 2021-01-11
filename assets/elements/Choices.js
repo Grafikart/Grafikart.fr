@@ -50,6 +50,9 @@ export class SelectChoices extends HTMLSelectElement {
           } else {
             params.set(e.target.name, e.target.value)
           }
+          if (params.has('page')) {
+            params.delete('page')
+          }
           redirect(`${location.pathname}?${params}`)
         })
       }
