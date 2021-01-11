@@ -51,11 +51,13 @@
 }
 .tabs-toggle button:first-child {
   text-align: right;
-  padding-right: 35px;
+  padding-right: 70px;
+  margin-right: -35px;
 }
 .tabs-toggle button:last-child {
+  margin-left: -35px;
   text-align: left;
-  padding-left: 35px;
+  padding-left: 70px;
 }
 .tabs-toggle button[aria-selected='true'] {
   color: var(--contrast);
@@ -66,7 +68,7 @@
   content: '';
   position: absolute;
   top: calc(50% - 10px);
-  right: -22px;
+  right: 13px;
   width: 40px;
   height: 20px;
   background: #ffffff;
@@ -80,7 +82,7 @@
   content: '';
   position: absolute;
   top: calc(50% - 8px);
-  right: 0px;
+  right: 35px;
   width: 16px;
   height: 16px;
 
