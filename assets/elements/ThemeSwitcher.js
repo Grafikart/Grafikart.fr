@@ -1,10 +1,21 @@
-import { Switch } from '/elements/Switch.js'
 import { isAuthenticated } from '/functions/auth.js'
 import { jsonFetchOrFlash } from '/functions/api.js'
 
-export class ThemeSwitcher extends Switch {
+export class ThemeSwitcher extends HTMLElement {
   connectedCallback () {
-    this.addEventListener('change', e => {
+    this.classList.add('theme-switcher')
+    this.innerHTML = `
+        <input type="checkbox" is="input-switch" id="theme-switcher" aria-label="Changer de thème">
+        <label for="theme-switcher">
+          <svg class="icon icon-moon">
+            <use xlink:href="/sprite.svg#moon"></use>
+          </svg>
+          <svg class="icon icon-sun">
+            <use xlink:href="/sprite.svg#sun"></use>
+          </svg>
+        </label>`
+    const input = this.querySelector('input')
+    input.addEventListener('change', e => {
       const themeToRemove = e.currentTarget.checked ? 'light' : 'dark'
       const themeToAdd = e.currentTarget.checked ? 'dark' : 'light'
       document.body.classList.add(`theme-${themeToAdd}`)
@@ -25,19 +36,13 @@ export class ThemeSwitcher extends Switch {
       // Si l'utilisateur n'a pas déjà de préférence
       if (savedTheme === null) {
         const mq = window.matchMedia('(prefers-color-scheme: dark)')
-        this.checked = mq.matches
+        input.checked = mq.matches
       } else {
         document.body.classList.add(`theme-${savedTheme}`)
-        this.checked = savedTheme === 'dark'
+        input.checked = savedTheme === 'dark'
       }
     } else {
-      this.checked = document.body.classList.contains('theme-dark')
+      input.checked = document.body.classList.contains('theme-dark')
     }
-
-    super.connectedCallback.bind(this)()
-  }
-
-  disconnectedCallback () {
-    super.disconnectedCallback.bind(this)()
   }
 }

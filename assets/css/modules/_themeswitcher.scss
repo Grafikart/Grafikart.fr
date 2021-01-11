@@ -1,4 +1,5 @@
 .theme-switcher {
+  display: inline-block;
 
   .icon {
     position: absolute;
@@ -6,7 +7,7 @@
     top: 5px;
     width: 16px;
     height: 16px;
-    color: var(--yellow);
+    color: #ff9a00;
     opacity: 1;
     transition: .3s;
   }
