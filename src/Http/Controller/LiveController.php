@@ -7,6 +7,7 @@ use App\Domain\Live\LiveService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class LiveController extends AbstractController
@@ -17,6 +18,9 @@ class LiveController extends AbstractController
     public function index(LiveRepository $repo, ?int $year, Request $request, LiveService $liveService): Response
     {
         $year = $year ?: (int) date('Y');
+        if ($year < 2000) {
+            throw new BadRequestHttpException();
+        }
         $lives = $repo->findForYear($year);
         if ($request->get('ajax')) {
             return $this->render('live/year.html.twig', [

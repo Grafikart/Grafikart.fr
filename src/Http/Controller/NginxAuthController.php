@@ -55,5 +55,4 @@ class NginxAuthController extends AbstractController
     {
         return $this->report();
     }
-
 }

@@ -2,17 +2,21 @@
 
 namespace App\Http\Controller\Course;
 
+use App\Core\Helper\Paginator\PaginatorInterface;
 use App\Domain\Course\Entity\Course;
+use App\Domain\Course\Entity\LevelTrait;
 use App\Domain\Course\Repository\CourseRepository;
 use App\Domain\Course\Repository\TechnologyRepository;
 use App\Http\Security\CourseVoter;
-use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Vich\UploaderBundle\Storage\StorageInterface;
+use const App\Domain\Course\Entity\EASY;
+use const App\Domain\Course\Entity\HARD;
 
 class CourseController extends AbstractController
 {
@@ -26,6 +30,9 @@ class CourseController extends AbstractController
 
         // On filtre par niveau
         $level = $request->query->get('level');
+        if ($level !== null && ($level < EASY || $level > HARD)) {
+            throw new BadRequestHttpException();
+        }
         $levels = Course::$levels;
         if (null !== $level) {
             $query = $query->setParameter('level', $level)->andWhere('c.level = :level');
@@ -41,14 +48,7 @@ class CourseController extends AbstractController
             }
         }
 
-        $courses = $paginator->paginate(
-            $query,
-            $page,
-            26,
-            [
-                'whiteList' => [],
-            ]
-        );
+        $courses = $paginator->paginate($query->setMaxResults(26)->getQuery());
 
         return $this->render('courses/index.html.twig', [
             'courses' => $courses,
@@ -67,14 +67,7 @@ class CourseController extends AbstractController
     public function premium(CourseRepository $repo, PaginatorInterface $paginator, Request $request): Response
     {
         $page = $request->query->getInt('page', 1);
-        $courses = $paginator->paginate(
-            $repo->queryAllPremium(),
-            $page,
-            26,
-            [
-                'whiteList' => [],
-            ]
-        );
+        $courses = $paginator->paginate($repo->queryAllPremium()->setMaxResults(26)->getQuery());
         if (0 === $courses->count()) {
             throw new NotFoundHttpException('Aucun tutoriels ne correspond à cette page');
         }
