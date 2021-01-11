@@ -33,8 +33,8 @@ function highlight ($codes) {
 /**
  * Détecte et ajoute la coloration syntaxique sur le site
  */
-function bindHighlight () {
-  const $codes = document.querySelectorAll('pre code')
+export function bindHighlight (root = document) {
+  const $codes = root.querySelectorAll('pre code')
   if ($codes.length > 0) {
     if (window.hljs) {
       highlight($codes)

@@ -9,6 +9,7 @@ import { Field } from '/components/Form.jsx'
 import { scrollTo } from '/functions/animation.js'
 import { catchViolations } from '/functions/api.js'
 import { useVisibility, useAsyncEffect } from '/functions/hooks.js'
+import { Markdown } from '/components/Markdown.jsx'
 
 /**
  * Affiche les commentaires associé à un contenu
@@ -226,7 +227,7 @@ const Comment = memo(({ comment, editing, onEdit, onUpdate, onDelete, onReply, c
     }
   }, [editing])
 
-  let content = <div class='formatted' onDoubleClick={handleEdit} dangerouslySetInnerHTML={{ __html: comment.html }} />
+  let content = <Markdown children={comment.content} class='formatted' onDoubleClick={handleEdit}/>
   if (editing) {
     content = (
       <form onSubmit={handleUpdate} className='form-group stack'>

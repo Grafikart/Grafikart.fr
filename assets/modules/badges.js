@@ -1,4 +1,4 @@
-import { ApiError, HTTP_UNPROCESSABLE_ENTITY, jsonFetch } from '/functions/api.js'
+import { ApiError, HTTP_FORBIDDEN, HTTP_UNPROCESSABLE_ENTITY, jsonFetch } from '/functions/api.js'
 import { strToDom } from '/functions/dom.js'
 import { isAuthenticated } from '/functions/auth.js'
 import { onNotification } from '/api/notifications.js'
@@ -87,6 +87,8 @@ background-image: linear-gradient(315deg, #2234ae 0%, #191714 74%);`)
       if (e instanceof ApiError) {
         if (e.status === HTTP_UNPROCESSABLE_ENTITY) {
           console.warn('Vous avez déjà trouvé Nessie :(')
+        } else if (e.status === HTTP_FORBIDDEN) {
+          console.warn("Vous n'avez pas l'autorisation de débloquer ce badge :(")
         }
       }
     })

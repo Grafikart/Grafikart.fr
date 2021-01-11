@@ -52,6 +52,10 @@
 }
 .comment__content {
   grid-area: content;
+
+  p {
+    white-space: pre-wrap;
+  }
 }
 .comment__actions {
   transition: opacity 0.3s;

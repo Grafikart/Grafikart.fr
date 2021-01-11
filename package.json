@@ -1,6 +1,6 @@
 {
   "name": "Grafikart.fr",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
@@ -46,6 +46,7 @@
     "favicon-badge": "^2.0.0",
     "flatpickr": "^4.6.9",
     "htm": "^3.0.4",
+    "markdown-to-jsx": "^7.1.1",
     "preact": "^10.5.7",
     "react-diff-viewer": "^3.1.1",
     "scriptjs": "^2.5.9",

@@ -4,6 +4,19 @@
     font-weight: bold;
   }
 
+  blockquote {
+    border-left: 5px solid var(--border-light);
+    color: var(--color-light);
+    padding-left: 1rem;
+    margin-left: 1rem;
+    padding-bottom: .5rem;
+    padding-top: .5rem;
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+
   > *:last-child {
     margin-bottom: 0 !important;
   }
@@ -30,8 +43,8 @@
     border: 1px solid var(--border-light);
 
     @include up(1400) {
-      margin-left: -2rem;
-      margin-right: -2rem;
+      margin-left: -1rem;
+      margin-right: -1rem;
     }
   }
 
