@@ -44,8 +44,7 @@
               <td class="mobile-hidden">Compte premium {{ transaction.duration }} mois</td>
               <td>{{ transaction.price | format_currency('EUR') }}</td>
               <td class="text-right">
-                <a target="_blank" href="{{ path('user_invoice', {id: transaction.id}) }}" class="btn-secondary">Télécharger
-                 <span class="mobile-hidden"> la facture</span></a>
+                <a target="_blank" href="{{ path('user_invoice', {id: transaction.id}) }}" class="btn-secondary">Télécharger&nbsp;<span class="mobile-hidden">la facture</span></a>
               </td>
             </tr>
           {% endfor %}

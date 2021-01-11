@@ -24,7 +24,7 @@ class PaypalService
     public function createPayment(string $orderId): Payment
     {
         try {
-            // On récupère les information de la commaande
+            // On récupère les information de la commande
             /** @var \stdClass $order */
             $order = $this->client->execute(new OrdersGetRequest($orderId))->result;
             // On normalise le paiement

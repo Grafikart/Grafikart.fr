@@ -61,7 +61,7 @@ final class TransactionImporter implements TypeImporterInterface
                     ->setId($oldTransaction['id'])
                     ->setAuthor($user)
                     ->setCreatedAt(new \DateTimeImmutable($oldTransaction['created_at']))
-                    ->setPrice($oldTransaction['price'] + ($oldTransaction['tax'] ?: 0))
+                    ->setPrice($oldTransaction['price'])
                     ->setTax(floatval($oldTransaction['tax'] ?: 0))
                     ->setMethod($oldTransaction['method'])
                     ->setRefunded($oldTransaction['reimbursed'])

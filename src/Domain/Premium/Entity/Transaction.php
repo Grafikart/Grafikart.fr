@@ -27,6 +27,7 @@ class Transaction
     private int $duration;
 
     /**
+     * Prix de l'achat (TVA incluse)
      * @ORM\Column(type="float")
      */
     private float $price;
