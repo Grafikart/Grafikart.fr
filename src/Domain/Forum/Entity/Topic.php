@@ -85,6 +85,7 @@ class Topic implements SpammableInterface, CacheableInterface
 
     /**
      * @ORM\OneToMany(targetEntity="App\Domain\Forum\Entity\Message", mappedBy="topic")
+     * @ORM\OrderBy({"accepted" = "DESC", "createdAt" = "ASC"})
      */
     private Collection $messages;
 

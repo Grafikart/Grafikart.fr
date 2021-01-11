@@ -80,7 +80,7 @@ class ForumImporter extends MySQLImporter
                     ->setSticky($row['sticky'])
                     ->setCreatedAt(new \DateTime($row['created_at']))
                     ->setUpdatedAt(new \DateTime($row['updated_at']))
-                    ->setMessageCount($row['posts_count'])
+                    ->setMessageCount(0)
                     ->addTag($tag)
                     ->setAuthor($user)
                 ;
