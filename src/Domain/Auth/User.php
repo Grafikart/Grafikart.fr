@@ -134,9 +134,9 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface, Ca
         return $this->username;
     }
 
-    public function setUsername(string $username): self
+    public function setUsername(?string $username): self
     {
-        $this->username = $username;
+        $this->username = $username ?: '';
 
         return $this;
     }
@@ -146,9 +146,9 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface, Ca
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(?string $email): self
     {
-        $this->email = $email;
+        $this->email = $email ?: '';
 
         return $this;
     }
@@ -324,9 +324,9 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface, Ca
         return $this->goal;
     }
 
-    public function setGoal(string $goal): User
+    public function setGoal(?string $goal): User
     {
-        $this->goal = $goal;
+        $this->goal = $goal ?: '';
 
         return $this;
     }
