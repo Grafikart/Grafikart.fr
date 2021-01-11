@@ -97,10 +97,12 @@ class TwigAssetExtension extends AbstractExtension
     {
         $script = '<script src="'.$this->uri($name.'.js').'" type="module" defer></script>';
         $request = $this->requestStack->getCurrentRequest();
+        $userAgent = $request->headers->get('User-Agent') ?: '';
 
         if ($request instanceof Request &&
             $this->polyfillLoaded === false &&
-            strpos($request->headers->get('User-Agent') ?: '', 'Safari')
+            strpos($userAgent, 'Safari') &&
+            !strpos($userAgent, 'Chrome')
         ) {
             $this->polyfillLoaded = true;
             $script = <<<HTML
