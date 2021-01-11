@@ -324,5 +324,13 @@
   .header .header-nav li:nth-child(4) {
     display: none;
   }
+  
+  .header .header__home {
+    padding-right: 0;
+    margin-right: 0;
+  }
+
+  .header-side li:nth-child(3) { display: flex; }
+
 }
 
