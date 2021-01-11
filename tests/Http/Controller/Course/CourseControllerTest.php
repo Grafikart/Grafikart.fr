@@ -31,6 +31,19 @@ class CourseControllerTest extends WebTestCase
         $this->expectH1('Tous les tutoriels');
     }
 
+    public function test400OnBadParameters()
+    {
+        $this->loadFixtures(['courses']);
+        $this->client->request('GET', "/tutoriels?page=0");
+        $this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
+        $this->client->request('GET', "/tutoriels?page=1");
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $this->client->request('GET', "/tutoriels?level=4");
+        $this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
+        $this->client->request('GET', "/tutoriels?level=azeaze");
+        $this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
+    }
+
     public function testPremiumSuccess()
     {
         $this->loadFixtures(['courses']);

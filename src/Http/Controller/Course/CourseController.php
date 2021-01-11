@@ -30,12 +30,13 @@ class CourseController extends AbstractController
 
         // On filtre par niveau
         $level = $request->query->get('level');
-        if ($level !== null && ($level < EASY || $level > HARD)) {
+        $levelInt = (int)$level;
+        if ($level !== null && ((string)$levelInt !== $level || (int)$level < EASY || (int)$level > HARD)) {
             throw new BadRequestHttpException();
         }
         $levels = Course::$levels;
         if (null !== $level) {
-            $query = $query->setParameter('level', $level)->andWhere('c.level = :level');
+            $query = $query->setParameter('level', $levelInt)->andWhere('c.level = :level');
         }
 
         // On filtre sur une technology

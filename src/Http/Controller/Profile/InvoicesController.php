@@ -9,6 +9,7 @@ use App\Domain\Premium\Repository\TransactionRepository;
 use App\Http\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -46,6 +47,10 @@ class InvoicesController extends AbstractController
             'id' => $id,
             'author' => $this->getUser(),
         ]);
+
+        if ($transaction === null) {
+            throw new NotFoundHttpException();
+        }
 
         return $this->render('profil/invoice.html.twig', [
             'transaction' => $transaction,
