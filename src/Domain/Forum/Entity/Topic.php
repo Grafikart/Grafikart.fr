@@ -34,7 +34,7 @@ class Topic implements SpammableInterface, CacheableInterface
      * @Assert\Length(min="5", max="70")
      * @Groups({"read:topic"})
      */
-    private string $name = '';
+    private ?string $name = '';
 
     /**
      * @ORM\Column(type="text")
