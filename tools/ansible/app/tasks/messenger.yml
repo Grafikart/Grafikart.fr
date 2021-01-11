@@ -3,7 +3,7 @@
   become: no
   template:
     src: "messenger.service.j2"
-    dest: "~/.config/systemd/user/{{ domain }}.messenger.service"
+    dest: "~/.config/systemd/user/messenger.service"
 - name: Messenger | Activation du Service
   become: no
   systemd:
@@ -11,4 +11,4 @@
     state: started
     daemon_reload: yes
     enabled: yes
-    name: "{{ domain }}.messenger"
+    name: "messenger"

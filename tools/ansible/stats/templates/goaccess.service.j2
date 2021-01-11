@@ -4,7 +4,7 @@ Documentation=https://github.com/Grafikart/Grafikart.fr
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/goaccess -f {{ root_path }}/var/log/access.log \
+ExecStart=/usr/bin/goaccess -f {{ root_path }}/var/log/access.log \
           --real-time-html --ws-url=wss://{{ domain }}:443/goaccessws \
           -o {{ root_path }}/public/report.html --port=7890 \
           --config-file={{ root_path }}/tools/goaccess/goaccess.conf \
@@ -12,23 +12,4 @@ ExecStart=/usr/local/bin/goaccess -f {{ root_path }}/var/log/access.log \
           --db-path={{ root_path }}/var
 Restart=on-failure
 ExecStop=/bin/kill -9 ${MAINPID}
-WorkingDirectory={{ root_path }}/var
-
-NoNewPrivileges=true
-PrivateTmp=true
-ProtectHome=read-only
-ProtectSystem=strict
-SystemCallFilter=~@clock @cpu-emulation @debug @keyring @memlock @module \
-@mount @obsolete @privileged @reboot @resources @setuid \
-@swap @raw-io
-
-ReadOnlyPaths=/
-ReadWritePaths=/proc/self
-ReadWritePaths=/var/www/goaccess
-
-PrivateDevices=yes
-ProtectKernelModules=yes
-ProtectKernelTunables=yes
-
-[Install]
-WantedBy=multi-user.target
+WorkingDirectory={{ root_path }}
