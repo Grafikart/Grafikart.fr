@@ -3,6 +3,7 @@
 namespace App\Core\Twig;
 
 use Psr\Cache\CacheItemPoolInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -18,6 +19,7 @@ class TwigAssetExtension extends AbstractExtension
     private RequestStack $requestStack;
     private bool $isProduction;
     private ?array $paths = null;
+    private bool $polyfillLoaded = false;
 
     public function __construct(
         string $assetPath,
@@ -94,6 +96,18 @@ class TwigAssetExtension extends AbstractExtension
     public function script(string $name): string
     {
         $script = '<script src="'.$this->uri($name.'.js').'" type="module" defer></script>';
+        $request = $this->requestStack->getCurrentRequest();
+
+        if ($request instanceof Request &&
+            $this->polyfillLoaded === false &&
+            strpos($request->headers->get('User-Agent') ?: '', 'Safari')
+        ) {
+            $this->polyfillLoaded = true;
+            $script = <<<HTML
+                    <script src="//unpkg.com/@ungap/custom-elements" defer></script>
+                    $script
+                HTML;
+        }
 
         // Si on est en mode développement on injecte le système de Hot Reload de vite
         if (!$this->isProduction) {
