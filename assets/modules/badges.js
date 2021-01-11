@@ -3,6 +3,7 @@ import { strToDom } from '/functions/dom.js'
 import { isAuthenticated } from '/functions/auth.js'
 import { onNotification } from '/api/notifications.js'
 import { isActiveWindow } from '/functions/window.js'
+import { flash } from '/elements/Alert.js'
 
 const konamicode = [
   'ArrowUp',
@@ -34,6 +35,11 @@ export function registerKonami () {
     }
     if (keys.toString().indexOf(konamicode) >= 0) {
       await jsonFetch('/api/badges/gamer/unlock', { method: 'POST' })
+        .catch(e => {
+          if (e instanceof ApiError && e.status === HTTP_UNPROCESSABLE_ENTITY) {
+            flash('Vous avez déjà débloqué ce badge', 'error')
+          }
+        })
     }
   })
 
