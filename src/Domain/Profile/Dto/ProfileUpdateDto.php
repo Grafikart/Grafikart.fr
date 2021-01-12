@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Données pour la mise à jour du profil utilisateur.
  *
  * @Unique(entityClass="App\Domain\Auth\User", field="email")
+ * @Unique(entityClass="App\Domain\Auth\User", field="username")
  */
 class ProfileUpdateDto
 {
@@ -22,9 +23,15 @@ class ProfileUpdateDto
 
     /**
      * @Assert\NotBlank()
+     * @Assert\Length(min=3, max=40)
+     */
+    public string $username;
+
+    /**
+     * @Assert\NotBlank()
      * @Assert\Country()
      */
-    public ?string $country;
+    public ?string $country = 'FR';
 
     public User $user;
     public bool $forumNotification;
@@ -35,6 +42,7 @@ class ProfileUpdateDto
     {
         $this->email = $user->getEmail();
         $this->country = $user->getCountry();
+        $this->username = $user->getUsername();
         $this->user = $user;
         $this->forumNotification = $user->hasForumMailNotification();
         $this->useSystemTheme = null === $user->getTheme();

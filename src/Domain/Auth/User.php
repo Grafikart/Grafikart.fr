@@ -136,7 +136,7 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface, Ca
 
     public function setUsername(?string $username): self
     {
-        $this->username = $username ?: '';
+        $this->username = trim($username ?: '');
 
         return $this;
     }

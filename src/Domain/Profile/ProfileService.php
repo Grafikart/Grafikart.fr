@@ -50,6 +50,7 @@ class ProfileService
     public function updateProfile(ProfileUpdateDto $data): void
     {
         $data->user->setCountry($data->country);
+        $data->user->setUsername($data->username);
         $data->user->setForumMailNotification($data->forumNotification);
         if (true === $data->useSystemTheme) {
             $data->user->setTheme(null);
