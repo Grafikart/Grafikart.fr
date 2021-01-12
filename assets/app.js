@@ -10,9 +10,11 @@ import { showHistory } from './modules/history.js'
 import ChoicesJS from 'choices.js'
 import { $$, $ } from '/functions/dom.js'
 import { registerKonami, registerBadgeAlert } from '/modules/badges.js'
+import { registerWindowHeightCSS } from '/modules/window.js'
 
 registerKonami()
 registerBadgeAlert()
+registerWindowHeightCSS()
 
 document.addEventListener('turbolinks:load', () => {
   const darkToggle = document.querySelector('#dark-toggle')

@@ -121,8 +121,8 @@
     bottom: 0;
   }
   .notifications_body {
-    height: calc(100vh - 90px);
-    max-height: calc(100vh - 90px);
+    height: calc(var(--windowHeight) - 90px);
+    max-height: calc(var(--windowHeight) - 90px);
   }
   .notifications_title button {
     display: block;
