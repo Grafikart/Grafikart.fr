@@ -14,10 +14,10 @@ class FormationControllerTest extends WebTestCase
     public function testIndexSuccess()
     {
         $this->loadFixtures(['courses']);
-        $this->client->request('GET', "/formations");
+        $this->client->request('GET', '/formations');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
-        $this->expectTitle("Toutes les formations");
-        $this->expectH1("Toutes les formations");
+        $this->expectTitle('Toutes les formations');
+        $this->expectH1('Toutes les formations');
     }
 
     public function testSingleSuccess()

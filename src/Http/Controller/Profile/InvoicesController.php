@@ -48,7 +48,7 @@ class InvoicesController extends AbstractController
             'author' => $this->getUser(),
         ]);
 
-        if ($transaction === null) {
+        if (null === $transaction) {
             throw new NotFoundHttpException();
         }
 

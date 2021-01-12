@@ -65,9 +65,10 @@ trait ChapterableTrait
     public function getFirstContent(): ?Content
     {
         $firstChapter = $this->getChapters()[0] ?? null;
-        if ($firstChapter === null) {
+        if (null === $firstChapter) {
             return null;
         }
+
         return $firstChapter->getModules()[0] ?? null;
     }
 

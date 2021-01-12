@@ -4,7 +4,8 @@ namespace App\Http\Controller\Course;
 
 use App\Core\Helper\Paginator\PaginatorInterface;
 use App\Domain\Course\Entity\Course;
-use App\Domain\Course\Entity\LevelTrait;
+use const App\Domain\Course\Entity\EASY;
+use const App\Domain\Course\Entity\HARD;
 use App\Domain\Course\Repository\CourseRepository;
 use App\Domain\Course\Repository\TechnologyRepository;
 use App\Http\Security\CourseVoter;
@@ -15,8 +16,6 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Vich\UploaderBundle\Storage\StorageInterface;
-use const App\Domain\Course\Entity\EASY;
-use const App\Domain\Course\Entity\HARD;
 
 class CourseController extends AbstractController
 {
@@ -30,8 +29,8 @@ class CourseController extends AbstractController
 
         // On filtre par niveau
         $level = $request->query->get('level');
-        $levelInt = (int)$level;
-        if ($level !== null && ((string)$levelInt !== $level || (int)$level < EASY || (int)$level > HARD)) {
+        $levelInt = (int) $level;
+        if (null !== $level && ((string) $levelInt !== $level || (int) $level < EASY || (int) $level > HARD)) {
             throw new BadRequestHttpException();
         }
         $levels = Course::$levels;
