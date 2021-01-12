@@ -4,6 +4,7 @@ namespace App\Core\Orm;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityNotFoundException;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -44,17 +45,15 @@ abstract class AbstractRepository extends ServiceEntityRepository
 
     public function findByCaseInsensitive(array $conditions): array
     {
-        $conditionString = [];
-        $parameters = [];
-        foreach ($conditions as $k => $v) {
-            $conditionString[] = "LOWER(o.$k) = :$k";
-            $parameters[$k] = strtolower($v);
-        }
-        return $this->createQueryBuilder('o')
-            ->where(join(' AND ', $conditionString))
-            ->setParameters($parameters)
-            ->getQuery()
-            ->getResult();
+        return $this->findByCaseInsensitiveQuery($conditions)->getResult();
+    }
+
+    /**
+     * @return E|null
+     */
+    public function findOneByCaseInsensitive(array $conditions): ?object
+    {
+        return $this->findByCaseInsensitiveQuery($conditions)->setMaxResults(1)->getOneOrNullResult();
     }
 
     /**
@@ -70,5 +69,19 @@ abstract class AbstractRepository extends ServiceEntityRepository
         $queryBuilder = new IterableQueryBuilder($this->_em);
 
         return $queryBuilder->select($alias)->from($this->_entityName, $alias, $indexBy);
+    }
+
+    private function findByCaseInsensitiveQuery(array $conditions): Query
+    {
+        $conditionString = [];
+        $parameters = [];
+        foreach ($conditions as $k => $v) {
+            $conditionString[] = "LOWER(o.$k) = :$k";
+            $parameters[$k] = strtolower($v);
+        }
+        return $this->createQueryBuilder('o')
+            ->where(join(' AND ', $conditionString))
+            ->setParameters($parameters)
+            ->getQuery();
     }
 }

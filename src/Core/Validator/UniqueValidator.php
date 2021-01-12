@@ -2,6 +2,7 @@
 
 namespace App\Core\Validator;
 
+use App\Core\Orm\AbstractRepository;
 use App\Http\Admin\Data\CrudDataInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
@@ -42,9 +43,16 @@ class UniqueValidator extends ConstraintValidator
             $entityClass = get_class($obj->getEntity());
         }
         $value = $accessor->getValue($obj, $constraint->field);
-        $result = $this->em->getRepository($entityClass)->findOneBy([
-            $constraint->field => $value,
-        ]);
+        $repository = $this->em->getRepository($entityClass);
+        if ($repository instanceof AbstractRepository) {
+            $result = $repository->findOneByCaseInsensitive([
+                $constraint->field => $value,
+            ]);
+        } else {
+            $result = $repository->findOneBy([
+                $constraint->field => $value,
+            ]);
+        }
 
         if (null !== $result &&
             (!method_exists($result, 'getId') || $result->getId() !== $obj->getId())
