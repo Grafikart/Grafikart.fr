@@ -42,7 +42,7 @@ class CommentApiTest extends ApiTestCase
     public function testCreateWithBadData()
     {
         $fixtures = $this->loadFixtures(['comments']);
-        $this->client->request('POST', '/api/comments', [
+        $response = $this->client->request('POST', '/api/comments', [
             'json' => [
                 'content' => 'Hello world !',
                 'email' => 'johnfake',
@@ -55,6 +55,28 @@ class CommentApiTest extends ApiTestCase
             'violations' => [[
                 'propertyPath' => 'email',
             ]],
+        ]);
+    }
+
+    public function testCreateWithEmptyComment()
+    {
+        $fixtures = $this->loadFixtures(['comments']);
+        $this->client->request('POST', '/api/comments', [
+            'json' => [
+                'content' => '         ',
+                'email' => 'john@fake.fr',
+                'username' => '        ',
+                'target' => $fixtures['post1']->getId(),
+            ],
+        ]);
+        $this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
+        $this->assertJsonContains([
+            'violations' => [[
+                'propertyPath' => 'content',
+            ],
+                [
+                    'propertyPath' => 'content',
+                ]],
         ]);
     }
 

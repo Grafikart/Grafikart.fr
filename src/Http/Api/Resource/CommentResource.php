@@ -42,14 +42,14 @@ class CommentResource extends CommentData
 
     /**
      * @Groups({"read", "write"})
-     * @Assert\NotBlank(groups={"anonymous"})
+     * @Assert\NotBlank(groups={"anonymous"}, normalizer="trim")
      */
     public ?string $username = null;
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(normalizer="trim")
      * @Groups({"read", "write"})
-     * @Assert\Length(min="4")
+     * @Assert\Length(min="4", normalizer="trim")
      */
     public string $content = '';
 
