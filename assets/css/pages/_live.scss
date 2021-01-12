@@ -54,6 +54,11 @@
 .live-recap__header {
   font-size: 18px;
   margin-bottom: space(4);
+
+  .has-player & {
+    height: 100px;
+    overflow: hidden;
+  }
 }
 .live-recap__header > * + * {
   margin-top: space(4);
