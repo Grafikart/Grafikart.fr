@@ -99,7 +99,7 @@ class UserControllerTest extends WebTestCase
     }
 
     /**
-     * 2 utilisateurs essaient de changer leur email pour mettre le même email
+     * 2 utilisateurs essaient de changer leur email pour mettre le même email.
      */
     public function testCrossedEmailChanges(): void
     {

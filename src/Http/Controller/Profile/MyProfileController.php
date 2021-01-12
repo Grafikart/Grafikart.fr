@@ -11,7 +11,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MyProfileController extends AbstractController
 {
-
     /**
      * @Route("/profil", name="user_profil", methods={"GET"})
      * @IsGranted("ROLE_USER")
@@ -30,7 +29,7 @@ class MyProfileController extends AbstractController
             'watchlist' => $watchlist,
             'lastTopics' => $lastTopics,
             'lastMessageTopics' => $lastMessageTopics,
-            'hasActivity' => $hasActivity
+            'hasActivity' => $hasActivity,
         ]);
     }
 }

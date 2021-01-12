@@ -29,6 +29,7 @@ class EmailChangeController extends AbstractController
             // Un utilisateur existe déjà avec cet email
             if ($user) {
                 $this->addFlash('error', 'Cet email est déjà utilisé');
+
                 return $this->redirectToRoute('auth_login');
             }
 
