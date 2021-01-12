@@ -129,12 +129,16 @@ class ForumController extends AbstractController
         \Knp\Component\Pager\PaginatorInterface $paginator
     ): Response {
         $q = $request->get('q');
-        $page = $request->get('page', 1);
-        [$items, $total] = $topicRepository->search($q, $page);
-        $topics = $paginator->paginate([], 1, 10, ['whiteList' => []]);
-        $topics->setTotalItemCount($total);
-        $topics->setItems($items);
-        $topics->setCurrentPageNumber($page);
+        if (empty($q)) {
+            $topics = [];
+        } else {
+            $page = $request->get('page', 1);
+            [$items, $total] = $topicRepository->search($q, $page);
+            $topics = $paginator->paginate([], 1, 10, ['whiteList' => []]);
+            $topics->setTotalItemCount($total);
+            $topics->setItems($items);
+            $topics->setCurrentPageNumber($page);
+        }
 
         return $this->render('forum/search.html.twig', [
             'q' => $q,
