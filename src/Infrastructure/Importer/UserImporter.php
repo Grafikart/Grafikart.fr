@@ -56,7 +56,7 @@ final class UserImporter implements TypeImporterInterface
                     ->setFacebookId($oldUser['facebook_id'])
                     ->setDiscordId($oldUser['discord_id'])
                     ->setGoogleId($oldUser['google_id'])
-                    ->setCreatedAt('0000-00-00 00:00:00' === $oldUser['created_at'] ? new \DateTime('@0') : new \DateTime($oldUser['created_at']))
+                    ->setCreatedAt('0000-00-00 00:00:00' === $oldUser['created_at'] ? new \DateTime('@566309532') : new \DateTime($oldUser['created_at']))
                     ->setEmail($oldUser['email']);
                 $this->em->persist($user);
                 $this->disableAutoIncrement($user);

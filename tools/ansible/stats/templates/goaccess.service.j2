@@ -11,7 +11,7 @@ ExecStart=/usr/bin/goaccess -f {{ root_path }}/var/log/access.log \
           --config-file={{ root_path }}/tools/goaccess/goaccess.conf \
           --origin=https://{{ domain }}
           --db-path={{ root_path }}/var
-Restart=on-failure
+Restart=always
 ExecStop=/bin/kill -9 ${MAINPID}
 WorkingDirectory={{ root_path }}
 
