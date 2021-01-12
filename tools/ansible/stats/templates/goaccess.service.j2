@@ -4,6 +4,7 @@ Documentation=https://github.com/Grafikart/Grafikart.fr
 
 [Service]
 Type=simple
+RestartSec=1
 ExecStart=/usr/bin/goaccess -f {{ root_path }}/var/log/access.log \
           --real-time-html --ws-url=wss://{{ domain }}:443/goaccessws \
           -o {{ root_path }}/public/report.html --port=7890 \

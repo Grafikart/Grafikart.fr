@@ -4,7 +4,9 @@ Documentation=https://github.com/Grafikart/Grafikart.fr
 
 [Service]
 ExecStart=/usr/bin/php {{ root_path }}/bin/console messenger:consume async --time-limit=3600
+Type=simple
 Restart=always
+RestartSec=1
 
 [Install]
 WantedBy=multi-user.target

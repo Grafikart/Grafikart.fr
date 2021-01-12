@@ -28,4 +28,4 @@ SET
     github_id = null,
     discord_id = null,
     google_id = null
-WHERE 1 = 1
+WHERE 1 = 1 AND id != 1
