@@ -6,6 +6,8 @@ services:
       - .:/var/www:delegated
     links:
       - dbtest
+    networks:
+      - test
   dbtest:
     image: postgres:12
     environment:
@@ -14,3 +16,9 @@ services:
       POSTGRES_DB: test
     ports:
       - 5433:5433
+    networks:
+      - test
+
+networks:
+  test:
+    name: test

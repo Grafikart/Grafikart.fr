@@ -1,36 +1,45 @@
 {% extends 'base.html.twig' %}
 
+{% block title "Formation " ~ formation.title %}
+
 {% block body %}
 
+  {% set first_course = formation.firstContent %}
 
-    <header class="wave-header">
-      <div class="wave-header__body stack">
-        <h1 class="wave-header__title">{{ formation.title }}</h1>
-        {% if formation.short %}
+  <header class="wave-header">
+    <div class="wave-header__body stack">
+      <h1 class="wave-header__title">{{ formation.title }}</h1>
+      {% if formation.short %}
         <p>{{ formation.short }}</p>
-        {% else %}
-          {{ formation.content | markdown }}
-        {% endif %}
-        {% if progress %}
-          <div class="formation-progress my3">
-            <div class="formation-progress__label">Ma progression</div>
-            <div class="formation-progress__count">Chapitre {{ (progress.ratio * (formation.courses | length)) | round(0, 'floor') }} / {{ formation.courses | length }}</div>
-            <div class="formation-progress__bar" style="--progress: {{ progress.ratio * 100 }}%"></div>
-          </div>
-          <p>
-            <a href="{{ path('formation_resume', {slug: formation.slug}) }}#autoplay" class="btn-white-outlined btn-big">{{ icon('play') }} Continuer</a>
-          </p>
-        {% else %}
-          <p>
-            <a href="{{ path(formation.firstContent) }}#autoplay" class="btn-white-outlined btn-big">{{ icon('play') }} Commencer</a>
-          </p>
-        {% endif %}
-      </div>
+      {% else %}
+        {{ formation.content | markdown }}
+      {% endif %}
+      {% if progress %}
+        <div class="formation-progress my3">
+          <div class="formation-progress__label">Ma progression</div>
+          <div class="formation-progress__count">
+            Chapitre {{ (progress.ratio * (formation.courses | length)) | round(0, 'floor') }}
+            / {{ formation.courses | length }}</div>
+          <div class="formation-progress__bar" style="--progress: {{ progress.ratio * 100 }}%"></div>
+        </div>
+        <p>
+          <a href="{{ path('formation_resume', {slug: formation.slug}) }}#autoplay"
+             class="btn-white-outlined btn-big">{{ icon('play') }} Continuer</a>
+        </p>
+      {% elseif formation.firstContent %}
+        <p>
+          <a href="{{ path(first_course) }}#autoplay" class="btn-white-outlined btn-big">{{ icon('play') }}
+            Commencer</a>
+        </p>
+      {% endif %}
+    </div>
+    {% if formation.mainTechnologies is not empty %}
       <div class="wave-header__image">
         <img src="{{ uploads_path('icons/' ~ formation.mainTechnologies[0].image) }}" alt="">
       </div>
-      <waves-shape class="waves" position="bottomWave" target=".wave-header"></waves-shape>
-    </header>
+    {% endif %}
+    <waves-shape class="waves" position="bottomWave" target=".wave-header"></waves-shape>
+  </header>
 
   {% cache [formation, 'show', app.user and app.user.premium] %}
 
@@ -75,17 +84,20 @@
             </div>
           </div>
 
-          {% set course = formation.chapters[0].modules[0] %}
+          {% if first_course %}
 
-          <progress-tracker contentId="{{ course.id }}" data-history="{{ course.id }}" duration="{{ course.duration }}">
-            <youtube-player
-              id="course-{{ course.id }}"
-              video="{{ course.youtubeId }}"
-              poster="{{ image_url(course.image) }}"
-              duration="{{ course.duration | duration }}"
-              button="#chapter{{ course.id }} play-button"
-              class="shadow formation-intro"></youtube-player>
-          </progress-tracker>
+            <progress-tracker contentId="{{ first_course.id }}" data-history="{{ first_course.id }}"
+                              duration="{{ first_course.duration }}">
+              <youtube-player
+                id="course-{{ first_course.id }}"
+                video="{{ first_course.youtubeId }}"
+                poster="{{ image_url(first_course.image) }}"
+                duration="{{ first_course.duration | duration }}"
+                button="#chapter{{ first_course.id }} play-button"
+                class="shadow formation-intro"></youtube-player>
+            </progress-tracker>
+
+          {% endif %}
 
         </div>
 

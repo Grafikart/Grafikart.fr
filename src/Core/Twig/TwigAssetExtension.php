@@ -97,18 +97,17 @@ class TwigAssetExtension extends AbstractExtension
     {
         $script = '<script src="'.$this->uri($name.'.js').'" type="module" defer></script>';
         $request = $this->requestStack->getCurrentRequest();
-        $userAgent = $request->headers->get('User-Agent') ?: '';
 
-        if ($request instanceof Request &&
-            $this->polyfillLoaded === false &&
-            strpos($userAgent, 'Safari') &&
-            !strpos($userAgent, 'Chrome')
-        ) {
-            $this->polyfillLoaded = true;
-            $script = <<<HTML
+        if ($this->polyfillLoaded === false && $request instanceof Request) {
+            $userAgent = $request->headers->get('User-Agent') ?: '';
+            if (strpos($userAgent, 'Safari') &&
+                !strpos($userAgent, 'Chrome')) {
+                $this->polyfillLoaded = true;
+                $script = <<<HTML
                     <script src="//unpkg.com/@ungap/custom-elements" defer></script>
                     $script
                 HTML;
+            }
         }
 
         // Si on est en mode développement on injecte le système de Hot Reload de vite

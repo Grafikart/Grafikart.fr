@@ -53,8 +53,8 @@ class ChaptersForm extends TextareaType implements DataTransformerInterface
             'html5' => false,
             'label' => false,
             'attr' => [
-                'endpoint' => $this->urlGenerator->generate('admin_content_title', ['id' => ':id']),
-                'endpoint-edit' => $this->urlGenerator->generate('admin_content_edit', ['id' => ':id']),
+                'endpoint' => $this->urlGenerator->generate('admin_content_title', ['id' => '0']),
+                'endpoint-edit' => $this->urlGenerator->generate('admin_content_edit', ['id' => '0']),
                 'is' => 'chapters-editor',
             ],
         ]);

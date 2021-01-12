@@ -7,4 +7,4 @@ ExecStart=/usr/bin/php {{ root_path }}/bin/console messenger:consume async --tim
 Restart=always
 
 [Install]
-WantedBy=default.target
+WantedBy=multi-user.target

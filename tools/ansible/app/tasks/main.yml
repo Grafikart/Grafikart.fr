@@ -24,20 +24,6 @@
 - include_tasks: typesense.yml
 - include_tasks: messenger.yml
 - include_tasks: mercure.yml
-- name: Symfony | build asset
-  become: no
-  local_action:
-    module: shell
-    cmd: yarn run build
-    creates: public/assets
-- name: Symfony | assets
-  become: no
-  ansible.posix.synchronize:
-    src: "{{ playbook_dir }}/../../public/assets"
-    dest: "{{ root_path }}/public/"
-    recursive: yes
-    owner: no
-    group: no
 - name: Symfony | var permission
   ansible.posix.acl:
     path: "{{ root_path }}/var"

@@ -47,7 +47,7 @@ function Chapter ({ chapter, onUpdate, onRemove, onAdd, editPath }) {
  * @return {HTMLLIElement}
  */
 function Module ({ course, onRemove, editPath }) {
-  const url = editPath.replace(':id', course.id)
+  const url = editPath.replace('/0', `/${course.id}`)
   return html`
     <li class="chapters-editor__course" data-title=${course.title} data-id=${course.id}>
       <a href=${url} target="_blank">${course.title}</a>
