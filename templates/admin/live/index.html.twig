@@ -27,7 +27,7 @@
       <td><a href="{{ live.youtubeUrl }}">{{ image(live, 105, 60) }}</a></td>
       <td><a href="{{ live.youtubeUrl }}">{{ live.name }}</a></td>
       <td>{{ live.duration | duration }}</td>
-      <td class="text-right">{{ live.createdAt | date }}</td>
+      <td class="text-right">{{ live.createdAt | format_date('long') }}</td>
     </tr>
     {% endfor %}
     </tbody>

@@ -115,7 +115,7 @@
                   {% for live in lives %}
                     <div class="home-list__item">
                       <a class="card__title" href="https://www.youtube.com/watch?v={{ live.youtubeId }}">{{ live.name }}</a>
-                      <div>{{ live.createdAt | date("m F Y") }}</div>
+                      <div>{{ live.createdAt | format_date('long') }}</div>
                     </div>
                   {% endfor %}
                 </div>

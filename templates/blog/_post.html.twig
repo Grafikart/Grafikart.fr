@@ -9,7 +9,7 @@
     <div class="blog-post__body">
       <h2 class="blog-post__title"><a href="{{ link }}">{{ post.title }}</a></h2>
       <div class="blog-post__meta">
-        <div>{{ post.createdAt | date }}</div>
+        <div>{{ post.createdAt | format_date('long') }}</div>
         <div>Auteur {{ post.author.username }}</div>
       </div>
       <p>

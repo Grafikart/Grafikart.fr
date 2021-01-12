@@ -104,7 +104,7 @@
                 </a>
               </td>
               <td>{{ revision.author.username }}</td>
-              <td>{{ revision.createdAt | date }}</td>
+              <td>{{ revision.createdAt | format_date('long') }}</td>
               <td>
                 <div class="dashboard-actions">
                   <a href="{{ path('admin_revision_show', {id: revision.id}) }}">{{ icon('edit') }}</a>
