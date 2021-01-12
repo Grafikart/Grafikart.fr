@@ -79,6 +79,7 @@ abstract class AbstractRepository extends ServiceEntityRepository
             $conditionString[] = "LOWER(o.$k) = :$k";
             $parameters[$k] = strtolower($v);
         }
+
         return $this->createQueryBuilder('o')
             ->where(join(' AND ', $conditionString))
             ->setParameters($parameters)

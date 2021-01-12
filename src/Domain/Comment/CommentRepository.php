@@ -4,7 +4,6 @@ namespace App\Domain\Comment;
 
 use App\Core\Orm\AbstractRepository;
 use App\Domain\Auth\User;
-use Doctrine\ORM\EntityNotFoundException;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -41,9 +40,9 @@ class CommentRepository extends AbstractRepository
     /**
      * Renvoie un commentaire en évitant la liaison content.
      */
-    public function findPartial(int $id): Comment
+    public function findPartial(int $id): ?Comment
     {
-        $result = $this->createQueryBuilder('c')
+        return $this->createQueryBuilder('c')
             ->select('partial c.{id, username, email, content, createdAt}, partial u.{id, username, email}')
             ->where('c.id = :id')
             ->leftJoin('c.author', 'u')
@@ -52,11 +51,6 @@ class CommentRepository extends AbstractRepository
             ->getQuery()
             ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)
             ->getOneOrNullResult();
-        if (null === $result) {
-            throw new EntityNotFoundException();
-        }
-
-        return $result;
     }
 
     public function queryLatest(): Query

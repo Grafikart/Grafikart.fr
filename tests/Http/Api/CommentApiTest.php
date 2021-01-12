@@ -76,7 +76,7 @@ class CommentApiTest extends ApiTestCase
             ],
                 [
                     'propertyPath' => 'content',
-                ]],
+                ], ],
         ]);
     }
 
@@ -127,6 +127,14 @@ class CommentApiTest extends ApiTestCase
         $this->login($fixtures['user1']);
         $this->client->request('DELETE', "/api/comments/{$comment->getId()}");
         $this->assertResponseIsSuccessful();
+    }
+
+    public function testDeleteWithBadId()
+    {
+        ['user1' => $user] = $this->loadFixtures(['users']);
+        $this->login($user);
+        $this->client->request('DELETE', '/api/comments/100');
+        $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
     }
 
     public function testUpdateWithBadAuth()
