@@ -18,6 +18,11 @@ class UserRepository extends AbstractRepository implements PasswordUpgraderInter
         parent::__construct($registry, User::class);
     }
 
+    public function findOneByEmail(string $email): ?User
+    {
+        return $this->findOneBy(['email' => $email]);
+    }
+
     /**
      * Requête permettant de récupérer un utilisateur pour le login.
      */

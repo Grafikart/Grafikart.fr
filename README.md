@@ -28,6 +28,10 @@ Dépôt pour la nouvelle version de Grafikart.fr. L'objectif est de rendre le pr
 
 L'avancement peut être suivi sur la [board trello de grafikart](https://trello.com/b/oKnfpVtU/grafikart)
 
+## MR à suivre :
+
+- Erreur dans les logs de PHPUnit : https://github.com/symfony/monolog-bundle/pull/336
+
 ## Participer (faire une PR)
 
 Le développement a commencé et vous pouvez récupérer le projet et pour travailler dessus. Afin de simplifier la mise en place de l'environnement de dev, **docker** a été choisi :

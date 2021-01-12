@@ -3,6 +3,7 @@
 namespace App\Tests\Http\Controller;
 
 use App\Domain\Auth\User;
+use App\Domain\Profile\Entity\EmailVerification;
 use App\Tests\FixturesTrait;
 use App\Tests\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
@@ -86,7 +87,7 @@ class UserControllerTest extends WebTestCase
 
     public function testSendEmailOnDeleteRequest(): void
     {
-        /* @var User[] $data */
+        /* @var User $user */
         ['user1' => $user] = $this->loadFixtures(['users']);
         $this->login($user);
         $this->jsonRequest('DELETE', '/profil', [
@@ -95,5 +96,26 @@ class UserControllerTest extends WebTestCase
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $this->assertEmailCount(1);
+    }
+
+    /**
+     * 2 utilisateurs essaient de changer leur email pour mettre le même email
+     */
+    public function testCrossedEmailChanges(): void
+    {
+        /* @var User $user */
+        /* @var User $user2 */
+        ['user1' => $user, 'user2' => $user2] = $this->loadFixtures(['users']);
+        $emailVerification = (new EmailVerification())
+            ->setAuthor($user)
+            ->setCreatedAt(new \DateTime())
+            ->setEmail($user2->getEmail())
+            ->setToken('hello');
+        $this->em->persist($emailVerification);
+        $this->em->flush();
+
+        $this->login($user);
+        $this->client->request('GET', '/email-confirm/hello');
+        $this->assertResponseRedirects('/connexion');
     }
 }

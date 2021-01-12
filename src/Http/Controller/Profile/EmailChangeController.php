@@ -2,6 +2,7 @@
 
 namespace App\Http\Controller\Profile;
 
+use App\Domain\Auth\UserRepository;
 use App\Domain\Profile\Entity\EmailVerification;
 use App\Domain\Profile\ProfileService;
 use App\Http\Controller\AbstractController;
@@ -17,11 +18,20 @@ class EmailChangeController extends AbstractController
     public function confirm(
         EmailVerification $emailVerification,
         ProfileService $service,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        UserRepository $userRepository
     ): Response {
         if ($emailVerification->isExpired()) {
-            $this->addFlash('error', 'Cette demande de confirmation a expirée');
+            $this->addFlash('error', 'Cette demande de confirmation a expiré');
         } else {
+            $user = $userRepository->findOneByEmail($emailVerification->getEmail());
+
+            // Un utilisateur existe déjà avec cet email
+            if ($user) {
+                $this->addFlash('error', 'Cet email est déjà utilisé');
+                return $this->redirectToRoute('auth_login');
+            }
+
             $service->updateEmail($emailVerification);
             $em->flush();
             $this->addFlash('success', 'Votre email a bien été modifié');
