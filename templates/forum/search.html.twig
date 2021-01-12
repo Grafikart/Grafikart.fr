@@ -38,6 +38,13 @@
           </div>
           <a href="{{ path(topic) }}" aria-hidden="true" class="forum-topic__link" tabindex="-1"></a>
         </div>
+      {% else %}
+        <div class="py5">
+          <div class="h2 center">Aucun résultats :(</div>
+          <p class="text-muted center mt1">
+            Il ne semble pas y avoir de sujets qui correspondent à votre recherche.
+          </p>
+        </div>
       {% endfor %}
     </div>
 
