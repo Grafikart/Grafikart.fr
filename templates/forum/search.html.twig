@@ -12,38 +12,62 @@
   </div>
 
   <div class="container py5">
+    {% if q is empty %}
+      <div class="formatted">
+        <p>
+          Essayez de taper au moins un mot clé. sinon je ne sais pas quoi vous trouver :(
+        </p>
+        <p>
+          Sérieusement je ne peux vraiment pas vous trouver ce que vous cherchez si vous ne m'aidez pas un peu.<br/>
+          Alors je sais, parfois on arrive sur une nouvelle page et on ne sait plus ce que l'on cherche, ça arrive !<br/>
+          Dans ce cas là Il va falloir travailler un peu votre mémoire
+        </p>
 
-    <div class="forum-page__main stack">
-      {% for topic in topics %}
-        <div class="forum-topic{% if topic.solved %} is-solved{% endif %}" id="topic-{{ topic.id }}">
-          <div class="forum-avatar">
-            <img src="{{ topic.author | avatar }}" alt="">
-          </div>
-          <div class="forum-topic__body" style="padding-top: 0;">
-            <a class="forum-topic__title" href="{{ path(topic) }}">{{ topic.name | striptags('<mark>') | raw }}
-            </a>
-            <div class="forum-topic__meta">
-              <a
-                href="{{ path(topic.author) }}">{{ topic.author.username }}</a>, {{ topic.createdAt | ago }}
-            </div>
-            <p class="mt1">
-              <small>
-                {{ topic.content | striptags('<mark>') | raw }}
-              </small>
-            </p>
-          </div>
-          <div class="forum-topic__count">
-            {{ icon('comments') }}
-            {{ topic.messageCount }}
-          </div>
-          <a href="{{ path(topic) }}" aria-hidden="true" class="forum-topic__link" tabindex="-1"></a>
+        <div class="ratio">
+          <iframe width="560" height="315" src="//www.youtube-nocookie.com/embed/Crh3MtpVZxM?rel=0&showinfo=0" frameborder="0" allow="encrypted-media; picture-in-picture" allowfullscreen=""></iframe>
         </div>
-      {% endfor %}
+
+      </div>
+    {% elseif results is empty %}
+      <p class="text-center text-muted h3">
+        Aucun résultat ne semble correspondre à votre recherche :(
+      </p>
+
+    {% else %}
+
+      <div class="forum-page__main stack">
+        {% for topic in topics %}
+          <div class="forum-topic{% if topic.solved %} is-solved{% endif %}" id="topic-{{ topic.id }}">
+            <div class="forum-avatar">
+              <img src="{{ topic.author | avatar }}" alt="">
+            </div>
+            <div class="forum-topic__body" style="padding-top: 0;">
+              <a class="forum-topic__title" href="{{ path(topic) }}">{{ topic.name | striptags('<mark>') | raw }}
+              </a>
+              <div class="forum-topic__meta">
+                <a
+                  href="{{ path(topic.author) }}">{{ topic.author.username }}</a>, {{ topic.createdAt | ago }}
+              </div>
+              <p class="mt1">
+                <small>
+                  {{ topic.content | striptags('<mark>') | raw }}
+                </small>
+              </p>
+            </div>
+            <div class="forum-topic__count">
+              {{ icon('comments') }}
+              {{ topic.messageCount }}
+            </div>
+            <a href="{{ path(topic) }}" aria-hidden="true" class="forum-topic__link" tabindex="-1"></a>
+          </div>
+        {% endfor %}
+      </div>
+
+      {{ paginate(topics) }}
+
     </div>
-
-    {{ paginate(topics) }}
-
-  </div>
+    
+  {% endif %}
 
 {% endblock %}
 
