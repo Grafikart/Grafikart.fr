@@ -52,8 +52,7 @@ class UserController extends AbstractController
      * @IsGranted("ROLE_USER")
      */
     public function edit(
-        Request $request,
-        EntityManagerInterface $em
+        Request $request
     ): Response {
         $user = $this->getUserOrThrow();
 

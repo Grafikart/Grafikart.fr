@@ -42,6 +42,21 @@ abstract class AbstractRepository extends ServiceEntityRepository
         return $entity;
     }
 
+    public function findByCaseInsensitive(array $conditions): array
+    {
+        $conditionString = [];
+        $parameters = [];
+        foreach ($conditions as $k => $v) {
+            $conditionString[] = "LOWER(o.$k) = :$k";
+            $parameters[$k] = strtolower($v);
+        }
+        return $this->createQueryBuilder('o')
+            ->where(join(' AND ', $conditionString))
+            ->setParameters($parameters)
+            ->getQuery()
+            ->getResult();
+    }
+
     /**
      * Crée une requête qui peut être iterable, mais qui ne récupère les données que lors de la première itération.
      *
