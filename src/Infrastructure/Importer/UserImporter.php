@@ -50,6 +50,7 @@ final class UserImporter implements TypeImporterInterface
                     ->setId($oldUser['id'])
                     ->setPremiumEnd($oldUser['premium'] && '0000-00-00 00:00:00' !== $oldUser['premium'] ? new \DateTimeImmutable($oldUser['premium']) : null)
                     ->setUsername($oldUser['username'])
+                    ->setCountry($oldUser['country'])
                     ->setPassword($oldUser['encrypted_password'])
                     ->setGithubId($oldUser['github_id'])
                     ->setFacebookId($oldUser['facebook_id'])

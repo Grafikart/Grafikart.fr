@@ -5,7 +5,6 @@ namespace App\Http\Controller;
 use App\Domain\Auth\User;
 use App\Domain\Comment\CommentRepository;
 use App\Domain\Forum\Repository\TopicRepository;
-use App\Domain\History\HistoryService;
 use App\Domain\Profile\Dto\ProfileUpdateDto;
 use App\Domain\Profile\ProfileService;
 use App\Http\Form\UpdatePasswordForm;
@@ -32,26 +31,6 @@ class UserController extends AbstractController
         $this->passwordEncoder = $passwordEncoder;
         $this->em = $em;
         $this->profileService = $profileService;
-    }
-
-    /**
-     * @Route("/profil", name="user_profil", methods={"GET"})
-     * @IsGranted("ROLE_USER")
-     */
-    public function index(
-        HistoryService $history,
-        TopicRepository $topicRepository
-    ): Response {
-        $user = $this->getUserOrThrow();
-        $watchlist = $history->getLastWatchedContent($user);
-        $lastTopics = $topicRepository->findLastByUser($user);
-        $lastMessageTopics = $topicRepository->findLastWithUser($user);
-
-        return $this->render('profil/profil.html.twig', [
-            'watchlist' => $watchlist,
-            'lastTopics' => $lastTopics,
-            'lastMessageTopics' => $lastMessageTopics,
-        ]);
     }
 
     /**

@@ -10,42 +10,54 @@
 
   {% include 'profil/_tabs.html.twig' with {active: 'profil'} %}
 
-  <div class="bg container py5">
-    <div class="stack" style="--gap: 7;">
-      {% if watchlist | length > 0 %}
-      <div class="stack">
-        <h2 class="h3">Vidéos <strong>en cours de visionnage</strong></h2>
-        <div class="courses">
-          {% for progress in watchlist %}
-            {% include 'profil/_progress-card.html.twig' %}
-          {% endfor %}
-        </div>
-      </div>
-      {% endif %}
-      <div class="grid2" style="--gap: 4;">
-        {% if lastTopics | length > 0 %}
+  {% if hasActivity %}
+    <div class="bg container py5">
+      <div class="stack" style="--gap: 7;">
+        {% if watchlist | length > 0 %}
         <div class="stack">
-          <h2 class="h3">Mes <strong>derniers sujets</strong></h2>
-          <div class="card p2 stack-separated" style="--gap: 1">
-            {% for topic in lastTopics %}
-              {% include('forum/_topic.html.twig') %}
+          <h2 class="h3">Vidéos <strong>en cours de visionnage</strong></h2>
+          <div class="courses">
+            {% for progress in watchlist %}
+              {% include 'profil/_progress-card.html.twig' %}
             {% endfor %}
           </div>
         </div>
         {% endif %}
-        {% if lastMessageTopics | length > 0 %}
-        <div class="stack">
-          <h2 class="h3">Les sujets auxquels <strong>je participe</strong></h2>
-          <div class="card p2 stack-separated" style="--gap: 1">
-            {% for topic in lastMessageTopics %}
-              {% include('forum/_topic.html.twig') %}
-            {% endfor %}
+        <div class="grid2" style="--gap: 4;">
+          {% if lastTopics | length > 0 %}
+          <div class="stack">
+            <h2 class="h3">Mes <strong>derniers sujets</strong></h2>
+            <div class="card p2 stack-separated" style="--gap: 1">
+              {% for topic in lastTopics %}
+                {% include('forum/_topic.html.twig') %}
+              {% endfor %}
+            </div>
           </div>
+          {% endif %}
+          {% if lastMessageTopics | length > 0 %}
+          <div class="stack">
+            <h2 class="h3">Les sujets auxquels <strong>je participe</strong></h2>
+            <div class="card p2 stack-separated" style="--gap: 1">
+              {% for topic in lastMessageTopics %}
+                {% include('forum/_topic.html.twig') %}
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
         </div>
-        {% endif %}
       </div>
     </div>
-  </div>
-
+  {% else %}
+    <div class="py5">
+      <div class="h2 center">Bienvenue !</div>
+      <p class="text-muted text-center mt1 mb2">
+        Cette page affichera les tutoriels que vous avez visionnés et votre activité sur le site. <br/>
+        Pour le moment je n'ai rien à vous montrer :(
+      </p>
+      <p class="text-center">
+        <a href="{{ path('formation_map') }}" class="btn-primary-outlined">Commencer à apprendre</a>
+      </p>
+    </div>
+  {% endif %}
 
 {% endblock %}
