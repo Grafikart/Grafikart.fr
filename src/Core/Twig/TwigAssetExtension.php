@@ -30,7 +30,7 @@ class TwigAssetExtension extends AbstractExtension
         $this->assetPath = $assetPath;
         $this->cache = $cache;
         $this->requestStack = $requestStack;
-        $this->isProduction = true; // 'prod' === $env;
+        $this->isProduction = 'prod' === $env;
     }
 
     public function getFunctions(): array

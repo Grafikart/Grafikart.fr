@@ -1,6 +1,6 @@
 {% set plans = repository('App\\Domain\\Premium\\Entity\\Plan', 'findAll') %}
 
-<nav-tabs class="tabs-toggle" style="margin-bottom: 50px;">
+<nav-tabs class="tabs-toggle" style="margin-bottom: 35px;">
   {% for plan in plans %}
     <button aria-controls="plan{{ plan.id }}">{{ plan.name }}</button>
   {% endfor %}

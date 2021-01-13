@@ -8,9 +8,6 @@
     "@babel/plugin-transform-react-jsx": "^7.12.12",
     "@babel/preset-env": "^7.12.11",
     "@prefresh/vite": "^2.0.0",
-    "@rollup/plugin-babel": "^5.2.2",
-    "@rollup/plugin-commonjs": "^17.0.0",
-    "@rollup/plugin-node-resolve": "^11.0.1",
     "@types/jest": "^26.0.19",
     "@types/youtube": "^0.0.41",
     "babel-plugin-jsx-pragmatic": "^1.0.2",
@@ -20,12 +17,7 @@
     "postcss": "^8.2.1",
     "prettier": "^2.2.1",
     "prettier-standard": "^16.4.1",
-    "rollup": "^2.35.1",
-    "rollup-plugin-postcss": "^4.0.0",
-    "rollup-plugin-preact": "^0.5.2",
-    "rollup-plugin-root-import": "^1.0.0",
-    "rollup-plugin-visualizer": "^4.2.0",
-    "sass": "^1.30",
+    "sass": "^1.32.4",
     "vite": "^2.0.0-beta.27"
   },
   "scripts": {

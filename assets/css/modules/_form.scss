@@ -285,6 +285,11 @@ button:not([class]):hover .icon-delete {
     border-radius: 50%;
     transform: translate(-50%, -50%);
     transition: background-color .3s;
+    pointer-events: none;
+  }
+
+  & + label {
+    cursor: pointer;
   }
 
   &.is-checked {
@@ -297,11 +302,15 @@ button:not([class]):hover .icon-delete {
 
   input {
     opacity: 0;
+    cursor: pointer;
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
   }
 }
 

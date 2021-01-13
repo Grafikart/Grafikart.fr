@@ -1,9 +1,25 @@
 // @ts-check
-const prefresh = require("@prefresh/vite");
-const path = require("path");
-const { resolve } = require('path')
+import prefresh from "@prefresh/vite";
+import { resolve } from 'path'
 
 const root = "./assets";
+
+/**
+ * Rafraichi la page quand on modifie un fichier twig
+ */
+const twigRefreshPlugin = () => ({
+  name: 'twig-refresh',
+  configureServer({ watcher, ws }) {
+    watcher.add(resolve(__dirname, "templates/**/*.twig"));
+    watcher.on("change", function (path) {
+      if (path.endsWith(".twig")) {
+        ws.send({
+          type: 'full-reload',
+        })
+      }
+    });
+  }
+})
 
 /**
  * @type { import('vite').UserConfig }
@@ -33,19 +49,8 @@ const config = {
       }
     },
   },
-  plugins: [prefresh()],
-  root,
-  configureServer: function ({ root, watcher }) {
-    watcher.add(path.resolve(root, "../templates/**/*.twig"));
-    watcher.on("change", function (path) {
-      if (path.endsWith(".twig")) {
-        watcher.send({
-          type: "full-reload",
-          path,
-        });
-      }
-    });
-  },
+  plugins: [prefresh(), twigRefreshPlugin()],
+  root
 };
 
 module.exports = config;

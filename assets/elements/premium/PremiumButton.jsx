@@ -211,7 +211,7 @@ function PaymentCard ({ plan, publicKey }) {
       </Checkbox>
       <PrimaryButton size='block' onClick={startPayment} loading={loading}>
         {subscription ? "S'abonner via" : 'Payer via '}
-        <img src='/images/stripe.svg' height='20' style={{ marginBottom: '-2px', marginLeft: '.4rem' }} />
+        <img src='/images/stripe.svg' height='20' style={{ marginLeft: '.4rem' }} />
       </PrimaryButton>
     </Stack>
   )
