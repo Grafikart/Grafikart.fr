@@ -158,9 +158,9 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface, Ca
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(?string $password): self
     {
-        $this->password = $password;
+        $this->password = $password ?: '';
 
         return $this;
     }

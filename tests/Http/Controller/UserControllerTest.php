@@ -98,6 +98,21 @@ class UserControllerTest extends WebTestCase
         $this->assertEmailCount(1);
     }
 
+    public function testProfilePageEmptyPassword(): void
+    {
+        /* @var User $user */
+        ['user1' => $user] = $this->loadFixtures(['users']);
+        $this->login($user);
+        $crawler = $this->client->request('GET', '/profil/edit');
+        $form = $crawler->selectButton('Modifier mon mot de passe')->form();
+        $form->setValues([
+            'update_password_form[password][first]' => null,
+            'update_password_form[password][second]' => null,
+        ]);
+        $this->client->submit($form);
+        $this->expectFormErrors(1);
+    }
+
     /**
      * 2 utilisateurs essaient de changer leur email pour mettre le même email.
      */
