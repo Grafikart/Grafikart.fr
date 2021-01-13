@@ -20,8 +20,8 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Entity(repositoryClass="App\Domain\Auth\UserRepository")
  * @ORM\Table(name="`user`")
  * @Vich\Uploadable()
- * @UniqueEntity(fields={"email"}, repositoryMethod="findByCaseInsensitive")
- * @UniqueEntity(fields={"username"}, repositoryMethod="findByCaseInsensitive")
+ * @UniqueEntity(fields={"email"})
+ * @UniqueEntity(fields={"username"})
  */
 class User implements UserInterface, \Serializable, ForumReaderUserInterface, CacheableInterface
 {
@@ -54,6 +54,7 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface, Ca
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private string $password = '';
 
@@ -158,9 +159,9 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface, Ca
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(?string $password): self
     {
-        $this->password = $password;
+        $this->password = $password ?: '';
 
         return $this;
     }
