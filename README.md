@@ -26,27 +26,32 @@ Dépôt pour la nouvelle version de Grafikart.fr. L'objectif est de rendre le pr
 
 ## Etat d'avancement
 
-L'avancement peut être suivi sur la [board trello de grafikart](https://trello.com/b/oKnfpVtU/grafikart)
+L'avancement peut être suivi sur la [board trello de Grafikart](https://trello.com/b/oKnfpVtU/grafikart).
 
 ## MR à suivre :
 
-- Erreur dans les logs de PHPUnit : https://github.com/symfony/monolog-bundle/pull/336
+- Erreur dans les logs de PHPUnit : https://github.com/symfony/monolog-bundle/pull/336.
 
 ## Participer (faire une PR)
 
 Le développement a commencé et vous pouvez récupérer le projet et pour travailler dessus. Afin de simplifier la mise en place de l'environnement de dev, **docker** a été choisi :
 
 ```bash
-make dev ## Permet de lancer le serveur de développement, accessible ensuite sur http://grafikart.localhost:8000
-make seed ## Permet de remplir la base de données
+## Permet de lancer le serveur de développement, accessible ensuite sur http://grafikart.localhost:8000 :
+make dev
+## Permet de remplir la base de données :
+make seed
 ```
 
 Pour les tests vous pouvez lancer une de ces commandes :
 
 ```bash
-make test ## Permet de lancer les tests
-make tt ## Permet de relancer les tests automatiquement
-make lint ## Permet de vérifier que le code ne contienne pas d'erreur
+## Permet de lancer les tests :
+make test
+## Permet de relancer les tests automatiquement :
+make tt
+## Permet de vérifier que le code ne contienne pas d'erreur :
+make lint
 ```
 
 ## Objectifs, pourquoi une refonte ?
@@ -66,7 +71,7 @@ Les contenus ne sont pas correctement mis en avant et il n'est pas évident pour
 - Les commentaires ne servent pas forcément à grand-chose en l'état (remplacer peut-être par un système de questions ?).
 - Les contenus premiums ne sont pas forcément mis en avant et on ne sait pas trop ce qui est disponible et ce qui ne l'est pas.
 - Un système de progression doit être mis en place pour permettre de reprendre une formation ou une vidéo.
-- Le système de pricing n'est pas clair, on a les mêmes fonctionnalités pour 3.5€,10€,37€ et la seule différence est marquée en gris en haut à droite (temps d'abonnement).
+- Le système de pricing n'est pas clair, on a les mêmes fonctionnalités pour 3.5€, 10€, 37€ et la seule différence est marquée en gris en haut à droite (temps d'abonnement).
 
 ### Rendre le code Open Source
 
@@ -115,7 +120,7 @@ php bin/console cache:pool:clear cache.global_clearer
 php bin/console cache:clear
 ```
 
-## Nginx config
+## Configuration Nginx
 
 https://www.digitalocean.com/community/tools/nginx?domains.0.server.domain=test.grafikart.fr&domains.0.server.path=%2Fhome%2Fgrafikart%2Ftest.grafikart.fr&domains.0.logging.accessLog=true&domains.0.logging.errorLog=true&global.security.limitReq=true&global.php.phpServer=%2Fvar%2Frun%2Fphp%2Fphp7.4-fpm.sock&global.logging.accessLog=%2Fvar%2Flog%2Fnginx%2Faccess.log%20warn&global.logging.errorLog=%2Fvar%2Flog%2Fnginx%2Ferror.log%20warn%20warn
 
@@ -133,5 +138,5 @@ Pour évaluer l'efficacité de la nouvelle version :
 
 ## Docker ref
 
-- curl -fsSL https://get.docker.com/rootless | sh
-- systemctl --user enable docker.service
+- ``curl -fsSL https://get.docker.com/rootless | sh``
+- ``systemctl --user enable docker.service``
