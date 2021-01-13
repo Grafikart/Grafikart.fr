@@ -4,7 +4,7 @@
       <div class="card__icons">
         {% for technology in formation.mainTechnologies %}
           <a href="{{ path('technology_show', {slug: technology.slug}) }}" class="course__icon" tabindex="-1">
-            <img src="{{ uploads_path('icons/' ~ technology.image) }}" alt="{{ technology.name }}">
+             /
           </a>
         {% endfor %}
       </div>

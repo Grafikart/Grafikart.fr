@@ -3,7 +3,7 @@
     <div class="card__icons">
       {% for technology in cursus.mainTechnologies %}
         <a href="{{ path('technology_show', {slug: technology.slug}) }}" class="course__icon" tabindex="-1">
-          <img src="{{ uploads_path('icons/' ~ technology.image) }}" alt="{{ technology.name }}">
+          <img src="{{ uploads_path('icons/' ~ technology.image) }}" alt="{{ technology.name }}" />
         </a>
       {% endfor %}
     </div>
@@ -18,7 +18,7 @@
     <p><em>122 heures</em></p>
   </div>
   <a href="{{ path(cursus) }}" class="card__illustration" data-text="Voir ce cursus">
-    <img src="{{ image_url(cursus.image, 250, 340) }}" alt="">
+    <img src="{{ image_url(cursus.image, 250, 340) }}" alt="" />
     <span class="play"></span>
   </a>
   <a href="{{ path(cursus) }}" title="{{ cursus.title }}"

@@ -6,7 +6,7 @@
       <div class="card__icons">
         {% for technology in course.mainTechnologies %}
           <a href="{{ path('technology_show', {slug: technology.slug}) }}" class="course__icon" tabindex="-1" title="Tous les tutoriels {{ technology.name }}">
-            <img src="{{ uploads_path('icons/' ~ technology.image) }}" alt="{{ technology.name }}">
+            <img src="{{ uploads_path('icons/' ~ technology.image) }}" alt="{{ technology.name }}" />
           </a>
         {% endfor %}
       </div>

@@ -10,7 +10,7 @@
     <h1 class="h2 mb2">{{ topic.name }}</h1>
     <div class="flex flex-start">
       <a href="{{ path(topic.author) }}" class="flex underline flex-start mr1">
-        <img src="{{ topic.author | avatar }}" alt="" class="rounded mr1" width="25">
+        <img src="{{ topic.author | avatar }}" alt="" class="rounded mr1" width="25" />
         {{ topic.author.username }}
       </a>
       <small class="text-muted">

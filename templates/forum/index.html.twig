@@ -25,7 +25,7 @@
             {% for tag in tags %}
               <li>
                 <a href="{{ path(tag) }}" {% if tag == current_tag %}aria-selected="true" {% endif %}>
-                  <img src="/icons/{{ tag.name | lower }}.svg" alt="" width="16" height="16">
+                  <img src="/icons/{{ tag.name | lower }}.svg" alt="" width="16" height="16" />
                   {{ tag.name }}
                 </a>
                 <ul>

@@ -6,7 +6,7 @@
     {% for technology in formation.mainTechnologies %}
       {% if loop.last %}
       <a href="{{ path(formation) }}" class="tree-item__icon">
-        <img src="{{ uploads_path('icons/' ~ technology.image) }}" alt="{{ technology.name }}">
+        <img src="{{ uploads_path('icons/' ~ technology.image) }}" alt="{{ technology.name }}" />
       </a>
       {% endif %}
     {% endfor %}

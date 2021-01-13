@@ -166,7 +166,7 @@
               <div>
                 <div class="flex">
                   <img class="author_avatar" src="{{ course.author | avatar }}" alt=""
-                       style="width: 50px;border-radius: 50px;">
+                       style="width: 50px;border-radius: 50px;" />
                   <div style="width: 100%; margin-left: 20px;">
                     <strong style="font-weight: bold;">Auteur : </strong><br>
                     <a title="Grafikart" class="author_name" href="{{ path(course.author) }}">{{ course.author.username }}</a>
@@ -176,10 +176,10 @@
               <div>
                 <div class="requirements__title">Partager</div>
                 <a href="https://twitter.com/intent/tweet?via=grafikart_fr&tw_p=tweetbutton&url={{ url(course) | url_encode }}" is="social-share" target="_blank">
-                  <img src="/images/social/twitter.svg" alt="">
+                  <img src="/images/social/twitter.svg" alt="" />
                 </a>
                 <a href="https://www.facebook.com/sharer/sharer.php?u={{ url(course) | url_encode }}" is="social-share" target="_blank">
-                  <img src="/images/social/facebook.svg" alt="">
+                  <img src="/images/social/facebook.svg" alt="" />
                 </a>
               </div>
               <admin-edit hidden></admin-edit>
