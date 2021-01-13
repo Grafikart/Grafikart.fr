@@ -13,13 +13,13 @@
     </div>
     {% if false %}
       <div class="text-center">
-        <img src="/images/illustrations/php.svg" alt="">
+        <img src="/images/illustrations/php.svg" alt="" />
       </div>
     {% else %}
       <div class="cursus-header__technologies">
         {% for technology in cursus.mainTechnologies %}
           <a href="{{ path('technology_show', {slug: technology.slug}) }}" class="course__icon" tabindex="-1">
-            <img src="{{ uploads_path('icons/' ~ technology.image) }}" alt="{{ technology.name }}">
+            <img src="{{ uploads_path('icons/' ~ technology.image) }}" alt="{{ technology.name }}" />
           </a>
         {% endfor %}
       </div>

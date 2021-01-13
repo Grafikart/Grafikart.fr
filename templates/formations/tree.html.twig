@@ -37,7 +37,7 @@
             {% for lang in ['react', 'vuejs'] %}
               <div class="tree-choice {% if lang == 'react' %}is-active{% endif %}" data-choice="{{ lang }}"
                    style="width: 50%">
-                <img src="{{ uploads_path('icons/' ~ lang ~ '.svg') }}" alt="">
+                <img src="{{ uploads_path('icons/' ~ lang ~ '.svg') }}" alt="" />
               </div>
             {% endfor %}
           </div>
@@ -56,7 +56,7 @@
             {% for lang in ['php', 'ruby', 'nodejs'] %}
               <div class="tree-choice {% if lang == 'php' %}is-active{% endif %}" data-choice="{{ lang }}"
                    style="width: 50%">
-                <img src="{{ uploads_path('icons/' ~ lang ~ '.svg') }}" alt="">
+                <img src="{{ uploads_path('icons/' ~ lang ~ '.svg') }}" alt="" />
               </div>
             {% endfor %}
           </div>
@@ -78,7 +78,7 @@
             <div class="tree-choices">
               {% for lang in ['symfony', 'laravel'] %}
                 <div class="tree-choice {% if lang == 'symfony' %}is-active{% endif %}" style="width: 50%;" data-choice="{{ lang }}">
-                  <img src="{{ uploads_path('icons/' ~ lang ~ '.svg') }}" alt="">
+                  <img src="{{ uploads_path('icons/' ~ lang ~ '.svg') }}" alt="" />
                 </div>
               {% endfor %}
             </div>

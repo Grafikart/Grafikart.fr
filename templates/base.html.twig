@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>{% block title 'Grafikart' %} | Grafikart</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
   {% block stylesheets %}
     {{ encore_entry_link_tags('app') }}
   {% endblock %}
   {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
   {% endblock %}
-  <meta name="turbolinks-cache-control" content="no-cache"/>
-  <link rel="alternate" type="application/rss+xml" title="Grafikart.fr | Flux" href="{{ url('rss') }}"/>
+  <meta name="turbolinks-cache-control" content="no-cache" />
+  <link rel="alternate" type="application/rss+xml" title="Grafikart.fr | Flux" href="{{ url('rss') }}" />
 </head>
 <body
   class="{{ bodyClass is defined ? bodyClass : '' }} {{ app.user and app.user.theme ? 'theme-' ~ app.user.theme : '' }} {{ app.user and app.user.premium ? 'user-premium' : 'user-not-premium' }}">
@@ -40,7 +40,7 @@
       <div class="flex">
         {% include 'partials/social.html.twig' %}
         <a href="https://www.infomaniak.com/goto/fr/hosting.managed-cloud?utm_term=59f74db50448d">
-          <img src="/images/badge-infomaniak.svg" alt="" loading="lazy" width="150">
+          <img src="/images/badge-infomaniak.svg" alt="" loading="lazy" width="150" />
         </a>
       </div>
     </div>
@@ -58,13 +58,13 @@
     </div>
     <div>
       <div class="footer-title">Me contacter</div>
-      <ul>
-        <li><a href="{{ path('contact') }}">{{ icon('email') }} Par email</a></li>
-        <li><a href="{{ path('tchat') }}">{{ icon('tchat') }} Tchat</a></li>
-        <li><a href="https://www.youtube.com/user/grafikarttv">{{ icon('video') }} Chaine youtube</a></li>
-        <li><a href="{{ path('env') }}">{{ icon('info') }} A propos</a></li>
-        <li><a href="{{ path('confidentialite') }}">{{ icon('fingerprint') }} Politique de confidentialité</a></li>
-      </ul>
+        <ul>
+          <li><a href="{{ path('contact') }}">{{ icon('email') }} Par email</a></li>
+          <li><a href="{{ path('tchat') }}" target="_blank">{{ icon('tchat') }} Tchat</a></li>
+          <li><a href="https://www.youtube.com/user/grafikarttv" target="_blank">{{ icon('video') }} Chaine YouTube</a></li>
+          <li><a href="{{ path('env') }}">{{ icon('info') }} A propos</a></li>
+          <li><a href="{{ path('confidentialite') }}">{{ icon('fingerprint') }} Politique de confidentialité</a></li>
+        </ul>
       <div class="footer-title mt3 mb1">Thème</div>
       <theme-switcher></theme-switcher>
     </div>

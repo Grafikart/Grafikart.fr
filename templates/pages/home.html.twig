@@ -31,7 +31,7 @@
           </div>
           <div class="home-intro__illustration">
             <animated-editor width="678" height="402"></animated-editor>
-            <img src="{{ asset('images/racoon.svg') }}" alt="" width="366" class="home-intro__mascot">
+            <img src="{{ asset('images/racoon.svg') }}" alt="" width="366" class="home-intro__mascot" />
           </div>
         </div>
       </section>
@@ -82,7 +82,7 @@
                       {% if formation.mainTechnologies | length > 0 %}
                         {% set technology = formation.mainTechnologies[0] %}
                         <a href="{{ path(technology) }}" class="course__icon" tabindex="-1">
-                          <img src="{{ uploads_path('icons/' ~ technology.image) }}" alt="{{ technology.name }}">
+                          <img src="{{ uploads_path('icons/' ~ technology.image) }}" alt="{{ technology.name }}" />
                         </a>
                       {% endif %}
                       <a class="card__title" href="{{ path(formation) }}">{{ formation.title }}</a>
@@ -100,7 +100,7 @@
                       {% if course.mainTechnologies | length > 0 %}
                         {% set technology = course.mainTechnologies[0] %}
                         <a href="{{ path(technology) }}" class="course__icon" tabindex="-1">
-                          <img src="{{ uploads_path('icons/' ~ technology.image) }}" alt="{{ technology.name }}">
+                          <img src="{{ uploads_path('icons/' ~ technology.image) }}" alt="{{ technology.name }}" />
                         </a>
                       {% endif %}
                       <a class="card__title" href="{{ path(course) }}">{{ course.title }}</a>
