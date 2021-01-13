@@ -1,6 +1,7 @@
 // @ts-check
 const prefresh = require("@prefresh/vite");
 const path = require("path");
+const { resolve } = require('path')
 
 const root = "./assets";
 
@@ -14,7 +15,24 @@ const config = {
   },
   emitManifest: true,
   cors: true,
-  jsx: "preact",
+  esbuild: {
+    jsxFactory: 'h',
+    jsxFragment: 'Fragment',
+    jsxInject: `import { h, Fragment } from 'preact'`
+  },
+  build: {
+    polyfillDynamicImport: false,
+    base: '/assets/',
+    assetsDir: '',
+    manifest: true,
+    outDir: '../public/assets/',
+    rollupOptions: {
+      input: {
+        app: resolve(__dirname, 'assets/app.js'),
+        admin: resolve(__dirname, 'assets/admin.js')
+      }
+    },
+  },
   plugins: [prefresh()],
   root,
   configureServer: function ({ root, watcher }) {

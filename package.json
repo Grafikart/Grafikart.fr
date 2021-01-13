@@ -1,13 +1,13 @@
 {
   "name": "Grafikart.fr",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/plugin-transform-react-jsx": "^7.12.12",
     "@babel/preset-env": "^7.12.11",
-    "@prefresh/vite": "^1.2.3",
+    "@prefresh/vite": "^2.0.0",
     "@rollup/plugin-babel": "^5.2.2",
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.1",
@@ -26,13 +26,13 @@
     "rollup-plugin-root-import": "^1.0.0",
     "rollup-plugin-visualizer": "^4.2.0",
     "sass": "^1.30",
-    "vite": "^1.0.0-rc.13"
+    "vite": "^2.0.0-beta.27"
   },
   "scripts": {
     "lint": "prettier-standard --lint \"assets/**/*.{js,css,jsx}\"",
     "lint-staged": "prettier-standard --lint --changed \"assets/**/*.{js,css,jsx}\"",
     "dev": "rm -rf public/assets/time && npx vite",
-    "build": "rm -rf public/assets && npx rollup -c rollup.config.js && touch public/assets/time",
+    "build": "rm -rf public/assets && npx vite build && touch public/assets/time",
     "test": "jest"
   },
   "dependencies": {
