@@ -2,7 +2,7 @@
 
 {% set bodyClass = 'light' %}
 
-{% block title 'Forum' ~ (current_tag ? ', ' ~ current_tag.name : '') %}
+{% block title 'Forum' ~ (current_tag ? ', ' ~ current_tag.name : '') ~ ((page > 1) ? (', page ' ~ page) : '')  %}
 
 {% block body %}
 

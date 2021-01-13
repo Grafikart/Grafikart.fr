@@ -38,20 +38,21 @@ class ForumController extends AbstractController
     /**
      * @Route("/forum", name="forum")
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        return $this->tag(null);
+        return $this->tag(null, $request);
     }
 
     /**
      * @Route("/forum/{slug<[a-z0-9\-]+>}-{id<\d+>}", name="forum_tag")
      */
-    public function tag(?Tag $tag): Response
+    public function tag(?Tag $tag, Request $request): Response
     {
         $topics = $this->paginator->paginate($this->topicRepository->queryAllForTag($tag));
 
         return $this->render('forum/index.html.twig', [
             'tags' => $this->tagRepository->findTree(),
+            'page' => $request->query->getInt('page', 1),
             'topics' => $topics,
             'menu' => 'forum',
             'current_tag' => $tag,

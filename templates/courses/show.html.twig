@@ -4,7 +4,7 @@
 
 {% block title %}
 {% if course.formation %}
-{{- "Formation " ~ course.formation.title ~ ' : ' ~ course.title -}}
+{{- course.title ~ " — Formation " ~ course.formation.title -}}
 {% else %}
 {{- "Tutoriel vidéo " ~ course.mainTechnologies|map(t => "#{t.name}")|join(' & ') ~ ' : ' ~ course.title -}}
 {% endif %}
