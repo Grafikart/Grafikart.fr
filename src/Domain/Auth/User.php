@@ -54,7 +54,6 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface, Ca
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
      */
     private string $password = '';
 
