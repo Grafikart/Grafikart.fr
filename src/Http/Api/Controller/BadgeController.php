@@ -27,12 +27,12 @@ class BadgeController extends BaseController
     public function unlock(string $badgeName): JsonResponse
     {
         if (!in_array($badgeName, Badge::REQUEST_UNLOCKABLE)) {
-            throw new AccessDeniedException('Aucun badge ne correspond à ce nom');
+            return new JsonResponse([], Response::HTTP_FORBIDDEN);
         }
 
         $unlocks = $this->service->unlock($this->getUser(), $badgeName);
         if (null === $unlocks || empty($unlocks)) {
-            return new JsonResponse(null, Response::HTTP_UNPROCESSABLE_ENTITY);
+            return new JsonResponse([], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         return $this->json($unlocks[0]->getBadge());
