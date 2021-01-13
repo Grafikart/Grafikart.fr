@@ -261,9 +261,9 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface, Ca
         ] = unserialize($serialized);
     }
 
-    public function getCountry(): ?string
+    public function getCountry(): string
     {
-        return $this->country;
+        return $this->country ?: 'FR';
     }
 
     public function setCountry(?string $country): User
