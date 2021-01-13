@@ -20,8 +20,8 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Entity(repositoryClass="App\Domain\Auth\UserRepository")
  * @ORM\Table(name="`user`")
  * @Vich\Uploadable()
- * @UniqueEntity(fields={"email"})
- * @UniqueEntity(fields={"username"})
+ * @UniqueEntity(fields={"email"}, repositoryMethod="findByCaseInsensitive")
+ * @UniqueEntity(fields={"username"}, repositoryMethod="findByCaseInsensitive")
  */
 class User implements UserInterface, \Serializable, ForumReaderUserInterface, CacheableInterface
 {
