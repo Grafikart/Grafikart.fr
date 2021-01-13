@@ -18,7 +18,3 @@ services:
       - 5433:5433
     networks:
       - test
-
-networks:
-  test:
-    name: test
