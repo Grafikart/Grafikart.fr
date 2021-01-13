@@ -39,7 +39,7 @@ class MercureSubscriber implements EventSubscriberInterface
     {
         $notification = $event->getNotification();
         $channel = $notification->getChannel();
-        if (null === $channel && $notification->getUser() instanceof User) {
+        if ('public' === $channel && $notification->getUser() instanceof User) {
             $channel = 'user/'.$notification->getUser()->getId();
         }
         $update = new Update("/notifications/$channel", $this->serializer->serialize([
