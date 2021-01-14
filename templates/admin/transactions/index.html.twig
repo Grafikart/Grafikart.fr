@@ -27,7 +27,7 @@
           <td>{{ row.author.email }}</td>
           <td>
             {% if row.paypal %}
-            <a class="pill pill-small pill-yellow" href="https://www.paypal.com/myaccount/transactions/?free_text_search={{ row.methodRef }}&account_subscription_type=ALL&filter_id=&currency=ALL&issuance_product_name=&asset_names=&asset_symbols=&type=&status=&start_date=2010-07-09&end_date=2120-10-07">
+            <a class="pill pill-small pill-yellow" href="https://www.paypal.com/myaccount/transactions/?free_text_search={{ row.methodRef }}&amp;account_subscription_type=ALL&amp;filter_id=&amp;currency=ALL&amp;issuance_product_name=&amp;asset_names=&amp;asset_symbols=&amp;type=&amp;status=&amp;start_date=2010-07-09&amp;end_date=2120-10-07">
               {{ row.method }}
             </a>
             {% elseif row.stripe %}
