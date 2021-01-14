@@ -12,7 +12,7 @@
 
 {% block body %}
 
-  {% cache [course, 'single', user_premium, course.isScheduled] %}
+  {% cache [course, user_premium, course.isScheduled] %}
 
     <div class="container">
       {{ breadcrumb(course) }}

@@ -1,4 +1,4 @@
-{% cache [course, 'card'] %}
+{% cache [course] %}
   <article class="card {{ course.premium ? 'card-premium' : '' }} {{ course.scheduled ? 'card-scheduled' : '' }}" data-history="{{ course.id }}">
     <div class="card__body stack">
 

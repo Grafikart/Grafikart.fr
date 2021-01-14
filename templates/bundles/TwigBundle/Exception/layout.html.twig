@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'header-light' %}
+
+{% block body %}
+  <main class="page-header container py0">
+    <div class="relative page-header-error">
+      <h1 class="h1 mb1">{% block title '' %}</h1>
+      <p>{% block description '' %}</p>
+      <img src="{{ asset('images/racoon.svg') }}" alt="" width="366">
+    </div>
+  </main>
+
+  <aside class="container bg py5">
+
+    {% cache ['now' | date('d-m-Y')] %}
+
+      {{ render(controller('App\\Http\\Controller\\Error\\ErrorController::body')) }}
+
+    {% endcache %}
+
+  </aside>
+{% endblock %}

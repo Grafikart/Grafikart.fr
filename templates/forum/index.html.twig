@@ -13,7 +13,7 @@
 
   <div class="forum-page bg py3">
     {% if tags | length > 0 %}
-      {% cache ['forum', tags[0]] %}
+      {% cache [tags[0]] %}
         <div class="forum-page__sidebar stack">
           <a href="{{ path('forum_new') }}" class="btn-primary">Nouveau sujet</a>
           <ul class="forum-tags">

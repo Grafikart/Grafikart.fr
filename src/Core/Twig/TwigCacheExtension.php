@@ -7,6 +7,7 @@ use App\Core\Twig\CacheExtension\CacheableInterface;
 use App\Core\Twig\CacheExtension\CacheTokenParser;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\Cache\CacheItem;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 use Twig\Extension\AbstractExtension;
 use Twig\TokenParser\AbstractTokenParser;
 
@@ -34,24 +35,29 @@ class TwigCacheExtension extends AbstractExtension
     /**
      * @param CacheableInterface|string|array|bool|null $item
      */
-    public function getCacheKey($item): string
+    public function getCacheKey(string $templatePath, $item, bool $prefix = true): string
     {
+        if ($prefix === true) {
+            $prefix = (new AsciiSlugger())->slug(str_replace('.html.twig', '', $templatePath)) . '_';
+        } else {
+            $prefix = '';
+        }
         if (is_bool($item)) {
-            return $item ? '1' : '0';
+            return $prefix . ($item ? '1' : '0');
         }
         if (empty($item)) {
             throw new \Exception('Clef de cache invalide');
         }
         if (is_string($item)) {
-            return $item;
+            return $prefix . $item;
         }
         if (is_array($item)) {
-            return implode('-', array_map(fn ($v) => $this->getCacheKey($v), $item));
+            return $prefix . implode('_', array_map(fn ($v) => $this->getCacheKey($templatePath, $v, false), $item));
         }
         if ($item instanceof IterableQueryBuilder) {
             $item = $item->getFirstResultOnly();
             if (null === $item) {
-                return 'noresult';
+                return $prefix . 'noresult';
             }
         }
         if (!is_object($item) || !($item instanceof CacheableInterface)) {
@@ -63,7 +69,7 @@ class TwigCacheExtension extends AbstractExtension
             $className = get_class($item);
             $className = substr($className, strrpos($className, '\\') + 1);
 
-            return $id.$className.$updatedAt->getTimestamp();
+            return $prefix.$id.$className.$updatedAt->getTimestamp();
         } catch (\Error $e) {
             throw new \Exception("TwigCache : Impossible de serialiser l'objet pour le cache : \n".$e->getMessage());
         }
@@ -72,13 +78,13 @@ class TwigCacheExtension extends AbstractExtension
     /**
      * @param CacheableInterface|string $item
      */
-    public function getCacheValue($item): ?string
+    public function getCacheValue(string $templatePath, $item): ?string
     {
         if (!$this->active) {
             return null;
         }
         /** @var CacheItem $item */
-        $item = $this->cache->getItem($this->getCacheKey($item));
+        $item = $this->cache->getItem($this->getCacheKey($templatePath, $item));
 
         return $item->get();
     }
@@ -86,13 +92,13 @@ class TwigCacheExtension extends AbstractExtension
     /**
      * @param CacheableInterface|string $item
      */
-    public function setCacheValue($item, string $value): void
+    public function setCacheValue(string $templatePath, $item, string $value): void
     {
         if (!$this->active) {
             return;
         }
         /** @var CacheItem $item */
-        $item = $this->cache->getItem($this->getCacheKey($item));
+        $item = $this->cache->getItem($this->getCacheKey($templatePath, $item));
         $item->set($value);
         $this->cache->save($item);
     }

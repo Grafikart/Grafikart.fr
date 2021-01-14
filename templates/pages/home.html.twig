@@ -5,7 +5,7 @@
 {% block title 'Tutoriels et Formations vidéos sur le développement web' %}
 
 {% block body %}
-  {% cache [courses, app.user ? 'authenticated' : 'anonymous', 'home'] %}
+  {% cache [courses, app.user ? 'authenticated' : 'anonymous'] %}
     <main class="homepage">
 
       <section class="container">

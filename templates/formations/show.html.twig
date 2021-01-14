@@ -41,7 +41,7 @@
     <waves-shape class="waves" position="bottomWave" target=".wave-header"></waves-shape>
   </header>
 
-  {% cache [formation, 'show', app.user and app.user.premium] %}
+  {% cache [formation, app.user and app.user.premium] %}
 
     <main class="formation-single pb5">
       <div class="formation-chapters">

@@ -30,10 +30,11 @@ class CacheNode extends Node
     {
         $i = self::$cacheCount++;
         $extension = TwigCacheExtension::class;
+        $templateParam = "\"{$this->getTemplateName()}\", ";
         $compiler
             ->addDebugInfo($this)
             ->write("\$twigCacheExtension = \$this->env->getExtension('{$extension}');\n")
-            ->write("\$twigCacheBody{$i} = \$twigCacheExtension->getCacheValue(")
+            ->write("\$twigCacheBody{$i} = \$twigCacheExtension->getCacheValue($templateParam")
             ->subcompile($this->getNode('key'))
             ->raw(");\n")
             ->write("if (\$twigCacheBody{$i} !== null) { echo \$twigCacheBody{$i}; } else {\n")
@@ -41,7 +42,7 @@ class CacheNode extends Node
             ->write("ob_start();\n")
             ->subcompile($this->getNode('body'))
             ->write("\$twigCacheBody{$i} = ob_get_clean();\n")
-            ->write('$twigCacheExtension->setCacheValue(')
+            ->write("\$twigCacheExtension->setCacheValue($templateParam")
             ->subcompile($this->getNode('key'))
             ->raw(',')
             ->raw("\$twigCacheBody{$i});\n")

@@ -1,23 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'bundles/TwigBundle/Exception/layout.html.twig' %}
 
-{% set bodyClass = 'header-light' %}
-
-{% block body %}
-  <main class="page-header container py0">
-    <div class="relative page-header-error">
-      <h1 class="h1 mb1">Erreur serveur</h1>
-      <p>Oops une erreur s'est glissée dans le code :(</p>
-      <img src="{{ asset('images/racoon.svg') }}" alt="" width="366">
-    </div>
-  </main>
-
-  <aside class="container bg py5">
-
-    {% cache ['errorPage', 'now' | date('d-m-Y')] %}
-
-      {{ render(controller('App\\Http\\Controller\\Error\\ErrorController::body')) }}
-
-    {% endcache %}
-
-  </aside>
-{% endblock %}
+{% block title 'Erreur serveur' %}
+{% block description "Oops une erreur s'est glissée dans le code :(" %}
