@@ -43,6 +43,10 @@ class RegistrationFormType extends AbstractType
         }
 
         if ($user && !$user->useOauth()) {
+            $passwordAttrs = [
+                'minlength' => 6,
+                'maxlength' => 4096
+            ];
             $builder
                 ->add('plainPassword', RepeatedType::class, [
                     'mapped' => false,
@@ -55,8 +59,8 @@ class RegistrationFormType extends AbstractType
                             'max' => 4096,
                         ]),
                     ],
-                    'first_options' => ['label' => 'Mot de passe'],
-                    'second_options' => ['label' => 'Confirmer le mot de passe'],
+                    'first_options' => ['label' => 'Mot de passe', 'attr' => $passwordAttrs],
+                    'second_options' => ['label' => 'Confirmer le mot de passe', 'attr' => $passwordAttrs],
                 ]);
         }
     }
