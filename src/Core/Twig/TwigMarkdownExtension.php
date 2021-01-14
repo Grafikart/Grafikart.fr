@@ -77,6 +77,6 @@ class TwigMarkdownExtension extends AbstractExtension
 
     public function markdownUntrusted(?string $content): string
     {
-        return strip_tags((new Parsedown())->setSafeMode(true)->text($content), '<p><pre><code><ul><ol><li><h4><h3><h5>');
+        return strip_tags((new Parsedown())->setSafeMode(true)->text($content), '<p><pre><code><ul><ol><li><h4><h3><h5><strong>');
     }
 }

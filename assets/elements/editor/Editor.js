@@ -46,7 +46,12 @@ export default class Editor {
     if (end === null) {
       end = start
     }
+    const selection = this.editor.getSelection()
     this.editor.getDoc().replaceSelection(start + this.editor.getDoc().getSelection() + end)
+    if (selection === '') {
+      const cursor = this.editor.getCursor()
+      this.editor.setCursor({ ...cursor, ch: cursor.ch - end.length })
+    }
     this.editor.focus()
   }
 
