@@ -9,10 +9,14 @@ use App\Domain\Premium\Exception\PremiumNotBanException;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/users", name="user_")
+ */
 class UserController extends CrudController
 {
     protected string $templatePath = 'user';
@@ -23,7 +27,7 @@ class UserController extends CrudController
     protected array $events = [];
 
     /**
-     * @Route("/users", name="user_index")
+     * @Route("/", name="index")
      */
     public function index(): Response
     {
@@ -42,7 +46,7 @@ class UserController extends CrudController
     }
 
     /**
-     * @Route("/users/search/{q?}", name="user_autocomplete")
+     * @Route("/search/{q?}", name="autocomplete")
      */
     public function search(string $q): JsonResponse
     {
@@ -68,7 +72,7 @@ class UserController extends CrudController
     }
 
     /**
-     * @Route("/users/{id<\d+>}/ban", methods={"POST", "DELETE"}, name="user_ban")
+     * @Route("/{id<\d+>}/ban", methods={"POST", "DELETE"}, name="ban")
      */
     public function ban(User $user, EntityManagerInterface $em, UserBanService $banService, Request $request): Response
     {
@@ -87,6 +91,18 @@ class UserController extends CrudController
         }
 
         $this->addFlash('success', "L'utilisateur $username a été banni");
+
+        return $this->redirectBack('admin_user_index');
+    }
+
+    /**
+     * @Route("/{id<\d+>}/confirm", methods={"POST"}, name="confirm")
+     */
+    public function confirm(User $user, EntityManagerInterface $em): RedirectResponse
+    {
+        $user->setConfirmationToken(null);
+        $em->flush();
+        $this->addFlash('success', 'Le compte a bien été confirmé');
 
         return $this->redirectBack('admin_user_index');
     }

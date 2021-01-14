@@ -33,7 +33,7 @@ class UserRepositoryTest extends RepositoryTestCase
         );
     }
 
-    public function testCleanUsersWithTheRightDte()
+    public function testCleanUsersWithTheRightDate()
     {
         /** @var User $user */
         /** @var User $user2 */
