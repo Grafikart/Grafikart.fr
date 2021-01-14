@@ -115,68 +115,71 @@
   </div>
 
   <script>
-    Array.from(document.querySelectorAll('.tree-choices')).forEach($choices => {
-      let choices = $choices.querySelectorAll('.tree-choice')
-      let activeChoice = $choices.querySelector('.is-active')
-      let active = false
-      if (activeChoice) {
-        active = document.querySelector('#tree-' + activeChoice.dataset.choice)
-      }
-      Array.from(choices).forEach(function (choice) {
-        choice.addEventListener('click', function () {
-          if (active) {
-            $choices.querySelector('.tree-choice.is-active').classList.remove('is-active')
-            active.classList.remove('is-visible')
-          }
-          choice.classList.add('is-active')
-          active = document.querySelector('#tree-' + choice.dataset.choice)
-          active.classList.add('is-visible')
-        })
-      })
-    })
+    (function () {
 
-    class Youtube {
-
-      static init () {
-        this.element = null
-        document.querySelectorAll('[data-youtube]').forEach(link => {
-          link.addEventListener('click', (e) => {
-            e.preventDefault()
-            this.onClick(link)
+      Array.from(document.querySelectorAll('.tree-choices')).forEach($choices => {
+        let choices = $choices.querySelectorAll('.tree-choice')
+        let activeChoice = $choices.querySelector('.is-active')
+        let active = false
+        if (activeChoice) {
+          active = document.querySelector('#tree-' + activeChoice.dataset.choice)
+        }
+        Array.from(choices).forEach(function (choice) {
+          choice.addEventListener('click', function () {
+            if (active) {
+              $choices.querySelector('.tree-choice.is-active').classList.remove('is-active')
+              active.classList.remove('is-visible')
+            }
+            choice.classList.add('is-active')
+            active = document.querySelector('#tree-' + choice.dataset.choice)
+            active.classList.add('is-visible')
           })
         })
-      }
+      })
 
-      static onClick (link) {
-        let youtubeID = link.getAttribute('href').split('=')[1]
-        this.element = this.popup(youtubeID)
-        document.body.appendChild(this.element)
-      }
+      class Youtube {
 
-      static close () {
-        this.element.parentNode.removeChild(this.element)
-        this.element = null
-      }
+        static init () {
+          this.element = null
+          document.querySelectorAll('[data-youtube]').forEach(link => {
+            link.addEventListener('click', (e) => {
+              e.preventDefault()
+              this.onClick(link)
+            })
+          })
+        }
 
-      static popup (youtube) {
-        let element = document.createElement('div')
-        element.classList.add('youtube-popup')
-        element.innerHTML = `<div class="youtube-popup__close">
+        static onClick (link) {
+          let youtubeID = link.getAttribute('href').split('=')[1]
+          this.element = this.popup(youtubeID)
+          document.body.appendChild(this.element)
+        }
+
+        static close () {
+          this.element.parentNode.removeChild(this.element)
+          this.element = null
+        }
+
+        static popup (youtube) {
+          let element = document.createElement('div')
+          element.classList.add('youtube-popup')
+          element.innerHTML = `<div class="youtube-popup__close">
           <svg class="icon icon-user">
             <use xlink:href="/sprite.svg#cross"></use>
           </svg>
         </div>
       <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${youtube}?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`
-        element.querySelector('.youtube-popup__close').addEventListener('click', e => {
-          e.preventDefault()
-          this.close()
-        })
-        return element
+          element.querySelector('.youtube-popup__close').addEventListener('click', e => {
+            e.preventDefault()
+            this.close()
+          })
+          return element
+        }
+
       }
 
-    }
-
-    Youtube.init()
+      Youtube.init()
+    })()
   </script>
 
 {% endblock %}
