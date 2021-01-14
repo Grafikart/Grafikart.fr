@@ -95,6 +95,29 @@ class RegistrationControllerTest extends WebTestCase
         $this->assertEmailCount(0);
     }
 
+    public function testWithLongEmail(): void
+    {
+        /** @var array<string,User> $users */
+        $users = $this->loadFixtures(['users']);
+        $crawler = $this->client->request('GET', self::SIGNUP_PATH);
+        $form = $crawler->selectButton(self::SIGNUP_BUTTON)->form();
+        $formValues = [
+            'registration_form' => [
+                'username' => 'Jane Doe',
+                'email' => 'fdmqagnukbbiitrouoskoaffipvqkufeaaqxzgkjvzufukwectpivvmgbbvtzggogxtunaayxipvonbcacmuubkakxsnfiakuxqfdynmpfhwhjtphucuxyvhapnjbktjfdmqagnukbbiitrouoskoaffipvqkufeaaqxzgkjvzufukwectpivvmgbbvtzggogxtunaayxipvonbcacmuubkakxsnfiakuxqfdynmpfhwhjtphucuxyvhapnjbktj@gmail.com',
+                'goal' => 'PHP, JavaScript',
+                'plainPassword' => [
+                    'first' => 'jane@doe.fr',
+                    'second' => 'jane@doe.fr',
+                ],
+            ],
+        ];
+        $form->setValues($formValues);
+        $this->client->submit($form);
+        $this->expectFormErrors(1);
+        $this->assertEmailCount(0);
+    }
+
     public function testConfirmationTokenInvalid(): void
     {
         /** @var User[] $users */

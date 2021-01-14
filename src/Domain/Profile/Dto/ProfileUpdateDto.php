@@ -18,6 +18,8 @@ class ProfileUpdateDto
 {
     /**
      * @Assert\NotBlank()
+     * @Assert\Length(min=5, max=100)
+     * @Assert\Email()
      */
     public string $email;
 
