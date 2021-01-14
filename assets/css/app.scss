@@ -27,6 +27,7 @@
   --yellow-alpha: #feb32b4c;
   --skeleton: var(--border-light);
   --skeleton-wave: var(--border-light);
+  --selection-background: var(--border);
 }
 
 // Outils
@@ -61,6 +62,7 @@
   --skeleton: #0f1224;
   --skeleton-wave: #171933;
   --red: #A6333F;
+  --selection-background: #3D59A1;
 
   .lighten-dark {
     filter: brightness(10);

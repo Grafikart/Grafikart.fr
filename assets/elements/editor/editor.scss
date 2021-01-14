@@ -70,7 +70,7 @@
   border-left: 2px solid var(--contrast) !important;
 }
 .mdeditor__editor .CodeMirror-selected {
-  background: var(--border);
+  background: var(--selection-background)!important;
 }
 .mdeditor .cm-header.cm-header-2 {
   font-family: 'Gotham', 'Montserrat', 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
