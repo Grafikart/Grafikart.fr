@@ -3,12 +3,19 @@
 {% set bodyClass = 'light' %}
 
 {% block body %}
-  <div class="page-header container">
+  <main class="page-header container py0">
+    <div class="relative page-header-error">
     <h1 class="h1 mb1">Accès interdit</h1>
     <p>Vous n'êtes pas autorisé à voir cette resource :(</p>
-  </div>
-
-  <section class="container bg py5">
     <img src="{{ asset('images/racoon.svg') }}" alt="" width="366">
-  </section>
+  </div>
+  </main>
+  <aside class="container bg py5">
+
+    {% cache ['errorPage', 'now' | date('d-m-Y')] %}
+
+      {{ render(controller('App\\Http\\Controller\\Error\\ErrorController::body')) }}
+
+    {% endcache %}
+  </aside>
 {% endblock %}
