@@ -33,7 +33,7 @@ server {
 
     # logging
     access_log              {{ root_path }}/var/log/access.log combinedt if=$loggable;
-    error_log               {{ root_path }}/var/log/{{ domain }}.error.log warn;
+    error_log               {{ root_path }}/var/log/error.log warn;
 
     # index.php
     index                   index.php;
