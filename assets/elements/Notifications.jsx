@@ -9,6 +9,8 @@ import { jsonFetch } from "/functions/api.js";
 
 const OPEN = 0;
 const CLOSE = 1;
+let notificationsCache = []
+let notificationsLoaded = false
 
 function countUnread(notifications, notificationReadAt) {
   return notifications.filter(({ createdAt }) => {
@@ -25,11 +27,12 @@ function countUnread(notifications, notificationReadAt) {
 export function Notifications() {
   // Hooks
   const [state, setState] = useState(CLOSE);
-  const [notifications, pushNotification] = usePrepend();
+  const [notifications, pushNotification] = usePrepend(notificationsCache);
   const [notificationReadAt, setNotificationReadAt] = useState(lastNotificationRead());
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!notificationsLoaded);
   const unreadCount = countUnread(notifications, notificationReadAt);
   useNotificationCount(unreadCount);
+  notificationsCache = notifications
 
   // Méthodes
   const openMenu = (e) => {
@@ -46,9 +49,10 @@ export function Notifications() {
 
   // On charge les notification la première fois
   useAsyncEffect(async () => {
-    if (isAuthenticated()) {
+    if (isAuthenticated() && notificationsLoaded === false) {
       await loadNotifications();
       setLoading(false);
+      notificationsLoaded = true
     }
   }, []);
 
