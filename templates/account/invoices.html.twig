@@ -6,9 +6,9 @@
 
 {% block body %}
 
-  {% include 'profil/_header.html.twig' with {title: 'Mes factures', user: app.user} %}
+  {% include 'account/_header.html.twig' with {title: 'Mes factures', user: app.user} %}
 
-  {% include 'profil/_tabs.html.twig' with {active: 'invoices'} %}
+  {% include 'account/_tabs.html.twig' with {active: 'invoices'} %}
 
   <div class="layout-sidebar py5" style="--gap:5;">
     <main>

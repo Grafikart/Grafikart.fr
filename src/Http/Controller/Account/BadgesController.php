@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controller\Profile;
+namespace App\Http\Controller\Account;
 
 use App\Domain\Badge\BadgeService;
 use App\Http\Controller\AbstractController;
@@ -26,7 +26,7 @@ class BadgesController extends AbstractController
         $badges = $this->badgeService->getBadges();
         $unlocks = $this->badgeService->getUnlocksForUser($this->getUserOrThrow());
 
-        return $this->render('profil/badges.html.twig', [
+        return $this->render('account/badges.html.twig', [
             'badges' => $badges,
             'unlocks' => $unlocks,
         ]);

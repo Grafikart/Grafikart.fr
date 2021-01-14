@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controller\Profile;
+namespace App\Http\Controller\Account;
 
 use App\Domain\Auth\User;
 use App\Http\Controller\AbstractController;

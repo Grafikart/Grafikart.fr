@@ -6,9 +6,9 @@
 
 {% block body %}
 
-  {% include 'profil/_header.html.twig' with {title: 'Mon compte', user: app.user} %}
+  {% include 'account/_header.html.twig' with {title: 'Mon compte', user: app.user} %}
 
-  {% include 'profil/_tabs.html.twig' with {active: 'profil'} %}
+  {% include 'account/_tabs.html.twig' with {active: 'profil'} %}
 
   {% if hasActivity %}
     <div class="bg container py5">
@@ -18,7 +18,7 @@
           <h2 class="h3">Vidéos <strong>en cours de visionnage</strong></h2>
           <div class="courses">
             {% for progress in watchlist %}
-              {% include 'profil/_progress-card.html.twig' %}
+              {% include 'account/_progress-card.html.twig' %}
             {% endfor %}
           </div>
         </div>

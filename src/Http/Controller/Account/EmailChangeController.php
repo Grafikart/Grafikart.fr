@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controller\Profile;
+namespace App\Http\Controller\Account;
 
 use App\Domain\Auth\UserRepository;
 use App\Domain\Profile\Entity\EmailVerification;

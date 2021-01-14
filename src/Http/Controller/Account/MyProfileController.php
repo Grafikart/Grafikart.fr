@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controller\Profile;
+namespace App\Http\Controller\Account;
 
 use App\Domain\Forum\Repository\TopicRepository;
 use App\Domain\History\HistoryService;
@@ -25,7 +25,7 @@ class MyProfileController extends AbstractController
         $lastMessageTopics = $topicRepository->findLastWithUser($user);
         $hasActivity = !empty($lastTopics) || !empty($lastMessageTopics) || !empty($watchlist);
 
-        return $this->render('profil/profil.html.twig', [
+        return $this->render('account/index.twig', [
             'watchlist' => $watchlist,
             'lastTopics' => $lastTopics,
             'lastMessageTopics' => $lastMessageTopics,

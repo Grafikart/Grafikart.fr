@@ -7,9 +7,9 @@
 {% block body %}
 
 
-  {% include 'profil/_header.html.twig' with {title: 'Mes badges', user: app.user} %}
+  {% include 'account/_header.html.twig' with {title: 'Mes badges', user: app.user} %}
 
-  {% include 'profil/_tabs.html.twig' with {active: 'badges'} %}
+  {% include 'account/_tabs.html.twig' with {active: 'badges'} %}
 
   <div class="container py4 badges">
     {% for badge in badges %}

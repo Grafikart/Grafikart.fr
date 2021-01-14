@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controller\Profile;
+namespace App\Http\Controller\Account;
 
 use App\Domain\Auth\User;
 use App\Domain\Profile\Dto\AvatarDto;

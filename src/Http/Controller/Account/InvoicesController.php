@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controller\Profile;
+namespace App\Http\Controller\Account;
 
 use App\Domain\Auth\User;
 use App\Domain\Premium\Repository\TransactionRepository;
@@ -32,7 +32,7 @@ class InvoicesController extends AbstractController
     {
         $transactions = $this->repository->findfor($this->getUser());
 
-        return $this->render('profil/invoices.html.twig', [
+        return $this->render('account/invoices.html.twig', [
             'transactions' => $transactions,
         ]);
     }
@@ -52,7 +52,7 @@ class InvoicesController extends AbstractController
             throw new NotFoundHttpException();
         }
 
-        return $this->render('profil/invoice.html.twig', [
+        return $this->render('account/invoice.html.twig', [
             'transaction' => $transaction,
         ]);
     }
