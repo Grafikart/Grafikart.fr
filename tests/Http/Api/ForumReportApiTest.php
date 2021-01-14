@@ -21,6 +21,20 @@ class ForumReportApiTest extends ApiTestCase
         ];
     }
 
+    public function badReportData(): iterable
+    {
+        yield [
+            [
+                'reason' => 'az',
+            ],
+        ];
+        yield [
+            [
+                'reason' => str_repeat('a', 300),
+            ],
+        ];
+    }
+
     /**
      * @dataProvider reportData
      */
@@ -37,6 +51,22 @@ class ForumReportApiTest extends ApiTestCase
     {
         $data['topic'] = 'azeazeeazaz';
         $fixtures = $this->loadFixtures(['users']);
+        $this->login($fixtures['user1']);
+        $this->client->request('POST', '/api/forum/reports', [
+            'json' => $data,
+        ]);
+        $this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @dataProvider badReportData
+     */
+    public function testCheckReportContent(array $data): void
+    {
+        $fixtures = $this->loadFixtures(['users', 'forums']);
+        $data = array_merge($data, [
+            'topic' => '/api/forum/topics/'.$fixtures['topic1']->getId(),
+        ]);
         $this->login($fixtures['user1']);
         $this->client->request('POST', '/api/forum/reports', [
             'json' => $data,

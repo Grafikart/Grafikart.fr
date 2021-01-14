@@ -49,9 +49,9 @@ class Report
 
     /**
      * @ORM\Column(type="string")
-     * @Assert\NotBlank()
-     * @Assert\Length(min="4")
      * @Groups({"create:report", "read:report"})
+     * @Assert\Length(min=3, max=250)
+     * @Assert\NotBlank(normalizer="trim")
      */
     private string $reason;
 
