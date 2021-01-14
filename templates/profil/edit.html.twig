@@ -158,33 +158,35 @@
 {% block javascripts_footer %}
   {{ parent() }}
   <script>
-    const systemThemeSwitch = document.querySelector('#{{ form_update.useSystemTheme.vars.id }}')
-    const themeSwitch = document.querySelector('#{{ form_update.useDarkTheme.vars.id }}')
-    const secondarySwitchContainer = document.querySelector('#theme-selector')
+    (function () {
+      const systemThemeSwitch = document.querySelector('#{{ form_update.useSystemTheme.vars.id }}')
+      const themeSwitch = document.querySelector('#{{ form_update.useDarkTheme.vars.id }}')
+      const secondarySwitchContainer = document.querySelector('#theme-selector')
 
-    function onSystemThemeChange ({ target }) {
-      if (target.checked === true) {
-        document.body.classList.remove('theme-dark')
-        document.body.classList.remove('theme-light')
-        secondarySwitchContainer.setAttribute('hidden', 'hidden')
-      } else {
-        onDarkThemeChange({ target: themeSwitch })
-        secondarySwitchContainer.removeAttribute('hidden')
+      function onSystemThemeChange ({ target }) {
+        if (target.checked === true) {
+          document.body.classList.remove('theme-dark')
+          document.body.classList.remove('theme-light')
+          secondarySwitchContainer.setAttribute('hidden', 'hidden')
+        } else {
+          onDarkThemeChange({ target: themeSwitch })
+          secondarySwitchContainer.removeAttribute('hidden')
+        }
       }
-    }
 
-    function onDarkThemeChange ({ target }) {
-      if (target.checked === true) {
-        document.body.classList.add('theme-dark')
-        document.body.classList.remove('theme-light')
-      } else {
-        document.body.classList.remove('theme-dark')
-        document.body.classList.add('theme-light')
+      function onDarkThemeChange ({ target }) {
+        if (target.checked === true) {
+          document.body.classList.add('theme-dark')
+          document.body.classList.remove('theme-light')
+        } else {
+          document.body.classList.remove('theme-dark')
+          document.body.classList.add('theme-light')
+        }
       }
-    }
 
-    systemThemeSwitch.addEventListener('change', onSystemThemeChange)
-    themeSwitch.addEventListener('change', onDarkThemeChange)
-    onSystemThemeChange({ target: systemThemeSwitch })
+      systemThemeSwitch.addEventListener('change', onSystemThemeChange)
+      themeSwitch.addEventListener('change', onDarkThemeChange)
+      onSystemThemeChange({ target: systemThemeSwitch })
+    })()
   </script>
 {% endblock %}
