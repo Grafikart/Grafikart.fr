@@ -44,15 +44,17 @@
     background: transparent;
     cursor: pointer;
     outline: none;
+    color: var(--color-light);
 
     &:hover {
-      background-color: #f5f5f5;
+      color: var(--color);
+      background-color: var(--background);
     }
   }
 
   svg {
     margin-top: 3px;
-    fill: var(--color);
+    fill: currentColor;
     width: 15px;
     height: 15px;
   }

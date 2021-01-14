@@ -40,7 +40,9 @@ document.addEventListener('turbolinks:load', () => {
       new ChoicesJS(s, {
         placeholder: true,
         shouldSort: false,
-        itemSelectText: ''
+        itemSelectText: '',
+        maxItemCount: s.dataset.limit || -1,
+        maxItemText: s.dataset.limit && `Vous ne pouvez sélectionner que ${s.dataset.limit} éléments`
       })
   )
 })

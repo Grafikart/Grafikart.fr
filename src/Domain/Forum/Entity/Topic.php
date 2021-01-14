@@ -67,7 +67,7 @@ class Topic implements SpammableInterface, CacheableInterface
      * @ORM\ManyToMany(targetEntity="App\Domain\Forum\Entity\Tag", inversedBy="topics")
      * @ORM\JoinTable(name="forum_topic_tag")
      * @Assert\NotBlank()
-     * @Assert\Count(min="1")
+     * @Assert\Count(min="1", max="3")
      * @Groups({"read:topic"})
      */
     private Collection $tags;

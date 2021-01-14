@@ -29,6 +29,9 @@ class ForumTopicForm extends AbstractType
             ->add('tags', EntityType::class, [
                 'required' => false,
                 'multiple' => true,
+                'attr' => [
+                    'data-limit' => 3,
+                ],
                 'class' => Tag::class,
                 'choices' => $tags,
                 'query_builder' => null,
