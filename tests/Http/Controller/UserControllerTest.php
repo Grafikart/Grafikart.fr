@@ -82,6 +82,20 @@ class UserControllerTest extends WebTestCase
         $this->expectFormErrors(1);
     }
 
+    public function testShowErrorEmptyUsername(): void
+    {
+        /** @var User[] $data */
+        $data = $this->loadFixtures(['users']);
+        $this->login($data['user1']);
+        $crawler = $this->client->request('GET', '/profil/edit');
+        $form = $crawler->selectButton('Modifier mon profil')->form();
+        $form->setValues([
+            'update_profile_form[username]' => '   ',
+        ]);
+        $this->client->submit($form);
+        $this->expectFormErrors(1);
+    }
+
     public function testSendEmailOnEmailChange(): void
     {
         /** @var User[] $data */
