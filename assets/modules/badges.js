@@ -76,11 +76,12 @@ window.nessie = () => {
   }
   jsonFetch('/api/badges/lochness/unlock', { method: 'POST' })
     .then(() => {
-      console.log(`%c                        _   _       _a_a
-            _   _     _{.\`=\`.}_    {/ ''\\_
-      _    {.\`'\`.}   {.'  _  '.}  {|  ._oo)
-     { \\  {/ .-. \\} {/  .' '.  \\} {/  |
-~^~^~\`~^~\`~^~\`~^~\`~^~^~\`^~^~\`^~^~^~^~^~^~\`^~~\``, `color: #FFF; background-color: #2234ae;
+      console.log(
+"%c                        _   _       _a_a      \n" +
+"            _   _     _{.`=`.}_    {/ ''\\_    \n" +
+"      _    {.`'`.}   {.'  _  '.}  {|  ._oo)   \n" +
+"     { \\  {/ .-. \\} {/  .' '.  \\} {/  |       \n" +
+"~^~^~`~^~`~^~`~^~`~^~^~`^~^~`^~^~^~^~^~^~`^~~`", `color: #FFF; background-color: #2234ae;
 background-image: linear-gradient(315deg, #2234ae 0%, #191714 74%);`)
     })
     .catch((e) => {
