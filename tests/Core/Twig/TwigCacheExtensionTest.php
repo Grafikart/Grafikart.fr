@@ -26,16 +26,16 @@ class TwigCacheExtensionTest extends TestCase
 
     public function cacheKeys(): iterable
     {
-        yield ['salut', 'salut'];
-        yield ['salut-aurevoir', ['salut', 'aurevoir']];
+        yield ['fake_salut', 'salut'];
+        yield ['fake_salut_aurevoir', ['salut', 'aurevoir']];
 
         $fake = new FakeClass();
         yield [
-            $fake->getId().'FakeClass'.$fake->getUpdatedAt()->getTimestamp(),
+            'fake_'.$fake->getId().'FakeClass'.$fake->getUpdatedAt()->getTimestamp(),
             $fake,
         ];
         yield [
-            'card-'.$fake->getId().'FakeClass'.$fake->getUpdatedAt()->getTimestamp(),
+            'fake_card_'.$fake->getId().'FakeClass'.$fake->getUpdatedAt()->getTimestamp(),
             ['card', $fake],
         ];
     }
@@ -45,22 +45,22 @@ class TwigCacheExtensionTest extends TestCase
      */
     public function testCacheKeyGeneration($expected, $value): void
     {
-        $this->assertEquals($expected, $this->extension->getCacheKey($value));
+        $this->assertEquals($expected, $this->extension->getCacheKey('fake.html.twig', $value));
     }
 
     public function testCacheKeyWithBadValues(): void
     {
         $this->expectException(\Exception::class);
-        $this->extension->getCacheKey([]);
+        $this->extension->getCacheKey('fake.html.twig', []);
     }
 
     public function testSetCacheValue(): void
     {
         $item = new CacheItem();
         $this->cache->expects($this->any())->method('getItem')
-            ->with('demo')
+            ->with('fake_demo')
             ->willReturn($item);
-        $this->extension->setCacheValue('demo', 'Salut');
+        $this->extension->setCacheValue('fake.html.twig', 'demo', 'Salut');
         $this->assertEquals('Salut', $item->get());
     }
 
@@ -69,9 +69,9 @@ class TwigCacheExtensionTest extends TestCase
         $item = new CacheItem();
         $item->set('hello');
         $this->cache->expects($this->any())->method('getItem')
-            ->with('demo')
+            ->with('fake_demo')
             ->willReturn($item);
-        $value = $this->extension->getCacheValue('demo');
+        $value = $this->extension->getCacheValue('fake.html.twig', 'demo');
         $this->assertEquals($item->get(), $value);
     }
 
@@ -79,9 +79,9 @@ class TwigCacheExtensionTest extends TestCase
     {
         $item = new CacheItem();
         $this->cache->expects($this->any())->method('getItem')
-            ->with('demo')
+            ->with('fake_demo')
             ->willReturn($item);
-        $value = $this->extension->getCacheValue('demo');
+        $value = $this->extension->getCacheValue('fake.html.twig', 'demo');
         $this->assertEquals(null, $value);
     }
 }
