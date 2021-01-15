@@ -11,16 +11,18 @@
     src: .env.local.j2
     force: no
     dest: "{{ root_path }}/.env.local"
-- name: Symfony | Composer install
+- name: Symfony | CRON backup
   become: no
-  community.general.composer:
-    command: install
-    working_dir: "{{ root_path }}"
-- name: Symfony | Migrate
+  cron:
+    name: sql dump
+    special_time: daily
+    job: "cd {{ root_path }} && php bin/console app:dump"
+- name: Symfony | CRON clean user
   become: no
-  shell:
-    cmd: php bin/console doctrine:migrations:migrate -q
-    chdir: "{{ root_path }}"
+  cron:
+    name: user clean
+    special_time: daily
+    job: "cd {{ root_path }} && php bin/console app:user:clean"
 - include_tasks: typesense.yml
 - include_tasks: messenger.yml
 - include_tasks: mercure.yml

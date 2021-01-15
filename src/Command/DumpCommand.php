@@ -59,7 +59,7 @@ class DumpCommand extends Command
             unlink($dumpFile.'.gz');
             throw $e;
         }
-        unlink($dumpFile);
+        unlink($dumpFile.'.gz');
         $io->success('La base de donnée a bien été sauvegardée');
 
         return 0;
