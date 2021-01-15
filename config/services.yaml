@@ -22,6 +22,15 @@ services:
     App\Core\Breadcrumb\BreadcrumbGeneratorInterface:
       tags: ['app.breadcrumb']
 
+  Redis:
+    class: \Predis\Client
+    arguments:
+      - '%env(REDIS_URL)%'
+
+  Symfony\Component\HttpFoundation\Session\Storage\Handler\RedisSessionHandler:
+    arguments:
+      - '@Redis'
+
   App\:
     resource: '../src/*'
     exclude: '../src/{DependencyInjection,Entity,Infrastructure/Migrations,Tests,Kernel.php}'
