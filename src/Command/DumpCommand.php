@@ -12,7 +12,6 @@ use Symfony\Component\Process\Process;
 
 class DumpCommand extends Command
 {
-
     protected static $defaultName = 'app:dump';
     private EntityManagerInterface $em;
     private string $dumpPath;
@@ -30,7 +29,7 @@ class DumpCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $io->writeln('Export de la base de données');
-        $dumpFile = $this->dumpPath . '/dump.tar';
+        $dumpFile = $this->dumpPath.'/dump.tar';
 
         // On génère le dump SQL
         $params = $this->em->getConnection()->getParams();
@@ -41,19 +40,23 @@ class DumpCommand extends Command
         if (!$process->isSuccessful()) {
             $io->error("Impossible d'exporter la base de données");
             $io->error($process->getErrorOutput());
+
             return 1;
         }
 
         // On sauvegarde le fichier dans notre backup storage
-        $stream = fopen($dumpFile, 'r');
-        if ($stream === false) {
+        $io->writeln('Upload en cours...');
+        $process = new Process(['gzip', $dumpFile]);
+        $process->run();
+        $stream = fopen($dumpFile.'.gz', 'r');
+        if (false === $stream) {
             throw new \Exception("Impossible de lire le fichier \"$dumpFile\"");
         }
         $date = date('Y-m-d');
         try {
-            $this->filesystem->writeStream("grafikart-{$date}.tar", $stream);
+            $this->filesystem->writeStream("grafikart-{$date}.tar.gz", $stream);
         } catch (\Exception $e) {
-            unlink($dumpFile);
+            unlink($dumpFile.'.gz');
             throw $e;
         }
         unlink($dumpFile);
