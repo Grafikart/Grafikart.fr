@@ -37,6 +37,7 @@
     "phpdocumentor/reflection-docblock": "^3.0 || ^4.0 || ^5.0",
     "predis/predis": "^1.1",
     "sensio/framework-extra-bundle": "^5.1",
+    "spatie/flysystem-dropbox": "^1.2",
     "stripe/stripe-php": "^7.31",
     "symfony/asset": "5.2.*",
     "symfony/console": "5.2.*",

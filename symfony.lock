@@ -200,6 +200,9 @@
     "google/auth": {
         "version": "v1.6.1"
     },
+    "graham-campbell/guzzle-factory": {
+        "version": "v4.2.0"
+    },
     "guzzlehttp/guzzle": {
         "version": "6.5.2"
     },
@@ -540,6 +543,12 @@
         "files": [
             "config/packages/sensio_framework_extra.yaml"
         ]
+    },
+    "spatie/dropbox-api": {
+        "version": "1.17.0"
+    },
+    "spatie/flysystem-dropbox": {
+        "version": "1.2.3"
     },
     "spatie/phpunit-watcher": {
         "version": "1.22.0"

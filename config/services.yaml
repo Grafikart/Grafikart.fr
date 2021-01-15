@@ -77,9 +77,6 @@ services:
       $assetPath: '%kernel.project_dir%/public/assets'
       $env: '%kernel.environment%'
 
-  App\Core\OptionInterface:
-    class: 'App\Domain\Application\Option'
-
   App\Infrastructure\Image\ImageResizer:
     arguments: ['%image_resize_key%']
 
@@ -96,8 +93,18 @@ services:
     arguments:
       $dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
 
-  App\Domain\Premium\VideoUrlGenerator:
-    arguments: ['%env(STREAMING_BASE)%', '%env(STREAMING_SIGNATURE)%']
-
   App\Infrastructure\Spam\SpamService:
     arguments: [['App\Domain\Forum\Entity\Topic', 'App\Domain\Forum\Entity\Message']]
+
+  App\Command\DumpCommand:
+    arguments:
+      $projectPath: '%kernel.project_dir%/var'
+      $filesystem: '@dropbox_filesystem'
+
+  App\Infrastructure\Storage\DropboxFilesystemFactory:
+    arguments:
+      - '%env(DROPBOX_TOKEN)%'
+
+  dropbox_filesystem:
+    class: League\Flysystem\Filesystem
+    factory: ['@App\Infrastructure\Storage\DropboxFilesystemFactory', 'createFilesystem']
