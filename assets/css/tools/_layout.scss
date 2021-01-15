@@ -5,6 +5,19 @@
   --container-width: calc(100vw - var(--container-padding) * 2);
 }
 
+@media only screen and (min-width: 900px) {
+  :root {
+    --container-padding: 32px;
+  }
+}
+
+@media only screen and (min-width: 1370px) {
+  :root {
+    --container-padding: 20px;
+    --container-width: 1330px;
+  }
+}
+
 .waves {
   position: absolute;
   top: 0;
@@ -50,13 +63,6 @@
   padding-right: calc(50% - var(--container-width) / 2);
 }
 
-.container-full {
-  box-sizing: border-box;
-  width: 100%;
-  padding-left: var(--container-padding);
-  padding-right: var(--container-padding);
-}
-
 %container-margin {
   margin-left: auto;
   margin-right: auto;
@@ -67,12 +73,6 @@
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
-}
-
-@media only screen and (min-width: 1370px) {
-  :root {
-    --container-width: 1330px;
-  }
 }
 
 // Ratios
@@ -147,6 +147,10 @@
   & > * + * {
     margin-left: space(1);
   }
+}
+
+.hidden {
+  display: none;
 }
 
 // Largeur

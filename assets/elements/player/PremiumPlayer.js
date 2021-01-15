@@ -36,6 +36,9 @@ export class PremiumPlayer extends HTMLElement {
       <div class="ratio">
         <div class="player"></div>
         ${poster}
+        <svg viewBox="0 0 16 9" xmlns="http://www.w3.org/2000/svg" class="ratio-svg">
+          <rect width="16" height="9" fill="transparent"/>
+        </svg>
       </div>`
 
     // Evènements

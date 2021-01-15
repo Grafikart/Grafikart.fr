@@ -94,7 +94,7 @@
   align-items: center;
   justify-content: flex-start;
   height: 16px;
-  border-right: 1px solid currentColor;
+  border-right: 1px solid var(--border);
   margin-right: space(2);
   padding-right: space(1);
 }
@@ -106,7 +106,7 @@
   align-items: center;
   justify-content: flex-start;
   height: 16px;
-  border-right: 1px solid currentColor;
+  border-right: 1px solid var(--border);
   padding-right: space(1);
 }
 .header__account a {
@@ -256,10 +256,12 @@
   }
   .header.is-open a{
     opacity: 1;
+    color: var(--color) !important;
   }
-  .header.is-open a:hover{
+  .header.is-open a:hover,
+  .header.is-open a[aria-current] {
     opacity: 1;
-    color: var(--contrast);
+    color: var(--contrast) !important;
   }
   .header.is-open .header-nav {
     display: grid;

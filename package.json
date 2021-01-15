@@ -1,6 +1,6 @@
 {
   "name": "Grafikart.fr",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
@@ -18,7 +18,7 @@
     "prettier": "^2.2.1",
     "prettier-standard": "^16.4.1",
     "sass": "^1.32.4",
-    "vite": "^2.0.0-beta.27"
+    "vite": "^2.0.0-beta.30"
   },
   "scripts": {
     "lint": "prettier-standard --lint \"assets/**/*.{js,css,jsx}\"",

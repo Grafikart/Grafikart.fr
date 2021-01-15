@@ -131,8 +131,11 @@
 }
 
 .forum-topic.is-read {
-  filter: grayscale(1);
   opacity: .6;
+
+  img {
+    filter: grayscale(1);
+  }
 
   .forum-topic__title {
     color: var(--color-light);
@@ -186,13 +189,16 @@
   }
 }
 
-.forum-topic__tags a[style] {
-  color: #fff;
+.forum-topic__tags a {
+  border-radius: 2px;
+  padding: space(1);
 }
 
-.forum-topic__tags a {
-  background-color: var(--border-light);
-  border-radius: 2px;
+.forum-topic__tags a[style] {
+  color: #fff;
+  &::after {
+    display: none; // overwrite pill overlay
+  }
 }
 
 .forum-topic__meta {

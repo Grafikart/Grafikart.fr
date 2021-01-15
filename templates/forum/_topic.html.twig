@@ -9,9 +9,9 @@
         <div class="forum-topic__tags">
           {% for tag in topic.tags %}
             {% if tag.parent %}
-              <a href="{{ path(tag.parent) }}" class="badge" style="background-color: {{ tag.parent.color }}">{{ tag.parent.name }}</a>
+              <a href="{{ path(tag.parent) }}" class="pill small pill-square pill-grey" style="background-color: {{ tag.parent.color }}">{{ tag.parent.name }}</a>
             {% endif %}
-            <a href="{{ path(tag) }}" class="badge">{{ tag.name }}</a>
+            <a href="{{ path(tag) }}" class="pill small pill-square pill-grey">{{ tag.name }}</a>
           {% endfor %}
         </div>
         {% if topic.lastMessage %}

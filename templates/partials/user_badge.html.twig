@@ -1,5 +1,5 @@
 {% if user.premium %}
-  <span class="pill pill-xsmall pill-yellow">{{ icon('star', 12) }} premium</span>
+  <span class="pill small pill-yellow uppercase">{{ icon('star', 12) }} premium</span>
 {% else %}
-  <a class="badge badge-secondary" href="{{ path('premium') }}">Compte standard</a>
+  <a class="pill small pill-darkgrey" href="{{ path('premium') }}">Compte standard</a>
 {% endif %}

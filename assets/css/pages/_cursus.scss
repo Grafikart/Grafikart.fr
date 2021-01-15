@@ -97,7 +97,6 @@
     --size: 150px;
   }
 }
-
 .cursus-header__technologies {
   display: grid;
   grid-template-columns: var(--size) var(--size);
@@ -107,13 +106,11 @@
   margin-bottom: space(-8);
   justify-content: center;
 }
-
 .cursus-header__technologies a {
   display: block;
   width: 100%;
   height: 100%;
 }
-
 .cursus-header__technologies img {
   display: block;
   width: 100%;

@@ -71,6 +71,9 @@
 .course > *:last-child {
   margin-bottom: 0;
 }
+.course__player {
+  --max-height: calc(100vh - 291px);
+}
 .course__title {
   font-family: $font-alt;
   font-size: 16px;
@@ -237,42 +240,6 @@
       display: flex;
       flex-wrap: wrap;
     }
-  }
-}
-
-// En tête des tutoriels (avec player video)
-// =============
-@include up(700) {
-  .course-header {
-    display: grid;
-    grid-template-columns: 1fr auto var(--sidebar-width) 1fr;
-    grid-template-areas: 'space player sidebar space2';
-  }
-  .course-header__sidebar {
-    position: relative;
-    display: block;
-
-    & > * {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      overflow: auto;
-    }
-  }
-  .course-header__player {
-    border-radius: 8px;
-    overflow: hidden;
-    grid-area: player;
-    width: calc(100vw - var(--sidebar-width) - 80px);
-    max-width: 150vh;
-  }
-  .course-header__sidebar {
-    grid-area: sidebar;
-    max-height: 100%;
-    overflow: auto;
-    margin-left: var(--container-padding);
   }
 }
 

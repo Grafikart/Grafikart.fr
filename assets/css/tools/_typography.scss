@@ -68,8 +68,12 @@ $font-alt: 'Gotham', 'Montserrat', 'Open Sans', -apple-system, BlinkMacSystemFon
   font-family: $font-alt;
   font-weight: 700;
   font-style: normal;
-  font-size: 42px;
+  font-size: 32px;
   line-height: 1.2;
+
+  @include up(600) {
+    font-size: 42px;
+  }
 }
 
 %h2,
@@ -134,6 +138,9 @@ small, .text-small {
 }
 .bold {
   font-weight: bold;
+}
+.uppercase {
+  text-transform: uppercase;
 }
 .underline {
   text-decoration: underline;

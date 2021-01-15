@@ -18,15 +18,16 @@
       {{ breadcrumb(course) }}
     </div>
 
-    <div class="container formatted mb3">
-      <h1>
-        {% if course.formation %}
-          {{ "Formation " ~ course.formation.title ~ ' : ' ~ course.title }}
+    <h1 class="container mb3 h1">
+      <span class="hidden">
+        {%- if course.formation %}
+          {{- "Formation " ~ course.formation.title ~ ' : ' -}}
         {% else %}
-          {{ "Tutoriel " ~ course.mainTechnologies|map(t => "#{t.name}")|join(' & ') ~ ' : ' ~ course.title }}
-        {% endif %}
-      </h1>
-    </div>
+          {{- "Tutoriel " ~ course.mainTechnologies|map(t => "#{t.name}")|join(' & ') ~ ' : ' -}}
+        {% endif -%}
+      </span>
+      {{- course.title }}
+    </h1>
 
     <div class="container">
       {% include 'courses/_deprecation.html.twig' with {class: 'mb3'} %}
@@ -52,6 +53,7 @@
       {% elseif (course.scheduled or course.premium) and user_premium %}
         <progress-tracker contentId="{{ course.id }}" data-history="{{ course.id }}" duration="{{ course.duration }}">
           <premium-player
+            class="course__player"
             id="course-{{ course.id }}"
             video="{{ path('stream_video', {video: course.videoPath}) }}"
             poster="{{ image_url(course.image, 1330, 750) }}"
@@ -62,6 +64,7 @@
       {% else %}
       <progress-tracker contentId="{{ course.id }}" data-history="{{ course.id }}" duration="{{ course.duration }}">
         <youtube-player
+          class="course__player"
           id="course-{{ course.id }}"
           video="{{ course.youtubeId }}"
           poster="{{ image_url(course.image, 1330, 750) }}"
@@ -93,19 +96,19 @@
         </div>
         <div>
           {% if course.demo %}
-            <a href="{{ course.demo }}" class="pill" target="_blank"
+            <a href="{{ course.demo }}" class="pill uppercase" target="_blank"
                title="Démonstration du tutoriel {{ course.title }}">
               {{ icon('lines') }}
               Voir la démo
             </a>
           {% endif %}
           {% if course.source is not empty %}
-            <a href="{{ path('course_download_source', {id: course.id}) }}" class="pill" data-turbolinks="false" {% if user_premium %}download="Sources {{ course.title }}" {% endif %}>
+            <a href="{{ path('course_download_source', {id: course.id}) }}" class="pill uppercase" data-turbolinks="false" {% if user_premium %}download="Sources {{ course.title }}" {% endif %}>
               {{ icon('lines') }}
               Télécharger les sources
             </a>
           {% endif %}
-          <a href="{{ path('course_download_video', {id: course.id}) }}" class="pill" data-turbolinks="false" {% if user_premium %}download="{{ course.title }}" {% endif %}>
+          <a href="{{ path('course_download_video', {id: course.id}) }}" class="pill uppercase" data-turbolinks="false" {% if user_premium %}download="{{ course.title }}" {% endif %}>
             {{ icon('video') }}
             Télécharger la vidéo
           </a>
@@ -133,7 +136,7 @@
         <div class="layout-sidebar">
           <div class="stack">
 
-            <div class="h2" aria-hidden="true">{{ course.title }}</div>
+            <div class="h2" aria-hidden="true">A propos de ce tutoriel</div>
 
             {% include 'courses/_deprecation.html.twig' with {class: 'mb0'} %}
 

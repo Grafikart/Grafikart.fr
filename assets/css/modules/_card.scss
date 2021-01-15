@@ -110,7 +110,7 @@
   position: relative;
   z-index: 3;
 }
-.card a:not([class^='btn']):hover {
+.card a:not([class^='btn']):not([class^='pill']):hover {
   color: var(--contrast);
 }
 .card__link {

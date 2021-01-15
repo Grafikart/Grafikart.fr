@@ -27,11 +27,11 @@
           <td>{{ row.author.email }}</td>
           <td>
             {% if row.paypal %}
-            <a class="pill pill-small pill-yellow" href="https://www.paypal.com/myaccount/transactions/?free_text_search={{ row.methodRef }}&account_subscription_type=ALL&filter_id=&currency=ALL&issuance_product_name=&asset_names=&asset_symbols=&type=&status=&start_date=2010-07-09&end_date=2120-10-07">
+            <a class="pill uppercase pill-yellow" href="https://www.paypal.com/myaccount/transactions/?free_text_search={{ row.methodRef }}&account_subscription_type=ALL&filter_id=&currency=ALL&issuance_product_name=&asset_names=&asset_symbols=&type=&status=&start_date=2010-07-09&end_date=2120-10-07">
               {{ row.method }}
             </a>
             {% elseif row.stripe %}
-              <a class="pill pill-small" href="https://dashboard.stripe.com/payments/{{ row.methodRef }}">
+              <a class="pill" href="https://dashboard.stripe.com/payments/{{ row.methodRef }}">
                 {{ row.method }}
               </a>
             {% endif %}

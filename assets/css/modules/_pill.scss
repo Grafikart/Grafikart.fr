@@ -1,0 +1,99 @@
+// Badge
+// ==================
+.badge {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--background);
+  padding: 0.25em 0.6em;
+  border-radius: 10rem;
+  font-size: 75%;
+  line-height: 1;
+  .icon {
+    margin-right: space(1);
+  }
+}
+
+// Core
+// ==================
+.pill {
+  display: inline-flex;
+  align-items: center;
+  font-family: $font-alt;
+  position: relative;
+  padding: space(1) space(2);
+  color: var(--contrast);
+  font-size: 14px;
+  font-weight: bold;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: 20px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: currentColor;
+    opacity: 0.1;
+    transition: opacity .3s;
+    z-index: -1;
+  }
+}
+a.pill:hover::after {
+  opacity: .2;
+}
+.pill svg {
+  width: 16px;
+  height: 16px;
+  margin-right: space(1);
+}
+
+// Sizes
+// =============
+.pill.small {
+  font-size: 11px;
+  height: 18px;
+  padding: 0 9px;
+  font-weight: normal;
+  line-height: 18px;
+  border-radius: 3px;
+
+  .icon {
+    transform: none;
+    vertical-align: middle;
+    margin-right: space(.5);
+    display: block;
+    width: 12px;
+    height: 12px;
+  }
+}
+
+// Colors
+// =============
+.pill-green {
+  color: var(--green);
+}
+.pill-yellow {
+  color: var(--yellow);
+}
+.pill-red {
+  color: var(--red);
+}
+.pill-grey {
+  color: var(--color-light);
+
+  &::after {
+    opacity: 1;
+    background-color: var(--border-light);
+  }
+}
+.pill-darkgrey {
+  color: #fff;
+  &::after {
+    opacity: 1;
+    background-color: #9fb3c8;
+  }
+}

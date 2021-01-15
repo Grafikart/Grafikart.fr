@@ -63,10 +63,6 @@
 form.profil-header__avatar:hover img {
   opacity: 0.7;
 }
-.profil-header .badge-secondary {
-  background-color: #9fb3c8;
-  color: #fff;
-}
 
 @include up(600) {
   .profil-header {

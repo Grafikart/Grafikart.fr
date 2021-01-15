@@ -5,7 +5,16 @@ export const playerStyle = `
 .ratio {
   background-color:black;
   position: relative;
-  padding-bottom: 56.25%;
+}
+.ratio-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  max-height: var(--max-height, 100vh);
+}
+video ~ .ratio-svg,
+iframe ~ .ratio-svg {
+  max-height: 100%;
 }
 .poster {
   border: none;
@@ -65,6 +74,9 @@ img {
   width: 100%;
   height: 100%;
   transition: opacity .5s;
+}
+.poster img {
+  object-fit: cover;
 }
 .poster[aria-hidden] {
   pointer-events: none;

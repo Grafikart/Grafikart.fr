@@ -7093,10 +7093,10 @@ vfile@^4.0.0:
     unist-util-stringify-position "^2.0.0"
     vfile-message "^2.0.0"
 
-vite@^2.0.0-beta.27:
-  version "2.0.0-beta.27"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-2.0.0-beta.27.tgz#a2e4b3a698e67c89fd963ff51ee5283ec564c65c"
-  integrity sha512-1fGPjSVE4MmCGVguFy7pPurCLnvHu4fJSzVjejd9GoFqCNie+JKCpe3KGsxIb9B8ot/aDd4ISCB0+fH1/01FUA==
+vite@^2.0.0-beta.30:
+  version "2.0.0-beta.30"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-2.0.0-beta.30.tgz#d0c1056d1fb05c489614360f92363eebec41a6b4"
+  integrity sha512-wOeO64J3k4jGjCOkH/6RUcIyT/HOTaDZSiXE75aWYqV9hI7Q6uEeSXbAFtb9bG82RGLEWdsqtCvx5t7gaeqtsw==
   dependencies:
     esbuild "^0.8.26"
     postcss "^8.2.1"
