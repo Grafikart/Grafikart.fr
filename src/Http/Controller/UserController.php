@@ -10,7 +10,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
-
     /**
      * @Route("/profil/{id<\d+>}", name="user_show", requirements={"id"="\d+"})
      */

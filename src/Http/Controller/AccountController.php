@@ -2,9 +2,6 @@
 
 namespace App\Http\Controller;
 
-use App\Domain\Auth\User;
-use App\Domain\Comment\CommentRepository;
-use App\Domain\Forum\Repository\TopicRepository;
 use App\Domain\Profile\Dto\ProfileUpdateDto;
 use App\Domain\Profile\Exception\TooManyEmailChangeException;
 use App\Domain\Profile\ProfileService;
@@ -117,6 +114,6 @@ class AccountController extends AbstractController
             $this->addFlash('error', "Vous avez déjà un changement d'email en cours.");
         }
 
-            return [$form, null];
+        return [$form, null];
     }
 }

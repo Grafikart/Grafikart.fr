@@ -45,7 +45,7 @@ class RegistrationFormType extends AbstractType
         if ($user && !$user->useOauth()) {
             $passwordAttrs = [
                 'minlength' => 6,
-                'maxlength' => 4096
+                'maxlength' => 4096,
             ];
             $builder
                 ->add('plainPassword', RepeatedType::class, [

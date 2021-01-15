@@ -8,7 +8,6 @@ use Spatie\FlysystemDropbox\DropboxAdapter;
 
 class DropboxFilesystemFactory
 {
-
     private string $accessToken;
 
     public function __construct(string $accessToken)
@@ -20,6 +19,7 @@ class DropboxFilesystemFactory
     {
         $client = new Client($this->accessToken);
         $adapter = new DropboxAdapter($client);
+
         return new Filesystem($adapter, ['case_sensitive' => false]);
     }
 }

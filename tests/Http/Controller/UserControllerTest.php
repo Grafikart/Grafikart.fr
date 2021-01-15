@@ -3,10 +3,8 @@
 namespace App\Tests\Http\Controller;
 
 use App\Domain\Auth\User;
-use App\Domain\Profile\Entity\EmailVerification;
 use App\Tests\FixturesTrait;
 use App\Tests\WebTestCase;
-use Symfony\Component\HttpFoundation\Response;
 
 class UserControllerTest extends WebTestCase
 {
