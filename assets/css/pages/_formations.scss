@@ -12,7 +12,7 @@
   display: grid;
   grid-template-columns: 420px 1fr;
   grid-gap: 50px;
-  padding-top: 70px;
+  padding-top: space(5);
 
   .hero-title {
     margin-bottom: space(4);
