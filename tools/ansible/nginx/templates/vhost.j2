@@ -57,7 +57,7 @@ server {
 
     # index.php fallback
     location / {
-        limit_req zone=main burst=10;
+        limit_req zone=main burst=20 delay=10;
         try_files $uri $uri/ /index.php?$query_string;
     }
 

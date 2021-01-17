@@ -24,7 +24,7 @@ class ContentRepository extends AbstractRepository
     {
         return $this->createIterableQuery('c')
             ->orderBy('c.createdAt', 'DESC')
-            ->where('c.createdAt < NOW()')->andWhere('c.online = TRUE')
+            ->where('c.online = TRUE')
             ->setMaxResults($limit);
     }
 }
