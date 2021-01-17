@@ -169,6 +169,11 @@
   overflow: hidden;
 }
 
+.home-list__item > *:last-child {
+  margin-top: 3px;
+  color: var(--color-light);
+}
+
 .home-list__item.has-icon {
   position: relative;
   padding-left: 64px;

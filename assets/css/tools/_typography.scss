@@ -1,18 +1,12 @@
 // Variables
 // ==================
-$font: 'SF Pro', 'Roboto', 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
-  'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-$font-alt: 'Gotham', 'Montserrat', 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
-  'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-
-// $font: "Rubik";
-// $font-alt: $font;
+$font: 'Open Sans', sans-serif;
+$font-alt: 'Inter', sans-serif;
 
 // Font face
 // ==================
-// https://gist.github.com/mfd/f3d96ec7f0e8f034cc22ea73b3797b59
-@include font-face('Gotham', '/fonts/GothamPro', 500 700, null, woff2);
-@include font-face('SF Pro', '/fonts/SFPro', 400 700, null, woff2);
+@include font-face('Inter', '/fonts/Inter', 400 500 700, null, woff2);
+@include font-face('Open Sans', '/fonts/OpenSans', 400 700, null, woff2);
 
 %hero-title,
 .hero-title {
