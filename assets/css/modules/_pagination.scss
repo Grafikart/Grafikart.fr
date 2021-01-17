@@ -5,12 +5,18 @@
   width: 100%;
   justify-content: center;
   margin: space(3) 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  // Evite le découpage des ombres
+  padding-top: 4px;
+  padding-bottom: 6px;
 }
 .pagination li a,
 .pagination li span {
   margin: space(0.5);
   padding: space(0.5) space(1);
   min-width: 35px;
+  white-space: nowrap;
 }
 .pagination span {
   opacity: 0.6;
