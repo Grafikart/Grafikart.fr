@@ -89,6 +89,9 @@
 .header-side > li {
   margin-right: space(2);
 }
+.header-side__auth {
+  white-space: nowrap;
+}
 .header__home {
   display: flex;
   align-items: center;
