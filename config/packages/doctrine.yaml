@@ -27,6 +27,7 @@ doctrine:
     dql:
       numeric_functions:
         RANDOM: DoctrineExtensions\Query\Sqlite\Random
+        ROUND: DoctrineExtensions\Query\Mysql\Round
       datetime_functions:
         EXTRACT: DoctrineExtensions\Query\Postgresql\ExtractFunction
         TO_CHAR: DoctrineExtensions\Query\Postgresql\DateFormat

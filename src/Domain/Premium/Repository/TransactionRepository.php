@@ -46,7 +46,7 @@ class TransactionRepository extends AbstractRepository
             ->select(
                 "TO_CHAR(t.createdAt, '$label') as date",
                 "TO_CHAR(t.createdAt, '$group') as fulldate",
-                'SUM(t.price - t.tax - t.fee) as amount'
+                'ROUND(SUM(t.price - t.tax - t.fee)) as amount'
             )
             ->groupBy('fulldate', 'date')
             ->where('t.refunded = false')
