@@ -6,18 +6,23 @@
 
 {% block body %}
 
-  <div class="page-header container">
-    <h1 class="h2 mb2">{{ topic.name }}</h1>
-    <div class="flex flex-start">
-      <a href="{{ path(topic.author) }}" class="flex underline flex-start mr1">
-        <img src="{{ topic.author | avatar }}" alt="" class="rounded mr1" width="25">
-        {{ topic.author.username }}
-      </a>
-      <small class="text-muted">
-        , {{ topic.createdAt | ago }}
-        <forum-edit topic="{{ topic.id }}" owner="{{ topic.author.id }}"></forum-edit>
-        <forum-delete topic="{{ topic.id }}" owner="{{ topic.author.id }}"></forum-delete>
-      </small>
+  <div class="page-header container flex">
+    <div>
+      <h1 class="h2 mb2">{{ topic.name }}</h1>
+      <div class="flex flex-start">
+        <a href="{{ path(topic.author) }}" class="flex underline flex-start mr1">
+          <img src="{{ topic.author | avatar }}" alt="" class="rounded mr1" width="25">
+          {{ topic.author.username }}
+        </a>
+        <small class="text-muted">
+          , {{ topic.createdAt | ago }}
+          <forum-edit topic="{{ topic.id }}" owner="{{ topic.author.id }}"></forum-edit>
+          <forum-delete topic="{{ topic.id }}" owner="{{ topic.author.id }}"></forum-delete>
+        </small>
+      </div>
+    </div>
+    <div style="align-self: flex-start; flex: none;">
+      <forum-report topic="{{ topic.id }}" class="forum-message__actions"></forum-report>
     </div>
   </div>
 
@@ -30,10 +35,20 @@
         </div>
         <div class="js-forum-edit"></div>
       </div>
-      <forum-report topic="{{ topic.id }}" class="forum-message__actions"></forum-report>
     </div>
 
-    <h2 class="section-title mt3">{{ topic.messageCount }} Réponses</h2>
+    <div class="mb1">
+      <h2 class="h3 mt3 mb1">
+        {% if topic.messageCount == 0 %}
+          Aucune réponse
+        {% elseif topic.messageCount == 1 %}
+          1 Réponse
+        {% else %}
+          {{ topic.messageCount }} Réponses
+        {% endif %}
+      </h2>
+      <hr/>
+    </div>
 
     <div class="forum-messages">
       {% for message in topic.messages %}

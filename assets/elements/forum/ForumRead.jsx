@@ -24,7 +24,7 @@ export function ForumRead ({ endpoint }) {
   }
 
   return (
-    <SecondaryButton size='small' loading={loading} onClick={fetch}>
+    <SecondaryButton size='small' loading={loading} onClick={e => fetch()}>
       {!loading && <Icon name='eye' />} Marquer tous comme lus
     </SecondaryButton>
   )
