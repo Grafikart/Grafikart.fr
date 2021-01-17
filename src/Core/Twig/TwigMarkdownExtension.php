@@ -77,9 +77,11 @@ class TwigMarkdownExtension extends AbstractExtension
 
     public function markdownUntrusted(?string $content): string
     {
-        return strip_tags((new Parsedown())
+        $content = strip_tags((new Parsedown())
             ->setSafeMode(true)
             ->setBreaksEnabled(true)
-            ->text($content), '<p><pre><code><ul><ol><li><h4><h3><h5><strong><br>');
+            ->text($content), '<p><pre><code><ul><ol><li><h4><h3><h5><a><strong><br>');
+
+        return str_replace('<a href=', '<a target="_blank" rel="noreferrer" href=', $content);
     }
 }

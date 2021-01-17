@@ -302,6 +302,11 @@
 
   .forum-message__body {
     grid-column: 2 / -1;
+
+    pre.with-syntax {
+      margin-left: space(-2);
+      margin-right: space(-2);
+    }
   }
 
   .hjs {

@@ -7,6 +7,7 @@ import { Flex, Stack } from '/components/Layout.jsx'
 import { resolveEndpoint } from '/api/forum.js'
 import { jsonFetch } from '/functions/api.js'
 import { SecondaryButton } from '/components/Button.jsx'
+import { bindHighlight } from '/modules/highlight.js'
 
 export function ForumEdit ({ message, topic, owner }) {
   const element = useRef()
@@ -41,7 +42,9 @@ export function ForumEdit ({ message, topic, owner }) {
     // On met à jour le contenu dans la div
     const message = element.current.closest('.forum-message')
     setRawContent(data.content)
-    message.querySelector('.js-content').innerHTML = data.formattedContent
+    const messageContent = message.querySelector('.js-content')
+    messageContent.innerHTML = data.formattedContent
+    bindHighlight(messageContent)
     // On revient sur l'affichage du message
     handleCancel()
   }

@@ -82,7 +82,7 @@ export class FloatingAlert extends Alert {
  * @param {string} type
  * @param {number|null} duration
  */
-export function flash (message, type = 'success', duration = 2) {
+export function flash (message, type = 'success', duration = 3) {
   const alert = document.createElement('alert-floating')
   if (duration) {
     alert.setAttribute('duration', duration)

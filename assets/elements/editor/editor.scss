@@ -22,7 +22,7 @@
   height: calc(100% - 34px);
   width: 100%;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
   z-index: 2;
   background: var(--background);
 }
