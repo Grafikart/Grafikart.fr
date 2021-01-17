@@ -7,6 +7,9 @@
   padding-top: space(6);
   padding-bottom: space(3);
   z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
   &::after {
     content: '';
@@ -54,22 +57,21 @@
   height: 12px;
   margin-right: space(1);
 }
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
 .header ul {
   display: flex;
   align-items: center;
 }
 .header-nav {
-  height: 16px;
+  height: 26px;
+  margin-top: -5px;
+  margin-bottom: -5px;
   flex-wrap: wrap;
   overflow: hidden;
 }
 .header-nav li {
-  display: block;
+  display: flex;
+  align-items: center;
+  height: 26px;
 }
 .header-nav li[hidden] {
   display: none;
@@ -92,7 +94,7 @@
 .header-side__auth {
   white-space: nowrap;
 }
-.header__home {
+.header .header__home {
   display: flex;
   align-items: center;
   justify-content: flex-start;
