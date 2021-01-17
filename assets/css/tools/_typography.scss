@@ -1,12 +1,11 @@
 // Variables
 // ==================
-$font: 'Open Sans', sans-serif;
+$font: 'Inter', sans-serif;
 $font-alt: 'Inter', sans-serif;
 
 // Font face
 // ==================
 @include font-face('Inter', '/fonts/Inter', 400 500 700, null, woff2);
-@include font-face('Open Sans', '/fonts/OpenSans', 400 700, null, woff2);
 
 %hero-title,
 .hero-title {
