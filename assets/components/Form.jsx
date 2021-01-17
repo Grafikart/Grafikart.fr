@@ -3,21 +3,25 @@ import { ApiError, jsonFetch } from '/functions/api.js'
 import { useContext, useEffect, useLayoutEffect, useRef, useState } from 'preact/hooks'
 import { useAutofocus } from '/functions/hooks.js'
 import { flash } from '/elements/Alert.js'
-import { Button, SecondaryButton, PrimaryButton } from '/components/Button.jsx'
+import { Button, PrimaryButton, SecondaryButton } from '/components/Button.jsx'
 import { Flex } from '/components/Layout.jsx'
 import { classNames } from '/functions/dom.js'
+import { useMemo } from 'preact/compat'
 
 /**
  * Représente un champs, dans le contexte du formulaire
  *
- * @param type
- * @param name
- * @param onInput
- * @param value
- * @param error
+ * @param {string} type
+ * @param {string} name
+ * @param {function} onInput
+ * @param {string} value
+ * @param {string} error
+ * @param {boolean} autofocus
+ * @param {function} component
+ * @param {React.Children} children
+ * @param {string} className
+ * @param {string} wrapperClass
  * @param props
- * @return {*}
- * @constructor
  */
 export function Field ({
   name,
@@ -28,6 +32,7 @@ export function Field ({
   type = 'text',
   className = '',
   wrapperClass = '',
+  component = null,
   ...props
 }) {
   // Hooks
@@ -54,37 +59,37 @@ export function Field ({
   const attr = {
     name,
     id: name,
-    value,
     className,
     onInput: handleInput,
     type,
+    ...(value === undefined ? {} : { value }),
     ...props
   }
 
+  // On trouve le composant à utiliser
+  const FieldComponent = useMemo(() => {
+    if (component) {
+      return component
+    }
+    switch (type) {
+      case 'textarea':
+        return FieldTextarea
+      case 'editor':
+        return FieldEditor
+      default:
+        return FieldInput
+    }
+  }, [component, type])
+
   // Si l'erreur change on considère le champs comme "clean"
   useLayoutEffect(() => {
-    if (dirty === true) {
-      setDirty(false)
-    }
-  }, [error, dirty])
+    setDirty(false)
+  }, [error])
 
   return (
     <div className={`form-group ${wrapperClass}`} ref={ref}>
       {children && <label htmlFor={name}>{children}</label>}
-      {(() => {
-        if (props.component) {
-          const Component = props.component
-          return <Component {...attr} />
-        }
-        switch (type) {
-          case 'textarea':
-            return <FieldTextarea {...attr} />
-          case 'editor':
-            return <FieldEditor {...attr} />
-          default:
-            return <FieldInput {...attr} />
-        }
-      })()}
+      <FieldComponent {...attr} />
       {showError && <div className='invalid-feedback'>{error}</div>}
     </div>
   )
@@ -232,8 +237,8 @@ export function FetchForm ({
  *
  * @param {string} type
  * @param {string} name
- * @return {*}
- * @constructor
+ * @param {React.Children} children
+ * @param {object} props
  */
 export function FormField ({ type = 'text', name, children, ...props }) {
   const { errors, emptyError, loading } = useContext(FormContext)

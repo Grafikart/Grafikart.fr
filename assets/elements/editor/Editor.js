@@ -4,13 +4,16 @@
  * @property {HTMLDivElement} element
  * @property {CodeMirror} editor
  * @property {string} value
+ * @property {object} options
  */
 export default class Editor {
   /**
    * @param {string} value
+   * @param {object} options
    */
-  constructor (value = '') {
+  constructor (value = '', options = {}) {
     this.value = value
+    this.options = options
     this.element = document.createElement('div')
     this.element.classList.add('mdeditor__editor')
   }
@@ -26,10 +29,14 @@ export default class Editor {
       theme: 'neo',
       lineWrapping: true,
       cursorBlinkRate: 0,
-      viewportMargin: Infinity
+      viewportMargin: Infinity,
+      ...this.options
     })
     window.requestAnimationFrame(() => {
       this.editor.refresh()
+      if (this.options.autofocus) {
+        this.focus()
+      }
     })
     this.editor.on('change', cm => {
       this.onChange(cm.getValue())
@@ -95,4 +102,12 @@ export default class Editor {
    * @param {string} value
    */
   onChange () {}
+
+  /**
+   * Focus the field and go to the last character
+   */
+  focus () {
+    this.editor.focus()
+    this.editor.setCursor(this.editor.lineCount(), 0)
+  }
 }

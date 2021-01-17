@@ -72,6 +72,7 @@ export function ForumEdit ({ message, topic, owner }) {
       )}
       {state === 'edit' && (
         <ForumEditor
+          id={message}
           container={container.current}
           endpoint={endpoint}
           content={rawContent}
@@ -86,11 +87,11 @@ export function ForumEdit ({ message, topic, owner }) {
 /**
  * Génère un éditeur pour l'édition d'un message sur le forum
  */
-function ForumEditor ({ container, endpoint, onCancel, content, onSuccess }) {
+function ForumEditor ({ id, container, endpoint, onCancel, content, onSuccess }) {
   return createPortal(
     <FetchForm action={endpoint} method='PUT' onSuccess={onSuccess}>
       <Stack>
-        <FormField name='content' defaultValue={content} type='editor' />
+        <FormField id={`content${id}`} name='content' defaultValue={content} type='editor' autofocus={true} />
         <Flex>
           <FormPrimaryButton>Editer</FormPrimaryButton>
           <SecondaryButton onClick={onCancel} type='button'>

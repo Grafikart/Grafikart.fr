@@ -16,7 +16,9 @@ export class MarkdownEditor extends HTMLTextAreaElement {
   }
 
   async connectedCallback () {
-    const editor = new Editor(this.value, this.getAttribute('original'))
+    const editor = new Editor(this.value, {
+      autofocus: this.getAttribute('autofocus') !== null
+    })
     await editor.boot()
     const toolbar = new Toolbar(editor)
 
@@ -29,7 +31,12 @@ export class MarkdownEditor extends HTMLTextAreaElement {
     toolbar.onFullScreen = this.toggleFullscreen
     editor.onChange = value => {
       this.value = value
-      this.dispatchEvent(new Event('change'))
+      this.dispatchEvent(
+        new Event('input', {
+          bubbles: true,
+          cancelable: true
+        })
+      )
     }
     this.syncEditor = () => editor.setValue(this.value)
     if (this.form) {
@@ -59,6 +66,12 @@ export class MarkdownEditor extends HTMLTextAreaElement {
 
   toggleFullscreen () {
     this.container.classList.toggle('mdeditor--fullscreen')
+  }
+
+  focus () {
+    if (this.editor) {
+      this.editor.focus()
+    }
   }
 
   /**
