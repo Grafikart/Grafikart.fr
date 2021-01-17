@@ -1,6 +1,8 @@
-.formatted {
+.formatted:not[style^="display"] {
   display: block !important;
+}
 
+.formatted {
   strong {
     font-weight: bold;
   }
