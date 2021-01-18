@@ -101,7 +101,7 @@ class AccountController extends AbstractController
                 $this->em->flush();
                 if ($user->getEmail() !== $data->email) {
                     $this->addFlash(
-                        'success',
+                        'info',
                         "Votre profil a bien été mis à jour, un email a été envoyé à {$data->email} pour confirmer votre changement"
                     );
                 } else {
