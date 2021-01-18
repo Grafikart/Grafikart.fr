@@ -80,7 +80,7 @@ class CourseController extends AbstractController
     }
 
     /**
-     * @Route("/tutoriels/{slug<[a-z0-9A-Z\-]+>}-{id<\d+>}", name="course_show")
+     * @Route("/tutoriels/{slug<[a-z0-9A-Z\-]+>}-{id<\d+>}", priority=10, name="course_show")
      */
     public function show(Course $course, string $slug): Response
     {

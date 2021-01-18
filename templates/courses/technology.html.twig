@@ -9,7 +9,7 @@
   <header class="page-header technology-header container">
     <div class="stack w100">
       <h1 class="h1">{{ technology.name }}</h1>
-      <div class="formatted">{{ technology.content | markdown }}</div>
+      <div class="formatted text-big">{{ technology.content | markdown }}</div>
     </div>
     <div class="technology-header__logo">
       <img src="{{ uploads_path('icons/' ~ technology.image) }}" alt="{{ technology.name }}">

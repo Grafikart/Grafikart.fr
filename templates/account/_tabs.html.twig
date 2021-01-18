@@ -15,4 +15,10 @@
     {{ icon('inbox') }}
     Mes factures
   </a>
+  {% if is_granted('ADMIN') %}
+    <a href="{{ path('admin_home') }}" class="mla">
+      {{ icon('edit') }}
+      Administration
+    </a>
+  {% endif %}
 </div>

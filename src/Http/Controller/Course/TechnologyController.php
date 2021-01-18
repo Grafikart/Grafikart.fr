@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class TechnologyController extends AbstractController
 {
     /**
-     * @Route("/tutoriels/{slug}", name="technology_show", requirements={"slug"="[a-z\-]+"})
+     * @Route("/tutoriels/{slug}", name="technology_show", requirements={"slug"="[a-z0-9\-]+"})
      */
     public function index(
         Technology $technology,

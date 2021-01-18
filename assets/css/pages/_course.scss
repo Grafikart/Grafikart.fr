@@ -246,23 +246,37 @@
 // En tête technology
 // =============
 .technology-header {
-  display: flex;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  min-height: 250px;
+  grid-row-gap: space(3);
+
+  @include up(690) {
+    grid-template-columns: 1fr 300px;
+  }
+
+  @include up(1000) {
+    grid-template-columns: 1fr 400px;
+  }
 }
 .technology-header__logo {
   position: relative;
   z-index: 2;
-  width: 200px;
-  height: 100px;
+  width: 100%;
+  max-width: 200px;
   flex: none;
-  margin-left: space(4);
+  order: -1;
 
-  @include down(600) {
-    display: none !important;
+  @include up(690) {
+    height: 100px;
+    order: 2;
   }
 }
 .technology-header__logo img {
   width: 100%;
+  max-height: 200px;
+  object-fit: contain;
 }
 
 // Progression
