@@ -15,7 +15,12 @@
     {% if tags | length > 0 %}
       {% cache [tags[0]] %}
         <div class="forum-page__sidebar stack">
-          <a href="{{ path('forum_new') }}" class="btn-primary">Nouveau sujet</a>
+          {% if app.user %}
+          <a href="{{ path('forum_new') }}" class="btn-primary forum-page__sidebar-btn">
+            Nouveau sujet
+            {{ icon('plus') }}
+          </a>
+          {% endif %}
           <ul class="forum-tags">
             <li>
               <a href="{{ path('forum') }}">

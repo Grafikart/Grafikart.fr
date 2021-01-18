@@ -169,4 +169,7 @@
   <symbol id="sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1-1zm0 17v1-1zm9-8h-1 1zM4 12H3h1zm14.364 6.364l-.707-.707.707.707zM6.343 6.343l-.707-.707.707.707zm12.021-.707l-.707.707.707-.707zM6.343 17.657l-.707.707.707-.707zM16 12a4 4 0 11-8 0 4 4 0 018 0v0z"/>
   </symbol>
+  <symbol id="plus" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+    <path fill="currentColor" d="M17 9A8 8 0 111 9a8 8 0 0116 0zm-4.2-.75H9.75V5.21a.75.75 0 10-1.5 0v3.04H5.21a.75.75 0 000 1.5h3.04v3.04a.75.75 0 101.5 0V9.75h3.04a.75.75 0 100-1.5z"/>
+  </symbol>
 </svg>

@@ -13,7 +13,9 @@
             <strong>
               <a href="{{ path('admin_user_index', {q: comment.author ? comment.author.id : '#'}) }}">{{ icon('user') }} {{ comment.username }}</a>
             </strong>,
-            {{ comment.target.title }}
+            <a href="{{ path(comment.target) }}">
+              {{ comment.target.title }}
+            </a>
           </h3>
           <ajax-delete class="dashboard-comment__delete"
                        target=".dashboard-comment"

@@ -72,6 +72,7 @@
   display: flex;
   align-items: center;
   height: 26px;
+  white-space: nowrap;
 }
 .header-nav li[hidden] {
   display: none;
@@ -98,10 +99,15 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  height: 16px;
   border-right: 1px solid var(--border);
   margin-right: space(2);
   padding-right: space(1);
+
+  a {
+    display: flex;
+    height: 26px;
+    align-items: center;
+  }
 }
 .header__home + li {
   margin-left: 0;
