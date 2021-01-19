@@ -38,7 +38,7 @@
           </td>
           <td>{{ row.duration }}</td>
           <td class="text-right">
-            <form action="{{ path(prefix ~ '_show', {id: row.id}) }}" method="post" onsubmit="return confirm('Voulez vous vraiment marquer cette transaction comme remboursée ?')">
+            <form action="{{ path(prefix ~ '_show', {id: row.id}) }}" method="post" onsubmit="return confirm('Voulez-vous vraiment marquer cette transaction comme remboursée ?')">
               <input type="hidden" name="_method" value="DELETE">
               <button class="btn-danger" type="submit" {{ row.refunded ? 'disabled' : '' }}>
                 {{ icon('refund') }} Rembourser
