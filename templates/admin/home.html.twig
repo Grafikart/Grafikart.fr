@@ -17,7 +17,7 @@
       <div class="dashboard-card">
         <nav-tabs class="dashboard-card__tabs">
           <a href="#daily" aria-controls="daily" aria-selected="true">30 derniers jours</a>
-          <a href="#monthly" aria-controls="monthly">24 Derniers mois</a>
+          <a href="#monthly" aria-controls="monthly">24 derniers mois</a>
         </nav-tabs>
         <line-chart id="daily" points="{{ days | json_encode }}" x="date" y="amount"></line-chart>
         <line-chart id="monthly" points="{{ months | json_encode }}" x="date" y="amount" hidden></line-chart>
