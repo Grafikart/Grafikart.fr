@@ -33,7 +33,7 @@
         <td>
           <div class="dashboard-actions">
             <a href="{{ link }}">{{ icon('edit') }}</a>
-            <form action="{{ path(prefix ~ '_edit', {id: row.id}) }}" method="post" onsubmit="return confirm('Voulez vous vraiment supprimer ce contenu')">
+            <form action="{{ path(prefix ~ '_edit', {id: row.id}) }}" method="post" onsubmit="return confirm('Voulez-vous vraiment supprimer ce contenu')">
               <input type="hidden" name="_method" value="DELETE" />
               <button type="submit">
                 {{ icon('delete') }}
