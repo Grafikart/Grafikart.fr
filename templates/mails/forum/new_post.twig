@@ -7,7 +7,7 @@
   {% apply markdown_email %}
 
     {% if is_topic_owner %}
-      {{ author.username }} a répondu a votre sujet _"{{ topic.name }}"_
+      {{ author.username }} a répondu à votre sujet _"{{ topic.name }}"_
     {% else %}
       {{ author.username }} a participé au sujet _"{{ topic.name }}"_
     {% endif %}
