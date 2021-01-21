@@ -27,7 +27,7 @@ class TwitterService
             $token = $this->getBearerToken();
             $response = $this->http->request(
                 'GET',
-                'https://api.twitter.com/1.1/statuses/user_timeline.json',
+                'https://api.twitter.com/1.1/statuses/user_timeline.json?exclude_replies=true',
                 [
                     'headers' => [
                         'authorization' => "Bearer $token",
