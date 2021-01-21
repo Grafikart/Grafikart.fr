@@ -13,6 +13,6 @@ class UserNotFoundException extends AuthenticationException
 
     public function getMessageKey()
     {
-        return 'User not found.';
+        return 'Utilisateur non trouvé';
     }
 }
