@@ -38,7 +38,7 @@ class LiveSyncService
         $youtube = new \Google_Service_YouTube($this->googleClient);
         $lastPublishedAt = $repository->lastCreationDate();
         $queryParams = [
-            'maxResults' => 50,
+            'maxResults' => 5,
             'playlistId' => $this->playlistID,
         ];
 
