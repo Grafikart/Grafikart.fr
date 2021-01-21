@@ -96,7 +96,7 @@ class AccountControllerTest extends WebTestCase
         $this->assertEmailCount(2);
         $this->assertResponseRedirects();
         $this->client->followRedirect();
-        $this->expectSuccessAlert();
+        $this->expectAlert('info');
     }
 
     public function testSendEmailOnDeleteRequest(): void

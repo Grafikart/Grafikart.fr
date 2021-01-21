@@ -111,7 +111,7 @@ class ProgressionSubscriberTest extends TestCase
         $event = new ProgressEvent($courses[1], $user, 1);
 
         $this->repository->expects($this->once())->method('count')->with(
-            $this->equalTo(['content' => $ids, 'progress' => 1000])
+            $this->equalTo(['content' => $ids, 'progress' => 1000, 'author' => 10])
         )->willReturn($completedCourses - 1);
 
         $expected = new ProgressEvent($formation, $event->getUser(), $expectedProgress);

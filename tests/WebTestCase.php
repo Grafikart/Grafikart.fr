@@ -39,6 +39,14 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
     }
 
     /**
+     * Vérifie si on a un message de succès.
+     */
+    public function expectAlert(string $type): void
+    {
+        $this->assertEquals(1, $this->client->getCrawler()->filter("alert-message[type=\"$type\"], alert-floating[type=\"$type\"]")->count());
+    }
+
+    /**
      * Vérifie si on a un message d'erreur.
      */
     public function expectErrorAlert(): void
@@ -51,7 +59,7 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
      */
     public function expectSuccessAlert(): void
     {
-        $this->assertEquals(1, $this->client->getCrawler()->filter('alert-message[type="success"], alert-floating[type="success"]')->count());
+        $this->expectAlert('success');
     }
 
     public function expectFormErrors(?int $expectedErrors = null): void
