@@ -67,6 +67,7 @@ class ProgressionSubscriber implements EventSubscriberInterface
             // On compte le nbre de tutoriels finis
             $count = $repository->count([
                 'content' => $courseIds,
+                'author' => $event->getUser()->getId(),
                 'progress' => Progress::TOTAL,
             ]) + 1;
 
