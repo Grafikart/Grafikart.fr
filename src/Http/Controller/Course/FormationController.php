@@ -31,7 +31,7 @@ class FormationController extends AbstractController
     }
 
     /**
-     * @Route("/formations/guide", name="formation_map")
+     * @Route("/cursus", name="cursus_index")
      */
     public function tree(EntityManagerInterface $em): Response
     {
@@ -63,6 +63,7 @@ class FormationController extends AbstractController
         return $this->render('formations/tree.html.twig', [
             'formations' => $formations,
             'technologies' => $technologies,
+            'menu' => 'cursus',
         ]);
     }
 

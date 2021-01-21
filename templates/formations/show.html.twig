@@ -7,31 +7,34 @@
   {% set first_course = formation.firstContent %}
 
   <header class="wave-header">
-    <div class="wave-header__body stack">
-      <h1 class="wave-header__title">{{ formation.title }}</h1>
-      {% if formation.short %}
-        <p>{{ formation.short }}</p>
-      {% else %}
-        {{ formation.content | markdown }}
-      {% endif %}
-      {% if progress %}
-        <div class="formation-progress my3">
-          <div class="formation-progress__label">Ma progression</div>
-          <div class="formation-progress__count">
-            Chapitre {{ (progress.ratio * (formation.courses | length)) | round(0, 'floor') }}
-            / {{ formation.courses | length }}</div>
-          <div class="formation-progress__bar" style="--progress: {{ progress.ratio * 100 }}%"></div>
-        </div>
-        <p>
-          <a href="{{ path('formation_resume', {slug: formation.slug}) }}#autoplay"
-             class="btn-white-outlined btn-big">{{ icon('play') }} Continuer</a>
-        </p>
-      {% elseif formation.firstContent %}
-        <p>
-          <a href="{{ path(first_course) }}#autoplay" class="btn-white-outlined btn-big">{{ icon('play') }}
-            Commencer</a>
-        </p>
-      {% endif %}
+    <div>
+      {{ breadcrumb(formation) }}
+      <div class="wave-header__body stack">
+        <h1 class="wave-header__title">{{ formation.title }}</h1>
+        {% if formation.short %}
+          <p>{{ formation.short }}</p>
+        {% else %}
+          {{ formation.content | markdown }}
+        {% endif %}
+        {% if progress %}
+          <div class="formation-progress my3">
+            <div class="formation-progress__label">Ma progression</div>
+            <div class="formation-progress__count">
+              Chapitre {{ (progress.ratio * (formation.courses | length)) | round(0, 'floor') }}
+              / {{ formation.courses | length }}</div>
+            <div class="formation-progress__bar" style="--progress: {{ progress.ratio * 100 }}%"></div>
+          </div>
+          <p>
+            <a href="{{ path('formation_resume', {slug: formation.slug}) }}#autoplay"
+               class="btn-white-outlined btn-big">{{ icon('play') }} Continuer</a>
+          </p>
+        {% elseif formation.firstContent %}
+          <p>
+            <a href="{{ path(first_course) }}#autoplay" class="btn-white-outlined btn-big">{{ icon('play') }}
+              Commencer</a>
+          </p>
+        {% endif %}
+      </div>
     </div>
     {% if formation.mainTechnologies is not empty %}
       <div class="wave-header__image">
@@ -63,10 +66,12 @@
             </div>
           </div>
           <div class="formation-arguments">
+            {% if formation.links is not empty %}
             <div class="formation-argument">
               <div class="formation-arguments_title">Liens utiles</div>
               {{ formation.links | markdown }}
             </div>
+            {% endif %}
             <div class="formation-argument">
               <div class="formation-arguments_title">Informations</div>
               <ul>
@@ -74,6 +79,7 @@
                 <li>{{ formation.courses.count }} chapitres</li>
               </ul>
             </div>
+            {% if formation.secondaryTechnologies is not empty %}
             <div class="formation-argument">
               <div class="formation-arguments_title">Prérequis</div>
               <ul>
@@ -82,6 +88,7 @@
                 {% endfor %}
               </ul>
             </div>
+            {% endif %}
           </div>
 
           {% if first_course %}

@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CursusController extends AbstractController
 {
     /**
-     * @Route("/cursus", name="cursus_index")
+     * Route("/cursus", name="cursus_index").
      */
     public function index(CursusRepository $cursusRepository): Response
     {
@@ -21,7 +21,7 @@ class CursusController extends AbstractController
     }
 
     /**
-     * @Route("/cursus/{slug<[a-z0-9\-]+>}", name="cursus_show")
+     * Route("/cursus/{slug<[a-z0-9\-]+>}", name="cursus_show").
      */
     public function show(Cursus $cursus): Response
     {

@@ -24,6 +24,10 @@
   padding-bottom: 70px;
   margin-bottom: -70px;
   --wave-height: 50px;
+
+  & > * {
+    min-width: 0;
+  }
 }
 .wave-header__body {
   @extend %hero-text;

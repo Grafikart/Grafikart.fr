@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>{% block title 'Grafikart' %} | Grafikart</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   {% block stylesheets %}
     {{ encore_entry_link_tags('app') }}
   {% endblock %}
@@ -21,6 +21,7 @@
       <li class="header__home"><a href="{{ path('home') }}" {{ menu_active('home') }}
                                   title="Accueil">{{ icon('home') }}</a></li>
       <li><a href="{{ path('course_index') }}" {{ menu_active('courses') }}>{{ icon('video') }} Tutoriels</a></li>
+      <li><a href="{{ path('cursus_index') }}" {{ menu_active('cursus') }}>{{ icon('cursus') }} Cursus</a>
       <li><a href="{{ path('formation_index') }}" {{ menu_active('formations') }}>{{ icon('lines') }} Formations</a>
       </li>
       <li><a href="{{ path('forum') }}" {{ menu_active('forum') }}>{{ icon('comment') }} Forum</a></li>

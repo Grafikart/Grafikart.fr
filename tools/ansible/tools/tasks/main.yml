@@ -39,6 +39,7 @@
       - certbot
       - acl
       - make
+      - ffmpeg
     state: present
 - name: Outils | création de ~/.vim/autoload
   file: state=directory path=~/.vim/autoload

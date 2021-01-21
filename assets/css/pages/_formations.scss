@@ -19,6 +19,7 @@
   }
 
   @include down(880) {
+    padding-top: space(7);
     grid-template-columns: 1fr;
     & > *:first-child {
       order: 2;
@@ -54,6 +55,10 @@
   border-radius: 8px;
   padding: space(3);
   background-color: var(--border-light);
+
+  @include dark {
+    background-color: var(--background-light);
+  }
 }
 .formation-arguments_title {
   @extend %h4;
@@ -236,7 +241,7 @@
   position: absolute;
   top: 23px;
   right: 20px;
-  color: #404852;
+  color: var(--color);
   font-size: 14px;
   font-weight: 600;
   line-height: 1.7;
