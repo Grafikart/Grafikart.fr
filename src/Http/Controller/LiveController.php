@@ -27,15 +27,14 @@ class LiveController extends AbstractController
                 'lives' => $lives,
             ]);
         } else {
-            $live = $liveService->getCurrentLive();
-
             return $this->render('live/index.html.twig', [
                 'menu' => 'live',
                 'year' => $year,
                 'years' => $repo->findYears(),
                 'lives' => $lives,
-                'live' => $live,
-                'on_air' => $live && $live->getCreatedAt() <= new \DateTime(),
+                'on_air' => $liveService->isLiveRunning(),
+                'live_future' => $liveService->getNextLiveDate() > new \DateTimeImmutable(),
+                'live_at' => $liveService->getNextLiveDate(),
             ]);
         }
     }

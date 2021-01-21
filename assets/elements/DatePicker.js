@@ -47,7 +47,10 @@ export class DatePicker extends HTMLInputElement {
       dateFormat: 'Y-m-d H:i:s',
       altInput: true,
       enableTime: true,
-      defaultHour: this.getAttribute('hour')
+      defaultHour: this.getAttribute('hour'),
+      onClose: () => {
+        this.dispatchEvent(new Event('blur'))
+      }
     })
   }
 

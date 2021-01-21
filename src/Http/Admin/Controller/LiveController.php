@@ -18,15 +18,13 @@ class LiveController extends BaseController
      */
     public function index(
         LiveRepository $liveRepository,
-        PaginatorInterface $paginator,
-        LiveService $service
+        PaginatorInterface $paginator
     ): Response {
         $lives = $paginator->paginate($liveRepository->queryAll());
 
         return $this->render('admin/live/index.html.twig', [
             'lives' => $lives,
-            'menu' => 'live',
-            'live' => $service->getCurrentLive(),
+            'menu' => 'live'
         ]);
     }
 

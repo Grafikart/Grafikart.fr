@@ -3,6 +3,7 @@
 namespace App\Http\Admin\Controller;
 
 use App\Core\OptionManagerInterface;
+use App\Domain\Live\LiveService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class OptionController extends BaseController
 {
-    public const MANAGEABLE_KEYS = ['spam_words'];
+    public const MANAGEABLE_KEYS = ['spam_words', LiveService::OPTION_KEY];
     private OptionManagerInterface $optionManager;
 
     public function __construct(OptionManagerInterface $optionManager)

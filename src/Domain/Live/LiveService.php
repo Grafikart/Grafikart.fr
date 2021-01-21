@@ -3,26 +3,45 @@
 namespace App\Domain\Live;
 
 use App\Core\OptionManagerInterface;
-use Symfony\Component\Serializer\SerializerInterface;
+use Psr\Cache\CacheItemPoolInterface;
 
 class LiveService
 {
-    const OPTION_KEY = 'live_id';
-    private OptionManagerInterface $option;
-    private SerializerInterface $serializer;
+    const OPTION_KEY = 'live_at';
+    private CacheItemPoolInterface $cache;
+    private OptionManagerInterface $optionManager;
+    private ?\DateTimeImmutable $nextLiveDate = null;
 
     public function __construct(
-        OptionManagerInterface $option,
-        SerializerInterface $serializer
+        CacheItemPoolInterface $cache,
+        OptionManagerInterface $optionManager
     ) {
-        $this->option = $option;
-        $this->serializer = $serializer;
+        $this->cache = $cache;
+        $this->optionManager = $optionManager;
     }
 
-    public function getCurrentLive(): ?Live
+    public function isLiveRunning(): bool
     {
-        $option = $this->option->get(self::OPTION_KEY);
+        $liveDate = $this->getNextLiveDate();
+        return
+            $liveDate < new \DateTime() &&
+            $liveDate->modify('+2 hour') > new \DateTime();
+    }
 
-        return null === $option ? null : $this->serializer->deserialize($option, Live::class, 'json');
+    public function getNextLiveDate(): \DateTimeImmutable
+    {
+        if ($this->nextLiveDate) {
+            return $this->nextLiveDate;
+        }
+        $cacheItem = $this->cache->getItem(self::OPTION_KEY);
+        if (!$cacheItem->isHit()) {
+            $this->cache->save(
+                $cacheItem
+                    ->expiresAfter(600)
+                    ->set($this->optionManager->get(self::OPTION_KEY))
+            );
+        }
+        $this->nextLiveDate = new \DateTimeImmutable($cacheItem->get() ?: '-1 day');
+        return $this->nextLiveDate;
     }
 }

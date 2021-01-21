@@ -15,17 +15,21 @@
     </thead>
     <tbody>
     {% for key, value in options %}
-    <tr>
-      <td style="vertical-align: top;">
-        <label for="{{ key }}">{{ key }}</label>
-      </td>
-      <td>
-        <form class="form-group" method="post" is="autosave-blur">
-          <textarea name="value" id="{{ key }}" cols="30" rows="10">{{ value }}</textarea>
-          <input type="hidden" name="key" value="{{ key }}">
-        </form>
-      </td>
-    </tr>
+      <tr>
+        <td style="vertical-align: top;">
+          <label for="{{ key }}">{{ key }}</label>
+        </td>
+        <td>
+          <form class="form-group" method="post" is="autosave-blur">
+            {% if key in ['live_at'] %}
+              <input type="text" name="value" is="date-picker" id="{{ key }}" value="{{ value }}"/>
+            {% else %}
+              <textarea name="value" id="{{ key }}" cols="30" rows="10">{{ value }}</textarea>
+            {% endif %}
+            <input type="hidden" name="key" value="{{ key }}">
+          </form>
+        </td>
+      </tr>
     {% endfor %}
 
     </tbody>
