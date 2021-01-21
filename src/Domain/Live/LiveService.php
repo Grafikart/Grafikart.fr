@@ -23,6 +23,7 @@ class LiveService
     public function isLiveRunning(): bool
     {
         $liveDate = $this->getNextLiveDate();
+
         return
             $liveDate < new \DateTime() &&
             $liveDate->modify('+2 hour') > new \DateTime();
@@ -42,6 +43,7 @@ class LiveService
             );
         }
         $this->nextLiveDate = new \DateTimeImmutable($cacheItem->get() ?: '-1 day');
+
         return $this->nextLiveDate;
     }
 }

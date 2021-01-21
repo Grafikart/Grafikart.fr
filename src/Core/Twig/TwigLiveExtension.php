@@ -47,7 +47,7 @@ class TwigLiveExtension extends AbstractExtension
         if ((int) $diff->format('%d') > 0) {
             return "<small class='text-muted'>(J-{$diff->d})</small>";
         } elseif ((int) $diff->format('%h') > 0) {
-                return "<small class='text-muted'>(H-{$diff->h})</small>";
+            return "<small class='text-muted'>(H-{$diff->h})</small>";
         } elseif ((int) $diff->format('%i') > 0) {
             return "<small class='text-muted'>({$diff->format('%i')} min)</small>";
         }

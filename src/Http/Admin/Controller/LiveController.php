@@ -4,7 +4,6 @@ namespace App\Http\Admin\Controller;
 
 use App\Core\Helper\Paginator\PaginatorInterface;
 use App\Domain\Live\LiveRepository;
-use App\Domain\Live\LiveService;
 use App\Domain\Live\LiveSyncService;
 use App\Infrastructure\Youtube\YoutubeScopes;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +23,7 @@ class LiveController extends BaseController
 
         return $this->render('admin/live/index.html.twig', [
             'lives' => $lives,
-            'menu' => 'live'
+            'menu' => 'live',
         ]);
     }
 
