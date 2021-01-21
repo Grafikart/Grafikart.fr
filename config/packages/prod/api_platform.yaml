@@ -1,4 +1,5 @@
 api_platform:
+  enable_entrypoint: false
   enable_swagger_ui: false
   formats:
     json: ['application/json']

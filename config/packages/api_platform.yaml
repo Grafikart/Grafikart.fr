@@ -17,5 +17,3 @@ api_platform:
     pagination:
       client_items_per_page: false
       items_per_page_parameter_name: count
-
-  enable_entrypoint: false
