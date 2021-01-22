@@ -13,40 +13,38 @@
 
   <div class="forum-page bg py3">
     {% if tags | length > 0 %}
-      {% cache [tags[0]] %}
-        <div class="forum-page__sidebar stack">
-          {% if app.user %}
-          <a href="{{ path('forum_new') }}" class="btn-primary forum-page__sidebar-btn">
-            Nouveau sujet
-            {{ icon('plus') }}
-          </a>
-          {% endif %}
-          <ul class="forum-tags">
+      <div class="forum-page__sidebar stack">
+        {% if app.user %}
+        <a href="{{ path('forum_new') }}" class="btn-primary forum-page__sidebar-btn">
+          Nouveau sujet
+          {{ icon('plus') }}
+        </a>
+        {% endif %}
+        <ul class="forum-tags">
+          <li>
+            <a href="{{ path('forum') }}">
+              Tous les sujets
+            </a>
+          </li>
+          {% for tag in tags %}
             <li>
-              <a href="{{ path('forum') }}">
-                Tous les sujets
+              <a href="{{ path(tag) }}" {% if tag == current_tag %}aria-selected="true" {% endif %}>
+                <span style="background-color:{{ tag.color }};"></span>
+                {{ tag.name }}
               </a>
+              <ul>
+                {% for t in tag.children %}
+                  <li>
+                    <a href="{{ path(t) }}" {% if t == current_tag %}aria-selected="true" {% endif %}>
+                      {{ t.name }}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
             </li>
-            {% for tag in tags %}
-              <li>
-                <a href="{{ path(tag) }}" {% if tag == current_tag %}aria-selected="true" {% endif %}>
-                  <img src="/icons/{{ tag.name | lower }}.svg" alt="" width="16" height="16">
-                  {{ tag.name }}
-                </a>
-                <ul>
-                  {% for t in tag.children %}
-                    <li>
-                      <a href="{{ path(t) }}" {% if t == current_tag %}aria-selected="true" {% endif %}>
-                        {{ t.name }}
-                      </a>
-                    </li>
-                  {% endfor %}
-                </ul>
-              </li>
-            {% endfor %}
-          </ul>
-        </div>
-      {% endcache %}
+          {% endfor %}
+        </ul>
+      </div>
     {% endif %}
     <main class="forum-page__main stack">
       <div class="flex flex-end">

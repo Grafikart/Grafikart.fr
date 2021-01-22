@@ -91,7 +91,7 @@ class Topic implements SpammableInterface, CacheableInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Forum\Entity\Message")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private ?Message $lastMessage = null;
 

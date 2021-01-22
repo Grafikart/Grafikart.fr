@@ -8,6 +8,7 @@ use App\Domain\Forum\Repository\MessageRepository;
 use App\Domain\Forum\Repository\TopicRepository;
 use App\Domain\Forum\Subscriber\ForumSubscriber;
 use App\Tests\EventSubscriberTest;
+use Doctrine\ORM\EntityManagerInterface;
 
 class ForumSubscriberTest extends EventSubscriberTest
 {
@@ -18,15 +19,12 @@ class ForumSubscriberTest extends EventSubscriberTest
 
     public function testDeleteUserContent()
     {
-        $messageRepository = $this->getMockBuilder(MessageRepository::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $topicRepository = $this->getMockBuilder(TopicRepository::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $messageRepository = $this->createMock(MessageRepository::class);
+        $topicRepository = $this->createMock(TopicRepository::class);
+        $em = $this->createMock(EntityManagerInterface::class);
         $user = new User();
         $event = new UserBannedEvent($user);
-        $subscriber = new ForumSubscriber($topicRepository, $messageRepository);
+        $subscriber = new ForumSubscriber($topicRepository, $messageRepository, $em);
         $messageRepository->expects($this->once())->method('deleteForUser')->with($user);
         $topicRepository->expects($this->once())->method('deleteForUser')->with($user);
         $this->dispatch($subscriber, $event);

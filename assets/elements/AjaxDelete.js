@@ -1,5 +1,4 @@
 import { jsonFetch } from '/functions/api.js'
-import { FloatingAlert } from '/elements/Alert.js'
 import { closest } from '/functions/dom.js'
 
 /**
@@ -10,7 +9,7 @@ export class AjaxDelete extends HTMLElement {
     this.addEventListener('click', async e => {
       e.preventDefault()
 
-      if (!confirm('Voulez vous vraiment effectuer cette action ?')) {
+      if (this.getAttribute('noconfirm') === null && !confirm('Voulez vous vraiment effectuer cette action ?')) {
         return
       }
 

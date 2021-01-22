@@ -4,11 +4,14 @@
       <strong>
         <a href="{{ path('admin_user_index', {q: target.author.id}) }}">{{ icon('user') }} {{ target.author.username }}</a>
       </strong>,
-      {{ type == 'topic' ? target.name : target.topic.name }}
+      <a href="{{ path(type == 'topic' ? target : target.topic) }}">
+        {{ type == 'topic' ? target.name : target.topic.name }}
+      </a>
     </h3>
     <div class="hstack" style="--gap:1;">
       <ajax-delete class="btn-secondary btn-small"
                    target=".dashboard-comment"
+                   noconfirm
                    url="{{ path('admin_spam_undo', {id: target.id, type: type}) }}">
         {{ icon('check') }} Non spam
       </ajax-delete>

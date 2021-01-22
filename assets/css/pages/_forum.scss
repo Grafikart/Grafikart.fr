@@ -340,8 +340,15 @@
   padding: 5px space(1);
 
   img {
-    margin-right: space(1);
     transform: translateY(-1px);
+  }
+
+  span {
+    width: 12px;
+    height: 12px;
+    display: block;
+    border-radius: 50%;
+    margin-right: space(1);
   }
 
   &:hover {
