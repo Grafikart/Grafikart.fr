@@ -37,7 +37,7 @@ server {
 
     # index.php
     index                   index.php;
-{% if noindex %}
+{% if noindex is defined and noindex %}
     add_header X-Robots-Tag "noindex, nofollow, nosnippet, noarchive";
 {% endif %}
 

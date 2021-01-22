@@ -1,5 +1,5 @@
 isDocker := $(shell docker info > /dev/null 2>&1 && echo 1)
-domain := "beta.grafikart.fr"
+domain := "grafikart.fr"
 server := "grafikart@$(domain)"
 user := $(shell id -u)
 group := $(shell id -g)

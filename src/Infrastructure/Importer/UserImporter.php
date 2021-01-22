@@ -38,7 +38,7 @@ final class UserImporter implements TypeImporterInterface
             'id' => 0,
         ];
         while (true) {
-            $query = $this->pdo->prepare("SELECT id, username, email, created_at, encrypted_password, premium, github_id, google_id, facebook_id, discord_id FROM users  ORDER BY id ASC LIMIT $offset, 1000");
+            $query = $this->pdo->prepare("SELECT id, username, email, created_at, encrypted_password, premium, github_id, google_id, facebook_id, discord_id, country FROM users  ORDER BY id ASC LIMIT $offset, 1000");
             $query->execute();
             /** @var array<string,mixed> $oldUsers */
             $oldUsers = $query->fetchAll();
@@ -50,7 +50,7 @@ final class UserImporter implements TypeImporterInterface
                     ->setId($oldUser['id'])
                     ->setPremiumEnd($oldUser['premium'] && '0000-00-00 00:00:00' !== $oldUser['premium'] ? new \DateTimeImmutable($oldUser['premium']) : null)
                     ->setUsername($oldUser['username'])
-                    ->setCountry($oldUser['country'] ?: 'FR')
+                    ->setCountry(substr($oldUser['country'] ?: 'FR', 0, 2))
                     ->setPassword($oldUser['encrypted_password'])
                     ->setGithubId($oldUser['github_id'])
                     ->setFacebookId($oldUser['facebook_id'])
