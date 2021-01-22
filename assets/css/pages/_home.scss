@@ -12,6 +12,12 @@
   display: none;
 }
 
+@media (max-height: 700px) and (min-width: 1000px) {
+  .home-intro {
+    padding-top: calc(var(--padding) * .6);
+  }
+}
+
 @include up(1000) {
   .homepage {
     --padding: 120px;
@@ -30,9 +36,15 @@
   .home-intro__mascot {
     position: absolute;
     bottom: -120px;
-    right: -280px;
+    right: -100px;
     width: 472px;
     height: 460px;
+  }
+}
+
+@include up(1330) {
+  .home-intro__mascot {
+    right: -280px;
   }
 }
 

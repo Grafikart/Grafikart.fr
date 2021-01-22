@@ -242,6 +242,12 @@
   }
 }
 
+@media (max-height: 700px) {
+  .header {
+    padding-top: space(4);
+  }
+}
+
 @include down(985) {
   .header-nav > * + * {
     margin-left: space(4);
