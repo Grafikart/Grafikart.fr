@@ -237,6 +237,9 @@
   font-weight: 600;
   margin-bottom: space(1);
 }
+a.tree-item__title:hover {
+  color: var(--contrast);
+}
 .tree-item__link {
   position: absolute;
   top: 23px;

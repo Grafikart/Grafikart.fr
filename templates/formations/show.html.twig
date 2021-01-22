@@ -53,6 +53,14 @@
       </div>
       <div class="formation-summary">
         <h2 class="h2 mb3">Présentation</h2>
+        {% for technology in formation.mainTechnologies %}
+          {% if technology.slug == 'symfony' %}
+          <alert-message type="info">
+            Cette formation n'est pas officiellement supportée par <a href="https://sensiolabs.com/" target="_blank">SensioLabs</a>.<br>
+            Si vous êtes intéréssé·e par des formations officielles, rendez vous sur <a href="https://training.sensiolabs.com/fr/" target="_blank">SensioLabs University
+          </alert-message>
+          {% endif %}
+        {% endfor %}
         <div class="stack" style="--gap:4">
           <div>
             <div>
@@ -67,10 +75,10 @@
           </div>
           <div class="formation-arguments">
             {% if formation.links is not empty %}
-            <div class="formation-argument">
-              <div class="formation-arguments_title">Liens utiles</div>
-              {{ formation.links | markdown }}
-            </div>
+              <div class="formation-argument">
+                <div class="formation-arguments_title">Liens utiles</div>
+                {{ formation.links | markdown }}
+              </div>
             {% endif %}
             <div class="formation-argument">
               <div class="formation-arguments_title">Informations</div>
@@ -80,14 +88,14 @@
               </ul>
             </div>
             {% if formation.secondaryTechnologies is not empty %}
-            <div class="formation-argument">
-              <div class="formation-arguments_title">Prérequis</div>
-              <ul>
-                {% for technology in formation.secondaryTechnologies %}
-                  <li><a href="{{ path(technology) }}">{{ technology.name }}</a></li>
-                {% endfor %}
-              </ul>
-            </div>
+              <div class="formation-argument">
+                <div class="formation-arguments_title">Prérequis</div>
+                <ul>
+                  {% for technology in formation.secondaryTechnologies %}
+                    <li><a href="{{ path(technology) }}">{{ technology.name }}</a></li>
+                  {% endfor %}
+                </ul>
+              </div>
             {% endif %}
           </div>
 

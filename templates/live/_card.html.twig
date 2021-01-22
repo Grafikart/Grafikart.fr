@@ -5,6 +5,6 @@
   </div>
   <div class="live__body">
     <h2 class="live__title">{{ live.name }}</h2>
-    <div class="live__date">{{ live.createdAt | date("m F Y") }}</div>
+    <div class="live__date">{{ live.createdAt | format_date('long') }}</div>
   </div>
 </a>

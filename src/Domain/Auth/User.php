@@ -118,6 +118,11 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface, Ca
      */
     private bool $forumMailNotification = true;
 
+    /**
+     * @ORM\Column(type="string", options={"default": null}, nullable=true)
+     */
+    private ?string $lastLoginIp = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -353,6 +358,17 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface, Ca
     {
         $this->theme = $theme;
 
+        return $this;
+    }
+
+    public function getLastLoginIp(): ?string
+    {
+        return $this->lastLoginIp;
+    }
+
+    public function setLastLoginIp(?string $lastLoginIp): User
+    {
+        $this->lastLoginIp = $lastLoginIp;
         return $this;
     }
 }
