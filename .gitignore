@@ -2,6 +2,7 @@
 /downloads/*
 /public/assets
 /public/icons
+/public/demo
 /public/old
 /public/uploads
 *.sql
