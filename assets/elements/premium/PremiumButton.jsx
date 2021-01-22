@@ -21,7 +21,7 @@ export function PremiumButton ({ children, plan, price, duration, stripeKey, pay
   if (!isAuthenticated()) {
     return (
       <a href='/connexion?redirect=/premium' class='btn-primary btn-block'>
-        Devenir premium
+        {children}
       </a>
     )
   }
