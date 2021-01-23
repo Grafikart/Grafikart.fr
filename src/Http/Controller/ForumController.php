@@ -81,7 +81,7 @@ class ForumController extends AbstractController
      */
     public function showLegacy(int $id): Response
     {
-        return $this->redirectToRoute('forum_show_legacy', ['id' => $id], 301);
+        return $this->redirectToRoute('forum_show', ['id' => $id], 301);
     }
 
     /**
