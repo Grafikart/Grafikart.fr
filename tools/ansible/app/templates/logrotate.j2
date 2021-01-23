@@ -1,0 +1,11 @@
+{{ root_path }}/var/log/*.log {
+  daily
+  missingok
+  rotate 52
+  size 100M
+  compress
+  delaycompress
+  notifempty
+  create 640 {{ ansible_user }} {{ ansible_user }}
+  su root adm
+}

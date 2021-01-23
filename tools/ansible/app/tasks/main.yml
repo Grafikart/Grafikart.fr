@@ -81,3 +81,7 @@
     permissions: rwx
     state: present
     recursive: yes
+- name: Logrotate | Rotation des logs"
+  template:
+    src: logrotate.j2
+    dest: "/etc/logrotate.d/{{ domain }}"
