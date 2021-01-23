@@ -9,7 +9,7 @@ security:
     app_user_provider:
       entity:
         class: App\Domain\Auth\User
-        property: email
+        property: username
   firewalls:
     dev:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -31,6 +31,7 @@ security:
         secret: '%kernel.secret%'
         lifetime: 604800 # 1 week in seconds
         path: /
+        samesite: strict
       access_denied_handler: App\Http\Security\AccessDeniedHandler
       # activate different ways to authenticate
       # https://symfony.com/doc/current/security.html#firewalls-authentication
