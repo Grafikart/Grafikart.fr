@@ -63,7 +63,6 @@
   padding: 0 space(6);
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
   height: 60px;
   background: var(--background-light);
   border-bottom: 1px solid var(--border);
@@ -89,6 +88,8 @@
   align-items: center;
 }
 .dashboard-topbar__search {
+  width: 100%;
+
   input {
     outline: none;
     width: 100%;

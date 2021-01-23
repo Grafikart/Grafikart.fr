@@ -59,7 +59,7 @@ abstract class CrudController extends BaseController
             ->createQueryBuilder('row')
             ->orderBy('row.createdAt', 'DESC');
         if ($request->get('q')) {
-            $query = $this->applySearch($request->get('q'), $query);
+            $query = $this->applySearch(trim($request->get('q')), $query);
         }
         $this->paginator->allowSort('row.id', 'row.title');
         $rows = $this->paginator->paginate($query->getQuery());

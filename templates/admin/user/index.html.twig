@@ -29,6 +29,9 @@
             {{ user.email }}
           </td>
           <td class="dashboard-id">
+            {{ user.createdAt | format_datetime(pattern="dd MMM. yyyy à kk:mm") }}
+          </td>
+          <td class="dashboard-id">
               {{ user.premium ? user.premiumEnd | ago('Pour') : '' }}
           </td>
           <td>
