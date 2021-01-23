@@ -21,7 +21,7 @@
       {# Description courte #}
       <div class="card__description text-small">
         <p>
-          {{ course.content | markdown | striptags | excerpt(130) }}
+          {{ course.content | markdown | striptags | excerpt(130) | raw }}
         </p>
         {% if course.scheduled %}
           <div class="countdown">

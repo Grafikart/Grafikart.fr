@@ -98,6 +98,9 @@ export default class FileManager extends HTMLElement {
       display: grid;
       grid-template-columns: 278px 1fr;
     }
+    th {
+      white-space: nowrap;
+    }
     hr {
       border: none;
       margin-top: var(--space-3);
@@ -165,7 +168,8 @@ export default class FileManager extends HTMLElement {
       cursor: pointer;
     }
     .hierarchy__item span {
-      display: block;
+      display: flex;
+      align-items: center;
       padding: 0 5px 0 4px;
       margin-left: 12px;
       height: 16px;

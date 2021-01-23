@@ -120,7 +120,7 @@ function File ({ file, onSelect, onDelete }) {
         <img src={file.url} alt={file.alt} loading='lazy' />
       </td>
       <td onClick={() => onSelect(file)}>{file.name}</td>
-      <td>{human(file.size)}</td>
+      <td style="white-space: nowrap;">{human(file.size)}</td>
       <td>
         <button class='delete' onClick={() => onDelete(file)}>
           <svg fill='none' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'>
