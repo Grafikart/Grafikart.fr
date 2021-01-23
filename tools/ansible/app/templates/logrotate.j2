@@ -6,6 +6,6 @@
   compress
   delaycompress
   notifempty
-  create 640 {{ ansible_user }} {{ ansible_user }}
+  create 777 {{ ansible_user }} {{ ansible_user }}
   su root adm
 }

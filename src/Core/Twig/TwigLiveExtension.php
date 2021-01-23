@@ -47,11 +47,9 @@ class TwigLiveExtension extends AbstractExtension
         if ($diff > 24 * 3600) {
             $days = ceil($diff / 24 * 3600);
             return "<small class='text-muted'>(J-{$days})</small>";
-        } else {
-            $date = $liveDate->format('H:i');
-            return "<small class='text-muted'>({$date})</small>";
         }
+        $date = $liveDate->format('H:i');
 
-        return "<small class='text-muted'>(bientôt)</small>";
+        return "<small class='text-muted'>({$date})</small>";
     }
 }

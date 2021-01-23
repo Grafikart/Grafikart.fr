@@ -15,6 +15,9 @@
     background-color: var(--border-light);
   }
 }
+.tabs-bar small {
+  font-size: 14px;
+}
 .tabs-bar a {
   display: block;
   padding: space(2);

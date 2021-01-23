@@ -8,8 +8,23 @@
 
   {% include 'account/_header.html.twig' with {title: user.username, user: user} %}
 
+
+  <nav-tabs class="tabs-bar container bg-light">
+    <a href="#activity" aria-controls="activity" aria-selected="true">
+      {{ icon('lines') }}
+      Activité
+    </a>
+    <a href="#badges" aria-controls="badges" >
+      {{ icon('badge') }}
+      Badges
+      <small class="text-muted">
+        ({{ unlocks | length }} / {{ badges | length }})
+      </small>
+    </a>
+  </nav-tabs>
+
   <div class="bg container py5">
-    <div class="grid2" style="--gap: 4;">
+    <div class="grid2" id="activity" style="--gap: 4;">
       {% if last_topics | length > 0 %}
         <div class="stack">
           <h2 class="h3">Ses derniers sujets</h2>
@@ -46,6 +61,23 @@
         </div>
       {% endif %}
     </div>
+      <div class="badges" id="badges">
+        {% for badge in badges %}
+          <div>
+            {% if unlocks[badge.id] is defined %}
+              <div class="badge-hover">
+                <div class="badge-icon badge-icon-{{ badge.theme }}">
+                  {{ image(badge) }}
+                </div>
+              </div>
+            {% else %}
+              <div class="badge-placeholder mb1"></div>
+            {% endif %}
+            <div class="text-big bold text-center {% if unlocks[badge.id] is not defined %}text-muted{% endif %}">{{ badge.name }}</div>
+            <div class="text-muted text-center">{{ badge.description }}</div>
+          </div>
+        {% endfor %}
+      </div>
   </div>
 
 
