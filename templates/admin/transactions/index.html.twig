@@ -31,7 +31,7 @@
               {{ row.method }}
             </a>
             {% elseif row.stripe %}
-              <a class="pill" href="https://dashboard.stripe.com/payments/{{ row.methodRef }}">
+              <a class="pill uppercase" href="https://dashboard.stripe.com/payments/{{ row.methodRef }}">
                 {{ row.method }}
               </a>
             {% endif %}

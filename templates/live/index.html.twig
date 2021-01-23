@@ -7,9 +7,9 @@
   <div class="live-current">
 
       {% if on_air %}
-        <h1 class="live-current__title">Live en cours<em class="text-muted">, {{ live.createdAt | ago('depuis') }}</em></h1>
+        <h1 class="live-current__title">Live en cours<em class="text-muted"></h1>
       {% elseif live_future %}
-        <h1 class="live-current__title">Prochain live<em class="text-muted">, {{ live_at | ago }}</em></h1>
+        <h1 class="live-current__title">Prochain live<em class="text-muted">, {{ live_at | format_datetime(pattern="eeee dd MMMM à HH:mm") }}</em></h1>
       {% endif %}
 
     <div class="live-current__body">

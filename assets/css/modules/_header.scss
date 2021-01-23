@@ -68,6 +68,9 @@
   flex-wrap: wrap;
   overflow: hidden;
 }
+.header-nav small {
+  font-weight: normal;
+}
 .header-nav li {
   display: flex;
   align-items: center;
