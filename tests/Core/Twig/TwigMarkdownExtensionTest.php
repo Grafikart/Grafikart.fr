@@ -44,4 +44,10 @@ class TwigMarkdownExtensionTest extends TestCase
 MARKDOWN
         ));
     }
+
+    public function testMarkdownUntrusted () {
+        $extension = new TwigMarkdownExtension();
+        $this->assertEquals('<p>Demo <a target="_blank" rel="noreferrer nofollow" href="https://grafikart.fr">Grafikart</a> Site</p>', $extension->markdownUntrusted('Demo [Grafikart](https://grafikart.fr) Site'));
+        $this->assertEquals('<p>Demo <a href="/tutoriel/demo">Grafikart</a> Site</p>', $extension->markdownUntrusted('Demo [Grafikart](/tutoriel/demo) Site'));
+    }
 }
