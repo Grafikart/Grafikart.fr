@@ -122,7 +122,7 @@ export function Comments ({ target, parent }) {
           <skeleton-box text='3 Commentaires' />
         ) : (
           <>
-            {count} Commentaire{count > 1 ? 's' : ''}
+            {count} commentaire{count > 1 ? 's' : ''}
           </>
         )}
       </div>
