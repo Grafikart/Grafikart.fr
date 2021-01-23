@@ -77,6 +77,14 @@ class ForumController extends AbstractController
     }
 
     /**
+     * @Route("/forum/topics/{id<\d+>}", name="forum_show_legacy")
+     */
+    public function showLegacy(int $id): Response
+    {
+        return $this->redirectToRoute('forum_show_legacy', ['id' => $id], 301);
+    }
+
+    /**
      * @Route("/forum/new", name="forum_new")
      */
     public function create(Request $request): Response
