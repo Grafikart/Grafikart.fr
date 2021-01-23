@@ -19,8 +19,7 @@ class UserController extends AbstractController
         TopicRepository $topicRepository,
         CommentRepository $commentRepository,
         BadgeService $badgeService
-    ): Response
-    {
+    ): Response {
         $lastTopics = $topicRepository->findLastByUser($user);
         $badges = $badgeService->getBadges();
         $unlocks = $badgeService->getUnlocksForUser($user);
