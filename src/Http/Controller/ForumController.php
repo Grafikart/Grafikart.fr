@@ -139,7 +139,7 @@ class ForumController extends AbstractController
     ): Response {
         $q = $request->get('q');
         if (empty($q)) {
-            $topics = [];
+            return $this->tag(null, $request);
         } else {
             $page = $request->get('page', 1);
             [$items, $total] = $topicRepository->search($q, $page);
