@@ -369,6 +369,7 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface, Ca
     public function setLastLoginIp(?string $lastLoginIp): User
     {
         $this->lastLoginIp = $lastLoginIp;
+
         return $this;
     }
 }

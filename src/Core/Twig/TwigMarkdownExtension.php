@@ -84,6 +84,7 @@ class TwigMarkdownExtension extends AbstractExtension
 
         $content = str_replace('<a href="http', '<a target="_blank" rel="noreferrer nofollow" href="http', $content);
         $content = str_replace('<a href="//', '<a target="_blank" rel="noreferrer nofollow" href="http', $content);
+
         return $content;
     }
 }
