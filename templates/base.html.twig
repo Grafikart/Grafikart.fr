@@ -24,6 +24,9 @@
       <li><a href="{{ path('cursus_index') }}" {{ menu_active('cursus') }}>{{ icon('cursus') }} Cursus</a>
       <li><a href="{{ path('formation_index') }}" {{ menu_active('formations') }}>{{ icon('lines') }} Formations</a>
       </li>
+      {% if not app.user or not app.user.premium  %}
+        <li><a href="{{ path('premium') }}" {{ menu_active('premium') }}>{{ icon('star') }} Premium</a></li>
+      {% endif %}
       <li><a href="{{ path('forum') }}" {{ menu_active('forum') }}>{{ icon('comment') }} Forum</a></li>
       <li><a href="{{ path('live') }}" {{ menu_active('live') }}
              class="{{ is_live_running() ? 'has-live' : '' }}">{{ icon('camera') }} Live {{ next_live_time() }}</a></li>

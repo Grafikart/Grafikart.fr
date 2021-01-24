@@ -80,6 +80,11 @@
 .header-nav li[hidden] {
   display: none;
 }
+.header-nav .icon-star {
+  width: 14px;
+  height: 14px;
+  margin-bottom: -1px;
+}
 .header a:hover,
 .header button:hover,
 .header a[aria-current] {
@@ -136,7 +141,6 @@
   display: block;
   align-self: center;
 }
-
 .header__notification .icon,
 .header__notification > button {
   display: block;
