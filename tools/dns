@@ -1,0 +1,17 @@
+$TTL 3600
+@                IN SOA   ns31.infomaniak.com. hostmaster.infomaniak.ch. (2021012401 10800 3600 605800 3600)
+           86400 IN A     195.15.226.21
+                 IN AAAA  2001:1600:3:1a:f816:3eff:fe6b:b264
+                 IN MX 1  alt1.aspmx.l.google.com.
+                 IN MX 1  aspmx.l.google.com.
+                 IN MX 10 aspmx2.googlemail.com.
+                 IN MX 5  alt2.aspmx.l.google.com.
+                 IN NS    ns31.infomaniak.com.
+                 IN NS    ns32.infomaniak.com.
+                 IN TXT   "Sendinblue-code:8a825bcb3903f58ad2af334a08ac51e0"
+                 IN TXT   "v=spf1 a mx ip4:195.15.226.21 include:_spf.google.com include:spf.sendinblue.com ~all"
+mail             IN A     216.239.32.21
+www        86400 IN CNAME grafikart.fr.
+_dmarc           IN TXT   "v=DMARC1; p=none; sp=none; rua=mailto:noreply@grafikart.fr!10m; ruf=mailto:noreply@grafikart.fr!10m; rf=afrf; pct=100; ri=86400"
+_domainkey       IN NS    ns31.infomaniak.com.
+_domainkey       IN NS    ns32.infomaniak.com.

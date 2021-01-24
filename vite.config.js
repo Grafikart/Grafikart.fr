@@ -31,18 +31,24 @@ const config = {
   },
   emitManifest: true,
   cors: true,
+  optimizeDeps: {
+    include: ['preact/hooks', 'preact/compat', 'htm/mini']
+  },
   esbuild: {
     jsxFactory: 'h',
     jsxFragment: 'Fragment',
     jsxInject: `import { h, Fragment } from 'preact'`
   },
+  base: '/assets/',
   build: {
     polyfillDynamicImport: false,
-    base: '/assets/',
     assetsDir: '',
     manifest: true,
     outDir: '../public/assets/',
     rollupOptions: {
+      output: {
+        manualChunks: undefined // Désactive la séparation du vendor
+      },
       input: {
         app: resolve(__dirname, 'assets/app.js'),
         admin: resolve(__dirname, 'assets/admin.js')

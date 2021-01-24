@@ -13,7 +13,6 @@ import { registerKonami, registerBadgeAlert } from '/modules/badges.js'
 import { registerWindowHeightCSS } from '/modules/window.js'
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 
-
 registerKonami()
 registerBadgeAlert()
 registerWindowHeightCSS()
@@ -77,3 +76,5 @@ document.addEventListener('turbolinks:click', e => {
 window.Grafikart = {
   showHistory
 }
+
+Turbolinks.start()
