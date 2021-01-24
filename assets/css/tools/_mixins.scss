@@ -61,6 +61,7 @@
       font-family: quote($name);
       font-style: $style;
       font-weight: $weight;
+      font-display: swap;
       src: $src;
     }
   } @else {
