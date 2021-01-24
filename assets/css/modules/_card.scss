@@ -219,7 +219,7 @@
 // =============
 .card.is-completed {
   position: relative;
-  border: solid 4px var(--contrast);
+  box-shadow: 0 0 0 4px var(--contrast);
 }
 .card.is-completed::after {
   content: '';
@@ -286,7 +286,7 @@
     width: 24px;
     height: 24px;
     transform: translate(-50%, -50%);
-    background: url(../images/play.svg) center center no-repeat;
+    background: url(/images/play.svg) center center no-repeat;
   }
 }
 

@@ -95,7 +95,7 @@
     width: 100%;
     padding: space(1) 0 space(1) space(3);
     border: none;
-    background: url(../images/input-search.svg) left center / 14px 14px no-repeat;
+    background: url(/images/input-search.svg) left center / 14px 14px no-repeat;
   }
   input::placeholder {
     opacity: .5;
@@ -160,7 +160,7 @@
 }
 .dashboard-search input {
   max-width: 300px;
-  background: url(../images/input-search.svg) right 16px center / 12px 12px no-repeat;
+  background: url(/images/input-search.svg) right 16px center / 12px 12px no-repeat;
   outline: none;
 }
 .dashboard .mdeditor {
