@@ -7,6 +7,12 @@ use App\Domain\Auth\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * @ORM\Table(
+ *    uniqueConstraints={
+ *        @ORM\UniqueConstraint(name="progress_unique",
+ *            columns={"author_id", "content_id"})
+ *    }
+ * )
  * @ORM\Entity(repositoryClass="App\Domain\History\Repository\ProgressRepository")
  */
 class Progress
