@@ -29,7 +29,7 @@ class UserController extends AbstractController
             'last_topics' => $lastTopics,
             'comments' => $commentRepository->findLastByUser($user),
             'badges' => $badges,
-            'unlocks' => $unlocks
+            'unlocks' => $unlocks,
         ]);
     }
 }

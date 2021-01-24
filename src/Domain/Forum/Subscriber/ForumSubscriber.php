@@ -39,7 +39,7 @@ class ForumSubscriber implements EventSubscriberInterface
     public function onMessageCreated(MessageCreatedEvent $event): void
     {
         $message = $event->getMessage();
-        if ($message->isSpam() === true) {
+        if (true === $message->isSpam()) {
             return;
         }
         $topic = $message->getTopic();

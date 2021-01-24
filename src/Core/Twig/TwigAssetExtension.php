@@ -65,6 +65,59 @@ class TwigAssetExtension extends AbstractExtension
         return $this->paths;
     }
 
+    public function link(string $name): string
+    {
+        $uri = $this->uri($name.'.css');
+        if (strpos($uri, ':3000')) {
+            return ''; // Le CSS est chargé depuis le JS dans l'environnement de dev
+        }
+
+        return '<link rel="stylesheet" media="screen" href="'.$this->uri($name.'.css').'"/>';
+    }
+
+    public function script(string $name): string
+    {
+        $script = $this->preload($name.'.js').'<script src="'.$this->uri($name.'.js').'" type="module" defer></script>';
+        $request = $this->requestStack->getCurrentRequest();
+
+        if (false === $this->polyfillLoaded && $request instanceof Request) {
+            $userAgent = $request->headers->get('User-Agent') ?: '';
+            if (strpos($userAgent, 'Safari') &&
+                !strpos($userAgent, 'Chrome')) {
+                $this->polyfillLoaded = true;
+                $script = <<<HTML
+                    <script src="//unpkg.com/@ungap/custom-elements" defer></script>
+                    $script
+                HTML;
+            }
+        }
+
+        return $script;
+    }
+
+    /**
+     * Add preload for a specific script.
+     *
+     * @param string $name Le nom du fichier à charger ("app.js" par exemple)
+     */
+    private function preload(string $name): string
+    {
+        if (!$this->isProduction) {
+            return '';
+        }
+
+        $imports = $this->getAssetPaths()[$name]['imports'] ?? [];
+        $preloads = [];
+
+        foreach ($imports as $import) {
+            $preloads[] = <<<HTML
+              <link rel="preload" href="/assets/$import" as="script">
+            HTML;
+        }
+
+        return implode("\n", $preloads);
+    }
+
     /**
      * Génère l'URL associé à un asset passé en paramètre.
      *
@@ -81,35 +134,5 @@ class TwigAssetExtension extends AbstractExtension
         $name = $this->getAssetPaths()[$name]['file'] ?? $this->getAssetPaths()[$name] ?? '';
 
         return "/assets/$name";
-    }
-
-    public function link(string $name): string
-    {
-        $uri = $this->uri($name.'.css');
-        if (strpos($uri, ':3000')) {
-            return ''; // Le CSS est chargé depuis le JS dans l'environnement de dev
-        }
-
-        return '<link rel="stylesheet" media="screen" href="'.$this->uri($name.'.css').'"/>';
-    }
-
-    public function script(string $name): string
-    {
-        $script = '<script src="'.$this->uri($name.'.js').'" type="module" defer></script>';
-        $request = $this->requestStack->getCurrentRequest();
-
-        if (false === $this->polyfillLoaded && $request instanceof Request) {
-            $userAgent = $request->headers->get('User-Agent') ?: '';
-            if (strpos($userAgent, 'Safari') &&
-                !strpos($userAgent, 'Chrome')) {
-                $this->polyfillLoaded = true;
-                $script = <<<HTML
-                    <script src="//unpkg.com/@ungap/custom-elements" defer></script>
-                    $script
-                HTML;
-            }
-        }
-
-        return $script;
     }
 }

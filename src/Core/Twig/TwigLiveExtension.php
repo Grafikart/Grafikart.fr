@@ -43,9 +43,10 @@ class TwigLiveExtension extends AbstractExtension
             return "<small class='text-muted'>(En cours)</small>";
         }
         // Le live est dans le futur
-        $diff =  $liveDate->getTimestamp() - time();
+        $diff = $liveDate->getTimestamp() - time();
         if ($diff > 24 * 3600) {
             $days = ceil($diff / 24 * 3600);
+
             return "<small class='text-muted'>(J-{$days})</small>";
         }
         $date = $liveDate->format('H:i');
