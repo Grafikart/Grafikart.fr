@@ -70,7 +70,12 @@
           poster="{{ image_url(course.image, 1330, 750) }}"
           button="#chapter{{ course.id }} play-button"
           duration="{{ course.duration | duration }}"
-          class="shadow"></youtube-player>
+          class="shadow">
+          <a href="https://www.youtube.com/watch?v={{ course.youtubeId }}" target="_blank" rel="noopener" class="course__placeholder">
+            <span>Voir la vidéo</span>
+            <img src="{{ image_url(course.image, 1330, 750) }}" width="1330" height="750"/>
+          </a>
+        </youtube-player>
       </progress-tracker>
       {% endif %}
       {% if course.formation %}

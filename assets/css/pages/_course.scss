@@ -74,6 +74,59 @@
 .course__player {
   --max-height: calc(100vh - 291px);
 }
+.course__placeholder {
+  display: block;
+  position: relative;
+
+  span {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin-top: 4px;
+    color: #FFF;
+    font-size: 22px;
+    z-index: 3;
+    transition: .3s;
+    line-height: 1.2em;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: calc(50% - 30px);
+    left: calc(50% - 10px);
+    width: 0;
+    height: 0;
+    border-left: solid 20px #FFF;
+    border-bottom: 10px solid transparent;
+    border-top: 10px solid transparent;
+    z-index: 2;
+  }
+
+  &::before {
+    content:'';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to top, var(--color) 0%, var(--color-transparent) 100%);
+    z-index: 2;
+    transition: .3s;
+  }
+  &:hover::before {
+    opacity: .8;
+  }
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: var(--max-height);
+    object-fit: cover;
+  }
+}
 .course__title {
   font-family: $font-alt;
   font-size: 16px;
