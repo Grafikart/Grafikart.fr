@@ -12,7 +12,7 @@ App\Domain\History\Entity\Progress:
     updated_at: <dateTimeBetween("first day of this year", "last day of this year")>
   progress_completed:
     author: '@user1'
-    content: '@course1'
+    content: '@course_premium'
     progress: 1000
     created_at: <dateTimeBetween("first day of this year", "last day of this year")>
     updated_at: <dateTimeBetween("first day of this year", "last day of this year")>

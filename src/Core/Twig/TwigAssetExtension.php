@@ -78,7 +78,7 @@ class TwigAssetExtension extends AbstractExtension
             return $request ? "http://{$request->getHost()}:3000/{$name}" : '';
         }
 
-        $name = $this->getAssetPaths()[$name]['file'] ?? '';
+        $name = $this->getAssetPaths()[$name] ?? '';
 
         return "/assets/$name";
     }
