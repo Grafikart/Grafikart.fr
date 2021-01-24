@@ -137,9 +137,9 @@ class ForumController extends AbstractController
         TopicRepository $topicRepository,
         \Knp\Component\Pager\PaginatorInterface $paginator
     ): Response {
-        $q = $request->get('q');
+        $q = trim($request->get('q', ''));
         if (empty($q)) {
-            $topics = [];
+            return $this->redirectToRoute('forum', [], Response::HTTP_MOVED_PERMANENTLY);
         } else {
             $page = $request->get('page', 1);
             [$items, $total] = $topicRepository->search($q, $page);
