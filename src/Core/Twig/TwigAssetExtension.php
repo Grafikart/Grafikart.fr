@@ -111,7 +111,7 @@ class TwigAssetExtension extends AbstractExtension
 
         foreach ($imports as $import) {
             $preloads[] = <<<HTML
-              <link rel="preload" href="/assets/$import" as="script">
+              <link rel="modulepreload" href="/assets/$import">
             HTML;
         }
 
