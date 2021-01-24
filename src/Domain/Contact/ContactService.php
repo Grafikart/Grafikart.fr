@@ -39,7 +39,7 @@ class ContactService
         $this->em->flush();
         $message = (new Email())
             ->text($data->content)
-            ->subject('Grafikart :: Contact')
+            ->subject("Grafikart::Contact : {$data->name}")
             ->from('noreply@grafikart.fr')
             ->replyTo(new Address($data->email, $data->name))
             ->to('contact@grafikart.fr');
