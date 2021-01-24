@@ -132,6 +132,10 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.header__account svg {
+  display: block;
+  align-self: center;
+}
 
 .header__notification .icon,
 .header__notification > button {
