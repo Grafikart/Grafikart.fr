@@ -1,5 +1,3 @@
-import { Alert } from '../Alert.js'
-
 /**
  * @property {number|null} timer
  * @property {choices} Choices
@@ -13,7 +11,7 @@ export default class InputAttachment extends HTMLInputElement {
       'afterend',
       `
 <div class="input-attachment">
-<div class="input-attachment__preview" style="background-image:url(${preview})"></div>
+<div class="input-attachment__preview" style="background-image:url(${preview || ''})"></div>
 </div>
 `
     )
@@ -52,7 +50,7 @@ export default class InputAttachment extends HTMLInputElement {
     if (files.length === 0) return false
     const data = new FormData()
     data.append('file', files[0])
-    let url = '/admin/attachment'
+    let url = this.getAttribute('data-endpoint')
     if (this.attachmentId !== '' && this.overwrite) {
       url = `${url}/${this.attachmentId}`
     }
@@ -65,7 +63,7 @@ export default class InputAttachment extends HTMLInputElement {
       this.setAttachment(responseData)
     } else {
       const alert = document.createElement('alert-message')
-      alert.innerHTML = message
+      alert.innerHTML = "Impossible d'envoyer l'image"
       document.querySelector('.dashboard').appendChild(alert)
     }
     this.container.removeChild(loader)
@@ -77,6 +75,7 @@ export default class InputAttachment extends HTMLInputElement {
     const modal = document.createElement('modal-dialog')
     modal.setAttribute('overlay-close', 'overlay-close')
     const fm = document.createElement('file-manager')
+    fm.setAttribute('data-endpoint', this.getAttribute('data-endpoint'))
     modal.appendChild(fm)
     fm.addEventListener('file', e => {
       this.setAttachment(e.detail)

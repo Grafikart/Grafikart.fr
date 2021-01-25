@@ -17,6 +17,7 @@ services:
     bind:
       $videosPath: '%videos_path%'
       $projectDir: '%kernel.project_dir%'
+      $adminPrefix: '%admin_prefix%'
 
   _instanceof:
     App\Core\Breadcrumb\BreadcrumbGeneratorInterface:

@@ -2,12 +2,11 @@
 
 namespace App\Http\Admin\Controller;
 
-use App\Http\Controller\AbstractController;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
-class CacheController extends AbstractController
+class CacheController extends BaseController
 {
     /**
      * @Route("/cache/clean", name="cache_clean", methods={"POST"})

@@ -5,14 +5,18 @@ export default class FileManager extends HTMLElement {
   constructor () {
     super()
     this.root = this.attachShadow({ mode: 'closed' })
+  }
+
+  connectedCallback () {
     this.root.innerHTML = this.style()
     this.addEventListener('dragenter', this.onDragEnter.bind(this))
     this.addEventListener('dragleave', this.ondragleave.bind(this))
     this.addEventListener('dragover', this.onDragOver)
     this.addEventListener('drop', this.onDrop.bind(this))
+    this.apiEndpoint = this.getAttribute('data-endpoint')
     render(
       h(FileManagerComponent, {
-        apiEndpoint: '/admin/attachment',
+        apiEndpoint: this.apiEndpoint,
         dragOver: false,
         onSelectFile: this.onSelectFile.bind(this)
       }),
@@ -298,7 +302,7 @@ export default class FileManager extends HTMLElement {
     e.preventDefault()
     render(
       h(FileManagerComponent, {
-        apiEndpoint: '/admin/attachment',
+        apiEndpoint: this.apiEndpoint,
         dragOver: false,
         onSelectFile: this.onSelectFile.bind(this)
       }),
@@ -314,7 +318,7 @@ export default class FileManager extends HTMLElement {
   onDrop () {
     render(
       h(FileManagerComponent, {
-        apiEndpoint: '/admin/attachment',
+        apiEndpoint: this.apiEndpoint,
         dragOver: false,
         onSelectFile: this.onSelectFile.bind(this)
       }),

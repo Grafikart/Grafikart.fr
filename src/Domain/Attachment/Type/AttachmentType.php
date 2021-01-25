@@ -18,13 +18,16 @@ class AttachmentType extends TextType implements DataTransformerInterface
 {
     private EntityManagerInterface $em;
     private UploaderHelper $uploaderHelper;
+    private string $adminPrefix;
 
     public function __construct(
         EntityManagerInterface $em,
-        UploaderHelper $uploaderHelper
+        UploaderHelper $uploaderHelper,
+        string $adminPrefix
     ) {
         $this->em = $em;
         $this->uploaderHelper = $uploaderHelper;
+        $this->adminPrefix = $adminPrefix;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -48,6 +51,7 @@ class AttachmentType extends TextType implements DataTransformerInterface
             'required' => false,
             'attr' => [
                 'is' => 'input-attachment',
+                'data-endpoint' => '/'.trim($this->adminPrefix, '/').'/attachment',
             ],
             'constraints' => [
                 new AttachmentExist(),
