@@ -1,6 +1,6 @@
 {
   "name": "Grafikart.fr",
-  "version": "1.0.39",
+  "version": "1.0.40",
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {

@@ -16,6 +16,11 @@
   --title: #7AA2F7;
   --keyword: #BB9AF7;
   --background-light: #1b1e3d;
+
+  @include dark {
+    --background-light: #161934;
+    border: solid 1px var(--border-light);
+  }
 }
 
 .hljs-comment,
