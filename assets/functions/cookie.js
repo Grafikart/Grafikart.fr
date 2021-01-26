@@ -4,11 +4,11 @@ export function cookie (name, value = undefined, options = {}) {
     const cookies = document.cookie.split(';')
     for (const cookie of cookies) {
       console.log({ cookie })
-      const [k, v] = cookie.split('=')
       if (k === name) {
         return v
       }
     }
+    return null;
   }
 
   // On veut écrire le cookie
