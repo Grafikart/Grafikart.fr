@@ -289,7 +289,7 @@ export default class FileManager extends HTMLElement {
     e.preventDefault()
     render(
       h(FileManagerComponent, {
-        apiEndpoint: '/admin/attachment',
+        apiEndpoint: this.apiEndpoint,
         dragOver: true,
         onSelectFile: this.onSelectFile.bind(this)
       }),

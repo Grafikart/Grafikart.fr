@@ -57,7 +57,7 @@ export function FileManager ({ dragOver, apiEndpoint, onSelectFile }) {
 
   return (
     <div className={classNames('filemanager', dragOver && 'has-dragover')}>
-      <input type='text' is='input-attachment' onattachment={handleNewfile} />
+      <input type='text' is='input-attachment' onattachment={handleNewfile} data-endpoint={apiEndpoint} />
       <aside>
         <form onSubmit={handleSearch} className='form-group'>
           <label htmlFor='file-search' className='bloc__title'>
