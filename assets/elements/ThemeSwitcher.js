@@ -1,5 +1,6 @@
 import { isAuthenticated } from '/functions/auth.js'
 import { jsonFetchOrFlash } from '/functions/api.js'
+import { cookie } from '/functions/cookie.js'
 
 export class ThemeSwitcher extends HTMLElement {
   connectedCallback () {
@@ -21,7 +22,7 @@ export class ThemeSwitcher extends HTMLElement {
       document.body.classList.add(`theme-${themeToAdd}`)
       document.body.classList.remove(`theme-${themeToRemove}`)
       if (!isAuthenticated()) {
-        localStorage.setItem('theme', themeToAdd)
+        cookie('theme', themeToAdd, { expires: 7 })
       } else {
         jsonFetchOrFlash('/api/profil/theme', {
           body: { theme: themeToAdd },
@@ -32,7 +33,7 @@ export class ThemeSwitcher extends HTMLElement {
 
     // On lit le theme utilisateur
     if (!isAuthenticated()) {
-      const savedTheme = localStorage.getItem('theme')
+      const savedTheme = cookie('theme')
       // Si l'utilisateur n'a pas déjà de préférence
       if (savedTheme === null) {
         const mq = window.matchMedia('(prefers-color-scheme: dark)')
