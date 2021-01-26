@@ -48,6 +48,14 @@
   border-right: 10px solid #0000;
   border-left: 10px solid #0000;
 }
+.notifications_body-empty {
+  display: block;
+  color: var(--color-light);
+  text-align: center;
+  padding: space(2) 0;
+  font-weight: normal;
+  font-style: italic;
+}
 .notifications_title {
   position: relative;
   text-align: center;
