@@ -96,6 +96,7 @@
     padding: space(1) 0 space(1) space(3);
     border: none;
     background: url(/images/input-search.svg) left center / 14px 14px no-repeat;
+    color: inherit;
   }
   input::placeholder {
     opacity: .5;
