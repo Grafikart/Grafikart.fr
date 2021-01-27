@@ -259,6 +259,9 @@
     bottom: 0;
     transform: translateY(50%);
   }
+  .home-push__mosaic > *:last-child {
+    width: 300px;
+  }
 }
 
 @include up(1400) {
@@ -366,9 +369,6 @@
   .home-post__image img {
     width: 100%;
     height: auto;
-  }
-  .home-push__mosaic > *:last-child {
-    width: 300px;
   }
 }
 
