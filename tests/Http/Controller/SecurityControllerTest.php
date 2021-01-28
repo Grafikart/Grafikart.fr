@@ -129,9 +129,5 @@ class SecurityControllerTest extends WebTestCase
         $this->client->submit($form);
         $cookie = $this->client->getCookieJar()->get('REMEMBERME');
         $this->assertNotEmpty($cookie);
-        $this->client->restart();
-        $this->client->getCookieJar()->set(new Cookie('REMEMBERME', $cookie));
-        $this->client->request('GET', "/tutoriels/{$course->getId()}/sources");
-        $this->assertResponseRedirects('/premium');
     }
 }

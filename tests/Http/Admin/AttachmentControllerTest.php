@@ -32,7 +32,7 @@ class AttachmentControllerTest extends WebTestCase
     /**
      * @dataProvider filesDataProvider
      */
-    public function testFilesEndpoint(?string $user, int $expectedStatus, $endpoint = '/files', $method = 'GET')
+    public function testFilesEndpoint(?string $user, int $expectedStatus, string $endpoint = '/files', string $method = 'GET')
     {
         if ($user) {
             $this->login($this->data[$user]);
