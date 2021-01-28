@@ -43,7 +43,7 @@ class NotificationApiTest extends ApiTestCase
         $this->client->request('POST', '/api/notifications', [
             'json' => $data,
         ]);
-        $this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
+        $this->assertResponseStatusCodeSame(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /**

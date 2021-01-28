@@ -13,6 +13,7 @@ class TechnologiesTypeTest extends TestCase
 
     public function setUp(): void
     {
+        parent::setUp();
         /** @var TechnologyRepository|MockObject $repo */
         $repo = $this->getMockBuilder(TechnologyRepository::class)->disableOriginalConstructor()->getMock();
         $repo->expects($this->any())->method('findByNames')->willReturn([]);

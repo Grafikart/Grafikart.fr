@@ -20,11 +20,11 @@ class CourseTransformerTest extends TestCase
 
     public function setUp(): void
     {
+        parent::setUp();
         $serializer = $this->getMockBuilder(SerializerInterface::class)->disableOriginalConstructor()->getMock();
         $this->storage = $this->getMockBuilder(StorageInterface::class)->disableOriginalConstructor()->getMock();
         $serializer->expects($this->any())->method('serialize')->willReturn('https://grafikart.fr/tutoriel');
         $this->transformer = new CourseTransformer($serializer, $this->storage, __DIR__);
-        parent::setUp();
     }
 
     public function testVideoObject(): void

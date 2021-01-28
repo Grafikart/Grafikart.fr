@@ -9,11 +9,6 @@ class LiveControllerTest extends WebTestCase
 {
     use FixturesTrait;
 
-    public function setUp(): void
-    {
-        $this->markTestIncomplete();
-    }
-
     public function testLive(): void
     {
         $title = 'Revoir les précédents lives';

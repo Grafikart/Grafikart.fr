@@ -50,7 +50,7 @@ class CommentApiTest extends ApiTestCase
                 'target' => $fixtures['post1']->getId(),
             ],
         ]);
-        $this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
+        $this->assertResponseStatusCodeSame(Response::HTTP_UNPROCESSABLE_ENTITY);
         $this->assertJsonContains([
             'violations' => [[
                 'propertyPath' => 'email',
@@ -69,7 +69,7 @@ class CommentApiTest extends ApiTestCase
                 'target' => $fixtures['post1']->getId(),
             ],
         ]);
-        $this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
+        $this->assertResponseStatusCodeSame(Response::HTTP_UNPROCESSABLE_ENTITY);
         $this->assertJsonContains([
             'violations' => [[
                 'propertyPath' => 'content',
@@ -103,7 +103,7 @@ class CommentApiTest extends ApiTestCase
                 'target' => $fixtures['post1']->getId(),
             ],
         ]);
-        $this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
+        $this->assertResponseStatusCodeSame(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     public function testCreateWithAuth()

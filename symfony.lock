@@ -362,6 +362,9 @@
             "config/packages/oneup_flysystem.yaml"
         ]
     },
+    "paragonie/constant_time_encoding": {
+        "version": "v2.4.0"
+    },
     "paypal/paypal-checkout-sdk": {
         "version": "1.0.1"
     },

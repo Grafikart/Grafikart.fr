@@ -71,7 +71,7 @@ class ForumReportApiTest extends ApiTestCase
         $this->client->request('POST', '/api/forum/reports', [
             'json' => $data,
         ]);
-        $this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
+        $this->assertResponseStatusCodeSame(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /**

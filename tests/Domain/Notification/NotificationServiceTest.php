@@ -21,6 +21,7 @@ class NotificationServiceTest extends TestCase
 
     public function setUp(): void
     {
+        parent::setUp();
         $this->serializer = $this->getMockBuilder(SerializerInterface::class)->getMock();
         $this->em = $this->getMockBuilder(EntityManagerInterface::class)->getMock();
         $this->dispatcher = $this->getMockBuilder(EventDispatcherInterface::class)->getMock();

@@ -46,6 +46,7 @@ class AuthenticatorTest extends TestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
         /* @var MockObject|EntityManagerInterface entityManager */
         $this->userRepository = $this->getMockBuilder(UserRepository::class)
             ->disableOriginalConstructor()->getMock();

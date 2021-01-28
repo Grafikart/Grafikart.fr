@@ -14,6 +14,7 @@ class TwigUrlExtensionTest extends TestCase
 
     public function setUp(): void
     {
+        parent::setUp();
         $serializer = $this->createMock(SerializerInterface::class);
         $uploaderHelper = $this->createMock(UploaderHelper::class);
         $urlGenerator = $this->createMock(UrlGeneratorInterface::class);

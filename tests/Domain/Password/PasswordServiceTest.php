@@ -17,6 +17,7 @@ class PasswordServiceTest extends TestCase
 
     public function setUp(): void
     {
+        parent::setUp();
         $userRepository = $this->getMockBuilder(UserRepository::class)->disableOriginalConstructor()->getMock();
         $tokenRepository = $this->getMockBuilder(PasswordResetTokenRepository::class)->disableOriginalConstructor()->getMock();
         $generator = $this->getMockBuilder(TokenGeneratorService::class)->disableOriginalConstructor()->getMock();

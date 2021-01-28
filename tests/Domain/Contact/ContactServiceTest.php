@@ -35,6 +35,7 @@ class ContactServiceTest extends TestCase
 
     public function setUp(): void
     {
+        parent::setUp();
         $this->repository = $this
             ->getMockBuilder(ContactRequestRepository::class)
             ->disableOriginalConstructor()

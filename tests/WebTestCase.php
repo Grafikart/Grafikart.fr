@@ -14,6 +14,7 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->client = self::createClient();
         /** @var EntityManagerInterface $em */
         $em = self::$container->get(EntityManagerInterface::class);
