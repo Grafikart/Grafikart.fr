@@ -9,7 +9,7 @@
     "ext-iconv": "*",
     "ext-json": "*",
     "ext-redis": "*",
-    "api-platform/core": "^2.5",
+    "api-platform/core": "^2.6",
     "aura/sql": "^3.0",
     "beberlei/doctrineextensions": "^1.2",
     "cocur/slugify": "^4.0",

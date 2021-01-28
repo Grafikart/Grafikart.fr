@@ -14,7 +14,7 @@ $kernel = new \App\Kernel('test', true);
 $kernel->boot();
 $application = new Application($kernel);
 $application->setAutoExit(false);
-$databaseDoesNotExists = $application->run(new StringInput('doctrine:query:sql "SELECT username FROM user;"'), new NullOutput());
+$databaseDoesNotExists = $application->run(new StringInput('doctrine:run-sql "SELECT username FROM user;"'), new NullOutput());
 if ($databaseDoesNotExists) {
     $application->run(new StringInput('doctrine:database:drop --if-exists --force -q'));
     $application->run(new StringInput('doctrine:database:create -q'));

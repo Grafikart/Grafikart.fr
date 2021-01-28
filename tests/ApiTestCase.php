@@ -46,7 +46,6 @@ class ApiTestCase extends \ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCa
         $session->set('_security_'.$firewallContext, serialize($token));
         $session->save();
         $cookie = new Cookie($session->getName(), $session->getId());
-        // TODO : En attendant le merge de https://github.com/api-platform/core/pull/3418
-        $this->client->getKernelBrowser()->getCookieJar()->set($cookie);
+        $this->client->getCookieJar()->set($cookie);
     }
 }

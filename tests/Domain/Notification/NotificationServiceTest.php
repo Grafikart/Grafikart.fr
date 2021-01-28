@@ -40,18 +40,6 @@ class NotificationServiceTest extends TestCase
         $this->service->notifyChannel('demo', 'Bonjour', $entity);
     }
 
-    public function testDoNotDispatchEventTwice(): void
-    {
-        $entity = new FakeEntity(10);
-        $this->dispatcher->expects($this->once())->method('dispatch')->with(
-            $this->isInstanceOf(NotificationCreatedEvent::class)
-        );
-        $this->service->notifyChannel('demo', 'Bonjour', $entity);
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
     public function testSentReadEvent(): void
     {
         $user = (new User());
