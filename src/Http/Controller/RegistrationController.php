@@ -79,7 +79,7 @@ class RegistrationController extends AbstractController
                 'Un message avec un lien de confirmation vous a été envoyé par mail. Veuillez suivre ce lien pour activer votre compte.'
             );
 
-            return $this->redirectToRoute('register');
+            return $this->redirectToRoute('auth_login');
         } elseif ($form->isSubmitted()) {
             /** @var FormError $error */
             foreach ($form->getErrors() as $error) {

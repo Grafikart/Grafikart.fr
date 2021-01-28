@@ -42,6 +42,9 @@ class RegistrationControllerTest extends WebTestCase
         $this->client->submit($form);
         $this->expectFormErrors(0);
         $this->assertEmailCount(1);
+        $this->assertResponseRedirects('/connexion');
+        $this->client->followRedirect();
+        $this->expectAlert('success');
     }
 
     public function testRegisterExistingInformations(): void
