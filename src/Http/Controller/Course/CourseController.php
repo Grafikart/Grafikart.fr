@@ -121,4 +121,14 @@ class CourseController extends AbstractController
 
         return $this->redirectToRoute('stream_video', ['video' => $course->getVideoPath()]);
     }
+
+    /**
+     * Redirection des anciennes URLs vers la nouvelle
+     *
+     * @Route("/tutoriels/{technology<[a-z0-9A-Z\-]+>}/{slug<[a-z0-9A-Z\-]+>}-{id<\d+>}", name="legacy_course_show")
+     */
+    public function legacyShow(string $technology, string $slug, string $id): Response
+    {
+        return $this->redirectToRoute('course_show', ['slug' => $slug, 'id' => $id], Response::HTTP_MOVED_PERMANENTLY);
+    }
 }

@@ -53,22 +53,35 @@ class CourseControllerTest extends WebTestCase
         $this->expectH1('Tous les tutoriels premiums');
     }
 
-    public function testDownloadVideoUnauthenticated(): void
+    public function testRedirectLegacyCourses(): void
     {
-        $data = $this->loadFixtures(['courses']);
         /** @var Course $course */
-        $course = $data['course1'];
-        $this->client->request('GET', "/tutoriels/{$course->getId()}/video");
-        $this->assertResponseRedirects('/connexion');
-    }
+        ['course1' => $course] = $this->loadFixtures(['courses']);
+        $this->client->request(
+            'GET',
+            `/tutoriels/mysql/${course->getSlug()
+    }-${$course->getId()
+            }`
+        );
+        $this->assertResponseRedirects(`/tutoriels/${course->getSlug()}-${$course->getId()}`, Response::HTTP_MOVED_PERMANENTLY);
+        }
 
-    public function testDownloadVideoAuthenticatedWithoutPremium(): void
-    {
-        $data = $this->loadFixtures(['courses']);
-        $this->login($data['user1']);
-        /** @var Course $course */
-        $course = $data['course1'];
-        $this->client->request('GET', "/tutoriels/{$course->getId()}/video");
-        $this->assertResponseRedirects('/premium');
-    }
-}
+        public function testDownloadVideoUnauthenticated(): void
+        {
+            $data = $this->loadFixtures(['courses']);
+            /** @var Course $course */
+            $course = $data['course1'];
+            $this->client->request('GET', "/tutoriels/{$course->getId()}/video");
+            $this->assertResponseRedirects('/connexion');
+        }
+
+        public function testDownloadVideoAuthenticatedWithoutPremium(): void
+        {
+            $data = $this->loadFixtures(['courses']);
+            $this->login($data['user1']);
+            /** @var Course $course */
+            $course = $data['course1'];
+            $this->client->request('GET', "/tutoriels/{$course->getId()}/video");
+            $this->assertResponseRedirects('/premium');
+        }
+        }

@@ -23,7 +23,7 @@
     "lint": "prettier-standard --lint \"assets/**/*.{js,css,jsx}\"",
     "lint-staged": "prettier-standard --lint --changed \"assets/**/*.{js,css,jsx}\"",
     "dev": "rm -rf public/assets/time && npx vite",
-    "build": "npx vite build && touch public/assets/time && find ./public/assets -name \"*.*\" -mmin +2 -delete",
+    "build": "npx vite build && touch public/assets/time && find ./public/assets -name \"*.*\" -mtime +7 -delete",
     "test": "jest"
   },
   "dependencies": {
