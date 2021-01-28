@@ -3,14 +3,12 @@
 namespace App\Core\Twig\CacheExtension;
 
 use Twig\Node\Expression\AbstractExpression;
+use Twig\Node\Node;
 use Twig\Token;
 use Twig\TokenParser\AbstractTokenParser;
 
 class CacheTokenParser extends AbstractTokenParser
 {
-    /**
-     * @return CacheNode<AbstractExpression>
-     */
     public function parse(Token $token): CacheNode
     {
         $lineno = $token->getLine();
@@ -19,6 +17,7 @@ class CacheTokenParser extends AbstractTokenParser
         $key = $this->parser->getExpressionParser()->parseExpression();
         $key->setAttribute('always_defined', true);
         $stream->expect(Token::BLOCK_END_TYPE);
+        /** @var iterable<AbstractExpression>&Node $body */
         $body = $this->parser->subparse([$this, 'decideCacheEnd'], true);
         $stream->expect(Token::BLOCK_END_TYPE);
 

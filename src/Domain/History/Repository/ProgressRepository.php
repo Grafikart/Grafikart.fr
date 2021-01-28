@@ -72,7 +72,7 @@ class ProgressRepository extends AbstractRepository
      */
     public function findFinishedIdWithin(User $user, array $ids): array
     {
-        return array_map(fn (Progress $p) => $p->getContent()->getId(), $this->createQueryBuilder('p')
+        return array_map(fn (Progress $p) => $p->getContent()->getId() ?: 0, $this->createQueryBuilder('p')
             ->where('p.content IN (:ids)')
             ->andWhere('p.author = :user')
             ->andWhere('p.progress = :total')

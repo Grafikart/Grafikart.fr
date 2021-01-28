@@ -83,8 +83,9 @@ class CourseControllerTest extends WebTestCase
             'GET',
             "/tutoriels/mysql/{$course->getSlug()}-{$course->getId()}"
         );
-        $this->assertResponseRedirects("/tutoriels/{$course->getSlug()}-{$course->getId()}",
-            Response::HTTP_MOVED_PERMANENTLY);
+        $this->assertResponseRedirects(
+            "/tutoriels/{$course->getSlug()}-{$course->getId()}",
+            Response::HTTP_MOVED_PERMANENTLY
+        );
     }
-
 }

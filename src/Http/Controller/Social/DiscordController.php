@@ -30,7 +30,7 @@ class DiscordController extends AbstractController
     public function check(DiscordClient $client, EntityManagerInterface $em): RedirectResponse
     {
         try {
-            /** @var DiscordResourceOwner $client */
+            /** @var DiscordResourceOwner $discordUser */
             $discordUser = $client->fetchUser();
             /** @var User $user */
             $user = $this->getUser();

@@ -101,6 +101,7 @@ class ChaptersForm extends TextareaType implements DataTransformerInterface
         }
 
         return array_map(function ($chapter) {
+            /** @var Content[] $content */
             $content = array_map(function ($content) {
                 return $this->em->getReference(Content::class, $content['id']);
             }, $chapter['modules']);

@@ -25,8 +25,9 @@ class ImportedFile extends UploadedFile
     {
         if ($this->isValid()) {
             $target = $this->getTargetFile($directory, $name);
-            set_error_handler(function ($type, $msg) use (&$error) {
+            set_error_handler(function (int $type, string $msg) use (&$error) {
                 $error = $msg;
+                return true;
             });
             $moved = copy($this->getPathname(), $target);
             restore_error_handler();
