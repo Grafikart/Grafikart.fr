@@ -15,11 +15,11 @@ security:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
       security: false
     main:
+      entry_point: App\Http\Security\AuthenticationEntryPoint
       anonymous: true
       lazy: true
       user_checker: App\Domain\Auth\Security\UserChecker
       guard:
-        entry_point: App\Domain\Auth\Authenticator
         authenticators:
           - App\Domain\Auth\Authenticator
           - App\Infrastructure\Social\Authenticator\GithubAuthenticator

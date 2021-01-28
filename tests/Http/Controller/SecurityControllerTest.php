@@ -5,6 +5,9 @@ namespace App\Tests\Http\Controller;
 use App\Domain\Auth\User;
 use App\Tests\FixturesTrait;
 use App\Tests\WebTestCase;
+use Symfony\Component\BrowserKit\Cookie;
+use Symfony\Component\Security\Http\RememberMe\AbstractRememberMeServices;
+use Symfony\Component\Security\Http\RememberMe\TokenBasedRememberMeServices;
 
 class SecurityControllerTest extends WebTestCase
 {
@@ -109,5 +112,26 @@ class SecurityControllerTest extends WebTestCase
         $this->assertResponseRedirects();
         $this->client->followRedirect();
         $this->expectErrorAlert();
+    }
+
+    public function testCookieAuthentication(): void
+    {
+        /** @var User $user */
+        ['user1' => $user, 'course1' => $course] = $this->loadFixtures(['users', 'courses']);
+        $crawler = $this->client->request('GET', '/connexion');
+        $this->expectFormErrors(0);
+        $form = $crawler->selectButton('Se connecter')->form();
+        $form->setValues([
+            'email' => $user->getEmail(),
+            'password' => '0000',
+            '_remember_me' => "on",
+        ]);
+        $this->client->submit($form);
+        $cookie = $this->client->getCookieJar()->get('REMEMBERME');
+        $this->assertNotEmpty($cookie);
+        $this->client->restart();
+        $this->client->getCookieJar()->set(new Cookie('REMEMBERME', $cookie));
+        $this->client->request('GET', "/tutoriels/{$course->getId()}/sources");
+        $this->assertResponseRedirects('/premium');
     }
 }

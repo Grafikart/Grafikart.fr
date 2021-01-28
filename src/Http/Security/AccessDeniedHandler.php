@@ -3,6 +3,7 @@
 namespace App\Http\Security;
 
 use ApiPlatform\Core\Api\UrlGeneratorInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +23,7 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
         $this->twig = $twig;
     }
 
-    public function handle(Request $request, AccessDeniedException $accessDeniedException)
+    public function handle(Request $request, AccessDeniedException $accessDeniedException): Response
     {
         $attributes = $accessDeniedException->getAttributes();
         if (count($attributes) > 0) {
@@ -40,6 +41,10 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
             }
         }
 
-        return new Response($this->twig->render('bundles/TwigBundle/Exception/error403.html.twig'));
+        if (in_array('application/json', $request->getAcceptableContentTypes())) {
+            return new JsonResponse(null, Response::HTTP_FORBIDDEN);
+        }
+
+        return new Response($this->twig->render('bundles/TwigBundle/Exception/error403.html.twig'), Response::HTTP_FORBIDDEN);
     }
 }
