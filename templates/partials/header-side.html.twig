@@ -7,7 +7,7 @@
   </li>
   {% if app.user %}
     <li class="header__account"><a href="{{ path('user_profil') }}">{{ icon('user') }} <span>{{ app.user.username }}</span></a>
-    <li class="header__logout"><a href="{{ path('auth_logout') }}">{{ icon('logout') }} <span>Se déconnecter</span></a></li>
+    <li class="header__logout"><a href="{{ path('auth_logout') }}" data-turbolinks="false">{{ icon('logout') }} <span>Se déconnecter</span></a></li>
   {% else %}
     <li class="header-side__auth">
       <a href="{{ path('register') }}">{{ icon('user') }} <span>S'inscrire</span></a>
