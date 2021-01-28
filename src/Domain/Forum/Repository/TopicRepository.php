@@ -78,7 +78,7 @@ class TopicRepository extends AbstractRepository
         $query = $this->createQueryBuilder('t')
             ->where('t.spam = false')
             ->setMaxResults(20)
-            ->orderBy('t.createdAt', 'DESC');
+            ->orderBy('t.updatedAt', 'DESC');
         if ($tag) {
             $tags = [$tag];
             if ($tag->getChildren()->count() > 0) {

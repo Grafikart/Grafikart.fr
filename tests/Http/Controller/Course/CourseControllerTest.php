@@ -2,6 +2,7 @@
 
 namespace App\Tests\Http\Controller\Course;
 
+use App\Domain\Auth\User;
 use App\Domain\Course\Entity\Course;
 use App\Tests\FixturesTrait;
 use App\Tests\WebTestCase;
@@ -19,7 +20,7 @@ class CourseControllerTest extends WebTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $technologies = collect($course->getMainTechnologies())->map->getName()->implode(' & ');
         $this->expectTitle("Tutoriel vidéo {$technologies} : {$course->getTitle()}");
-        $this->expectH1("Tutoriel {$technologies} : ".$course->getTitle());
+        $this->expectH1("Tutoriel {$technologies} : " . $course->getTitle());
     }
 
     public function testIndexSuccess()
@@ -53,35 +54,37 @@ class CourseControllerTest extends WebTestCase
         $this->expectH1('Tous les tutoriels premiums');
     }
 
+    public function testDownloadVideoUnauthenticated(): void
+    {
+        $data = $this->loadFixtures(['courses']);
+        /** @var Course $course */
+        $course = $data['course1'];
+        $this->client->request('GET', "/tutoriels/{$course->getId()}/video");
+        $this->assertResponseRedirects('/connexion');
+    }
+
+    public function testDownloadVideoAuthenticatedWithoutPremium(): void
+    {
+        /** @var Course $course */
+        /** @var User $user */
+        ['user1' => $user, 'course1' => $course] = $this->loadFixtures(['courses', 'users']);
+        $this->login($user);
+        $this->client->request('GET', "/tutoriels/{$course->getId()}/video");
+        $this->assertResponseRedirects('/premium');
+    }
+
+
+
     public function testRedirectLegacyCourses(): void
     {
         /** @var Course $course */
         ['course1' => $course] = $this->loadFixtures(['courses']);
         $this->client->request(
             'GET',
-            `/tutoriels/mysql/${course->getSlug()
-    }-${$course->getId()
-            }`
+            "/tutoriels/mysql/{$course->getSlug()}-{$course->getId()}"
         );
-        $this->assertResponseRedirects(`/tutoriels/${course->getSlug()}-${$course->getId()}`, Response::HTTP_MOVED_PERMANENTLY);
-        }
+        $this->assertResponseRedirects("/tutoriels/{$course->getSlug()}-{$course->getId()}",
+            Response::HTTP_MOVED_PERMANENTLY);
+    }
 
-        public function testDownloadVideoUnauthenticated(): void
-        {
-            $data = $this->loadFixtures(['courses']);
-            /** @var Course $course */
-            $course = $data['course1'];
-            $this->client->request('GET', "/tutoriels/{$course->getId()}/video");
-            $this->assertResponseRedirects('/connexion');
-        }
-
-        public function testDownloadVideoAuthenticatedWithoutPremium(): void
-        {
-            $data = $this->loadFixtures(['courses']);
-            $this->login($data['user1']);
-            /** @var Course $course */
-            $course = $data['course1'];
-            $this->client->request('GET', "/tutoriels/{$course->getId()}/video");
-            $this->assertResponseRedirects('/premium');
-        }
-        }
+}
