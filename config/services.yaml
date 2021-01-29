@@ -8,6 +8,7 @@ parameters:
   twitter_secret:   '%env(resolve:TWITTER_SECRET)%'
   container.dumper.inline_factories: true
   container.dumper.inline_class_loader: true
+  dkim_key: '%env(resolve:default::MAILER_DKIM)%'
 
 services:
   _defaults:
@@ -105,6 +106,11 @@ services:
   App\Infrastructure\Storage\DropboxFilesystemFactory:
     arguments:
       - '%env(DROPBOX_TOKEN)%'
+
+  App\Infrastructure\Mailing\Mailer:
+    class: App\Infrastructure\Mailing\Mailer
+    arguments:
+      $dkimKey: '%dkim_key%'
 
   dropbox_filesystem:
     class: League\Flysystem\Filesystem
