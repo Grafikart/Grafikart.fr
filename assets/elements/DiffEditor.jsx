@@ -21,8 +21,11 @@ export class DiffEditor extends HTMLTextAreaElement {
   }
 
   render (onChange, container) {
+    // On normalise les retours à la ligne pour éviter d'avoir des diffs parasites
+    const original = this.getAttribute('original').replace(/\r\n|\r|\n/g, "\r\n")
+    const updated = this.value.replace(/\r\n|\r|\n/g, "\r\n")
     render(
-      <DiffEditorComponent onChange={onChange} originalValue={this.getAttribute('original')} newValue={this.value} />,
+      <DiffEditorComponent onChange={onChange} originalValue={original} newValue={updated} />,
       container
     )
   }
