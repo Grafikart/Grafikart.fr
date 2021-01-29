@@ -16,10 +16,10 @@
         </div>
         {% if topic.lastMessage %}
           {{icon('reply')}} <a
-          href="{{ path(topic.lastMessage.author) }}">{{ topic.lastMessage.author.username }}</a>, {{ topic.lastMessage.createdAt | ago }}
+          href="{{ path(topic) }}#message-{{ topic.lastMessage.id }}">{{ topic.lastMessage.author.username }}</a>, {{ topic.lastMessage.createdAt | ago }}
         {% else %}
           <a
-          href="{{ path(topic.author) }}">{{ topic.author.username }}</a>, {{ topic.createdAt | ago }}
+          href="{{ path(topic) }}">{{ topic.author.username }}</a>, {{ topic.createdAt | ago }}
         {% endif %}
       </div>
     </div>
