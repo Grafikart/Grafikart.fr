@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Core\Helper;
+namespace App\Tests\Helper;
 
 use App\Helper\PathHelper;
 use PHPUnit\Framework\TestCase;

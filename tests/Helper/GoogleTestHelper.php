@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Core\Helper;
+namespace App\Tests\Helper;
 
 /**
  * Série de fonctions permettant de générer des objets en liens avec l'API de Google.

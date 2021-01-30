@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Core\Validator;
+namespace App\Tests\Validator;
 
 class FakeObjectWithSlug
 {

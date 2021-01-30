@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Core\Twig;
+namespace App\Tests\Http\Twig;
 
 use ApiPlatform\Core\Api\UrlGeneratorInterface;
 use App\Http\Twig\TwigUrlExtension;

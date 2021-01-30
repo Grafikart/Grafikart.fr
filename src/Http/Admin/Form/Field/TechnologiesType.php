@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Course\Type;
+namespace App\Http\Admin\Form\Field;
 
 use App\Domain\Course\Entity\Technology;
 use App\Domain\Course\Repository\TechnologyRepository;

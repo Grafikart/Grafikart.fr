@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Core\Twig;
+namespace App\Tests\Http\Twig;
 
 use App\Http\Twig\TwigTimeExtension;
 use DateTime;

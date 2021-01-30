@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Core\Validator;
+namespace App\Tests\Validator;
 
 use App\Tests\ValidatorTestCase;
 use App\Validator\Slug;

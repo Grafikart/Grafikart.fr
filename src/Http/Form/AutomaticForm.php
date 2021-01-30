@@ -7,7 +7,7 @@ use App\Domain\Attachment\Type\AttachmentType;
 use App\Domain\Auth\User;
 use App\Domain\Course\Entity\CursusCategory;
 use App\Domain\Course\Entity\Formation;
-use App\Domain\Course\Type\TechnologiesType;
+use App\Http\Admin\Form\Field\TechnologiesType;
 use App\Domain\Forum\Entity\Tag;
 use App\Http\Admin\Form\Field\CursusCategoryChoiceType;
 use App\Http\Admin\Form\Field\ForumTagChoiceType;

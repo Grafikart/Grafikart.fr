@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Core\UploaderBundle;
+namespace App\Tests\Infrastructure\Uploader;
 
 use App\Infrastructure\Uploader\PropertyGroupedDirectoryNamer;
 use PHPUnit\Framework\TestCase;

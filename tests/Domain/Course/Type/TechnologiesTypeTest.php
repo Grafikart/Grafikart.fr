@@ -4,6 +4,7 @@ namespace App\Domain\Course\Type;
 
 use App\Domain\Course\Entity\Technology;
 use App\Domain\Course\Repository\TechnologyRepository;
+use App\Http\Admin\Form\Field\TechnologiesType;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
