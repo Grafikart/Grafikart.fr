@@ -42,8 +42,12 @@ export class ThemeSwitcher extends HTMLElement {
         document.body.classList.add(`theme-${savedTheme}`)
         input.checked = savedTheme === 'dark'
       }
+    } else if (document.body.classList.contains('theme-dark')) {
+      input.checked = true
+    } else if (document.body.classList.contains('theme-light')) {
+      input.checked = false
     } else {
-      input.checked = document.body.classList.contains('theme-dark')
+      input.checked = window.matchMedia('(prefers-color-scheme: dark)').matches
     }
   }
 }
