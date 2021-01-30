@@ -2,12 +2,12 @@
 
 namespace App\Domain\Notification\Subscriber;
 
-use App\Core\Helper\TimeHelper;
 use App\Domain\Application\Event\ContentUpdatedEvent;
 use App\Domain\Course\Entity\Course;
 use App\Domain\Course\Entity\Formation;
 use App\Domain\Course\Entity\Technology;
 use App\Domain\Notification\NotificationService;
+use App\Helper\TimeHelper;
 use App\Infrastructure\Queue\EnqueueMethod;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

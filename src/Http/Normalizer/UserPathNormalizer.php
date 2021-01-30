@@ -2,9 +2,9 @@
 
 namespace App\Http\Normalizer;
 
-use App\Core\Normalizer;
 use App\Domain\Auth\User;
 use App\Http\Encoder\PathEncoder;
+use App\Normalizer\Normalizer;
 
 class UserPathNormalizer extends Normalizer
 {

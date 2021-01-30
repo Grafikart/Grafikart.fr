@@ -2,9 +2,9 @@
 
 namespace App\Infrastructure\Queue\Normalizer;
 
-use App\Core\Normalizer;
 use App\Http\Encoder\PathEncoder;
 use App\Infrastructure\Queue\FailedJob;
+use App\Normalizer\Normalizer;
 
 class FailedJobNormalizer extends Normalizer
 {

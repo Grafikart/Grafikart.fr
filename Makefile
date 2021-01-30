@@ -111,31 +111,6 @@ doc: ## Génère le sommaire de la documentation
 provision: ## Configure la machine distante
 	ansible-playbook --vault-password-file .vault_pass -i tools/ansible/hosts.yml tools/ansible/install.yml
 
-.PHONY: import
-import: vendor/autoload.php ## Importe les données du site actuel et génère un dump en sortie
-	gunzip -k downloads/grafikart.gz
-	$(dcimport) down
-	$(dcimport) up -d
-	@echo "Attendre que la base soit initialisée 'docker-compose -f docker-compose.import.yml logs -f mariadb'?: "; read ok;
-	rsync -avz --ignore-existing --progress --exclude=avatars --exclude=tmp --exclude=users old.grafikart:/home/www/grafikart.fr/shared/public/uploads/ ./public/old/
-	$(dcimport) exec db /docker-entrypoint.sh
-	tar -xf downloads/grafikart.tar.gz -C downloads/
-	$(sy) doctrine:migrations:migrate -q
-	$(sy) app:import reset
-	$(sy) app:import users
-	$(sy) app:import tutoriels
-	$(sy) app:import formations
-	$(sy) app:import blog
-	$(sy) app:import comments
-	$(sy) app:import forum
-	$(sy) app:import badges
-	$(sy) app:import transactions
-	$(dcimport) exec db sh -c 'PGPASSWORD="grafikart" pg_dump -U grafikart -Ft grafikart --clean > /var/www/var/dump.tar'
-	$(dcimport) down
-	ansible-playbook -i tools/ansible/hosts.yml tools/ansible/import.yml
-	rm -rf var/dump.tar
-	rsync -avz --ignore-existing --progress ./public/uploads/ $(server):~/$(domain)/public/uploads/
-
 # -----------------------------------
 # Dépendances
 # -----------------------------------

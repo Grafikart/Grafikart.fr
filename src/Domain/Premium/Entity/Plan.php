@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Plan
 {
+    use StripeEntity;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -33,8 +34,6 @@ class Plan
      * @ORM\Column(type="integer", nullable=false)
      */
     private int $duration = 1;
-
-    use StripeEntity;
 
     public function getId(): ?int
     {

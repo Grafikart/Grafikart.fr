@@ -2,9 +2,9 @@
 
 namespace App\Domain\Premium\Repository;
 
-use App\Core\Orm\AbstractRepository;
 use App\Domain\Auth\User;
 use App\Domain\Premium\Entity\Subscription;
+use App\Infrastructure\Orm\AbstractRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**

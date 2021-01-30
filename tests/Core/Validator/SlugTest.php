@@ -2,8 +2,8 @@
 
 namespace App\Tests\Core\Validator;
 
-use App\Core\Validator\Slug;
 use App\Tests\ValidatorTestCase;
+use App\Validator\Slug;
 use Symfony\Component\Validator\Constraints\RegexValidator;
 
 class SlugTest extends ValidatorTestCase

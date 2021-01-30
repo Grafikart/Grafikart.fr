@@ -2,9 +2,9 @@
 
 namespace App\Domain\Attachment\Normalizer;
 
-use App\Core\Normalizer;
 use App\Domain\Attachment\Attachment;
 use App\Infrastructure\Image\ImageResizer;
+use App\Normalizer\Normalizer;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class AttachmentApiNormalizer extends Normalizer

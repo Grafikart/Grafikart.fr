@@ -2,11 +2,11 @@
 
 namespace App\Http\Admin\Controller;
 
-use App\Core\Helper\Paginator\PaginatorInterface;
 use App\Domain\Comment\CommentRepository;
 use App\Domain\Forum\Repository\ReportRepository;
 use App\Domain\Premium\Repository\TransactionRepository;
 use App\Domain\Revision\RevisionRepository;
+use App\Helper\Paginator\PaginatorInterface;
 use App\Infrastructure\Mailing\Mailer;
 use App\Infrastructure\Queue\FailedJobsService;
 use App\Infrastructure\Queue\ScheduledJobsService;

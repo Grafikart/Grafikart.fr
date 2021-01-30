@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\Spam;
 
-use App\Core\OptionManagerInterface;
+use App\Helper\OptionManagerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 

@@ -2,9 +2,9 @@
 
 namespace App\Http\Admin\Data;
 
-use App\Core\Validator\Slug;
 use App\Domain\Course\Entity\Technology;
 use App\Domain\Forum\Entity\Tag;
+use App\Validator\Slug;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**

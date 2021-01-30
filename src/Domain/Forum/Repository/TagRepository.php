@@ -2,8 +2,8 @@
 
 namespace App\Domain\Forum\Repository;
 
-use App\Core\Orm\AbstractRepository;
 use App\Domain\Forum\Entity\Tag;
+use App\Infrastructure\Orm\AbstractRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**

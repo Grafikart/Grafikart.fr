@@ -2,8 +2,8 @@
 
 namespace App\Infrastructure\Search\Normalizer;
 
-use App\Core\Normalizer;
 use App\Domain\Forum\Entity\Topic;
+use App\Normalizer\Normalizer;
 
 class TopicNormalizer extends Normalizer
 {

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controller\Course;
 
-use App\Core\Helper\Paginator\PaginatorInterface;
 use App\Domain\Course\Entity\Formation;
 use App\Domain\Course\Entity\Technology;
 use App\Domain\Course\Repository\CourseRepository;
 use App\Domain\Course\Repository\FormationRepository;
+use App\Helper\Paginator\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

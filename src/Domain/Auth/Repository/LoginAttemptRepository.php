@@ -2,8 +2,8 @@
 
 namespace App\Domain\Auth\Repository;
 
-use App\Core\Orm\AbstractRepository;
 use App\Domain\Auth\Entity\LoginAttempt;
+use App\Infrastructure\Orm\AbstractRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**

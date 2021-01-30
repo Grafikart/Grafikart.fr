@@ -2,10 +2,10 @@
 
 namespace App\Http\Form;
 
-use App\Core\Type\EditorType;
 use App\Domain\Forum\Entity\Tag;
 use App\Domain\Forum\Entity\Topic;
 use App\Domain\Forum\Repository\TagRepository;
+use App\Http\Type\EditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

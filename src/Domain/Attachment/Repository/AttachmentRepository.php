@@ -2,8 +2,8 @@
 
 namespace App\Domain\Attachment\Repository;
 
-use App\Core\Orm\AbstractRepository;
 use App\Domain\Attachment\Attachment;
+use App\Infrastructure\Orm\AbstractRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**

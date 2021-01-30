@@ -2,8 +2,8 @@
 
 namespace App\Domain\Course\Repository;
 
-use App\Core\Orm\AbstractRepository;
 use App\Domain\Course\Entity\CursusCategory;
+use App\Infrastructure\Orm\AbstractRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**

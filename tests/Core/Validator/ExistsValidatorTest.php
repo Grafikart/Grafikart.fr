@@ -2,9 +2,9 @@
 
 namespace App\Tests\Core\Validator;
 
-use App\Core\Validator\Exists;
-use App\Core\Validator\ExistsValidator;
 use App\Tests\ValidatorTestCase;
+use App\Validator\Exists;
+use App\Validator\ExistsValidator;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ExistsValidatorTest extends ValidatorTestCase

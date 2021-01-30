@@ -2,11 +2,11 @@
 
 namespace App\Http\Normalizer;
 
-use App\Core\Normalizer;
 use App\Domain\Blog\Post;
 use App\Domain\Comment\Comment;
 use App\Domain\Course\Entity\Course;
 use App\Http\Encoder\PathEncoder;
+use App\Normalizer\Normalizer;
 
 class CommentPathNormalizer extends Normalizer
 {

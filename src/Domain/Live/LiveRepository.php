@@ -2,8 +2,8 @@
 
 namespace App\Domain\Live;
 
-use App\Core\Orm\AbstractRepository;
-use App\Core\Orm\IterableQueryBuilder;
+use App\Infrastructure\Orm\AbstractRepository;
+use App\Infrastructure\Orm\IterableQueryBuilder;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 

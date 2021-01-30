@@ -20,7 +20,7 @@ class CourseControllerTest extends WebTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $technologies = collect($course->getMainTechnologies())->map->getName()->implode(' & ');
         $this->expectTitle("Tutoriel vidéo {$technologies} : {$course->getTitle()}");
-        $this->expectH1("Tutoriel {$technologies} : " . $course->getTitle());
+        $this->expectH1("Tutoriel {$technologies} : ".$course->getTitle());
     }
 
     public function testIndexSuccess()
@@ -72,8 +72,6 @@ class CourseControllerTest extends WebTestCase
         $this->client->request('GET', "/tutoriels/{$course->getId()}/video");
         $this->assertResponseRedirects('/premium');
     }
-
-
 
     public function testRedirectLegacyCourses(): void
     {

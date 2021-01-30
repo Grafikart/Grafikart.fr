@@ -2,10 +2,10 @@
 
 namespace App\Domain\Course\Repository;
 
-use App\Core\Orm\AbstractRepository;
-use App\Core\Orm\IterableQueryBuilder;
 use App\Domain\Course\Entity\Formation;
 use App\Domain\Course\Entity\Technology;
+use App\Infrastructure\Orm\AbstractRepository;
+use App\Infrastructure\Orm\IterableQueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**

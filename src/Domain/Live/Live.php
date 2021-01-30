@@ -2,7 +2,7 @@
 
 namespace App\Domain\Live;
 
-use App\Core\UploaderBundle\RemoteFile;
+use App\Infrastructure\Uploader\RemoteFile;
 use Doctrine\ORM\Mapping as ORM;
 use Google_Service_YouTube_Thumbnail;
 use Symfony\Component\HttpFoundation\File\File;

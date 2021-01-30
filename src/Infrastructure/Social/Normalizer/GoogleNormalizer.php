@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\Social\Normalizer;
 
-use App\Core\Normalizer;
+use App\Normalizer\Normalizer;
 use League\OAuth2\Client\Provider\GoogleUser;
 
 class GoogleNormalizer extends Normalizer

@@ -2,7 +2,7 @@
 
 namespace App\Tests\Core\Twig;
 
-use App\Core\Twig\TwigMarkdownExtension;
+use App\Http\Twig\TwigMarkdownExtension;
 use PHPUnit\Framework\TestCase;
 
 class TwigMarkdownExtensionTest extends TestCase

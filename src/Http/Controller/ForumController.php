@@ -2,7 +2,6 @@
 
 namespace App\Http\Controller;
 
-use App\Core\Helper\Paginator\PaginatorInterface;
 use App\Domain\Auth\User;
 use App\Domain\Forum\Entity\Forum;
 use App\Domain\Forum\Entity\Tag;
@@ -10,6 +9,7 @@ use App\Domain\Forum\Entity\Topic;
 use App\Domain\Forum\Repository\TagRepository;
 use App\Domain\Forum\Repository\TopicRepository;
 use App\Domain\Forum\TopicService;
+use App\Helper\Paginator\PaginatorInterface;
 use App\Http\Form\ForumTopicForm;
 use App\Http\Security\ForumVoter;
 use Symfony\Component\HttpFoundation\Request;

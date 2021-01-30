@@ -2,8 +2,8 @@
 
 namespace App\Http\Form;
 
-use App\Core\Type\SwitchType;
 use App\Domain\Profile\Dto\ProfileUpdateDto;
+use App\Http\Type\SwitchType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;

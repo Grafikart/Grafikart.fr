@@ -2,8 +2,8 @@
 
 namespace App\Domain\Premium\Repository;
 
-use App\Core\Orm\AbstractRepository;
 use App\Domain\Premium\Entity\Plan;
+use App\Infrastructure\Orm\AbstractRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**

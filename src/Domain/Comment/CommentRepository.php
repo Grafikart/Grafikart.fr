@@ -2,8 +2,8 @@
 
 namespace App\Domain\Comment;
 
-use App\Core\Orm\AbstractRepository;
 use App\Domain\Auth\User;
+use App\Infrastructure\Orm\AbstractRepository;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 

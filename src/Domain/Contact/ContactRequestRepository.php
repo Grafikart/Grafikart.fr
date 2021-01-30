@@ -2,7 +2,7 @@
 
 namespace App\Domain\Contact;
 
-use App\Core\Orm\AbstractRepository;
+use App\Infrastructure\Orm\AbstractRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**

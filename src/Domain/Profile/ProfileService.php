@@ -2,13 +2,13 @@
 
 namespace App\Domain\Profile;
 
-use App\Core\Security\TokenGeneratorService;
 use App\Domain\Profile\Dto\AvatarDto;
 use App\Domain\Profile\Dto\ProfileUpdateDto;
 use App\Domain\Profile\Entity\EmailVerification;
 use App\Domain\Profile\Event\EmailVerificationEvent;
 use App\Domain\Profile\Exception\TooManyEmailChangeException;
 use App\Domain\Profile\Repository\EmailVerificationRepository;
+use App\Infrastructure\Security\TokenGeneratorService;
 use Doctrine\ORM\EntityManagerInterface;
 use Intervention\Image\ImageManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;

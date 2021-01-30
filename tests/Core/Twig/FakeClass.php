@@ -2,7 +2,7 @@
 
 namespace App\Tests\Core\Twig;
 
-use App\Core\Twig\CacheExtension\CacheableInterface;
+use App\Http\Twig\CacheExtension\CacheableInterface;
 
 class FakeClass implements CacheableInterface
 {

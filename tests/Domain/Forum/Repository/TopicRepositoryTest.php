@@ -13,9 +13,8 @@ use App\Tests\RepositoryTestCase;
  */
 class TopicRepositoryTest extends RepositoryTestCase
 {
-    protected $repositoryClass = TopicRepository::class;
-
     use FixturesTrait;
+    protected $repositoryClass = TopicRepository::class;
 
     public function testDeleteUsersTopic()
     {

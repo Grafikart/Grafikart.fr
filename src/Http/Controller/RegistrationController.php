@@ -2,11 +2,11 @@
 
 namespace App\Http\Controller;
 
-use App\Core\Security\TokenGeneratorService;
 use App\Domain\Auth\Authenticator;
 use App\Domain\Auth\Event\UserCreatedEvent;
 use App\Domain\Auth\User;
 use App\Http\Form\RegistrationFormType;
+use App\Infrastructure\Security\TokenGeneratorService;
 use App\Infrastructure\Social\SocialLoginService;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;

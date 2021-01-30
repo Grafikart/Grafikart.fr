@@ -2,10 +2,10 @@
 
 namespace App\Tests\Infrastructure\Spam\Subscriber;
 
-use App\Core\OptionManagerInterface;
 use App\Domain\Auth\User;
 use App\Domain\Forum\Entity\Topic;
 use App\Domain\Forum\Event\PreTopicCreatedEvent;
+use App\Helper\OptionManagerInterface;
 use App\Infrastructure\Spam\Subscriber\SpamSubscriber;
 use App\Tests\EventSubscriberTest;
 

@@ -2,9 +2,9 @@
 
 namespace App\Domain\Course\Utils;
 
-use App\Core\Breadcrumb\BreadcrumbGeneratorInterface;
-use App\Core\Breadcrumb\BreadcrumbItem;
 use App\Domain\Course\Entity\Formation;
+use App\Normalizer\Breadcrumb\BreadcrumbGeneratorInterface;
+use App\Normalizer\Breadcrumb\BreadcrumbItem;
 
 class FormationBreadcrumbGenerator implements BreadcrumbGeneratorInterface
 {

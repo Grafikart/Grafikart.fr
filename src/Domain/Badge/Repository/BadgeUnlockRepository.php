@@ -2,10 +2,10 @@
 
 namespace App\Domain\Badge\Repository;
 
-use App\Core\Orm\AbstractRepository;
 use App\Domain\Auth\User;
 use App\Domain\Badge\Entity\Badge;
 use App\Domain\Badge\Entity\BadgeUnlock;
+use App\Infrastructure\Orm\AbstractRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**

@@ -2,7 +2,7 @@
 
 namespace App\Tests\Core\Twig;
 
-use App\Core\Twig\TwigTimeExtension;
+use App\Http\Twig\TwigTimeExtension;
 use DateTime;
 use PHPUnit\Framework\TestCase;
 

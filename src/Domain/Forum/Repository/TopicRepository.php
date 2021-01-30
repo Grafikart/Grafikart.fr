@@ -2,11 +2,11 @@
 
 namespace App\Domain\Forum\Repository;
 
-use App\Core\Orm\AbstractRepository;
 use App\Domain\Auth\User;
 use App\Domain\Forum\Entity\Message;
 use App\Domain\Forum\Entity\Tag;
 use App\Domain\Forum\Entity\Topic;
+use App\Infrastructure\Orm\AbstractRepository;
 use App\Infrastructure\Spam\SpammableRepositoryTrait;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;

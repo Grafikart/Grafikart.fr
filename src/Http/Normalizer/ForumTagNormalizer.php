@@ -3,8 +3,8 @@
 namespace App\Http\Normalizer;
 
 use ApiPlatform\Core\Api\UrlGeneratorInterface;
-use App\Core\Normalizer;
 use App\Domain\Forum\Entity\Tag;
+use App\Normalizer\Normalizer;
 
 class ForumTagNormalizer extends Normalizer
 {

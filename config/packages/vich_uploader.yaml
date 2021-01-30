@@ -53,7 +53,7 @@ vich_uploader:
         options:
           property: id
       directory_namer:
-        service: App\Core\UploaderBundle\PropertyGroupedDirectoryNamer
+        service: App\Infrastructure\Uploader\PropertyGroupedDirectoryNamer
         options:
           property: id
           modulo: 10000

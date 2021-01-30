@@ -2,7 +2,7 @@
 
 namespace App\Domain\Live;
 
-use App\Core\OptionManagerInterface;
+use App\Helper\OptionManagerInterface;
 use Psr\Cache\CacheItemPoolInterface;
 
 class LiveService

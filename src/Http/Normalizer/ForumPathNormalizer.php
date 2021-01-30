@@ -2,11 +2,11 @@
 
 namespace App\Http\Normalizer;
 
-use App\Core\Normalizer;
 use App\Domain\Forum\Entity\Message;
 use App\Domain\Forum\Entity\Tag;
 use App\Domain\Forum\Entity\Topic;
 use App\Http\Encoder\PathEncoder;
+use App\Normalizer\Normalizer;
 
 class ForumPathNormalizer extends Normalizer
 {

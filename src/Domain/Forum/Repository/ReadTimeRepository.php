@@ -2,10 +2,10 @@
 
 namespace App\Domain\Forum\Repository;
 
-use App\Core\Orm\AbstractRepository;
 use App\Domain\Auth\User;
 use App\Domain\Forum\Entity\ReadTime;
 use App\Domain\Forum\Entity\Topic;
+use App\Infrastructure\Orm\AbstractRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**

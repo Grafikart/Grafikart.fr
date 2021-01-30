@@ -2,8 +2,6 @@
 
 namespace App\Http\Admin\Data;
 
-use App\Core\Validator\Slug;
-use App\Core\Validator\Unique;
 use App\Domain\Attachment\Attachment;
 use App\Domain\Auth\User;
 use App\Domain\Course\Entity\Chapter;
@@ -11,6 +9,8 @@ use App\Domain\Course\Entity\Course;
 use App\Domain\Course\Entity\Formation;
 use App\Domain\Course\Entity\Technology;
 use App\Http\Form\AutomaticForm;
+use App\Validator\Slug;
+use App\Validator\Unique;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 

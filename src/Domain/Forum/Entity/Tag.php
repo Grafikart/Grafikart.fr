@@ -2,7 +2,7 @@
 
 namespace App\Domain\Forum\Entity;
 
-use App\Core\Twig\CacheExtension\CacheableInterface;
+use App\Http\Twig\CacheExtension\CacheableInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;

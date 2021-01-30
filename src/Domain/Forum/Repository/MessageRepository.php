@@ -2,9 +2,9 @@
 
 namespace App\Domain\Forum\Repository;
 
-use App\Core\Orm\AbstractRepository;
 use App\Domain\Auth\User;
 use App\Domain\Forum\Entity\Message;
+use App\Infrastructure\Orm\AbstractRepository;
 use App\Infrastructure\Spam\SpammableRepositoryTrait;
 use Doctrine\Persistence\ManagerRegistry;
 

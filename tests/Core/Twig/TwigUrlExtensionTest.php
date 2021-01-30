@@ -3,7 +3,7 @@
 namespace App\Tests\Core\Twig;
 
 use ApiPlatform\Core\Api\UrlGeneratorInterface;
-use App\Core\Twig\TwigUrlExtension;
+use App\Http\Twig\TwigUrlExtension;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\SerializerInterface;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;

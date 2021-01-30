@@ -18,7 +18,7 @@ class PremiumController extends AbstractController
 
         return $this->render('pages/premium.html.twig', [
             'plans' => $plans,
-            'menu' => 'premium'
+            'menu' => 'premium',
         ]);
     }
 }

@@ -2,10 +2,10 @@
 
 namespace App\Domain\Blog\Repository;
 
-use App\Core\Orm\AbstractRepository;
-use App\Core\Orm\IterableQueryBuilder;
 use App\Domain\Blog\Category;
 use App\Domain\Blog\Post;
+use App\Infrastructure\Orm\AbstractRepository;
+use App\Infrastructure\Orm\IterableQueryBuilder;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 

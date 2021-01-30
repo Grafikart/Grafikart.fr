@@ -2,8 +2,8 @@
 
 namespace App\Domain\Password\Repository;
 
-use App\Core\Orm\AbstractRepository;
 use App\Domain\Password\Entity\PasswordResetToken;
+use App\Infrastructure\Orm\AbstractRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**

@@ -2,7 +2,7 @@
 
 namespace App\Domain\Auth;
 
-use App\Core\Orm\AbstractRepository;
+use App\Infrastructure\Orm\AbstractRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;

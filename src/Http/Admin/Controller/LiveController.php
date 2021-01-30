@@ -2,9 +2,9 @@
 
 namespace App\Http\Admin\Controller;
 
-use App\Core\Helper\Paginator\PaginatorInterface;
 use App\Domain\Live\LiveRepository;
 use App\Domain\Live\LiveSyncService;
+use App\Helper\Paginator\PaginatorInterface;
 use App\Infrastructure\Youtube\YoutubeScopes;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

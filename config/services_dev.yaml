@@ -4,7 +4,7 @@ services:
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
     public: false
 
-  App\Core\Twig\TwigCacheExtension:
-    class: App\Core\Twig\TwigCacheExtension
+  App\Http\Twig\TwigCacheExtension:
+    class: App\Http\Twig\TwigCacheExtension
     arguments:
       $active: false

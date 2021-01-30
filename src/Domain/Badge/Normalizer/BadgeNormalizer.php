@@ -2,8 +2,8 @@
 
 namespace App\Domain\Badge\Normalizer;
 
-use App\Core\Normalizer;
 use App\Domain\Badge\Entity\Badge;
+use App\Normalizer\Normalizer;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class BadgeNormalizer extends Normalizer

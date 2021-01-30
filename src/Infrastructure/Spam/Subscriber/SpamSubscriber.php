@@ -2,9 +2,9 @@
 
 namespace App\Infrastructure\Spam\Subscriber;
 
-use App\Core\OptionManagerInterface;
 use App\Domain\Forum\Event\PreMessageCreatedEvent;
 use App\Domain\Forum\Event\PreTopicCreatedEvent;
+use App\Helper\OptionManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class SpamSubscriber implements EventSubscriberInterface

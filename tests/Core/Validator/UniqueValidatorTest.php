@@ -2,9 +2,9 @@
 
 namespace App\Tests\Core\Validator;
 
-use App\Core\Validator\Unique;
-use App\Core\Validator\UniqueValidator;
 use App\Tests\ValidatorTestCase;
+use App\Validator\Unique;
+use App\Validator\UniqueValidator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 

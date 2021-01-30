@@ -2,7 +2,7 @@
 
 namespace App\Tests\Core\UploaderBundle;
 
-use App\Core\UploaderBundle\PropertyGroupedDirectoryNamer;
+use App\Infrastructure\Uploader\PropertyGroupedDirectoryNamer;
 use PHPUnit\Framework\TestCase;
 use Vich\UploaderBundle\Mapping\PropertyMapping;
 

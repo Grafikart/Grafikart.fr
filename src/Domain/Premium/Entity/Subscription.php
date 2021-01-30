@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Subscription
 {
+    use StripeEntity;
     public const ACTIVE = 1;
     public const INACTIVE = 0;
 
@@ -47,8 +48,6 @@ class Subscription
      * @ORM\Column(type="datetime")
      */
     private \DateTimeInterface $createdAt;
-
-    use StripeEntity;
 
     public function getId(): ?int
     {

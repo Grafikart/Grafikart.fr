@@ -13,17 +13,11 @@
             "src/Entity/.gitignore"
         ]
     },
-    "aura/sql": {
-        "version": "3.0.0"
-    },
     "beberlei/doctrineextensions": {
         "version": "v1.2.6"
     },
     "clue/stdio-react": {
         "version": "v2.3.0"
-    },
-    "clue/stream-filter": {
-        "version": "v1.4.1"
     },
     "clue/term-react": {
         "version": "v1.2.0"
@@ -151,9 +145,6 @@
     },
     "evenement/evenement": {
         "version": "v3.0.1"
-    },
-    "everyman/neo4jphp": {
-        "version": "dev-master"
     },
     "fakerphp/faker": {
         "version": "v1.10.1"
@@ -301,9 +292,6 @@
     "league/oauth2-google": {
         "version": "3.0.3"
     },
-    "moneyphp/money": {
-        "version": "v3.3.1"
-    },
     "monolog/monolog": {
         "version": "2.0.2"
     },
@@ -344,12 +332,6 @@
     "ocramius/package-versions": {
         "version": "1.5.1"
     },
-    "omnipay/common": {
-        "version": "v3.0.3"
-    },
-    "omnipay/paypal": {
-        "version": "v3.0.2"
-    },
     "oneup/flysystem-bundle": {
         "version": "3.0",
         "recipe": {
@@ -382,15 +364,6 @@
     },
     "php-cs-fixer/diff": {
         "version": "v1.3.0"
-    },
-    "php-http/discovery": {
-        "version": "1.7.4"
-    },
-    "php-http/message": {
-        "version": "1.8.0"
-    },
-    "php-http/message-factory": {
-        "version": "v1.0.2"
     },
     "phpdocumentor/reflection-common": {
         "version": "2.0.0"

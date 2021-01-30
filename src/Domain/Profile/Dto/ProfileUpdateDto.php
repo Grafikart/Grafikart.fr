@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Domain\Profile\Dto;
 
-use App\Core\Validator\Unique;
 use App\Domain\Auth\User;
+use App\Validator\Unique;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**

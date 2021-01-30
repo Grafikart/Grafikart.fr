@@ -2,8 +2,8 @@
 
 namespace App\Http\Form;
 
-use App\Core\Type\EditorType;
 use App\Domain\Revision\Revision;
+use App\Http\Type\EditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

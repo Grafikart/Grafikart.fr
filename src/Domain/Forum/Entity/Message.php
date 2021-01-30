@@ -2,8 +2,8 @@
 
 namespace App\Domain\Forum\Entity;
 
-use App\Core\Twig\CacheExtension\CacheableInterface;
 use App\Domain\Auth\User;
+use App\Http\Twig\CacheExtension\CacheableInterface;
 use App\Infrastructure\Spam\SpammableInterface;
 use App\Infrastructure\Spam\SpamTrait;
 use Doctrine\ORM\Mapping as ORM;
@@ -17,6 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Message implements SpammableInterface, CacheableInterface
 {
+    use SpamTrait;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -59,8 +60,6 @@ class Message implements SpammableInterface, CacheableInterface
      * @ORM\Column(type="datetime")
      */
     private ?\DateTimeInterface $updatedAt = null;
-
-    use SpamTrait;
 
     public function getId(): ?int
     {

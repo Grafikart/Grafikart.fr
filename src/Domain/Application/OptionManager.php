@@ -2,8 +2,8 @@
 
 namespace App\Domain\Application;
 
-use App\Core\OptionManagerInterface;
 use App\Domain\Application\Entity\Option as OptionEntity;
+use App\Helper\OptionManagerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 class OptionManager implements OptionManagerInterface
