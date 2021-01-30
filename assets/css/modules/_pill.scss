@@ -91,6 +91,12 @@ a.pill:hover::after {
     background-color: var(--border-light);
   }
 }
+@include dark {
+  .pill-grey::after {
+    background-color: #0000007F;
+  }
+}
+
 .pill-darkgrey {
   color: #fff;
   &::after {

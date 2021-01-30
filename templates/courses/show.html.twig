@@ -190,7 +190,15 @@
                   <img src="/images/social/facebook.svg" alt="">
                 </a>
               </div>
-              <admin-edit hidden></admin-edit>
+              <div class="stack" style="--gap:1;">
+                <div>
+                  <a href="{{ path('revision', {id: course.id}) }}" class="btn-secondary">
+                    {{ icon('edit') }}
+                    Proposer une correction
+                  </a>
+                </div>
+                <admin-edit hidden></admin-edit>
+              </div>
             </div>
           </div>
         </div>

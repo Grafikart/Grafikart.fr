@@ -18,7 +18,7 @@
   --background-light: #1b1e3d;
 
   @include dark {
-    --background-light: #161934;
+    --background-light: #0000004C;
     border: solid 1px var(--border-light);
   }
 }

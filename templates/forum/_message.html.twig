@@ -6,21 +6,21 @@
     <div class="forum-message__author">
       {{ message.author.username }}
     </div>
-    <div class="forum-message__meta">
-      {% if message.author.id == message.topic.author.id %}
-        <div class="pill pill-darkgrey small">
-          Auteur
-        </div>
-      {% endif %}
-      {% if message.accepted %}
-        <div class="pill pill-green small">
-          Réponse acceptée
-        </div>
-      {% endif %}
-        <a href="#message-{{ message.id }}">{{ message.createdAt | ago }}</a>
-        <forum-edit message="{{ message.id }}" owner="{{ message.author.id }}"></forum-edit>
-        <forum-delete message="{{ message.id }}" owner="{{ message.author.id }}"></forum-delete>
+    {% if message.author.id == message.topic.author.id %}
+      <div class="pill pill-darkgrey small">
+        Auteur
       </div>
+    {% endif %}
+    {% if message.accepted %}
+      <div class="pill pill-green small">
+        Réponse acceptée
+      </div>
+    {% endif %}
+    <div class="forum-message__meta">
+      <a href="#message-{{ message.id }}">{{ message.createdAt | ago }}</a>
+      <forum-edit message="{{ message.id }}" owner="{{ message.author.id }}"></forum-edit>
+      <forum-delete message="{{ message.id }}" owner="{{ message.author.id }}"></forum-delete>
+    </div>
     <div class="forum-message__actions">
       <forum-report message="{{ message.id }}"></forum-report>
       <forum-solve

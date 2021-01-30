@@ -7,12 +7,7 @@
       <a class="forum-topic__title" href="{{ path(topic) }}">{{ topic.name }}</a>
       <div class="forum-topic__meta">
         <div class="forum-topic__tags">
-          {% for tag in topic.tags %}
-            {% if tag.parent %}
-              <a href="{{ path(tag.parent) }}" class="pill small pill-square pill-grey" style="background-color: {{ tag.parent.color }}">{{ tag.parent.name }}</a>
-            {% endif %}
-            <a href="{{ path(tag) }}" class="pill small pill-square pill-grey">{{ tag.name }}</a>
-          {% endfor %}
+          {% include 'forum/_tags.html.twig' with {tags: topic.tags} only %}
         </div>
         {% if topic.lastMessage %}
           {{icon('reply')}} <a

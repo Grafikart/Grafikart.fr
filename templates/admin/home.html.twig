@@ -24,6 +24,44 @@
       </div>
     </section>
 
+    {% if revisions is not empty %}
+    <section class="stack" style="--gap: 1;">
+      <div class="dashboard-title mt2">
+        {{ icon('clock') }} Révisions
+      </div>
+      <div class="dashboard-card">
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Article</th>
+            <th>Auteur</th>
+            <th>Date</th>
+            <th class="text-right">Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for revision in revisions %}
+            <tr>
+              <td>
+                <a href="{{ path('admin_revision_show', {id: revision.id}) }}">
+                  {{ revision.target.title }}
+                </a>
+              </td>
+              <td>{{ revision.author.username }}</td>
+              <td>{{ revision.createdAt | format_date('long') }}</td>
+              <td>
+                <div class="dashboard-actions">
+                  <a href="{{ path('admin_revision_show', {id: revision.id}) }}">{{ icon('edit') }}</a>
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+    {% endif %}
+
     <div class="grid2" style="--gap: 4">
 
       <!-- Commentaires -->
@@ -80,42 +118,6 @@
 
       </div>
     </div>
-
-    {% if revisions is not empty %}
-      <div class="dashboard-title mt2">
-        {{ icon('clock') }} Révisions
-      </div>
-      <div class="dashboard-card">
-        <table class="table">
-          <thead>
-          <tr>
-            <th>Article</th>
-            <th>Auteur</th>
-            <th>Date</th>
-            <th class="text-right">Actions</th>
-          </tr>
-          </thead>
-          <tbody>
-          {% for revision in revisions %}
-            <tr>
-              <td>
-                <a href="{{ path('admin_revision_show', {id: revision.id}) }}">
-                  {{ revision.target.title }}
-                </a>
-              </td>
-              <td>{{ revision.author.username }}</td>
-              <td>{{ revision.createdAt | format_date('long') }}</td>
-              <td>
-                <div class="dashboard-actions">
-                  <a href="{{ path('admin_revision_show', {id: revision.id}) }}">{{ icon('edit') }}</a>
-                </div>
-              </td>
-            </tr>
-          {% endfor %}
-          </tbody>
-        </table>
-      </div>
-    {% endif %}
   </div>
 
 {% endblock %}

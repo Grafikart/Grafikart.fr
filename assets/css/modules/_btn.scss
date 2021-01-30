@@ -217,6 +217,9 @@
   &::before {
     background: var(--border-light);
     opacity: 1;
+    @include dark {
+      background: #FFFFFF19;
+    }
   }
 }
 

@@ -198,12 +198,23 @@
   }
 }
 
-.forum-topic__tags a {
+.topic-tag {
   border-radius: 2px;
   padding: space(1);
 }
 
-.forum-topic__tags a[style] {
+.topic-tag--parent {
+  margin-right: space(-1);
+  border-bottom-right-radius: 0!important;
+  border-top-right-radius: 0!important;
+
+  & + * {
+    border-bottom-left-radius: 0!important;
+    border-top-left-radius: 0!important;
+  }
+}
+
+.topic-tag[style] {
   color: #fff;
   &::after {
     display: none; // overwrite pill overlay
@@ -251,11 +262,44 @@
 
 // Topic
 // =============
-.topic-header .forum-topic__tags {
-  position: static;
-  margin-left: .5em;
-  border-left: 1px solid var(--border);
-  padding-left: .5em;
+.topic-header {
+  display: grid;
+  grid-template-columns: 1fr 37px;
+  grid-gap: space(2);
+}
+.topic-header__meta {
+  display: flex;
+  align-items: center;
+  gap: .5em;
+
+  @include down(700) {
+    display: grid;
+    grid-gap: .5em;
+  }
+}
+.topic-header__author {
+  flex: none;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+}
+.topic-header__date {
+  flex: none;
+  white-space: nowrap;
+  color: var(--color-light);
+
+  @include up(700) {
+    text-transform: lowercase;
+    margin-left: -.5em;
+    &::before {
+      content: ', '
+    }
+  }
+}
+.topic-header__tags {
+  display: flex;
+  gap: space(1);
+  flex-wrap: wrap;
 }
 .forum-messages {
   --gap: 5;
@@ -279,24 +323,16 @@
     grid-row: 1 / span 2;
   }
 }
-.forum-message__header,
-.forum-message__footer {
-  --gap: 2;
+.forum-message__header {
   position: relative;
   display: flex;
   align-items: center;
-}
-.forum-message__header {
-  align-items: flex-start;
   padding-right: 90px;
+  flex-wrap: wrap;
 
-  @include down(700) {
-    display: block;
+  .pill {
+    margin-left: .5em;
   }
-}
-
-.forum-message__footer {
-  margin-left: auto;
 }
 
 .forum-message__author {
@@ -323,11 +359,19 @@
     display: block;
     margin-left: .3em;
   }
-}
 
-@include up(700) {
-  .forum-message__meta::before {
-    content: ',  '
+  @include up(700) {
+    &::before {
+      content: ',  '
+    }
+
+    time-ago {
+      text-transform: lowercase;
+    }
+  }
+
+  @include down(700) {
+    width: 100%;
   }
 }
 
