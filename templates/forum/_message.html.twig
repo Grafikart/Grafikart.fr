@@ -3,9 +3,9 @@
     <img src="{{ message.author | avatar }}" alt="" class="forum-message__avatar">
   </div>
   <div class="forum-message__header">
-    <div class="forum-message__author">
+    <a href="{{ path(message.author) }}" class="forum-message__author">
       {{ message.author.username }}
-    </div>
+    </a>
     {% if message.author.id == message.topic.author.id %}
       <div class="pill pill-darkgrey small">
         Auteur
