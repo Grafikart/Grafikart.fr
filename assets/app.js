@@ -42,7 +42,7 @@ document.addEventListener('turbolinks:load', () => {
   }
 
   // Choices
-  $$('select[multiple]').forEach(
+  $$('select[multiple]:not([is])').forEach(
     s =>
       new ChoicesJS(s, {
         placeholder: true,
