@@ -1,6 +1,6 @@
 import scriptjs from 'scriptjs'
 
-const lazylangs = ['typescript', 'elixir', 'less', 'stylus', 'scss', 'sass', 'yaml']
+const lazylangs = ['typescript', 'elixir', 'less', 'stylus', 'scss', 'sass', 'yaml', 'twig']
 
 /**
  * Ajoute highlightjs sur les éléments sélectionnés
