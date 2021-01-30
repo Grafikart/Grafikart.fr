@@ -21,7 +21,7 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('username', TextType::class, ['label' => "Nom d'utilisateur"])
             ->add('goal', TextareaType::class, [
-                'label' => 'Quel language / technologies souhaitez vous apprendre ?',
+                'label' => 'Quels langages/technologies souhaitez-vous apprendre ?',
                 'attr' => [
                     'placeholder' => 'HTML, CSS, React...',
                 ],
