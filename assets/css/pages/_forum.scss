@@ -251,15 +251,19 @@
 
 // Topic
 // =============
+.topic-header .forum-topic__tags {
+  position: static;
+  margin-left: .5em;
+  border-left: 1px solid var(--border);
+  padding-left: .5em;
+}
 .forum-messages {
   --gap: 5;
   @extend %stack;
 }
-
 .forum-messages .mdeditor {
   height: auto;
 }
-
 .forum-message {
   @extend %stack;
   grid-row-gap: var(--space);
@@ -270,13 +274,11 @@
     margin-bottom: 1rem;
   }
 }
-
 .forum-message .forum-avatar {
   @include up(700) {
     grid-row: 1 / span 2;
   }
 }
-
 .forum-message__header,
 .forum-message__footer {
   --gap: 2;
@@ -284,7 +286,6 @@
   display: flex;
   align-items: center;
 }
-
 .forum-message__header {
   align-items: flex-start;
   padding-right: 90px;
@@ -307,20 +308,25 @@
   white-space: nowrap;
 }
 
-.forum-message__date {
+.forum-message__meta {
+  display: flex;
+  align-items: center;
   font-size: 0.9em;
   white-space: nowrap;
   color: var(--color-light);
-  align-self: flex-end;
-  transform: translateY(-1px); // Petit fix pour que la date soit aligné avec le pseudo
 
   button:hover {
     text-decoration: underline;
   }
+
+  & > * {
+    display: block;
+    margin-left: .3em;
+  }
 }
 
 @include up(700) {
-  .forum-message__date::before {
+  .forum-message__meta::before {
     content: ',  '
   }
 }

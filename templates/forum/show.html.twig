@@ -6,7 +6,7 @@
 
 {% block body %}
 
-  <div class="page-header container flex">
+  <div class="page-header container flex topic-header">
     <div>
       <h1 class="h2 mb2">{{ topic.name }}</h1>
       <div class="flex flex-start">
@@ -18,6 +18,14 @@
           <forum-edit topic="{{ topic.id }}" owner="{{ topic.author.id }}"></forum-edit>
           <forum-delete topic="{{ topic.id }}" owner="{{ topic.author.id }}"></forum-delete>
         </small>
+        <div class="forum-topic__tags">
+          {% for tag in topic.tags %}
+            {% if tag.parent %}
+              <a href="{{ path(tag.parent) }}" class="pill small pill-square pill-grey" style="background-color: {{ tag.parent.color }}">{{ tag.parent.name }}</a>
+            {% endif %}
+            <a href="{{ path(tag) }}" class="pill small pill-square pill-grey">{{ tag.name }}</a>
+          {% endfor %}
+        </div>
       </div>
     </div>
     <div style="align-self: flex-start; flex: none;">

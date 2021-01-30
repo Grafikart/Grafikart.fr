@@ -16,6 +16,8 @@
 // Core
 // ==================
 .pill {
+  flex: none;
+  white-space: nowrap;
   display: inline-flex;
   align-items: center;
   position: relative;
@@ -55,7 +57,7 @@ a.pill:hover::after {
 .pill.small {
   font-size: 11px;
   height: 18px;
-  padding: 0 9px;
+  padding: 0 5px;
   font-weight: normal;
   line-height: 18px;
   border-radius: 3px;

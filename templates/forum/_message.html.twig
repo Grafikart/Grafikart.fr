@@ -5,13 +5,18 @@
   <div class="forum-message__header">
     <div class="forum-message__author">
       {{ message.author.username }}
+    </div>
+    <div class="forum-message__meta">
+      {% if message.author.id == message.topic.author.id %}
+        <div class="pill pill-darkgrey small">
+          Auteur
+        </div>
+      {% endif %}
       {% if message.accepted %}
-        <div class="ml1 forum-message__accepted pill pill-green small">
+        <div class="pill pill-green small">
           Réponse acceptée
         </div>
       {% endif %}
-    </div>
-    <div class="forum-message__date">
         <a href="#message-{{ message.id }}">{{ message.createdAt | ago }}</a>
         <forum-edit message="{{ message.id }}" owner="{{ message.author.id }}"></forum-edit>
         <forum-delete message="{{ message.id }}" owner="{{ message.author.id }}"></forum-delete>
