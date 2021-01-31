@@ -1,6 +1,8 @@
 {% for tag in tags %}
-  {% if tag.parent %}
-    <a href="{{ path(tag.parent) }}" class="topic-tag topic-tag--parent pill small pill-square pill-grey"{% if tag.parent.color != '#000000' %} style="background-color: {{ tag.parent.color }}"{% endif %}>{{ tag.parent.name }}</a>
-  {% endif %}
-  <a href="{{ path(tag) }}" class="topic-tag pill small pill-square pill-grey"{% if tag.color != '#000000' %} style="background-color: {{ tag.color }}"{% endif %}>{{ tag.name }}</a>
+  <div class="topic-tag">
+    {% if tag.parent %}
+      <a href="{{ path(tag.parent) }}" class="is-parent pill small pill-square pill-grey"{% if tag.parent.color != '#000000' %} style="background-color: {{ tag.parent.color }}"{% endif %}>{{ tag.parent.name }}</a>
+    {% endif %}
+    <a href="{{ path(tag) }}" class="pill small pill-square pill-grey"{% if tag.color != '#000000' %} style="background-color: {{ tag.color }}"{% endif %}>{{ tag.name }}</a>
+  </div>
 {% endfor %}
