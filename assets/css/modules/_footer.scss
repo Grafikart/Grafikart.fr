@@ -33,6 +33,7 @@
 
 .footer-title {
   @extend %h4;
+  display: block;
   font-weight: bold;
   margin-bottom: space(2);
 }
