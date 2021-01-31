@@ -69,7 +69,7 @@ class TechnologiesType extends TextType implements DataTransformerInterface
             return [];
         }
 
-        // On construit un tableau contenant les nom des techno en clef et la version en valeur
+        // On construit un tableau contenant les noms des technos en clef et la version en valeur
         $versions = [];
         $technologies = explode(',', $value);
         foreach ($technologies as $technology) {
