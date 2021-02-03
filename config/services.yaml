@@ -19,6 +19,7 @@ services:
       $videosPath: '%videos_path%'
       $projectDir: '%kernel.project_dir%'
       $adminPrefix: '%admin_prefix%'
+      $appEnv: '%kernel.environment%'
 
   _instanceof:
     App\Normalizer\Breadcrumb\BreadcrumbGeneratorInterface:
