@@ -157,14 +157,17 @@ export class PlayButton extends HTMLElement {
     this.video = video
     this.setAttribute('progress', 0)
     const onTimeUpdate = () => {
-      this.setAttribute('progress', ((100 * video.currentTime) / video.duration).toString())
+      this.setAttribute('progress', ((100 * video.currentTime) / video.duration).toFixed(2))
     }
     const onPlay = () => {
       this.classList.add('is-current')
       this.setAttribute('playing', 'playing')
     }
     const onPause = () => this.removeAttribute('playing')
-    const onEnded = () => this.removeAttribute('playing')
+    const onEnded = () => {
+      this.removeAttribute('playing')
+      this.setAttribute('progress', '100')
+    }
     video.addEventListener('timeupdate', onTimeUpdate)
     video.addEventListener('play', onPlay)
     video.addEventListener('pause', onPause)
