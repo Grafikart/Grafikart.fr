@@ -7,6 +7,7 @@ ExecStart=/usr/local/bin/mercure --jwt-key='{{ mercure_subscriber_key }}' --publ
 Restart=on-failure
 Type=simple
 RestartSec=1
+StandardOutput=null
 
 [Install]
 WantedBy=default.target
