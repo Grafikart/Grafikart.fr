@@ -12,6 +12,10 @@
   {% endblock %}
   <meta name="turbolinks-cache-control" content="no-cache"/>
   <link rel="alternate" type="application/rss+xml" title="Grafikart.fr | Flux" href="{{ url('rss') }}"/>
+  {% block meta '' %}
+  <meta property="og:site_name" content="Grafikart.fr"/>
+  <meta property="og:language" content="fr"/>
+  <meta name="twitter:author" content="@grafikart_fr"/>
 </head>
 <body
   class="{{ bodyClass is defined ? bodyClass : '' }} {{ body_theme() }} {{ app.user and app.user.premium ? 'user-premium' : 'user-not-premium' }}">

@@ -26,6 +26,7 @@ class TwigPathExtension extends AbstractExtension
         return [
             new TwigFunction('uploads_path', [$this, 'uploadsPath']),
             new TwigFunction('image_url', [$this, 'imageUrl']),
+            new TwigFunction('image_url_raw', [$this, 'imageUrlRaw']),
             new TwigFunction('image', [$this, 'imageTag'], ['is_safe' => ['html']]),
         ];
     }
@@ -52,6 +53,14 @@ class TwigPathExtension extends AbstractExtension
         }
 
         return $this->imageResizer->resize($this->helper->asset($entity), $width, $height);
+    }
+
+    public function imageUrlRaw(?object $entity) {
+        if (null === $entity || $entity instanceof NonExistingAttachment) {
+            return null;
+        }
+
+        return $this->helper->asset($entity);
     }
 
     public function imageTag(?object $entity, ?int $width = null, ?int $height = null): ?string

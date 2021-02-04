@@ -2,7 +2,7 @@
 <div class="home-post stack" style="--gap:1">
   {% if post.image %}
     <a href="{{ link }}" class="home-post__image">
-      <img src="{{ image_url(post.image, width, height) }}" alt="">
+      <img src="{{ image_url(post.image, width, height) }}" alt="" width="{{ width }}" height="{{ height }}">
     </a>
   {% endif %}
   <h3 class="card__title"><a href="{{ link }}">{{ post.title }}</a></h3>

@@ -10,6 +10,13 @@
 {% endif %}
 {% endblock %}
 
+{% block meta %}
+  <meta property="og:image" content="{{ app.request.getUriForPath(image_url_raw(course.image)) }}"/>
+  <meta property="og:created_time" content="{{ course.createdAt | date('c') }}"/>
+  <meta property="og:type" content="video.other"/>
+  <meta property="og:duration" content="{{ course.duration }}"/>
+{% endblock %}
+
 {% block body %}
 
   {% cache [course, user_premium, course.isScheduled] %}
@@ -35,7 +42,7 @@
 
     <div class="container {{ course.formation ? 'course-top-sidebar' : '' }}">
       {% if course.scheduled and not user_premium %}
-        <div class="course-countdown" style="background-image: url({{ image_url(course.image) }})">
+        <div class="course-countdown" style="background-image: url({{ image_url(course.image, 1330, 750) }})">
           <div>
             <em>Disponible dans</em>
             <span class="course-countdown_timer">{{ course.createdAt | countdown }}</span>
