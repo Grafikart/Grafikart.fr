@@ -5,6 +5,7 @@
 {% block meta %}
   <meta property="og:image" content="{{ app.request.getUriForPath(image_url_raw(post.image)) }}"/>
   <meta property="og:created_time" content="{{ post.createdAt | date('c') }}"/>
+  <meta name="twitter:card" content="summary_large_image"/>
 {% endblock %}
 
 {% block body %}
