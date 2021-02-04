@@ -123,6 +123,11 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface, Ca
      */
     private ?string $lastLoginIp = null;
 
+    /**
+     * @ORM\Column(type="datetime", options={"default": null}, nullable=true)
+     */
+    private ?\DateTimeInterface $lastLoginAt = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -369,6 +374,18 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface, Ca
     public function setLastLoginIp(?string $lastLoginIp): User
     {
         $this->lastLoginIp = $lastLoginIp;
+
+        return $this;
+    }
+
+    public function getLastLoginAt(): ?\DateTimeInterface
+    {
+        return $this->lastLoginAt;
+    }
+
+    public function setLastLoginAt(?\DateTimeInterface $lastLoginAt): User
+    {
+        $this->lastLoginAt = $lastLoginAt;
 
         return $this;
     }

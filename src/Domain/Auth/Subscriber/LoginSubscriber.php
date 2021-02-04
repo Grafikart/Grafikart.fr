@@ -44,8 +44,9 @@ class LoginSubscriber implements EventSubscriberInterface
             $ip = $event->getRequest()->getClientIp();
             if ($ip !== $user->getLastLoginIp()) {
                 $user->setLastLoginIp($ip);
-                $this->em->flush();
             }
+            $user->setLastLoginAt(new \DateTimeImmutable());
+            $this->em->flush();
         }
     }
 }
