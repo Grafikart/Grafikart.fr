@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block meta %}
-  <meta property="og:image" content="{{ app.request.getUriForPath(image_url_raw(course.image)) }}"/>
+  <meta property="og:image" content="{{ app.request.getUriForPath(image_url_raw(course.youtubeThumbnail)) }}"/>
   <meta property="og:created_time" content="{{ course.createdAt | date('c') }}"/>
   <meta property="og:type" content="video.other"/>
   <meta property="og:duration" content="{{ course.duration }}"/>
