@@ -25,8 +25,8 @@ class UserRepositoryTest extends RepositoryTestCase
         $user->setDeleteAt(new \DateTimeImmutable('-10 days'));
         $user2->setDeleteAt(new \DateTimeImmutable('-10 days'));
         $this->em->flush();
-        $deletions = $this->repository->cleanUsers();
-        $this->assertSame(2, $deletions);
+        $deletions = $this->repository->clean();
+        $this->assertCount(2, $deletions);
         $this->assertSame(
             $totalUser - 2,
             $this->repository->count([])
@@ -42,8 +42,8 @@ class UserRepositoryTest extends RepositoryTestCase
         $user->setDeleteAt(new \DateTimeImmutable('-10 days'));
         $user2->setDeleteAt(new \DateTimeImmutable('+ 1 days'));
         $this->em->flush();
-        $deletions = $this->repository->cleanUsers();
-        $this->assertSame(1, $deletions);
+        $deletions = $this->repository->clean();
+        $this->assertCount(1, $deletions);
         $this->assertSame(
             $totalUser - 1,
             $this->repository->count([])

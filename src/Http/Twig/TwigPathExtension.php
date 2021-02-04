@@ -55,13 +55,13 @@ class TwigPathExtension extends AbstractExtension
         return $this->imageResizer->resize($this->helper->asset($entity), $width, $height);
     }
 
-    public function imageUrlRaw(?object $entity): ?string
+    public function imageUrlRaw(?object $entity): string
     {
         if (null === $entity || $entity instanceof NonExistingAttachment) {
-            return null;
+            return '';
         }
 
-        return $this->helper->asset($entity);
+        return $this->helper->asset($entity) ?: '';
     }
 
     public function imageTag(?object $entity, ?int $width = null, ?int $height = null): ?string
