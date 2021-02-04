@@ -5,12 +5,13 @@ namespace App\Domain\Notification\Repository;
 use App\Domain\Auth\User;
 use App\Domain\Notification\Entity\Notification;
 use App\Infrastructure\Orm\AbstractRepository;
+use App\Infrastructure\Orm\CleanableRepositoryInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @extends AbstractRepository<Notification>
  */
-class NotificationRepository extends AbstractRepository
+class NotificationRepository extends AbstractRepository implements CleanableRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -59,5 +60,18 @@ class NotificationRepository extends AbstractRepository
 
             return $notification;
         }
+    }
+
+    /**
+     * Supprime les anciennes notifications.
+     */
+    public function clean(): int
+    {
+        return $this->createQueryBuilder('n')
+            ->where('n.createdAt < :date')
+            ->setParameter('date', new \DateTime('-3 month'))
+            ->delete(Notification::class, 'n')
+            ->getQuery()
+            ->execute();
     }
 }

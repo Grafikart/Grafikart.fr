@@ -17,12 +17,12 @@
     name: sql dump
     special_time: daily
     job: "cd {{ root_path }} && php bin/console app:dump"
-- name: Symfony | CRON clean user
+- name: Symfony | CRON clean
   become: no
   cron:
-    name: user clean
+    name: grafikart clean
     special_time: daily
-    job: "cd {{ root_path }} && php bin/console app:user:clean"
+    job: "cd {{ root_path }} && php bin/console app:clean"
 - include_tasks: typesense.yml
 - include_tasks: messenger.yml
 - include_tasks: mercure.yml

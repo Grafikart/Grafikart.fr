@@ -6,7 +6,7 @@ use App\Domain\Auth\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Domain\Profile\Repository\EmailVerificationRepository")
  * @ORM\Table(name="user_email_verification")
  */
 class EmailVerification

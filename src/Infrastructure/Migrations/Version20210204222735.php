@@ -12,19 +12,19 @@ use Doctrine\Migrations\AbstractMigration;
  */
 final class Version20210204222735 extends AbstractMigration
 {
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return '';
     }
 
-    public function up(Schema $schema) : void
+    public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE badge_unlock DROP CONSTRAINT FK_585813AA7E3C61F9');
         $this->addSql('ALTER TABLE badge_unlock ADD CONSTRAINT FK_585813AA7E3C61F9 FOREIGN KEY (owner_id) REFERENCES "user" (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
     }
 
-    public function down(Schema $schema) : void
+    public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE badge_unlock DROP CONSTRAINT fk_585813aa7e3c61f9');
