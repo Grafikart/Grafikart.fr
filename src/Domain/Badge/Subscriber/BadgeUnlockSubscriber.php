@@ -12,6 +12,7 @@ use App\Domain\Forum\Entity\Topic;
 use App\Domain\Forum\Event\TopicCreatedEvent;
 use App\Domain\Forum\Event\TopicResolvedEvent;
 use App\Domain\Premium\Event\PremiumSubscriptionEvent;
+use App\Domain\Revision\Event\RevisionAcceptedEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
@@ -35,6 +36,7 @@ class BadgeUnlockSubscriber implements EventSubscriberInterface
             TopicResolvedEvent::class => 'onTopicSolved',
             InteractiveLoginEvent::class => 'onLogin',
             PremiumSubscriptionEvent::class => 'onPremium',
+            RevisionAcceptedEvent::class => 'onRevision',
         ];
     }
 
@@ -80,5 +82,10 @@ class BadgeUnlockSubscriber implements EventSubscriberInterface
     public function onPremium(PremiumSubscriptionEvent $event): void
     {
         $this->service->unlock($event->getUser(), 'premium');
+    }
+
+    public function onRevision(RevisionAcceptedEvent $event): void
+    {
+        $this->service->unlock($event->getRevision()->getAuthor(), 'revision');
     }
 }

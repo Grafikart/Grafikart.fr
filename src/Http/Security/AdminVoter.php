@@ -8,7 +8,6 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class AdminVoter extends Voter
 {
-
     private string $appEnv;
 
     public function __construct(string $appEnv)
@@ -35,8 +34,8 @@ class AdminVoter extends Voter
             return false;
         }
 
-        if ($this->appEnv === 'prod') {
-            return 'Grafikart' === $user->getUsername() && $user->getId() === 1;
+        if ('prod' === $this->appEnv) {
+            return 'Grafikart' === $user->getUsername() && 1 === $user->getId();
         }
 
         return 'Grafikart' === $user->getUsername();
