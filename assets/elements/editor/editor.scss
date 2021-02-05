@@ -107,6 +107,7 @@
 .mdeditor .CodeMirror-scroll {
   background: var(--background);
   min-height: 100px;
+  max-height: calc(100vh - 200px);
 }
 .mdeditor .CodeMirror {
   height: auto;
