@@ -114,15 +114,30 @@ export function FileManager ({ dragOver, apiEndpoint, onSelectFile }) {
  * @param {{file: ApiFile, onSelect: function}} props
  */
 function File ({ file, onSelect, onDelete }) {
+  const handleCopy = () => {
+    navigator.clipboard.writeText(file.url)
+  }
+  const handleDelete = () => {
+    if (confirm('Voulez vous vraiment supprimer cette image ?')) {
+      onDelete(file)
+    }
+  }
   return (
     <tr>
       <td onClick={() => onSelect(file)}>
-        <img src={file.url} alt={file.alt} loading='lazy' />
+        <img src={file.thumbnail} alt={file.alt} loading='lazy' />
       </td>
       <td onClick={() => onSelect(file)}>{file.name}</td>
       <td style='white-space: nowrap;'>{human(file.size)}</td>
       <td>
-        <button class='delete' onClick={() => onDelete(file)}>
+        <button class='copy' onClick={handleCopy}>
+          <svg fill='none' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'>
+            <path d='M7 8H1c-.6 0-1 .4-1 1v6c0 .6.4 1 1 1h6c.6 0 1-.4 1-1V9c0-.6-.4-1-1-1z' fill='currentColor' />
+            <path d='M11 4H2v2h8v8h2V5c0-.6-.4-1-1-1z' fill='currentColor' />
+            <path d='M15 0H6v2h8v8h2V1c0-.6-.4-1-1-1z' fill='currentColor' />
+          </svg>
+        </button>
+        <button class='delete' onClick={handleDelete}>
           <svg fill='none' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'>
             <path
               fillRule='evenodd'
