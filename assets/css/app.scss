@@ -9,7 +9,6 @@
   --color-transparent: #{rgba(#121c42, 0)};
   --contrast: #4869ee;
   --contrast25: #4869ee3f;
-  --contrast95: #4869eeF2;
   --gap: 20px;
   --space: 8px;
   --border: #d5e3ec;
@@ -31,6 +30,7 @@
   --skeleton-wave: var(--border-light);
   --selection-background: var(--border);
   --header-background: #FFFFFFF2;
+  --header-background-inversed: #4869eeF2;
 }
 
 // Outils
@@ -68,6 +68,7 @@
   --red: #A6333F;
   --selection-background: #3D59A1;
   --header-background: #1b1e3dF2;
+  --header-background-inversed: #263880F2;
 
   .lighten-dark {
     filter: brightness(10);
