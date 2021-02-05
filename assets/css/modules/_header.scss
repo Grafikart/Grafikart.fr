@@ -213,7 +213,7 @@
   transform: translateY(-100%);
 }
 .header.is-fixed.is-inversed {
-  background: var(--contrast95);
+  background: var(--header-background-inversed);
 }
 
 @media (max-height: 700px) {
