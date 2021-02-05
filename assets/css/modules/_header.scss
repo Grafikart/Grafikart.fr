@@ -244,6 +244,9 @@
   }
   .header.is-open {
     color: var(--color);
+    // Override .is-fixed
+    position: relative;
+    backdrop-filter: none;
   }
   .header.is-open a{
     opacity: 1;
