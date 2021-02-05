@@ -11,10 +11,12 @@ import ChoicesJS from 'choices.js'
 import { $$, $ } from '/functions/dom.js'
 import { registerKonami, registerBadgeAlert } from '/modules/badges.js'
 import { registerWindowHeightCSS } from '/modules/window.js'
+import { registerHeader } from '/modules/header.js'
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 
 registerKonami()
 registerBadgeAlert()
+registerHeader()
 registerWindowHeightCSS()
 
 document.addEventListener('turbolinks:load', () => {

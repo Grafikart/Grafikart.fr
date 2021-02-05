@@ -5,9 +5,11 @@
   --color: #121c42;
   --color-light: #121c4299;
   --color-inversed: #effbec;
+  --color-inversed60: #effbec99;
   --color-transparent: #{rgba(#121c42, 0)};
   --contrast: #4869ee;
   --contrast25: #4869ee3f;
+  --contrast95: #4869eeF2;
   --gap: 20px;
   --space: 8px;
   --border: #d5e3ec;
@@ -28,6 +30,7 @@
   --skeleton: var(--border-light);
   --skeleton-wave: var(--border-light);
   --selection-background: var(--border);
+  --header-background: #FFFFFFF2;
 }
 
 // Outils
@@ -46,6 +49,7 @@
   --color: #d4dcff;
   --color-light: #8491c7;
   --color-inversed: #d4dcff;
+  --color-inversed60: #d4dcff99;
   --contrast: #5396e7;
   --gap: 20px;
   --space: 8px;
@@ -63,6 +67,7 @@
   --skeleton-wave: #171933;
   --red: #A6333F;
   --selection-background: #3D59A1;
+  --header-background: #1b1e3dF2;
 
   .lighten-dark {
     filter: brightness(10);
