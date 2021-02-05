@@ -105,6 +105,8 @@
   border-right: 1px solid var(--border);
   margin-right: space(2);
   padding-right: space(1);
+  margin-top: 5px;
+  margin-bottom: 5px;
 
   a {
     margin-top: -5px; // On rend le lien plus grand que le container pour le rendre plus facilement clickable
