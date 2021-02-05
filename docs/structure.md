@@ -20,7 +20,7 @@ Le dossier **/src** ne ressemble pas forcément à la structure que l'on peut at
   - Via un **Service** qui contient les méthodes qui seront utilisées depuis la couche HTTP / Command
   - Via un **système d'évènement**
   - Via un **repository** qui permettra au controllers ou au command de récupérer les informations nécessaires.
-- **Infrastructure**, définit les élément d'infrastructure qui permet au domaine de communiquer avec le système (couche de persistence fichier, envoie d'emails, base de données...).
+- **Infrastructure**, définit les éléments d'infrastructure qui permet au domaine de communiquer avec le système (couche de persistence fichier, envoie d'emails, base de données...).
 
 ### Pourquoi ne pas utiliser la structure de Symfony ?
 
@@ -30,4 +30,4 @@ Par défaut les frameworks groupent les classes en fonction de leur rôle (contr
 
 La couche HTTP est en fait une interface qui permet de communiquer avec votre système. Cette interface peut être amenée à changer (API, GraphQL, Command...) de fait, il est impératif selon moi d'essayer d'éviter le code métier dans les controllers (ils vont s'occuper de valider les données puis c'est le système qui s'occupe du reste).
 
-Le principe des domaines s'inspire de l'architecture hexagonale même si le découplage n'est pas aussi fort que l'approche originale qui fait intervenir la notion d'**Adapters** et de **Port**. Ce niveau d'abstraction ne me semble pas nécessaire ici. L'EntityManager et les controller joueront le rôle des adapters, et les Service / EventSubscriber joueront le rôle des ports.
+Le principe des domaines s'inspire de l'architecture hexagonale même si le découplage n'est pas aussi fort que l'approche originale qui fait intervenir la notion d'**Adapters** et de **Port**. Ce niveau d'abstraction ne me semble pas nécessaire ici. L'EntityManager et les controllers joueront le rôle des adapters, et les Services/EventSubscribers joueront le rôle des ports.
