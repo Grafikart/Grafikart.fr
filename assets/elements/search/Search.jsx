@@ -30,7 +30,7 @@ export function Search () {
 
   return (
     <>
-      <button onClick={toggleSearchBar}>
+      <button onClick={toggleSearchBar} aria-label="Rechercher">
         <Icon name='search' />
       </button>
       {isSearchVisible && <SearchBar onClose={toggleSearchBar} />}

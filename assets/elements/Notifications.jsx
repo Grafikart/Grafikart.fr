@@ -71,7 +71,7 @@ export function Notifications () {
 
   return (
     <>
-      <button onClick={openMenu}>
+      <button onClick={openMenu} aria-label="Voir les notifications">
         <Icon name='bell' />
       </button>
       <Badge count={unreadCount} />
