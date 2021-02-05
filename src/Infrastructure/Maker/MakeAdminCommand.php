@@ -25,7 +25,7 @@ class MakeAdminCommand extends AbstractMakeCommand
 
         $entity = $this->askClass('Pour quelle entité', 'Domain/*/Entity/*', $io);
         $route = $io->askQuestion(new Question('Quelle route ?'));
-        $slug = $io->askQuestion(new Question('Quelle slug ?'));
+        $slug = $io->askQuestion(new Question('Quel slug ?'));
         $entityName = $entity['class_name'];
         $entity = $entity['namespace'];
         $params = [
