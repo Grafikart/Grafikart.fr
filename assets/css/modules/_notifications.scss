@@ -31,22 +31,34 @@
   font-size: 14px;
   line-height: 1.4;
 }
-.notifications_body {
-  max-height: 300px;
-  overflow: auto;
-  font-family: $font;
-}
-.notifications_body::after {
+
+.notifications::after,
+.notifications::before {
   content: '';
   display: block;
   position: absolute;
   top: -10px;
-  right: calc(50% - 10px);
+  right: calc(50% - 6px);
   width: 0;
   height: 0;
+  z-index: 1;
   border-bottom: 10px solid var(--card-bg, var(--background-light));
   border-right: 10px solid #0000;
   border-left: 10px solid #0000;
+}
+.notifications::before {
+  top: -11px;
+  border-bottom-width: 11px;
+  border-left-width: 12px;
+  border-right-width: 12px;
+  right: calc(50% - 8px);
+  z-index: -1;
+  border-bottom-color: var(--border);
+}
+.notifications_body {
+  max-height: 300px;
+  overflow: auto;
+  font-family: $font;
 }
 .notifications_body-empty {
   display: block;
@@ -126,7 +138,10 @@
     top: 0;
     left: auto;
     right: 0;
-    bottom: 0;
+  }
+  .notifications::after,
+  .notifications::before {
+    display: none;
   }
   .notifications_body {
     height: calc(var(--windowHeight) - 90px);

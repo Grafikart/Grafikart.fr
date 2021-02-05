@@ -203,7 +203,6 @@
   padding-top: space(3)!important;
   position: fixed;
   background: var(--header-background);
-  backdrop-filter: blur(5px);
   transition: transform .3s;
 
   &::after {
@@ -248,7 +247,6 @@
     color: var(--color);
     // Override .is-fixed
     position: relative;
-    backdrop-filter: none;
   }
   .header.is-open a{
     opacity: 1;
