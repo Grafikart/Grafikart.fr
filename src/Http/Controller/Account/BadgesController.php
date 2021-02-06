@@ -29,7 +29,7 @@ class BadgesController extends AbstractController
         return $this->render('account/badges.html.twig', [
             'badges' => $badges,
             'unlocks' => $unlocks,
-            'menu' => 'account'
+            'menu' => 'account',
         ]);
     }
 }

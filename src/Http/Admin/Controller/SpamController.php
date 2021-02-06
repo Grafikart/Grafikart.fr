@@ -4,9 +4,11 @@ namespace App\Http\Admin\Controller;
 
 use App\Domain\Forum\Entity\Message;
 use App\Domain\Forum\Entity\Topic;
+use App\Domain\Forum\Event\MessageCreatedEvent;
 use App\Infrastructure\Spam\SpammableInterface;
 use App\Infrastructure\Spam\SpamService;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,10 +23,12 @@ class SpamController extends BaseController
     ];
 
     private EntityManagerInterface $em;
+    private EventDispatcherInterface $dispatcher;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, EventDispatcherInterface $dispatcher)
     {
         $this->em = $em;
+        $this->dispatcher = $dispatcher;
     }
 
     /**
@@ -54,6 +58,11 @@ class SpamController extends BaseController
 
         $entity->setSpam(false);
         $this->em->flush();
+
+        // On émet à nouveau l'évènement pour notifier les membre du topic
+        if ($entity instanceof Message) {
+            $this->dispatcher->dispatch(new MessageCreatedEvent($entity));
+        }
 
         return $this->json([]);
     }
