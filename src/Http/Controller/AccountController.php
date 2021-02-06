@@ -55,6 +55,7 @@ class AccountController extends AbstractController
             'form_password' => $formPassword->createView(),
             'form_update' => $formUpdate->createView(),
             'user' => $user,
+            'menu' => 'account',
         ]);
     }
 

@@ -34,6 +34,7 @@ class InvoicesController extends AbstractController
 
         return $this->render('account/invoices.html.twig', [
             'transactions' => $transactions,
+            'menu' => 'account',
         ]);
     }
 

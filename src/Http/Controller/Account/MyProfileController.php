@@ -28,6 +28,7 @@ class MyProfileController extends AbstractController
         return $this->render('account/index.twig', [
             'watchlist' => $watchlist,
             'lastTopics' => $lastTopics,
+            'menu' => 'account',
             'lastMessageTopics' => $lastMessageTopics,
             'hasActivity' => $hasActivity,
         ]);
