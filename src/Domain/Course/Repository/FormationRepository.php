@@ -24,6 +24,7 @@ class FormationRepository extends AbstractRepository
     public function findAll()
     {
         return $this->createQueryBuilder('f')
+            ->where('f.online = true')
             ->orderBy('f.createdAt', 'DESC')
             ->getQuery()
             ->getResult();
