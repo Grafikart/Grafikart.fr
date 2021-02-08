@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Http\Controller\Profile;
+namespace App\Tests\Http\Controller\Account;
 
 use App\Tests\FixturesTrait;
 use App\Tests\WebTestCase;

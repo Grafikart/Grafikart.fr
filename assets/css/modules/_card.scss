@@ -217,11 +217,13 @@
 
 // Complété
 // =============
-.card.is-completed {
+.card.is-completed,
+.is-completed .card{
   position: relative;
   box-shadow: 0 0 0 4px var(--contrast);
 }
-.card.is-completed::after {
+.card.is-completed::after,
+.is-completed .card::after {
   content: '';
   position: absolute;
   top: 7px;
@@ -231,7 +233,8 @@
   height: 13px;
   background: url(/images/check.svg);
 }
-.card.is-completed::before {
+.card.is-completed::before,
+.is-completed .card::before {
   content: '';
   width: 0;
   height: 0;

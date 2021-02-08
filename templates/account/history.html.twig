@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'header-light' %}
+
+{% block title 'Mon historique' %}
+
+{% block body %}
+
+
+  {% include 'account/_header.html.twig' with {title: 'Mon historique', user: app.user} %}
+
+  {% include 'account/_tabs.html.twig' with {active: 'history'} %}
+
+  <div class="container py4">
+
+    <div class="grid-filter mb3">
+      <div class="grid-filter__group">
+        <label for="filter">Filtrer : </label>
+        <select name="filter" id="filter" is="select-choices" data-redirect>
+          {% for key, label in options  %}
+            <option {{ filter == key ? 'selected' : ''}} value="{{ key }}">{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+
+    <div class="courses">
+      {% for item in items %}
+        {% include 'account/_progress-card.html.twig' with {progress: item} only %}
+      {% endfor %}
+    </div>
+
+    {{ paginate(items) }}
+  </div>
+
+{% endblock %}
+
+

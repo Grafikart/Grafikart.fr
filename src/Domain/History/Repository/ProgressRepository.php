@@ -8,6 +8,7 @@ use App\Domain\Course\Entity\Course;
 use App\Domain\Course\Entity\Formation;
 use App\Domain\History\Entity\Progress;
 use App\Infrastructure\Orm\AbstractRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -20,12 +21,40 @@ class ProgressRepository extends AbstractRepository
         parent::__construct($registry, Progress::class);
     }
 
+    public function queryAllForUser(User $user): QueryBuilder
+    {
+        return $this->createQueryBuilder('p')
+            ->leftJoin('p.content', 'c')
+            ->addSelect('c')
+            ->where('(c INSTANCE OF '.Course::class.' OR c INSTANCE OF '.Formation::class.')')
+            ->andWhere('p.author = :user')
+            ->setParameter('user', $user->getId());
+    }
+
     public function findOneByContent(User $user, Content $content): ?Progress
     {
         return $this->findOneBy([
             'content' => $content,
             'author' => $user,
         ]);
+    }
+
+    public function findLastForUser(User $user): array
+    {
+        return $this->createQueryBuilder('p')
+            ->leftJoin('p.content', 'c')
+            ->addSelect('c')
+            ->where('p.author = :user')
+            ->andWhere('(c INSTANCE OF '.Course::class.' OR c INSTANCE OF '.Formation::class.')')
+            ->andWhere('p.progress < :progress')
+            ->orderBy('p.updatedAt', 'DESC')
+            ->setMaxResults(4)
+            ->setParameters([
+                'user' => $user,
+                'progress' => Progress::TOTAL,
+            ])
+            ->getQuery()
+            ->getResult();
     }
 
     /**
@@ -43,23 +72,6 @@ class ProgressRepository extends AbstractRepository
             ->setParameters([
                 'ids' => array_map(fn (Content $c) => $c->getId(), $contents),
                 'user' => $user,
-            ])
-            ->getQuery()
-            ->getResult();
-    }
-
-    public function findLastForUser(User $user): array
-    {
-        return $this->createQueryBuilder('p')
-            ->leftJoin('p.content', 'c')
-            ->where('p.author = :user')
-            ->andWhere('(c INSTANCE OF '.Course::class.' OR c INSTANCE OF '.Formation::class.')')
-            ->andWhere('p.progress < :progress')
-            ->orderBy('p.updatedAt', 'DESC')
-            ->setMaxResults(4)
-            ->setParameters([
-                'user' => $user,
-                'progress' => Progress::TOTAL,
             ])
             ->getQuery()
             ->getResult();

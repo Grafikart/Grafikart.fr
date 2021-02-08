@@ -1,4 +1,4 @@
-<div class="flex stretch relative" id="progress{{ progress.id }}" style="--progress: {{ progress.ratio }}">
+<div class="flex stretch relative {{ progress.ratio == 1 ? 'is-completed' : '' }}" id="progress{{ progress.id }}" style="--progress: {{ progress.ratio }}">
   <ajax-delete class="progress-delete" url="{{ path('api_delete_progress', {id: progress.id}) }}"
                target="#progress{{ progress.id }}">
     {{ icon('delete') }}
