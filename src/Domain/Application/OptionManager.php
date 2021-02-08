@@ -3,16 +3,22 @@
 namespace App\Domain\Application;
 
 use App\Domain\Application\Entity\Option as OptionEntity;
+use App\Domain\Application\Event\OptionUpdatedEvent;
 use App\Helper\OptionManagerInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 
 class OptionManager implements OptionManagerInterface
 {
     private EntityManagerInterface $em;
+    private EventDispatcherInterface $dispatcher;
 
-    public function __construct(EntityManagerInterface $em)
-    {
+    public function __construct(
+        EntityManagerInterface $em,
+        EventDispatcherInterface $dispatcher
+    ) {
         $this->em = $em;
+        $this->dispatcher = $dispatcher;
     }
 
     public function get(string $key, ?string $default = null): ?string
@@ -33,6 +39,7 @@ class OptionManager implements OptionManagerInterface
         } else {
             $option->setValue($value);
         }
+        $this->dispatcher->dispatch(new OptionUpdatedEvent($option));
         $this->em->flush();
     }
 
