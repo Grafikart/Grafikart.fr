@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Http\Controller\Account;
 
@@ -24,11 +26,11 @@ class HistoryController extends AbstractController
     ): Response {
         $query = $progressRepository->queryAllForUser($this->getUserOrThrow());
         $filter = $request->get('filter', 'progress');
-        if ($filter === 'completed') {
+        if ('completed' === $filter) {
             $query = $query
                 ->andWhere('p.progress = :progress')
                 ->setParameter('progress', Progress::TOTAL);
-        } elseif ($filter === 'progress') {
+        } elseif ('progress' === $filter) {
             $query = $query
                 ->andWhere('p.progress != :progress')
                 ->setParameter('progress', Progress::TOTAL);
@@ -40,7 +42,7 @@ class HistoryController extends AbstractController
         $filterOptions = [
             'all' => 'Tout',
             'completed' => 'Terminées',
-            'progress' => 'En cours de visionnage'
+            'progress' => 'En cours de visionnage',
         ];
 
         return $this->render('account/history.html.twig', [

@@ -1,19 +1,19 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Domain\Live;
 
+use App\Domain\Application\Event\OptionUpdatedEvent;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use App\Domain\Application\Event\OptionUpdatedEvent;
 
 class LiveOptionSubscriber implements EventSubscriberInterface
 {
-
     private CacheItemPoolInterface $cache;
 
     public function __construct(CacheItemPoolInterface $cache)
     {
-
         $this->cache = $cache;
     }
 
@@ -26,7 +26,7 @@ class LiveOptionSubscriber implements EventSubscriberInterface
 
     public function onOptionUpdated(OptionUpdatedEvent $event): void
     {
-        if ($event->getOption()->getKey() === LiveService::OPTION_KEY) {
+        if (LiveService::OPTION_KEY === $event->getOption()->getKey()) {
             $this->cache->deleteItem(LiveService::OPTION_KEY);
         }
     }
