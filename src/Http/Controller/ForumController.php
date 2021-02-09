@@ -6,6 +6,7 @@ use App\Domain\Auth\User;
 use App\Domain\Forum\Entity\Forum;
 use App\Domain\Forum\Entity\Tag;
 use App\Domain\Forum\Entity\Topic;
+use App\Domain\Forum\Repository\MessageRepository;
 use App\Domain\Forum\Repository\TagRepository;
 use App\Domain\Forum\Repository\TopicRepository;
 use App\Domain\Forum\TopicService;
@@ -63,12 +64,13 @@ class ForumController extends AbstractController
     /**
      * @Route("/forum/{id<\d+>}", name="forum_show")
      */
-    public function show(Topic $topic): Response
+    public function show(Topic $topic, MessageRepository $messageRepository): Response
     {
         $user = $this->getUser();
         if ($user) {
             $this->topicService->readTopic($topic, $user);
         }
+        $messageRepository->hydrateMessages($topic);
 
         return $this->render('forum/show.html.twig', [
             'topic' => $topic,

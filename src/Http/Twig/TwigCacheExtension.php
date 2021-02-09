@@ -5,19 +5,17 @@ namespace App\Http\Twig;
 use App\Http\Twig\CacheExtension\CacheableInterface;
 use App\Http\Twig\CacheExtension\CacheTokenParser;
 use App\Infrastructure\Orm\IterableQueryBuilder;
-use Symfony\Component\Cache\Adapter\AdapterInterface;
-use Symfony\Component\Cache\CacheItem;
+use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\String\Slugger\AsciiSlugger;
-use Symfony\Contracts\Cache\CacheInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TokenParser\AbstractTokenParser;
 
 class TwigCacheExtension extends AbstractExtension
 {
-    private CacheInterface $cache;
     private bool $active;
+    private CacheItemPoolInterface $cache;
 
-    public function __construct(CacheInterface $viewCachePool, bool $active = true)
+    public function __construct(CacheItemPoolInterface $viewCachePool, bool $active = true)
     {
         $this->cache = $viewCachePool;
         $this->active = $active;
@@ -84,7 +82,6 @@ class TwigCacheExtension extends AbstractExtension
         if (!$this->active) {
             return null;
         }
-        /** @var CacheItem $item */
         $item = $this->cache->getItem($this->getCacheKey($templatePath, $item));
 
         return $item->get();
@@ -98,7 +95,6 @@ class TwigCacheExtension extends AbstractExtension
         if (!$this->active) {
             return;
         }
-        /** @var CacheItem $item */
         $item = $this->cache->getItem($this->getCacheKey($templatePath, $item));
         $item->set($value);
         $this->cache->save($item);

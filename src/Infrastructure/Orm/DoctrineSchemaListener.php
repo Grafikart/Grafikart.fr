@@ -47,12 +47,8 @@ class DoctrineSchemaListener implements EventSubscriber
         }
     }
 
-    /**
-     * Force la timezone pour ne pas avoir de problème.
-     */
     public function postConnect(ConnectionEventArgs $args): void
     {
-        $args->getConnection()->exec("set timezone to 'Europe/Paris';");
     }
 
     /**

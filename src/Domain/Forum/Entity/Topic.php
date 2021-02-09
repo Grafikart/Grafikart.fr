@@ -236,6 +236,11 @@ class Topic implements SpammableInterface, CacheableInterface
         return $this;
     }
 
+    public function getLastMessage(): ?Message
+    {
+        return $this->lastMessage;
+    }
+
     /**
      * @return Collection|Message[]
      */
@@ -244,17 +249,22 @@ class Topic implements SpammableInterface, CacheableInterface
         return $this->messages;
     }
 
-    public function getLastMessage(): ?Message
-    {
-        return $this->lastMessage;
-    }
-
     public function addMessage(Message $message): self
     {
         if (!$this->messages->contains($message)) {
             $this->messages->add($message);
             $message->setTopic($this);
         }
+
+        return $this;
+    }
+
+    /**
+     * @param Collection|Message[] $messages
+     */
+    public function setMessages(Collection $messages): self
+    {
+        $this->messages = $messages;
 
         return $this;
     }
