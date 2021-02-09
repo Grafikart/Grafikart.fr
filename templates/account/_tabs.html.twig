@@ -1,7 +1,7 @@
 <div class="tabs-bar container bg-light">
   <a href="{{ path('user_profil') }}" {% if active == 'profil' %}aria-selected="true"{% endif %}>
     {{ icon('lines') }}
-    Mon profil
+    Profil
   </a>
   <a href="{{ path('user_edit') }}" {% if active == 'edit' %}aria-selected="true"{% endif %}>
     {{ icon('user') }}
@@ -9,15 +9,15 @@
   </a>
   <a href="{{ path('user_history') }}" {% if active == 'history' %}aria-selected="true"{% endif %}>
     {{ icon('video') }}
-    Mon historique
+    Historique
   </a>
   <a href="{{ path('user_badges') }}" {% if active == 'badges' %}aria-selected="true"{% endif %}>
     {{ icon('badge') }}
-    Mes badges
+    Badges
   </a>
   <a href="{{ path('user_invoices') }}" {% if active == 'invoices' %}aria-selected="true"{% endif %}>
     {{ icon('inbox') }}
-    Mes factures
+    Factures
   </a>
   {% if is_granted('ADMIN') %}
     <a href="{{ path('admin_home') }}" class="mla">

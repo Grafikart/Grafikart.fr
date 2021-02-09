@@ -26,6 +26,9 @@
   position: relative;
   z-index: 2;
 }
+.tabs-bar a:hover {
+  color: var(--contrast);
+}
 .tabs-bar .icon {
   width: 1rem;
   height: 1rem;
