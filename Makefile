@@ -64,7 +64,6 @@ dumpimport: var/dump ## Import un dump SQL
 .PHONY: seed
 seed: vendor/autoload.php ## Génère des données dans la base de données (docker-compose up doit être lancé)
 	$(sy) doctrine:migrations:migrate -q
-	$(sy) doctrine:schema:validate -q
 	$(sy) app:seed -q
 
 .PHONY: migration
