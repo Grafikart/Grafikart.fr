@@ -3,30 +3,25 @@ import { useClickOutside, useToggle } from '/functions/hooks.js'
 import { useRef } from 'preact/hooks'
 import { SlideIn } from '/components/Animation/SlideIn.jsx'
 import { flash } from '/elements/Alert.js'
-import { isAuthenticated } from '/functions/auth.js'
+import { isAuthenticated, getUserId } from '/functions/auth.js'
 
 /**
  * Bouton de signalement avec formulaire en tooltip
  */
-export function ForumReport ({ message, topic }) {
+export function ForumReport ({ message, topic, owner }) {
   // Hooks
   const ref = useRef(null)
   const [showForm, toggleForm] = useToggle(false)
   const [success, toggleSuccess] = useToggle(false)
   useClickOutside(ref, toggleForm)
 
-  if (!isAuthenticated()) {
+  if (!isAuthenticated() || getUserId() === parseInt(owner, 10)) {
     return null
   }
 
   return (
     <div style={{ position: 'relative' }}>
-      <button
-        className='rounded-button warning'
-        onClick={toggleForm}
-        disabled={success}
-        title='Signaler le message'
-      >
+      <button className='rounded-button warning' onClick={toggleForm} disabled={success} title='Signaler le message'>
         !
       </button>
       <SlideIn show={showForm && !success} className='forum-report__form' forwardedRef={ref}>

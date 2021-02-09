@@ -22,7 +22,7 @@
       <forum-delete message="{{ message.id }}" owner="{{ message.author.id }}"></forum-delete>
     </div>
     <div class="forum-message__actions">
-      <forum-report message="{{ message.id }}"></forum-report>
+      <forum-report message="{{ message.id }}" owner="{{ message.author.id }}"></forum-report>
       <forum-solve
         message="{{ message.id }}"
         topic-author="{{ message.topic.author.id }}"
