@@ -8,17 +8,18 @@ use App\Infrastructure\Orm\IterableQueryBuilder;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\Cache\CacheItem;
 use Symfony\Component\String\Slugger\AsciiSlugger;
+use Symfony\Contracts\Cache\CacheInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TokenParser\AbstractTokenParser;
 
 class TwigCacheExtension extends AbstractExtension
 {
-    private AdapterInterface $cache;
+    private CacheInterface $cache;
     private bool $active;
 
-    public function __construct(AdapterInterface $cache, bool $active = true)
+    public function __construct(CacheInterface $viewCachePool, bool $active = true)
     {
-        $this->cache = $cache;
+        $this->cache = $viewCachePool;
         $this->active = $active;
     }
 

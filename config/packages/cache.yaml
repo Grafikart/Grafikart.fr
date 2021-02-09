@@ -2,6 +2,17 @@ framework:
   cache:
     app: cache.adapter.array
     # Pour tester le cache tout en étant en dev
-    # prefix_seed: grafikart/site
-    # app: cache.adapter.redis
-    # default_redis_provider: '%env(resolve:REDIS_URL)%'
+    # app: app.cache.adapter.redis
+    prefix_seed: grafikart.fr
+    default_redis_provider: '%env(resolve:REDIS_URL)%'
+    pools:
+      view_cache_pool:
+        default_lifetime: '7 days'
+
+services:
+  app.cache.adapter.redis:
+    parent: 'cache.adapter.redis'
+    arguments:
+      $defaultLifetime: 604800
+    tags:
+      - { name: 'cache.pool', namespace: 'grafikart_cache' }

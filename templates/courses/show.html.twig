@@ -116,12 +116,12 @@
             </a>
           {% endif %}
           {% if course.source is not empty %}
-            <a href="{{ path('course_download_source', {id: course.id}) }}" class="pill uppercase" data-turbolinks="false" {% if user_premium %}download="Sources {{ course.title }}" {% endif %}>
+            <a href="{{ path('course_download_source', {id: course.id}) }}" class="pill" data-turbolinks="false" {% if user_premium %}download="Sources {{ course.title }}" {% endif %}>
               {{ icon('lines') }}
               Télécharger les sources
             </a>
           {% endif %}
-          <a href="{{ path('course_download_video', {id: course.id}) }}" class="pill uppercase" data-turbolinks="false" {% if user_premium %}download="{{ course.title }}" {% endif %}>
+          <a href="{{ path('course_download_video', {id: course.id}) }}" class="pill" data-turbolinks="false" {% if user_premium %}download="{{ course.title }}" {% endif %}>
             {{ icon('video') }}
             Télécharger la vidéo
           </a>
