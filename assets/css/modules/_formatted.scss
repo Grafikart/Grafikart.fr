@@ -3,6 +3,11 @@
 }
 
 .formatted {
+
+  & > *:last-child {
+    margin-bottom: 0!important;
+  }
+
   strong {
     font-weight: bold;
   }
@@ -149,7 +154,7 @@
       }
     }
   }
-  
+
   p > code,
   li > code {
     display: inline-block;
