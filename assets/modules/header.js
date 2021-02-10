@@ -38,7 +38,6 @@ function setState (newState) {
     $header.classList.remove('is-fixed')
   }
 
-  console.log(newState)
   state = newState
 }
 
