@@ -11,6 +11,7 @@ const replacement = (className = 'bold') => ({
 
 export function Markdown ({children, ...props}) {
   const ref = useRef()
+  console.log(ref)
   useEffect(() => {
     if (ref.current && ref.current.querySelectorAll('pre').length > 0) {
       bindHighlight(ref.current)
@@ -20,6 +21,7 @@ export function Markdown ({children, ...props}) {
     <MarkdownToJSX children={children} options={{
       disableParsingRawHTML: true,
       forceBlock: true,
+      wrapper: null,
       overrides: {
         h1: replacement('bold underline text-big'),
         h2: replacement('bold underline'),
