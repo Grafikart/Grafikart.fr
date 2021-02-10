@@ -130,7 +130,7 @@ export class Waves extends HTMLElement {
     this.container = this.root.querySelector('.waves-container')
     this.waves = this.root.querySelector('.waves')
     const background = this.root.querySelector('.waves-background')
-    if (image) {
+    if (image !== '') {
       this.root.querySelector('img').addEventListener('load', () => {
         background.style.opacity = 0.96
       })
@@ -144,13 +144,13 @@ export class Waves extends HTMLElement {
   }
 
   /**
-   * @return {string|null}
+   * @return {string}
    */
   backgroundImage () {
     if (this.getAttribute('background')) {
       return `<img src="${this.getAttribute('background')}" alt=""/>`
     }
-    return null
+    return ''
   }
 
   /**
