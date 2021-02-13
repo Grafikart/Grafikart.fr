@@ -36,15 +36,15 @@ class FailedJobsService
             $envelopes = iterator_to_array($envelopes);
         }
 
-        return array_map(fn (Envelope $enveloppe) => new FailedJob($enveloppe), $envelopes);
+        return array_map(fn (Envelope $envelope) => new FailedJob($envelope), $envelopes);
     }
 
     public function retryJob(int $jobId): void
     {
-        $enveloppe = $this->receiver->find($jobId);
-        if ($enveloppe instanceof Envelope) {
-            $this->messageBus->dispatch($enveloppe->getMessage());
-            $this->receiver->reject($enveloppe);
+        $envelope = $this->receiver->find($jobId);
+        if ($envelope instanceof Envelope) {
+            $this->messageBus->dispatch($envelope->getMessage());
+            $this->receiver->reject($envelope);
         } else {
             throw new \RuntimeException("Impossible de trouver le job #{$jobId}");
         }
@@ -53,7 +53,7 @@ class FailedJobsService
     public function deleteJob(int $jobId): void
     {
         $envelope = $this->receiver->find($jobId);
-        if ($envelope) {
+        if ($envelope instanceof Envelope) {
             $this->receiver->reject($envelope);
         }
     }
