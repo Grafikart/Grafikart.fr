@@ -129,3 +129,16 @@ export function classNames(...classnames) {
 export function formDataToObj(form) {
   return Object.fromEntries(new FormData(form));
 }
+
+/**
+ * modifie le total du nombre de commentaires dans le forum
+ * @param {int} count
+ */
+export function createMessageCount(count) {
+  const countMessageBlock = document.getElementById('comments-count')
+  if (count === 0) {
+    countMessageBlock.innerHTML = 'Aucune réponse'
+  } else {
+    countMessageBlock.innerHTML = `<span id='comments-count-total'>${count}</span> ${count === 1 ? 'réponse' : 'réponses'}`
+  }
+}

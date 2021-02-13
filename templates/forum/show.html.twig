@@ -40,13 +40,13 @@
     </div>
 
     <div class="mb1">
-      <h2 class="h3 mt3 mb1">
+      <h2 id="comments-count" class="h3 mt3 mb1">
         {% if topic.messageCount == 0 %}
           Aucune réponse
         {% elseif topic.messageCount == 1 %}
-          1 réponse
+          <span id="comments-count-total">1</span> réponse
         {% else %}
-          {{ topic.messageCount }} réponses
+          <span id="comments-count-total">{{ topic.messageCount }}</span> réponses
         {% endif %}
       </h2>
       <hr/>
