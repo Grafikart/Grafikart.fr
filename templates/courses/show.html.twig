@@ -223,6 +223,8 @@
 
   {% if course.formation and app.user %}
     {{ show_history(course.formation.courses) }}
+  {% elseif app.user  %}
+    {{ show_history([course]) }}
   {% endif %}
 
 {% endblock %}
