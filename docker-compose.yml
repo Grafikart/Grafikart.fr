@@ -11,9 +11,10 @@ services:
     links:
       - php
   php:
-    user: '${USER_ID}:${GROUP_ID}'
+    # user: '${USER_ID}:${GROUP_ID}'
     restart: unless-stopped
-    image: grafikart/php:1.0.3
+    # image: grafikart/php:1.0.3
+    build: ./tools/docker/php
     volumes:
       - .:/var/www:delegated
     depends_on:

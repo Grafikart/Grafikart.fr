@@ -229,6 +229,9 @@
     "intervention/image": {
         "version": "2.5.1"
     },
+    "jean85/pretty-package-versions": {
+        "version": "2.0.2"
+    },
     "jms/metadata": {
         "version": "2.1.0"
     },
@@ -323,6 +326,18 @@
             "config/packages/nelmio_cors.yaml"
         ]
     },
+    "nette/finder": {
+        "version": "v2.5.2"
+    },
+    "nette/neon": {
+        "version": "v3.2.1"
+    },
+    "nette/robot-loader": {
+        "version": "v3.3.1"
+    },
+    "nette/utils": {
+        "version": "v3.2.1"
+    },
     "nikic/php-parser": {
         "version": "v4.3.0"
     },
@@ -379,6 +394,9 @@
     },
     "phpspec/prophecy": {
         "version": "v1.10.2"
+    },
+    "phpstan/phpdoc-parser": {
+        "version": "0.4.10"
     },
     "phpstan/phpstan": {
         "version": "0.12.7"
@@ -459,6 +477,9 @@
     },
     "react/stream": {
         "version": "v1.1.0"
+    },
+    "rector/rector": {
+        "version": "0.9.28"
     },
     "sebastian/cli-parser": {
         "version": "1.0.1"
@@ -957,6 +978,54 @@
     },
     "symfony/yaml": {
         "version": "v5.0.3"
+    },
+    "symplify/astral": {
+        "version": "9.1.8"
+    },
+    "symplify/autowire-array-parameter": {
+        "version": "9.1.8"
+    },
+    "symplify/composer-json-manipulator": {
+        "version": "9.1.8"
+    },
+    "symplify/console-color-diff": {
+        "version": "9.1.8"
+    },
+    "symplify/console-package-builder": {
+        "version": "9.1.8"
+    },
+    "symplify/easy-testing": {
+        "version": "9.1.8"
+    },
+    "symplify/markdown-diff": {
+        "version": "9.1.8"
+    },
+    "symplify/package-builder": {
+        "version": "9.1.8"
+    },
+    "symplify/php-config-printer": {
+        "version": "9.1.8"
+    },
+    "symplify/rule-doc-generator": {
+        "version": "9.1.8"
+    },
+    "symplify/set-config-resolver": {
+        "version": "9.1.8"
+    },
+    "symplify/simple-php-doc-parser": {
+        "version": "9.1.8"
+    },
+    "symplify/skipper": {
+        "version": "9.1.8"
+    },
+    "symplify/smart-file-system": {
+        "version": "9.1.8"
+    },
+    "symplify/symfony-php-config": {
+        "version": "9.1.8"
+    },
+    "symplify/symplify-kernel": {
+        "version": "9.1.8"
     },
     "theofidry/alice-data-fixtures": {
         "version": "1.0",
