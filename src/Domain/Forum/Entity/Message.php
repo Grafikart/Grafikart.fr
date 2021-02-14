@@ -39,14 +39,14 @@ class Message implements SpammableInterface, CacheableInterface
     private User $author;
 
     /**
-     * @ORM\Column(type="boolean", options={"default":0})
+     * @ORM\Column(type="boolean", options={"default": false})
      */
     private bool $accepted = false;
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\NotBlank(groups={"create"})
-     * @Assert\Length(min=10, groups={"create"})
+     * @Assert\NotBlank()
+     * @Assert\Length(min=10)
      * @Groups({"read:message", "update:message"})
      */
     private ?string $content = null;
@@ -122,7 +122,7 @@ class Message implements SpammableInterface, CacheableInterface
     }
 
     /**
-     * @Groups({"updated:message"})
+     * @Groups({"read:message"})
      */
     public function getFormattedContent(): ?string
     {
