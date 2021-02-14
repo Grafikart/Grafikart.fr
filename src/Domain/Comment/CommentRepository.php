@@ -3,9 +3,11 @@
 namespace App\Domain\Comment;
 
 use App\Domain\Auth\User;
+use App\Http\Api\Resource\CommentResource;
 use App\Infrastructure\Orm\AbstractRepository;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 /**
  * @extends AbstractRepository<Comment>
@@ -73,5 +75,45 @@ class CommentRepository extends AbstractRepository
             ->setParameter('user', $user)
             ->getQuery()
             ->getResult();
+    }
+
+    public static function fromComment(Comment $comment, ?UploaderHelper $uploaderHelper = null): CommentResource
+    {
+        $author = $comment->getAuthor();
+        $parentId = (null !== $comment->getParent()) ? $comment->getParent()->getId() : 0;
+        $avatar = self::getAvatar($comment, $author, $uploaderHelper);
+
+        $resource = new CommentResource();
+        $resource
+            ->setId($comment->getId())
+            ->setUsername($comment->getUsername())
+            ->setContent($comment->getContent())
+            ->setHtml(strip_tags(
+                (new \Parsedown())
+                    ->setBreaksEnabled(true)
+                    ->setSafeMode(true)
+                    ->text($comment->getContent()),
+            '<p><pre><code><ul><ol><li>'
+                ))
+            ->setCreatedAt($comment->getCreatedAt()->getTimestamp())
+            ->setParent($parentId)
+            ->setEntity($comment)
+            ->setUserId($author ? $author->getId() : null)
+            ->setAvatar($avatar)
+        ;
+
+        return $resource;
+    }
+
+    private static function getAvatar(Comment $comment, ?User $author, ?UploaderHelper $uploaderHelper = null): ?string
+    {
+        if ($author && $uploaderHelper && $author->getAvatarName()) {
+            $avatar = $uploaderHelper->asset($author, 'avatarFile');
+        } else {
+            $gravatar = md5($comment->getEmail());
+            $avatar = "https://1.gravatar.com/avatar/{$gravatar}?s=200&r=pg&d=mp";
+        }
+
+        return $avatar;
     }
 }

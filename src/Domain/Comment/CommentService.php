@@ -4,6 +4,7 @@ namespace App\Domain\Comment;
 
 use App\Domain\Application\Entity\Content;
 use App\Domain\Auth\AuthService;
+use App\Http\Api\Resource\CommentResource;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
@@ -22,21 +23,22 @@ class CommentService
         $this->dispatcher = $dispatcher;
     }
 
-    public function create(CommentData $data): Comment
+    public function create(CommentResource $data): Comment
     {
         // On crée un nouveau commentaire
         /** @var Content $target */
-        $target = $this->em->getRepository(Content::class)->find($data->target);
+        $target = $this->em->getRepository(Content::class)->find($data->getTarget());
         /** @var Comment|null $parent */
-        $parent = $data->parent ? $this->em->getReference(Comment::class, $data->parent) : null;
+        $parent = $data->getParent() ? $this->em->getReference(Comment::class, $data->getParent()) : null;
         $comment = (new Comment())
             ->setAuthor($this->auth->getUserOrNull())
-            ->setUsername($data->username)
-            ->setEmail($data->email)
+            ->setUsername($data->getUsername())
+            ->setEmail($data->getEmail())
             ->setCreatedAt(new \DateTime())
-            ->setContent($data->content)
+            ->setContent($data->getContent())
             ->setParent($parent)
-            ->setTarget($target);
+            ->setTarget($target)
+        ;
         $this->em->persist($comment);
         $this->em->flush();
         $this->dispatcher->dispatch(new CommentCreatedEvent($comment));

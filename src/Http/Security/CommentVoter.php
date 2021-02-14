@@ -34,7 +34,7 @@ class CommentVoter extends Voter
         }
 
         if ($subject instanceof CommentResource) {
-            $subject = $subject->entity;
+            $subject = $subject->getEntity();
         }
 
         if (null === $subject) {

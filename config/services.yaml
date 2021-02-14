@@ -112,3 +112,8 @@ services:
   dropbox_filesystem:
     class: League\Flysystem\Filesystem
     factory: ['@App\Infrastructure\Storage\DropboxFilesystemFactory', 'createFilesystem']
+
+  App\Http\Api\DataProvider\CommentApiProvider:
+    bind:
+      $collectionDataProvider: '@api_platform.doctrine.orm.default.collection_data_provider'
+      $itemDataProvider: '@api_platform.doctrine.orm.default.item_data_provider'

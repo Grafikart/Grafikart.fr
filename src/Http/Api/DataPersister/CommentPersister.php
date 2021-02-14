@@ -5,6 +5,7 @@ namespace App\Http\Api\DataPersister;
 use ApiPlatform\Core\DataPersister\ContextAwareDataPersisterInterface;
 use ApiPlatform\Core\Validator\ValidatorInterface;
 use App\Domain\Auth\User;
+use App\Domain\Comment\CommentRepository;
 use App\Domain\Comment\CommentService;
 use App\Http\Api\Resource\CommentResource;
 use Symfony\Component\Security\Core\Security;
@@ -13,17 +14,19 @@ class CommentPersister implements ContextAwareDataPersisterInterface
 {
     private ValidatorInterface $validator;
     private Security $security;
-
     private CommentService $service;
+    private CommentRepository $commentRepository;
 
     public function __construct(
         ValidatorInterface $validator,
         Security $security,
-        CommentService $service
+        CommentService $service,
+        CommentRepository $commentRepository
     ) {
         $this->validator = $validator;
         $this->security = $security;
         $this->service = $service;
+        $this->commentRepository = $commentRepository;
     }
 
     /**
@@ -49,13 +52,13 @@ class CommentPersister implements ContextAwareDataPersisterInterface
         }
         $this->validator->validate($data, ['groups' => $groups]);
 
-        if (null !== $data->entity) {
-            $comment = $this->service->update($data->entity, $data->content);
+        if (null !== $data->getEntity()) {
+            $comment = $this->service->update($data->getEntity(), $data->getContent());
         } else {
             $comment = $this->service->create($data);
         }
 
-        return CommentResource::fromComment($comment);
+        return $this->commentRepository::fromComment($comment);
     }
 
     /**
@@ -63,10 +66,10 @@ class CommentPersister implements ContextAwareDataPersisterInterface
      */
     public function remove($data, array $context = []): CommentResource
     {
-        if (null === $data->id) {
+        if (null === $data->getId()) {
             return $data;
         }
-        $this->service->delete($data->id);
+        $this->service->delete($data->getId());
 
         return $data;
     }

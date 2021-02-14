@@ -4,23 +4,23 @@ namespace App\Domain\Comment;
 
 abstract class CommentData
 {
-    public ?int $id = null;
+    private ?int $id = null;
 
-    public ?string $username = null;
+    private ?string $username = null;
 
-    public string $content = '';
+    private string $content = '';
 
-    public ?string $avatar = null;
+    private ?string $avatar = null;
 
-    public ?int $target = null;
+    private ?int $target = null;
 
-    public ?string $email = null;
+    private ?string $email = null;
 
-    public int $createdAt = 0;
+    private int $createdAt = 0;
 
-    public ?int $parent = 0;
+    private ?int $parent = 0;
 
-    public ?Comment $entity = null;
+    private ?Comment $entity = null;
 
-    public ?int $userId = null;
+    private ?int $userId = null;
 }

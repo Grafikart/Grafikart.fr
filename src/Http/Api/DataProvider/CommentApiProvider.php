@@ -3,6 +3,7 @@
 namespace App\Http\Api\DataProvider;
 
 use ApiPlatform\Core\DataProvider\CollectionDataProviderInterface;
+use ApiPlatform\Core\DataProvider\ContextAwareCollectionDataProviderInterface;
 use ApiPlatform\Core\DataProvider\ItemDataProviderInterface;
 use ApiPlatform\Core\DataProvider\RestrictedDataProviderInterface;
 use ApiPlatform\Core\Exception\RuntimeException;
@@ -14,18 +15,23 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
-class CommentApiProvider implements CollectionDataProviderInterface, RestrictedDataProviderInterface, ItemDataProviderInterface
+class CommentApiProvider implements ContextAwareCollectionDataProviderInterface, ItemDataProviderInterface, RestrictedDataProviderInterface
 {
+    private CollectionDataProviderInterface $collectionDataProvider;
+    private ItemDataProviderInterface $itemDataProvider;
     private RequestStack $requestStack;
     private CommentRepository $commentRepository;
-
     private UploaderHelper $uploaderHelper;
 
     public function __construct(
+        CollectionDataProviderInterface $collectionDataProvider,
+        ItemDataProviderInterface $itemDataProvider,
         RequestStack $requestStack,
         CommentRepository $commentRepository,
-        UploaderHelper $uploaderHelper
-    ) {
+        UploaderHelper $uploaderHelper)
+    {
+        $this->collectionDataProvider = $collectionDataProvider;
+        $this->itemDataProvider = $itemDataProvider;
         $this->requestStack = $requestStack;
         $this->commentRepository = $commentRepository;
         $this->uploaderHelper = $uploaderHelper;
@@ -39,19 +45,20 @@ class CommentApiProvider implements CollectionDataProviderInterface, RestrictedD
     /**
      * @return array<CommentResource>
      */
-    public function getCollection(string $resourceClass, string $operationName = null): array
+    public function getCollection(string $resourceClass, string $operationName = null, array $context = [])
     {
         $request = $this->requestStack->getCurrentRequest();
         if (null === $request) {
             throw new RuntimeException('Requête introuvable');
         }
+
         $contentId = (int) $request->get('content');
         if (0 === $contentId) {
             throw new HttpException(Response::HTTP_BAD_REQUEST, 'Aucun contenu ne correspond à cet ID');
         }
 
         return array_map(
-            fn (Comment $comment) => CommentResource::fromComment($comment, $this->uploaderHelper),
+            fn (Comment $comment) => $this->commentRepository::fromComment($comment, $this->uploaderHelper),
             $this->commentRepository->findForApi($contentId)
         );
     }
@@ -69,6 +76,6 @@ class CommentApiProvider implements CollectionDataProviderInterface, RestrictedD
 
         $comment = $this->commentRepository->findPartial((int) $id);
 
-        return $comment ? CommentResource::fromComment($comment, $this->uploaderHelper) : null;
+        return $comment ? $this->commentRepository::fromComment($comment, $this->uploaderHelper) : null;
     }
 }
