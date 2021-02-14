@@ -5,6 +5,10 @@
     Gestion des transactions
 {% endblock %}
 
+{% block actions %}
+  <a href="{{ path(prefix ~ '_report') }}" class="btn-secondary">Rapports financiers</a>
+{% endblock %}
+
 {% block content %}
     <table class="table">
       <thead>

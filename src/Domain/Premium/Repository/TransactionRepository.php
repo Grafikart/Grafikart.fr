@@ -55,4 +55,23 @@ class TransactionRepository extends AbstractRepository
             ->getQuery()
             ->getResult());
     }
+
+    public function getMonthlyReport(int $year): array
+    {
+        return $this->createQueryBuilder('t')
+            ->select(
+                't.method as method',
+                'EXTRACT(MONTH FROM t.createdAt) as month',
+                'ROUND(SUM(t.price) * 100) / 100 as price',
+                'ROUND(SUM(t.tax) * 100) / 100 as tax',
+                'ROUND(SUM(t.fee) * 100) / 100 as fee',
+            )
+            ->groupBy('month', 't.method')
+            ->where('t.refunded = false')
+            ->andWhere('EXTRACT(YEAR FROM t.createdAt) = :year')
+            ->setParameter('year', $year)
+            ->orderBy('month', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 }

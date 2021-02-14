@@ -3,10 +3,12 @@
 namespace App\Http\Admin\Controller;
 
 use App\Domain\Premium\Entity\Transaction;
+use App\Domain\Premium\Repository\TransactionRepository;
 use App\Infrastructure\Payment\Event\PaymentRefundedEvent;
 use App\Infrastructure\Payment\Payment;
 use Doctrine\ORM\QueryBuilder;
 use Psr\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -42,6 +44,21 @@ final class TransactionsController extends CrudController
         $this->addFlash('success', 'Le paiement a bien été marqué comme remboursé');
 
         return $this->redirectBack('admin_transaction_index');
+    }
+
+    /**
+     * @Route("/transaction/report", name="report", methods={"GET"})
+     */
+    public function report(TransactionRepository $repository, Request $request): Response
+    {
+        $year = $request->query->getInt('year', (int) date('Y'));
+
+        return $this->render('admin/transactions/report.html.twig', [
+            'reports' => $repository->getMonthlyReport($year),
+            'prefix' => 'admin_transaction',
+            'current_year' => date('Y'),
+            'year' => $year,
+        ]);
     }
 
     public function applySearch(string $search, QueryBuilder $query): QueryBuilder

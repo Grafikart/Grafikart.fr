@@ -1,0 +1,50 @@
+{% extends 'admin/layout/card.html.twig' %}
+
+{% block title %}
+  {{ icon('refund') }}
+  Rapports financier
+{% endblock %}
+
+{% block actions %}
+  <a href="{{ path(prefix ~ '_index') }}" class="btn-secondary">Détails des transactions</a>
+{% endblock %}
+
+{% block content %}
+  <div class="flex">
+    <form class="form-group mla" style="width: 100px" method="get" is="auto-submit">
+      <select name="year" class="form-control">
+        {% for y in current_year..2020 %}
+        <option value="{{ y }}" {% if y == year %}selected{% endif %}>{{ y }}</option>
+        {% endfor %}
+      </select>
+    </form>
+  </div>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Mois</th>
+      <th>Revenus</th>
+      <th>Tax</th>
+      <th>Frais</th>
+      <th>Revenus - frais</th>
+      <th width="85">Methode</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for report in reports %}
+      <tr>
+        <td>{{ ('2020-' ~ report.month ~ '-01') | format_datetime(pattern="MMMM") | capitalize }}</td>
+        <td>{{ report.price | format_currency('EUR') }}</td>
+        <td>{{ report.tax | format_currency('EUR') }}</td>
+        <td>{{ report.fee | format_currency('EUR') }}</td>
+        <td>{{ (report.price - report.fee) | format_currency('EUR') }}</td>
+        <td>
+          <a class="pill uppercase {% if report.method == 'paypal' %}pill-yellow{% endif %}">
+            {{ report.method }}
+          </a>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

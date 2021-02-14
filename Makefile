@@ -58,8 +58,8 @@ dump: var/dump ## Génère un dump SQL
 	$(de) db sh -c 'PGPASSWORD="grafikart" pg_dump grafikart -U grafikart > /var/www/var/dump/dump.sql'
 
 .PHONY: dumpimport
-dumpimport: var/dump ## Import un dump SQL
-	$(de) db sh -c 'psql grafikart < /var/www/var/dump/dump.sql'
+dumpimport: ## Import un dump SQL
+	$(de) db sh -c 'pg_restore -c -d grafikart -U grafikart /var/www/var/dump'
 
 .PHONY: seed
 seed: vendor/autoload.php ## Génère des données dans la base de données (docker-compose up doit être lancé)
