@@ -4,9 +4,9 @@ namespace App\Infrastructure\Mercure\Service;
 
 use App\Domain\Auth\User;
 use App\Domain\Notification\NotificationService;
-use Lcobucci\JWT\Builder;
+use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
-use Lcobucci\JWT\Signer\Key;
+use Lcobucci\JWT\Signer\Key\InMemory;
 use Symfony\Component\HttpFoundation\Cookie;
 
 class CookieGenerator
@@ -23,11 +23,13 @@ class CookieGenerator
     public function generate(User $user): Cookie
     {
         $channels = array_map(fn (string $channel) => "/notifications/$channel", $this->notificationService->getChannelsForUser($user));
-        $token = (new Builder())
+        $token = Configuration::forUnsecuredSigner()
+            ->builder()
             ->withClaim('mercure', [
                 'subscribe' => $channels,
             ])
-            ->getToken(new Sha256(), new Key($this->secret));
+            ->getToken(new Sha256(), InMemory::plainText($this->secret))
+            ->toString();
 
         return Cookie::create('mercureAuthorization', $token, 0, '/.well-known/mercure');
     }

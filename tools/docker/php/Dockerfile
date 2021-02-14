@@ -24,6 +24,7 @@ RUN apk --update add wget \
 		     php8-pdo_pgsql \
 		     php8-mbstring \
 		     php8-phar \
+		     php8-sodium \
 		     php8-simplexml \
 		     php8-xml \
 		     php8-xmlwriter \

@@ -115,7 +115,7 @@ class CourseController extends AbstractController
     /**
      * @Route("/tutoriels/{id<\d+>}/video", name="course_download_video")
      */
-    public function downloadVideo(Course $course, StorageInterface $storage): Response
+    public function downloadVideo(Course $course): Response
     {
         $this->denyAccessUnlessGranted(CourseVoter::DOWNLOAD_VIDEO, $course);
 
