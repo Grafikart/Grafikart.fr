@@ -40,7 +40,7 @@ App\Domain\Forum\Entity\Message:
       denormalization_context:
         groups: ['update:message']
       normalization_context:
-        groups: ['updated:message', 'read:message']
+        groups: ['read:message']
       security: is_granted("UPDATE_FORUM_MESSAGE", object)
 
 App\Domain\Notification\Entity\Notification:
