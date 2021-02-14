@@ -58,5 +58,4 @@ App\Domain\Notification\Entity\Notification:
         groups: ['create:notification']
   itemOperations:
     get:
-      <controller>: 'EmptyController'
-
+      controller: 'EmptyController'
