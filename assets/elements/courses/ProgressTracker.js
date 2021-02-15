@@ -52,7 +52,10 @@ export class ProgressTracker extends HTMLElement {
   async onEnd () {
     await wait(300)
     const { message } = await jsonFetch(`/api/progress/${this.contentId}/1000`, { method: 'POST' }).catch(console.error)
-    document.body.appendChild(strToDom(message))
+    // on vérifie que la vidéo n'a pas déjà été finie
+    if (document.getElementsByTagName('modal-dialog').length === 0) {
+      document.body.appendChild(strToDom(message))
+    }
     confetti({
       particleCount: 100,
       zIndex: 3000,
