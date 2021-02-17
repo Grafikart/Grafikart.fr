@@ -105,8 +105,8 @@ server {
     include nginxconfig.io/general.conf;
 
     # handle .php
-    location ~ \.php$ {
- {% if docker %}
+    location ~ ^/index\.php(/|$) {
+{% if docker %}
         try_files                     $fastcgi_script_name =404;
         include                       fastcgi_params;
         fastcgi_pass                  127.0.0.1:9001;
@@ -116,9 +116,14 @@ server {
         fastcgi_param DOCUMENT_ROOT   /var/www/public;
         fastcgi_param SCRIPT_FILENAME /var/www/public$fastcgi_script_name;
         fastcgi_param PHP_ADMIN_VALUE "open_basedir=/var/www/:/usr/lib/php/:/tmp/";
-  {% else %}
+{% else %}
         include nginxconfig.io/php_fastcgi.conf;
-  {% endif %}
+{% endif %}
+        internal;
+    }
+
+    location ~ \.php$ {
+      return 404;
     }
 }
 
