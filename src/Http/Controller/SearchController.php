@@ -29,9 +29,10 @@ class SearchController extends AbstractController
         NormalizerInterface $normalizer,
         TechnologyRepository $technologyRepository
     ): Response {
-        $q = $request->query->get('q') ?: '';
+        $q = $request->query->get('q', '');
+        $redirect = $request->query->get('redirect', '1');
 
-        if (!empty($q)) {
+        if (!empty($q) && '0' !== $redirect) {
             $technology = $technologyRepository->findByName($q);
 
             if (null !== $technology) {

@@ -30,7 +30,7 @@ export function Search () {
 
   return (
     <>
-      <button onClick={toggleSearchBar} aria-label="Rechercher">
+      <button onClick={toggleSearchBar} aria-label='Rechercher'>
         <Icon name='search' />
       </button>
       {isSearchVisible && <SearchBar onClose={toggleSearchBar} />}
@@ -56,7 +56,7 @@ export function SearchInput ({ defaultValue }) {
       ...results,
       {
         title: `Voir les <strong>${hits}</strong> résultats`,
-        url: `${SEARCH_URL}?q=${encodeURI(query)}`
+        url: `${SEARCH_URL}?q=${encodeURI(query)}&redirect=0`
       }
     ]
   }
