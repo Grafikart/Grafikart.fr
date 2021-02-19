@@ -6,6 +6,7 @@ use App\Infrastructure\Queue\EnqueueMethod;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Crypto\DkimSigner;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\Mime\Message;
 use Twig\Environment;
 
 class Mailer
@@ -48,11 +49,10 @@ class Mailer
     public function sendNow(Email $email): void
     {
         if ($this->dkimKey) {
-            $pk = file_get_contents($this->dkimKey);
-            if ($pk) {
-                $dkimSigner = new DkimSigner($pk, 'grafikart.fr', 'default');
-                $email = $dkimSigner->sign($email, []);
-            }
+            $dkimSigner = new DkimSigner("file://{$this->dkimKey}", 'grafikart.fr', 'default');
+            // On signe un message en attendant le fix https://github.com/symfony/symfony/issues/40131
+            $message = new Message($email->getPreparedHeaders(), $email->getBody());
+            $email = $dkimSigner->sign($message, []);
         }
         $this->mailer->send($email);
     }
