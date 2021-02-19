@@ -7,6 +7,7 @@ use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Domain\Comment\Comment;
 use App\Domain\Comment\CommentData;
+use App\Validator\NotExists;
 use Parsedown;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -43,6 +44,7 @@ class CommentResource extends CommentData
     /**
      * @Groups({"read", "write"})
      * @Assert\NotBlank(groups={"anonymous"}, normalizer="trim")
+     * @NotExists(groups={"anonymous"}, field="username", class="App\Domain\Auth\User", message="Ce pseudo est utilisé par un utilisateur")
      */
     public ?string $username = null;
 
@@ -72,6 +74,7 @@ class CommentResource extends CommentData
      * @Assert\NotBlank(groups={"anonymous"})
      * @Groups({"write"})
      * @Assert\Email(groups={"anonymous"})
+     * @NotExists(groups={"anonymous"}, field="email", class="App\Domain\Auth\User", message="Cet email est utilisé par un utilisateur")
      */
     public ?string $email = null;
 

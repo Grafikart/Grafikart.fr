@@ -2,6 +2,7 @@
 
 namespace App\Tests\Http\Api;
 
+use App\Domain\Auth\User;
 use App\Domain\Comment\Comment;
 use App\Http\Api\Resource\CommentResource;
 use App\Tests\ApiTestCase;
@@ -52,9 +53,11 @@ class CommentApiTest extends ApiTestCase
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_UNPROCESSABLE_ENTITY);
         $this->assertJsonContains([
-            'violations' => [[
-                'propertyPath' => 'email',
-            ]],
+            'violations' => [
+                [
+                    'propertyPath' => 'email',
+                ],
+            ],
         ]);
     }
 
@@ -71,12 +74,14 @@ class CommentApiTest extends ApiTestCase
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_UNPROCESSABLE_ENTITY);
         $this->assertJsonContains([
-            'violations' => [[
-                'propertyPath' => 'content',
-            ],
+            'violations' => [
                 [
                     'propertyPath' => 'content',
-                ], ],
+                ],
+                [
+                    'propertyPath' => 'content',
+                ],
+            ],
         ]);
     }
 
@@ -92,6 +97,29 @@ class CommentApiTest extends ApiTestCase
             ],
         ]);
         $this->assertResponseIsSuccessful();
+    }
+
+    public function testCreateWithUsedEmail()
+    {
+        $fixtures = $this->loadFixtures(['comments', 'users']);
+        /** @var User $user */
+        $user = $fixtures['user1'];
+        $this->client->request('POST', '/api/comments', [
+            'json' => [
+                'content' => 'Hello world !',
+                'email' => 'john@fake.fr',
+                'username' => $user->getUsername(),
+                'target' => $fixtures['post1']->getId(),
+            ],
+        ]);
+        $this->assertResponseStatusCodeSame(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $this->assertJsonContains([
+            'violations' => [
+                [
+                    'propertyPath' => 'username',
+                ],
+            ],
+        ]);
     }
 
     public function testCreateWithoutAuthFail()
