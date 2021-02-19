@@ -83,22 +83,6 @@ class Comment
         return $this;
     }
 
-    public function getEmail(): string
-    {
-        if (null !== $this->author) {
-            return $this->author->getEmail();
-        }
-
-        return $this->email ?: '';
-    }
-
-    public function setEmail(?string $email): Comment
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
     public function getUsername(): string
     {
         if (null !== $this->author) {

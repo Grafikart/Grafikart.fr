@@ -32,7 +32,6 @@ class CommentService
         $comment = (new Comment())
             ->setAuthor($this->auth->getUserOrNull())
             ->setUsername($data->username)
-            ->setEmail($data->email)
             ->setCreatedAt(new \DateTime())
             ->setContent($data->content)
             ->setParent($parent)

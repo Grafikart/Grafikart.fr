@@ -227,7 +227,7 @@ const Comment = memo(({ comment, editing, onEdit, onUpdate, onDelete, onReply, c
     }
   }, [editing])
 
-  let content = <Markdown children={comment.content} class='formatted' onDoubleClick={handleEdit}/>
+  let content = <Markdown children={comment.content} class='formatted' onDoubleClick={handleEdit} />
   if (editing) {
     content = (
       <form onSubmit={handleUpdate} className='form-group stack'>
@@ -322,9 +322,6 @@ function CommentForm ({ onSubmit, parent, onCancel = null }) {
         <>
           <Field name='username' error={errors.username} required>
             Nom d'utilisateur
-          </Field>
-          <Field name='email' type='email' required error={errors.email}>
-            Email
           </Field>
         </>
       )}

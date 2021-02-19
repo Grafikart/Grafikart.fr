@@ -23,7 +23,7 @@ class CommentApiTest extends ApiTestCase
     {
         $fixtures = $this->loadFixtures(['comments']);
         $contentId = $fixtures['post1']->getId();
-        $response = $this->client->request('GET', '/api/comments?content='.$contentId);
+        $response = $this->client->request('GET', "/api/comments?content=$contentId");
         $this->assertResponseIsSuccessful();
         $this->assertCount(7, $response->toArray());
         $this->assertMatchesResourceCollectionJsonSchema(CommentResource::class, 'GET', 'json');
@@ -45,8 +45,7 @@ class CommentApiTest extends ApiTestCase
         $fixtures = $this->loadFixtures(['comments']);
         $response = $this->client->request('POST', '/api/comments', [
             'json' => [
-                'content' => 'Hello world !',
-                'email' => 'johnfake',
+                'content' => 'Hel',
                 'username' => 'John Doe',
                 'target' => $fixtures['post1']->getId(),
             ],
@@ -55,7 +54,7 @@ class CommentApiTest extends ApiTestCase
         $this->assertJsonContains([
             'violations' => [
                 [
-                    'propertyPath' => 'email',
+                    'propertyPath' => 'content',
                 ],
             ],
         ]);
@@ -67,7 +66,6 @@ class CommentApiTest extends ApiTestCase
         $this->client->request('POST', '/api/comments', [
             'json' => [
                 'content' => '         ',
-                'email' => 'john@fake.fr',
                 'username' => '        ',
                 'target' => $fixtures['post1']->getId(),
             ],
@@ -91,7 +89,6 @@ class CommentApiTest extends ApiTestCase
         $this->client->request('POST', '/api/comments', [
             'json' => [
                 'content' => 'Hello world !',
-                'email' => 'john@fake.fr',
                 'username' => 'John Doe',
                 'target' => $fixtures['post1']->getId(),
             ],
@@ -99,7 +96,7 @@ class CommentApiTest extends ApiTestCase
         $this->assertResponseIsSuccessful();
     }
 
-    public function testCreateWithUsedEmail()
+    public function testCreateWithUsedUsername()
     {
         $fixtures = $this->loadFixtures(['comments', 'users']);
         /** @var User $user */
@@ -107,7 +104,6 @@ class CommentApiTest extends ApiTestCase
         $this->client->request('POST', '/api/comments', [
             'json' => [
                 'content' => 'Hello world !',
-                'email' => 'john@fake.fr',
                 'username' => $user->getUsername(),
                 'target' => $fixtures['post1']->getId(),
             ],

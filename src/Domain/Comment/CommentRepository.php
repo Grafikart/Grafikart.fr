@@ -58,9 +58,9 @@ class CommentRepository extends AbstractRepository
         return $this->createQueryBuilder('c')
             ->orderBy('c.createdAt', 'DESC')
             ->join('c.target', 't')
-            ->join('c.author', 'a')
+            ->leftJoin('c.author', 'a')
             ->addSelect('t', 'a')
-            ->setMaxResults(5)
+            ->setMaxResults(7)
             ->getQuery();
     }
 

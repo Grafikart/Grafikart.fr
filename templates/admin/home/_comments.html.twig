@@ -11,7 +11,11 @@
         <div class="flex">
           <h3>
             <strong>
+              {% if comment.author %}
               <a href="{{ path('admin_user_index', {q: comment.author ? comment.author.id : '#'}) }}">{{ icon('user') }} {{ comment.username }}</a>
+              {% else %}
+                {{ comment.username }}
+              {% endif %}
             </strong>,
             <a href="{{ path(comment.target) }}">
               {{ comment.target.title }}

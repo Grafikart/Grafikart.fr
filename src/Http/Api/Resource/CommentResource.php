@@ -71,14 +71,6 @@ class CommentResource extends CommentData
     public ?int $target = null;
 
     /**
-     * @Assert\NotBlank(groups={"anonymous"})
-     * @Groups({"write"})
-     * @Assert\Email(groups={"anonymous"})
-     * @NotExists(groups={"anonymous"}, field="email", class="App\Domain\Auth\User", message="Cet email est utilisé par un utilisateur")
-     */
-    public ?string $email = null;
-
-    /**
      * @Groups({"read"})
      */
     public int $createdAt = 0;
@@ -117,8 +109,7 @@ class CommentResource extends CommentData
         if ($author && $uploaderHelper && $author->getAvatarName()) {
             $resource->avatar = $uploaderHelper->asset($author, 'avatarFile');
         } else {
-            $gravatar = md5($comment->getEmail());
-            $resource->avatar = "https://1.gravatar.com/avatar/{$gravatar}?s=200&r=pg&d=mp";
+            $resource->avatar = '/images/default.png';
         }
         $resource->entity = $comment;
         $resource->userId = $author ? $author->getId() : null;

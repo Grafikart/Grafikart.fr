@@ -70,7 +70,6 @@ App\Domain\Auth\User:
 App\Domain\Comment\Comment:
   comment (template):
     username: john<numberBetween(0, 1000)>
-    email: john<numberBetween(0, 1000)>\@doe.fr
     createdAt: <dateTimeThisYear()>
     content: <sentence(100)>
     parent: '20%? @comment*'

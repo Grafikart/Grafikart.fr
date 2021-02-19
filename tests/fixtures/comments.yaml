@@ -12,11 +12,9 @@ App\Domain\Comment\Comment:
 
   comment_user (extends comment):
     username: null
-    email: null
     author: '@user1'
     target: '@post1'
 
   comment_post (extends comment):
     username: null
-    email: null
     target: '@post1'
