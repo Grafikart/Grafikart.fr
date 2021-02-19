@@ -8,11 +8,13 @@ use App\Domain\Course\Entity\Course;
 use App\Domain\Course\Entity\Formation;
 use App\Domain\History\Entity\Progress;
 use App\Domain\History\Event\ProgressEvent;
+use App\Domain\History\Exception\AlreadyFinishedException;
 use App\Http\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -40,7 +42,11 @@ class ProgressController extends AbstractController
         int $progress
     ): JsonResponse {
         $user = $this->getUser();
-        $this->dispatcher->dispatch(new ProgressEvent($content, $user, $progress / Progress::TOTAL));
+        try {
+            $this->dispatcher->dispatch(new ProgressEvent($content, $user, $progress / Progress::TOTAL));
+        } catch (AlreadyFinishedException $e) {
+            return new JsonResponse('', Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
         $this->em->flush();
 
         if (Progress::TOTAL !== $progress) {

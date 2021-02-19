@@ -15,9 +15,7 @@ export function showHistory (progress) {
     // Si un bouton play, on met à jour la progression
     if (element.tagName === 'PLAY-BUTTON') {
       element.setAttribute('progress', (p * 100).toString())
-
-      // Sinon on ajoute la class "is-completed" aux éléments qui ont été terminés
-    } else if (element.tagName === 'PROGRESS-TRACKER' && p !== 1) {
+    } else if (element.tagName === 'PROGRESS-TRACKER') {
       element.setAttribute('progress', p.toString())
     } else if (p === 1) {
       element.classList.add('is-completed')

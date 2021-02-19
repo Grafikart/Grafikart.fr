@@ -6,6 +6,7 @@ use App\Domain\Course\Entity\Course;
 use App\Domain\Course\Entity\Formation;
 use App\Domain\History\Entity\Progress;
 use App\Domain\History\Event\ProgressEvent;
+use App\Domain\History\Exception\AlreadyFinishedException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -33,6 +34,7 @@ class ProgressionSubscriber implements EventSubscriberInterface
     public function onProgress(ProgressEvent $event): void
     {
         $repository = $this->em->getRepository(Progress::class);
+        /** @var ?Progress $progress */
         $progress = $repository->findOneBy([
             'content' => $event->getContent(),
             'author' => $event->getUser(),
@@ -46,6 +48,9 @@ class ProgressionSubscriber implements EventSubscriberInterface
                 ->setRatio($event->getProgress());
             $this->em->persist($progress);
         } else {
+            if ($progress->getRatio() >= 1) {
+                throw new AlreadyFinishedException();
+            }
             $progress
                 ->setUpdatedAt(new \DateTime())
                 ->setRatio($event->getProgress());

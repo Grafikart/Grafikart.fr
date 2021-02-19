@@ -41,7 +41,7 @@ export class ProgressTracker extends HTMLElement {
   }
 
   attributeChangedCallback (name, oldValue, newValue) {
-    if (name === 'progress' && newValue) {
+    if (name === 'progress' && newValue && newValue !== '1') {
       this.firstElementChild.setAttribute(
         'start',
         Math.floor(parseInt(this.getAttribute('duration'), 10) * parseFloat(newValue))
@@ -50,6 +50,10 @@ export class ProgressTracker extends HTMLElement {
   }
 
   async onEnd () {
+    // La vidéo était déjà terminée par l'utilisateur
+    if (this.getAttribute('progress') === '1') {
+      return
+    }
     await wait(300)
     const { message } = await jsonFetch(`/api/progress/${this.contentId}/1000`, { method: 'POST' }).catch(console.error)
     document.body.appendChild(strToDom(message))
@@ -59,6 +63,7 @@ export class ProgressTracker extends HTMLElement {
       spread: 70,
       origin: { y: 0.6 }
     })
+    this.setAttribute('progress', '1')
   }
 
   async onProgress () {
@@ -77,6 +82,9 @@ export class ProgressTracker extends HTMLElement {
     this.timeBeforeTracking -= timeSinceLastTick
     this.lastTickTime = this.video.currentTime
     if (this.timeBeforeTracking < 0) {
+      if (this.getAttribute('progress') === '1') {
+        return
+      }
       this.timeBeforeTracking = TIME_FOR_TRACKING
       const progression = Math.round((1000 * this.video.currentTime) / this.video.duration)
       try {

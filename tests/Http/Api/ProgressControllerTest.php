@@ -28,6 +28,17 @@ class ProgressControllerTest extends ApiTestCase
         $this->assertResponseIsSuccessful();
     }
 
+    public function testProgressCantGoBack(): void
+    {
+        $data = $this->loadFixtures(['courses']);
+        $course = $data['course1'];
+        $this->login($data['user1']);
+        $this->client->request('POST', "/api/progress/{$course->getId()}/1000");
+        $this->assertResponseIsSuccessful();
+        $this->client->request('POST', "/api/progress/{$course->getId()}/100");
+        $this->assertResponseStatusCodeSame(Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
     public function testRejectNumberAbove100(): void
     {
         $data = $this->loadFixtures(['courses']);
