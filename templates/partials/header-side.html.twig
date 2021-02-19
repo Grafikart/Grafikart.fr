@@ -7,18 +7,24 @@
   </li>
   {% if app.user %}
     <li class="header__account">
-      <a href="{{ path('user_profil') }}"  {{ menu_active('account') }}>
-        {{ icon('user') }} 
+      <a href="{{ path('user_profil') }}" {{ menu_active('account') }}>
+        {{ icon('user') }}
         <span>{{ app.user.username }}</span>
       </a>
     </li>
-    <li class="header__logout">
-      <a href="{{ path('auth_logout') }}" data-turbolinks="false">{{ icon('logout') }} <span>Se déconnecter</span></a>
-    </li>
+    {% if is_granted('IS_IMPERSONATOR') %}
+      <li class="header__logout">
+        <a href="{{ impersonation_exit_path(path('home')) }}">{{ icon('logout') }} <span>Se déconnecter</span></a>
+      </li>
+    {% else %}
+      <li class="header__logout">
+        <a href="{{ path('auth_logout') }}" data-turbolinks="false">{{ icon('logout') }} <span>Se déconnecter</span></a>
+      </li>
+    {% endif %}
   {% else %}
     <li class="header-side__auth">
       <a href="{{ path('register') }}" {{ menu_active('register') }}>
-        {{ icon('user') }} 
+        {{ icon('user') }}
         <span>S'inscrire</span>
       </a>
       <span class="text-muted">·</span>

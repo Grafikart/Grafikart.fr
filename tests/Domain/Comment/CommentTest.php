@@ -44,9 +44,5 @@ class CommentTest extends KernelTestCase
             $user->getUsername(),
             $comment->getUsername()
         );
-        $this->assertEquals(
-            $user->getEmail(),
-            $comment->getEmail()
-        );
     }
 }

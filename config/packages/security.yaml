@@ -19,6 +19,7 @@ security:
       anonymous: true
       lazy: true
       user_checker: App\Domain\Auth\Security\UserChecker
+      switch_user: { role: CAN_SWITCH_USER, parameter: _ninja }
       guard:
         authenticators:
           - App\Domain\Auth\Authenticator

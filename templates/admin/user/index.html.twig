@@ -43,6 +43,10 @@
                   {{ icon('check') }} Confirmer
                 </button>
               </form>
+              {% else %}
+                <a href="/?_ninja={{ user.username }}" class="btn-secondary">
+                  {{ icon('ninja') }} Ninja
+                </a>
               {% endif %}
               <a href="{{ path('admin_transaction_index', {q: 'user:' ~ user.id}) }}" class="btn-secondary">{{ icon('refund') }} Transactions</a>
               <form action="{{ path(prefix ~ '_ban', {id: user.id}) }}" method="post" onsubmit="return confirm('Voulez-vous vraiment bannir cet utilisateur ?')">
