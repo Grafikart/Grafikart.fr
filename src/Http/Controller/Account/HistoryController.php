@@ -36,6 +36,8 @@ class HistoryController extends AbstractController
                 ->setParameter('progress', Progress::TOTAL);
         }
 
+        $query = $query->orderBy('p.createdAt', 'DESC');
+        
         $progress = $paginator->paginate(
             $query->setMaxResults(16)->getQuery()
         );
