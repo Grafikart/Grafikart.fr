@@ -1,6 +1,7 @@
 api_platform:
   enable_entrypoint: false
   enable_swagger_ui: false
+  enable_docs:       false
   formats:
     json: ['application/json']
     jsonld: ['application/ld+json']
