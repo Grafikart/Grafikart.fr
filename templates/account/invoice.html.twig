@@ -242,7 +242,7 @@
   </div>
   <div class="address_content">
     <strong>{{ transaction.fullName }}</strong>
-    {{ transaction.address }}<br>
+    {{ transaction.address | nl2br }}<br>
     {{ transaction.postalCode }} {{ transaction.city }}<br>
     {{ transaction.country }}
   </div>
