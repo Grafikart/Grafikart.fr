@@ -241,10 +241,14 @@
     Pour
   </div>
   <div class="address_content">
-    <strong>{{ transaction.fullName }}</strong>
-    {{ transaction.address | nl2br }}<br>
-    {{ transaction.postalCode }} {{ transaction.city }}<br>
-    {{ transaction.country }}
+    {% if app.user.invoiceInfo %}
+      {{ app.user.invoiceInfo | nl2br }}
+    {% else %}
+      <strong>{{ transaction.fullName }}</strong>
+      {{ transaction.address | nl2br }}<br>
+      {{ transaction.postalCode }} {{ transaction.city }}<br>
+      {{ transaction.country }}
+    {% endif %}
   </div>
   <div class="cb"></div>
   <div class="address_label tleft">

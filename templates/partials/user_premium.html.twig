@@ -8,7 +8,7 @@
       Mon abonnement
     </h2>
     {% if subscription.active %}
-      <p class="mb2 formatted">
+      <p class="mb2 formatted text-muted">
         Vous êtes actuellement abonné. Votre prochain prélèvement aura lieu le
         <strong>{{ subscription.nextPayment | format_date('short') }}</strong>.
       </p>
@@ -17,7 +17,7 @@
         <button class="btn-primary">{{ icon('pen') }} Gérer mon abonnement</button>
       </form>
     {% else %}
-      <p class="mb2 formatted">
+      <p class="mb2 formatted text-muted">
         Vous avez annulé votre abonnement. Il sera automatiquement suspendu après le
         <strong>{{ subscription.nextPayment | format_date('short') }}</strong>
       </p>
@@ -30,7 +30,7 @@
       {{ icon('user') }}
       Mon abonnement
     </h2>
-    <p class="mb2 formatted">
+    <p class="mb2 formatted text-muted">
       Vous êtes actuellement premium jusqu'au <strong>{{ user.premiumEnd | format_date('short') }}</strong>.
     </p>
   {% else %}

@@ -128,6 +128,11 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface, Ca
      */
     private ?\DateTimeInterface $lastLoginAt = null;
 
+    /**
+     * @ORM\Column(type="string", options={"default":null}, nullable=true)
+     */
+    private ?string $invoiceInfo = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -387,6 +392,17 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface, Ca
     {
         $this->lastLoginAt = $lastLoginAt;
 
+        return $this;
+    }
+
+    public function getInvoiceInfo(): ?string
+    {
+        return $this->invoiceInfo;
+    }
+
+    public function setInvoiceInfo(?string $invoiceInfo): User
+    {
+        $this->invoiceInfo = $invoiceInfo;
         return $this;
     }
 }

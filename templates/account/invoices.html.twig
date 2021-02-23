@@ -56,6 +56,27 @@
       {{ render(controller(
         'App\\Http\\Controller\\Template\\PremiumStateController::state'
       )) }}
+
+      {% if transactions is not empty %}
+      <div class="mt5">
+        <h2 class="h3 mb2">
+          {{ icon('email') }}
+          Informations de facturations
+        </h2>
+        <form action="" class="stack" method="post">
+          <p class="text-muted">
+            Si vous souhaitez préciser des informations supplémentaires (n° de TVA, n° de SIRET ou autres) vous pouvez les ajouter ici.
+          </p>
+          <div class="form-group">
+            <textarea name="invoiceInfo" id="invoice-info" placeholder="Informations à faire figurer sur chaque facture"
+            aria-label="Informations de facturations">{{ app.user.invoiceInfo }}</textarea>
+          </div>
+          <div>
+            <button class="btn-primary">Sauvegarder</button>
+          </div>
+        </form>
+      </div>
+      {% endif %}
     </aside>
   </div>
 

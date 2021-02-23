@@ -7,7 +7,10 @@ namespace App\Http\Controller\Account;
 use App\Domain\Auth\User;
 use App\Domain\Premium\Repository\TransactionRepository;
 use App\Http\Controller\AbstractController;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,7 +28,7 @@ class InvoicesController extends AbstractController
     }
 
     /**
-     * @Route("/profil/factures", name="user_invoices")
+     * @Route("/profil/factures", name="user_invoices", methods={"GET"})
      * @IsGranted("ROLE_USER")
      */
     public function index(): Response
@@ -36,6 +39,20 @@ class InvoicesController extends AbstractController
             'transactions' => $transactions,
             'menu' => 'account',
         ]);
+    }
+
+    /**
+     * @Route("/profil/factures", methods={"POST"})
+     * @IsGranted("ROLE_USER")
+     */
+    public function updateInfo(Request $request, EntityManagerInterface $em): RedirectResponse
+    {
+        $content = $request->request->get('invoiceInfo');
+        $user = $this->getUserOrThrow();
+        $user->setInvoiceInfo($content);
+        $em->flush();
+        $this->addFlash('success', 'Vos informations ont bien été enregistrées');
+        return $this->redirectToRoute('user_invoices');
     }
 
     /**
