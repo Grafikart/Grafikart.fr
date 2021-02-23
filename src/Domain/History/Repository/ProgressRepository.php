@@ -24,6 +24,7 @@ class ProgressRepository extends AbstractRepository
     public function queryAllForUser(User $user): QueryBuilder
     {
         return $this->createQueryBuilder('p')
+            ->orderBy('p.updatedAt', 'DESC')
             ->leftJoin('p.content', 'c')
             ->addSelect('c')
             ->where('(c INSTANCE OF '.Course::class.' OR c INSTANCE OF '.Formation::class.')')
