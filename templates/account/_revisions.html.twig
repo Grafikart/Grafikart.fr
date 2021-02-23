@@ -1,0 +1,38 @@
+<table class="table">
+  {% if header is not defined or header != false %}
+  <thead>
+  <tr>
+    <th>Article</th>
+    <th width="150" class="mobile-hidden">Date</th>
+    <th width="100" class="text-left">Status</th>
+  </tr>
+  </thead>
+  {% endif %}
+  <tbody>
+  {% for revision in revisions %}
+    <tr>
+      <td>
+        {% if revision.status == 0 %}
+          <a href="{{ path('revision', {id: revision.target.id}) }}">
+            {{ revision.target.title }}
+          </a>
+        {% else %}
+          {{ revision.target.title }}
+        {% endif %}
+      </td>
+      <td width="150" class="mobile-hidden">
+        {{ revision.createdAt | format_date('long') }}
+      </td>
+      <td width="100">
+        {% if revision.status == -1 %}
+          <div class="pill pill-red">Rejetée</div>
+        {% elseif revision.status == 0 %}
+          <div class="pill pill-yellow">En attente</div>
+        {% else %}
+          <div class="pill pill-green">Acceptée</div>
+        {% endif %}
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>

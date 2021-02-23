@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'header-light' %}
+
+{% block title 'Mes badges' %}
+
+{% block body %}
+
+
+  {% include 'account/_header.html.twig' with {title: 'Mes révisions', user: app.user} %}
+
+  {% include 'account/_tabs.html.twig' with {active: 'revisions'} %}
+
+  <div class="container py4">
+    {% if revisions is empty %}
+      <div class="py4 text-muted text-center h3">
+        Vous n'avez encore proposé aucune modification :(
+      </div>
+    {% else %}
+      {% include 'account/_revisions.html.twig' %}
+      {{ paginate(revisions) }}
+    {% endif %}
+  </div>
+
+{% endblock %}
+
+

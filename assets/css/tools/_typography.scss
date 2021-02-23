@@ -160,3 +160,10 @@ a.underline:hover {
 .ignore-br br {
   display: none;
 }
+.link {
+  transition: color .3s;
+}
+.link:hover {
+  color: var(--contrast);
+  text-decoration: underline;
+}

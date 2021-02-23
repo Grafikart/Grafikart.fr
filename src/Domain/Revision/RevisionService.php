@@ -51,7 +51,7 @@ class RevisionService
         }
 
         return (new Revision())
-            ->setContent($content->getContent())
+            ->setContent($content->getContent() ?: '')
             ->setTarget($content)
             ->setAuthor($user);
     }

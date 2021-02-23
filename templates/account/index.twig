@@ -13,7 +13,7 @@
   {% if hasActivity %}
     <div class="bg container py5">
       <div class="stack" style="--gap: 7;">
-        {% if watchlist | length > 0 %}
+        {% if watchlist is not empty %}
         <div class="stack">
           <h2 class="h3">Vidéos <strong>en cours de visionnage</strong></h2>
           <div class="courses">
@@ -23,8 +23,21 @@
           </div>
         </div>
         {% endif %}
+
+        {% if revisions is not empty %}
+          <div class="stack">
+            <div class="flex">
+              <h2 class="h3">Mes <strong>propositions</strong> de modifications</h2>
+              <a href="{{ path('revisions') }}" class="text-small text-muted link">
+                Voir toutes mes suggestions >
+              </a>
+            </div>
+            {% include 'account/_revisions.html.twig' with {header: false} %}
+          </div>
+        {% endif %}
+
         <div class="grid2" style="--gap: 4;">
-          {% if lastTopics | length > 0 %}
+          {% if lastTopics is not empty %}
           <div class="stack">
             <h2 class="h3">Mes <strong>derniers sujets</strong></h2>
             <div class="card p2 stack-separated" style="--gap: 1">
@@ -34,7 +47,7 @@
             </div>
           </div>
           {% endif %}
-          {% if lastMessageTopics | length > 0 %}
+          {% if lastMessageTopics is not empty %}
           <div class="stack">
             <h2 class="h3">Les sujets auxquels <strong>je participe</strong></h2>
             <div class="card p2 stack-separated" style="--gap: 1">

@@ -5,6 +5,8 @@ namespace App\Domain\Revision;
 use App\Domain\Application\Entity\Content;
 use App\Domain\Auth\User;
 use App\Infrastructure\Orm\AbstractRepository;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -20,7 +22,9 @@ class RevisionRepository extends AbstractRepository
     public function findLatest(): array
     {
         return $this->createQueryBuilder('r')
+            ->where('r.status = :status')
             ->setMaxResults(10)
+            ->setParameter('status', Revision::PENDING)
             ->getQuery()
             ->getResult();
     }
@@ -30,11 +34,37 @@ class RevisionRepository extends AbstractRepository
         return $this->createQueryBuilder('r')
             ->where('r.author = :author')
             ->andWhere('r.target = :target')
+            ->andWhere('r.status = :status')
             ->setParameters([
                 'author' => $user,
                 'target' => $content,
+                'status' => Revision::PENDING
             ])
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    /**
+     * @param User $user
+     * @return Revision[]
+     */
+    public function findPendingFor(User $user): array
+    {
+        return $this->queryAllForUser($user)
+            ->andWhere('r.status = :status')
+            ->setParameter('status', Revision::PENDING)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function queryAllForUser(User $user): QueryBuilder
+    {
+        return $this->createQueryBuilder('r')
+            ->addSelect('c')
+            ->leftJoin('r.target', 'c')
+            ->where('r.author = :user')
+            ->orderBy('r.createdAt', 'DESC')
+            ->setMaxResults(10)
+            ->setParameter('user', $user);
     }
 }

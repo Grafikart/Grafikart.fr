@@ -4,7 +4,9 @@ namespace App\Http\Controller;
 
 use App\Domain\Application\Entity\Content;
 use App\Domain\Auth\User;
+use App\Domain\Revision\RevisionRepository;
 use App\Domain\Revision\RevisionService;
+use App\Helper\Paginator\PaginatorInterface;
 use App\Http\Form\RevisionForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,6 +18,24 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class RevisionController extends AbstractController
 {
+
+    /**
+     * @Route("/revisions", name="revisions")
+     * @IsGranted("ROLE_USER")
+     */
+    public function index(
+        RevisionRepository $repository,
+        PaginatorInterface $paginator
+    ): Response {
+        $query = $repository->queryAllForUser($this->getUserOrThrow());
+        $revisions = $paginator->paginate($query->getQuery());
+
+        return $this->render('account/revisions.html.twig', [
+            'revisions' => $revisions,
+            'menu'      => 'account',
+        ]);
+    }
+
     /**
      * Affiche la page qui permet la soumission d'une révision.
      *
@@ -41,7 +61,7 @@ class RevisionController extends AbstractController
 
         return $this->render('content/revision.html.twig', [
             'revision' => $revision,
-            'form' => $form->createView(),
+            'form'     => $form->createView(),
         ]);
     }
 }

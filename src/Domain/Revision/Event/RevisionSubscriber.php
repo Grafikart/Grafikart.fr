@@ -3,6 +3,7 @@
 namespace App\Domain\Revision\Event;
 
 use App\Domain\Application\Event\ContentUpdatedEvent;
+use App\Domain\Revision\Revision;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -28,7 +29,8 @@ class RevisionSubscriber implements EventSubscriberInterface
 
     public function onRevisionRefused(RevisionRefusedEvent $event): void
     {
-        $this->em->remove($event->getRevision());
+        $event->getRevision()->setStatus(Revision::REJECTED);
+        $event->getRevision()->setContent('');
         $this->em->flush();
     }
 
@@ -37,7 +39,8 @@ class RevisionSubscriber implements EventSubscriberInterface
         $content = $event->getRevision()->getTarget();
         $previous = clone $content;
         $content->setContent($event->getRevision()->getContent());
-        $this->em->remove($event->getRevision());
+        $event->getRevision()->setStatus(Revision::ACCEPTED);
+        $event->getRevision()->setContent('');
         $this->em->flush();
         $this->dispatcher->dispatch(new ContentUpdatedEvent($content, $previous));
     }
