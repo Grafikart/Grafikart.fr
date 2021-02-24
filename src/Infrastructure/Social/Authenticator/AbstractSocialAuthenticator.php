@@ -103,6 +103,9 @@ abstract class AbstractSocialAuthenticator extends SocialAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey): RedirectResponse
     {
+        // On force le remember me pour déclencher le AbstractRememberMeServices (en attendant mieux)
+        $request->request->set('_remember_me', '1');
+
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
