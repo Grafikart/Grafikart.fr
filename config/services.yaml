@@ -9,6 +9,9 @@ parameters:
   container.dumper.inline_factories: true
   container.dumper.inline_class_loader: true
   dkim_key: '%env(resolve:default::MAILER_DKIM)%'
+  router.request_context.host: 'grafikart.fr'
+  router.request_context.scheme: 'https'
+  asset.request_context.secure: true
 
 services:
   _defaults:
