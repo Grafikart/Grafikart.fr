@@ -33,7 +33,9 @@ class IndexerSubscriber implements EventSubscriberInterface
     {
         /** @var array{id: string, title: string, content: string, created_at: int, category: string[]} $content */
         $content = $this->normalizer->normalize($event->getContent(), 'search');
-        $this->indexer->index($content);
+        if ($event->getContent()->isOnline()) {
+            $this->indexer->index($content);
+        }
     }
 
     public function removeContent(ContentDeletedEvent $event): void
@@ -43,12 +45,16 @@ class IndexerSubscriber implements EventSubscriberInterface
 
     public function updateContent(ContentUpdatedEvent $event): void
     {
+        $previous = $event->getPrevious();
+        $current = $event->getContent();
         /** @var array{id: string, title: string, content: string, created_at: int, category: string[]} $previousData */
-        $previousData = $this->normalizer->normalize($event->getPrevious(), 'search');
+        $previousData = $this->normalizer->normalize($previous, 'search');
         /** @var array{id: string, title: string, content: string, created_at: int, category: string[]} $data */
-        $data = $this->normalizer->normalize($event->getContent(), 'search');
-        if ($previousData !== $data) {
+        $data = $this->normalizer->normalize($current, 'search');
+        if ($current->isOnline() && ($previousData !== $data || $previous->isOnline() === false)) {
             $this->indexer->index($data);
+        } elseif ($previous->isOnline() === true && $current->isOnline() === false) {
+            $this->indexer->remove((string) $current->getId());
         }
     }
 }
