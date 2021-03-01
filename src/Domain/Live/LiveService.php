@@ -26,7 +26,7 @@ class LiveService
 
         return
             $liveDate < new \DateTime() &&
-            $liveDate->modify('+2 hour') > new \DateTime();
+            $liveDate->modify('+5 hour') > new \DateTime();
     }
 
     public function getNextLiveDate(): \DateTimeImmutable
