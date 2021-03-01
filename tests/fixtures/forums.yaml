@@ -10,6 +10,16 @@ App\Domain\Forum\Entity\Tag:
 App\Domain\Forum\Entity\Topic:
   topic{1..2} (extends topic):
     author: "@user<current()>"
+  topic_recent (extends topic):
+    author: "@user1"
+    name: Topic recent
+    createdAt: <dateTimeThisMonth()>
+    updatedAt: <dateTimeThisMonth()>
+  topic_old (extends topic):
+    author: "@user1"
+    name: Topic vieux
+    createdAt: <dateTimeThisDecade("-1 years")>
+    updatedAt: <dateTimeThisDecade("-1 years")>
 
 App\Domain\Forum\Entity\Message:
   message{1..2} (extends forum_message):

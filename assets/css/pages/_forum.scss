@@ -338,7 +338,6 @@
     margin-left: .5em;
   }
 }
-
 .forum-message__author {
   display: flex;
   align-items: center;
@@ -347,7 +346,6 @@
   color: var(--color-dark);
   white-space: nowrap;
 }
-
 .forum-message__meta {
   display: flex;
   align-items: center;
@@ -378,17 +376,14 @@
     width: 100%;
   }
 }
-
 .forum-message__body {
   @include down(700) {
     grid-column: 1 / span 2;
   }
 }
-
 .forum-message__body .card {
   display: block;
 }
-
 .forum-message.is-reply {
   display: grid;
   grid-template-columns: 50px 1fr;
@@ -410,7 +405,6 @@
     background-color: var(--background);
   }
 }
-
 .forum-message__actions {
   display: flex;
   flex-wrap: wrap;
@@ -427,6 +421,31 @@
   & > * + * {
     margin-left: space(1);
   }
+}
+.forum-locked-form {
+  position: relative;
+}
+.forum-locked-form > .stack {
+  opacity: .4;
+  filter: blur(5px);
+}
+.forum-locked-form__message {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  font-size: 20px;
+  color: var(--color-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.forum-locked-form__message .icon {
+  width: 18px;
+  height: 18px;
+  margin-right: space(1);
 }
 
 // Tag

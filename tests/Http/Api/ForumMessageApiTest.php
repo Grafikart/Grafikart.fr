@@ -4,6 +4,7 @@ namespace App\Tests\Http\Api;
 
 use App\Domain\Auth\User;
 use App\Domain\Forum\Entity\Message;
+use App\Domain\Forum\Entity\Topic;
 use App\Tests\ApiTestCase;
 use App\Tests\FixturesTrait;
 use App\Tests\Infrastructure\Mercure\MercureAssertions;
@@ -31,6 +32,31 @@ class ForumMessageApiTest extends ApiTestCase
         $this->login($message->getAuthor());
         $this->client->request('DELETE', '/api/forum/messages/'.$message->getId());
         $this->assertResponseStatusCodeSame(Response::HTTP_NO_CONTENT);
+    }
+
+    public function testCreateAuthenticated(): void
+    {
+        ['topic_recent' => $topic] = $this->loadFixtures(['forums']);
+        $this->login($topic->getAuthor());
+        $this->client->request('POST', "/api/forum/topics/{$topic->getId()}/messages", [
+            'json' => [
+                'content' => 'Some random content to test',
+            ],
+        ]);
+        $this->assertResponseStatusCodeSame(Response::HTTP_CREATED);
+    }
+
+    public function testLockOldTopic(): void
+    {
+        /** @var Topic $topic */
+        ['topic_old' => $topic] = $this->loadFixtures(['forums']);
+        $this->login($topic->getAuthor());
+        $this->client->request('POST', "/api/forum/topics/{$topic->getId()}/messages", [
+            'json' => [
+                'content' => 'Some random content to test',
+            ],
+        ]);
+        $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
     public function testUpdateOwnMessage(): void

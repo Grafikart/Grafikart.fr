@@ -64,7 +64,7 @@ class ForumVoter extends Voter
 
     protected function canCreateMessageForTopic(User $user, Topic $topic): bool
     {
-        return !$topic->isSpam();
+        return !$topic->isSpam() && !$topic->isLocked();
     }
 
     protected function ownMessage(User $user, Message $message): bool

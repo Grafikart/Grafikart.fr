@@ -275,4 +275,9 @@ class Topic implements SpammableInterface, CacheableInterface
 
         return $this;
     }
+
+    public function isLocked(): bool
+    {
+        return $this->getCreatedAt() < (new \DateTime('-6 month'));
+    }
 }

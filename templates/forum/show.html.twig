@@ -6,61 +6,60 @@
 
 {% block body %}
 
-  <div class="page-header container topic-header">
-    <div>
-      <h1 class="h2 mb2">{{ topic.name }}</h1>
-      <div class="topic-header__meta">
-        <a href="{{ path(topic.author) }}" class="topic-header__author">
-          <img src="{{ topic.author | avatar }}" alt="" class="rounded mr1" width="25">
-          {{ topic.author.username }}
-        </a>
-        <small class="topic-header__date">{{ topic.createdAt | ago }}
-          <forum-edit topic="{{ topic.id }}" owner="{{ topic.author.id }}"></forum-edit>
-          <forum-delete topic="{{ topic.id }}" owner="{{ topic.author.id }}"></forum-delete>
-        </small>
-        <div class="topic-header__tags">
-          {% include 'forum/_tags.html.twig' with {tags: topic.tags} only %}
+    <div class="page-header container topic-header">
+      <div>
+        <h1 class="h2 mb2">{{ topic.name }}</h1>
+        <div class="topic-header__meta">
+          <a href="{{ path(topic.author) }}" class="topic-header__author">
+            <img src="{{ topic.author | avatar }}" alt="" class="rounded mr1" width="25">
+            {{ topic.author.username }}
+          </a>
+          <small class="topic-header__date">{{ topic.createdAt | ago }}
+            <forum-edit topic="{{ topic.id }}" owner="{{ topic.author.id }}"></forum-edit>
+            <forum-delete topic="{{ topic.id }}" owner="{{ topic.author.id }}"></forum-delete>
+          </small>
+          <div class="topic-header__tags">
+            {% include 'forum/_tags.html.twig' with {tags: topic.tags} only %}
+          </div>
         </div>
       </div>
-    </div>
-    <div style="align-self: flex-start; flex: none;">
-      <forum-report topic="{{ topic.id }}" owner={{ topic.author.id }} class="topic-header__actions"></forum-report>
-    </div>
-  </div>
-
-  <div class="container stack topic-page py5">
-
-    <div class="forum-message">
-      <div class="forum-message__body">
-        <div class="js-content formatted formatted">
-          {{ topic.content | markdown_untrusted }}
-        </div>
-        <div class="js-forum-edit"></div>
+      <div style="align-self: flex-start; flex: none;">
+        <forum-report topic="{{ topic.id }}" owner={{ topic.author.id }} class="topic-header__actions"></forum-report>
       </div>
     </div>
 
-    <div class="mb1">
-      <h2 class="h3 mt3 mb1">
-        {% if topic.messageCount == 0 %}
-          Aucune réponse
-        {% elseif topic.messageCount == 1 %}
-          1 réponse
-        {% else %}
-          {{ topic.messageCount }} réponses
-        {% endif %}
-      </h2>
-      <hr/>
-    </div>
+    <div class="container stack topic-page py5">
 
-    <div class="forum-messages">
-      {% for message in topic.messages %}
-        {% if message.spam == false %}
-          {% include 'forum/_message.html.twig' %}
-        {% endif %}
-      {% endfor %}
-      <forum-create-message topic="{{ topic.id }}"></forum-create-message>
-    </div>
+      <div class="forum-message">
+        <div class="forum-message__body">
+          <div class="js-content formatted formatted">
+            {{ topic.content | markdown_untrusted }}
+          </div>
+          <div class="js-forum-edit"></div>
+        </div>
+      </div>
 
-  </div>
+      <div class="mb1">
+        <h2 class="h3 mt3 mb1">
+          {% if topic.messageCount == 0 %}
+            Aucune réponse
+          {% elseif topic.messageCount == 1 %}
+            1 réponse
+          {% else %}
+            {{ topic.messageCount }} réponses
+          {% endif %}
+        </h2>
+        <hr/>
+      </div>
+
+      <div class="forum-messages">
+        {% for message in topic.messages %}
+          {% if message.spam == false %}
+            {% include 'forum/_message.html.twig' %}
+          {% endif %}
+        {% endfor %}
+        <forum-create-message {% if topic.locked %}disabled{% endif %} topic="{{ topic.id }}"></forum-create-message>
+      </div>
+    </div>
 
 {% endblock %}

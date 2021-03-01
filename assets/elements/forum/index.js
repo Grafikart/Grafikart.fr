@@ -8,7 +8,7 @@ import { ForumSolve } from '/elements/forum/ForumSolve.jsx'
 
 preactCustomElement('forum-delete', ForumDelete)
 preactCustomElement('forum-edit', ForumEdit)
-preactCustomElement('forum-create-message', CreateMessage, ['topic'])
+preactCustomElement('forum-create-message', CreateMessage, ['topic', 'disabled'])
 preactCustomElement('forum-report', ForumReport, ['message', 'topic'])
 preactCustomElement('forum-solve', ForumSolve, ['message', 'topicAuthor', 'disabled'])
 preactCustomElement('forum-read', ForumRead, ['endpoint'])
