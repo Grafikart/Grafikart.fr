@@ -34,7 +34,7 @@ class ProgressController extends AbstractController
     }
 
     /**
-     * @Route("/progress/{content}/{progress}", name="progress", methods={"POST"}, requirements={"progress"= "^([1-9][0-9]{0,2}|1000)$"})
+     * @Route("/progress/{content<\d+>}/{progress}", name="progress", methods={"POST"}, requirements={"progress"= "^([1-9][0-9]{0,2}|1000)$"})
      * @IsGranted(App\Http\Security\ContentVoter::PROGRESS, subject="content")
      */
     public function progress(
@@ -45,7 +45,9 @@ class ProgressController extends AbstractController
         try {
             $this->dispatcher->dispatch(new ProgressEvent($content, $user, $progress / Progress::TOTAL));
         } catch (AlreadyFinishedException $e) {
-            return new JsonResponse('', Response::HTTP_UNPROCESSABLE_ENTITY);
+            return new JsonResponse([
+                'title' => 'Vous avez déjà terminé ce cours',
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
         $this->em->flush();
 

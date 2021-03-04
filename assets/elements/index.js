@@ -33,6 +33,7 @@ import { Confetti } from '/elements/Confetti.js'
 import { PremiumPlayer } from '/elements/player/PremiumPlayer.js'
 import LoaderOverlay from '/elements/LoaderOverlay.js'
 import { ThemeSwitcher } from '/elements/ThemeSwitcher.js'
+import { MarkAsWatched } from '/elements/courses/MarkAsWatched.jsx'
 
 // Custom Elements
 customElements.define('nav-tabs', NavTabs)
@@ -67,6 +68,7 @@ preactCustomElement('premium-button', PremiumButton, ['plan', 'children'])
 preactCustomElement('badge-unlock', BadgeUnlock, ['name', 'description'])
 preactCustomElement('search-button', Search)
 preactCustomElement('search-input', SearchInput)
+preactCustomElement('mark-as-watched', MarkAsWatched, ['contentId'])
 
 // CustomElement étendus
 customElements.define('input-switch', Switch, { extends: 'input' })
