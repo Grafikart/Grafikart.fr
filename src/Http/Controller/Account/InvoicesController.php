@@ -52,6 +52,7 @@ class InvoicesController extends AbstractController
         $user->setInvoiceInfo($content);
         $em->flush();
         $this->addFlash('success', 'Vos informations ont bien été enregistrées');
+
         return $this->redirectToRoute('user_invoices');
     }
 

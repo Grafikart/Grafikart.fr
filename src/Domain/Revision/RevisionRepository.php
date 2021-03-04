@@ -5,7 +5,6 @@ namespace App\Domain\Revision;
 use App\Domain\Application\Entity\Content;
 use App\Domain\Auth\User;
 use App\Infrastructure\Orm\AbstractRepository;
-use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -38,14 +37,13 @@ class RevisionRepository extends AbstractRepository
             ->setParameters([
                 'author' => $user,
                 'target' => $content,
-                'status' => Revision::PENDING
+                'status' => Revision::PENDING,
             ])
             ->getQuery()
             ->getOneOrNullResult();
     }
 
     /**
-     * @param User $user
      * @return Revision[]
      */
     public function findPendingFor(User $user): array

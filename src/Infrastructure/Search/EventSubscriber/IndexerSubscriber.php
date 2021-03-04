@@ -51,9 +51,9 @@ class IndexerSubscriber implements EventSubscriberInterface
         $previousData = $this->normalizer->normalize($previous, 'search');
         /** @var array{id: string, title: string, content: string, created_at: int, category: string[]} $data */
         $data = $this->normalizer->normalize($current, 'search');
-        if ($current->isOnline() && ($previousData !== $data || $previous->isOnline() === false)) {
+        if ($current->isOnline() && ($previousData !== $data || false === $previous->isOnline())) {
             $this->indexer->index($data);
-        } elseif ($previous->isOnline() === true && $current->isOnline() === false) {
+        } elseif (true === $previous->isOnline() && false === $current->isOnline()) {
             $this->indexer->remove((string) $current->getId());
         }
     }

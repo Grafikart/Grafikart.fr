@@ -403,6 +403,7 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface, Ca
     public function setInvoiceInfo(?string $invoiceInfo): User
     {
         $this->invoiceInfo = $invoiceInfo;
+
         return $this;
     }
 }

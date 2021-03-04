@@ -24,6 +24,7 @@ class IndexerSubscriberTest extends EventSubscriberTest
     {
         $content = $this->createMock(Content::class);
         $content->expects($this->any())->method('isOnline')->willReturn($online);
+
         return $content;
     }
 

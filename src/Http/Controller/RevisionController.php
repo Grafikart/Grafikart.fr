@@ -18,7 +18,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class RevisionController extends AbstractController
 {
-
     /**
      * @Route("/revisions", name="revisions")
      * @IsGranted("ROLE_USER")
@@ -32,7 +31,7 @@ class RevisionController extends AbstractController
 
         return $this->render('account/revisions.html.twig', [
             'revisions' => $revisions,
-            'menu'      => 'account',
+            'menu' => 'account',
         ]);
     }
 
@@ -61,7 +60,7 @@ class RevisionController extends AbstractController
 
         return $this->render('content/revision.html.twig', [
             'revision' => $revision,
-            'form'     => $form->createView(),
+            'form' => $form->createView(),
         ]);
     }
 }

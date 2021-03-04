@@ -14,7 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Revision
 {
-
     const PENDING = 0;
     const ACCEPTED = 1;
     const REJECTED = -1;
@@ -115,6 +114,7 @@ class Revision
     public function setStatus(int $status): Revision
     {
         $this->status = $status;
+
         return $this;
     }
 }
