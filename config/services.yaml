@@ -115,3 +115,7 @@ services:
   dropbox_filesystem:
     class: League\Flysystem\Filesystem
     factory: ['@App\Infrastructure\Storage\DropboxFilesystemFactory', 'createFilesystem']
+
+  App\Http\Api\DataPersister\CommentPersister:
+    bind:
+      $decoratedDataPersister: '@api_platform.doctrine.orm.data_persister'

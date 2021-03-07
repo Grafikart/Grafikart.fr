@@ -3,27 +3,41 @@
 namespace App\Http\Api\DataPersister;
 
 use ApiPlatform\Core\DataPersister\ContextAwareDataPersisterInterface;
+use ApiPlatform\Core\DataPersister\DataPersisterInterface;
 use ApiPlatform\Core\Validator\ValidatorInterface;
+use App\Domain\Application\Entity\Content;
+use App\Domain\Auth\AuthService;
 use App\Domain\Auth\User;
-use App\Domain\Comment\CommentService;
+use App\Domain\Comment\Comment;
+use App\Domain\Comment\CommentCreatedEvent;
 use App\Http\Api\Resource\CommentResource;
+use Doctrine\ORM\EntityManagerInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Security;
 
 class CommentPersister implements ContextAwareDataPersisterInterface
 {
+    private DataPersisterInterface $decoratedDataPersister;
     private ValidatorInterface $validator;
     private Security $security;
-
-    private CommentService $service;
+    private EntityManagerInterface $entityManager;
+    private AuthService $auth;
+    private EventDispatcherInterface $dispatcher;
 
     public function __construct(
+        DataPersisterInterface $decoratedDataPersister,
+        EntityManagerInterface $entityManager,
         ValidatorInterface $validator,
         Security $security,
-        CommentService $service
+        AuthService $auth,
+        EventDispatcherInterface $dispatcher
     ) {
         $this->validator = $validator;
         $this->security = $security;
-        $this->service = $service;
+        $this->decoratedDataPersister = $decoratedDataPersister;
+        $this->entityManager = $entityManager;
+        $this->auth = $auth;
+        $this->dispatcher = $dispatcher;
     }
 
     /**
@@ -49,10 +63,10 @@ class CommentPersister implements ContextAwareDataPersisterInterface
         }
         $this->validator->validate($data, ['groups' => $groups]);
 
-        if (($context['item_operation_name'] ?? null) === 'put') {
-            $comment = $this->service->update($context['previous_data'], $data->content);
-        } else {
-            $comment = $this->service->create($data);
+        $comment = $this->decoratedDataPersister->persist($this->createOrUpdateEntity($data));
+
+        if (($context['item_operation_name'] ?? null) === 'post') {
+            $this->dispatcher->dispatch(new CommentCreatedEvent($comment));
         }
 
         return CommentResource::fromComment($comment);
@@ -61,13 +75,39 @@ class CommentPersister implements ContextAwareDataPersisterInterface
     /**
      * @param CommentResource $data
      */
-    public function remove($data, array $context = []): CommentResource
+    public function remove($data, array $context = [])
     {
         if (null === $data->id) {
             return $data;
         }
-        $this->service->delete($data->id);
 
-        return $data;
+        $comment = $this->entityManager->getReference(Comment::class, $data->id);
+
+        return $this->decoratedDataPersister->remove($comment);
+    }
+
+    private function createOrUpdateEntity(?CommentResource $commentResource): Comment
+    {
+        if (!$commentResource) {
+            $comment = new Comment();
+        } else {
+            $comment = $this->entityManager->getReference(Comment::class, $commentResource->id);
+        }
+
+        /** @var Content $target */
+        $target = $this->entityManager->getRepository(Content::class)->find($commentResource->target);
+        /** @var Comment|null $parent */
+        $parent = $commentResource->parent ? $this->entityManager->getReference(Comment::class, $commentResource->parent) : null;
+
+        $comment
+            ->setAuthor($this->auth->getUserOrNull())
+            ->setUsername($commentResource->username)
+            ->setCreatedAt($commentResource->createdAt)
+            ->setContent($commentResource->content)
+            ->setParent($parent)
+            ->setTarget($target)
+        ;
+
+        return $comment;
     }
 }
