@@ -33,14 +33,11 @@ class CommentVoter extends Voter
             return false;
         }
 
-        if ($subject instanceof CommentResource) {
-            $subject = $subject->entity;
-        }
-
-        if (null === $subject) {
+        /** @var CommentResource $subject */
+        if (!$subject instanceof CommentResource) {
             return false;
         }
 
-        return null !== $subject->getAuthor() && $subject->getAuthor()->getId() === $user->getId();
+        return null !== $subject->userId && $subject->userId === $user->getId();
     }
 }

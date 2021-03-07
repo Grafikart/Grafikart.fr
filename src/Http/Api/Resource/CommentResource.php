@@ -81,11 +81,6 @@ class CommentResource extends CommentData
     public ?int $parent = 0;
 
     /**
-     * Garde une trace de l'entité qui a servi à créer la resource.
-     */
-    public ?Comment $entity = null;
-
-    /**
      * @Groups({"read"})
      */
     public ?int $userId = null;
@@ -111,7 +106,6 @@ class CommentResource extends CommentData
         } else {
             $resource->avatar = '/images/default.png';
         }
-        $resource->entity = $comment;
         $resource->userId = $author ? $author->getId() : null;
 
         return $resource;

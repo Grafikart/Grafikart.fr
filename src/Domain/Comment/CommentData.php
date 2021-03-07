@@ -20,7 +20,5 @@ abstract class CommentData
 
     public ?int $parent = 0;
 
-    public ?Comment $entity = null;
-
     public ?int $userId = null;
 }

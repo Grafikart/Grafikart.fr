@@ -49,8 +49,8 @@ class CommentPersister implements ContextAwareDataPersisterInterface
         }
         $this->validator->validate($data, ['groups' => $groups]);
 
-        if (null !== $data->entity) {
-            $comment = $this->service->update($data->entity, $data->content);
+        if (($context['item_operation_name'] ?? null) === 'put') {
+            $comment = $this->service->update($context['previous_data'], $data->content);
         } else {
             $comment = $this->service->create($data);
         }

@@ -43,8 +43,10 @@ class CommentService
         return $comment;
     }
 
-    public function update(Comment $comment, string $content): Comment
+    public function update(CommentData $data, string $content): Comment
     {
+        /** @var Comment $comment */
+        $comment = $this->em->getReference(Comment::class, $data->id);
         $comment->setContent($content);
         $this->em->flush();
 
