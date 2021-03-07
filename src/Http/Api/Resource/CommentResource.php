@@ -73,7 +73,7 @@ class CommentResource extends CommentData
     /**
      * @Groups({"read"})
      */
-    public int $createdAt = 0;
+    public \DateTimeInterface $createdAt;
 
     /**
      * @Groups({"read", "write"})
@@ -84,6 +84,11 @@ class CommentResource extends CommentData
      * @Groups({"read"})
      */
     public ?int $userId = null;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
 
     public static function fromComment(Comment $comment, ?UploaderHelper $uploaderHelper = null): CommentResource
     {
@@ -99,7 +104,7 @@ class CommentResource extends CommentData
                 ->text($comment->getContent()),
             '<p><pre><code><ul><ol><li>'
         );
-        $resource->createdAt = $comment->getCreatedAt()->getTimestamp();
+        $resource->createdAt = $comment->getCreatedAt();
         $resource->parent = null !== $comment->getParent() ? $comment->getParent()->getId() : 0;
         if ($author && $uploaderHelper && $author->getAvatarName()) {
             $resource->avatar = $uploaderHelper->asset($author, 'avatarFile');

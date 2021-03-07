@@ -16,7 +16,7 @@ abstract class CommentData
 
     public ?string $email = null;
 
-    public int $createdAt = 0;
+    public \DateTimeInterface $createdAt;
 
     public ?int $parent = 0;
 
