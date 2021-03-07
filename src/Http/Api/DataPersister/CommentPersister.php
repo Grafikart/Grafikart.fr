@@ -63,8 +63,8 @@ class CommentPersister implements ContextAwareDataPersisterInterface
         }
         $this->validator->validate($data, ['groups' => $groups]);
 
+        /** @var Comment $comment */
         $comment = $this->decoratedDataPersister->persist($this->createOrUpdateEntity($data));
-
         if (($context['item_operation_name'] ?? null) === 'post') {
             $this->dispatcher->dispatch(new CommentCreatedEvent($comment));
         }
@@ -75,7 +75,7 @@ class CommentPersister implements ContextAwareDataPersisterInterface
     /**
      * @param CommentResource $data
      */
-    public function remove($data, array $context = [])
+    public function remove($data, array $context = []): CommentResource
     {
         if (null === $data->id) {
             return $data;
@@ -83,15 +83,18 @@ class CommentPersister implements ContextAwareDataPersisterInterface
 
         $comment = $this->entityManager->getReference(Comment::class, $data->id);
 
-        return $this->decoratedDataPersister->remove($comment);
+        $this->decoratedDataPersister->remove($comment);
+
+        return $data;
     }
 
-    private function createOrUpdateEntity(?CommentResource $commentResource): Comment
+    private function createOrUpdateEntity(CommentResource $commentResource): Comment
     {
-        if (!$commentResource) {
-            $comment = new Comment();
-        } else {
+        if ($commentResource->id) {
+            /** @var Comment $comment */
             $comment = $this->entityManager->getReference(Comment::class, $commentResource->id);
+        } else {
+            $comment = new Comment();
         }
 
         /** @var Content $target */
