@@ -8,12 +8,15 @@
   <main class="home py5">
     {% if watchlist is not empty %}
     <section class="container">
-        <div class="courses pb4">
+        <h1 class="h2 mb4">Reprendre</h1>
+        <div class="courses">
           {% for progress in watchlist %}
             {% include 'account/_progress-card.html.twig' %}
           {% endfor %}
         </div>
+        <hr class="my5">
     </section>
+
     {% endif %}
 
     <section class="container">
