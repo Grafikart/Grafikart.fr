@@ -69,7 +69,7 @@ class ReadTimeRepository extends AbstractRepository
             ->join('r.topic', 'topic')
             ->where('r.topic IN (:topics)')
             ->andWhere('r.owner = :user')
-            ->andWhere('topic.updatedAt < r.readAt')
+            ->andWhere('topic.updatedAt <= r.readAt')
             ->setParameters([
                 'topics' => $topics,
                 'user' => $user,

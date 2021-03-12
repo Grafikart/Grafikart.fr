@@ -89,7 +89,7 @@ class TopicService
         if ($user->getForumReadTime()) {
             $unreadTopics = [];
             foreach ($topics as $topic) {
-                if ($topic->getUpdatedAt() < $user->getForumReadTime()) {
+                if ($topic->getUpdatedAt() <= $user->getForumReadTime()) {
                     $ids[] = $topic->getId();
                 } else {
                     $unreadTopics[] = $topic;
