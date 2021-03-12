@@ -3,6 +3,7 @@
 namespace App\Domain\Auth\Repository;
 
 use App\Domain\Auth\Entity\LoginAttempt;
+use App\Domain\Auth\User;
 use App\Infrastructure\Orm\AbstractRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,7 +20,7 @@ class LoginAttemptRepository extends AbstractRepository
     /**
      * Compte le nombre de tentative de connexion pour un utilisateur.
      */
-    public function countRecentFor(\App\Domain\Auth\User $user, int $minutes): int
+    public function countRecentFor(User $user, int $minutes): int
     {
         return $this->createQueryBuilder('l')
             ->select('COUNT(l.id) as count')
@@ -30,5 +31,15 @@ class LoginAttemptRepository extends AbstractRepository
             ->setMaxResults(1)
             ->getQuery()
             ->getSingleScalarResult();
+    }
+
+    public function deleteAttemptsFor(User $user): void
+    {
+        $this->createQueryBuilder('a')
+            ->where('a.user = :user')
+            ->setParameter('user', $user)
+            ->delete()
+            ->getQuery()
+            ->execute();
     }
 }
