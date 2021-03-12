@@ -2,7 +2,7 @@
 
 {% block title %}
   {{ icon('refund') }}
-  Rapports financier
+  Rapport financier {{ year }}
 {% endblock %}
 
 {% block actions %}
@@ -10,24 +10,22 @@
 {% endblock %}
 
 {% block content %}
-  <div class="flex">
-    <form class="form-group mla" style="width: 100px" method="get" is="auto-submit">
-      <select name="year" class="form-control">
-        {% for y in current_year..2020 %}
-        <option value="{{ y }}" {% if y == year %}selected{% endif %}>{{ y }}</option>
-        {% endfor %}
-      </select>
-    </form>
-  </div>
+  <form class="form-group mla" style="width: 100px" method="get" is="auto-submit">
+    <select name="year" class="form-control">
+      {% for y in current_year..2020 %}
+      <option value="{{ y }}" {% if y == year %}selected{% endif %}>{{ y }}</option>
+      {% endfor %}
+    </select>
+  </form>
   <table class="table">
     <thead>
     <tr>
       <th>Mois</th>
       <th>Revenus</th>
-      <th>Tax</th>
+      <th>TVA</th>
       <th>Frais</th>
       <th>Revenus - frais</th>
-      <th width="85">Methode</th>
+      <th width="85">Méthode</th>
     </tr>
     </thead>
     <tbody>

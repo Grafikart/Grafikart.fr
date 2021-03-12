@@ -5,12 +5,12 @@
   <div class="stack" style="--gap:1">
 
     <div class="flex mb1">
-      <div class="dashboard-title">
+      <h1 class="dashboard-title">
         {% block title '' %}
-      </div>
-      <div class="hstack" style="--gap:1;">
+      </h1>
+      <aside class="hstack" style="--gap:1;">
         {% block actions '' %}
-      </div>
+      </aside>
     </div>
 
     {% include 'partials/flash.html.twig' %}

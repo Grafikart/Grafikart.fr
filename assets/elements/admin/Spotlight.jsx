@@ -39,7 +39,7 @@ export function Spotlight () {
 
   useEffect(() => {
     const handler = e => {
-      if (['p', 'k', ' '].includes(e.key) && e.ctrlKey === true) {
+      if (['k', ' '].includes(e.key) && e.ctrlKey === true) {
         e.preventDefault()
         toggleVisibility()
       }

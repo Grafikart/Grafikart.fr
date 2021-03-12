@@ -12,6 +12,7 @@
     {{ encore_entry_script_tags('app') }}
     {{ encore_entry_script_tags('admin') }}
   {% endblock %}
+  <link rel="stylesheet" href="/print.css" media="print">
   <meta name="turbolinks-cache-control" content="no-cache"/>
 </head>
 <body class="admin {{ app.user and app.user.theme ? 'theme-' ~ app.user.theme : '' }} ">
