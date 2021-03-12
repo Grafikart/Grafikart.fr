@@ -34,6 +34,11 @@
   color: var(--color-inversed60);
   --border: var(--color-inversed60);
 
+  .text-muted {
+    color: inherit;
+    opacity: .6;
+  }
+
   a:hover,
   a[aria-current],
   button:hover {
