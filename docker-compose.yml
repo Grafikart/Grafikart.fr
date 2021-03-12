@@ -13,7 +13,7 @@ services:
   php:
     user: '${USER_ID}:${GROUP_ID}'
     restart: unless-stopped
-    image: grafikart/php:1.0.3
+    image: grafikart/php:1.0.4
     volumes:
       - .:/var/www:delegated
     depends_on:
