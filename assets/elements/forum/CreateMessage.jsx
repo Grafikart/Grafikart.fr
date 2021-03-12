@@ -24,7 +24,7 @@ export function CreateMessage ({ topic, parent, disabled }) {
     return (
       <div class='forum-locked-form'>
         <Stack>
-          <FormField placeholder='Votre message' name='content' type='editor'>
+          <FormField placeholder='Votre message' name='content' type='editor' required>
             Votre message
           </FormField>
           <FormPrimaryButton disabled>Répondre</FormPrimaryButton>
@@ -39,7 +39,7 @@ export function CreateMessage ({ topic, parent, disabled }) {
   return (
     <FetchForm action={endpoint} value={value} onChange={setValue} onSuccess={onSuccess}>
       <Stack>
-        <FormField placeholder='Votre message' name='content' type='editor'>
+        <FormField placeholder='Votre message' name='content' type='editor' required>
           Votre message
         </FormField>
         <FormPrimaryButton>Répondre</FormPrimaryButton>
