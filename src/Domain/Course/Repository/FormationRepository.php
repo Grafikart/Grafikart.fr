@@ -47,6 +47,7 @@ class FormationRepository extends AbstractRepository
             ->where('f.online = true')
             ->leftJoin('f.technologyUsages', 'usage')
             ->where('usage.technology = :technology')
+            ->andWhere('usage.secondary = false')
             ->setParameter('technology', $technology)
             ->orderBy('f.createdAt', 'ASC')
             ->getQuery()
