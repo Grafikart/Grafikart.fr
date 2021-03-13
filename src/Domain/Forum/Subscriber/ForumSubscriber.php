@@ -2,13 +2,18 @@
 
 namespace App\Domain\Forum\Subscriber;
 
+use ApiPlatform\Core\EventListener\EventPriorities;
 use App\Domain\Auth\Event\UserBannedEvent;
+use App\Domain\Forum\Entity\Message;
 use App\Domain\Forum\Event\MessageCreatedEvent;
 use App\Domain\Forum\Repository\MessageRepository;
 use App\Domain\Forum\Repository\TopicRepository;
 use App\Domain\Forum\TopicService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Event\ViewEvent;
+use Symfony\Component\HttpKernel\KernelEvents;
 
 class ForumSubscriber implements EventSubscriberInterface
 {
@@ -34,6 +39,7 @@ class ForumSubscriber implements EventSubscriberInterface
         return [
             UserBannedEvent::class => 'cleanUserContent',
             MessageCreatedEvent::class => 'onMessageCreated',
+            KernelEvents::VIEW => ['onMessageDeleted', EventPriorities::POST_WRITE],
         ];
     }
 
@@ -53,6 +59,21 @@ class ForumSubscriber implements EventSubscriberInterface
         $topic->setLastMessage($message);
         $topic->setUpdatedAt(new \DateTimeImmutable());
         $this->topicService->readTopic($topic, $message->getAuthor());
+        $this->em->flush();
+    }
+
+    public function onMessageDeleted(ViewEvent $event): void
+    {
+        $method = $event->getRequest()->getMethod();
+        $message = $event->getRequest()->attributes->get('data');
+
+        if (!$message instanceof Message || Request::METHOD_DELETE !== $method) {
+            return;
+        }
+
+        $topic = $message->getTopic();
+        $topic->setMessageCount($topic->getMessages()->count());
+        $topic->setLastMessage($topic->getMessages()->last() ?: null);
         $this->em->flush();
     }
 }
