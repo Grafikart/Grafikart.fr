@@ -49,7 +49,7 @@ class Message implements SpammableInterface, CacheableInterface
      * @Assert\Length(min=10)
      * @Groups({"read:message", "update:message"})
      */
-    private ?string $content = null;
+    private string $content;
 
     /**
      * @ORM\Column(type="datetime")
