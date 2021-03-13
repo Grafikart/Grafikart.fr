@@ -57,6 +57,7 @@ class ForumSubscriber implements EventSubscriberInterface
         }
         $topic = $message->getTopic();
         $topic->setLastMessage($message);
+        $topic->setMessageCount($topic->getMessageCount() + 1);
         $topic->setUpdatedAt(new \DateTimeImmutable());
         $this->topicService->readTopic($topic, $message->getAuthor());
         $this->em->flush();
