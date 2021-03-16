@@ -46,6 +46,18 @@ class ForumMessageApiTest extends ApiTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_CREATED);
     }
 
+    public function testCreateWithEmptyContent(): void
+    {
+        ['topic_recent' => $topic] = $this->loadFixtures(['forums']);
+        $this->login($topic->getAuthor());
+        $this->client->request('POST', "/api/forum/topics/{$topic->getId()}/messages", [
+            'json' => [
+                'content' => '',
+            ],
+        ]);
+        $this->assertResponseStatusCodeSame(Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
     public function testLockOldTopic(): void
     {
         /** @var Topic $topic */
