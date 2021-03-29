@@ -49,14 +49,18 @@ class ForumMessageSubscriber implements EventSubscriberInterface
         foreach ($messages as $message) {
             if ($message instanceof Topic) {
                 $wording = '%s a répondu à votre sujet %s';
-            } else {
+            } elseif ($message instanceof Message && $message->hasNotification()) {
                 $wording = '%s a participé au sujet %s';
+            } else {
+                $wording = null;
             }
-            $this->service->notifyUser(
-                $message->getAuthor(),
-                sprintf($wording, "<strong>{$userName}</strong>", "« $topicName »"),
-                $message,
-            );
+            if ($wording !== null) {
+                $this->service->notifyUser(
+                    $message->getAuthor(),
+                    sprintf($wording, "<strong>{$userName}</strong>", "« $topicName »"),
+                    $message,
+                );
+            }
         }
     }
 }

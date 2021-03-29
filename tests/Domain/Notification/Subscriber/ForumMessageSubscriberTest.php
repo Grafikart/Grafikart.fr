@@ -92,4 +92,24 @@ class ForumMessageSubscriberTest extends EventSubscriberTest
         $subscriber = new ForumMessageSubscriber($notification);
         $this->dispatch($subscriber, $event);
     }
+
+    public function testNotifyEveryParticipantExceptNoNotification()
+    {
+        $user = (new User())->setId(1);
+        $user2 = (new User())->setId(2);
+        $user3 = (new User())->setId(3);
+        $message = (new Message())->setAuthor($user2)->setNotification(false);
+        $message2 = (new Message())->setAuthor($user3);
+        $message3 = (new Message())->setAuthor($user);
+        $topic = (new Topic())
+            ->setAuthor($user)
+            ->addMessage($message)
+            ->addMessage($message2)
+            ->addMessage($message3);
+        $event = new MessageCreatedEvent($message3);
+        $notification = $this->createMock(NotificationService::class);
+        $notification->expects($this->exactly(1))->method('notifyUser');
+        $subscriber = new ForumMessageSubscriber($notification);
+        $this->dispatch($subscriber, $event);
+    }
 }

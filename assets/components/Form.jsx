@@ -76,6 +76,8 @@ export function Field ({
         return FieldTextarea
       case 'editor':
         return FieldEditor
+      case 'checkbox':
+        return FieldCheckbox
       default:
         return FieldInput
     }
@@ -85,6 +87,20 @@ export function Field ({
   useLayoutEffect(() => {
     setDirty(false)
   }, [error])
+
+  if (FieldComponent === FieldCheckbox) {
+    return (
+      <div className={`form-check ${wrapperClass}`} ref={ref}>
+        <FieldComponent {...attr} />
+        {children && (
+          <label htmlFor={name} class='form-check-label'>
+            {children}
+          </label>
+        )}
+        {showError && <div className='invalid-feedback'>{error}</div>}
+      </div>
+    )
+  }
 
   return (
     <div className={`form-group ${wrapperClass}`} ref={ref}>
@@ -132,6 +148,10 @@ function FieldTextarea (props) {
 }
 
 function FieldInput (props) {
+  return <input {...props} />
+}
+
+function FieldCheckbox (props) {
   return <input {...props} />
 }
 

@@ -71,10 +71,13 @@ class ForumController extends AbstractController
             $this->topicService->readTopic($topic, $user);
         }
         $messageRepository->hydrateMessages($topic);
+        $isSubscribed = $this->topicService->isUserSubscribedToTopic($topic, $user);
 
         return $this->render('forum/show.html.twig', [
             'topic' => $topic,
             'menu' => 'forum',
+            'can_subscribe' => $isSubscribed !== null,
+            'is_subscribed' => $isSubscribed,
         ]);
     }
 

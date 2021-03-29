@@ -21,7 +21,12 @@ export function ForumReport ({ message, topic, owner }) {
 
   return (
     <div style={{ position: 'relative' }}>
-      <button className='rounded-button warning' onClick={toggleForm} disabled={success} title='Signaler le message'>
+      <button
+        className='rounded-button warning'
+        onClick={toggleForm}
+        disabled={success}
+        title={message ? 'Signaler le message' : 'Signaler le sujet'}
+      >
         !
       </button>
       <SlideIn show={showForm && !success} className='forum-report__form' forwardedRef={ref}>
@@ -43,7 +48,7 @@ function ReportForm ({ onSuccess, message, topic }) {
   } else {
     throw new Error('Impossible de charger le formulaire de signalement')
   }
-  const placeholder = 'Indiquez en quoi ce sujet ne convient pas'
+  const placeholder = `Indiquez en quoi ce ${message ? 'message' : 'sujet'} ne convient pas`
   const action = '/api/forum/reports'
   const onReportSuccess = function () {
     flash('Merci pour votre signalement')

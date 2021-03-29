@@ -57,6 +57,11 @@ class Message implements SpammableInterface, CacheableInterface
     private ?\DateTimeInterface $createdAt = null;
 
     /**
+     * @ORM\Column(type="boolean", options={"default":1})
+     */
+    private bool $notification = true;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private ?\DateTimeInterface $updatedAt = null;
@@ -150,6 +155,17 @@ class Message implements SpammableInterface, CacheableInterface
     {
         $this->updatedAt = $updatedAt;
 
+        return $this;
+    }
+
+    public function hasNotification(): bool
+    {
+        return $this->notification;
+    }
+
+    public function setNotification(bool $notification): Message
+    {
+        $this->notification = $notification;
         return $this;
     }
 }

@@ -1,4 +1,5 @@
 import { Loader } from './Loader.jsx'
+import { classNames } from '/functions/dom.js'
 
 export function PrimaryButton ({ children, ...props }) {
   return (
@@ -26,8 +27,9 @@ export function SecondaryButton ({ children, ...props }) {
  * @return {*}
  */
 export function Button ({ children, className = '', loading = false, size, ...props }) {
+  className = classNames('btn', className, size && `btn-${size}`)
   return (
-    <button className={`btn ${className} ${size && `btn-${size}`}`} disabled={loading} {...props}>
+    <button className={className} disabled={loading} {...props}>
       {loading && <Loader className='icon' />}
       {children}
     </button>

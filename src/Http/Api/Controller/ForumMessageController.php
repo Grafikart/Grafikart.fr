@@ -40,6 +40,7 @@ class ForumMessageController extends AbstractController
             ->setCreatedAt(new \DateTime())
             ->setUpdatedAt(new \DateTime())
             ->setTopic($topic)
+            ->setNotification((bool)($data['notification'] ?? false))
             ->setContent($data['content'] ?? null)
             ->setAuthor($this->getUser());
         $validator->validate($message);

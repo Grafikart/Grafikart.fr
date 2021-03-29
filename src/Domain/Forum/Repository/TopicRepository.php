@@ -150,6 +150,7 @@ class TopicRepository extends AbstractRepository
                 LEFT JOIN forum_read_time rt on m.topic_id = rt.topic_id AND m.author_id = rt.owner_id
                 LEFT JOIN "user" u on u.id = m.author_id
                 WHERE
+                      m.notification IS true AND
                       u.forum_mail_notification = true AND
                       m.topic_id = :topic AND
                       (rt.notified IS false OR rt.notified IS NULL) AND

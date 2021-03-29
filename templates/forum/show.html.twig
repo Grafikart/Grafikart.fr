@@ -23,8 +23,11 @@
           </div>
         </div>
       </div>
-      <div style="align-self: flex-start; flex: none;">
+      <div class="hstack center topic-actions">
         <forum-report topic="{{ topic.id }}" owner={{ topic.author.id }} class="topic-header__actions"></forum-report>
+        {% if can_subscribe %}
+        <forum-follow topic="{{ topic.id }}"{% if is_subscribed %} subscribed{% endif %}></forum-follow>
+        {% endif %}
       </div>
     </div>
 

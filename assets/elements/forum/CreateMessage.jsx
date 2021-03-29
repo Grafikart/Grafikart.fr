@@ -7,7 +7,10 @@ import { slideDown } from '/functions/animation.js'
 import { Icon } from '/components/Icon.jsx'
 
 export function CreateMessage ({ topic, parent, disabled }) {
-  const [value, setValue] = useState({ content: '' })
+  const [value, setValue] = useState({
+    content: '',
+    notification: true
+  })
   const endpoint = `/api/forum/topics/${topic}/messages`
   const onSuccess = function (data) {
     const message = strToDom(data.html)
@@ -41,6 +44,9 @@ export function CreateMessage ({ topic, parent, disabled }) {
       <Stack>
         <FormField placeholder='Votre message' name='content' type='editor'>
           Votre message
+        </FormField>
+        <FormField name='notification' type='checkbox' defaultChecked={true}>
+          Être notifié en cas de réponse
         </FormField>
         <FormPrimaryButton>Répondre</FormPrimaryButton>
       </Stack>

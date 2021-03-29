@@ -268,8 +268,35 @@
 // =============
 .topic-header {
   display: grid;
-  grid-template-columns: 1fr 37px;
+  grid-template-columns: 1fr;
   grid-gap: space(2);
+
+  @include up(700) {
+    display: flex;
+  }
+}
+.topic-actions {
+  justify-self: flex-end;
+  --gap: 1;
+  @include up(700) {
+    align-self: flex-start;
+    margin-left: auto;
+  }
+}
+
+.topic-follow.btn-danger::after {
+  content: "";
+  display: block;
+  top: 15px;
+  left: 11px;
+  position: absolute;
+  width: 13px;
+  height: 2px;
+  background-color: var(--red);
+  box-shadow: 0 0 2px #00000066;
+  transform: rotate(
+      320deg
+  );
 }
 .topic-header__meta {
   display: flex;
