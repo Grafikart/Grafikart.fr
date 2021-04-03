@@ -57,7 +57,7 @@
 
       <div class="forum-messages">
         {% for message in topic.messages %}
-          {% if message.spam == false %}
+          {% if message.spam == false or (app.user and message.author.id == app.user.id) %}
             {% include 'forum/_message.html.twig' %}
           {% endif %}
         {% endfor %}

@@ -23,8 +23,11 @@
 <div class="page-wrapper">
   <nav class="header {% if headerWhite is defined %}is-white{% endif %}" id="header">
     <ul class="header-nav">
-      <li class="header__home"><a href="{{ path('home') }}" {{ menu_active('home') }}
-                                  title="Accueil">{{ icon('home') }}</a></li>
+      <li class="header__home">
+        <a href="{{ path('home') }}" {{ menu_active('home') }} title="Accueil">
+          {{ icon('home') }}
+        </a>
+      </li>
       <li><a href="{{ path('course_index') }}" {{ menu_active('courses') }}>{{ icon('video') }} Tutoriels</a></li>
       <li><a href="{{ path('cursus_index') }}" {{ menu_active('cursus') }}>{{ icon('cursus') }} Cursus</a>
       <li><a href="{{ path('formation_index') }}" {{ menu_active('formations') }}>{{ icon('lines') }} Formations</a>
