@@ -158,13 +158,18 @@
   p > code,
   li > code {
     display: inline-block;
-    background: #1b1e3d;
-    color: #A9B1D6;
+    background: var(--skeleton);
+    outline: solid 1px var(--border);
     padding:0 .2em;
-    /*
-    border: solid 1px var(--border);
-    background-color: var(--border-light);
     color: var(--color-light);
-    */
+  }
+}
+
+@include dark() {
+  .formatted p > code,
+  .formatted li > code {
+      background: #1b1e3d;
+      color: #A9B1D6;
+      outline: none;
   }
 }
