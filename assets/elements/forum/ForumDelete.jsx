@@ -3,8 +3,9 @@ import { closest } from '/functions/dom.js'
 import { flash } from '/elements/Alert.js'
 import { canManage } from '/functions/auth.js'
 import { Loader } from '/components/Loader.jsx'
-import { useEffect, useRef } from 'preact/hooks'
+import { useRef } from 'preact/hooks'
 import { redirect } from '/functions/url.js'
+import { EVENT_MESSAGE_DELETE } from '/elements/forum/constants.js'
 
 export function ForumDelete ({ message, topic, owner }) {
   let endpoint = null
@@ -24,6 +25,7 @@ export function ForumDelete ({ message, topic, owner }) {
       if (message) {
         const message = closest(button.current, '.forum-message')
         flash('Votre message a bien été supprimé')
+        document.dispatchEvent(new Event(EVENT_MESSAGE_DELETE))
         message.remove()
       } else {
         await redirect('/forum')

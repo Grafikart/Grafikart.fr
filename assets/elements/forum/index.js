@@ -6,6 +6,7 @@ import { ForumEdit } from '/elements/forum/ForumEdit.jsx'
 import { ForumRead } from '/elements/forum/ForumRead.jsx'
 import { ForumSolve } from '/elements/forum/ForumSolve.jsx'
 import { ForumFollow } from '/elements/forum/ForumFollow.jsx'
+import { ForumCount } from '/elements/forum/ForumCount.jsx'
 
 preactCustomElement('forum-delete', ForumDelete)
 preactCustomElement('forum-edit', ForumEdit)
@@ -14,3 +15,4 @@ preactCustomElement('forum-report', ForumReport, ['message', 'topic'])
 preactCustomElement('forum-follow', ForumFollow, ['topic', 'subscribed'])
 preactCustomElement('forum-solve', ForumSolve, ['message', 'topicAuthor', 'disabled'])
 preactCustomElement('forum-read', ForumRead, ['endpoint'])
+preactCustomElement('forum-count', ForumCount, ['count'])

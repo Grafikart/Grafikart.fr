@@ -5,6 +5,7 @@ import { isAuthenticated } from '/functions/auth.js'
 import { strToDom } from '/functions/dom.js'
 import { slideDown } from '/functions/animation.js'
 import { Icon } from '/components/Icon.jsx'
+import { EVENT_MESSAGE } from '/elements/forum/constants.js'
 
 export function CreateMessage ({ topic, parent, disabled }) {
   const [value, setValue] = useState({
@@ -17,6 +18,7 @@ export function CreateMessage ({ topic, parent, disabled }) {
     parent.insertAdjacentElement('beforebegin', message)
     slideDown(message)
     setValue({ content: '' })
+    document.dispatchEvent(new Event(EVENT_MESSAGE))
   }
 
   if (!isAuthenticated()) {
