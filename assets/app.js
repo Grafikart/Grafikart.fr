@@ -12,7 +12,7 @@ import { $$, $ } from '/functions/dom.js'
 import { registerKonami, registerBadgeAlert } from '/modules/badges.js'
 import { registerWindowHeightCSS } from '/modules/window.js'
 import { registerHeader } from '/modules/header.js'
-import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
+import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 
 registerKonami()
 registerBadgeAlert()
@@ -34,7 +34,7 @@ document.addEventListener('turbolinks:load', () => {
   const burgerButton = $('#js-burger')
   const headerNav = $('.header-nav')
   if (burgerButton) {
-    let open = false;
+    let open = false
     burgerButton.addEventListener('click', () => {
       $('#header').classList.toggle('is-open')
 
@@ -54,6 +54,16 @@ document.addEventListener('turbolinks:load', () => {
         maxItemText: s.dataset.limit && `Vous ne pouvez sélectionner que ${s.dataset.limit} éléments`
       })
   )
+
+  $$('form.js-preventMultiSubmit').forEach(form => {
+    form.addEventListener('submit', () => {
+      const button = form.querySelector('button[type="submit"]')
+      if (button) {
+        button.disabled = true
+        button.innerText = 'Chargement...'
+      }
+    })
+  })
 })
 
 /**
