@@ -11,13 +11,23 @@ class CourseCloner
 {
     public static function clone(Course $course): Course
     {
-        $clone = clone $course;
-        $clone->setId(null);
-        $clone->setSource(null);
-        $clone->setYoutubeId(null);
-        $clone->setCreatedAt(clone $course->getCreatedAt());
-        $usages = $clone->getTechnologyUsages();
-        $clone->syncTechnologies([]);
+        $clone = new Course();
+        $clone->setSlug($course->getSlug());
+        $clone->setAuthor($course->getAuthor());
+        $clone->setImage($course->getImage());
+        $clone->setYoutubeThumbnail($course->getYoutubeThumbnail());
+        $clone->setOnline($course->isOnline());
+        $clone->setVideoPath($course->getVideoPath());
+        $clone->setLevel($course->getLevel());
+        $clone->setDemo($course->getDemo());
+        $clone->setContent($course->getContent());
+        $clone->setCreatedAt(
+            (new \DateTime(
+                '@'.$course->getCreatedAt()->getTimestamp().' +1 day'
+            ))->setTimezone($course->getCreatedAt()->getTimezone())
+        );
+        $usages = $course->getTechnologyUsages();
+
         foreach ($usages as $usage) {
             $clone->addTechnologyUsage(clone $usage);
         }
