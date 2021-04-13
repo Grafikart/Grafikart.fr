@@ -2,6 +2,8 @@
 
 namespace App\Domain\Notification\Subscriber;
 
+use App\Domain\Application\Entity\Content;
+use App\Domain\Application\Event\ContentCreatedEvent;
 use App\Domain\Application\Event\ContentUpdatedEvent;
 use App\Domain\Course\Entity\Course;
 use App\Domain\Course\Entity\Formation;
@@ -26,6 +28,7 @@ class ContentSubscriber implements EventSubscriberInterface
     {
         return [
             ContentUpdatedEvent::class => 'onUpdate',
+            ContentCreatedEvent::class => 'onCreate'
         ];
     }
 
@@ -39,25 +42,46 @@ class ContentSubscriber implements EventSubscriberInterface
             true === $content->isOnline() &&
             false === $event->getPrevious()->isOnline()
         ) {
-            $technologies = implode(', ', array_map(fn (Technology $t) => $t->getName(), $content->getMainTechnologies()));
-            $duration = TimeHelper::duration($content->getDuration());
+            $this->notifyContent($content);
+        }
+    }
 
-            if ($content instanceof Course) {
-                $message = "Nouveau tutoriel {$technologies} !<br> <strong>{$content->getTitle()}</strong> <strong>({$duration})</strong>";
-            } else {
-                $message = "Nouvelle formation {$technologies} disponible :  <strong>{$content->getTitle()}</strong>";
-            }
+    /**
+     * Quand un tutoriel/formation est créé en ligne, on envoie une notification globale.
+     */
+    public function onCreate(ContentCreatedEvent $event): void
+    {
+        $content = $event->getContent();
+        if (($content instanceof Course || $content instanceof Formation)
+            && true === $content->isOnline()
+        ) {
+            $this->notifyContent($content);
+        }
+    }
 
-            // Le contenu est publié de suite
-            if ($content->getCreatedAt() < new \DateTimeImmutable()) {
-                $this->service->notifyChannel('public', $message, $content);
-            } else {
-                $this->enqueueMethod->enqueue(NotificationService::class, 'notifyChannel', [
-                    'public',
-                    $message,
-                    $content,
-                ], $content->getCreatedAt());
-            }
+    /**
+     * @param Course|Formation $content
+     */
+    private function notifyContent(Content $content): void
+    {
+        $technologies = implode(', ', array_map(fn (Technology $t) => $t->getName(), $content->getMainTechnologies()));
+        $duration = TimeHelper::duration($content->getDuration());
+
+        if ($content instanceof Course) {
+            $message = "Nouveau tutoriel {$technologies} !<br> <strong>{$content->getTitle()}</strong> <strong>({$duration})</strong>";
+        } else {
+            $message = "Nouvelle formation {$technologies} disponible :  <strong>{$content->getTitle()}</strong>";
+        }
+
+        // Le contenu est publié de suite
+        if ($content->getCreatedAt() < new \DateTimeImmutable()) {
+            $this->service->notifyChannel('public', $message, $content);
+        } else {
+            $this->enqueueMethod->enqueue(NotificationService::class, 'notifyChannel', [
+                'public',
+                $message,
+                $content,
+            ], $content->getCreatedAt());
         }
     }
 }
