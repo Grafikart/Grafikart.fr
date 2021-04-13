@@ -27,4 +27,12 @@ class ContentRepository extends AbstractRepository
             ->where('c.online = TRUE')
             ->setMaxResults($limit);
     }
+
+    /**
+     * @return IterableQueryBuilder<Content>
+     */
+    public function findLatestPublished(int $limit = 5): IterableQueryBuilder
+    {
+        return $this->findLatest($limit)->andWhere('c.createdAt < NOW()');
+    }
 }

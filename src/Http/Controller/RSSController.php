@@ -13,7 +13,7 @@ class RSSController extends AbstractController
      */
     public function feed(ContentRepository $contentRepository): Response
     {
-        $items = $contentRepository->findLatest();
+        $items = $contentRepository->findLatestPublished();
         $response = $this->render('rss/index.xml.twig', [
             'items' => $items,
         ]);
