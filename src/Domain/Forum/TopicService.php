@@ -149,11 +149,11 @@ class TopicService
     }
 
     /**
-     * Définit si l'utilisateur est abonné ou non au topic
+     * Définit si l'utilisateur est abonné ou non au topic.
      */
     public function isUserSubscribedToTopic(Topic $topic, ?User $user): ?bool
     {
-        if ($user === null || $user->getId() === $topic->getAuthor()->getId()) {
+        if (null === $user || $user->getId() === $topic->getAuthor()->getId()) {
             return null;
         }
         $notification = null;
@@ -162,6 +162,7 @@ class TopicService
                 $notification = $message->hasNotification();
             }
         }
+
         return $notification;
     }
 }

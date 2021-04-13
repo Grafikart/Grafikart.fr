@@ -16,7 +16,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ApiTopicController extends AbstractController
 {
-
     /**
      * @Route("/topics/{id<\d+>}/follow", name="api_forum/topic_follow", methods={"POST"})
      * @IsGranted("ROLE_USER")
@@ -25,7 +24,7 @@ class ApiTopicController extends AbstractController
     {
         $user = $this->getUserOrThrow();
         $isSubscribed = $topicService->isUserSubscribedToTopic($topic, $user);
-        if ($isSubscribed === null) {
+        if (null === $isSubscribed) {
             return new JsonResponse(['title' => "Impossible de s'abonner au sujet", 'detail' => 'Vous ne participez pas à ce sujet'], Response::HTTP_FORBIDDEN);
         }
         foreach ($topic->getMessages() as $message) {
@@ -34,6 +33,7 @@ class ApiTopicController extends AbstractController
             }
         }
         $em->flush();
+
         return new JsonResponse(['subscribed' => !$isSubscribed]);
     }
 }

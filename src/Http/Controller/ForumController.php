@@ -76,7 +76,7 @@ class ForumController extends AbstractController
         return $this->render('forum/show.html.twig', [
             'topic' => $topic,
             'menu' => 'forum',
-            'can_subscribe' => $isSubscribed !== null,
+            'can_subscribe' => null !== $isSubscribed,
             'is_subscribed' => $isSubscribed,
         ]);
     }

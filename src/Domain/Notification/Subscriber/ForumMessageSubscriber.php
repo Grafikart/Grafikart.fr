@@ -54,7 +54,7 @@ class ForumMessageSubscriber implements EventSubscriberInterface
             } else {
                 $wording = null;
             }
-            if ($wording !== null) {
+            if (null !== $wording) {
                 $this->service->notifyUser(
                     $message->getAuthor(),
                     sprintf($wording, "<strong>{$userName}</strong>", "« $topicName »"),

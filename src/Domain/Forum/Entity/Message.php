@@ -166,6 +166,7 @@ class Message implements SpammableInterface, CacheableInterface
     public function setNotification(bool $notification): Message
     {
         $this->notification = $notification;
+
         return $this;
     }
 }

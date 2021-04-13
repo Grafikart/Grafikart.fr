@@ -34,6 +34,6 @@ class SearchControllerTest extends WebTestCase
     public function testRedirectLegacySearch(): void
     {
         $this->client->request('GET', '/search?q=demophp');
-        $this->assertResponseRedirects($this->client->getRequest()->getSchemeAndHttpHost() . '/recherche?q=demophp', Response::HTTP_PERMANENTLY_REDIRECT);
+        $this->assertResponseRedirects($this->client->getRequest()->getSchemeAndHttpHost().'/recherche?q=demophp', Response::HTTP_PERMANENTLY_REDIRECT);
     }
 }
