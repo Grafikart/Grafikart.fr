@@ -160,7 +160,7 @@ export class ChaptersEditor extends HTMLTextAreaElement {
     if (value === '') {
       return
     }
-    const endpoint = this.getAttribute('endpoint').replace(':id', value)
+    const endpoint = this.getAttribute('endpoint').replace('0', value)
     try {
       const course = await jsonFetch(endpoint)
       const courseLi = Module({ course, onRemove: this.removeCourse, editPath: this.editPath })
