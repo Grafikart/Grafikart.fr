@@ -27,7 +27,6 @@ class CourseClonerTest extends TestCase
         $clonedCourse = CourseCloner::clone($course);
 
         // On vérifie que les objets sont similaires mais pas identiques
-        $this->assertEquals($course->getTitle(), $clonedCourse->getTitle());
         $this->assertNotSame($course, $clonedCourse);
         $this->assertNull($clonedCourse->getSource());
         $this->assertNull($clonedCourse->getYoutubeId());
