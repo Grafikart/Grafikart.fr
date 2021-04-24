@@ -5,14 +5,15 @@
   <title>{% block title 'Grafikart' %} | Grafikart</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   {% block stylesheets %}
-    {{ encore_entry_link_tags('app') }}
+    {{- encore_entry_link_tags('app') }}
   {% endblock %}
   {% block javascripts %}
-    {{ encore_entry_script_tags('app') }}
+    {{- encore_entry_script_tags('app') }}
   {% endblock %}
   <meta name="turbolinks-cache-control" content="no-cache"/>
   <link rel="alternate" type="application/rss+xml" title="Grafikart.fr | Flux" href="{{ url('rss') }}"/>
-  {% block meta '' %}
+  <link rel="apple-touch-icon" sizes="128x128" href="/favicons/icon-128x128.png">
+  {% block meta '' -%}
   <meta property="og:title" content="{{ block('title') }}"/>
   <meta property="og:site_name" content="Grafikart.fr"/>
   <meta property="og:language" content="fr"/>
