@@ -351,6 +351,7 @@ $icon-size: 75px;
   font-weight: 600;
   letter-spacing: 4px;
   display: block;
+  white-space: nowrap;
 }
 .tree-choices {
   display: flex;
@@ -496,5 +497,19 @@ $icon-size: 75px;
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+// Très petits écrans
+// =============
+@include down(370) {
+  .tree-category strong {
+    font-size: 25px;
+  }
+  .tree-item__title {
+    padding-right: 0;
+  }
+  .tree-item__link {
+    display: none;
   }
 }
