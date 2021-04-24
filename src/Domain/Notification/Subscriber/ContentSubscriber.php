@@ -28,7 +28,7 @@ class ContentSubscriber implements EventSubscriberInterface
     {
         return [
             ContentUpdatedEvent::class => 'onUpdate',
-            ContentCreatedEvent::class => 'onCreate'
+            ContentCreatedEvent::class => 'onCreate',
         ];
     }
 

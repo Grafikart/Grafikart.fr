@@ -1,3 +1,4 @@
+
 ## !ide
 
 L'éditeur est PHPStorm avec le thème inspiré de Tokyo Night https://github.com/Grafikart/tokyo-night-jetbrains-theme
@@ -25,3 +26,7 @@ Le site est développé avec Symfony côté backend, et il n'y a pas de framewor
 ## !why
 
 Pourquoi Symfony et pas Laravel ? Bonne question, la réponse ici : https://github.com/Grafikart/Grafikart.fr/issues/1
+
+## !discord
+
+Pour discuter en dehors des lives et demander de l'aide : https://grafikart.fr/tchat

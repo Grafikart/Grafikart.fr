@@ -34,6 +34,13 @@ trait ChapterableTrait
         return Chapter::makeFromContent($this);
     }
 
+    public function getCoursesCount(): int
+    {
+        $chapters = $this->getChapters();
+
+        return array_reduce($chapters, fn (int $acc, Chapter $chapter) => $acc + count($chapter->getModules()), 0);
+    }
+
     /**
      * Renvoie les données brut (JSON).
      */
