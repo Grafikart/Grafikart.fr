@@ -10,6 +10,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  --border-header: var(--border);
 
   &::after {
     content: '';
@@ -18,7 +19,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: var(--border);
+    background-color: var(--border-header);
     max-width: var(--container-width);
     margin-left: auto;
     margin-right: auto;
@@ -32,7 +33,7 @@
 
 .header.is-inversed:not(.is-open) {
   color: var(--color-inversed60);
-  --border: var(--color-inversed60);
+  --border-header: var(--color-inversed60);
 
   .text-muted {
     color: inherit;
@@ -110,7 +111,7 @@
   align-items: center;
   height: 16px;
   justify-content: flex-start;
-  border-right: 1px solid var(--border);
+  border-right: 1px solid var(--border-header);
   margin-right: space(2);
   padding-right: space(1);
   margin-top: 5px;
@@ -131,7 +132,7 @@
   align-items: center;
   justify-content: flex-start;
   height: 16px;
-  border-right: 1px solid var(--border);
+  border-right: 1px solid var(--border-header);
   padding-right: space(1);
 }
 .header__account a {
@@ -278,7 +279,7 @@
     bottom: 0;
     height: 100%;
     background: rgba(255, 255, 255, 0.90);
-    border: 1px solid var(--border);
+    border: 1px solid var(--border-header);
     box-shadow: 0 2px 4px var(--shadow);
     border-radius: 3px;
     transition: opacity .3s;

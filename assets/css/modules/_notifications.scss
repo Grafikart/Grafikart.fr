@@ -106,6 +106,7 @@
 .notifications_item:hover {
   background-color: var(--background);
   opacity: 1 !important;
+  color: var(--contrast) !important;
 }
 .notifications_item.is-read {
   opacity: 0.65;
