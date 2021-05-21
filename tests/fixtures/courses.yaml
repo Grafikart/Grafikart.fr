@@ -8,6 +8,8 @@ App\Domain\Course\Entity\Course:
   course{1} (extends course):
   course_premium (extends course):
     premium: true
+  course_offline (extends course):
+    online: false
   course_with_technology (extends course):
 
 App\Domain\Course\Entity\Technology:

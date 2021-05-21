@@ -23,6 +23,14 @@ class CourseControllerTest extends WebTestCase
         $this->expectH1("Tutoriel {$technologies} : ".$course->getTitle());
     }
 
+    public function testStatusNotFoundForOfflineContent()
+    {
+        /** @var Course $course */
+        ['course_offline' => $course] = $this->loadFixtures(['courses']);
+        $this->client->request('GET', "/tutoriels/{$course->getSlug()}-{$course->getId()}");
+        $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+    }
+
     public function testIndexSuccess()
     {
         $this->loadFixtures(['courses']);

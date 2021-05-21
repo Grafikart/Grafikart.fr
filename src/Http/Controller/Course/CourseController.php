@@ -91,10 +91,15 @@ class CourseController extends AbstractController
             ], 301);
         }
 
+        $response = new Response();
+        if ($course->isOnline() === false) {
+            $response = $response->setStatusCode(Response::HTTP_NOT_FOUND);
+        }
+
         return $this->render('courses/show.html.twig', [
             'course' => $course,
             'menu' => 'courses',
-        ]);
+        ], $response);
     }
 
     /**
