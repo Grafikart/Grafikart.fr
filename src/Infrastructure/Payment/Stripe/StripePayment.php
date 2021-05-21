@@ -21,7 +21,7 @@ class StripePayment extends Payment
         $charge = $intent->charges->data[0];
         $this->id = $intent->id;
         $this->planId = $intent->metadata['plan_id'];
-        $this->firstname = $charge->billing_details['name'];
+        $this->firstname = $charge->billing_details['name'] ?: '';
         $this->lastname = '';
         $this->address = $charge->billing_details['address']['line1']."\n".$charge->billing_details['address']['line2'];
         $this->city = $charge->billing_details['address']['city'] ?: '';
