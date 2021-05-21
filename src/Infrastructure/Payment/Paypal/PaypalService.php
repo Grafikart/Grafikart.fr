@@ -32,12 +32,12 @@ class PaypalService
             $unit = $order->purchase_units[0];
             $payment->id = $order->id;
             $payment->planId = (int) $unit->custom_id;
-            $payment->firstname = $order->payer->name->given_name;
-            $payment->lastname = $order->payer->name->surname;
-            $payment->address = $unit->shipping->address->address_line_1;
-            $payment->city = $unit->shipping->address->admin_area_2;
-            $payment->postalCode = $unit->shipping->address->postal_code;
-            $payment->countryCode = $unit->shipping->address->country_code;
+            $payment->firstname = $order->payer->name->given_name ?: '';
+            $payment->lastname = $order->payer->name->surname ?: '';
+            $payment->address = $unit->shipping->address->address_line_1 ?: '';
+            $payment->city = $unit->shipping->address->admin_area_2 ?: '';
+            $payment->postalCode = $unit->shipping->address->postal_code ?: '';
+            $payment->countryCode = $unit->shipping->address->country_code ?: '';
             $payment->amount = floatval($unit->amount->value);
             $payment->vat = floatval($unit->amount->breakdown->tax_total->value);
 
