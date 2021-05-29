@@ -1,0 +1,22 @@
+.avatars {
+  display: flex;
+  --size: 45px;
+  margin-left: calc(var(--size) * 0.22);
+}
+.avatars .avatar {
+  border: 2px solid var(--border);
+  margin-left: calc(var(--size) * -0.22);
+}
+.avatar {
+  border-radius: 50%;
+  overflow: hidden;
+  display: block;
+  width: var(--size);
+  height: var(--size);
+}
+
+// Variations
+// =============
+.card__footer .avatars {
+  margin-top: -25px;
+}

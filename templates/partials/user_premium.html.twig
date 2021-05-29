@@ -34,7 +34,7 @@
       Vous êtes actuellement premium jusqu'au <strong>{{ user.premiumEnd | format_date('short') }}</strong>.
     </p>
   {% else %}
-    <h2 class="h4 mb2">
+    <h2 class="h5 mb2">
       Vous n'êtes pas premium :(
     </h2>
     <a href="{{ path('premium') }}" class="btn-secondary">{{ icon('star')}} Devenir premium</a>
