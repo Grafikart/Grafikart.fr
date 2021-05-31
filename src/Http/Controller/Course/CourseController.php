@@ -92,7 +92,7 @@ class CourseController extends AbstractController
         }
 
         $response = new Response();
-        if ($course->isOnline() === false) {
+        if (false === $course->isOnline()) {
             $response = $response->setStatusCode(Response::HTTP_NOT_FOUND);
         }
 

@@ -185,27 +185,22 @@ class Podcast
         return $this;
     }
 
-    /**
-     * @return int
-     */
     public function getDuration(): int
     {
         return $this->duration;
     }
 
-    /**
-     * @param int $duration
-     * @return Podcast
-     */
     public function setDuration(int $duration): Podcast
     {
         $this->duration = $duration;
+
         return $this;
     }
 
     public function setIntervenants(array $intervenants): self
     {
         $this->intervenants = new ArrayCollection($intervenants);
+
         return $this;
     }
 

@@ -23,7 +23,7 @@ class PodcastRepository extends ServiceEntityRepository
     }
 
     /**
-     * Renvoie les podcasts à venir
+     * Renvoie les podcasts à venir.
      *
      * @return Podcast[]
      */
@@ -39,7 +39,7 @@ class PodcastRepository extends ServiceEntityRepository
     }
 
     /**
-     * Requête les podcasts déjà diffusés
+     * Requête les podcasts déjà diffusés.
      */
     public function queryPast(): QueryBuilder
     {
@@ -50,7 +50,7 @@ class PodcastRepository extends ServiceEntityRepository
     }
 
     /**
-     * Récupère et injecte les intervenants dans les podcasts
+     * Récupère et injecte les intervenants dans les podcasts.
      *
      * @param Podcast[] $podcasts
      */
@@ -73,7 +73,7 @@ class PodcastRepository extends ServiceEntityRepository
             LEFT JOIN "user" u ON pu.user_id = u.id
             WHERE pu.podcast_id IN (?)
         SQL, $rsm);
-        $query->setParameter(1, array_map(fn(Podcast $p) => $p->getId(), $podcasts));
+        $query->setParameter(1, array_map(fn (Podcast $p) => $p->getId(), $podcasts));
 
         return $query->getResult();
     }

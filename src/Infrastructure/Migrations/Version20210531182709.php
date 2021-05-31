@@ -12,12 +12,12 @@ use Doctrine\Migrations\AbstractMigration;
  */
 final class Version20210531182709 extends AbstractMigration
 {
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return '';
     }
 
-    public function up(Schema $schema) : void
+    public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE TABLE podcast (id SERIAL NOT NULL, author_id INT NOT NULL, title VARCHAR(255) NOT NULL, content TEXT DEFAULT NULL, votes_count INT DEFAULT 0 NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, scheduled_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, confirmed_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, duration INT DEFAULT 0 NOT NULL, intervenants JSON DEFAULT \'[]\' NOT NULL, PRIMARY KEY(id))');
@@ -30,7 +30,7 @@ final class Version20210531182709 extends AbstractMigration
         $this->addSql('ALTER TABLE podcast_vote ADD CONSTRAINT FK_B1341B28EBB4B8AD FOREIGN KEY (voter_id) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
     }
 
-    public function down(Schema $schema) : void
+    public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE podcast_vote DROP CONSTRAINT FK_B1341B28786136AB');

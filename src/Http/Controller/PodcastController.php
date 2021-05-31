@@ -11,7 +11,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PodcastController extends AbstractController
 {
-
     /**
      * @Route("/podcast", name="podcast")
      */
@@ -19,11 +18,12 @@ class PodcastController extends AbstractController
     {
         $future = $podcastRepository->findFuture();
         $podcasts = $paginator->paginate($podcastRepository->queryPast()->setMaxResults(11)->getQuery());
-        $podcastRepository->hydrateIntervenants((array)$podcasts->getItems());
+        $podcastRepository->hydrateIntervenants((array) $podcasts->getItems());
+
         return $this->render('podcast/index.html.twig', [
             'page' => $request->get('page'),
             'future' => $future,
-            'podcasts' => $podcasts
+            'podcasts' => $podcasts,
         ]);
     }
 }

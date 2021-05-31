@@ -12,7 +12,6 @@ use App\Domain\Podcast\Entity\Podcast;
  */
 class PodcastCrudData extends AutomaticCrudData
 {
-
     public string $title = '';
     public ?User $author = null;
     public ?\DateTimeInterface $confirmedAt = null;
