@@ -68,7 +68,7 @@ class Podcast
     /**
      * @ORM\ManyToMany(targetEntity=User::class)
      */
-    private ArrayCollection $intervenants;
+    private Collection $intervenants;
 
     public function __construct()
     {
@@ -210,9 +210,9 @@ class Podcast
     }
 
     /**
-     * @return ArrayCollection|User[]
+     * @return Collection|User[]
      */
-    public function getIntervenants(): ArrayCollection
+    public function getIntervenants(): Collection
     {
         return $this->intervenants;
     }
