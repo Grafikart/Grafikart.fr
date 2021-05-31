@@ -4,7 +4,6 @@
 
 {% block body %}
 
-
   <header class="wave-header" style="--side:473px">
     <div>
       <div class="wave-header__body stack">
@@ -27,6 +26,7 @@
   </header>
   <main class="container py5 stack" style="--gap:5">
 
+    {% if future %}
     <section>
       <h2 class="h2 mb1">Podcasts à venir</h2>
       <p class="mb3 text-muted">
@@ -35,18 +35,18 @@
         <a href="{{ path('tchat') }}" class="underline">discord</a>.
       </p>
       <div class="stack">
-        {% for i in 0..2 %}
+        {% for podcast in future %}
         <article class="podcast-suggestion">
           <div class="podcast-suggestion__vote">
-            <strong>18</strong>
-            dec
+            <strong>{{ podcast.scheduledAt | date('d') }}</strong>
+            {{ podcast.scheduledAt | format_datetime(pattern="MMM") }}
             <div class="podcast-suggestion__action podcast-suggestion__action--active">
-              18h30
+              {{ podcast.scheduledAt | date('H\\hi') }}
             </div>
           </div>
           <div class="podcast-suggestion__body">
-            <h3 class="podcast-suggestion__title">Avez vous changé de langage principal, comment avez vous appris et pourquoi ? </h3>
-            <p>Proposé par <a href="#">JohnDoe</a>, <span class="text-muted">Il y a 3 jours</span></p>
+            <h3 class="podcast-suggestion__title">{{  podcast.title }}</h3>
+            <p>Proposé par <a href="{{ path('user_show', {id: podcast.author.id}) }}">{{ podcast.author.username }}</a>, <span class="text-muted">{{ podcast.createdAt | ago }}</span></p>
           </div>
         </article>
         {% endfor %}
@@ -55,44 +55,22 @@
 
     <hr>
 
+    {% endif %}
+
     <section class="stack" style="--gap:3">
       <div class="grid3" style="--gap: 3">
         <div>
           <h1 class="hero-title mb1">Les derniers <strong>podcasts</strong></h1>
         </div>
-        {% for i in 0..7 %}
-          <article class="card">
-            <div class="card__body stack" style="--gap:1">
-              <div class="h4">Quand est-ce qu'on se sent super développeur ?</div>
-              <div class="text-muted text-small">Il y a 15 jours</div>
-              <div class="card__description">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis consectetur deleniti facilis laborum mollitia pariatur quisquam
-              </div>
-            </div>
-            <footer class="card__footer text-small mt1">
-              <div class="card__avatars avatars">
-                <a href="#" class="avatar">
-                  <img src="https://picsum.photos/45/45" alt="">
-                </a>
-                <a href="#" class="avatar">
-                  <img src="https://picsum.photos/45/45" alt="">
-                </a>
-                <a href="#" class="avatar">
-                  <img src="https://picsum.photos/45/45" alt="">
-                </a>
-                <a href="#" class="avatar">
-                  <img src="https://picsum.photos/45/45" alt="">
-                </a>
-              </div>
-              <div>
-                {{ icon('clock', 14) }} 1h46
-              </div>
-            </footer>
-          </article>
+        {% for podcast in podcasts %}
+          {% include 'podcast/_card.html.twig' %}
         {% endfor %}
       </div>
     </section>
 
+    {{ paginate(podcasts) }}
+
+    {#
     <section class="stack" style="--gap:3">
       <h2 class="h2">Suggestions de podcasts</h2>
       <div class="stack">
@@ -113,6 +91,7 @@
         {% endfor %}
       </div>
     </section>
+    #}
 
   </main>
 

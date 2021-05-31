@@ -66,3 +66,14 @@ App\Domain\Premium\Entity\Plan:
     name: Compte premium 12 mois
     price: 50
     duration: 12
+
+App\Domain\Podcast\Entity\Podcast:
+  podcast{1..20} (extends podcast):
+  podcast_future{1..3} (extends podcast):
+    scheduledAt: <dateTimeBetween('+1 week', '+1 month')>
+    author: '@user*'
+  podcast_suggestions{1..10} (extends podcast):
+    scheduledAt: null
+    confirmedAt: null
+    votesCount: <numberBetween(2, 200)>
+    author: '@user*'
