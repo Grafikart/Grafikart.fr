@@ -30,18 +30,20 @@ class PodcastVote
     private User $voter;
 
     /**
-     * @ORM\Column(type="float", options={"default":0})
+     * @ORM\Column(type="float", options={"default":1})
      */
-    private float $weight;
+    private float $weight = 1;
 
     /**
      * @ORM\Column(type="datetime")
      */
     private \DateTimeInterface $createdAt;
 
-    public function __construct()
+    public function __construct(User $user, Podcast $podcast)
     {
         $this->createdAt = new \DateTime();
+        $this->voter = $user;
+        $this->podcast = $podcast;
     }
 
     public function getId(): ?int

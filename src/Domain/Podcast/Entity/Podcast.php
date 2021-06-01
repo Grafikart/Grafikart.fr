@@ -33,12 +33,12 @@ class Podcast
      * @ORM\ManyToOne(targetEntity=User::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private ?User $author = null;
+    private User $author;
 
     /**
      * @ORM\Column(type="integer", options={"default": 0})
      */
-    private int $votes_count = 0;
+    private int $votesCount = 0;
 
     /**
      * @ORM\Column(type="datetime")
@@ -113,12 +113,12 @@ class Podcast
         return $this;
     }
 
-    public function getAuthor(): ?User
+    public function getAuthor(): User
     {
         return $this->author;
     }
 
-    public function setAuthor(?User $author): self
+    public function setAuthor(User $author): self
     {
         $this->author = $author;
 
@@ -127,12 +127,12 @@ class Podcast
 
     public function getVotesCount(): ?int
     {
-        return $this->votes_count;
+        return $this->votesCount;
     }
 
-    public function setVotesCount(int $votes_count): self
+    public function setVotesCount(int $votesCount): self
     {
-        $this->votes_count = $votes_count;
+        $this->votesCount = $votesCount;
 
         return $this;
     }

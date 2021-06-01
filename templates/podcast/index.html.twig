@@ -13,7 +13,7 @@
           découvrir les sujets qui gravitent autour du développement web en ayant la vision d'autres développeurs
         </p>
         <p>
-          <a href="#" class="btn-white-outlined btn-big">{{ icon('inbox') }}
+          <a href="{{ path('podcast_vote') }}" class="btn-white-outlined btn-big">{{ icon('inbox') }}
             Voter et suggérer de prochains podcasts
           </a>
         </p>
@@ -34,7 +34,7 @@
         live sur <a href="https://twitch.tv/grafikart" class="underline">twitch</a> ou rejoindre la discussion sur
         <a href="{{ path('tchat') }}" class="underline">discord</a>.
       </p>
-      <div class="stack">
+      <div class="stack" style="--gap:3">
         {% for podcast in future %}
         <article class="podcast-suggestion">
           <div class="podcast-suggestion__vote">

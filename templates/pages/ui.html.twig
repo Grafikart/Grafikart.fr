@@ -111,6 +111,14 @@
       <h1 class="h1 mb2">Navigations</h1>
       <div class="grid2" style="--gap:4">
         <div>
+          <small class="text-muted">.nav-card>a</small>
+          <nav class="nav-card">
+            {% for i in 1..3 %}
+              <a href="#" {% if i == 2 %}aria-selected="true" {% endif %}>Onglet #{{ i }}</a>
+            {% endfor %}
+          </nav>
+        </div>
+        <div>
           <small class="text-muted">.nav-pills>a</small>
           <nav class="nav-pills">
             {% for i in 1..3 %}

@@ -7,6 +7,15 @@ export function windowHeight () {
   return window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
 }
 
+/**
+ * Renvoie la largeur de la fenêtre
+ *
+ * @return {number}
+ */
+export function windowWidth () {
+  return window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+}
+
 const uuid = new Date().getTime().toString()
 if (localStorage) {
   localStorage.setItem('windowId', uuid)

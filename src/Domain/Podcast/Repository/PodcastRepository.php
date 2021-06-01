@@ -45,8 +45,20 @@ class PodcastRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('p')
             ->where('p.scheduledAt IS NOT NULL')
-            ->orderBy('p.scheduledAt', 'DESC')
-            ->andWhere('p.scheduledAt < NOW()');
+            ->andWhere('p.scheduledAt < NOW()')
+            ->orderBy('p.scheduledAt', 'DESC');
+    }
+
+    /**
+     * Requête les podcasts déjà diffusés.
+     */
+    public function querySuggestions(?string $orderKey): QueryBuilder
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p', 'partial a.{id, username}')
+            ->where('p.confirmedAt IS NULL')
+            ->join('p.author', 'a')
+            ->orderBy($orderKey === 'popular' ? 'p.votesCount' : 'p.createdAt', 'DESC');
     }
 
     /**
@@ -73,7 +85,7 @@ class PodcastRepository extends ServiceEntityRepository
             LEFT JOIN "user" u ON pu.user_id = u.id
             WHERE pu.podcast_id IN (?)
         SQL, $rsm);
-        $query->setParameter(1, array_map(fn (Podcast $p) => $p->getId(), $podcasts));
+        $query->setParameter(1, array_map(fn(Podcast $p) => $p->getId(), $podcasts));
 
         return $query->getResult();
     }
