@@ -6,9 +6,12 @@ use App\Domain\Auth\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=App\Domain\Podcast\Repository\PodcastRepository::class)
+ * @UniqueEntity("title")
  */
 class Podcast
 {
@@ -21,6 +24,7 @@ class Podcast
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private string $title = '';
 
@@ -38,7 +42,7 @@ class Podcast
     /**
      * @ORM\Column(type="integer", options={"default": 0})
      */
-    private int $votesCount = 0;
+    private int $votesCount = 1;
 
     /**
      * @ORM\Column(type="datetime")

@@ -4,37 +4,68 @@
 
 {% block body %}
   <div class="container py5">
-    <section class="stack" style="--gap:4">
-      <h2 class="h2">Proposer les futurs sujets de discussion</h2>
 
-      <nav class="nav-card">
-        <a href="{{ path('podcast_vote', {order: 'popular'}) }}" {% if order == 'popular' %}aria-selected="true"{% endif %}>Les plus populaires</a>
-        <a href="{{ path('podcast_vote', {order: 'date'}) }}" class="active" {% if order != 'popular' %}aria-selected="true"{% endif %}>Les plus récents</a>
-      </nav>
-      <div class="stack" style="--gap:4">
-        {% for podcast in podcasts %}
-          <article class="podcast-suggestion">
-            <podcast-vote
-              class="podcast-suggestion__vote"
-              data-endpoint="{{ path('api_podcast_vote', {id: podcast.id}) }}"
-              {% if podcast.id in votes or (app.user and app.user.id == podcast.author.id) %}aria-selected="true"{% endif %}
-            >
-              <strong>{{ podcast.votesCount }}</strong>
-              votes
-              <span class="podcast-suggestion__action">
-                {{ podcast.id in votes ? 'votes--' : 'votes++' }}
-              </span>
-            </podcast-vote>
-            <div class="podcast-suggestion__body">
-              <h3 class="podcast-suggestion__title">{{ podcast.title }}</h3>
-              <p>Suggéré par <a
-                  href="{{ path('user_show', {id: podcast.author.id}) }}">{{ podcast.author.username }}</a>, <span
-                  class="text-muted">{{ podcast.createdAt | ago }}</span></p>
-            </div>
-          </article>
-        {% endfor %}
+    {% include 'partials/flash.html.twig' with {floating: true} %}
+
+    <div class="podcasts-title mb3">
+      <div>
+        <h2 class="h2 mb1">Proposer les futurs sujets de discussion</h2>
+        <p class="text-muted">
+          Votez pour choisir le sujet des prochains podcasts.
+        </p>
       </div>
-    </section>
+
+      <div class="flex">
+        <nav class="nav-card">
+          <a href="{{ path('podcast_vote', {order: 'popular'}) }}"
+             {% if order == 'popular' %}aria-selected="true"{% endif %}>Les plus populaires</a>
+          <a href="{{ path('podcast_vote', {order: 'date'}) }}" class="active"
+             {% if order != 'popular' %}aria-selected="true"{% endif %}>Les plus récents</a>
+        </nav>
+        {% if app.user and not is_submitted %}
+          <button id="podcast-new" class="btn-primary ml1">{{ icon('edit') }} Proposer un sujet</button>
+        {% endif %}
+      </div>
+    </div>
+    <div class="stack" style="--gap:4">
+
+      {% if form %}
+        <div {% if not is_submitted %}class="hidden"{% endif%} id="podcast-form">
+          {{ form_start(form, {attr: {class: 'podcast-form'}}) }}
+          {{ form_row(form.title) }}
+          <button class="btn-primary">Proposer</button>
+          {{ form_end(form) }}
+        </div>
+      {% endif %}
+
+      {% for podcast in podcasts %}
+        <article class="podcast-suggestion">
+          <podcast-vote
+            class="podcast-suggestion__vote"
+            data-endpoint="{{ path('api_podcast_vote', {id: podcast.id}) }}"
+            {% if podcast.id in votes or (app.user and app.user.id == podcast.author.id) %}aria-selected="true"{% endif %}
+          >
+            <strong>{{ podcast.votesCount }}</strong>
+            votes
+            {% if  is_granted('VOTE', podcast) %}
+              <button class="podcast-suggestion__action {{ podcast.id in votes ? 'btn-primary' : 'btn-secondary' }}">
+                {{ podcast.id in votes ? 'votes--' : 'votes++' }}
+              </button>
+            {% else %}
+              <button disabled class="podcast-suggestion__action btn-primary">
+                votes++
+              </button>
+            {% endif %}
+          </podcast-vote>
+          <div class="podcast-suggestion__body">
+            <h3 class="podcast-suggestion__title">{{ podcast.title }}</h3>
+            <p>Suggéré par <a
+                href="{{ path('user_show', {id: podcast.author.id}) }}">{{ podcast.author.username }}</a>, <span
+                class="text-muted">{{ podcast.createdAt | ago }}</span></p>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
 
     {{ paginate(podcasts) }}
 

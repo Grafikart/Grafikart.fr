@@ -13,6 +13,7 @@ import { registerKonami, registerBadgeAlert } from '/modules/badges.js'
 import { registerWindowHeightCSS } from '/modules/window.js'
 import { registerHeader } from '/modules/header.js'
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
+import { slideDown } from '/functions/animation.js'
 
 registerKonami()
 registerBadgeAlert()
@@ -64,6 +65,17 @@ document.addEventListener('turbolinks:load', () => {
       }
     })
   })
+
+  const podcastButton = $('#podcast-new')
+  if (podcastButton) {
+    podcastButton.addEventListener('click', async e => {
+      e.preventDefault()
+      podcastButton.remove()
+      const form = $('#podcast-form')
+      await slideDown(form, 200)
+      form.querySelector('input').focus()
+    })
+  }
 })
 
 /**

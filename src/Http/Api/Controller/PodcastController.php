@@ -13,7 +13,7 @@ class PodcastController extends AbstractController
 {
     /**
      * @Route("/podcasts/{id<\d+>}/vote", name="podcast_vote")
-     * @IsGranted("VOTE", subject="podcast")
+     * @IsGranted("VOTE_PODCAST", subject="podcast")
      */
     public function vote(Podcast $podcast, PodcastService $podcastService): JsonResponse
     {

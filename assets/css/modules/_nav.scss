@@ -98,9 +98,7 @@
 // Navigation en forme de carte
 // =============
 .nav-card {
-  width: 100%;
   display: flex;
-  justify-content: flex-end;
 }
 .nav-card > *:first-child {
   border-top-left-radius: 5px;
@@ -112,7 +110,7 @@
   border-right: 1px solid var(--border);
 }
 .nav-card > * {
-  padding: space(.5) space(2);
+  padding: 9px 16px;
   display: flex;
   align-items: center;
   border: 1px solid var(--border);

@@ -11,18 +11,17 @@ use Doctrine\ORM\EntityManagerInterface;
 class PodcastService
 {
 
-    private PodcastVoteRepository $podcastVoteRepository;
     private EntityManagerInterface $em;
 
-    public function __construct(PodcastVoteRepository $podcastVoteRepository, EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em)
     {
-        $this->podcastVoteRepository = $podcastVoteRepository;
         $this->em = $em;
     }
 
     public function toggleVote(Podcast $podcast, User $user): PodcastVote
     {
-        $vote = $this->podcastVoteRepository->findOneBy(['podcast' => $podcast, 'voter' => $user]);
+        $podcastVoteRepository = $this->em->getRepository(PodcastVote::class);
+        $vote = $podcastVoteRepository->findOneBy(['podcast' => $podcast, 'voter' => $user]);
         if ($vote) {
             $podcast->setVotesCount($podcast->getVotesCount() - 1);
             $this->em->remove($vote);
@@ -33,5 +32,17 @@ class PodcastService
         }
         $this->em->flush();
         return $vote;
+    }
+
+    public function suggest(Podcast $podcast): Podcast
+    {
+        $this->em->persist($podcast);
+        $this->em->flush();
+        return $podcast;
+    }
+
+    public function canCreate(User $user): bool
+    {
+        return false;
     }
 }

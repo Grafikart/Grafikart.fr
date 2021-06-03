@@ -6,12 +6,13 @@ import { windowHeight, windowWidth } from '/functions/window.js'
 export class PodcastVote extends HTMLElement {
   connectedCallback () {
     this.voted = this.getAttribute('aria-selected') !== null
-    this.$button = this.querySelector('span')
+    this.$button = this.querySelector('button')
     this.$count = this.querySelector('strong')
     this.endpoint = this.dataset.endpoint
-    if (!isAuthenticated()) {
+    if (this.$button.getAttribute('disabled') === '' || !isAuthenticated()) {
       return
     }
+    this.style.setProperty('cursor', 'pointer')
     this.addEventListener('click', this.onClick.bind(this))
   }
 
@@ -25,7 +26,10 @@ export class PodcastVote extends HTMLElement {
 
   updateUI () {
     if (this.voted) {
+      // La personne a voté
       this.$button.innerText = 'votes--'
+      this.$button.classList.add('btn-primary')
+      this.$button.classList.remove('btn-secondary')
       this.setAttribute('aria-selected', 'true')
       const rect = this.getBoundingClientRect()
       const y = (rect.top + rect.height) / windowHeight()
@@ -41,7 +45,10 @@ export class PodcastVote extends HTMLElement {
         origin: { y, x }
       })
     } else {
+      // La personne peut voter
       this.$button.innerText = 'votes++'
+      this.$button.classList.remove('btn-primary')
+      this.$button.classList.add('btn-secondary')
       this.removeAttribute('aria-selected')
     }
   }

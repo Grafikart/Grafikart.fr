@@ -3,12 +3,14 @@ let $header = document.querySelector('.header')
 let currentTop = 0
 let previousTop = 0
 let scrolling = false
-let scrollDelta = 20
-let scrollOffset = $header.offsetHeight
+const scrollDelta = 20
+let scrollOffset = $header ? $header.offsetHeight : 0
 
 document.addEventListener('turbolinks:load', () => {
   $header = document.querySelector('.header')
-  scrollOffset = $header.offsetHeight
+  if ($header) {
+    scrollOffset = $header.offsetHeight
+  }
 })
 
 // Les différents états possible du header
@@ -41,7 +43,10 @@ function setState (newState) {
   state = newState
 }
 
-let autoHideHeader = function () {
+const autoHideHeader = function () {
+  if (!$header) {
+    return
+  }
   currentTop = document.documentElement.scrollTop
   // Opacité sur le header
   if (currentTop > $header.offsetHeight) {
@@ -70,7 +75,7 @@ let autoHideHeader = function () {
  * @return {function(): void}
  */
 export function registerHeader () {
-  const scrollListener = throttle(function () {
+  const scrollListener = throttle(() => {
     if (!scrolling) {
       scrolling = true
       window.requestAnimationFrame(autoHideHeader)

@@ -6,6 +6,11 @@
 {% endblock %}
 
 {% block actions %}
+  <div class="nav-card">
+    <a href="?state=published" {% if state == 'published' %}aria-selected="true"{% endif %}>Publié</a>
+    <a href="?state=suggested" {% if state == 'suggested' %}aria-selected="true"{% endif %}>Suggérés</a>
+    <a href="?state=confirmed" {% if state == 'confirmed' %}aria-selected="true"{% endif %}>Validés</a>
+  </div>
     <a href="{{ path(prefix ~ '_new') }}" class="btn-primary">Ajouter</a>
 {% endblock %}
 
