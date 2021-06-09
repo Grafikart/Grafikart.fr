@@ -357,4 +357,12 @@ abstract class Content implements CacheableInterface
     {
         return $this instanceof Formation;
     }
+
+    /**
+     * Renvoie le nom du fichier pour le téléchargement des sources / vidéo.
+     */
+    public function getFilename(): string
+    {
+        return str_replace(['.', ','], [' ', ''], $this->title ?: '');
+    }
 }
