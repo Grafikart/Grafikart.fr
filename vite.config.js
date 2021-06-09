@@ -25,9 +25,11 @@ const twigRefreshPlugin = () => ({
  * @type { import('vite').UserConfig }
  */
 const config = {
-  alias: {
-    react: "preact/compat",
-    "react-dom": "preact/compat",
+  resolve: {
+    alias: {
+      react: "preact/compat",
+      "react-dom": "preact/compat",
+    }
   },
   emitManifest: true,
   cors: true,

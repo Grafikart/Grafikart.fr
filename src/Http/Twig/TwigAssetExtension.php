@@ -111,7 +111,7 @@ class TwigAssetExtension extends AbstractExtension
 
         foreach ($imports as $import) {
             $preloads[] = <<<HTML
-              <link rel="modulepreload" href="/assets/$import">
+              <link rel="modulepreload" href="{$this->uri($import)}">
             HTML;
         }
 
@@ -131,7 +131,11 @@ class TwigAssetExtension extends AbstractExtension
             return $request ? "http://{$request->getHost()}:3000/{$name}" : '';
         }
 
-        $name = $this->getAssetPaths()[$name]['file'] ?? $this->getAssetPaths()[$name] ?? '';
+        if(strpos($name, '.css')) {
+            $name = $this->getAssetPaths()[str_replace('.css', '.js', $name)]['css'][0] ?? '';
+        } else {
+            $name = $this->getAssetPaths()[$name]['file'] ?? $this->getAssetPaths()[$name] ?? '';
+        }
 
         return "/assets/$name";
     }
