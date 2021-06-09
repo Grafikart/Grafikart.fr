@@ -113,17 +113,10 @@ export class Waves extends HTMLElement {
       <div class="waves-container ${className}">
         <div class="waves-background"></div>
         ${image}
-        <svg class="waves" xmlns="http://www.w3.org/2000/svg" style="isolation:isolate" preserveAspectRatio="none" viewBox="5978 129.24 1440 259.76">
-          <defs>
-            <clipPath id="a">
-              <path d="M5978 129.24h1440V389H5978z"/>
-            </clipPath>
-          </defs>
-          <g fill="#FFF" clip-path="url(#a)">
-            <path style="animation-delay: .2s" d="M5978 153.77c166.44 0 358.45 11.66 755.24 138.08 381.36 121.5 562.3 105.94 684.76 75.81 0-15.48-.02-54.72-.1-155.11-137.43 39.67-283.82 106.09-717.65 27.58-407.86-73.8-571.8-93.89-721.75-93.89l-.5 7.53z" fill-opacity=".1"/>
-            <path style="animation-delay: .4s" d="M5978 153.77c166.44 0 358.45 11.66 755.24 138.08 381.36 121.5 562.3 105.94 684.76 75.81l-.04-53.2-1.54.37c-122.36 30.1-294.49 72.46-680.18-34.53C6334.99 169 6181.93 151.26 5978 151.26v2.51z" fill-opacity=".1"/>
-            <path d="M7418 367.66V389H5978V153.77c166.44 0 358.45 11.66 755.24 138.08C6965.46 365.84 7123.37 389 7239 389c74.27 0 131.1-9.56 178.99-21.34q0-70.8 0 0z" style="fill: var(--background);"/>
-          </g>
+        <svg xmlns="http://www.w3.org/2000/svg" class="waves" viewBox="0 0 1440 250"  style="isolation:isolate" preserveAspectRatio="none">
+          <path fill="#FFF" style="animation-delay: .2s"  fill-opacity=".1" d="M0 24c166 0 358 11 755 133 382 116 563 101 685 72V80c-138 38-284 102-718 27C314 36 150 16 1 16l-1 8z"/>
+          <path fill="#FFF" style="animation-delay: .4s" fill-opacity=".1" d="M0 24c166 0 358 11 755 133 382 116 563 101 685 72v-51l-2 1c-122 29-294 69-680-34C357 38 204 21 0 21v3z"/>
+          <path style="fill: var(--background);" d="M1440 229v21H0V24c166 0 358 11 755 133 232 71 390 93 506 93 74 0 131-9 179-21 0-45 0-45 0 0z"/>
         </svg>
     </div>
     `
