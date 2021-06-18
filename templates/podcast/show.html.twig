@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  {{- "Podcast " ~ podcast.title -}}
+{% endblock %}
+
+{% block meta %}
+  <meta property="og:created_time" content="{{ podcast.scheduledAt | date('c') }}"/>
+  <meta property="og:duration" content="{{ podcast.duration }}"/>
+{% endblock %}
+
+{% block body %}
+  <div class="container">
+    {{ breadcrumb(podcast) }}
+
+    <div class="py-5 layout-sidebar">
+      <div>
+        <div class="stack" style="--gap:1">
+          <h1 class="h1">
+            Podcast : {{ podcast.title }}
+          </h1>
+
+          {# Lecteur youtube si vidéo youtube #}
+          {% if podcast.youtube %}
+            <youtube-player
+              video="{{ podcast.youtube }}"
+              duration="{{ podcast.duration | duration }}"
+              class="shadow my1">
+              <a href="https://www.youtube.com/watch?v={{ podcast.youtube }}" target="_blank" rel="noopener" class="course__placeholder">
+                <span>Voir la vidéo</span>
+              </a>
+            </youtube-player>
+          {% endif %}
+
+          {# Metadonnées (participants / date / durée) #}
+          <div class="text-muted text-small flex flex-start">
+            <div class="card__avatars avatars">
+              {% for user in podcast.intervenants %}
+                <a href="{{ path('user_show', {id: user.id}) }}" class="avatar" title="{{ user.username }}">
+                  <img src="{{ user | avatar }}" alt="{{ user.username }}">
+                </a>
+              {% endfor %}
+            </div>
+            <div class="mx1">
+              {{ icon('clock', 14) }} {{ podcast.duration | duration }} -
+              {{ podcast.scheduledAt | ago }}
+            </div>
+            <div class="mla">
+              <admin-edit hidden></admin-edit>
+            </div>
+          </div>
+
+          {# Description formattée #}
+          <div class="formatted mt3">
+            {{ podcast.content | markdown }}
+          </div>
+
+        </div>
+      </div>
+      <div class="card">
+        <div class="podcast-list">
+          {% for p in podcasts %}
+            <a class="p2 {% if p.id == podcast.id %}is-active js-scrollIntoView{% endif %}" href="{{ path('podcast_show', {id: p.id}) }}">
+              <div class="bold">{{ p.title }}</div>
+              <div class="text-small text-muted">
+                {{ icon('clock', 14) }} {{ p.duration | duration }}
+                - {{ p.scheduledAt | ago }}
+              </div>
+            </a>
+            <hr>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block javascripts %}
+  {% if is_granted('ADMIN') %}
+    <script>
+      window.grafikart = {
+        EDIT_LINK: "{{ path('admin_podcast_edit', {id: podcast.id}) }}"
+      }
+    </script>
+  {% endif %}
+  {{ parent() }}
+{% endblock %}

@@ -31,6 +31,13 @@ document.addEventListener('turbolinks:load', () => {
     })
   }
 
+  // ScrollIntoView elements
+  const scrollIntoViewElement = document.querySelector('.js-scrollIntoView')
+  if (scrollIntoViewElement) {
+    const parent = scrollIntoViewElement.offsetParent
+    parent.scrollTop = scrollIntoViewElement.offsetTop - scrollIntoViewElement.offsetHeight
+  }
+
   // Header toggle
   const burgerButton = $('#js-burger')
   const headerNav = $('.header-nav')

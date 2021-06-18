@@ -70,6 +70,11 @@ class Podcast
     private int $duration = 0;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private ?string $youtube;
+
+    /**
      * @ORM\ManyToMany(targetEntity=User::class)
      */
     private Collection $intervenants;
@@ -229,6 +234,24 @@ class Podcast
     {
         $this->intervenants->removeElement($intervenant);
 
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getYoutube(): ?string
+    {
+        return $this->youtube;
+    }
+
+    /**
+     * @param string $youtube
+     * @return Podcast
+     */
+    public function setYoutube(string $youtube): Podcast
+    {
+        $this->youtube = $youtube;
         return $this;
     }
 }

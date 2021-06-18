@@ -1,6 +1,10 @@
 <article class="card">
   <div class="card__body stack" style="--gap:1">
-    <div class="h4">{{ podcast.title }}</div>
+    <div class="h4">
+      <a href="{{ path('podcast_show', {id: podcast.id}) }}">
+        {{ podcast.title }}
+      </a>
+    </div>
     <div class="text-muted text-small">{{ podcast.scheduledAt | ago }}</div>
     <div class="card__description mb2">{{ podcast.excerpt }}</div>
   </div>

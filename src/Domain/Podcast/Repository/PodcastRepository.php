@@ -38,6 +38,18 @@ class PodcastRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findRelative(Podcast $podcast): array
+    {
+        $scheduledAt = $podcast->getScheduledAt() ?: new \DateTime();
+        $date = (new \DateTime())->setTimestamp($scheduledAt->getTimestamp() + 24 * 60 * 60 * 30);
+        return $this->queryPast()
+            ->andWhere('p.scheduledAt < :date')
+            ->setParameter('date', $date)
+            ->setMaxResults(50)
+            ->getQuery()
+            ->getResult();
+    }
+
     /**
      * Requête les podcasts déjà diffusés.
      */

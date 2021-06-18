@@ -75,3 +75,24 @@
 .podcast-suggestion__body > * + * {
   margin-top: space(1);
 }
+
+// List
+// =============
+.podcast-list {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: auto;
+}
+
+.podcast-list > * {
+  display: block;
+}
+
+.podcast-page .page-wrapper {
+  overflow: visible;
+}
+
+.podcast-list .is-active {
+  border: 1px solid var(--contrast);
+}

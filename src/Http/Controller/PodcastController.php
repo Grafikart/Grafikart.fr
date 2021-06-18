@@ -34,6 +34,18 @@ class PodcastController extends AbstractController
     }
 
     /**
+     * @Route("/podcast/{id<\d+>}", name="podcast_show")
+     */
+    public function show(Podcast $podcast, PodcastRepository $podcastRepository): Response
+    {
+        return $this->render('podcast/show.html.twig', [
+            'podcast'   => $podcast,
+            'podcasts'  => $podcastRepository->findRelative($podcast),
+            'bodyClass' => 'podcast-page'
+        ]);
+    }
+
+    /**
      * @Route("/podcast/votes", name="podcast_vote")
      */
     public function votes(
