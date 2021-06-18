@@ -363,6 +363,6 @@ abstract class Content implements CacheableInterface
      */
     public function getFilename(): string
     {
-        return str_replace(['.', ','], [' ', ''], $this->title ?: '');
+        return str_replace(['.', ',', ':'], [' ', '', ''], $this->title ?: '');
     }
 }
