@@ -22,7 +22,7 @@ class PodcastVoteRepository extends ServiceEntityRepository
 
     public function podcastIdsForUser(?User $user): array
     {
-        if ($user === null) {
+        if (null === $user) {
             return [];
         }
         $results = $this->createQueryBuilder('pv')
@@ -31,6 +31,7 @@ class PodcastVoteRepository extends ServiceEntityRepository
             ->setParameter('user', $user->getId())
             ->getQuery()
             ->getArrayResult();
-        return array_map(fn(array $r) => $r['id'], $results);
+
+        return array_map(fn (array $r) => $r['id'], $results);
     }
 }

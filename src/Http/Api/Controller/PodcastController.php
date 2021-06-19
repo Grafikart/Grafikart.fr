@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Http\Api\Controller;
 
@@ -18,8 +20,9 @@ class PodcastController extends AbstractController
     public function vote(Podcast $podcast, PodcastService $podcastService): JsonResponse
     {
         $podcastService->toggleVote($podcast, $this->getUserOrThrow());
+
         return new JsonResponse([
-            'votesCount' => $podcast->getVotesCount()
+            'votesCount' => $podcast->getVotesCount(),
         ]);
     }
 }

@@ -24,11 +24,11 @@ class PodcastController extends AbstractController
     ): Response {
         $future = $podcastRepository->findFuture();
         $podcasts = $paginator->paginate($podcastRepository->queryPast()->setMaxResults(11)->getQuery());
-        $podcastRepository->hydrateIntervenants((array)$podcasts->getItems());
+        $podcastRepository->hydrateIntervenants((array) $podcasts->getItems());
 
         return $this->render('podcast/index.html.twig', [
-            'page'     => $request->get('page'),
-            'future'   => $future,
+            'page' => $request->get('page'),
+            'future' => $future,
             'podcasts' => $podcasts,
         ]);
     }
@@ -39,9 +39,9 @@ class PodcastController extends AbstractController
     public function show(Podcast $podcast, PodcastRepository $podcastRepository): Response
     {
         return $this->render('podcast/show.html.twig', [
-            'podcast'   => $podcast,
-            'podcasts'  => $podcastRepository->findRelative($podcast),
-            'bodyClass' => 'podcast-page'
+            'podcast' => $podcast,
+            'podcasts' => $podcastRepository->findRelative($podcast),
+            'bodyClass' => 'podcast-page',
         ]);
     }
 
@@ -78,12 +78,12 @@ class PodcastController extends AbstractController
         $votes = $podcastVoteRepository->podcastIdsForUser($user);
 
         return $this->render('podcast/votes.html.twig', [
-            'podcasts'     => $podcasts,
-            'votes'        => $votes,
-            'order'        => $order,
-            'page'         => $request->get('page'),
-            'form'         => $form ? $form->createView() : null,
-            'is_submitted' => $isSubmitted
+            'podcasts' => $podcasts,
+            'votes' => $votes,
+            'order' => $order,
+            'page' => $request->get('page'),
+            'form' => $form ? $form->createView() : null,
+            'is_submitted' => $isSubmitted,
         ]);
     }
 }

@@ -245,13 +245,10 @@ class Podcast
         return $this->youtube;
     }
 
-    /**
-     * @param string $youtube
-     * @return Podcast
-     */
     public function setYoutube(string $youtube): Podcast
     {
         $this->youtube = $youtube;
+
         return $this;
     }
 }

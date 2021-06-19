@@ -42,6 +42,7 @@ class PodcastRepository extends ServiceEntityRepository
     {
         $scheduledAt = $podcast->getScheduledAt() ?: new \DateTime();
         $date = (new \DateTime())->setTimestamp($scheduledAt->getTimestamp() + 24 * 60 * 60 * 30);
+
         return $this->queryPast()
             ->andWhere('p.scheduledAt < :date')
             ->setParameter('date', $date)
@@ -70,7 +71,7 @@ class PodcastRepository extends ServiceEntityRepository
             ->select('p', 'partial a.{id, username}')
             ->where('p.confirmedAt IS NULL')
             ->join('p.author', 'a')
-            ->orderBy($orderKey === 'popular' ? 'p.votesCount' : 'p.createdAt', 'DESC');
+            ->orderBy('popular' === $orderKey ? 'p.votesCount' : 'p.createdAt', 'DESC');
     }
 
     /**
@@ -97,7 +98,7 @@ class PodcastRepository extends ServiceEntityRepository
             LEFT JOIN "user" u ON pu.user_id = u.id
             WHERE pu.podcast_id IN (?)
         SQL, $rsm);
-        $query->setParameter(1, array_map(fn(Podcast $p) => $p->getId(), $podcasts));
+        $query->setParameter(1, array_map(fn (Podcast $p) => $p->getId(), $podcasts));
 
         return $query->getResult();
     }

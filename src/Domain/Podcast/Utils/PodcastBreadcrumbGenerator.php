@@ -2,7 +2,6 @@
 
 namespace App\Domain\Podcast\Utils;
 
-use App\Domain\Course\Entity\Course;
 use App\Domain\Podcast\Entity\Podcast;
 use App\Normalizer\Breadcrumb\BreadcrumbGeneratorInterface;
 use App\Normalizer\Breadcrumb\BreadcrumbItem;

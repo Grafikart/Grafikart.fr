@@ -28,11 +28,11 @@ class PodcastController extends CrudController
         $state = $request->get('state', 'published');
         if ($request->get('q')) {
             $query = $this->applySearch(trim($request->get('q')), $query);
-        } elseif ($state === 'published') {
+        } elseif ('published' === $state) {
             $query = $query->where('row.scheduledAt < NOW()');
-        } elseif ($state === 'suggested') {
+        } elseif ('suggested' === $state) {
             $query = $query->where('row.confirmedAt IS NULL');
-        } elseif ($state === 'confirmed') {
+        } elseif ('confirmed' === $state) {
             $query = $query->where('row.confirmedAt IS NOT NULL');
         }
         $query = $query

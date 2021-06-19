@@ -5,12 +5,10 @@ namespace App\Domain\Podcast;
 use App\Domain\Auth\User;
 use App\Domain\Podcast\Entity\Podcast;
 use App\Domain\Podcast\Entity\PodcastVote;
-use App\Domain\Podcast\Repository\PodcastVoteRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 class PodcastService
 {
-
     private EntityManagerInterface $em;
 
     public function __construct(EntityManagerInterface $em)
@@ -31,6 +29,7 @@ class PodcastService
             $this->em->persist($vote);
         }
         $this->em->flush();
+
         return $vote;
     }
 
@@ -38,6 +37,7 @@ class PodcastService
     {
         $this->em->persist($podcast);
         $this->em->flush();
+
         return $podcast;
     }
 
