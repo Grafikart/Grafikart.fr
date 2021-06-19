@@ -7,13 +7,13 @@ import Turbolinks from 'turbolinks'
 import './modules/scrollreveal.js'
 import './modules/highlight.js'
 import { showHistory } from './modules/history.js'
-import ChoicesJS from 'choices.js'
 import { $$, $ } from '/functions/dom.js'
 import { registerKonami, registerBadgeAlert } from '/modules/badges.js'
 import { registerWindowHeightCSS } from '/modules/window.js'
 import { registerHeader } from '/modules/header.js'
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 import { slideDown } from '/functions/animation.js'
+import TomSelect from 'tom-select'
 
 registerKonami()
 registerBadgeAlert()
@@ -54,12 +54,13 @@ document.addEventListener('turbolinks:load', () => {
   // Choices
   $$('select[multiple]:not([is])').forEach(
     s =>
-      new ChoicesJS(s, {
-        placeholder: true,
-        shouldSort: false,
-        itemSelectText: '',
-        maxItemCount: s.dataset.limit || -1,
-        maxItemText: s.dataset.limit && `Vous ne pouvez sélectionner que ${s.dataset.limit} éléments`
+      new TomSelect(s, {
+        plugins: {
+          remove_button: {
+            title: 'Supprimer cet élément'
+          }
+        },
+        maxItems: s.dataset.limit || null
       })
   )
 

@@ -42,7 +42,7 @@ class UserChoiceType extends AbstractType implements DataTransformerInterface
         $view->vars['placeholder_in_choices'] = false;
         $view->vars['multiple'] = false;
         $view->vars['preferred_choices'] = [];
-        $view->vars['value'] = $user ? $user->getId() : 0;
+        $view->vars['value'] = $user ? (string) $user->getId() : 0;
         $view->vars['choices'] = $choices;
     }
 
@@ -51,8 +51,10 @@ class UserChoiceType extends AbstractType implements DataTransformerInterface
         $resolver->setDefaults([
             'compound' => false,
             'attr' => [
-                'is' => 'user-select',
-                'endpoint' => $this->url->generate('admin_user_autocomplete'),
+                'is' => 'select-choices',
+                'data-remote' => $this->url->generate('admin_user_autocomplete'),
+                'data-value' => 'id',
+                'data-label' => 'username',
             ],
         ]);
     }

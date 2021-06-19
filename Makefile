@@ -53,6 +53,10 @@ build-docker:
 dev: vendor/autoload.php node_modules/time ## Lance le serveur de développement
 	$(dc) up
 
+.PHONY: devmac
+devmac: ## Sur MacOS on ne préfèrera exécuter PHP en local pour les performances
+	docker-compose -f docker-compose.macos.yml up
+
 .PHONY: dump
 dump: var/dump ## Génère un dump SQL
 	$(de) db sh -c 'PGPASSWORD="grafikart" pg_dump grafikart -U grafikart > /var/www/var/dump/dump.sql'

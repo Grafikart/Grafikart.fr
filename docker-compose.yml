@@ -24,8 +24,8 @@ services:
       REDIS_URL: redis://redis
       TYPESENSE_KEY: typesensekey
       TYPESENSE_HOST: typesense:8108
-      MAIL_DSN: sendmail://default
-      MAILER_URL: postgresql://grafikart:grafikart@db:5432/grafikart?serverVersion=12&chartset=utf8
+      MAILER_DSN: smtp://mail:1025?encryption=null&auth_mode=null
+      DATABASE_URL: postgresql://grafikart:grafikart@db:5432/grafikart?serverVersion=12&chartset=utf8
       MERCURE_PUBLISH_URL: http://mercure/.well-known/mercure
       MESSENGER_TRANSPORT_DSN: redis://redis:6379/messages
       MESSENGER_TRANSPORT_FAILED_DSN: redis://redis:6379/messages_failed

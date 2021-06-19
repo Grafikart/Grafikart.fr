@@ -86,7 +86,7 @@ class TwigAssetExtension extends AbstractExtension
                 !strpos($userAgent, 'Chrome')) {
                 $this->polyfillLoaded = true;
                 $script = <<<HTML
-                    <script src="//unpkg.com/@ungap/custom-elements" defer></script>
+                    <script src="//unpkg.com/document-register-element" defer></script>
                     $script
                 HTML;
             }

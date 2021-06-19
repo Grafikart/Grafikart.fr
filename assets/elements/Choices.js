@@ -1,78 +1,85 @@
-import ChoicesJS from 'choices.js'
-import { redirect } from '/functions/url.js'
 import { jsonFetch } from '/functions/api.js'
-import { debounce } from '/functions/timers.js'
+import TomSelect from 'tom-select'
+import { redirect } from '/functions/url'
+
+export class InputChoices extends HTMLInputElement {}
+
+export class SelectChoices extends HTMLSelectElement {}
 
 /**
- * @property {Choices} choices
+ * Ajoute le comportement sur les select / champs
+ * @param {InputChoices|SelectChoices} cls
  */
-export class InputChoices extends HTMLInputElement {
-  connectedCallback () {
-    if (!this.getAttribute('choicesBinded')) {
-      this.setAttribute('choicesBinded', 'true')
-      this.choices = new ChoicesJS(this, {
-        removeItems: true,
-        removeItemButton: true,
-        addItemText: value => {
-          return `Appuyer sur entrer pour ajouter <b>"${value}"</b>`
+function bindBehaviour (cls) {
+  cls.prototype.connectedCallback = function () {
+    if (this.getAttribute('choicesBinded')) {
+      return
+    }
+    this.setAttribute('choicesBinded', 'true')
+
+    // Ajout de plugins suivant le type de champs mappé
+    const plugins = {}
+    if (this.tagName === 'SELECT') {
+      plugins.no_backspace_delete = {}
+      plugins.dropdown_input = {}
+    } else {
+      plugins.remove_button = {
+        title: 'Supprimer cet élément'
+      }
+    }
+
+    // On configure les options en fonction de la situation
+    let options = {
+      allowEmptyOption: true,
+      plugins,
+      hideSelected: true,
+      persist: false
+    }
+    if (this.dataset.remote) {
+      options = {
+        ...options,
+        valueField: this.dataset.value,
+        labelField: this.dataset.label,
+        searchField: this.dataset.label,
+        load: async (query, callback) => {
+          const url = `${this.dataset.remote}?q=${encodeURIComponent(query)}`
+          const data = await jsonFetch(url)
+          callback(data)
         }
-      })
+      }
+    }
+    if (this.dataset.create) {
+      options = {
+        ...options,
+        create: true
+      }
+    }
+    this.widget = new TomSelect(this, options)
+
+    // Si l'option "redirect" est présente, on redirige au changement de valeur
+    if (this.dataset.redirect !== undefined) {
+      this.widget.on('change', () => redirectOnChange(this))
     }
   }
 
-  disconnectedCallback () {
-    if (this.choices) {
-      this.choices.destroy()
+  cls.prototype.disconnectedCallback = function () {
+    if (this.widget) {
+      this.widget.destroy()
     }
   }
 }
 
-/**
- * @property {Choices} choices
- */
-export class SelectChoices extends HTMLSelectElement {
-  connectedCallback () {
-    if (!this.getAttribute('choicesBinded')) {
-      this.setAttribute('choicesBinded', 'true')
-      this.choices = new ChoicesJS(this, {
-        placeholder: true,
-        shouldSort: false,
-        itemSelectText: '',
-        searchEnabled: this.dataset.search !== undefined
-      })
-
-      // On redirige l'utilisateur au changement de valeur
-      if (this.dataset.redirect !== undefined) {
-        this.addEventListener('change', e => {
-          const params = new URLSearchParams(window.location.search)
-          if (e.target.value === '') {
-            params.delete(e.target.name)
-          } else {
-            params.set(e.target.name, e.target.value)
-          }
-          if (params.has('page')) {
-            params.delete('page')
-          }
-          redirect(`${location.pathname}?${params}`)
-        })
-      }
-
-      // La recherche utilise une API
-      if (this.dataset.search) {
-        this.addEventListener(
-          'search',
-          debounce(async e => {
-            const data = await jsonFetch(`${this.dataset.search}?q=${encodeURIComponent(e.detail.value)}`)
-            this.choices.setChoices(data, this.dataset.value || 'value', this.dataset.label || 'label', true)
-          }, 400)
-        )
-      }
-    }
+function redirectOnChange (select) {
+  const params = new URLSearchParams(window.location.search)
+  if (select.value === '') {
+    params.delete(select.name)
+  } else {
+    params.set(select.name, select.value)
   }
-
-  disconnectedCallback () {
-    if (this.choices) {
-      this.choices.destroy()
-    }
+  if (params.has('page')) {
+    params.delete('page')
   }
+  redirect(`${location.pathname}?${params}`)
 }
+
+Array.from([InputChoices, SelectChoices]).forEach(bindBehaviour)
