@@ -25,6 +25,7 @@ class Podcast
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
+     * @Assert\Length(min=6)
      */
     private string $title = '';
 

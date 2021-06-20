@@ -12,6 +12,7 @@ class PodcastVoter extends Voter
 {
     const VOTE = 'VOTE_PODCAST';
     const CREATE = 'CREATE_PODCAST';
+    const DELETE = 'DELETE_PODCAST';
     private PodcastService $podcastService;
 
     public function __construct(PodcastService $podcastService)
@@ -21,9 +22,9 @@ class PodcastVoter extends Voter
 
     protected function supports(string $attribute, $subject)
     {
-        return in_array($attribute, [
-                self::VOTE,
-            ]) && $subject instanceof Podcast;
+        return
+            in_array($attribute, [self::CREATE]) ||
+            (in_array($attribute, [self::VOTE, self::DELETE]) && $subject instanceof Podcast);
     }
 
     /**
@@ -40,8 +41,10 @@ class PodcastVoter extends Voter
         switch ($attribute) {
             case self::VOTE:
                 return $subject instanceof Podcast && $this->canVote($user, $subject);
+            case self::DELETE:
+                return $subject instanceof Podcast && $this->canDelete($user, $subject);
             case self::CREATE:
-                return $this->canCreate($user);
+                return $this->podcastService->canCreate($user);
         }
 
         return false;
@@ -52,8 +55,8 @@ class PodcastVoter extends Voter
         return $podcast->getAuthor()->getId() !== $user->getId() && null === $podcast->getConfirmedAt();
     }
 
-    private function canCreate(User $user): bool
+    private function canDelete(User $user, Podcast $podcast): bool
     {
-        return $this->podcastService->canCreate($user);
+        return $podcast->getAuthor()->getId() === $user->getId() && $podcast->getVotesCount() === 1;
     }
 }

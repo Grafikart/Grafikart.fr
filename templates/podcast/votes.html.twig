@@ -33,13 +33,19 @@
         <div {% if not is_submitted %}class="hidden"{% endif%} id="podcast-form">
           {{ form_start(form, {attr: {class: 'podcast-form'}}) }}
           {{ form_row(form.title) }}
-          <button class="btn-primary">Proposer</button>
+          <button class="btn-primary" type="submit">Proposer</button>
           {{ form_end(form) }}
+        </div>
+      {% elseif app.user %}
+        <div class="hidden" id="podcast-form">
+          <alert-message type="info">
+            Vous devez avoir un compte actif depuis plus d'1 mois et vous ne pouvez pas proposer plus de {{ limit_per_month }} sujets par mois
+          </alert-message>
         </div>
       {% endif %}
 
       {% for podcast in podcasts %}
-        <article class="podcast-suggestion">
+        <article class="podcast-suggestion" id="podcast-{{ podcast.id }}">
           <podcast-vote
             class="podcast-suggestion__vote"
             data-endpoint="{{ path('api_podcast_vote', {id: podcast.id}) }}"
@@ -47,7 +53,7 @@
           >
             <strong>{{ podcast.votesCount }}</strong>
             votes
-            {% if  is_granted('VOTE', podcast) %}
+            {% if  is_granted('VOTE_PODCAST', podcast) %}
               <button class="podcast-suggestion__action {{ podcast.id in votes ? 'btn-primary' : 'btn-secondary' }}">
                 {{ podcast.id in votes ? 'votes--' : 'votes++' }}
               </button>
@@ -59,9 +65,14 @@
           </podcast-vote>
           <div class="podcast-suggestion__body">
             <h3 class="podcast-suggestion__title">{{ podcast.title }}</h3>
-            <p>Suggéré par <a
-                href="{{ path('user_show', {id: podcast.author.id}) }}">{{ podcast.author.username }}</a>, <span
-                class="text-muted">{{ podcast.createdAt | ago }}</span></p>
+            <p>
+              Suggéré par <a href="{{ path('user_show', {id: podcast.author.id}) }}">{{ podcast.author.username }}</a>,
+              <span class="text-muted">{{ podcast.createdAt | ago }}</span>
+              {% if is_granted('DELETE_PODCAST', podcast) %}
+              - <ajax-delete class="text-danger" url="{{ path('api_podcast_delete', {id: podcast.id}) }}"
+                             target="#podcast-{{ podcast.id }}">Supprimer</ajax-delete>
+              {% endif %}
+            </p>
           </div>
         </article>
       {% endfor %}

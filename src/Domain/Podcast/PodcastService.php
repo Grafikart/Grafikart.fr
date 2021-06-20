@@ -5,10 +5,13 @@ namespace App\Domain\Podcast;
 use App\Domain\Auth\User;
 use App\Domain\Podcast\Entity\Podcast;
 use App\Domain\Podcast\Entity\PodcastVote;
+use App\Domain\Podcast\Repository\PodcastRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 class PodcastService
 {
+
+    public const LIMIT_PER_MONTH = 2;
     private EntityManagerInterface $em;
 
     public function __construct(EntityManagerInterface $em)
@@ -43,6 +46,8 @@ class PodcastService
 
     public function canCreate(User $user): bool
     {
-        return false;
+        /** @var PodcastRepository $podcastRepository */
+        $podcastRepository = $this->em->getRepository(Podcast::class);
+        return $user->getCreatedAt() < new \DateTime('-1 month') && $podcastRepository->countRecentFromUser($user) < self::LIMIT_PER_MONTH;
     }
 }

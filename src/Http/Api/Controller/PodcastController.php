@@ -6,7 +6,9 @@ namespace App\Http\Api\Controller;
 
 use App\Domain\Podcast\Entity\Podcast;
 use App\Domain\Podcast\PodcastService;
+use App\Domain\Podcast\Repository\PodcastRepository;
 use App\Http\Controller\AbstractController;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,5 +26,17 @@ class PodcastController extends AbstractController
         return new JsonResponse([
             'votesCount' => $podcast->getVotesCount(),
         ]);
+    }
+
+    /**
+     * @Route("/podcasts/{id<\d+>}", name="podcast_delete", methods={"DELETE"})
+     * @IsGranted("DELETE_PODCAST", subject="podcast")
+     */
+    public function delete(Podcast $podcast, EntityManagerInterface $em): JsonResponse
+    {
+        $em->remove($podcast);
+        $em->flush();
+
+        return new JsonResponse(null, 204);
     }
 }

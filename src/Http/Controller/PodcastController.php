@@ -8,14 +8,17 @@ use App\Domain\Podcast\Repository\PodcastRepository;
 use App\Domain\Podcast\Repository\PodcastVoteRepository;
 use App\Helper\Paginator\PaginatorInterface;
 use App\Http\Form\PodcastForm;
+use App\Http\Security\PodcastVoter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Security;
 
 class PodcastController extends AbstractController
 {
     /**
-     * @Route("/podcast", name="podcast")
+     * @Route("/podcasts", name="podcast")
      */
     public function index(
         Request $request,
@@ -34,7 +37,7 @@ class PodcastController extends AbstractController
     }
 
     /**
-     * @Route("/podcast/{id<\d+>}", name="podcast_show")
+     * @Route("/podcasts/{id<\d+>}", name="podcast_show")
      */
     public function show(Podcast $podcast, PodcastRepository $podcastRepository): Response
     {
@@ -46,14 +49,15 @@ class PodcastController extends AbstractController
     }
 
     /**
-     * @Route("/podcast/votes", name="podcast_vote")
+     * @Route("/podcasts/votes", name="podcast_vote")
      */
     public function votes(
         PaginatorInterface $paginator,
         PodcastRepository $podcastRepository,
         PodcastVoteRepository $podcastVoteRepository,
         PodcastService $podcastService,
-        Request $request
+        Request $request,
+        AuthorizationCheckerInterface $auth
     ): Response {
         $form = null;
         $user = $this->getUser();
@@ -61,7 +65,7 @@ class PodcastController extends AbstractController
 
         // Traitement du formulaire
         $isSubmitted = false;
-        if ($user) {
+        if ($user && $auth->isGranted(PodcastVoter::CREATE)) {
             $podcast = new Podcast();
             $podcast->setAuthor($user);
             $form = $this->createForm(PodcastForm::class, $podcast);
@@ -84,6 +88,7 @@ class PodcastController extends AbstractController
             'page' => $request->get('page'),
             'form' => $form ? $form->createView() : null,
             'is_submitted' => $isSubmitted,
+            'limit_per_month' => PodcastService::LIMIT_PER_MONTH,
         ]);
     }
 }

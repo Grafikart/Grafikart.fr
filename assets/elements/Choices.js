@@ -22,6 +22,11 @@ function bindBehaviour (cls) {
     if (this.tagName === 'SELECT') {
       plugins.no_backspace_delete = {}
       plugins.dropdown_input = {}
+      if (this.getAttribute('multiple')) {
+        plugins.remove_button = {
+          title: 'Supprimer cet élément'
+        }
+      }
     } else {
       plugins.remove_button = {
         title: 'Supprimer cet élément'

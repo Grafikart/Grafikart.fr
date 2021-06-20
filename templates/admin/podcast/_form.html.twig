@@ -3,16 +3,25 @@
 <section class="stack-large">
 
   <section>
-    <div class="section-title">
-      Informations générales
-    </div>
     <div class="grid">
-      {{ form_rest(form) }}
+      {{ form_row(form.title) }}
+      {{ form_row(form.author) }}
+      {{ form_row(form.intervenants) }}
+      {{ form_row(form.youtube) }}
+      {{ form_row(form.scheduledAt) }}
+      <div class="full">
+        {{ form_row(form.content) }}
+      </div>
     </div>
   </section>
 
   <section>
-    <button type="submit" class="btn-gradient">Sauvegarder</button>
+    <div class="section-title">
+      Etape de suggestion
+    </div>
+    <div class="grid">
+      {{ form_rest(form) }}
+    </div>
   </section>
 
 </section>

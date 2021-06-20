@@ -19,7 +19,7 @@ class PodcastVote
 
     /**
      * @ORM\ManyToOne(targetEntity=Podcast::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private Podcast $podcast;
 
