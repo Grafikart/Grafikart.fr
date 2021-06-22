@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Security\Core\Security;
 
 class PodcastController extends AbstractController
 {
@@ -31,6 +30,7 @@ class PodcastController extends AbstractController
 
         return $this->render('podcast/index.html.twig', [
             'page' => $request->get('page'),
+            'menu' => 'podcasts',
             'future' => $future,
             'podcasts' => $podcasts,
         ]);
@@ -43,6 +43,7 @@ class PodcastController extends AbstractController
     {
         return $this->render('podcast/show.html.twig', [
             'podcast' => $podcast,
+            'menu' => 'podcasts',
             'podcasts' => $podcastRepository->findRelative($podcast),
             'bodyClass' => 'podcast-page',
         ]);
@@ -84,11 +85,24 @@ class PodcastController extends AbstractController
         return $this->render('podcast/votes.html.twig', [
             'podcasts' => $podcasts,
             'votes' => $votes,
+            'menu' => 'podcasts',
             'order' => $order,
             'page' => $request->get('page'),
             'form' => $form ? $form->createView() : null,
             'is_submitted' => $isSubmitted,
             'limit_per_month' => PodcastService::LIMIT_PER_MONTH,
+        ]);
+    }
+
+    /**
+     * @Route("/podcasts.rss", name="podcast_rss")
+     */
+    public function feed(PodcastRepository $podcastRepository): Response
+    {
+        $podcasts = $podcastRepository->queryPast()->setMaxResults(11)->getQuery()->getResult();
+
+        return $this->render('feed/podcasts.xml.twig', [
+            'podcasts' => $podcasts,
         ]);
     }
 }

@@ -1,0 +1,14 @@
+services:
+  _defaults:
+    autowire: true # Automatically injects dependencies in your services.
+    autoconfigure: false # Automatically registers your services as commands, event subscribers, etc.
+    public: false
+    bind:
+      $podcastsPath: '%podcasts_path%'
+
+  App\Domain\Podcast\EventListener\PodcastDurationUpdater:
+    tags:
+      - name: 'doctrine.orm.property_change_listener'
+        entity: 'App\Domain\Podcast\Entity\Podcast'
+        property: 'mp3'
+        method: 'updateDuration'

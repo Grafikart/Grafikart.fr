@@ -14,7 +14,7 @@ class RSSController extends AbstractController
     public function feed(ContentRepository $contentRepository): Response
     {
         $items = $contentRepository->findLatestPublished();
-        $response = $this->render('rss/index.xml.twig', [
+        $response = $this->render('feed/rss.xml.twig', [
             'items' => $items,
         ]);
         $response->headers->set('Content-Type', 'application/rss+xml; charset=utf-8');

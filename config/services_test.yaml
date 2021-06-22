@@ -1,6 +1,7 @@
 parameters:
   admin_prefix:  '%env(resolve:ADMIN_PREFIX)%'
   download_path: '%kernel.project_dir%/tests/fixtures'
+  podcasts_path: '%download_path%'
   videos_path:   '%download_path%'
   sources_path:  '%download_path%'
 

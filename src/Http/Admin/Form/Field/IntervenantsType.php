@@ -38,7 +38,7 @@ class IntervenantsType extends AbstractType implements DataTransformerInterface
         $collection = $form->getData();
         if ($collection instanceof Collection) {
             $choices = $collection->map(function (User $user) {
-                return new ChoiceView($user, (string)$user->getId(), $user->getUsername());
+                return new ChoiceView($user, (string) $user->getId(), $user->getUsername());
             })->toArray();
         }
         $view->vars['choice_translation_domain'] = false;
@@ -57,12 +57,12 @@ class IntervenantsType extends AbstractType implements DataTransformerInterface
         $resolver->setDefaults([
             'compound' => false,
             'multiple' => true,
-            'attr'     => [
-                'multiple'    => true,
-                'is'          => 'select-choices',
+            'attr' => [
+                'multiple' => true,
+                'is' => 'select-choices',
                 'data-remote' => $this->url->generate('admin_user_autocomplete'),
-                'data-value'  => 'id',
-                'data-label'  => 'username',
+                'data-value' => 'id',
+                'data-label' => 'username',
             ],
         ]);
     }
@@ -78,7 +78,7 @@ class IntervenantsType extends AbstractType implements DataTransformerInterface
     public function transform($collection): array
     {
         return $collection->map(function (User $user) {
-            return (string)$user->getId();
+            return (string) $user->getId();
         })->toArray();
     }
 

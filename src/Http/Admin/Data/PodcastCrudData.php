@@ -6,7 +6,6 @@ namespace App\Http\Admin\Data;
 
 use App\Domain\Auth\User;
 use App\Domain\Podcast\Entity\Podcast;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 /**
@@ -21,4 +20,6 @@ class PodcastCrudData extends AutomaticCrudData
     public ?string $youtube = '';
     public string $content = '';
     public ?User $author = null;
+    public ?string $mp3 = null;
+    public ?int $duration = null;
 }

@@ -98,7 +98,7 @@ class PodcastRepository extends ServiceEntityRepository
             LEFT JOIN "user" u ON pu.user_id = u.id
             WHERE pu.podcast_id IN (?)
         SQL, $rsm);
-        $query->setParameter(1, array_map(fn(Podcast $p) => $p->getId(), $podcasts));
+        $query->setParameter(1, array_map(fn (Podcast $p) => $p->getId(), $podcasts));
 
         return $query->getResult();
     }
@@ -111,7 +111,7 @@ class PodcastRepository extends ServiceEntityRepository
             ->andWhere('p.createdAt > :date')
             ->setParameters([
                 'author' => $user->getId(),
-                'date'   => new \DateTime('-1 month')
+                'date' => new \DateTime('-1 month'),
             ])
             ->getQuery()
             ->getSingleScalarResult();

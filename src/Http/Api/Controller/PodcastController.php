@@ -6,7 +6,6 @@ namespace App\Http\Api\Controller;
 
 use App\Domain\Podcast\Entity\Podcast;
 use App\Domain\Podcast\PodcastService;
-use App\Domain\Podcast\Repository\PodcastRepository;
 use App\Http\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;

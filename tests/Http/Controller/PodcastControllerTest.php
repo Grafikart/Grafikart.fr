@@ -3,10 +3,8 @@
 namespace App\Tests\Http\Controller;
 
 use App\Domain\Auth\User;
-use App\Domain\Profile\Entity\EmailVerification;
 use App\Tests\FixturesTrait;
 use App\Tests\WebTestCase;
-use Symfony\Component\HttpFoundation\Response;
 
 class PodcastControllerTest extends WebTestCase
 {
@@ -56,7 +54,7 @@ class PodcastControllerTest extends WebTestCase
         $crawler = $this->client->request('GET', '/podcasts/votes');
         $form = $crawler->filter(self::CREATE_FORM)->form();
         $form->setValues([
-           self::TITLE_FIELD  => 'lol',
+           self::TITLE_FIELD => 'lol',
         ]);
         $this->client->submit($form);
         $this->expectFormErrors();

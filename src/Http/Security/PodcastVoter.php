@@ -57,6 +57,6 @@ class PodcastVoter extends Voter
 
     private function canDelete(User $user, Podcast $podcast): bool
     {
-        return $podcast->getAuthor()->getId() === $user->getId() && $podcast->getVotesCount() === 1;
+        return $podcast->getAuthor()->getId() === $user->getId() && 1 === $podcast->getVotesCount();
     }
 }

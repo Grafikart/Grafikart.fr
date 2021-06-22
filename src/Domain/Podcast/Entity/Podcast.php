@@ -80,6 +80,11 @@ class Podcast
      */
     private Collection $intervenants;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $mp3 = null;
+
     public function __construct()
     {
         $this->updatedAt = new \DateTime();
@@ -249,6 +254,18 @@ class Podcast
     public function setYoutube(string $youtube): Podcast
     {
         $this->youtube = $youtube;
+
+        return $this;
+    }
+
+    public function getMp3(): ?string
+    {
+        return $this->mp3;
+    }
+
+    public function setMp3(?string $mp3): Podcast
+    {
+        $this->mp3 = $mp3;
 
         return $this;
     }

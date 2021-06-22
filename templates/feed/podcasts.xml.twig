@@ -1,0 +1,35 @@
+{% set baseUrl = 'http://6c8648e8aa3a.ngrok.io' %}
+<?xml version="1.0" encoding="UTF-8"?>
+<rss
+  xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+  xmlns:spotify="https://www.spotify.com/ns/rss"
+>
+  <channel>
+    <title>Discussion Grafikart</title>
+    <link>{{ baseUrl }}/podcasts</link>
+    <description>Parceque le développement web ce n'est pas seulement du code, les podcasts permettent de découvrir les sujets qui gravitent autour du développement web en ayant la vision d'autres développeurs</description>
+    <language>fr</language>
+    <itunes:author>Grafikart</itunes:author>
+    <itunes:category text="Technology" />
+    <itunes:type>episodic</itunes:type>
+    <itunes:explicit>clean</itunes:explicit>
+    <itunes:owner>
+      <itunes:name>Grafikart</itunes:name>
+      <itunes:email>contact@grafikart.fr</itunes:email>
+    </itunes:owner>
+    <itunes:image
+      href="{{ baseUrl }}/images/podcast.png" />
+    {% for podcast in podcasts %}
+    <item>
+      <guid>{{ podcast.id }}</guid>
+      <title>{{ podcast.title }}</title>
+      <description>{{ podcast.content }}</description>
+      <pubDate>{{ podcast.scheduledAt.format('r') }}</pubDate>
+      <itunes:order>{{ podcast.id }}</itunes:order>
+      <itunes:duration>{{ podcast.duration }}</itunes:duration>
+      <enclosure
+        url="{{ baseUrl }}/podcasts/{{ podcast.mp3 }}" type="audio/mpeg" />
+    </item>
+    {% endfor %}
+  </channel>
+</rss>
