@@ -42,9 +42,12 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
     /**
      * Vérifie si on a un message de succès.
      */
-    public function expectAlert(string $type): void
+    public function expectAlert(string $type, ?string $message = null): void
     {
         $this->assertEquals(1, $this->client->getCrawler()->filter("alert-message[type=\"$type\"], alert-floating[type=\"$type\"]")->count());
+        if ($message) {
+            $this->assertStringContainsString($message, $this->client->getCrawler()->filter("alert-message[type=\"$type\"], alert-floating[type=\"$type\"]")->text());
+        }
     }
 
     /**

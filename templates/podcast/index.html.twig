@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Podcasts' ~ ((page > 1) ? (', page ' ~ page) : '') %}
+
+{% block body %}
+
+  <header class="wave-header" style="--side:473px">
+    <div>
+      <div class="wave-header__body stack">
+        <h1 class="wave-header__title">Podcasts</h1>
+        <p>
+          Parceque le développement web ce n'est pas seulement du code, les podcasts permettent de
+          découvrir les sujets qui gravitent autour du développement web en ayant la vision d'autres développeurs
+        </p>
+        <p>
+          <a href="{{ path('podcast_vote') }}" class="btn-white-outlined btn-big">{{ icon('inbox') }}
+            Voter et suggérer de prochains podcasts
+          </a>
+        </p>
+      </div>
+    </div>
+    <div class="wave-header__image pt0">
+      <img src="/images/illustrations/podcast.svg" width="473" height="367" alt="" style="height: auto; filter: none;">
+    </div>
+    <waves-shape class="waves" position="bottomWave" target=".wave-header"></waves-shape>
+  </header>
+  <main class="container py5 stack" style="--gap:5">
+
+    {% if future %}
+    <section>
+      <h2 class="h2 mb1">Podcasts à venir</h2>
+      <p class="mb3 text-muted">
+        Les podcasts sont enregistrés en live et sont participatifs. <br/>Aussi, si vous le souhaitez vous pouvez suivre en
+        live sur <a href="https://twitch.tv/grafikart" class="underline">twitch</a> ou rejoindre la discussion sur
+        <a href="{{ path('tchat') }}" class="underline">discord</a>.
+      </p>
+      <div class="stack" style="--gap:3">
+        {% for podcast in future %}
+        <article class="podcast-suggestion">
+          <div class="podcast-suggestion__vote">
+            <strong>{{ podcast.scheduledAt | date('d') }}</strong>
+            {{ podcast.scheduledAt | format_datetime(pattern="MMM") }}
+            <div class="podcast-suggestion__action podcast-suggestion__action--active">
+              {{ podcast.scheduledAt | date('H\\hi') }}
+            </div>
+          </div>
+          <div class="podcast-suggestion__body">
+            <h3 class="podcast-suggestion__title">{{  podcast.title }}</h3>
+            <p>Proposé par <a href="{{ path('user_show', {id: podcast.author.id}) }}">{{ podcast.author.username }}</a>, <span class="text-muted">{{ podcast.createdAt | ago }}</span></p>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <hr>
+
+    {% endif %}
+
+    <section class="stack" style="--gap:3">
+      <div class="grid3" style="--gap: 3">
+        <div>
+          <h1 class="hero-title mb1">Les derniers <strong>podcasts</strong></h1>
+        </div>
+        {% for podcast in podcasts %}
+          {% include 'podcast/_card.html.twig' %}
+        {% endfor %}
+      </div>
+    </section>
+
+    {{ paginate(podcasts) }}
+
+    {#
+    <section class="stack" style="--gap:3">
+      <h2 class="h2">Suggestions de podcasts</h2>
+      <div class="stack">
+        {% for i in 0..5 %}
+          <article class="podcast-suggestion">
+            <div class="podcast-suggestion__vote">
+              <strong>{{ i + 120 }}</strong>
+              votes
+              <div class="podcast-suggestion__action">
+                votes
+              </div>
+            </div>
+            <div class="podcast-suggestion__body">
+              <h3 class="podcast-suggestion__title">Avez vous changé de langage principal, comment avez vous appris et pourquoi ? </h3>
+              <p>Proposé par <a href="#">JohnDoe</a>, <span class="text-muted">Il y a 3 jours</span></p>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    </section>
+    #}
+
+  </main>
+
+{% endblock %}

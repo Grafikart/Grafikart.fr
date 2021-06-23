@@ -1,6 +1,6 @@
 // Libraries
 // ==================
-@import './choices.scss';
+@import './select.scss';
 
 // Label
 // ==================
@@ -24,7 +24,6 @@ input:disabled {
 // ==================
 .form-group input,
 .form-group textarea,
-.choices__inner,
 .form-group select,
 %input {
   border: 1px solid var(--border);
@@ -35,7 +34,7 @@ input:disabled {
   display: block;
   width: 100%;
   outline: none;
-  min-height: 44px;
+  min-height: 48px;
 }
 .form-group textarea {
   min-height: 150px;
@@ -219,48 +218,6 @@ input:focus + label .switch,
 // ==================
 button:not([class]):hover .icon-delete {
   color: var(--red);
-}
-
-// InputTag
-// ==========================================================================
-.form-group .choices[data-type='text'] .choices__inner,
-.form-group .choices[data-type='select-multiple'] .choices__inner {
-  padding: 0 8px;
-  display: flex;
-  min-height: 45px;
-  align-items: center;
-  background: var(--background);
-}
-.form-group .choices__input {
-  width: auto;
-  border: none;
-  display: inline-block;
-  padding: 0;
-  margin: 0;
-  min-height: 0px;
-  box-shadow: none !important;
-  &.choices__input--cloned {
-    width: 1ch;
-  }
-}
-.choices__list--multiple .choices__item,
-.choices__list--multiple .choices__item.is-highlighted {
-  border: none;
-  white-space: nowrap;
-  background: var(--contrast);
-  margin-top: 4px;
-  margin-bottom: 4px;
-  font-size: 0.9rem;
-}
-.choices__list--multiple.choices__list {
-  margin-right: space(1);
-  background: transparent !important;
-}
-.choices__list--multiple {
-  margin-right: space(1);
-}
-.form-group .choices {
-  margin-bottom: 0;
 }
 
 // Radio

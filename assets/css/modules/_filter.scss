@@ -31,13 +31,17 @@
   white-space: nowrap;
 }
 
-.grid-filter .choices__inner {
-  border: none;
-  background: none;
-  display: flex;
-  align-items: center;
-  padding: 0 space(4) 0 0;
-  font-size: 14px;
+// Masque les select dans l'interface
+// =============
+.grid-filter .ts-input {
+  border: none!important;
+  background: none!important;
+  font-size: .875rem;
+}
+
+.grid-filter .ts-dropdown {
+  left: auto;
+  right: 0;
 }
 
 .grid-filter .is-focused .choices__inner {

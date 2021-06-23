@@ -1,0 +1,31 @@
+version: '3.3'
+services:
+  db:
+    restart: unless-stopped
+    image: postgres:12-alpine
+    ports:
+      - 5432:5432 # On expose le port pour pouvoir inspecter la base pendant la phase de développement
+    environment:
+      POSTGRES_PASSWORD: grafikart
+      POSTGRES_USER: grafikart
+      POSTGRES_DB: grafikart
+      TZ: Europe/Paris
+      PGTZ: Europe/Paris
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./var:/var/www/var
+  mail:
+    image: mailhog/mailhog
+    ports:
+      - 1080:8025
+  redis:
+    restart: unless-stopped
+    image: redis:6-alpine
+    ports:
+      - 6379:6379
+volumes:
+  db-data:
+    driver: local
+
+networks:
+  dev:

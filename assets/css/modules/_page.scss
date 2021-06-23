@@ -71,7 +71,7 @@
   .wave-header {
     padding-bottom: 0;
     margin-bottom: 0;
-    grid-template-columns: 1fr 400px;
+    grid-template-columns: 1fr var(--side, 400px);
   }
   .wave-header__body {
     padding-bottom: 100px;

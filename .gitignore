@@ -12,6 +12,7 @@
 /assets/css/app.css.map
 /node_modules/
 /public/build/
+/public/podcasts/
 npm-debug.log
 yarn-error.log
 .vault_pass

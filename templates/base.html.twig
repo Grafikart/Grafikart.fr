@@ -37,6 +37,8 @@
         <li><a href="{{ path('premium') }}" {{ menu_active('premium') }}>{{ icon('star') }} Premium</a></li>
       {% endif %}
       <li><a href="{{ path('forum') }}" {{ menu_active('forum') }}>{{ icon('comment') }} Forum</a></li>
+      <li><a href="{{ path('podcast') }}" {{ menu_active('podcasts') }}
+             class="{{ is_live_running() ? 'has-live' : '' }}">{{ icon('micro') }} Podcasts</a></li>
       <li><a href="{{ path('live') }}" {{ menu_active('live') }}
              class="{{ is_live_running() ? 'has-live' : '' }}">{{ icon('camera') }} Live {{ next_live_time() }}</a></li>
       <li><a href="{{ path('blog_index') }}" {{ menu_active('blog') }}>{{ icon('pen') }} Blog</a></li>

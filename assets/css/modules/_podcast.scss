@@ -1,0 +1,98 @@
+// Form
+// =============
+.podcast-form {
+  align-items: self-start;
+  display: flex;
+  width: 100%;
+  gap: space(1);
+}
+.podcast-form .form-group {
+  width: 100%;
+}
+.podcast-form input {
+  padding: 8px;
+}
+.podcast-form label {
+  display: none;
+}
+.podcast-form button {
+  flex: none;
+}
+
+// Title
+// =============
+.podcasts-title {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  @include down(1050) {
+    flex-direction: column;
+    grid-template-columns: 1fr;
+    gap: space(3);
+  }
+}
+
+// Suggestion
+// =============
+.podcast-suggestion {
+  display: flex;
+  align-items: center;
+}
+.podcast-suggestion__vote {
+  @extend %card;
+  width: 74px;
+  flex: none;
+  margin-right: space(2);
+  color: var(--color-light);
+  text-align: center;
+  line-height: 1.2;
+  padding-top: space(1);
+}
+.podcast-suggestion__vote strong {
+  font-weight: bold;
+  display: block;
+  font-size: 20px;
+  color: var(--color-dark);
+}
+.podcast-suggestion__title {
+  color: var(--color-dark);
+  font-size: 1.1em;
+  font-weight: bold;
+}
+.podcast-suggestion__action {
+  margin-top: space(1);
+  height: 24px;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  font-size: .85em;
+  border-radius: 0 0 2px 2px;
+  box-shadow: none!important;
+}
+.podcast-suggestion__body > * + * {
+  margin-top: space(1);
+}
+
+// List
+// =============
+.podcast-list {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: auto;
+}
+
+.podcast-list > * {
+  display: block;
+}
+
+.podcast-page .page-wrapper {
+  overflow: visible;
+}
+
+.podcast-list .is-active {
+  border: 1px solid var(--contrast);
+}

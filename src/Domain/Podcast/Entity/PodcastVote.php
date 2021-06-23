@@ -1,0 +1,101 @@
+<?php
+
+namespace App\Domain\Podcast\Entity;
+
+use App\Domain\Auth\User;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(repositoryClass=App\Domain\Podcast\Repository\PodcastVoteRepository::class)
+ */
+class PodcastVote
+{
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(type="integer")
+     */
+    private ?int $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Podcast::class)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
+     */
+    private Podcast $podcast;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private User $voter;
+
+    /**
+     * @ORM\Column(type="float", options={"default":1})
+     */
+    private float $weight = 1;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private \DateTimeInterface $createdAt;
+
+    public function __construct(User $user, Podcast $podcast)
+    {
+        $this->createdAt = new \DateTime();
+        $this->voter = $user;
+        $this->podcast = $podcast;
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getPodcast(): Podcast
+    {
+        return $this->podcast;
+    }
+
+    public function setPodcast(Podcast $podcast): self
+    {
+        $this->podcast = $podcast;
+
+        return $this;
+    }
+
+    public function getVoter(): User
+    {
+        return $this->voter;
+    }
+
+    public function setVoter(User $voter): self
+    {
+        $this->voter = $voter;
+
+        return $this;
+    }
+
+    public function getWeight(): float
+    {
+        return $this->weight;
+    }
+
+    public function setWeight(float $weight): self
+    {
+        $this->weight = $weight;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): \DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+}

@@ -9,8 +9,8 @@
     <div class="grid-filter mb3">
       <div class="grid-filter__group">
         <label for="filter-level">Niveau : </label>
-        <select name="level" id="filter-level" is="select-choices" data-redirect>
-          <option value="">Tous</option>
+        <select name="level" id="filter-level" is="select-choices" data-redirect class="no-search">
+        <option value="">Tous</option>
           {% for key, level in levels  %}
             <option {{ app.request.get('level') == key ~ '' ? 'selected' : ''}} value="{{ key }}">{{ level }}</option>
           {% endfor %}
@@ -18,7 +18,7 @@
       </div>
       <div class="grid-filter__group">
         <label for="filter-technology">Technologie : </label>
-        <select name="technology" id="filter-technology" is="select-choices" data-redirect data-search="{{ path('api_technology_search') }}" data-value="slug" data-label="name">
+        <select name="technology" id="filter-technology" is="select-choices" data-redirect data-remote="{{ path('api_technology_search') }}" data-value="slug" data-label="name">
           <optgroup label="">
             <option value="">Toutes</option>
             {% if technology_selected %}

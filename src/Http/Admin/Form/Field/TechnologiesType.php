@@ -10,6 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * Représente un champs permettant de rentrer des technologies sur le site en suivant le format Nom:version en se basant sur.
@@ -17,10 +18,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class TechnologiesType extends TextType implements DataTransformerInterface
 {
     private TechnologyRepository $repository;
+    private UrlGeneratorInterface $urlGenerator;
 
-    public function __construct(TechnologyRepository $repository)
+    public function __construct(TechnologyRepository $repository, UrlGeneratorInterface $urlGenerator)
     {
         $this->repository = $repository;
+        $this->urlGenerator = $urlGenerator;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -40,6 +43,8 @@ class TechnologiesType extends TextType implements DataTransformerInterface
             'required' => false,
             'attr' => [
                 'is' => 'input-choices',
+                'data-remote' => $this->urlGenerator->generate('api_technology_search'),
+                'data-create' => '1',
             ],
         ]);
         parent::configureOptions($resolver);

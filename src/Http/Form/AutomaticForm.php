@@ -10,6 +10,7 @@ use App\Domain\Course\Entity\Formation;
 use App\Domain\Forum\Entity\Tag;
 use App\Http\Admin\Form\Field\CursusCategoryChoiceType;
 use App\Http\Admin\Form\Field\ForumTagChoiceType;
+use App\Http\Admin\Form\Field\IntervenantsType;
 use App\Http\Admin\Form\Field\TechnologiesType;
 use App\Http\Admin\Form\Field\TechnologyChoiceType;
 use App\Http\Admin\Form\Field\UserChoiceType;
@@ -56,6 +57,7 @@ class AutomaticForm extends AbstractType
         'color' => ColorType::class,
         'links' => TextareaType::class,
         'requirements' => TechnologyChoiceType::class,
+        'intervenants' => IntervenantsType::class,
     ];
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

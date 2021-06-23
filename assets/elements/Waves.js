@@ -1,5 +1,5 @@
-import { offsetTop } from '/functions/dom.js'
-import { debounce } from '/functions/timers.js'
+import {offsetTop} from '/functions/dom.js'
+import {debounce} from '/functions/timers.js'
 
 // On mémorise si la page précédente avait la vague
 let previousPageHadWaves = false
@@ -16,7 +16,7 @@ let previousPageHadWaves = false
 export class Waves extends HTMLElement {
   constructor () {
     super()
-    this.root = this.attachShadow({ mode: 'open' })
+    this.root = this.attachShadow({mode: 'open'})
     this.matchTarget = this.matchTarget.bind(this)
     this.onResize = debounce(this.onResize.bind(this), 500)
   }

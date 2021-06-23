@@ -102,7 +102,7 @@
         <div class="h3"><strong>Que faire après ?</strong></div>
         {% for category, technologies in next %}
           <div class="mb2">
-            <div class="h4 mb1">{{ category }}</div>
+            <div class="h5 mb1">{{ category }}</div>
             <div class="list-group">
               {% for t in technologies %}
                 <a href="{{ path(t) }}">{{ t.name }}</a>

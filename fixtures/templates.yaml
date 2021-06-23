@@ -140,3 +140,14 @@ App\Domain\Course\Entity\Cursus:
     online: true
     author: '@user1'
     category: '@cursus_category*'
+
+App\Domain\Podcast\Entity\Podcast:
+  podcast (template):
+    author: '@user1'
+    title: <sentence(5, true)>
+    content: <paragraphs(5, true)>
+    createdAt: <dateTimeThisYear()>
+    updatedAt: <dateTimeThisYear()>
+    confirmedAt: <dateTimeThisYear()>
+    scheduledAt: <dateTimeThisYear()>
+    duration: <numberBetween(3700, 7000)>

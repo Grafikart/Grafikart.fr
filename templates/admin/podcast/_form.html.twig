@@ -1,0 +1,31 @@
+{{ form_start(form, {attr: {class: 'stacked'}}) }}
+
+<section class="stack-large">
+
+  <section>
+    <div class="grid">
+      {{ form_row(form.title) }}
+      {{ form_row(form.author) }}
+      {{ form_row(form.intervenants) }}
+      {{ form_row(form.youtube) }}
+      {{ form_row(form.scheduledAt) }}
+      {{ form_row(form.mp3) }}
+      {{ form_row(form.duration) }}
+      <div class="full">
+        {{ form_row(form.content) }}
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">
+      Etape de suggestion
+    </div>
+    <div class="grid">
+      {{ form_rest(form) }}
+    </div>
+  </section>
+
+</section>
+
+{{ form_end(form) }}

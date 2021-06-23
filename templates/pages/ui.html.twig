@@ -24,19 +24,22 @@
   <div class="container stack-separated py5" style="--gap:6">
     <div class="grid2">
       <div>
-          <div class="h1 mb2">Titre de premier niveau</div>
-          <div class="h2 mb1">Titre de second niveau</div>
-          <div class="h3 mb1">Titre de troisième niveau</div>
-          <div class="h4 mb1">Titre de quatrième niveau</div>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquam consequatur dolor est ex, excepturi
-            explicabo iusto libero minus nostrum obcaecati omnis perferendis provident reprehenderit sapiente, soluta unde
-            veniam voluptates?
-          </p>
+        <div class="h1 mb2">Titre de premier niveau</div>
+        <div class="h2 mb1">Titre de second niveau</div>
+        <div class="h3 mb1">Titre de troisième niveau</div>
+        <div class="h4 mb1">Titre de quatrième niveau</div>
+        <div class="h5 mb1">Titre de cinquième niveau</div>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquam consequatur dolor est ex, excepturi
+          explicabo iusto libero minus nostrum obcaecati omnis perferendis provident reprehenderit sapiente, soluta unde
+          veniam voluptates?
+        </p>
       </div>
       <div>
         <div class="hero-title">Titre .hero-title</div>
-        <p class="hero-text">.hero-text ipsum dolor sit amet, consectetur adipisicing elit. Adipisci atque dolorem eligendi esse et porro repellendus? Autem consectetur deserunt dolor laborum, tenetur unde! Facilis hic ipsa, iste itaque quam quidem.</p>
+        <p class="hero-text">.hero-text ipsum dolor sit amet, consectetur adipisicing elit. Adipisci atque dolorem
+          eligendi esse et porro repellendus? Autem consectetur deserunt dolor laborum, tenetur unde! Facilis hic ipsa,
+          iste itaque quam quidem.</p>
 
         <div class="section-title mt4">Titre de section .section-title</div>
         <div>
@@ -107,6 +110,14 @@
     <div>
       <h1 class="h1 mb2">Navigations</h1>
       <div class="grid2" style="--gap:4">
+        <div>
+          <small class="text-muted">.nav-card>a</small>
+          <nav class="nav-card">
+            {% for i in 1..3 %}
+              <a href="#" {% if i == 2 %}aria-selected="true" {% endif %}>Onglet #{{ i }}</a>
+            {% endfor %}
+          </nav>
+        </div>
         <div>
           <small class="text-muted">.nav-pills>a</small>
           <nav class="nav-pills">
@@ -187,20 +198,23 @@
               <div class="card__title">Titre de la carte</div>
               <div class="card__description">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi enim fugit illum iure nemo pariatur sint
-                vitae. Architecto cupiditate delectus eos est non quis reiciendis suscipit totam veritatis voluptas. Vero?
+                vitae. Architecto cupiditate delectus eos est non quis reiciendis suscipit totam veritatis voluptas.
+                Vero?
               </div>
             </div>
             <div class="card__footer">Un footer</div>
           </div>
         </div>
         <div>
-          <small class="text-muted">Ajouter un a.card__link à l'intérieur d'une carte la rend entièrement clicable</small>
+          <small class="text-muted">Ajouter un a.card__link à l'intérieur d'une carte la rend entièrement
+            clicable</small>
           <div class="card">
             <div class="card__body">
               <div class="card__title">Titre de la carte</div>
               <div class="card__description">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi enim fugit illum iure nemo pariatur sint
-                vitae. Architecto cupiditate delectus eos est non quis reiciendis suscipit totam veritatis voluptas. Vero?
+                vitae. Architecto cupiditate delectus eos est non quis reiciendis suscipit totam veritatis voluptas.
+                Vero?
               </div>
             </div>
             <a class="card__link" href="#"></a>
@@ -213,7 +227,8 @@
               <div class="card__title">Titre de la carte</div>
               <div class="card__description">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi enim fugit illum iure nemo pariatur sint
-                vitae. Architecto cupiditate delectus eos est non quis reiciendis suscipit totam veritatis voluptas. Vero?
+                vitae. Architecto cupiditate delectus eos est non quis reiciendis suscipit totam veritatis voluptas.
+                Vero?
               </div>
             </div>
             <a class="card__link" href="#"></a>
@@ -297,7 +312,8 @@
           <small class="text-muted">.grid (utilisé pour les formulaire en général)</small>
           <div class="grid">
             {% for i in 1..6 %}
-              <div class="card center text-muted {% if i == 5 %}full{% endif %}" style="height:40px;">{% if i == 5 %}.full{% endif %}</div>
+              <div class="card center text-muted {% if i == 5 %}full{% endif %}"
+                   style="height:40px;">{% if i == 5 %}.full{% endif %}</div>
             {% endfor %}
           </div>
         </div>

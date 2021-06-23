@@ -103,6 +103,13 @@ $font-alt: 'Inter', sans-serif;
 %h4,
 .h4 {
   font-family: $font-alt;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+%h5,
+.h5 {
+  font-family: $font-alt;
   font-weight: bold;
 }
 

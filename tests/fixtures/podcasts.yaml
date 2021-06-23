@@ -1,0 +1,15 @@
+include:
+  - ../../fixtures/templates.yaml
+  - ./users.yaml
+
+App\Domain\Podcast\Entity\Podcast:
+  podcast{1} (extends podcast):
+    author: '@user2'
+  podcast_future{1} (extends podcast):
+    scheduledAt: <dateTimeBetween('+1 week', '+1 month')>
+    author: '@user2'
+  podcast_suggestions{1} (extends podcast):
+    scheduledAt: null
+    confirmedAt: null
+    votesCount: <numberBetween(2, 200)>
+    author: '@user2'

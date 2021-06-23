@@ -1,6 +1,7 @@
 parameters:
   admin_prefix:     '%env(resolve:ADMIN_PREFIX)%'
   download_path:    '%kernel.project_dir%/downloads'
+  podcasts_path:     '%kernel.project_dir%/public/podcasts'
   videos_path:      '%download_path%/videos'
   sources_path:     '%download_path%/sources'
   image_resize_key: '%env(resolve:IMAGE_RESIZE_KEY)%'

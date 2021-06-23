@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Suggestion Podcasts' ~ ((page > 1) ? (', page ' ~ page) : '') %}
+
+{% block body %}
+  <div class="container py5">
+
+    {% include 'partials/flash.html.twig' with {floating: true} %}
+
+    <div class="podcasts-title mb3">
+      <div>
+        <h2 class="h2 mb1">Proposer les futurs sujets de discussion</h2>
+        <p class="text-muted">
+          Votez pour choisir le sujet des prochains podcasts.
+        </p>
+      </div>
+
+      <div class="flex">
+        <nav class="nav-card">
+          <a href="{{ path('podcast_vote', {order: 'popular'}) }}"
+             {% if order == 'popular' %}aria-selected="true"{% endif %}>Les plus populaires</a>
+          <a href="{{ path('podcast_vote', {order: 'date'}) }}" class="active"
+             {% if order != 'popular' %}aria-selected="true"{% endif %}>Les plus récents</a>
+        </nav>
+        {% if app.user and not is_submitted %}
+          <button id="podcast-new" class="btn-primary ml1">{{ icon('edit') }} Proposer un sujet</button>
+        {% endif %}
+      </div>
+    </div>
+    <div class="stack" style="--gap:4">
+
+      {% if form %}
+        <div {% if not is_submitted %}class="hidden"{% endif%} id="podcast-form">
+          {{ form_start(form, {attr: {class: 'podcast-form'}}) }}
+          {{ form_row(form.title) }}
+          <button class="btn-primary" type="submit">Proposer</button>
+          {{ form_end(form) }}
+        </div>
+      {% elseif app.user %}
+        <div class="hidden" id="podcast-form">
+          <alert-message type="info">
+            Vous devez avoir un compte actif depuis plus d'1 mois et vous ne pouvez pas proposer plus de {{ limit_per_month }} sujets par mois
+          </alert-message>
+        </div>
+      {% endif %}
+
+      {% for podcast in podcasts %}
+        <article class="podcast-suggestion" id="podcast-{{ podcast.id }}">
+          <podcast-vote
+            class="podcast-suggestion__vote"
+            data-endpoint="{{ path('api_podcast_vote', {id: podcast.id}) }}"
+            {% if podcast.id in votes or (app.user and app.user.id == podcast.author.id) %}aria-selected="true"{% endif %}
+          >
+            <strong>{{ podcast.votesCount }}</strong>
+            votes
+            {% if  is_granted('VOTE_PODCAST', podcast) %}
+              <button class="podcast-suggestion__action {{ podcast.id in votes ? 'btn-primary' : 'btn-secondary' }}">
+                {{ podcast.id in votes ? 'votes--' : 'votes++' }}
+              </button>
+            {% else %}
+              <button disabled class="podcast-suggestion__action btn-primary">
+                votes++
+              </button>
+            {% endif %}
+          </podcast-vote>
+          <div class="podcast-suggestion__body">
+            <h3 class="podcast-suggestion__title">{{ podcast.title }}</h3>
+            <p>
+              Suggéré par <a href="{{ path('user_show', {id: podcast.author.id}) }}">{{ podcast.author.username }}</a>,
+              <span class="text-muted">{{ podcast.createdAt | ago }}</span>
+              {% if is_granted('DELETE_PODCAST', podcast) %}
+              - <ajax-delete class="text-danger" url="{{ path('api_podcast_delete', {id: podcast.id}) }}"
+                             target="#podcast-{{ podcast.id }}">Supprimer</ajax-delete>
+              {% endif %}
+            </p>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+
+    {{ paginate(podcasts) }}
+
+  </div>
+{% endblock %}
+

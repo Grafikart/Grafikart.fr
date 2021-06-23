@@ -46,13 +46,13 @@ class UserController extends CrudController
     }
 
     /**
-     * @Route("/search/{q?}", name="autocomplete")
+     * @Route("/search", name="autocomplete")
      */
-    public function search(string $q): JsonResponse
+    public function search(Request $request): JsonResponse
     {
         /** @var UserRepository $repository */
         $repository = $this->em->getRepository(User::class);
-        $q = strtolower($q);
+        $q = strtolower($request->query->get('q') ?: '');
         if ('moi' === $q) {
             return new JsonResponse([[
                 'id' => $this->getUser()->getId(),
