@@ -73,7 +73,7 @@ class Podcast
     /**
      * @ORM\Column(type="string", nullable=true)
      */
-    private ?string $youtube;
+    private ?string $youtube = null;
 
     /**
      * @ORM\ManyToMany(targetEntity=User::class)

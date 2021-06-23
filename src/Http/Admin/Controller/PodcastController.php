@@ -57,6 +57,7 @@ class PodcastController extends CrudController
     public function new(): Response
     {
         $podcast = new Podcast();
+        $podcast->setAuthor($this->getUserOrThrow());
         $data = new PodcastCrudData($podcast);
 
         return $this->crudNew($data);
