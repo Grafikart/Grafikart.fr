@@ -75,6 +75,8 @@ class TechnologyRepository extends AbstractRepository
     {
         return $this->createQueryBuilder('t')
             ->where('LOWER(t.name) LIKE :q')
+            ->orderBy('LENGTH(t.name)', 'ASC')
+            ->setMaxResults(3)
             ->setParameter('q', strtolower($q).'%')
             ->getQuery()
             ->getResult();
