@@ -22,7 +22,7 @@
   "scripts": {
     "lint": "prettier-standard --lint \"assets/**/*.{js,css,jsx}\"",
     "lint-staged": "prettier-standard --lint --changed \"assets/**/*.{js,css,jsx}\"",
-    "dev": "rm -rf public/assets/time && npx vite",
+    "dev": "rm -rf public/assets/time && npx vite --host=0.0.0.0",
     "build": "npx vite build && touch public/assets/time && find ./public/assets -name \"*.*\" -mtime +7 -delete",
     "test": "jest"
   },
