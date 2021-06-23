@@ -30,6 +30,7 @@ L'avancement peut être suivi sur la [board trello de grafikart](https://trello.
 ## MR à suivre :
 
 - Erreur dans les logs de PHPUnit : https://github.com/symfony/monolog-bundle/pull/336
+- Plusieurs listeners Doctrine ne peuvent pas utiliser la même class : https://github.com/doctrine/DoctrineBundle/issues/1224
 
 ## Participer (faire une PR)
 

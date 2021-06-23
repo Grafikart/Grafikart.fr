@@ -40,32 +40,35 @@ class PropertyChangeListenerPass implements CompilerPassInterface
             }
         }
 
-        // On crée un listener par entité à observer
+        // Le bundle doctrine ne permet pas d'utiliser plusieurs fois la même classe en tant que listener doctrine
+        // https://github.com/doctrine/DoctrineBundle/issues/1224
+        // On crée donc un listener qui va regrouper toutes les propriétés
+        $properties = [];
+        $definition = new Definition(DoctrinePropertyChangeEventListener::class);
         foreach ($entities as $entity => $listeners) {
-            $properties = [];
+            $properties[$entity] = [];
             /**
              * @var string        $listenerId
              * @var array{entity: string, method: string, property: string} $listenerAttributes
              */
             foreach ($listeners as $listenerId => $listenerAttributes) {
-                $properties[$listenerAttributes['property']] = $properties[$listenerAttributes['property']] ?? [];
-                $properties[$listenerAttributes['property']][] = array_merge($listenerAttributes, ['listener' => new Reference($listenerId)]);
+                $properties[$entity][$listenerAttributes['property']] = $properties[$listenerAttributes['property']] ?? [];
+                $properties[$entity][$listenerAttributes['property']][] = array_merge($listenerAttributes, ['listener' => new Reference($listenerId)]);
             }
-            $id = 'doctrine.orm.property_change_listener'.$entity;
-            $definition = new Definition(DoctrinePropertyChangeEventListener::class, [$properties]);
-            $definition->setLazy(true);
-            $definition->setAutowired(true);
             $definition->addTag('doctrine.orm.entity_listener', [
-                'event' => 'preUpdate',
+                'event'  => 'preUpdate',
                 'entity' => $entity,
-                'lazy' => true,
+                'lazy'   => true,
             ]);
             $definition->addTag('doctrine.orm.entity_listener', [
-                'event' => 'prePersist',
+                'event'  => 'prePersist',
                 'entity' => $entity,
-                'lazy' => true,
+                'lazy'   => true,
             ]);
-            $container->setDefinition($id, $definition);
         }
+        $definition->setArguments([$properties]);
+        $definition->setLazy(true);
+        $definition->setAutowired(true);
+        $container->setDefinition('app.property_change_listener', $definition);
     }
 }

@@ -29,9 +29,13 @@ class DoctrinePropertyChangeEventListener
      */
     public function prePersist($entity)
     {
-        foreach ($this->listeners as $key => $listeners) {
+        $listeners = $this->listeners[get_class($entity)] ?? null;
+        if ($listeners === null) {
+            return;
+        }
+        foreach ($listeners as $key => $propertyListeners) {
             if ($value = $this->propertyAccessor->getValue($entity, $key)) {
-                foreach ($listeners as $listener) {
+                foreach ($propertyListeners as $listener) {
                     $method = $listener['method'];
                     $listener['listener']->$method($entity, $value, null);
                 }
@@ -46,10 +50,14 @@ class DoctrinePropertyChangeEventListener
      */
     public function preUpdate($entity, PreUpdateEventArgs $event)
     {
+        $listeners = $this->listeners[get_class($entity)] ?? null;
+        if ($listeners === null) {
+            return;
+        }
         $changeSet = $event->getEntityManager()->getUnitOfWork()->getEntityChangeSet($entity);
-        foreach ($this->listeners as $key => $listeners) {
+        foreach ($listeners as $key => $propertyListeners) {
             if (in_array($key, array_keys($changeSet))) {
-                foreach ($listeners as $listener) {
+                foreach ($propertyListeners as $listener) {
                     $method = $listener['method'];
                     $listener['listener']->$method($entity, $changeSet[$key][1], $changeSet[$key][0]);
                 }
