@@ -45,6 +45,8 @@ class TechnologiesType extends TextType implements DataTransformerInterface
                 'is' => 'input-choices',
                 'data-remote' => $this->urlGenerator->generate('api_technology_search'),
                 'data-create' => '1',
+                'data-value' => 'name',
+                'data-label' => 'name'
             ],
         ]);
         parent::configureOptions($resolver);

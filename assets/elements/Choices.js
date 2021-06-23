@@ -18,46 +18,40 @@ function bindBehaviour (cls) {
     this.setAttribute('choicesBinded', 'true')
 
     // Ajout de plugins suivant le type de champs mappé
-    const plugins = {}
+    const options = {
+      hideSelected: true,
+      persist: false,
+      plugins: {},
+      closeAfterSelect: true
+    }
     if (this.tagName === 'SELECT') {
-      plugins.no_backspace_delete = {}
-      plugins.dropdown_input = {}
+      options.allowEmptyOption = true
+      options.plugins.no_backspace_delete = {}
+      options.plugins.dropdown_input = {}
       if (this.getAttribute('multiple')) {
-        plugins.remove_button = {
+        options.plugins.remove_button = {
           title: 'Supprimer cet élément'
         }
       }
     } else {
-      plugins.remove_button = {
+      options.plugins.remove_button = {
         title: 'Supprimer cet élément'
       }
     }
 
     // On configure les options en fonction de la situation
-    let options = {
-      allowEmptyOption: true,
-      plugins,
-      hideSelected: true,
-      persist: false
-    }
     if (this.dataset.remote) {
-      options = {
-        ...options,
-        valueField: this.dataset.value,
-        labelField: this.dataset.label,
-        searchField: this.dataset.label,
-        load: async (query, callback) => {
-          const url = `${this.dataset.remote}?q=${encodeURIComponent(query)}`
-          const data = await jsonFetch(url)
-          callback(data)
-        }
+      options.valueField = this.dataset.value
+      options.labelField = this.dataset.label
+      options.searchField = this.dataset.label
+      options.load = async (query, callback) => {
+        const url = `${this.dataset.remote}?q=${encodeURIComponent(query)}`
+        const data = await jsonFetch(url)
+        callback(data)
       }
     }
     if (this.dataset.create) {
-      options = {
-        ...options,
-        create: true
-      }
+      options.create = true
     }
     this.widget = new TomSelect(this, options)
 

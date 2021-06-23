@@ -131,7 +131,7 @@ class TwigAssetExtension extends AbstractExtension
             return $request ? "http://{$request->getHost()}:3000/{$name}" : '';
         }
 
-        if(strpos($name, '.css')) {
+        if (strpos($name, '.css')) {
             $name = $this->getAssetPaths()[str_replace('.css', '.js', $name)]['css'][0] ?? '';
         } else {
             $name = $this->getAssetPaths()[$name]['file'] ?? $this->getAssetPaths()[$name] ?? '';
