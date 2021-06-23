@@ -18,7 +18,7 @@ class PodcastCrudData extends AutomaticCrudData
     public ?\DateTimeInterface $confirmedAt = null;
     public ?\DateTimeInterface $scheduledAt = null;
     public ?string $youtube = '';
-    public string $content = '';
+    public ?string $content = '';
     public ?User $author = null;
     public ?string $mp3 = null;
     public ?int $duration = null;

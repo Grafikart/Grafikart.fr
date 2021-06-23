@@ -32,7 +32,7 @@ class Podcast
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private string $content = '';
+    private ?string $content = '';
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
@@ -109,7 +109,7 @@ class Podcast
         return $this;
     }
 
-    public function getContent(): string
+    public function getContent(): ?string
     {
         return $this->content;
     }
@@ -121,7 +121,7 @@ class Podcast
         return false === $parts ? '' : strip_tags($parts[0]);
     }
 
-    public function setContent(string $content): self
+    public function setContent(?string $content): self
     {
         $this->content = $content;
 
@@ -251,7 +251,7 @@ class Podcast
         return $this->youtube;
     }
 
-    public function setYoutube(string $youtube): Podcast
+    public function setYoutube(?string $youtube): Podcast
     {
         $this->youtube = $youtube;
 
