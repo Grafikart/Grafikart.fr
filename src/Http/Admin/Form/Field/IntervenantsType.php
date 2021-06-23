@@ -87,7 +87,7 @@ class IntervenantsType extends AbstractType implements DataTransformerInterface
      */
     public function reverseTransform($ids): ArrayCollection
     {
-        if (empty($îds)) {
+        if (empty($ids)) {
             return new ArrayCollection([]);
         }
         return new ArrayCollection($this->em->getRepository(User::class)->findBy(['id' => $ids]));
