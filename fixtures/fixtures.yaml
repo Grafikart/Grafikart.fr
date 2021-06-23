@@ -77,6 +77,5 @@ App\Domain\Podcast\Entity\Podcast:
   podcast_suggestions{1..10} (extends podcast):
     title: 'Idée de podcast à faire <current()>'
     scheduledAt: null
-    confirmedAt: null
     votesCount: <numberBetween(2, 200)>
     author: '@user*'

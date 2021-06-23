@@ -148,6 +148,5 @@ App\Domain\Podcast\Entity\Podcast:
     content: <paragraphs(5, true)>
     createdAt: <dateTimeThisYear()>
     updatedAt: <dateTimeThisYear()>
-    confirmedAt: <dateTimeThisYear()>
     scheduledAt: <dateTimeThisYear()>
     duration: <numberBetween(3700, 7000)>

@@ -69,7 +69,7 @@ class PodcastRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('p')
             ->select('p', 'partial a.{id, username}')
-            ->where('p.confirmedAt IS NULL')
+            ->where('p.scheduledAt IS NULL')
             ->join('p.author', 'a')
             ->orderBy('popular' === $orderKey ? 'p.votesCount' : 'p.createdAt', 'DESC');
     }

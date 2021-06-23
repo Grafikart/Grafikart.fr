@@ -29,11 +29,11 @@ class PodcastController extends CrudController
         if ($request->get('q')) {
             $query = $this->applySearch(trim($request->get('q')), $query);
         } elseif ('published' === $state) {
-            $query = $query->where('row.scheduledAt < NOW()');
+            $query = $query->where('row.scheduledAt < NOW()')->andWhere('row.scheduledAt IS NOT NULL');
         } elseif ('suggested' === $state) {
-            $query = $query->where('row.confirmedAt IS NULL');
+            $query = $query->where('row.scheduledAt IS NULL');
         } elseif ('confirmed' === $state) {
-            $query = $query->where('row.confirmedAt IS NOT NULL');
+            $query = $query->where('row.scheduledAt IS NOT NULL');
         }
         $query = $query
             ->addOrderBy('row.createdAt', 'DESC')

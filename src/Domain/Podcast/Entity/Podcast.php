@@ -61,11 +61,6 @@ class Podcast
     private ?\DateTimeInterface $scheduledAt = null;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private ?\DateTimeInterface $confirmedAt = null;
-
-    /**
      * @ORM\Column(type="integer", options={"default": 0})
      */
     private int $duration = 0;
@@ -116,7 +111,7 @@ class Podcast
 
     public function getExcerpt(): string
     {
-        $parts = preg_split("/(\r\n|\r|\n){2}/", $this->content);
+        $parts = preg_split("/(\r\n|\r|\n){2}/", $this->content ?: '');
 
         return false === $parts ? '' : strip_tags($parts[0]);
     }
@@ -184,18 +179,6 @@ class Podcast
     public function setScheduledAt(?\DateTimeInterface $scheduledAt): self
     {
         $this->scheduledAt = $scheduledAt;
-
-        return $this;
-    }
-
-    public function getConfirmedAt(): ?\DateTimeInterface
-    {
-        return $this->confirmedAt;
-    }
-
-    public function setConfirmedAt(?\DateTimeInterface $confirmedAt): self
-    {
-        $this->confirmedAt = $confirmedAt;
 
         return $this;
     }

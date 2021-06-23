@@ -52,7 +52,7 @@ class PodcastVoter extends Voter
 
     private function canVote(User $user, Podcast $podcast): bool
     {
-        return $podcast->getAuthor()->getId() !== $user->getId() && null === $podcast->getConfirmedAt();
+        return $podcast->getAuthor()->getId() !== $user->getId() && null === $podcast->getScheduledAt();
     }
 
     private function canDelete(User $user, Podcast $podcast): bool

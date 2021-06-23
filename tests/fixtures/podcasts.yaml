@@ -10,6 +10,5 @@ App\Domain\Podcast\Entity\Podcast:
     author: '@user2'
   podcast_suggestions{1} (extends podcast):
     scheduledAt: null
-    confirmedAt: null
     votesCount: <numberBetween(2, 200)>
     author: '@user2'

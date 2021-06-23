@@ -7,6 +7,7 @@ use App\Domain\Course\Repository\TechnologyRepository;
 use App\Http\Admin\Form\Field\TechnologiesType;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class TechnologiesTypeTest extends TestCase
 {
@@ -16,9 +17,10 @@ class TechnologiesTypeTest extends TestCase
     {
         parent::setUp();
         /** @var TechnologyRepository|MockObject $repo */
-        $repo = $this->getMockBuilder(TechnologyRepository::class)->disableOriginalConstructor()->getMock();
+        $repo = $this->createMock(TechnologyRepository::class);
+        $urlGenerator = $this->createMock(UrlGeneratorInterface::class);
         $repo->expects($this->any())->method('findByNames')->willReturn([]);
-        $this->type = new TechnologiesType($repo);
+        $this->type = new TechnologiesType($repo, $urlGenerator);
     }
 
     public function getData(): iterable
