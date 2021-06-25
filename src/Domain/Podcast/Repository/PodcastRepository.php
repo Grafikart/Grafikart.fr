@@ -41,7 +41,7 @@ class PodcastRepository extends ServiceEntityRepository
     public function findRelative(Podcast $podcast): array
     {
         $scheduledAt = $podcast->getScheduledAt() ?: new \DateTime();
-        $date = (new \DateTime())->setTimestamp($scheduledAt->getTimestamp() + 24 * 60 * 60 * 30);
+        $date = (new \DateTime())->setTimestamp($scheduledAt->getTimestamp() + 300 * 24 * 60 * 60);
 
         return $this->queryPast()
             ->andWhere('p.scheduledAt < :date')
