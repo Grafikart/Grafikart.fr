@@ -33,7 +33,7 @@ class TechnologyRepository extends AbstractRepository
         }
         $technologies = collect($technologies)->keyBy(fn (Technology $t) => $t->getSlug())->toArray();
         foreach ($types as $k => $v) {
-            $types[$k] = collect($v)->map(fn (string $slug) => $technologies[$slug])->toArray();
+            $types[$k] = collect($v)->map(fn (string $slug) => $technologies[$slug] ?? null)->filter()->toArray();
         }
 
         return $types;
