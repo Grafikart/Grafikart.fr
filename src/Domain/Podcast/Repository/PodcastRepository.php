@@ -59,6 +59,7 @@ class PodcastRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
             ->where('p.scheduledAt IS NOT NULL')
             ->andWhere('p.scheduledAt < NOW()')
+            ->andWhere('(p.youtube IS NOT NULL OR p.mp3 IS NOT NULL)')
             ->orderBy('p.scheduledAt', 'DESC');
     }
 
