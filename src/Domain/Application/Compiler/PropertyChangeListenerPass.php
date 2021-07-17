@@ -56,14 +56,14 @@ class PropertyChangeListenerPass implements CompilerPassInterface
                 $properties[$entity][$listenerAttributes['property']][] = array_merge($listenerAttributes, ['listener' => new Reference($listenerId)]);
             }
             $definition->addTag('doctrine.orm.entity_listener', [
-                'event'  => 'preUpdate',
+                'event' => 'preUpdate',
                 'entity' => $entity,
-                'lazy'   => true,
+                'lazy' => true,
             ]);
             $definition->addTag('doctrine.orm.entity_listener', [
-                'event'  => 'prePersist',
+                'event' => 'prePersist',
                 'entity' => $entity,
-                'lazy'   => true,
+                'lazy' => true,
             ]);
         }
         $definition->setArguments([$properties]);

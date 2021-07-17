@@ -90,6 +90,7 @@ class IntervenantsType extends AbstractType implements DataTransformerInterface
         if (empty($ids)) {
             return new ArrayCollection([]);
         }
+
         return new ArrayCollection($this->em->getRepository(User::class)->findBy(['id' => $ids]));
     }
 }

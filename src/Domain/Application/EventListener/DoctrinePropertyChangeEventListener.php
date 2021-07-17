@@ -30,7 +30,7 @@ class DoctrinePropertyChangeEventListener
     public function prePersist($entity)
     {
         $listeners = $this->listeners[get_class($entity)] ?? null;
-        if ($listeners === null) {
+        if (null === $listeners) {
             return;
         }
         foreach ($listeners as $key => $propertyListeners) {
@@ -51,7 +51,7 @@ class DoctrinePropertyChangeEventListener
     public function preUpdate($entity, PreUpdateEventArgs $event)
     {
         $listeners = $this->listeners[get_class($entity)] ?? null;
-        if ($listeners === null) {
+        if (null === $listeners) {
             return;
         }
         $changeSet = $event->getEntityManager()->getUnitOfWork()->getEntityChangeSet($entity);
