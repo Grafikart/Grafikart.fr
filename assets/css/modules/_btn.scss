@@ -108,6 +108,7 @@
   padding: 12px 16px;
   font-size: 1rem;
   font-weight: 700;
+  white-space: initial;
 
   @include up(1100) {
     font-size: 18px;
