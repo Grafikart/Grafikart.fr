@@ -46,7 +46,7 @@ export function Comments ({ target, parent }) {
 
   // On met à jour (via l'API un commentaire)
   const handleUpdate = useCallback(async (comment, content) => {
-    const newComment = await updateComment(comment.id, content)
+    const newComment = { ...(await updateComment(comment.id, content)), parent: comment.parent }
     setState(s => ({
       ...s,
       editing: null,

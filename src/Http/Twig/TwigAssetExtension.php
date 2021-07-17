@@ -76,8 +76,8 @@ class TwigAssetExtension extends AbstractExtension
 
         return sprintf(
             '<link rel="stylesheet" href="%s" %s>',
-            $this->uri($name . '.css'),
-            empty($attrs) ? '' : (' ' . $attributes)
+            $this->uri($name.'.css'),
+            empty($attrs) ? '' : (' '.$attributes)
         );
     }
 
