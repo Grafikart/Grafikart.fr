@@ -41,7 +41,10 @@ class AuthenticationEntryPoint implements AuthenticationEntryPointInterface
         }
 
         if (in_array('application/json', $request->getAcceptableContentTypes())) {
-            return new JsonResponse(null, Response::HTTP_FORBIDDEN);
+            return new JsonResponse(
+                ['title' => "Vous n'avez pas les permissions suffisantes pour effectuer cette action"],
+                Response::HTTP_FORBIDDEN
+            );
         }
 
         return new RedirectResponse($this->urlGenerator->generate('auth_login'));
