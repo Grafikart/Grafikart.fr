@@ -26,7 +26,7 @@ class PostRepository extends AbstractRepository
     {
         return $this->createIterableQuery('p')
             ->select('p')
-            ->where('p.online = true')
+            ->where('p.online = true AND p.createdAt < NOW()')
             ->orderBy('p.createdAt', 'DESC')
             ->setMaxResults($limit);
     }
@@ -35,7 +35,7 @@ class PostRepository extends AbstractRepository
     {
         $query = $this->createQueryBuilder('p')
             ->select('p')
-            ->where('p.online = true')
+            ->where('p.online = true AND p.createdAt < NOW()')
             ->orderBy('p.createdAt', 'DESC');
 
         if ($category) {
