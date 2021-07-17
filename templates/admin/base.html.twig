@@ -5,8 +5,8 @@
   <title>{% apply striptags %}{% block title '' %}{% endapply %} | Grafikart</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui"/>
   {% block stylesheets %}
-    {{ encore_entry_link_tags('app') }}
-    {{ encore_entry_link_tags('admin') }}
+    {{ encore_entry_link_tags('app', {media: 'screen'}) }}
+    {{ encore_entry_link_tags('admin', {media: 'screen'}) }}
   {% endblock %}
   {% block javascripts %}
     {{ encore_entry_script_tags('app') }}

@@ -65,14 +65,20 @@ class TwigAssetExtension extends AbstractExtension
         return $this->paths;
     }
 
-    public function link(string $name): string
+    public function link(string $name, array $attrs = []): string
     {
         $uri = $this->uri($name.'.css');
         if (strpos($uri, ':3000')) {
             return ''; // Le CSS est chargé depuis le JS dans l'environnement de dev
         }
 
-        return '<link rel="stylesheet" media="screen" href="'.$this->uri($name.'.css').'"/>';
+        $attributes = implode(' ', array_map(fn ($key) => "{$key}=\"{$attrs[$key]}\"", array_keys($attrs)));
+
+        return sprintf(
+            '<link rel="stylesheet" href="%s" %s>',
+            $this->uri($name . '.css'),
+            empty($attrs) ? '' : (' ' . $attributes)
+        );
     }
 
     public function script(string $name): string

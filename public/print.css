@@ -66,3 +66,21 @@ td {
   padding: 10px 0;
 }
 
+.header {
+  position: static!important;
+}
+.header-placeholder,
+.course__player,
+.header-nav > li:not([class="header__home"]),
+.header-side,
+.breadcrumb,
+.course-actions,
+.layout-sidebar > div:last-child,
+.comments-area, comments-area,
+.footer {
+  display: none !important;
+}
+
+.layout-sidebar {
+  grid-template-columns: 1fr;
+}
