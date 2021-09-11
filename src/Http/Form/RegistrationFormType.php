@@ -45,7 +45,6 @@ class RegistrationFormType extends AbstractType
         if ($user && !$user->useOauth()) {
             $passwordAttrs = [
                 'minlength' => 6,
-                'maxlength' => 4096,
             ];
             $builder
                 ->add('plainPassword', RepeatedType::class, [
@@ -56,7 +55,7 @@ class RegistrationFormType extends AbstractType
                         new NotBlank(),
                         new Length([
                             'min' => 6,
-                            'max' => 4096,
+                            'max' => 255,
                         ]),
                     ],
                     'first_options' => ['label' => 'Mot de passe', 'attr' => $passwordAttrs],

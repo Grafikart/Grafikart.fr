@@ -16,7 +16,6 @@ class UpdatePasswordForm extends AbstractType
         parent::buildForm($builder, $options);
         $htmlAttr = [
             'minlength' => 6,
-            'maxlength' => 4096,
         ];
         $builder->add('password', RepeatedType::class, [
             'type' => PasswordType::class,
@@ -25,7 +24,7 @@ class UpdatePasswordForm extends AbstractType
                 new NotBlank(['normalizer' => 'trim']),
                 new Length([
                     'min' => 6,
-                    'max' => 4096,
+                    'max' => 255,
                 ]),
             ],
             'first_options' => ['label' => false, 'attr' => array_merge($htmlAttr, ['placeholder' => 'Nouveau mot de passe'])],
