@@ -18,7 +18,9 @@
       </li>
     {% else %}
       <li class="header__logout">
-        <a href="{{ path('auth_logout') }}" data-turbolinks="false">{{ icon('logout') }} <span>Se déconnecter</span></a>
+        <form action="{{ path('auth_logout') }}" method="post">
+          <button type="submit" data-turbolinks="false">{{ icon('logout') }} <span>Se déconnecter</span></button>
+        </form>
       </li>
     {% endif %}
   {% else %}
