@@ -8,6 +8,7 @@ use App\Domain\Blog\Repository\CategoryRepository;
 use App\Domain\Blog\Repository\PostRepository;
 use Doctrine\ORM\Query;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,6 +52,7 @@ class BlogController extends AbstractController
 
     /**
      * @Route("/blog/{slug}", name="blog_show")
+     * @IsGranted("show", subject="post")
      */
     public function show(Post $post): Response
     {
