@@ -2,7 +2,6 @@
 
 namespace App\Http\Security;
 
-use App\Domain\Auth\User;
 use App\Domain\Blog\Post;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -24,15 +23,6 @@ class PostVoter extends Voter
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
-        $user = $token->getUser();
-
-        if (!$user instanceof User ||
-            !($subject instanceof Post) ||
-            $subject->getCreatedAt() > new \DateTime('-2 hours')
-        ) {
-            return false;
-        }
-
-        return null !== $subject->getAuthor() && $subject->getAuthor()->getId() === $user->getId();
+        return $subject instanceof Post && $subject->getCreatedAt() < new \DateTime('-2 hours');
     }
 }

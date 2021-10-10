@@ -50,4 +50,13 @@ class BlogControllerTest extends WebTestCase
         $this->assertEquals($post->getTitle().' | Grafikart', $crawler->filter('title')->text());
         $this->assertEquals($post->getTitle(), $crawler->filter('h1')->text());
     }
+
+    public function testsingleForFutureArticle(): void
+    {
+        $posts = $this->loadFixtures(['posts']);
+        /** @var Post $post */
+        $post = $posts['post_future'];
+        $this->client->request('GET', '/blog/'.$post->getSlug());
+        $this->assertResponseRedirects('/connexion');
+    }
 }

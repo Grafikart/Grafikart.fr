@@ -2,30 +2,32 @@
 
 namespace App\Domain\Blog\Listener;
 
+use App\Domain\Auth\User;
 use App\Domain\Blog\Post;
 use App\Domain\Blog\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Core\AuthenticationEvents;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
+use Symfony\Component\Security\Core\Event\AuthenticationSuccessEvent;
 
 /**
  * Listener permettant de pousser la date de publication de l'article post-mortem.
  */
 class DeadManSwitchListener implements EventSubscriberInterface
 {
-    private AuthorizationCheckerInterface $auth;
     private PostRepository $postRepository;
     private EntityManagerInterface $em;
+    private AccessDecisionManagerInterface $permission;
 
     public function __construct(
-        AuthorizationCheckerInterface $auth,
+        AccessDecisionManagerInterface $permission,
         PostRepository $postRepository,
         EntityManagerInterface $em
     ) {
-        $this->auth = $auth;
         $this->postRepository = $postRepository;
         $this->em = $em;
+        $this->permission = $permission;
     }
 
     public static function getSubscribedEvents()
@@ -35,9 +37,13 @@ class DeadManSwitchListener implements EventSubscriberInterface
         ];
     }
 
-    public function onAdminDeath(): void
+    public function onAdminDeath(AuthenticationSuccessEvent $event): void
     {
-        if (!$this->auth->isGranted('die')) {
+        $user = $event->getAuthenticationToken()->getUser();
+        if (!($user instanceof User)) {
+            return;
+        }
+        if (!$this->permission->decide($event->getAuthenticationToken(), ['die'])) {
             return;
         }
         $post = $this->postRepository->findOneBy(['slug' => 'dead-or-bugged']);

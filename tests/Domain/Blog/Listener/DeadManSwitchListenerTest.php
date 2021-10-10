@@ -2,6 +2,7 @@
 
 namespace App\Tests\Domain\Blog\Listener;
 
+use App\Domain\Auth\User;
 use App\Domain\Blog\Listener\DeadManSwitchListener;
 use App\Domain\Blog\Post;
 use App\Domain\Blog\Repository\PostRepository;
@@ -9,8 +10,10 @@ use App\Domain\History\Repository\ProgressRepository;
 use App\Tests\EventSubscriberTest;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\AuthenticationEvents;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
+use Symfony\Component\Security\Core\Event\AuthenticationSuccessEvent;
 
 class DeadManSwitchListenerTest extends EventSubscriberTest
 {
@@ -25,9 +28,9 @@ class DeadManSwitchListenerTest extends EventSubscriberTest
     private MockObject $em;
 
     /**
-     * @var MockObject|AuthorizationCheckerInterface
+     * @var MockObject|AccessDecisionManagerInterface
      */
-    private MockObject $auth;
+    private MockObject $permission;
 
     private DeadManSwitchListener $listener;
 
@@ -36,8 +39,8 @@ class DeadManSwitchListenerTest extends EventSubscriberTest
         parent::setUp();
         $this->em = $this->createMock(EntityManagerInterface::class);
         $this->repository = $this->createMock(PostRepository::class);
-        $this->auth = $this->createMock(AuthorizationCheckerInterface::class);
-        $this->listener = new DeadManSwitchListener($this->auth, $this->repository, $this->em);
+        $this->permission = $this->createMock(AccessDecisionManagerInterface::class);
+        $this->listener = new DeadManSwitchListener($this->permission, $this->repository, $this->em);
     }
 
     public function testSubscribeToEvents()
@@ -45,13 +48,22 @@ class DeadManSwitchListenerTest extends EventSubscriberTest
         $this->assertSubscribeTo(DeadManSwitchListener::class, AuthenticationEvents::AUTHENTICATION_SUCCESS);
     }
 
+    private function getEvent(): AuthenticationSuccessEvent
+    {
+        $token = $this->createMock(TokenInterface::class);
+        $user = new User();
+        $token->expects($this->any())->method('getUser')->willReturn($user);
+
+        return new AuthenticationSuccessEvent($token);
+    }
+
     public function testDoNothingIfNoPermission()
     {
         $post = new Post();
         $date = new \DateTime();
         $post->setCreatedAt($date);
-        $this->auth->expects($this->any())->method('isGranted')->willReturn(false);
-        $this->listener->onAdminDeath();
+        $this->permission->expects($this->any())->method('decide')->willReturn(false);
+        $this->listener->onAdminDeath($this->getEvent());
         $this->em->expects($this->never())->method('flush');
         $this->assertEquals($post->getCreatedAt(), $date);
     }
@@ -59,9 +71,9 @@ class DeadManSwitchListenerTest extends EventSubscriberTest
     public function testUpdateIfNoPost()
     {
         $this->repository->expects($this->any())->method('findOneBy')->willReturn(null);
-        $this->auth->expects($this->any())->method('isGranted')->willReturn(true);
+        $this->permission->expects($this->any())->method('decide')->willReturn(true);
         $this->em->expects($this->never())->method('flush');
-        $this->listener->onAdminDeath();
+        $this->listener->onAdminDeath($this->getEvent());
     }
 
     public function testUpdateDateTimeIfPermissionOk()
@@ -70,9 +82,9 @@ class DeadManSwitchListenerTest extends EventSubscriberTest
         $date = new \DateTime();
         $post->setCreatedAt($date);
         $this->repository->expects($this->any())->method('findOneBy')->willReturn($post);
-        $this->auth->expects($this->any())->method('isGranted')->willReturn(true);
+        $this->permission->expects($this->any())->method('decide')->willReturn(true);
         $this->em->expects($this->once())->method('flush');
-        $this->listener->onAdminDeath();
+        $this->listener->onAdminDeath($this->getEvent());
         $this->assertTrue($post->getCreatedAt() > new \DateTime('+6 days'));
     }
 }
