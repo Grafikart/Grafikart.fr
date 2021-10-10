@@ -11,22 +11,22 @@ use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AccountController extends AbstractController
 {
-    private UserPasswordEncoderInterface $passwordEncoder;
+    private UserPasswordHasherInterface $hasher;
     private EntityManagerInterface $em;
 
     private ProfileService $profileService;
 
     public function __construct(
-        UserPasswordEncoderInterface $passwordEncoder,
+        UserPasswordHasherInterface $hasher,
         EntityManagerInterface $em,
         ProfileService $profileService
     ) {
-        $this->passwordEncoder = $passwordEncoder;
+        $this->hasher = $hasher;
         $this->em = $em;
         $this->profileService = $profileService;
     }
@@ -74,7 +74,7 @@ class AccountController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $user->setPassword($this->passwordEncoder->encodePassword($user, $data['password']));
+            $user->setPassword($this->hasher->hashPassword($user, $data['password']));
             $this->em->flush();
             $this->addFlash('success', 'Votre mot de passe a bien été mis à jour');
 

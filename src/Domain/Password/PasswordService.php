@@ -13,7 +13,7 @@ use App\Domain\Password\Repository\PasswordResetTokenRepository;
 use App\Infrastructure\Security\TokenGeneratorService;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class PasswordService
 {
@@ -24,7 +24,7 @@ class PasswordService
     private EntityManagerInterface $em;
     private TokenGeneratorService $generator;
     private EventDispatcherInterface $dispatcher;
-    private UserPasswordEncoderInterface $encoder;
+    private UserPasswordHasherInterface $hasher;
 
     public function __construct(
         UserRepository $userRepository,
@@ -32,14 +32,14 @@ class PasswordService
         TokenGeneratorService $generator,
         EntityManagerInterface $em,
         EventDispatcherInterface $dispatcher,
-        UserPasswordEncoderInterface $encoder
+        UserPasswordHasherInterface $hasher
     ) {
         $this->userRepository = $userRepository;
         $this->tokenRepository = $tokenRepository;
         $this->em = $em;
         $this->generator = $generator;
         $this->dispatcher = $dispatcher;
-        $this->encoder = $encoder;
+        $this->hasher = $hasher;
     }
 
     /**
@@ -80,7 +80,7 @@ class PasswordService
     {
         $user = $token->getUser();
         $user->setConfirmationToken(null);
-        $user->setPassword($this->encoder->encodePassword($user, $password));
+        $user->setPassword($this->hasher->hashPassword($user, $password));
         $this->em->remove($token);
         $this->em->flush();
         $this->dispatcher->dispatch(new PasswordRecoveredEvent($user));
