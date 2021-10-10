@@ -12552,16 +12552,16 @@
         },
         {
             "name": "hautelook/alice-bundle",
-            "version": "2.8.0",
+            "version": "2.9.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/hautelook/AliceBundle.git",
-                "reference": "fc2f2e58eaab1e8294f3439e3a21801b75de4c46"
+                "url": "https://github.com/theofidry/AliceBundle.git",
+                "reference": "17c5199b2a6efbc1383b0afe1cddfa3c176b7b6f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hautelook/AliceBundle/zipball/fc2f2e58eaab1e8294f3439e3a21801b75de4c46",
-                "reference": "fc2f2e58eaab1e8294f3439e3a21801b75de4c46",
+                "url": "https://api.github.com/repos/theofidry/AliceBundle/zipball/17c5199b2a6efbc1383b0afe1cddfa3c176b7b6f",
+                "reference": "17c5199b2a6efbc1383b0afe1cddfa3c176b7b6f",
                 "shasum": ""
             },
             "require": {
@@ -12569,11 +12569,11 @@
                 "doctrine/doctrine-bundle": "^1.8 || ^2.0",
                 "doctrine/orm": "^2.5.11",
                 "doctrine/persistence": "^1.3.4 || ^2.0",
-                "php": "^7.3",
+                "php": "^7.3 || ^8.0",
                 "psr/log": "^1.0",
                 "symfony/finder": "^3.4 || ^4.0 || ^5.0",
                 "symfony/framework-bundle": "^3.4.24 || ^4.0 || ^5.0",
-                "theofidry/alice-data-fixtures": "^1.3"
+                "theofidry/alice-data-fixtures": "^1.4"
             },
             "require-dev": {
                 "phpspec/prophecy": "^1.7",
@@ -12617,8 +12617,7 @@
                 "symfony"
             ],
             "support": {
-                "issues": "https://github.com/hautelook/AliceBundle/issues",
-                "source": "https://github.com/hautelook/AliceBundle/tree/2.8.0"
+                "source": "https://github.com/theofidry/AliceBundle/tree/2.9.0"
             },
             "funding": [
                 {
@@ -12626,7 +12625,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-10-12T13:48:37+00:00"
+            "time": "2021-02-23T08:45:57+00:00"
         },
         {
             "name": "jolicode/jolinotif",
@@ -15871,5 +15870,5 @@
         "ext-redis": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }
