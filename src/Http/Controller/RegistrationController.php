@@ -2,7 +2,6 @@
 
 namespace App\Http\Controller;
 
-use App\Domain\Auth\Authenticator;
 use App\Domain\Auth\Event\UserCreatedEvent;
 use App\Domain\Auth\User;
 use App\Http\Form\RegistrationFormType;
@@ -14,9 +13,11 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+use Symfony\Component\Security\Http\Authenticator\AuthenticatorInterface;
+use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
+use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 
 class RegistrationController extends AbstractController
 {
@@ -25,13 +26,12 @@ class RegistrationController extends AbstractController
      */
     public function register(
         Request $request,
-        UserPasswordEncoderInterface $passwordEncoder,
+        UserPasswordHasherInterface $hasher,
         EntityManagerInterface $em,
         TokenGeneratorService $tokenGenerator,
         EventDispatcherInterface $dispatcher,
         SocialLoginService $socialLoginService,
-        GuardAuthenticatorHandler $guardAuthenticatorHandler,
-        Authenticator $authenticator
+        AuthenticatorInterface $guardAuthenticatorHandler
     ): Response {
         // Si l'utilisateur est connecté, on le redirige vers la home
         $loggedInUser = $this->getUser();
@@ -48,7 +48,7 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword(
-                $form->has('plainPassword') ? $passwordEncoder->encodePassword(
+                $form->has('plainPassword') ? $hasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 ) : ''
@@ -66,10 +66,8 @@ class RegistrationController extends AbstractController
                     'Votre compte a été créé avec succès'
                 );
 
-                return $guardAuthenticatorHandler->authenticateUserAndHandleSuccess(
-                    $user,
-                    $request,
-                    $authenticator,
+                $guardAuthenticatorHandler->createAuthenticatedToken(
+                    new SelfValidatingPassport(new UserBadge($user)),
                     'main'
                 ) ?: $this->redirectToRoute('user_edit');
             }
@@ -90,11 +88,11 @@ class RegistrationController extends AbstractController
         }
 
         return $this->render('registration/register.html.twig', [
-            'form' => $form->createView(),
-            'errors' => $rootErrors,
-            'menu' => 'register',
+            'form'               => $form->createView(),
+            'errors'             => $rootErrors,
+            'menu'               => 'register',
             'oauth_registration' => $request->get('oauth'),
-            'oauth_type' => $socialLoginService->getOauthType(),
+            'oauth_type'         => $socialLoginService->getOauthType(),
         ]);
     }
 

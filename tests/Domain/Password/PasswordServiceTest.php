@@ -9,7 +9,7 @@ use App\Infrastructure\Security\TokenGeneratorService;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class PasswordServiceTest extends TestCase
 {
@@ -23,7 +23,7 @@ class PasswordServiceTest extends TestCase
         $generator = $this->getMockBuilder(TokenGeneratorService::class)->disableOriginalConstructor()->getMock();
         $em = $this->getMockBuilder(EntityManagerInterface::class)->getMock();
         $dispatcher = $this->getMockBuilder(EventDispatcherInterface::class)->getMock();
-        $encoder = $this->getMockBuilder(UserPasswordEncoderInterface::class)->getMock();
+        $encoder = $this->getMockBuilder(UserPasswordHasherInterface::class)->getMock();
 
         $this->service = new \App\Domain\Password\PasswordService(
             $userRepository,

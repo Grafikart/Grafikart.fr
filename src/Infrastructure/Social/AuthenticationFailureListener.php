@@ -6,6 +6,7 @@ use App\Infrastructure\Social\Exception\UserAuthenticatedException;
 use App\Infrastructure\Social\Exception\UserOauthNotFoundException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\AuthenticationEvents;
@@ -16,13 +17,13 @@ class AuthenticationFailureListener implements EventSubscriberInterface
 {
     private NormalizerInterface $normalizer;
     private EntityManagerInterface $em;
-    private SessionInterface $session;
+    private RequestStack $requestStack;
 
-    public function __construct(NormalizerInterface $normalizer, SessionInterface $session, EntityManagerInterface $em)
+    public function __construct(NormalizerInterface $normalizer, RequestStack $requestStack, EntityManagerInterface $em)
     {
         $this->normalizer = $normalizer;
         $this->em = $em;
-        $this->session = $session;
+        $this->requestStack = $requestStack;
     }
 
     public static function getSubscribedEvents()
@@ -46,7 +47,7 @@ class AuthenticationFailureListener implements EventSubscriberInterface
     public function onUserNotFound(UserOauthNotFoundException $exception): void
     {
         $data = $this->normalizer->normalize($exception->getResourceOwner());
-        $this->session->set(SocialLoginService::SESSION_KEY, $data);
+        $this->requestStack->getSession()->set(SocialLoginService::SESSION_KEY, $data);
     }
 
     public function onUserAlreadyAuthenticated(UserAuthenticatedException $exception): void
@@ -58,8 +59,6 @@ class AuthenticationFailureListener implements EventSubscriberInterface
         $setter = 'set'.ucfirst($data['type']).'Id';
         $user->$setter($resourceOwner->getId());
         $this->em->flush();
-        if ($this->session instanceof Session) {
-            $this->session->getFlashBag()->set('success', 'Votre compte a bien été associé à '.$data['type']);
-        }
+        $this->requestStack->getSession()->getFlashBag()->set('success', 'Votre compte a bien été associé à '.$data['type']);
     }
 }

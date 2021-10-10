@@ -12,6 +12,7 @@ use App\Infrastructure\Social\Entity\SocialLoggableTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -23,7 +24,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @UniqueEntity(fields={"email"}, repositoryMethod="findByCaseInsensitive")
  * @UniqueEntity(fields={"username"}, repositoryMethod="findByCaseInsensitive")
  */
-class User implements UserInterface, \Serializable, ForumReaderUserInterface, CacheableInterface
+class User implements UserInterface, \Serializable, ForumReaderUserInterface, CacheableInterface, PasswordAuthenticatedUserInterface
 {
     use PremiumTrait;
     use StripeEntity;

@@ -32,7 +32,7 @@
     "league/oauth2-github": "^2.0",
     "league/oauth2-google": "^3.0",
     "nelmio/cors-bundle": "^1.5 || ^2.0",
-    "nucleos/antispam-bundle": "^2.1",
+    "nucleos/antispam-bundle": "^2.2",
     "oneup/flysystem-bundle": "^3.4",
     "paypal/paypal-checkout-sdk": "^1.0",
     "phpdocumentor/reflection-docblock": "^3.0 || ^4.0 || ^5.0",

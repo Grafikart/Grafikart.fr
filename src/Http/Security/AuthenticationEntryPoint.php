@@ -6,7 +6,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\RememberMeToken;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -17,13 +16,11 @@ use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface
 class AuthenticationEntryPoint implements AuthenticationEntryPointInterface
 {
     private UrlGeneratorInterface $urlGenerator;
-    private SessionInterface $session;
     private AccessDeniedHandler $accessDeniedHandler;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator, SessionInterface $session, AccessDeniedHandler $accessDeniedHandler)
+    public function __construct(UrlGeneratorInterface $urlGenerator, AccessDeniedHandler $accessDeniedHandler)
     {
         $this->urlGenerator = $urlGenerator;
-        $this->session = $session;
         $this->accessDeniedHandler = $accessDeniedHandler;
     }
 
