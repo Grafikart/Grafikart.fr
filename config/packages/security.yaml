@@ -1,4 +1,5 @@
 security:
+  enable_authenticator_manager: true
   encoders:
     App\Domain\Auth\User:
       algorithm: auto
@@ -16,7 +17,6 @@ security:
       security: false
     main:
       entry_point: App\Http\Security\AuthenticationEntryPoint
-      anonymous: true
       lazy: true
       user_checker: App\Domain\Auth\Security\UserChecker
       switch_user: { role: CAN_SWITCH_USER, parameter: _ninja }
