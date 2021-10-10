@@ -49,7 +49,7 @@
     "symfony/mailer": "5.2.*",
     "symfony/mercure-bundle": "^0.2.3",
     "symfony/messenger": "5.2.*",
-    "symfony/monolog-bundle": "^3.1",
+    "symfony/monolog-bundle": "^3.7",
     "symfony/notifier": "5.2.*",
     "symfony/orm-pack": "^2.0",
     "symfony/process": "5.2.*",
