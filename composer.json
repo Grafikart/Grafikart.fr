@@ -74,7 +74,6 @@
     "twig/extra-bundle": "^3.0",
     "twig/intl-extra": "^3.0",
     "twig/markdown-extra": "^3.0",
-    "twig/twig": "^2.12|^3.0",
     "vich/uploader-bundle": "^1.13",
     "wohali/oauth2-discord-new": "^1.0"
   },
