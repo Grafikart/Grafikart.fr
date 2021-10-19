@@ -39,6 +39,8 @@ class BadgeCrudData extends AutomaticCrudData
      */
     public int $actionCount = 0;
 
+    public bool $unlockable = false;
+
     public ?UploadedFile $imageFile = null;
 
     public function hydrate(): void

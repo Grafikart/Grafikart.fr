@@ -62,6 +62,11 @@ class Badge
     private ?File $imageFile = null;
 
     /**
+     * @ORM\Column(type="boolean", options={"default":0})
+     */
+    private bool $unlockable = false;
+
+    /**
      * @ORM\Column(type="datetime", nullable=false)
      */
     private \DateTimeInterface $updatedAt;
@@ -199,5 +204,16 @@ class Badge
     public function imageName(): string
     {
         return $this->action.'-'.$this->actionCount;
+    }
+
+    public function isUnlockable(): bool
+    {
+        return $this->unlockable;
+    }
+
+    public function setUnlockable(bool $unlockable): Badge
+    {
+        $this->unlockable = $unlockable;
+        return $this;
     }
 }

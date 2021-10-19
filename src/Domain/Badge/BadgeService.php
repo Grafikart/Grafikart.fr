@@ -24,7 +24,7 @@ class BadgeService
     /**
      * Déclenche le déblocage du badge et renvoie l'ensemble des déblocage créés.
      *
-     * @return BadgeUnlock[]|null
+     * @return BadgeUnlock[]|null Liste des badges débloqués
      */
     public function unlock(User $user, string $action, int $count = 1): ?array
     {
