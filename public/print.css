@@ -4,7 +4,7 @@
   --color-light: #121c4299;
   --color-inversed: #effbec;
   --color-inversed60: #effbec99;
-  --color-transparent: #{rgba(#121c42, 0)};
+  --color-transparent: rgba(#121c42, 0);
   --contrast: #4869ee;
   --contrast25: #4869ee3f;
   --gap: 20px;
@@ -15,8 +15,8 @@
   --background-light: #fff;
   --shadow: #d8e1e8;
   --list-hover: var(--background);
-  --play: #f3f9fb; // Couleur de fond du bouton play
---space-section: 150px;
+  --play: #f3f9fb; /* Couleur de fond du bouton play */
+  --space-section: 150px;
   --card-footer: #f7fafd;
   --card-padding: 16px;
   --header-height: 137px;
@@ -67,7 +67,7 @@ td {
 }
 
 .header {
-  position: static!important;
+  position: static !important;
 }
 .header-placeholder,
 .course__player,
