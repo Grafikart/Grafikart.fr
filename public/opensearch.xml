@@ -1,0 +1,10 @@
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+<ShortName>Grafikart</ShortName>
+<Description>Recherche sur le site</Description>
+<Image type="image/x-icon">/favicons/icon-128x128.png</Image>
+<Developer>Grafikart</Developer>
+<AdultContent>false</AdultContent>
+<Language>fr</Language>
+<InputEncoding>UTF-8</InputEncoding>
+<Url type="text/html" template="/recherche?q={searchTerms}"/>
+</OpenSearchDescription>
