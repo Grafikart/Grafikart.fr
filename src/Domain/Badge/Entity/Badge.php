@@ -214,6 +214,7 @@ class Badge
     public function setUnlockable(bool $unlockable): Badge
     {
         $this->unlockable = $unlockable;
+
         return $this;
     }
 }

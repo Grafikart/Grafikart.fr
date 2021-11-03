@@ -12,7 +12,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class BadgeController extends AbstractController
 {
-
     /**
      * @Route("/badge/unlock/{badge_action}", name="badge_unlock")
      * @IsGranted("ROLE_USER")
@@ -29,6 +28,7 @@ class BadgeController extends AbstractController
         }
 
         $this->addFlash('success', 'Vous avez déjà ce badge');
+
         return $this->redirectToRoute('user_badges');
     }
 }
