@@ -4,14 +4,13 @@ namespace App\Http\Controller;
 
 use App\Domain\Badge\BadgeService;
 use App\Domain\Badge\Entity\Badge;
-use App\Http\Admin\Controller\BaseController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
-class BadgeController extends BaseController
+class BadgeController extends AbstractController
 {
 
     /**
