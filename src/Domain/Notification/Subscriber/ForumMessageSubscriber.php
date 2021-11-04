@@ -36,7 +36,7 @@ class ForumMessageSubscriber implements EventSubscriberInterface
         $messages = collect($topic->getMessages()->toArray())
             ->push($topic)
             ->filter(fn ($v) => $v->getAuthor() !== $message->getAuthor())
-            ->keyBy(function ($v) {
+            ->keyBy(function (object $v) {
                 /** @var Message|Topic $v */
                 $author = $v->getAuthor();
 

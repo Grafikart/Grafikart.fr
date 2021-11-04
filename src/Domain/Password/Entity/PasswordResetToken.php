@@ -15,23 +15,23 @@ class PasswordResetToken
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
      */
-    public ?int $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    public \DateTime $createdAt;
+    private \DateTime $createdAt;
 
     /**
      * @ORM\Column(type="string")
      */
-    public string $token;
+    private string $token;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Domain\Auth\User")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
-    public User $user;
+    private User $user;
 
     public function getId(): ?int
     {
