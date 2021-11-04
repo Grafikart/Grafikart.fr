@@ -2,7 +2,7 @@
 
 namespace App\Http\Controller;
 
-use League\Glide\Responses\SymfonyResponseFactory;
+use App\Infrastructure\Image\SymfonyResponseFactory;
 use League\Glide\ServerFactory;
 use League\Glide\Signatures\SignatureException;
 use League\Glide\Signatures\SignatureFactory;

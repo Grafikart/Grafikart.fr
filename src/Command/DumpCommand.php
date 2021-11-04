@@ -3,7 +3,7 @@
 namespace App\Command;
 
 use Doctrine\ORM\EntityManagerInterface;
-use League\Flysystem\FilesystemInterface;
+use League\Flysystem\FilesystemOperator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -15,9 +15,9 @@ class DumpCommand extends Command
     protected static $defaultName = 'app:dump';
     private EntityManagerInterface $em;
     private string $dumpPath;
-    private FilesystemInterface $filesystem;
+    private FilesystemOperator $filesystem;
 
-    public function __construct(EntityManagerInterface $em, string $projectPath, FilesystemInterface $filesystem)
+    public function __construct(EntityManagerInterface $em, string $projectPath, FilesystemOperator $filesystem)
     {
         parent::__construct();
         $this->em = $em;
