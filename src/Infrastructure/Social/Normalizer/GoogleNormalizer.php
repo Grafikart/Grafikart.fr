@@ -14,7 +14,7 @@ class GoogleNormalizer extends Normalizer
     {
         return [
             'email' => $object->getEmail(),
-            'github_id' => $object->getId(),
+            'google_id' => $object->getId(),
             'type' => 'Google',
             'username' => $object->getName(),
         ];
