@@ -21,7 +21,7 @@
     "intervention/image": "^2.5",
     "knplabs/knp-paginator-bundle": "^5.4",
     "knpuniversity/oauth2-client-bundle": "^2.3",
-    "lcobucci/jwt": "^3.3",
+    "lcobucci/jwt": "^4.1",
     "league/glide": "^1.6",
     "league/glide-symfony": "^1.0",
     "league/oauth2-facebook": "^2.0",
