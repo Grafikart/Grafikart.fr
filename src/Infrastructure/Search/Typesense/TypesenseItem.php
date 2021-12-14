@@ -57,7 +57,7 @@ class TypesenseItem implements SearchResultItemInterface
             }
         }
 
-        // Sinon on coupe les X premiers aaractères
+        // Sinon on coupe les X premiers caractères
         $content = $this->item['document']['content'];
         $characterLimit = 150;
         if (mb_strlen($content) <= $characterLimit) {
