@@ -128,8 +128,10 @@ class CourseCrudData implements CrudDataInterface
             $technology->setSecondary(true);
         }
         $removed = $this->entity->syncTechnologies(array_merge($this->mainTechnologies, $this->secondaryTechnologies));
-        foreach ($removed as $usage) {
-            $this->em->remove($usage);
+        if ($this->entity->getId()) {
+            foreach ($removed as $usage) {
+                $this->em->remove($usage);
+            }
         }
     }
 
