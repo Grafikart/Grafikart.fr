@@ -33,7 +33,10 @@ export class RecapLiveElement extends HTMLElement {
     if (e.currentTarget.classList.contains('is-active')) {
       return
     }
-    e.currentTarget.parentElement.querySelector('.is-active').classList.remove('is-active')
+    const activeParentEl = e.currentTarget.parentElement.querySelector('.is-active')
+    if (activeParentEl !== null) {
+      activeParentEl.classList.remove('is-active')
+    }
     this.showLoader()
     e.currentTarget.classList.add('is-active')
     const year = e.currentTarget.text
