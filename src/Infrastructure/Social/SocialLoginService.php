@@ -10,17 +10,10 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class SocialLoginService
 {
-    public const SESSION_KEY = 'oauth_login';
+    final public const SESSION_KEY = 'oauth_login';
 
-    private NormalizerInterface $normalizer;
-    private RequestStack $requestStack;
-    private SessionInterface $session;
-
-    public function __construct(RequestStack $requestStack, NormalizerInterface $normalizer, SessionInterface $session)
+    public function __construct(private readonly RequestStack $requestStack, private readonly NormalizerInterface $normalizer, private readonly SessionInterface $session)
     {
-        $this->normalizer = $normalizer;
-        $this->requestStack = $requestStack;
-        $this->session = $session;
     }
 
     public function persist(ResourceOwnerInterface $resourceOwner): void

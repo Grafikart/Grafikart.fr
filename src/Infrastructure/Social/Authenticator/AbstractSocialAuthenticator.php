@@ -28,21 +28,9 @@ abstract class AbstractSocialAuthenticator extends SocialAuthenticator
     use TargetPathTrait;
 
     protected string $serviceName = '';
-    private ClientRegistry $clientRegistry;
-    protected EntityManagerInterface $em;
-    private RouterInterface $router;
-    private AuthService $authService;
 
-    public function __construct(
-        ClientRegistry $clientRegistry,
-        EntityManagerInterface $em,
-        RouterInterface $router,
-        AuthService $authService
-    ) {
-        $this->clientRegistry = $clientRegistry;
-        $this->em = $em;
-        $this->router = $router;
-        $this->authService = $authService;
+    public function __construct(private readonly ClientRegistry $clientRegistry, protected EntityManagerInterface $em, private readonly RouterInterface $router, private readonly AuthService $authService)
+    {
     }
 
     public function supports(Request $request): bool

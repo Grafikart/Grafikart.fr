@@ -6,11 +6,8 @@ use Symfony\Component\Messenger\Transport\Serialization\PhpSerializer;
 
 class ScheduledJobsService
 {
-    private string $dsn;
-
-    public function __construct(string $dsn)
+    public function __construct(private readonly string $dsn)
     {
-        $this->dsn = $dsn;
     }
 
     public function getConnection(): \Redis
@@ -30,7 +27,7 @@ class ScheduledJobsService
      */
     public function getJobs(): array
     {
-        if (0 !== strpos($this->dsn, 'redis://')) {
+        if (!str_starts_with($this->dsn, 'redis://')) {
             return [];
         }
         $messages = $this->getConnection()->zRange('messages__queue', 0, 10);
@@ -40,7 +37,7 @@ class ScheduledJobsService
         $serializer = new PhpSerializer();
         $index = 0;
         $jobs = array_map(function (string $message) use ($serializer, &$index) {
-            $data = json_decode(unserialize($message), true);
+            $data = json_decode(unserialize($message), true, 512, JSON_THROW_ON_ERROR);
 
             return new ScheduledJob($serializer->decode($data), $index++);
         }, $messages);

@@ -76,9 +76,7 @@ class CourseCrudDataTest extends TestCase
         // Les assertions
         $argumentAssertions = collect($expectedRemoved)
             ->map(fn (string $name) => $this->getTechnology($name))
-            ->map(function (Technology $t) {
-                return [$this->callback(fn (TechnologyUsage $u) => $u->getTechnology() === $t)];
-            });
+            ->map(fn (Technology $t) => [$this->callback(fn (TechnologyUsage $u) => $u->getTechnology() === $t)]);
         $this->em
             ->expects($this->exactly(count($expectedRemoved)))
             ->method('remove')

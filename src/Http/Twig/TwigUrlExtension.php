@@ -14,18 +14,8 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class TwigUrlExtension extends AbstractExtension
 {
-    private UrlGeneratorInterface $urlGenerator;
-    private SerializerInterface $serializer;
-    private UploaderHelper $uploaderHelper;
-
-    public function __construct(
-        UrlGeneratorInterface $urlGenerator,
-        UploaderHelper $uploaderHelper,
-        SerializerInterface $serializer
-    ) {
-        $this->urlGenerator = $urlGenerator;
-        $this->serializer = $serializer;
-        $this->uploaderHelper = $uploaderHelper;
+    public function __construct(private readonly UrlGeneratorInterface $urlGenerator, private readonly UploaderHelper $uploaderHelper, private readonly SerializerInterface $serializer)
+    {
     }
 
     public function getFunctions(): array
@@ -96,7 +86,7 @@ class TwigUrlExtension extends AbstractExtension
 
         foreach ($matches as $match) {
             if (empty($match[1]) && empty($match[6])) {
-                $protocol = $match[2] ? $match[2] : 'https:';
+                $protocol = $match[2] ?: 'https:';
                 $replace = sprintf($anchor, $protocol, $match[5], $match[0]);
                 $string = str_replace($match[0], $replace, $string);
             }

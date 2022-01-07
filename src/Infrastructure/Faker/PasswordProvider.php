@@ -12,11 +12,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
  */
 final class PasswordProvider extends BaseProvider
 {
-    private UserPasswordHasherInterface $hasher;
-
-    public function __construct(Generator $generator, UserPasswordHasherInterface $hasher)
+    public function __construct(Generator $generator, private readonly UserPasswordHasherInterface $hasher)
     {
-        $this->hasher = $hasher;
         parent::__construct($generator);
     }
 

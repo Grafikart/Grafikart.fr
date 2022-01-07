@@ -4,16 +4,11 @@ namespace App\Infrastructure\Search;
 
 class SearchResult
 {
-    private array $items;
-    private int $total;
-
     /**
-     * @param SearchResultItemInterface[] $results
+     * @param SearchResultItemInterface[] $items
      */
-    public function __construct(array $results, int $total)
+    public function __construct(private readonly array $items, private readonly int $total)
     {
-        $this->items = $results;
-        $this->total = $total;
     }
 
     /**

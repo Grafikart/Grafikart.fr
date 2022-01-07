@@ -15,7 +15,7 @@ class NotExists extends Constraint
     /**
      * @var class-string<object>
      */
-    public string $class = 'stdClass';
+    public string $class = \stdClass::class;
 
     public function getRequiredOptions(): array
     {

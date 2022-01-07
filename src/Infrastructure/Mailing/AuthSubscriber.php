@@ -10,11 +10,8 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class AuthSubscriber implements EventSubscriberInterface
 {
-    private Mailer $mailer;
-
-    public function __construct(Mailer $mailer)
+    public function __construct(private readonly Mailer $mailer)
     {
-        $this->mailer = $mailer;
     }
 
     /**

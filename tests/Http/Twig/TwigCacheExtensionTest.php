@@ -13,7 +13,7 @@ class TwigCacheExtensionTest extends TestCase
     /**
      * @var MockObject|AdapterInterface cache
      */
-    private $cache;
+    private \Symfony\Component\Cache\Adapter\AdapterInterface|\PHPUnit\Framework\MockObject\MockObject $cache;
 
     private TwigCacheExtension $extension;
 

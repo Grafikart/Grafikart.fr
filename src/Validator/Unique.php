@@ -15,6 +15,9 @@ class Unique extends Constraint
 {
     public string $message = 'Cette valeur est déjà utilisée';
 
+    /**
+     * @var class-string<object>|null
+     */
     public ?string $entityClass = null;
 
     public string $field = '';

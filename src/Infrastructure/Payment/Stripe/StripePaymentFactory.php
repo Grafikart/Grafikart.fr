@@ -7,11 +7,8 @@ use Stripe\PaymentIntent;
 
 class StripePaymentFactory
 {
-    private StripeApi $api;
-
-    public function __construct(StripeApi $api)
+    public function __construct(private readonly StripeApi $api)
     {
-        $this->api = $api;
     }
 
     public function createPaymentFromIntent(PaymentIntent $intent): StripePayment

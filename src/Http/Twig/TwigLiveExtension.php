@@ -8,11 +8,8 @@ use Twig\TwigFunction;
 
 class TwigLiveExtension extends AbstractExtension
 {
-    private LiveService $liveService;
-
-    public function __construct(LiveService $liveService)
+    public function __construct(private readonly LiveService $liveService)
     {
-        $this->liveService = $liveService;
     }
 
     public function getFunctions(): array

@@ -26,7 +26,7 @@ abstract class EventSubscriberTest extends KernelTestCase
         $dispatcher = self::getContainer()->get(EventDispatcherInterface::class);
         $subscribers = $dispatcher->getListeners($event);
         // TODO : Ne fonctionne pour le moment qu'avec des subscribers, à voir les listeners
-        $subscribers = array_map(fn ($subscriber) => get_class($subscriber[0]), $subscribers);
+        $subscribers = array_map(fn ($subscriber) => $subscriber[0]::class, $subscribers);
         $this->assertContains($subscriberClass, $subscribers);
     }
 }

@@ -17,7 +17,7 @@ class TechnologyRepositoryTest extends KernelTestCase
     {
         $size = 9;
         for ($i = 0; $i < 5; ++$i) {
-            yield [collect(range(1, $size))->shuffle()->slice(0, rand(1, $size))->map(fn ($k) => "technology$k")->toArray()];
+            yield [collect(range(1, $size))->shuffle()->slice(0, random_int(1, $size))->map(fn ($k) => "technology$k")->toArray()];
         }
     }
 

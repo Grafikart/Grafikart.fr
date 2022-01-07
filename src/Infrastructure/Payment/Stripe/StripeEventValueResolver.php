@@ -13,11 +13,8 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
  */
 class StripeEventValueResolver implements ArgumentValueResolverInterface
 {
-    private string $webhookSecret;
-
-    public function __construct(string $webhookSecret)
+    public function __construct(private readonly string $webhookSecret)
     {
-        $this->webhookSecret = $webhookSecret;
     }
 
     public function supports(Request $request, ArgumentMetadata $argument): bool

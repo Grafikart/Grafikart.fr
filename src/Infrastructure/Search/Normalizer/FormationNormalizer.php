@@ -9,13 +9,8 @@ use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 
 class FormationNormalizer implements ContextAwareNormalizerInterface
 {
-    private FormationPathNormalizer $pathNormalizer;
-    private UrlGeneratorInterface $urlGenerator;
-
-    public function __construct(FormationPathNormalizer $pathNormalizer, UrlGeneratorInterface $urlGenerator)
+    public function __construct(private readonly FormationPathNormalizer $pathNormalizer, private readonly UrlGeneratorInterface $urlGenerator)
     {
-        $this->pathNormalizer = $pathNormalizer;
-        $this->urlGenerator = $urlGenerator;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
@@ -26,7 +21,7 @@ class FormationNormalizer implements ContextAwareNormalizerInterface
     public function normalize($object, string $format = null, array $context = []): array
     {
         if (!$object instanceof Formation) {
-            throw new \InvalidArgumentException('Unexpected type for normalization, expected Formation, got '.get_class($object));
+            throw new \InvalidArgumentException('Unexpected type for normalization, expected Formation, got '.$object::class);
         }
 
         $url = $this->pathNormalizer->normalize($object);

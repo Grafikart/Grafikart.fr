@@ -17,7 +17,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ProfileServiceTest extends TestCase
 {
-    public const TOKEN = 'hello';
+    final public const TOKEN = 'hello';
 
     /**
      * @var EventDispatcherInterface|MockObject
@@ -62,10 +62,8 @@ class ProfileServiceTest extends TestCase
         $service = $this->getService();
 
         $this->em->expects($this->once())->method('persist')->with(
-            $this->callback(function (EmailVerification $entity) use ($data) {
-                return $entity->getEmail() === $data->email
-                    && self::TOKEN === $entity->getToken();
-            })
+            $this->callback(fn (EmailVerification $entity) => $entity->getEmail() === $data->email
+                && self::TOKEN === $entity->getToken())
         );
         $service->updateProfile($data);
     }

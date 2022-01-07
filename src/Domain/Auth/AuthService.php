@@ -14,12 +14,12 @@ use Symfony\Component\Security\Http\Event\LogoutEvent;
  */
 class AuthService
 {
-
     public function __construct(
         private Security $security,
         private TokenStorageInterface $tokenStorage,
         private EventDispatcherInterface $eventDispatcher
-    ) {}
+    ) {
+    }
 
     public function getUser(): User
     {

@@ -11,13 +11,8 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class IndexerSubscriber implements EventSubscriberInterface
 {
-    private IndexerInterface $indexer;
-    private NormalizerInterface $normalizer;
-
-    public function __construct(IndexerInterface $indexer, NormalizerInterface $normalizer)
+    public function __construct(private readonly IndexerInterface $indexer, private readonly NormalizerInterface $normalizer)
     {
-        $this->indexer = $indexer;
-        $this->normalizer = $normalizer;
     }
 
     public static function getSubscribedEvents(): array

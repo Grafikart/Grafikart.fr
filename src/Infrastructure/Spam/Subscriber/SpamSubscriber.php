@@ -9,12 +9,8 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class SpamSubscriber implements EventSubscriberInterface
 {
-    private OptionManagerInterface $optionManager;
-
-    public function __construct(
-        OptionManagerInterface $optionManager
-    ) {
-        $this->optionManager = $optionManager;
+    public function __construct(private readonly OptionManagerInterface $optionManager)
+    {
     }
 
     public static function getSubscribedEvents(): array
@@ -30,7 +26,7 @@ class SpamSubscriber implements EventSubscriberInterface
         $topic = $topicCreatedEvent->getTopic();
         $content = (string) $topic->getContent();
         foreach ($this->getSpamWords() as $word) {
-            if (false !== stripos($content, $word)) {
+            if (false !== stripos($content, (string) $word)) {
                 $topic->setSpam(true);
 
                 return;
@@ -43,7 +39,7 @@ class SpamSubscriber implements EventSubscriberInterface
         $message = $messageCreatedEvent->getMessage();
         $content = (string) $message->getContent();
         foreach ($this->getSpamWords() as $word) {
-            if (false !== stripos($content, $word)) {
+            if (false !== stripos($content, (string) $word)) {
                 $message->setSpam(true);
 
                 return;

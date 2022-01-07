@@ -8,13 +8,8 @@ use Symfony\Component\Messenger\Stamp\DelayStamp;
 
 class ScheduledJob
 {
-    private Envelope $envelope;
-    private int $id;
-
-    public function __construct(Envelope $envelope, int $id)
+    public function __construct(private readonly Envelope $envelope, private readonly int $id)
     {
-        $this->envelope = $envelope;
-        $this->id = $id;
     }
 
     public function getId(): int
@@ -29,7 +24,7 @@ class ScheduledJob
 
     public function getMessageClass(): string
     {
-        return get_class($this->envelope->getMessage());
+        return $this->envelope->getMessage()::class;
     }
 
     public function getMessage(): object

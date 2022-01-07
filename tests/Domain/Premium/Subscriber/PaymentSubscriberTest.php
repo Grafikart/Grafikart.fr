@@ -66,9 +66,7 @@ class PaymentSubscriberTest extends EventSubscriberTest
     {
         /** @var MockObject $em */
         [$subscriber, $em] = $this->getSubscriber();
-        $em->expects($this->once())->method('persist')->with($this->callback(function (Transaction $transaction) {
-            return 100 == $transaction->getPrice();
-        }));
+        $em->expects($this->once())->method('persist')->with($this->callback(fn (Transaction $transaction) => 100 == $transaction->getPrice()));
         $em->expects($this->once())->method('flush');
         $this->dispatch($subscriber, $this->getEvent());
     }

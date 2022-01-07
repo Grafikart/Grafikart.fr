@@ -15,13 +15,8 @@ use Symfony\Component\Security\Core\Security;
  */
 class MercureCookieMiddleware implements EventSubscriberInterface
 {
-    private Security $security;
-    private CookieGenerator $generator;
-
-    public function __construct(CookieGenerator $generator, Security $security)
+    public function __construct(private readonly CookieGenerator $generator, private readonly Security $security)
     {
-        $this->security = $security;
-        $this->generator = $generator;
     }
 
     public static function getSubscribedEvents(): array

@@ -14,11 +14,8 @@ use Symfony\Component\Messenger\Stamp\RedeliveryStamp;
 
 class FailedMessageSubscriber implements EventSubscriberInterface
 {
-    private NotificationService $notificationService;
-
-    public function __construct(NotificationService $notificationService)
+    public function __construct(private readonly NotificationService $notificationService)
     {
-        $this->notificationService = $notificationService;
     }
 
     public static function getSubscribedEvents(): array

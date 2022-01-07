@@ -11,13 +11,8 @@ use Symfony\Component\HttpFoundation\Cookie;
 
 class CookieGenerator
 {
-    private string $secret;
-    private NotificationService $notificationService;
-
-    public function __construct(string $secret, NotificationService $notificationService)
+    public function __construct(private readonly string $secret, private readonly NotificationService $notificationService)
     {
-        $this->secret = $secret;
-        $this->notificationService = $notificationService;
     }
 
     public function generate(User $user): Cookie

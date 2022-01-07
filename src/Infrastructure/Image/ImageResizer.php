@@ -10,18 +10,14 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class ImageResizer
 {
-    /**
-     * Clef permettant de signer les URLs pour le redimensionnement
-     * (cf https://glide.thephpleague.com/1.0/config/security/).
-     */
-    private string $signKey;
-
-    private UrlGeneratorInterface $urlGenerator;
-
-    public function __construct(string $signKey, UrlGeneratorInterface $urlGenerator)
-    {
-        $this->signKey = $signKey;
-        $this->urlGenerator = $urlGenerator;
+    public function __construct(
+        /**
+         * Clef permettant de signer les URLs pour le redimensionnement
+         * (cf https://glide.thephpleague.com/1.0/config/security/).
+         */
+        private readonly string $signKey,
+        private readonly UrlGeneratorInterface $urlGenerator
+    ) {
     }
 
     public function resize(?string $url, ?int $width = null, ?int $height = null): string

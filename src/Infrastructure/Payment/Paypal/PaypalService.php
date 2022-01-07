@@ -11,11 +11,8 @@ use PayPalHttp\HttpException;
 
 class PaypalService
 {
-    private PayPalHttpClient $client;
-
-    public function __construct(PayPalHttpClient $client)
+    public function __construct(private readonly PayPalHttpClient $client)
     {
-        $this->client = $client;
     }
 
     /**

@@ -4,11 +4,8 @@ namespace App\Infrastructure\Twitter;
 
 class Tweet
 {
-    private array $data;
-
-    public function __construct(array $data)
+    public function __construct(private readonly array $data)
     {
-        $this->data = $data;
     }
 
     public function getContent(): string

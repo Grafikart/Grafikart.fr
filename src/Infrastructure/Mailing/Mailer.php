@@ -11,21 +11,8 @@ use Twig\Environment;
 
 class Mailer
 {
-    private Environment $twig;
-    private EnqueueMethod $enqueue;
-    private MailerInterface $mailer;
-    private ?string $dkimKey;
-
-    public function __construct(
-        Environment $twig,
-        EnqueueMethod $enqueue,
-        MailerInterface $mailer,
-        ?string $dkimKey = null
-    ) {
-        $this->twig = $twig;
-        $this->enqueue = $enqueue;
-        $this->mailer = $mailer;
-        $this->dkimKey = $dkimKey;
+    public function __construct(private readonly Environment $twig, private readonly EnqueueMethod $enqueue, private readonly MailerInterface $mailer, private readonly ?string $dkimKey = null)
+    {
     }
 
     public function createEmail(string $template, array $data = []): Email

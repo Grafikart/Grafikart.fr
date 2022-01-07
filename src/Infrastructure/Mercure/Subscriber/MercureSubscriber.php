@@ -14,14 +14,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class MercureSubscriber implements EventSubscriberInterface
 {
-    private SerializerInterface $serializer;
-
-    private EnqueueMethod $enqueue;
-
-    public function __construct(SerializerInterface $serializer, EnqueueMethod $enqueue)
+    public function __construct(private readonly SerializerInterface $serializer, private readonly EnqueueMethod $enqueue)
     {
-        $this->serializer = $serializer;
-        $this->enqueue = $enqueue;
     }
 
     public static function getSubscribedEvents(): array

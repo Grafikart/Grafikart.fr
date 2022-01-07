@@ -9,11 +9,8 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class SymfonyResponseFactory implements ResponseFactoryInterface
 {
-    protected ?Request $request;
-
-    public function __construct(?Request $request = null)
+    public function __construct(protected ?Request $request = null)
     {
-        $this->request = $request;
     }
 
     /**
@@ -30,7 +27,7 @@ class SymfonyResponseFactory implements ResponseFactoryInterface
         $response->headers->set('Content-Type', $cache->mimeType($path));
         $response->headers->set('Content-Length', (string) $cache->fileSize($path));
         $response->setPublic();
-        $response->setMaxAge(31536000);
+        $response->setMaxAge(31_536_000);
         $response->setExpires(new \DateTime('+ 1 years'));
 
         if ($this->request) {

@@ -15,18 +15,8 @@ use Vich\UploaderBundle\Storage\StorageInterface;
  */
 class CourseTransformer
 {
-    private SerializerInterface $serializer;
-    private StorageInterface $storage;
-    private string $videosPath;
-
-    public function __construct(
-        SerializerInterface $serializer,
-        StorageInterface $storage,
-        string $videosPath
-    ) {
-        $this->serializer = $serializer;
-        $this->storage = $storage;
-        $this->videosPath = $videosPath;
+    public function __construct(private readonly SerializerInterface $serializer, private readonly StorageInterface $storage, private readonly string $videosPath)
+    {
     }
 
     public function transform(Course $course): Google_Service_YouTube_Video

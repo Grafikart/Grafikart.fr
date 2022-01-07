@@ -19,6 +19,6 @@ class KernelTestCase extends \Symfony\Bundle\FrameworkBundle\Test\KernelTestCase
 
     public function remove(object $entity): void
     {
-        $this->em->remove($this->em->getRepository(get_class($entity))->find($entity->getId()));
+        $this->em->remove($this->em->getRepository($entity::class)->find($entity->getId()));
     }
 }

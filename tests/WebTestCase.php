@@ -34,7 +34,7 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
         $this->client->request($method, $url, [], [], [
             'CONTENT_TYPE' => 'application/json',
             'HTTP_ACCEPT' => 'application/json',
-        ], $data ? json_encode($data) : null);
+        ], $data ? json_encode($data, JSON_THROW_ON_ERROR) : null);
 
         return $this->client->getResponse()->getContent();
     }

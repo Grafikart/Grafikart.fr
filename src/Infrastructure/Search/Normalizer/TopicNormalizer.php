@@ -15,7 +15,7 @@ class TopicNormalizer extends Normalizer
     public function normalize($object, string $format = null, array $context = []): array
     {
         if (!$object instanceof Topic) {
-            throw new \InvalidArgumentException('Unexpected type for normalization, expected Formation, got '.get_class($object));
+            throw new \InvalidArgumentException('Unexpected type for normalization, expected Formation, got '.$object::class);
         }
 
         return [

@@ -11,16 +11,14 @@ use Traversable;
 
 class FailedJobsService
 {
-    private ListableReceiverInterface $receiver;
-    private MessageBusInterface $messageBus;
+    private readonly ListableReceiverInterface $receiver;
 
-    public function __construct(TransportInterface $receiver, MessageBusInterface $messageBus)
+    public function __construct(TransportInterface $receiver, private readonly MessageBusInterface $messageBus)
     {
         if (!($receiver instanceof ListableReceiverInterface)) {
             throw new \Exception('Le service '.self::class.' attend un receiver de type '.ListableReceiverInterface::class);
         }
         $this->receiver = $receiver;
-        $this->messageBus = $messageBus;
     }
 
     /**

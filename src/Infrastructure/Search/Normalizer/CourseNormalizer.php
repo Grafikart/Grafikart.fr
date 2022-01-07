@@ -9,13 +9,8 @@ use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 
 class CourseNormalizer implements ContextAwareNormalizerInterface
 {
-    private CoursePathNormalizer $pathNormalizer;
-    private UrlGeneratorInterface $urlGenerator;
-
-    public function __construct(CoursePathNormalizer $pathNormalizer, UrlGeneratorInterface $urlGenerator)
+    public function __construct(private readonly CoursePathNormalizer $pathNormalizer, private readonly UrlGeneratorInterface $urlGenerator)
     {
-        $this->pathNormalizer = $pathNormalizer;
-        $this->urlGenerator = $urlGenerator;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
@@ -26,7 +21,7 @@ class CourseNormalizer implements ContextAwareNormalizerInterface
     public function normalize($object, string $format = null, array $context = []): array
     {
         if (!$object instanceof Course) {
-            throw new \InvalidArgumentException('Unexpected type for normalization, expected Course, got '.get_class($object));
+            throw new \InvalidArgumentException('Unexpected type for normalization, expected Course, got '.$object::class);
         }
         $title = $object->getTitle();
         $formation = $object->getFormation();

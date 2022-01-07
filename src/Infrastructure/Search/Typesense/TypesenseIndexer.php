@@ -7,11 +7,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class TypesenseIndexer implements IndexerInterface
 {
-    private TypesenseClient $client;
-
-    public function __construct(TypesenseClient $client)
+    public function __construct(private readonly TypesenseClient $client)
     {
-        $this->client = $client;
     }
 
     public function index(array $data): void
@@ -50,7 +47,7 @@ class TypesenseIndexer implements IndexerInterface
     {
         try {
             $this->client->delete('collections/content');
-        } catch (TypesenseException $e) {
+        } catch (TypesenseException) {
         }
     }
 }

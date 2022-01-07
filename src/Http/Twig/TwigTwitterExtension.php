@@ -10,14 +10,8 @@ use Twig\TwigFunction;
 
 class TwigTwitterExtension extends AbstractExtension
 {
-    private TwitterService $twitter;
-
-    private CacheInterface $cache;
-
-    public function __construct(TwitterService $twitter, CacheInterface $cache)
+    public function __construct(private readonly TwitterService $twitter, private readonly CacheInterface $cache)
     {
-        $this->twitter = $twitter;
-        $this->cache = $cache;
     }
 
     public function getFunctions(): array

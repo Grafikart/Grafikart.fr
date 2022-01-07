@@ -8,12 +8,8 @@ use Twig\TwigFunction;
 
 class TwigSpamExtension extends AbstractExtension
 {
-    private SpamService $spamService;
-
-    public function __construct(
-        SpamService $spamService
-    ) {
-        $this->spamService = $spamService;
+    public function __construct(private readonly SpamService $spamService)
+    {
     }
 
     public function getFunctions(): array

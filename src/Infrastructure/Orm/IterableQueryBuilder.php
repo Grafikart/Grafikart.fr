@@ -73,13 +73,14 @@ class IterableQueryBuilder extends QueryBuilder implements \IteratorAggregate, \
     /**
      * @param string $offset
      */
-    public function offsetGet(mixed $offset): mixed
+    public function offsetGet(mixed $offset): array|object
     {
         return $this->getResults()[$offset];
     }
 
     /**
-     * @param string $offset
+     * @param string       $offset
+     * @param object|array $value
      */
     public function offsetSet(mixed $offset, mixed $value): void
     {

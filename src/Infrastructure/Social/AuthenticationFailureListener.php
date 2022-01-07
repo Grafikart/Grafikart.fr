@@ -13,15 +13,8 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class AuthenticationFailureListener implements EventSubscriberInterface
 {
-    private NormalizerInterface $normalizer;
-    private EntityManagerInterface $em;
-    private RequestStack $requestStack;
-
-    public function __construct(NormalizerInterface $normalizer, RequestStack $requestStack, EntityManagerInterface $em)
+    public function __construct(private readonly NormalizerInterface $normalizer, private readonly RequestStack $requestStack, private readonly EntityManagerInterface $em)
     {
-        $this->normalizer = $normalizer;
-        $this->em = $em;
-        $this->requestStack = $requestStack;
     }
 
     public static function getSubscribedEvents(): array

@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class ApiTestCase extends \ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase
 {
-    public const DEFAULT_OPTIONS = [
+    final public const DEFAULT_OPTIONS = [
         'auth_basic' => null,
         'auth_bearer' => null,
         'query' => [],
@@ -37,7 +37,7 @@ class ApiTestCase extends \ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCa
 
     /**
      * En attendant le merge de pour avoir accès à la méthode loginUser sur client directement
-     * https://github.com/api-platform/core/pull/4588
+     * https://github.com/api-platform/core/pull/4588.
      */
     public function login(User $user): void
     {
