@@ -9,7 +9,6 @@ use Twig\TwigFunction;
 class TwigLiveExtension extends AbstractExtension
 {
     private LiveService $liveService;
-    private ?\DateTimeImmutable $liveAt = null;
 
     public function __construct(LiveService $liveService)
     {

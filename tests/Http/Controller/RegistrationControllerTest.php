@@ -178,7 +178,7 @@ class RegistrationControllerTest extends WebTestCase
             'login' => 'JohnDoe',
             'id' => 123123,
         ]);
-        $loginService = self::$container->get(SocialLoginService::class);
+        $loginService = self::getContainer()->get(SocialLoginService::class);
         $loginService->persist($github);
 
         $crawler = $this->client->request('GET', self::SIGNUP_PATH.'?oauth=1');

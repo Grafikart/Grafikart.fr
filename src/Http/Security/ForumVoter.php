@@ -10,17 +10,17 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class ForumVoter extends Voter
 {
-    const CREATE = 'forumCreate';
-    const REPORT = 'forumReport';
-    const CREATE_MESSAGE = 'CREATE_FORUM_MESSAGE';
-    const UPDATE_MESSAGE = 'UPDATE_FORUM_MESSAGE';
-    const DELETE_MESSAGE = 'DELETE_FORUM_MESSAGE';
-    const UPDATE_TOPIC = 'UPDATE_TOPIC';
-    const DELETE_TOPIC = 'DELETE_TOPIC';
-    const READ_TOPICS = 'READ_TOPICS';
-    const SOLVE_MESSAGE = 'SOLVE_MESSAGE';
+    public const CREATE = 'forumCreate';
+    public const REPORT = 'forumReport';
+    public const CREATE_MESSAGE = 'CREATE_FORUM_MESSAGE';
+    public const UPDATE_MESSAGE = 'UPDATE_FORUM_MESSAGE';
+    public const DELETE_MESSAGE = 'DELETE_FORUM_MESSAGE';
+    public const UPDATE_TOPIC = 'UPDATE_TOPIC';
+    public const DELETE_TOPIC = 'DELETE_TOPIC';
+    public const READ_TOPICS = 'READ_TOPICS';
+    public const SOLVE_MESSAGE = 'SOLVE_MESSAGE';
 
-    protected function supports(string $attribute, $subject)
+    protected function supports(string $attribute, $subject): bool
     {
         return in_array($attribute, [
             self::CREATE,

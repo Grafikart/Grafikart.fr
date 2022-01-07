@@ -52,9 +52,12 @@ class TechnologiesType extends TextType implements DataTransformerInterface
         parent::configureOptions($resolver);
     }
 
-    public function transform($technologies): ?string
+    /**
+     * @param string|Technology[] $value
+     */
+    public function transform($value): ?string
     {
-        if (!is_array($technologies)) {
+        if (!is_array($value)) {
             return null;
         }
 
@@ -64,7 +67,7 @@ class TechnologiesType extends TextType implements DataTransformerInterface
             }
 
             return $technology->getName();
-        }, $technologies));
+        }, $value));
     }
 
     /**

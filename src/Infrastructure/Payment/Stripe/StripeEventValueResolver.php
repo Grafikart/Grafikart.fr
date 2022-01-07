@@ -20,12 +20,12 @@ class StripeEventValueResolver implements ArgumentValueResolverInterface
         $this->webhookSecret = $webhookSecret;
     }
 
-    public function supports(Request $request, ArgumentMetadata $argument)
+    public function supports(Request $request, ArgumentMetadata $argument): bool
     {
         return Event::class === $argument->getType();
     }
 
-    public function resolve(Request $request, ArgumentMetadata $argument)
+    public function resolve(Request $request, ArgumentMetadata $argument): \Generator
     {
         yield Webhook::constructEvent(
             $request->getContent(false),

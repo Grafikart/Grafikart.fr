@@ -23,7 +23,7 @@ class TwigRepositoryExtension extends AbstractExtension
     }
 
     /**
-     * @param class-string<mixed> $repositoryClass
+     * @param class-string<object> $repositoryClass
      *
      * @return mixed
      */

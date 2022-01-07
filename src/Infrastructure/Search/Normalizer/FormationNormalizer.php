@@ -18,12 +18,12 @@ class FormationNormalizer implements ContextAwareNormalizerInterface
         $this->urlGenerator = $urlGenerator;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = [])
+    public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
         return $data instanceof Formation && 'search' === $format;
     }
 
-    public function normalize($object, string $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = []): array
     {
         if (!$object instanceof Formation) {
             throw new \InvalidArgumentException('Unexpected type for normalization, expected Formation, got '.get_class($object));

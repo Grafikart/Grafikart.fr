@@ -10,9 +10,9 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class PodcastVoter extends Voter
 {
-    const VOTE = 'VOTE_PODCAST';
-    const CREATE = 'CREATE_PODCAST';
-    const DELETE = 'DELETE_PODCAST';
+    public const VOTE = 'VOTE_PODCAST';
+    public const CREATE = 'CREATE_PODCAST';
+    public const DELETE = 'DELETE_PODCAST';
     private PodcastService $podcastService;
 
     public function __construct(PodcastService $podcastService)
@@ -20,7 +20,7 @@ class PodcastVoter extends Voter
         $this->podcastService = $podcastService;
     }
 
-    protected function supports(string $attribute, $subject)
+    protected function supports(string $attribute, $subject): bool
     {
         return
             in_array($attribute, [self::CREATE]) ||
@@ -30,7 +30,7 @@ class PodcastVoter extends Voter
     /**
      * {@inheritdoc}
      */
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token)
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
 

@@ -5,6 +5,7 @@ namespace App\Infrastructure\Queue\Subscriber;
 use App\Domain\Notification\NotificationService;
 use App\Infrastructure\Queue\FailedJob;
 use App\Infrastructure\Queue\Message\ServiceMethodMessage;
+use Symfony\Component\ErrorHandler\Exception\FlattenException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Mercure\PublisherInterface;
 use Symfony\Component\Messenger\Bridge\Doctrine\Transport\DoctrineReceivedStamp;
@@ -39,7 +40,7 @@ class FailedMessageSubscriber implements EventSubscriberInterface
 
         // On reçoit une enveloppe de tâche "classique" et on veut la faire passer pour une tâche en échec
         // On lui passe un RedeliveryStamp (pour faire croire que la tâche a déjà été relancé)
-        $redeliveryStamp = new RedeliveryStamp(1, $event->getThrowable()->getMessage());
+        $redeliveryStamp = new RedeliveryStamp(1, null, FlattenException::createFromThrowable($event->getThrowable()));
         // On lui passe un DoctrineReceivedStamp (pour faire croire que la tâche provient de doctrine)
         $doctrineStamp = new DoctrineReceivedStamp('1');
         $enveloppe = $event->getEnvelope()->with($redeliveryStamp)->with($doctrineStamp);

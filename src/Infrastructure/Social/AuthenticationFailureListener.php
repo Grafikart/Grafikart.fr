@@ -8,9 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Security\Core\AuthenticationEvents;
-use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
+use Symfony\Component\Security\Http\Event\LoginFailureEvent;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class AuthenticationFailureListener implements EventSubscriberInterface
@@ -26,16 +24,16 @@ class AuthenticationFailureListener implements EventSubscriberInterface
         $this->requestStack = $requestStack;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
-            AuthenticationEvents::AUTHENTICATION_FAILURE => 'onAuthenticationFailure',
+            LoginFailureEvent::class => 'onAuthenticationFailure',
         ];
     }
 
-    public function onAuthenticationFailure(AuthenticationFailureEvent $event): void
+    public function onAuthenticationFailure(LoginFailureEvent $event): void
     {
-        $exception = $event->getAuthenticationException();
+        $exception = $event->getException();
         if ($exception instanceof UserOauthNotFoundException) {
             $this->onUserNotFound($exception);
         }
@@ -59,6 +57,9 @@ class AuthenticationFailureListener implements EventSubscriberInterface
         $setter = 'set'.ucfirst($data['type']).'Id';
         $user->$setter($resourceOwner->getId());
         $this->em->flush();
-        $this->requestStack->getSession()->getFlashBag()->set('success', 'Votre compte a bien été associé à '.$data['type']);
+        $session = $this->requestStack->getSession();
+        if ($session instanceof Session) {
+            $session->getFlashBag()->set('success', 'Votre compte a bien été associé à '.$data['type']);
+        }
     }
 }

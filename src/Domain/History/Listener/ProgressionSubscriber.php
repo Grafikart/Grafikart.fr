@@ -24,7 +24,7 @@ class ProgressionSubscriber implements EventSubscriberInterface
         $this->dispatcher = $dispatcher;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             ProgressEvent::class => 'onProgress',

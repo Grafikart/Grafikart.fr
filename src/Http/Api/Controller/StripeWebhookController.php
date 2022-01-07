@@ -11,7 +11,6 @@ use App\Http\Controller\AbstractController;
 use App\Infrastructure\Payment\Event\PaymentEvent;
 use App\Infrastructure\Payment\Event\PaymentRefundedEvent;
 use App\Infrastructure\Payment\Payment;
-use App\Infrastructure\Payment\Stripe\StripeApi;
 use App\Infrastructure\Payment\Stripe\StripePaymentFactory;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NoResultException;
@@ -25,19 +24,16 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class StripeWebhookController extends AbstractController
 {
-    private StripeApi $stripeApi;
     private EventDispatcherInterface $dispatcher;
     private EntityManagerInterface $em;
 
     private StripePaymentFactory $paymentFactory;
 
     public function __construct(
-        StripeApi $stripeApi,
         EventDispatcherInterface $dispatcher,
         EntityManagerInterface $em,
         StripePaymentFactory $paymentFactory
     ) {
-        $this->stripeApi = $stripeApi;
         $this->dispatcher = $dispatcher;
         $this->em = $em;
         $this->paymentFactory = $paymentFactory;

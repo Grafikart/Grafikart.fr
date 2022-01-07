@@ -27,7 +27,7 @@ class SeedCommand extends Command
         $this->em = $em;
     }
 
-    public function execute(InputInterface $input, OutputInterface $output)
+    public function execute(InputInterface $input, OutputInterface $output): int
     {
         // On seed via hautelook
         $command = $this->getApplication()->find('hautelook:fixtures:load');
@@ -62,12 +62,14 @@ class SeedCommand extends Command
 
         // On crée des chapitres pour les cursus
         $cursus = $this->em->getRepository(Cursus::class)->findAll();
-        $items = array_merge($courses, $formations);
+        /** @var Content[] $items */
+        $items = array_values(array_merge($courses, $formations));
         foreach ($cursus as $c) {
             $chapters = [];
             for ($i = 1; $i < 3; ++$i) {
-                /** @var Content[] $modules */
-                $modules = array_map(fn (int $k) => $items[$k], (array) array_rand($items, rand(2, 6)));
+                /** @var int[] $keys */
+                $keys = array_rand($items, rand(2, 6));
+                $modules = array_map(fn (int $k) => $items[$k], $keys);
                 $chapters[] = (new Chapter())
                     ->setTitle("Chapitre {$i}")
                     ->setModules($modules);

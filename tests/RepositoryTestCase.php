@@ -20,6 +20,6 @@ class RepositoryTestCase extends KernelTestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository = self::$container->get($this->repositoryClass);
+        $this->repository = self::getContainer()->get($this->repositoryClass);
     }
 }

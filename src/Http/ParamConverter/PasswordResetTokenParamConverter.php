@@ -33,7 +33,7 @@ class PasswordResetTokenParamConverter implements ParamConverterInterface
     /**
      * {@inheritdoc}
      */
-    public function supports(ParamConverter $configuration)
+    public function supports(ParamConverter $configuration): bool
     {
         return PasswordResetToken::class === $configuration->getClass() && 'token' === $configuration->getName();
     }

@@ -18,12 +18,12 @@ class CourseNormalizer implements ContextAwareNormalizerInterface
         $this->urlGenerator = $urlGenerator;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = [])
+    public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
         return $data instanceof Course && 'search' === $format;
     }
 
-    public function normalize($object, string $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = []): array
     {
         if (!$object instanceof Course) {
             throw new \InvalidArgumentException('Unexpected type for normalization, expected Course, got '.get_class($object));

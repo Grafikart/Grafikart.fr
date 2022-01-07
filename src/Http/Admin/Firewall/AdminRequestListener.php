@@ -17,7 +17,7 @@ class AdminRequestListener implements EventSubscriberInterface
     private AuthorizationCheckerInterface $auth;
     private string $adminPrefix;
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             ControllerEvent::class => 'onController',
@@ -33,7 +33,7 @@ class AdminRequestListener implements EventSubscriberInterface
 
     public function onRequest(RequestEvent $event): void
     {
-        if (!$event->isMasterRequest()) {
+        if (!$event->isMainRequest()) {
             return;
         }
         $uri = '/'.trim($event->getRequest()->getRequestUri(), '/').'/';
@@ -55,7 +55,7 @@ class AdminRequestListener implements EventSubscriberInterface
      */
     public function onController(ControllerEvent $event): void
     {
-        if (false === $event->isMasterRequest()) {
+        if (false === $event->isMainRequest()) {
             return;
         }
         $controller = $event->getController();

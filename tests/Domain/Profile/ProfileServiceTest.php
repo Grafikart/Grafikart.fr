@@ -17,7 +17,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ProfileServiceTest extends TestCase
 {
-    const TOKEN = 'hello';
+    public const TOKEN = 'hello';
 
     /**
      * @var EventDispatcherInterface|MockObject

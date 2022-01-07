@@ -9,12 +9,12 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class ContentVoter extends Voter
 {
-    const PROGRESS = 'progress';
+    public const PROGRESS = 'progress';
 
     /**
      * {@inheritdoc}
      */
-    protected function supports(string $attribute, $subject)
+    protected function supports(string $attribute, $subject): bool
     {
         return in_array($attribute, [
                 self::PROGRESS,
@@ -24,7 +24,7 @@ class ContentVoter extends Voter
     /**
      * {@inheritdoc}
      */
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token)
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
 

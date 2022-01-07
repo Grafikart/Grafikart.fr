@@ -10,9 +10,9 @@ class PodcastControllerTest extends WebTestCase
 {
     use FixturesTrait;
 
-    const CREATE_BUTTON = 'Proposer';
-    const CREATE_FORM = '#podcast-form form';
-    const TITLE_FIELD = 'podcast_form[title]';
+    public const CREATE_BUTTON = 'Proposer';
+    public const CREATE_FORM = '#podcast-form form';
+    public const TITLE_FIELD = 'podcast_form[title]';
 
     public function testCreatePodcastWithNewAccount(): void
     {

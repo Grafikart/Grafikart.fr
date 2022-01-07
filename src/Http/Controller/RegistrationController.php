@@ -2,6 +2,7 @@
 
 namespace App\Http\Controller;
 
+use App\Domain\Auth\Authenticator;
 use App\Domain\Auth\Event\UserCreatedEvent;
 use App\Domain\Auth\User;
 use App\Http\Form\RegistrationFormType;
@@ -15,9 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Authenticator\AuthenticatorInterface;
-use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
-use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
+use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class RegistrationController extends AbstractController
 {
@@ -31,7 +30,8 @@ class RegistrationController extends AbstractController
         TokenGeneratorService $tokenGenerator,
         EventDispatcherInterface $dispatcher,
         SocialLoginService $socialLoginService,
-        AuthenticatorInterface $guardAuthenticatorHandler
+        UserAuthenticatorInterface $authenticator,
+        Authenticator $appAuthenticator
     ): Response {
         // Si l'utilisateur est connecté, on le redirige vers la home
         $loggedInUser = $this->getUser();
@@ -66,10 +66,7 @@ class RegistrationController extends AbstractController
                     'Votre compte a été créé avec succès'
                 );
 
-                $guardAuthenticatorHandler->createAuthenticatedToken(
-                    new SelfValidatingPassport(new UserBadge($user)),
-                    'main'
-                ) ?: $this->redirectToRoute('user_edit');
+                return $authenticator->authenticateUser($user, $appAuthenticator, $request) ?: $this->redirectToRoute('user_edit');
             }
 
             $this->addFlash(
@@ -88,11 +85,11 @@ class RegistrationController extends AbstractController
         }
 
         return $this->render('registration/register.html.twig', [
-            'form'               => $form->createView(),
-            'errors'             => $rootErrors,
-            'menu'               => 'register',
+            'form' => $form->createView(),
+            'errors' => $rootErrors,
+            'menu' => 'register',
             'oauth_registration' => $request->get('oauth'),
-            'oauth_type'         => $socialLoginService->getOauthType(),
+            'oauth_type' => $socialLoginService->getOauthType(),
         ]);
     }
 

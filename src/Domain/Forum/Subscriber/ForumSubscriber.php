@@ -29,7 +29,7 @@ class ForumSubscriber implements EventSubscriberInterface
         $this->topicService = $topicService;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             UserBannedEvent::class => 'cleanUserContent',

@@ -15,7 +15,7 @@ class TwigAssetExtension extends AbstractExtension
 {
     private string $assetPath;
     private CacheItemPoolInterface $cache;
-    const CACHE_KEY = 'asset_time';
+    public const CACHE_KEY = 'asset_time';
     private RequestStack $requestStack;
     private bool $isProduction;
     private ?array $paths = null;

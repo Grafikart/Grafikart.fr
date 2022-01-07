@@ -14,9 +14,6 @@ trait ChapterableTrait
      */
     protected array $chapters = [];
 
-    /**
-     * @param list<array{title: string, modules: int[]}> $chapters
-     */
     public function setRawChapters(array $chapters): self
     {
         $this->chapters = $chapters;
@@ -26,8 +23,6 @@ trait ChapterableTrait
 
     /**
      * Initialise les chapitres depuis le JSON.
-     *
-     * @return Chapter[]
      */
     public function getChapters(): array
     {
@@ -52,7 +47,7 @@ trait ChapterableTrait
     /**
      * Rempli le champs JSON à partir d'un tableau d'objet chapitres.
      *
-     * @var Chapter[]
+     * @param Chapter[] $chapters
      */
     public function setChapters(array $chapters): self
     {

@@ -33,8 +33,6 @@ abstract class Content implements CacheableInterface
      */
     private ?int $id = null;
 
-    private string $type = '';
-
     /**
      * @ORM\Column(type="string", length=255)
      */

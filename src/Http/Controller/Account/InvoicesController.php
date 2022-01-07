@@ -47,7 +47,7 @@ class InvoicesController extends AbstractController
      */
     public function updateInfo(Request $request, EntityManagerInterface $em): RedirectResponse
     {
-        $content = $request->request->get('invoiceInfo');
+        $content = (string) $request->request->get('invoiceInfo');
         $user = $this->getUserOrThrow();
         $user->setInvoiceInfo($content);
         $em->flush();

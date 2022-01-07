@@ -141,7 +141,7 @@ abstract class CrudController extends BaseController
     public function getRepository(): EntityRepository
     {
         /** @var EntityRepository $repository */
-        $repository = $this->em->getRepository($this->entity);
+        $repository = $this->em->getRepository($this->entity); /* @phpstan-ignore-line */
 
         return $repository;
     }

@@ -11,7 +11,6 @@ class SocialLoginService
 {
     public const SESSION_KEY = 'oauth_login';
 
-
     private NormalizerInterface $normalizer;
     private RequestStack $requestStack;
 

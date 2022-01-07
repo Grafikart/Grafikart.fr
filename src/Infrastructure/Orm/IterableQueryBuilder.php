@@ -72,8 +72,6 @@ class IterableQueryBuilder extends QueryBuilder implements \IteratorAggregate, \
 
     /**
      * @param string $offset
-     *
-     * @return mixed
      */
     public function offsetGet(mixed $offset): mixed
     {
@@ -82,9 +80,6 @@ class IterableQueryBuilder extends QueryBuilder implements \IteratorAggregate, \
 
     /**
      * @param string $offset
-     * @param mixed  $value
-     *
-     * @return void
      */
     public function offsetSet(mixed $offset, mixed $value): void
     {
@@ -93,8 +88,6 @@ class IterableQueryBuilder extends QueryBuilder implements \IteratorAggregate, \
 
     /**
      * @param string $offset
-     *
-     * @return void
      */
     public function offsetUnset(mixed $offset): void
     {

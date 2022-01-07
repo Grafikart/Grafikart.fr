@@ -13,7 +13,7 @@ class KernelTestCase extends \Symfony\Bundle\FrameworkBundle\Test\KernelTestCase
     public function setUp(): void
     {
         self::bootKernel();
-        $this->em = self::$container->get(EntityManagerInterface::class);
+        $this->em = self::getContainer()->get(EntityManagerInterface::class);
         parent::setUp();
     }
 

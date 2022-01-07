@@ -207,9 +207,15 @@ class TopicRepository extends AbstractRepository
             LIMIT 10;
         SQL, ['q' => $search, 'offset' => ($page - 1) * 10]);
 
-        $count = $this->getEntityManager()->getConnection()->executeQuery(<<<SQL
+        $results = $this->getEntityManager()->getConnection()->executeQuery(<<<SQL
         SELECT COUNT(t.id) FROM forum_topic t WHERE t.search_vector @@ $tsQuery
-        SQL, ['q' => $search])->fetchColumn(0);
+        SQL, ['q' => $search])->fetchNumeric();
+
+        if (!$results) {
+            throw new \RuntimeException('Cannot count topics');
+        }
+
+        $count = $results[0];
 
         // On convertit les résultat en objet Topic
         $topics = array_map(function ($row) {

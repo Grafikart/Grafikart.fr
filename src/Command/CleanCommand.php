@@ -3,11 +3,9 @@
 namespace App\Command;
 
 use App\Domain\Auth\User;
-use App\Domain\Auth\UserRepository;
 use App\Domain\Notification\Entity\Notification;
 use App\Domain\Password\Entity\PasswordResetToken;
 use App\Domain\Profile\Entity\EmailVerification;
-use App\Infrastructure\Orm\AbstractRepository;
 use App\Infrastructure\Orm\CleanableRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
@@ -23,7 +21,6 @@ class CleanCommand extends Command
 {
     protected static $defaultName = 'app:clean';
 
-    private UserRepository $userRepository;
     private UploadHandler $uploaderHandler;
     private EntityManagerInterface $em;
 
@@ -55,11 +52,10 @@ class CleanCommand extends Command
     }
 
     /**
-     * @param class-string<mixed> $entityClass
+     * @param class-string<object> $entityClass
      */
     private function clean(SymfonyStyle $io, string $entityClass, string $noun): void
     {
-        /** @var AbstractRepository $repository */
         $repository = $this->em->getRepository($entityClass);
         if (!($repository instanceof CleanableRepositoryInterface)) {
             throw new \Exception(sprintf("%s n'implémente pas la CleanableRepositoryInterface", get_class($repository)));

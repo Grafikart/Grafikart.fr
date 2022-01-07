@@ -26,7 +26,7 @@ class CacheNode extends Node
     /**
      * {@inheritdoc}
      */
-    public function compile(Compiler $compiler)
+    public function compile(Compiler $compiler): void
     {
         $i = self::$cacheCount++;
         $extension = TwigCacheExtension::class;

@@ -10,9 +10,9 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class RevisionVoter extends Voter
 {
-    const ADD = 'add_revision';
+    public const ADD = 'add_revision';
 
-    protected function supports(string $attribute, $subject)
+    protected function supports(string $attribute, $subject): bool
     {
         return in_array($attribute, [
             self::ADD,

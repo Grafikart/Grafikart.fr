@@ -12,7 +12,7 @@ class Exists extends Constraint
     public string $message = 'No record found for {{ value }}';
 
     /**
-     * @var class-string<mixed>
+     * @var class-string<object>
      */
     public string $class = 'stdClass';
 

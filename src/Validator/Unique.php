@@ -19,12 +19,12 @@ class Unique extends Constraint
 
     public string $field = '';
 
-    public function getRequiredOptions()
+    public function getRequiredOptions(): array
     {
         return ['field'];
     }
 
-    public function getTargets()
+    public function getTargets(): string
     {
         return self::CLASS_CONSTRAINT;
     }

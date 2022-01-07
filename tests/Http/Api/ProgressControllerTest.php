@@ -71,7 +71,7 @@ class ProgressControllerTest extends ApiTestCase
         $course = $data['course1'];
         $this->login($data['user1']);
         $this->client->request('POST', "/api/progress/{$course->getId()}/1000");
-        $count = self::$container->get('doctrine')->getRepository(Progress::class)->count([]);
+        $count = self::getContainer()->get('doctrine')->getRepository(Progress::class)->count([]);
         $this->assertEquals(1, $count);
     }
 

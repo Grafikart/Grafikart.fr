@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class ApiTestCase extends \ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase
 {
-    const DEFAULT_OPTIONS = [
+    public const DEFAULT_OPTIONS = [
         'auth_basic' => null,
         'auth_bearer' => null,
         'query' => [],
@@ -31,7 +31,7 @@ class ApiTestCase extends \ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCa
         parent::setUp();
         $this->client = static::createClient();
         /** @var EntityManagerInterface $em */
-        $em = self::$container->get(EntityManagerInterface::class);
+        $em = self::getContainer()->get(EntityManagerInterface::class);
         $this->em = $em;
         $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
         $this->client->setDefaultOptions(self::DEFAULT_OPTIONS);
@@ -39,10 +39,10 @@ class ApiTestCase extends \ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCa
 
     public function login(User $user)
     {
-        $session = self::$container->get('session');
+        $session = self::getContainer()->get('session');
         $firewallName = 'main';
         $firewallContext = $firewallName;
-        $token = new UsernamePasswordToken($user, null, $firewallName, $user->getRoles());
+        $token = new UsernamePasswordToken($user, $firewallName);
         $session->set('_security_'.$firewallContext, serialize($token));
         $session->save();
         $cookie = new Cookie($session->getName(), $session->getId());

@@ -20,7 +20,7 @@ class ReportUserSubscriber implements EventSubscriberInterface
         $this->security = $security;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             KernelEvents::REQUEST => ['setUser', EventPriorities::POST_DESERIALIZE],

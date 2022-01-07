@@ -17,7 +17,7 @@ class ForumMessageSubscriber implements EventSubscriberInterface
         $this->service = $service;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             MessageCreatedEvent::class => ['onMessageCreated'],

@@ -17,7 +17,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class PasswordService
 {
-    const EXPIRE_IN = 30; // Temps d'expiration d'un token
+    public const EXPIRE_IN = 30; // Temps d'expiration d'un token
 
     private UserRepository $userRepository;
     private PasswordResetTokenRepository $tokenRepository;

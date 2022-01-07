@@ -13,7 +13,7 @@ class NotExists extends Constraint
     public string $field = 'id';
 
     /**
-     * @var class-string<mixed>
+     * @var class-string<object>
      */
     public string $class = 'stdClass';
 

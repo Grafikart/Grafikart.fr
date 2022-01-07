@@ -9,12 +9,12 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class ProgressVoter extends Voter
 {
-    const DELETE_PROGRESS = 'DELETE_PROGRESS';
+    public const DELETE_PROGRESS = 'DELETE_PROGRESS';
 
     /**
      * {@inheritdoc}
      */
-    protected function supports(string $attribute, $subject)
+    protected function supports(string $attribute, $subject): bool
     {
         return in_array($attribute, [
                 self::DELETE_PROGRESS,

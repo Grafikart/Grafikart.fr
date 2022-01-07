@@ -15,14 +15,12 @@ use Symfony\Component\Serializer\SerializerInterface;
 class MercureSubscriber implements EventSubscriberInterface
 {
     private SerializerInterface $serializer;
-    private PublisherInterface $publisher;
 
     private EnqueueMethod $enqueue;
 
-    public function __construct(SerializerInterface $serializer, PublisherInterface $publisher, EnqueueMethod $enqueue)
+    public function __construct(SerializerInterface $serializer, EnqueueMethod $enqueue)
     {
         $this->serializer = $serializer;
-        $this->publisher = $publisher;
         $this->enqueue = $enqueue;
     }
 
@@ -60,7 +58,12 @@ class MercureSubscriber implements EventSubscriberInterface
             'type' => 'badge',
             'data' => $badge,
         ], 'json'), true);
-        $this->enqueue->enqueue(PublisherInterface::class, '__invoke', [$update], new \DateTimeImmutable('+ 2 seconds'));
+        $this->enqueue->enqueue(
+            PublisherInterface::class,
+            '__invoke',
+            [$update],
+            new \DateTimeImmutable('+ 2 seconds')
+        );
     }
 
     public function onNotificationRead(NotificationReadEvent $event): void
