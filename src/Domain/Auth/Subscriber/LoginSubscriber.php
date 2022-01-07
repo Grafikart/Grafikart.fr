@@ -11,13 +11,8 @@ use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 class LoginSubscriber implements EventSubscriberInterface
 {
-    private LoginAttemptService $service;
-    private EntityManagerInterface $em;
-
-    public function __construct(LoginAttemptService $service, EntityManagerInterface $em)
+    public function __construct(private LoginAttemptService $service, private EntityManagerInterface $em)
     {
-        $this->service = $service;
-        $this->em = $em;
     }
 
     /**

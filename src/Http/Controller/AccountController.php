@@ -16,19 +16,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AccountController extends AbstractController
 {
-    private UserPasswordHasherInterface $hasher;
-    private EntityManagerInterface $em;
-
-    private ProfileService $profileService;
-
-    public function __construct(
-        UserPasswordHasherInterface $hasher,
-        EntityManagerInterface $em,
-        ProfileService $profileService
-    ) {
-        $this->hasher = $hasher;
-        $this->em = $em;
-        $this->profileService = $profileService;
+    public function __construct(private UserPasswordHasherInterface $hasher, private EntityManagerInterface $em, private ProfileService $profileService)
+    {
     }
 
     /**

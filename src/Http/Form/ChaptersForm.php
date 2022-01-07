@@ -37,13 +37,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class ChaptersForm extends TextareaType implements DataTransformerInterface
 {
-    private UrlGeneratorInterface $urlGenerator;
-    private EntityManagerInterface $em;
-
-    public function __construct(UrlGeneratorInterface $urlGenerator, EntityManagerInterface $em)
+    public function __construct(private UrlGeneratorInterface $urlGenerator, private EntityManagerInterface $em)
     {
-        $this->urlGenerator = $urlGenerator;
-        $this->em = $em;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

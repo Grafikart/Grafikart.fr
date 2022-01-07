@@ -6,13 +6,8 @@ use App\Domain\Application\Entity\Content;
 
 class ContentUpdatedEvent
 {
-    private Content $content;
-    private Content $previous;
-
-    public function __construct(Content $content, Content $previous)
+    public function __construct(private Content $content, private Content $previous)
     {
-        $this->content = $content;
-        $this->previous = $previous;
     }
 
     public function getContent(): Content

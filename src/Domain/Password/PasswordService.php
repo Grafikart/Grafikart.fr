@@ -17,29 +17,10 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class PasswordService
 {
-    public const EXPIRE_IN = 30; // Temps d'expiration d'un token
+    public const EXPIRE_IN = 30;
 
-    private UserRepository $userRepository;
-    private PasswordResetTokenRepository $tokenRepository;
-    private EntityManagerInterface $em;
-    private TokenGeneratorService $generator;
-    private EventDispatcherInterface $dispatcher;
-    private UserPasswordHasherInterface $hasher;
-
-    public function __construct(
-        UserRepository $userRepository,
-        PasswordResetTokenRepository $tokenRepository,
-        TokenGeneratorService $generator,
-        EntityManagerInterface $em,
-        EventDispatcherInterface $dispatcher,
-        UserPasswordHasherInterface $hasher
-    ) {
-        $this->userRepository = $userRepository;
-        $this->tokenRepository = $tokenRepository;
-        $this->em = $em;
-        $this->generator = $generator;
-        $this->dispatcher = $dispatcher;
-        $this->hasher = $hasher;
+    public function __construct(private UserRepository $userRepository, private PasswordResetTokenRepository $tokenRepository, private TokenGeneratorService $generator, private EntityManagerInterface $em, private EventDispatcherInterface $dispatcher, private UserPasswordHasherInterface $hasher)
+    {
     }
 
     /**

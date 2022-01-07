@@ -21,14 +21,9 @@ class CleanCommand extends Command
 {
     protected static $defaultName = 'app:clean';
 
-    private UploadHandler $uploaderHandler;
-    private EntityManagerInterface $em;
-
-    public function __construct(EntityManagerInterface $em, UploadHandler $uploaderHandler)
+    public function __construct(private EntityManagerInterface $em, private UploadHandler $uploaderHandler)
     {
         parent::__construct();
-        $this->uploaderHandler = $uploaderHandler;
-        $this->em = $em;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

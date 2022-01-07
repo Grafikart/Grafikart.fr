@@ -19,21 +19,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ForumController extends AbstractController
 {
-    private TagRepository $tagRepository;
-    private TopicRepository $topicRepository;
-    private PaginatorInterface $paginator;
-    private TopicService $topicService;
-
-    public function __construct(
-        TagRepository $tagRepository,
-        TopicRepository $topicRepository,
-        PaginatorInterface $paginator,
-        TopicService $topicService
-    ) {
-        $this->tagRepository = $tagRepository;
-        $this->topicRepository = $topicRepository;
-        $this->paginator = $paginator;
-        $this->topicService = $topicService;
+    public function __construct(private TagRepository $tagRepository, private TopicRepository $topicRepository, private PaginatorInterface $paginator, private TopicService $topicService)
+    {
     }
 
     /**

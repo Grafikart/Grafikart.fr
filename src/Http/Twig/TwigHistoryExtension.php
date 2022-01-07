@@ -11,11 +11,8 @@ use Twig\TwigFunction;
 
 class TwigHistoryExtension extends AbstractExtension
 {
-    private ProgressRepository $repository;
-
-    public function __construct(ProgressRepository $repository)
+    public function __construct(private ProgressRepository $repository)
     {
-        $this->repository = $repository;
     }
 
     public function getFunctions(): array

@@ -15,13 +15,8 @@ use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface
 
 class AuthenticationEntryPoint implements AuthenticationEntryPointInterface
 {
-    private UrlGeneratorInterface $urlGenerator;
-    private AccessDeniedHandler $accessDeniedHandler;
-
-    public function __construct(UrlGeneratorInterface $urlGenerator, AccessDeniedHandler $accessDeniedHandler)
+    public function __construct(private UrlGeneratorInterface $urlGenerator, private AccessDeniedHandler $accessDeniedHandler)
     {
-        $this->urlGenerator = $urlGenerator;
-        $this->accessDeniedHandler = $accessDeniedHandler;
     }
 
     public function start(Request $request, AuthenticationException $authException = null): Response

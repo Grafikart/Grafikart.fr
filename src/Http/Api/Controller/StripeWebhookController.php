@@ -24,19 +24,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class StripeWebhookController extends AbstractController
 {
-    private EventDispatcherInterface $dispatcher;
-    private EntityManagerInterface $em;
-
-    private StripePaymentFactory $paymentFactory;
-
-    public function __construct(
-        EventDispatcherInterface $dispatcher,
-        EntityManagerInterface $em,
-        StripePaymentFactory $paymentFactory
-    ) {
-        $this->dispatcher = $dispatcher;
-        $this->em = $em;
-        $this->paymentFactory = $paymentFactory;
+    public function __construct(private EventDispatcherInterface $dispatcher, private EntityManagerInterface $em, private StripePaymentFactory $paymentFactory)
+    {
     }
 
     /**

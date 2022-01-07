@@ -10,13 +10,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class JobsController extends BaseController
 {
-    private FailedJobsService $failedJobsService;
-    private ScheduledJobsService $scheduledJobsService;
-
-    public function __construct(FailedJobsService $failedJobsService, ScheduledJobsService $scheduledJobsService)
+    public function __construct(private FailedJobsService $failedJobsService, private ScheduledJobsService $scheduledJobsService)
     {
-        $this->failedJobsService = $failedJobsService;
-        $this->scheduledJobsService = $scheduledJobsService;
     }
 
     /**

@@ -13,11 +13,8 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class BadgeController extends AbstractController
 {
-    private BadgeService $service;
-
-    public function __construct(BadgeService $service)
+    public function __construct(private BadgeService $service)
     {
-        $this->service = $service;
     }
 
     /**

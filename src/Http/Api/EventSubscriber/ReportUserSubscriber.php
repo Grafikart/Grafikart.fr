@@ -13,11 +13,8 @@ use Symfony\Component\Security\Core\Security;
 
 class ReportUserSubscriber implements EventSubscriberInterface
 {
-    private Security $security;
-
-    public function __construct(Security $security)
+    public function __construct(private Security $security)
     {
-        $this->security = $security;
     }
 
     public static function getSubscribedEvents(): array

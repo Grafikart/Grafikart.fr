@@ -14,15 +14,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class SearchController extends AbstractController
 {
-    private SearchInterface $search;
-    private TechnologyRepository $technologyRepository;
-    private SerializerInterface $serializer;
-
-    public function __construct(SearchInterface $search, TechnologyRepository $technologyRepository, SerializerInterface $serializer)
+    public function __construct(private SearchInterface $search, private TechnologyRepository $technologyRepository, private SerializerInterface $serializer)
     {
-        $this->search = $search;
-        $this->technologyRepository = $technologyRepository;
-        $this->serializer = $serializer;
     }
 
     /**

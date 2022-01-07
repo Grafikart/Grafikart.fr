@@ -17,11 +17,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class SubscriptionController extends AbstractController
 {
-    private StripeApi $api;
-
-    public function __construct(StripeApi $api)
+    public function __construct(private StripeApi $api)
     {
-        $this->api = $api;
     }
 
     /**

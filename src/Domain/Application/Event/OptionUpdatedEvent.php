@@ -6,11 +6,8 @@ use App\Domain\Application\Entity\Option;
 
 class OptionUpdatedEvent
 {
-    private Option $option;
-
-    public function __construct(Option $option)
+    public function __construct(private Option $option)
     {
-        $this->option = $option;
     }
 
     public function getOption(): Option

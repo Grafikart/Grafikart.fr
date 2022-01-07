@@ -21,11 +21,8 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class AttachmentController extends BaseController
 {
-    private ValidatorInterface $validator;
-
-    public function __construct(ValidatorInterface $validator)
+    public function __construct(private ValidatorInterface $validator)
     {
-        $this->validator = $validator;
     }
 
     public function validateRequest(Request $request): array

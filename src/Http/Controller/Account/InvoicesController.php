@@ -20,11 +20,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class InvoicesController extends AbstractController
 {
-    private TransactionRepository $repository;
-
-    public function __construct(TransactionRepository $transactionRepository)
+    public function __construct(private TransactionRepository $repository)
     {
-        $this->repository = $transactionRepository;
     }
 
     /**

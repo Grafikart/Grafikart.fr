@@ -8,11 +8,8 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class BadgeNormalizer extends Normalizer
 {
-    private UploaderHelper $uploaderHelper;
-
-    public function __construct(UploaderHelper $uploaderHelper)
+    public function __construct(private UploaderHelper $uploaderHelper)
     {
-        $this->uploaderHelper = $uploaderHelper;
     }
 
     public function normalize($object, string $format = null, array $context = []): array

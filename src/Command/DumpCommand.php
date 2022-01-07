@@ -13,16 +13,10 @@ use Symfony\Component\Process\Process;
 class DumpCommand extends Command
 {
     protected static $defaultName = 'app:dump';
-    private EntityManagerInterface $em;
-    private string $dumpPath;
-    private FilesystemOperator $filesystem;
 
-    public function __construct(EntityManagerInterface $em, string $projectPath, FilesystemOperator $filesystem)
+    public function __construct(private EntityManagerInterface $em, private string $dumpPath, private FilesystemOperator $filesystem)
     {
         parent::__construct();
-        $this->em = $em;
-        $this->dumpPath = $projectPath;
-        $this->filesystem = $filesystem;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

@@ -10,16 +10,11 @@ use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
  */
 class DoctrinePropertyChangeEventListener
 {
-    private array $listeners;
-    private PropertyAccessorInterface $propertyAccessor;
-
     /**
      * @param array<string, mixed> $listeners
      */
-    public function __construct(array $listeners, PropertyAccessorInterface $propertyAccessor)
+    public function __construct(private array $listeners, private PropertyAccessorInterface $propertyAccessor)
     {
-        $this->listeners = $listeners;
-        $this->propertyAccessor = $propertyAccessor;
     }
 
     /**

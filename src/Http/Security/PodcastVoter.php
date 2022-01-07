@@ -13,11 +13,9 @@ class PodcastVoter extends Voter
     public const VOTE = 'VOTE_PODCAST';
     public const CREATE = 'CREATE_PODCAST';
     public const DELETE = 'DELETE_PODCAST';
-    private PodcastService $podcastService;
 
-    public function __construct(PodcastService $podcastService)
+    public function __construct(private PodcastService $podcastService)
     {
-        $this->podcastService = $podcastService;
     }
 
     protected function supports(string $attribute, $subject): bool

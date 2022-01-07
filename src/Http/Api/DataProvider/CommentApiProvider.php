@@ -16,19 +16,8 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class CommentApiProvider implements CollectionDataProviderInterface, RestrictedDataProviderInterface, ItemDataProviderInterface
 {
-    private RequestStack $requestStack;
-    private CommentRepository $commentRepository;
-
-    private UploaderHelper $uploaderHelper;
-
-    public function __construct(
-        RequestStack $requestStack,
-        CommentRepository $commentRepository,
-        UploaderHelper $uploaderHelper
-    ) {
-        $this->requestStack = $requestStack;
-        $this->commentRepository = $commentRepository;
-        $this->uploaderHelper = $uploaderHelper;
+    public function __construct(private RequestStack $requestStack, private CommentRepository $commentRepository, private UploaderHelper $uploaderHelper)
+    {
     }
 
     public function supports(string $resourceClass, string $operationName = null, array $context = []): bool

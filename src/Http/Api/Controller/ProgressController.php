@@ -22,15 +22,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProgressController extends AbstractController
 {
-    private EventDispatcherInterface $dispatcher;
-    private EntityManagerInterface $em;
-
-    public function __construct(
-        EventDispatcherInterface $dispatcher,
-        EntityManagerInterface $em
-    ) {
-        $this->dispatcher = $dispatcher;
-        $this->em = $em;
+    public function __construct(private EventDispatcherInterface $dispatcher, private EntityManagerInterface $em)
+    {
     }
 
     /**

@@ -13,11 +13,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class OptionController extends BaseController
 {
     public const MANAGEABLE_KEYS = ['spam_words', LiveService::OPTION_KEY];
-    private OptionManagerInterface $optionManager;
 
-    public function __construct(OptionManagerInterface $optionManager)
+    public function __construct(private OptionManagerInterface $optionManager)
     {
-        $this->optionManager = $optionManager;
     }
 
     /**

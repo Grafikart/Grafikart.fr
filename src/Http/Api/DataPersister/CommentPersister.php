@@ -11,19 +11,8 @@ use Symfony\Component\Security\Core\Security;
 
 class CommentPersister implements ContextAwareDataPersisterInterface
 {
-    private ValidatorInterface $validator;
-    private Security $security;
-
-    private CommentService $service;
-
-    public function __construct(
-        ValidatorInterface $validator,
-        Security $security,
-        CommentService $service
-    ) {
-        $this->validator = $validator;
-        $this->security = $security;
-        $this->service = $service;
+    public function __construct(private ValidatorInterface $validator, private Security $security, private CommentService $service)
+    {
     }
 
     /**

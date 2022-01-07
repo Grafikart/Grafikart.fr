@@ -8,11 +8,8 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class AdminVoter extends Voter
 {
-    private string $appEnv;
-
-    public function __construct(string $appEnv)
+    public function __construct(private string $appEnv)
     {
-        $this->appEnv = $appEnv;
     }
 
     /**

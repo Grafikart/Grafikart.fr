@@ -10,11 +10,8 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PasswordResetSubscriber implements EventSubscriberInterface
 {
-    private LoginAttemptRepository $repository;
-
-    public function __construct(LoginAttemptRepository $repository)
+    public function __construct(private LoginAttemptRepository $repository)
     {
-        $this->repository = $repository;
     }
 
     public static function getSubscribedEvents(): array

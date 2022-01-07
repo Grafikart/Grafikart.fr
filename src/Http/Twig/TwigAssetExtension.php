@@ -13,23 +13,17 @@ use Twig\TwigFunction;
  */
 class TwigAssetExtension extends AbstractExtension
 {
-    private string $assetPath;
-    private CacheItemPoolInterface $cache;
     public const CACHE_KEY = 'asset_time';
-    private RequestStack $requestStack;
     private bool $isProduction;
     private ?array $paths = null;
     private bool $polyfillLoaded = false;
 
     public function __construct(
-        string $assetPath,
+        private string $assetPath,
         string $env,
-        CacheItemPoolInterface $cache,
-        RequestStack $requestStack
+        private CacheItemPoolInterface $cache,
+        private RequestStack $requestStack
     ) {
-        $this->assetPath = $assetPath;
-        $this->cache = $cache;
-        $this->requestStack = $requestStack;
         $this->isProduction = 'prod' === $env;
     }
 

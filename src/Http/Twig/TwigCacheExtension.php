@@ -12,13 +12,8 @@ use Twig\TokenParser\AbstractTokenParser;
 
 class TwigCacheExtension extends AbstractExtension
 {
-    private bool $active;
-    private CacheItemPoolInterface $cache;
-
-    public function __construct(CacheItemPoolInterface $viewCachePool, bool $active = true)
+    public function __construct(private CacheItemPoolInterface $cache, private bool $active = true)
     {
-        $this->cache = $viewCachePool;
-        $this->active = $active;
     }
 
     /**

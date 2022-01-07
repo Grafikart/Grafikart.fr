@@ -17,21 +17,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class NotificationService
 {
-    private EntityManagerInterface $em;
-    private SerializerInterface $serializer;
-    private EventDispatcherInterface $dispatcher;
-    private Security $security;
-
-    public function __construct(
-        SerializerInterface $serializer,
-        EntityManagerInterface $em,
-        EventDispatcherInterface $dispatcher,
-        Security $security
-    ) {
-        $this->em = $em;
-        $this->serializer = $serializer;
-        $this->dispatcher = $dispatcher;
-        $this->security = $security;
+    public function __construct(private SerializerInterface $serializer, private EntityManagerInterface $em, private EventDispatcherInterface $dispatcher, private Security $security)
+    {
     }
 
     /**

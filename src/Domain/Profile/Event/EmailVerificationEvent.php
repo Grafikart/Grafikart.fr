@@ -6,10 +6,7 @@ use App\Domain\Profile\Entity\EmailVerification;
 
 class EmailVerificationEvent
 {
-    public EmailVerification $emailVerification;
-
-    public function __construct(EmailVerification $emailVerification)
+    public function __construct(public EmailVerification $emailVerification)
     {
-        $this->emailVerification = $emailVerification;
     }
 }

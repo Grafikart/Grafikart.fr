@@ -10,18 +10,8 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 
 class RevisionService
 {
-    private EventDispatcherInterface $eventDispatcher;
-    private EntityManagerInterface $em;
-    private RevisionRepository $repository;
-
-    public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        RevisionRepository $repository,
-        EntityManagerInterface $em
-    ) {
-        $this->eventDispatcher = $eventDispatcher;
-        $this->em = $em;
-        $this->repository = $repository;
+    public function __construct(private EventDispatcherInterface $eventDispatcher, private RevisionRepository $repository, private EntityManagerInterface $em)
+    {
     }
 
     /**

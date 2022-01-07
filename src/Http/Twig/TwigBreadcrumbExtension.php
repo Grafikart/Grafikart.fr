@@ -2,21 +2,14 @@
 
 namespace App\Http\Twig;
 
-use App\Normalizer\Breadcrumb\BreadcrumbGeneratorInterface;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 class TwigBreadcrumbExtension extends AbstractExtension
 {
-    /**
-     * @var BreadcrumbGeneratorInterface[]
-     */
-    private iterable $breadcrumbsGenerator;
-
-    public function __construct(iterable $breadcrumbsGenerator)
+    public function __construct(private iterable $breadcrumbsGenerator)
     {
-        $this->breadcrumbsGenerator = $breadcrumbsGenerator;
     }
 
     public function getFunctions(): array

@@ -18,13 +18,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class IntervenantsType extends AbstractType implements DataTransformerInterface
 {
-    private EntityManagerInterface $em;
-    private UrlGeneratorInterface $url;
-
-    public function __construct(EntityManagerInterface $em, UrlGeneratorInterface $url)
+    public function __construct(private EntityManagerInterface $em, private UrlGeneratorInterface $url)
     {
-        $this->em = $em;
-        $this->url = $url;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

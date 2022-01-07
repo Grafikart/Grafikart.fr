@@ -15,13 +15,8 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ContentSubscriber implements EventSubscriberInterface
 {
-    private NotificationService $service;
-    private EnqueueMethod $enqueueMethod;
-
-    public function __construct(NotificationService $service, EnqueueMethod $enqueueMethod)
+    public function __construct(private NotificationService $service, private EnqueueMethod $enqueueMethod)
     {
-        $this->service = $service;
-        $this->enqueueMethod = $enqueueMethod;
     }
 
     public static function getSubscribedEvents(): array

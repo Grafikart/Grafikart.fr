@@ -6,13 +6,8 @@ use App\Domain\Auth\User;
 
 class UserCreatedEvent
 {
-    private User $user;
-    private bool $usingOauth;
-
-    public function __construct(User $user, bool $usingOauth = false)
+    public function __construct(private User $user, private bool $usingOauth = false)
     {
-        $this->user = $user;
-        $this->usingOauth = $usingOauth;
     }
 
     public function getUser(): User

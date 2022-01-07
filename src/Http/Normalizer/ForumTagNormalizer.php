@@ -8,11 +8,8 @@ use App\Normalizer\Normalizer;
 
 class ForumTagNormalizer extends Normalizer
 {
-    private UrlGeneratorInterface $urlGenerator;
-
-    public function __construct(UrlGeneratorInterface $urlGenerator)
+    public function __construct(private UrlGeneratorInterface $urlGenerator)
     {
-        $this->urlGenerator = $urlGenerator;
     }
 
     public function normalize($object, string $format = null, array $context = []): array

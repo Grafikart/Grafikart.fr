@@ -9,11 +9,8 @@ use App\Domain\History\Repository\ProgressRepository;
 
 class HistoryService
 {
-    private ProgressRepository $progressRepository;
-
-    public function __construct(ProgressRepository $progressRepository)
+    public function __construct(private ProgressRepository $progressRepository)
     {
-        $this->progressRepository = $progressRepository;
     }
 
     /**

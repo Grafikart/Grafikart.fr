@@ -13,11 +13,8 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class SearchController extends AbstractController
 {
-    private PaginatorInterface $paginator;
-
-    public function __construct(PaginatorInterface $paginator)
+    public function __construct(private PaginatorInterface $paginator)
     {
-        $this->paginator = $paginator;
     }
 
     /**
