@@ -5,8 +5,6 @@ namespace App\Tests;
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client;
 use App\Domain\Auth\User;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\BrowserKit\Cookie;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class ApiTestCase extends \ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase
 {
@@ -37,15 +35,12 @@ class ApiTestCase extends \ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCa
         $this->client->setDefaultOptions(self::DEFAULT_OPTIONS);
     }
 
-    public function login(User $user)
+    /**
+     * En attendant le merge de pour avoir accès à la méthode loginUser sur client directement
+     * https://github.com/api-platform/core/pull/4588
+     */
+    public function login(User $user): void
     {
-        $session = self::getContainer()->get('session');
-        $firewallName = 'main';
-        $firewallContext = $firewallName;
-        $token = new UsernamePasswordToken($user, $firewallName);
-        $session->set('_security_'.$firewallContext, serialize($token));
-        $session->save();
-        $cookie = new Cookie($session->getName(), $session->getId());
-        $this->client->getCookieJar()->set($cookie);
+        $this->client->getKernelBrowser()->loginUser($user);
     }
 }

@@ -9,11 +9,13 @@ use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
+use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 
 class AuthenticatorTest extends TestCase
 {
@@ -26,16 +28,6 @@ class AuthenticatorTest extends TestCase
      * @var MockObject|UrlGeneratorInterface
      */
     private MockObject $urlGenerator;
-
-    /**
-     * @var MockObject|CsrfTokenManagerInterface
-     */
-    private MockObject $csrfTokenManager;
-
-    /**
-     * @var MockObject|UserPasswordEncoderInterface
-     */
-    private MockObject $passwordEncoder;
 
     /**
      * @var MockObject|EventDispatcherInterface
@@ -52,34 +44,24 @@ class AuthenticatorTest extends TestCase
             ->disableOriginalConstructor()->getMock();
         /* @var MockObject|UrlGeneratorInterface urlGenerator */
         $this->urlGenerator = $this->getMockBuilder(UrlGeneratorInterface::class)->getMock();
-        /* @var MockObject|CsrfTokenManagerInterface csrfTokenManager */
-        $this->csrfTokenManager = $this->getMockBuilder(CsrfTokenManagerInterface::class)->getMock();
-        $this->csrfTokenManager
-            ->expects($this->any())
-            ->method('isTokenValid')
-            ->willReturn(true);
-
-        /* @var MockObject|UserPasswordEncoderInterface passwordEncoder */
-        $this->passwordEncoder = $this->getMockBuilder(UserPasswordEncoderInterface::class)->getMock();
-        /* @var MockObject|EventDispatcherInterface eventDispatcher */
-        $this->eventDispatcher = $this->getMockBuilder(EventDispatcherInterface::class)->getMock();
+        $this->eventDispatcher = $this->createMock(EventDispatcherInterface::class);
         /* @var MockObject|UrlMatcherInterface $urlMatcher */
-        $urlMatcher = $this->getMockBuilder(UrlMatcherInterface::class)->getMock();
+        $urlMatcher = $this->createMock(UrlMatcherInterface::class);
         $urlMatcher->expects($this->any())->method('match')->willReturn([]);
         $this->authenticator = new Authenticator(
             $this->userRepository,
             $this->urlGenerator,
-            $this->csrfTokenManager,
-            $this->passwordEncoder,
             $this->eventDispatcher,
-            $urlMatcher
+            $this->createMock(UrlMatcherInterface::class),
         );
     }
 
-    public function testGetUserReturnUser(): void
+    public function testPassportIsCorrectlySetOnAuthentication(): void
     {
-        $provider = $this->getMockBuilder(UserProviderInterface::class)->getMock();
+        $request = new Request([], ['email' => 'john1@doe.fr']);
+        $request->setSession(new Session(new MockArraySessionStorage()));
 
+        $user = new User();
         $this->userRepository
             ->expects($this->once())
             ->method('findForAuth')
@@ -87,6 +69,9 @@ class AuthenticatorTest extends TestCase
             ->willReturn(new User())
         ;
 
-        $this->authenticator->getUser(['email' => 'john1@doe.fr', 'csrf_token' => 'a'], $provider);
+        $passport = $this->authenticator->authenticate($request);
+        $this->assertEquals($passport->getUser(), $user);
+        $this->assertTrue($passport->hasBadge(CsrfTokenBadge::class));
+        $this->assertTrue($passport->hasBadge(PasswordCredentials::class));
     }
 }

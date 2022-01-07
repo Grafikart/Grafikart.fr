@@ -6,6 +6,7 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Event\LogoutEvent;
 
 /**
@@ -13,16 +14,12 @@ use Symfony\Component\Security\Http\Event\LogoutEvent;
  */
 class AuthService
 {
-    private TokenStorageInterface $tokenStorage;
-    private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
-        TokenStorageInterface $tokenStorage,
-        EventDispatcherInterface $eventDispatcher
-    ) {
-        $this->tokenStorage = $tokenStorage;
-        $this->eventDispatcher = $eventDispatcher;
-    }
+        private Security $security,
+        private TokenStorageInterface $tokenStorage,
+        private EventDispatcherInterface $eventDispatcher
+    ) {}
 
     public function getUser(): User
     {
@@ -36,16 +33,9 @@ class AuthService
 
     public function getUserOrNull(): ?User
     {
-        if (!$token = $this->tokenStorage->getToken()) {
-            return null;
-        }
+        $user = $this->security->getUser();
 
-        $user = $token->getUser();
-        if (!\is_object($user)) {
-            return null;
-        }
-
-        if (!$user instanceof User) {
+        if (!($user instanceof User)) {
             return null;
         }
 
@@ -56,6 +46,6 @@ class AuthService
     {
         $request = $request ?: new Request();
         $this->eventDispatcher->dispatch(new LogoutEvent($request, $this->tokenStorage->getToken()));
-        $this->tokenStorage->setToken(null);
+        $request->getSession()->invalidate();
     }
 }

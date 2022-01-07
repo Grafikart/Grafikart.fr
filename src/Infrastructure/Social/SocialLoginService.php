@@ -5,6 +5,7 @@ namespace App\Infrastructure\Social;
 use App\Domain\Auth\User;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class SocialLoginService
@@ -13,17 +14,19 @@ class SocialLoginService
 
     private NormalizerInterface $normalizer;
     private RequestStack $requestStack;
+    private SessionInterface $session;
 
-    public function __construct(RequestStack $requestStack, NormalizerInterface $normalizer)
+    public function __construct(RequestStack $requestStack, NormalizerInterface $normalizer, SessionInterface $session)
     {
         $this->normalizer = $normalizer;
         $this->requestStack = $requestStack;
+        $this->session = $session;
     }
 
     public function persist(ResourceOwnerInterface $resourceOwner): void
     {
         $data = $this->normalizer->normalize($resourceOwner);
-        $this->requestStack->getSession()->set(self::SESSION_KEY, $data);
+        $this->session->set(self::SESSION_KEY, $data);
     }
 
     public function hydrate(User $user): bool
