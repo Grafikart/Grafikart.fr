@@ -53,7 +53,7 @@ class IterableQueryBuilder extends QueryBuilder implements \IteratorAggregate, \
     /**
      * @return \ArrayIterator<E>
      */
-    public function getIterator(): \ArrayAccess
+    public function getIterator(): \Traversable
     {
         if (null === $this->results) {
             $this->results = $this->getQuery()->getResult();
@@ -75,7 +75,7 @@ class IterableQueryBuilder extends QueryBuilder implements \IteratorAggregate, \
      *
      * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet(mixed $offset): mixed
     {
         return $this->getResults()[$offset];
     }
@@ -86,7 +86,7 @@ class IterableQueryBuilder extends QueryBuilder implements \IteratorAggregate, \
      *
      * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet(mixed $offset, mixed $value): void
     {
         $this->getResults()[$offset] = $value;
     }
@@ -96,7 +96,7 @@ class IterableQueryBuilder extends QueryBuilder implements \IteratorAggregate, \
      *
      * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset(mixed $offset): void
     {
         unset($this->getResults()[$offset]);
     }

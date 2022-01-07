@@ -14,9 +14,9 @@ abstract class AbstractMakeCommand extends Command
     private Environment $twig;
     protected string $projectDir;
 
-    public function __construct(string $name = null, Environment $twig, string $projectDir)
+    public function __construct(Environment $twig, string $projectDir)
     {
-        parent::__construct($name);
+        parent::__construct();
         $this->twig = $twig;
         $this->projectDir = $projectDir;
     }

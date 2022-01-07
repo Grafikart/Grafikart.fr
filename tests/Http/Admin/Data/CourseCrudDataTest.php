@@ -58,6 +58,7 @@ class CourseCrudDataTest extends TestCase
     ): void {
         // On crée le cours
         $course = new Course();
+        $course->setId(3);
 
         // On injecte les technologies
         foreach ($courseTechnologies as $name) {
