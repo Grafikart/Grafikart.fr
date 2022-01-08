@@ -9,8 +9,8 @@ use App\Infrastructure\Social\Exception\UserAuthenticatedException;
 use App\Infrastructure\Social\Exception\UserOauthNotFoundException;
 use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
-use KnpU\OAuth2ClientBundle\Client\OAuth2Client;
-use KnpU\OAuth2ClientBundle\Security\Authenticator\SocialAuthenticator;
+use KnpU\OAuth2ClientBundle\Client\OAuth2ClientInterface;
+use KnpU\OAuth2ClientBundle\Security\Authenticator\OAuth2Authenticator;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Token\AccessTokenInterface;
@@ -20,10 +20,12 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
+use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
+use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
-abstract class AbstractSocialAuthenticator extends SocialAuthenticator
+abstract class AbstractSocialAuthenticator extends OAuth2Authenticator
 {
     use TargetPathTrait;
 
@@ -56,24 +58,28 @@ abstract class AbstractSocialAuthenticator extends SocialAuthenticator
         return $this->fetchAccessToken($this->getClient());
     }
 
-    /**
-     * @param AccessToken $credentials
-     */
-    public function getUser($credentials, UserProviderInterface $userProvider): ?User
+    public function authenticate(Request $request): Passport
     {
-        $resourceOwner = $this->getResourceOwnerFromCredentials($credentials);
-        $user = $this->authService->getUserOrNull();
-        if ($user) {
-            throw new UserAuthenticatedException($user, $resourceOwner);
-        }
-        /** @var UserRepository $repository */
-        $repository = $this->em->getRepository(User::class);
-        $user = $this->getUserFromResourceOwner($resourceOwner, $repository);
-        if (null === $user) {
-            throw new UserOauthNotFoundException($resourceOwner);
-        }
+        $client = $this->getClient();
+        $accessToken = $client->getAccessToken();
 
-        return $user;
+        return new SelfValidatingPassport(
+            new UserBadge($accessToken->getToken(), function () use ($accessToken) {
+                $resourceOwner = $this->getResourceOwnerFromCredentials($accessToken);
+                $user = $this->authService->getUserOrNull();
+                if ($user) {
+                    throw new UserAuthenticatedException($user, $resourceOwner);
+                }
+                /** @var UserRepository $repository */
+                $repository = $this->em->getRepository(User::class);
+                $user = $this->getUserFromResourceOwner($resourceOwner, $repository);
+                if (null === $user) {
+                    throw new UserOauthNotFoundException($resourceOwner);
+                }
+
+                return $user;
+            })
+        );
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): RedirectResponse
@@ -96,12 +102,12 @@ abstract class AbstractSocialAuthenticator extends SocialAuthenticator
     public function onAuthenticationSuccess(
         Request $request,
         TokenInterface $token,
-        string $providerKey
+        string $firewallName
     ): RedirectResponse {
         // On force le remember me pour déclencher le AbstractRememberMeServices (en attendant mieux)
         $request->request->set('_remember_me', '1');
 
-        if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
+        if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
 
@@ -120,11 +126,8 @@ abstract class AbstractSocialAuthenticator extends SocialAuthenticator
         return null;
     }
 
-    protected function getClient(): OAuth2Client
+    protected function getClient(): OAuth2ClientInterface
     {
-        /** @var OAuth2Client $client */
-        $client = $this->clientRegistry->getClient($this->serviceName);
-
-        return $client;
+        return $this->clientRegistry->getClient($this->serviceName);
     }
 }
