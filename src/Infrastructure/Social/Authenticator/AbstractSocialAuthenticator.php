@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
@@ -61,24 +62,35 @@ abstract class AbstractSocialAuthenticator extends OAuth2Authenticator
     public function authenticate(Request $request): Passport
     {
         $client = $this->getClient();
-        $accessToken = $client->getAccessToken();
+        try {
+            $accessToken = $client->getAccessToken();
+        } catch (\Exception) {
+            throw new CustomUserMessageAuthenticationException(
+                sprintf("Une erreur est survenue lors de la récupération du token d'accès %s", $this->serviceName)
+            );
+        }
+        $userLoader = function () use ($accessToken) {
+            try {
+                $resourceOwner = $this->getResourceOwnerFromCredentials($accessToken);
+            } catch (\Exception) {
+                throw new CustomUserMessageAuthenticationException(
+                    sprintf("Une erreur est survenue lors de la communication avec %s", $this->serviceName)
+                );
+            }
+            $user = $this->authService->getUserOrNull();
+            if ($user) {
+                throw new UserAuthenticatedException($user, $resourceOwner);
+            }
+            /** @var UserRepository $repository */
+            $repository = $this->em->getRepository(User::class);
+            $user = $this->getUserFromResourceOwner($resourceOwner, $repository);
+            if (null === $user) {
+                throw new UserOauthNotFoundException($resourceOwner);
+            }
+        };
 
         return new SelfValidatingPassport(
-            new UserBadge($accessToken->getToken(), function () use ($accessToken) {
-                $resourceOwner = $this->getResourceOwnerFromCredentials($accessToken);
-                $user = $this->authService->getUserOrNull();
-                if ($user) {
-                    throw new UserAuthenticatedException($user, $resourceOwner);
-                }
-                /** @var UserRepository $repository */
-                $repository = $this->em->getRepository(User::class);
-                $user = $this->getUserFromResourceOwner($resourceOwner, $repository);
-                if (null === $user) {
-                    throw new UserOauthNotFoundException($resourceOwner);
-                }
-
-                return $user;
-            })
+            new UserBadge($accessToken->getToken(), $userLoader)
         );
     }
 
