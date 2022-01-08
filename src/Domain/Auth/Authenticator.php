@@ -29,8 +29,12 @@ class Authenticator extends AbstractLoginFormAuthenticator
     public const LOGIN_ROUTE = 'auth_login';
     private ?UserInterface $user = null;
 
-    public function __construct(private UserRepository $userRepository, private UrlGeneratorInterface $urlGenerator, private EventDispatcherInterface $eventDispatcher, private UrlMatcherInterface $urlMatcher)
-    {
+    public function __construct(
+        private UserRepository $userRepository,
+        private UrlGeneratorInterface $urlGenerator,
+        private EventDispatcherInterface $eventDispatcher,
+        private UrlMatcherInterface $urlMatcher
+    ) {
     }
 
     public function authenticate(Request $request): Passport

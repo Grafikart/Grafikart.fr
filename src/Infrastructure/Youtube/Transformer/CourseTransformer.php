@@ -15,8 +15,11 @@ use Vich\UploaderBundle\Storage\StorageInterface;
  */
 class CourseTransformer
 {
-    public function __construct(private readonly SerializerInterface $serializer, private readonly StorageInterface $storage, private readonly string $videosPath)
-    {
+    public function __construct(
+        private readonly SerializerInterface $serializer,
+        private readonly StorageInterface $storage,
+        private readonly string $videosPath
+    ) {
     }
 
     public function transform(Course $course): Google_Service_YouTube_Video
@@ -29,7 +32,7 @@ class CourseTransformer
         if ($formation) {
             $title = "{$formation->getTitle()} : {$title}";
         } else {
-            $technologies = collect($course->getMainTechnologies())->map(fn (Technology $t) => $t->getName())->join('/');
+            $technologies = collect($course->getMainTechnologies())->map(fn(Technology $t) => $t->getName())->join('/');
             $title = "Tutoriel {$technologies} : {$title}";
         }
 
@@ -70,8 +73,8 @@ Discord ► https://grafikart.fr/tchat");
     public function videoData(Course $course): array
     {
         return [
-            'data' => file_get_contents($this->videosPath.'/'.$course->getVideoPath()),
-            'mimeType' => 'application/octet-stream',
+            'data'       => file_get_contents($this->videosPath . '/' . $course->getVideoPath()),
+            'mimeType'   => 'application/octet-stream',
             'uploadType' => 'multipart',
         ];
     }
@@ -88,8 +91,8 @@ Discord ► https://grafikart.fr/tchat");
         }
 
         return [
-            'data' => file_get_contents($thumbnailPath),
-            'mimeType' => 'application/octet-stream',
+            'data'       => file_get_contents($thumbnailPath),
+            'mimeType'   => 'application/octet-stream',
             'uploadType' => 'multipart',
         ];
     }

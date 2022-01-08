@@ -6,8 +6,11 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class TwitterService
 {
-    public function __construct(private readonly string $apiKey, private readonly string $apiSecret, private readonly HttpClientInterface $http)
-    {
+    public function __construct(
+        private readonly string $apiKey,
+        private readonly string $apiSecret,
+        private readonly HttpClientInterface $http
+    ) {
     }
 
     /**
@@ -24,14 +27,14 @@ class TwitterService
                     'headers' => [
                         'authorization' => "Bearer $token",
                     ],
-                    'query' => [
+                    'query'   => [
                         'screen_name' => 'grafikart_fr',
                         'count' => 3,
                         'exclude_replies' => true,
                     ],
                 ]
             );
-            $tweets = array_map(fn (array $tweet) => new Tweet($tweet), $response->toArray());
+            $tweets = array_map(fn(array $tweet) => new Tweet($tweet), $response->toArray());
 
             return $tweets;
         } catch (\Exception) {
@@ -49,7 +52,7 @@ class TwitterService
             'https://api.twitter.com/oauth2/token',
             [
                 'auth_basic' => [$this->apiKey, $this->apiSecret],
-                'body' => 'grant_type=client_credentials',
+                'body'       => 'grant_type=client_credentials',
             ]
         );
 

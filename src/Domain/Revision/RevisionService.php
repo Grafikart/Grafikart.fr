@@ -10,8 +10,11 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 
 class RevisionService
 {
-    public function __construct(private EventDispatcherInterface $eventDispatcher, private RevisionRepository $repository, private EntityManagerInterface $em)
-    {
+    public function __construct(
+        private EventDispatcherInterface $eventDispatcher,
+        private RevisionRepository $repository,
+        private EntityManagerInterface $em
+    ) {
     }
 
     /**

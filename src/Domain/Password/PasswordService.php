@@ -19,8 +19,14 @@ class PasswordService
 {
     public const EXPIRE_IN = 30;
 
-    public function __construct(private UserRepository $userRepository, private PasswordResetTokenRepository $tokenRepository, private TokenGeneratorService $generator, private EntityManagerInterface $em, private EventDispatcherInterface $dispatcher, private UserPasswordHasherInterface $hasher)
-    {
+    public function __construct(
+        private UserRepository $userRepository,
+        private PasswordResetTokenRepository $tokenRepository,
+        private TokenGeneratorService $generator,
+        private EntityManagerInterface $em,
+        private EventDispatcherInterface $dispatcher,
+        private UserPasswordHasherInterface $hasher
+    ) {
     }
 
     /**

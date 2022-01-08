@@ -9,8 +9,11 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 
 class CommentService
 {
-    public function __construct(private AuthService $auth, private EntityManagerInterface $em, private EventDispatcherInterface $dispatcher)
-    {
+    public function __construct(
+        private AuthService $auth,
+        private EntityManagerInterface $em,
+        private EventDispatcherInterface $dispatcher
+    ) {
     }
 
     public function create(CommentData $data): Comment

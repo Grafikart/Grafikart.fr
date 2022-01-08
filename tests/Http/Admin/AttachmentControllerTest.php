@@ -47,7 +47,7 @@ class AttachmentControllerTest extends WebTestCase
         ['user_admin' => $admin] = $this->data;
         $this->login($admin);
         $content = $this->jsonRequest('GET', '/admin/attachment/files');
-        $items = json_decode($content, null, 512, JSON_THROW_ON_ERROR);
+        $items = json_decode($content);
         $this->assertCount(5, $items);
     }
 }

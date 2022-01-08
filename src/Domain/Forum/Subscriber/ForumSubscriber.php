@@ -12,8 +12,12 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ForumSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private TopicRepository $topicRepository, private MessageRepository $messageRepository, private EntityManagerInterface $em, private TopicService $topicService)
-    {
+    public function __construct(
+        private TopicRepository $topicRepository,
+        private MessageRepository $messageRepository,
+        private EntityManagerInterface $em,
+        private TopicService $topicService
+    ) {
     }
 
     public static function getSubscribedEvents(): array

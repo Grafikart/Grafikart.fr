@@ -11,14 +11,16 @@ use Symfony\Component\HttpFoundation\Cookie;
 
 class CookieGenerator
 {
-    public function __construct(private readonly string $secret, private readonly NotificationService $notificationService)
-    {
+    public function __construct(
+        private readonly string $secret,
+        private readonly NotificationService $notificationService
+    ) {
     }
 
     public function generate(User $user): Cookie
     {
         $channels = array_map(
-            fn (string $channel) => "/notifications/$channel",
+            fn(string $channel) => "/notifications/$channel",
             $this->notificationService->getChannelsForUser($user)
         );
         $config = Configuration::forSymmetricSigner(

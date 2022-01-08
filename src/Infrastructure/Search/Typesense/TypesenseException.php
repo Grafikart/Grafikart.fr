@@ -16,6 +16,6 @@ final class TypesenseException extends \RuntimeException
     public function __construct(ResponseInterface $response)
     {
         $this->status = $response->getStatusCode();
-        $this->message = json_decode($response->getContent(false), true, 512, JSON_THROW_ON_ERROR)['message'] ?? '';
+        $this->message = json_decode($response->getContent(false), true)['message'] ?? '';
     }
 }

@@ -11,16 +11,15 @@ use Symfony\Component\Cache\CacheItem;
 class TwigCacheExtensionTest extends TestCase
 {
     /**
-     * @var MockObject|AdapterInterface cache
+     * @var AdapterInterface|MockObject cache
      */
-    private \Symfony\Component\Cache\Adapter\AdapterInterface|\PHPUnit\Framework\MockObject\MockObject $cache;
+    private MockObject $cache;
 
     private TwigCacheExtension $extension;
 
     public function setUp(): void
     {
         parent::setUp();
-        /* @var MockObject|AdapterInterface cache */
         $this->cache = $this->getMockBuilder(AdapterInterface::class)->getMock();
         $this->extension = new TwigCacheExtension($this->cache);
     }

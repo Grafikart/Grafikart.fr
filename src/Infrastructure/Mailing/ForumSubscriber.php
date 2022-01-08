@@ -8,8 +8,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ForumSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private readonly Mailer $mailer, private readonly TopicService $topicService)
-    {
+    public function __construct(
+        private readonly Mailer $mailer,
+        private readonly TopicService $topicService
+    ) {
     }
 
     public static function getSubscribedEvents(): array

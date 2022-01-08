@@ -13,8 +13,11 @@ class DeleteAccountService
 {
     public const DAYS = 5;
 
-    public function __construct(private EntityManagerInterface $em, private EventDispatcherInterface $dispatcher, private AuthService $authService)
-    {
+    public function __construct(
+        private EntityManagerInterface $em,
+        private EventDispatcherInterface $dispatcher,
+        private AuthService $authService
+    ) {
     }
 
     public function deleteUser(User $user, Request $request): void

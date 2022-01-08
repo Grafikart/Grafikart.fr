@@ -13,8 +13,10 @@ class KnpPaginator implements PaginatorInterface
 {
     private array $sortableFields = [];
 
-    public function __construct(private \Knp\Component\Pager\PaginatorInterface $paginator, private RequestStack $requestStack)
-    {
+    public function __construct(
+        private \Knp\Component\Pager\PaginatorInterface $paginator,
+        private RequestStack $requestStack
+    ) {
     }
 
     public function paginate(Query $query): PaginationInterface

@@ -35,8 +35,12 @@ abstract class CrudController extends BaseController
         'create' => null,
     ];
 
-    public function __construct(protected EntityManagerInterface $em, protected PaginatorInterface $paginator, private EventDispatcherInterface $dispatcher, private RequestStack $requestStack)
-    {
+    public function __construct(
+        protected EntityManagerInterface $em,
+        protected PaginatorInterface $paginator,
+        private EventDispatcherInterface $dispatcher,
+        private RequestStack $requestStack
+    ) {
     }
 
     public function crudIndex(QueryBuilder $query = null): Response

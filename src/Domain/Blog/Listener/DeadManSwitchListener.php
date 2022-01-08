@@ -16,8 +16,11 @@ use Symfony\Component\Security\Core\Event\AuthenticationSuccessEvent;
  */
 class DeadManSwitchListener implements EventSubscriberInterface
 {
-    public function __construct(private AccessDecisionManagerInterface $permission, private PostRepository $postRepository, private EntityManagerInterface $em)
-    {
+    public function __construct(
+        private AccessDecisionManagerInterface $permission,
+        private PostRepository $postRepository,
+        private EntityManagerInterface $em
+    ) {
     }
 
     public static function getSubscribedEvents(): array

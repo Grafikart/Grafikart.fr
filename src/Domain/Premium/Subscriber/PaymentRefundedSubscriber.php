@@ -13,8 +13,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PaymentRefundedSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private TransactionRepository $transactionRepository, private EventDispatcherInterface $dispatcher, private EntityManagerInterface $em)
-    {
+    public function __construct(
+        private TransactionRepository $transactionRepository,
+        private EventDispatcherInterface $dispatcher,
+        private EntityManagerInterface $em
+    ) {
     }
 
     public static function getSubscribedEvents(): array

@@ -46,19 +46,24 @@ class Badge
      */
     private \DateTimeInterface $updatedAt;
 
-    public function __construct(/**
+    public function __construct(
+        /**
          * @ORM\Column(type="string", length=255, nullable=false)
          */
-        private string $name = '', /**
+        private string $name = '',
+        /**
          * @ORM\Column(type="string", length=255, nullable=false)
          */
-        private string $description = '', /**
+        private string $description = '',
+        /**
          * @ORM\Column(type="string", length=255, nullable=false)
          */
-        private string $action = '', /**
+        private string $action = '',
+        /**
          * @ORM\Column(type="integer", options={"default": 0})
          */
-        private int $actionCount = 0, /**
+        private int $actionCount = 0,
+        /**
          * @ORM\Column(type="string", length=255, options={"default": "grey"})
          */
         private string $theme = 'grey'

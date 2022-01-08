@@ -23,11 +23,13 @@ class BadgeUnlock
      */
     private \DateTimeInterface $createdAt;
 
-    public function __construct(/**
+    public function __construct(
+        /**
          * @ORM\ManyToOne(targetEntity=User::class)
          * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
          */
-        private User $owner, /**
+        private User $owner,
+        /**
          * @ORM\ManyToOne(targetEntity=Badge::class)
          * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
          */

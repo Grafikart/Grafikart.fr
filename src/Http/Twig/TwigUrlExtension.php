@@ -14,8 +14,11 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class TwigUrlExtension extends AbstractExtension
 {
-    public function __construct(private readonly UrlGeneratorInterface $urlGenerator, private readonly UploaderHelper $uploaderHelper, private readonly SerializerInterface $serializer)
-    {
+    public function __construct(
+        private readonly UrlGeneratorInterface $urlGenerator,
+        private readonly UploaderHelper $uploaderHelper,
+        private readonly SerializerInterface $serializer
+    ) {
     }
 
     public function getFunctions(): array
@@ -71,7 +74,8 @@ class TwigUrlExtension extends AbstractExtension
     public function urlFor($path, array $params = []): string
     {
         if (is_string($path)) {
-            return $this->urlGenerator->generate($path, $params, \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL);
+            return $this->urlGenerator->generate($path, $params,
+                \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL);
         }
 
         return $this->serializer->serialize($path, 'path', ['url' => true]);

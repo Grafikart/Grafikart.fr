@@ -10,8 +10,10 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class TwigPathExtension extends AbstractExtension
 {
-    public function __construct(private readonly ImageResizer $imageResizer, private readonly UploaderHelper $helper)
-    {
+    public function __construct(
+        private readonly ImageResizer $imageResizer,
+        private readonly UploaderHelper $helper
+    ) {
     }
 
     public function getFunctions(): array
@@ -26,7 +28,7 @@ class TwigPathExtension extends AbstractExtension
 
     public function uploadsPath(string $path): string
     {
-        return '/uploads/'.trim($path, '/');
+        return '/uploads/' . trim($path, '/');
     }
 
     public function imageUrl(?object $entity, ?int $width = null, ?int $height = null): ?string

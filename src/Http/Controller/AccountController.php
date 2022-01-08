@@ -16,8 +16,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AccountController extends AbstractController
 {
-    public function __construct(private UserPasswordHasherInterface $hasher, private EntityManagerInterface $em, private ProfileService $profileService)
-    {
+    public function __construct(
+        private UserPasswordHasherInterface $hasher,
+        private EntityManagerInterface $em,
+        private ProfileService $profileService
+    ) {
     }
 
     /**
@@ -42,9 +45,9 @@ class AccountController extends AbstractController
 
         return $this->render('account/edit.html.twig', [
             'form_password' => $formPassword->createView(),
-            'form_update' => $formUpdate->createView(),
-            'user' => $user,
-            'menu' => 'account',
+            'form_update'   => $formUpdate->createView(),
+            'user'          => $user,
+            'menu'          => 'account',
         ]);
     }
 
