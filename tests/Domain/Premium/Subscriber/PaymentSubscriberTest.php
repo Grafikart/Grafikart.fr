@@ -104,7 +104,9 @@ class PaymentSubscriberTest extends EventSubscriberTest
         $user = $event->getUser();
         $user->setPremiumEnd(new \DateTimeImmutable('+ 10 months'));
         $this->dispatch($subscriber, $event);
-        $this->assertGreaterThan((new \DateTimeImmutable('+ 20 months'))->getTimestamp(),
-            $user->getPremiumEnd()->getTimestamp());
+        $this->assertGreaterThan(
+            (new \DateTimeImmutable('+ 20 months'))->getTimestamp(),
+            $user->getPremiumEnd()->getTimestamp()
+        );
     }
 }

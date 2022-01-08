@@ -28,11 +28,11 @@ class TwigCacheExtension extends AbstractExtension
         ];
     }
 
-    /**
-     * @param CacheableInterface|string|array|bool|null $item
-     */
-    public function getCacheKey(string $templatePath, $item, bool $prefix = true): string
-    {
+    public function getCacheKey(
+        string $templatePath,
+        mixed $item,
+        bool $prefix = true
+    ): string {
         if (true === $prefix) {
             $prefix = (new AsciiSlugger())->slug(str_replace('.html.twig', '', $templatePath)) . '_';
         } else {
@@ -73,7 +73,7 @@ class TwigCacheExtension extends AbstractExtension
 
     public function getCacheValue(
         string $templatePath,
-        CacheableInterface|string|array $item
+        mixed $item
     ): ?string {
         if (!$this->active) {
             return null;
@@ -85,7 +85,7 @@ class TwigCacheExtension extends AbstractExtension
 
     public function setCacheValue(
         string $templatePath,
-        CacheableInterface|string $item,
+        mixed $item,
         string $value
     ): void {
         if (!$this->active) {
