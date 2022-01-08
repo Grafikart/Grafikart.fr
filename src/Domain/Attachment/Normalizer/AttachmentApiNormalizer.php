@@ -9,15 +9,8 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class AttachmentApiNormalizer extends Normalizer
 {
-    private ImageResizer $resizer;
-    private UploaderHelper $uploaderHelper;
-
-    public function __construct(
-        UploaderHelper $uploaderHelper,
-        ImageResizer $resizer
-    ) {
-        $this->resizer = $resizer;
-        $this->uploaderHelper = $uploaderHelper;
+    public function __construct(private readonly UploaderHelper $uploaderHelper, private readonly ImageResizer $resizer)
+    {
     }
 
     /**

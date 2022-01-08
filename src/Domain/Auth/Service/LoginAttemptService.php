@@ -9,17 +9,10 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class LoginAttemptService
 {
-    const ATTEMPTS = 3;
+    public final const ATTEMPTS = 3;
 
-    private LoginAttemptRepository $repository;
-    private EntityManagerInterface $em;
-
-    public function __construct(
-        LoginAttemptRepository $repository,
-        EntityManagerInterface $em
-    ) {
-        $this->repository = $repository;
-        $this->em = $em;
+    public function __construct(private readonly LoginAttemptRepository $repository, private readonly EntityManagerInterface $em)
+    {
     }
 
     public function addAttempt(User $user): void

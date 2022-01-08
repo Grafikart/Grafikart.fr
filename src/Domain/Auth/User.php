@@ -12,6 +12,7 @@ use App\Infrastructure\Social\Entity\SocialLoggableTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -23,7 +24,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @UniqueEntity(fields={"email"}, repositoryMethod="findByCaseInsensitive")
  * @UniqueEntity(fields={"username"}, repositoryMethod="findByCaseInsensitive")
  */
-class User implements UserInterface, \Serializable, ForumReaderUserInterface, CacheableInterface
+class User implements UserInterface, ForumReaderUserInterface, CacheableInterface, PasswordAuthenticatedUserInterface
 {
     use PremiumTrait;
     use StripeEntity;
@@ -145,6 +146,11 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface, Ca
         return $this;
     }
 
+    public function getUserIdentifier(): string
+    {
+        return $this->getEmail();
+    }
+
     public function getUsername(): string
     {
         return $this->username;
@@ -184,7 +190,7 @@ class User implements UserInterface, \Serializable, ForumReaderUserInterface, Ca
     /**
      * {@inheritdoc}
      */
-    public function getRoles()
+    public function getRoles(): array
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER

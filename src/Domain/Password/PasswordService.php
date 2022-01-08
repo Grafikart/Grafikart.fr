@@ -13,33 +13,20 @@ use App\Domain\Password\Repository\PasswordResetTokenRepository;
 use App\Infrastructure\Security\TokenGeneratorService;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class PasswordService
 {
-    const EXPIRE_IN = 30; // Temps d'expiration d'un token
-
-    private UserRepository $userRepository;
-    private PasswordResetTokenRepository $tokenRepository;
-    private EntityManagerInterface $em;
-    private TokenGeneratorService $generator;
-    private EventDispatcherInterface $dispatcher;
-    private UserPasswordEncoderInterface $encoder;
+    public final const EXPIRE_IN = 30;
 
     public function __construct(
-        UserRepository $userRepository,
-        PasswordResetTokenRepository $tokenRepository,
-        TokenGeneratorService $generator,
-        EntityManagerInterface $em,
-        EventDispatcherInterface $dispatcher,
-        UserPasswordEncoderInterface $encoder
+        private readonly UserRepository $userRepository,
+        private readonly PasswordResetTokenRepository $tokenRepository,
+        private readonly TokenGeneratorService $generator,
+        private readonly EntityManagerInterface $em,
+        private readonly EventDispatcherInterface $dispatcher,
+        private readonly UserPasswordHasherInterface $hasher
     ) {
-        $this->userRepository = $userRepository;
-        $this->tokenRepository = $tokenRepository;
-        $this->em = $em;
-        $this->generator = $generator;
-        $this->dispatcher = $dispatcher;
-        $this->encoder = $encoder;
     }
 
     /**
@@ -80,7 +67,7 @@ class PasswordService
     {
         $user = $token->getUser();
         $user->setConfirmationToken(null);
-        $user->setPassword($this->encoder->encodePassword($user, $password));
+        $user->setPassword($this->hasher->hashPassword($user, $password));
         $this->em->remove($token);
         $this->em->flush();
         $this->dispatcher->dispatch(new PasswordRecoveredEvent($user));

@@ -11,19 +11,11 @@ use Symfony\Component\Security\Core\Security;
 
 class CommentPersister implements ContextAwareDataPersisterInterface
 {
-    private ValidatorInterface $validator;
-    private Security $security;
-
-    private CommentService $service;
-
     public function __construct(
-        ValidatorInterface $validator,
-        Security $security,
-        CommentService $service
+        private readonly ValidatorInterface $validator,
+        private readonly Security $security,
+        private readonly CommentService $service
     ) {
-        $this->validator = $validator;
-        $this->security = $security;
-        $this->service = $service;
     }
 
     /**

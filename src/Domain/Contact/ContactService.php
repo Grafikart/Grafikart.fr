@@ -10,18 +10,11 @@ use Symfony\Component\Mime\Email;
 
 class ContactService
 {
-    private ContactRequestRepository $repository;
-    private EntityManagerInterface $em;
-    private MailerInterface $mailer;
-
     public function __construct(
-        ContactRequestRepository $repository,
-        EntityManagerInterface $em,
-        MailerInterface $mailer
+        private readonly ContactRequestRepository $repository,
+        private readonly EntityManagerInterface $em,
+        private readonly MailerInterface $mailer
     ) {
-        $this->repository = $repository;
-        $this->em = $em;
-        $this->mailer = $mailer;
     }
 
     public function send(ContactData $data, Request $request): void

@@ -66,7 +66,7 @@ final class TransactionsController extends CrudController
         $query = $query->leftJoin('row.author', 'u');
 
         // Filtre les transaction pour un utilisateur donné
-        if (0 === strpos($search, 'user:')) {
+        if (str_starts_with($search, 'user:')) {
             return $query
                 ->where('u.id = :search')
                 ->setParameter('search', str_replace('user:', '', $search));

@@ -42,9 +42,6 @@ class Cursus extends Content
         return $modulesById;
     }
 
-    /**
-     * @return Collection|Content[]
-     */
     public function getModules(): Collection
     {
         return $this->modules;

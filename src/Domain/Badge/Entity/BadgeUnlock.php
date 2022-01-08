@@ -16,29 +16,25 @@ class BadgeUnlock
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
      */
-    private ?int $id;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class)
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     */
-    private User $owner;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Badge::class)
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     */
-    private Badge $badge;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="datetime")
      */
     private \DateTimeInterface $createdAt;
 
-    public function __construct(User $user, Badge $badge)
-    {
-        $this->badge = $badge;
-        $this->owner = $user;
+    public function __construct(
+        /**
+         * @ORM\ManyToOne(targetEntity=User::class)
+         * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
+         */
+        private User $owner,
+        /**
+         * @ORM\ManyToOne(targetEntity=Badge::class)
+         * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
+         */
+        private Badge $badge
+    ) {
         $this->createdAt = new \DateTimeImmutable();
     }
 

@@ -8,11 +8,8 @@ use GuzzleHttp\Psr7\Query;
 
 class TypesenseSearch implements SearchInterface
 {
-    private TypesenseClient $client;
-
-    public function __construct(TypesenseClient $client)
+    public function __construct(private readonly TypesenseClient $client)
     {
-        $this->client = $client;
     }
 
     public function search(string $q, array $types = [], int $limit = 50, int $page = 1): SearchResult

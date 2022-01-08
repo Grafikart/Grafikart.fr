@@ -21,11 +21,8 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class AttachmentController extends BaseController
 {
-    private ValidatorInterface $validator;
-
-    public function __construct(ValidatorInterface $validator)
+    public function __construct(private readonly ValidatorInterface $validator)
     {
-        $this->validator = $validator;
     }
 
     public function validateRequest(Request $request): array
@@ -105,9 +102,7 @@ class AttachmentController extends BaseController
         ]);
         $resolver->setAllowedTypes('path', ['string', 'null']);
         $resolver->setAllowedTypes('q', ['string', 'null']);
-        $resolver->setAllowedValues('path', function ($value) {
-            return null === $value || preg_match('/^2\d{3}\/(1[0-2]|0[1-9])$/', $value) > 0;
-        });
+        $resolver->setAllowedValues('path', fn($value) => null === $value || preg_match('/^2\d{3}\/(1[0-2]|0[1-9])$/', $value) > 0);
 
         try {
             return $resolver->resolve($request->query->all());

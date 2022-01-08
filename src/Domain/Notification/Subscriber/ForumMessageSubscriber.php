@@ -10,14 +10,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ForumMessageSubscriber implements EventSubscriberInterface
 {
-    private NotificationService $service;
-
-    public function __construct(NotificationService $service)
+    public function __construct(private readonly NotificationService $service)
     {
-        $this->service = $service;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             MessageCreatedEvent::class => ['onMessageCreated'],

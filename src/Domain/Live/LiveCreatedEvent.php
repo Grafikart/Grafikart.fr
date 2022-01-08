@@ -4,11 +4,8 @@ namespace App\Domain\Live;
 
 class LiveCreatedEvent
 {
-    private Live $live;
-
-    public function __construct(Live $live)
+    public function __construct(private readonly Live $live)
     {
-        $this->live = $live;
     }
 
     public function getLive(): Live

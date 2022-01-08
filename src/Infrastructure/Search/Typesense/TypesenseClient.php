@@ -6,18 +6,17 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class TypesenseClient
 {
-    private string $host;
-    private string $apiKey;
-    private HttpClientInterface $client;
+    private readonly string $apiKey;
 
-    public function __construct(string $host, string $apiKey, HttpClientInterface $client)
-    {
+    public function __construct(
+        private readonly string $host,
+        string $apiKey,
+        private readonly HttpClientInterface $client
+    ) {
         if (empty($apiKey)) {
             throw new \RuntimeException("Une clef d'API est nécessaire à l'utilisation de typesense");
         }
-        $this->host = $host;
         $this->apiKey = $apiKey;
-        $this->client = $client;
     }
 
     public function get(string $endpoint): array
@@ -49,7 +48,7 @@ class TypesenseClient
             ],
         ]);
         if ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300) {
-            return json_decode($response->getContent(), true);
+            return json_decode($response->getContent(), true, 512, JSON_THROW_ON_ERROR);
         }
         throw new TypesenseException($response);
     }

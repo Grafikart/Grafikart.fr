@@ -6,26 +6,24 @@ use App\Infrastructure\Search\SearchResultItemInterface;
 
 class TypesenseItem implements SearchResultItemInterface
 {
-    /**
-     * An item store by typesense.
-     *
-     *  {
-     *    document: {
-     *      field: 'value',
-     *      field2: 'value',
-     *   },
-     *   highlights:[
-     *      {
-     *          field:"title",
-     *          snippet: "an excerpt with <mark>",
-     *          value: "the whole string with <mark>",
-     *      }
-     */
-    private array $item;
-
-    public function __construct(array $item)
-    {
-        $this->item = $item;
+    public function __construct(
+        /**
+         * An item store by typesense.
+         *
+         *  {
+         *    document: {
+         *      field: 'value',
+         *      field2: 'value',
+         *   },
+         *   highlights:[
+         *      {
+         *          field:"title",
+         *          snippet: "an excerpt with <mark>",
+         *          value: "the whole string with <mark>",
+         *      }
+         */
+        private readonly array $item
+    ) {
     }
 
     public function getTitle(): string
@@ -47,7 +45,7 @@ class TypesenseItem implements SearchResultItemInterface
                 $lines = preg_split("/((\r?\n)|(\r\n?)|(\.\s))/", $highlight['value']);
                 if ($lines) {
                     foreach ($lines as $line) {
-                        if (false !== strpos($line, '<mark>')) {
+                        if (str_contains($line, '<mark>')) {
                             return $line;
                         }
                     }

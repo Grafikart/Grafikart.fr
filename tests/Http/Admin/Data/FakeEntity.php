@@ -4,11 +4,8 @@ namespace App\Tests\Http\Admin\Data;
 
 class FakeEntity
 {
-    private string $name;
-
-    public function __construct(string $name)
+    public function __construct(private string $name)
     {
-        $this->name = $name;
     }
 
     public function setName(string $name): void

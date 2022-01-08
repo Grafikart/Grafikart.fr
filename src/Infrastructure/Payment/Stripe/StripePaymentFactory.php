@@ -2,19 +2,13 @@
 
 namespace App\Infrastructure\Payment\Stripe;
 
-use App\Domain\Premium\Repository\PlanRepository;
 use Stripe\Charge;
 use Stripe\PaymentIntent;
 
 class StripePaymentFactory
 {
-    private PlanRepository $planRepository;
-    private StripeApi $api;
-
-    public function __construct(PlanRepository $planRepository, StripeApi $api)
+    public function __construct(private readonly StripeApi $api)
     {
-        $this->planRepository = $planRepository;
-        $this->api = $api;
     }
 
     public function createPaymentFromIntent(PaymentIntent $intent): StripePayment

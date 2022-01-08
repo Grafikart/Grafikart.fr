@@ -57,7 +57,7 @@ class PremiumController extends AbstractController
             return $this->json([
                 'id' => $isSubscription ? $api->createSuscriptionSession($this->getUser(), $plan, $url) : $api->createPaymentSession($this->getUser(), $plan, $url),
             ]);
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             return $this->json(['title' => "Impossible de contacter l'API Stripe"], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }

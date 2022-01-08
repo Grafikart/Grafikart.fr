@@ -14,15 +14,23 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ImageController extends AbstractController
 {
-    private string $cachePath;
-    private string $resizeKey;
-    private string $publicPath;
+    private readonly string $cachePath;
+    private readonly string $resizeKey;
+    private readonly string $publicPath;
 
     public function __construct(ParameterBagInterface $parameterBag)
     {
-        $this->cachePath = $parameterBag->get('kernel.project_dir').'/var/images';
-        $this->publicPath = $parameterBag->get('kernel.project_dir').'/public';
-        $this->resizeKey = $parameterBag->get('image_resize_key');
+        $projectDir = $parameterBag->get('kernel.project_dir');
+        $resizeKey = $parameterBag->get('image_resize_key');
+        if (!is_string($projectDir)) {
+            throw new \RuntimeException('Parameter kernel.project_dir is not a string');
+        }
+        if (!is_string($resizeKey)) {
+            throw new \RuntimeException('Parameter image_resize_key is not a string');
+        }
+        $this->cachePath = $projectDir.'/var/images';
+        $this->publicPath = $projectDir.'/public';
+        $this->resizeKey = $resizeKey;
     }
 
     /**
@@ -46,7 +54,7 @@ class ImageController extends AbstractController
             SignatureFactory::create($this->resizeKey)->validateRequest($url, ['s' => $request->get('s')]);
 
             return $server->getImageResponse($path, ['w' => $width, 'h' => $height, 'fit' => 'crop']);
-        } catch (SignatureException $exception) {
+        } catch (SignatureException) {
             throw new HttpException(403, 'Signature invalide');
         }
     }
@@ -72,7 +80,7 @@ class ImageController extends AbstractController
             SignatureFactory::create($this->resizeKey)->validateRequest($url, ['s' => $request->get('s')]);
 
             return $server->getImageResponse($path, ['fm' => 'jpg']);
-        } catch (SignatureException $exception) {
+        } catch (SignatureException) {
             throw new HttpException(403, 'Signature invalide');
         }
     }

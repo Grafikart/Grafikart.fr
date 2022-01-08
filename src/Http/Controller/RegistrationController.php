@@ -14,9 +14,9 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class RegistrationController extends AbstractController
 {
@@ -25,13 +25,13 @@ class RegistrationController extends AbstractController
      */
     public function register(
         Request $request,
-        UserPasswordEncoderInterface $passwordEncoder,
+        UserPasswordHasherInterface $hasher,
         EntityManagerInterface $em,
         TokenGeneratorService $tokenGenerator,
         EventDispatcherInterface $dispatcher,
         SocialLoginService $socialLoginService,
-        GuardAuthenticatorHandler $guardAuthenticatorHandler,
-        Authenticator $authenticator
+        UserAuthenticatorInterface $authenticator,
+        Authenticator $appAuthenticator
     ): Response {
         // Si l'utilisateur est connecté, on le redirige vers la home
         $loggedInUser = $this->getUser();
@@ -48,7 +48,7 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword(
-                $form->has('plainPassword') ? $passwordEncoder->encodePassword(
+                $form->has('plainPassword') ? $hasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 ) : ''
@@ -66,12 +66,7 @@ class RegistrationController extends AbstractController
                     'Votre compte a été créé avec succès'
                 );
 
-                return $guardAuthenticatorHandler->authenticateUserAndHandleSuccess(
-                    $user,
-                    $request,
-                    $authenticator,
-                    'main'
-                ) ?: $this->redirectToRoute('user_edit');
+                return $authenticator->authenticateUser($user, $appAuthenticator, $request) ?: $this->redirectToRoute('user_edit');
             }
 
             $this->addFlash(

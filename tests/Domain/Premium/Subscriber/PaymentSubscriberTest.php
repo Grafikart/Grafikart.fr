@@ -33,7 +33,7 @@ class PaymentSubscriberTest extends EventSubscriberTest
         $planRepository
             ->expects($this->once())
             ->method('findOneBy')
-            ->willReturnCallback(fn ($params) => $params['price'] === $plan->getPrice() ? $plan : null);
+            ->willReturnCallback(fn($params) => $params['price'] === $plan->getPrice() ? $plan : null);
         $em->expects($this->once())->method('getRepository')->with(Plan::class)->willReturn($planRepository);
         $dispatcher = $this->createMock(EventDispatcherInterface::class);
         $dispatcher->expects($this->any())->method('dispatch');
@@ -66,9 +66,10 @@ class PaymentSubscriberTest extends EventSubscriberTest
     {
         /** @var MockObject $em */
         [$subscriber, $em] = $this->getSubscriber();
-        $em->expects($this->once())->method('persist')->with($this->callback(function (Transaction $transaction) {
-            return 100 == $transaction->getPrice();
-        }));
+        $em
+            ->expects($this->once())
+            ->method('persist')
+            ->with($this->callback(fn(Transaction $transaction) => 100 == $transaction->getPrice()));
         $em->expects($this->once())->method('flush');
         $this->dispatch($subscriber, $this->getEvent());
     }
@@ -77,7 +78,10 @@ class PaymentSubscriberTest extends EventSubscriberTest
     {
         /** @var MockObject $dispatcher */
         [$subscriber, $em, $dispatcher] = $this->getSubscriber();
-        $dispatcher->expects($this->once())->method('dispatch')->with($this->isInstanceOf(PremiumSubscriptionEvent::class));
+        $dispatcher
+            ->expects($this->once())
+            ->method('dispatch')
+            ->with($this->isInstanceOf(PremiumSubscriptionEvent::class));
         $this->dispatch($subscriber, $this->getEvent());
     }
 
@@ -87,7 +91,10 @@ class PaymentSubscriberTest extends EventSubscriberTest
         $event = $this->getEvent();
         $user = $event->getUser();
         $this->dispatch($subscriber, $event);
-        $this->assertGreaterThan((new \DateTimeImmutable('+ 10 months'))->getTimestamp(), $user->getPremiumEnd()->getTimestamp());
+        $this->assertGreaterThan(
+            (new \DateTimeImmutable('+ 10 months'))->getTimestamp(),
+            $user->getPremiumEnd()->getTimestamp()
+        );
     }
 
     public function testPushPremiumEndTimeFurther()
@@ -97,6 +104,9 @@ class PaymentSubscriberTest extends EventSubscriberTest
         $user = $event->getUser();
         $user->setPremiumEnd(new \DateTimeImmutable('+ 10 months'));
         $this->dispatch($subscriber, $event);
-        $this->assertGreaterThan((new \DateTimeImmutable('+ 20 months'))->getTimestamp(), $user->getPremiumEnd()->getTimestamp());
+        $this->assertGreaterThan(
+            (new \DateTimeImmutable('+ 20 months'))->getTimestamp(),
+            $user->getPremiumEnd()->getTimestamp()
+        );
     }
 }

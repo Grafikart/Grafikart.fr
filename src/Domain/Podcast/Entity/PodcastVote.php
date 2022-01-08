@@ -15,19 +15,7 @@ class PodcastVote
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
      */
-    private ?int $id;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Podcast::class)
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     */
-    private Podcast $podcast;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private User $voter;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="float", options={"default":1})
@@ -39,11 +27,19 @@ class PodcastVote
      */
     private \DateTimeInterface $createdAt;
 
-    public function __construct(User $user, Podcast $podcast)
-    {
+    public function __construct(
+        /**
+         * @ORM\ManyToOne(targetEntity=User::class)
+         * @ORM\JoinColumn(nullable=false)
+         */
+        private User $voter,
+        /**
+         * @ORM\ManyToOne(targetEntity=Podcast::class)
+         * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
+         */
+        private Podcast $podcast
+    ) {
         $this->createdAt = new \DateTime();
-        $this->voter = $user;
-        $this->podcast = $podcast;
     }
 
     public function getId(): ?int

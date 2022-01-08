@@ -30,7 +30,7 @@ class Formation extends Content
      *
      * @var Collection<int, Course>
      */
-    private $courses;
+    private \Doctrine\Common\Collections\Collection $courses;
 
     /**
      * @ORM\Column(type="string", nullable=true)

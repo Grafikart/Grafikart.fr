@@ -10,14 +10,14 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Entity()
  * @Vich\Uploadable
  */
-class Attachment
+class Attachment implements \Stringable
 {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
      */
-    protected ?int $id;
+    protected ?int $id = null;
 
     /**
      * @Vich\UploadableField(mapping="attachments", fileNameProperty="fileName", size="fileSize")
@@ -92,7 +92,7 @@ class Attachment
         return $this;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->fileName;
     }

@@ -144,11 +144,9 @@ class Live
     }
 
     /**
-     * @param int|\DateInterval $duration
-     *
      * @return $this
      */
-    public function setDuration($duration): self
+    public function setDuration(\DateInterval|int $duration): self
     {
         if ($duration instanceof \DateInterval) {
             $this->duration = 3600 * $duration->h + 60 * $duration->i + $duration->s;

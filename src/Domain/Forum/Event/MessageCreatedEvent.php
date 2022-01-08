@@ -6,11 +6,8 @@ use App\Domain\Forum\Entity\Message;
 
 class MessageCreatedEvent
 {
-    private Message $message;
-
-    public function __construct(Message $message)
+    public function __construct(private readonly Message $message)
     {
-        $this->message = $message;
     }
 
     public function getMessage(): Message

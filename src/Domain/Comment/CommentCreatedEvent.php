@@ -4,11 +4,8 @@ namespace App\Domain\Comment;
 
 class CommentCreatedEvent
 {
-    private Comment $comment;
-
-    public function __construct(Comment $comment)
+    public function __construct(private readonly Comment $comment)
     {
-        $this->comment = $comment;
     }
 
     public function getComment(): Comment

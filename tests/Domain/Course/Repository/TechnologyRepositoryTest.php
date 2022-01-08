@@ -17,7 +17,7 @@ class TechnologyRepositoryTest extends KernelTestCase
     {
         $size = 9;
         for ($i = 0; $i < 5; ++$i) {
-            yield [collect(range(1, $size))->shuffle()->slice(0, rand(1, $size))->map(fn ($k) => "technology$k")->toArray()];
+            yield [collect(range(1, $size))->shuffle()->slice(0, random_int(1, $size))->map(fn ($k) => "technology$k")->toArray()];
         }
     }
 
@@ -29,7 +29,7 @@ class TechnologyRepositoryTest extends KernelTestCase
         $this->data = $this->loadFixtures(['technologies']);
         $expectedEntities = array_map(fn (string $name) => $this->data[$name], $names);
         $names = array_map(fn (Technology $entity) => $entity->getName(), $expectedEntities);
-        $entities = self::$container->get(TechnologyRepository::class)->findByNames($names);
+        $entities = self::getContainer()->get(TechnologyRepository::class)->findByNames($names);
         $this->assertSameSize($expectedEntities, $entities);
         foreach ($expectedEntities as $entity) {
             $this->assertContains($entity, $entities);

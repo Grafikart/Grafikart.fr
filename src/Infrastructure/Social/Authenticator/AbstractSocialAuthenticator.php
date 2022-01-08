@@ -28,21 +28,13 @@ abstract class AbstractSocialAuthenticator extends SocialAuthenticator
     use TargetPathTrait;
 
     protected string $serviceName = '';
-    private ClientRegistry $clientRegistry;
-    protected EntityManagerInterface $em;
-    private RouterInterface $router;
-    private AuthService $authService;
 
     public function __construct(
-        ClientRegistry $clientRegistry,
-        EntityManagerInterface $em,
-        RouterInterface $router,
-        AuthService $authService
+        private readonly ClientRegistry $clientRegistry,
+        protected EntityManagerInterface $em,
+        private readonly RouterInterface $router,
+        private readonly AuthService $authService
     ) {
-        $this->clientRegistry = $clientRegistry;
-        $this->em = $em;
-        $this->router = $router;
-        $this->authService = $authService;
     }
 
     public function supports(Request $request): bool
@@ -101,8 +93,11 @@ abstract class AbstractSocialAuthenticator extends SocialAuthenticator
         return new RedirectResponse($this->router->generate('auth_login'));
     }
 
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey): RedirectResponse
-    {
+    public function onAuthenticationSuccess(
+        Request $request,
+        TokenInterface $token,
+        string $providerKey
+    ): RedirectResponse {
         // On force le remember me pour déclencher le AbstractRememberMeServices (en attendant mieux)
         $request->request->set('_remember_me', '1');
 
@@ -118,8 +113,10 @@ abstract class AbstractSocialAuthenticator extends SocialAuthenticator
         return $this->getClient()->fetchUserFromToken($credentials);
     }
 
-    protected function getUserFromResourceOwner(ResourceOwnerInterface $resourceOwner, UserRepository $repository): ?User
-    {
+    protected function getUserFromResourceOwner(
+        ResourceOwnerInterface $resourceOwner,
+        UserRepository $repository
+    ): ?User {
         return null;
     }
 

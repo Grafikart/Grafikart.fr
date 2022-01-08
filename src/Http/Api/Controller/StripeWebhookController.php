@@ -11,7 +11,6 @@ use App\Http\Controller\AbstractController;
 use App\Infrastructure\Payment\Event\PaymentEvent;
 use App\Infrastructure\Payment\Event\PaymentRefundedEvent;
 use App\Infrastructure\Payment\Payment;
-use App\Infrastructure\Payment\Stripe\StripeApi;
 use App\Infrastructure\Payment\Stripe\StripePaymentFactory;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NoResultException;
@@ -25,22 +24,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class StripeWebhookController extends AbstractController
 {
-    private StripeApi $stripeApi;
-    private EventDispatcherInterface $dispatcher;
-    private EntityManagerInterface $em;
-
-    private StripePaymentFactory $paymentFactory;
-
     public function __construct(
-        StripeApi $stripeApi,
-        EventDispatcherInterface $dispatcher,
-        EntityManagerInterface $em,
-        StripePaymentFactory $paymentFactory
+        private readonly EventDispatcherInterface $dispatcher,
+        private readonly EntityManagerInterface $em,
+        private readonly StripePaymentFactory $paymentFactory
     ) {
-        $this->stripeApi = $stripeApi;
-        $this->dispatcher = $dispatcher;
-        $this->em = $em;
-        $this->paymentFactory = $paymentFactory;
     }
 
     /**
@@ -48,25 +36,19 @@ class StripeWebhookController extends AbstractController
      */
     public function index(Event $event): JsonResponse
     {
-        switch ($event->type) {
-            case 'payment_intent.succeeded':
-                return $this->onPaymentIntentSucceeded($event->data['object']);
-            case 'charge.refunded':
-                return $this->onRefund($event->data['object']);
-            case 'customer.subscription.created':
-                return $this->onSubscriptionCreated($event->data['object']);
-            case 'customer.subscription.updated':
-                return $this->onSubscriptionUpdated($event->data['object']);
-            case 'customer.subscription.deleted':
-                return $this->onSubscriptionDeleted($event->data['object']);
-            default:
-                return $this->json([]);
-        }
+        return match ($event->type) {
+            'payment_intent.succeeded' => $this->onPaymentIntentSucceeded($event->data['object']),
+            'charge.refunded' => $this->onRefund($event->data['object']),
+            'customer.subscription.created' => $this->onSubscriptionCreated($event->data['object']),
+            'customer.subscription.updated' => $this->onSubscriptionUpdated($event->data['object']),
+            'customer.subscription.deleted' => $this->onSubscriptionDeleted($event->data['object']),
+            default => $this->json([]),
+        };
     }
 
     public function onPaymentIntentSucceeded(PaymentIntent $intent): JsonResponse
     {
-        $user = $this->getUserFromCustomer((string) $intent->customer);
+        $user = $this->getUserFromCustomer((string)$intent->customer);
         $payment = $this->paymentFactory->createPaymentFromIntent($intent);
         $this->dispatcher->dispatch(new PaymentEvent($payment, $user));
 
@@ -76,7 +58,7 @@ class StripeWebhookController extends AbstractController
     public function onRefund(Charge $charge): JsonResponse
     {
         $payment = new Payment();
-        $payment->id = (string) $charge->payment_intent;
+        $payment->id = (string)$charge->payment_intent;
         $this->dispatcher->dispatch(new PaymentRefundedEvent($payment));
 
         return $this->json([]);
@@ -92,7 +74,7 @@ class StripeWebhookController extends AbstractController
             ->setState(Subscription::ACTIVE)
             ->setNextPayment(new \DateTimeImmutable("@{$stripeSubscription->current_period_end}"))
             ->setPlan($plan)
-            ->setUser($this->getUserFromCustomer((string) $stripeSubscription->customer))
+            ->setUser($this->getUserFromCustomer((string)$stripeSubscription->customer))
             ->setCreatedAt(new \DateTimeImmutable())
             ->setStripeId($stripeSubscription->id);
         $this->em->persist($subscription);

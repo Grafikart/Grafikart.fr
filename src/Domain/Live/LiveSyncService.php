@@ -10,21 +10,12 @@ use Psr\EventDispatcher\EventDispatcherInterface;
  */
 class LiveSyncService
 {
-    private string $playlistID;
-    private EntityManagerInterface $em;
-    private EventDispatcherInterface $dispatcher;
-    private \Google_Client $googleClient;
-
     public function __construct(
-        \Google_Client $googleClient,
-        EntityManagerInterface $em,
-        EventDispatcherInterface $dispatcher,
-        string $playlistID
+        private readonly \Google_Client $googleClient,
+        private readonly EntityManagerInterface $em,
+        private readonly EventDispatcherInterface $dispatcher,
+        private readonly string $playlistID
     ) {
-        $this->playlistID = $playlistID;
-        $this->em = $em;
-        $this->dispatcher = $dispatcher;
-        $this->googleClient = $googleClient;
     }
 
     /**

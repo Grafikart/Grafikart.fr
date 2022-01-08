@@ -15,16 +15,19 @@ class Unique extends Constraint
 {
     public string $message = 'Cette valeur est déjà utilisée';
 
+    /**
+     * @var class-string<object>|null
+     */
     public ?string $entityClass = null;
 
     public string $field = '';
 
-    public function getRequiredOptions()
+    public function getRequiredOptions(): array
     {
         return ['field'];
     }
 
-    public function getTargets()
+    public function getTargets(): string
     {
         return self::CLASS_CONSTRAINT;
     }

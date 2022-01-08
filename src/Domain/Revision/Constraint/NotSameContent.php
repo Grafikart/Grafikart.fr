@@ -13,7 +13,7 @@ class NotSameContent extends Constraint
 {
     public string $message = "La révision doit posséder au moins une modification par rapport à l'article original";
 
-    public function getTargets()
+    public function getTargets(): string
     {
         return Constraint::CLASS_CONSTRAINT;
     }

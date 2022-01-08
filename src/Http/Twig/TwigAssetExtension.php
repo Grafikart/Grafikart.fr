@@ -13,23 +13,17 @@ use Twig\TwigFunction;
  */
 class TwigAssetExtension extends AbstractExtension
 {
-    private string $assetPath;
-    private CacheItemPoolInterface $cache;
-    const CACHE_KEY = 'asset_time';
-    private RequestStack $requestStack;
-    private bool $isProduction;
+    public final const CACHE_KEY = 'asset_time';
+    private readonly bool $isProduction;
     private ?array $paths = null;
     private bool $polyfillLoaded = false;
 
     public function __construct(
-        string $assetPath,
+        private readonly string $assetPath,
         string $env,
-        CacheItemPoolInterface $cache,
-        RequestStack $requestStack
+        private readonly CacheItemPoolInterface $cache,
+        private readonly RequestStack $requestStack
     ) {
-        $this->assetPath = $assetPath;
-        $this->cache = $cache;
-        $this->requestStack = $requestStack;
         $this->isProduction = 'prod' === $env;
     }
 
@@ -51,7 +45,7 @@ class TwigAssetExtension extends AbstractExtension
             if (!$cached->isHit()) {
                 $manifest = $this->assetPath.'/manifest.json';
                 if (file_exists($manifest)) {
-                    $paths = json_decode((string) file_get_contents($manifest), true);
+                    $paths = json_decode((string) file_get_contents($manifest), true, 512, JSON_THROW_ON_ERROR);
                     $this->cache->save($cached->set($paths));
                     $this->paths = $paths;
                 } else {

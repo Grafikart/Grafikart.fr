@@ -101,7 +101,7 @@ services:
 
   App\Command\DumpCommand:
     arguments:
-      $projectPath: '%kernel.project_dir%/var'
+      $dumpPath: '%kernel.project_dir%/var'
       $filesystem: '@dropbox_filesystem'
 
   App\Infrastructure\Storage\DropboxFilesystemFactory:

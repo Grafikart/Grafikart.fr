@@ -11,11 +11,8 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class CommentSubscriber implements EventSubscriberInterface
 {
-    private NotificationService $notificationService;
-
-    public function __construct(NotificationService $notificationService)
+    public function __construct(private readonly NotificationService $notificationService)
     {
-        $this->notificationService = $notificationService;
     }
 
     public static function getSubscribedEvents(): array

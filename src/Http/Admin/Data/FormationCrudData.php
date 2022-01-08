@@ -19,8 +19,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class FormationCrudData implements CrudDataInterface
 {
-    private Formation $formation;
-
     private ?EntityManagerInterface $em = null;
 
     /**
@@ -67,9 +65,8 @@ class FormationCrudData implements CrudDataInterface
      */
     public array $chapters;
 
-    public function __construct(Formation $formation)
+    public function __construct(private readonly Formation $formation)
     {
-        $this->formation = $formation;
         $this->title = $formation->getTitle();
         $this->slug = $formation->getSlug();
         $this->author = $formation->getAuthor();

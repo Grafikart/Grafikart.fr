@@ -8,17 +8,14 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class AdminVoter extends Voter
 {
-    private string $appEnv;
-
-    public function __construct(string $appEnv)
+    public function __construct(private readonly string $appEnv)
     {
-        $this->appEnv = $appEnv;
     }
 
     /**
      * {@inheritdoc}
      */
-    protected function supports(string $attribute, $subject)
+    protected function supports(string $attribute, $subject): bool
     {
         return true;
     }
@@ -26,7 +23,7 @@ class AdminVoter extends Voter
     /**
      * {@inheritdoc}
      */
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token)
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
 

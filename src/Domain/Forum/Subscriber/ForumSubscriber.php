@@ -12,24 +12,15 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ForumSubscriber implements EventSubscriberInterface
 {
-    private MessageRepository $messageRepository;
-    private TopicRepository $topicRepository;
-    private EntityManagerInterface $em;
-    private TopicService $topicService;
-
     public function __construct(
-        TopicRepository $topicRepository,
-        MessageRepository $messageRepository,
-        EntityManagerInterface $em,
-        TopicService $topicService
+        private readonly TopicRepository $topicRepository,
+        private readonly MessageRepository $messageRepository,
+        private readonly EntityManagerInterface $em,
+        private readonly TopicService $topicService
     ) {
-        $this->messageRepository = $messageRepository;
-        $this->topicRepository = $topicRepository;
-        $this->em = $em;
-        $this->topicService = $topicService;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             UserBannedEvent::class => 'cleanUserContent',

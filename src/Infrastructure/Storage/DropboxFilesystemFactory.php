@@ -8,11 +8,8 @@ use Spatie\FlysystemDropbox\DropboxAdapter;
 
 class DropboxFilesystemFactory
 {
-    private string $accessToken;
-
-    public function __construct(string $accessToken)
+    public function __construct(private readonly string $accessToken)
     {
-        $this->accessToken = $accessToken;
     }
 
     public function createFilesystem(): Filesystem

@@ -8,11 +8,8 @@ use App\Normalizer\Normalizer;
 
 class ForumTagNormalizer extends Normalizer
 {
-    private UrlGeneratorInterface $urlGenerator;
-
-    public function __construct(UrlGeneratorInterface $urlGenerator)
+    public function __construct(private readonly UrlGeneratorInterface $urlGenerator)
     {
-        $this->urlGenerator = $urlGenerator;
     }
 
     public function normalize($object, string $format = null, array $context = []): array
@@ -23,9 +20,7 @@ class ForumTagNormalizer extends Normalizer
                 'position' => $object->getPosition(),
                 'name' => $object->getName(),
                 'url' => $this->urlGenerator->generate('admin_forum-tag_edit', ['id' => $object->getId()]),
-                'children' => $object->getChildren()->map(function (Tag $tag) {
-                    return $this->normalize($tag);
-                })->toArray(),
+                'children' => $object->getChildren()->map(fn(Tag $tag) => $this->normalize($tag))->toArray(),
             ];
         }
         throw new \RuntimeException("Can't normalize path");

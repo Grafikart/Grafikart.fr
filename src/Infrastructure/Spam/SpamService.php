@@ -8,16 +8,11 @@ use Doctrine\ORM\EntityRepository;
 
 class SpamService
 {
-    private iterable $entities;
-
-    private EntityManagerInterface $em;
-    private OptionManagerInterface $optionManager;
-
-    public function __construct(iterable $entities, EntityManagerInterface $em, OptionManagerInterface $optionManager)
-    {
-        $this->entities = $entities;
-        $this->em = $em;
-        $this->optionManager = $optionManager;
+    public function __construct(
+        private readonly iterable $entities,
+        private readonly EntityManagerInterface $em,
+        private readonly OptionManagerInterface $optionManager
+    ) {
     }
 
     public function count(): int

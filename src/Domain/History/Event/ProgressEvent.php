@@ -7,15 +7,8 @@ use App\Domain\Auth\User;
 
 class ProgressEvent
 {
-    private Content $content;
-    private float $progress;
-    private User $user;
-
-    public function __construct(Content $content, User $user, float $progress)
+    public function __construct(private readonly Content $content, private readonly User $user, private readonly float $progress)
     {
-        $this->content = $content;
-        $this->progress = $progress;
-        $this->user = $user;
     }
 
     public function getContent(): Content

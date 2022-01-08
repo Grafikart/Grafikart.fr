@@ -10,13 +10,10 @@ use Twig\TwigFunction;
  */
 class PaymentTwigExtension extends AbstractExtension
 {
-    private string $stripePublicKey;
-    private string $paypalClientId;
-
-    public function __construct(string $stripePublicKey = '', string $paypalClientId = '')
-    {
-        $this->stripePublicKey = $stripePublicKey;
-        $this->paypalClientId = $paypalClientId;
+    public function __construct(
+        private readonly string $stripePublicKey = '',
+        private readonly string $paypalClientId = ''
+    ) {
     }
 
     public function getFunctions(): array

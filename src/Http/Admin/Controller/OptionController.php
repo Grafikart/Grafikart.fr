@@ -12,12 +12,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class OptionController extends BaseController
 {
-    public const MANAGEABLE_KEYS = ['spam_words', LiveService::OPTION_KEY];
-    private OptionManagerInterface $optionManager;
+    public final const MANAGEABLE_KEYS = ['spam_words', LiveService::OPTION_KEY];
 
-    public function __construct(OptionManagerInterface $optionManager)
+    public function __construct(private readonly OptionManagerInterface $optionManager)
     {
-        $this->optionManager = $optionManager;
     }
 
     /**
@@ -36,7 +34,7 @@ class OptionController extends BaseController
      */
     public function update(Request $request): JsonResponse
     {
-        $data = json_decode($request->getContent(), true);
+        $data = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
         $key = $data['key'] ?? null;
         $value = $data['value'] ?? null;
         if (!in_array($key, self::MANAGEABLE_KEYS)) {

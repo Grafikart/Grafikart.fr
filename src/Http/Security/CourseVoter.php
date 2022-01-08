@@ -8,13 +8,13 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class CourseVoter extends Voter
 {
-    const DOWNLOAD_SOURCE = 'DOWNLOAD_SOURCE';
-    const DOWNLOAD_VIDEO = 'DOWNLOAD_VIDEO';
+    public final const DOWNLOAD_SOURCE = 'DOWNLOAD_SOURCE';
+    public final const DOWNLOAD_VIDEO = 'DOWNLOAD_VIDEO';
 
     /**
      * {@inheritdoc}
      */
-    protected function supports(string $attribute, $subject)
+    protected function supports(string $attribute, $subject): bool
     {
         return in_array($attribute, [
             self::DOWNLOAD_SOURCE,
@@ -25,7 +25,7 @@ class CourseVoter extends Voter
     /**
      * {@inheritdoc}
      */
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token)
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
 

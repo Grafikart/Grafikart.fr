@@ -13,19 +13,16 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
  */
 class StripeEventValueResolver implements ArgumentValueResolverInterface
 {
-    private string $webhookSecret;
-
-    public function __construct(string $webhookSecret)
+    public function __construct(private readonly string $webhookSecret)
     {
-        $this->webhookSecret = $webhookSecret;
     }
 
-    public function supports(Request $request, ArgumentMetadata $argument)
+    public function supports(Request $request, ArgumentMetadata $argument): bool
     {
         return Event::class === $argument->getType();
     }
 
-    public function resolve(Request $request, ArgumentMetadata $argument)
+    public function resolve(Request $request, ArgumentMetadata $argument): \Generator
     {
         yield Webhook::constructEvent(
             $request->getContent(false),

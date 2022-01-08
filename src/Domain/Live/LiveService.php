@@ -7,17 +7,11 @@ use Psr\Cache\CacheItemPoolInterface;
 
 class LiveService
 {
-    const OPTION_KEY = 'live_at';
-    private CacheItemPoolInterface $cache;
-    private OptionManagerInterface $optionManager;
+    public final const OPTION_KEY = 'live_at';
     private ?\DateTimeImmutable $nextLiveDate = null;
 
-    public function __construct(
-        CacheItemPoolInterface $cache,
-        OptionManagerInterface $optionManager
-    ) {
-        $this->cache = $cache;
-        $this->optionManager = $optionManager;
+    public function __construct(private readonly CacheItemPoolInterface $cache, private readonly OptionManagerInterface $optionManager)
+    {
     }
 
     public function isLiveRunning(): bool

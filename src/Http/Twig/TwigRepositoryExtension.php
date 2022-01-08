@@ -8,11 +8,8 @@ use Twig\TwigFunction;
 
 class TwigRepositoryExtension extends AbstractExtension
 {
-    private EntityManagerInterface $em;
-
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(private readonly EntityManagerInterface $em)
     {
-        $this->em = $em;
     }
 
     public function getFunctions(): array
@@ -23,7 +20,7 @@ class TwigRepositoryExtension extends AbstractExtension
     }
 
     /**
-     * @param class-string<mixed> $repositoryClass
+     * @param class-string<object> $repositoryClass
      *
      * @return mixed
      */

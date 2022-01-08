@@ -16,18 +16,8 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class AttachmentType extends TextType implements DataTransformerInterface
 {
-    private EntityManagerInterface $em;
-    private UploaderHelper $uploaderHelper;
-    private string $adminPrefix;
-
-    public function __construct(
-        EntityManagerInterface $em,
-        UploaderHelper $uploaderHelper,
-        string $adminPrefix
-    ) {
-        $this->em = $em;
-        $this->uploaderHelper = $uploaderHelper;
-        $this->adminPrefix = $adminPrefix;
+    public function __construct(private readonly EntityManagerInterface $em, private readonly UploaderHelper $uploaderHelper, private readonly string $adminPrefix)
+    {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

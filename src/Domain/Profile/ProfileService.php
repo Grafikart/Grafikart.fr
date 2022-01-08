@@ -15,22 +15,12 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ProfileService
 {
-    private TokenGeneratorService $tokenGeneratorService;
-    private EmailVerificationRepository $emailVerificationRepository;
-    private EventDispatcherInterface $dispatcher;
-
-    private EntityManagerInterface $em;
-
     public function __construct(
-        TokenGeneratorService $tokenGeneratorService,
-        EmailVerificationRepository $emailVerificationRepository,
-        EventDispatcherInterface $dispatcher,
-        EntityManagerInterface $em
+        private readonly TokenGeneratorService $tokenGeneratorService,
+        private readonly EmailVerificationRepository $emailVerificationRepository,
+        private readonly EventDispatcherInterface $dispatcher,
+        private readonly EntityManagerInterface $em
     ) {
-        $this->tokenGeneratorService = $tokenGeneratorService;
-        $this->emailVerificationRepository = $emailVerificationRepository;
-        $this->dispatcher = $dispatcher;
-        $this->em = $em;
     }
 
     public function updateAvatar(AvatarDto $data): void

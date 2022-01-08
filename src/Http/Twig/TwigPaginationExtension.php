@@ -10,11 +10,8 @@ use Twig\TwigFunction;
 
 class TwigPaginationExtension extends AbstractExtension
 {
-    private Processor $processor;
-
-    public function __construct(Processor $processor)
+    public function __construct(private readonly Processor $processor)
     {
-        $this->processor = $processor;
     }
 
     public function getFunctions(): array

@@ -25,9 +25,7 @@ class LoginAttemptServiceTest extends TestCase
         $user = new User();
 
         $em->expects($this->once())->method('persist')->with(
-            $this->callback(function (LoginAttempt $attempt) use ($user) {
-                return $attempt->getUser() === $user;
-            })
+            $this->callback(fn (LoginAttempt $attempt) => $attempt->getUser() === $user)
         );
         $em->expects($this->once())->method('flush');
 

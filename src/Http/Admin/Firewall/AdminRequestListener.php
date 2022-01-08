@@ -14,10 +14,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  */
 class AdminRequestListener implements EventSubscriberInterface
 {
-    private AuthorizationCheckerInterface $auth;
-    private string $adminPrefix;
-
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             ControllerEvent::class => 'onController',
@@ -25,15 +22,13 @@ class AdminRequestListener implements EventSubscriberInterface
         ];
     }
 
-    public function __construct(string $adminPrefix, AuthorizationCheckerInterface $auth)
+    public function __construct(private readonly string $adminPrefix, private readonly AuthorizationCheckerInterface $auth)
     {
-        $this->auth = $auth;
-        $this->adminPrefix = $adminPrefix;
     }
 
     public function onRequest(RequestEvent $event): void
     {
-        if (!$event->isMasterRequest()) {
+        if (!$event->isMainRequest()) {
             return;
         }
         $uri = '/'.trim($event->getRequest()->getRequestUri(), '/').'/';
@@ -55,7 +50,7 @@ class AdminRequestListener implements EventSubscriberInterface
      */
     public function onController(ControllerEvent $event): void
     {
-        if (false === $event->isMasterRequest()) {
+        if (false === $event->isMainRequest()) {
             return;
         }
         $controller = $event->getController();

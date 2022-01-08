@@ -36,7 +36,6 @@ class TwigTimeExtension extends AbstractExtension
     {
         $minutes = floor($duration / 60);
         $seconds = $duration - $minutes * 60;
-        /** @var int[] $times */
         $times = [$minutes, $seconds];
         if ($minutes >= 60) {
             $hours = floor($minutes / 60);
@@ -45,7 +44,7 @@ class TwigTimeExtension extends AbstractExtension
         }
 
         return implode(':', array_map(
-            fn (int $duration) => str_pad(strval($duration), 2, '0', STR_PAD_LEFT),
+            fn (int|float $duration) => str_pad(strval($duration), 2, '0', STR_PAD_LEFT),
             $times
         ));
     }

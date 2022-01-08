@@ -2,25 +2,14 @@
 
 namespace App\Http\Twig;
 
-use App\Normalizer\Breadcrumb\BreadcrumbGeneratorInterface;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 class TwigBreadcrumbExtension extends AbstractExtension
 {
-    private UrlGeneratorInterface $urlGenerator;
-
-    /**
-     * @var BreadcrumbGeneratorInterface[]
-     */
-    private iterable $breadcrumbsGenerator;
-
-    public function __construct(iterable $breadcrumbsGenerator, UrlGeneratorInterface $urlGenerator)
+    public function __construct(private readonly iterable $breadcrumbsGenerator)
     {
-        $this->urlGenerator = $urlGenerator;
-        $this->breadcrumbsGenerator = $breadcrumbsGenerator;
     }
 
     public function getFunctions(): array

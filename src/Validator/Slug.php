@@ -16,7 +16,7 @@ class Slug extends Regex
         parent::__construct($options);
     }
 
-    public function validatedBy()
+    public function validatedBy(): string
     {
         return RegexValidator::class;
     }

@@ -31,7 +31,7 @@ class AdminRequestListenerTest extends KernelTestCase
             ->disableOriginalConstructor()
             ->getMock();
         $event->expects($this->any())
-            ->method('isMasterRequest')
+            ->method('isMainRequest')
             ->willReturn(true);
         $request = $this->getMockBuilder(Request::class)
             ->disableOriginalConstructor()

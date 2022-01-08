@@ -10,11 +10,8 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class LiveOptionSubscriber implements EventSubscriberInterface
 {
-    private CacheItemPoolInterface $cache;
-
-    public function __construct(CacheItemPoolInterface $cache)
+    public function __construct(private readonly CacheItemPoolInterface $cache)
     {
-        $this->cache = $cache;
     }
 
     public static function getSubscribedEvents(): array

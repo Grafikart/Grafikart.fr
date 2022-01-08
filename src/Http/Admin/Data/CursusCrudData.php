@@ -19,8 +19,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class CursusCrudData implements CrudDataInterface
 {
-    private Cursus $cursus;
-
     private ?EntityManagerInterface $em = null;
 
     /**
@@ -61,9 +59,8 @@ class CursusCrudData implements CrudDataInterface
 
     public ?CursusCategory $category;
 
-    public function __construct(Cursus $cursus)
+    public function __construct(private readonly Cursus $cursus)
     {
-        $this->cursus = $cursus;
         $this->title = $cursus->getTitle();
         $this->slug = $cursus->getSlug();
         $this->author = $cursus->getAuthor();

@@ -13,18 +13,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ProgressionSubscriber implements EventSubscriberInterface
 {
-    private EntityManagerInterface $em;
-    private EventDispatcherInterface $dispatcher;
-
-    public function __construct(
-        EntityManagerInterface $em,
-        EventDispatcherInterface $dispatcher
-    ) {
-        $this->em = $em;
-        $this->dispatcher = $dispatcher;
+    public function __construct(private readonly EntityManagerInterface $em, private readonly EventDispatcherInterface $dispatcher)
+    {
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             ProgressEvent::class => 'onProgress',

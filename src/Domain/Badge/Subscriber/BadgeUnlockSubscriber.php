@@ -19,13 +19,8 @@ use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 class BadgeUnlockSubscriber implements EventSubscriberInterface
 {
-    private BadgeService $service;
-    private EntityManagerInterface $em;
-
-    public function __construct(BadgeService $service, EntityManagerInterface $em)
+    public function __construct(private readonly BadgeService $service, private readonly EntityManagerInterface $em)
     {
-        $this->service = $service;
-        $this->em = $em;
     }
 
     public static function getSubscribedEvents(): array

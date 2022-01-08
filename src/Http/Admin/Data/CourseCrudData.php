@@ -50,8 +50,6 @@ class CourseCrudData implements CrudDataInterface
 
     public ?string $content = null;
 
-    private Course $entity;
-
     public ?int $duration = 0;
 
     public int $level = MEDIUM;
@@ -77,29 +75,28 @@ class CourseCrudData implements CrudDataInterface
 
     private EntityManagerInterface $em;
 
-    public function __construct(Course $course)
+    public function __construct(private readonly Course $entity)
     {
-        $this->entity = $course;
-        $this->title = $course->getTitle();
-        $this->slug = $course->getSlug();
-        $this->author = $course->getAuthor();
-        $this->createdAt = $course->getCreatedAt();
-        $this->videoPath = $course->getVideoPath();
-        $this->image = $course->getImage();
-        $this->demo = $course->getDemo();
-        $this->online = $course->isOnline();
-        $this->premium = $course->getPremium();
-        $this->content = $course->getContent();
-        $this->youtube = $course->getYoutubeId();
-        $this->duration = $course->getDuration();
-        $this->source = !empty($course->getSource());
-        $this->mainTechnologies = $course->getMainTechnologies();
-        $this->secondaryTechnologies = $course->getSecondaryTechnologies();
-        $this->youtubeThumbnail = $course->getYoutubeThumbnail();
-        $this->duration = $course->getDuration();
-        $deprecatedBy = $course->getDeprecatedBy();
+        $this->title = $entity->getTitle();
+        $this->slug = $entity->getSlug();
+        $this->author = $entity->getAuthor();
+        $this->createdAt = $entity->getCreatedAt();
+        $this->videoPath = $entity->getVideoPath();
+        $this->image = $entity->getImage();
+        $this->demo = $entity->getDemo();
+        $this->online = $entity->isOnline();
+        $this->premium = $entity->getPremium();
+        $this->content = $entity->getContent();
+        $this->youtube = $entity->getYoutubeId();
+        $this->duration = $entity->getDuration();
+        $this->source = !empty($entity->getSource());
+        $this->mainTechnologies = $entity->getMainTechnologies();
+        $this->secondaryTechnologies = $entity->getSecondaryTechnologies();
+        $this->youtubeThumbnail = $entity->getYoutubeThumbnail();
+        $this->duration = $entity->getDuration();
+        $deprecatedBy = $entity->getDeprecatedBy();
         $this->deprecatedBy = $deprecatedBy ? $deprecatedBy->getId() : null;
-        $this->level = $course->getLevel();
+        $this->level = $entity->getLevel();
     }
 
     public function hydrate(): void

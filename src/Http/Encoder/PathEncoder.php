@@ -18,13 +18,10 @@ use Symfony\Component\Serializer\Encoder\EncoderInterface;
  */
 class PathEncoder implements EncoderInterface
 {
-    const FORMAT = 'path';
+    public final const FORMAT = 'path';
 
-    private UrlGeneratorInterface $urlGenerator;
-
-    public function __construct(UrlGeneratorInterface $urlGenerator)
+    public function __construct(private readonly UrlGeneratorInterface $urlGenerator)
     {
-        $this->urlGenerator = $urlGenerator;
     }
 
     /**

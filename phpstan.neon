@@ -9,7 +9,7 @@ parameters:
   level: 8
   paths:
     - src
-  excludes_analyse:
+  excludePaths:
     - src/Infrastructure/Migrations/*
   checkMissingIterableValueType: false
   checkGenericClassInNonGenericObjectType: false

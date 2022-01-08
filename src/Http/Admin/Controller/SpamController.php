@@ -17,18 +17,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SpamController extends BaseController
 {
-    public const TYPES = [
+    public final const TYPES = [
         'topic' => Topic::class,
         'message' => Message::class,
     ];
 
-    private EntityManagerInterface $em;
-    private EventDispatcherInterface $dispatcher;
-
-    public function __construct(EntityManagerInterface $em, EventDispatcherInterface $dispatcher)
+    public function __construct(private readonly EntityManagerInterface $em, private readonly EventDispatcherInterface $dispatcher)
     {
-        $this->em = $em;
-        $this->dispatcher = $dispatcher;
     }
 
     /**

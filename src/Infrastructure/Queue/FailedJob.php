@@ -9,13 +9,10 @@ use Symfony\Component\Messenger\Stamp\RedeliveryStamp;
 
 class FailedJob
 {
-    private Envelope $envelope;
-    private string $id;
+    private readonly string $id;
 
-    public function __construct(Envelope $envelope)
+    public function __construct(private readonly Envelope $envelope)
     {
-        $this->envelope = $envelope;
-
         // On obtient l'ID depuis le stamp doctrine
         /** @var ?DoctrineReceivedStamp $stamp */
         $stamp = $envelope->last(DoctrineReceivedStamp::class);
@@ -41,7 +38,7 @@ class FailedJob
 
     public function getMessageClass(): string
     {
-        return get_class($this->getMessage());
+        return $this->getMessage()::class;
     }
 
     public function getErrorMessage(): string

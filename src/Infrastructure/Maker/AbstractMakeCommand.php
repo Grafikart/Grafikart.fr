@@ -11,14 +11,9 @@ use Twig\Environment;
 
 abstract class AbstractMakeCommand extends Command
 {
-    private Environment $twig;
-    protected string $projectDir;
-
-    public function __construct(string $name = null, Environment $twig, string $projectDir)
+    public function __construct(private readonly Environment $twig, protected string $projectDir)
     {
-        parent::__construct($name);
-        $this->twig = $twig;
-        $this->projectDir = $projectDir;
+        parent::__construct();
     }
 
     protected function createFile(string $template, array $params, string $output): void

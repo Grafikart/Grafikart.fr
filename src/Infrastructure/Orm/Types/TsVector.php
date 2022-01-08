@@ -10,42 +10,40 @@ use Doctrine\DBAL\Types\Type;
  */
 class TsVector extends Type
 {
-    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
+    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string
     {
         return 'tsvector';
     }
 
-    public function canRequireSQLConversion()
+    public function canRequireSQLConversion(): bool
     {
         return false;
     }
 
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    public function convertToPHPValue($value, AbstractPlatform $platform): mixed
     {
         return $value;
     }
 
-    public function convertToDatabaseValueSQL($sqlExp, AbstractPlatform $platform)
+    public function convertToDatabaseValueSQL($sqlExp, AbstractPlatform $platform): string
     {
         return sprintf("to_tsvector('french', %s)", $sqlExp);
     }
 
-    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): mixed
     {
         return $value['data'];
     }
 
     /**
      * Gets the name of this type.
-     *
-     * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return 'tsvector';
     }
 
-    public function getMappedDatabaseTypes(AbstractPlatform $platform)
+    public function getMappedDatabaseTypes(AbstractPlatform $platform): array
     {
         return ['tsvector'];
     }

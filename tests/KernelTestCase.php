@@ -13,12 +13,12 @@ class KernelTestCase extends \Symfony\Bundle\FrameworkBundle\Test\KernelTestCase
     public function setUp(): void
     {
         self::bootKernel();
-        $this->em = self::$container->get(EntityManagerInterface::class);
+        $this->em = self::getContainer()->get(EntityManagerInterface::class);
         parent::setUp();
     }
 
     public function remove(object $entity): void
     {
-        $this->em->remove($this->em->getRepository(get_class($entity))->find($entity->getId()));
+        $this->em->remove($this->em->getRepository($entity::class)->find($entity->getId()));
     }
 }

@@ -29,11 +29,9 @@ abstract class AbstractRepository extends ServiceEntityRepository
     /**
      * Trouve une entité par sa clef primaire et renvoie une exception en cas d'absence.
      *
-     * @param string|int $id
-     *
      * @return E
      */
-    public function findOrFail($id): object
+    public function findOrFail(int|string $id): object
     {
         $entity = $this->find($id, null, null);
         if (null === $entity) {

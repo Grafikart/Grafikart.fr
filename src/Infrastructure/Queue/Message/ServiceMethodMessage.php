@@ -4,15 +4,11 @@ namespace App\Infrastructure\Queue\Message;
 
 class ServiceMethodMessage
 {
-    private string $serviceName;
-    private string $method;
-    private array $params;
-
-    public function __construct(string $serviceName, string $method, array $params = [])
-    {
-        $this->serviceName = $serviceName;
-        $this->method = $method;
-        $this->params = $params;
+    public function __construct(
+        private readonly string $serviceName,
+        private readonly string $method,
+        private readonly array $params = []
+    ) {
     }
 
     public function getServiceName(): string

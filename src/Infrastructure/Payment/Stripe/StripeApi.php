@@ -16,14 +16,14 @@ use Stripe\Subscription;
 
 class StripeApi
 {
-    private StripeClient $stripe;
+    private readonly StripeClient $stripe;
     private array $taxes = [];
 
     public function __construct(string $privateKey)
     {
         Stripe::setApiVersion('2020-08-27');
         $this->taxes = ['txr_1HfQaHFCMNgisvowjXXZAA7z'];
-        if (false !== strpos($privateKey, 'live')) {
+        if (str_contains($privateKey, 'live')) {
             $this->taxes = ['txr_1I7c7DFCMNgisvowdAol5zkl'];
         }
         $this->stripe = new StripeClient($privateKey);

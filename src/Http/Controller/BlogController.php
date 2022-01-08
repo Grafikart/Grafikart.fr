@@ -17,15 +17,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class BlogController extends AbstractController
 {
-    private PostRepository $postRepository;
-    private CategoryRepository $categoryRepository;
-    private PaginatorInterface $paginator;
-
-    public function __construct(PostRepository $postRepository, CategoryRepository $categoryRepository, PaginatorInterface $paginator)
-    {
-        $this->postRepository = $postRepository;
-        $this->categoryRepository = $categoryRepository;
-        $this->paginator = $paginator;
+    public function __construct(
+        private readonly PostRepository $postRepository,
+        private readonly CategoryRepository $categoryRepository,
+        private readonly PaginatorInterface $paginator
+    ) {
     }
 
     /**

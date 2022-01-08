@@ -11,16 +11,12 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 class KnpPaginator implements PaginatorInterface
 {
-    private \Knp\Component\Pager\PaginatorInterface $paginator;
-    private RequestStack $requestStack;
     private array $sortableFields = [];
 
     public function __construct(
-        \Knp\Component\Pager\PaginatorInterface $paginator,
-        RequestStack $requestStack
+        private readonly \Knp\Component\Pager\PaginatorInterface $paginator,
+        private readonly RequestStack $requestStack
     ) {
-        $this->paginator = $paginator;
-        $this->requestStack = $requestStack;
     }
 
     public function paginate(Query $query): PaginationInterface

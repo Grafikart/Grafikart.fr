@@ -11,7 +11,7 @@ class UserNotFoundException extends AuthenticationException
         parent::__construct('', 0, null);
     }
 
-    public function getMessageKey()
+    public function getMessageKey(): string
     {
         return 'User not found.';
     }

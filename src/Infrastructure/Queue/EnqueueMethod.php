@@ -11,11 +11,8 @@ use Symfony\Component\Messenger\Stamp\DelayStamp;
  */
 class EnqueueMethod
 {
-    private MessageBusInterface $bus;
-
-    public function __construct(MessageBusInterface $bus)
+    public function __construct(private readonly MessageBusInterface $bus)
     {
-        $this->bus = $bus;
     }
 
     public function enqueue(string $service, string $method, array $params = [], \DateTimeInterface $date = null): void

@@ -6,11 +6,8 @@ use App\Domain\Application\Entity\Content;
 
 class ContentDeletedEvent
 {
-    private Content $content;
-
-    public function __construct(Content $content)
+    public function __construct(private readonly Content $content)
     {
-        $this->content = $content;
     }
 
     public function getContent(): Content

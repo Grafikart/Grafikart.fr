@@ -10,12 +10,10 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class PodcastService
 {
-    public const LIMIT_PER_MONTH = 2;
-    private EntityManagerInterface $em;
+    public final const LIMIT_PER_MONTH = 2;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(private readonly EntityManagerInterface $em)
     {
-        $this->em = $em;
     }
 
     public function toggleVote(Podcast $podcast, User $user): PodcastVote

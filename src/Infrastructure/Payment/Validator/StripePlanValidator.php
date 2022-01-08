@@ -9,11 +9,8 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class StripePlanValidator extends ConstraintValidator
 {
-    private StripeApi $api;
-
-    public function __construct(StripeApi $api)
+    public function __construct(private readonly StripeApi $api)
     {
-        $this->api = $api;
     }
 
     public function validate($value, Constraint $constraint): void
@@ -27,7 +24,7 @@ class StripePlanValidator extends ConstraintValidator
 
         try {
             $this->api->getPlan($value);
-        } catch (InvalidRequestException $exception) {
+        } catch (InvalidRequestException) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $value)
                 ->addViolation();

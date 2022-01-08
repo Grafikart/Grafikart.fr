@@ -17,13 +17,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class TechnologiesType extends TextType implements DataTransformerInterface
 {
-    private TechnologyRepository $repository;
-    private UrlGeneratorInterface $urlGenerator;
-
-    public function __construct(TechnologyRepository $repository, UrlGeneratorInterface $urlGenerator)
+    public function __construct(private readonly TechnologyRepository $repository, private readonly UrlGeneratorInterface $urlGenerator)
     {
-        $this->repository = $repository;
-        $this->urlGenerator = $urlGenerator;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -52,9 +47,12 @@ class TechnologiesType extends TextType implements DataTransformerInterface
         parent::configureOptions($resolver);
     }
 
-    public function transform($technologies): ?string
+    /**
+     * @param string|Technology[] $value
+     */
+    public function transform($value): ?string
     {
-        if (!is_array($technologies)) {
+        if (!is_array($value)) {
             return null;
         }
 
@@ -64,7 +62,7 @@ class TechnologiesType extends TextType implements DataTransformerInterface
             }
 
             return $technology->getName();
-        }, $technologies));
+        }, $value));
     }
 
     /**

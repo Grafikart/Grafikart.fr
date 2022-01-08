@@ -10,11 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class PasswordResetTokenParamConverter implements ParamConverterInterface
 {
-    private EntityManagerInterface $em;
-
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(private readonly EntityManagerInterface $em)
     {
-        $this->em = $em;
     }
 
     /**
@@ -33,7 +30,7 @@ class PasswordResetTokenParamConverter implements ParamConverterInterface
     /**
      * {@inheritdoc}
      */
-    public function supports(ParamConverter $configuration)
+    public function supports(ParamConverter $configuration): bool
     {
         return PasswordResetToken::class === $configuration->getClass() && 'token' === $configuration->getName();
     }

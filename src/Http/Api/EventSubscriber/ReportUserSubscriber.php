@@ -13,14 +13,11 @@ use Symfony\Component\Security\Core\Security;
 
 class ReportUserSubscriber implements EventSubscriberInterface
 {
-    private Security $security;
-
-    public function __construct(Security $security)
+    public function __construct(private readonly Security $security)
     {
-        $this->security = $security;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             KernelEvents::REQUEST => ['setUser', EventPriorities::POST_DESERIALIZE],

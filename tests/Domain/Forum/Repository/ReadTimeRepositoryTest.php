@@ -44,7 +44,7 @@ class ReadTimeRepositoryTest extends RepositoryTestCase
             ->setTopic($topic);
         $this->em->persist($lastReadTime);
         $this->em->flush();
-        $newLastReadtime = $this->repository->updateReadTimeForTopic($topic, $user, true);
+        $newLastReadtime = $this->repository->updateReadTimeForTopic($topic, $user);
         $this->assertGreaterThan($oldReadDate->getTimestamp(), $newLastReadtime->getReadAt()->getTimestamp());
     }
 

@@ -6,11 +6,8 @@ use App\Domain\Auth\User;
 
 class UserDeleteRequestEvent
 {
-    private User $user;
-
-    public function __construct(User $user)
+    public function __construct(private readonly User $user)
     {
-        $this->user = $user;
     }
 
     public function getUser(): User

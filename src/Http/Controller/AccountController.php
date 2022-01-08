@@ -11,24 +11,16 @@ use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AccountController extends AbstractController
 {
-    private UserPasswordEncoderInterface $passwordEncoder;
-    private EntityManagerInterface $em;
-
-    private ProfileService $profileService;
-
     public function __construct(
-        UserPasswordEncoderInterface $passwordEncoder,
-        EntityManagerInterface $em,
-        ProfileService $profileService
+        private readonly UserPasswordHasherInterface $hasher,
+        private readonly EntityManagerInterface $em,
+        private readonly ProfileService $profileService
     ) {
-        $this->passwordEncoder = $passwordEncoder;
-        $this->em = $em;
-        $this->profileService = $profileService;
     }
 
     /**
@@ -53,9 +45,9 @@ class AccountController extends AbstractController
 
         return $this->render('account/edit.html.twig', [
             'form_password' => $formPassword->createView(),
-            'form_update' => $formUpdate->createView(),
-            'user' => $user,
-            'menu' => 'account',
+            'form_update'   => $formUpdate->createView(),
+            'user'          => $user,
+            'menu'          => 'account',
         ]);
     }
 
@@ -74,7 +66,7 @@ class AccountController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $user->setPassword($this->passwordEncoder->encodePassword($user, $data['password']));
+            $user->setPassword($this->hasher->hashPassword($user, $data['password']));
             $this->em->flush();
             $this->addFlash('success', 'Votre mot de passe a bien été mis à jour');
 
@@ -111,7 +103,7 @@ class AccountController extends AbstractController
 
                 return [$form, $this->redirectToRoute('user_edit')];
             }
-        } catch (TooManyEmailChangeException $e) {
+        } catch (TooManyEmailChangeException) {
             $this->addFlash('error', "Vous avez déjà un changement d'email en cours.");
         }
 

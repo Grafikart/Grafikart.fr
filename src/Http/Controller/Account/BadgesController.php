@@ -10,11 +10,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class BadgesController extends AbstractController
 {
-    private BadgeService $badgeService;
-
-    public function __construct(BadgeService $badgeService)
+    public function __construct(private readonly BadgeService $badgeService)
     {
-        $this->badgeService = $badgeService;
     }
 
     /**

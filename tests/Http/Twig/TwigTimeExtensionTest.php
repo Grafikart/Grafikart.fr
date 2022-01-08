@@ -34,7 +34,7 @@ class TwigTimeExtensionTest extends TestCase
 
     public function dataTestAgo()
     {
-        return [[1231323232], [598498490], [779798765406]];
+        return [[1_231_323_232], [598_498_490], [779_798_765_406]];
     }
 
     /**

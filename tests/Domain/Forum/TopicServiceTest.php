@@ -30,7 +30,7 @@ class TopicServiceTest extends KernelTestCase
         $this->topic2 = $data['topic2'];
         $this->user = $data['user1'];
         $this->user2 = $data['user2'];
-        $this->service = self::$container->get(TopicService::class);
+        $this->service = self::getContainer()->get(TopicService::class);
     }
 
     public function testGetReadTopicsIds(): void

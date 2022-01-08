@@ -34,21 +34,13 @@ abstract class CrudController extends BaseController
         'delete' => null,
         'create' => null,
     ];
-    protected EntityManagerInterface $em;
-    protected PaginatorInterface $paginator;
-    private EventDispatcherInterface $dispatcher;
-    private RequestStack $requestStack;
 
     public function __construct(
-        EntityManagerInterface $em,
-        PaginatorInterface $paginator,
-        EventDispatcherInterface $dispatcher,
-        RequestStack $requestStack
+        protected EntityManagerInterface $em,
+        protected PaginatorInterface $paginator,
+        private readonly EventDispatcherInterface $dispatcher,
+        private readonly RequestStack $requestStack
     ) {
-        $this->em = $em;
-        $this->paginator = $paginator;
-        $this->dispatcher = $dispatcher;
-        $this->requestStack = $requestStack;
     }
 
     public function crudIndex(QueryBuilder $query = null): Response
@@ -141,7 +133,7 @@ abstract class CrudController extends BaseController
     public function getRepository(): EntityRepository
     {
         /** @var EntityRepository $repository */
-        $repository = $this->em->getRepository($this->entity);
+        $repository = $this->em->getRepository($this->entity); /* @phpstan-ignore-line */
 
         return $repository;
     }

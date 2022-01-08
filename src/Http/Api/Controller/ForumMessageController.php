@@ -35,7 +35,7 @@ class ForumMessageController extends AbstractController
         EventDispatcherInterface $dispatcher
     ): JsonResponse {
         $this->denyAccessUnlessGranted(ForumVoter::CREATE_MESSAGE, $topic);
-        $data = json_decode((string) $request->getContent(), true);
+        $data = json_decode((string) $request->getContent(), true, 512, JSON_THROW_ON_ERROR);
         $message = (new Message())
             ->setCreatedAt(new \DateTime())
             ->setUpdatedAt(new \DateTime())

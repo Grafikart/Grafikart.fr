@@ -24,13 +24,13 @@ class ContactController extends AbstractController
         ContactService $contactService,
         Request $request
     ): JsonResponse {
-        $data = json_decode((string) $request->getContent(), true);
+        $data = json_decode((string) $request->getContent(), true, 512, JSON_THROW_ON_ERROR);
         /** @var ContactData $contactData */
         $contactData = $denormalizer->denormalize($data, ContactData::class);
         $validator->validate($contactData);
         try {
             $contactService->send($contactData, $request);
-        } catch (TooManyContactException $exception) {
+        } catch (TooManyContactException) {
             return new JsonResponse([
                 'title' => 'Vous avez fait trop de demandes de contact consécutives.',
             ], Response::HTTP_UNAUTHORIZED);

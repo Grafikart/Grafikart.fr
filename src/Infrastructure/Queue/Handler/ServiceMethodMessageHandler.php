@@ -15,11 +15,8 @@ use Symfony\Contracts\Service\ServiceSubscriberInterface;
 
 class ServiceMethodMessageHandler implements MessageHandlerInterface, ServiceSubscriberInterface
 {
-    private ContainerInterface $container;
-
-    public function __construct(ContainerInterface $container)
+    public function __construct(private readonly ContainerInterface $container)
     {
-        $this->container = $container;
     }
 
     public function __invoke(ServiceMethodMessage $message): void
@@ -33,7 +30,7 @@ class ServiceMethodMessageHandler implements MessageHandlerInterface, ServiceSub
         call_user_func_array($callable, $message->getParams());
     }
 
-    public static function getSubscribedServices()
+    public static function getSubscribedServices(): array
     {
         return [
             LiveSyncService::class => LiveSyncService::class,

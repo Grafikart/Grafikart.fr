@@ -10,13 +10,8 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class RevisionSubscriber implements EventSubscriberInterface
 {
-    private EntityManagerInterface $em;
-    private EventDispatcherInterface $dispatcher;
-
-    public function __construct(EntityManagerInterface $em, EventDispatcherInterface $dispatcher)
+    public function __construct(private readonly EntityManagerInterface $em, private readonly EventDispatcherInterface $dispatcher)
     {
-        $this->em = $em;
-        $this->dispatcher = $dispatcher;
     }
 
     public static function getSubscribedEvents(): array

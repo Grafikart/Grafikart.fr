@@ -6,35 +6,30 @@ use App\Infrastructure\Social\Exception\UserAuthenticatedException;
 use App\Infrastructure\Social\Exception\UserOauthNotFoundException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Security\Core\AuthenticationEvents;
-use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
+use Symfony\Component\Security\Http\Event\LoginFailureEvent;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class AuthenticationFailureListener implements EventSubscriberInterface
 {
-    private NormalizerInterface $normalizer;
-    private EntityManagerInterface $em;
-    private SessionInterface $session;
-
-    public function __construct(NormalizerInterface $normalizer, SessionInterface $session, EntityManagerInterface $em)
-    {
-        $this->normalizer = $normalizer;
-        $this->em = $em;
-        $this->session = $session;
+    public function __construct(
+        private readonly NormalizerInterface $normalizer,
+        private readonly RequestStack $requestStack,
+        private readonly EntityManagerInterface $em
+    ) {
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
-            AuthenticationEvents::AUTHENTICATION_FAILURE => 'onAuthenticationFailure',
+            LoginFailureEvent::class => 'onAuthenticationFailure',
         ];
     }
 
-    public function onAuthenticationFailure(AuthenticationFailureEvent $event): void
+    public function onAuthenticationFailure(LoginFailureEvent $event): void
     {
-        $exception = $event->getAuthenticationException();
+        $exception = $event->getException();
         if ($exception instanceof UserOauthNotFoundException) {
             $this->onUserNotFound($exception);
         }
@@ -46,7 +41,7 @@ class AuthenticationFailureListener implements EventSubscriberInterface
     public function onUserNotFound(UserOauthNotFoundException $exception): void
     {
         $data = $this->normalizer->normalize($exception->getResourceOwner());
-        $this->session->set(SocialLoginService::SESSION_KEY, $data);
+        $this->requestStack->getSession()->set(SocialLoginService::SESSION_KEY, $data);
     }
 
     public function onUserAlreadyAuthenticated(UserAuthenticatedException $exception): void
@@ -55,11 +50,12 @@ class AuthenticationFailureListener implements EventSubscriberInterface
         $user = $exception->getUser();
         /** @var array{type: string} $data */
         $data = $this->normalizer->normalize($exception->getResourceOwner());
-        $setter = 'set'.ucfirst($data['type']).'Id';
+        $setter = 'set' . ucfirst($data['type']) . 'Id';
         $user->$setter($resourceOwner->getId());
         $this->em->flush();
-        if ($this->session instanceof Session) {
-            $this->session->getFlashBag()->set('success', 'Votre compte a bien été associé à '.$data['type']);
+        $session = $this->requestStack->getSession();
+        if ($session instanceof Session) {
+            $session->getFlashBag()->set('success', 'Votre compte a bien été associé à ' . $data['type']);
         }
     }
 }

@@ -10,16 +10,11 @@ use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
  */
 class DoctrinePropertyChangeEventListener
 {
-    private array $listeners;
-    private PropertyAccessorInterface $propertyAccessor;
-
     /**
      * @param array<string, mixed> $listeners
      */
-    public function __construct(array $listeners, PropertyAccessorInterface $propertyAccessor)
+    public function __construct(private readonly array $listeners, private readonly PropertyAccessorInterface $propertyAccessor)
     {
-        $this->listeners = $listeners;
-        $this->propertyAccessor = $propertyAccessor;
     }
 
     /**
@@ -29,7 +24,7 @@ class DoctrinePropertyChangeEventListener
      */
     public function prePersist($entity)
     {
-        $listeners = $this->listeners[get_class($entity)] ?? null;
+        $listeners = $this->listeners[$entity::class] ?? null;
         if (null === $listeners) {
             return;
         }
@@ -50,7 +45,7 @@ class DoctrinePropertyChangeEventListener
      */
     public function preUpdate($entity, PreUpdateEventArgs $event)
     {
-        $listeners = $this->listeners[get_class($entity)] ?? null;
+        $listeners = $this->listeners[$entity::class] ?? null;
         if (null === $listeners) {
             return;
         }

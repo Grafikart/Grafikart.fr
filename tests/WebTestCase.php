@@ -17,7 +17,7 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
         parent::setUp();
         $this->client = self::createClient();
         /** @var EntityManagerInterface $em */
-        $em = self::$container->get(EntityManagerInterface::class);
+        $em = self::getContainer()->get(EntityManagerInterface::class);
         $this->em = $em;
         $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
         parent::setUp();
@@ -34,7 +34,7 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
         $this->client->request($method, $url, [], [], [
             'CONTENT_TYPE' => 'application/json',
             'HTTP_ACCEPT' => 'application/json',
-        ], $data ? json_encode($data) : null);
+        ], $data ? json_encode($data, JSON_THROW_ON_ERROR) : null);
 
         return $this->client->getResponse()->getContent();
     }
@@ -106,7 +106,7 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
     public function setCsrf(string $key): string
     {
         $csrf = uniqid();
-        self::$container->get(TokenStorageInterface::class)->setToken($key, $csrf);
+        self::getContainer()->get(TokenStorageInterface::class)->setToken($key, $csrf);
 
         return $csrf;
     }

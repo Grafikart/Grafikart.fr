@@ -35,7 +35,7 @@ class PropertyChangeListenerPass implements CompilerPassInterface
         $entities = [];
         foreach ($resolvers as $id => $tagAttributes) {
             foreach ($tagAttributes as $attributes) {
-                $entities[$attributes['entity']] = $entities[$attributes['entity']] ?? [];
+                $entities[$attributes['entity']] ??= [];
                 $entities[$attributes['entity']][$id] = $attributes;
             }
         }
@@ -48,7 +48,7 @@ class PropertyChangeListenerPass implements CompilerPassInterface
         foreach ($entities as $entity => $listeners) {
             $properties[$entity] = [];
             /**
-             * @var string        $listenerId
+             * @var string                                                  $listenerId
              * @var array{entity: string, method: string, property: string} $listenerAttributes
              */
             foreach ($listeners as $listenerId => $listenerAttributes) {

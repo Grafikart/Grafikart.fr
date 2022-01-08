@@ -6,11 +6,8 @@ use App\Domain\Forum\Entity\Topic;
 
 class TopicCreatedEvent
 {
-    private Topic $topic;
-
-    public function __construct(Topic $topic)
+    public function __construct(private readonly Topic $topic)
     {
-        $this->topic = $topic;
     }
 
     public function getTopic(): Topic

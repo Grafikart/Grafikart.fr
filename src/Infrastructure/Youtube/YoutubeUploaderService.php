@@ -9,19 +9,11 @@ use Google_Service_YouTube;
 
 class YoutubeUploaderService
 {
-    private CourseTransformer $transformer;
-    private \Google_Client $googleClient;
-
-    private EntityManagerInterface $em;
-
     public function __construct(
-        \Google_Client $googleClient,
-        EntityManagerInterface $em,
-        CourseTransformer $transformer
+        private readonly \Google_Client $googleClient,
+        private readonly EntityManagerInterface $em,
+        private readonly CourseTransformer $transformer
     ) {
-        $this->transformer = $transformer;
-        $this->googleClient = $googleClient;
-        $this->em = $em;
     }
 
     public function upload(int $courseId, array $accessToken): string

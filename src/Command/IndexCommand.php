@@ -16,19 +16,13 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class IndexCommand extends Command
 {
     protected static $defaultName = 'app:index';
-    private IndexerInterface $indexer;
-    private NormalizerInterface $normalizer;
-    private EntityManagerInterface $em;
 
     public function __construct(
-        IndexerInterface $indexer,
-        EntityManagerInterface $em,
-        NormalizerInterface $normalizer
+        private readonly IndexerInterface $indexer,
+        private readonly EntityManagerInterface $em,
+        private readonly NormalizerInterface $normalizer
     ) {
         parent::__construct();
-        $this->indexer = $indexer;
-        $this->em = $em;
-        $this->normalizer = $normalizer;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

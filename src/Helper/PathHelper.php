@@ -4,10 +4,7 @@ namespace App\Helper;
 
 class PathHelper
 {
-    /**
-     * @param array<int,string> $parts
-     */
-    public static function join(...$parts): string
+    public static function join(string ...$parts): string
     {
         return preg_replace('~[/\\\\]+~', DIRECTORY_SEPARATOR, implode(DIRECTORY_SEPARATOR, $parts)) ?: '';
     }

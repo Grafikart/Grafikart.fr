@@ -15,13 +15,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class UserChoiceType extends AbstractType implements DataTransformerInterface
 {
-    private EntityManagerInterface $em;
-    private UrlGeneratorInterface $url;
-
-    public function __construct(EntityManagerInterface $em, UrlGeneratorInterface $url)
+    public function __construct(private readonly EntityManagerInterface $em, private readonly UrlGeneratorInterface $url)
     {
-        $this->em = $em;
-        $this->url = $url;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
