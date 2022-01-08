@@ -13,7 +13,7 @@ class DoctrinePropertyChangeEventListener
     /**
      * @param array<string, mixed> $listeners
      */
-    public function __construct(private array $listeners, private PropertyAccessorInterface $propertyAccessor)
+    public function __construct(private readonly array $listeners, private readonly PropertyAccessorInterface $propertyAccessor)
     {
     }
 
@@ -24,7 +24,7 @@ class DoctrinePropertyChangeEventListener
      */
     public function prePersist($entity)
     {
-        $listeners = $this->listeners[get_class($entity)] ?? null;
+        $listeners = $this->listeners[$entity::class] ?? null;
         if (null === $listeners) {
             return;
         }
@@ -45,7 +45,7 @@ class DoctrinePropertyChangeEventListener
      */
     public function preUpdate($entity, PreUpdateEventArgs $event)
     {
-        $listeners = $this->listeners[get_class($entity)] ?? null;
+        $listeners = $this->listeners[$entity::class] ?? null;
         if (null === $listeners) {
             return;
         }

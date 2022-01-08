@@ -6,7 +6,7 @@ use App\Domain\Application\Entity\Content;
 
 class ContentCreatedEvent
 {
-    public function __construct(private Content $content)
+    public function __construct(private readonly Content $content)
     {
     }
 

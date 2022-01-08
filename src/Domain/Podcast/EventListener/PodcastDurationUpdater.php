@@ -8,7 +8,7 @@ use App\Infrastructure\Storage\VideoMetaReader;
 
 class PodcastDurationUpdater
 {
-    public function __construct(private string $podcastsPath, private VideoMetaReader $metaReader)
+    public function __construct(private readonly string $podcastsPath, private readonly VideoMetaReader $metaReader)
     {
     }
 

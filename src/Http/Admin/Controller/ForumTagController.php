@@ -80,7 +80,7 @@ final class ForumTagController extends CrudController
      */
     public function sort(Request $request, TagRepository $tagRepository, EntityManagerInterface $em): Response
     {
-        ['positions' => $positions] = json_decode((string) $request->getContent(), true);
+        ['positions' => $positions] = json_decode((string) $request->getContent(), true, 512, JSON_THROW_ON_ERROR);
         $positionById = array_reduce($positions, function ($acc, $position) {
             $acc[$position['id']] = $position;
 

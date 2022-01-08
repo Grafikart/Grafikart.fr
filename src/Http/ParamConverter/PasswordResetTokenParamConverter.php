@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class PasswordResetTokenParamConverter implements ParamConverterInterface
 {
-    public function __construct(private EntityManagerInterface $em)
+    public function __construct(private readonly EntityManagerInterface $em)
     {
     }
 

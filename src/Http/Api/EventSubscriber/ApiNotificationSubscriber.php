@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class ApiNotificationSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private EventDispatcherInterface $dispatcher)
+    public function __construct(private readonly EventDispatcherInterface $dispatcher)
     {
     }
 

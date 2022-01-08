@@ -18,9 +18,9 @@ use Symfony\Component\Serializer\Encoder\EncoderInterface;
  */
 class PathEncoder implements EncoderInterface
 {
-    public const FORMAT = 'path';
+    public final const FORMAT = 'path';
 
-    public function __construct(private UrlGeneratorInterface $urlGenerator)
+    public function __construct(private readonly UrlGeneratorInterface $urlGenerator)
     {
     }
 

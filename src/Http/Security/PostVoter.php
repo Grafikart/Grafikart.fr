@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class PostVoter extends Voter
 {
-    public const SHOW = 'show';
+    public final const SHOW = 'show';
 
     protected function supports(string $attribute, $subject): bool
     {

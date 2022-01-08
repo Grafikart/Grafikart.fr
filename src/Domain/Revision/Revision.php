@@ -14,9 +14,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Revision
 {
-    public const PENDING = 0;
-    public const ACCEPTED = 1;
-    public const REJECTED = -1;
+    public final const PENDING = 0;
+    public final const ACCEPTED = 1;
+    public final const REJECTED = -1;
 
     /**
      * @ORM\Id()

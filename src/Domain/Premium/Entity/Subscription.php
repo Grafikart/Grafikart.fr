@@ -12,15 +12,15 @@ use Doctrine\ORM\Mapping as ORM;
 class Subscription
 {
     use StripeEntity;
-    public const ACTIVE = 1;
-    public const INACTIVE = 0;
+    public final const ACTIVE = 1;
+    public final const INACTIVE = 0;
 
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
      */
-    private ?int $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="smallint")

@@ -4,7 +4,7 @@ namespace App\Domain\Live;
 
 class LiveCreatedEvent
 {
-    public function __construct(private Live $live)
+    public function __construct(private readonly Live $live)
     {
     }
 

@@ -22,7 +22,7 @@ class AdminRequestListener implements EventSubscriberInterface
         ];
     }
 
-    public function __construct(private string $adminPrefix, private AuthorizationCheckerInterface $auth)
+    public function __construct(private readonly string $adminPrefix, private readonly AuthorizationCheckerInterface $auth)
     {
     }
 

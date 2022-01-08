@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class IntervenantsType extends AbstractType implements DataTransformerInterface
 {
-    public function __construct(private EntityManagerInterface $em, private UrlGeneratorInterface $url)
+    public function __construct(private readonly EntityManagerInterface $em, private readonly UrlGeneratorInterface $url)
     {
     }
 
@@ -32,9 +32,7 @@ class IntervenantsType extends AbstractType implements DataTransformerInterface
         $choices = [];
         $collection = $form->getData();
         if ($collection instanceof Collection) {
-            $choices = $collection->map(function (User $user) {
-                return new ChoiceView($user, (string) $user->getId(), $user->getUsername());
-            })->toArray();
+            $choices = $collection->map(fn(User $user) => new ChoiceView($user, (string) $user->getId(), $user->getUsername()))->toArray();
         }
         $view->vars['choice_translation_domain'] = false;
         $view->vars['expanded'] = false;
@@ -72,9 +70,7 @@ class IntervenantsType extends AbstractType implements DataTransformerInterface
      */
     public function transform($collection): array
     {
-        return $collection->map(function (User $user) {
-            return (string) $user->getId();
-        })->toArray();
+        return $collection->map(fn(User $user) => (string) $user->getId())->toArray();
     }
 
     /**

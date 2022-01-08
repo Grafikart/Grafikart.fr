@@ -11,9 +11,9 @@ use Symfony\Component\Mime\Email;
 class ContactService
 {
     public function __construct(
-        private ContactRequestRepository $repository,
-        private EntityManagerInterface $em,
-        private MailerInterface $mailer
+        private readonly ContactRequestRepository $repository,
+        private readonly EntityManagerInterface $em,
+        private readonly MailerInterface $mailer
     ) {
     }
 

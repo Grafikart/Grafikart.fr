@@ -12,14 +12,14 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class Badge
 {
-    public const REQUEST_UNLOCKABLE = ['gamer', 'lochness'];
+    public final const REQUEST_UNLOCKABLE = ['gamer', 'lochness'];
 
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
      */
-    private ?int $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="integer", options={"default": 0})

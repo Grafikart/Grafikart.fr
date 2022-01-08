@@ -17,9 +17,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class AccountController extends AbstractController
 {
     public function __construct(
-        private UserPasswordHasherInterface $hasher,
-        private EntityManagerInterface $em,
-        private ProfileService $profileService
+        private readonly UserPasswordHasherInterface $hasher,
+        private readonly EntityManagerInterface $em,
+        private readonly ProfileService $profileService
     ) {
     }
 
@@ -103,7 +103,7 @@ class AccountController extends AbstractController
 
                 return [$form, $this->redirectToRoute('user_edit')];
             }
-        } catch (TooManyEmailChangeException $e) {
+        } catch (TooManyEmailChangeException) {
             $this->addFlash('error', "Vous avez déjà un changement d'email en cours.");
         }
 

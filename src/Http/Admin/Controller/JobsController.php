@@ -11,8 +11,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class JobsController extends BaseController
 {
     public function __construct(
-        private FailedJobsService $failedJobsService,
-        private ScheduledJobsService $scheduledJobsService
+        private readonly FailedJobsService $failedJobsService,
+        private readonly ScheduledJobsService $scheduledJobsService
     ) {
     }
 

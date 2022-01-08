@@ -14,9 +14,9 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class PaymentRefundedSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private TransactionRepository $transactionRepository,
-        private EventDispatcherInterface $dispatcher,
-        private EntityManagerInterface $em
+        private readonly TransactionRepository $transactionRepository,
+        private readonly EventDispatcherInterface $dispatcher,
+        private readonly EntityManagerInterface $em
     ) {
     }
 

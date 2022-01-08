@@ -8,7 +8,7 @@ use App\Domain\Badge\Entity\BadgeUnlock;
 
 class BadgeUnlockEvent
 {
-    public function __construct(private BadgeUnlock $unlock)
+    public function __construct(private readonly BadgeUnlock $unlock)
     {
     }
 

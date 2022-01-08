@@ -17,9 +17,9 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 class CommentApiProvider implements CollectionDataProviderInterface, RestrictedDataProviderInterface, ItemDataProviderInterface
 {
     public function __construct(
-        private RequestStack $requestStack,
-        private CommentRepository $commentRepository,
-        private UploaderHelper $uploaderHelper
+        private readonly RequestStack $requestStack,
+        private readonly CommentRepository $commentRepository,
+        private readonly UploaderHelper $uploaderHelper
     ) {
     }
 

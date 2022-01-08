@@ -8,7 +8,7 @@ use App\Infrastructure\Storage\VideoMetaReader;
 
 class CourseDurationUpdater
 {
-    public function __construct(private string $videosPath, private VideoMetaReader $metaReader)
+    public function __construct(private readonly string $videosPath, private readonly VideoMetaReader $metaReader)
     {
     }
 

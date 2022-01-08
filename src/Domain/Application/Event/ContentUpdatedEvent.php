@@ -6,7 +6,7 @@ use App\Domain\Application\Entity\Content;
 
 class ContentUpdatedEvent
 {
-    public function __construct(private Content $content, private Content $previous)
+    public function __construct(private readonly Content $content, private readonly Content $previous)
     {
     }
 

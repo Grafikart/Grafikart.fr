@@ -34,7 +34,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 class AutomaticForm extends AbstractType
 {
-    public const TYPES = [
+    public final const TYPES = [
         'string' => TextType::class,
         'bool' => SwitchType::class,
         'int' => NumberType::class,
@@ -47,7 +47,7 @@ class AutomaticForm extends AbstractType
         CursusCategory::class => CursusCategoryChoiceType::class,
     ];
 
-    public const NAMES = [
+    public final const NAMES = [
         'content' => EditorType::class,
         'description' => TextareaType::class,
         'short' => TextareaType::class,
@@ -93,7 +93,7 @@ class AutomaticForm extends AbstractType
                     'required' => !$type->allowsNull() && 'bool' !== $type->getName(),
                 ]);
             } else {
-                throw new \RuntimeException(sprintf('Impossible de trouver le champs associé au type %s dans %s::%s', $type->getName(), get_class($data), $name));
+                throw new \RuntimeException(sprintf('Impossible de trouver le champs associé au type %s dans %s::%s', $type->getName(), $data::class, $name));
             }
         }
     }

@@ -65,7 +65,7 @@ class FormationCrudData implements CrudDataInterface
      */
     public array $chapters;
 
-    public function __construct(private Formation $formation)
+    public function __construct(private readonly Formation $formation)
     {
         $this->title = $formation->getTitle();
         $this->slug = $formation->getSlug();

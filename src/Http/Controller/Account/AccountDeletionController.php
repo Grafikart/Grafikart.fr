@@ -27,7 +27,7 @@ class AccountDeletionController extends AbstractController
     ): JsonResponse {
         /** @var User $user */
         $user = $this->getUser();
-        $data = json_decode($request->getContent(), true);
+        $data = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
         if (!$this->isCsrfTokenValid('delete-account', $data['csrf'] ?? '')) {
             return new JsonResponse([
                 'title' => 'Token CSRF invalide',

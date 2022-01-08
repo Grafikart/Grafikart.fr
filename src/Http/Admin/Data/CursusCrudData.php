@@ -59,7 +59,7 @@ class CursusCrudData implements CrudDataInterface
 
     public ?CursusCategory $category;
 
-    public function __construct(private Cursus $cursus)
+    public function __construct(private readonly Cursus $cursus)
     {
         $this->title = $cursus->getTitle();
         $this->slug = $cursus->getSlug();

@@ -13,7 +13,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ProgressionSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private EntityManagerInterface $em, private EventDispatcherInterface $dispatcher)
+    public function __construct(private readonly EntityManagerInterface $em, private readonly EventDispatcherInterface $dispatcher)
     {
     }
 

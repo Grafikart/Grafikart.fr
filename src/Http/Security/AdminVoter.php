@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class AdminVoter extends Voter
 {
-    public function __construct(private string $appEnv)
+    public function __construct(private readonly string $appEnv)
     {
     }
 

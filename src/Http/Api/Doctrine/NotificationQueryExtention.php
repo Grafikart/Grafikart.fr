@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\Security;
  */
 final class NotificationQueryExtention implements QueryCollectionExtensionInterface
 {
-    public function __construct(private Security $security, private NotificationService $notificationService)
+    public function __construct(private readonly Security $security, private readonly NotificationService $notificationService)
     {
     }
 

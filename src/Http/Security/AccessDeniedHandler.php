@@ -14,7 +14,7 @@ use Twig\Environment;
 
 class AccessDeniedHandler implements AccessDeniedHandlerInterface
 {
-    public function __construct(private UrlGeneratorInterface $urlGenerator, private Environment $twig)
+    public function __construct(private readonly UrlGeneratorInterface $urlGenerator, private readonly Environment $twig)
     {
     }
 

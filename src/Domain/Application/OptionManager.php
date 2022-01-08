@@ -10,7 +10,7 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 
 class OptionManager implements OptionManagerInterface
 {
-    public function __construct(private EntityManagerInterface $em, private EventDispatcherInterface $dispatcher)
+    public function __construct(private readonly EntityManagerInterface $em, private readonly EventDispatcherInterface $dispatcher)
     {
     }
 

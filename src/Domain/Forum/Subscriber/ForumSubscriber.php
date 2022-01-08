@@ -13,10 +13,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class ForumSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private TopicRepository $topicRepository,
-        private MessageRepository $messageRepository,
-        private EntityManagerInterface $em,
-        private TopicService $topicService
+        private readonly TopicRepository $topicRepository,
+        private readonly MessageRepository $messageRepository,
+        private readonly EntityManagerInterface $em,
+        private readonly TopicService $topicService
     ) {
     }
 

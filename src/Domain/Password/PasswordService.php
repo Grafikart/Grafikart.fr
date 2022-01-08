@@ -17,15 +17,15 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class PasswordService
 {
-    public const EXPIRE_IN = 30;
+    public final const EXPIRE_IN = 30;
 
     public function __construct(
-        private UserRepository $userRepository,
-        private PasswordResetTokenRepository $tokenRepository,
-        private TokenGeneratorService $generator,
-        private EntityManagerInterface $em,
-        private EventDispatcherInterface $dispatcher,
-        private UserPasswordHasherInterface $hasher
+        private readonly UserRepository $userRepository,
+        private readonly PasswordResetTokenRepository $tokenRepository,
+        private readonly TokenGeneratorService $generator,
+        private readonly EntityManagerInterface $em,
+        private readonly EventDispatcherInterface $dispatcher,
+        private readonly UserPasswordHasherInterface $hasher
     ) {
     }
 

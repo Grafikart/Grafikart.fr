@@ -10,8 +10,8 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class CommentVoter extends Voter
 {
-    public const DELETE = 'delete';
-    public const UPDATE = 'update';
+    public final const DELETE = 'delete';
+    public final const UPDATE = 'update';
 
     protected function supports(string $attribute, $subject): bool
     {

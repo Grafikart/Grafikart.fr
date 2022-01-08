@@ -12,7 +12,7 @@ use Twig\TokenParser\AbstractTokenParser;
 
 class TwigCacheExtension extends AbstractExtension
 {
-    public function __construct(private CacheItemPoolInterface $cache, private bool $active = true)
+    public function __construct(private readonly CacheItemPoolInterface $cache, private readonly bool $active = true)
     {
     }
 
@@ -60,7 +60,7 @@ class TwigCacheExtension extends AbstractExtension
         try {
             $updatedAt = $item->getUpdatedAt() ?: new \DateTimeImmutable('@0');
             $id = $item->getId() ?: '0';
-            $className = get_class($item);
+            $className = $item::class;
             $className = substr($className, strrpos($className, '\\') + 1);
 
             return $prefix.$id.$className.$updatedAt->getTimestamp();
@@ -69,10 +69,7 @@ class TwigCacheExtension extends AbstractExtension
         }
     }
 
-    /**
-     * @param CacheableInterface|string $item
-     */
-    public function getCacheValue(string $templatePath, $item): ?string
+    public function getCacheValue(string $templatePath, \App\Http\Twig\CacheExtension\CacheableInterface|string $item): ?string
     {
         if (!$this->active) {
             return null;
@@ -82,10 +79,7 @@ class TwigCacheExtension extends AbstractExtension
         return $item->get();
     }
 
-    /**
-     * @param CacheableInterface|string $item
-     */
-    public function setCacheValue(string $templatePath, $item, string $value): void
+    public function setCacheValue(string $templatePath, \App\Http\Twig\CacheExtension\CacheableInterface|string $item, string $value): void
     {
         if (!$this->active) {
             return;

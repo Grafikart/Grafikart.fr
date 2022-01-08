@@ -20,17 +20,17 @@ class TechnologyCrudData extends AutomaticCrudData
     /**
      * @Assert\NotBlank()
      */
-    public ?string $name;
+    public ?string $name = null;
 
     /**
      * @Assert\NotBlank()
      * @Slug()
      */
-    public ?string $slug;
+    public ?string $slug = null;
 
     public ?Collection $requirements = null;
 
-    public ?string $content;
+    public ?string $content = null;
 
     public ?UploadedFile $imageFile = null;
 

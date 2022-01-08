@@ -10,9 +10,9 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 class CommentService
 {
     public function __construct(
-        private AuthService $auth,
-        private EntityManagerInterface $em,
-        private EventDispatcherInterface $dispatcher
+        private readonly AuthService $auth,
+        private readonly EntityManagerInterface $em,
+        private readonly EventDispatcherInterface $dispatcher
     ) {
     }
 

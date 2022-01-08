@@ -26,14 +26,14 @@ class Authenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
 
-    public const LOGIN_ROUTE = 'auth_login';
+    public final const LOGIN_ROUTE = 'auth_login';
     private ?UserInterface $user = null;
 
     public function __construct(
-        private UserRepository $userRepository,
-        private UrlGeneratorInterface $urlGenerator,
-        private EventDispatcherInterface $eventDispatcher,
-        private UrlMatcherInterface $urlMatcher
+        private readonly UserRepository $userRepository,
+        private readonly UrlGeneratorInterface $urlGenerator,
+        private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly UrlMatcherInterface $urlMatcher
     ) {
     }
 
@@ -61,7 +61,7 @@ class Authenticator extends AbstractLoginFormAuthenticator
                 $this->urlMatcher->match($redirect);
 
                 return new RedirectResponse($redirect);
-            } catch (\Exception $e) {
+            } catch (\Exception) {
                 // Do nothing
             }
         }

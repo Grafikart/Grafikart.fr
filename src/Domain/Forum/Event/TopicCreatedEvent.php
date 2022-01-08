@@ -6,7 +6,7 @@ use App\Domain\Forum\Entity\Topic;
 
 class TopicCreatedEvent
 {
-    public function __construct(private Topic $topic)
+    public function __construct(private readonly Topic $topic)
     {
     }
 

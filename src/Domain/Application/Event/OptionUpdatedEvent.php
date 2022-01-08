@@ -6,7 +6,7 @@ use App\Domain\Application\Entity\Option;
 
 class OptionUpdatedEvent
 {
-    public function __construct(private Option $option)
+    public function __construct(private readonly Option $option)
     {
     }
 

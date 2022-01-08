@@ -18,10 +18,10 @@ use Symfony\Component\Serializer\SerializerInterface;
 class NotificationService
 {
     public function __construct(
-        private SerializerInterface $serializer,
-        private EntityManagerInterface $em,
-        private EventDispatcherInterface $dispatcher,
-        private Security $security
+        private readonly SerializerInterface $serializer,
+        private readonly EntityManagerInterface $em,
+        private readonly EventDispatcherInterface $dispatcher,
+        private readonly Security $security
     ) {
     }
 
@@ -114,7 +114,7 @@ class NotificationService
      */
     private function getHashForEntity(object $entity): string
     {
-        $hash = get_class($entity);
+        $hash = $entity::class;
         if (method_exists($entity, 'getId')) {
             $hash .= '::'.(string) $entity->getId();
         }

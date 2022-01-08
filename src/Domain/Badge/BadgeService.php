@@ -12,7 +12,7 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 
 class BadgeService
 {
-    public function __construct(private EntityManagerInterface $em, private EventDispatcherInterface $dispatcher)
+    public function __construct(private readonly EntityManagerInterface $em, private readonly EventDispatcherInterface $dispatcher)
     {
     }
 

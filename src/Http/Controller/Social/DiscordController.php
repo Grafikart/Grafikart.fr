@@ -38,7 +38,7 @@ class DiscordController extends AbstractController
             $user->setDiscordId($discordUser->getId());
             $em->flush();
             $this->addFlash('success', 'Votre compte discord a bien été lié');
-        } catch (MissingAuthorizationCodeException $e) {
+        } catch (MissingAuthorizationCodeException) {
             // Do nothing
         }
 

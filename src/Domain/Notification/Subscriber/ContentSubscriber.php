@@ -15,7 +15,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ContentSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private NotificationService $service, private EnqueueMethod $enqueueMethod)
+    public function __construct(private readonly NotificationService $service, private readonly EnqueueMethod $enqueueMethod)
     {
     }
 
@@ -54,10 +54,7 @@ class ContentSubscriber implements EventSubscriberInterface
         }
     }
 
-    /**
-     * @param Course|Formation $content
-     */
-    private function notifyContent(Content $content): void
+    private function notifyContent(\App\Domain\Course\Entity\Course|\App\Domain\Course\Entity\Formation $content): void
     {
         $technologies = implode(', ', array_map(fn (Technology $t) => $t->getName(), $content->getMainTechnologies()));
         $duration = TimeHelper::duration($content->getDuration());

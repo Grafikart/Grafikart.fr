@@ -6,7 +6,7 @@ use App\Domain\Forum\Entity\Message;
 
 class PreMessageCreatedEvent
 {
-    public function __construct(private Message $message)
+    public function __construct(private readonly Message $message)
     {
     }
 

@@ -6,7 +6,7 @@ use App\Domain\Revision\Revision;
 
 class RevisionAcceptedEvent
 {
-    public function __construct(private Revision $revision)
+    public function __construct(private readonly Revision $revision)
     {
     }
 

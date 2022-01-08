@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class ProgressVoter extends Voter
 {
-    public const DELETE_PROGRESS = 'DELETE_PROGRESS';
+    public final const DELETE_PROGRESS = 'DELETE_PROGRESS';
 
     /**
      * {@inheritdoc}

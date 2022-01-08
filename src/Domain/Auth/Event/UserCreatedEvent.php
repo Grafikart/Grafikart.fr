@@ -6,7 +6,7 @@ use App\Domain\Auth\User;
 
 class UserCreatedEvent
 {
-    public function __construct(private User $user, private bool $usingOauth = false)
+    public function __construct(private readonly User $user, private readonly bool $usingOauth = false)
     {
     }
 

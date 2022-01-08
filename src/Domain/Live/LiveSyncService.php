@@ -11,10 +11,10 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 class LiveSyncService
 {
     public function __construct(
-        private \Google_Client $googleClient,
-        private EntityManagerInterface $em,
-        private EventDispatcherInterface $dispatcher,
-        private string $playlistID
+        private readonly \Google_Client $googleClient,
+        private readonly EntityManagerInterface $em,
+        private readonly EventDispatcherInterface $dispatcher,
+        private readonly string $playlistID
     ) {
     }
 

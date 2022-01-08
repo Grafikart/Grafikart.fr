@@ -11,9 +11,9 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 class RevisionService
 {
     public function __construct(
-        private EventDispatcherInterface $eventDispatcher,
-        private RevisionRepository $repository,
-        private EntityManagerInterface $em
+        private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly RevisionRepository $repository,
+        private readonly EntityManagerInterface $em
     ) {
     }
 

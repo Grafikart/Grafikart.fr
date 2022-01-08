@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class UserChecker implements UserCheckerInterface
 {
-    public function __construct(private LoginAttemptService $loginAttemptService)
+    public function __construct(private readonly LoginAttemptService $loginAttemptService)
     {
     }
 

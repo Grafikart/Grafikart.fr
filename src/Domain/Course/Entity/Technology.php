@@ -14,7 +14,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Entity
  * @Vich\Uploadable()
  */
-class Technology implements CacheableInterface
+class Technology implements CacheableInterface, \Stringable
 {
     /**
      * @ORM\Id()
@@ -186,7 +186,7 @@ class Technology implements CacheableInterface
         return $this;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->name ?: '';
     }

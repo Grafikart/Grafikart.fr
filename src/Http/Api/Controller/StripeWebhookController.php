@@ -25,9 +25,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class StripeWebhookController extends AbstractController
 {
     public function __construct(
-        private EventDispatcherInterface $dispatcher,
-        private EntityManagerInterface $em,
-        private StripePaymentFactory $paymentFactory
+        private readonly EventDispatcherInterface $dispatcher,
+        private readonly EntityManagerInterface $em,
+        private readonly StripePaymentFactory $paymentFactory
     ) {
     }
 
@@ -36,20 +36,14 @@ class StripeWebhookController extends AbstractController
      */
     public function index(Event $event): JsonResponse
     {
-        switch ($event->type) {
-            case 'payment_intent.succeeded':
-                return $this->onPaymentIntentSucceeded($event->data['object']);
-            case 'charge.refunded':
-                return $this->onRefund($event->data['object']);
-            case 'customer.subscription.created':
-                return $this->onSubscriptionCreated($event->data['object']);
-            case 'customer.subscription.updated':
-                return $this->onSubscriptionUpdated($event->data['object']);
-            case 'customer.subscription.deleted':
-                return $this->onSubscriptionDeleted($event->data['object']);
-            default:
-                return $this->json([]);
-        }
+        return match ($event->type) {
+            'payment_intent.succeeded' => $this->onPaymentIntentSucceeded($event->data['object']),
+            'charge.refunded' => $this->onRefund($event->data['object']),
+            'customer.subscription.created' => $this->onSubscriptionCreated($event->data['object']),
+            'customer.subscription.updated' => $this->onSubscriptionUpdated($event->data['object']),
+            'customer.subscription.deleted' => $this->onSubscriptionDeleted($event->data['object']),
+            default => $this->json([]),
+        };
     }
 
     public function onPaymentIntentSucceeded(PaymentIntent $intent): JsonResponse

@@ -27,7 +27,7 @@ final class PostCrudData implements CrudDataInterface
     /**
      * @Assert\NotBlank()
      */
-    public ?User $author;
+    public ?User $author = null;
 
     /**
      * @Assert\NotBlank()

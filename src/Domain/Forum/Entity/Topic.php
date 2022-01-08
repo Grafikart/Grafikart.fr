@@ -259,9 +259,6 @@ class Topic implements SpammableInterface, CacheableInterface
         return $this;
     }
 
-    /**
-     * @param Collection|Message[] $messages
-     */
     public function setMessages(Collection $messages): self
     {
         $this->messages = $messages;

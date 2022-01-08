@@ -6,7 +6,7 @@ use App\Domain\Notification\Entity\Notification;
 
 class NotificationCreatedEvent
 {
-    public function __construct(private Notification $notification)
+    public function __construct(private readonly Notification $notification)
     {
     }
 

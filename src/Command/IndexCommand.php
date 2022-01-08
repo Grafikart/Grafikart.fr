@@ -18,9 +18,9 @@ class IndexCommand extends Command
     protected static $defaultName = 'app:index';
 
     public function __construct(
-        private IndexerInterface $indexer,
-        private EntityManagerInterface $em,
-        private NormalizerInterface $normalizer
+        private readonly IndexerInterface $indexer,
+        private readonly EntityManagerInterface $em,
+        private readonly NormalizerInterface $normalizer
     ) {
         parent::__construct();
     }

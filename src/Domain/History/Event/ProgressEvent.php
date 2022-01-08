@@ -7,7 +7,7 @@ use App\Domain\Auth\User;
 
 class ProgressEvent
 {
-    public function __construct(private Content $content, private User $user, private float $progress)
+    public function __construct(private readonly Content $content, private readonly User $user, private readonly float $progress)
     {
     }
 

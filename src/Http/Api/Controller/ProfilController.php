@@ -20,7 +20,7 @@ class ProfilController extends AbstractController
      */
     public function theme(Request $request, EntityManagerInterface $em): JsonResponse
     {
-        $data = json_decode((string) $request->getContent(), true);
+        $data = json_decode((string) $request->getContent(), true, 512, JSON_THROW_ON_ERROR);
         $theme = $data['theme'] ?? null;
         if (!in_array($theme, ['light', 'dark'])) {
             return $this->json(['title' => "Ce thème n'est pas supporté"], Response::HTTP_UNPROCESSABLE_ENTITY);

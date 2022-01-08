@@ -20,7 +20,7 @@ class SeedCommand extends Command
 {
     protected static $defaultName = 'app:seed';
 
-    public function __construct(private EntityManagerInterface $em)
+    public function __construct(private readonly EntityManagerInterface $em)
     {
         parent::__construct();
     }
@@ -61,12 +61,12 @@ class SeedCommand extends Command
         // On crée des chapitres pour les cursus
         $cursus = $this->em->getRepository(Cursus::class)->findAll();
         /** @var Content[] $items */
-        $items = array_values(array_merge($courses, $formations));
+        $items = array_values([...$courses, ...$formations]);
         foreach ($cursus as $c) {
             $chapters = [];
             for ($i = 1; $i < 3; ++$i) {
                 /** @var int[] $keys */
-                $keys = array_rand($items, rand(2, 6));
+                $keys = array_rand($items, random_int(2, 6));
                 $modules = array_map(fn (int $k) => $items[$k], $keys);
                 $chapters[] = (new Chapter())
                     ->setTitle("Chapitre {$i}")

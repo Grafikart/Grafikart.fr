@@ -15,24 +15,24 @@ class ForumTagCrudData extends AutomaticCrudData
     /**
      * @Assert\NotBlank()
      */
-    public ?string $name;
+    public ?string $name = null;
 
     /**
      * @Assert\NotBlank()
      * @Slug()
      */
-    public ?string $slug;
+    public ?string $slug = null;
 
-    public ?string $description;
+    public ?string $description = null;
 
-    public ?string $color;
+    public ?string $color = null;
 
     public bool $visible = true;
 
     /**
      * @var Tag
      */
-    public ?Tag $parent;
+    public ?Tag $parent = null;
 
     public function hydrate(): void
     {

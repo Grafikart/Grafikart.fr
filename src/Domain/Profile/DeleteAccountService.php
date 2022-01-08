@@ -11,12 +11,12 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DeleteAccountService
 {
-    public const DAYS = 5;
+    public final const DAYS = 5;
 
     public function __construct(
-        private EntityManagerInterface $em,
-        private EventDispatcherInterface $dispatcher,
-        private AuthService $authService
+        private readonly EntityManagerInterface $em,
+        private readonly EventDispatcherInterface $dispatcher,
+        private readonly AuthService $authService
     ) {
     }
 

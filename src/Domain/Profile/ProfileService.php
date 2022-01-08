@@ -16,10 +16,10 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 class ProfileService
 {
     public function __construct(
-        private TokenGeneratorService $tokenGeneratorService,
-        private EmailVerificationRepository $emailVerificationRepository,
-        private EventDispatcherInterface $dispatcher,
-        private EntityManagerInterface $em
+        private readonly TokenGeneratorService $tokenGeneratorService,
+        private readonly EmailVerificationRepository $emailVerificationRepository,
+        private readonly EventDispatcherInterface $dispatcher,
+        private readonly EntityManagerInterface $em
     ) {
     }
 

@@ -11,7 +11,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class CommentSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private NotificationService $notificationService)
+    public function __construct(private readonly NotificationService $notificationService)
     {
     }
 

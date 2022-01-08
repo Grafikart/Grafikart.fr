@@ -20,7 +20,7 @@ class SocialLoginController extends AbstractController
         'facebook' => ['email'],
     ];
 
-    public function __construct(private ClientRegistry $clientRegistry)
+    public function __construct(private readonly ClientRegistry $clientRegistry)
     {
     }
 

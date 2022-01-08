@@ -22,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProgressController extends AbstractController
 {
-    public function __construct(private EventDispatcherInterface $dispatcher, private EntityManagerInterface $em)
+    public function __construct(private readonly EventDispatcherInterface $dispatcher, private readonly EntityManagerInterface $em)
     {
     }
 
@@ -37,7 +37,7 @@ class ProgressController extends AbstractController
         $user = $this->getUser();
         try {
             $this->dispatcher->dispatch(new ProgressEvent($content, $user, $progress / Progress::TOTAL));
-        } catch (AlreadyFinishedException $e) {
+        } catch (AlreadyFinishedException) {
             return new JsonResponse([
                 'title' => 'Vous avez déjà terminé ce cours',
             ], Response::HTTP_UNPROCESSABLE_ENTITY);

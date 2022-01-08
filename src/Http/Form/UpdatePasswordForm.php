@@ -27,8 +27,8 @@ class UpdatePasswordForm extends AbstractType
                     'max' => 255,
                 ]),
             ],
-            'first_options' => ['label' => false, 'attr' => array_merge($htmlAttr, ['placeholder' => 'Nouveau mot de passe'])],
-            'second_options' => ['label' => false, 'attr' => array_merge($htmlAttr, ['placeholder' => 'Confirmer le mot de passe'])],
+            'first_options' => ['label' => false, 'attr' => [...$htmlAttr, ...['placeholder' => 'Nouveau mot de passe']]],
+            'second_options' => ['label' => false, 'attr' => [...$htmlAttr, ...['placeholder' => 'Confirmer le mot de passe']]],
         ]);
     }
 }

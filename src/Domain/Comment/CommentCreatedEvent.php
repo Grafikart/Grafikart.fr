@@ -4,7 +4,7 @@ namespace App\Domain\Comment;
 
 class CommentCreatedEvent
 {
-    public function __construct(private Comment $comment)
+    public function __construct(private readonly Comment $comment)
     {
     }
 

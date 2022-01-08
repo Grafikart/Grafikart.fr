@@ -10,15 +10,15 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class ForumVoter extends Voter
 {
-    public const CREATE = 'forumCreate';
-    public const REPORT = 'forumReport';
-    public const CREATE_MESSAGE = 'CREATE_FORUM_MESSAGE';
-    public const UPDATE_MESSAGE = 'UPDATE_FORUM_MESSAGE';
-    public const DELETE_MESSAGE = 'DELETE_FORUM_MESSAGE';
-    public const UPDATE_TOPIC = 'UPDATE_TOPIC';
-    public const DELETE_TOPIC = 'DELETE_TOPIC';
-    public const READ_TOPICS = 'READ_TOPICS';
-    public const SOLVE_MESSAGE = 'SOLVE_MESSAGE';
+    public final const CREATE = 'forumCreate';
+    public final const REPORT = 'forumReport';
+    public final const CREATE_MESSAGE = 'CREATE_FORUM_MESSAGE';
+    public final const UPDATE_MESSAGE = 'UPDATE_FORUM_MESSAGE';
+    public final const DELETE_MESSAGE = 'DELETE_FORUM_MESSAGE';
+    public final const UPDATE_TOPIC = 'UPDATE_TOPIC';
+    public final const DELETE_TOPIC = 'DELETE_TOPIC';
+    public final const READ_TOPICS = 'READ_TOPICS';
+    public final const SOLVE_MESSAGE = 'SOLVE_MESSAGE';
 
     protected function supports(string $attribute, $subject): bool
     {
@@ -41,25 +41,14 @@ class ForumVoter extends Voter
         if (!$user instanceof User) {
             return false;
         }
-
-        switch ($attribute) {
-            case self::CREATE_MESSAGE:
-                return $this->canCreateMessageForTopic($user, $subject);
-            case self::UPDATE_TOPIC:
-            case self::DELETE_TOPIC:
-                return $this->canUpdateTopic($user, $subject);
-            case self::UPDATE_MESSAGE:
-            case self::DELETE_MESSAGE:
-                return $this->ownMessage($user, $subject);
-            case self::SOLVE_MESSAGE:
-                return $this->canSolve($user, $subject);
-            case self::READ_TOPICS:
-            case self::CREATE:
-            case self::REPORT:
-                return true;
-        }
-
-        return false;
+        return match ($attribute) {
+            self::CREATE_MESSAGE => $this->canCreateMessageForTopic($user, $subject),
+            self::UPDATE_TOPIC, self::DELETE_TOPIC => $this->canUpdateTopic($user, $subject),
+            self::UPDATE_MESSAGE, self::DELETE_MESSAGE => $this->ownMessage($user, $subject),
+            self::SOLVE_MESSAGE => $this->canSolve($user, $subject),
+            self::READ_TOPICS, self::CREATE, self::REPORT => true,
+            default => false,
+        };
     }
 
     protected function canCreateMessageForTopic(User $user, Topic $topic): bool

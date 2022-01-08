@@ -44,7 +44,7 @@ class Comment
      * @ORM\ManyToOne(targetEntity="App\Domain\Auth\User")
      * @ORM\JoinColumn(onDelete="CASCADE", nullable=true)
      */
-    private ?User $author;
+    private ?User $author = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Comment\Comment", inversedBy="replies")

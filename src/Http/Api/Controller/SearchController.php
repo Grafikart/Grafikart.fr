@@ -15,9 +15,9 @@ use Symfony\Component\Serializer\SerializerInterface;
 class SearchController extends AbstractController
 {
     public function __construct(
-        private SearchInterface $search,
-        private TechnologyRepository $technologyRepository,
-        private SerializerInterface $serializer
+        private readonly SearchInterface $search,
+        private readonly TechnologyRepository $technologyRepository,
+        private readonly SerializerInterface $serializer
     ) {
     }
 

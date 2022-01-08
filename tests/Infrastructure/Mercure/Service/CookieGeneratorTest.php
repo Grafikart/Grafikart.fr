@@ -12,7 +12,7 @@ class CookieGeneratorTest extends TestCase
     private function assertCookieIsSubscribedTo(Cookie $cookie, array $channels)
     {
         $parts = explode('.', $cookie->getValue());
-        $data = json_decode(base64_decode($parts[1]), true);
+        $data = json_decode(base64_decode($parts[1]), true, 512, JSON_THROW_ON_ERROR);
         $this->assertEquals($channels, $data['mercure']['subscribe']);
     }
 

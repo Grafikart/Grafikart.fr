@@ -14,8 +14,8 @@ class KnpPaginator implements PaginatorInterface
     private array $sortableFields = [];
 
     public function __construct(
-        private \Knp\Component\Pager\PaginatorInterface $paginator,
-        private RequestStack $requestStack
+        private readonly \Knp\Component\Pager\PaginatorInterface $paginator,
+        private readonly RequestStack $requestStack
     ) {
     }
 

@@ -7,7 +7,7 @@ use App\Domain\Password\Entity\PasswordResetToken;
 
 final class PasswordResetTokenCreatedEvent
 {
-    public function __construct(private PasswordResetToken $token)
+    public function __construct(private readonly PasswordResetToken $token)
     {
     }
 

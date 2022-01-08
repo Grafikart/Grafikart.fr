@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class InvoicesController extends AbstractController
 {
-    public function __construct(private TransactionRepository $repository)
+    public function __construct(private readonly TransactionRepository $repository)
     {
     }
 

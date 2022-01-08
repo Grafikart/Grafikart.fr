@@ -75,7 +75,7 @@ class CourseCrudData implements CrudDataInterface
 
     private EntityManagerInterface $em;
 
-    public function __construct(private Course $entity)
+    public function __construct(private readonly Course $entity)
     {
         $this->title = $entity->getTitle();
         $this->slug = $entity->getSlug();

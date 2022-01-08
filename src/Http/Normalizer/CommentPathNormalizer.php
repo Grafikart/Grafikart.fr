@@ -12,6 +12,7 @@ class CommentPathNormalizer extends Normalizer
 {
     public function normalize($object, string $format = null, array $context = []): array
     {
+        $path = [];
         if ($object instanceof Comment) {
             $target = $object->getTarget();
             if ($target instanceof Post) {

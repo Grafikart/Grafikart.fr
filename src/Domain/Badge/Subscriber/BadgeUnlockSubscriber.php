@@ -19,7 +19,7 @@ use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 class BadgeUnlockSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private BadgeService $service, private EntityManagerInterface $em)
+    public function __construct(private readonly BadgeService $service, private readonly EntityManagerInterface $em)
     {
     }
 

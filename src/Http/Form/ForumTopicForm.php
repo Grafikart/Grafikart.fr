@@ -14,7 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ForumTopicForm extends AbstractType
 {
-    public function __construct(private TagRepository $tagRepository)
+    public function __construct(private readonly TagRepository $tagRepository)
     {
     }
 

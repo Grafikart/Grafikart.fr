@@ -21,8 +21,10 @@ class CleanCommand extends Command
 {
     protected static $defaultName = 'app:clean';
 
-    public function __construct(private EntityManagerInterface $em, private UploadHandler $uploaderHandler)
-    {
+    public function __construct(
+        private readonly EntityManagerInterface $em,
+        private readonly UploadHandler $uploaderHandler
+    ) {
         parent::__construct();
     }
 
@@ -53,7 +55,7 @@ class CleanCommand extends Command
     {
         $repository = $this->em->getRepository($entityClass);
         if (!($repository instanceof CleanableRepositoryInterface)) {
-            throw new \Exception(sprintf("%s n'implémente pas la CleanableRepositoryInterface", get_class($repository)));
+            throw new \Exception(sprintf("%s n'implémente pas la CleanableRepositoryInterface", $repository::class));
         }
         $count = $repository->clean();
         $io->success(sprintf('%d %s supprimés', $count, $noun));

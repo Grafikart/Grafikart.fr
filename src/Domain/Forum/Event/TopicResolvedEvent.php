@@ -7,7 +7,7 @@ use App\Domain\Forum\Entity\Topic;
 
 class TopicResolvedEvent
 {
-    public function __construct(private Message $message)
+    public function __construct(private readonly Message $message)
     {
     }
 

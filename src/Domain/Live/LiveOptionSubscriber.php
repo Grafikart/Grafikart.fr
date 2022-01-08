@@ -10,7 +10,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class LiveOptionSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private CacheItemPoolInterface $cache)
+    public function __construct(private readonly CacheItemPoolInterface $cache)
     {
     }
 

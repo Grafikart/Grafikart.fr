@@ -8,8 +8,8 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class CourseVoter extends Voter
 {
-    public const DOWNLOAD_SOURCE = 'DOWNLOAD_SOURCE';
-    public const DOWNLOAD_VIDEO = 'DOWNLOAD_VIDEO';
+    public final const DOWNLOAD_SOURCE = 'DOWNLOAD_SOURCE';
+    public final const DOWNLOAD_VIDEO = 'DOWNLOAD_VIDEO';
 
     /**
      * {@inheritdoc}

@@ -80,7 +80,7 @@ class UserController extends CrudController
         try {
             $banService->ban($user);
             $em->flush();
-        } catch (PremiumNotBanException $e) {
+        } catch (PremiumNotBanException) {
             $this->addFlash('error', 'Impossible de bannir un utilisateur premium');
 
             return $this->redirectBack('admin_user_index');

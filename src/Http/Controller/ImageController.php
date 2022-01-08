@@ -14,9 +14,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ImageController extends AbstractController
 {
-    private string $cachePath;
-    private string $resizeKey;
-    private string $publicPath;
+    private readonly string $cachePath;
+    private readonly string $resizeKey;
+    private readonly string $publicPath;
 
     public function __construct(ParameterBagInterface $parameterBag)
     {
@@ -54,7 +54,7 @@ class ImageController extends AbstractController
             SignatureFactory::create($this->resizeKey)->validateRequest($url, ['s' => $request->get('s')]);
 
             return $server->getImageResponse($path, ['w' => $width, 'h' => $height, 'fit' => 'crop']);
-        } catch (SignatureException $exception) {
+        } catch (SignatureException) {
             throw new HttpException(403, 'Signature invalide');
         }
     }
@@ -80,7 +80,7 @@ class ImageController extends AbstractController
             SignatureFactory::create($this->resizeKey)->validateRequest($url, ['s' => $request->get('s')]);
 
             return $server->getImageResponse($path, ['fm' => 'jpg']);
-        } catch (SignatureException $exception) {
+        } catch (SignatureException) {
             throw new HttpException(403, 'Signature invalide');
         }
     }

@@ -8,7 +8,7 @@ use Twig\TwigFunction;
 
 class TwigBreadcrumbExtension extends AbstractExtension
 {
-    public function __construct(private iterable $breadcrumbsGenerator)
+    public function __construct(private readonly iterable $breadcrumbsGenerator)
     {
     }
 

@@ -16,7 +16,7 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 
 class TopicService
 {
-    public function __construct(private EventDispatcherInterface $dispatcher, private EntityManagerInterface $em)
+    public function __construct(private readonly EventDispatcherInterface $dispatcher, private readonly EntityManagerInterface $em)
     {
     }
 

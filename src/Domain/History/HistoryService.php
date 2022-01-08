@@ -9,7 +9,7 @@ use App\Domain\History\Repository\ProgressRepository;
 
 class HistoryService
 {
-    public function __construct(private ProgressRepository $progressRepository)
+    public function __construct(private readonly ProgressRepository $progressRepository)
     {
     }
 

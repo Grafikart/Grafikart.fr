@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class TechnologiesType extends TextType implements DataTransformerInterface
 {
-    public function __construct(private TechnologyRepository $repository, private UrlGeneratorInterface $urlGenerator)
+    public function __construct(private readonly TechnologyRepository $repository, private readonly UrlGeneratorInterface $urlGenerator)
     {
     }
 

@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-    public function __construct(private EntityManagerInterface $em, private HistoryService $historyService)
+    public function __construct(private readonly EntityManagerInterface $em, private readonly HistoryService $historyService)
     {
     }
 

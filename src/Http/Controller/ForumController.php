@@ -20,10 +20,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class ForumController extends AbstractController
 {
     public function __construct(
-        private TagRepository $tagRepository,
-        private TopicRepository $topicRepository,
-        private PaginatorInterface $paginator,
-        private TopicService $topicService
+        private readonly TagRepository $tagRepository,
+        private readonly TopicRepository $topicRepository,
+        private readonly PaginatorInterface $paginator,
+        private readonly TopicService $topicService
     ) {
     }
 

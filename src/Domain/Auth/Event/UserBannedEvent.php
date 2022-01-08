@@ -6,7 +6,7 @@ use App\Domain\Auth\User;
 
 class UserBannedEvent
 {
-    public function __construct(private User $user)
+    public function __construct(private readonly User $user)
     {
     }
 

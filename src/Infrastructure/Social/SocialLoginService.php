@@ -10,7 +10,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class SocialLoginService
 {
-    public const SESSION_KEY = 'oauth_login';
+    public final const SESSION_KEY = 'oauth_login';
 
     public function __construct(
         private readonly RequestStack $requestStack,

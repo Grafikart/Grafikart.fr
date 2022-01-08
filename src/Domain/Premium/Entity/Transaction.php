@@ -11,8 +11,8 @@ use Symfony\Component\Intl\Countries;
  */
 class Transaction
 {
-    public const PAYPAL = 'paypal';
-    public const STRIPE = 'stripe';
+    public final const PAYPAL = 'paypal';
+    public final const STRIPE = 'stripe';
 
     /**
      * @ORM\Id()
@@ -46,7 +46,7 @@ class Transaction
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private ?string $methodRef;
+    private ?string $methodRef = null;
 
     /**
      * @ORM\Column(type="boolean", options={"default": false})
