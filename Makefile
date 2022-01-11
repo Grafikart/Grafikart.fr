@@ -7,7 +7,6 @@ group := $(shell id -g)
 ifeq ($(isDocker), 1)
 	dc := USER_ID=$(user) GROUP_ID=$(group) docker-compose
 	dcimport := USER_ID=$(user) GROUP_ID=$(group) docker-compose -f docker-compose.import.yml
-	dcimport := USER_ID=$(user) GROUP_ID=$(group) docker-compose -f docker-compose.import.yml
 	de := docker-compose exec
 	dr := $(dc) run --rm
 	sy := $(de) php bin/console
