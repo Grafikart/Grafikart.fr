@@ -31,12 +31,12 @@ class UserControllerTest extends WebTestCase
         ['user1' => $user1, 'user_admin' => $admin] = $this->loadFixtures(['users']);
         // Un utilisateur normal ne peut pas devenir admin
         $this->login($user1);
-        $this->client->request('GET', "/?_ninja={$admin->getEmail()}");
+        $this->client->request('GET', "/?_ninja={$admin->getUsername()}");
         $this->assertResponseStatusCodeSame(403);
 
         // Un admin peut devenir user
         $this->login($admin);
-        $this->client->request('GET', "/?_ninja={$user1->getEmail()}");
+        $this->client->request('GET', "/?_ninja={$user1->getUsername()}");
         $this->assertResponseStatusCodeSame(302);
         $this->assertResponseRedirects();
     }
