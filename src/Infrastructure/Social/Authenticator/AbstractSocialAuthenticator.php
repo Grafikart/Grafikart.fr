@@ -69,33 +69,35 @@ abstract class AbstractSocialAuthenticator extends OAuth2Authenticator
                 sprintf("Une erreur est survenue lors de la récupération du token d'accès %s", $this->serviceName)
             );
         }
-        $userLoader = function () use ($accessToken) {
-            try {
-                $resourceOwner = $this->getResourceOwnerFromCredentials($accessToken);
-            } catch (\Exception) {
-                throw new CustomUserMessageAuthenticationException(
-                    sprintf("Une erreur est survenue lors de la communication avec %s", $this->serviceName)
-                );
-            }
-            $user = $this->authService->getUserOrNull();
-            if ($user) {
-                throw new UserAuthenticatedException($user, $resourceOwner);
-            }
-            /** @var UserRepository $repository */
-            $repository = $this->em->getRepository(User::class);
-            $user = $this->getUserFromResourceOwner($resourceOwner, $repository);
-            if (null === $user) {
-                throw new UserOauthNotFoundException($resourceOwner);
-            }
-        };
+
+        try {
+            $resourceOwner = $this->getResourceOwnerFromCredentials($accessToken);
+        } catch (\Exception) {
+            throw new CustomUserMessageAuthenticationException(
+                sprintf("Une erreur est survenue lors de la communication avec %s", $this->serviceName)
+            );
+        }
+        $user = $this->authService->getUserOrNull();
+        if ($user) {
+            throw new UserAuthenticatedException($user, $resourceOwner);
+        }
+        /** @var UserRepository $repository */
+        $repository = $this->em->getRepository(User::class);
+        $user = $this->getUserFromResourceOwner($resourceOwner, $repository);
+        if (null === $user) {
+            throw new UserOauthNotFoundException($resourceOwner);
+        }
+
+        $userLoader = fn () => $user;
 
         return new SelfValidatingPassport(
-            new UserBadge($accessToken->getToken(), $userLoader)
+            new UserBadge($user->getUserIdentifier(), $userLoader)
         );
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): RedirectResponse
     {
+        dd($exception);
         if ($exception instanceof UserOauthNotFoundException) {
             return new RedirectResponse($this->router->generate('register', ['oauth' => 1]));
         }

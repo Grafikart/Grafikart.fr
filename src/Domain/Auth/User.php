@@ -148,7 +148,7 @@ class User implements UserInterface, ForumReaderUserInterface, CacheableInterfac
 
     public function getUserIdentifier(): string
     {
-        return $this->getUsername();
+        return $this->getEmail();
     }
 
     public function getUsername(): string
