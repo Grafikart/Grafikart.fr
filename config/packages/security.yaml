@@ -11,7 +11,7 @@ security:
     app_user_provider:
       entity:
         class: App\Domain\Auth\User
-        property: username
+        property: email
   firewalls:
     dev:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
