@@ -97,7 +97,6 @@ abstract class AbstractSocialAuthenticator extends OAuth2Authenticator
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): RedirectResponse
     {
-        dd($exception);
         if ($exception instanceof UserOauthNotFoundException) {
             return new RedirectResponse($this->router->generate('register', ['oauth' => 1]));
         }
