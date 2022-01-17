@@ -107,6 +107,10 @@ format: ## Formate le code
 	docker run -v $(PWD):/app -w /app -t --rm php:8.1-cli-alpine php -d memory_limit=-1 ./vendor/bin/phpcbf
 	docker run -v $(PWD):/app -w /app -t --rm php:8.1-cli-alpine php -d memory_limit=-1 ./vendor/bin/php-cs-fixer fix
 
+.PHONY: refactor
+refactor: ## Reformate le code avec rector
+	docker run -v $(PWD):/app -w /app -t --rm php:8.1-cli-alpine php -d memory_limit=-1 ./vendor/bin/rector process --clear-cache
+
 .PHONY: doc
 doc: ## Génère le sommaire de la documentation
 	npx doctoc ./README.md
