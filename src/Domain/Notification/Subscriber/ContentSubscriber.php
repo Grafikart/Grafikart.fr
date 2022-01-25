@@ -2,7 +2,6 @@
 
 namespace App\Domain\Notification\Subscriber;
 
-use App\Domain\Application\Entity\Content;
 use App\Domain\Application\Event\ContentCreatedEvent;
 use App\Domain\Application\Event\ContentUpdatedEvent;
 use App\Domain\Course\Entity\Course;
@@ -15,8 +14,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ContentSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private readonly NotificationService $service, private readonly EnqueueMethod $enqueueMethod)
-    {
+    public function __construct(
+        private readonly NotificationService $service,
+        private readonly EnqueueMethod $enqueueMethod,
+    ) {
     }
 
     public static function getSubscribedEvents(): array
@@ -69,10 +70,13 @@ class ContentSubscriber implements EventSubscriberInterface
         if ($content->getCreatedAt() < new \DateTimeImmutable()) {
             $this->service->notifyChannel('public', $message, $content);
         } else {
+            // On vide le contenu pour éviter de le stocker dans la sérialization
+            $clonedContent = clone $content;
+            $clonedContent->setContent(null);
             $this->enqueueMethod->enqueue(NotificationService::class, 'notifyChannel', [
                 'public',
                 $message,
-                $content,
+                $clonedContent,
             ], $content->getCreatedAt());
         }
     }
