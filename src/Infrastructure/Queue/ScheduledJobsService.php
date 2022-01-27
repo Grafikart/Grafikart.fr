@@ -2,12 +2,14 @@
 
 namespace App\Infrastructure\Queue;
 
-use Symfony\Component\Messenger\Transport\Serialization\PhpSerializer;
+use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
 
 class ScheduledJobsService
 {
-    public function __construct(private readonly string $dsn)
-    {
+    public function __construct(
+        private readonly string $dsn,
+        private readonly SerializerInterface $serializer
+    ) {
     }
 
     public function getConnection(): \Redis
@@ -34,12 +36,9 @@ class ScheduledJobsService
         if (empty($messages)) {
             return [];
         }
-        $serializer = new PhpSerializer();
         $index = 0;
-        $jobs = array_map(function (string $message) use ($serializer, &$index) {
-            $data = json_decode(unserialize($message), true, 512, JSON_THROW_ON_ERROR);
-
-            return new ScheduledJob($serializer->decode($data), $index++);
+        $jobs = array_map(function (string $message) use (&$index) {
+            return new ScheduledJob($this->serializer->decode(json_decode($message, true)), $index++);
         }, $messages);
 
         return $jobs;

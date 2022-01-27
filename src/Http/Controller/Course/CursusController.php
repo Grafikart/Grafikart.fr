@@ -21,7 +21,7 @@ class CursusController extends AbstractController
     }
 
     /**
-     * Route("/cursus/{slug<[a-z0-9\-]+>}", name="cursus_show").
+     * @Route("/cursus/{slug<[a-z0-9\-]+>}", name="cursus_show").
      */
     public function show(Cursus $cursus): Response
     {
