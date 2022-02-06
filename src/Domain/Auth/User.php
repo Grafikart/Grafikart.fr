@@ -274,12 +274,14 @@ class User implements UserInterface, ForumReaderUserInterface, CacheableInterfac
 
     public function __unserialize(array $data): void
     {
-        [
-            $this->id,
-            $this->username,
-            $this->email,
-            $this->password,
-        ] = $data;
+        if (count($data) === 4) {
+            [
+                $this->id,
+                $this->username,
+                $this->email,
+                $this->password,
+            ] = $data;
+        }
     }
 
     public function getCountry(): string
