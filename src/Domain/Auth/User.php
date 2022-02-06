@@ -262,25 +262,24 @@ class User implements UserInterface, ForumReaderUserInterface, CacheableInterfac
         return $this;
     }
 
-    public function serialize(): string
+    public function __serialize(): array
     {
-        return serialize([
+        return [
             $this->id,
             $this->username,
+            $this->email,
             $this->password,
-        ]);
+        ];
     }
 
-    /**
-     * @param string $serialized
-     */
-    public function unserialize($serialized): void
+    public function __unserialize(array $data): void
     {
         [
             $this->id,
             $this->username,
+            $this->email,
             $this->password,
-        ] = unserialize($serialized);
+        ] = $data;
     }
 
     public function getCountry(): string
