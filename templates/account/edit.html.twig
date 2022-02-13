@@ -6,187 +6,188 @@
 
 {% block body %}
 
-  {% include 'account/_header.html.twig' with {title: 'Mon profil'} %}
+	{% include 'account/_header.html.twig' with {title: 'Mon profil'} %}
 
-  {% include 'account/_tabs.html.twig' with {active: 'edit'} %}
+	{% include 'account/_tabs.html.twig' with {active: 'edit'} %}
 
-  {% include 'partials/flash.html.twig' with {floating: true, duration: 2} %}
+	{% include 'partials/flash.html.twig' with {floating: true, duration: 2} %}
 
-  <div class="layout-sidebar py5" style="--gap:5;">
-    <main class="stack-large">
-      {# Edition de profil #}
-      {{ form_start(form_update, {attr: {class: 'stack-large'}}) }}
-      <div class="stack">
-        <h2 class="h3">
-          {{ icon('user') }}
-          <strong>Mes informations</strong>
-        </h2>
-        <div class="card p3 grid">
-          {{ form_row(form_update.email) }}
-          {{ form_row(form_update.username) }}
-          {{ form_row(form_update.country) }}
-        </div>
-        <div class="text-right">
-          <button type="submit" class="btn-primary" name="action" value="update">Modifier mon profil</button>
-        </div>
-      </div>
-      <div class="stack">
-        <h2 class="h3">
-          {{ icon('comments') }}
-          <strong>Préférences</strong>
-        </h2>
-        <div class="card p3 stack-large">
-          <section>
-            <div class="section-title">
-              Notifications
-            </div>
-            {{ form_row(form_update.forumNotification, {label: "Recevoir aussi les notifications du forum par email"}) }}
-          </section>
-          <section>
-            <div class="section-title">
-              Apparence
-            </div>
-            <div class="stack">
-              {{ form_row(form_update.useSystemTheme, {label: "Laisser le système choisir le thème"}) }}
-              <div hidden id="theme-selector">
-                {{ form_row(form_update.useDarkTheme, {label: "Utiliser le thème sombre", attr: {hidden: 'hidden'}}) }}
-              </div>
-            </div>
-          </section>
-        </div>
-        <div class="text-right">
-          <button type="submit" class="btn-primary" name="action" value="update">Modifier mes préférences</button>
-        </div>
-      </div>
-      {{ form_end(form_update) }}
+	<div class="layout-sidebar py5" style="--gap:5;">
+		<main
+			class="stack-large">
+			{# Edition de profil #}
+			{{ form_start(form_update, {attr: {class: 'stack-large'}}) }}
+			<div class="stack">
+				<h2 class="h3">
+					{{ icon('user') }}
+					<strong>Mes informations</strong>
+				</h2>
+				<div class="card p3 grid">
+					{{ form_row(form_update.email) }}
+					{{ form_row(form_update.username) }}
+					{{ form_row(form_update.country) }}
+				</div>
+				<div class="text-right">
+					<button type="submit" class="btn-primary" name="action" value="update">Modifier mon profil</button>
+				</div>
+			</div>
+			<div class="stack">
+				<h2 class="h3">
+					{{ icon('comments') }}
+					<strong>Préférences</strong>
+				</h2>
+				<div class="card p3 stack-large">
+					<section>
+						<div class="section-title">
+							Notifications
+						</div>
+						{{ form_row(form_update.forumNotification, {label: "Recevoir aussi les notifications du forum par email"}) }}
+					</section>
+					<section>
+						<div class="section-title">
+							Apparence
+						</div>
+						<div class="stack">
+							{{ form_row(form_update.useSystemTheme, {label: "Laisser le système choisir le thème"}) }}
+							<div hidden id="theme-selector">
+								{{ form_row(form_update.useDarkTheme, {label: "Utiliser le thème sombre", attr: {hidden: 'hidden'}}) }}
+							</div>
+						</div>
+					</section>
+				</div>
+				<div class="text-right">
+					<button type="submit" class="btn-primary" name="action" value="update">Modifier mes préférences</button>
+				</div>
+			</div>
+			{{ form_end(form_update) }}
 
-      {# Edition du mot de passe #}
-      {{ form_start(form_password, {attr: {class: 'stack'}}) }}
-      <h2 class="h3">
-        {{ icon('lock') }}
-        <strong>Mot de passe</strong>
-      </h2>
-      <div class="card p3 grid2">
-        {{ form_row(form_password.password) }}
-      </div>
-      <div class="text-right">
-        <button type="submit" class="btn-primary" name="action" value="password">Modifier mon mot de passe</button>
-      </div>
-      {{ form_end(form_password) }}
+			{# Edition du mot de passe #}
+			{{ form_start(form_password, {attr: {class: 'stack'}}) }}
+			<h2 class="h3">
+				{{ icon('lock') }}
+				<strong>Mot de passe</strong>
+			</h2>
+			<div class="card p3 grid2">
+				{{ form_row(form_password.password) }}
+			</div>
+			<div class="text-right">
+				<button type="submit" class="btn-primary" name="action" value="password">Modifier mon mot de passe</button>
+			</div>
+			{{ form_end(form_password) }}
 
-      {# Suppression du compte #}
-      <div class="stack">
-        <h2 class="text-danger h3">
-          {{ icon('trash') }}
-          <strong>Danger zone</strong>
-        </h2>
-        <p style="font-size: 1.2rem;">
-          {% if user.deleteAt %}
-            Votre compte sera supprimé automatiquement <strong>{{ user.deleteAt | ago('dans') }}</strong>
-          {% else %}
-            Vous n'êtes pas satisfait du contenu du site ?<br>
-            Ou vous souhaitez supprimer toutes les informations associées à ce compte ?
-          {% endif %}
-        </p>
-        <div class="text-right">
-          {% if user.deleteAt %}
-            <form action="{{ path('user_cancel_delete') }}" method="post">
-              <button class="btn-secondary">
-                {{ icon('trash') }}
-                Annuler la suppression
-              </button>
-            </form>
-          {% else %}
-            <delete-account days="5" url="{{ path('user_profil') }}"
-                            csrf="{{ csrf_token('delete-account') }}"></delete-account>
-          {% endif %}
-        </div>
-      </div>
-    </main>
-    <aside class="stack">
-      <div class="mb2">
-        {{ render(controller(
+			{# Suppression du compte #}
+			<div class="stack">
+				<h2 class="text-danger h3">
+					{{ icon('trash') }}
+					<strong>Danger zone</strong>
+				</h2>
+				<p style="font-size: 1.2rem;">
+					{% if user.deleteAt %}
+						Votre compte sera supprimé automatiquement
+						<strong>{{ user.deleteAt | ago('dans') }}</strong>
+					{% else %}
+						Vous n'êtes pas satisfait du contenu du site ?<br>
+						Ou vous souhaitez supprimer toutes les informations associées à ce compte ?
+					{% endif %}
+				</p>
+				<div class="text-right">
+					{% if user.deleteAt %}
+						<form action="{{ path('user_cancel_delete') }}" method="post">
+							<button class="btn-secondary">
+								{{ icon('trash') }}
+								Annuler la suppression
+							</button>
+						</form>
+					{% else %}
+						<delete-account days="5" url="{{ path('user_profil') }}" csrf="{{ csrf_token('delete-account') }}"></delete-account>
+					{% endif %}
+				</div>
+			</div>
+		</main>
+		<aside class="stack">
+			<div class="mb2">
+				{{ render(controller(
           'App\\Http\\Controller\\Template\\PremiumStateController::state'
         )) }}
-      </div>
-      <h3 class="h5">Connexion Discord</h3>
-      <p>
-        Reliez votre compte Discord à Grafikart.fr pour accéder au salon premium et obtenir un rôle spécial.
-      </p>
-      <div class="mb3">
-        <a href="{{ path('oauth_discord') }}" class="btn-discord">
-          <img src="/images/social/discord.svg" alt class="icon">
-          {{ user.discordId ? 'Changer de compte' : 'Lier votre compte Discord' }}
-        </a>
-      </div>
-      <h3 class="h5">Connexion social</h3>
-      <p>Reliez votre compte à un réseau social afin de l'utiliser comme mode de connexion</p>
-      <div class="stack mb4">
-        <div>
-          <a href="{{ path(user.githubId ? 'oauth_unlink' : 'oauth_connect', {service: 'github'}) }}"
-             class="btn-secondary">
-            <svg class="icon">
-              <use xlink:href="/social.svg#github"></use>
-            </svg>
-            {{ user.githubId ? 'Dissocier' : 'Lier' }} votre compte GitHub
-          </a>
-        </div>
-        <div>
-          <a href="{{ path(user.googleId ? 'oauth_unlink' : 'oauth_connect', {service: 'google'}) }}"
-             class="btn-secondary">
-            <svg class="icon">
-              <use xlink:href="/social.svg#google"></use>
-            </svg>
-            {{ user.googleId ? 'Dissocier' : 'Lier' }} votre compte Google
-          </a>
-        </div>
-        <div>
-          <a href="{{ path(user.facebookId ? 'oauth_unlink' : 'oauth_connect', {service: 'facebook'}) }}"
-             class="btn-secondary">
-            <svg class="icon">
-              <use xlink:href="/social.svg#facebook"></use>
-            </svg>
-            {{ user.facebookId ? 'Dissocier' : 'Lier' }} votre compte Facebook
-          </a>
-        </div>
-      </div>
-    </aside>
-  </div>
+			</div>
+			<h3 class="h5">Connexion Discord</h3>
+			<p>
+				Reliez votre compte Discord à Grafikart.fr pour accéder au salon premium et obtenir un rôle spécial.
+			</p>
+			<div class="mb3">
+				<a href="{{ path('oauth_discord') }}" class="btn-discord">
+					<img src="/images/social/discord.svg" alt class="icon">
+					{{ user.discordId ? 'Changer de compte' : 'Lier votre compte Discord' }}
+				</a>
+			</div>
+			<h3 class="h5">Connexion social</h3>
+			<p>Reliez votre compte à un réseau social afin de l'utiliser comme mode de connexion</p>
+			<div class="stack mb4">
+				<div>
+					<a href="{{ path(user.githubId ? 'oauth_unlink' : 'oauth_connect', {service: 'github'}) }}" class="btn-secondary">
+						<svg class="icon">
+							<use href="/social.svg#github"></use>
+						</svg>
+						{{ user.githubId ? 'Dissocier' : 'Lier' }}
+						votre compte GitHub
+					</a>
+				</div>
+				<div>
+					<a href="{{ path(user.googleId ? 'oauth_unlink' : 'oauth_connect', {service: 'google'}) }}" class="btn-secondary">
+						<svg class="icon">
+							<use href="/social.svg#google"></use>
+						</svg>
+						{{ user.googleId ? 'Dissocier' : 'Lier' }}
+						votre compte Google
+					</a>
+				</div>
+				<div>
+					<a href="{{ path(user.facebookId ? 'oauth_unlink' : 'oauth_connect', {service: 'facebook'}) }}" class="btn-secondary">
+						<svg class="icon">
+							<use href="/social.svg#facebook"></use>
+						</svg>
+						{{ user.facebookId ? 'Dissocier' : 'Lier' }}
+						votre compte Facebook
+					</a>
+				</div>
+			</div>
+		</aside>
+	</div>
 
 {% endblock %}
 
 {% block javascripts_footer %}
-  {{ parent() }}
-  <script>
-    (function () {
-      const systemThemeSwitch = document.querySelector('#{{ form_update.useSystemTheme.vars.id }}')
-      const themeSwitch = document.querySelector('#{{ form_update.useDarkTheme.vars.id }}')
-      const secondarySwitchContainer = document.querySelector('#theme-selector')
+	{{ parent() }}
+	<script>
+		(function () {
+const systemThemeSwitch = document.querySelector('# {{ form_update.useSystemTheme.vars.id }}')
+const themeSwitch = document.querySelector('# {{ form_update.useDarkTheme.vars.id }}')
+const secondarySwitchContainer = document.querySelector('#theme-selector')
 
-      function onSystemThemeChange ({ target }) {
-        if (target.checked === true) {
-          document.body.classList.remove('theme-dark')
-          document.body.classList.remove('theme-light')
-          secondarySwitchContainer.setAttribute('hidden', 'hidden')
-        } else {
-          onDarkThemeChange({ target: themeSwitch })
-          secondarySwitchContainer.removeAttribute('hidden')
-        }
-      }
+function onSystemThemeChange({target}) {
+if (target.checked === true) {
+document.body.classList.remove('theme-dark')
+document.body.classList.remove('theme-light')
+secondarySwitchContainer.setAttribute('hidden', 'hidden')
+} else {
+onDarkThemeChange({target: themeSwitch})
+secondarySwitchContainer.removeAttribute('hidden')
+}
+}
 
-      function onDarkThemeChange ({ target }) {
-        if (target.checked === true) {
-          document.body.classList.add('theme-dark')
-          document.body.classList.remove('theme-light')
-        } else {
-          document.body.classList.remove('theme-dark')
-          document.body.classList.add('theme-light')
-        }
-      }
+function onDarkThemeChange({target}) {
+if (target.checked === true) {
+document.body.classList.add('theme-dark')
+document.body.classList.remove('theme-light')
+} else {
+document.body.classList.remove('theme-dark')
+document.body.classList.add('theme-light')
+}
+}
 
-      systemThemeSwitch.addEventListener('change', onSystemThemeChange)
-      themeSwitch.addEventListener('change', onDarkThemeChange)
-      onSystemThemeChange({ target: systemThemeSwitch })
-    })()
-  </script>
+systemThemeSwitch.addEventListener('change', onSystemThemeChange)
+themeSwitch.addEventListener('change', onDarkThemeChange)
+onSystemThemeChange({target: systemThemeSwitch})
+})()
+	</script>
 {% endblock %}

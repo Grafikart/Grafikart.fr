@@ -5,62 +5,62 @@
 {% block title 'Se connecter' %}
 
 {% block body %}
-    <div class="auth-container my5">
+	<div class="auth-container my5">
 
-      <h1 class="auth-title fade">Se connecter</h1>
+		<h1 class="auth-title fade">Se connecter</h1>
 
-      {% include 'partials/flash.html.twig' %}
+		{% include 'partials/flash.html.twig' %}
 
-      {% if error %}
-        <alert-message type="danger">
-          {{ error.messageKey | trans(error.messageData, 'security') }}
-        </alert-message>
-      {% endif %}
+		{% if error %}
+			<alert-message type="danger">
+				{{ error.messageKey | trans(error.messageData, 'security') }}
+			</alert-message>
+		{% endif %}
 
-      <form class="auth-form fade fade-1" method="post">
-        <div class="form-group">
-          <label for="inputEmail">Nom d'utilisateur</label>
-          <input type="text" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
-        </div>
-        <div class="form-group">
-          <label for="inputPassword">Mot de passe</label>
-          <input type="password" name="password" id="inputPassword" class="form-control" required>
-        </div>
-        <div class="auth-actions flex">
-          <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="rememberMe" name="_remember_me">
-            <label class="form-check-label" for="rememberMe">Se souvenir de moi</label>
-          </div>
-          <a href="{{ path('auth_password_reset') }}" class="auth-password-forgot">Mot de passe oublié ?</a>
-        </div>
-        <button type="submit" class="btn-gradient">Se connecter</button>
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-      </form>
+		<form class="auth-form fade fade-1" method="post">
+			<div class="form-group">
+				<label for="inputEmail">Nom d'utilisateur</label>
+				<input type="text" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+			</div>
+			<div class="form-group">
+				<label for="inputPassword">Mot de passe</label>
+				<input type="password" name="password" id="inputPassword" class="form-control" required>
+			</div>
+			<div class="auth-actions flex">
+				<div class="form-check">
+					<input type="checkbox" class="form-check-input" id="rememberMe" name="_remember_me">
+					<label class="form-check-label" for="rememberMe">Se souvenir de moi</label>
+				</div>
+				<a href="{{ path('auth_password_reset') }}" class="auth-password-forgot">Mot de passe oublié ?</a>
+			</div>
+			<button type="submit" class="btn-gradient">Se connecter</button>
+			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+		</form>
 
-      <section class="mt5 fade fade-2">
-        <h2 class="section-title">Utiliser les réseaux sociaux</h2>
-        <div class="stack">
-          <a href="{{ path('oauth_connect', {service: 'github'}) }}" class="btn-social btn-github">
-            <svg class="icon">
-              <use xlink:href="/social.svg#github"></use>
-            </svg>
-            Se connecter avec GitHub
-          </a>
-          <a href="{{ path('oauth_connect', {service: 'google'}) }}" class="btn-social btn-google">
-            <svg class="icon">
-              <use xlink:href="/social.svg#google"></use>
-            </svg>
-            Se connecter avec Google
-          </a>
-          <a href="{{ path('oauth_connect', {service: 'facebook'}) }}" class="btn-social btn-facebook">
-            <svg class="icon">
-              <use xlink:href="/social.svg#facebook"></use>
-            </svg>
-            Se connecter avec Facebook
-          </a>
-        </div>
-      </section>
+		<section class="mt5 fade fade-2">
+			<h2 class="section-title">Utiliser les réseaux sociaux</h2>
+			<div class="stack">
+				<a href="{{ path('oauth_connect', {service: 'github'}) }}" class="btn-social btn-github">
+					<svg class="icon">
+						<use href="/social.svg#github"></use>
+					</svg>
+					Se connecter avec GitHub
+				</a>
+				<a href="{{ path('oauth_connect', {service: 'google'}) }}" class="btn-social btn-google">
+					<svg class="icon">
+						<use href="/social.svg#google"></use>
+					</svg>
+					Se connecter avec Google
+				</a>
+				<a href="{{ path('oauth_connect', {service: 'facebook'}) }}" class="btn-social btn-facebook">
+					<svg class="icon">
+						<use href="/social.svg#facebook"></use>
+					</svg>
+					Se connecter avec Facebook
+				</a>
+			</div>
+		</section>
 
-    </div>
-    <waves-shape target=".auth-form"></waves-shape>
+	</div>
+	<waves-shape target=".auth-form"></waves-shape>
 {% endblock %}

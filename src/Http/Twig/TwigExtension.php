@@ -27,7 +27,7 @@ class TwigExtension extends AbstractExtension
 
         return <<<HTML
         <svg class="icon icon-{$name}"{$attrs}>
-          <use xlink:href="/sprite.svg?logo#{$name}"></use>
+          <use href="/sprite.svg?logo#{$name}"></use>
         </svg>
         HTML;
     }

@@ -42,7 +42,7 @@ export function createElement(tagName, attributes = {}, ...children) {
   for (const k of Object.keys(attributes || {})) {
     if (typeof attributes[k] === "function" && k.startsWith("on")) {
       e.addEventListener(k.substr(2).toLowerCase(), attributes[k]);
-    } else if (k === "xlink:href") {
+    } else if (k === "href") {
       e.setAttributeNS("http://www.w3.org/1999/xlink", "href", attributes[k]);
     } else {
       e.setAttribute(k, attributes[k]);

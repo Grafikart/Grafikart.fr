@@ -28,14 +28,14 @@ export class Alert extends HTMLElement {
     this.classList.add('alert')
     this.classList.add(`alert-${this.type}`)
     this.innerHTML = `<svg class="icon icon-${this.icon}">
-          <use xlink:href="/sprite.svg#${this.icon}"></use>
+          <use href="/sprite.svg#${this.icon}"></use>
         </svg>
         <div>
           ${this.message || text}
         </div>
         <button class="alert-close">
           <svg class="icon">
-            <use xlink:href="/sprite.svg#cross"></use>
+            <use href="/sprite.svg#cross"></use>
           </svg>
         </button>
         ${progressBar}`
