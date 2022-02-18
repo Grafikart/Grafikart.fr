@@ -251,10 +251,6 @@
   .header .header-nav li:last-child {
     display: none;
   }
-  .header .header-nav .header__home {
-    display: block;
-    border: none !important;
-  }
   .header.is-open {
     color: var(--color);
     // Override .is-fixed
