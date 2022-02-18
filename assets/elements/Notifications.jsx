@@ -91,7 +91,7 @@ export function Notifications () {
  * Badge contenant le nombre de notifications
  */
 function Badge ({ count }) {
-  return count > 0 && <span className='notification-badge'>{count}</span>
+  return count < 10 ? <span className='notification-badge'>{count}</span> :  <span className='notification-badge'>9+</span>
 }
 
 /**
