@@ -46,7 +46,7 @@ class FormationController extends AbstractController
                 'html',
                 'webpack',
                 'vuejs',
-                'mysql',
+                'apprendre-sql',
                 'git',
                 'apprendre-algorithmique',
                 'programmation-objet-php',
