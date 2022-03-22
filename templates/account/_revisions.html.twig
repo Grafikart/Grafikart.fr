@@ -17,7 +17,9 @@
             {{ revision.target.title }}
           </a>
         {% else %}
-          {{ revision.target.title }}
+          <a href="{{ path(revision.target) }}">
+            {{ revision.target.title }}
+          </a>
         {% endif %}
       </td>
       <td width="150" class="mobile-hidden">
