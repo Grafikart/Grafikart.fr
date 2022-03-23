@@ -131,7 +131,10 @@ class Message implements SpammableInterface, CacheableInterface
      */
     public function getFormattedContent(): ?string
     {
-        return (new Parsedown())->setSafeMode(true)->text($this->content);
+        return (new Parsedown())
+            ->setSafeMode(true)
+            ->setBreaksEnabled(true)
+            ->text($this->content);
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
