@@ -27,9 +27,12 @@ class RevisionSubscriber implements EventSubscriberInterface
         $revision = $revisionAcceptedEvent->getRevision();
         $this->notificationService->notifyUser(
             $revision->getAuthor(),
-            sprintf("Votre modification pour l'article <strong>%s</strong> a été acceptée",
-                $revision->getTarget()->getTitle()),
-            $revision);
+            sprintf(
+                "Votre modification pour l'article <strong>%s</strong> a été acceptée",
+                $revision->getTarget()->getTitle()
+            ),
+            $revision
+        );
     }
 
     public function onRevisionRefused(RevisionRefusedEvent $revisionAcceptedEvent): void
@@ -37,8 +40,11 @@ class RevisionSubscriber implements EventSubscriberInterface
         $revision = $revisionAcceptedEvent->getRevision();
         $this->notificationService->notifyUser(
             $revision->getAuthor(),
-            sprintf("Votre modification pour l'article <strong>%s</strong> a été refusée :(",
-                $revision->getTarget()->getTitle()),
-            $revision);
+            sprintf(
+                "Votre modification pour l'article <strong>%s</strong> a été refusée :(",
+                $revision->getTarget()->getTitle()
+            ),
+            $revision
+        );
     }
 }
