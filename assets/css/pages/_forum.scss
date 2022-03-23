@@ -150,6 +150,10 @@
     color: var(--color-light);
   }
 }
+.forum-topic.is-read.is-solved img {
+  filter: none;
+}
+
 
 .forum-topic__title {
   display: block;
