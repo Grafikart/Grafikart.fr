@@ -23,7 +23,7 @@ export default function DeleteAccount ({ url, csrf, days }) {
         Supprimer mon compte
       </Button>
       {modal && (
-        <Modal padding={5}>
+        <Modal padding={5} onClose={toggleModal}>
           <FetchForm action={url} method='DELETE' onSuccess={handleSuccess} data={{ csrf }} floatingAlert>
             <Stack gap='3'>
               <h1 class='h1'>Confirmer la suppression</h1>
