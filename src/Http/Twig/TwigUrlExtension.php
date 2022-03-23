@@ -53,7 +53,11 @@ class TwigUrlExtension extends AbstractExtension
             return '/images/default.png';
         }
 
-        return $this->uploaderHelper->asset($user, 'avatarFile');
+        return sprintf(
+            '%s?uid=%s',
+            $this->uploaderHelper->asset($user, 'avatarFile'),
+            $user->getUpdatedAt()?->getTimestamp() ?: 0
+        );
     }
 
     /**
