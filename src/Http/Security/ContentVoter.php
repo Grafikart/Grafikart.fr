@@ -22,12 +22,14 @@ class ContentVoter extends Voter
     }
 
     /**
+     * @param $subject Content
      * {@inheritdoc}
      */
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
+        $contentIsPublished = !$subject->isScheduled() && $subject->isOnline();
 
-        return $user instanceof User;
+        return $user instanceof User && ($user->isPremium() || $contentIsPublished);
     }
 }

@@ -192,9 +192,4 @@ class Course extends Content
 
         return $this;
     }
-
-    public function isScheduled(): bool
-    {
-        return new \DateTimeImmutable() < $this->getCreatedAt();
-    }
 }

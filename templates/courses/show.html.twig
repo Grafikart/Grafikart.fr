@@ -20,7 +20,7 @@
 
 {% block body %}
 
-  {% cache [course, user_premium, course.isScheduled] %}
+  {% cache [course, user_premium, course.scheduled] %}
 
     <div class="container">
       {{ breadcrumb(course) }}
@@ -205,7 +205,9 @@
                     Proposer une correction
                   </a>
                 </div>
+                {% if is_granted('progress', course) %}
                 <mark-as-watched data-history="{{ course.id }}" content-id="{{ course.id }}"></mark-as-watched>
+                {% endif %}
                 <admin-edit hidden></admin-edit>
               </div>
             </div>

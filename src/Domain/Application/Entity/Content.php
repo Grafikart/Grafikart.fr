@@ -363,4 +363,9 @@ abstract class Content implements CacheableInterface
     {
         return str_replace(['.', ',', ':'], [' ', '', ''], $this->title ?: '');
     }
+
+    public function isScheduled(): bool
+    {
+        return new \DateTimeImmutable() < $this->getCreatedAt();
+    }
 }
