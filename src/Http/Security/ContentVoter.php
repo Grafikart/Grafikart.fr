@@ -22,8 +22,7 @@ class ContentVoter extends Voter
     }
 
     /**
-     * @param $subject Content
-     * {@inheritdoc}
+     * @param Content $subject
      */
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
