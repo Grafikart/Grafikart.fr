@@ -80,7 +80,7 @@ class TwigMarkdownExtension extends AbstractExtension
         $content = strip_tags((new Parsedown())
             ->setSafeMode(true)
             ->setBreaksEnabled(true)
-            ->text($content), '<p><pre><code><ul><ol><li><h4><h3><h5><a><strong><br>');
+            ->text($content), '<p><pre><code><ul><ol><li><h4><h3><h5><a><strong><br><em>');
 
         $content = str_replace('<a href="http', '<a target="_blank" rel="noreferrer nofollow" href="http', $content);
         $content = str_replace('<a href="//', '<a target="_blank" rel="noreferrer nofollow" href="http', $content);
