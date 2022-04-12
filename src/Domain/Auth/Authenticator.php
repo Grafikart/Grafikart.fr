@@ -29,6 +29,7 @@ class Authenticator extends AbstractLoginFormAuthenticator
 
     public final const LOGIN_ROUTE = 'auth_login';
     private ?UserInterface $user = null;
+    private ?Passport $lastPassport = null;
 
     public function __construct(
         private readonly UserRepository $userRepository,
@@ -43,7 +44,7 @@ class Authenticator extends AbstractLoginFormAuthenticator
         $email = (string) $request->request->get('email', '');
         $request->getSession()->set(Security::LAST_USERNAME, $email);
 
-        return new Passport(
+        $this->lastPassport = new Passport(
             new UserBadge($email, fn (string $email) => $this->userRepository->findForAuth($email)),
             new PasswordCredentials((string) $request->request->get('password', '')),
             [
@@ -51,6 +52,7 @@ class Authenticator extends AbstractLoginFormAuthenticator
                 new RememberMeBadge(),
             ]
         );
+        return $this->lastPassport;
     }
 
     public function onAuthenticationSuccess(
@@ -76,10 +78,12 @@ class Authenticator extends AbstractLoginFormAuthenticator
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): Response
     {
-        if ($this->user instanceof User &&
+        $user = $this->lastPassport?->getUser();
+        if (
+            $user instanceof User &&
             $exception instanceof BadCredentialsException
         ) {
-            $this->eventDispatcher->dispatch(new BadPasswordLoginEvent($this->user));
+            $this->eventDispatcher->dispatch(new BadPasswordLoginEvent($user));
         }
 
         return parent::onAuthenticationFailure($request, $exception);
