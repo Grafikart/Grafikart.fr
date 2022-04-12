@@ -5,8 +5,8 @@ namespace App\Domain\Auth;
 use App\Infrastructure\Orm\AbstractRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @extends AbstractRepository<User>
@@ -61,13 +61,13 @@ class UserRepository extends AbstractRepository implements PasswordUpgraderInter
     /**
      * {@inheritdoc}
      */
-    public function upgradePassword(UserInterface $user, string $newEncodedPassword): void
+    public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
         if (!$user instanceof User) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', $user::class));
         }
 
-        $user->setPassword($newEncodedPassword);
+        $user->setPassword($newHashedPassword);
         $this->_em->persist($user);
         $this->_em->flush();
     }

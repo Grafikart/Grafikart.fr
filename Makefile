@@ -86,7 +86,7 @@ rollback:
 .PHONY: test
 test: vendor/autoload.php node_modules/time ## Execute les tests
 	$(drtest) phptest bin/console doctrine:schema:validate --skip-sync
-	$(drtest) phptest vendor/bin/phpunit
+	$(drtest) phptest vendor/bin/phpunit --stop-on-failure
 	$(node) yarn run test
 
 .PHONY: tt
