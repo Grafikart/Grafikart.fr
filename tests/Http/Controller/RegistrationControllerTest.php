@@ -7,6 +7,7 @@ use App\Infrastructure\Social\SocialLoginService;
 use App\Tests\FixturesTrait;
 use App\Tests\WebTestCase;
 use League\OAuth2\Client\Provider\GithubResourceOwner;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class RegistrationControllerTest extends WebTestCase
 {
@@ -178,6 +179,7 @@ class RegistrationControllerTest extends WebTestCase
             'login' => 'JohnDoe',
             'id' => 123123,
         ]);
+        $this->client->getContainer()->get(RequestStack::class);
         $loginService = $this->client->getContainer()->get(SocialLoginService::class);
         $loginService->persist($github);
 
