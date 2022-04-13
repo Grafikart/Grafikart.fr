@@ -34,7 +34,7 @@
     "nucleos/antispam-bundle": "^2.3",
     "oneup/flysystem-bundle": "^4.1",
     "paypal/paypal-checkout-sdk": "^1.0",
-    "phpdocumentor/reflection-docblock": "^3.0 || ^4.0 || ^5.0",
+    "phpdocumentor/reflection-docblock": "^5.0",
     "phpstan/phpdoc-parser": "^1.2",
     "predis/predis": "^1.1",
     "sensio/framework-extra-bundle": "^6.0",

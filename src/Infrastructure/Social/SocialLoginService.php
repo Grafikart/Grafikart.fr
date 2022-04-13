@@ -14,15 +14,14 @@ class SocialLoginService
 
     public function __construct(
         private readonly RequestStack $requestStack,
-        private readonly NormalizerInterface $normalizer,
-        private readonly SessionInterface $session
+        private readonly NormalizerInterface $normalizer
     ) {
     }
 
     public function persist(ResourceOwnerInterface $resourceOwner): void
     {
         $data = $this->normalizer->normalize($resourceOwner);
-        $this->session->set(self::SESSION_KEY, $data);
+        $this->requestStack->getSession()->set(self::SESSION_KEY, $data);
     }
 
     public function hydrate(User $user): bool

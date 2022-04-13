@@ -10,3 +10,4 @@ services:
     decorates: mercure.hub.default.publisher
   App\Infrastructure\Social\SocialLoginService:
     autowire: true
+    public: true

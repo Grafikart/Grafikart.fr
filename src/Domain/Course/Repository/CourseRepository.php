@@ -79,7 +79,7 @@ class CourseRepository extends AbstractRepository
             ->select('SUM(c.duration)')
             ->where('c.online = true')
             ->getQuery()
-            ->getSingleScalarResult();
+            ->getSingleScalarResult() ?: 0;
     }
 
     /**

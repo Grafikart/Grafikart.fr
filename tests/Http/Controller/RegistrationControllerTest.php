@@ -3,11 +3,8 @@
 namespace App\Tests\Http\Controller;
 
 use App\Domain\Auth\User;
-use App\Infrastructure\Social\SocialLoginService;
 use App\Tests\FixturesTrait;
 use App\Tests\WebTestCase;
-use League\OAuth2\Client\Provider\GithubResourceOwner;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 class RegistrationControllerTest extends WebTestCase
 {
