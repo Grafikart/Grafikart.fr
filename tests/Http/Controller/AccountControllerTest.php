@@ -104,9 +104,11 @@ class AccountControllerTest extends WebTestCase
         /* @var User $user */
         ['user1' => $user] = $this->loadFixtures(['users']);
         $this->login($user);
+        $this->client->request('GET', '/profil/edit');
+        $csrf = $this->client->getRequest()->getSession()->get('_csrf/delete-account');
         $this->jsonRequest('DELETE', '/profil', [
             'password' => '0000',
-            'csrf' => $this->setCsrf('delete-account'),
+            'csrf' => $csrf,
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $this->assertEmailCount(1);
