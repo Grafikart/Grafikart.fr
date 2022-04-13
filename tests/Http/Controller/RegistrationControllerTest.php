@@ -3,11 +3,8 @@
 namespace App\Tests\Http\Controller;
 
 use App\Domain\Auth\User;
-use App\Infrastructure\Social\SocialLoginService;
 use App\Tests\FixturesTrait;
 use App\Tests\WebTestCase;
-use League\OAuth2\Client\Provider\GithubResourceOwner;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 class RegistrationControllerTest extends WebTestCase
 {
@@ -169,31 +166,5 @@ class RegistrationControllerTest extends WebTestCase
         $this->login($data['user1']);
         $this->client->request('GET', self::SIGNUP_PATH);
         $this->assertResponseRedirects('/profil');
-    }
-
-    public function testOauthRegistration(): void
-    {
-        // Simulates an oauth session
-        $github = new GithubResourceOwner([
-            'email' => 'john@doe.fr',
-            'login' => 'JohnDoe',
-            'id' => 123123,
-        ]);
-        $this->client->getContainer()->get(RequestStack::class);
-        $loginService = $this->client->getContainer()->get(SocialLoginService::class);
-        $loginService->persist($github);
-
-        $crawler = $this->client->request('GET', self::SIGNUP_PATH.'?oauth=1');
-        $form = $crawler->selectButton(self::SIGNUP_BUTTON)->form();
-        $form->setValues([
-            'registration_form' => [
-                'username' => 'Jane Doe',
-                'goal' => 'PHP, JavaScript',
-            ],
-        ]);
-        $this->client->submit($form);
-        $this->expectFormErrors(0);
-        $this->assertResponseRedirects();
-        $this->assertEmailCount(0);
     }
 }
