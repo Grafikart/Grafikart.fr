@@ -8,12 +8,14 @@ use App\Domain\Application\Event\ContentUpdatedEvent;
 use App\Domain\Course\Entity\Course;
 use App\Domain\Course\Helper\CourseCloner;
 use App\Http\Admin\Data\CourseCrudData;
+use App\Infrastructure\Queue\Message\ServiceMethodMessage;
 use App\Infrastructure\Youtube\YoutubeScopes;
 use App\Infrastructure\Youtube\YoutubeUploaderService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -110,7 +112,8 @@ final class CourseController extends CrudController
     public function upload(
         Request $request,
         SessionInterface $session,
-        \Google_Client $googleClient
+        \Google_Client $googleClient,
+        MessageBusInterface $messageBus
     ): Response {
         // Si on n'a pas d'id dans la session, on redirige
         $courseId = $session->get(self::UPLOAD_SESSION_KEY);
@@ -130,11 +133,11 @@ final class CourseController extends CrudController
 
         // Si on a un code d'auth, on envoie la tache à la file d'attente
         $googleClient->fetchAccessTokenWithAuthCode($request->get('code'));
-        $this->dispatchMethod(
+        $messageBus->dispatch(new ServiceMethodMessage(
             YoutubeUploaderService::class,
             'upload',
             [(int) $courseId, $googleClient->getAccessToken()]
-        );
+        ));
         $this->addFlash('success', "La vidéo est en cours d'envoi sur Youtube");
         $session->remove(self::UPLOAD_SESSION_KEY);
 

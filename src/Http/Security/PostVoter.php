@@ -10,7 +10,7 @@ class PostVoter extends Voter
 {
     public final const SHOW = 'show';
 
-    protected function supports(string $attribute, $subject): bool
+    protected function supports(string $attribute, mixed $subject): bool
     {
         return in_array($attribute, [
                 self::SHOW,
@@ -18,10 +18,9 @@ class PostVoter extends Voter
     }
 
     /**
-     * @param string $attribute
-     * @param Post   $subject
+     * @param Post $subject
      */
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
         return $subject instanceof Post && $subject->getCreatedAt() < new \DateTime('-2 hours');
     }

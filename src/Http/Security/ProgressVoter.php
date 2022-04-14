@@ -11,20 +11,14 @@ class ProgressVoter extends Voter
 {
     public final const DELETE_PROGRESS = 'DELETE_PROGRESS';
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function supports(string $attribute, $subject): bool
+    protected function supports(string $attribute, mixed $subject): bool
     {
         return in_array($attribute, [
                 self::DELETE_PROGRESS,
             ]) && $subject instanceof Progress;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
 

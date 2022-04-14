@@ -20,7 +20,7 @@ class ForumVoter extends Voter
     public final const READ_TOPICS = 'READ_TOPICS';
     public final const SOLVE_MESSAGE = 'SOLVE_MESSAGE';
 
-    protected function supports(string $attribute, $subject): bool
+    protected function supports(string $attribute, mixed $subject): bool
     {
         return in_array($attribute, [
             self::CREATE,
@@ -35,7 +35,7 @@ class ForumVoter extends Voter
         ]);
     }
 
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
         if (!$user instanceof User) {

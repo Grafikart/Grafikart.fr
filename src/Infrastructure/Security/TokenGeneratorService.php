@@ -9,6 +9,8 @@ class TokenGeneratorService
      */
     public function generate(int $length = 25): string
     {
-        return substr(bin2hex(random_bytes((int) ceil($length / 2))), 0, $length);
+        /** @var int<1, max> $bytesLength */
+        $bytesLength = max((int)ceil($length / 2), 1);
+        return substr(bin2hex(random_bytes($bytesLength)), 0, $length);
     }
 }

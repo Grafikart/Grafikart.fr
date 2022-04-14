@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Exception\UnexpectedValueException;
 class NotSameContentValidator extends ConstraintValidator
 {
     /**
-     * {@inheritdoc}
+     * @param string|Revision|null $value
      */
     public function validate($value, Constraint $constraint): void
     {

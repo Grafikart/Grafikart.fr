@@ -83,7 +83,7 @@ class UserController extends CrudController
         } catch (PremiumNotBanException) {
             $this->addFlash('error', 'Impossible de bannir un utilisateur premium');
 
-            return $this->redirectBack('admin_user_index');
+            return $this->redirectBack($request, 'admin_user_index');
         }
 
         if ($request->isXmlHttpRequest()) {
@@ -92,18 +92,18 @@ class UserController extends CrudController
 
         $this->addFlash('success', "L'utilisateur $username a été banni");
 
-        return $this->redirectBack('admin_user_index');
+        return $this->redirectBack($request, 'admin_user_index');
     }
 
     /**
      * @Route("/{id<\d+>}/confirm", methods={"POST"}, name="confirm")
      */
-    public function confirm(User $user, EntityManagerInterface $em): RedirectResponse
+    public function confirm(Request $request, User $user, EntityManagerInterface $em): RedirectResponse
     {
         $user->setConfirmationToken(null);
         $em->flush();
         $this->addFlash('success', 'Le compte a bien été confirmé');
 
-        return $this->redirectBack('admin_user_index');
+        return $this->redirectBack($request, 'admin_user_index');
     }
 }

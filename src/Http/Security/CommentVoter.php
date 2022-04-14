@@ -10,10 +10,10 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class CommentVoter extends Voter
 {
-    public final const DELETE = 'delete';
-    public final const UPDATE = 'update';
+    final public const DELETE = 'delete';
+    final public const UPDATE = 'update';
 
-    protected function supports(string $attribute, $subject): bool
+    protected function supports(string $attribute, mixed $subject): bool
     {
         return in_array($attribute, [
             self::DELETE,
@@ -21,11 +21,7 @@ class CommentVoter extends Voter
         ]) && ($subject instanceof Comment || $subject instanceof CommentResource);
     }
 
-    /**
-     * @param string                  $attribute
-     * @param Comment|CommentResource $subject
-     */
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
 
@@ -37,7 +33,7 @@ class CommentVoter extends Voter
             $subject = $subject->entity;
         }
 
-        if (null === $subject) {
+        if (!($subject instanceof Comment)) {
             return false;
         }
 

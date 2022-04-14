@@ -36,14 +36,14 @@ final class TransactionsController extends CrudController
     /**
      * @Route("/transaction/{id<\d+>}", name="show", methods={"DELETE"})
      */
-    public function delete(Transaction $transaction, EventDispatcherInterface $dispatcher): Response
+    public function delete(Request $request, Transaction $transaction, EventDispatcherInterface $dispatcher): Response
     {
         $payment = new Payment();
         $payment->id = (string) $transaction->getMethodRef();
         $dispatcher->dispatch(new PaymentRefundedEvent($payment));
         $this->addFlash('success', 'Le paiement a bien été marqué comme remboursé');
 
-        return $this->redirectBack('admin_transaction_index');
+        return $this->redirectBack($request, 'admin_transaction_index');
     }
 
     /**

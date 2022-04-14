@@ -29,6 +29,7 @@ class DumpCommand extends Command
         $dumpFile = $this->dumpPath.'/dump.tar';
 
         // On génère le dump SQL
+        /** @var array $params */
         $params = $this->em->getConnection()->getParams();
         $process = new Process(['pg_dump', '-U', $params['user'], '-Ft', '-h', $params['host'], '-f', $dumpFile]);
         $process->setEnv(['PGPASSWORD' => $params['password']]);
