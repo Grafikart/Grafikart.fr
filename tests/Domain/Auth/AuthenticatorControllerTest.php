@@ -14,7 +14,8 @@ class AuthenticatorControllerTest extends WebTestCase
     private const LOGIN_BUTTON = "Se connecter";
     private const LOGIN_PATH = '/connexion';
 
-    public function testSuccessLogin (): void {
+    public function testSuccessLogin(): void
+    {
         /** @var User $user */
         ['user1' => $user] = $this->loadFixtures(['users']);
         $crawler = $this->client->request('GET', self::LOGIN_PATH);
@@ -27,7 +28,8 @@ class AuthenticatorControllerTest extends WebTestCase
         $this->assertResponseRedirects('/');
     }
 
-    public function testFailLogin (): void {
+    public function testFailLogin(): void
+    {
         /** @var User $user */
         ['user1' => $user] = $this->loadFixtures(['users']);
         $crawler = $this->client->request('GET', self::LOGIN_PATH);
@@ -42,11 +44,12 @@ class AuthenticatorControllerTest extends WebTestCase
         $this->expectErrorAlert();
     }
 
-    public function testBruteForce (): void {
+    public function testBruteForce(): void
+    {
         /** @var User $user */
         ['user1' => $user] = $this->loadFixtures(['users']);
         $crawler = $this->client->request('GET', self::LOGIN_PATH);
-        for($i = 0; $i < 3; $i++) {
+        for ($i = 0; $i < 3; $i++) {
             $form = $crawler->selectButton(self::LOGIN_BUTTON)->form();
             $form->setValues([
                 'email'    => $user->getUsername(),
@@ -66,5 +69,4 @@ class AuthenticatorControllerTest extends WebTestCase
         $this->client->followRedirect();
         $this->expectErrorAlert();
     }
-
 }

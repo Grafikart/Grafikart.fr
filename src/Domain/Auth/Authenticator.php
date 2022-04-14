@@ -78,8 +78,7 @@ class Authenticator extends AbstractLoginFormAuthenticator
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): Response
     {
         $user = $this->lastPassport?->getUser();
-        if (
-            $user instanceof User &&
+        if ($user instanceof User &&
             $exception instanceof BadCredentialsException
         ) {
             $this->eventDispatcher->dispatch(new BadPasswordLoginEvent($user));
