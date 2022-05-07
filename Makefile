@@ -131,6 +131,9 @@ vendor/autoload.php: composer.lock
 	$(php) composer install
 	touch vendor/autoload.php
 
+composer.lock: composer.json
+	@echo composer.lock is not up to date.
+
 node_modules/time: yarn.lock
 	$(node) yarn
 	touch node_modules/time
