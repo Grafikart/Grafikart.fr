@@ -1,6 +1,6 @@
 {
   "name": "grafikart",
-  "version": "1.0.74",
+  "version": "1.0.75",
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
