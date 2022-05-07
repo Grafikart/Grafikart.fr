@@ -19,14 +19,6 @@ registerKonami()
 registerBadgeAlert()
 registerHeader()
 registerWindowHeightCSS()
-let isFirstRender = true
-
-document.addEventListener('turbolinks:load', () => {
-  if (isFirstRender && window.plausible) {
-    window.plausible('pageview')
-    isFirstRender = false;
-  }
-})
 
 document.addEventListener('turbolinks:load', () => {
   clearAllBodyScrollLocks()
