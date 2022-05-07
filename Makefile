@@ -1,5 +1,5 @@
 isDocker := $(shell docker info > /dev/null 2>&1 && echo 1)
-isProd := $(shell grep "APP_ENV=prod" .env.local && echo 1)
+isProd := $(shell grep "APP_ENV=prod" .env.local > /dev/null && echo 1)
 domain := "grafikart.fr"
 server := "grafikart"
 user := $(shell id -u)
