@@ -1,0 +1,25 @@
+- name: Plausible | Check if certificate exists
+  stat:
+    path: "/etc/letsencrypt/live/stats.{{ domain }}/fullchain.pem"
+  register: certificate
+- name: Plausible | Remove cert configuration from vhost
+  when: not certificate.stat.exists
+  shell:
+    cmd: |
+      sed -i -r 's/(listen .*443)/\1;#/g; s/(ssl_(certificate|certificate_key|trusted_certificate) )/#;#\1/g' /etc/nginx/sites-available/stats.{{domain}}
+    creates: "/etc/letsencrypt/live/stats.{{ domain }}/fullchain.pem"
+- name: Plausible | Reload nginx
+  when: not certificate.stat.exists
+  service:
+    name: nginx
+    state: reloaded
+- name: LetsEncrypt | Certbot certificate
+  shell:
+    cmd: "certbot certonly --webroot -d stats.{{ domain }} --email contact@{{ domain }} -w /var/www/_letsencrypt -n --agree-tos --force-renewal"
+    creates: "/etc/letsencrypt/live/stats.{{ domain }}/fullchain.pem"
+- name: "Plausible | Vhost stats.{{ domain }}"
+  when: not certificate.stat.exists
+  notify: nginx reload
+  template:
+    src: vhost.j2
+    dest: "/etc/nginx/sites-available/stats.{{ domain }}"

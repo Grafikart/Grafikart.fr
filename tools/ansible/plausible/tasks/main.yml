@@ -1,0 +1,30 @@
+- name: Plausible | Clone
+  become: no
+  git:
+    repo: "https://github.com/plausible/hosting.git"
+    dest: "{{ plausible_path }}"
+    version: master
+- name: Plausible | Configuration
+  replace:
+    path: "{{ plausible_path }}/docker-compose.yml"
+    regexp: "8000:8000"
+    replace: "8001:8000"
+- name: Plausible | Generate a secret
+  shell: "openssl rand -base64 64 | tr -d '\n' ; echo"
+  register: plausible_secret
+  ignore_errors: true
+- name: Plausible | Update secret
+  replace:
+    path: "{{ plausible_path }}/docker-compose.yml"
+    regexp: "SECRET_KEY_BASE=replace.*$"
+    replace: "SECRET_KEY_BASE={{ plausible_secret }}"
+- name: "Plausible | Vhost stats.{{ domain }}"
+  template:
+    src: vhost.j2
+    dest: "/etc/nginx/sites-available/stats.{{ domain }}"
+- name: "Plausible | Vhost stats.{{ domain }}"
+  file:
+    path: "/etc/nginx/sites-enabled/stats.{{ domain }}"
+    src: "/etc/nginx/sites-available/stats.{{ domain }}"
+    state: link
+- include_tasks: letsencrypt.yml

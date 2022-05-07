@@ -1,22 +1,24 @@
 isDocker := $(shell docker info > /dev/null 2>&1 && echo 1)
+isProd := $(shell grep "APP_ENV=prod" .env.local && echo 1)
 domain := "grafikart.fr"
 server := "grafikart"
 user := $(shell id -u)
 group := $(shell id -g)
 
+sy := php bin/console
+node :=
+php :=
 ifeq ($(isDocker), 1)
-	dc := USER_ID=$(user) GROUP_ID=$(group) docker-compose
-	dcimport := USER_ID=$(user) GROUP_ID=$(group) docker-compose -f docker-compose.import.yml
-	de := docker-compose exec
-	dr := $(dc) run --rm
-	sy := $(de) php bin/console
-	drtest := $(dc) -f docker-compose.test.yml run --rm
-	node := $(dr) node
-	php := $(dr) --no-deps php
-else
-	sy := php bin/console
-	node :=
-	php :=
+	ifneq ($(isProd), 1)
+		dc := USER_ID=$(user) GROUP_ID=$(group) docker-compose
+		dcimport := USER_ID=$(user) GROUP_ID=$(group) docker-compose -f docker-compose.import.yml
+		de := docker-compose exec
+		dr := $(dc) run --rm
+		drtest := $(dc) -f docker-compose.test.yml run --rm
+		sy := $(de) php bin/console
+		node := $(dr) node
+		php := $(dr) --no-deps php
+	endif
 endif
 
 .DEFAULT_GOAL := help

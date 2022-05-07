@@ -1,0 +1,51 @@
+server {
+    listen                  443 ssl http2;
+    listen                  [::]:443 ssl http2;
+    server_name             stats.{{ domain }};
+
+    # SSL
+    ssl_certificate         /etc/letsencrypt/live/stats.{{ domain }}/fullchain.pem;
+    ssl_certificate_key     /etc/letsencrypt/live/stats.{{ domain }}/privkey.pem;
+    ssl_trusted_certificate /etc/letsencrypt/live/stats.{{ domain }}/chain.pem;
+
+    # Proxy to docker
+    location / {
+        proxy_pass http://localhost:8001;
+
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # logging
+    access_log              off;
+    error_log               {{ plausible_path }}/error.log warn;
+
+    # security
+    include                 nginxconfig.io/security.conf;
+}
+
+# subdomains redirect
+server {
+    listen                  443 ssl http2;
+    listen                  [::]:443 ssl http2;
+    server_name             *.stats.{{ domain }};
+
+    # SSL
+    ssl_certificate         /etc/letsencrypt/live/stats.{{ domain }}/fullchain.pem;
+    ssl_certificate_key     /etc/letsencrypt/live/stats.{{ domain }}/privkey.pem;
+    ssl_trusted_certificate /etc/letsencrypt/live/stats.{{ domain }}/chain.pem;
+    return                  301 https://stats.{{ domain }}$request_uri;
+}
+
+# HTTP redirect
+server {
+    listen      80;
+    listen      [::]:80;
+    server_name .stats.{{ domain }};
+    include     nginxconfig.io/letsencrypt.conf;
+
+    location / {
+        return 301 https://stats.{{ domain }}$request_uri;
+    }
+}
