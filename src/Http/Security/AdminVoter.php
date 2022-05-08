@@ -17,7 +17,7 @@ class AdminVoter extends Voter
      */
     protected function supports(string $attribute, $subject): bool
     {
-        return true;
+        return !in_array($attribute, ['IS_IMPERSONATOR']);
     }
 
     /**
