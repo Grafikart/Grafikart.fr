@@ -58,10 +58,14 @@ Discord ► https://grafikart.fr/tchat");
         $snippet->setDefaultLanguage('fr');
         $video->setSnippet($snippet);
         $status = new Google_Service_YouTube_VideoStatus();
-        $status->setPrivacyStatus($course->getCreatedAt() > new \DateTimeImmutable() ? 'private' : 'public');
         $status->setEmbeddable(true);
         $status->setPublicStatsViewable(false);
-        $status->setPublishAt($course->getCreatedAt()->format(DATE_ISO8601));
+        if ($course->getCreatedAt() > new \DateTimeImmutable()) {
+            $status->setPrivacyStatus('private');
+            $status->setPublishAt($course->getCreatedAt()->format(DATE_ISO8601));
+        } else {
+            $status->setPrivacyStatus('public');
+        }
         $video->setStatus($status);
         if ($youtubeId) {
             $video->setId($youtubeId);
