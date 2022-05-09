@@ -34,7 +34,7 @@ class AttachmentController extends BaseController
             return [true, null];
         }
 
-        return [false, new JsonResponse(['error' => $errors->get(0)->getMessage()], 422)];
+        return [false, new JsonResponse(['error' => $errors->get(0)->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY)];
     }
 
     /**

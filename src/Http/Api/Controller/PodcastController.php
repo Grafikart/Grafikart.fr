@@ -10,6 +10,7 @@ use App\Http\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class PodcastController extends AbstractController
@@ -36,6 +37,6 @@ class PodcastController extends AbstractController
         $em->remove($podcast);
         $em->flush();
 
-        return new JsonResponse(null, 204);
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 }

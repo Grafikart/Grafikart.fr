@@ -100,6 +100,6 @@ final class ForumTagController extends CrudController
         }
         $em->flush();
 
-        return new JsonResponse([], 200);
+        return new JsonResponse([], Response::HTTP_OK);
     }
 }
