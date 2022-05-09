@@ -2,7 +2,6 @@ services:
   _defaults:
     autowire: true # Automatically injects dependencies in your services.
     autoconfigure: false # Automatically registers your services as commands, event subscribers, etc.
-    public: false
     bind:
       $podcastsPath: '%podcasts_path%'
 

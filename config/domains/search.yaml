@@ -6,7 +6,6 @@ services:
   _defaults:
     autowire: true
     autoconfigure: false
-    public: false
 
   App\Infrastructure\Search\Typesense\TypesenseClient:
     arguments: ['%typesense_host%', '%typesense_key%']

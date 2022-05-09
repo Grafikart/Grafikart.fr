@@ -5,7 +5,6 @@ services:
   _defaults:
     autowire: true # Automatically injects dependencies in your services.
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-    public: false
 
   App\Domain\Live\LiveSyncService:
     $playlistID: '%app.live_playlist%'
