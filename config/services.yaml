@@ -18,7 +18,6 @@ services:
   _defaults:
     autowire: true # Automatically injects dependencies in your services.
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-    public: false
     bind:
       $videosPath: '%videos_path%'
       $projectDir: '%kernel.project_dir%'
@@ -39,20 +38,13 @@ services:
       - '@Redis'
 
   App\:
-    resource: '../src/*'
-    exclude: '../src/{DependencyInjection,Entity,Infrastructure/Migrations,Tests,Kernel.php}'
-
-  App\Http\Controller\:
-    resource: '../src/Http/Controller'
-    tags: ['controller.service_arguments']
-
-  App\Http\Admin\Controller\:
-    resource: '../src/Http/Admin/Controller'
-    tags: ['controller.service_arguments']
-
-  App\Http\Api\Controller\:
-    resource: '../src/Http/Api/Controller'
-    tags: ['controller.service_arguments']
+    resource: '../src/'
+    exclude:
+      - '../src/DependencyInjection/'
+      - '../src/Entity/'
+      - '../src/Infrastructure/Migrations/'
+      - '../src/Kernel.php'
+      - '../tests/'
 
   App\Infrastructure\Storage\Naming\IdDirectoryNamer:
     public: true
