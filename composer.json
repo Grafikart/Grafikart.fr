@@ -52,7 +52,7 @@
     "symfony/http-client": "6.0.*",
     "symfony/intl": "6.0.*",
     "symfony/mailer": "6.0.*",
-    "symfony/mercure-bundle": "^0.3.0",
+    "symfony/mercure-bundle": "^0.3",
     "symfony/messenger": "6.0.*",
     "symfony/monolog-bundle": "^3.7",
     "symfony/notifier": "6.0.*",
