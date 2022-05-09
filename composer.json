@@ -61,6 +61,7 @@
     "symfony/property-info": "6.0.*",
     "symfony/proxy-manager-bridge": "6.0.*",
     "symfony/redis-messenger": "6.0.*",
+    "symfony/runtime": "6.0.*",
     "symfony/security-bundle": "6.0.*",
     "symfony/sendinblue-mailer": "6.0.*",
     "symfony/serializer": "6.0.*",
@@ -105,7 +106,8 @@
     "sort-packages": true,
     "allow-plugins": {
       "composer/package-versions-deprecated": true,
-      "symfony/flex": true
+      "symfony/flex": true,
+      "symfony/runtime": true
     }
   },
   "autoload": {
