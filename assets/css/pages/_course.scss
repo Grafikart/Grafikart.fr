@@ -223,10 +223,11 @@
   position: relative;
   padding-bottom: 56.25%;
   background-size: cover;
+  --color-overlay: var(--color);
 
   &::after {
     content:'';
-    background: linear-gradient(to top, var(--color) 0%, var(--color-transparent) 100%);
+    background: linear-gradient(to top, var(--color-overlay) 0%, var(--color-transparent) 100%);
     z-index: 2;
   }
 
@@ -255,7 +256,7 @@
 }
 @include dark {
   .course-countdown {
-    --color: #111426;
+    --color-overlay: #111426;
   }
 }
 .requirements {

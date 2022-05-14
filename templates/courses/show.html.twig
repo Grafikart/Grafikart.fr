@@ -103,7 +103,7 @@
       <div class="course-actions py3">
         <div>
           {% if course.premium %}
-            <div class="pill pill-yellow">Premium</div>
+            <a href="{{ path('premium') }}" class="pill pill-yellow">Premium</a>
           {% endif %}
           {% include 'partials/level.html.twig' with {content: course} %}
         </div>
