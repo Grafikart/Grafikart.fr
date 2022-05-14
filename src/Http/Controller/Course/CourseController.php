@@ -24,7 +24,8 @@ class CourseController extends AbstractController
      */
     public function index(CourseRepository $repo, PaginatorInterface $paginator, Request $request, TechnologyRepository $technologyRepository): Response
     {
-        $query = $repo->queryAll();
+        $premiumOnly = $request->query->getBoolean('premium');
+        $query = $premiumOnly ? $repo->queryAllPremium() : $repo->queryAll();
         $page = $request->query->getInt('page', 1);
 
         // On filtre par niveau
@@ -57,6 +58,7 @@ class CourseController extends AbstractController
             'levels' => $levels,
             'menu' => 'courses',
             'technology_selected' => $technology,
+            'premium_only' => $premiumOnly,
             'technologies' => $technologyRepository->findByType(),
         ], new Response('', $courses->count() > 0 ? 200 : 404));
     }

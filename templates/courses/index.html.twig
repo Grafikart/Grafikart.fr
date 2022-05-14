@@ -34,6 +34,13 @@
           {% endfor %}
         </select>
       </div>
+      <div class="grid-filter__group">
+        <label for="filter-premium">Premium : </label>
+        <div class="form-switch">
+          <input {% if premium_only %}checked{% endif %} data-redirect type="checkbox" name="premium" id="filter-premium" is="input-switch" class="form-check-input" value="1">
+          <label class="form-check-label" for="filter-premium"></label>
+        </div>
+      </div>
     </div>
 
     {% if courses | length > 0 %}
