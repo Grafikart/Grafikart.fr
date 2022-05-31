@@ -1,11 +1,18 @@
 // Variables
 // ==================
-$font: 'Inter', sans-serif;
-$font-alt: 'Inter', sans-serif;
+$font: 'Inter', 'Inter-fallback', Arial, sans-serif;
+$font-alt: 'Inter', 'Inter-fallback', Arial, sans-serif;
 
 // Font face
 // ==================
 @include font-face('Inter', '/fonts/Inter', 400 500 700, null, woff2);
+
+@font-face {
+    font-family: "Inter-fallback";
+    size-adjust: 107.00%;
+    ascent-override: 90%;
+    src: local("Arial");
+}
 
 %hero-title,
 .hero-title {
