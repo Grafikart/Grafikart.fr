@@ -2,6 +2,14 @@
 
 {% block title "Formation " ~ formation.title %}
 
+{% block meta %}
+  <meta property="og:image" content="{{ app.request.getUriForPath(image_url_raw(formation.image)) }}"/>
+  <meta property="og:created_time" content="{{ formation.createdAt | date('c') }}"/>
+  <meta property="og:type" content="video.other"/>
+  <meta property="og:duration" content="{{ formation.duration }}"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+{% endblock %}
+
 {% block body %}
 
   {% set first_course = formation.firstContent %}
