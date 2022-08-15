@@ -1,4 +1,5 @@
 parameters:
+  timezone:         '%env(APP_TIMEZONE)%'
   admin_prefix:     '%env(resolve:ADMIN_PREFIX)%'
   download_path:    '%kernel.project_dir%/downloads'
   podcasts_path:     '%kernel.project_dir%/public/podcasts'

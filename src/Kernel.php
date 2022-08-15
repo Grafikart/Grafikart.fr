@@ -16,10 +16,8 @@ class Kernel extends BaseKernel
 
     public function boot(): void
     {
-        date_default_timezone_set('Europe/Paris');
         parent::boot();
-
-        return;
+        date_default_timezone_set($this->getContainer()->getParameter('timezone'));
     }
 
     protected function configureContainer(ContainerConfigurator $container): void
