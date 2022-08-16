@@ -9,7 +9,7 @@ abstract class Normalizer implements NormalizerInterface, CacheableSupportsMetho
 {
     abstract public function normalize($object, string $format = null, array $context = []): array;
 
-    abstract public function supportsNormalization($data, string $format = null): bool;
+    abstract public function supportsNormalization($data, string $format = null, array $context = []): bool;
 
     public function hasCacheableSupportsMethod(): bool
     {

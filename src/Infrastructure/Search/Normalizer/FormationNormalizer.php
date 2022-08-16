@@ -5,9 +5,9 @@ namespace App\Infrastructure\Search\Normalizer;
 use ApiPlatform\Core\Api\UrlGeneratorInterface;
 use App\Domain\Course\Entity\Formation;
 use App\Http\Normalizer\FormationPathNormalizer;
-use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class FormationNormalizer implements ContextAwareNormalizerInterface
+class FormationNormalizer implements NormalizerInterface
 {
     public function __construct(
         private readonly FormationPathNormalizer $pathNormalizer,

@@ -19,7 +19,7 @@ class CategoryPathNormalizer extends Normalizer
         throw new \RuntimeException("Can't normalize path");
     }
 
-    public function supportsNormalization($data, string $format = null): bool
+    public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
         return ($data instanceof Category)
             && PathEncoder::FORMAT === $format;

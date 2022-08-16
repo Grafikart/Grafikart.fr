@@ -40,7 +40,7 @@ class PathEncoder implements EncoderInterface
     /**
      * {@inheritdoc}
      */
-    public function supportsEncoding(string $format): bool
+    public function supportsEncoding(string $format, array $context = []): bool
     {
         return self::FORMAT === $format;
     }

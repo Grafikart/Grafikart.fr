@@ -5,9 +5,9 @@ namespace App\Infrastructure\Search\Normalizer;
 use ApiPlatform\Core\Api\UrlGeneratorInterface;
 use App\Domain\Blog\Post;
 use App\Http\Normalizer\PostPathNormalizer;
-use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizableInterface;
 
-class PostNormalizer implements ContextAwareNormalizerInterface
+class PostNormalizer implements NormalizableInterface
 {
     public function __construct(
         private readonly PostPathNormalizer $pathNormalizer,
