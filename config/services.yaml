@@ -14,6 +14,9 @@ parameters:
   router.request_context.scheme: 'https'
   asset.request_context.secure: true
 
+imports:
+  - { resource: domains/ }
+
 services:
   _defaults:
     autowire: true # Automatically injects dependencies in your services.
@@ -109,7 +112,6 @@ services:
       - '%env(DROPBOX_TOKEN)%'
 
   App\Infrastructure\Mailing\Mailer:
-    class: App\Infrastructure\Mailing\Mailer
     arguments:
       $dkimKey: '%dkim_key%'
 

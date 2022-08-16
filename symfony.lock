@@ -16,17 +16,11 @@
     "beberlei/doctrineextensions": {
         "version": "v1.2.6"
     },
-    "clue/stdio-react": {
-        "version": "v2.3.0"
-    },
-    "clue/term-react": {
-        "version": "v1.2.0"
-    },
-    "clue/utf8-react": {
-        "version": "v1.1.0"
-    },
     "cocur/slugify": {
         "version": "v4.0.0"
+    },
+    "composer/package-versions-deprecated": {
+        "version": "1.11.99.4"
     },
     "composer/pcre": {
         "version": "1.0.0"
@@ -149,9 +143,6 @@
     "erusev/parsedown": {
         "version": "1.7.4"
     },
-    "evenement/evenement": {
-        "version": "v3.0.1"
-    },
     "fakerphp/faker": {
         "version": "v1.10.1"
     },
@@ -238,9 +229,6 @@
     "jms/metadata": {
         "version": "2.1.0"
     },
-    "jolicode/jolinotif": {
-        "version": "v2.1.0"
-    },
     "justinrainbow/json-schema": {
         "version": "5.2.9"
     },
@@ -264,12 +252,6 @@
     },
     "laminas/laminas-code": {
         "version": "3.4.1"
-    },
-    "laminas/laminas-eventmanager": {
-        "version": "3.2.1"
-    },
-    "laminas/laminas-zendframework-bridge": {
-        "version": "1.0.1"
     },
     "lcobucci/clock": {
         "version": "2.0.0"
@@ -335,9 +317,6 @@
     "nucleos/antispam-bundle": {
         "version": "2.1.0"
     },
-    "ocramius/package-versions": {
-        "version": "1.5.1"
-    },
     "oneup/flysystem-bundle": {
         "version": "4.0",
         "recipe": {
@@ -364,9 +343,6 @@
     },
     "phar-io/version": {
         "version": "2.0.1"
-    },
-    "php": {
-        "version": "7.4"
     },
     "php-cs-fixer/diff": {
         "version": "v1.3.0"
@@ -466,12 +442,6 @@
     "ralouphie/getallheaders": {
         "version": "3.0.3"
     },
-    "react/event-loop": {
-        "version": "v1.1.1"
-    },
-    "react/stream": {
-        "version": "v1.1.0"
-    },
     "rector/rector": {
         "version": "0.12.12"
     },
@@ -541,9 +511,6 @@
     "spatie/flysystem-dropbox": {
         "version": "2.0.4"
     },
-    "spatie/phpunit-watcher": {
-        "version": "1.22.0"
-    },
     "squizlabs/php_codesniffer": {
         "version": "3.0",
         "recipe": {
@@ -558,9 +525,6 @@
     },
     "stripe/stripe-php": {
         "version": "v7.31.0"
-    },
-    "symfony/amqp-messenger": {
-        "version": "v5.1.5"
     },
     "symfony/asset": {
         "version": "v5.0.3"
@@ -806,9 +770,6 @@
     "symfony/polyfill-mbstring": {
         "version": "v1.13.1"
     },
-    "symfony/polyfill-php73": {
-        "version": "v1.13.1"
-    },
     "symfony/polyfill-php80": {
         "version": "v1.17.1"
     },
@@ -860,9 +821,6 @@
         "version": "v5.0.3"
     },
     "symfony/security-csrf": {
-        "version": "v5.0.3"
-    },
-    "symfony/security-guard": {
         "version": "v5.0.3"
     },
     "symfony/security-http": {
@@ -1011,8 +969,5 @@
     },
     "wohali/oauth2-discord-new": {
         "version": "v1.0.0"
-    },
-    "yosymfony/resource-watcher": {
-        "version": "v2.0.1"
     }
 }
