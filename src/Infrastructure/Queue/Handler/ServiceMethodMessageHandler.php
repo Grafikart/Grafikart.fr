@@ -9,7 +9,7 @@ use App\Infrastructure\Queue\Message\ServiceMethodMessage;
 use App\Infrastructure\Youtube\YoutubeUploaderService;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mercure\PublisherInterface;
+use Symfony\Component\Mercure\HubInterface;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Contracts\Service\ServiceSubscriberInterface;
 
@@ -37,7 +37,7 @@ class ServiceMethodMessageHandler implements MessageHandlerInterface, ServiceSub
             YoutubeUploaderService::class => YoutubeUploaderService::class,
             MailerInterface::class => MailerInterface::class,
             Mailer::class => Mailer::class,
-            PublisherInterface::class => PublisherInterface::class,
+            HubInterface::class => HubInterface::class,
             NotificationService::class => NotificationService::class,
         ];
     }

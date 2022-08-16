@@ -7,8 +7,8 @@ parameters:
 imports:
   - { resource: domains/ }
 services:
-  App\Tests\Infrastructure\Mercure\PublisherStub:
-    decorates: mercure.hub.default.publisher
+  App\Tests\Infrastructure\Mercure\HubStub:
+    decorates: mercure.hub.default.traceable
   App\Infrastructure\Social\SocialLoginService:
     autowire: true
     public: true

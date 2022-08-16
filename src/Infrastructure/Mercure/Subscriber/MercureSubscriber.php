@@ -8,7 +8,7 @@ use App\Domain\Notification\Event\NotificationCreatedEvent;
 use App\Domain\Notification\Event\NotificationReadEvent;
 use App\Infrastructure\Queue\EnqueueMethod;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Mercure\PublisherInterface;
+use Symfony\Component\Mercure\HubInterface;
 use Symfony\Component\Mercure\Update;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -43,7 +43,7 @@ class MercureSubscriber implements EventSubscriberInterface
             'groups' => ['read:notification'],
             'iri'    => false,
         ]), true);
-        $this->enqueue->enqueue(PublisherInterface::class, '__invoke', [$update]);
+        $this->enqueue->enqueue(HubInterface::class, 'publish', [$update]);
     }
 
     public function publishBadgeUnlock(BadgeUnlockEvent $event): void
@@ -55,8 +55,8 @@ class MercureSubscriber implements EventSubscriberInterface
             'data' => $badge,
         ], 'json'), true);
         $this->enqueue->enqueue(
-            PublisherInterface::class,
-            '__invoke',
+            HubInterface::class,
+            'publish',
             [$update],
             new \DateTimeImmutable('+ 2 seconds')
         );
@@ -70,6 +70,6 @@ class MercureSubscriber implements EventSubscriberInterface
             '{"type": "markAsRead"}',
             true
         );
-        $this->enqueue->enqueue(PublisherInterface::class, '__invoke', [$update]);
+        $this->enqueue->enqueue(HubInterface::class, 'publish', [$update]);
     }
 }
