@@ -1,5 +1,4 @@
 mercure:
-  enable_profiler: '%kernel.debug%'
   hubs:
     default:
       url: '%env(MERCURE_PUBLISH_URL)%'

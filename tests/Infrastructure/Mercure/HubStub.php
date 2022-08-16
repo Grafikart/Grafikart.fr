@@ -5,7 +5,6 @@ namespace App\Tests\Infrastructure\Mercure;
 use Symfony\Component\Mercure\HubInterface;
 use Symfony\Component\Mercure\Jwt\TokenFactoryInterface;
 use Symfony\Component\Mercure\Jwt\TokenProviderInterface;
-use Symfony\Component\Mercure\MockHub;
 use Symfony\Component\Mercure\Update;
 
 class HubStub implements HubInterface
