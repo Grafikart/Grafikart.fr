@@ -7,7 +7,7 @@ use App\Infrastructure\Queue\FailedJob;
 use App\Infrastructure\Queue\Message\ServiceMethodMessage;
 use Symfony\Component\ErrorHandler\Exception\FlattenException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Mercure\PublisherInterface;
+use Symfony\Component\Mercure\HubInterface;
 use Symfony\Component\Messenger\Bridge\Doctrine\Transport\DoctrineReceivedStamp;
 use Symfony\Component\Messenger\Event\WorkerMessageFailedEvent;
 use Symfony\Component\Messenger\Stamp\RedeliveryStamp;
@@ -30,7 +30,7 @@ class FailedMessageSubscriber implements EventSubscriberInterface
         $message = $event->getEnvelope()->getMessage();
         // Si le message qui a échoué, est une notification, on ne demande pas une nouvelle notification (cela créerait une boucle infinie)
         if ($message instanceof ServiceMethodMessage &&
-            PublisherInterface::class === $message->getServiceName()
+            HubInterface::class === $message->getServiceName()
         ) {
             return;
         }

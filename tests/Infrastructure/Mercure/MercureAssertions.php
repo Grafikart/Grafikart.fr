@@ -11,9 +11,9 @@ trait MercureAssertions
      */
     public function assertPublishedOnTopic(string $topic): void
     {
-        $this->assertNotNull(PublisherStub::$lastUpdate);
+        $this->assertNotNull(HubStub::$lastUpdate);
         /** @var Update $update */
-        $update = PublisherStub::$lastUpdate;
+        $update = HubStub::$lastUpdate;
         $this->assertContains($topic, $update->getTopics());
     }
 }
