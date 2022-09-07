@@ -37,7 +37,7 @@
     "favicon-badge": "^2.0.0",
     "flatpickr": "^4.6.9",
     "htm": "^3.0.4",
-    "markdown-to-jsx": "^7.1.1",
+    "markdown-to-jsx": "^7.1.7",
     "preact": "^10.5.10",
     "react-diff-viewer": "^3.1.1",
     "scriptjs": "^2.5.9",
