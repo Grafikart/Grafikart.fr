@@ -64,6 +64,10 @@ export class ProgressTracker extends HTMLElement {
       origin: { y: 0.6 }
     })
     this.setAttribute('progress', '1')
+    const markAsWatchedButton = document.querySelector('mark-as-watched')
+    if (markAsWatchedButton) {
+      markAsWatchedButton.remove()
+    }
   }
 
   async onProgress () {
