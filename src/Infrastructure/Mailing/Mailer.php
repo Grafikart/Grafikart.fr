@@ -4,6 +4,7 @@ namespace App\Infrastructure\Mailing;
 
 use App\Infrastructure\Queue\EnqueueMethod;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Crypto\DkimSigner;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mime\Message;
@@ -27,7 +28,7 @@ class Mailer
         $text = $this->twig->render($template, array_merge($data, ['layout' => 'mails/base.text.twig']));
 
         return (new Email())
-            ->from('noreply@grafikart.fr')
+            ->from(new Address('noreply@grafikart.fr', 'Grafikart'))
             ->html($html)
             ->text($text);
     }
