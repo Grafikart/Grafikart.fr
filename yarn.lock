@@ -4397,10 +4397,10 @@ markdown-escapes@^1.0.0:
   resolved "https://registry.yarnpkg.com/markdown-escapes/-/markdown-escapes-1.0.4.tgz#c95415ef451499d7602b91095f3c8e8975f78535"
   integrity sha512-8z4efJYk43E0upd0NbVXwgSTQs6cT3T06etieCMEg7dRbzCbxUCK/GHlX8mhHRDcp+OLlHkPKsvqQTCvsRl2cg==
 
-markdown-to-jsx@^7.1.7:
-  version "7.1.7"
-  resolved "https://registry.yarnpkg.com/markdown-to-jsx/-/markdown-to-jsx-7.1.7.tgz#a5f22102fb12241c8cea1ca6a4050bb76b23a25d"
-  integrity sha512-VI3TyyHlGkO8uFle0IOibzpO1c1iJDcXcS/zBrQrXQQvJ2tpdwVzVZ7XdKsyRz1NdRmre4dqQkMZzUHaKIG/1w==
+markdown-to-jsx@7.1.2:
+  version "7.1.2"
+  resolved "https://registry.yarnpkg.com/markdown-to-jsx/-/markdown-to-jsx-7.1.2.tgz#19d3da4cd8864045cdd13a0d179147fbd6a088d4"
+  integrity sha512-O8DMCl32V34RrD+ZHxcAPc2+kYytuDIoQYjY36RVdsLK7uHjgNVvFec4yv0X6LgB4YEZgSvK5QtFi5YVqEpoMA==
 
 mem@5.1.1:
   version "5.1.1"

@@ -1,6 +1,6 @@
 {
   "name": "grafikart",
-  "version": "1.0.79",
+  "version": "1.0.80",
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
@@ -37,7 +37,7 @@
     "favicon-badge": "^2.0.0",
     "flatpickr": "^4.6.9",
     "htm": "^3.0.4",
-    "markdown-to-jsx": "^7.1.7",
+    "markdown-to-jsx": "7.1.2",
     "preact": "^10.5.10",
     "react-diff-viewer": "^3.1.1",
     "scriptjs": "^2.5.9",
