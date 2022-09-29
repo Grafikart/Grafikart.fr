@@ -4,6 +4,12 @@
 
 .formatted {
 
+  iframe {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    height: auto;
+  }
+
   & > *:last-child {
     margin-bottom: 0!important;
   }
