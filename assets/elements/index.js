@@ -35,12 +35,14 @@ import LoaderOverlay from '/elements/LoaderOverlay.js'
 import { ThemeSwitcher } from '/elements/ThemeSwitcher.js'
 import { MarkAsWatched } from '/elements/courses/MarkAsWatched.jsx'
 import { PodcastVote } from '/elements/PodcastVote.js'
+import { SpoilerBox } from '/elements/SpoilerBox'
 
 // Custom Elements
 customElements.define('nav-tabs', NavTabs)
 customElements.define('textarea-autogrow', TextareaAutogrow, { extends: 'textarea' })
 customElements.define('modal-dialog', ModalDialog)
 customElements.define('alert-message', Alert)
+customElements.define('spoiler-box', SpoilerBox)
 customElements.define('alert-floating', FloatingAlert)
 customElements.define('youtube-player', YoutubePlayer)
 customElements.define('live-recap', RecapLiveElement)

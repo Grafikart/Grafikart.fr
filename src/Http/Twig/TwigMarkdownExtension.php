@@ -46,16 +46,21 @@ class TwigMarkdownExtension extends AbstractExtension
             return '';
         }
         $content = (new Parsedown())->setBreaksEnabled(true)->setSafeMode(false)->text($content);
-        // On wrap les iframe avec un ratio
-        $content = preg_replace(
-            '/<iframe[^>]*><\/iframe>/',
-            '<div class="ratio">$0</div>',
-            (string) $content
-        );
         // On remplace les liens youtube par un embed
         $content = (string) preg_replace(
             '/<p><a href\="(http|https):\/\/www.youtube.com\/watch\?v=([^\""]+)">[^<]*<\/a><\/p>/',
-            '<div class="video"><div class="ratio"><iframe width="560" height="315" src="//www.youtube-nocookie.com/embed/$2" frameborder="0" allowfullscreen=""></iframe></div></div>',
+            '<iframe width="560" height="315" src="//www.youtube-nocookie.com/embed/$2" frameborder="0" allowfullscreen=""></iframe>',
+            (string) $content
+        );
+        // Spoiler tag
+        $content = (string) preg_replace(
+            '/<p>!!<\/p>/',
+            '<spoiler-box>',
+            (string) $content
+        );
+        $content = (string) preg_replace(
+            '/<p>\/!!<\/p>/',
+            '</spoiler-box>',
             (string) $content
         );
         // On ajoute des liens sur les nombres représentant un timestamp "00:01"

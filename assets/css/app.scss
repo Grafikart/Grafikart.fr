@@ -128,10 +128,13 @@ body::after {
   color: #fff;
 }
 
-// Force les custom element à être en block
+// Force le display des custom elements
 // =============
 con-fetti {
   display: block;
+}
+spoiler-box {
+  display: none;
 }
 
 
