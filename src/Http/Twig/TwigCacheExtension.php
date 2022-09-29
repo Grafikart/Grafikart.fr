@@ -34,26 +34,26 @@ class TwigCacheExtension extends AbstractExtension
         bool $prefix = true
     ): string {
         if (true === $prefix) {
-            $prefix = (new AsciiSlugger())->slug(str_replace('.html.twig', '', $templatePath)) . '_';
+            $prefix = (new AsciiSlugger())->slug(str_replace('.html.twig', '', $templatePath)).'_';
         } else {
             $prefix = '';
         }
         if (is_bool($item)) {
-            return $prefix . ($item ? '1' : '0');
+            return $prefix.($item ? '1' : '0');
         }
         if (empty($item)) {
             throw new \Exception('Clef de cache invalide');
         }
         if (is_string($item)) {
-            return $prefix . $item;
+            return $prefix.$item;
         }
         if (is_array($item)) {
-            return $prefix . implode('_', array_map(fn($v) => $this->getCacheKey($templatePath, $v, false), $item));
+            return $prefix.implode('_', array_map(fn ($v) => $this->getCacheKey($templatePath, $v, false), $item));
         }
         if ($item instanceof IterableQueryBuilder) {
             $item = $item->getFirstResultOnly();
             if (null === $item) {
-                return $prefix . 'noresult';
+                return $prefix.'noresult';
             }
         }
         if (!is_object($item) || !($item instanceof CacheableInterface)) {
@@ -65,9 +65,9 @@ class TwigCacheExtension extends AbstractExtension
             $className = $item::class;
             $className = substr($className, strrpos($className, '\\') + 1);
 
-            return $prefix . $id . $className . $updatedAt->getTimestamp();
+            return $prefix.$id.$className.$updatedAt->getTimestamp();
         } catch (\Error $e) {
-            throw new \Exception("TwigCache : Impossible de serialiser l'objet pour le cache : \n" . $e->getMessage());
+            throw new \Exception("TwigCache : Impossible de serialiser l'objet pour le cache : \n".$e->getMessage());
         }
     }
 

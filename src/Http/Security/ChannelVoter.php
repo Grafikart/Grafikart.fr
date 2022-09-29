@@ -7,7 +7,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class ChannelVoter extends Voter
 {
-    public final const LISTEN_ADMIN = 'channel_listen_admin';
+    final public const LISTEN_ADMIN = 'channel_listen_admin';
 
     protected function supports(string $attribute, $subject): bool
     {

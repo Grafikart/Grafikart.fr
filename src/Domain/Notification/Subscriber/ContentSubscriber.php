@@ -55,7 +55,7 @@ class ContentSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function notifyContent(\App\Domain\Course\Entity\Course|\App\Domain\Course\Entity\Formation $content): void
+    private function notifyContent(Course|Formation $content): void
     {
         $technologies = implode(', ', array_map(fn (Technology $t) => $t->getName(), $content->getMainTechnologies()));
         $duration = TimeHelper::duration($content->getDuration());

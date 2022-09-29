@@ -51,7 +51,7 @@ trait ChapterableTrait
      */
     public function setChapters(array $chapters): self
     {
-        $this->chapters = array_map(fn(Chapter $chapter) => [
+        $this->chapters = array_map(fn (Chapter $chapter) => [
             'title' => $chapter->getTitle(),
             'modules' => array_map(fn (Content $course) => $course->getId(), $chapter->getModules()),
         ], $chapters);

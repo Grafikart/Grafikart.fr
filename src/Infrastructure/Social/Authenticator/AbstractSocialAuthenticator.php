@@ -66,17 +66,13 @@ abstract class AbstractSocialAuthenticator extends OAuth2Authenticator
         try {
             $accessToken = $client->getAccessToken();
         } catch (\Exception) {
-            throw new CustomUserMessageAuthenticationException(
-                sprintf("Une erreur est survenue lors de la récupération du token d'accès %s", $this->serviceName)
-            );
+            throw new CustomUserMessageAuthenticationException(sprintf("Une erreur est survenue lors de la récupération du token d'accès %s", $this->serviceName));
         }
 
         try {
             $resourceOwner = $this->getResourceOwnerFromCredentials($accessToken);
         } catch (\Exception) {
-            throw new CustomUserMessageAuthenticationException(
-                sprintf("Une erreur est survenue lors de la communication avec %s", $this->serviceName)
-            );
+            throw new CustomUserMessageAuthenticationException(sprintf('Une erreur est survenue lors de la communication avec %s', $this->serviceName));
         }
         $user = $this->authService->getUserOrNull();
         if ($user) {
@@ -94,7 +90,7 @@ abstract class AbstractSocialAuthenticator extends OAuth2Authenticator
         return new SelfValidatingPassport(
             new UserBadge($user->getUserIdentifier(), $userLoader),
             [
-                new RememberMeBadge()
+                new RememberMeBadge(),
             ]
         );
     }

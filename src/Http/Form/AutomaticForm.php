@@ -34,7 +34,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 class AutomaticForm extends AbstractType
 {
-    public final const TYPES = [
+    final public const TYPES = [
         'string' => TextType::class,
         'bool' => SwitchType::class,
         'int' => NumberType::class,
@@ -47,7 +47,7 @@ class AutomaticForm extends AbstractType
         CursusCategory::class => CursusCategoryChoiceType::class,
     ];
 
-    public final const NAMES = [
+    final public const NAMES = [
         'content' => EditorType::class,
         'description' => TextareaType::class,
         'short' => TextareaType::class,

@@ -8,10 +8,9 @@ use App\Tests\WebTestCase;
 
 class AuthenticatorControllerTest extends WebTestCase
 {
-
     use FixturesTrait;
 
-    private const LOGIN_BUTTON = "Se connecter";
+    private const LOGIN_BUTTON = 'Se connecter';
     private const LOGIN_PATH = '/connexion';
 
     public function testSuccessLogin(): void
@@ -22,7 +21,7 @@ class AuthenticatorControllerTest extends WebTestCase
         $form = $crawler->selectButton(self::LOGIN_BUTTON)->form();
         $form->setValues([
             'email' => $user->getUsername(),
-            'password' => '0000'
+            'password' => '0000',
         ]);
         $this->client->submit($form);
         $this->assertResponseRedirects('/');
@@ -36,7 +35,7 @@ class AuthenticatorControllerTest extends WebTestCase
         $form = $crawler->selectButton(self::LOGIN_BUTTON)->form();
         $form->setValues([
             'email' => $user->getUsername(),
-            'password' => '1000'
+            'password' => '1000',
         ]);
         $this->client->submit($form);
         $this->assertResponseRedirects(self::LOGIN_PATH);
@@ -49,11 +48,11 @@ class AuthenticatorControllerTest extends WebTestCase
         /** @var User $user */
         ['user1' => $user] = $this->loadFixtures(['users']);
         $crawler = $this->client->request('GET', self::LOGIN_PATH);
-        for ($i = 0; $i < 3; $i++) {
+        for ($i = 0; $i < 3; ++$i) {
             $form = $crawler->selectButton(self::LOGIN_BUTTON)->form();
             $form->setValues([
-                'email'    => $user->getUsername(),
-                'password' => '1000'
+                'email' => $user->getUsername(),
+                'password' => '1000',
             ]);
             $this->client->submit($form);
             $this->assertResponseRedirects(self::LOGIN_PATH);
@@ -61,8 +60,8 @@ class AuthenticatorControllerTest extends WebTestCase
         }
         $form = $crawler->selectButton(self::LOGIN_BUTTON)->form();
         $form->setValues([
-            'email'    => $user->getUsername(),
-            'password' => '0000'
+            'email' => $user->getUsername(),
+            'password' => '0000',
         ]);
         $this->client->submit($form);
         $this->assertResponseRedirects(self::LOGIN_PATH);

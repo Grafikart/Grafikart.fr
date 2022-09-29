@@ -68,9 +68,9 @@ class ChaptersForm extends TextareaType implements DataTransformerInterface
      */
     public function transform($value): string
     {
-        return json_encode(collect($value)->map(fn(Chapter $chapter) => [
+        return json_encode(collect($value)->map(fn (Chapter $chapter) => [
             'title' => $chapter->getTitle(),
-            'modules' => collect($chapter->getModules())->map(fn(Content $content) => [
+            'modules' => collect($chapter->getModules())->map(fn (Content $content) => [
                 'title' => $content->getTitle(),
                 'id' => $content->getId(),
             ]),
@@ -93,7 +93,7 @@ class ChaptersForm extends TextareaType implements DataTransformerInterface
 
         return array_map(function ($chapter) {
             /** @var Content[] $content */
-            $content = array_map(fn($content) => $this->em->getReference(Content::class, $content['id']), $chapter['modules']);
+            $content = array_map(fn ($content) => $this->em->getReference(Content::class, $content['id']), $chapter['modules']);
 
             return (new Chapter())
                 ->setTitle($chapter['title'])

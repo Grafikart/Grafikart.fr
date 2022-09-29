@@ -20,7 +20,7 @@ class ForumTagNormalizer extends Normalizer
                 'position' => $object->getPosition(),
                 'name' => $object->getName(),
                 'url' => $this->urlGenerator->generate('admin_forum-tag_edit', ['id' => $object->getId()]),
-                'children' => $object->getChildren()->map(fn(Tag $tag) => $this->normalize($tag))->toArray(),
+                'children' => $object->getChildren()->map(fn (Tag $tag) => $this->normalize($tag))->toArray(),
             ];
         }
         throw new \RuntimeException("Can't normalize path");

@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SpamController extends BaseController
 {
-    public final const TYPES = [
+    final public const TYPES = [
         'topic' => Topic::class,
         'message' => Message::class,
     ];

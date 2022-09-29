@@ -17,7 +17,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class PasswordService
 {
-    public final const EXPIRE_IN = 30;
+    final public const EXPIRE_IN = 30;
 
     public function __construct(
         private readonly UserRepository $userRepository,

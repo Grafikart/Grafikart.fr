@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class OptionController extends BaseController
 {
-    public final const MANAGEABLE_KEYS = ['spam_words', LiveService::OPTION_KEY];
+    final public const MANAGEABLE_KEYS = ['spam_words', LiveService::OPTION_KEY];
 
     public function __construct(private readonly OptionManagerInterface $optionManager)
     {

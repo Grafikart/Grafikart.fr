@@ -50,12 +50,12 @@ class AuthenticationFailureListener implements EventSubscriberInterface
         $user = $exception->getUser();
         /** @var array{type: string} $data */
         $data = $this->normalizer->normalize($exception->getResourceOwner());
-        $setter = 'set' . ucfirst($data['type']) . 'Id';
+        $setter = 'set'.ucfirst($data['type']).'Id';
         $user->$setter($resourceOwner->getId());
         $this->em->flush();
         $session = $this->requestStack->getSession();
         if ($session instanceof Session) {
-            $session->getFlashBag()->set('success', 'Votre compte a bien été associé à ' . $data['type']);
+            $session->getFlashBag()->set('success', 'Votre compte a bien été associé à '.$data['type']);
         }
     }
 }

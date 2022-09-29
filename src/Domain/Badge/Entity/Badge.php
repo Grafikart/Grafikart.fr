@@ -12,7 +12,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class Badge
 {
-    public final const REQUEST_UNLOCKABLE = ['gamer', 'lochness'];
+    final public const REQUEST_UNLOCKABLE = ['gamer', 'lochness'];
 
     /**
      * @ORM\Id()

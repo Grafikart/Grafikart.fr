@@ -8,8 +8,6 @@ use App\Normalizer\Normalizer;
 
 class RevisionPathNormalizer extends Normalizer
 {
-
-
     public function normalize($object, string $format = null, array $context = []): array
     {
         if ($object instanceof Revision) {

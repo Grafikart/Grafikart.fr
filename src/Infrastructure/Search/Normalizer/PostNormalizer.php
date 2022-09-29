@@ -23,18 +23,18 @@ class PostNormalizer implements ContextAwareNormalizerInterface
     public function normalize($object, string $format = null, array $context = []): array
     {
         if (!$object instanceof Post) {
-            throw new \InvalidArgumentException('Unexpected type for normalization, expected Course, got ' . $object::class);
+            throw new \InvalidArgumentException('Unexpected type for normalization, expected Course, got '.$object::class);
         }
         $title = $object->getTitle();
         $url = $this->pathNormalizer->normalize($object);
 
         return [
-            'id'         => (string)$object->getId(),
-            'content'    => MarkdownTransformer::toText((string)$object->getContent()),
-            'url'        => $this->urlGenerator->generate($url['path'], $url['params']),
-            'title'      => $title,
-            'category'   => [],
-            'type'       => 'post',
+            'id' => (string) $object->getId(),
+            'content' => MarkdownTransformer::toText((string) $object->getContent()),
+            'url' => $this->urlGenerator->generate($url['path'], $url['params']),
+            'title' => $title,
+            'category' => [],
+            'type' => 'post',
             'created_at' => $object->getCreatedAt()->getTimestamp(),
         ];
     }

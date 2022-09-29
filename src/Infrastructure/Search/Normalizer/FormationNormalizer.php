@@ -23,18 +23,18 @@ class FormationNormalizer implements ContextAwareNormalizerInterface
     public function normalize($object, string $format = null, array $context = []): array
     {
         if (!$object instanceof Formation) {
-            throw new \InvalidArgumentException('Unexpected type for normalization, expected Formation, got ' . $object::class);
+            throw new \InvalidArgumentException('Unexpected type for normalization, expected Formation, got '.$object::class);
         }
 
         $url = $this->pathNormalizer->normalize($object);
 
         return [
-            'id'         => (string)$object->getId(),
-            'content'    => $object->getContent(),
-            'title'      => $object->getTitle(),
-            'url'        => $this->urlGenerator->generate($url['path'], $url['params']),
-            'category'   => array_map(fn($t) => $t->getName(), $object->getMainTechnologies()),
-            'type'       => 'formation',
+            'id' => (string) $object->getId(),
+            'content' => $object->getContent(),
+            'title' => $object->getTitle(),
+            'url' => $this->urlGenerator->generate($url['path'], $url['params']),
+            'category' => array_map(fn ($t) => $t->getName(), $object->getMainTechnologies()),
+            'type' => 'formation',
             'created_at' => $object->getCreatedAt()->getTimestamp(),
         ];
     }

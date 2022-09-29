@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Progress
 {
-    public final const TOTAL = 1000;
+    final public const TOTAL = 1000;
 
     /**
      * @ORM\Id()

@@ -102,7 +102,7 @@ class AttachmentController extends BaseController
         ]);
         $resolver->setAllowedTypes('path', ['string', 'null']);
         $resolver->setAllowedTypes('q', ['string', 'null']);
-        $resolver->setAllowedValues('path', fn($value) => null === $value || preg_match('/^2\d{3}\/(1[0-2]|0[1-9])$/', $value) > 0);
+        $resolver->setAllowedValues('path', fn ($value) => null === $value || preg_match('/^2\d{3}\/(1[0-2]|0[1-9])$/', $value) > 0);
 
         try {
             return $resolver->resolve($request->query->all());

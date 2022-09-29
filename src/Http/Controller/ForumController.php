@@ -43,12 +43,12 @@ class ForumController extends AbstractController
         $topics = $this->paginator->paginate($this->topicRepository->queryAllForTag($tag));
 
         return $this->render('forum/index.html.twig', [
-            'tags'        => $this->tagRepository->findTree(),
-            'page'        => $request->query->getInt('page', 1),
-            'topics'      => $topics,
-            'menu'        => 'forum',
+            'tags' => $this->tagRepository->findTree(),
+            'page' => $request->query->getInt('page', 1),
+            'topics' => $topics,
+            'menu' => 'forum',
             'current_tag' => $tag,
-            'read_times'  => $this->topicService->getReadTopicsIds(iterator_to_array($topics), $this->getUser()),
+            'read_times' => $this->topicService->getReadTopicsIds(iterator_to_array($topics), $this->getUser()),
         ]);
     }
 
@@ -65,8 +65,8 @@ class ForumController extends AbstractController
         $isSubscribed = $this->topicService->isUserSubscribedToTopic($topic, $user);
 
         return $this->render('forum/show.html.twig', [
-            'topic'         => $topic,
-            'menu'          => 'forum',
+            'topic' => $topic,
+            'menu' => 'forum',
             'can_subscribe' => null !== $isSubscribed,
             'is_subscribed' => $isSubscribed,
         ]);
@@ -121,7 +121,7 @@ class ForumController extends AbstractController
 
         return $this->render('forum/edit.html.twig', [
             'form' => $form->createView(),
-            'id'   => $topic->getId(),
+            'id' => $topic->getId(),
         ]);
     }
 
@@ -146,7 +146,7 @@ class ForumController extends AbstractController
         }
 
         return $this->render('forum/search.html.twig', [
-            'q'      => $q,
+            'q' => $q,
             'topics' => $topics,
         ]);
     }

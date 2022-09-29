@@ -20,7 +20,7 @@ class CookieGenerator
     public function generate(User $user): Cookie
     {
         $channels = array_map(
-            fn(string $channel) => "/notifications/$channel",
+            fn (string $channel) => "/notifications/$channel",
             $this->notificationService->getChannelsForUser($user)
         );
         $config = Configuration::forSymmetricSigner(

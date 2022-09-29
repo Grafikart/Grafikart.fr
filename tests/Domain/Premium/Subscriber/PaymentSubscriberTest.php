@@ -33,7 +33,7 @@ class PaymentSubscriberTest extends EventSubscriberTest
         $planRepository
             ->expects($this->once())
             ->method('findOneBy')
-            ->willReturnCallback(fn($params) => $params['price'] === $plan->getPrice() ? $plan : null);
+            ->willReturnCallback(fn ($params) => $params['price'] === $plan->getPrice() ? $plan : null);
         $em->expects($this->once())->method('getRepository')->with(Plan::class)->willReturn($planRepository);
         $dispatcher = $this->createMock(EventDispatcherInterface::class);
         $dispatcher->expects($this->any())->method('dispatch');
@@ -69,7 +69,7 @@ class PaymentSubscriberTest extends EventSubscriberTest
         $em
             ->expects($this->once())
             ->method('persist')
-            ->with($this->callback(fn(Transaction $transaction) => 100 == $transaction->getPrice()));
+            ->with($this->callback(fn (Transaction $transaction) => 100 == $transaction->getPrice()));
         $em->expects($this->once())->method('flush');
         $this->dispatch($subscriber, $this->getEvent());
     }

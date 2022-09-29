@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DeleteAccountService
 {
-    public final const DAYS = 5;
+    final public const DAYS = 5;
 
     public function __construct(
         private readonly EntityManagerInterface $em,

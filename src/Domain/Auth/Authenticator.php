@@ -26,7 +26,7 @@ class Authenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
 
-    public final const LOGIN_ROUTE = 'auth_login';
+    final public const LOGIN_ROUTE = 'auth_login';
     private ?Passport $lastPassport = null;
 
     public function __construct(
@@ -50,6 +50,7 @@ class Authenticator extends AbstractLoginFormAuthenticator
                 new RememberMeBadge(),
             ]
         );
+
         return $this->lastPassport;
     }
 

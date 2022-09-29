@@ -10,9 +10,9 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class PodcastVoter extends Voter
 {
-    public final const VOTE = 'VOTE_PODCAST';
-    public final const CREATE = 'CREATE_PODCAST';
-    public final const DELETE = 'DELETE_PODCAST';
+    final public const VOTE = 'VOTE_PODCAST';
+    final public const CREATE = 'CREATE_PODCAST';
+    final public const DELETE = 'DELETE_PODCAST';
 
     public function __construct(private readonly PodcastService $podcastService)
     {
@@ -35,6 +35,7 @@ class PodcastVoter extends Voter
         if (!($user instanceof User)) {
             return false;
         }
+
         return match ($attribute) {
             self::VOTE => $subject instanceof Podcast && $this->canVote($user, $subject),
             self::DELETE => $subject instanceof Podcast && $this->canDelete($user, $subject),

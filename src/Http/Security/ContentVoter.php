@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class ContentVoter extends Voter
 {
-    public final const PROGRESS = 'progress';
+    final public const PROGRESS = 'progress';
 
     /**
      * {@inheritdoc}

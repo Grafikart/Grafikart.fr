@@ -14,7 +14,7 @@ class ForumTagChoiceType extends EntityType
         parent::configureOptions($resolver);
         $resolver->setDefaults([
             'class' => Tag::class,
-            'query_builder' => fn(EntityRepository $er) => $er->createQueryBuilder('t')
+            'query_builder' => fn (EntityRepository $er) => $er->createQueryBuilder('t')
                 ->where('t.parent IS NULL')
                 ->orderBy('t.name', 'ASC'),
             'choice_label' => 'name',

@@ -108,7 +108,7 @@ class Report
         return $this;
     }
 
-    public function getTarget(): \App\Domain\Forum\Entity\Message|\App\Domain\Forum\Entity\Topic
+    public function getTarget(): Message|Topic
     {
         if ($this->message) {
             return $this->message;

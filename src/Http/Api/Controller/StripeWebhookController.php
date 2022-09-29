@@ -48,7 +48,7 @@ class StripeWebhookController extends AbstractController
 
     public function onPaymentIntentSucceeded(PaymentIntent $intent): JsonResponse
     {
-        $user = $this->getUserFromCustomer((string)$intent->customer);
+        $user = $this->getUserFromCustomer((string) $intent->customer);
         $payment = $this->paymentFactory->createPaymentFromIntent($intent);
         $this->dispatcher->dispatch(new PaymentEvent($payment, $user));
 
@@ -58,7 +58,7 @@ class StripeWebhookController extends AbstractController
     public function onRefund(Charge $charge): JsonResponse
     {
         $payment = new Payment();
-        $payment->id = (string)$charge->payment_intent;
+        $payment->id = (string) $charge->payment_intent;
         $this->dispatcher->dispatch(new PaymentRefundedEvent($payment));
 
         return $this->json([]);
@@ -74,7 +74,7 @@ class StripeWebhookController extends AbstractController
             ->setState(Subscription::ACTIVE)
             ->setNextPayment(new \DateTimeImmutable("@{$stripeSubscription->current_period_end}"))
             ->setPlan($plan)
-            ->setUser($this->getUserFromCustomer((string)$stripeSubscription->customer))
+            ->setUser($this->getUserFromCustomer((string) $stripeSubscription->customer))
             ->setCreatedAt(new \DateTimeImmutable())
             ->setStripeId($stripeSubscription->id);
         $this->em->persist($subscription);

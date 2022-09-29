@@ -28,7 +28,7 @@ class TwigPathExtension extends AbstractExtension
 
     public function uploadsPath(string $path): string
     {
-        return '/uploads/' . trim($path, '/');
+        return '/uploads/'.trim($path, '/');
     }
 
     public function imageUrl(?object $entity, ?int $width = null, ?int $height = null): ?string

@@ -12,8 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Subscription
 {
     use StripeEntity;
-    public final const ACTIVE = 1;
-    public final const INACTIVE = 0;
+    final public const ACTIVE = 1;
+    final public const INACTIVE = 0;
 
     /**
      * @ORM\Id()

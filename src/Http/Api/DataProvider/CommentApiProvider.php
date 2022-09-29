@@ -37,13 +37,13 @@ class CommentApiProvider implements CollectionDataProviderInterface, RestrictedD
         if (null === $request) {
             throw new RuntimeException('Requête introuvable');
         }
-        $contentId = (int)$request->get('content');
+        $contentId = (int) $request->get('content');
         if (0 === $contentId) {
             throw new HttpException(Response::HTTP_BAD_REQUEST, 'Aucun contenu ne correspond à cet ID');
         }
 
         return array_map(
-            fn(Comment $comment) => CommentResource::fromComment($comment, $this->uploaderHelper),
+            fn (Comment $comment) => CommentResource::fromComment($comment, $this->uploaderHelper),
             $this->commentRepository->findForApi($contentId)
         );
     }
@@ -63,7 +63,7 @@ class CommentApiProvider implements CollectionDataProviderInterface, RestrictedD
             throw new RuntimeException('id as array not expected');
         }
 
-        $comment = $this->commentRepository->findPartial((int)$id);
+        $comment = $this->commentRepository->findPartial((int) $id);
 
         return $comment ? CommentResource::fromComment($comment, $this->uploaderHelper) : null;
     }

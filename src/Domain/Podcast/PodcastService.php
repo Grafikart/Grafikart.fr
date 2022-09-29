@@ -10,7 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class PodcastService
 {
-    public final const LIMIT_PER_MONTH = 2;
+    final public const LIMIT_PER_MONTH = 2;
 
     public function __construct(private readonly EntityManagerInterface $em)
     {

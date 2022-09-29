@@ -39,9 +39,6 @@ class RevisionSubscriberTest extends EventSubscriberTest
         $this->dispatch($subscriber, $event);
     }
 
-    /**
-     * @return Revision
-     */
     public function getRevision(): Revision
     {
         $revision = (new Revision());
@@ -49,6 +46,7 @@ class RevisionSubscriberTest extends EventSubscriberTest
         $revision->setAuthor($user);
         $content = new Post();
         $revision->setTarget($content);
+
         return $revision;
     }
 }

@@ -13,7 +13,7 @@ use Twig\TwigFunction;
  */
 class TwigAssetExtension extends AbstractExtension
 {
-    public final const CACHE_KEY = 'asset_time';
+    final public const CACHE_KEY = 'asset_time';
     private readonly bool $isProduction;
     private ?array $paths = null;
     private bool $polyfillLoaded = false;

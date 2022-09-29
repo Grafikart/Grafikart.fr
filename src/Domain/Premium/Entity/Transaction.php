@@ -11,8 +11,8 @@ use Symfony\Component\Intl\Countries;
  */
 class Transaction
 {
-    public final const PAYPAL = 'paypal';
-    public final const STRIPE = 'stripe';
+    final public const PAYPAL = 'paypal';
+    final public const STRIPE = 'stripe';
 
     /**
      * @ORM\Id()

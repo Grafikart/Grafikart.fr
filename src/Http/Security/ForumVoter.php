@@ -10,15 +10,15 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class ForumVoter extends Voter
 {
-    public final const CREATE = 'forumCreate';
-    public final const REPORT = 'forumReport';
-    public final const CREATE_MESSAGE = 'CREATE_FORUM_MESSAGE';
-    public final const UPDATE_MESSAGE = 'UPDATE_FORUM_MESSAGE';
-    public final const DELETE_MESSAGE = 'DELETE_FORUM_MESSAGE';
-    public final const UPDATE_TOPIC = 'UPDATE_TOPIC';
-    public final const DELETE_TOPIC = 'DELETE_TOPIC';
-    public final const READ_TOPICS = 'READ_TOPICS';
-    public final const SOLVE_MESSAGE = 'SOLVE_MESSAGE';
+    final public const CREATE = 'forumCreate';
+    final public const REPORT = 'forumReport';
+    final public const CREATE_MESSAGE = 'CREATE_FORUM_MESSAGE';
+    final public const UPDATE_MESSAGE = 'UPDATE_FORUM_MESSAGE';
+    final public const DELETE_MESSAGE = 'DELETE_FORUM_MESSAGE';
+    final public const UPDATE_TOPIC = 'UPDATE_TOPIC';
+    final public const DELETE_TOPIC = 'DELETE_TOPIC';
+    final public const READ_TOPICS = 'READ_TOPICS';
+    final public const SOLVE_MESSAGE = 'SOLVE_MESSAGE';
 
     protected function supports(string $attribute, $subject): bool
     {
@@ -41,6 +41,7 @@ class ForumVoter extends Voter
         if (!$user instanceof User) {
             return false;
         }
+
         return match ($attribute) {
             self::CREATE_MESSAGE => $this->canCreateMessageForTopic($user, $subject),
             self::UPDATE_TOPIC, self::DELETE_TOPIC => $this->canUpdateTopic($user, $subject),

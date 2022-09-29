@@ -9,7 +9,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class RevisionSubscriber implements EventSubscriberInterface
 {
-
     public function __construct(private readonly NotificationService $notificationService)
     {
     }
@@ -18,7 +17,7 @@ class RevisionSubscriber implements EventSubscriberInterface
     {
         return [
             RevisionAcceptedEvent::class => 'onRevisionAccepted',
-            RevisionRefusedEvent::class  => 'onRevisionRefused'
+            RevisionRefusedEvent::class => 'onRevisionRefused',
         ];
     }
 

@@ -37,7 +37,7 @@ class IndexerSubscriber implements EventSubscriberInterface
 
     public function removeContent(ContentDeletedEvent $event): void
     {
-        $this->indexer->remove((string)$event->getContent()->getId());
+        $this->indexer->remove((string) $event->getContent()->getId());
     }
 
     public function updateContent(ContentUpdatedEvent $event): void
@@ -51,7 +51,7 @@ class IndexerSubscriber implements EventSubscriberInterface
         if ($current->isOnline() && ($previousData !== $data || false === $previous->isOnline())) {
             $this->indexer->index($data);
         } elseif (true === $previous->isOnline() && false === $current->isOnline()) {
-            $this->indexer->remove((string)$current->getId());
+            $this->indexer->remove((string) $current->getId());
         }
     }
 }
