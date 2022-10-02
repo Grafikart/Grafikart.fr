@@ -35,6 +35,8 @@ class CourseCrudData implements CrudDataInterface
 
     public bool $source = false;
 
+    public bool $forceRedirect = false;
+
     public bool $premium = false;
 
     public ?string $demo = null;
@@ -97,6 +99,7 @@ class CourseCrudData implements CrudDataInterface
         $deprecatedBy = $entity->getDeprecatedBy();
         $this->deprecatedBy = $deprecatedBy ? $deprecatedBy->getId() : null;
         $this->level = $entity->getLevel();
+        $this->forceRedirect = $entity->isForceRedirect();
     }
 
     public function hydrate(): void
@@ -118,6 +121,7 @@ class CourseCrudData implements CrudDataInterface
         $this->entity->setCreatedAt($this->createdAt);
         $this->entity->setUpdatedAt(new \DateTime());
         $this->entity->setLevel($this->level);
+        $this->entity->setForceRedirect($this->forceRedirect);
         foreach ($this->mainTechnologies as $technology) {
             $technology->setSecondary(false);
         }

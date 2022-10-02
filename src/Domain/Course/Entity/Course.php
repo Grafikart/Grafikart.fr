@@ -63,6 +63,11 @@ class Course extends Content
     private ?Course $deprecatedBy = null;
 
     /**
+     * @ORM\Column(type="boolean", options={"default": 0})
+     */
+    private bool $forceRedirect = false;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Course\Entity\Formation", inversedBy="courses")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
@@ -191,5 +196,17 @@ class Course extends Content
         $this->youtubeThumbnail = $youtubeThumbnail;
 
         return $this;
+    }
+
+    public function setForceRedirect(bool $forceRedirect): self
+    {
+        $this->forceRedirect = $forceRedirect;
+
+        return $this;
+    }
+
+    public function isForceRedirect(): bool
+    {
+        return $this->forceRedirect;
     }
 }

@@ -23,6 +23,18 @@ class CourseControllerTest extends WebTestCase
         $this->expectH1("Tutoriel {$technologies} : ".$course->getTitle());
     }
 
+    public function testRedirectIfDeprecated()
+    {
+        /** @var Course $course1 */
+        /** @var Course $course2 */
+        ['course1' => $course1, 'course_with_technology' => $course2] = $this->loadFixtures(['courses']);
+        $course1->setForceRedirect(true);
+        $course1->setDeprecatedBy($course2);
+        $this->em->flush();
+        $this->client->request('GET', "/tutoriels/{$course1->getSlug()}-{$course1->getId()}");
+        $this->assertResponseRedirects("/tutoriels/{$course2->getSlug()}-{$course2->getId()}");
+    }
+
     public function testStatusNotFoundForOfflineContent()
     {
         /** @var Course $course */

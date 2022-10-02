@@ -93,6 +93,16 @@ class CourseController extends AbstractController
             ], 301);
         }
 
+        if ($course->isForceRedirect() && $course->getDeprecatedBy()) {
+            /** @var Course $newCourse */
+            $newCourse = $course->getDeprecatedBy();
+
+            return $this->redirectToRoute('course_show', [
+                'id' => $newCourse->getId(),
+                'slug' => $newCourse->getSlug(),
+            ], 301);
+        }
+
         $response = new Response();
         if (false === $course->isOnline()) {
             $response = $response->setStatusCode(Response::HTTP_NOT_FOUND);
