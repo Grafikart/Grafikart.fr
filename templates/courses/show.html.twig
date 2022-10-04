@@ -46,7 +46,8 @@
         <div class="course-countdown" style="background-image: url({{ image_url(course.image, 1330, 750) }})">
           <div>
             <em>Disponible dans</em>
-            <span class="course-countdown_timer">{{ course.createdAt | countdown }}</span>
+            <span class="course-countdown_timer mb1">{{ course.createdAt | countdown }}</span>
+            <a href="{{ path('premium') }}" class="btn-secondary">{{ icon('star') }} Devenez premium pour accéder au contenu</a>
           </div>
         </div>
       {% elseif course.premium and not user_premium %}

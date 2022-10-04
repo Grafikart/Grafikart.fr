@@ -13,7 +13,8 @@
 
       {# Titre du tutoriel #}
       <h2 class="card__title">
-        <a href="{{ path('course_show', {slug: course.slug, id: course.id}) }}" tabindex="-1">
+        <a href="{{ path('course_show', {slug: course.slug, id: course.id}) }}" title="{{ course.title }}"
+           class="card__link">
           {{ course.title }}
         </a>
       </h2>
@@ -26,12 +27,11 @@
         {% if course.scheduled %}
           <div class="countdown">
             <small>Disponible dans</small>
-            <strong>{{ course.createdAt | countdown }}</strong>
+            <strong class="mb1">{{ course.createdAt | countdown }}</strong>
+            <a href="{{ path('premium') }}" class="btn-primary btn-small relative">{{ icon('star') }} ou devenez premium</a>
           </div>
         {% endif %}
       </div>
-      <a href="{{ path('course_show', {slug: course.slug, id: course.id}) }}" title="{{ course.title }}"
-         class="card__link"></a>
     </div>
 
     {# Barre de progression #}

@@ -10,7 +10,8 @@
       </div>
 
       <h2 class="card__title" style="margin-bottom: 4px;">
-        <a href="{{ path('formation_show', {slug: formation.slug}) }}" tabindex="-1">
+        <a href="{{ path('formation_show', {slug: formation.slug}) }}" title="{{ formation.title }}"
+           class="card__link">
           {{ formation.title }}
         </a>
       </h2>
@@ -20,8 +21,6 @@
           {{ formation.short | markdown | striptags | excerpt(130) | raw }}
         </p>
       </div>
-      <a href="{{ path('formation_show', {slug: formation.slug}) }}" title="{{ formation.title }}"
-         class="card__link"></a>
     </div>
     <div class="card__progress"><span></span></div>
     <footer class="card__footer">

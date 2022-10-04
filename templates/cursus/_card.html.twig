@@ -8,7 +8,8 @@
       {% endfor %}
     </div>
     <h3 class="card__title">
-      <a href="{{ path(cursus) }}">
+      <a href="{{ path(cursus) }}" title="{{ cursus.title }}"
+         class="card__link">
         {{ cursus.title }}
       </a>
     </h3>
@@ -21,6 +22,4 @@
     <img src="{{ image_url(cursus.image, 250, 340) }}" alt="" width="250" height="340">
     <span class="play"></span>
   </a>
-  <a href="{{ path(cursus) }}" title="{{ cursus.title }}"
-     class="card__link"></a>
 </div>
