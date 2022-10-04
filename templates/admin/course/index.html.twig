@@ -15,6 +15,7 @@
       <tr>
         <th>{{ sort_by(rows, 'ID', 'row.id') }}</th>
         <th>Nom</th>
+        <th>Publication</th>
         <th>Technologies</th>
         <th class="text-center">{{ sort_by(rows, 'Status', 'row.online') }}</th>
         <th class="text-right">Actions</th>
@@ -29,6 +30,9 @@
           </td>
           <td>
             <a href="{{ link }}">{{ row.title }}</a>
+          </td>
+          <td>
+            {{ row.createdAt | date("d M Y") }}
           </td>
           <td>
             {% for technology in row.mainTechnologies %}
