@@ -7,6 +7,7 @@ use App\Domain\Course\Entity\Technology;
 use App\Domain\Course\Entity\TechnologyUsage;
 use App\Infrastructure\Orm\AbstractRepository;
 use App\Infrastructure\Orm\IterableQueryBuilder;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -21,11 +22,19 @@ class CourseRepository extends AbstractRepository
         parent::__construct($registry, Course::class);
     }
 
-    public function queryAll(): QueryBuilder
+    public function queryAll(bool $userPremium = true): QueryBuilder
     {
-        return $this->createQueryBuilder('c')
+        $queryBuilder = $this->createQueryBuilder('c')
             ->where('c.online = true')
             ->orderBy('c.createdAt', 'DESC');
+        if (!$userPremium) {
+            $date = new \DateTimeImmutable('+ 3 days');
+            $queryBuilder = $queryBuilder
+                ->andWhere('c.createdAt < :published_at')
+                ->setParameter('published_at', $date, Types::DATETIME_IMMUTABLE);
+        }
+
+        return $queryBuilder;
     }
 
     public function queryAllPremium(): QueryBuilder
@@ -53,7 +62,7 @@ class CourseRepository extends AbstractRepository
 
         return $this->getEntityManager()->createQuery(<<<DQL
             SELECT c
-            FROM  $courseClass c
+            FROM $courseClass c
             JOIN c.technologyUsages ct WITH ct.technology = :technology AND ct.secondary = false
             WHERE NOT EXISTS (
                 SELECT t FROM $usageClass t WHERE t.content = c.formation AND t.technology = :technology

@@ -8,8 +8,8 @@ use const App\Domain\Course\Entity\HARD;
 use App\Domain\Course\Repository\CourseRepository;
 use App\Domain\Course\Repository\TechnologyRepository;
 use App\Helper\Paginator\PaginatorInterface;
+use App\Http\Controller\AbstractController;
 use App\Http\Security\CourseVoter;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -24,8 +24,9 @@ class CourseController extends AbstractController
      */
     public function index(CourseRepository $repo, PaginatorInterface $paginator, Request $request, TechnologyRepository $technologyRepository): Response
     {
+        $isUserPremium = $this->getUser()?->isPremium();
         $premiumOnly = $request->query->getBoolean('premium');
-        $query = $premiumOnly ? $repo->queryAllPremium() : $repo->queryAll();
+        $query = $premiumOnly ? $repo->queryAllPremium() : $repo->queryAll($isUserPremium ?? false);
         $page = $request->query->getInt('page', 1);
 
         // On filtre par niveau
