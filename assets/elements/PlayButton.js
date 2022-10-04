@@ -13,6 +13,8 @@
  * @property {?function} detachVideo
  * @property {HTMLVideoElement} video
  */
+import {strToDom} from '/functions/dom'
+
 export class PlayButton extends HTMLElement {
   static get observedAttributes () {
     return ['playing', 'progress', 'video']
@@ -21,6 +23,25 @@ export class PlayButton extends HTMLElement {
   constructor () {
     super()
     this.root = this.attachShadow({ mode: 'open' })
+
+    // Si le bouton a une date dans le futur
+    // on le transforme en bouton spécial pour indiquer que la vidéo est une exclu temporaire
+    if (
+      this.dataset.date &&
+      (parseInt(this.dataset.date, 10) * 1000 > Date.now()) &&
+      document.body.classList.contains('user-not-premium')
+    ) {
+      const title = this.root.host.closest('a').querySelector('.chapters__title')
+      if (title) {
+        title.append(strToDom(`<small class="text-small text-muted" >Disponible dans <time-countdown time="${this.dataset.date}"></time-countdown></small>`))
+      }
+      this.root.host.outerHTML = `<div class="chapters__premium">
+            <svg class="icon icon-{$name}">
+              <use xlink:href="/sprite.svg?logo#lock"></use>
+            </svg>
+          </div>`
+      return
+    }
     this.root.innerHTML = `
       ${this.buildStyles()}
       <button>

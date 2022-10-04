@@ -8,7 +8,7 @@
             {{ icon('star') }}
           </div>
         {% else %}
-          <play-button class="chapters__play" data-video-id="course-{{ course.id }}" tabindex="-1" data-history="{{ course.id }}"></play-button>
+          <play-button class="chapters__play" data-date="{{ course.createdAt.timestamp }}" data-video-id="course-{{ course.id }}" tabindex="-1" data-history="{{ course.id }}"></play-button>
         {% endif %}
         <span class="chapters__title">
           {{ course.title }}

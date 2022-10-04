@@ -52,6 +52,9 @@
   margin-right: space(1);
   transform: translateY(-1px);
 }
+.chapters__title small {
+  display: block;
+}
 .chapters__duration {
   color: var(--color-light);
   margin-left: auto;
