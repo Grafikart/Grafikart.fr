@@ -28,6 +28,8 @@ export function cookie (name, value = undefined, options = {}) {
   }
   if (options.path) {
     value += '; path=' + options.path
+  } else {
+    value += '; path=/'
   }
   document.cookie = name + '=' + value
 }
