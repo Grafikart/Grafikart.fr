@@ -94,7 +94,7 @@
 .blog-single__body.has-video {
   color: var(--color-inversed);
 
-  .video ~ * {
+  iframe ~ * {
     color: var(--color);
   }
 }
