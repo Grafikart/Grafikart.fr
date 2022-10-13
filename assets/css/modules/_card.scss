@@ -128,7 +128,7 @@
   cursor: pointer;
 }
 .card__link:hover::after {
-  border: 1px solid var(--contrast);
+  border-color: var(--contrast);
 }
 .card__progress {
   opacity: 0;
@@ -178,7 +178,7 @@
 .card-premium {
   box-shadow: 0 0 0 4px var(--yellow-alpha);
 
-  .card__link:hover {
+  .card__link:hover::after {
     border: 1px solid var(--yellow);
   }
 }
