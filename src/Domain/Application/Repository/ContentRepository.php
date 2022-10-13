@@ -34,6 +34,7 @@ class ContentRepository extends AbstractRepository
                 ->andWhere('c.createdAt < :published_at')
                 ->setParameter('published_at', $date, Types::DATETIME_IMMUTABLE);
         }
+
         return $queryBuilder;
     }
 

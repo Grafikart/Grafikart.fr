@@ -12,7 +12,11 @@
       {{ form_row(form.author) }}
       {{ form_row(form.createdAt) }}
       {{ form_row(form.youtubePlaylist) }}
-      {{ form_row(form.online) }}
+      {{ form_row(form.deprecatedBy, {label: 'Déprécié par'}) }}
+      <div style="grid-column-end: span 2; padding-top: 29px;" class="flex flex-start hstack-large form-group">
+        {{ form_row(form.online) }}
+        {{ form_row(form.forceRedirect, {label: 'Redirect'}) }}
+      </div>
       {{ form_row(form.image, {row_attr: {class: 'form-attachment', style:'grid-row-start:1; align-self:stretch;'}}) }}
       <div class="full grid" style="--col: 400px;">
         {{ form_row(form.mainTechnologies) }}

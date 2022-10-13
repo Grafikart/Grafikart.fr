@@ -4,7 +4,6 @@ namespace App\Http\Controller\Course;
 
 use App\Domain\Course\Entity\Course;
 use App\Domain\Course\Entity\Formation;
-use App\Domain\Course\Entity\Technology;
 use App\Domain\Course\Repository\FormationRepository;
 use App\Domain\History\HistoryService;
 use App\Domain\History\Repository\ProgressRepository;
@@ -35,16 +34,12 @@ class FormationController extends AbstractController
      */
     public function tree(EntityManagerInterface $em): Response
     {
-        $technologies = $em->getRepository(Technology::class)->findBy([
-            'slug' => ['php', 'ruby', 'nodejs', 'laravel', 'symfony', 'react', 'vuejs'],
-        ]);
         $formations = collect($em->getRepository(Formation::class)->findBy([
             'slug' => [
                 'php',
-                'debuter-javascript',
+                'formation-javascript',
                 'css',
                 'html',
-                'webpack',
                 'vuejs',
                 'apprendre-sql',
                 'git',
@@ -52,7 +47,6 @@ class FormationController extends AbstractController
                 'programmation-objet-php',
                 'ruby-on-rails',
                 'ruby',
-                'nodejs',
                 'laravel',
                 'symfony-4-pratique',
                 'upload-site',
@@ -62,7 +56,6 @@ class FormationController extends AbstractController
 
         return $this->render('formations/tree.html.twig', [
             'formations' => $formations,
-            'technologies' => $technologies,
             'menu' => 'cursus',
         ]);
     }
@@ -74,6 +67,14 @@ class FormationController extends AbstractController
         Formation $formation,
         ProgressRepository $progressRepository
     ): Response {
+        if ($formation->isForceRedirect() && $formation->getDeprecatedBy()) {
+            $newFormation = $formation->getDeprecatedBy();
+
+            return $this->redirectToRoute('formation_show', [
+                'slug' => $newFormation->getSlug(),
+            ], 301);
+        }
+
         $user = $this->getUser();
         $progress = null;
         if ($user) {

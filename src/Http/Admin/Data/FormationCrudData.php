@@ -9,6 +9,7 @@ use App\Domain\Course\Entity\Course;
 use App\Domain\Course\Entity\Formation;
 use App\Domain\Course\Entity\Technology;
 use App\Http\Form\AutomaticForm;
+use App\Validator\Exists;
 use App\Validator\Slug;
 use App\Validator\Unique;
 use Doctrine\ORM\EntityManagerInterface;
@@ -65,6 +66,13 @@ class FormationCrudData implements CrudDataInterface
      */
     public array $chapters;
 
+    /**
+     * @Exists(class="App\Domain\Course\Entity\Formation")
+     */
+    public ?int $deprecatedBy = null;
+
+    public bool $forceRedirect = false;
+
     public function __construct(private readonly Formation $formation)
     {
         $this->title = $formation->getTitle();
@@ -81,6 +89,9 @@ class FormationCrudData implements CrudDataInterface
         $this->chapters = $formation->getChapters();
         $this->links = $formation->getLinks();
         $this->level = $formation->getLevel();
+        $deprecatedBy = $formation->getDeprecatedBy();
+        $this->forceRedirect = $formation->isForceRedirect();
+        $this->deprecatedBy = $deprecatedBy?->getId();
     }
 
     public function getEntity(): Formation
@@ -107,6 +118,11 @@ class FormationCrudData implements CrudDataInterface
         $this->formation->setContent($this->content);
         $this->formation->setLinks($this->links);
         $this->formation->setLevel($this->level);
+        $this->formation->setForceRedirect($this->forceRedirect);
+        if ($this->em) {
+            $deprecatedBy = $this->deprecatedBy;
+            $this->formation->setDeprecatedBy($deprecatedBy ? $this->em->find(Formation::class, $deprecatedBy) : null);
+        }
         foreach ($this->mainTechnologies as $technology) {
             $technology->setSecondary(false);
         }

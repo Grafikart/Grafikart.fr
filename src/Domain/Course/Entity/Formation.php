@@ -37,6 +37,17 @@ class Formation extends Content
      */
     private ?string $links = null;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Domain\Course\Entity\Formation")
+     * @ORM\JoinColumn(onDelete="SET NULL")
+     */
+    private ?Formation $deprecatedBy = null;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default": 0})
+     */
+    private bool $forceRedirect = false;
+
     public function __construct()
     {
         $this->courses = new ArrayCollection();
@@ -142,5 +153,29 @@ class Formation extends Content
         $this->links = $links;
 
         return $this;
+    }
+
+    public function getDeprecatedBy(): ?self
+    {
+        return $this->deprecatedBy;
+    }
+
+    public function setDeprecatedBy(?self $deprecatedBy): self
+    {
+        $this->deprecatedBy = $deprecatedBy;
+
+        return $this;
+    }
+
+    public function setForceRedirect(bool $forceRedirect): self
+    {
+        $this->forceRedirect = $forceRedirect;
+
+        return $this;
+    }
+
+    public function isForceRedirect(): bool
+    {
+        return $this->forceRedirect;
     }
 }

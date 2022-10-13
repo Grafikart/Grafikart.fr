@@ -97,7 +97,7 @@ class CourseCrudData implements CrudDataInterface
         $this->youtubeThumbnail = $entity->getYoutubeThumbnail();
         $this->duration = $entity->getDuration();
         $deprecatedBy = $entity->getDeprecatedBy();
-        $this->deprecatedBy = $deprecatedBy ? $deprecatedBy->getId() : null;
+        $this->deprecatedBy = $deprecatedBy?->getId();
         $this->level = $entity->getLevel();
         $this->forceRedirect = $entity->isForceRedirect();
     }

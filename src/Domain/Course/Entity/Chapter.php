@@ -31,7 +31,7 @@ class Chapter
         foreach ($target->getRawChapters() as $c) {
             $chapter = new self();
             $chapter->title = $c['title'];
-            $chapter->modules = array_map(fn (int $id) => $modulesById[$id], $c['modules']);
+            $chapter->modules = array_filter(array_map(fn (int $id) => $modulesById[$id] ?? null, $c['modules']));
             $chapters[] = $chapter;
         }
 
