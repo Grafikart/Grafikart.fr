@@ -50,7 +50,10 @@ class CourseCrudData implements CrudDataInterface
      */
     public ?int $deprecatedBy = null;
 
-    public ?string $content = null;
+    /**
+     * @Assert\NotBlank()
+     */
+    public string $content = '';
 
     public ?int $duration = 0;
 

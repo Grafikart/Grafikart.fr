@@ -50,7 +50,10 @@ class CursusCrudData implements CrudDataInterface
      */
     public array $secondaryTechnologies = [];
 
-    public ?string $content;
+    /**
+     * @Assert\NotBlank()
+     */
+    public string $content = '';
 
     /**
      * @var Chapter[]
@@ -69,7 +72,7 @@ class CursusCrudData implements CrudDataInterface
         $this->image = $cursus->getImage();
         $this->mainTechnologies = $cursus->getMainTechnologies();
         $this->secondaryTechnologies = $cursus->getSecondaryTechnologies();
-        $this->content = $cursus->getContent();
+        $this->content = $cursus->getContent() ?? '';
         $this->chapters = $cursus->getChapters();
         $this->category = $cursus->getCategory();
     }
