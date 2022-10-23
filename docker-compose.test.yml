@@ -8,6 +8,8 @@ services:
       - dbtest
     networks:
       - test
+    environment:
+      DATABASE_URL: postgresql://test:test@dbtest:5432/test?serverVersion=12&charset=utf8
   dbtest:
     image: postgres:12
     environment:

@@ -29,7 +29,7 @@ services:
       MERCURE_PUBLISH_URL: http://mercure/.well-known/mercure
       MESSENGER_TRANSPORT_DSN: redis://redis:6379/messages
       MESSENGER_TRANSPORT_FAILED_DSN: redis://redis:6379/messages_failed
-      MERCURE_SUBSCRIBER_KEY: mercure_subscriber
+      MERCURE_SUBSCRIBER_KEY: mercure_subscriber_mercure_subscriber_mercure_subscriber
   db:
     restart: unless-stopped
     image: postgres:12-alpine
