@@ -19,6 +19,9 @@ class CookieGenerator
 
     public function generate(User $user): Cookie
     {
+        if (empty($this->secret)) {
+            throw new \InvalidArgumentException("La clef secrète n'a pas été définit pour mercure");
+        }
         $channels = array_map(
             fn (string $channel) => "/notifications/$channel",
             $this->notificationService->getChannelsForUser($user)

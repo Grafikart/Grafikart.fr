@@ -62,9 +62,9 @@ class Notification
         $this->createdAt = new \DateTime();
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
-        return $this->id;
+        return $this->id ?: $this->getCreatedAt()->getTimestamp();
     }
 
     public function setId(?int $id): Notification

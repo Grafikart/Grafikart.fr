@@ -37,7 +37,7 @@
     "phpdocumentor/reflection-docblock": "^3.0 || ^4.0 || ^5.0",
     "phpstan/phpdoc-parser": "^1.2",
     "predis/predis": "^1.1",
-    "sensio/framework-extra-bundle": "^5.1",
+    "sensio/framework-extra-bundle": "^6.2.8",
     "spatie/flysystem-dropbox": "^2.0",
     "stripe/stripe-php": "^7.31",
     "symfony/asset": "5.4.*",
@@ -78,7 +78,7 @@
     "wohali/oauth2-discord-new": "^1.0"
   },
   "require-dev": {
-    "dama/doctrine-test-bundle": "^6.3",
+    "dama/doctrine-test-bundle": "^7.1",
     "doctrine/doctrine-fixtures-bundle": "^3.3",
     "hautelook/alice-bundle": "^2.8",
     "justinrainbow/json-schema": "^5.2",

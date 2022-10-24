@@ -91,7 +91,7 @@ class CourseCrudData implements CrudDataInterface
         $this->demo = $entity->getDemo();
         $this->online = $entity->isOnline();
         $this->premium = $entity->getPremium();
-        $this->content = $entity->getContent();
+        $this->content = $entity->getContent() ?: '';
         $this->youtube = $entity->getYoutubeId();
         $this->duration = $entity->getDuration();
         $this->source = !empty($entity->getSource());

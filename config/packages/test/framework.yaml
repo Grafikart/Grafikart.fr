@@ -2,3 +2,4 @@ framework:
   test: true
   session:
     storage_id: session.storage.mock_file
+  error_controller: App\Http\Controller\Error\ErrorController::test

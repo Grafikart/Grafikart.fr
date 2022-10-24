@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Cookie;
 
 class CookieGeneratorTest extends TestCase
 {
+    const SECRET = 'random_secret_string_test_security';
+
     private function assertCookieIsSubscribedTo(Cookie $cookie, array $channels)
     {
         $parts = explode('.', $cookie->getValue());
@@ -23,7 +25,7 @@ class CookieGeneratorTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $security->expects($this->once())->method('getChannelsForUser')->willReturn(['user/10']);
-        $service = new CookieGenerator('secret', $security);
+        $service = new CookieGenerator(self::SECRET, $security);
         $cookie = $service->generate($user);
         $this->assertCookieIsSubscribedTo($cookie, ['/notifications/user/10']);
     }
@@ -35,7 +37,7 @@ class CookieGeneratorTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $security->expects($this->once())->method('getChannelsForUser')->willReturn(['user/10', 'admin']);
-        $service = new CookieGenerator('secret', $security);
+        $service = new CookieGenerator(self::SECRET, $security);
         $cookie = $service->generate($user);
         $this->assertCookieIsSubscribedTo($cookie, [
             '/notifications/user/10',

@@ -30,8 +30,8 @@ class DumpCommand extends Command
 
         // On génère le dump SQL
         $params = $this->em->getConnection()->getParams();
-        $process = new Process(['pg_dump', '-U', $params['user'], '-Ft', '-h', $params['host'], '-f', $dumpFile]);
-        $process->setEnv(['PGPASSWORD' => $params['password']]);
+        $process = new Process(['pg_dump', '-U', $params['user'] ?? 'root', '-Ft', '-h', $params['host'] ?? 'localhost', '-f', $dumpFile]);
+        $process->setEnv(['PGPASSWORD' => $params['password'] ?? 'root']);
         $process->run();
 
         if (!$process->isSuccessful()) {
