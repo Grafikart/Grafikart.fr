@@ -66,9 +66,10 @@ class NotificationApiTest extends ApiTestCase
     {
         $users = $this->loadFixtures(['users']);
         $this->login($users['user_admin']);
-        $this->client->request('POST', '/api/notifications', [
+        $response = $this->client->request('POST', '/api/notifications', [
             'json' => $data,
         ]);
+        $this->assertEquals(201, $response->getStatusCode(), $response->getContent());
         $this->assertPublishedOnTopic('/notifications/global');
     }
 }

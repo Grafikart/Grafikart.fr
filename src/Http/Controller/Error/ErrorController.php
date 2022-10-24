@@ -19,4 +19,12 @@ class ErrorController extends AbstractController
             'topics' => $topicRepository->findRandom(5),
         ]);
     }
+
+    /**
+     * Simplifie l'affichage des erreurs dans l'environnement de test
+     */
+    public function test(?\Throwable $throwable = null): string
+    {
+        return $throwable ? $throwable->getMessage() : '';
+    }
 }

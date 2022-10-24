@@ -3,6 +3,7 @@
 namespace App\Http\Form;
 
 use App\Domain\Auth\User;
+use App\Infrastructure\Captcha\CaptchaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -20,20 +21,11 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('username', TextType::class, ['label' => "Nom d'utilisateur"])
-            ->add('goal', TextareaType::class, [
-                'label' => 'Quels langages/technologies souhaitez-vous apprendre ?',
-                'attr' => [
-                    'placeholder' => 'HTML, CSS, React...',
-                ],
-                'constraints' => [
-                    new NotBlank(),
-                    new Length([
-                        'min' => 3,
-                        'max' => 255,
-                    ]),
-                ],
-            ])
         ;
+
+        if ($options['with_captcha']) {
+            $builder->add('captcha', CaptchaType::class);
+        }
 
         /** @var ?User $user */
         $user = $builder->getData();
@@ -67,6 +59,7 @@ class RegistrationFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
+            'with_captcha' => true,
             'data_class' => User::class,
             'antispam_time' => true,
             'antispam_honeypot' => true,

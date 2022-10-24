@@ -13,6 +13,8 @@ parameters:
   router.request_context.host: 'grafikart.fr'
   router.request_context.scheme: 'https'
   asset.request_context.secure: true
+  captcha_id: '%env(resolve:default::CAPTCHA_ID)%'
+  captcha_secret: '%env(resolve:default::CAPTCHA_SECRET)%'
 
 services:
   _defaults:
@@ -116,3 +118,12 @@ services:
   dropbox_filesystem:
     class: League\Flysystem\Filesystem
     factory: ['@App\Infrastructure\Storage\DropboxFilesystemFactory', 'createFilesystem']
+
+  App\Infrastructure\Captcha\CaptchaType:
+    arguments:
+      $apiKey: '%captcha_id%'
+
+  App\Infrastructure\Captcha\IsValidCaptchaValidator:
+    arguments:
+      $apiSecret: '%captcha_secret%'
+
