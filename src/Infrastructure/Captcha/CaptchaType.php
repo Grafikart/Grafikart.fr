@@ -16,7 +16,6 @@ class CaptchaType extends AbstractType
 
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
-        // This is the variable that Twig can use to display the hCaptcha widget
         $view->vars['hcaptcha_site_key'] = $options['hcaptcha_site_key'];
     }
 

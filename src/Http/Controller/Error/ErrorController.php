@@ -29,9 +29,7 @@ class ErrorController extends AbstractController
         if (!$exception) {
             return new Response('', Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-        if ($exception instanceof \Exception) {
-            $exception = FlattenException::create($exception);
-        }
+        $exception = FlattenException::createFromThrowable($exception);
         return new Response($exception->getMessage(), $exception->getStatusCode(), $exception->getHeaders());
     }
 }
