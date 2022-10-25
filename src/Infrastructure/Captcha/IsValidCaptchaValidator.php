@@ -71,6 +71,7 @@ class IsValidCaptchaValidator extends ConstraintValidator
         if (!($response['success'] ?? false)) {
             throw new \Exception('Captcha invalide');
         }
+
         return;
     }
 }

@@ -7,7 +7,6 @@ use Twig\TwigFilter;
 
 class TwigHighlightExtension extends AbstractExtension
 {
-
     public function getFilters(): array
     {
         return [
@@ -20,11 +19,12 @@ class TwigHighlightExtension extends AbstractExtension
     }
 
     /**
-     * Met en surbrillance les mots trouvé dans une chaîne de caractère
+     * Met en surbrillance les mots trouvé dans une chaîne de caractère.
      */
     public function highlightWords(string $content, array $words): string
     {
-        $highlight = array_map(fn($word) => '<mark>' . $word . '</mark>', $words);
+        $highlight = array_map(fn ($word) => '<mark>'.$word.'</mark>', $words);
+
         return nl2br(str_replace($words, $highlight, $content));
     }
 }

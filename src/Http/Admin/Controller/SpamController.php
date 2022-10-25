@@ -33,6 +33,7 @@ class SpamController extends BaseController
     public function index(OptionManagerInterface $optionManager): Response
     {
         $spamWords = preg_split('/\r\n|\r|\n/', $optionManager->get('spam_words') ?: '');
+
         return $this->render('admin/spam/index.html.twig', [
             'spam_words' => $spamWords,
             'topics' => $this->em->getRepository(Topic::class)->findBy(['spam' => true]),

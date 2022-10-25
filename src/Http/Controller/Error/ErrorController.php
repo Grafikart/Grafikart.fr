@@ -22,7 +22,7 @@ class ErrorController extends AbstractController
     }
 
     /**
-     * Simplifie l'affichage des erreurs dans l'environnement de test
+     * Simplifie l'affichage des erreurs dans l'environnement de test.
      */
     public function test(?\Throwable $exception = null): Response
     {
@@ -30,6 +30,7 @@ class ErrorController extends AbstractController
             return new Response('', Response::HTTP_INTERNAL_SERVER_ERROR);
         }
         $exception = FlattenException::createFromThrowable($exception);
+
         return new Response($exception->getMessage(), $exception->getStatusCode(), $exception->getHeaders());
     }
 }

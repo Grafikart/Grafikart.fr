@@ -3,8 +3,10 @@
 namespace App\Http\Controller\Course;
 
 use App\Domain\Course\Entity\Course;
+
 use const App\Domain\Course\Entity\EASY;
 use const App\Domain\Course\Entity\HARD;
+
 use App\Domain\Course\Repository\CourseRepository;
 use App\Domain\Course\Repository\TechnologyRepository;
 use App\Helper\Paginator\PaginatorInterface;

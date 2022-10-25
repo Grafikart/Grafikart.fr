@@ -11,6 +11,7 @@ use Symfony\Component\PropertyAccess\PropertyAccessor;
 
 /**
  * @IgnoreAnnotation("template")
+ *
  * @template E
  *
  * @property E $entity

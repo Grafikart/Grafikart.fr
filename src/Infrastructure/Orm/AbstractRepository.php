@@ -19,6 +19,7 @@ abstract class AbstractRepository extends ServiceEntityRepository
 {
     /**
      * @param class-string<E> $entityClass
+     *
      * @psalm-param class-string<E> $entityClass
      */
     public function __construct(ManagerRegistry $registry, string $entityClass)

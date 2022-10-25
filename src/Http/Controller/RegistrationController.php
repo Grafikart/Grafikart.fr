@@ -45,7 +45,7 @@ class RegistrationController extends AbstractController
         $isOauthUser = $request->get('oauth') ? $socialLoginService->hydrate($user) : false;
         $env = $this->getParameter('kernel.environment');
         $form = $this->createForm(RegistrationFormType::class, $user, [
-            'with_captcha' => $env !== 'test'
+            'with_captcha' => $env !== 'test',
         ]);
         $form->handleRequest($request);
 
