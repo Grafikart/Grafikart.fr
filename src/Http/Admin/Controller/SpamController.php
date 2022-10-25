@@ -5,6 +5,7 @@ namespace App\Http\Admin\Controller;
 use App\Domain\Forum\Entity\Message;
 use App\Domain\Forum\Entity\Topic;
 use App\Domain\Forum\Event\MessageCreatedEvent;
+use App\Helper\OptionManagerInterface;
 use App\Infrastructure\Spam\SpammableInterface;
 use App\Infrastructure\Spam\SpamService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -29,9 +30,11 @@ class SpamController extends BaseController
     /**
      * @Route("/spam", name="spam_index", methods={"GET"})
      */
-    public function index(): Response
+    public function index(OptionManagerInterface $optionManager): Response
     {
+        $spamWords = preg_split('/\r\n|\r|\n/', $optionManager->get('spam_words') ?: '');
         return $this->render('admin/spam/index.html.twig', [
+            'spam_words' => $spamWords,
             'topics' => $this->em->getRepository(Topic::class)->findBy(['spam' => true]),
             'messages' => $this->em->getRepository(Message::class)->findBy(['spam' => true]),
         ]);
