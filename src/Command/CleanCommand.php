@@ -36,7 +36,7 @@ class CleanCommand extends Command
         $this->clean($io, EmailVerification::class, 'demandes de changement d\'email');
         $this->clean($io, PasswordResetToken::class, 'demandes de reset de mdp');
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     private function cleanUsers(SymfonyStyle $io): void

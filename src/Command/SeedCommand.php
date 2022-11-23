@@ -31,7 +31,7 @@ class SeedCommand extends Command
         $command = $this->getApplication()->find('hautelook:fixtures:load');
         $return = $command->run($input, $output);
 
-        if (0 !== $return) {
+        if (Command::SUCCESS !== $return) {
             return $return;
         }
 
@@ -79,6 +79,6 @@ class SeedCommand extends Command
         }
         $this->em->flush();
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

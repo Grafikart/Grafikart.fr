@@ -48,6 +48,6 @@ class IndexCommand extends Command
         $io->progressFinish();
         $io->success('Les contenus ont bien été indexés');
 
-        return 0;
+        return Command::SUCCESS;
     }
 }
