@@ -40,7 +40,7 @@ class DumpCommand extends Command
             $io->error("Impossible d'exporter la base de données");
             $io->error($process->getErrorOutput());
 
-            return 1;
+            return Command::FAILURE;
         }
 
         // On sauvegarde le fichier dans notre backup storage
@@ -61,6 +61,6 @@ class DumpCommand extends Command
         unlink($dumpFile.'.gz');
         $io->success('La base de donnée a bien été sauvegardée');
 
-        return 0;
+        return Command::SUCCESS;
     }
 }
