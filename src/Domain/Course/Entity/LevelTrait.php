@@ -10,9 +10,7 @@ const HARD = 2;
 
 trait LevelTrait
 {
-    /**
-     * @ORM\Column(type="smallint", options={"default" : 0})
-     */
+    #[ORM\Column(type: 'smallint', options: ['default' => 0])]
     private int $level = 0;
 
     public static array $levels = [

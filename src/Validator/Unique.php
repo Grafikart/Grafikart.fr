@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraint;
  *
  * @Annotation
  */
+#[\Attribute(\Attribute::TARGET_CLASS)]
 class Unique extends Constraint
 {
     public string $message = 'Cette valeur est déjà utilisée';

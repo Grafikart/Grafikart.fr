@@ -7,54 +7,38 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass="App\Domain\Notification\Repository\NotificationRepository")
- */
+#[ORM\Entity(repositoryClass: 'App\Domain\Notification\Repository\NotificationRepository')]
 class Notification
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Auth\User")
-     * @ORM\JoinColumn(name="user_id", onDelete="CASCADE", nullable=true)
-     */
+    #[ORM\ManyToOne(targetEntity: 'App\Domain\Auth\User')]
+    #[ORM\JoinColumn(name: 'user_id', onDelete: 'CASCADE', nullable: true)]
     private ?User $user = null;
 
-    /**
-     * @ORM\Column(type="string")
-     * @Assert\NotBlank()
-     * @Groups({"read:notification", "create:notification"})
-     */
+    #[ORM\Column(type: 'string')]
+    #[Assert\NotBlank]
+    #[Groups(['read:notification', 'create:notification'])]
     private string $message;
 
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     * @Assert\NotBlank()
-     * @Assert\Url()
-     * @Groups({"read:notification", "create:notification"})
-     */
+    #[ORM\Column(type: 'string', nullable: true)]
+    #[Assert\NotBlank]
+    #[Assert\Url]
+    #[Groups(['read:notification', 'create:notification'])]
     private ?string $url = null;
 
-    /**
-     * @ORM\Column(type="datetime")
-     * @Groups({"read:notification"})
-     */
+    #[ORM\Column(type: 'datetime')]
+    #[Groups(['read:notification'])]
     private \DateTimeInterface $createdAt;
 
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     * @Groups({"create:notification"})
-     */
+    #[ORM\Column(type: 'string', nullable: true)]
+    #[Groups(['create:notification'])]
     private ?string $channel = 'public';
 
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
+    #[ORM\Column(type: 'string', nullable: true)]
     private ?string $target = null;
 
     public function __construct()

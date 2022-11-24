@@ -10,78 +10,57 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-/**
- * @ORM\Entity
- * @Vich\Uploadable()
- */
+#[ORM\Entity]
+#[Vich\Uploadable]
 class Technology implements CacheableInterface, \Stringable
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private ?string $name = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private ?string $slug = null;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
+    #[ORM\Column(type: 'text', nullable: true)]
     private ?string $content = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $image = null;
 
-    /**
-     * @Vich\UploadableField(fileNameProperty="image", mapping="icons")
-     */
+    #[Vich\UploadableField(fileNameProperty: 'image', mapping: 'icons')]
     private ?File $imageFile = null;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Domain\Course\Entity\TechnologyUsage", mappedBy="technology", orphanRemoval=true)
-     *
      * @var Collection<int, TechnologyUsage>
      */
+    #[ORM\OneToMany(targetEntity: 'App\Domain\Course\Entity\TechnologyUsage', mappedBy: 'technology' , orphanRemoval: true)]
     private Collection $usages;
 
     private bool $secondary = false;
 
     private ?string $version = null;
 
-    /**
-     * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
-     */
+    #[ORM\Column(type: 'datetime', options: ['default' => 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeInterface $updatedAt = null;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Domain\Course\Entity\Technology", inversedBy="requiredBy")
-     * @ORM\JoinTable(name="technology_requirement")
-     *
      * @var Collection<int, Technology>
      */
+    #[ORM\ManyToMany(targetEntity: 'App\Domain\Course\Entity\Technology', inversedBy: 'requiredBy')]
+    #[ORM\JoinTable(name: 'technology_requirement')]
     private Collection $requirements;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Domain\Course\Entity\Technology", mappedBy="requirements")
-     *
      * @var Collection<int, Technology>
      */
+    #[ORM\ManyToMany(targetEntity: 'App\Domain\Course\Entity\Technology', mappedBy: 'requirements')]
     private Collection $requiredBy;
 
-    /**
-     * @ORM\Column(type="string", length=50, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private ?string $type = null;
 
     public function __construct()

@@ -13,87 +13,61 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass="App\Domain\Forum\Repository\TopicRepository")
- * @ORM\Table(name="forum_topic")
- */
+#[ORM\Entity(repositoryClass: 'App\Domain\Forum\Repository\TopicRepository')]
+#[ORM\Table(name: 'forum_topic')]
 class Topic implements SpammableInterface, CacheableInterface
 {
     use SpamTrait;
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @ORM\Column(type="integer")
-     * @ApiProperty(identifier=true)
-     * @Groups({"read:topic"})
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\Column(type: 'integer')]
+    #[ApiProperty(identifier: true)]
+    #[Groups(['read:topic'])]
     private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=70)
-     * @Assert\NotBlank()
-     * @Assert\Length(min="5", max="70")
-     * @Groups({"read:topic"})
-     */
+    #[ORM\Column(type: 'string', length: 70)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 5, max: 70)]
+    #[Groups(['read:topic'])]
     private string $name = '';
 
-    /**
-     * @ORM\Column(type="text")
-     * @Assert\NotBlank()
-     * @Groups({"read:topic"})
-     */
+    #[ORM\Column(type: 'text')]
+    #[Assert\NotBlank]
+    #[Groups(['read:topic'])]
     private ?string $content = null;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default":0})
-     */
+    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
     private ?bool $solved = false;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default":0})
-     */
+    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
     private ?bool $sticky = false;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column(type: 'datetime')]
     private ?\DateTimeInterface $createdAt = null;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column(type: 'datetime')]
     private ?\DateTimeInterface $updatedAt = null;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Domain\Forum\Entity\Tag", inversedBy="topics")
-     * @ORM\JoinTable(name="forum_topic_tag")
-     * @Assert\NotBlank()
-     * @Assert\Count(min="1", max="3")
-     * @Groups({"read:topic"})
-     */
+    #[ORM\ManyToMany(targetEntity: 'App\Domain\Forum\Entity\Tag', inversedBy: 'topics')]
+    #[ORM\JoinTable(name: 'forum_topic_tag')]
+    #[Assert\NotBlank]
+    #[Assert\Count(min: 1, max: 3)]
+    #[Groups(['read:topic'])]
     private Collection $tags;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Auth\User")
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     */
+    #[ORM\ManyToOne(targetEntity: 'App\Domain\Auth\User')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private User $author;
 
-    /**
-     * @ORM\Column(type="integer", options={"default": 0})
-     */
+    #[ORM\Column(type: 'integer', options: ['default' => 0])]
     private int $messageCount = 0;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Domain\Forum\Entity\Message", mappedBy="topic")
-     * @ORM\OrderBy({"accepted" = "DESC", "createdAt" = "ASC"})
-     */
+    #[ORM\OneToMany(targetEntity: 'App\Domain\Forum\Entity\Message', mappedBy: 'topic')]
+    #[ORM\OrderBy(['accepted' => 'DESC', 'createdAt' => 'ASC'])]
     private Collection $messages;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Forum\Entity\Message")
-     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
-     */
+    #[ORM\ManyToOne(targetEntity: 'App\Domain\Forum\Entity\Message')]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
     private ?Message $lastMessage = null;
 
     public function __construct()

@@ -8,61 +8,42 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass="App\Domain\Comment\CommentRepository")
- */
+#[ORM\Entity(repositoryClass: 'App\Domain\Comment\CommentRepository')]
 class Comment
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $email = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $username = null;
 
-    /**
-     * @ORM\Column(type="text")
-     */
+    #[ORM\Column(type: 'text')]
     private string $content = '';
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column(type: 'datetime')]
     private \DateTimeInterface $createdAt;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Auth\User")
-     * @ORM\JoinColumn(onDelete="CASCADE", nullable=true)
-     */
+    #[ORM\ManyToOne(targetEntity: 'App\Domain\Auth\User')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE', nullable: true)]
     private ?User $author = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Comment\Comment", inversedBy="replies")
-     * @ORM\JoinColumn(onDelete="CASCADE")
-     */
+    #[ORM\ManyToOne(targetEntity: 'App\Domain\Comment\Comment', inversedBy: 'replies')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE', nullable: true)]
     private ?self $parent = null;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Domain\Comment\Comment", mappedBy="parent")
-     *
      * @var Collection<int, Comment>
      */
+    #[ORM\OneToMany(targetEntity: 'App\Domain\Comment\Comment', mappedBy: 'parent')]
     private Collection $replies;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Application\Entity\Content")
-     * @ORM\JoinColumn(onDelete="CASCADE", nullable=false, name="content_id")
-     */
+    #[ORM\ManyToOne(targetEntity: 'App\Domain\Application\Entity\Content')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE', nullable: false, name: 'content_id')]
     private Content $target;
 
     public function __construct()

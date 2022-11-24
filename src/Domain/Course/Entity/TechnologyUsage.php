@@ -5,33 +5,23 @@ namespace App\Domain\Course\Entity;
 use App\Domain\Application\Entity\Content;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity
- */
+#[ORM\Entity]
 class TechnologyUsage
 {
-    /**
-     * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="App\Domain\Course\Entity\Technology", inversedBy="usages", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\Id]
+    #[ORM\ManyToOne(targetEntity: 'App\Domain\Course\Entity\Technology', inversedBy: 'usages', cascade: ['persist'])]
+    #[ORM\JoinColumn(nullable: false)]
     private Technology $technology;
 
-    /**
-     * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="App\Domain\Application\Entity\Content", inversedBy="technologyUsages")
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     */
+    #[ORM\Id]
+    #[ORM\ManyToOne(targetEntity: 'App\Domain\Application\Entity\Content', inversedBy: 'technologyUsages')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private Content $content;
 
-    /**
-     * @ORM\Column(type="string", length=15, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 15, nullable: true)]
     private ?string $version = null;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default": false})
-     */
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private bool $secondary = false;
 
     public function getTechnology(): Technology

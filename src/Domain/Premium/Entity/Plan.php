@@ -5,34 +5,25 @@ namespace App\Domain\Premium\Entity;
 use App\Infrastructure\Payment\Stripe\StripeEntity;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass="App\Domain\Premium\Repository\PlanRepository")
- */
+#[ORM\Entity(repositoryClass: 'App\Domain\Premium\Repository\PlanRepository')]
 class Plan
 {
     use StripeEntity;
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=false)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $name = '';
 
-    /**
-     * @ORM\Column(type="float", nullable=false)
-     */
+    #[ORM\Column(type: 'float', nullable: false)]
     private float $price = 0;
 
     /**
      * Durée de l'abonnement (en mois).
-     *
-     * @ORM\Column(type="integer", nullable=false)
      */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $duration = 1;
 
     public function getId(): ?int
