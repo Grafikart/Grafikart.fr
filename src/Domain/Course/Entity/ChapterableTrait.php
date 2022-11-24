@@ -8,10 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 trait ChapterableTrait
 {
     /**
-     * @ORM\Column(type="json")
-     *
      * @return array{title: string, content: int[]}[]
      */
+    #[ORM\Column(type: 'json')]
     protected array $chapters = [];
 
     public function setRawChapters(array $chapters): self

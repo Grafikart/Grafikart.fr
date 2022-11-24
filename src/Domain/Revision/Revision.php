@@ -8,49 +8,35 @@ use App\Domain\Revision\Constraint\NotSameContent;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass="App\Domain\Revision\RevisionRepository")
- * @NotSameContent()
- */
+#[ORM\Entity(repositoryClass: 'App\Domain\Revision\RevisionRepository')]
+#[NotSameContent()]
 class Revision
 {
     public final const PENDING = 0;
     public final const ACCEPTED = 1;
     public final const REJECTED = -1;
 
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Auth\User")
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     */
+    #[ORM\ManyToOne(targetEntity: 'App\Domain\Auth\User')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private User $author;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Application\Entity\Content")
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     */
+    #[ORM\ManyToOne(targetEntity: 'App\Domain\Application\Entity\Content')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private Content $target;
 
-    /**
-     * @ORM\Column(type="text")
-     * @Assert\NotBlank()
-     */
+    #[ORM\Column(type: 'text')]
+    #[Assert\NotBlank]
     private string $content = '';
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column(type: 'datetime')]
     private ?\DateTimeInterface $createdAt = null;
 
-    /**
-     * @ORM\Column(type="integer", length=1, options={"default":"0"})
-     */
+    #[ORM\Column(type: 'integer', length: 1, options: ['default' => 0])]
     private int $status = self::PENDING;
 
     public function getId(): ?int

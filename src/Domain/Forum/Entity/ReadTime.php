@@ -5,39 +5,27 @@ namespace App\Domain\Forum\Entity;
 use App\Domain\Auth\User;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass="App\Domain\Forum\Repository\ReadTimeRepository")
- * @ORM\Table(name="forum_read_time")
- */
+#[ORM\Entity(repositoryClass: 'App\Domain\Forum\Repository\ReadTimeRepository')]
+#[ORM\Table(name: 'forum_read_time')]
 class ReadTime
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Forum\Entity\Topic")
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     */
+    #[ORM\ManyToOne(targetEntity: 'App\Domain\Forum\Entity\Topic')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private Topic $topic;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Auth\User")
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     */
+    #[ORM\ManyToOne(targetEntity: 'App\Domain\Auth\User')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private User $owner;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column(type: 'datetime')]
     private \DateTimeInterface $readAt;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default": false})
-     */
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private bool $notified = false;
 
     public function getId(): ?int

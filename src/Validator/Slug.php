@@ -8,6 +8,7 @@ use Symfony\Component\Validator\Constraints\RegexValidator;
 /**
  * @Annotation
  */
+#[\Attribute(\Attribute::TARGET_CLASS)]
 class Slug extends Regex
 {
     public function __construct($options = [])

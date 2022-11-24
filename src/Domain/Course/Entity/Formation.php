@@ -7,34 +7,25 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass="App\Domain\Course\Repository\FormationRepository")
- */
+#[ORM\Entity(repositoryClass: 'App\Domain\Course\Repository\FormationRepository')]
 class Formation extends Content
 {
     use LevelTrait;
     use ChapterableTrait;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
+    #[ORM\Column(type: 'text', nullable: true)]
     private ?string $short = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $youtube_playlist = null;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Domain\Course\Entity\Course", mappedBy="formation")
-     *
      * @var Collection<int, Course>
      */
+    #[ORM\OneToMany(targetEntity: 'App\Domain\Course\Entity\Course', mappedBy: 'formation')]
     private \Doctrine\Common\Collections\Collection $courses;
 
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
+    #[ORM\Column(type: 'string', nullable: true)]
     private ?string $links = null;
 
     public function __construct()

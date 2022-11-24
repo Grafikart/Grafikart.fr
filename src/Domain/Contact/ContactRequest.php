@@ -7,26 +7,19 @@ use geertw\IpAnonymizer\IpAnonymizer;
 
 /**
  * Sauvegarde les demandes de contact afin de limiter le spam.
- *
- * @ORM\Entity(repositoryClass="App\Domain\Contact\ContactRequestRepository")
  */
+#[ORM\Entity(repositoryClass: 'App\Domain\Contact\ContactRequestRepository')]
 class ContactRequest
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string")
-     */
+    #[ORM\Column(type: 'string')]
     private string $ip = '';
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column(type: 'datetime')]
     private \DateTime $createdAt;
 
     public function __construct()

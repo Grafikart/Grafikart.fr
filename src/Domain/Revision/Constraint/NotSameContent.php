@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraint;
  *
  * @Annotation
  */
+#[\Attribute(\Attribute::TARGET_CLASS)]
 class NotSameContent extends Constraint
 {
     public string $message = "La révision doit posséder au moins une modification par rapport à l'article original";

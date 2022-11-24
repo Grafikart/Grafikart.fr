@@ -5,32 +5,22 @@ namespace App\Domain\Password\Entity;
 use App\Domain\Auth\User;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass="App\Domain\Password\Repository\PasswordResetTokenRepository")
- */
+#[ORM\Entity(repositoryClass: 'App\Domain\Password\Repository\PasswordResetTokenRepository')]
 class PasswordResetToken
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column(type: 'datetime')]
     private \DateTime $createdAt;
 
-    /**
-     * @ORM\Column(type="string")
-     */
+    #[ORM\Column(type: 'string')]
     private string $token;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Domain\Auth\User")
-     * @ORM\JoinColumn(onDelete="CASCADE")
-     */
+    #[ORM\OneToOne(targetEntity: 'App\Domain\Auth\User')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private User $user;
 
     public function getId(): ?int

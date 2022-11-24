@@ -6,51 +6,32 @@ use App\Domain\Application\Entity\Content;
 use App\Domain\Auth\User;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Table(
- *    uniqueConstraints={
- *        @ORM\UniqueConstraint(name="progress_unique",
- *            columns={"author_id", "content_id"})
- *    }
- * )
- * @ORM\Entity(repositoryClass="App\Domain\History\Repository\ProgressRepository")
- */
+#[ORM\Entity(repositoryClass: 'App\Domain\History\Repository\ProgressRepository')]
+#[ORM\UniqueConstraint(name: 'progress_unique', columns: ['author_id', 'content_id'])]
 class Progress
 {
     public final const TOTAL = 1000;
 
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Auth\User")
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     */
+    #[ORM\ManyToOne(targetEntity: 'App\Domain\Auth\User')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private User $author;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Application\Entity\Content")
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     */
+    #[ORM\ManyToOne(targetEntity: 'App\Domain\Application\Entity\Content')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private Content $content;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: 'integer')]
     private int $progress = 0;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column(type: 'datetime')]
     private ?\DateTimeInterface $createdAt = null;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column(type: 'datetime')]
     private ?\DateTimeInterface $updatedAt = null;
 
     public function getId(): ?int

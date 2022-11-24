@@ -8,52 +8,34 @@ use Google_Service_YouTube_Thumbnail;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-/**
- * @ORM\Entity(repositoryClass="App\Domain\Live\LiveRepository")
- * @Vich\Uploadable()
- */
+#[ORM\Entity(repositoryClass: 'App\Domain\Live\LiveRepository')]
+#[Vich\Uploadable]
 class Live
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\Column(type: 'integer')]
     private int $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private string $name;
 
-    /**
-     * @ORM\Column(type="text")
-     */
+    #[ORM\Column(type: 'text')]
     private string $description = '';
 
-    /**
-     * @ORM\Column(type="string", length=20)
-     */
+    #[ORM\Column(type: 'string', length: 20)]
     private string $youtubeId;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: 'integer')]
     private int $duration = 0;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column(type: 'datetime')]
     private \DateTimeInterface $createdAt;
 
-    /**
-     * @Vich\UploadableField(mapping="lives", fileNameProperty="imageName")
-     */
+    #[Vich\UploadableField(mapping: 'lives', fileNameProperty: 'imageName')]
     private ?File $image = null;
 
-    /**
-     * @ORM\Column(type="string", name="image", nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $imageName = null;
 
     public static function fromYoutubeVideo(\Google_Service_YouTube_Video $video): self

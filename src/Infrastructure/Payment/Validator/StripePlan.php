@@ -7,6 +7,7 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  */
+#[\Attribute(\Attribute::TARGET_CLASS)]
 class StripePlan extends Constraint
 {
     /*

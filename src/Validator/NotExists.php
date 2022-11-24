@@ -7,6 +7,7 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  */
+#[\Attribute(\Attribute::TARGET_CLASS)]
 class NotExists extends Constraint
 {
     public string $message = 'A record was found for {{ value }}';

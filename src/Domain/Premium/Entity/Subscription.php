@@ -6,47 +6,33 @@ use App\Domain\Auth\User;
 use App\Infrastructure\Payment\Stripe\StripeEntity;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass="App\Domain\Premium\Repository\SubscriptionRepository")
- */
+#[ORM\Entity(repositoryClass: 'App\Domain\Premium\Repository\SubscriptionRepository')]
 class Subscription
 {
     use StripeEntity;
     public final const ACTIVE = 1;
     public final const INACTIVE = 0;
 
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="smallint")
-     */
+    #[ORM\Column(type: 'smallint')]
     private int $state = self::INACTIVE;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column(type: 'datetime')]
     private \DateTimeInterface $nextPayment;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Premium\Entity\Plan")
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: 'App\Domain\Premium\Entity\Plan')]
+    #[ORM\JoinColumn(nullable: false)]
     private Plan $plan;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Auth\User")
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: 'App\Domain\Auth\User')]
+    #[ORM\JoinColumn(nullable: false)]
     private User $user;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column(type: 'datetime')]
     private \DateTimeInterface $createdAt;
 
     public function getId(): ?int
