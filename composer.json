@@ -93,7 +93,7 @@
     "squizlabs/php_codesniffer": "^3.5",
     "symfony/css-selector": "^6.0",
     "symfony/debug-bundle": "^5.4",
-    "symfony/maker-bundle": "^1.0",
+    "symfony/maker-bundle": "<=1.43",
     "symfony/phpunit-bridge": "^6.0",
     "symfony/stopwatch": "^5.4",
     "symfony/web-profiler-bundle": "^5.2",
