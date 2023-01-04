@@ -135,6 +135,9 @@ export function Checkbox ({ children, ...props }) {
     <Flex center gap={1}>
       <span class={classNames('form-checkbox', props.checked && 'is-checked')}>
         <input type='checkbox' {...props} />
+        {props.checked && <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9.55 18L3.85 12.3L5.275 10.875L9.55 15.15L18.725 5.975L20.15 7.4L9.55 18Z" fill="currentColor"/>
+        </svg>}
       </span>
       <label htmlFor={props.id} class='flex'>
         {children}

@@ -232,19 +232,6 @@ button:not([class]):hover .icon-delete {
   border: 1px solid var(--border);
   transition: border .3s;
 
-  &::after {
-    content:'';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: background-color .3s;
-    pointer-events: none;
-  }
-
   & + label {
     cursor: pointer;
   }
@@ -271,13 +258,35 @@ button:not([class]):hover .icon-delete {
   }
 }
 
+// Radio
+// =============
+.form-radio {
+  &::after {
+    content:'';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: background-color .3s;
+    pointer-events: none;
+  }
+}
+
 // Checkbox
 // =============
 .form-checkbox {
   border-radius: 3px;
 
-  &::after {
-    border-radius: 2px;
+  svg {
+    transition: color .3s;
+    color: var(--contrast);
+    content:'';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
   }
 
   &.is-checked {

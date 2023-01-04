@@ -206,9 +206,16 @@ function PaymentCard ({ plan, publicKey }) {
 
   return (
     <Stack gap={2}>
-      <Checkbox id='subscription' name='subscription' checked={subscription} onChange={toggleSubscription}>
-        Renouveller automatiquement
-      </Checkbox>
+      <Stack gap={1}>
+        <Checkbox id={'subscription' + plan} name='subscription' checked={subscription} onChange={toggleSubscription}>
+          Renouveler automatiquement
+        </Checkbox>
+        {subscription && <p class="text-small text-muted">
+          Le renouvellement automatique est activé, vous serez prélevé automatiquement à la fin de chaque période.
+          Vous pourrez interrompre l'abonnement à tout moment depuis <a
+          href="/profil/edit" target="_blank">votre compte</a>.
+        </p>}
+      </Stack>
       <PrimaryButton size='block' onClick={startPayment} loading={loading}>
         {subscription ? "S'abonner via" : 'Payer via '}
         <img src='/images/stripe.svg' height='20' style={{ marginLeft: '.4rem' }} />
