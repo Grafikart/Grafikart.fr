@@ -60,6 +60,11 @@ class Comment
     private Collection $replies;
 
     /**
+     * @ORM\Column(type="string", length=46, nullable=true)
+     */
+    private ?string $ip;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Application\Entity\Content")
      * @ORM\JoinColumn(onDelete="CASCADE", nullable=false, name="content_id")
      */
@@ -173,4 +178,33 @@ class Comment
     {
         return $this->replies;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string|null $email
+     */
+    public function setEmail(?string $email): void
+    {
+        $this->email = $email;
+    }
+
+    public function getIp(): ?string
+    {
+        return $this->ip;
+    }
+
+    public function setIp(?string $ip): self
+    {
+        $this->ip = $ip;
+
+        return $this;
+    }
+
 }

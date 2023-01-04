@@ -28,13 +28,13 @@
     {% for row in rows %}
       {% set link = path(prefix ~ '_edit', {id: row.id}) %}
       <tr>
-        <td class="dashboard-id">
+        <td>
           <a href="{{ link }}">{{ row.id }}</a>
         </td>
-        <td class="dashboard-id">
+        <td>
           <a href="{{ link }}">{{ row.title }}</a>
         </td>
-        <td class="dashboard-id">
+        <td>
           {{ row.scheduledAt | format_date('long') }}
         </td>
         <td>

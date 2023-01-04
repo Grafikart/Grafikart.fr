@@ -14,26 +14,30 @@
         <th>Email</th>
         <th>Inscription</th>
         <th>Premium</th>
+        <th>IP</th>
         <th class="text-right">Actions</th>
       </tr>
       </thead>
       <tbody>
         {% for user in rows %}
         <tr>
-          <td class="dashboard-id">
+          <td>
             {{ user.id }}
           </td>
-          <td class="dashboard-id">
+          <td>
             {{ user.username }}
           </td>
           <td>
             {{ user.email }}
           </td>
-          <td class="dashboard-id">
+          <td>
             {{ user.createdAt | format_datetime(pattern="dd MMM. yyyy à kk:mm") }}
           </td>
-          <td class="dashboard-id">
-              {{ user.premium ? user.premiumEnd | ago('Pour') : '' }}
+          <td>
+            {{ user.premium ? user.premiumEnd | ago('Pour') : '' }}
+          </td>
+          <td>
+            <a href="https://ipinfo.io/{{ user.lastLoginIp }}" target="_blank">{{ user.lastLoginIp }}</a>
           </td>
           <td>
             <div class="dashboard-actions">

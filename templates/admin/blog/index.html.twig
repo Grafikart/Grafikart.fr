@@ -23,7 +23,7 @@
         {% for row in rows %}
           {% set link = path('admin_blog_edit', {id: row.id}) %}
         <tr>
-          <td class="dashboard-id">
+          <td>
             <a href="{{ link }}">{{ row.id }}</a>
           </td>
           <td>

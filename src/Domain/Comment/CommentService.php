@@ -6,13 +6,15 @@ use App\Domain\Application\Entity\Content;
 use App\Domain\Auth\AuthService;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class CommentService
 {
     public function __construct(
         private readonly AuthService $auth,
         private readonly EntityManagerInterface $em,
-        private readonly EventDispatcherInterface $dispatcher
+        private readonly EventDispatcherInterface $dispatcher,
+        private readonly RequestStack $requestStack
     ) {
     }
 
@@ -29,6 +31,7 @@ class CommentService
             ->setCreatedAt(new \DateTime())
             ->setContent($data->content)
             ->setParent($parent)
+            ->setIp($this->requestStack->getMainRequest()?->getClientIp())
             ->setTarget($target);
         $this->em->persist($comment);
         $this->em->flush();
