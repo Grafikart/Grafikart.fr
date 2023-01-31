@@ -15,7 +15,7 @@ use App\Domain\Premium\Event\PremiumSubscriptionEvent;
 use App\Domain\Revision\Event\RevisionAcceptedEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Symfony\Component\Security\Http\Event\LoginSuccessEvent;
 
 class BadgeUnlockSubscriber implements EventSubscriberInterface
 {
@@ -29,7 +29,7 @@ class BadgeUnlockSubscriber implements EventSubscriberInterface
             CommentCreatedEvent::class => 'onCommentCreated',
             TopicCreatedEvent::class => 'onTopicCreated',
             TopicResolvedEvent::class => 'onTopicSolved',
-            InteractiveLoginEvent::class => 'onLogin',
+            LoginSuccessEvent::class => 'onLogin',
             PremiumSubscriptionEvent::class => 'onPremium',
             RevisionAcceptedEvent::class => 'onRevision',
         ];
@@ -65,9 +65,9 @@ class BadgeUnlockSubscriber implements EventSubscriberInterface
         ]));
     }
 
-    public function onLogin(InteractiveLoginEvent $event): void
+    public function onLogin(LoginSuccessEvent $event): void
     {
-        $user = $event->getAuthenticationToken()->getUser();
+        $user = $event->getUser();
         if (!($user instanceof User)) {
             return;
         }

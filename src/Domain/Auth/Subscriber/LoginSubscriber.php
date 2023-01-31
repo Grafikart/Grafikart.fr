@@ -7,7 +7,7 @@ use App\Domain\Auth\Service\LoginAttemptService;
 use App\Domain\Auth\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Symfony\Component\Security\Http\Event\LoginSuccessEvent;
 
 class LoginSubscriber implements EventSubscriberInterface
 {
@@ -22,7 +22,7 @@ class LoginSubscriber implements EventSubscriberInterface
     {
         return [
             BadPasswordLoginEvent::class => 'onAuthenticationFailure',
-            InteractiveLoginEvent::class => 'onLogin',
+            LoginSuccessEvent::class => 'onLogin',
         ];
     }
 
@@ -31,9 +31,9 @@ class LoginSubscriber implements EventSubscriberInterface
         $this->service->addAttempt($event->getUser());
     }
 
-    public function onLogin(InteractiveLoginEvent $event): void
+    public function onLogin(LoginSuccessEvent $event): void
     {
-        $user = $event->getAuthenticationToken()->getUser();
+        $user = $event->getUser();
         $event->getRequest()->getClientIp();
         if ($user instanceof User) {
             $ip = $event->getRequest()->getClientIp();
