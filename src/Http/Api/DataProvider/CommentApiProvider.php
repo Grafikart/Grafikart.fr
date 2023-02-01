@@ -42,7 +42,7 @@ final class CommentApiProvider implements ProviderInterface
         if (!isset($uriVariables["id"])) {
             return null;
         }
-        $id = $uriVariables["id"] ?? 0;
+        $id = $uriVariables["id"] ?: 0;
         $comment = $this->commentRepository->findPartial((int) $id);
         return $comment ? CommentResource::fromComment($comment, $this->uploaderHelper) : null;
     }

@@ -38,7 +38,7 @@ class CommentSubscriber implements EventSubscriberInterface
             ->keyBy(function (Comment $c) {
                 $author = $c->getAuthor();
 
-                return $author ? $author->getId() : null;
+                return $author?->getId() ?? '0';
             });
 
         $excerpt = htmlentities(substr($parent->getContent(), 0, 40));

@@ -69,6 +69,6 @@ class BadgeService
     {
         return collect($this->em->getRepository(BadgeUnlock::class)->findBy([
             'owner' => $user,
-        ]))->keyBy(fn (BadgeUnlock $u) => $u->getBadge()->getId())->toArray();
+        ]))->keyBy(fn (BadgeUnlock $u) => $u->getBadge()->getId() ?? '')->toArray();
     }
 }

@@ -5,9 +5,9 @@ namespace App\Infrastructure\Search\Normalizer;
 use ApiPlatform\Api\UrlGeneratorInterface;
 use App\Domain\Blog\Post;
 use App\Http\Normalizer\PostPathNormalizer;
-use Symfony\Component\Serializer\Normalizer\NormalizableInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class PostNormalizer implements NormalizableInterface
+class PostNormalizer implements NormalizerInterface
 {
     public function __construct(
         private readonly PostPathNormalizer $pathNormalizer,
@@ -15,12 +15,12 @@ class PostNormalizer implements NormalizableInterface
     ) {
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization(mixed $data, string $format = null, array $context = []): bool
     {
         return $data instanceof Post && 'search' === $format;
     }
 
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize(mixed $object, string $format = null, array $context = []): array
     {
         if (!$object instanceof Post) {
             throw new \InvalidArgumentException('Unexpected type for normalization, expected Course, got '.$object::class);

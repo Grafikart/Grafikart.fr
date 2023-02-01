@@ -48,7 +48,7 @@ class FormationController extends AbstractController
                 'upload-site',
                 'react',
             ],
-        ]))->keyBy(fn (Formation $f) => $f->getSlug())->toArray();
+        ]))->keyBy(fn (Formation $f) => $f->getSlug() ?? '')->toArray();
 
         return $this->render('formations/tree.html.twig', [
             'formations' => $formations,

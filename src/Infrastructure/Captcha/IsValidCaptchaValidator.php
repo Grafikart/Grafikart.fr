@@ -26,7 +26,7 @@ class IsValidCaptchaValidator extends ConstraintValidator
             ->addViolation();
     }
 
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof IsValidCaptcha) {
             throw new UnexpectedTypeException($constraint, IsValidCaptchaValidator::class);

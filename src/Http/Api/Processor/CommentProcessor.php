@@ -22,7 +22,7 @@ class CommentProcessor implements ProcessorInterface
         private readonly CommentService $service
     ){}
 
-    public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = [])
+    public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): CommentResource
     {
         if ($operation instanceof Delete) {
             if (null === $data->id) {
