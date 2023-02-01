@@ -114,7 +114,7 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
         $csrf = uniqid();
 
         // Write directly into the session file cause there is no way to access the session from tests :(
-        foreach($this->client->getCookieJar()->all() as $cookie) {
+        foreach ($this->client->getCookieJar()->all() as $cookie) {
             if ($cookie->getName() === 'MOCKSESSID') {
                 $path = self::getContainer()->getParameter('kernel.cache_dir') . '/sessions/' . $cookie->getValue() . '.mocksess';
                 $file = unserialize(file_get_contents($path));
@@ -126,7 +126,8 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
         return $csrf;
     }
 
-    protected function getSession (): SessionInterface {
+    protected function getSession(): SessionInterface
+    {
         if (!$this->session) {
             $container = $this->getContainer();
             $session = $container->get('session.factory')->createSession();

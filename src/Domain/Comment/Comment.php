@@ -179,5 +179,4 @@ class Comment
 
         return $this;
     }
-
 }

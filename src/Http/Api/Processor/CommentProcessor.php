@@ -20,7 +20,8 @@ class CommentProcessor implements ProcessorInterface
         private readonly ValidatorInterface $validator,
         private readonly Security $security,
         private readonly CommentService $service
-    ){}
+    ) {
+    }
 
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): CommentResource
     {

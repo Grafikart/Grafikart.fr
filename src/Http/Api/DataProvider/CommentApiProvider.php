@@ -28,9 +28,9 @@ final class CommentApiProvider implements ProviderInterface
                 throw new HttpException(Response::HTTP_BAD_REQUEST, 'Aucun contenu ne correspond à cet ID');
             }
             $contentId = (int) $context['filters']['content'];
-             if (0 === $contentId) {
-                 throw new HttpException(Response::HTTP_BAD_REQUEST, 'Aucun contenu ne correspond à cet ID');
-             }
+            if (0 === $contentId) {
+                throw new HttpException(Response::HTTP_BAD_REQUEST, 'Aucun contenu ne correspond à cet ID');
+            }
 
             return array_map(
                 fn (Comment $comment) => CommentResource::fromComment($comment, $this->uploaderHelper),
