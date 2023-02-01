@@ -72,7 +72,7 @@ class SeedCommand extends Command
                     ->setTitle("Chapitre {$i}")
                     ->setModules($modules);
                 /** @var callable $callable */
-                $callable = [$c, 'addModule'];
+                $callable = $c->addModule(...);
                 array_map($callable, $modules);
             }
             $c->setChapters($chapters);

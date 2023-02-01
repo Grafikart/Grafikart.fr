@@ -19,10 +19,10 @@ class TwigPathExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('uploads_path', [$this, 'uploadsPath']),
-            new TwigFunction('image_url', [$this, 'imageUrl']),
-            new TwigFunction('image_url_raw', [$this, 'imageUrlRaw']),
-            new TwigFunction('image', [$this, 'imageTag'], ['is_safe' => ['html']]),
+            new TwigFunction('uploads_path', $this->uploadsPath(...)),
+            new TwigFunction('image_url', $this->imageUrl(...)),
+            new TwigFunction('image_url_raw', $this->imageUrlRaw(...)),
+            new TwigFunction('image', $this->imageTag(...), ['is_safe' => ['html']]),
         ];
     }
 

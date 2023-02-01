@@ -15,9 +15,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 class ContactController extends AbstractController
 {
-    /**
-     * @Route("/contact", name="api_contact", methods={"POST"})
-     */
+    #[Route(path: '/contact', name: 'api_contact', methods: ['POST'])]
     public function create(
         DenormalizerInterface $denormalizer,
         ValidatorInterface $validator,

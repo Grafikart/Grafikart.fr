@@ -21,12 +21,10 @@ class SearchController extends AbstractController
     ) {
     }
 
-    /**
-     * @Route("/search", name="search")
-     */
+    #[Route(path: '/search', name: 'search')]
     public function search(Request $request): JsonResponse
     {
-        $q = trim($request->get('q', ''));
+        $q = trim((string) $request->get('q', ''));
         if (empty($q)) {
             return $this->json([]);
         }

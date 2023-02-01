@@ -17,7 +17,7 @@ class TwigThemeExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('body_theme', [$this, 'getUserTheme']),
+            new TwigFunction('body_theme', $this->getUserTheme(...)),
         ];
     }
 

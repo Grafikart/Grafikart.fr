@@ -10,8 +10,8 @@ class TwigExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('icon', [$this, 'svgIcon'], ['is_safe' => ['html']]),
-            new TwigFunction('menu_active', [$this, 'menuActive'], ['is_safe' => ['html'], 'needs_context' => true]),
+            new TwigFunction('icon', $this->svgIcon(...), ['is_safe' => ['html']]),
+            new TwigFunction('menu_active', $this->menuActive(...), ['is_safe' => ['html'], 'needs_context' => true]),
         ];
     }
 

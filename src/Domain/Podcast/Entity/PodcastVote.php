@@ -5,38 +5,26 @@ namespace App\Domain\Podcast\Entity;
 use App\Domain\Auth\User;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=App\Domain\Podcast\Repository\PodcastVoteRepository::class)
- */
+#[ORM\Entity(repositoryClass: App\Domain\Podcast\Repository\PodcastVoteRepository::class)]
 class PodcastVote
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="float", options={"default":1})
-     */
+    #[ORM\Column(type: 'float', options: ['default' => 1])]
     private float $weight = 1;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column(type: 'datetime')]
     private \DateTimeInterface $createdAt;
 
     public function __construct(
-        /**
-         * @ORM\ManyToOne(targetEntity=User::class)
-         * @ORM\JoinColumn(nullable=false)
-         */
+        #[ORM\ManyToOne(targetEntity: User::class)]
+        #[ORM\JoinColumn(nullable: false)]
         private User $voter,
-        /**
-         * @ORM\ManyToOne(targetEntity=Podcast::class)
-         * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-         */
+        #[ORM\ManyToOne(targetEntity: Podcast::class)]
+        #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
         private Podcast $podcast
     ) {
         $this->createdAt = new \DateTime();

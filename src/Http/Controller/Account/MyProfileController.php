@@ -12,10 +12,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MyProfileController extends AbstractController
 {
-    /**
-     * @Route("/profil", name="user_profil", methods={"GET"})
-     * @IsGranted("ROLE_USER")
-     */
+    #[Route(path: '/profil', name: 'user_profil', methods: ['GET'])]
+    #[IsGranted('ROLE_USER')]
     public function index(
         HistoryService $history,
         TopicRepository $topicRepository,

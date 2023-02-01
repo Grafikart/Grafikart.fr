@@ -11,10 +11,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class NotificationController extends AbstractController
 {
-    /**
-     * @Route("/notifications/read", name="api_notification_read", methods={"POST"})
-     * @IsGranted("ROLE_USER")
-     */
+    #[Route(path: '/notifications/read', name: 'api_notification_read', methods: ['POST'])]
+    #[IsGranted('ROLE_USER')]
     public function readAll(AuthService $auth, NotificationService $service): JsonResponse
     {
         $user = $auth->getUser();

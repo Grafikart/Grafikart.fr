@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Cookie;
 
 class CookieGeneratorTest extends TestCase
 {
-    public const SECRET = 'random_secret_string_test_security';
+    final public const SECRET = 'random_secret_string_test_security';
 
     private function assertCookieIsSubscribedTo(Cookie $cookie, array $channels)
     {

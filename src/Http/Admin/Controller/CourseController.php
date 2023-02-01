@@ -18,10 +18,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
- * @Route("/course", name="course_")
- *
  * @method getRepository() App\Domain\Course\Repository\CourseRepository\CourseRepository
  */
+#[Route(path: '/course', name: 'course_')]
 final class CourseController extends CrudController
 {
     private const UPLOAD_SESSION_KEY = 'course_upload_id';
@@ -35,9 +34,7 @@ final class CourseController extends CrudController
         'create' => ContentCreatedEvent::class,
     ];
 
-    /**
-     * @Route("/", name="index")
-     */
+    #[Route(path: '/', name: 'index')]
     public function index(Request $request): Response
     {
         $this->paginator->allowSort('row.id', 'row.online');
@@ -56,9 +53,7 @@ final class CourseController extends CrudController
         return $this->crudIndex($query);
     }
 
-    /**
-     * @Route("/new", name="new", methods={"POST", "GET"})
-     */
+    #[Route(path: '/new', name: 'new', methods: ['POST', 'GET'])]
     public function new(): Response
     {
         $entity = (new Course())->setAuthor($this->getUser());
@@ -67,9 +62,7 @@ final class CourseController extends CrudController
         return $this->crudNew($data);
     }
 
-    /**
-     * @Route("/{id<\d+>}", name="edit", methods={"POST", "GET"})
-     */
+    #[Route(path: '/{id<\d+>}', name: 'edit', methods: ['POST', 'GET'])]
     public function edit(Request $request, Course $course, SessionInterface $session): Response
     {
         $data = (new CourseCrudData($course))->setEntityManager($this->em);
@@ -83,9 +76,7 @@ final class CourseController extends CrudController
         return $response;
     }
 
-    /**
-     * @Route("/{id<\d+>}/clone", name="clone", methods={"GET","POST"})
-     */
+    #[Route(path: '/{id<\d+>}/clone', name: 'clone', methods: ['GET', 'POST'])]
     public function clone(Course $course): Response
     {
         $course = CourseCloner::clone($course);
@@ -94,9 +85,7 @@ final class CourseController extends CrudController
         return $this->crudNew($data);
     }
 
-    /**
-     * @Route("/{id<\d+>}", methods={"DELETE"})
-     */
+    #[Route(path: '/{id<\d+>}', methods: ['DELETE'])]
     public function delete(Course $course): Response
     {
         return $this->crudDelete($course);
@@ -104,9 +93,8 @@ final class CourseController extends CrudController
 
     /**
      * Lance l'upload (ou la mise à jour) d'une video sur youtube.
-     *
-     * @Route("/upload", methods={"GET"}, name="upload")
      */
+    #[Route(path: '/upload', methods: ['GET'], name: 'upload')]
     public function upload(
         Request $request,
         SessionInterface $session,

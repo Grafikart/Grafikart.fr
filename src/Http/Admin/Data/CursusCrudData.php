@@ -21,15 +21,13 @@ class CursusCrudData implements CrudDataInterface
 {
     private ?EntityManagerInterface $em = null;
 
-    /**
-     * @Assert\NotBlank()
-     */
+    #[Assert\NotBlank]
     public ?string $title;
 
     /**
-     * @Assert\NotBlank()
      * @Slug()
      */
+    #[Assert\NotBlank]
     public ?string $slug;
 
     public \DateTimeInterface $createdAt;
@@ -50,9 +48,7 @@ class CursusCrudData implements CrudDataInterface
      */
     public array $secondaryTechnologies = [];
 
-    /**
-     * @Assert\NotBlank()
-     */
+    #[Assert\NotBlank]
     public string $content = '';
 
     /**

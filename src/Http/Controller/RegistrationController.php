@@ -20,9 +20,7 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class RegistrationController extends AbstractController
 {
-    /**
-     * @Route("/inscription", name="register");
-     */
+    #[Route(path: '/inscription', name: 'register')]
     public function register(
         Request $request,
         UserPasswordHasherInterface $hasher,
@@ -96,9 +94,7 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/inscription/confirmation/{id<\d+>}", name="register_confirm")
-     */
+    #[Route(path: '/inscription/confirmation/{id<\d+>}', name: 'register_confirm')]
     public function confirmToken(User $user, Request $request, EntityManagerInterface $em): RedirectResponse
     {
         $token = $request->get('token');

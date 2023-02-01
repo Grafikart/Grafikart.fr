@@ -11,10 +11,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/formation", name="formation_")
- *
  * @method getRepository() App\Domain\Formation\$formation\$formation\Forma
  */
+#[Route(path: '/formation', name: 'formation_')]
 final class FormationController extends CrudController
 {
     protected string $templatePath = 'formation';
@@ -27,9 +26,7 @@ final class FormationController extends CrudController
         'create' => ContentCreatedEvent::class,
     ];
 
-    /**
-     * @Route("/", name="index")
-     */
+    #[Route(path: '/', name: 'index')]
     public function index(): Response
     {
         $this->paginator->allowSort('row.id');
@@ -44,9 +41,7 @@ final class FormationController extends CrudController
         return $this->crudIndex($query);
     }
 
-    /**
-     * @Route("/new", name="new", methods={"POST", "GET"})
-     */
+    #[Route(path: '/new', name: 'new', methods: ['POST', 'GET'])]
     public function new(): Response
     {
         $entity = (new Formation())->setAuthor($this->getUser());
@@ -55,9 +50,7 @@ final class FormationController extends CrudController
         return $this->crudNew($data);
     }
 
-    /**
-     * @Route("/{id<\d+>}", name="edit", methods={"POST", "GET"})
-     */
+    #[Route(path: '/{id<\d+>}', name: 'edit', methods: ['POST', 'GET'])]
     public function edit(Formation $formation): Response
     {
         $data = (new FormationCrudData($formation))->setEntityManager($this->em);
@@ -65,9 +58,7 @@ final class FormationController extends CrudController
         return $this->crudEdit($data);
     }
 
-    /**
-     * @Route("/{id<\d+>}", methods={"DELETE"})
-     */
+    #[Route(path: '/{id<\d+>}', methods: ['DELETE'])]
     public function delete(Formation $formation): Response
     {
         return $this->crudDelete($formation);

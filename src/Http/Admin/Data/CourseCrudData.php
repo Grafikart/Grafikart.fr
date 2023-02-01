@@ -18,15 +18,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class CourseCrudData implements CrudDataInterface
 {
-    /**
-     * @Assert\NotBlank()
-     */
+    #[Assert\NotBlank]
     public ?string $title = null;
 
     /**
-     * @Assert\NotBlank()
      * @Slug()
      */
+    #[Assert\NotBlank]
     public ?string $slug = null;
 
     public ?User $author;
@@ -52,9 +50,7 @@ class CourseCrudData implements CrudDataInterface
      */
     public ?int $deprecatedBy = null;
 
-    /**
-     * @Assert\NotBlank()
-     */
+    #[Assert\NotBlank]
     public string $content = '';
 
     public ?int $duration = 0;
@@ -65,9 +61,7 @@ class CourseCrudData implements CrudDataInterface
 
     public ?Attachment $youtubeThumbnail = null;
 
-    /**
-     * @Assert\File(mimeTypes={"application/zip"})
-     */
+    #[Assert\File(mimeTypes: ['application/zip'])]
     public ?UploadedFile $sourceFile = null;
 
     /**

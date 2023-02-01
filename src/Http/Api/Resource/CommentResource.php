@@ -36,48 +36,36 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 class CommentResource extends CommentData
 {
     /**
-     * @Groups({"read"})
      * @ApiProperty(identifier=true)
      */
+    #[Groups(['read'])]
     public ?int $id = null;
 
     /**
-     * @Groups({"read", "write"})
-     * @Assert\NotBlank(groups={"anonymous"}, normalizer="trim")
      * @NotExists(groups={"anonymous"}, field="username", class="App\Domain\Auth\User", message="Ce pseudo est utilisé par un utilisateur")
      */
+    #[Groups(['read', 'write'])]
+    #[Assert\NotBlank(groups: ['anonymous'], normalizer: 'trim')]
     public ?string $username = null;
 
-    /**
-     * @Assert\NotBlank(normalizer="trim")
-     * @Groups({"read", "write"})
-     * @Assert\Length(min="4", normalizer="trim")
-     */
+    #[Assert\NotBlank(normalizer: 'trim')]
+    #[Groups(['read', 'write'])]
+    #[Assert\Length(min: 4, normalizer: 'trim')]
     public string $content = '';
 
-    /**
-     * @Groups({"read"})
-     */
+    #[Groups(['read'])]
     public string $html = '';
 
-    /**
-     * @Groups({"read"})
-     */
+    #[Groups(['read'])]
     public ?string $avatar = null;
 
-    /**
-     * @Groups({"write"})
-     */
+    #[Groups(['write'])]
     public ?int $target = null;
 
-    /**
-     * @Groups({"read"})
-     */
+    #[Groups(['read'])]
     public int $createdAt = 0;
 
-    /**
-     * @Groups({"read", "write"})
-     */
+    #[Groups(['read', 'write'])]
     public ?int $parent = 0;
 
     /**
@@ -85,9 +73,7 @@ class CommentResource extends CommentData
      */
     public ?Comment $entity = null;
 
-    /**
-     * @Groups({"read"})
-     */
+    #[Groups(['read'])]
     public ?int $userId = null;
 
     public static function fromComment(Comment $comment, ?UploaderHelper $uploaderHelper = null): CommentResource
@@ -98,7 +84,7 @@ class CommentResource extends CommentData
         $resource->username = $comment->getUsername();
         $resource->content = $comment->getContent();
         $resource->html = strip_tags(
-            (new Parsedown())
+            (string) (new Parsedown())
                 ->setBreaksEnabled(true)
                 ->setSafeMode(true)
                 ->text($comment->getContent()),

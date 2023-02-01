@@ -16,10 +16,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AccountDeletionController extends AbstractController
 {
-    /**
-     * @Route("/profil", methods={"DELETE"})
-     * @IsGranted("ROLE_USER")
-     */
+    #[Route(path: '/profil', methods: ['DELETE'])]
+    #[IsGranted('ROLE_USER')]
     public function delete(
         DeleteAccountService $service,
         UserPasswordHasherInterface $passwordEncoder,
@@ -46,10 +44,8 @@ class AccountDeletionController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/profil/cancel-delete", methods={"POST"}, name="user_cancel_delete")
-     * @IsGranted("ROLE_USER")
-     */
+    #[Route(path: '/profil/cancel-delete', methods: ['POST'], name: 'user_cancel_delete')]
+    #[IsGranted('ROLE_USER')]
     public function cancelDelete(EntityManagerInterface $em): RedirectResponse
     {
         /** @var User $user */

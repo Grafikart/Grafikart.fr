@@ -16,23 +16,17 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class ProfileUpdateDto
 {
-    /**
-     * @Assert\NotBlank()
-     * @Assert\Length(min=5, max=100)
-     * @Assert\Email()
-     */
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 5, max: 100)]
+    #[Assert\Email]
     public string $email;
 
-    /**
-     * @Assert\NotBlank(normalizer="trim")
-     * @Assert\Length(min=3, max=40)
-     */
+    #[Assert\NotBlank(normalizer: 'trim')]
+    #[Assert\Length(min: 3, max: 40)]
     public string $username = '';
 
-    /**
-     * @Assert\NotBlank()
-     * @Assert\Country()
-     */
+    #[Assert\NotBlank]
+    #[Assert\Country]
     public ?string $country = 'FR';
 
     public User $user;

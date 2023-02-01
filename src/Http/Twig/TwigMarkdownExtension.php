@@ -11,10 +11,10 @@ class TwigMarkdownExtension extends AbstractExtension
     public function getFilters(): array
     {
         return [
-            new TwigFilter('excerpt', [$this, 'excerpt']),
-            new TwigFilter('markdown', [$this, 'markdown'], ['is_safe' => ['html']]),
-            new TwigFilter('markdown_excerpt', [$this, 'markdownExcerpt'], ['is_safe' => ['html']]),
-            new TwigFilter('markdown_untrusted', [$this, 'markdownUntrusted'], ['is_safe' => ['html']]),
+            new TwigFilter('excerpt', $this->excerpt(...)),
+            new TwigFilter('markdown', $this->markdown(...), ['is_safe' => ['html']]),
+            new TwigFilter('markdown_excerpt', $this->markdownExcerpt(...), ['is_safe' => ['html']]),
+            new TwigFilter('markdown_untrusted', $this->markdownUntrusted(...), ['is_safe' => ['html']]),
         ];
     }
 
@@ -82,7 +82,7 @@ class TwigMarkdownExtension extends AbstractExtension
 
     public function markdownUntrusted(?string $content): string
     {
-        $content = strip_tags((new Parsedown())
+        $content = strip_tags((string) (new Parsedown())
             ->setSafeMode(true)
             ->setBreaksEnabled(true)
             ->text($content), '<p><pre><code><ul><ol><li><h4><h3><h5><a><strong><br><em>');

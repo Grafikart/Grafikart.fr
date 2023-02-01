@@ -11,9 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
-    /**
-     * @Route("/profil/{id<\d+>}", name="user_show", requirements={"id"="\d+"})
-     */
+    #[Route(path: '/profil/{id<\d+>}', name: 'user_show', requirements: ['id' => '\d+'])]
     public function show(
         User $user,
         TopicRepository $topicRepository,

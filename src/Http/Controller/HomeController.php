@@ -21,9 +21,7 @@ class HomeController extends AbstractController
     {
     }
 
-    /**
-     * @Route("/", name="home")
-     */
+    #[Route(path: '/', name: 'home')]
     public function home(): Response
     {
         $user = $this->getUser();

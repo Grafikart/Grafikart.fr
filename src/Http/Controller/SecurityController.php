@@ -12,9 +12,7 @@ class SecurityController extends AbstractController
 {
     use TargetPathTrait;
 
-    /**
-     * @Route("/connexion", name="auth_login")
-     */
+    #[Route(path: '/connexion', name: 'auth_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->getUser()) {
@@ -31,9 +29,7 @@ class SecurityController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/logout", name="auth_logout", methods={"POST"})
-     */
+    #[Route(path: '/logout', name: 'auth_logout', methods: ['POST'])]
     public function logout(): never
     {
         throw new \Exception('This method can be blank - it will be intercepted by the logout key on your firewall');

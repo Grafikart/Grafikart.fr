@@ -13,10 +13,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/transactions", name="transaction_")
- *
  * @method getRepository() App\Domain\
  */
+#[Route(path: '/transactions', name: 'transaction_')]
 final class TransactionsController extends CrudController
 {
     protected string $templatePath = 'transactions';
@@ -25,17 +24,13 @@ final class TransactionsController extends CrudController
     protected string $routePrefix = 'admin_transaction';
     protected string $searchField = 'methodRef';
 
-    /**
-     * @Route("/", name="index")
-     */
+    #[Route(path: '/', name: 'index')]
     public function index(): Response
     {
         return $this->crudIndex();
     }
 
-    /**
-     * @Route("/transaction/{id<\d+>}", name="show", methods={"DELETE"})
-     */
+    #[Route(path: '/transaction/{id<\d+>}', name: 'show', methods: ['DELETE'])]
     public function delete(Transaction $transaction, EventDispatcherInterface $dispatcher): Response
     {
         $payment = new Payment();
@@ -46,9 +41,7 @@ final class TransactionsController extends CrudController
         return $this->redirectBack('admin_transaction_index');
     }
 
-    /**
-     * @Route("/transaction/report", name="report", methods={"GET"})
-     */
+    #[Route(path: '/transaction/report', name: 'report', methods: ['GET'])]
     public function report(TransactionRepository $repository, Request $request): Response
     {
         $year = $request->query->getInt('year', (int) date('Y'));

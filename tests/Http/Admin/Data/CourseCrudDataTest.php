@@ -70,7 +70,7 @@ class CourseCrudDataTest extends TestCase
 
         // On crée notre objet data
         $data = new CourseCrudData($course);
-        $data->mainTechnologies = array_map([$this, 'getTechnology'], $dataTechnologies);
+        $data->mainTechnologies = array_map($this->getTechnology(...), $dataTechnologies);
         $data->setEntityManager($this->em);
 
         // Les assertions

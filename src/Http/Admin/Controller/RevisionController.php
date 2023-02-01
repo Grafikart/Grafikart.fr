@@ -28,9 +28,7 @@ final class RevisionController extends CrudController
         'create' => PostCreatedEvent::class,
     ];
 
-    /**
-     * @Route("/revision/{id<\d+>}", methods={"GET", "POST"}, name="revision_show")
-     */
+    #[Route(path: '/revision/{id<\d+>}', methods: ['GET', 'POST'], name: 'revision_show')]
     public function edit(Revision $revision, Request $request, EventDispatcherInterface $dispatcher): Response
     {
         if ('POST' === $request->getMethod()) {
@@ -52,9 +50,7 @@ final class RevisionController extends CrudController
         ]);
     }
 
-    /**
-     * @Route("/revision/{id<\d+>}", methods={"DELETE"})
-     */
+    #[Route(path: '/revision/{id<\d+>}', methods: ['DELETE'])]
     public function delete(Revision $revision, EventDispatcherInterface $dispatcher): Response
     {
         $dispatcher->dispatch(new RevisionRefusedEvent($revision));

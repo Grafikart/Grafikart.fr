@@ -14,10 +14,9 @@ class ProfilController extends AbstractController
 {
     /**
      * Permet le changement de thème pour l'utilisateur.
-     *
-     * @Route("/profil/theme", name="profil_theme", methods={"POST"})
-     * @IsGranted("ROLE_USER")
      */
+    #[Route(path: '/profil/theme', name: 'profil_theme', methods: ['POST'])]
+    #[IsGranted('ROLE_USER')]
     public function theme(Request $request, EntityManagerInterface $em): JsonResponse
     {
         $data = json_decode((string) $request->getContent(), true, 512, JSON_THROW_ON_ERROR);

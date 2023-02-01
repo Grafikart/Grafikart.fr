@@ -19,8 +19,8 @@ class PaymentTwigExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('stripeKey', [$this, 'getStripePublicKey']),
-            new TwigFunction('paypalClientId', [$this, 'getPaypalClientId']),
+            new TwigFunction('stripeKey', $this->getStripePublicKey(...)),
+            new TwigFunction('paypalClientId', $this->getPaypalClientId(...)),
         ];
     }
 

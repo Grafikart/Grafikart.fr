@@ -15,10 +15,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HistoryController extends AbstractController
 {
-    /**
-     * @Route("/profil/historique", name="user_history")
-     * @IsGranted("ROLE_USER")
-     */
+    #[Route(path: '/profil/historique', name: 'user_history')]
+    #[IsGranted('ROLE_USER')]
     public function index(
         ProgressRepository $progressRepository,
         PaginatorInterface $paginator,

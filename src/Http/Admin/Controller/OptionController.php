@@ -18,9 +18,7 @@ class OptionController extends BaseController
     {
     }
 
-    /**
-     * @Route("/options", name="option_index", methods={"GET"})
-     */
+    #[Route(path: '/options', name: 'option_index', methods: ['GET'])]
     public function index(): Response
     {
         return $this->render('admin/option/index.html.twig', [
@@ -29,9 +27,7 @@ class OptionController extends BaseController
         ]);
     }
 
-    /**
-     * @Route("/options", methods={"POST"})
-     */
+    #[Route(path: '/options', methods: ['POST'])]
     public function update(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);

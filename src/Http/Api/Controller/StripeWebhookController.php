@@ -31,9 +31,7 @@ class StripeWebhookController extends AbstractController
     ) {
     }
 
-    /**
-     * @Route("/stripe/webhook", name="stripe_webhook")
-     */
+    #[Route(path: '/stripe/webhook', name: 'stripe_webhook')]
     public function index(Event $event): JsonResponse
     {
         return match ($event->type) {

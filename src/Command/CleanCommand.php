@@ -45,7 +45,7 @@ class CleanCommand extends Command
         foreach ($deletedUsers as $user) {
             $this->uploaderHandler->remove($user, 'avatarFile');
         }
-        $io->success(sprintf('%d utilisateurs supprimés', count($deletedUsers)));
+        $io->success(sprintf('%d utilisateurs supprimés', is_countable($deletedUsers) ? count($deletedUsers) : 0));
     }
 
     /**

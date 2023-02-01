@@ -42,7 +42,7 @@ class TypesenseItem implements SearchResultItemInterface
         // Si un extrait est souligné on prend la ligne qui correspond
         foreach ($this->item['highlights'] as $highlight) {
             if ('content' === $highlight['field']) {
-                $lines = preg_split("/((\r?\n)|(\r\n?)|(\.\s))/", $highlight['value']);
+                $lines = preg_split("/((\r?\n)|(\r\n?)|(\.\s))/", (string) $highlight['value']);
                 if ($lines) {
                     foreach ($lines as $line) {
                         if (str_contains($line, '<mark>')) {
@@ -58,15 +58,15 @@ class TypesenseItem implements SearchResultItemInterface
         // Sinon on coupe les X premiers caractères
         $content = $this->item['document']['content'];
         $characterLimit = 150;
-        if (mb_strlen($content) <= $characterLimit) {
+        if (mb_strlen((string) $content) <= $characterLimit) {
             return $content;
         }
-        $lastSpace = strpos($content, ' ', $characterLimit);
+        $lastSpace = strpos((string) $content, ' ', $characterLimit);
         if (false === $lastSpace) {
             return $content;
         }
 
-        return substr($content, 0, $lastSpace).'...';
+        return substr((string) $content, 0, $lastSpace).'...';
     }
 
     public function getUrl(): string

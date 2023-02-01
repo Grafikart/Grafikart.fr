@@ -24,10 +24,8 @@ class InvoicesController extends AbstractController
     {
     }
 
-    /**
-     * @Route("/profil/factures", name="user_invoices", methods={"GET"})
-     * @IsGranted("ROLE_USER")
-     */
+    #[Route(path: '/profil/factures', name: 'user_invoices', methods: ['GET'])]
+    #[IsGranted('ROLE_USER')]
     public function index(): Response
     {
         $transactions = $this->repository->findfor($this->getUser());
@@ -38,10 +36,8 @@ class InvoicesController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/profil/factures", methods={"POST"})
-     * @IsGranted("ROLE_USER")
-     */
+    #[Route(path: '/profil/factures', methods: ['POST'])]
+    #[IsGranted('ROLE_USER')]
     public function updateInfo(Request $request, EntityManagerInterface $em): RedirectResponse
     {
         $content = (string) $request->request->get('invoiceInfo');
@@ -53,10 +49,8 @@ class InvoicesController extends AbstractController
         return $this->redirectToRoute('user_invoices');
     }
 
-    /**
-     * @Route("/profil/factures/{id<\d+>}", name="user_invoice")
-     * @IsGranted("ROLE_USER")
-     */
+    #[Route(path: '/profil/factures/{id<\d+>}', name: 'user_invoice')]
+    #[IsGranted('ROLE_USER')]
     public function show(int $id): Response
     {
         $transaction = $this->repository->findOneBy([

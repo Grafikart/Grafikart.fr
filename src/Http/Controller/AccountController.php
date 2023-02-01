@@ -23,10 +23,8 @@ class AccountController extends AbstractController
     ) {
     }
 
-    /**
-     * @Route("/profil/edit", name="user_edit")
-     * @IsGranted("ROLE_USER")
-     */
+    #[Route(path: '/profil/edit', name: 'user_edit')]
+    #[IsGranted('ROLE_USER')]
     public function edit(
         Request $request
     ): Response {

@@ -14,29 +14,19 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class BadgeCrudData extends AutomaticCrudData
 {
-    /**
-     * @Assert\NotBlank()
-     */
+    #[Assert\NotBlank]
     public string $name = '';
 
-    /**
-     * @Assert\NotBlank()
-     */
+    #[Assert\NotBlank]
     public string $description = '';
 
-    /**
-     * @Assert\NotBlank()
-     */
+    #[Assert\NotBlank]
     public string $action = '';
 
-    /**
-     * @Assert\NotBlank()
-     */
+    #[Assert\NotBlank]
     public string $theme = 'grey';
 
-    /**
-     * @Assert\NotBlank()
-     */
+    #[Assert\NotBlank]
     public int $actionCount = 0;
 
     public bool $unlockable = false;

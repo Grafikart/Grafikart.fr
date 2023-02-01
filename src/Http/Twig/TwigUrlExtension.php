@@ -24,17 +24,17 @@ class TwigUrlExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('content_path', [$this, 'contentPath']),
-            new TwigFunction('path', [$this, 'pathFor']),
-            new TwigFunction('url', [$this, 'urlFor']),
+            new TwigFunction('content_path', $this->contentPath(...)),
+            new TwigFunction('path', $this->pathFor(...)),
+            new TwigFunction('url', $this->urlFor(...)),
         ];
     }
 
     public function getFilters(): array
     {
         return [
-            new TwigFilter('avatar', [$this, 'avatarPath']),
-            new TwigFilter('autolink', [$this, 'autoLink']),
+            new TwigFilter('avatar', $this->avatarPath(...)),
+            new TwigFilter('autolink', $this->autoLink(...)),
         ];
     }
 

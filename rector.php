@@ -14,9 +14,8 @@ return static function (RectorConfig $rectorConfig): void {
         __DIR__ . '/tests'
     ]);
 
-    $rectorConfig->rule(LevelSetList::UP_TO_PHP_81);
-
     $rectorConfig->sets([
+        LevelSetList::UP_TO_PHP_81,
         DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES,
         SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES,
         SensiolabsSetList::FRAMEWORK_EXTRA_61,

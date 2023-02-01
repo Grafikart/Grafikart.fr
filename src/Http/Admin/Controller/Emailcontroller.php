@@ -10,17 +10,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class Emailcontroller extends BaseController
 {
-    /**
-     * @Route("/email", name="email_preview")
-     */
+    #[Route(path: '/email', name: 'email_preview')]
     public function index(): Response
     {
         return $this->render('admin/page/email.html.twig');
     }
 
-    /**
-     * @Route("/email/{format}", name="email")
-     */
+    #[Route(path: '/email/{format}', name: 'email')]
     public function email(
         string $format,
         Mailer $mailer,

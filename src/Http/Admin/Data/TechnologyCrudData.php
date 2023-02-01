@@ -17,15 +17,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class TechnologyCrudData extends AutomaticCrudData
 {
-    /**
-     * @Assert\NotBlank()
-     */
+    #[Assert\NotBlank]
     public ?string $name = null;
 
     /**
-     * @Assert\NotBlank()
      * @Slug()
      */
+    #[Assert\NotBlank]
     public ?string $slug = null;
 
     public ?Collection $requirements = null;

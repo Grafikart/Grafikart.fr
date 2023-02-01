@@ -25,10 +25,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class PremiumController extends AbstractController
 {
-    /**
-     * @Route("/premium/paypal/{orderId}", name="premium_paypal", methods={"POST"})
-     * @IsGranted("ROLE_USER")
-     */
+    #[Route(path: '/premium/paypal/{orderId}', name: 'premium_paypal', methods: ['POST'])]
+    #[IsGranted('ROLE_USER')]
     public function paypal(string $orderId, PaypalService $paypal, EventDispatcherInterface $dispatcher): JsonResponse
     {
         try {
@@ -42,10 +40,8 @@ class PremiumController extends AbstractController
         }
     }
 
-    /**
-     * @Route("/premium/{id<\d+>}/stripe/checkout", name="premium_stripe_checkout", methods={"POST"})
-     * @IsGranted("ROLE_USER")
-     */
+    #[Route(path: '/premium/{id<\d+>}/stripe/checkout', name: 'premium_stripe_checkout', methods: ['POST'])]
+    #[IsGranted('ROLE_USER')]
     public function stripe(Plan $plan, StripeApi $api, EntityManagerInterface $em, Request $request, UrlGeneratorInterface $urlGenerator): JsonResponse
     {
         $isSubscription = '1' === $request->get('subscription');

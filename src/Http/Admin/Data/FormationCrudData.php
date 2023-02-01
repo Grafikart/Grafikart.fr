@@ -22,15 +22,13 @@ class FormationCrudData implements CrudDataInterface
 {
     private ?EntityManagerInterface $em = null;
 
-    /**
-     * @Assert\NotBlank()
-     */
+    #[Assert\NotBlank]
     public ?string $title;
 
     /**
-     * @Assert\NotBlank()
      * @Slug()
      */
+    #[Assert\NotBlank]
     public ?string $slug;
 
     public \DateTimeInterface $createdAt;

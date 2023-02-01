@@ -11,15 +11,11 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/forum")
- */
+#[Route(path: '/forum')]
 class ApiTopicController extends AbstractController
 {
-    /**
-     * @Route("/topics/{id<\d+>}/follow", name="api_forum/topic_follow", methods={"POST"})
-     * @IsGranted("ROLE_USER")
-     */
+    #[Route(path: '/topics/{id<\d+>}/follow', name: 'api_forum/topic_follow', methods: ['POST'])]
+    #[IsGranted('ROLE_USER')]
     public function toggleFollow(Topic $topic, TopicService $topicService, EntityManagerInterface $em): JsonResponse
     {
         $user = $this->getUserOrThrow();

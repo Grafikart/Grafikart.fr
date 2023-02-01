@@ -12,11 +12,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class BadgeController extends AbstractController
 {
-    /**
-     * @Route("/badge/unlock/{badge_action}", name="badge_unlock")
-     * @IsGranted("ROLE_USER")
-     * @ParamConverter("badge", options={"mapping": {"badge_action": "action"}})
-     */
+    #[Route(path: '/badge/unlock/{badge_action}', name: 'badge_unlock')]
+    #[IsGranted('ROLE_USER')]
+    #[ParamConverter('badge', options: ['mapping' => ['badge_action' => 'action']])]
     public function unlock(Badge $badge, BadgeService $service): RedirectResponse
     {
         if (!$badge->isUnlockable()) {

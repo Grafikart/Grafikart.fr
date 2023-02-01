@@ -6,9 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait DeletableTrait
 {
-    /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
-     */
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private ?\DateTimeImmutable $deleteAt = null;
 
     public function getDeleteAt(): ?\DateTimeImmutable

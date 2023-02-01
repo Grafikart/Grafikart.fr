@@ -10,16 +10,13 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/content", name="content_")
- */
+#[Route(path: '/content', name: 'content_')]
 final class ContentController extends BaseController
 {
     /**
      * Endpoint pour récupérer le titre d'un cours ou d'une formation depuis son Id.
-     *
-     * @Route("/{id<\d+>}/title", name="title")
      */
+    #[Route(path: '/{id<\d+>}/title', name: 'title')]
     public function title(Content $content): JsonResponse
     {
         return new JsonResponse([
@@ -28,9 +25,7 @@ final class ContentController extends BaseController
         ]);
     }
 
-    /**
-     * @Route("/{id<\d+>}", name="edit")
-     */
+    #[Route(path: '/{id<\d+>}', name: 'edit')]
     public function edit(Content $content): RedirectResponse
     {
         if ($content instanceof Formation) {

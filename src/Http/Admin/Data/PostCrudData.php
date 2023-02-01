@@ -11,9 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 final class PostCrudData implements CrudDataInterface
 {
-    /**
-     * @Assert\NotBlank()
-     */
+    #[Assert\NotBlank]
     public ?string $title = null;
 
     public ?string $slug = null;
@@ -24,14 +22,10 @@ final class PostCrudData implements CrudDataInterface
 
     public ?\DateTimeInterface $createdAt;
 
-    /**
-     * @Assert\NotBlank()
-     */
+    #[Assert\NotBlank]
     public ?User $author = null;
 
-    /**
-     * @Assert\NotBlank()
-     */
+    #[Assert\NotBlank]
     public ?string $content = null;
 
     public bool $online = false;

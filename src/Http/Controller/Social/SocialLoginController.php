@@ -24,9 +24,7 @@ class SocialLoginController extends AbstractController
     {
     }
 
-    /**
-     * @Route("/oauth/connect/{service}", name="oauth_connect")
-     */
+    #[Route(path: '/oauth/connect/{service}', name: 'oauth_connect')]
     public function connect(string $service): RedirectResponse
     {
         $this->ensureServiceAccepted($service);
@@ -34,10 +32,8 @@ class SocialLoginController extends AbstractController
         return $this->clientRegistry->getClient($service)->redirect(self::SCOPES[$service], ['a' => 1]);
     }
 
-    /**
-     * @Route("/oauth/unlink/{service}", name="oauth_unlink")
-     * @IsGranted("ROLE_USER")
-     */
+    #[Route(path: '/oauth/unlink/{service}', name: 'oauth_unlink')]
+    #[IsGranted('ROLE_USER')]
     public function disconnect(string $service, AuthService $authService, EntityManagerInterface $em): RedirectResponse
     {
         $this->ensureServiceAccepted($service);
@@ -49,9 +45,7 @@ class SocialLoginController extends AbstractController
         return $this->redirectToRoute('user_edit');
     }
 
-    /**
-     * @Route("/oauth/check/{service}", name="oauth_check")
-     */
+    #[Route(path: '/oauth/check/{service}', name: 'oauth_check')]
     public function check(): Response
     {
         return new Response();

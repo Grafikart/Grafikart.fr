@@ -33,9 +33,7 @@ class ImageController extends AbstractController
         $this->resizeKey = $resizeKey;
     }
 
-    /**
-     * @Route("/media/resize/{width}/{height}/{path}", requirements={"width"="\d+", "height"="\d+", "path"=".+"}, name="image_resizer")
-     */
+    #[Route(path: '/media/resize/{width}/{height}/{path}', requirements: ['width' => '\d+', 'height' => '\d+', 'path' => '.+'], name: 'image_resizer')]
     public function image(int $width, int $height, string $path, Request $request): Response
     {
         $server = ServerFactory::create([
@@ -59,9 +57,7 @@ class ImageController extends AbstractController
         }
     }
 
-    /**
-     * @Route("/media/convert/{path}", requirements={"path"=".+"}, name="image_jpg")
-     */
+    #[Route(path: '/media/convert/{path}', requirements: ['path' => '.+'], name: 'image_jpg')]
     public function convert(string $path, Request $request): Response
     {
         $server = ServerFactory::create([

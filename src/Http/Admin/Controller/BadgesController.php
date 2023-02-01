@@ -7,9 +7,7 @@ use App\Http\Admin\Data\BadgeCrudData;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/badges", name="badge_")
- */
+#[Route(path: '/badges', name: 'badge_')]
 class BadgesController extends CrudController
 {
     protected string $templatePath = 'badge';
@@ -19,17 +17,13 @@ class BadgesController extends CrudController
     protected string $routePrefix = 'admin_badge';
     protected array $events = [];
 
-    /**
-     * @Route("/", name="index", methods={"GET"})
-     */
+    #[Route(path: '/', name: 'index', methods: ['GET'])]
     public function index(): Response
     {
         return parent::crudIndex($this->getRepository()->createQueryBuilder('row'));
     }
 
-    /**
-     * @Route("/new", name="new", methods={"POST", "GET"})
-     */
+    #[Route(path: '/new', name: 'new', methods: ['POST', 'GET'])]
     public function new(): Response
     {
         $plan = new Badge();
@@ -38,9 +32,7 @@ class BadgesController extends CrudController
         return $this->crudNew($data);
     }
 
-    /**
-     * @Route("/{id<\d+>}", name="edit", methods={"POST", "GET"})
-     */
+    #[Route(path: '/{id<\d+>}', name: 'edit', methods: ['POST', 'GET'])]
     public function edit(Badge $plan): Response
     {
         $data = new BadgeCrudData($plan);
@@ -48,9 +40,7 @@ class BadgesController extends CrudController
         return $this->crudEdit($data);
     }
 
-    /**
-     * @Route("/{id<\d+>}/clone", name="clone", methods={"POST", "GET"})
-     */
+    #[Route(path: '/{id<\d+>}/clone', name: 'clone', methods: ['POST', 'GET'])]
     public function clone(Badge $plan): Response
     {
         $data = new BadgeCrudData(clone $plan);
@@ -58,9 +48,7 @@ class BadgesController extends CrudController
         return $this->crudNew($data);
     }
 
-    /**
-     * @Route("/{id<\d+>}", methods={"DELETE"})
-     */
+    #[Route(path: '/{id<\d+>}', methods: ['DELETE'])]
     public function delete(Badge $plan): Response
     {
         return $this->crudDelete($plan);

@@ -12,9 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LiveController extends BaseController
 {
-    /**
-     * @Route("/live", name="live_index", methods={"GET"})
-     */
+    #[Route(path: '/live', name: 'live_index', methods: ['GET'])]
     public function index(
         LiveRepository $liveRepository,
         PaginatorInterface $paginator
@@ -27,9 +25,7 @@ class LiveController extends BaseController
         ]);
     }
 
-    /**
-     * @Route("/live/sync", name="live_sync", methods={"POST", "GET"})
-     */
+    #[Route(path: '/live/sync', name: 'live_sync', methods: ['POST', 'GET'])]
     public function sync(
         \Google_Client $googleClient,
         Request $request

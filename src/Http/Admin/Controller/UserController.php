@@ -14,9 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/users", name="user_")
- */
+#[Route(path: '/users', name: 'user_')]
 class UserController extends CrudController
 {
     protected string $templatePath = 'user';
@@ -26,9 +24,7 @@ class UserController extends CrudController
     protected string $searchField = 'username';
     protected array $events = [];
 
-    /**
-     * @Route("/", name="index")
-     */
+    #[Route(path: '/', name: 'index')]
     public function index(): Response
     {
         return $this->crudIndex();
@@ -45,9 +41,7 @@ class UserController extends CrudController
         return $query->setParameter('search', strtolower($search));
     }
 
-    /**
-     * @Route("/search", name="autocomplete")
-     */
+    #[Route(path: '/search', name: 'autocomplete')]
     public function search(Request $request): JsonResponse
     {
         /** @var UserRepository $repository */
@@ -71,9 +65,7 @@ class UserController extends CrudController
         return new JsonResponse($users);
     }
 
-    /**
-     * @Route("/{id<\d+>}/ban", methods={"POST", "DELETE"}, name="ban")
-     */
+    #[Route(path: '/{id<\d+>}/ban', methods: ['POST', 'DELETE'], name: 'ban')]
     public function ban(User $user, EntityManagerInterface $em, UserBanService $banService, Request $request): Response
     {
         $username = $user->getUsername();
@@ -95,9 +87,7 @@ class UserController extends CrudController
         return $this->redirectBack('admin_user_index');
     }
 
-    /**
-     * @Route("/{id<\d+>}/confirm", methods={"POST"}, name="confirm")
-     */
+    #[Route(path: '/{id<\d+>}/confirm', methods: ['POST'], name: 'confirm')]
     public function confirm(User $user, EntityManagerInterface $em): RedirectResponse
     {
         $user->setConfirmationToken(null);

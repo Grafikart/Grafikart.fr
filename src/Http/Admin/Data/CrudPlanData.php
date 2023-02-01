@@ -7,25 +7,19 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class CrudPlanData extends AutomaticCrudData
 {
-    /**
-     * @Assert\NotBlank()
-     */
+    #[Assert\NotBlank]
     public string $name = '';
 
-    /**
-     * @Assert\NotBlank()
-     * @Assert\GreaterThan(value="1")
-     */
+    #[Assert\NotBlank]
+    #[Assert\GreaterThan(value: 1)]
     public float $price = 0;
 
-    /**
-     * @Assert\Positive()
-     */
+    #[Assert\Positive]
     public int $duration = 1;
 
     /**
-     * @Assert\NotBlank()
      * @StripePlan()
      */
+    #[Assert\NotBlank]
     public ?string $stripeId = null;
 }

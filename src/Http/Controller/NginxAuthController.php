@@ -12,9 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class NginxAuthController extends AbstractController
 {
-    /**
-     * @Route("/downloads/videos/{video<.*>}", name="stream_video")
-     */
+    #[Route(path: '/downloads/videos/{video<.*>}', name: 'stream_video')]
     public function videos(): Response
     {
         if ($this->isGranted(CourseVoter::DOWNLOAD_VIDEO)) {
@@ -24,9 +22,7 @@ class NginxAuthController extends AbstractController
         return new Response(null, Response::HTTP_FORBIDDEN);
     }
 
-    /**
-     * @Route("/downloads/sources/{source<.*>}", name="download_source")
-     */
+    #[Route(path: '/downloads/sources/{source<.*>}', name: 'download_source')]
     public function sources(): Response
     {
         if ($this->isGranted(CourseVoter::DOWNLOAD_SOURCE)) {
@@ -36,9 +32,7 @@ class NginxAuthController extends AbstractController
         return new Response(null, Response::HTTP_FORBIDDEN);
     }
 
-    /**
-     * @Route("/report.html", name="report_stats")
-     */
+    #[Route(path: '/report.html', name: 'report_stats')]
     public function report(): Response
     {
         if ($this->isGranted('admin')) {
@@ -48,9 +42,7 @@ class NginxAuthController extends AbstractController
         return new Response(null, Response::HTTP_FORBIDDEN);
     }
 
-    /**
-     * @Route("/goaccessws", name="report_ws")
-     */
+    #[Route(path: '/goaccessws', name: 'report_ws')]
     public function goaccess(): Response
     {
         return $this->report();

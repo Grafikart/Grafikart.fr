@@ -7,9 +7,7 @@ use App\Http\Admin\Data\CrudPlanData;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/plan", name="plan_")
- */
+#[Route(path: '/plan', name: 'plan_')]
 class PlanController extends CrudController
 {
     protected string $templatePath = 'plan';
@@ -18,9 +16,7 @@ class PlanController extends CrudController
     protected string $routePrefix = 'admin_plan';
     protected array $events = [];
 
-    /**
-     * @Route("/new", name="new", methods={"POST", "GET"})
-     */
+    #[Route(path: '/new', name: 'new', methods: ['POST', 'GET'])]
     public function new(): Response
     {
         $plan = new Plan();
@@ -29,9 +25,7 @@ class PlanController extends CrudController
         return $this->crudNew($data);
     }
 
-    /**
-     * @Route("/", name="index", methods={"GET"})
-     */
+    #[Route(path: '/', name: 'index', methods: ['GET'])]
     public function index(): Response
     {
         $query = $this->getRepository()->createQueryBuilder('row');
@@ -39,9 +33,7 @@ class PlanController extends CrudController
         return $this->crudIndex($query);
     }
 
-    /**
-     * @Route("/{id<\d+>}", name="edit", methods={"POST", "GET"})
-     */
+    #[Route(path: '/{id<\d+>}', name: 'edit', methods: ['POST', 'GET'])]
     public function edit(Plan $plan): Response
     {
         $data = new CrudPlanData($plan);
@@ -49,9 +41,7 @@ class PlanController extends CrudController
         return $this->crudEdit($data);
     }
 
-    /**
-     * @Route("/{id<\d+>}/clone", name="clone", methods={"POST", "GET"})
-     */
+    #[Route(path: '/{id<\d+>}/clone', name: 'clone', methods: ['POST', 'GET'])]
     public function clone(Plan $plan): Response
     {
         $data = new CrudPlanData(clone $plan);
@@ -59,9 +49,7 @@ class PlanController extends CrudController
         return $this->crudNew($data);
     }
 
-    /**
-     * @Route("/{id<\d+>}", methods={"DELETE"})
-     */
+    #[Route(path: '/{id<\d+>}', methods: ['DELETE'])]
     public function delete(Plan $plan): Response
     {
         return $this->crudDelete($plan, 'admin_premium');

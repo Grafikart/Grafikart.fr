@@ -67,7 +67,7 @@ class IsValidCaptchaValidator extends ConstraintValidator
             throw new \Exception('Impossible de contacter le serveur hcaptcha');
         }
 
-        $response = json_decode($response->getContent(), true);
+        $response = json_decode($response->getContent(), true, 512, JSON_THROW_ON_ERROR);
         if (!($response['success'] ?? false)) {
             throw new \Exception('Captcha invalide');
         }

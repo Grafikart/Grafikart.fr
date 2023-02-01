@@ -17,7 +17,7 @@ class TwigTwitterExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('last_tweets', [$this, 'lastTweets']),
+            new TwigFunction('last_tweets', $this->lastTweets(...)),
         ];
     }
 

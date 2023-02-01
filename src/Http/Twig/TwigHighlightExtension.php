@@ -12,7 +12,7 @@ class TwigHighlightExtension extends AbstractExtension
         return [
             new TwigFilter(
                 'highlight_words',
-                [$this, 'highlightWords'],
+                $this->highlightWords(...),
                 ['pre_escape' => 'html', 'is_safe' => ['html']]
             ),
         ];

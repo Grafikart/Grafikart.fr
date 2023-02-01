@@ -76,7 +76,7 @@ abstract class AbstractRepository extends ServiceEntityRepository
         $parameters = [];
         foreach ($conditions as $k => $v) {
             $conditionString[] = "LOWER(o.$k) = :$k";
-            $parameters[$k] = strtolower($v);
+            $parameters[$k] = strtolower((string) $v);
         }
 
         return $this->createQueryBuilder('o')

@@ -12,9 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LiveController extends AbstractController
 {
-    /**
-     * @Route("/live/{year?}", name="live", requirements={"year" = "\d{4}"})
-     */
+    #[Route(path: '/live/{year?}', name: 'live', requirements: ['year' => '\d{4}'])]
     public function index(LiveRepository $repo, ?int $year, Request $request, LiveService $liveService): Response
     {
         $year = $year ?: (int) date('Y');

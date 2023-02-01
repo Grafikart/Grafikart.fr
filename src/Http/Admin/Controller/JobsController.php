@@ -16,9 +16,7 @@ class JobsController extends BaseController
     ) {
     }
 
-    /**
-     * @Route("/{id<\d+>}", methods={"DELETE"}, name="job_delete")
-     */
+    #[Route(path: '/{id<\d+>}', methods: ['DELETE'], name: 'job_delete')]
     public function delete(int $id, Request $request): RedirectResponse
     {
         if ($request->get('delayed')) {
@@ -31,9 +29,7 @@ class JobsController extends BaseController
         return $this->redirectToRoute('admin_home');
     }
 
-    /**
-     * @Route("/{id<\d+>}/retry", methods={"POST"}, name="job_retry")
-     */
+    #[Route(path: '/{id<\d+>}/retry', methods: ['POST'], name: 'job_retry')]
     public function retry(int $id): RedirectResponse
     {
         $this->failedJobsService->retryJob($id);

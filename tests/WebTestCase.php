@@ -128,9 +128,7 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
         if (!$this->session) {
             $container = $this->getContainer();
             $session = $container->get('session.factory')->createSession();
-            $domains = array_unique(array_map(function (Cookie $cookie) use ($session) {
-                return $cookie->getName() === $session->getName() ? $cookie->getDomain() : '';
-            }, $this->client->getCookieJar()->all())) ?: [''];
+            $domains = array_unique(array_map(fn(Cookie $cookie) => $cookie->getName() === $session->getName() ? $cookie->getDomain() : '', $this->client->getCookieJar()->all())) ?: [''];
             foreach ($domains as $domain) {
                 $cookie = new Cookie($session->getName(), $session->getId(), null, null, $domain);
                 $this->client->getCookieJar()->set($cookie);
@@ -147,7 +145,7 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
 
         try {
             $requestStack->getSession();
-        } catch (SessionNotFoundException $e) {
+        } catch (SessionNotFoundException) {
             $session = $container->has('session')
                 ? $container->get('session')
                 : $container->get('session.factory')->createSession();

@@ -18,10 +18,8 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class AvatarController extends AbstractController
 {
-    /**
-     * @Route("/profil/avatar", name="user_avatar", methods={"POST"})
-     * @IsGranted("ROLE_USER")
-     */
+    #[Route(path: '/profil/avatar', name: 'user_avatar', methods: ['POST'])]
+    #[IsGranted('ROLE_USER')]
     public function avatar(
         Request $request,
         ValidatorInterface $validator,
