@@ -169,7 +169,7 @@ class RegistrationControllerTest extends WebTestCase
         $this->assertResponseRedirects('/profil');
     }
 
-    public function tezzstOauthRegistration(): void
+    public function testOauthRegistration(): void
     {
         // Simulates an oauth session
         $github = new GithubResourceOwner([
