@@ -10,10 +10,11 @@ use App\Infrastructure\Youtube\YoutubeUploaderService;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mercure\HubInterface;
-use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Contracts\Service\ServiceSubscriberInterface;
 
-class ServiceMethodMessageHandler implements MessageHandlerInterface, ServiceSubscriberInterface
+#[AsMessageHandler]
+class ServiceMethodMessageHandler implements ServiceSubscriberInterface
 {
     public function __construct(private readonly ContainerInterface $container)
     {

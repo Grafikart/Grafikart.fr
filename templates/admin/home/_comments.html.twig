@@ -29,7 +29,7 @@
             {% endif %}
             <ajax-delete class="dashboard-comment__delete"
                          target=".dashboard-comment"
-                         url="{{ path('api_comments_delete_item', {id: comment.id}) }}">
+                         url="{{ path('_api_/comments/{id}{._format}_delete', {id: comment.id}) }}">
               {{ icon('delete') }}
             </ajax-delete>
           </div>

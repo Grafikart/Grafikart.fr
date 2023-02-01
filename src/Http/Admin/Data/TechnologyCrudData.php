@@ -10,19 +10,15 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @Unique(field="slug")
- * @Unique(field="name")
- *
  * @property Technology $entity
  */
+#[Unique(field: 'slug'), Unique(field: 'name')]
 class TechnologyCrudData extends AutomaticCrudData
 {
     #[Assert\NotBlank]
     public ?string $name = null;
 
-    /**
-     * @Slug()
-     */
+    #[Slug]
     #[Assert\NotBlank]
     public ?string $slug = null;
 

@@ -89,6 +89,11 @@ test: vendor/autoload.php node_modules/time ## Execute les tests
 	$(drtest) phptest vendor/bin/phpunit --stop-on-failure
 	$(node) yarn run test
 
+.PHONY: test2
+test2: vendor/autoload.php node_modules/time ## Execute les tests
+	$(drtest) phptest bin/console doctrine:schema:validate --skip-sync
+	$(drtest) phptest vendor/bin/phpunit --filter=testModulo --stop-on-failure
+
 .PHONY: tt
 tt: vendor/autoload.php ## Lance le watcher phpunit
 	$(drtest) phptest bin/console cache:clear --env=test

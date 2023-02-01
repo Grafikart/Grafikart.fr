@@ -10,9 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-/**
- * @Vich\Uploadable()
- */
+#[Vich\Uploadable]
 #[ORM\Entity]
 class Technology implements CacheableInterface, \Stringable
 {
@@ -33,9 +31,7 @@ class Technology implements CacheableInterface, \Stringable
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $image = null;
 
-    /**
-     * @Vich\UploadableField(fileNameProperty="image", mapping="icons")
-     */
+    #[Vich\UploadableField(mapping: "icons", fileNameProperty: "image")]
     private ?File $imageFile = null;
 
     /**
@@ -63,7 +59,7 @@ class Technology implements CacheableInterface, \Stringable
      * @var Collection<int, Technology>
      */
     #[ORM\ManyToMany(targetEntity: \App\Domain\Course\Entity\Technology::class, mappedBy: 'requirements')]
-    private readonly Collection $requiredBy;
+    private Collection $requiredBy;
 
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private ?string $type = null;

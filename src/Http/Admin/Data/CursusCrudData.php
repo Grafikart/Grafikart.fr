@@ -14,9 +14,7 @@ use App\Validator\Unique;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @Unique(field="slug")
- */
+#[Unique(field: 'slug')]
 class CursusCrudData implements CrudDataInterface
 {
     private ?EntityManagerInterface $em = null;
@@ -24,9 +22,7 @@ class CursusCrudData implements CrudDataInterface
     #[Assert\NotBlank]
     public ?string $title;
 
-    /**
-     * @Slug()
-     */
+    #[Slug]
     #[Assert\NotBlank]
     public ?string $slug;
 

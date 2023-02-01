@@ -4,14 +4,13 @@ namespace App\Domain\Course\Entity;
 
 use App\Domain\Application\Entity\Content;
 use App\Domain\Attachment\Attachment;
+use App\Domain\Course\Repository\CourseRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-/**
- * @Vich\Uploadable()
- */
-#[ORM\Entity(repositoryClass: \App\Domain\Course\Repository\CourseRepository::class)]
+#[Vich\Uploadable()]
+#[ORM\Entity(repositoryClass: CourseRepository::class)]
 class Course extends Content
 {
     use LevelTrait;
@@ -32,9 +31,7 @@ class Course extends Content
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $source = null;
 
-    /**
-     * @Vich\UploadableField(mapping="sources", fileNameProperty="source")
-     */
+    #[Vich\UploadableField(mapping: "sources", fileNameProperty: "source")]
     private ?File $sourceFile = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]

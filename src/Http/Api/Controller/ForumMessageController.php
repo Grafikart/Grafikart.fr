@@ -2,7 +2,7 @@
 
 namespace App\Http\Api\Controller;
 
-use ApiPlatform\Core\Validator\ValidatorInterface;
+use ApiPlatform\Validator\ValidatorInterface;
 use App\Domain\Forum\Entity\Message;
 use App\Domain\Forum\Entity\Topic;
 use App\Domain\Forum\Event\MessageCreatedEvent;

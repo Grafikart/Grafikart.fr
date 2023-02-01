@@ -2,7 +2,7 @@
 
 namespace App\Http\Api\Controller;
 
-use ApiPlatform\Core\Validator\ValidatorInterface;
+use ApiPlatform\Validator\ValidatorInterface;
 use App\Domain\Contact\ContactData;
 use App\Domain\Contact\ContactService;
 use App\Domain\Contact\TooManyContactException;

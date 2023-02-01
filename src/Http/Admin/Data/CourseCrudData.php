@@ -21,9 +21,7 @@ class CourseCrudData implements CrudDataInterface
     #[Assert\NotBlank]
     public ?string $title = null;
 
-    /**
-     * @Slug()
-     */
+    #[Slug]
     #[Assert\NotBlank]
     public ?string $slug = null;
 
@@ -45,9 +43,7 @@ class CourseCrudData implements CrudDataInterface
 
     public ?string $videoPath = null;
 
-    /**
-     * @Exists(class="App\Domain\Course\Entity\Course")
-     */
+    #[Exists(class: Course::class)]
     public ?int $deprecatedBy = null;
 
     #[Assert\NotBlank]

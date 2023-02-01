@@ -14,8 +14,6 @@ use Symfony\Component\Process\Process;
 #[AsCommand('app:dump')]
 class DumpCommand extends Command
 {
-    protected static $defaultName = 'app:dump';
-
     public function __construct(
         private readonly EntityManagerInterface $em,
         private readonly string $dumpPath,

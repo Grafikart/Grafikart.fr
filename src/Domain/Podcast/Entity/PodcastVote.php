@@ -3,9 +3,10 @@
 namespace App\Domain\Podcast\Entity;
 
 use App\Domain\Auth\User;
+use App\Domain\Podcast\Repository\PodcastVoteRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: App\Domain\Podcast\Repository\PodcastVoteRepository::class)]
+#[ORM\Entity(repositoryClass: PodcastVoteRepository::class)]
 class PodcastVote
 {
     #[ORM\Id]

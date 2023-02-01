@@ -18,3 +18,5 @@ api_platform:
   collection:
     pagination:
       items_per_page_parameter_name: count
+  mercure:
+    enabled: false

@@ -2,13 +2,14 @@
 
 namespace App\Http\Api\Doctrine;
 
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\QueryCollectionExtensionInterface;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGeneratorInterface;
+use ApiPlatform\Doctrine\Orm\Extension\QueryCollectionExtensionInterface;
+use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
+use ApiPlatform\Metadata\Operation;
 use App\Domain\Auth\User;
 use App\Domain\Notification\Entity\Notification;
 use App\Domain\Notification\NotificationService;
 use Doctrine\ORM\QueryBuilder;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Bundle\SecurityBundle\Security;
 
 /**
  * Filtre les notifications à renvoyer par l'API.
@@ -23,7 +24,8 @@ final class NotificationQueryExtention implements QueryCollectionExtensionInterf
         QueryBuilder $queryBuilder,
         QueryNameGeneratorInterface $queryNameGenerator,
         string $resourceClass,
-        string $operationName = null
+        Operation $operation = null,
+        array $context = []
     ): void {
         if (Notification::class !== $resourceClass) {
             return;

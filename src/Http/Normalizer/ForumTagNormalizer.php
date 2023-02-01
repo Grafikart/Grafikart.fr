@@ -2,7 +2,7 @@
 
 namespace App\Http\Normalizer;
 
-use ApiPlatform\Core\Api\UrlGeneratorInterface;
+use ApiPlatform\Api\UrlGeneratorInterface;
 use App\Domain\Forum\Entity\Tag;
 use App\Normalizer\Normalizer;
 

@@ -26,7 +26,7 @@ class PropertyGroupedDirectoryNamerTest extends TestCase
             'modulo' => $modulo,
             'property' => 'id',
         ]);
-        $mapping = $this->getMockBuilder(PropertyMapping::class)->disableOriginalConstructor()->getMock();
+        $mapping = new PropertyMapping('file', 'file');
         $this->assertEquals($expected, $namer->directoryName($object, $mapping));
     }
 }

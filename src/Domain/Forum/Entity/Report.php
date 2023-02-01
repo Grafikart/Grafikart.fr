@@ -2,7 +2,7 @@
 
 namespace App\Domain\Forum\Entity;
 
-use ApiPlatform\Core\Annotation\ApiProperty;
+use ApiPlatform\Metadata\ApiProperty;
 use App\Domain\Auth\User;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -13,9 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[Assert\Expression(expression: 'this.getMessage() !== null || this.getTopic() !== null', message: 'Un signalement doit être associé à un topic ou un message')]
 class Report
 {
-    /**
-     * @ApiProperty(identifier=true)
-     */
+    #[ApiProperty(identifier: true)]
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'IDENTITY')]
     #[ORM\Column(type: 'integer')]

@@ -129,3 +129,6 @@ services:
     arguments:
       $apiSecret: '%captcha_secret%'
 
+  App\Http\Twig\TwigUrlExtension:
+    arguments:
+      $uploaderHelper: '@Vich\UploaderBundle\Templating\Helper\UploaderHelper'

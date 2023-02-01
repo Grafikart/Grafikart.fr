@@ -8,10 +8,9 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @Unique(field="name")
- *
  * @property Badge $entity
  */
+#[Unique(field: "name")]
 class BadgeCrudData extends AutomaticCrudData
 {
     #[Assert\NotBlank]

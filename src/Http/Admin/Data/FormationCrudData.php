@@ -15,9 +15,7 @@ use App\Validator\Unique;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @Unique(field="slug")
- */
+#[Unique(field: 'slug')]
 class FormationCrudData implements CrudDataInterface
 {
     private ?EntityManagerInterface $em = null;
@@ -25,9 +23,7 @@ class FormationCrudData implements CrudDataInterface
     #[Assert\NotBlank]
     public ?string $title;
 
-    /**
-     * @Slug()
-     */
+    #[Slug]
     #[Assert\NotBlank]
     public ?string $slug;
 
@@ -64,9 +60,7 @@ class FormationCrudData implements CrudDataInterface
      */
     public array $chapters;
 
-    /**
-     * @Exists(class="App\Domain\Course\Entity\Formation")
-     */
+    #[Exists(class: Formation::class)]
     public ?int $deprecatedBy = null;
 
     public bool $forceRedirect = false;

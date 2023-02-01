@@ -5,9 +5,7 @@ namespace App\Validator;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\RegexValidator;
 
-/**
- * @Annotation
- */
+#[\Attribute]
 class Slug extends Regex
 {
     public function __construct($options = [])

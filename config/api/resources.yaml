@@ -1,61 +1,56 @@
-App\Domain\Forum\Entity\Report:
-  shortName: 'forum/report'
-  collectionOperations:
-    post:
-      security: is_granted("forumReport")
-      denormalization_context:
-        groups: ['create:report']
-        swagger_definition_name: 'ReportCreate'
-      normalization_context:
-        groups: ['read:report']
-        swagger_definition_name: 'ReportRead'
-      openapi_context:
-        summary: Crée un nouveau signalement
-  itemOperations:
-    get:
-      controller: 'EmptyController'
-    delete:
-      security: is_granted("DELETE_FORUM_REPORT", object)
+resources:
+  App\Domain\Forum\Entity\Report:
+    shortName: 'forum/report'
+    operations:
+      ApiPlatform\Metadata\Post:
+        security: is_granted("forumReport")
+        denormalization_context:
+          groups: [ 'create:report' ]
+          swagger_definition_name: 'ReportCreate'
+        normalization_context:
+          groups: [ 'read:report' ]
+          swagger_definition_name: 'ReportRead'
+        openapi_context:
+          summary: Crée un nouveau signalement
+      ApiPlatform\Metadata\Delete:
+        security: is_granted("DELETE_FORUM_REPORT", object)
 
-App\Domain\Forum\Entity\Topic:
-  shortName: 'forum/topic'
-  collectionOperations: []
-  itemOperations:
-    get:
-      normalization_context:
-        groups: ['read:topic']
-    delete:
-      security: is_granted("DELETE_TOPIC", object)
+  App\Domain\Forum\Entity\Topic:
+    shortName: 'forum/topic'
+    collectionOperations: [ ]
+    operations:
+      ApiPlatform\Metadata\Get:
+        normalization_context:
+          groups: [ 'read:topic' ]
+      ApiPlatform\Metadata\Delete:
+        security: is_granted("DELETE_TOPIC", object)
 
-App\Domain\Forum\Entity\Message:
-  shortName: 'forum/message'
-  collectionOperations: []
-  itemOperations:
-    get:
-      normalization_context:
-        groups: ['read:message']
-    delete:
-      security: is_granted("DELETE_FORUM_MESSAGE", object)
-    put:
-      denormalization_context:
-        groups: ['update:message']
-      normalization_context:
-        groups: ['read:message']
-      security: is_granted("UPDATE_FORUM_MESSAGE", object)
+  App\Domain\Forum\Entity\Message:
+    shortName: 'forum/message'
+    collectionOperations: [ ]
+    operations:
+      ApiPlatform\Metadata\Get:
+        normalization_context:
+          groups: [ 'read:message' ]
+      ApiPlatform\Metadata\Delete:
+        security: is_granted("DELETE_FORUM_MESSAGE", object)
+      ApiPlatform\Metadata\Put:
+        denormalization_context:
+          groups: [ 'update:message' ]
+        normalization_context:
+          groups: [ 'read:message' ]
+        security: is_granted("UPDATE_FORUM_MESSAGE", object)
 
-App\Domain\Notification\Entity\Notification:
-  collectionOperations:
-    get:
-      security: is_granted("ROLE_USER")
-      pagination_client_items_per_page: true
-      normalization_context:
-        groups: ['read:notification']
-    post:
-      security: is_granted("CREATE_NOTIFICATION")
-      normalization_context:
-        groups: ['read:notification']
-      denormalization_context:
-        groups: ['create:notification']
-  itemOperations:
-    get:
-      controller: 'EmptyController'
+  App\Domain\Notification\Entity\Notification:
+    operations:
+      ApiPlatform\Metadata\GetCollection:
+        security: is_granted("ROLE_USER")
+        pagination_client_items_per_page: true
+        normalization_context:
+          groups: [ 'read:notification' ]
+      ApiPlatform\Metadata\Post:
+        security: is_granted("CREATE_NOTIFICATION")
+        normalization_context:
+          groups: [ 'read:notification' ]
+        denormalization_context:
+          groups: [ 'create:notification' ]

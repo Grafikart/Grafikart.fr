@@ -15,9 +15,7 @@ class ForumTagCrudData extends AutomaticCrudData
     #[Assert\NotBlank]
     public ?string $name = null;
 
-    /**
-     * @Slug()
-     */
+    #[Slug]
     #[Assert\NotBlank]
     public ?string $slug = null;
 

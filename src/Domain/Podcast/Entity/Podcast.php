@@ -3,13 +3,14 @@
 namespace App\Domain\Podcast\Entity;
 
 use App\Domain\Auth\User;
+use App\Domain\Podcast\Repository\PodcastRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: App\Domain\Podcast\Repository\PodcastRepository::class)]
+#[ORM\Entity(repositoryClass: PodcastRepository::class)]
 #[UniqueEntity('title')]
 class Podcast
 {

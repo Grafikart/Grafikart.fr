@@ -2,11 +2,11 @@
 
 namespace App\Tests;
 
-use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client;
+use ApiPlatform\Symfony\Bundle\Test\Client;
 use App\Domain\Auth\User;
 use Doctrine\ORM\EntityManagerInterface;
 
-class ApiTestCase extends \ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase
+class ApiTestCase extends \ApiPlatform\Symfony\Bundle\Test\ApiTestCase
 {
     final public const DEFAULT_OPTIONS = [
         'auth_basic' => null,
@@ -31,7 +31,7 @@ class ApiTestCase extends \ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCa
         /** @var EntityManagerInterface $em */
         $em = self::getContainer()->get(EntityManagerInterface::class);
         $this->em = $em;
-        $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
+        $this->em->getConnection()->getConfiguration()->setMiddlewares([]);
         $this->client->setDefaultOptions(self::DEFAULT_OPTIONS);
     }
 

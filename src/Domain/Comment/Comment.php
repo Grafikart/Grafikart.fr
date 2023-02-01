@@ -40,7 +40,7 @@ class Comment
      * @var Collection<int, Comment>
      */
     #[ORM\OneToMany(targetEntity: \App\Domain\Comment\Comment::class, mappedBy: 'parent')]
-    private readonly Collection $replies;
+    private Collection $replies;
 
     #[ORM\Column(type: 'string', length: 46, nullable: true)]
     private ?string $ip = \App\Domain\Comment\Comment::class;

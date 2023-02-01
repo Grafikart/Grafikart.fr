@@ -15,9 +15,7 @@ class Attachment implements \Stringable
     #[ORM\Column(type: 'integer')]
     protected ?int $id = null;
 
-    /**
-     * @Vich\UploadableField(mapping="attachments", fileNameProperty="fileName", size="fileSize")
-     */
+    #[Vich\UploadableField(mapping: "attachments", fileNameProperty: "fileName", size: "fileSize")]
     private ?File $file = null;
 
     #[ORM\Column(type: 'string', length: 255)]

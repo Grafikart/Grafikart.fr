@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\Search\Normalizer;
 
-use ApiPlatform\Core\Api\UrlGeneratorInterface;
+use ApiPlatform\Api\UrlGeneratorInterface;
 use App\Domain\Course\Entity\Formation;
 use App\Http\Normalizer\FormationPathNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;

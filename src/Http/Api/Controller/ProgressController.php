@@ -10,6 +10,7 @@ use App\Domain\History\Entity\Progress;
 use App\Domain\History\Event\ProgressEvent;
 use App\Domain\History\Exception\AlreadyFinishedException;
 use App\Http\Controller\AbstractController;
+use App\Http\Security\ContentVoter;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -27,7 +28,7 @@ class ProgressController extends AbstractController
     }
 
     #[Route(path: '/progress/{content<\d+>}/{progress}', name: 'progress', methods: ['POST'], requirements: ['progress' => '^([1-9][0-9]{0,2}|1000)$'])]
-    #[IsGranted(App\Http\Security\ContentVoter::PROGRESS, subject: 'content')]
+    #[IsGranted(ContentVoter::PROGRESS, subject: 'content')]
     public function progress(
         Content $content,
         int $progress

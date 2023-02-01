@@ -2,7 +2,7 @@
 
 namespace App\Domain\Forum\Entity;
 
-use ApiPlatform\Core\Annotation\ApiProperty;
+use ApiPlatform\Metadata\ApiProperty;
 use App\Domain\Auth\User;
 use App\Http\Twig\CacheExtension\CacheableInterface;
 use App\Infrastructure\Spam\SpammableInterface;
@@ -18,12 +18,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Topic implements SpammableInterface, CacheableInterface
 {
     use SpamTrait;
-    /**
-     * @ApiProperty(identifier=true)
-     */
+
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'IDENTITY')]
     #[ORM\Column(type: 'integer')]
+    #[ApiProperty(identifier: true)]
     #[Groups(['read:topic'])]
     private ?int $id = null;
 

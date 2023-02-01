@@ -8,9 +8,7 @@ use Google_Service_YouTube_Thumbnail;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-/**
- * @Vich\Uploadable()
- */
+#[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: \App\Domain\Live\LiveRepository::class)]
 class Live
 {
@@ -34,9 +32,7 @@ class Live
     #[ORM\Column(type: 'datetime')]
     private \DateTimeInterface $createdAt;
 
-    /**
-     * @Vich\UploadableField(mapping="lives", fileNameProperty="imageName")
-     */
+    #[Vich\UploadableField(mapping: "lives", fileNameProperty: "imageName")]
     private ?File $image = null;
 
     #[ORM\Column(type: 'string', name: 'image', nullable: true)]

@@ -2,9 +2,12 @@
 
 namespace App\Domain\Application\Entity;
 
+use App\Domain\Application\Repository\ContentRepository;
 use App\Domain\Attachment\Attachment;
 use App\Domain\Auth\User;
+use App\Domain\Blog\Post;
 use App\Domain\Course\Entity\Course;
+use App\Domain\Course\Entity\Cursus;
 use App\Domain\Course\Entity\Formation;
 use App\Domain\Course\Entity\Technology;
 use App\Domain\Course\Entity\TechnologyUsage;
@@ -13,10 +16,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: \App\Domain\Application\Repository\ContentRepository::class)]
+#[ORM\Entity(repositoryClass: ContentRepository::class)]
 #[ORM\InheritanceType('JOINED')]
 #[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
-#[ORM\DiscriminatorMap(['course' => \App\Domain\Course\Entity\Course::class, 'formation' => \App\Domain\Course\Entity\Formation::class, 'post' => \App\Domain\Blog\Post::class, 'cursus' => \App\Domain\Course\Entity\Cursus::class])]
+#[ORM\DiscriminatorMap(['course' => Course::class, 'formation' => Formation::class, 'post' => Post::class, 'cursus' => Cursus::class])]
 abstract class Content implements CacheableInterface
 {
     #[ORM\Id]

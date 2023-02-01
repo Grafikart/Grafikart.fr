@@ -11,7 +11,7 @@ class ExistsValidatorTest extends ValidatorTestCase
 {
     public function dataProvider(): iterable
     {
-        $constraint = new Exists(['class' => 'EntityClass']);
+        $constraint = new Exists(class: 'EntityClass');
         // L'entityManager renvoie null (ne trouve aucun résultat)
         $em = $this->getMockBuilder(EntityManagerInterface::class)->getMock();
         $em->expects($this->any())->method('find')->willReturn(null);

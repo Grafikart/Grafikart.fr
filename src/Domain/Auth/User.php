@@ -17,9 +17,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-/**
- * @Vich\Uploadable()
- */
+#[Vich\Uploadable]
 #[ORM\Table(name: '`user`')]
 #[ORM\Entity(repositoryClass: \App\Domain\Auth\UserRepository::class)]
 #[UniqueEntity(fields: ['email'], repositoryMethod: 'findByCaseInsensitive')]
@@ -57,9 +55,7 @@ class User implements UserInterface, ForumReaderUserInterface, CacheableInterfac
     /** @var array<string> */
     private array $roles = ['ROLE_USER'];
 
-    /**
-     * @Vich\UploadableField(mapping="avatars", fileNameProperty="avatarName")
-     */
+    #[Vich\UploadableField(mapping: "avatars", fileNameProperty: "avatarName")]
     private ?File $avatarFile = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]

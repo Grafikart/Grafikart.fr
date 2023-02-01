@@ -6,9 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-/**
- * @Vich\Uploadable()
- */
+#[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: \App\Domain\Badge\Repository\BadgeRepository::class)]
 class Badge
 {
@@ -25,9 +23,7 @@ class Badge
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $image = null;
 
-    /**
-     * @Vich\UploadableField(fileNameProperty="image", mapping="badges")
-     */
+    #[Vich\UploadableField(mapping: "badges", fileNameProperty: "image")]
     private ?File $imageFile = null;
 
     #[ORM\Column(type: 'boolean', options: ['default' => 0])]
