@@ -94,6 +94,11 @@ test2: vendor/autoload.php node_modules/time ## Execute les tests
 	$(drtest) phptest bin/console doctrine:schema:validate --skip-sync
 	$(drtest) phptest vendor/bin/phpunit --filter=testModulo --stop-on-failure
 
+.PHONY: paratest
+test2: vendor/autoload.php node_modules/time ## Execute les tests
+	$(drtest) phptest bin/console doctrine:schema:validate --skip-sync
+	$(drtest) phptest vendor/bin/paratest -p 16 --runner=WrapperRunner
+
 .PHONY: tt
 tt: vendor/autoload.php ## Lance le watcher phpunit
 	$(drtest) phptest bin/console cache:clear --env=test

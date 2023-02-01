@@ -1,0 +1,6 @@
+parameters:
+  test_token: 1
+
+doctrine:
+  dbal:
+    dbname: 'db_%env(default:test_token:TEST_TOKEN)%'
