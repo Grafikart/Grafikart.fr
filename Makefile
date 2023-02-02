@@ -86,13 +86,8 @@ rollback:
 .PHONY: test
 test: vendor/autoload.php node_modules/time ## Execute les tests
 	$(drtest) phptest bin/console doctrine:schema:validate --skip-sync
-	$(drtest) phptest vendor/bin/paratest --stop-on-failure
-	$(node) yarn run test
-
-.PHONY: phptest
-phptest: vendor/autoload.php node_modules/time ## Execute les tests
-	$(drtest) phptest bin/console doctrine:schema:validate --skip-sync
-	$(drtest) phptest vendor/bin/paratest --runner=WrapperRunner
+	# $(drtest) phptest vendor/bin/paratest --stop-on-failure
+	$(drtest) phptest vendor/bin/phpunit --stop-on-failure
 	$(node) yarn run test
 
 .PHONY: tt

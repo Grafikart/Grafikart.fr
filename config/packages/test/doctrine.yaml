@@ -3,4 +3,5 @@ parameters:
 
 doctrine:
   dbal:
+    logging: false
     dbname: 'db_%env(default:test_token:TEST_TOKEN)%'
