@@ -10,9 +10,6 @@ require dirname(__DIR__).'/vendor/autoload.php';
 // On charge la configuration de symfony
 require dirname(__DIR__).'/config/bootstrap.php';
 
-// Vide le cache avant chaque test
-(new Filesystem())->remove([__DIR__ . '/../var/cache/test']);
-
 // On crée le base de données
 $kernel = new \App\Kernel('test', true);
 $kernel->boot();
