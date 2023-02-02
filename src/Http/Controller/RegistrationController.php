@@ -40,7 +40,7 @@ class RegistrationController extends AbstractController
         $user = new User();
         $rootErrors = [];
         // Si l'utilisateur provient de l'oauth, on préremplit ses données
-        $isOauthUser = $request->get('oauth') ? $socialLoginService->hydrate($user) : false;
+        $isOauthUser = $request->get('oauth') ? $socialLoginService->hydrate($request->getSession(), $user) : false;
         $env = $this->getParameter('kernel.environment');
         $form = $this->createForm(RegistrationFormType::class, $user, [
             'with_captcha' => $env !== 'test',
@@ -90,7 +90,7 @@ class RegistrationController extends AbstractController
             'errors' => $rootErrors,
             'menu' => 'register',
             'oauth_registration' => $request->get('oauth'),
-            'oauth_type' => $socialLoginService->getOauthType(),
+            'oauth_type' => $socialLoginService->getOauthType($request->getSession()),
         ]);
     }
 

@@ -10,6 +10,7 @@ use http\Client\Request;
 use League\OAuth2\Client\Provider\GithubResourceOwner;
 use Symfony\Component\CssSelector\Node\ElementNode;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class RegistrationControllerTest extends WebTestCase
 {
@@ -171,17 +172,17 @@ class RegistrationControllerTest extends WebTestCase
 
     public function testOauthRegistration(): void
     {
-        // Simulates an oauth session
+        // Simule un scénarion Oauth
+        $this->client->request('GET', self::SIGNUP_PATH);
         $github = new GithubResourceOwner([
             'email' => 'john@doe.fr',
             'login' => 'JohnDoe',
             'id' => 123123,
         ]);
-        $loginService = $this->client->getContainer()->get(SocialLoginService::class);
-        $this->ensureSessionIsAvailable();
-        $loginService->persist($github);
+        $this->client->getContainer()->get(SocialLoginService::class)->persist($this->getSession(), $github);
 
         $crawler = $this->client->request('GET', self::SIGNUP_PATH.'?oauth=1');
+        $this->assertResponseIsSuccessful();
         $form = $crawler->selectButton(self::SIGNUP_BUTTON)->form();
         $form->setValues([
             'registration_form' => [

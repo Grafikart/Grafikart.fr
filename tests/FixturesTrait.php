@@ -28,7 +28,7 @@ trait FixturesTrait
         return $loader->load($files);
     }
 
-    public function getFixturesPath()
+    private function getFixturesPath()
     {
         return __DIR__.'/fixtures/';
     }

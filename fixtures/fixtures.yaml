@@ -62,10 +62,12 @@ App\Domain\Premium\Entity\Plan:
     name: Compte premium 1 mois
     price: 5
     duration: 1
+    stripe_id: price_1HfQctFCMNgisvowhVOcdXr1
   plan12:
     name: Compte premium 12 mois
     price: 50
     duration: 12
+    stripe_id: price_1HfQd2FCMNgisvowxxEQMysm
 
 App\Domain\Podcast\Entity\Podcast:
   podcast{1..20} (extends podcast):

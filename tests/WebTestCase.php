@@ -25,7 +25,7 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
         /** @var EntityManagerInterface $em */
         $em = self::getContainer()->get(EntityManagerInterface::class);
         $this->em = $em;
-        $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
+        $this->em->getConnection()->getConfiguration()->setMiddlewares([]);
         parent::setUp();
     }
 
@@ -128,20 +128,12 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
 
     protected function getSession(): SessionInterface
     {
-        if (!$this->session) {
-            $container = $this->getContainer();
-            $session = $container->get('session.factory')->createSession();
-            $domains = array_unique(array_map(fn(Cookie $cookie) => $cookie->getName() === $session->getName() ? $cookie->getDomain() : '', $this->client->getCookieJar()->all())) ?: [''];
-            foreach ($domains as $domain) {
-                $cookie = new Cookie($session->getName(), $session->getId(), null, null, $domain);
-                $this->client->getCookieJar()->set($cookie);
-            }
-            $this->session = $session;
-        }
-        return $this->session;
+        $this->ensureSessionIsAvailable();
+        $this->client->request('GET', '/contact');
+        return $this->client->getRequest()->getSession();
     }
 
-    protected function ensureSessionIsAvailable(): void
+    private function ensureSessionIsAvailable(): void
     {
         $container = self::getContainer();
         $requestStack = $container->get('request_stack');

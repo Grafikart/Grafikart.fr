@@ -13,20 +13,20 @@ class SocialLoginService
     final public const SESSION_KEY = 'oauth_login';
 
     public function __construct(
-        private readonly RequestStack $requestStack,
         private readonly NormalizerInterface $normalizer
     ) {
     }
 
-    public function persist(ResourceOwnerInterface $resourceOwner): void
+    public function persist(SessionInterface $session, ResourceOwnerInterface $resourceOwner): void
     {
         $data = $this->normalizer->normalize($resourceOwner);
-        $this->requestStack->getSession()->set(self::SESSION_KEY, $data);
+        $session->set(self::SESSION_KEY, $data);
+        $session->save();
     }
 
-    public function hydrate(User $user): bool
+    public function hydrate(SessionInterface $session, User $user): bool
     {
-        $oauthData = $this->requestStack->getSession()->get(self::SESSION_KEY);
+        $oauthData = $session->get(self::SESSION_KEY);
         if (null === $oauthData || !isset($oauthData['email'])) {
             return false;
         }
@@ -40,9 +40,9 @@ class SocialLoginService
         return true;
     }
 
-    public function getOauthType(): ?string
+    public function getOauthType(SessionInterface $session): ?string
     {
-        $oauthData = $this->requestStack->getSession()->get(self::SESSION_KEY);
+        $oauthData = $session->get(self::SESSION_KEY);
 
         return $oauthData ? $oauthData['type'] : null;
     }
