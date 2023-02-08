@@ -59,6 +59,38 @@
   height: 24px;
 }
 
+// Scroll Top
+// =============
+.scroll-top {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  position: fixed;
+  right: 15px;
+  bottom: 15px;
+  border-radius: 4px;
+  background-color: rgba(0,0,0,.3);
+  opacity: 1;
+  cursor: pointer;
+  z-index: 2;
+  transition: opacity .5s,background .3s;
+}
+
+.scroll-top:hover {
+  background-color: rgba(0,0,0,.4);
+}
+
+.scroll-top svg {
+  width: 14px;
+  height: 14px;
+}
+
+.scroll-top[hidden] {
+  pointer-events: none;
+  opacity: 0;
+}
+
 @include up(800) {
   .footer {
     justify-content: space-between;

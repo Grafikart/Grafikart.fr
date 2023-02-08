@@ -16,7 +16,7 @@ import { AnimatedEditor } from './AnimatedEditor.js'
 import { AutoSubmit } from './AutoSubmit.js'
 import { Notifications } from './Notifications.jsx'
 import SpinningDots from '@grafikart/spinning-dots-element'
-import { ModalDialog, NavTabs, TextareaAutogrow } from '@sb-elements/all'
+import { ModalDialog, NavTabs, TextareaAutogrow, ScrollTop } from 'headless-elements'
 import { ContactForm } from './ContactForm.jsx'
 import preactCustomElement from '/functions/preact.js'
 import EditButton from './admin/EditButton.js'
@@ -39,6 +39,7 @@ import { SpoilerBox } from '/elements/SpoilerBox'
 
 // Custom Elements
 customElements.define('nav-tabs', NavTabs)
+customElements.define('scroll-top', ScrollTop)
 customElements.define('textarea-autogrow', TextareaAutogrow, { extends: 'textarea' })
 customElements.define('modal-dialog', ModalDialog)
 customElements.define('alert-message', Alert)
