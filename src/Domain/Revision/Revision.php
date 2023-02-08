@@ -8,10 +8,8 @@ use App\Domain\Revision\Constraint\NotSameContent;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @NotSameContent()
- */
 #[ORM\Entity(repositoryClass: \App\Domain\Revision\RevisionRepository::class)]
+#[NotSameContent]
 class Revision
 {
     final public const PENDING = 0;

@@ -17,9 +17,7 @@ class CrudPlanData extends AutomaticCrudData
     #[Assert\Positive]
     public int $duration = 1;
 
-    /**
-     * @StripePlan()
-     */
     #[Assert\NotBlank]
+    #[StripePlan]
     public ?string $stripeId = null;
 }

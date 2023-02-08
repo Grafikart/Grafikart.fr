@@ -5,7 +5,7 @@ namespace App\Validator;
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
 
-#[\Attribute]
+#[\Attribute(\Attribute::TARGET_PROPERTY)]
 class Exists extends Constraint
 {
     public string $message = 'No record found for {{ value }}';
