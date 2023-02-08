@@ -1,7 +1,7 @@
 version: '3.3'
 services:
   phptest:
-    image: grafikart/php:php8.1-1
+    image: grafikart/php:php8.2-2
     volumes:
       - .:/var/www:delegated
     links:
