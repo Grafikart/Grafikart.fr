@@ -31,6 +31,7 @@ class CursusRepository extends AbstractRepository
 
     public function findByCategory(): array
     {
+        /** @var Cursus[] $cursus */
         $cursus = $this->createQueryBuilder('c')
             ->join('c.category', 'category')
             ->select('c', 'category')

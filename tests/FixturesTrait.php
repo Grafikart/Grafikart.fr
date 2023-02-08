@@ -23,12 +23,12 @@ trait FixturesTrait
         $fixturePath = $this->getFixturesPath();
         $files = array_map(fn ($fixture) => PathHelper::join($fixturePath, $fixture.'.yaml'), $fixtures);
         /** @var LoaderInterface $loader */
-        $loader = static::$container->get('fidry_alice_data_fixtures.loader.doctrine');
+        $loader = $this->getContainer()->get('fidry_alice_data_fixtures.loader.doctrine');
 
         return $loader->load($files);
     }
 
-    public function getFixturesPath()
+    private function getFixturesPath()
     {
         return __DIR__.'/fixtures/';
     }

@@ -6,39 +6,28 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity()
- * @ORM\Table("blog_category")
- */
+#[ORM\Table('blog_category')]
+#[ORM\Entity]
 class Category
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private string $name = '';
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private string $slug = '';
 
-    /**
-     * @ORM\Column(type="integer", options={"unsigned": true})
-     */
+    #[ORM\Column(type: 'integer', options: ['unsigned' => true])]
     private int $postsCount = 0;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Domain\Blog\Post", mappedBy="category")
-     *
      * @var Collection<int,Post>
      */
+    #[ORM\OneToMany(targetEntity: \App\Domain\Blog\Post::class, mappedBy: 'category')]
     private Collection $posts;
 
     public function __construct()

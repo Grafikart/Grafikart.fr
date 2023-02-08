@@ -17,9 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class PageController extends BaseController
 {
-    /**
-     * @Route("", name="home")
-     */
+    #[Route(path: '', name: 'home')]
     public function index(
         PaginatorInterface $paginator,
         RevisionRepository $revisionRepository,
@@ -41,9 +39,7 @@ final class PageController extends BaseController
         ]);
     }
 
-    /**
-     * @Route("/stats", name="stats")
-     */
+    #[Route(path: '/stats', name: 'stats')]
     public function stats(): Response
     {
         return $this->render('admin/page/stats.html.twig');
@@ -51,9 +47,8 @@ final class PageController extends BaseController
 
     /**
      * Envoie un email de test à mail-tester pour vérifier la configuration du serveur.
-     *
-     * @Route("/mailtester", name="mailtest", methods={"POST"})
      */
+    #[Route(path: '/mailtester', name: 'mailtest', methods: ['POST'])]
     public function testMail(Request $request, Mailer $mailer): RedirectResponse
     {
         $email = $mailer->createEmail('mails/auth/register.twig', [

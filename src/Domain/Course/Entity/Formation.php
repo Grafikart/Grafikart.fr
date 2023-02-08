@@ -7,45 +7,32 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass="App\Domain\Course\Repository\FormationRepository")
- */
+#[ORM\Entity(repositoryClass: \App\Domain\Course\Repository\FormationRepository::class)]
 class Formation extends Content
 {
     use LevelTrait;
     use ChapterableTrait;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
+    #[ORM\Column(type: 'text', nullable: true)]
     private ?string $short = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $youtube_playlist = null;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Domain\Course\Entity\Course", mappedBy="formation")
-     *
      * @var Collection<int, Course>
      */
+    #[ORM\OneToMany(targetEntity: \App\Domain\Course\Entity\Course::class, mappedBy: 'formation')]
     private \Doctrine\Common\Collections\Collection $courses;
 
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
+    #[ORM\Column(type: 'string', nullable: true)]
     private ?string $links = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Course\Entity\Formation")
-     * @ORM\JoinColumn(onDelete="SET NULL")
-     */
+    #[ORM\ManyToOne(targetEntity: \App\Domain\Course\Entity\Formation::class)]
+    #[ORM\JoinColumn(onDelete: 'SET NULL')]
     private ?Formation $deprecatedBy = null;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default": 0})
-     */
+    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
     private bool $forceRedirect = false;
 
     public function __construct()

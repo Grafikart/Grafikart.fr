@@ -19,17 +19,17 @@ class TwigPaginationExtension extends AbstractExtension
         return [
             new TwigFunction(
                 'paginate_nav',
-                [$this, 'renderNav'],
+                $this->renderNav(...),
                 ['is_safe' => ['html'], 'needs_environment' => true]
             ),
             new TwigFunction(
                 'paginate',
-                [$this, 'render'],
+                $this->render(...),
                 ['is_safe' => ['html'], 'needs_environment' => true]
             ),
             new TwigFunction(
                 'sort_by',
-                [$this, 'sortBy'],
+                $this->sortBy(...),
                 ['is_safe' => ['html'], 'needs_environment' => true]
             ),
         ];

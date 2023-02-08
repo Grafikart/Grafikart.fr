@@ -9,9 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PremiumController extends AbstractController
 {
-    /**
-     * @Route("/premium", name="premium")
-     */
+    #[Route(path: '/premium', name: 'premium')]
     public function premium(PlanRepository $planRepository, EntityManagerInterface $em): Response
     {
         $plans = $planRepository->findall();

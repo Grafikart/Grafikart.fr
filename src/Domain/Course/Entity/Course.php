@@ -4,73 +4,50 @@ namespace App\Domain\Course\Entity;
 
 use App\Domain\Application\Entity\Content;
 use App\Domain\Attachment\Attachment;
+use App\Domain\Course\Repository\CourseRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-/**
- * @ORM\Entity(repositoryClass="App\Domain\Course\Repository\CourseRepository")
- * @Vich\Uploadable()
- */
+#[Vich\Uploadable()]
+#[ORM\Entity(repositoryClass: CourseRepository::class)]
 class Course extends Content
 {
     use LevelTrait;
 
-    /**
-     * @ORM\Column(type="smallint", options={"default": 0})
-     */
+    #[ORM\Column(type: 'smallint', options: ['default' => 0])]
     private int $duration = 0;
 
-    /**
-     * @ORM\Column(type="string", length=12, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 12, nullable: true)]
     private ?string $youtubeId = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Attachment\Attachment", cascade={"persist"})
-     * @ORM\JoinColumn(onDelete="SET NULL")
-     */
+    #[ORM\ManyToOne(targetEntity: \App\Domain\Attachment\Attachment::class, cascade: ['persist'])]
+    #[ORM\JoinColumn(onDelete: 'SET NULL')]
     private ?Attachment $youtubeThumbnail = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $videoPath = null;
 
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
+    #[ORM\Column(type: 'string', nullable: true)]
     private ?string $source = null;
 
-    /**
-     * @Vich\UploadableField(mapping="sources", fileNameProperty="source")
-     */
+    #[Vich\UploadableField(mapping: "sources", fileNameProperty: "source")]
     private ?File $sourceFile = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $demo = null;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default": 0})
-     */
+    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
     private bool $premium = false;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Course\Entity\Course")
-     */
+    #[ORM\ManyToOne(targetEntity: \App\Domain\Course\Entity\Course::class)]
     private ?Course $deprecatedBy = null;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default": 0})
-     */
+    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
     private bool $forceRedirect = false;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Course\Entity\Formation", inversedBy="courses")
-     * @ORM\JoinColumn(onDelete="SET NULL")
-     */
+    #[ORM\ManyToOne(targetEntity: \App\Domain\Course\Entity\Formation::class, inversedBy: 'courses')]
+    #[ORM\JoinColumn(onDelete: 'SET NULL')]
     private ?Formation $formation = null;
 
     public function getDuration(): int

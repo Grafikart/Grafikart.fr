@@ -17,10 +17,8 @@ class BadgeController extends AbstractController
     {
     }
 
-    /**
-     * @Route("/badges/{badgeName}/unlock", name="badge_unlock", methods={"POST"})
-     * @IsGranted("ROLE_USER")
-     */
+    #[Route(path: '/badges/{badgeName}/unlock', name: 'badge_unlock', methods: ['POST'])]
+    #[IsGranted('ROLE_USER')]
     public function unlock(string $badgeName): JsonResponse
     {
         if (!in_array($badgeName, Badge::REQUEST_UNLOCKABLE)) {

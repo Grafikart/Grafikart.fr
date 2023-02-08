@@ -14,9 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TechnologyController extends AbstractController
 {
-    /**
-     * @Route("/tutoriels/{slug}", name="technology_show", requirements={"slug"="[a-z0-9\-]+"})
-     */
+    #[Route(path: '/tutoriels/{slug}', name: 'technology_show', requirements: ['slug' => '[a-z0-9\-]+'])]
     public function index(
         Technology $technology,
         FormationRepository $formationRepository,
@@ -31,7 +29,7 @@ class TechnologyController extends AbstractController
             $formations = $formationRepository->findForTechnology($technology);
             $formationsPerLevel = collect($formations)->groupBy(fn (Formation $t) => $t->getLevel())->toArray();
         }
-        $nextTechnologies = collect($technology->getRequiredBy())->groupBy(fn (Technology $t) => $t->getType());
+        $nextTechnologies = collect($technology->getRequiredBy())->groupBy(fn (Technology $t) => $t->getType() ?? '');
 
         return $this->render('courses/technology.html.twig', [
             'technology' => $technology,

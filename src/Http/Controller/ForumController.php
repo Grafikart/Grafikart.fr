@@ -27,17 +27,13 @@ class ForumController extends AbstractController
     ) {
     }
 
-    /**
-     * @Route("/forum", name="forum")
-     */
+    #[Route(path: '/forum', name: 'forum')]
     public function index(Request $request): Response
     {
         return $this->tag(null, $request);
     }
 
-    /**
-     * @Route("/forum/{slug<[a-z0-9\-]+>}-{id<\d+>}", name="forum_tag")
-     */
+    #[Route(path: '/forum/{slug<[a-z0-9\-]+>}-{id<\d+>}', name: 'forum_tag')]
     public function tag(?Tag $tag, Request $request): Response
     {
         $topics = $this->paginator->paginate($this->topicRepository->queryAllForTag($tag));
@@ -52,9 +48,7 @@ class ForumController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/forum/{id<\d+>}", name="forum_show")
-     */
+    #[Route(path: '/forum/{id<\d+>}', name: 'forum_show')]
     public function show(Topic $topic, MessageRepository $messageRepository): Response
     {
         $user = $this->getUser();
@@ -72,17 +66,13 @@ class ForumController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/forum/topics/{id<\d+>}", name="forum_show_legacy")
-     */
+    #[Route(path: '/forum/topics/{id<\d+>}', name: 'forum_show_legacy')]
     public function showLegacy(int $id): Response
     {
         return $this->redirectToRoute('forum_show', ['id' => $id], 301);
     }
 
-    /**
-     * @Route("/forum/new", name="forum_new")
-     */
+    #[Route(path: '/forum/new', name: 'forum_new')]
     public function create(Request $request): Response
     {
         $this->denyAccessUnlessGranted(ForumVoter::CREATE);
@@ -104,9 +94,7 @@ class ForumController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/forum/{id<\d+>}/edit", name="forum_edit")
-     */
+    #[Route(path: '/forum/{id<\d+>}/edit', name: 'forum_edit')]
     public function edit(Topic $topic, Request $request): Response
     {
         $this->denyAccessUnlessGranted(ForumVoter::UPDATE_TOPIC, $topic);
@@ -125,15 +113,13 @@ class ForumController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/forum/search", name="forum_search")
-     */
+    #[Route(path: '/forum/search', name: 'forum_search')]
     public function search(
         Request $request,
         TopicRepository $topicRepository,
         \Knp\Component\Pager\PaginatorInterface $paginator
     ): Response {
-        $q = trim($request->get('q', ''));
+        $q = trim((string) $request->get('q', ''));
         if (empty($q)) {
             return $this->redirectToRoute('forum', [], Response::HTTP_MOVED_PERMANENTLY);
         } else {

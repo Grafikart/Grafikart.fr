@@ -2,12 +2,12 @@
 
 namespace App\Infrastructure\Search\Normalizer;
 
-use ApiPlatform\Core\Api\UrlGeneratorInterface;
+use ApiPlatform\Api\UrlGeneratorInterface;
 use App\Domain\Course\Entity\Cursus;
 use App\Http\Normalizer\CursusPathNormalizer;
-use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class CursusNormalizer implements ContextAwareNormalizerInterface
+class CursusNormalizer implements NormalizerInterface
 {
     public function __construct(
         private readonly CursusPathNormalizer $pathNormalizer,
@@ -15,12 +15,12 @@ class CursusNormalizer implements ContextAwareNormalizerInterface
     ) {
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization(mixed $data, string $format = null, array $context = []): bool
     {
         return $data instanceof Cursus && 'search' === $format;
     }
 
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize(mixed $object, string $format = null, array $context = []): array
     {
         if (!$object instanceof Cursus) {
             throw new \InvalidArgumentException('Unexpected type for normalization, expected Formation, got '.$object::class);

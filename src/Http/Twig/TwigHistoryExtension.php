@@ -11,7 +11,7 @@ use Twig\TwigFunction;
 
 class TwigHistoryExtension extends AbstractExtension
 {
-    public function __construct(private ProgressRepository $repository)
+    public function __construct(private readonly ProgressRepository $repository)
     {
     }
 
@@ -20,7 +20,7 @@ class TwigHistoryExtension extends AbstractExtension
         return [
             new TwigFunction(
                 'show_history',
-                [$this, 'showHistory'],
+                $this->showHistory(...),
                 ['is_safe' => ['html'], 'needs_context' => true]
             ),
         ];
@@ -29,7 +29,7 @@ class TwigHistoryExtension extends AbstractExtension
     /**
      * @param Content[]|ArrayCollection<Content> $contents
      */
-    public function showHistory(array $context, $contents): ?string
+    public function showHistory(array $context, array|\Doctrine\Common\Collections\ArrayCollection $contents): ?string
     {
         $user = $context['app']->getUser();
         if (null === $user) {
@@ -43,7 +43,7 @@ class TwigHistoryExtension extends AbstractExtension
         foreach ($progress as $p) {
             $ids[$p->getContent()->getId()] = $p->getRatio();
         }
-        $ids = json_encode($ids);
+        $ids = json_encode($ids, JSON_THROW_ON_ERROR);
 
         return <<<HTML
         <script>

@@ -2,7 +2,7 @@
 
 namespace App\Http\Normalizer;
 
-use ApiPlatform\Core\Api\UrlGeneratorInterface;
+use ApiPlatform\Api\UrlGeneratorInterface;
 use App\Domain\Forum\Entity\Tag;
 use App\Normalizer\Normalizer;
 
@@ -26,7 +26,7 @@ class ForumTagNormalizer extends Normalizer
         throw new \RuntimeException("Can't normalize path");
     }
 
-    public function supportsNormalization($data, string $format = null): bool
+    public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
         return $data instanceof Tag && 'json' === $format;
     }

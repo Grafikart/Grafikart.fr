@@ -21,10 +21,8 @@ class SubscriptionController extends AbstractController
     {
     }
 
-    /**
-     * @Route("/profil/subscription", name="user_subscription", methods={"POST"})
-     * @IsGranted("ROLE_USER")
-     */
+    #[Route(path: '/profil/subscription', name: 'user_subscription', methods: ['POST'])]
+    #[IsGranted('ROLE_USER')]
     public function manage(): Response
     {
         $user = $this->getUser();

@@ -13,13 +13,19 @@ class StripePlanValidator extends ConstraintValidator
     {
     }
 
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof StripePlan) {
             throw new \RuntimeException('Contrainte inattendue');
         }
         if (null === $value || '' === $value) {
             return;
+        }
+
+        if (!is_string($value)) {
+            $this->context->buildViolation($constraint->message)
+                ->setParameter('{{ value }}', '')
+                ->addViolation();
         }
 
         try {

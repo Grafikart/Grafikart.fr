@@ -11,9 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TechnologyController extends AbstractController
 {
-    /**
-     * @Route("/technologies/search", name="technology_search")
-     */
+    #[Route(path: '/technologies/search', name: 'technology_search')]
     public function search(Request $request, TechnologyRepository $technologyRepository): JsonResponse
     {
         $search = $request->query->get('q');

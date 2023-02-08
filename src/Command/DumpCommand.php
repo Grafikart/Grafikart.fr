@@ -4,16 +4,16 @@ namespace App\Command;
 
 use Doctrine\ORM\EntityManagerInterface;
 use League\Flysystem\FilesystemOperator;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Process\Process;
 
+#[AsCommand('app:dump')]
 class DumpCommand extends Command
 {
-    protected static $defaultName = 'app:dump';
-
     public function __construct(
         private readonly EntityManagerInterface $em,
         private readonly string $dumpPath,
@@ -38,7 +38,7 @@ class DumpCommand extends Command
             $io->error("Impossible d'exporter la base de données");
             $io->error($process->getErrorOutput());
 
-            return 1;
+            return Command::FAILURE;
         }
 
         // On sauvegarde le fichier dans notre backup storage
@@ -59,6 +59,6 @@ class DumpCommand extends Command
         unlink($dumpFile.'.gz');
         $io->success('La base de donnée a bien été sauvegardée');
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

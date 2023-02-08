@@ -17,11 +17,11 @@ class TwigLiveExtension extends AbstractExtension
         return [
             new TwigFunction(
                 'is_live_running',
-                [$this->liveService, 'isLiveRunning'],
+                $this->liveService->isLiveRunning(...),
             ),
             new TwigFunction(
                 'next_live_time',
-                [$this, 'getNextLiveTime'],
+                $this->getNextLiveTime(...),
                 ['is_safe' => ['html']]
             ),
         ];

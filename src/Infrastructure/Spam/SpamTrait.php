@@ -6,9 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait SpamTrait
 {
-    /**
-     * @ORM\Column(type="boolean", options={"default" : 1})
-     */
+    #[ORM\Column(type: 'boolean', options: ['default' => 1])]
     private bool $spam = false;
 
     public function isSpam(): bool

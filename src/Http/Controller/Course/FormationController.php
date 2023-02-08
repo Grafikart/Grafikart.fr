@@ -16,9 +16,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class FormationController extends AbstractController
 {
-    /**
-     * @Route("/formations", name="formation_index")
-     */
+    #[Route(path: '/formations', name: 'formation_index')]
     public function index(FormationRepository $formationRepository): Response
     {
         $formations = $formationRepository->findAll();
@@ -29,9 +27,7 @@ class FormationController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/cursus", name="cursus_index")
-     */
+    #[Route(path: '/cursus', name: 'cursus_index')]
     public function tree(EntityManagerInterface $em): Response
     {
         $formations = collect($em->getRepository(Formation::class)->findBy([
@@ -52,7 +48,7 @@ class FormationController extends AbstractController
                 'upload-site',
                 'react',
             ],
-        ]))->keyBy(fn (Formation $f) => $f->getSlug())->toArray();
+        ]))->keyBy(fn (Formation $f) => $f->getSlug() ?? '')->toArray();
 
         return $this->render('formations/tree.html.twig', [
             'formations' => $formations,
@@ -60,9 +56,7 @@ class FormationController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/formations/{slug}", name="formation_show")
-     */
+    #[Route(path: '/formations/{slug}', name: 'formation_show')]
     public function show(
         Formation $formation,
         ProgressRepository $progressRepository
@@ -90,9 +84,8 @@ class FormationController extends AbstractController
 
     /**
      * Redirige vers le prochain chapitre à regarder.
-     *
-     * @Route("/formations/{slug}/continue", name="formation_resume")
      */
+    #[Route(path: '/formations/{slug}/continue', name: 'formation_resume')]
     public function resume(
         Formation $formation,
         HistoryService $historyService,

@@ -16,6 +16,9 @@ parameters:
   captcha_id: '%env(resolve:default::CAPTCHA_ID)%'
   captcha_secret: '%env(resolve:default::CAPTCHA_SECRET)%'
 
+imports:
+  - { resource: domains/ }
+
 services:
   _defaults:
     autowire: true # Automatically injects dependencies in your services.
@@ -111,7 +114,6 @@ services:
       - '%env(DROPBOX_TOKEN)%'
 
   App\Infrastructure\Mailing\Mailer:
-    class: App\Infrastructure\Mailing\Mailer
     arguments:
       $dkimKey: '%dkim_key%'
 
@@ -127,3 +129,6 @@ services:
     arguments:
       $apiSecret: '%captcha_secret%'
 
+  App\Http\Twig\TwigUrlExtension:
+    arguments:
+      $uploaderHelper: '@Vich\UploaderBundle\Templating\Helper\UploaderHelper'

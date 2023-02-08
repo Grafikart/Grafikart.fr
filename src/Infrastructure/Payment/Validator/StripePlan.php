@@ -5,13 +5,10 @@ namespace App\Infrastructure\Payment\Validator;
 use Symfony\Component\Validator\Constraint;
 
 /**
- * @Annotation
+ * Valide que le plan existe dans l'API de stripe
  */
+#[\Attribute(\Attribute::TARGET_PROPERTY)]
 class StripePlan extends Constraint
 {
-    /*
-     * Any public properties become valid options for the annotation.
-     * Then, use these in your validator class.
-     */
     public string $message = 'La formule "{{ value }}" n\'existe pas sur stripe.';
 }

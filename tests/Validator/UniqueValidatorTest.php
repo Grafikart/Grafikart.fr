@@ -46,6 +46,9 @@ class UniqueValidatorTest extends ValidatorTestCase
         $existsValidator = new UniqueValidator($em);
         $context = $this->getContext($expectedViolation);
         $existsValidator->initialize($context);
-        $existsValidator->validate($value, new Unique(['entityClass' => 'Demo', 'field' => 'slug']));
+        $existsValidator->validate($value, new Unique(
+            entityClass: 'Demo',
+            field: 'slug'
+        ));
     }
 }

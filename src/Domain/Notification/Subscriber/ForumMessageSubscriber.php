@@ -37,7 +37,7 @@ class ForumMessageSubscriber implements EventSubscriberInterface
                 /** @var Message|Topic $v */
                 $author = $v->getAuthor();
 
-                return $author->getId();
+                return $author->getId() ?? '0';
             });
 
         $userName = htmlentities($message->getAuthor()->getUsername());

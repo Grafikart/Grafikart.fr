@@ -2,11 +2,10 @@
 
 namespace App\Validator;
 
+use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
 
-/**
- * @Annotation
- */
+#[\Attribute(\Attribute::TARGET_PROPERTY)]
 class Exists extends Constraint
 {
     public string $message = 'No record found for {{ value }}';
@@ -16,8 +15,9 @@ class Exists extends Constraint
      */
     public string $class = \stdClass::class;
 
-    public function getRequiredOptions(): array
+    #[HasNamedArguments]
+    public function __construct(string $class = \stdClass::class, array $groups = null, mixed $payload = null)
     {
-        return ['class'];
+        parent::__construct(['class' => $class], $groups, $payload);
     }
 }

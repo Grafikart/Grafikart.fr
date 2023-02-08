@@ -17,9 +17,7 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 class PasswordController extends AbstractController
 {
-    /**
-     * @Route("/password/new", name="auth_password_reset")
-     */
+    #[Route(path: '/password/new', name: 'auth_password_reset')]
     public function reset(Request $request, PasswordService $resetService): Response
     {
         $error = null;
@@ -43,9 +41,7 @@ class PasswordController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/password/new/{id<\d+>}/{token}", name="auth_password_reset_confirm")
-     */
+    #[Route(path: '/password/new/{id<\d+>}/{token}', name: 'auth_password_reset_confirm')]
     public function confirm(Request $request, User $user, ?PasswordResetToken $token, PasswordService $service): Response
     {
         if (!$token || $service->isExpired($token) || $token->getUser() !== $user) {

@@ -14,22 +14,16 @@ use App\Validator\Unique;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @Unique(field="slug")
- */
+#[Unique(field: 'slug')]
 class CursusCrudData implements CrudDataInterface
 {
     private ?EntityManagerInterface $em = null;
 
-    /**
-     * @Assert\NotBlank()
-     */
+    #[Assert\NotBlank]
     public ?string $title;
 
-    /**
-     * @Assert\NotBlank()
-     * @Slug()
-     */
+    #[Slug]
+    #[Assert\NotBlank]
     public ?string $slug;
 
     public \DateTimeInterface $createdAt;
@@ -50,9 +44,7 @@ class CursusCrudData implements CrudDataInterface
      */
     public array $secondaryTechnologies = [];
 
-    /**
-     * @Assert\NotBlank()
-     */
+    #[Assert\NotBlank]
     public string $content = '';
 
     /**

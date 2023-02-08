@@ -2,7 +2,7 @@
 
 namespace App\Http\Twig;
 
-use ApiPlatform\Core\Api\UrlGeneratorInterface;
+use ApiPlatform\Api\UrlGeneratorInterface;
 use App\Domain\Application\Entity\Content;
 use App\Domain\Auth\User;
 use App\Domain\Blog\Post;
@@ -10,13 +10,13 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
-use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelperInterface;
 
 class TwigUrlExtension extends AbstractExtension
 {
     public function __construct(
         private readonly UrlGeneratorInterface $urlGenerator,
-        private readonly UploaderHelper $uploaderHelper,
+        private readonly UploaderHelperInterface $uploaderHelper,
         private readonly SerializerInterface $serializer
     ) {
     }
@@ -24,17 +24,17 @@ class TwigUrlExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('content_path', [$this, 'contentPath']),
-            new TwigFunction('path', [$this, 'pathFor']),
-            new TwigFunction('url', [$this, 'urlFor']),
+            new TwigFunction('content_path', $this->contentPath(...)),
+            new TwigFunction('path', $this->pathFor(...)),
+            new TwigFunction('url', $this->urlFor(...)),
         ];
     }
 
     public function getFilters(): array
     {
         return [
-            new TwigFilter('avatar', [$this, 'avatarPath']),
-            new TwigFilter('autolink', [$this, 'autoLink']),
+            new TwigFilter('avatar', $this->avatarPath(...)),
+            new TwigFilter('autolink', $this->autoLink(...)),
         ];
     }
 

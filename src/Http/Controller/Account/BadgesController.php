@@ -14,10 +14,8 @@ class BadgesController extends AbstractController
     {
     }
 
-    /**
-     * @Route("/profil/badges", name="user_badges")
-     * @IsGranted("ROLE_USER")
-     */
+    #[Route(path: '/profil/badges', name: 'user_badges')]
+    #[IsGranted('ROLE_USER')]
     public function index(): Response
     {
         $badges = $this->badgeService->getBadges();

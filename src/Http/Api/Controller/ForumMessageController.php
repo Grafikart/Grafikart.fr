@@ -2,7 +2,7 @@
 
 namespace App\Http\Api\Controller;
 
-use ApiPlatform\Core\Validator\ValidatorInterface;
+use ApiPlatform\Validator\ValidatorInterface;
 use App\Domain\Forum\Entity\Message;
 use App\Domain\Forum\Entity\Topic;
 use App\Domain\Forum\Event\MessageCreatedEvent;
@@ -18,15 +18,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/forum")
- *
  * @method \App\Domain\Auth\User getUser()
  */
+#[Route(path: '/forum')]
 class ForumMessageController extends AbstractController
 {
-    /**
-     * @Route("/topics/{id<\d+>}/messages", name="api_forum/messages_post_collection", methods={"POST"})
-     */
+    #[Route(path: '/topics/{id<\d+>}/messages', name: 'api_forum/messages_post_collection', methods: ['POST'])]
     public function create(
         Topic $topic,
         Request $request,
@@ -55,9 +52,7 @@ class ForumMessageController extends AbstractController
         ], Response::HTTP_CREATED);
     }
 
-    /**
-     * @Route("/messages/{id<\d+>}/solve", name="api_forum/messages_solve_item ", methods={"POST"})
-     */
+    #[Route(path: '/messages/{id<\d+>}/solve', name: 'api_forum/messages_solve_item ', methods: ['POST'])]
     public function solve(Message $message, TopicService $service): Response
     {
         $this->denyAccessUnlessGranted(ForumVoter::SOLVE_MESSAGE, $message);

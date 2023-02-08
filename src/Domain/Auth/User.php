@@ -17,13 +17,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-/**
- * @ORM\Entity(repositoryClass="App\Domain\Auth\UserRepository")
- * @ORM\Table(name="`user`")
- * @Vich\Uploadable()
- * @UniqueEntity(fields={"email"}, repositoryMethod="findByCaseInsensitive")
- * @UniqueEntity(fields={"username"}, repositoryMethod="findByCaseInsensitive")
- */
+#[Vich\Uploadable]
+#[ORM\Table(name: '`user`')]
+#[ORM\Entity(repositoryClass: \App\Domain\Auth\UserRepository::class)]
+#[UniqueEntity(fields: ['email'], repositoryMethod: 'findByCaseInsensitive')]
+#[UniqueEntity(fields: ['username'], repositoryMethod: 'findByCaseInsensitive')]
 class User implements UserInterface, ForumReaderUserInterface, CacheableInterface, PasswordAuthenticatedUserInterface
 {
     use PremiumTrait;
@@ -32,106 +30,71 @@ class User implements UserInterface, ForumReaderUserInterface, CacheableInterfac
     use SocialLoggableTrait;
     use DeletableTrait;
 
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, unique=true)
-     * @Assert\NotBlank()
-     * @Assert\Length(min=3, max=40)
-     */
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 40)]
     private string $username = '';
 
-    /**
-     * @ORM\Column(type="string", length=255, unique=true)
-     * @Assert\NotBlank()
-     * @Assert\Length(min=5, max=100)
-     * @Assert\Email()
-     */
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 5, max: 100)]
+    #[Assert\Email]
     private string $email = '';
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private string $password = '';
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private string $goal = '';
 
     /** @var array<string> */
     private array $roles = ['ROLE_USER'];
 
-    /**
-     * @Vich\UploadableField(mapping="avatars", fileNameProperty="avatarName")
-     */
+    #[Vich\UploadableField(mapping: "avatars", fileNameProperty: "avatarName")]
     private ?File $avatarFile = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $avatarName = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
+    #[ORM\Column(type: 'datetime', nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=false)
-     */
+    #[ORM\Column(type: 'datetime', nullable: false)]
     private \DateTimeInterface $createdAt;
 
-    /**
-     * @ORM\Column(type="string", length=2, nullable=true, options={"default": "FR"})
-     */
+    #[ORM\Column(type: 'string', length: 2, nullable: true, options: ['default' => 'FR'])]
     private ?string $country = null;
 
     /**
      * Date de dernière lecture du forum.
-     *
-     * @ORM\Column(type="datetime", nullable=true)
      */
+    #[ORM\Column(type: 'datetime', nullable: true)]
     private ?\DateTimeInterface $forumReadTime = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
+    #[ORM\Column(type: 'datetime', nullable: true)]
     private ?\DateTimeInterface $bannedAt = null;
 
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
+    #[ORM\Column(type: 'string', nullable: true)]
     private ?string $confirmationToken = null;
 
-    /**
-     * @ORM\Column(type="string", options={"default": null}, nullable=true)
-     */
+    #[ORM\Column(type: 'string', options: ['default' => null], nullable: true)]
     private ?string $theme = null;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default": true})
-     */
+    #[ORM\Column(type: 'boolean', options: ['default' => true])]
     private bool $forumMailNotification = true;
 
-    /**
-     * @ORM\Column(type="string", options={"default": null}, nullable=true)
-     */
+    #[ORM\Column(type: 'string', options: ['default' => null], nullable: true)]
     private ?string $lastLoginIp = null;
 
-    /**
-     * @ORM\Column(type="datetime", options={"default": null}, nullable=true)
-     */
+    #[ORM\Column(type: 'datetime', options: ['default' => null], nullable: true)]
     private ?\DateTimeInterface $lastLoginAt = null;
 
-    /**
-     * @ORM\Column(type="string", options={"default":null}, nullable=true)
-     */
+    #[ORM\Column(type: 'string', options: ['default' => null], nullable: true)]
     private ?string $invoiceInfo = null;
 
     public function getId(): ?int

@@ -2,11 +2,12 @@
 
 namespace App\Tests\Http\Twig;
 
-use ApiPlatform\Core\Api\UrlGeneratorInterface;
+use ApiPlatform\Api\UrlGeneratorInterface;
 use App\Http\Twig\TwigUrlExtension;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\SerializerInterface;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelperInterface;
 
 class TwigUrlExtensionTest extends TestCase
 {
@@ -16,7 +17,7 @@ class TwigUrlExtensionTest extends TestCase
     {
         parent::setUp();
         $serializer = $this->createMock(SerializerInterface::class);
-        $uploaderHelper = $this->createMock(UploaderHelper::class);
+        $uploaderHelper = $this->createMock(UploaderHelperInterface::class);
         $urlGenerator = $this->createMock(UrlGeneratorInterface::class);
         $this->extension = new TwigUrlExtension($urlGenerator, $uploaderHelper, $serializer);
     }

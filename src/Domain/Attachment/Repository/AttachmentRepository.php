@@ -27,7 +27,7 @@ class AttachmentRepository extends AbstractRepository
             ->getResult();
 
         return array_map(fn (array $row) => [
-            'path' => $row['year'].'/'.str_pad($row['month'], 2, '0', STR_PAD_LEFT),
+            'path' => $row['year'].'/'.str_pad((string) $row['month'], 2, '0', STR_PAD_LEFT),
             'count' => $row['count'],
         ], $rows);
     }

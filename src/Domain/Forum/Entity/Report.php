@@ -2,62 +2,45 @@
 
 namespace App\Domain\Forum\Entity;
 
-use ApiPlatform\Core\Annotation\ApiProperty;
+use ApiPlatform\Metadata\ApiProperty;
 use App\Domain\Auth\User;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass="App\Domain\Forum\Repository\ReportRepository")
- * @ORM\Table(name="forum_report")
- * @Assert\Expression(
- *     expression="this.getMessage() !== null || this.getTopic() !== null",
- *     message="Un signalement doit être associé à un topic ou un message"
- * )
- */
+#[ORM\Table(name: 'forum_report')]
+#[ORM\Entity(repositoryClass: \App\Domain\Forum\Repository\ReportRepository::class)]
+#[Assert\Expression(expression: 'this.getMessage() !== null || this.getTopic() !== null', message: 'Un signalement doit être associé à un topic ou un message')]
 class Report
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @ORM\Column(type="integer")
-     * @ApiProperty(identifier=true)
-     * @Groups({"read:report"})
-     */
+    #[ApiProperty(identifier: true)]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\Column(type: 'integer')]
+    #[Groups(['read:report'])]
     private ?int $id = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Auth\User")
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     */
+    #[ORM\ManyToOne(targetEntity: \App\Domain\Auth\User::class)]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private User $author;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Forum\Entity\Topic")
-     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
-     * @Groups({"create:report"})
-     */
+    #[ORM\ManyToOne(targetEntity: \App\Domain\Forum\Entity\Topic::class)]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
+    #[Groups(['create:report'])]
     private ?Topic $topic = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Forum\Entity\Message")
-     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
-     * @Groups({"create:report"})
-     */
+    #[ORM\ManyToOne(targetEntity: \App\Domain\Forum\Entity\Message::class)]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
+    #[Groups(['create:report'])]
     private ?Message $message = null;
 
-    /**
-     * @ORM\Column(type="string")
-     * @Groups({"create:report", "read:report"})
-     * @Assert\Length(min=3, max=250)
-     * @Assert\NotBlank(normalizer="trim")
-     */
+    #[ORM\Column(type: 'string')]
+    #[Groups(['create:report', 'read:report'])]
+    #[Assert\Length(min: 3, max: 250)]
+    #[Assert\NotBlank(normalizer: 'trim')]
     private string $reason;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column(type: 'datetime')]
     private \DateTimeInterface $createdAt;
 
     public function getId(): ?int

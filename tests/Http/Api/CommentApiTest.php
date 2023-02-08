@@ -2,6 +2,7 @@
 
 namespace App\Tests\Http\Api;
 
+use ApiPlatform\Metadata\Get;
 use App\Domain\Auth\User;
 use App\Domain\Comment\Comment;
 use App\Http\Api\Resource\CommentResource;
@@ -26,7 +27,7 @@ class CommentApiTest extends ApiTestCase
         $response = $this->client->request('GET', "/api/comments?content=$contentId");
         $this->assertResponseIsSuccessful();
         $this->assertCount(7, $response->toArray());
-        $this->assertMatchesResourceCollectionJsonSchema(CommentResource::class, 'GET', 'json');
+        $this->assertMatchesResourceCollectionJsonSchema(CommentResource::class, null, 'json');
     }
 
     public function testDeleteWithoutAuth()

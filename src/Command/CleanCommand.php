@@ -8,6 +8,7 @@ use App\Domain\Password\Entity\PasswordResetToken;
 use App\Domain\Profile\Entity\EmailVerification;
 use App\Infrastructure\Orm\CleanableRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -17,10 +18,9 @@ use Vich\UploaderBundle\Handler\UploadHandler;
 /**
  * Nettoie la base de données en supprimant les données non utilisées.
  */
+#[AsCommand('app:clean')]
 class CleanCommand extends Command
 {
-    protected static $defaultName = 'app:clean';
-
     public function __construct(
         private readonly EntityManagerInterface $em,
         private readonly UploadHandler $uploaderHandler
@@ -36,7 +36,7 @@ class CleanCommand extends Command
         $this->clean($io, EmailVerification::class, 'demandes de changement d\'email');
         $this->clean($io, PasswordResetToken::class, 'demandes de reset de mdp');
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     private function cleanUsers(SymfonyStyle $io): void

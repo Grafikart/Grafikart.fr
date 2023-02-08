@@ -16,9 +16,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class PodcastController extends AbstractController
 {
-    /**
-     * @Route("/podcasts", name="podcast")
-     */
+    #[Route(path: '/podcasts', name: 'podcast')]
     public function index(
         Request $request,
         PodcastRepository $podcastRepository,
@@ -36,9 +34,7 @@ class PodcastController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/podcasts/{id<\d+>}", name="podcast_show")
-     */
+    #[Route(path: '/podcasts/{id<\d+>}', name: 'podcast_show')]
     public function show(Podcast $podcast, PodcastRepository $podcastRepository): Response
     {
         return $this->render('podcast/show.html.twig', [
@@ -49,9 +45,7 @@ class PodcastController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/podcasts/votes", name="podcast_vote")
-     */
+    #[Route(path: '/podcasts/votes', name: 'podcast_vote')]
     public function votes(
         PaginatorInterface $paginator,
         PodcastRepository $podcastRepository,
@@ -94,9 +88,7 @@ class PodcastController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/podcasts.rss", name="podcast_rss")
-     */
+    #[Route(path: '/podcasts.rss', name: 'podcast_rss')]
     public function feed(PodcastRepository $podcastRepository): Response
     {
         $podcasts = $podcastRepository->queryPast()->setMaxResults(11)->getQuery()->getResult();

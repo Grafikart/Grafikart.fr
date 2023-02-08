@@ -30,8 +30,8 @@ class TwigAssetExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('encore_entry_link_tags', [$this, 'link'], ['is_safe' => ['html']]),
-            new TwigFunction('encore_entry_script_tags', [$this, 'script'], ['is_safe' => ['html']]),
+            new TwigFunction('encore_entry_link_tags', $this->link(...), ['is_safe' => ['html']]),
+            new TwigFunction('encore_entry_script_tags', $this->script(...), ['is_safe' => ['html']]),
         ];
     }
 

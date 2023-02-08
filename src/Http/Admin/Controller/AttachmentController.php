@@ -16,9 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-/**
- * @IsGranted("ATTACHMENT")
- */
+#[IsGranted('ATTACHMENT')]
 class AttachmentController extends BaseController
 {
     public function __construct(private readonly ValidatorInterface $validator)
@@ -37,17 +35,13 @@ class AttachmentController extends BaseController
         return [false, new JsonResponse(['error' => $errors->get(0)->getMessage()], 422)];
     }
 
-    /**
-     * @Route("/attachment/folders", name="attachment_folders")
-     */
+    #[Route(path: '/attachment/folders', name: 'attachment_folders')]
     public function folders(AttachmentRepository $repository): JsonResponse
     {
         return new JsonResponse($repository->findYearsMonths());
     }
 
-    /**
-     * @Route("/attachment/files", name="attachment_files")
-     */
+    #[Route(path: '/attachment/files', name: 'attachment_files')]
     public function files(AttachmentRepository $repository, Request $request): JsonResponse
     {
         ['path' => $path, 'q' => $q] = $this->getFilterParams($request);
@@ -62,9 +56,7 @@ class AttachmentController extends BaseController
         return $this->json($attachments);
     }
 
-    /**
-     * @Route("/attachment/{attachment<\d+>?}", name="attachment_show", methods={"POST"})
-     */
+    #[Route(path: '/attachment/{attachment<\d+>?}', name: 'attachment_show', methods: ['POST'])]
     public function update(?Attachment $attachment, Request $request, EntityManagerInterface $em): JsonResponse
     {
         [$valid, $response] = $this->validateRequest($request);
@@ -82,9 +74,7 @@ class AttachmentController extends BaseController
         return $this->json($attachment);
     }
 
-    /**
-     * @Route("/attachment/{attachment<\d+>}", methods={"DELETE"})
-     */
+    #[Route(path: '/attachment/{attachment<\d+>}', methods: ['DELETE'])]
     public function delete(Attachment $attachment, EntityManagerInterface $em): JsonResponse
     {
         $em->remove($attachment);
@@ -102,7 +92,7 @@ class AttachmentController extends BaseController
         ]);
         $resolver->setAllowedTypes('path', ['string', 'null']);
         $resolver->setAllowedTypes('q', ['string', 'null']);
-        $resolver->setAllowedValues('path', fn ($value) => null === $value || preg_match('/^2\d{3}\/(1[0-2]|0[1-9])$/', $value) > 0);
+        $resolver->setAllowedValues('path', fn ($value) => null === $value || preg_match('/^2\d{3}\/(1[0-2]|0[1-9])$/', (string) $value) > 0);
 
         try {
             return $resolver->resolve($request->query->all());

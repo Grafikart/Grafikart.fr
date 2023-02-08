@@ -2,12 +2,12 @@
 
 namespace App\Infrastructure\Search\Normalizer;
 
-use ApiPlatform\Core\Api\UrlGeneratorInterface;
+use ApiPlatform\Api\UrlGeneratorInterface;
 use App\Domain\Course\Entity\Course;
 use App\Http\Normalizer\CoursePathNormalizer;
-use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class CourseNormalizer implements ContextAwareNormalizerInterface
+class CourseNormalizer implements NormalizerInterface
 {
     public function __construct(
         private readonly CoursePathNormalizer $pathNormalizer,

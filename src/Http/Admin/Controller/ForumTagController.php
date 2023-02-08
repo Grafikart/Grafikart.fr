@@ -23,9 +23,7 @@ final class ForumTagController extends CrudController
     protected string $searchField = 'name';
     protected string $routePrefix = 'admin_forum-tag';
 
-    /**
-     * @Route("/forum-tag", name="forum-tag_index")
-     */
+    #[Route(path: '/forum-tag', name: 'forum-tag_index')]
     public function index(SerializerInterface $serializer, TagRepository $tagRepository, Request $request): Response
     {
         return $this->render("admin/{$this->templatePath}/index.html.twig", [
@@ -35,9 +33,7 @@ final class ForumTagController extends CrudController
         ]);
     }
 
-    /**
-     * @Route("/forum-tag/new", name="forum-tag_new")
-     */
+    #[Route(path: '/forum-tag/new', name: 'forum-tag_new')]
     public function new(): Response
     {
         $tag = (new Tag())->setCreatedAt(new \DateTime());
@@ -46,9 +42,7 @@ final class ForumTagController extends CrudController
         return $this->crudNew($data);
     }
 
-    /**
-     * @Route("/forum-tag/{id<\d+>}", name="forum-tag_edit", methods={"POST", "GET"})
-     */
+    #[Route(path: '/forum-tag/{id<\d+>}', name: 'forum-tag_edit', methods: ['POST', 'GET'])]
     public function edit(Tag $tag): Response
     {
         $data = new ForumTagCrudData($tag);
@@ -56,9 +50,7 @@ final class ForumTagController extends CrudController
         return $this->crudEdit($data);
     }
 
-    /**
-     * @Route("/forum-tag/{id<\d+>}", methods={"DELETE"})
-     */
+    #[Route(path: '/forum-tag/{id<\d+>}', methods: ['DELETE'])]
     public function delete(Request $request, Tag $post): Response
     {
         $response = $this->crudDelete($post);
@@ -75,9 +67,8 @@ final class ForumTagController extends CrudController
      * ## Requête
      *
      * {id:<int>, position:<int>, parent<int>}[]
-     *
-     * @Route("/forum-tag/positions", methods={"POST"}, name="forum-tag_positions")
      */
+    #[Route(path: '/forum-tag/positions', methods: ['POST'], name: 'forum-tag_positions')]
     public function sort(Request $request, TagRepository $tagRepository, EntityManagerInterface $em): Response
     {
         ['positions' => $positions] = json_decode((string) $request->getContent(), true, 512, JSON_THROW_ON_ERROR);

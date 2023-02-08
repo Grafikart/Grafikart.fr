@@ -24,9 +24,7 @@ class BlogController extends AbstractController
     ) {
     }
 
-    /**
-     * @Route("/blog", name="blog_index")
-     */
+    #[Route(path: '/blog', name: 'blog_index')]
     public function index(Request $request): Response
     {
         $title = 'Blog';
@@ -35,9 +33,7 @@ class BlogController extends AbstractController
         return $this->renderListing($title, $query, $request);
     }
 
-    /**
-     * @Route("/blog/category/{slug}", name="blog_category")
-     */
+    #[Route(path: '/blog/category/{slug}', name: 'blog_category')]
     public function category(Category $category, Request $request): Response
     {
         $title = $category->getName();
@@ -46,10 +42,8 @@ class BlogController extends AbstractController
         return $this->renderListing($title, $query, $request, ['category' => $category]);
     }
 
-    /**
-     * @Route("/blog/{slug}", name="blog_show")
-     * @IsGranted("show", subject="post")
-     */
+    #[Route(path: '/blog/{slug}', name: 'blog_show')]
+    #[IsGranted('show', subject: 'post')]
     public function show(Post $post): Response
     {
         return $this->render('blog/show.html.twig', [

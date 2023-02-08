@@ -38,7 +38,7 @@ class ScheduledJobsService
         }
         $index = 0;
         $jobs = array_map(function (string $message) use (&$index) {
-            return new ScheduledJob($this->serializer->decode(json_decode($message, true)), $index++);
+            return new ScheduledJob($this->serializer->decode(json_decode($message, true, 512, JSON_THROW_ON_ERROR)), $index++);
         }, $messages);
 
         return $jobs;

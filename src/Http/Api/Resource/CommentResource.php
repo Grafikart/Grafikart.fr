@@ -2,82 +2,67 @@
 
 namespace App\Http\Api\Resource;
 
-use ApiPlatform\Core\Action\NotFoundAction;
-use ApiPlatform\Core\Annotation\ApiProperty;
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Action\NotFoundAction;
+use ApiPlatform\Metadata\ApiProperty;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
+use App\Domain\Auth\User;
 use App\Domain\Comment\Comment;
 use App\Domain\Comment\CommentData;
+use App\Http\Api\DataProvider\CommentApiProvider;
+use App\Http\Api\Processor\CommentProcessor;
+use App\Http\Security\CommentVoter;
 use App\Validator\NotExists;
 use Parsedown;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
-/**
- * @ApiResource(
- *     shortName="Comment",
- *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}},
- *     itemOperations={
- *         "get"={
- *             "controller"=NotFoundAction::class,
- *             "read"=false,
- *             "output"=false,
- *         },
- *         "delete"={
- *             "security"="is_granted(constant('App\\Http\\Security\\CommentVoter::DELETE'), object)"
- *         },
- *         "put"={
- *             "security"="is_granted(constant('App\\Http\\Security\\CommentVoter::UPDATE'), object)"
- *         }
- *     }
- * )
- */
+#[ApiResource(
+    shortName: "Comment",
+    operations: [
+        new GetCollection(),
+        new Post(processor: CommentProcessor::class),
+        new Delete(security: "is_granted('" . CommentVoter::DELETE . "' , object)", processor: CommentProcessor::class),
+        new Put(security: "is_granted('" . CommentVoter::UPDATE . "', object)", processor: CommentProcessor::class)
+    ],
+    normalizationContext: ["groups" => ["read"]],
+    denormalizationContext: ["groups" => ["write"]],
+    provider: CommentApiProvider::class,
+)]
 class CommentResource extends CommentData
 {
-    /**
-     * @Groups({"read"})
-     * @ApiProperty(identifier=true)
-     */
+    #[Groups(['read'])]
+    #[ApiProperty(identifier: true)]
     public ?int $id = null;
 
-    /**
-     * @Groups({"read", "write"})
-     * @Assert\NotBlank(groups={"anonymous"}, normalizer="trim")
-     * @NotExists(groups={"anonymous"}, field="username", class="App\Domain\Auth\User", message="Ce pseudo est utilisé par un utilisateur")
-     */
+    #[NotExists(class: User::class, groups: ["anonymous"], field: "username", message: "Ce pseudo est utilisé par un utilisateur")]
+    #[Groups(['read', 'write'])]
+    #[Assert\NotBlank(normalizer: 'trim', groups: ['anonymous'])]
     public ?string $username = null;
 
-    /**
-     * @Assert\NotBlank(normalizer="trim")
-     * @Groups({"read", "write"})
-     * @Assert\Length(min="4", normalizer="trim")
-     */
+    #[Assert\NotBlank(normalizer: 'trim')]
+    #[Groups(['read', 'write'])]
+    #[Assert\Length(min: 4, normalizer: 'trim')]
     public string $content = '';
 
-    /**
-     * @Groups({"read"})
-     */
+    #[Groups(['read'])]
     public string $html = '';
 
-    /**
-     * @Groups({"read"})
-     */
+    #[Groups(['read'])]
     public ?string $avatar = null;
 
-    /**
-     * @Groups({"write"})
-     */
+    #[Groups(['write'])]
     public ?int $target = null;
 
-    /**
-     * @Groups({"read"})
-     */
+    #[Groups(['read'])]
     public int $createdAt = 0;
 
-    /**
-     * @Groups({"read", "write"})
-     */
+    #[Groups(['read', 'write'])]
     public ?int $parent = 0;
 
     /**
@@ -85,9 +70,7 @@ class CommentResource extends CommentData
      */
     public ?Comment $entity = null;
 
-    /**
-     * @Groups({"read"})
-     */
+    #[Groups(['read'])]
     public ?int $userId = null;
 
     public static function fromComment(Comment $comment, ?UploaderHelper $uploaderHelper = null): CommentResource
@@ -98,7 +81,7 @@ class CommentResource extends CommentData
         $resource->username = $comment->getUsername();
         $resource->content = $comment->getContent();
         $resource->html = strip_tags(
-            (new Parsedown())
+            (string)(new Parsedown())
                 ->setBreaksEnabled(true)
                 ->setSafeMode(true)
                 ->text($comment->getContent()),

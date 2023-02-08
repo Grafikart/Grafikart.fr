@@ -35,7 +35,12 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
      */
     protected function dispatchMethod(string $service, string $method, array $params = []): Envelope
     {
-        return $this->dispatchMessage(new ServiceMethodMessage($service, $method, $params));
+        if (!$this->container->has('messenger.default_bus')) {
+            $message = class_exists(Envelope::class) ? 'You need to define the "messenger.default_bus" configuration option.' : 'Try running "composer require symfony/messenger".';
+            throw new \LogicException('The message bus is not enabled in your application. '.$message);
+        }
+
+        return $this->container->get('messenger.default_bus')->dispatch(new ServiceMethodMessage($service, $method, $params), []);
     }
 
     protected function getUserOrThrow(): User
@@ -54,7 +59,7 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
     protected function redirectBack(string $route, array $params = []): RedirectResponse
     {
         /** @var RequestStack $stack */
-        $stack = $this->get('request_stack');
+        $stack = $this->container->get('request_stack');
         $request = $stack->getCurrentRequest();
         if ($request && $request->server->get('HTTP_REFERER')) {
             return $this->redirect($request->server->get('HTTP_REFERER'));

@@ -27,11 +27,12 @@ class TechnologyRepository extends AbstractRepository
         foreach ($types as $v) {
             $slugs = array_merge($slugs, $v);
         }
+        /** @var Technology[] $technologies */
         $technologies = $this->findBy(['slug' => $slugs]);
         if (empty($technologies)) {
             return [];
         }
-        $technologies = collect($technologies)->keyBy(fn (Technology $t) => $t->getSlug())->toArray();
+        $technologies = collect($technologies)->keyBy(fn (Technology $t) => $t->getSlug() ?? '')->toArray();
         foreach ($types as $k => $v) {
             $types[$k] = collect($v)->map(fn (string $slug) => $technologies[$slug] ?? null)->filter()->toArray();
         }

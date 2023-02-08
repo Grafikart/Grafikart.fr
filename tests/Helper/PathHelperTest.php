@@ -19,7 +19,7 @@ class PathHelperTest extends TestCase
      */
     public function testPathGeneration(array $parts, string $expected): void
     {
-        $path = call_user_func_array([PathHelper::class, 'join'], $parts);
+        $path = call_user_func_array(PathHelper::join(...), $parts);
         $this->assertEquals($expected, $path);
     }
 }

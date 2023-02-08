@@ -21,9 +21,7 @@ use Vich\UploaderBundle\Storage\StorageInterface;
 
 class CourseController extends AbstractController
 {
-    /**
-     * @Route("/tutoriels", name="course_index")
-     */
+    #[Route(path: '/tutoriels', name: 'course_index')]
     public function index(CourseRepository $repo, PaginatorInterface $paginator, Request $request, TechnologyRepository $technologyRepository): Response
     {
         $isUserPremium = $this->getUser()?->isPremium();
@@ -66,9 +64,7 @@ class CourseController extends AbstractController
         ], new Response('', $courses->count() > 0 ? 200 : 404));
     }
 
-    /**
-     * @Route("/tutoriels/premium", name="course_premium")
-     */
+    #[Route(path: '/tutoriels/premium', name: 'course_premium')]
     public function premium(CourseRepository $repo, PaginatorInterface $paginator, Request $request): Response
     {
         $page = $request->query->getInt('page', 1);
@@ -84,9 +80,7 @@ class CourseController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/tutoriels/{slug<[a-z0-9A-Z\-]+>}-{id<\d+>}", priority=10, name="course_show")
-     */
+    #[Route(path: '/tutoriels/{slug<[a-z0-9A-Z\-]+>}-{id<\d+>}', priority: 10, name: 'course_show')]
     public function show(Course $course, string $slug): Response
     {
         if ($course->getSlug() !== $slug) {
@@ -117,9 +111,7 @@ class CourseController extends AbstractController
         ], $response);
     }
 
-    /**
-     * @Route("/tutoriels/{id<\d+>}/sources", name="course_download_source")
-     */
+    #[Route(path: '/tutoriels/{id<\d+>}/sources', name: 'course_download_source')]
     public function downloadSource(Course $course, StorageInterface $storage): Response
     {
         $this->denyAccessUnlessGranted(CourseVoter::DOWNLOAD_SOURCE);
@@ -132,9 +124,7 @@ class CourseController extends AbstractController
         return $this->redirectToRoute('download_source', ['source' => $path]);
     }
 
-    /**
-     * @Route("/tutoriels/{id<\d+>}/video", name="course_download_video")
-     */
+    #[Route(path: '/tutoriels/{id<\d+>}/video', name: 'course_download_video')]
     public function downloadVideo(Course $course, StorageInterface $storage): Response
     {
         $this->denyAccessUnlessGranted(CourseVoter::DOWNLOAD_VIDEO, $course);
@@ -144,9 +134,8 @@ class CourseController extends AbstractController
 
     /**
      * Redirection des anciennes URLs vers la nouvelle.
-     *
-     * @Route("/tutoriels/{technology<[a-z0-9A-Z\-]+>}/{slug<[a-z0-9A-Z\-]+>}-{id<\d+>}", name="legacy_course_show")
      */
+    #[Route(path: '/tutoriels/{technology<[a-z0-9A-Z\-]+>}/{slug<[a-z0-9A-Z\-]+>}-{id<\d+>}', name: 'legacy_course_show')]
     public function legacyShow(string $technology, string $slug, string $id): Response
     {
         return $this->redirectToRoute('course_show', ['slug' => $slug, 'id' => $id], Response::HTTP_MOVED_PERMANENTLY);

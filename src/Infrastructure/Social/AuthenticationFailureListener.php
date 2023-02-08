@@ -16,7 +16,8 @@ class AuthenticationFailureListener implements EventSubscriberInterface
     public function __construct(
         private readonly NormalizerInterface $normalizer,
         private readonly RequestStack $requestStack,
-        private readonly EntityManagerInterface $em
+        private readonly EntityManagerInterface $em,
+        private readonly SocialLoginService $socialLoginService,
     ) {
     }
 
@@ -40,8 +41,7 @@ class AuthenticationFailureListener implements EventSubscriberInterface
 
     public function onUserNotFound(UserOauthNotFoundException $exception): void
     {
-        $data = $this->normalizer->normalize($exception->getResourceOwner());
-        $this->requestStack->getSession()->set(SocialLoginService::SESSION_KEY, $data);
+        $this->socialLoginService->persist($this->requestStack->getSession(), $exception->getResourceOwner());
     }
 
     public function onUserAlreadyAuthenticated(UserAuthenticatedException $exception): void

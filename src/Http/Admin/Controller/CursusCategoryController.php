@@ -8,9 +8,7 @@ use App\Http\Admin\Data\CursusCategoryCrudData;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/cursusc", name="cursuscategory_")
- */
+#[Route(path: '/cursusc', name: 'cursuscategory_')]
 class CursusCategoryController extends CrudController
 {
     protected string $templatePath = 'cursuscategory';
@@ -19,9 +17,7 @@ class CursusCategoryController extends CrudController
     protected string $routePrefix = 'admin_cursuscategory';
     protected string $searchField = 'name';
 
-    /**
-     * @Route("/", name="index")
-     */
+    #[Route(path: '/', name: 'index')]
     public function index(CursusCategoryRepository $repository): Response
     {
         $q = $repository->createQueryBuilder('c');
@@ -29,9 +25,7 @@ class CursusCategoryController extends CrudController
         return $this->crudIndex($q);
     }
 
-    /**
-     * @Route("/new", name="new")
-     */
+    #[Route(path: '/new', name: 'new')]
     public function new(): Response
     {
         $cursuscategory = new CursusCategory();
@@ -40,17 +34,13 @@ class CursusCategoryController extends CrudController
         return $this->crudNew($data);
     }
 
-    /**
-     * @Route("/{id<\d+>}", name="delete", methods={"DELETE"})
-     */
+    #[Route(path: '/{id<\d+>}', name: 'delete', methods: ['DELETE'])]
     public function delete(CursusCategory $cursuscategory): Response
     {
         return $this->crudDelete($cursuscategory);
     }
 
-    /**
-     * @Route("/{id<\d+>}", name="edit")
-     */
+    #[Route(path: '/{id<\d+>}', name: 'edit')]
     public function edit(CursusCategory $cursuscategory): Response
     {
         $data = new CursusCategoryCrudData($cursuscategory);

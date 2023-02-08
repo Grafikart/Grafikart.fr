@@ -2,8 +2,8 @@
 
 namespace App\Http\Api\EventSubscriber;
 
-use ApiPlatform\Core\EventListener\EventPriorities;
-use ApiPlatform\Core\Util\RequestAttributesExtractor;
+use ApiPlatform\Symfony\EventListener\EventPriorities;
+use ApiPlatform\Util\RequestAttributesExtractor;
 use App\Domain\Notification\Entity\Notification;
 use App\Domain\Notification\Event\NotificationCreatedEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;

@@ -26,7 +26,7 @@ class IsValidCaptchaValidator extends ConstraintValidator
             ->addViolation();
     }
 
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof IsValidCaptcha) {
             throw new UnexpectedTypeException($constraint, IsValidCaptchaValidator::class);
@@ -67,7 +67,7 @@ class IsValidCaptchaValidator extends ConstraintValidator
             throw new \Exception('Impossible de contacter le serveur hcaptcha');
         }
 
-        $response = json_decode($response->getContent(), true);
+        $response = json_decode($response->getContent(), true, 512, JSON_THROW_ON_ERROR);
         if (!($response['success'] ?? false)) {
             throw new \Exception('Captcha invalide');
         }

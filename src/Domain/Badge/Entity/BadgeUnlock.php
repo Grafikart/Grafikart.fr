@@ -6,33 +6,23 @@ use App\Domain\Auth\User;
 use App\Domain\Badge\Repository\BadgeUnlockRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=BadgeUnlockRepository::class)
- */
+#[ORM\Entity(repositoryClass: BadgeUnlockRepository::class)]
 class BadgeUnlock
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column(type: 'datetime')]
     private \DateTimeInterface $createdAt;
 
     public function __construct(
-        /**
-         * @ORM\ManyToOne(targetEntity=User::class)
-         * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-         */
+        #[ORM\ManyToOne(targetEntity: User::class)]
+        #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
         private User $owner,
-        /**
-         * @ORM\ManyToOne(targetEntity=Badge::class)
-         * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-         */
+        #[ORM\ManyToOne(targetEntity: Badge::class)]
+        #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
         private Badge $badge
     ) {
         $this->createdAt = new \DateTimeImmutable();

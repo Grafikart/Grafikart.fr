@@ -2,15 +2,16 @@
 
 namespace App\Validator;
 
+use Attribute;
+use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
 
 /**
  * Contrainte pour vérifier l'unicité d'un enregistrement.
  *
  * Pour fonctionner on part du principe que l'objet et l'entité aura une méthode "getId()"
- *
- * @Annotation
  */
+#[Attribute(Attribute::IS_REPEATABLE | Attribute::TARGET_CLASS)]
 class Unique extends Constraint
 {
     public string $message = 'Cette valeur est déjà utilisée';
@@ -22,12 +23,22 @@ class Unique extends Constraint
 
     public string $field = '';
 
-    public function getRequiredOptions(): array
-    {
-        return ['field'];
+    #[HasNamedArguments]
+    public function __construct(
+        string $field = '',
+        string $message = 'Cette valeur est déjà utilisée',
+        string $entityClass = null,
+        array $groups = null,
+        mixed $payload = null
+    ) {
+        parent::__construct([
+            'field' => $field,
+            'message' => $message,
+            'entityClass' => $entityClass
+        ], $groups, $payload);
     }
 
-    public function getTargets(): string
+    public function getTargets(): string|array
     {
         return self::CLASS_CONSTRAINT;
     }

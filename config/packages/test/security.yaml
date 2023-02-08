@@ -1,0 +1,6 @@
+security:
+  password_hashers:
+    App\Domain\Auth\User:
+      algorithm: md5
+      encode_as_base64: false
+      iterations: 0

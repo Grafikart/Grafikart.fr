@@ -8,9 +8,7 @@ use App\Http\Admin\Data\TechnologyCrudData;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/technology", name="technology_")
- */
+#[Route(path: '/technology', name: 'technology_')]
 class TechnologyController extends CrudController
 {
     protected string $templatePath = 'technology';
@@ -19,9 +17,7 @@ class TechnologyController extends CrudController
     protected string $routePrefix = 'admin_technology';
     protected string $searchField = 'name';
 
-    /**
-     * @Route("/", name="index")
-     */
+    #[Route(path: '/', name: 'index')]
     public function index(TechnologyRepository $repository): Response
     {
         $this->paginator->allowSort('count', 'row.id', 'row.name');
@@ -36,9 +32,7 @@ class TechnologyController extends CrudController
         return $this->crudIndex($query);
     }
 
-    /**
-     * @Route("/new", name="new")
-     */
+    #[Route(path: '/new', name: 'new')]
     public function new(TechnologyRepository $repository): Response
     {
         $technology = new Technology();
@@ -47,17 +41,13 @@ class TechnologyController extends CrudController
         return $this->crudNew($data);
     }
 
-    /**
-     * @Route("/{id<\d+>}", name="delete", methods={"DELETE"})
-     */
+    #[Route(path: '/{id<\d+>}', name: 'delete', methods: ['DELETE'])]
     public function delete(Technology $technology): Response
     {
         return $this->crudDelete($technology);
     }
 
-    /**
-     * @Route("/{id<\d+>}", name="edit")
-     */
+    #[Route(path: '/{id<\d+>}', name: 'edit')]
     public function edit(Technology $technology): Response
     {
         $data = new TechnologyCrudData($technology);

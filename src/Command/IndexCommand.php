@@ -7,15 +7,16 @@ use App\Domain\Course\Entity\Course;
 use App\Domain\Course\Entity\Formation;
 use App\Infrastructure\Search\IndexerInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
+#[AsCommand('app:index')]
 class IndexCommand extends Command
 {
-    protected static $defaultName = 'app:index';
 
     public function __construct(
         private readonly IndexerInterface $indexer,
@@ -47,6 +48,6 @@ class IndexCommand extends Command
         $io->progressFinish();
         $io->success('Les contenus ont bien été indexés');
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

@@ -1,13 +1,13 @@
 controllers:
   resource: ../../src/Http/Controller/
-  type: annotation
+  type: attribute
 admin_controllers:
   name_prefix: admin_
   prefix: '%admin_prefix%'
   resource: ../../src/Http/Admin/Controller/
-  type: annotation
+  type: attribute
 api_controllers:
   name_prefix: api_
   prefix: /api
   resource: ../../src/Http/Api/Controller/
-  type: annotation
+  type: attribute

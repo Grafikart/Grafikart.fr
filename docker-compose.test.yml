@@ -17,7 +17,7 @@ services:
       POSTGRES_USER: test
       POSTGRES_DB: test
     ports:
-      - 5433:5433
+      - 5433:5432
     networks:
       - test
 

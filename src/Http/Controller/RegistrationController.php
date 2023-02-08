@@ -20,9 +20,7 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class RegistrationController extends AbstractController
 {
-    /**
-     * @Route("/inscription", name="register");
-     */
+    #[Route(path: '/inscription', name: 'register')]
     public function register(
         Request $request,
         UserPasswordHasherInterface $hasher,
@@ -42,7 +40,7 @@ class RegistrationController extends AbstractController
         $user = new User();
         $rootErrors = [];
         // Si l'utilisateur provient de l'oauth, on préremplit ses données
-        $isOauthUser = $request->get('oauth') ? $socialLoginService->hydrate($user) : false;
+        $isOauthUser = $request->get('oauth') ? $socialLoginService->hydrate($request->getSession(), $user) : false;
         $env = $this->getParameter('kernel.environment');
         $form = $this->createForm(RegistrationFormType::class, $user, [
             'with_captcha' => $env !== 'test',
@@ -92,13 +90,11 @@ class RegistrationController extends AbstractController
             'errors' => $rootErrors,
             'menu' => 'register',
             'oauth_registration' => $request->get('oauth'),
-            'oauth_type' => $socialLoginService->getOauthType(),
+            'oauth_type' => $socialLoginService->getOauthType($request->getSession()),
         ]);
     }
 
-    /**
-     * @Route("/inscription/confirmation/{id<\d+>}", name="register_confirm")
-     */
+    #[Route(path: '/inscription/confirmation/{id<\d+>}', name: 'register_confirm')]
     public function confirmToken(User $user, Request $request, EntityManagerInterface $em): RedirectResponse
     {
         $token = $request->get('token');

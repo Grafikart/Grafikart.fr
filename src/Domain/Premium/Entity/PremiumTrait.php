@@ -6,9 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait PremiumTrait
 {
-    /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
-     */
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     protected ?\DateTimeImmutable $premiumEnd = null;
 
     public function isPremium(): bool

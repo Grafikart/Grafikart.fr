@@ -11,59 +11,41 @@ use Parsedown;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass="App\Domain\Forum\Repository\MessageRepository")
- * @ORM\Table(name="forum_message")
- */
+#[ORM\Table(name: 'forum_message')]
+#[ORM\Entity(repositoryClass: \App\Domain\Forum\Repository\MessageRepository::class)]
 class Message implements SpammableInterface, CacheableInterface
 {
     use SpamTrait;
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @ORM\Column(type="integer")
-     * @Groups({"read:message"})
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\Column(type: 'integer')]
+    #[Groups(['read:message'])]
     private ?int $id = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Forum\Entity\Topic", inversedBy="messages")
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     */
+    #[ORM\ManyToOne(targetEntity: \App\Domain\Forum\Entity\Topic::class, inversedBy: 'messages')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private Topic $topic;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Auth\User")
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     */
+    #[ORM\ManyToOne(targetEntity: \App\Domain\Auth\User::class)]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private User $author;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default": false})
-     */
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private bool $accepted = false;
 
-    /**
-     * @ORM\Column(type="text")
-     * @Assert\NotBlank()
-     * @Assert\Length(min=10)
-     * @Groups({"read:message", "update:message"})
-     */
+    #[ORM\Column(type: 'text')]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 10)]
+    #[Groups(['read:message', 'update:message'])]
     private ?string $content = null;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column(type: 'datetime')]
     private ?\DateTimeInterface $createdAt = null;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default":1})
-     */
+    #[ORM\Column(type: 'boolean', options: ['default' => 1])]
     private bool $notification = true;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column(type: 'datetime')]
     private ?\DateTimeInterface $updatedAt = null;
 
     public function getId(): ?int
@@ -126,9 +108,7 @@ class Message implements SpammableInterface, CacheableInterface
         return $this;
     }
 
-    /**
-     * @Groups({"read:message"})
-     */
+    #[Groups(['read:message'])]
     public function getFormattedContent(): ?string
     {
         return (new Parsedown())

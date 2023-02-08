@@ -8,6 +8,7 @@ use App\Domain\Revision\RevisionRepository;
 use App\Domain\Revision\RevisionService;
 use App\Helper\Paginator\PaginatorInterface;
 use App\Http\Form\RevisionForm;
+use App\Http\Security\RevisionVoter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,10 +19,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class RevisionController extends AbstractController
 {
-    /**
-     * @Route("/revisions", name="revisions")
-     * @IsGranted("ROLE_USER")
-     */
+    #[Route(path: '/revisions', name: 'revisions')]
+    #[IsGranted('ROLE_USER')]
     public function index(
         RevisionRepository $repository,
         PaginatorInterface $paginator
@@ -37,10 +36,9 @@ class RevisionController extends AbstractController
 
     /**
      * Affiche la page qui permet la soumission d'une révision.
-     *
-     * @Route("/revision/{id<\d+>}", name="revision")
-     * @IsGranted(App\Http\Security\RevisionVoter::ADD)
      */
+    #[Route(path: '/revision/{id<\d+>}', name: 'revision')]
+    #[IsGranted(RevisionVoter::ADD)]
     public function show(Content $content, Request $request, RevisionService $service): Response
     {
         $revision = $service->revisionFor($this->getUser(), $content);

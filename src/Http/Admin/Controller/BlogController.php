@@ -25,17 +25,13 @@ final class BlogController extends CrudController
         'create' => PostCreatedEvent::class,
     ];
 
-    /**
-     * @Route("/blog", name="blog_index")
-     */
+    #[Route(path: '/blog', name: 'blog_index')]
     public function index(): Response
     {
         return $this->crudIndex();
     }
 
-    /**
-     * @Route("/blog/new", name="blog_new", methods={"POST", "GET"})
-     */
+    #[Route(path: '/blog/new', name: 'blog_new', methods: ['POST', 'GET'])]
     public function new(): Response
     {
         $data = new PostCrudData();
@@ -45,9 +41,7 @@ final class BlogController extends CrudController
         return $this->crudNew($data);
     }
 
-    /**
-     * @Route("/blog/{id<\d+>}", name="blog_edit", methods={"POST", "GET"})
-     */
+    #[Route(path: '/blog/{id<\d+>}', name: 'blog_edit', methods: ['POST', 'GET'])]
     public function edit(Post $post): Response
     {
         $data = PostCrudData::makeFromPost($post);
@@ -55,9 +49,7 @@ final class BlogController extends CrudController
         return $this->crudEdit($data);
     }
 
-    /**
-     * @Route("/blog/{id<\d+>}", methods={"DELETE"})
-     */
+    #[Route(path: '/blog/{id<\d+>}', methods: ['DELETE'])]
     public function delete(Post $post): Response
     {
         return $this->crudDelete($post);

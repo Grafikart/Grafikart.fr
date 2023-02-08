@@ -8,66 +8,45 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass="App\Domain\Comment\CommentRepository")
- */
+#[ORM\Entity(repositoryClass: \App\Domain\Comment\CommentRepository::class)]
 class Comment
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $email = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $username = null;
 
-    /**
-     * @ORM\Column(type="text")
-     */
+    #[ORM\Column(type: 'text')]
     private string $content = '';
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column(type: 'datetime')]
     private \DateTimeInterface $createdAt;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Auth\User")
-     * @ORM\JoinColumn(onDelete="CASCADE", nullable=true)
-     */
+    #[ORM\ManyToOne(targetEntity: \App\Domain\Auth\User::class)]
+    #[ORM\JoinColumn(onDelete: 'CASCADE', nullable: true)]
     private ?User $author = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Comment\Comment", inversedBy="replies")
-     * @ORM\JoinColumn(onDelete="CASCADE")
-     */
+    #[ORM\ManyToOne(targetEntity: \App\Domain\Comment\Comment::class, inversedBy: 'replies')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private ?self $parent = null;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Domain\Comment\Comment", mappedBy="parent")
-     *
      * @var Collection<int, Comment>
      */
+    #[ORM\OneToMany(targetEntity: \App\Domain\Comment\Comment::class, mappedBy: 'parent')]
     private Collection $replies;
 
-    /**
-     * @ORM\Column(type="string", length=46, nullable=true)
-     */
-    private ?string $ip;
+    #[ORM\Column(type: 'string', length: 46, nullable: true)]
+    private ?string $ip = \App\Domain\Comment\Comment::class;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Application\Entity\Content")
-     * @ORM\JoinColumn(onDelete="CASCADE", nullable=false, name="content_id")
-     */
+    #[ORM\ManyToOne(targetEntity: \App\Domain\Application\Entity\Content::class)]
+    #[ORM\JoinColumn(onDelete: 'CASCADE', nullable: false, name: 'content_id')]
     private Content $target;
 
     public function __construct()
@@ -179,17 +158,11 @@ class Comment
         return $this->replies;
     }
 
-    /**
-     * @return string|null
-     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    /**
-     * @param string|null $email
-     */
     public function setEmail(?string $email): void
     {
         $this->email = $email;
@@ -206,5 +179,4 @@ class Comment
 
         return $this;
     }
-
 }

@@ -20,9 +20,7 @@ class CursusController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/cursus/{slug<[a-z0-9\-]+>}", name="cursus_show").
-     */
+    #[Route(path: '/cursus/{slug<[a-z0-9\-]+>}', name: 'cursus_show')]
     public function show(Cursus $cursus): Response
     {
         return $this->render('cursus/show.html.twig', [

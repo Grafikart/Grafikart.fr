@@ -27,9 +27,7 @@ class SpamController extends BaseController
     {
     }
 
-    /**
-     * @Route("/spam", name="spam_index", methods={"GET"})
-     */
+    #[Route(path: '/spam', name: 'spam_index', methods: ['GET'])]
     public function index(OptionManagerInterface $optionManager): Response
     {
         $spamWords = preg_split('/\r\n|\r|\n/', $optionManager->get('spam_words') ?: '');
@@ -41,9 +39,7 @@ class SpamController extends BaseController
         ]);
     }
 
-    /**
-     * @Route("/unspam/{type}/{id<\d+>}", name="spam_undo", methods={"DELETE"})
-     */
+    #[Route(path: '/unspam/{type}/{id<\d+>}', name: 'spam_undo', methods: ['DELETE'])]
     public function unspam(string $type, int $id): JsonResponse
     {
         if (!array_key_exists($type, self::TYPES)) {
@@ -68,9 +64,8 @@ class SpamController extends BaseController
 
     /**
      * Lance la détection des contenu "spams".
-     *
-     * @Route("/spam/detect", name="spam_detect", methods={"POST"})
      */
+    #[Route(path: '/spam/detect', name: 'spam_detect', methods: ['POST'])]
     public function detect(SpamService $spamService): RedirectResponse
     {
         $topicsCount = $this->em->getRepository(Topic::class)->flagAsSpam($spamService->words());

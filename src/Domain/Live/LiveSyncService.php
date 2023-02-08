@@ -53,7 +53,7 @@ class LiveSyncService
 
         // On convertit les vidéos youtube en Live et on les persiste
         $newLives = array_map(fn (\Google_Service_YouTube_Video $video) => Live::fromYoutubeVideo($video), $videos);
-        array_map([$this->em, 'persist'], $newLives);
+        array_map($this->em->persist(...), $newLives);
         $this->em->flush();
         foreach ($newLives as $live) {
             $this->dispatcher->dispatch(new LiveCreatedEvent($live));

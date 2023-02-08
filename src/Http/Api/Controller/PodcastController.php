@@ -14,10 +14,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PodcastController extends AbstractController
 {
-    /**
-     * @Route("/podcasts/{id<\d+>}/vote", name="podcast_vote")
-     * @IsGranted("VOTE_PODCAST", subject="podcast")
-     */
+    #[Route(path: '/podcasts/{id<\d+>}/vote', name: 'podcast_vote')]
+    #[IsGranted('VOTE_PODCAST', subject: 'podcast')]
     public function vote(Podcast $podcast, PodcastService $podcastService): JsonResponse
     {
         $podcastService->toggleVote($podcast, $this->getUserOrThrow());
@@ -27,10 +25,8 @@ class PodcastController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/podcasts/{id<\d+>}", name="podcast_delete", methods={"DELETE"})
-     * @IsGranted("DELETE_PODCAST", subject="podcast")
-     */
+    #[Route(path: '/podcasts/{id<\d+>}', name: 'podcast_delete', methods: ['DELETE'])]
+    #[IsGranted('DELETE_PODCAST', subject: 'podcast')]
     public function delete(Podcast $podcast, EntityManagerInterface $em): JsonResponse
     {
         $em->remove($podcast);

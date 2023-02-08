@@ -10,15 +10,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/forum")
- *
  * @method \App\Domain\Auth\User getUser()
  */
+#[Route(path: '/forum')]
 class ForumController extends AbstractController
 {
-    /**
-     * @Route("/read", name="forum/read_all", methods={"POST"})
-     */
+    #[Route(path: '/read', name: 'forum/read_all', methods: ['POST'])]
     public function readAll(
         TopicService $topicService
     ): JsonResponse {

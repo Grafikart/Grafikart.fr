@@ -15,7 +15,7 @@ class TwigSpamExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('count_spam', [$this, 'countSpam']),
+            new TwigFunction('count_spam', $this->countSpam(...)),
         ];
     }
 

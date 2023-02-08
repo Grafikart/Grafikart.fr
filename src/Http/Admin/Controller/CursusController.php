@@ -12,10 +12,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/cursus", name="cursus_")
- *
  * @method getRepository() App\Domain\
  */
+#[Route(path: '/cursus', name: 'cursus_')]
 final class CursusController extends CrudController
 {
     protected string $templatePath = 'cursus';
@@ -28,9 +27,7 @@ final class CursusController extends CrudController
         'create' => ContentCreatedEvent::class,
     ];
 
-    /**
-     * @Route("/", name="index")
-     */
+    #[Route(path: '/', name: 'index')]
     public function index(): Response
     {
         $this->paginator->allowSort('row.id');
@@ -45,9 +42,7 @@ final class CursusController extends CrudController
         return $this->crudIndex($query);
     }
 
-    /**
-     * @Route("/new", name="new", methods={"POST", "GET"})
-     */
+    #[Route(path: '/new', name: 'new', methods: ['POST', 'GET'])]
     public function new(): Response
     {
         $entity = (new Cursus())->setAuthor($this->getUser());
@@ -56,9 +51,7 @@ final class CursusController extends CrudController
         return $this->crudNew($data);
     }
 
-    /**
-     * @Route("/{id<\d+>}", name="edit", methods={"POST", "GET"})
-     */
+    #[Route(path: '/{id<\d+>}', name: 'edit', methods: ['POST', 'GET'])]
     public function edit(Cursus $cursus): Response
     {
         $data = (new CursusCrudData($cursus))->setEntityManager($this->em);
@@ -66,9 +59,7 @@ final class CursusController extends CrudController
         return $this->crudEdit($data);
     }
 
-    /**
-     * @Route("/{id<\d+>}/clone", name="clone", methods={"GET","POST"})
-     */
+    #[Route(path: '/{id<\d+>}/clone', name: 'clone', methods: ['GET', 'POST'])]
     public function clone(Cursus $cursus): Response
     {
         $cursus = CursusCloner::clone($cursus);
@@ -77,9 +68,7 @@ final class CursusController extends CrudController
         return $this->crudNew($data);
     }
 
-    /**
-     * @Route("/{id<\d+>}", methods={"DELETE"})
-     */
+    #[Route(path: '/{id<\d+>}', methods: ['DELETE'])]
     public function delete(Cursus $cursus): Response
     {
         return $this->crudDelete($cursus);

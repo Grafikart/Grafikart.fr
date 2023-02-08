@@ -5,12 +5,18 @@ namespace App\Tests;
 use App\Domain\Auth\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
-use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
+use Symfony\Component\BrowserKit\Cookie;
+use Symfony\Component\HttpFoundation\Exception\SessionNotFoundException;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage;
 
 class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
 {
     protected KernelBrowser $client;
     protected EntityManagerInterface $em;
+    protected ?SessionInterface $session = null;
 
     protected function setUp(): void
     {
@@ -19,7 +25,7 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
         /** @var EntityManagerInterface $em */
         $em = self::getContainer()->get(EntityManagerInterface::class);
         $this->em = $em;
-        $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
+        $this->em->getConnection()->getConfiguration()->setMiddlewares([]);
         parent::setUp();
     }
 
@@ -106,8 +112,49 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
     public function setCsrf(string $key): string
     {
         $csrf = uniqid();
-        self::getContainer()->get(TokenStorageInterface::class)->setToken($key, $csrf);
+
+        // Write directly into the session file cause there is no way to access the session from tests :(
+        foreach ($this->client->getCookieJar()->all() as $cookie) {
+            if ($cookie->getName() === 'MOCKSESSID') {
+                $path = self::getContainer()->getParameter('kernel.cache_dir') . '/sessions/' . $cookie->getValue() . '.mocksess';
+                $file = unserialize(file_get_contents($path));
+                $file['_sf2_attributes']['_csrf/' . $key] = $csrf;
+                file_put_contents($path, serialize($file));
+            }
+        }
 
         return $csrf;
+    }
+
+    protected function getSession(): SessionInterface
+    {
+        $this->ensureSessionIsAvailable();
+        $this->client->request('GET', '/contact');
+        return $this->client->getRequest()->getSession();
+    }
+
+    private function ensureSessionIsAvailable(): void
+    {
+        $container = self::getContainer();
+        $requestStack = $container->get('request_stack');
+
+        try {
+            $requestStack->getSession();
+        } catch (SessionNotFoundException) {
+            $session = $container->has('session')
+                ? $container->get('session')
+                : $container->get('session.factory')->createSession();
+
+            $masterRequest = new Request();
+            $masterRequest->setSession($session);
+
+            $requestStack->push($masterRequest);
+
+            $session->start();
+            $session->save();
+
+            $cookie = new Cookie($session->getName(), $session->getId());
+            $this->client->getCookieJar()->set($cookie);
+        }
     }
 }

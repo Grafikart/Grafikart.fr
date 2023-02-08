@@ -4,9 +4,12 @@ parameters:
   podcasts_path: '%download_path%'
   videos_path:   '%download_path%'
   sources_path:  '%download_path%'
-
+  db_suffix: '0'
+imports:
+  - { resource: domains/ }
 services:
-  App\Tests\Infrastructure\Mercure\PublisherStub:
-    decorates: mercure.hub.default.publisher
+  App\Tests\Infrastructure\Mercure\HubStub:
+    decorates: mercure.hub.default.traceable
   App\Infrastructure\Social\SocialLoginService:
     autowire: true
+    public: true

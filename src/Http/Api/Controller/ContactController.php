@@ -2,7 +2,7 @@
 
 namespace App\Http\Api\Controller;
 
-use ApiPlatform\Core\Validator\ValidatorInterface;
+use ApiPlatform\Validator\ValidatorInterface;
 use App\Domain\Contact\ContactData;
 use App\Domain\Contact\ContactService;
 use App\Domain\Contact\TooManyContactException;
@@ -15,9 +15,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 class ContactController extends AbstractController
 {
-    /**
-     * @Route("/contact", name="api_contact", methods={"POST"})
-     */
+    #[Route(path: '/contact', name: 'api_contact', methods: ['POST'])]
     public function create(
         DenormalizerInterface $denormalizer,
         ValidatorInterface $validator,

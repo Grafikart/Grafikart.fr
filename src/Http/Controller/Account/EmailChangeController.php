@@ -12,9 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class EmailChangeController extends AbstractController
 {
-    /**
-     * @Route("/email-confirm/{token}", name="user_email_confirm")
-     */
+    #[Route(path: '/email-confirm/{token}', name: 'user_email_confirm')]
     public function confirm(
         EmailVerification $emailVerification,
         ProfileService $service,

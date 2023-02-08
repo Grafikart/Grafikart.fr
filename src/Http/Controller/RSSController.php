@@ -8,9 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class RSSController extends AbstractController
 {
-    /**
-     * @Route("/feed.rss", name="rss")
-     */
+    #[Route(path: '/feed.rss', name: 'rss')]
     public function feed(ContentRepository $contentRepository): Response
     {
         $items = $contentRepository->findLatestPublished();

@@ -8,9 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/podcast", name="podcast_")
- */
+#[Route(path: '/podcast', name: 'podcast_')]
 class PodcastController extends CrudController
 {
     protected string $templatePath = 'podcast';
@@ -19,15 +17,13 @@ class PodcastController extends CrudController
     protected string $routePrefix = 'admin_podcast';
     protected string $searchField = 'title';
 
-    /**
-     * @Route("/", name="index")
-     */
+    #[Route(path: '/', name: 'index')]
     public function index(Request $request): Response
     {
         $query = $this->getRepository()->createQueryBuilder('row');
         $state = $request->get('state', 'published');
         if ($request->get('q')) {
-            $query = $this->applySearch(trim($request->get('q')), $query);
+            $query = $this->applySearch(trim((string) $request->get('q')), $query);
         } elseif ('published' === $state) {
             $query = $query->where('row.scheduledAt < NOW()')->andWhere('row.scheduledAt IS NOT NULL');
         } elseif ('suggested' === $state) {
@@ -51,9 +47,7 @@ class PodcastController extends CrudController
         ]);
     }
 
-    /**
-     * @Route("/new", name="new")
-     */
+    #[Route(path: '/new', name: 'new')]
     public function new(): Response
     {
         $podcast = new Podcast();
@@ -63,17 +57,13 @@ class PodcastController extends CrudController
         return $this->crudNew($data);
     }
 
-    /**
-     * @Route("/{id<\d+>}", name="delete", methods={"DELETE"})
-     */
+    #[Route(path: '/{id<\d+>}', name: 'delete', methods: ['DELETE'])]
     public function delete(Podcast $podcast): Response
     {
         return $this->crudDelete($podcast);
     }
 
-    /**
-     * @Route("/{id<\d+>}", name="edit")
-     */
+    #[Route(path: '/{id<\d+>}', name: 'edit')]
     public function edit(Podcast $podcast): Response
     {
         $data = new PodcastCrudData($podcast);

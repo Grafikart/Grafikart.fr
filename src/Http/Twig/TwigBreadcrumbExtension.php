@@ -15,7 +15,7 @@ class TwigBreadcrumbExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('breadcrumb', [$this, 'breadcrumb'], [
+            new TwigFunction('breadcrumb', $this->breadcrumb(...), [
                 'needs_environment' => true,
                 'is_safe' => ['html'],
             ]),

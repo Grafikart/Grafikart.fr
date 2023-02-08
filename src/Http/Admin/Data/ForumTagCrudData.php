@@ -12,15 +12,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class ForumTagCrudData extends AutomaticCrudData
 {
-    /**
-     * @Assert\NotBlank()
-     */
+    #[Assert\NotBlank]
     public ?string $name = null;
 
-    /**
-     * @Assert\NotBlank()
-     * @Slug()
-     */
+    #[Slug]
+    #[Assert\NotBlank]
     public ?string $slug = null;
 
     public ?string $description = null;
