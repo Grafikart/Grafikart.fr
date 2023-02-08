@@ -4,4 +4,4 @@ parameters:
 doctrine:
   dbal:
     logging: false
-    dbname: 'db_%env(default:test_token:TEST_TOKEN)%'
+    url: 'postgresql://test:test@dbtest:5432/test_%env(default:db_suffix:resolve:TEST_TOKEN)%?serverVersion=12&charset=utf8'
