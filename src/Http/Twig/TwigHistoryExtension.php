@@ -29,7 +29,7 @@ class TwigHistoryExtension extends AbstractExtension
     /**
      * @param Content[]|ArrayCollection<Content> $contents
      */
-    public function showHistory(array $context, array|\Doctrine\Common\Collections\ArrayCollection $contents): ?string
+    public function showHistory(array $context, array|Collection $contents): ?string
     {
         $user = $context['app']->getUser();
         if (null === $user) {
