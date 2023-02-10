@@ -16,7 +16,7 @@
             </h3>
             <ajax-delete class="dashboard-comment__delete"
                          target=".dashboard-comment"
-                         url="{{ path('api_forum/reports_delete_item', {id: report.id}) }}">
+                         url="{{ path('_api_/forum/reports/{id}{._format}_delete', {id: report.id}) }}">
               {{ icon('delete') }}
             </ajax-delete>
           </div>
