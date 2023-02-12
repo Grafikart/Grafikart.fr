@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -98,7 +99,8 @@ final class CourseController extends CrudController
     public function upload(
         Request $request,
         SessionInterface $session,
-        \Google_Client $googleClient
+        \Google_Client $googleClient,
+        MessageBusInterface $messageBus,
     ): Response {
         // Si on n'a pas d'id dans la session, on redirige
         $courseId = $session->get(self::UPLOAD_SESSION_KEY);
@@ -119,6 +121,7 @@ final class CourseController extends CrudController
         // Si on a un code d'auth, on envoie la tache à la file d'attente
         $googleClient->fetchAccessTokenWithAuthCode($request->get('code'));
         $this->dispatchMethod(
+            $messageBus,
             YoutubeUploaderService::class,
             'upload',
             [(int) $courseId, $googleClient->getAccessToken()]

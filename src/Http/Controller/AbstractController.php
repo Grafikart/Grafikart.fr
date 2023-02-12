@@ -9,6 +9,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Messenger\Envelope;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
@@ -33,14 +34,13 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
     /**
      * Lance la méthode d'un service de manière asynchrone.
      */
-    protected function dispatchMethod(string $service, string $method, array $params = []): Envelope
-    {
-        if (!$this->container->has('messenger.default_bus')) {
-            $message = class_exists(Envelope::class) ? 'You need to define the "messenger.default_bus" configuration option.' : 'Try running "composer require symfony/messenger".';
-            throw new \LogicException('The message bus is not enabled in your application. '.$message);
-        }
-
-        return $this->container->get('messenger.default_bus')->dispatch(new ServiceMethodMessage($service, $method, $params), []);
+    protected function dispatchMethod(
+        MessageBusInterface $messageBus,
+        string $service,
+        string $method,
+        array $params = []
+    ): Envelope {
+        return $messageBus->dispatch(new ServiceMethodMessage($service, $method, $params), []);
     }
 
     protected function getUserOrThrow(): User
