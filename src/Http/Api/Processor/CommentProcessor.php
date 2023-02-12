@@ -4,8 +4,6 @@ namespace App\Http\Api\Processor;
 
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Operation;
-use ApiPlatform\Metadata\Post;
-use ApiPlatform\Metadata\Put;
 use ApiPlatform\State\ProcessorInterface;
 use ApiPlatform\Validator\ValidatorInterface;
 use App\Domain\Auth\User;
@@ -15,7 +13,6 @@ use Symfony\Bundle\SecurityBundle\Security;
 
 class CommentProcessor implements ProcessorInterface
 {
-
     public function __construct(
         private readonly ValidatorInterface $validator,
         private readonly Security $security,
@@ -40,7 +37,6 @@ class CommentProcessor implements ProcessorInterface
             $groups = ['anonymous'];
         }
         $this->validator->validate($data, ['groups' => $groups]);
-
 
         if (null !== $data->entity) {
             $comment = $this->service->update($data->entity, $data->content);

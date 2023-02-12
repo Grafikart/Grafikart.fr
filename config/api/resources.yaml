@@ -4,10 +4,10 @@ resources:
     operations:
       ApiPlatform\Metadata\Post:
         security: is_granted("forumReport")
-        denormalization_context:
+        denormalizationContext:
           groups: [ 'create:report' ]
           swagger_definition_name: 'ReportCreate'
-        normalization_context:
+        normalizationContext:
           groups: [ 'read:report' ]
           swagger_definition_name: 'ReportRead'
         openapi_context:
@@ -20,7 +20,7 @@ resources:
     collectionOperations: [ ]
     operations:
       ApiPlatform\Metadata\Get:
-        normalization_context:
+        normalizationContext:
           groups: [ 'read:topic' ]
       ApiPlatform\Metadata\Delete:
         security: is_granted("DELETE_TOPIC", object)
@@ -30,14 +30,14 @@ resources:
     collectionOperations: [ ]
     operations:
       ApiPlatform\Metadata\Get:
-        normalization_context:
+        normalizationContext:
           groups: [ 'read:message' ]
       ApiPlatform\Metadata\Delete:
         security: is_granted("DELETE_FORUM_MESSAGE", object)
       ApiPlatform\Metadata\Put:
-        denormalization_context:
+        denormalizationContext:
           groups: [ 'update:message' ]
-        normalization_context:
+        normalizationContext:
           groups: [ 'read:message' ]
         security: is_granted("UPDATE_FORUM_MESSAGE", object)
 
@@ -46,11 +46,11 @@ resources:
       ApiPlatform\Metadata\GetCollection:
         security: is_granted("ROLE_USER")
         pagination_client_items_per_page: true
-        normalization_context:
+        normalizationContext:
           groups: [ 'read:notification' ]
       ApiPlatform\Metadata\Post:
         security: is_granted("CREATE_NOTIFICATION")
-        normalization_context:
+        normalizationContext:
           groups: [ 'read:notification' ]
-        denormalization_context:
+        denormalizationContext:
           groups: [ 'create:notification' ]
