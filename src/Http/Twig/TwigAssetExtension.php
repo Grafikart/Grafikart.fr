@@ -5,6 +5,7 @@ namespace App\Http\Twig;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Contracts\Cache\CacheInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -21,10 +22,11 @@ class TwigAssetExtension extends AbstractExtension
     public function __construct(
         private readonly string $assetPath,
         string $env,
-        private readonly CacheItemPoolInterface $cache,
+        private readonly CacheInterface $cache,
         private readonly RequestStack $requestStack
     ) {
-        $this->isProduction = 'prod' === $env;
+        // $this->isProduction = 'prod' === $env;
+        $this->isProduction = true;
     }
 
     public function getFunctions(): array
@@ -41,19 +43,14 @@ class TwigAssetExtension extends AbstractExtension
     private function getAssetPaths(): array
     {
         if (null === $this->paths) {
-            $cached = $this->cache->getItem(self::CACHE_KEY);
-            if (!$cached->isHit()) {
+            $this->paths = $this->cache->get(self::CACHE_KEY, function () {
                 $manifest = $this->assetPath.'/manifest.json';
                 if (file_exists($manifest)) {
-                    $paths = json_decode((string) file_get_contents($manifest), true, 512, JSON_THROW_ON_ERROR);
-                    $this->cache->save($cached->set($paths));
-                    $this->paths = $paths;
+                    return json_decode((string) file_get_contents($manifest), true, 512, JSON_THROW_ON_ERROR);
                 } else {
-                    $this->paths = [];
+                    return [];
                 }
-            } else {
-                $this->paths = $cached->get();
-            }
+            });
         }
 
         return $this->paths;
