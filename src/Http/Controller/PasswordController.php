@@ -9,6 +9,7 @@ use App\Domain\Password\Entity\PasswordResetToken;
 use App\Domain\Password\Form\PasswordResetConfirmForm;
 use App\Domain\Password\Form\PasswordResetRequestForm;
 use App\Domain\Password\PasswordService;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,8 +43,13 @@ class PasswordController extends AbstractController
     }
 
     #[Route(path: '/password/new/{id<\d+>}/{token}', name: 'auth_password_reset_confirm')]
-    public function confirm(Request $request, User $user, ?PasswordResetToken $token, PasswordService $service): Response
-    {
+    public function confirm(
+        Request $request,
+        User $user,
+        #[MapEntity(mapping: ['token' => 'token'])]
+        ?PasswordResetToken $token,
+        PasswordService $service
+    ): Response {
         if (!$token || $service->isExpired($token) || $token->getUser() !== $user) {
             $this->addFlash('error', 'Ce token a expiré');
 

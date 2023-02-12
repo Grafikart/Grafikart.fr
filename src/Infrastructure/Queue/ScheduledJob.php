@@ -51,7 +51,6 @@ class ScheduledJob
 
     public function getPublishDate(): \DateTimeInterface
     {
-        /** @var DelayStamp $delay */
         $delay = $this->envelope->last(DelayStamp::class);
         if (!$delay) {
             return (new \DateTimeImmutable());

@@ -3,7 +3,6 @@
 namespace App\Infrastructure\Queue;
 
 use Predis\Client;
-use Symfony\Component\Messenger\Transport\Receiver\ReceiverInterface;
 use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
 
 class ScheduledJobsService
@@ -16,11 +15,7 @@ class ScheduledJobsService
 
     public function getConnection(): Client
     {
-        /** @var array $url */
-        $redis = new Client($this->dsn);
-        $redis->connect();
-
-        return $redis;
+        return new Client($this->dsn);
     }
 
     /**
@@ -46,7 +41,8 @@ class ScheduledJobsService
                         512,
                         JSON_THROW_ON_ERROR
                     )
-                ), $index++
+                ),
+                $index++
             );
         }
 
@@ -55,6 +51,6 @@ class ScheduledJobsService
 
     public function deleteJob(int $jobId): void
     {
-        $this->getConnection()->zRemRangeByRank('messages__queue', $jobId, $jobId);
+        $this->getConnection()->zremrangebyrank('messages', $jobId, $jobId);
     }
 }

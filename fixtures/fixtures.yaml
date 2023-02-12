@@ -5,7 +5,7 @@ App\Domain\Auth\User:
   user{1..5} (extends user):
   admin (extends user):
     username: Grafikart
-    email: grafikart@oe.fr
+    email: grafikart@grafikart.fr
 
 App\Domain\Live\Live:
   live{1..10} (extends live):
