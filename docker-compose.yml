@@ -55,6 +55,16 @@ services:
       TYPESENSE_API_KEY: typesensekey
     volumes:
       - search-data:/data
+  meilisearch:
+    restart: unless-stopped
+    image: getmeili/meilisearch:v1.0
+    environment:
+      MEILI_ENV: development
+      MEILI_MASTER_KEY: e5qTcju7z4PmV13isPz84dL2Yl1U7KGJimooid19toQ
+    ports:
+      - 7700:7700
+    volumes:
+      - search-data:/meili_data
   mercure:
     restart: unless-stopped
     image: dunglas/mercure:v0.10.4

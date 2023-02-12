@@ -17,7 +17,7 @@
     width: 100%;
     position: relative;
     z-index: 1;
-    
+
     @include up(850) {
       flex-grow: 1;
       margin-left: 70px;
@@ -133,7 +133,7 @@
     line-height: 1.4;
   }
 
-  a mark {
+  a mark, a em {
     background-color: transparent;
     border-radius: 2px;
     font-weight: 600;
@@ -177,7 +177,7 @@
 }
 
 @include dark {
-  .search-result mark {
+  .search-result mark, .search-result em {
     background-color: var(--contrast);
   }
 }

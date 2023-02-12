@@ -1,6 +1,9 @@
 parameters:
   typesense_key:    '%env(resolve:TYPESENSE_KEY)%'
   typesense_host:   '%env(resolve:TYPESENSE_HOST)%'
+  meilisearch_default_host: "meilisearch:7700"
+  meilisearch_key:    '%env(resolve:MEILISEARCH_KEY)%'
+  meilisearch_host:   '%env(default:meilisearch_default_host:MEILISEARCH_HOST)%'
 
 services:
   _defaults:
@@ -11,8 +14,11 @@ services:
   App\Infrastructure\Search\Typesense\TypesenseClient:
     arguments: ['%typesense_host%', '%typesense_key%']
 
+  App\Infrastructure\Search\Meilisearch\MeilisearchClient:
+    arguments: ['%meilisearch_host%', '%meilisearch_key%']
+
   App\Infrastructure\Search\IndexerInterface:
-    class: App\Infrastructure\Search\Typesense\TypesenseIndexer
+    class: App\Infrastructure\Search\Meilisearch\MeilisearchIndexer
 
   App\Infrastructure\Search\SearchInterface:
-    class: App\Infrastructure\Search\Typesense\TypesenseSearch
+    class: App\Infrastructure\Search\Meilisearch\MeilisearchSearch
