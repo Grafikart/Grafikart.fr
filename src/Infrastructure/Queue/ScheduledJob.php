@@ -32,20 +32,30 @@ class ScheduledJob
         return $this->envelope->getMessage();
     }
 
-    public function getParams(): array
+    public function getDescription(): string
     {
         $message = $this->getMessage();
         if ($message instanceof ServiceMethodMessage) {
-            return $message->getParams();
+            $params = array_map(function (mixed $item) {
+                if (is_object($item)) {
+                    return $item::class;
+                }
+                return $item;
+            }, $message->getParams());
+            $method = $message->getMethod();
+            return sprintf("%s(%s)", $method, json_encode($params));
         }
 
-        return [];
+        return '';
     }
 
     public function getPublishDate(): \DateTimeInterface
     {
         /** @var DelayStamp $delay */
         $delay = $this->envelope->last(DelayStamp::class);
+        if (!$delay) {
+            return (new \DateTimeImmutable());
+        }
         $delaySeconds = $delay->getDelay() / 1000;
 
         return (new \DateTimeImmutable())->add(new \DateInterval("PT{$delaySeconds}S"));

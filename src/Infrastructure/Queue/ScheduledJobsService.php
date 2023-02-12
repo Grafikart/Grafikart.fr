@@ -2,24 +2,23 @@
 
 namespace App\Infrastructure\Queue;
 
+use Predis\Client;
+use Symfony\Component\Messenger\Transport\Receiver\ReceiverInterface;
 use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
 
 class ScheduledJobsService
 {
     public function __construct(
         private readonly string $dsn,
-        private readonly SerializerInterface $serializer
+        private readonly SerializerInterface $serializer,
     ) {
     }
 
-    public function getConnection(): \Redis
+    public function getConnection(): Client
     {
         /** @var array $url */
-        $url = parse_url($this->dsn);
-        $redis = (new \Redis());
-        if (!$redis->connect($url['host'], $url['port'])) {
-            throw new \RuntimeException('Impossible de se connecter à redis');
-        }
+        $redis = new Client($this->dsn);
+        $redis->connect();
 
         return $redis;
     }
@@ -32,14 +31,24 @@ class ScheduledJobsService
         if (!str_starts_with($this->dsn, 'redis://')) {
             return [];
         }
-        $messages = $this->getConnection()->zRange('messages__queue', 0, 10);
+        $messages = $this->getConnection()->xrange('messages', '-', '+');
         if (empty($messages)) {
             return [];
         }
         $index = 0;
-        $jobs = array_map(function (string $message) use (&$index) {
-            return new ScheduledJob($this->serializer->decode(json_decode($message, true, 512, JSON_THROW_ON_ERROR)), $index++);
-        }, $messages);
+        $jobs = [];
+        foreach ($messages as ['message' => $message]) {
+            $jobs[] = new ScheduledJob(
+                $this->serializer->decode(
+                    json_decode(
+                        unserialize($message),
+                        true,
+                        512,
+                        JSON_THROW_ON_ERROR
+                    )
+                ), $index++
+            );
+        }
 
         return $jobs;
     }
