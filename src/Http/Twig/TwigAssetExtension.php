@@ -2,7 +2,6 @@
 
 namespace App\Http\Twig;
 
-use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Cache\CacheInterface;
@@ -25,8 +24,7 @@ class TwigAssetExtension extends AbstractExtension
         private readonly CacheInterface $cache,
         private readonly RequestStack $requestStack
     ) {
-        // $this->isProduction = 'prod' === $env;
-        $this->isProduction = true;
+        $this->isProduction = 'prod' === $env;
     }
 
     public function getFunctions(): array
