@@ -26,31 +26,18 @@ class ScheduledJobsService
         if (!str_starts_with($this->dsn, 'redis://')) {
             return [];
         }
-        $messages = $this->getConnection()->xrange('messages', '-', '+');
+        $messages = $this->getConnection()->zrange('messages__queue', 0, 10);
         if (empty($messages)) {
             return [];
         }
         $index = 0;
-        $jobs = [];
-        foreach ($messages as ['message' => $message]) {
-            $jobs[] = new ScheduledJob(
-                $this->serializer->decode(
-                    json_decode(
-                        unserialize($message),
-                        true,
-                        512,
-                        JSON_THROW_ON_ERROR
-                    )
-                ),
-                $index++
-            );
-        }
-
-        return $jobs;
+        return array_map(function (string $message) use (&$index) {
+            return new ScheduledJob($this->serializer->decode(json_decode($message, true)), $index++);
+        }, $messages);
     }
 
     public function deleteJob(int $jobId): void
     {
-        $this->getConnection()->zremrangebyrank('messages', $jobId, $jobId);
+        $this->getConnection()->zremrangebyrank('messages__queue', $jobId, $jobId);
     }
 }
