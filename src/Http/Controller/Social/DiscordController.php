@@ -7,7 +7,7 @@ use App\Http\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Client\Provider\DiscordClient;
 use KnpU\OAuth2ClientBundle\Exception\MissingAuthorizationCodeException;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Wohali\OAuth2\Client\Provider\DiscordResourceOwner;

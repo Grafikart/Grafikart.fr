@@ -8,7 +8,7 @@ use App\Domain\Auth\User;
 use App\Domain\Premium\Repository\TransactionRepository;
 use App\Http\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

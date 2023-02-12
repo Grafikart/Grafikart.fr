@@ -4,7 +4,7 @@ namespace App\Http\Controller;
 
 use App\Domain\Badge\BadgeService;
 use App\Domain\Badge\Entity\Badge;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

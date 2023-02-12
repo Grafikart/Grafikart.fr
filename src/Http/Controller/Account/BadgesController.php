@@ -4,7 +4,7 @@ namespace App\Http\Controller\Account;
 
 use App\Domain\Badge\BadgeService;
 use App\Http\Controller\AbstractController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 

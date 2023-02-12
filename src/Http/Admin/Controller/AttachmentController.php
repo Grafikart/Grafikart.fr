@@ -5,7 +5,7 @@ namespace App\Http\Admin\Controller;
 use App\Domain\Attachment\Attachment;
 use App\Domain\Attachment\Repository\AttachmentRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

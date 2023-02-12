@@ -7,7 +7,7 @@ namespace App\Http\Controller\Account;
 use App\Domain\Auth\User;
 use App\Http\Controller\AbstractController;
 use App\Infrastructure\Payment\Stripe\StripeApi;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;

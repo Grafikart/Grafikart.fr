@@ -8,7 +8,7 @@ use App\Domain\Podcast\Entity\Podcast;
 use App\Domain\Podcast\PodcastService;
 use App\Http\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
