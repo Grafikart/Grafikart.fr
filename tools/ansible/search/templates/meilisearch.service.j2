@@ -1,0 +1,14 @@
+[Unit]
+Description={{ domain }} Meilisearch
+After=systemd-user-sessions.service
+
+[Service]
+WorkingDirectory={{ root_path }}/var/meilisearch
+ExecStart=/usr/bin/meilisearch --config-file-path {{ root_path }}/var/meilisearch/meilisearch.toml
+Type=simple
+Restart=always
+RestartSec=1
+StandardOutput=null
+
+[Install]
+WantedBy=multi-user.target

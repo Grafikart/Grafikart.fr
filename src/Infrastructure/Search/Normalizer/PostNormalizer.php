@@ -30,10 +30,10 @@ class PostNormalizer implements NormalizerInterface
 
         return [
             'id' => (string) $object->getId(),
-            'content' => MarkdownTransformer::toText((string) $object->getContent()),
-            'url' => $this->urlGenerator->generate($url['path'], $url['params']),
             'title' => $title,
             'category' => [],
+            'content' => MarkdownTransformer::toText((string) $object->getContent()),
+            'url' => $this->urlGenerator->generate($url['path'], $url['params']),
             'type' => 'post',
             'created_at' => $object->getCreatedAt()->getTimestamp(),
         ];

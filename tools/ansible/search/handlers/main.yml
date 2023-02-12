@@ -1,0 +1,6 @@
+---
+- name: meilisearch restart
+  service:
+    become: no
+    name: meilisearch
+    state: restarted

@@ -30,10 +30,10 @@ class CursusNormalizer implements NormalizerInterface
 
         return [
             'id' => (string) $object->getId(),
-            'content' => $object->getContent(),
             'title' => $object->getTitle(),
-            'url' => $this->urlGenerator->generate($url['path'], $url['params']),
             'category' => array_map(fn ($t) => $t->getName(), $object->getMainTechnologies()),
+            'content' => $object->getContent(),
+            'url' => $this->urlGenerator->generate($url['path'], $url['params']),
             'type' => 'cursus',
             'created_at' => $object->getCreatedAt()->getTimestamp(),
         ];

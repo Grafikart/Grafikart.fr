@@ -20,9 +20,9 @@ class TopicNormalizer extends Normalizer
 
         return [
             'id' => (string) $object->getId(),
-            'content' => $object->getContent(),
             'title' => $object->getName(),
             'category' => $object->getTags()->map(fn ($t) => $t->getName())->toArray(),
+            'content' => $object->getContent(),
             'type' => 'topic',
             'created_at' => $object->getCreatedAt()->getTimestamp(),
         ];

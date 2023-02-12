@@ -6,6 +6,7 @@ use App\Domain\Blog\Post;
 use App\Domain\Course\Entity\Course;
 use App\Domain\Course\Entity\Formation;
 use App\Infrastructure\Search\IndexerInterface;
+use App\Infrastructure\Search\Meilisearch\MeilisearchIndexer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -34,7 +35,7 @@ class IndexCommand extends Command
         $io->progressStart();
         $this->indexer->clean();
 
-        // On importe les cours
+        // On importe les contenus
         $types = [Course::class, Formation::class, Post::class];
         foreach ($types as $type) {
             $items = $this->em->getRepository($type)->findBy(['online' => true]);
@@ -43,6 +44,10 @@ class IndexCommand extends Command
                 $this->indexer->index((array) $this->normalizer->normalize($item, 'search'));
             }
             $this->em->clear();
+        }
+
+        if ($this->indexer instanceof MeilisearchIndexer) {
+            $this->indexer->settings();
         }
 
         $io->progressFinish();

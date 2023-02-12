@@ -22,14 +22,13 @@ services:
       PHP_IDE_CONFIG: serverName=grafikart
       APP_ENV: dev
       REDIS_URL: redis://redis
-      TYPESENSE_KEY: typesensekey
-      TYPESENSE_HOST: typesense:8108
       MAILER_DSN: smtp://mail:1025?encryption=null&auth_mode=null
       DATABASE_URL: postgresql://grafikart:grafikart@db:5432/grafikart?serverVersion=12&chartset=utf8
       MERCURE_PUBLISH_URL: http://mercure/.well-known/mercure
       MESSENGER_TRANSPORT_DSN: redis://redis:6379/messages
       MESSENGER_TRANSPORT_FAILED_DSN: redis://redis:6379/messages_failed
       MERCURE_SUBSCRIBER_KEY: mercure_subscriber_mercure_subscriber_mercure_subscriber
+      MEILISEARCH_HOST: "meilisearch:7700"
   db:
     restart: unless-stopped
     image: postgres:12-alpine
@@ -47,14 +46,16 @@ services:
   redis:
     restart: unless-stopped
     image: redis:6-alpine
-  typesense:
+  meilisearch:
     restart: unless-stopped
-    image: typesense/typesense:0.18.0
+    image: getmeili/meilisearch:v1.0
     environment:
-      TYPESENSE_DATA_DIR: /data
-      TYPESENSE_API_KEY: typesensekey
+      MEILI_ENV: development
+      MEILI_MASTER_KEY:
+    ports:
+      - 7700:7700
     volumes:
-      - search-data:/data
+      - search-data:/meili_data
   mercure:
     restart: unless-stopped
     image: dunglas/mercure:v0.10.4

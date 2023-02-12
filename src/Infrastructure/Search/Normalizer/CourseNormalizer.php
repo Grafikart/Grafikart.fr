@@ -35,10 +35,10 @@ class CourseNormalizer implements NormalizerInterface
 
         return [
             'id' => (string) $object->getId(),
-            'content' => MarkdownTransformer::toText((string) $object->getContent()),
-            'url' => $this->urlGenerator->generate($url['path'], $url['params']),
             'title' => $title,
             'category' => array_map(fn ($t) => $t->getName(), $object->getMainTechnologies()),
+            'content' => MarkdownTransformer::toText((string) $object->getContent()),
+            'url' => $this->urlGenerator->generate($url['path'], $url['params']),
             'type' => 'course',
             'created_at' => $object->getCreatedAt()->getTimestamp(),
         ];

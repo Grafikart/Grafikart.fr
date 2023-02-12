@@ -23,7 +23,6 @@
     name: grafikart clean
     special_time: daily
     job: "cd {{ root_path }} && php bin/console app:clean"
-- include_tasks: typesense.yml
 - include_tasks: messenger.yml
 - include_tasks: mercure.yml
 - name: Symfony | var permission

@@ -1,0 +1,52 @@
+---
+- name: Meilisearch | Debian repository
+  apt_repository:
+    filename: "fury"
+    repo: "deb [trusted=yes] https://apt.fury.io/meilisearch/ /"
+    state: present
+- name: Meilisearch | Install
+  apt:
+    name: meilisearch
+    state: present
+- name: Meilisearch | Directory
+  become: no
+  ansible.builtin.file:
+    path: "{{ root_path }}/var/meilisearch"
+    state: directory
+    mode: '0777'
+- name: Meilisearch | Service
+  become: no
+  template:
+    src: "meilisearch.service.j2"
+    dest: "~/.config/systemd/user/meilisearch.service"
+- name: Meilisearch | Service
+  become: no
+  template:
+    src: "meilisearch.toml.j2"
+    dest: "{{ root_path }}/var/meilisearch/meilisearch.toml"
+  notify: meilisearch restart
+- name: Meilisearch | Activation du Service
+  become: no
+  systemd:
+    scope: user
+    state: started
+    daemon_reload: yes
+    enabled: yes
+    name: "meilisearch"
+- name: Meilisearch | Extract API Key
+  register: meilisearch_key_response
+  uri:
+    url: http://localhost:7700/keys?limit=3
+    method: GET
+    return_content: yes
+    status_code: 200
+    body_format: json
+    headers:
+      Authorization: "Bearer {{ meilisearch_key }}"
+- name: Meilisearch | API Key
+  shell: echo "{{ meilisearch_key_response.json.results[0].key }}"
+- name: Meilisearch | API Key .env.local
+  ansible.builtin.lineinfile:
+    path: "{{ root_path }}/.env.local"
+    regexp: '^MEILISEARCH_KEY'
+    line: "MEILISEARCH_KEY={{ meilisearch_key_response.json.results[1].key }}"
