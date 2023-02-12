@@ -1,8 +1,9 @@
 parameters:
   typesense_key:    '%env(resolve:TYPESENSE_KEY)%'
   typesense_host:   '%env(resolve:TYPESENSE_HOST)%'
-  meilisearch_default_host: "meilisearch:7700"
-  meilisearch_key:    '%env(resolve:MEILISEARCH_KEY)%'
+  meilisearch_default_host: "localhost:7700"
+  empty: ""
+  meilisearch_key:    '%env(default:empty:MEILISEARCH_KEY)%'
   meilisearch_host:   '%env(default:meilisearch_default_host:MEILISEARCH_HOST)%'
 
 services:

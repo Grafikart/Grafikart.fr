@@ -13,9 +13,6 @@ class MeilisearchClient
         string $apiKey,
         private readonly HttpClientInterface $client
     ) {
-        if (empty($apiKey)) {
-            throw new \RuntimeException("Une clef d'API est nécessaire à l'utilisation de meilisearch");
-        }
         $this->apiKey = $apiKey;
     }
 
@@ -47,11 +44,13 @@ class MeilisearchClient
 
     private function api(string $endpoint, array $data = [], string $method = 'POST'): array
     {
+        $headers = [];
+        if (!empty($this->apiKey)) {
+            $headers['Authorization'] = "Bearer " . $this->apiKey;
+        }
         $response = $this->client->request($method, "http://{$this->host}/{$endpoint}", [
             'json' => $data,
-            'headers' => [
-                'Authorization' => "Bearer " . $this->apiKey,
-            ],
+            'headers' => $headers,
         ]);
         if ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300) {
             return json_decode($response->getContent(), true, 512, JSON_THROW_ON_ERROR);
