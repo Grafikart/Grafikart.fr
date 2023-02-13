@@ -42,6 +42,7 @@ resources:
         security: is_granted("UPDATE_FORUM_MESSAGE", object)
 
   App\Domain\Notification\Entity\Notification:
+    processor: "App\\Http\\Api\\Processor\\NotificationProcessor"
     operations:
       ApiPlatform\Metadata\GetCollection:
         security: is_granted("ROLE_USER")
