@@ -6,10 +6,8 @@ resources:
         security: is_granted("forumReport")
         denormalizationContext:
           groups: [ 'create:report' ]
-          swagger_definition_name: 'ReportCreate'
         normalizationContext:
           groups: [ 'read:report' ]
-          swagger_definition_name: 'ReportRead'
         openapi_context:
           summary: Crée un nouveau signalement
       ApiPlatform\Metadata\Delete:
@@ -46,7 +44,7 @@ resources:
     operations:
       ApiPlatform\Metadata\GetCollection:
         security: is_granted("ROLE_USER")
-        pagination_client_items_per_page: true
+        paginationClientItemsPerPage: true
         normalizationContext:
           groups: [ 'read:notification' ]
       ApiPlatform\Metadata\Post:
