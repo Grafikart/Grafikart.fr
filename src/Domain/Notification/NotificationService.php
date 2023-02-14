@@ -12,7 +12,7 @@ use App\Http\Encoder\PathEncoder;
 use App\Http\Security\ChannelVoter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class NotificationService

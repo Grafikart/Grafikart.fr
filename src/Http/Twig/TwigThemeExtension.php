@@ -4,7 +4,7 @@ namespace App\Http\Twig;
 
 use App\Domain\Auth\User;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Bundle\SecurityBundle\Security;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 

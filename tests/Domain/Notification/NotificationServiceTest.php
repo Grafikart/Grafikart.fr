@@ -8,8 +8,8 @@ use App\Domain\Notification\Event\NotificationReadEvent;
 use App\Domain\Notification\NotificationService;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class NotificationServiceTest extends TestCase
