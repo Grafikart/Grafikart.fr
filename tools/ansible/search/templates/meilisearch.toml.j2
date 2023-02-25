@@ -12,7 +12,7 @@ env = "production"
 http_addr = "localhost:7700"
 # The address on which the HTTP server will listen.
 
-master_key = {{ meilisearch_key }}
+master_key = "{{ meilisearch_key }}"
 # Sets the instance's master key, automatically protecting all routes except GET /health.
 # https://docs.meilisearch.com/learn/configuration/instance_options.html#master-key
 
