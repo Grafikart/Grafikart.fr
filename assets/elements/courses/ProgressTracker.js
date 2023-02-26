@@ -10,7 +10,7 @@ const TIME_FOR_TRACKING = 10 // Nombre de secondes consécutives avant de consid
  * @property {HTMLVideoElement} video
  * @property {number} timeBeforeTracking
  * @property {number} lastTickTime
- * @property {contentId} string
+ * @property {string|null} contentId
  */
 export class ProgressTracker extends HTMLElement {
   static get observedAttributes () {
@@ -33,7 +33,7 @@ export class ProgressTracker extends HTMLElement {
       return null
     }
     window.addEventListener('hashchange', this.onHashChange)
-    if (!isAuthenticated()) {
+    if (!isAuthenticated() || !this.contentId) {
       return null
     }
     this.video.addEventListener('timeupdate', this.onProgress)

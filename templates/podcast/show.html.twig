@@ -22,14 +22,16 @@
 
           {# Lecteur youtube si vidéo youtube #}
           {% if podcast.youtube %}
-            <youtube-player
-              video="{{ podcast.youtube }}"
-              duration="{{ podcast.duration | duration }}"
-              class="shadow my1">
-              <a href="https://www.youtube.com/watch?v={{ podcast.youtube }}" target="_blank" rel="noopener" class="course__placeholder">
-                <span>Voir la vidéo</span>
-              </a>
-            </youtube-player>
+            <progress-tracker>
+              <youtube-player
+                video="{{ podcast.youtube }}"
+                duration="{{ podcast.duration | duration }}"
+                class="shadow my1">
+                <a href="https://www.youtube.com/watch?v={{ podcast.youtube }}" target="_blank" rel="noopener" class="course__placeholder">
+                  <span>Voir la vidéo</span>
+                </a>
+              </youtube-player>
+            </progress-tracker>
           {% endif %}
 
           {# Metadonnées (participants / date / durée) #}
