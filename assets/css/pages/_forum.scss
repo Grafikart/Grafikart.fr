@@ -1,7 +1,7 @@
 .forum-page {
   @extend %container;
   display: grid;
-  grid-gap: space(3);
+  gap: space(3);
   grid-template-columns: 1fr;
 
   @include up(800) {
@@ -11,7 +11,7 @@
 
 .forum-header {
   display: grid;
-  grid-gap: space(2);
+  gap: space(2);
 
   .hero-title {
     flex: none;
@@ -112,7 +112,7 @@
 .forum-topic {
   display: grid;
   grid-template-columns: 40px 1fr 30px;
-  grid-gap: space(2);
+  gap: space(2);
   padding: space(2);
   width: calc(100% + #{space(2)});
   position: relative;
@@ -185,7 +185,7 @@
   left: 0;
   display: flex;
   flex-wrap: nowrap;
-  grid-gap: space(1);
+  gap: space(1);
   max-width: 100%;
   overflow: auto;
 
@@ -273,7 +273,7 @@
 .topic-header {
   display: grid;
   grid-template-columns: 1fr;
-  grid-gap: space(2);
+  gap: space(2);
 
   @include up(700) {
     display: flex;
@@ -309,7 +309,7 @@
 
   @include down(700) {
     display: grid;
-    grid-gap: .5em;
+    gap: .5em;
   }
 }
 .topic-header__author {

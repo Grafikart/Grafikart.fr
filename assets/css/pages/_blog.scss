@@ -13,7 +13,7 @@
 .blog-post {
   display: grid;
   grid-template-columns: 1fr;
-  grid-gap: space(4);
+  gap: space(4);
 
   @include up(700) {
     grid-template-columns: 160px 1fr;

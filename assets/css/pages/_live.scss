@@ -193,7 +193,7 @@
   }
   .live-recap {
     display: grid;
-    grid-gap: space(8);
+    gap: space(8);
     grid-template-columns: 462px 1fr;
     justify-content: flex-end;
   }

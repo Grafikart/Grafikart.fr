@@ -296,7 +296,7 @@
   .card-illustration {
     display: grid;
     grid-template-columns: 1fr 250px;
-    grid-gap: 30px;
+    gap: 30px;
 
     .homepage & {
       min-height: 340px;

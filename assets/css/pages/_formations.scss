@@ -3,7 +3,7 @@
   z-index: 1;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  grid-gap: space(4);
+  gap: space(4);
   grid-auto-flow: dense;
 }
 
@@ -11,7 +11,7 @@
   @extend %container;
   display: grid;
   grid-template-columns: 420px 1fr;
-  grid-gap: 50px;
+  gap: 50px;
   padding-top: space(5);
 
   .hero-title {
@@ -30,13 +30,13 @@
   }
 
   @include up(1200) {
-    grid-gap: 120px;
+    gap: 120px;
   }
 }
 
 .formation-arguments {
   display: grid;
-  grid-gap: space(3);
+  gap: space(3);
 
   @include between(900, 1175) {
     grid-template-columns: repeat(2, 1fr);

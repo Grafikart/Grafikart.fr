@@ -58,7 +58,7 @@
 .premium-grid {
   display: grid;
   grid-template-columns: 1fr;
-  grid-gap: space(5);
+  gap: space(5);
 }
 
 @include up(950) {

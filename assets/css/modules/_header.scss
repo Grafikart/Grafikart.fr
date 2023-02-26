@@ -267,7 +267,7 @@
   }
   .header.is-open .header-nav {
     display: grid;
-    grid-gap: space(4);
+    gap: space(4);
     grid-template-columns: 1fr;
     justify-items: center;
     align-content: center;

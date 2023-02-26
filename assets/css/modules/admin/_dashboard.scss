@@ -183,7 +183,7 @@
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
-  grid-gap: space(3);
+  gap: space(3);
 }
 
 // Formulaires

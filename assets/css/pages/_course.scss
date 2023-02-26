@@ -1,7 +1,7 @@
 .courses {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));
-  grid-gap: space(4);
+  gap: space(4);
   grid-auto-flow: dense;
 }
 
@@ -276,7 +276,7 @@
 .course-actions {
   display: grid;
   grid-template-columns: 1fr;
-  grid-gap: space(2);
+  gap: space(2);
   justify-items: flex-start;
 
   & > div:first-child {
@@ -286,7 +286,7 @@
   & > div {
     display: grid;
     grid-template-columns: 1fr;
-    grid-gap: space(2);
+    gap: space(2);
   }
 
   @include up(600) {

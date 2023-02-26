@@ -26,7 +26,7 @@
     position: relative;
     display: grid;
     grid-template-columns: 430px 1fr;
-    grid-gap: 70px;
+    gap: 70px;
   }
   .home-intro__illustration {
     display: block;
@@ -53,7 +53,7 @@
 .home-cursus {
   display: grid;
   grid-template-columns: 1fr;
-  grid-gap: space(4);
+  gap: space(4);
   z-index: 2;
   position: relative;
   padding-top: var(--padding);
@@ -199,13 +199,13 @@
 
 .home-push {
   display: grid;
-  grid-gap: space(4);
+  gap: space(4);
   background: linear-gradient(to top, var(--background-light), var(--background-light)) left bottom / 100% 90px no-repeat var(--background);
 }
 
 .home-push__mosaic {
   display: grid;
-  grid-gap: space(6);
+  gap: space(6);
 }
 
 .home-push__mosaic .pill {
@@ -220,7 +220,7 @@
     display: grid;
     align-items: flex-start;
     grid-template-columns: 1fr 800px;
-    grid-gap: space(6);
+    gap: space(6);
   }
   .home-push__body {
     margin-top: 24px;
@@ -231,7 +231,7 @@
     grid-template-columns: repeat(40, 1fr);
     grid-auto-flow: dense;
     align-items: flex-end;
-    grid-gap: 20px;
+    gap: 20px;
     margin-left: -50px;
 
     & > *:first-child {
@@ -280,7 +280,7 @@
   align-items: center;
   justify-content: center;
   padding-top: 110px;
-  grid-gap: space(3);
+  gap: space(3);
   background: linear-gradient(to top, var(--background), var(--background)) left bottom / 100% 40px no-repeat;
 }
 
@@ -303,7 +303,7 @@
   background: var(--background);
   display: grid;
   grid-template-columns: 1fr;
-  grid-gap: space(4);
+  gap: space(4);
   align-items: flex-end;
 }
 

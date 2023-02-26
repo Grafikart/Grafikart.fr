@@ -7,7 +7,7 @@
   padding-bottom: space(6);
   background: var(--background); // linear-gradient(#00000003, #00000003);
   border-top: solid 4px var(--border-light);
-  grid-gap: space(4);
+  gap: space(4);
 }
 
 .footer ul li {
