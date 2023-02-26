@@ -11,8 +11,11 @@ class CacheController extends BaseController
     #[Route(path: '/cache/clean', name: 'cache_clean', methods: ['POST'])]
     public function clean(CacheItemPoolInterface $cache): RedirectResponse
     {
-        $this->addFlash('success', 'Le cache a bien été supprimé');
-        $cache->clear();
+        if ($cache->clear()) {
+            $this->addFlash('success', 'Le cache a bien été supprimé');
+        } else {
+            $this->addFlash('danger', "Le cache n'a pas pu être supprimé");
+        }
 
         return $this->redirectToRoute('admin_home');
     }
