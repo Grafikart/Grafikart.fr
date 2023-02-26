@@ -22,5 +22,5 @@ class LiveController extends AbstractController
                 'live_future' => $liveService->getNextLiveDate() > new \DateTimeImmutable(),
                 'live_at' => $liveService->getNextLiveDate(),
             ]);
-        }
+    }
 }

@@ -12,10 +12,7 @@ use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Podcast|null find($id, $lockMode = null, $lockVersion = null)
- * @method Podcast|null findOneBy(array $criteria, array $orderBy = null)
- * @method Podcast[]    findAll()
- * @method Podcast[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @extends AbstractRepository<Podcast>
  */
 class PodcastRepository extends AbstractRepository
 {
@@ -25,8 +22,8 @@ class PodcastRepository extends AbstractRepository
     }
 
     /**
-     * @return IterableQueryBuilder<Post>
-     */
+    * @return IterableQueryBuilder<Podcast>
+    */
     public function findRecent(int $limit): IterableQueryBuilder
     {
         return $this->createIterableQuery('p')
