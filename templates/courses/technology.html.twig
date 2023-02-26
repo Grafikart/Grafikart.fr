@@ -77,6 +77,7 @@
       {% endif %}
 
       {# Cours #}
+      {% if courses.totalItemCount > 0 %}
       <div id="courses" class="stack" {% if showTabs %} hidden="hidden"{% endif %}>
         <h2 class="h3"><strong>Découvrir {{ technology.name }}</strong> avec des tutoriels</h2>
         <div class="courses">
@@ -87,10 +88,11 @@
 
         {{ paginate(courses) }}
       </div>
+      {% endif %}
     </div>
     {% endif %}
 
-    {# Sideabr #}
+    {# Sidebar #}
     <div class="stack" style="--gap: 5">
       {% if technology.requirements is not empty %}
       <section class="stack">
