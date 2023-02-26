@@ -100,7 +100,7 @@
 }
 
 // Contenu sans video
-.blog-single__body.text-only p:first-child {
+.blog-single__body.text-only > p:first-child {
   color: var(--color-inversed);
   margin-bottom: 70px;
 }
