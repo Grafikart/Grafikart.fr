@@ -23,7 +23,7 @@ function Chapter ({ chapter, onUpdate, onRemove, onAdd, editPath }) {
       <input type="text" value="${chapter.title}" class="chapters-editor__chapter" onblur=${onUpdate} />
       <button type="button" onclick=${deleteChapter} class="chapters-editor__delete">
         <svg class="icon icon-delete">
-          <use xlink:href="/sprite.svg#delete"></use>
+          <use href="/sprite.svg#delete"></use>
         </svg>
       </button>
       <ul>
@@ -53,7 +53,7 @@ function Module ({ course, onRemove, editPath }) {
       <a href=${url} target="_blank">${course.title}</a>
       <button type="button" onclick=${onRemove} class="chapters-editor__delete">
         <svg class="icon icon-delete">
-          <use xlink:href="/sprite.svg#delete"></use>
+          <use href="/sprite.svg#delete"></use>
         </svg>
       </button>
     </li>
@@ -83,7 +83,7 @@ function AddButton ({ placeholder, onAdd }) {
       <input type="text" placeholder=${placeholder} onkeydown=${enterKeyListener(callback)} />
       <button type="button" onclick=${callback}>
         <svg class="icon icon-add">
-          <use xlink:href="/sprite.svg#delete"></use>
+          <use href="/sprite.svg#delete"></use>
         </svg>
       </button>
     </li>

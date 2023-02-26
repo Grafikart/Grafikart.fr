@@ -17,7 +17,7 @@ function createLi (item) {
     <a href="${item.url}">${item.name}</a>
     <button type="button" class="sortable-item__delete">
       <svg class="icon icon-add">
-        <use xlink:href="/sprite.svg#delete"></use>
+        <use href="/sprite.svg#delete"></use>
       </svg>
     </button>
   `

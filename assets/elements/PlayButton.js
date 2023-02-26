@@ -37,7 +37,7 @@ export class PlayButton extends HTMLElement {
       }
       this.root.host.outerHTML = `<div class="chapters__premium">
             <svg class="icon icon-{$name}">
-              <use xlink:href="/sprite.svg?logo#lock"></use>
+              <use href="/sprite.svg?logo#lock"></use>
             </svg>
           </div>`
       return

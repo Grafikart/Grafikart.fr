@@ -126,7 +126,7 @@
           <a href="{{ path(user.githubId ? 'oauth_unlink' : 'oauth_connect', {service: 'github'}) }}"
              class="btn-secondary">
             <svg class="icon">
-              <use xlink:href="/social.svg#github"></use>
+              <use href="/social.svg#github"></use>
             </svg>
             {{ user.githubId ? 'Dissocier' : 'Lier' }} votre compte GitHub
           </a>
@@ -135,7 +135,7 @@
           <a href="{{ path(user.googleId ? 'oauth_unlink' : 'oauth_connect', {service: 'google'}) }}"
              class="btn-secondary">
             <svg class="icon">
-              <use xlink:href="/social.svg#google"></use>
+              <use href="/social.svg#google"></use>
             </svg>
             {{ user.googleId ? 'Dissocier' : 'Lier' }} votre compte Google
           </a>
@@ -144,7 +144,7 @@
           <a href="{{ path(user.facebookId ? 'oauth_unlink' : 'oauth_connect', {service: 'facebook'}) }}"
              class="btn-secondary">
             <svg class="icon">
-              <use xlink:href="/social.svg#facebook"></use>
+              <use href="/social.svg#facebook"></use>
             </svg>
             {{ user.facebookId ? 'Dissocier' : 'Lier' }} votre compte Facebook
           </a>

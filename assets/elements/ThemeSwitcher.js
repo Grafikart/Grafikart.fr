@@ -9,10 +9,10 @@ export class ThemeSwitcher extends HTMLElement {
         <input type="checkbox" is="input-switch" id="theme-switcher" aria-label="Changer de thème">
         <label for="theme-switcher">
           <svg class="icon icon-moon">
-            <use xlink:href="/sprite.svg#moon"></use>
+            <use href="/sprite.svg#moon"></use>
           </svg>
           <svg class="icon icon-sun">
-            <use xlink:href="/sprite.svg#sun"></use>
+            <use href="/sprite.svg#sun"></use>
           </svg>
         </label>`
     const input = this.querySelector('input')
