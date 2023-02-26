@@ -31,6 +31,13 @@
 
   <div class="layout-sidebar container bg py5" style="--gap: 5;">
 
+    {% if isEmpty %}
+    <div>
+      <alert-message type="info">
+        Il n'y a pas encore de contenu pour cette technologie :(
+      </alert-message>
+    </div>
+    {% else %}
     <div class="stack" style="--gap: 7">
       {# Formations #}
       {% if formationsPerLevel is not empty %}
@@ -81,6 +88,7 @@
         {{ paginate(courses) }}
       </div>
     </div>
+    {% endif %}
 
     {# Sideabr #}
     <div class="stack" style="--gap: 5">

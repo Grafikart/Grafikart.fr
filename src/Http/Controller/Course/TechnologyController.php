@@ -30,14 +30,18 @@ class TechnologyController extends AbstractController
             $formationsPerLevel = collect($formations)->groupBy(fn (Formation $t) => $t->getLevel())->toArray();
         }
         $nextTechnologies = collect($technology->getRequiredBy())->groupBy(fn (Technology $t) => $t->getType() ?? '');
+        $courses = $paginator->paginate($courseRepository->queryForTechnology($technology));
+
+        $isEmpty = count($formations) === 0 && $courses->getTotalItemCount() === 0;
 
         return $this->render('courses/technology.html.twig', [
             'technology' => $technology,
             'showTabs' => count($formations) > 3,
             'formations' => $formations,
             'formationsPerLevel' => $formationsPerLevel,
-            'courses' => $paginator->paginate($courseRepository->queryForTechnology($technology)),
+            'courses' => $courses,
             'next' => $nextTechnologies,
+            'isEmpty' => $isEmpty,
             'menu' => 'courses',
         ]);
     }
