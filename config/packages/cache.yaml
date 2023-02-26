@@ -1,6 +1,6 @@
 framework:
   cache:
-    app: cache.adapter.array
+    app: app.cache.adapter.redis
     # Pour tester le cache tout en étant en dev
     # app: app.cache.adapter.redis
     prefix_seed: grafikart.fr

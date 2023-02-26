@@ -39,7 +39,7 @@ install: vendor/autoload.php public/assets/manifest.json ## Installe les différ
 	APP_ENV=prod APP_DEBUG=0 $(php) composer install --no-dev --optimize-autoloader
 	make migrate
 	APP_ENV=prod APP_DEBUG=0 $(sy) cache:clear
-	$(sy) cache:pool:clear cache.global_clearer
+	APP_ENV=prod APP_DEBUG=0 $(sy) cache:pool:clear cache.global_clearer
 	$(sy) messenger:stop-workers
 	sudo service php8.1-fpm reload
 
