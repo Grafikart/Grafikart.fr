@@ -11,6 +11,7 @@ use App\Domain\Course\Entity\Formation;
 use App\Domain\History\Entity\Progress;
 use App\Domain\History\HistoryService;
 use App\Domain\Live\Live;
+use App\Domain\Podcast\Entity\Podcast;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -36,7 +37,7 @@ class HomeController extends AbstractController
             'hours' => round($courseRepository->findTotalDuration() / 3600),
             'formations' => $this->em->getRepository(Formation::class)->findRecent(3),
             'cursus' => $this->em->getRepository(Cursus::class)->findRecent(5),
-            'lives' => $this->em->getRepository(Live::class)->findRecent(3),
+            'podcasts' => $this->em->getRepository(Podcast::class)->findRecent(3),
             'posts' => $this->em->getRepository(Post::class)->findRecent(5),
         ]);
     }

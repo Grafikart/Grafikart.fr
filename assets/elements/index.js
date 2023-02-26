@@ -1,4 +1,3 @@
-import { RecapLiveElement } from './RecapLiveElement.js'
 import { PlayButton } from './PlayButton.js'
 import { YoutubePlayer } from './player/YoutubePlayer.js'
 import { Waves } from './Waves.js'
@@ -46,7 +45,6 @@ customElements.define('alert-message', Alert)
 customElements.define('spoiler-box', SpoilerBox)
 customElements.define('alert-floating', FloatingAlert)
 customElements.define('youtube-player', YoutubePlayer)
-customElements.define('live-recap', RecapLiveElement)
 customElements.define('play-button', PlayButton)
 customElements.define('waves-shape', Waves)
 customElements.define('time-ago', TimeAgo)

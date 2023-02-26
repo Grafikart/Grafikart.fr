@@ -2,7 +2,6 @@
 
 namespace App\Infrastructure\Queue\Handler;
 
-use App\Domain\Live\LiveSyncService;
 use App\Domain\Notification\NotificationService;
 use App\Infrastructure\Mailing\Mailer;
 use App\Infrastructure\Queue\Message\ServiceMethodMessage;
@@ -34,7 +33,6 @@ class ServiceMethodMessageHandler implements ServiceSubscriberInterface
     public static function getSubscribedServices(): array
     {
         return [
-            LiveSyncService::class => LiveSyncService::class,
             YoutubeUploaderService::class => YoutubeUploaderService::class,
             MailerInterface::class => MailerInterface::class,
             Mailer::class => Mailer::class,

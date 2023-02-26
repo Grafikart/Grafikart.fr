@@ -24,7 +24,18 @@ class TwigLiveExtension extends AbstractExtension
                 $this->getNextLiveTime(...),
                 ['is_safe' => ['html']]
             ),
+            new TwigFunction(
+                'is_live_available',
+                $this->getLiveAvailable(...),
+                ['is_safe' => ['html']]
+            ),
         ];
+    }
+
+    public function getLiveAvailable()
+    {
+        $liveDate = $this->liveService->getNextLiveDate();
+        return $liveDate->modify('+5 hour') > new \DateTime();
     }
 
     public function getNextLiveTime(): string
@@ -41,7 +52,7 @@ class TwigLiveExtension extends AbstractExtension
         // Le live est dans le futur
         $diff = $liveDate->getTimestamp() - time();
         if ($diff > 24 * 3600) {
-            $days = ceil($diff / 24 * 3600);
+            $days = ceil($diff / (24 * 3600));
 
             return "<small class='text-muted'>(J-{$days})</small>";
         }

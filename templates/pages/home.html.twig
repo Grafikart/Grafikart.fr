@@ -115,12 +115,12 @@
               </div>
 
               <div class="card card-big">
-                <a class="pill pill-green" href="{{ path('live') }}">Tous les lives</a>
+                <a class="pill pill-green" href="{{ path('live') }}">Tous les podcasts</a>
                 <div class="home-list stack-separated" style="--gap: 2">
-                  {% for live in lives %}
+                  {% for podcast in podcasts %}
                     <div class="home-list__item">
-                      <a class="card__title" href="https://www.youtube.com/watch?v={{ live.youtubeId }}">{{ live.name }}</a>
-                      <div>{{ live.createdAt | format_date('long') }}</div>
+                      <a class="card__title" href="{{ path('podcast_show', {id: podcast.id}) }}">{{ podcast.title }}</a>
+                      <div>{{ podcast.createdAt | format_date('long') }}</div>
                     </div>
                   {% endfor %}
                 </div>

@@ -3,8 +3,10 @@
 namespace App\Domain\Podcast\Repository;
 
 use App\Domain\Auth\User;
+use App\Domain\Blog\Post;
 use App\Domain\Podcast\Entity\Podcast;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Infrastructure\Orm\AbstractRepository;
+use App\Infrastructure\Orm\IterableQueryBuilder;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -15,11 +17,23 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Podcast[]    findAll()
  * @method Podcast[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PodcastRepository extends ServiceEntityRepository
+class PodcastRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Podcast::class);
+    }
+
+    /**
+     * @return IterableQueryBuilder<Post>
+     */
+    public function findRecent(int $limit): IterableQueryBuilder
+    {
+        return $this->createIterableQuery('p')
+            ->select('p')
+            ->where('p.createdAt < NOW()')
+            ->orderBy('p.createdAt', 'DESC')
+            ->setMaxResults($limit);
     }
 
     /**

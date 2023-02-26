@@ -42,8 +42,10 @@
       <li><a href="{{ path('blog_index') }}" {{ menu_active('blog') }}>{{ icon('pen') }} Blog</a></li>
       <li><a href="{{ path('forum') }}" {{ menu_active('forum') }}>{{ icon('comment') }} Forum</a></li>
       <li><a href="{{ path('podcast') }}" {{ menu_active('podcasts') }}>{{ icon('micro') }} Podcasts</a></li>
+      {% if is_live_available() %}
       <li><a href="{{ path('live') }}" {{ menu_active('live') }}
              class="{{ is_live_running() ? 'has-live' : '' }}">{{ icon('camera') }} Live {{ next_live_time() }}</a></li>
+      {% endif %}
     </ul>
     {% include 'partials/header-side.html.twig' %}
   </nav>
