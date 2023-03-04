@@ -101,7 +101,7 @@ services:
     user: '${USER_ID}:${GROUP_ID}'
     build:
       context: ./tools/docker/node
-    command: yarn run dev
+    command: pnpm run dev
     working_dir: /usr/src/app
     volumes:
       - .:/usr/src/app

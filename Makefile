@@ -88,7 +88,7 @@ test: vendor/autoload.php node_modules/time ## Execute les tests
 	$(drtest) phptest bin/console doctrine:schema:validate --skip-sync
 	$(drtest) phptest vendor/bin/paratest -p 4 --runner=WrapperRunner
 	# $(drtest) phptest vendor/bin/phpunit
-	$(node) yarn run test
+	$(node) pnpm run test
 
 .PHONY: tt
 tt: vendor/autoload.php ## Lance le watcher phpunit
@@ -132,16 +132,16 @@ vendor/autoload.php: composer.lock
 	$(php) composer install
 	touch vendor/autoload.php
 
-node_modules/time: yarn.lock
-	$(node) yarn
+node_modules/time: pnpm-lock.yaml
+	$(node) pnpm install
 	touch node_modules/time
 
 public/assets: node_modules/time
-	$(node) yarn run build
+	$(node) pnpm run build
 
 var/dump:
 	mkdir var/dump
 
 public/assets/manifest.json: package.json
-	$(node) yarn
-	$(node) yarn run build
+	$(node) pnpm install
+	$(node) pnpm run build

@@ -6,6 +6,7 @@
 /public/old
 /public/uploads
 *.sql
+.pnpm-store
 
 # Assets
 /assets/css/app.css

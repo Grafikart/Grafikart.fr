@@ -21,19 +21,4 @@
     update_cache: yes
     name:
       - nodejs
-      - yarn
-    state: present
-- name: NodeJS | Yarn GPG Key
-  apt_key:
-    url: https://dl.yarnpkg.com/debian/pubkey.gpg
-- name: NodeJS | Yarn Debian repository
-  apt_repository:
-    repo: deb https://dl.yarnpkg.com/debian/ stable main
-    state: present
-- name: NodeJS | Install
-  apt:
-    update_cache: yes
-    name:
-      - nodejs
-      - yarn
     state: present

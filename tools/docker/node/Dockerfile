@@ -1,4 +1,7 @@
-FROM node:14-alpine
+FROM node:16-alpine
+
+RUN corepack enable
+RUN corepack prepare pnpm@latest --activate
 
 RUN mkdir -m 777 /.npm
 RUN mkdir -m 777 /.yarn
