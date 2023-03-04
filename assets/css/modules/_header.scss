@@ -55,7 +55,7 @@
 .header svg {
   width: 12px;
   height: 12px;
-  margin-right: space(1);
+  margin-right: space(.5);
 }
 .header__home svg {
   width: 14px;
@@ -94,7 +94,7 @@
   color: var(--contrast);
 }
 .header-nav > * + * {
-  margin-left: space(6);
+  margin-left: space(5);
 }
 .header-side {
   margin-right: space(-2);
