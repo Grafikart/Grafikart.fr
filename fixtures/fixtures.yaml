@@ -7,9 +7,6 @@ App\Domain\Auth\User:
     username: Grafikart
     email: grafikart@grafikart.fr
 
-App\Domain\Live\Live:
-  live{1..10} (extends live):
-
 App\Domain\Course\Entity\Course:
   course{1..100} (extends course):
 
@@ -72,6 +69,7 @@ App\Domain\Premium\Entity\Plan:
 App\Domain\Podcast\Entity\Podcast:
   podcast{1..20} (extends podcast):
     title: 'Podcast publié <current()>'
+    youtube: 'https://www.youtube.com/watch?v=zEJF1SnfxX8'
   podcast_future{1..3} (extends podcast):
     title: 'Podcast programmé <current()>'
     scheduledAt: <dateTimeBetween('+1 week', '+1 month')>
