@@ -3,7 +3,6 @@
 namespace App\Domain\Podcast\Repository;
 
 use App\Domain\Auth\User;
-use App\Domain\Blog\Post;
 use App\Domain\Podcast\Entity\Podcast;
 use App\Infrastructure\Orm\AbstractRepository;
 use App\Infrastructure\Orm\IterableQueryBuilder;
@@ -24,12 +23,17 @@ class PodcastRepository extends AbstractRepository
     /**
     * @return IterableQueryBuilder<Podcast>
     */
-    public function findRecent(int $limit): IterableQueryBuilder
+    public function findRecent(int $limit, bool $published = false): IterableQueryBuilder
     {
-        return $this->createIterableQuery('p')
+        $qb = $this->createIterableQuery('p')
             ->select('p')
-            ->where('p.createdAt < NOW()')
-            ->orderBy('p.createdAt', 'DESC')
+            ->where('p.createdAt < NOW()');
+
+        if ($published) {
+            $qb->andWhere('(p.youtube IS NOT NULL OR p.mp3 IS NOT NULL)');
+        }
+
+        return $qb->orderBy('p.createdAt', 'DESC')
             ->setMaxResults($limit);
     }
 

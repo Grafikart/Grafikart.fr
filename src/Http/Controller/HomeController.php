@@ -37,7 +37,7 @@ class HomeController extends AbstractController
             'hours' => round($courseRepository->findTotalDuration() / 3600),
             'formations' => $this->em->getRepository(Formation::class)->findRecent(3),
             'cursus' => $this->em->getRepository(Cursus::class)->findRecent(5),
-            'podcasts' => $this->em->getRepository(Podcast::class)->findRecent(3),
+            'podcasts' => $this->em->getRepository(Podcast::class)->findRecent(3, true),
             'posts' => $this->em->getRepository(Post::class)->findRecent(5),
         ]);
     }
