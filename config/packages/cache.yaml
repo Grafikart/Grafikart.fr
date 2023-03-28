@@ -11,7 +11,7 @@ framework:
 
 services:
   app.cache.adapter.redis:
-    parent: 'cache.adapter.redis'
+    parent: 'cache.adapter.redis_tag_aware'
     arguments:
       $defaultLifetime: 604800
     tags:
