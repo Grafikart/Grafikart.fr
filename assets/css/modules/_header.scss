@@ -259,7 +259,7 @@
     height: auto;
     padding: 60px space(2) space(2);
     backdrop-filter: blur(10px);
-    z-index: 3;
+    z-index: 100;
     display: grid;
     grid-template-columns: 1fr;
     place-items: center;
