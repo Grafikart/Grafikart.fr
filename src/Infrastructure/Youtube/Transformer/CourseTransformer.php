@@ -47,7 +47,6 @@ Abonnez-vous ► https://bit.ly/GrafikartSubscribe
 
 Soutenez Grafikart:
 Devenez premium ► https://grafikart.fr/premium
-Donnez via Utip ► https://utip.io/grafikart
 
 Retrouvez Grafikart sur:
 Le site ► https://grafikart.fr
