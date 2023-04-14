@@ -1,6 +1,6 @@
 framework:
   cache:
-    app: app.cache.adapter.redis
+    app: cache.adapter.array
     # Pour tester le cache tout en étant en dev
     # app: app.cache.adapter.redis
     prefix_seed: grafikart.fr
@@ -11,8 +11,9 @@ framework:
 
 services:
   app.cache.adapter.redis:
-    parent: 'cache.adapter.redis_tag_aware'
+    parent: 'cache.adapter.redis'
     arguments:
+      $redis: '@Redis'
       $defaultLifetime: 604800
     tags:
       - { name: 'cache.pool', namespace: 'grafikart_cache' }

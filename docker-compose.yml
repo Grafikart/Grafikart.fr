@@ -45,7 +45,7 @@ services:
       - ./var:/var/www/var
   redis:
     restart: unless-stopped
-    image: redis:6-alpine
+    image: redis:7-alpine
   meilisearch:
     restart: unless-stopped
     image: getmeili/meilisearch:v1.0
