@@ -141,7 +141,7 @@ export function SearchInput ({ defaultValue }) {
       <button type='submit'>
         <Icon name='search' />
       </button>
-      {loading && <Loader class='search-input_loader' />}
+      {loading && <Loader className='search-input_loader' />}
       {results.length > 0 && (
         <ul class='search-input_suggestions'>
           {results.map((r, index) => (
