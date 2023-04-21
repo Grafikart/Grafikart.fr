@@ -74,7 +74,7 @@ export function Notifications () {
       <button onClick={openMenu} aria-label="Voir les notifications">
         <Icon name='bell' />
       </button>
-      <Badge count={'9+'} />
+      <Badge count={unreadCount} />
       <SlideIn className='notifications' show={state === OPEN}>
         <Popup
           loading={loading}
