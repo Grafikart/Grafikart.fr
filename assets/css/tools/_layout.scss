@@ -50,7 +50,6 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  overflow: hidden;
 }
 
 // Container
@@ -116,12 +115,20 @@
   }
 }
 
-.flex-start {
+.start {
   justify-content: flex-start;
 }
 
-.flex-end {
+.baseline {
+  align-items: baseline;
+}
+
+.end {
   justify-content: flex-end;
+}
+
+.middle {
+  align-items: center;
 }
 
 .center {
@@ -291,59 +298,54 @@
 .mla {
   margin-left: auto;
 }
+
 @for $i from 0 through 5 {
-  body {
-    .p#{$i} {
-      padding: space($i);
-    }
+  .p#{$i} {
+    padding: space($i);
+  }
 
-    .pt#{$i} {
-      padding-top: space($i);
-    }
+  .pt#{$i} {
+    padding-top: space($i);
+  }
 
-    .pb#{$i} {
-      padding-bottom: space($i);
-    }
+  .pb#{$i} {
+    padding-bottom: space($i);
+  }
 
-    .px#{$i} {
-      padding-left: space($i);
-      padding-right: space($i);
-    }
+  .px#{$i} {
+    padding-inline: space($i);
+  }
 
-    .py#{$i} {
-      padding-top: space($i);
-      padding-bottom: space($i);
-    }
+  .py#{$i} {
+    padding-block: space($i);
+  }
 
-    .my#{$i} {
-      margin-top: space($i);
-      margin-bottom: space($i);
-    }
+  .my#{$i} {
+    margin-block: space($i);
+  }
 
-    .m#{$i} {
-      margin: space($i);
-    }
+  .m#{$i} {
+    margin: space($i);
+  }
 
-    .mx#{$i} {
-      margin-left: space($i);
-      margin-right: space($i);
-    }
+  .mx#{$i} {
+    margin-inline: space($i);
+  }
 
-    .mt#{$i} {
-      margin-top: space($i);
-    }
+  .mt#{$i} {
+    margin-top: space($i);
+  }
 
-    .mb#{$i} {
-      margin-bottom: space($i);
-    }
+  .mb#{$i} {
+    margin-bottom: space($i);
+  }
 
-    .mr#{$i} {
-      margin-right: space($i);
-    }
+  .mr#{$i} {
+    margin-right: space($i);
+  }
 
-    .ml#{$i} {
-      margin-left: space($i);
-    }
+  .ml#{$i} {
+    margin-left: space($i);
   }
 }
 

@@ -156,3 +156,11 @@ App\Domain\Revision\Revision:
     created_at: <dateTimeThisYear()>
     content: <paragraphs(5, true)>
     status: 0
+
+App\Domain\Glossary\Entity\GlossaryItem:
+  glossary_item (template):
+    name: <words(1, true)>
+    slug: <slug()>
+    created_at: <dateTimeImmutableThisYear()>
+    updated_at: <dateTimeImmutableThisYear()>
+    content: <paragraphs(5, true)>

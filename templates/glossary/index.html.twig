@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'header-light' %}
+
+{% block title 'Lexique' %}
+
+{% block body %}
+
+  <div class="glossary-header container bg-contrast text-inversed ">
+    <div class="flex baseline flex-none">
+      <h1 class="h1 flex-none">Lexique</h1>
+      <p class="flex-none formatted mobile-hidden">
+        , pour découvrir tout de <strong>A</strong> à <strong>Z</strong>
+      </p>
+    </div>
+    <form class="form-group flex glossary-search" action="">
+      <input type="text" name="q" placeholder="Rechercher un mot" value="" required>
+      <button type="submit">
+        <span class="reader-only">Rechercher</span>
+        {{ icon('search') }}
+      </button>
+    </form>
+  </div>
+
+  <div class="glossary-letters container py2">
+    {% for letter in letters %}
+      <a class="glossary-letter center" href="#letter-{{ letter | lower }}">
+        {{ letter }}
+      </a>
+    {% endfor %}
+  </div>
+
+  <main class="container pb5">
+    {% for letter, words in wordsByLetters %}
+    <section class="glossary-section pt5" id="letter-{{ letter }}">
+      <h2 class="glossary-lettering h1">{{ letter }}</h2>
+      <ul class="glossary-words card mt2">
+        {% for word in words %}
+        <li>
+          <a href="" class="glossary-word py1 px2">
+            {{ word.name }}{% if word.synonyms | length > 0 %},{% endif %}
+            <span>
+              {{ word.synonyms | join(', ') }}
+            </span>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endfor %}
+  </main>
+
+{% endblock %}

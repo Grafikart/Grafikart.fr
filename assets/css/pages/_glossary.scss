@@ -1,0 +1,132 @@
+.glossary-header {
+  padding-block: space(9);
+  display: flex;
+  align-items: baseline;
+  gap: 1rem 124px;
+
+  @include down(800) {
+    flex-direction: column;
+  }
+}
+
+.glossary-header .h1 {
+  line-height: 1;
+}
+
+.glossary-header p {
+  font-size: 20px;
+}
+
+.glossary-search {
+  flex-grow: 1;
+  max-width: 500px;
+}
+
+.glossary-search input {
+  border-radius: 3px 0 0 3px;
+}
+
+.glossary-search button {
+  flex: none;
+  background-color: var(--color-dark);
+  color: var(--color-inversed);
+  width: 48px;
+  height: 48px;
+  border-radius: 0 3px 3px 0;
+}
+
+.glossary-search svg {
+  width: 20px;
+  height: 20px;
+}
+
+.glossary-letters {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background-color: var(--background-light);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: repeat(26, 1fr);
+  gap: .5rem 0;
+  font-size: 23px;
+  transition: top .3s ease;
+
+  .is-fixed:not(.is-hidden) ~ & {
+    top: var(--header-height);
+  }
+
+  @include down(1071) {
+    font-size: 20px;
+  }
+
+  @include down(800) {
+    grid-template-columns: repeat(13, 1fr);
+  }
+
+  @include down(460) {
+    grid-template-columns: repeat(9, 1fr);
+  }
+}
+
+.glossary-letter {
+  border: 1px solid var(--border);
+  font-weight: bold;
+  padding-block: .35em;
+  max-height: 40px;
+  max-width: 38px;
+  line-height: 1;
+  transition: .3s;
+
+  &:hover {
+    color: var(--contrast);
+    background-color: var(--background);
+    border-color: var(--contrast);
+  }
+
+}
+
+.glossary-letter.is-active {
+  border-color: var(--contrast);
+  background-color: var(--contrast);
+  color: var(--color-inversed)
+}
+
+.glossary-section {
+  scroll-margin: 75px 0 0 0;
+}
+
+.glossary-lettering {
+  text-transform: uppercase;
+}
+
+.glossary-word {
+  border-bottom: 1px solid var(--border);
+  color: var(--color);
+  display: block;
+  --light: var(--color-light);
+
+  &:hover {
+    background: var(--background);
+    --light: var(--contrast);
+    color: var(--contrast);
+  }
+
+  span {
+    color: var(--light);
+    font-size: 12px;
+  }
+
+  &:first-letter {
+    text-transform: uppercase;
+    font-size: 1.3em;
+    font-weight: bold;
+  }
+
+  li:last-child & {
+    border: none;
+  }
+}

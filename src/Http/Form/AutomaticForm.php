@@ -8,8 +8,10 @@ use App\Domain\Auth\User;
 use App\Domain\Course\Entity\CursusCategory;
 use App\Domain\Course\Entity\Formation;
 use App\Domain\Forum\Entity\Tag;
+use App\Domain\Glossary\Entity\GlossaryItem;
 use App\Http\Admin\Form\Field\CursusCategoryChoiceType;
 use App\Http\Admin\Form\Field\ForumTagChoiceType;
+use App\Http\Admin\Form\Field\GlossaryItemChoiceType;
 use App\Http\Admin\Form\Field\IntervenantsType;
 use App\Http\Admin\Form\Field\TechnologiesType;
 use App\Http\Admin\Form\Field\TechnologyChoiceType;
@@ -43,6 +45,7 @@ class AutomaticForm extends AbstractType
         \DateTimeInterface::class => DateTimeType::class,
         UploadedFile::class => FileType::class,
         CursusCategory::class => CursusCategoryChoiceType::class,
+        GlossaryItem::class => GlossaryItemChoiceType::class,
     ];
 
     final public const NAMES = [
