@@ -1,0 +1,12 @@
+include:
+  - ../../fixtures/templates.yaml
+  - ./users.yaml
+  - ./courses.yaml
+
+App\Domain\Revision\Revision:
+  revision{1} (extends revision):
+    target: '@course1'
+    author: '@user1'
+  revision{2} (extends revision):
+    target: '@course1'
+    author: '@user2'

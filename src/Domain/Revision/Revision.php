@@ -39,6 +39,9 @@ class Revision
     #[ORM\Column(type: 'integer', length: 1, options: ['default' => 0])]
     private int $status = self::PENDING;
 
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $comment = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -101,6 +104,17 @@ class Revision
     {
         $this->status = $status;
 
+        return $this;
+    }
+
+    public function getComment(): ?string
+    {
+        return $this->comment;
+    }
+
+    public function setComment(?string $comment): Revision
+    {
+        $this->comment = $comment;
         return $this;
     }
 }

@@ -4,15 +4,17 @@ namespace App\Http\Controller;
 
 use App\Domain\Application\Entity\Content;
 use App\Domain\Auth\User;
+use App\Domain\Revision\Revision;
 use App\Domain\Revision\RevisionRepository;
 use App\Domain\Revision\RevisionService;
 use App\Helper\Paginator\PaginatorInterface;
 use App\Http\Form\RevisionForm;
 use App\Http\Security\RevisionVoter;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 /**
  * @method User getUser()
@@ -36,9 +38,10 @@ class RevisionController extends AbstractController
 
     /**
      * Affiche la page qui permet la soumission d'une révision.
+     * Pour ce endpoint on ne passe pas l'ID de la révision mais l'id du contenu à modifier
      */
-    #[Route(path: '/revision/{id<\d+>}', name: 'revision')]
-    #[IsGranted(RevisionVoter::ADD)]
+    #[Route(path: '/revision/{id<\d+>}', name: 'revision', methods: ['GET', 'POST'])]
+    #[IsGranted(RevisionVoter::ADD, subject: 'content')]
     public function show(Content $content, Request $request, RevisionService $service): Response
     {
         $revision = $service->revisionFor($this->getUser(), $content);
@@ -60,5 +63,17 @@ class RevisionController extends AbstractController
             'revision' => $revision,
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * Supprime une révision
+     */
+    #[Route(path: '/revision/{id<\d+>}', methods: ['DELETE'])]
+    #[IsGranted(RevisionVoter::DELETE, subject: 'revision')]
+    public function delete(Revision $revision, EntityManagerInterface $em): Response
+    {
+        $em->remove($revision);
+        $em->flush();
+        return new Response(null, Response::HTTP_NO_CONTENT);
     }
 }

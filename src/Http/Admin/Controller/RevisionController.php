@@ -34,7 +34,7 @@ final class RevisionController extends CrudController
         if ('POST' === $request->getMethod()) {
             $isDeleteRequest = null !== $request->get('delete');
             if ($isDeleteRequest) {
-                $dispatcher->dispatch(new RevisionRefusedEvent($revision));
+                $dispatcher->dispatch(new RevisionRefusedEvent($revision, $request->get('comment')));
                 $this->addFlash('success', 'La révision a bien été supprimée');
             } else {
                 $revision->setContent($request->get('content'));
@@ -48,14 +48,5 @@ final class RevisionController extends CrudController
         return $this->render('admin/revision/edit.html.twig', [
             'revision' => $revision,
         ]);
-    }
-
-    #[Route(path: '/revision/{id<\d+>}', methods: ['DELETE'])]
-    public function delete(Revision $revision, EventDispatcherInterface $dispatcher): Response
-    {
-        $dispatcher->dispatch(new RevisionRefusedEvent($revision));
-        $this->addFlash('success', 'La révision a bien été supprimée');
-
-        return $this->redirectToRoute('admin_home');
     }
 }

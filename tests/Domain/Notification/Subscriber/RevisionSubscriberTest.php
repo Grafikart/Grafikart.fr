@@ -32,7 +32,7 @@ class RevisionSubscriberTest extends EventSubscriberTest
     public function testNoNotificationIfRevisionRefused()
     {
         $revision = $this->getRevision();
-        $event = new RevisionRefusedEvent($revision);
+        $event = new RevisionRefusedEvent($revision, "Erreur d'ortographe");
         $notification = $this->createMock(NotificationService::class);
         $notification->expects($this->once())->method('notifyUser');
         $subscriber = new RevisionSubscriber($notification);

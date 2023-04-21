@@ -150,3 +150,9 @@ App\Domain\Podcast\Entity\Podcast:
     updatedAt: <dateTimeThisYear()>
     scheduledAt: <dateTimeThisYear()>
     duration: <numberBetween(3700, 7000)>
+
+App\Domain\Revision\Revision:
+  revision (template):
+    created_at: <dateTimeThisYear()>
+    content: <paragraphs(5, true)>
+    status: 0

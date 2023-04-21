@@ -24,8 +24,9 @@ class RevisionSubscriber implements EventSubscriberInterface
 
     public function onRevisionRefused(RevisionRefusedEvent $event): void
     {
-        $event->getRevision()->setStatus(Revision::REJECTED);
-        $event->getRevision()->setContent('');
+        $revision = $event->getRevision();
+        $revision->setStatus(Revision::REJECTED);
+        $revision->setComment($event->getComment());
         $this->em->flush();
     }
 

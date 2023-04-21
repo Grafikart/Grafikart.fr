@@ -107,6 +107,12 @@ services:
       - .:/usr/src/app
     ports:
       - 3000:3000
+  dbtest:
+    image: postgres:12
+    environment:
+      POSTGRES_PASSWORD: test
+      POSTGRES_USER: test
+      POSTGRES_DB: test
 volumes:
   db-data:
     driver: local

@@ -21,9 +21,9 @@ class RevisionSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onRevisionAccepted(RevisionAcceptedEvent $revisionAcceptedEvent): void
+    public function onRevisionAccepted(RevisionAcceptedEvent $event): void
     {
-        $revision = $revisionAcceptedEvent->getRevision();
+        $revision = $event->getRevision();
         $this->notificationService->notifyUser(
             $revision->getAuthor(),
             sprintf(
@@ -34,9 +34,9 @@ class RevisionSubscriber implements EventSubscriberInterface
         );
     }
 
-    public function onRevisionRefused(RevisionRefusedEvent $revisionAcceptedEvent): void
+    public function onRevisionRefused(RevisionRefusedEvent $event): void
     {
-        $revision = $revisionAcceptedEvent->getRevision();
+        $revision = $event->getRevision();
         $this->notificationService->notifyUser(
             $revision->getAuthor(),
             sprintf(

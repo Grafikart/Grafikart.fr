@@ -33,11 +33,11 @@ class RevisionRepository extends AbstractRepository
         return $this->createQueryBuilder('r')
             ->where('r.author = :author')
             ->andWhere('r.target = :target')
-            ->andWhere('r.status = :status')
+            ->andWhere('r.status != :status')
             ->setParameters([
                 'author' => $user,
                 'target' => $content,
-                'status' => Revision::PENDING,
+                'status' => Revision::ACCEPTED,
             ])
             ->getQuery()
             ->getOneOrNullResult();

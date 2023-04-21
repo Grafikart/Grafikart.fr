@@ -23,6 +23,8 @@ class RevisionService
     public function submitRevision(Revision $revision): void
     {
         $revision->setCreatedAt(new \DateTime());
+        $revision->setComment(null);
+        $revision->setStatus(Revision::PENDING);
         $isNew = null === $revision->getId();
         if ($isNew) {
             $this->em->persist($revision);

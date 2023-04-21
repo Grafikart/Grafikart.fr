@@ -101,6 +101,11 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
         );
     }
 
+    public function expectLoginRedirect(): void
+    {
+        $this->assertResponseRedirects('/connexion');
+    }
+
     public function login(?User $user)
     {
         if (null === $user) {

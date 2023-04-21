@@ -15,7 +15,7 @@ export class AjaxDelete extends HTMLElement {
 
       // On affiche le loader
       const target = this.getAttribute('target')
-      const parent = target ? closest(this, this.getAttribute('target')) : this.parentNode
+      const parent = target ? closest(this, target) : this.parentNode
       const loader = document.createElement('loader-overlay')
       parent.style.position = 'relative'
       parent.appendChild(loader)

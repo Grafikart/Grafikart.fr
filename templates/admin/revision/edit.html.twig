@@ -10,12 +10,13 @@
         {{ icon('pen') }}
         Editer la révision
       </div>
-      <div>
-        <button type="submit" name="delete" class="btn-danger"
+      <div class="form-group flex" style="gap: .5rem;">
+        <input id="revision-rejection-comment" name="comment" type="text" value="" placeholder="Raison du refus" class="form-control">
+        <button disabled type="submit" name="delete" class="flex-none btn-danger"
                 onclick="return confirm('Voulez vous vraiment refuser cette révision ?')">
           Refuser
         </button>
-        <button type="submit" class="btn-primary">
+        <button type="submit" class="flex-none btn-primary">
           Accepter
         </button>
       </div>
@@ -29,5 +30,22 @@
     </div>
 
   </form>
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script>
+    document.addEventListener('turbolinks:load', () => {
+      /** @var {HTMLInputElement} */
+      const input = document.querySelector('#revision-rejection-comment')
+      input.addEventListener('input', () => {
+        if (input.value === '') {
+          input.nextElementSibling.setAttribute('disabled', 'disabled')
+        } else {
+          input.nextElementSibling.removeAttribute('disabled')
+        }
+      })
+    })
+  </script>
 {% endblock %}
 

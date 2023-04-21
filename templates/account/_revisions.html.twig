@@ -3,8 +3,10 @@
   <thead>
   <tr>
     <th>Article</th>
-    <th width="150" class="mobile-hidden">Date</th>
-    <th width="100" class="text-left">Status</th>
+    <th style="width: 50px;" class="mobile-hidden">Date</th>
+    <th style="width: 120px;">Status</th>
+    <th style="width: 120px;">Commentaire</th>
+    <th style="width: 205px;"></th>
   </tr>
   </thead>
   {% endif %}
@@ -12,26 +14,45 @@
   {% for revision in revisions %}
     <tr>
       <td>
-        {% if revision.status == 0 %}
-          <a href="{{ path('revision', {id: revision.target.id}) }}">
+        {% if revision.status == 1 %}
+          <a href="{{ path(revision.target) }}">
             {{ revision.target.title }}
           </a>
         {% else %}
-          <a href="{{ path(revision.target) }}">
+          <a href="{{ path('revision', {id: revision.target.id}) }}">
             {{ revision.target.title }}
           </a>
         {% endif %}
       </td>
-      <td width="150" class="mobile-hidden">
+      <td class="mobile-hidden" style="width: 150px;">
         {{ revision.createdAt | format_date('long') }}
       </td>
-      <td width="100">
+      <td style="width: 120px;">
         {% if revision.status == -1 %}
           <div class="pill pill-red">Rejetée</div>
         {% elseif revision.status == 0 %}
           <div class="pill pill-yellow">En attente</div>
         {% else %}
           <div class="pill pill-green">Acceptée</div>
+        {% endif %}
+      </td>
+      <td style="width: 120px;">
+        {% if revision.comment %}
+          <p class="text-small text-muted">{{ revision.comment }}</p>
+        {% endif %}
+      </td>
+      <td class="text-right">
+        {% if revision.status != 1 %}
+          <a href="{{ path('revision', {id: revision.target.id}) }}" class="btn-small btn-secondary">
+            {{ icon('edit') }}
+            Modifier
+          </a>
+          <ajax-delete class="btn-small btn-danger"
+                       target="tr"
+                       url="{{ path('revision', {id: revision.id}) }}">
+            {{ icon('delete') }}
+            Supprimer
+          </ajax-delete>
         {% endif %}
       </td>
     </tr>
