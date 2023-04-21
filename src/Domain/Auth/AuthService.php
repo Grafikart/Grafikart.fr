@@ -3,10 +3,10 @@
 namespace App\Domain\Auth;
 
 use Psr\EventDispatcher\EventDispatcherInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Http\Event\LogoutEvent;
 
 /**

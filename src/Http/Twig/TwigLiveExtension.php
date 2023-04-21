@@ -35,6 +35,7 @@ class TwigLiveExtension extends AbstractExtension
     public function getLiveAvailable(): bool
     {
         $liveDate = $this->liveService->getNextLiveDate();
+
         return $liveDate->modify('+5 hour') > new \DateTime();
     }
 

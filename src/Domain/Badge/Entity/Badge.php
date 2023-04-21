@@ -23,7 +23,7 @@ class Badge
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $image = null;
 
-    #[Vich\UploadableField(mapping: "badges", fileNameProperty: "image")]
+    #[Vich\UploadableField(mapping: 'badges', fileNameProperty: 'image')]
     private ?File $imageFile = null;
 
     #[ORM\Column(type: 'boolean', options: ['default' => 0])]

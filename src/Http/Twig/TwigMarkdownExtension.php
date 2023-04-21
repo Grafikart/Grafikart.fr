@@ -2,7 +2,6 @@
 
 namespace App\Http\Twig;
 
-use Parsedown;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
@@ -45,7 +44,7 @@ class TwigMarkdownExtension extends AbstractExtension
         if (null === $content) {
             return '';
         }
-        $content = (new Parsedown())->setBreaksEnabled(true)->setSafeMode(false)->text($content);
+        $content = (new \Parsedown())->setBreaksEnabled(true)->setSafeMode(false)->text($content);
         // On remplace les liens youtube par un embed
         $content = (string) preg_replace(
             '/<p><a href\="(http|https):\/\/www.youtube.com\/watch\?v=([^\""]+)">[^<]*<\/a><\/p>/',
@@ -82,7 +81,7 @@ class TwigMarkdownExtension extends AbstractExtension
 
     public function markdownUntrusted(?string $content): string
     {
-        $content = strip_tags((string) (new Parsedown())
+        $content = strip_tags((string) (new \Parsedown())
             ->setSafeMode(true)
             ->setBreaksEnabled(true)
             ->text($content), '<p><pre><code><ul><ol><li><h4><h3><h5><a><strong><br><em>');

@@ -5,9 +5,6 @@ namespace App\Http\Admin\Data;
 use App\Domain\Attachment\Attachment;
 use App\Domain\Auth\User;
 use App\Domain\Course\Entity\Course;
-
-use const App\Domain\Course\Entity\MEDIUM;
-
 use App\Domain\Course\Entity\Technology;
 use App\Http\Form\AutomaticForm;
 use App\Validator\Exists;
@@ -15,6 +12,8 @@ use App\Validator\Slug;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
+
+use const App\Domain\Course\Entity\MEDIUM;
 
 class CourseCrudData implements CrudDataInterface
 {

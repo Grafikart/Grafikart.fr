@@ -31,7 +31,7 @@ class Course extends Content
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $source = null;
 
-    #[Vich\UploadableField(mapping: "sources", fileNameProperty: "source")]
+    #[Vich\UploadableField(mapping: 'sources', fileNameProperty: 'source')]
     private ?File $sourceFile = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]

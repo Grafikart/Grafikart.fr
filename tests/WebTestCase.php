@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Exception\SessionNotFoundException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage;
 
 class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
 {
@@ -121,9 +120,9 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
         // Write directly into the session file cause there is no way to access the session from tests :(
         foreach ($this->client->getCookieJar()->all() as $cookie) {
             if ($cookie->getName() === 'MOCKSESSID') {
-                $path = self::getContainer()->getParameter('kernel.cache_dir') . '/sessions/' . $cookie->getValue() . '.mocksess';
+                $path = self::getContainer()->getParameter('kernel.cache_dir').'/sessions/'.$cookie->getValue().'.mocksess';
                 $file = unserialize(file_get_contents($path));
-                $file['_sf2_attributes']['_csrf/' . $key] = $csrf;
+                $file['_sf2_attributes']['_csrf/'.$key] = $csrf;
                 file_put_contents($path, serialize($file));
             }
         }
@@ -135,6 +134,7 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
     {
         $this->ensureSessionIsAvailable();
         $this->client->request('GET', '/contact');
+
         return $this->client->getRequest()->getSession();
     }
 

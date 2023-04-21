@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraint;
  *
  * Pour fonctionner on part du principe que l'objet et l'entité aura une méthode "getId()"
  */
-#[Attribute(Attribute::IS_REPEATABLE | Attribute::TARGET_CLASS)]
+#[\Attribute(\Attribute::IS_REPEATABLE | \Attribute::TARGET_CLASS)]
 class Unique extends Constraint
 {
     public string $message = 'Cette valeur est déjà utilisée';
@@ -34,7 +34,7 @@ class Unique extends Constraint
         parent::__construct([
             'field' => $field,
             'message' => $message,
-            'entityClass' => $entityClass
+            'entityClass' => $entityClass,
         ], $groups, $payload);
     }
 

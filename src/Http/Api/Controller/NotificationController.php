@@ -5,9 +5,9 @@ namespace App\Http\Api\Controller;
 use App\Domain\Auth\AuthService;
 use App\Domain\Notification\NotificationService;
 use App\Http\Controller\AbstractController;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class NotificationController extends AbstractController
 {

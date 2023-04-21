@@ -8,7 +8,7 @@ use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
 /**
- * Ajoute les commentaires sur les révisions
+ * Ajoute les commentaires sur les révisions.
  */
 final class Version20230420143237 extends AbstractMigration
 {

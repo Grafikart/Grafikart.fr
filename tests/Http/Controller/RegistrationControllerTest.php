@@ -6,11 +6,7 @@ use App\Domain\Auth\User;
 use App\Infrastructure\Social\SocialLoginService;
 use App\Tests\FixturesTrait;
 use App\Tests\WebTestCase;
-use http\Client\Request;
 use League\OAuth2\Client\Provider\GithubResourceOwner;
-use Symfony\Component\CssSelector\Node\ElementNode;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class RegistrationControllerTest extends WebTestCase
 {

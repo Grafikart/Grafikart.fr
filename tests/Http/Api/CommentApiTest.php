@@ -2,7 +2,6 @@
 
 namespace App\Tests\Http\Api;
 
-use ApiPlatform\Metadata\Get;
 use App\Domain\Auth\User;
 use App\Domain\Comment\Comment;
 use App\Http\Api\Resource\CommentResource;

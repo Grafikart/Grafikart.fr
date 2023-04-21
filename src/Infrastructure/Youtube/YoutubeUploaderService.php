@@ -5,7 +5,6 @@ namespace App\Infrastructure\Youtube;
 use App\Domain\Course\Entity\Course;
 use App\Infrastructure\Youtube\Transformer\CourseTransformer;
 use Doctrine\ORM\EntityManagerInterface;
-use Google_Service_YouTube;
 
 class YoutubeUploaderService
 {
@@ -23,7 +22,7 @@ class YoutubeUploaderService
             throw new \RuntimeException("Impossible de trouver le cours #{$courseId}");
         }
         $this->googleClient->setAccessToken($accessToken);
-        $youtube = new Google_Service_YouTube($this->googleClient);
+        $youtube = new \Google_Service_YouTube($this->googleClient);
         $youtubeId = $course->getYoutubeId();
         $video = $this->transformer->transform($course);
         $parts = 'snippet,status';

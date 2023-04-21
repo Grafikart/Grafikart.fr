@@ -15,11 +15,11 @@ class RevisionControllerTest extends WebTestCase
     public function testAddRevisionWithoutAuth(): void
     {
         /** @var Post $post */
-        /** @var User $user */
+        /* @var User $user */
         [
             'post1' => $post,
         ] = $this->loadFixtures(['posts']);
-        $this->client->request('GET', '/revision/' . $post->getId());
+        $this->client->request('GET', '/revision/'.$post->getId());
         $this->expectLoginRedirect();
     }
 
@@ -32,7 +32,7 @@ class RevisionControllerTest extends WebTestCase
             'user1' => $user
         ] = $this->loadFixtures(['posts', 'users']);
         $this->login($user);
-        $crawler = $this->client->request('GET', '/revision/' . $post->getId());
+        $crawler = $this->client->request('GET', '/revision/'.$post->getId());
         $this->expectH1('Proposer un changement');
         $this->assertStringContainsString($post->getTitle(), $crawler->text());
     }
@@ -48,7 +48,7 @@ class RevisionControllerTest extends WebTestCase
         $post->setOnline(false);
         $this->em->flush();
         $this->login($user);
-        $this->client->request('GET', '/revision/' . $post->getId());
+        $this->client->request('GET', '/revision/'.$post->getId());
         $this->assertResponseStatusCodeSame(403);
     }
 
@@ -61,7 +61,7 @@ class RevisionControllerTest extends WebTestCase
             'revision2' => $revision2
         ] = $this->loadFixtures(['revisions']);
         $this->login($revision1->getAuthor());
-        $this->client->request('DELETE', '/revision/' . $revision2->getId());
+        $this->client->request('DELETE', '/revision/'.$revision2->getId());
         $this->assertResponseStatusCodeSame(403);
     }
 
@@ -72,7 +72,7 @@ class RevisionControllerTest extends WebTestCase
             'revision1' => $revision1,
         ] = $this->loadFixtures(['revisions']);
         $this->login($revision1->getAuthor());
-        $this->client->request('DELETE', '/revision/' . $revision1->getId());
+        $this->client->request('DELETE', '/revision/'.$revision1->getId());
         $this->assertEquals(1, $this->em->getRepository(Revision::class)->count([]));
         $this->assertResponseStatusCodeSame(204);
     }

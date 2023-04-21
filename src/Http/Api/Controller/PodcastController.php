@@ -8,9 +8,9 @@ use App\Domain\Podcast\Entity\Podcast;
 use App\Domain\Podcast\PodcastService;
 use App\Http\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class PodcastController extends AbstractController
 {

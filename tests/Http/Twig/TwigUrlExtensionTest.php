@@ -6,7 +6,6 @@ use ApiPlatform\Api\UrlGeneratorInterface;
 use App\Http\Twig\TwigUrlExtension;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\SerializerInterface;
-use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelperInterface;
 
 class TwigUrlExtensionTest extends TestCase

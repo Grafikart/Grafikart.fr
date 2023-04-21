@@ -8,7 +8,7 @@ use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
 /**
- * Remove lives
+ * Remove lives.
  */
 final class Version20230226125613 extends AbstractMigration
 {

@@ -18,7 +18,6 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 #[AsCommand('app:index')]
 class IndexCommand extends Command
 {
-
     public function __construct(
         private readonly IndexerInterface $indexer,
         private readonly EntityManagerInterface $em,

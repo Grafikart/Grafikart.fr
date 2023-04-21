@@ -40,10 +40,12 @@ class ScheduledJob
                 if (is_object($item)) {
                     return $item::class;
                 }
+
                 return $item;
             }, $message->getParams());
             $method = $message->getMethod();
-            return sprintf("%s(%s)", $method, json_encode($params));
+
+            return sprintf('%s(%s)', $method, json_encode($params));
         }
 
         return '';
@@ -53,7 +55,7 @@ class ScheduledJob
     {
         $delay = $this->envelope->last(DelayStamp::class);
         if (!$delay) {
-            return (new \DateTimeImmutable());
+            return new \DateTimeImmutable();
         }
         $delaySeconds = $delay->getDelay() / 1000;
 

@@ -4,7 +4,6 @@ namespace App\Infrastructure\Social;
 
 use App\Domain\Auth\User;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 

@@ -5,7 +5,6 @@ namespace App\Infrastructure\Payment\Stripe;
 use Stripe\Event;
 use Stripe\Webhook;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 

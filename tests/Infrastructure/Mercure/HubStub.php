@@ -11,7 +11,6 @@ class HubStub implements HubInterface
 {
     public static $lastUpdate = null;
 
-
     public function publish(Update $update): string
     {
         self::$lastUpdate = $update;

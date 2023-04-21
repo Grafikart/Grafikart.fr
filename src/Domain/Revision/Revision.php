@@ -115,6 +115,7 @@ class Revision
     public function setComment(?string $comment): Revision
     {
         $this->comment = $comment;
+
         return $this;
     }
 }

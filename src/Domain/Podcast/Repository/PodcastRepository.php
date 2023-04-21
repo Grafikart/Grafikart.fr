@@ -21,8 +21,8 @@ class PodcastRepository extends AbstractRepository
     }
 
     /**
-    * @return IterableQueryBuilder<Podcast>
-    */
+     * @return IterableQueryBuilder<Podcast>
+     */
     public function findRecent(int $limit, bool $published = false): IterableQueryBuilder
     {
         $qb = $this->createIterableQuery('p')

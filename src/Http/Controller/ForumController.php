@@ -3,7 +3,6 @@
 namespace App\Http\Controller;
 
 use App\Domain\Auth\User;
-use App\Domain\Forum\Entity\Forum;
 use App\Domain\Forum\Entity\Tag;
 use App\Domain\Forum\Entity\Topic;
 use App\Domain\Forum\Repository\MessageRepository;

@@ -36,7 +36,6 @@ class MeilisearchClient
         return $this->api($endpoint, $data, 'PATCH');
     }
 
-
     public function delete(string $endpoint, array $data = []): array
     {
         return $this->api($endpoint, $data, 'DELETE');
@@ -46,7 +45,7 @@ class MeilisearchClient
     {
         $headers = [];
         if (!empty($this->apiKey)) {
-            $headers['Authorization'] = "Bearer " . $this->apiKey;
+            $headers['Authorization'] = 'Bearer '.$this->apiKey;
         }
         $response = $this->client->request($method, "http://{$this->host}/{$endpoint}", [
             'json' => $data,

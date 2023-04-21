@@ -6,7 +6,6 @@ use App\Infrastructure\Search\IndexerInterface;
 
 class MeilisearchIndexer implements IndexerInterface
 {
-
     public function __construct(private readonly MeilisearchClient $client)
     {
     }
@@ -14,14 +13,14 @@ class MeilisearchIndexer implements IndexerInterface
     public function settings(): void
     {
         $this->client->patch('indexes/content/settings', [
-            "searchableAttributes" => [
-                "title",
-                "category",
-                "content",
-                "url"
+            'searchableAttributes' => [
+                'title',
+                'category',
+                'content',
+                'url',
             ],
             'sortableAttributes' => ['created_at'],
-            'filterableAttributes' => ['type']
+            'filterableAttributes' => ['type'],
         ]);
     }
 

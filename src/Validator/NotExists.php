@@ -20,13 +20,13 @@ class NotExists extends Constraint
     public function __construct(
         string $class = \stdClass::class,
         array $groups = null,
-        string $field = "id",
+        string $field = 'id',
         string $message = 'A record was found for {{ value }}'
     ) {
         parent::__construct([
             'field' => $field,
             'class' => $class,
-            'message' => $message
+            'message' => $message,
         ], $groups, null);
     }
 

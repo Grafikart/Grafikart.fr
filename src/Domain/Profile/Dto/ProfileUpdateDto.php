@@ -11,8 +11,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Données pour la mise à jour du profil utilisateur.
  */
-#[Unique(field: "email", entityClass: User::class)]
-#[Unique(field: "username", entityClass: User::class)]
+#[Unique(field: 'email', entityClass: User::class)]
+#[Unique(field: 'username', entityClass: User::class)]
 class ProfileUpdateDto
 {
     #[Assert\NotBlank]

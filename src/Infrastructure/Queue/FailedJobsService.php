@@ -7,7 +7,6 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Transport\Receiver\ListableReceiverInterface;
 use Symfony\Component\Messenger\Transport\Sync\SyncTransport;
 use Symfony\Component\Messenger\Transport\TransportInterface;
-use Traversable;
 
 class FailedJobsService
 {
@@ -30,7 +29,7 @@ class FailedJobsService
             return [];
         }
         $envelopes = $this->receiver->all();
-        if ($envelopes instanceof Traversable) {
+        if ($envelopes instanceof \Traversable) {
             $envelopes = iterator_to_array($envelopes);
         }
 

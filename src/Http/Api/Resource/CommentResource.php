@@ -2,11 +2,9 @@
 
 namespace App\Http\Api\Resource;
 
-use ApiPlatform\Action\NotFoundAction;
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
-use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
@@ -17,21 +15,20 @@ use App\Http\Api\DataProvider\CommentApiProvider;
 use App\Http\Api\Processor\CommentProcessor;
 use App\Http\Security\CommentVoter;
 use App\Validator\NotExists;
-use Parsedown;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 #[ApiResource(
-    shortName: "Comment",
+    shortName: 'Comment',
     operations: [
         new GetCollection(),
         new Post(processor: CommentProcessor::class),
-        new Delete(security: "is_granted('" . CommentVoter::DELETE . "' , object)", processor: CommentProcessor::class),
-        new Put(security: "is_granted('" . CommentVoter::UPDATE . "', object)", processor: CommentProcessor::class)
+        new Delete(security: "is_granted('".CommentVoter::DELETE."' , object)", processor: CommentProcessor::class),
+        new Put(security: "is_granted('".CommentVoter::UPDATE."', object)", processor: CommentProcessor::class),
     ],
-    normalizationContext: ["groups" => ["read"]],
-    denormalizationContext: ["groups" => ["write"]],
+    normalizationContext: ['groups' => ['read']],
+    denormalizationContext: ['groups' => ['write']],
     provider: CommentApiProvider::class,
 )]
 class CommentResource extends CommentData
@@ -40,7 +37,7 @@ class CommentResource extends CommentData
     #[ApiProperty(identifier: true)]
     public ?int $id = null;
 
-    #[NotExists(class: User::class, groups: ["anonymous"], field: "username", message: "Ce pseudo est utilisé par un utilisateur")]
+    #[NotExists(class: User::class, groups: ['anonymous'], field: 'username', message: 'Ce pseudo est utilisé par un utilisateur')]
     #[Groups(['read', 'write'])]
     #[Assert\NotBlank(normalizer: 'trim', groups: ['anonymous'])]
     public ?string $username = null;
@@ -81,7 +78,7 @@ class CommentResource extends CommentData
         $resource->username = $comment->getUsername();
         $resource->content = $comment->getContent();
         $resource->html = strip_tags(
-            (string)(new Parsedown())
+            (string) (new \Parsedown())
                 ->setBreaksEnabled(true)
                 ->setSafeMode(true)
                 ->text($comment->getContent()),

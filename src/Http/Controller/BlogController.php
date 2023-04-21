@@ -8,12 +8,12 @@ use App\Domain\Blog\Repository\CategoryRepository;
 use App\Domain\Blog\Repository\PostRepository;
 use Doctrine\ORM\Query;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class BlogController extends AbstractController
 {

@@ -7,7 +7,6 @@ use App\Http\Twig\CacheExtension\CacheableInterface;
 use App\Infrastructure\Spam\SpammableInterface;
 use App\Infrastructure\Spam\SpamTrait;
 use Doctrine\ORM\Mapping as ORM;
-use Parsedown;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -111,7 +110,7 @@ class Message implements SpammableInterface, CacheableInterface
     #[Groups(['read:message'])]
     public function getFormattedContent(): ?string
     {
-        return (new Parsedown())
+        return (new \Parsedown())
             ->setSafeMode(true)
             ->setBreaksEnabled(true)
             ->text($this->content);

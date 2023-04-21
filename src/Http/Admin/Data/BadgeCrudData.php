@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @property Badge $entity
  */
-#[Unique(field: "name")]
+#[Unique(field: 'name')]
 class BadgeCrudData extends AutomaticCrudData
 {
     #[Assert\NotBlank]

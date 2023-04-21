@@ -10,7 +10,6 @@ use App\Domain\Course\Entity\Cursus;
 use App\Domain\Course\Entity\Formation;
 use App\Domain\History\Entity\Progress;
 use App\Domain\History\HistoryService;
-use App\Domain\Live\Live;
 use App\Domain\Podcast\Entity\Podcast;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;

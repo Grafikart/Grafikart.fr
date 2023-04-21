@@ -4,9 +4,6 @@ namespace App\Infrastructure\Youtube\Transformer;
 
 use App\Domain\Course\Entity\Course;
 use App\Domain\Course\Entity\Technology;
-use Google_Service_YouTube_Video;
-use Google_Service_YouTube_VideoSnippet;
-use Google_Service_YouTube_VideoStatus;
 use Symfony\Component\Serializer\SerializerInterface;
 use Vich\UploaderBundle\Storage\StorageInterface;
 
@@ -22,7 +19,7 @@ class CourseTransformer
     ) {
     }
 
-    public function transform(Course $course): Google_Service_YouTube_Video
+    public function transform(Course $course): \Google_Service_YouTube_Video
     {
         // On construit les informations à envoyer
         $youtubeId = $course->getYoutubeId();
@@ -37,8 +34,8 @@ class CourseTransformer
         }
 
         // On crée l'objet Vidéo
-        $video = new Google_Service_YouTube_Video();
-        $snippet = new Google_Service_YouTube_VideoSnippet();
+        $video = new \Google_Service_YouTube_Video();
+        $snippet = new \Google_Service_YouTube_VideoSnippet();
         $snippet->setCategoryId('28');
         $snippet->setDescription("Article ► {$url}
 Abonnez-vous ► https://bit.ly/GrafikartSubscribe
@@ -56,7 +53,7 @@ Discord ► https://grafikart.fr/tchat");
         $snippet->setDefaultAudioLanguage('fr');
         $snippet->setDefaultLanguage('fr');
         $video->setSnippet($snippet);
-        $status = new Google_Service_YouTube_VideoStatus();
+        $status = new \Google_Service_YouTube_VideoStatus();
         $status->setEmbeddable(true);
         $status->setPublicStatsViewable(false);
         if ($course->getCreatedAt() > new \DateTimeImmutable()) {

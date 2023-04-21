@@ -17,8 +17,6 @@ use App\Http\Admin\Form\Field\UserChoiceType;
 use App\Http\Type\DateTimeType;
 use App\Http\Type\EditorType;
 use App\Http\Type\SwitchType;
-use DateTimeInterface;
-use ReflectionClass;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
@@ -42,7 +40,7 @@ class AutomaticForm extends AbstractType
         Attachment::class => AttachmentType::class,
         User::class => UserChoiceType::class,
         Tag::class => ForumTagChoiceType::class,
-        DateTimeInterface::class => DateTimeType::class,
+        \DateTimeInterface::class => DateTimeType::class,
         UploadedFile::class => FileType::class,
         CursusCategory::class => CursusCategoryChoiceType::class,
     ];
@@ -63,7 +61,7 @@ class AutomaticForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $data = $options['data'];
-        $refClass = new ReflectionClass($data);
+        $refClass = new \ReflectionClass($data);
         $classProperties = $refClass->getProperties(\ReflectionProperty::IS_PUBLIC);
         foreach ($classProperties as $property) {
             $name = $property->getName();

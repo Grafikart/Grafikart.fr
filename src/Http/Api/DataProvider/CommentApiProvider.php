@@ -24,7 +24,7 @@ final class CommentApiProvider implements ProviderInterface
     {
         // Dans le cadre des collection, on impose un filtre par contenu
         if ($operation instanceof GetCollection) {
-            if (!isset($context['filters']) || !isset($context['filters']["content"])) {
+            if (!isset($context['filters']) || !isset($context['filters']['content'])) {
                 throw new HttpException(Response::HTTP_BAD_REQUEST, 'Aucun contenu ne correspond à cet ID');
             }
             $contentId = (int) $context['filters']['content'];
@@ -39,11 +39,12 @@ final class CommentApiProvider implements ProviderInterface
         }
 
         // Pour le reste des opérations on extrait les resources depuis la base de données
-        if (!isset($uriVariables["id"])) {
+        if (!isset($uriVariables['id'])) {
             return null;
         }
-        $id = $uriVariables["id"] ?: 0;
+        $id = $uriVariables['id'] ?: 0;
         $comment = $this->commentRepository->findPartial((int) $id);
+
         return $comment ? CommentResource::fromComment($comment, $this->uploaderHelper) : null;
     }
 }

@@ -38,7 +38,7 @@ class RevisionController extends AbstractController
 
     /**
      * Affiche la page qui permet la soumission d'une révision.
-     * Pour ce endpoint on ne passe pas l'ID de la révision mais l'id du contenu à modifier
+     * Pour ce endpoint on ne passe pas l'ID de la révision mais l'id du contenu à modifier.
      */
     #[Route(path: '/revision/{id<\d+>}', name: 'revision', methods: ['GET', 'POST'])]
     #[IsGranted(RevisionVoter::ADD, subject: 'content')]
@@ -66,7 +66,7 @@ class RevisionController extends AbstractController
     }
 
     /**
-     * Supprime une révision
+     * Supprime une révision.
      */
     #[Route(path: '/revision/{id<\d+>}', methods: ['DELETE'])]
     #[IsGranted(RevisionVoter::DELETE, subject: 'revision')]
@@ -74,6 +74,7 @@ class RevisionController extends AbstractController
     {
         $em->remove($revision);
         $em->flush();
+
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
 }

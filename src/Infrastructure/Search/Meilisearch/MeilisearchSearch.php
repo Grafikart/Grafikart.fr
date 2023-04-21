@@ -16,7 +16,7 @@ class MeilisearchSearch implements SearchInterface
         $body = [
             'q' => $q,
             'page' => $page,
-            'sort' => ["created_at:desc"],
+            'sort' => ['created_at:desc'],
             'attributesToHighlight' => ['title', 'content'],
             'attributesToCrop' => ['content'],
             'cropLength' => 35,
@@ -28,6 +28,7 @@ class MeilisearchSearch implements SearchInterface
 
         $response = $this->client->post('indexes/content/search', $body);
         $items = $response['hits'];
-        return new SearchResult(array_map(fn (array $item) => new MeilisearchItem($item), $items), $response['totalHits'] ?? $response["estimatedTotalHits"]);
+
+        return new SearchResult(array_map(fn (array $item) => new MeilisearchItem($item), $items), $response['totalHits'] ?? $response['estimatedTotalHits']);
     }
 }

@@ -14,6 +14,7 @@ class MarkdownTransformer
         if (!is_string($html)) {
             return '';
         }
+
         return strip_tags($html);
     }
 }

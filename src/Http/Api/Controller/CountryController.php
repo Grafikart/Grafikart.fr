@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Http\Api\Controller;
 
 use App\Http\Controller\AbstractController;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Intl\Countries;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class CountryController extends AbstractController
 {

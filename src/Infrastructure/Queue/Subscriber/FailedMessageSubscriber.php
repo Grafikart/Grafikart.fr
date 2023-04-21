@@ -5,7 +5,6 @@ namespace App\Infrastructure\Queue\Subscriber;
 use App\Domain\Notification\NotificationService;
 use App\Infrastructure\Queue\FailedJob;
 use App\Infrastructure\Queue\Message\ServiceMethodMessage;
-use Symfony\Component\ErrorHandler\Exception\FlattenException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Mercure\HubInterface;
 use Symfony\Component\Messenger\Bridge\Doctrine\Transport\DoctrineReceivedStamp;

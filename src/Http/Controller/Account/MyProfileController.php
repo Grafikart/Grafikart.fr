@@ -6,9 +6,9 @@ use App\Domain\Forum\Repository\TopicRepository;
 use App\Domain\History\HistoryService;
 use App\Domain\Revision\RevisionRepository;
 use App\Http\Controller\AbstractController;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class MyProfileController extends AbstractController
 {

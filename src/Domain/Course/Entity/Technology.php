@@ -31,7 +31,7 @@ class Technology implements CacheableInterface, \Stringable
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $image = null;
 
-    #[Vich\UploadableField(mapping: "icons", fileNameProperty: "image")]
+    #[Vich\UploadableField(mapping: 'icons', fileNameProperty: 'image')]
     private ?File $imageFile = null;
 
     /**
@@ -48,7 +48,6 @@ class Technology implements CacheableInterface, \Stringable
     private ?\DateTimeInterface $updatedAt = null;
 
     /**
-     *
      * @var Collection<int, Technology>
      */
     #[ORM\JoinTable(name: 'technology_requirement')]

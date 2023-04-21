@@ -3,7 +3,6 @@
 namespace App\Tests\Http\Twig;
 
 use App\Http\Twig\TwigTimeExtension;
-use DateTime;
 use PHPUnit\Framework\TestCase;
 
 class TwigTimeExtensionTest extends TestCase
@@ -42,7 +41,7 @@ class TwigTimeExtensionTest extends TestCase
      */
     public function testAgo(int $time): void
     {
-        $date = new DateTime('@'.$time);
+        $date = new \DateTime('@'.$time);
         $this->assertEquals("<time-ago time=\"$time\"></time-ago>", $this->extension->ago($date));
     }
 
