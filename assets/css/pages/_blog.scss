@@ -99,6 +99,13 @@
   }
 }
 
+@include up(840) {
+  .blog-single .formatted iframe {
+    margin-inline: -50px;
+    width: calc(100% + 100px);
+  }
+}
+
 // Contenu sans video
 .blog-single__body.text-only > p:first-child {
   color: var(--color-inversed);
