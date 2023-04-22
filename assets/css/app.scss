@@ -25,7 +25,7 @@ $font-alt: 'Inter', sans-serif;
   --space-section: 150px;
   --card-footer: #f7fafd;
   --card-padding: 16px;
-  --header-height: 64px;
+  --header-height: 74px;
   --red: #f25353;
   --green: #41cf7c;
   --yellow: #feb32b;
@@ -93,9 +93,6 @@ $font-alt: 'Inter', sans-serif;
 
 // Generic
 // ==================
-html, body {
-  scroll-behavior: smooth;
-}
 body {
   font-family: $font;
   font-size: 16px;

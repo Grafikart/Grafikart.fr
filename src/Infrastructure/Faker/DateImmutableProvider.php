@@ -13,7 +13,7 @@ class DateImmutableProvider extends BaseProvider
 
     public static function dateTimeBetween(\DateTimeImmutable|string $startDate = '-30 years', \DateTimeImmutable|int|string $endDate = 'now'): \DateTimeImmutable
     {
-        $startTimestamp = $startDate instanceof \DateTimeImmutable ? $startDate->getTimestamp() : (int)strtotime($startDate);
+        $startTimestamp = $startDate instanceof \DateTimeImmutable ? $startDate->getTimestamp() : (int) strtotime($startDate);
         $endTimestamp = static::getMaxTimestamp($endDate);
 
         if ($startTimestamp > $endTimestamp) {
@@ -22,7 +22,7 @@ class DateImmutableProvider extends BaseProvider
 
         $timestamp = self::numberBetween($startTimestamp, $endTimestamp);
 
-        return new \DateTimeImmutable('@' . $timestamp);
+        return new \DateTimeImmutable("@{$timestamp}");
     }
 
     protected static function getMaxTimestamp(\DateTimeImmutable|float|int|string $max = 'now'): int
@@ -35,6 +35,6 @@ class DateImmutableProvider extends BaseProvider
             return $max->getTimestamp();
         }
 
-        return (int)strtotime(empty($max) ? 'now' : $max);
+        return (int) strtotime(empty($max) ? 'now' : $max);
     }
 }

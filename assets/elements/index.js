@@ -35,6 +35,7 @@ import { ThemeSwitcher } from '/elements/ThemeSwitcher.js'
 import { MarkAsWatched } from '/elements/courses/MarkAsWatched.jsx'
 import { PodcastVote } from '/elements/PodcastVote.js'
 import { SpoilerBox } from '/elements/SpoilerBox'
+import { GlossaryLetters } from '/elements/glossary/GlossaryLetters'
 
 // Custom Elements
 customElements.define('nav-tabs', NavTabs)
@@ -62,6 +63,7 @@ customElements.define('con-fetti', Confetti)
 customElements.define('premium-player', PremiumPlayer)
 customElements.define('loader-overlay', LoaderOverlay)
 customElements.define('theme-switcher', ThemeSwitcher)
+customElements.define('glossary-letters', GlossaryLetters)
 customElements.define('podcast-vote', PodcastVote)
 preactCustomElement('site-notifications', Notifications)
 preactCustomElement('contact-form', ContactForm)

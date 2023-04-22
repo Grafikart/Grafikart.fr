@@ -22,22 +22,22 @@
     </form>
   </div>
 
-  <div class="glossary-letters container py2">
+  <glossary-letters class="glossary-letters container py2">
     {% for letter in letters %}
       <a class="glossary-letter center" href="#letter-{{ letter | lower }}">
         {{ letter }}
       </a>
     {% endfor %}
-  </div>
+  </glossary-letters>
 
   <main class="container pb5">
     {% for letter, words in wordsByLetters %}
-    <section class="glossary-section pt5" id="letter-{{ letter }}">
+    <section class="glossary-section" id="letter-{{ letter }}">
       <h2 class="glossary-lettering h1">{{ letter }}</h2>
       <ul class="glossary-words card mt2">
         {% for word in words %}
         <li>
-          <a href="" class="glossary-word py1 px2">
+          <a href="" class="glossary-word">
             {{ word.name }}{% if word.synonyms | length > 0 %},{% endif %}
             <span>
               {{ word.synonyms | join(', ') }}

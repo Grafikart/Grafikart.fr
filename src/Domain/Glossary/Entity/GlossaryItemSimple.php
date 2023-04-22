@@ -4,7 +4,6 @@ namespace App\Domain\Glossary\Entity;
 
 class GlossaryItemSimple
 {
-
     /** @var string[] */
     public $synonyms = [];
 

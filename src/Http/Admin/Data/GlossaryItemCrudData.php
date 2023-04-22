@@ -13,7 +13,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 final class GlossaryItemCrudData extends AutomaticCrudData
 {
-
     #[Assert\NotBlank]
     public ?string $name = null;
     public ?string $slug = null;

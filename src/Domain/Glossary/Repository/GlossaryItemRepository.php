@@ -34,13 +34,12 @@ class GlossaryItemRepository extends AbstractRepository
 
         // Rearrange les synonyms
         collect($words)
-            ->filter(fn(GlossaryItemSimple $item) => $item->synonymId !== null)
-            ->each(fn(GlossaryItemSimple $item) => $wordsById[$item->synonymId]->addSynonym($item));
-
+            ->filter(fn (GlossaryItemSimple $item) => $item->synonymId !== null)
+            ->each(fn (GlossaryItemSimple $item) => $wordsById[$item->synonymId]->addSynonym($item));
 
         return collect($words)
-            ->filter(fn(GlossaryItemSimple $item) => $item->synonymId === null)
-            ->groupBy(fn(GlossaryItemSimple $item) => $item->name[0])
+            ->filter(fn (GlossaryItemSimple $item) => $item->synonymId === null)
+            ->groupBy(fn (GlossaryItemSimple $item) => $item->name[0])
             ->toArray();
     }
 

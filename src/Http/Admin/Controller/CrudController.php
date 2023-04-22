@@ -29,6 +29,7 @@ abstract class CrudController extends BaseController
     protected string $menuItem = '';
     protected string $routePrefix = '';
     protected string $searchField = 'title';
+    protected bool $indexOnSave = true;
     protected array $events = [
         'update' => null,
         'delete' => null,

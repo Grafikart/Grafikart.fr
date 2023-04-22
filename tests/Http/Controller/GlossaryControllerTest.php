@@ -2,8 +2,6 @@
 
 namespace App\Tests\Http\Controller;
 
-use App\Domain\Blog\Category;
-use App\Domain\Blog\Post;
 use App\Tests\FixturesTrait;
 use App\Tests\WebTestCase;
 
