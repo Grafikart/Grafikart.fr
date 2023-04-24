@@ -11,7 +11,7 @@ class TwigMarkdownExtension extends AbstractExtension
     public function __construct(
         private ContentRepository $contentRepository,
         private ViewRendererInterface $renderer
-    ){
+    ) {
     }
 
     public function getFilters(): array

@@ -7,7 +7,8 @@ use Twig\Environment;
 class TwigViewRenderer implements ViewRendererInterface
 {
 
-    public function __construct(private Environment $twig){
+    public function __construct(private Environment $twig)
+    {
     }
 
 

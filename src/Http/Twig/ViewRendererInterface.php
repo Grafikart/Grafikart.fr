@@ -6,5 +6,4 @@ interface ViewRendererInterface
 {
 
     public function render(string $view, array $context = []): string;
-
 }

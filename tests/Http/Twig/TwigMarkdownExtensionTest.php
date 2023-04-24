@@ -21,8 +21,8 @@ class TwigMarkdownExtensionTest extends TestCase
      * @param ContentRepository $mock
      */
     private function getExtension(
-        mixed $mock = null): TwigMarkdownExtension
-    {
+        mixed $mock = null
+    ): TwigMarkdownExtension {
         $mock ??= \Mockery::mock(ContentRepository::class);
         $renderer = \Mockery::mock(ViewRendererInterface::class)->shouldReceive('render')->withAnyArgs()->andReturnUsing(fn (string $view) => $view)->getMock();
         return new TwigMarkdownExtension($mock, $renderer);

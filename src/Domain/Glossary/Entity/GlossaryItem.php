@@ -106,7 +106,7 @@ class GlossaryItem
      */
     public function setSynonyms(?array $synonyms): self
     {
-        $this->synonyms = array_map(fn(string $v) => trim($v), $synonyms);
+        $this->synonyms = $synonyms ? array_map(fn(string $v) => trim($v), $synonyms) : [];
 
         return $this;
     }
