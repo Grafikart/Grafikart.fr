@@ -37,7 +37,7 @@
       <ul class="glossary-words card mt2">
         {% for word in words %}
         <li>
-          <a href="" class="glossary-word">
+          <a href="{{ path('glossary_show', {slug: word.slug}) }}" class="glossary-word">
             {{ word.name }}{% if word.synonyms | length > 0 %},{% endif %}
             <span>
               {{ word.synonyms | join(', ') }}

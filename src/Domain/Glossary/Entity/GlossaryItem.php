@@ -3,11 +3,12 @@
 namespace App\Domain\Glossary\Entity;
 
 use App\Domain\Glossary\Repository\GlossaryItemRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @property string[] $synonyms
+ */
 #[ORM\Entity(repositoryClass: GlossaryItemRepository::class)]
 class GlossaryItem
 {
@@ -16,10 +17,10 @@ class GlossaryItem
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 60)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 60)]
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -31,15 +32,12 @@ class GlossaryItem
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'synonyms')]
-    private ?self $synonym = null;
-
-    #[ORM\OneToMany(mappedBy: 'synonym', targetEntity: self::class)]
-    private Collection $synonyms;
+    #[ORM\Column(type: 'simple_array', nullable: true)]
+    private array $synonyms;
 
     public function __construct()
     {
-        $this->synonyms = new ArrayCollection();
+        $this->synonyms = [];
     }
 
     public function getId(): ?int
@@ -95,44 +93,20 @@ class GlossaryItem
         return $this;
     }
 
-    public function getSynonym(): ?self
-    {
-        return $this->synonym;
-    }
-
-    public function setSynonym(?self $synonym): self
-    {
-        $this->synonym = $synonym;
-
-        return $this;
-    }
-
     /**
-     * @return Collection<int, self>
+     * @return string[]
      */
-    public function getSynonyms(): Collection
+    public function getSynonyms(): array
     {
         return $this->synonyms;
     }
 
-    public function addSynonym(self $synonim): self
+    /**
+     * @param string[]|null $synonyms
+     */
+    public function setSynonyms(?array $synonyms): self
     {
-        if (!$this->synonyms->contains($synonim)) {
-            $this->synonyms->add($synonim);
-            $synonim->setSynonym($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSynonym(self $synonim): self
-    {
-        if ($this->synonyms->removeElement($synonim)) {
-            // set the owning side to null (unless already changed)
-            if ($synonim->getSynonym() === $this) {
-                $synonim->setSynonym(null);
-            }
-        }
+        $this->synonyms = array_map(fn(string $v) => trim($v), $synonyms);
 
         return $this;
     }

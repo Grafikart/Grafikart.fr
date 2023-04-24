@@ -82,6 +82,4 @@ App\Domain\Podcast\Entity\Podcast:
 
 App\Domain\Glossary\Entity\GlossaryItem:
   glossary_item{1..250} (extends glossary_item):
-  glossary_synonym{1..10} (extends glossary_item):
-    synonym: '@glossary_item*'
 

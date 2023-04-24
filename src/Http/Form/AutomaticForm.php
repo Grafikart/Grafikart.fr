@@ -13,6 +13,7 @@ use App\Http\Admin\Form\Field\CursusCategoryChoiceType;
 use App\Http\Admin\Form\Field\ForumTagChoiceType;
 use App\Http\Admin\Form\Field\GlossaryItemChoiceType;
 use App\Http\Admin\Form\Field\IntervenantsType;
+use App\Http\Admin\Form\Field\SimpleArrayType;
 use App\Http\Admin\Form\Field\TechnologiesType;
 use App\Http\Admin\Form\Field\TechnologyChoiceType;
 use App\Http\Admin\Form\Field\UserChoiceType;
@@ -39,6 +40,7 @@ class AutomaticForm extends AbstractType
         'bool' => SwitchType::class,
         'int' => NumberType::class,
         'float' => NumberType::class,
+        'array' => SimpleArrayType::class,
         Attachment::class => AttachmentType::class,
         User::class => UserChoiceType::class,
         Tag::class => ForumTagChoiceType::class,

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'header-light' %}
+
+{% block title "Lexique : " ~ item.name %}
+
+{% block body %}
+  <div class="container-narrow py5">
+    <h1 class="h1">{{ item.name }}</h1>
+    {% if item.synonyms | length > 0 %}
+      <p class="text-muted">
+        {{ item.synonyms | join(', ') }}
+      </p>
+    {% endif %}
+
+    <div class="formatted mt2">
+      {{ item.content | markdown }}
+    </div>
+
+
+  </div>
+{% endblock %}

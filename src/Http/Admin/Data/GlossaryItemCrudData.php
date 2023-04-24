@@ -16,7 +16,8 @@ final class GlossaryItemCrudData extends AutomaticCrudData
     #[Assert\NotBlank]
     public ?string $name = null;
     public ?string $slug = null;
-    public ?GlossaryItem $synonym = null;
+    /** @var string[]|null */
+    public ?array $synonyms = null;
     public ?string $content = null;
     public ?\DateTimeInterface $createdAt;
 
@@ -27,7 +28,7 @@ final class GlossaryItemCrudData extends AutomaticCrudData
             ->setSlug($this->slug ?? (new Slugify())->slugify($this->name ?? ''))
             ->setContent($this->content ?? '')
             ->setCreatedAt($this->createdAt ?? new \DateTimeImmutable())
-            ->setSynonym($this->synonym)
+            ->setSynonyms($this->synonyms)
             ->setUpdatedAt(new \DateTimeImmutable());
     }
 }

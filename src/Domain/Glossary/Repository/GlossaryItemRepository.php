@@ -25,21 +25,13 @@ class GlossaryItemRepository extends AbstractRepository
         $dto = GlossaryItemSimple::class;
         /** @var GlossaryItemSimple[] $words */
         $words = $this->createQueryBuilder('g')
-            ->select("NEW {$dto}(g.id, g.name, g.slug, IDENTITY(g.synonym))")
+            ->select("NEW {$dto}(g.id, g.name, g.slug, g.synonyms)")
             ->orderBy('g.name')
             ->getQuery()
             ->getResult();
-        /** @var GlossaryItemSimple[] $wordsById */
-        $wordsById = collect($words)->keyBy('id')->toArray();
-
-        // Rearrange les synonyms
-        collect($words)
-            ->filter(fn (GlossaryItemSimple $item) => $item->synonymId !== null)
-            ->each(fn (GlossaryItemSimple $item) => $wordsById[$item->synonymId]->addSynonym($item));
 
         return collect($words)
-            ->filter(fn (GlossaryItemSimple $item) => $item->synonymId === null)
-            ->groupBy(fn (GlossaryItemSimple $item) => $item->name[0])
+            ->groupBy(fn (GlossaryItemSimple $item) => strtolower($item->name[0]))
             ->toArray();
     }
 
