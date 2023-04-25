@@ -78,7 +78,7 @@ class CommentRepository extends AbstractRepository
     }
 
     /**
-     * Trouve les commentaires suspicieux qui sont potentiellement des spams
+     * Trouve les commentaires suspicieux qui sont potentiellement des spams.
      *
      * @param string[] $words
      */
@@ -91,6 +91,14 @@ class CommentRepository extends AbstractRepository
         foreach ($words as $k => $word) {
             $query = $query->orWhere("row.content LIKE :spam{$k}")->setParameter("spam{$k}", "%{$word}%");
         }
+
         return $query;
+    }
+
+    public function queryByIp(string $ip): QueryBuilder
+    {
+        return $this->createQueryBuilder('row')
+            ->where('row.ip LIKE :ip')
+            ->setParameter('ip', $ip);
     }
 }

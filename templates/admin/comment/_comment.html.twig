@@ -18,7 +18,7 @@
     </h3>
     <div class="hstack" style="--gap: 1">
       {% if comment.ip %}
-        <a href="https://ipinfo.io/{{ comment.ip }}" target="_blank" class="text-small text-muted">
+        <a href="{{ path('admin_comment_index', {ip: comment.ip}) }}" target="_blank" class="text-small text-muted">
           {{  comment.ip }}
         </a>
       {% endif %}

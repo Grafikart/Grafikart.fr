@@ -52,17 +52,17 @@ abstract class CrudController extends BaseController
             ->createQueryBuilder('row')
             ->orderBy('row.createdAt', 'DESC');
         if ($request->get('q')) {
-            $query = $this->applySearch(trim((string)$request->get('q')), $query);
+            $query = $this->applySearch(trim((string) $request->get('q')), $query);
         }
         $this->paginator->allowSort('row.id', 'row.title');
         $rows = $this->paginator->paginate($query->getQuery());
 
         return $this->render("admin/{$this->templatePath}/index.html.twig", [
-            'rows'       => $rows,
+            'rows' => $rows,
             'searchable' => true,
-            'menu'       => $this->menuItem,
-            'prefix'     => $this->routePrefix,
-            ...$extraParams
+            'menu' => $this->menuItem,
+            'prefix' => $this->routePrefix,
+            ...$extraParams,
         ]);
     }
 
@@ -82,13 +82,14 @@ abstract class CrudController extends BaseController
                 $this->dispatcher->dispatch(new $this->events['update']($entity, $old));
             }
             $this->addFlash('success', 'Le contenu a bien été modifié');
+
             return $this->redirectAfterSave($entity);
         }
 
         return $this->render("admin/{$this->templatePath}/edit.html.twig", [
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
             'entity' => $data->getEntity(),
-            'menu'   => $this->menuItem,
+            'menu' => $this->menuItem,
         ]);
     }
 
@@ -113,9 +114,9 @@ abstract class CrudController extends BaseController
         }
 
         return $this->render("admin/{$this->templatePath}/new.html.twig", [
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
             'entity' => $data->getEntity(),
-            'menu'   => $this->menuItem,
+            'menu' => $this->menuItem,
         ]);
     }
 
@@ -128,22 +129,20 @@ abstract class CrudController extends BaseController
         $this->em->flush();
         $this->addFlash('success', 'Le contenu a bien été supprimé');
 
-        return $this->redirectToRoute($redirectRoute ?: ($this->routePrefix . '_index'));
+        return $this->redirectToRoute($redirectRoute ?: ($this->routePrefix.'_index'));
     }
 
     public function getRepository(): EntityRepository
     {
-        /** @var EntityRepository $repository */
-        $repository = $this->em->getRepository($this->entity); /* @phpstan-ignore-line */
-
-        return $repository;
+        /* @var EntityRepository */
+        return $this->em->getRepository($this->entity); /* @phpstan-ignore-line */
     }
 
     protected function applySearch(string $search, QueryBuilder $query): QueryBuilder
     {
         return $query
             ->where("LOWER(row.{$this->searchField}) LIKE :search")
-            ->setParameter('search', '%' . strtolower($search) . '%');
+            ->setParameter('search', '%'.strtolower($search).'%');
     }
 
     /**
@@ -152,8 +151,9 @@ abstract class CrudController extends BaseController
     protected function redirectAfterSave($entity): RedirectResponse
     {
         if ($this->indexOnSave) {
-            return $this->redirectToRoute($this->routePrefix . '_index');
+            return $this->redirectToRoute($this->routePrefix.'_index');
         }
-        return $this->redirectToRoute($this->routePrefix . '_edit', ['id' => $entity->getId()]);
+
+        return $this->redirectToRoute($this->routePrefix.'_edit', ['id' => $entity->getId()]);
     }
 }

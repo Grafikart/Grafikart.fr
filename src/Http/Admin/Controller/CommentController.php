@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route(path: "/comment", name:"comment_")]
+#[Route(path: '/comment', name: 'comment_')]
 class CommentController extends CrudController
 {
     protected string $templatePath = 'comment';
@@ -19,31 +19,43 @@ class CommentController extends CrudController
     protected string $routePrefix = 'admin_comment';
     protected string $searchField = 'name';
 
-    #[Route(path: "/", name:"index")]
+    #[Route(path: '/', name: 'index')]
     public function index(Request $request, SpamService $spamService): Response
     {
         $repository = $this->getRepository();
         $query = null;
         $suspiciousFilter = $request->get('suspicious');
-        if ($suspiciousFilter && $repository instanceof CommentRepository) {
+        $ip = $request->get('ip');
+        if ($suspiciousFilter) {
             $query = $repository->querySuspicious($spamService->words());
         }
+        if ($ip) {
+            $query = $repository->queryByIp($ip);
+        }
+
         return $this->crudIndex($query, [
-            'suspicious_filter' => $suspiciousFilter
+            'ip' => $ip,
+            'suspicious_filter' => $suspiciousFilter,
         ]);
     }
 
-    #[Route(path: "/{id<\d+>}", name:"delete", methods:["DELETE"])]
+    #[Route(path: "/{id<\d+>}", name: 'delete', methods: ['DELETE'])]
     public function delete(Comment $comment): Response
     {
         return $this->crudDelete($comment);
     }
 
-    #[Route(path: "/{id<\d+>}", name:"edit")]
+    #[Route(path: "/{id<\d+>}", name: 'edit')]
     public function edit(Comment $comment): Response
     {
         $data = new CommentCrudData($comment);
 
         return $this->crudEdit($data);
+    }
+
+    public function getRepository(): CommentRepository
+    {
+        /* @var CommentRepository */
+        return $this->em->getRepository(CommentRepository::class);
     }
 }

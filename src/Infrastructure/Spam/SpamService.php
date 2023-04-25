@@ -41,8 +41,8 @@ class SpamService
         }
 
         return collect($wordList)
-            ->map(fn(string $word) => trim($word))
-            ->filter(fn(string $word) => !empty($word))
+            ->map(fn (string $word) => trim($word))
+            ->filter(fn (string $word) => !empty($word))
             ->toArray();
     }
 }

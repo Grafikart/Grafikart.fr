@@ -4,9 +4,9 @@ namespace App\Domain\Badge\Subscriber;
 
 use App\Domain\Auth\User;
 use App\Domain\Badge\BadgeService;
-use App\Domain\Comment\Entity\Comment;
 use App\Domain\Comment\CommentCreatedEvent;
 use App\Domain\Comment\CommentRepository;
+use App\Domain\Comment\Entity\Comment;
 use App\Domain\Forum\Entity\Message;
 use App\Domain\Forum\Entity\Topic;
 use App\Domain\Forum\Event\TopicCreatedEvent;

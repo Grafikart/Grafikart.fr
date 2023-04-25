@@ -11,6 +11,5 @@ use App\Domain\Comment\Entity\Comment;
  */
 class CommentCrudData extends AutomaticCrudData
 {
-
     public string $content;
 }

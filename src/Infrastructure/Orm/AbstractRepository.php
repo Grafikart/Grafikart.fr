@@ -72,7 +72,9 @@ abstract class AbstractRepository extends ServiceEntityRepository
 
     /**
      * @template T of array
+     *
      * @param T $items
+     *
      * @return T
      * */
     public function hydrateRelation(array $items, string $propertyName): array
@@ -81,9 +83,9 @@ abstract class AbstractRepository extends ServiceEntityRepository
             return $items;
         }
 
-        $getter = 'get' . ucfirst($propertyName);
-        $setter = 'set' . ucfirst($propertyName);
-        $ids = array_map(fn($item) => $item->$getter()->getId(), $items);
+        $getter = 'get'.ucfirst($propertyName);
+        $setter = 'set'.ucfirst($propertyName);
+        $ids = array_map(fn ($item) => $item->$getter()->getId(), $items);
         /** @var class-string $entityClass */
         $entityClass = get_class($items[0]);
         $reflection = new \ReflectionClass($entityClass);
@@ -94,18 +96,13 @@ abstract class AbstractRepository extends ServiceEntityRepository
         /** @var class-string $relationClass */
         $relationClass = $relationType->getName();
         if (!$relationClass || !str_contains($relationClass, 'Entity')) {
-            throw new \Exception(sprintf(
-                "Impossible d'hydrater la relation dans un %s, la propriété %s (%s) n'est pas une entité",
-                $entityClass,
-                $propertyName,
-                $relationClass
-            ));
+            throw new \Exception(sprintf("Impossible d'hydrater la relation dans un %s, la propriété %s (%s) n'est pas une entité", $entityClass, $propertyName, $relationClass));
         }
 
         // Trouve les éléments liés
         /** @var object[] $relationItems */
         $relationItems = $this->getEntityManager()->getRepository($relationClass)->findBy(['id' => $ids]);
-        $relationItemsById = collect($relationItems)->keyBy(fn(object $item) => method_exists($item, 'getId') ? $item->getId() : -1)->toArray();
+        $relationItemsById = collect($relationItems)->keyBy(fn (object $item) => method_exists($item, 'getId') ? $item->getId() : -1)->toArray();
 
         // Remplit la relation
         foreach ($items as $item) {

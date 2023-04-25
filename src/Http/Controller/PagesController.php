@@ -31,10 +31,11 @@ class PagesController extends AbstractController
             $projectDir,
             DIRECTORY_SEPARATOR
         );
-        $spriteCode = (string)file_get_contents($spritePath);
+        $spriteCode = (string) file_get_contents($spritePath);
         preg_match_all('/id="([^"]*)"/i', $spriteCode, $matches);
+
         return $this->render('pages/ui.html.twig', [
-            'icons' => $matches[1]
+            'icons' => $matches[1],
         ]);
     }
 

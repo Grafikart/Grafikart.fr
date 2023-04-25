@@ -2,7 +2,10 @@
 
 {% block title %}
   {{ icon('lines') }}
-  Gérer les contenus
+  Commentaires
+  {%- if ip -%}
+  , <a class="text-small text-muted" href="https://ipinfo.io/{{ ip }}" target="_blank" rel="noreferrer">{{ ip }}</a>
+  {%- endif -%}
 {% endblock %}
 
 {% block actions %}

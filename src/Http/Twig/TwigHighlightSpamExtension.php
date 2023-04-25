@@ -47,6 +47,7 @@ class TwigHighlightSpamExtension extends TwigHighlightExtension
         if (!$this->spamWords) {
             $this->spamWords = $this->spamService->words();
         }
+
         return $this->spamWords;
     }
 }
