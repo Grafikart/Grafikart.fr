@@ -55,7 +55,6 @@ class CommentController extends CrudController
 
     public function getRepository(): CommentRepository
     {
-        /* @var CommentRepository */
-        return $this->em->getRepository(CommentRepository::class);
+        return $this->em->getRepository(Comment::class);
     }
 }
