@@ -11,6 +11,9 @@
       <a href="{{ path(comment.target) }}">
         {{ comment.target.title }}
       </a>,
+      <span class="text-small text-muted">
+        {{ comment.createdAt | ago }}
+      </span>
       <a class="text-small text-muted" href="{{ path('admin_comment_edit', {id: comment.id}) }}">Editer</a>
     </h3>
     <div class="hstack" style="--gap: 1">
@@ -26,5 +29,5 @@
       </ajax-delete>
     </div>
   </div>
-  <p>{{ comment.content | nl2br | highlight_spamwords }}</p>
+  <p>{{ comment.content | nl2br | highlight_spamwords(true) }}</p>
 </article>

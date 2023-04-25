@@ -28,12 +28,15 @@ class TwigHighlightSpamExtension extends TwigHighlightExtension
     /**
      * Met en surbrillance les mots potentiellement spam dans une chaîne de caractère.
      */
-    public function highlightSpamWords(string $content): string
+    public function highlightSpamWords(string $content, bool $includeLinks = false): string
     {
         $spamWords = $this->getSpamWords();
+        if ($includeLinks) {
+            $spamWords[] = 'http';
+        }
         $highlight = array_map(fn ($word) => '<mark>'.$word.'</mark>', $spamWords);
 
-        return nl2br(str_replace($spamWords, $highlight, $content));
+        return str_replace($spamWords, $highlight, $content);
     }
 
     /**

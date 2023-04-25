@@ -86,6 +86,7 @@ class CommentRepository extends AbstractRepository
     {
         $query = $this->createQueryBuilder('row')
             ->where('row.content LIKE :search')
+            ->orderBy('row.createdAt', 'DESC')
             ->setParameter('search', '%http%');
         foreach ($words as $k => $word) {
             $query = $query->orWhere("row.content LIKE :spam{$k}")->setParameter("spam{$k}", "%{$word}%");
