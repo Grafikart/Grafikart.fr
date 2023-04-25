@@ -6,7 +6,7 @@ App\Domain\Blog\Post:
   post1 (extends post):
     author: '@user2'
 
-App\Domain\Comment\Comment:
+App\Domain\Comment\Entity\Comment:
   comment{1..5} (extends comment):
     target: '@post1'
 

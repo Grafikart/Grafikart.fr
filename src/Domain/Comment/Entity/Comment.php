@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Comment;
+namespace App\Domain\Comment\Entity;
 
 use App\Domain\Application\Entity\Content;
 use App\Domain\Auth\User;
@@ -32,18 +32,18 @@ class Comment
     #[ORM\JoinColumn(onDelete: 'CASCADE', nullable: true)]
     private ?User $author = null;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Comment\Comment::class, inversedBy: 'replies')]
+    #[ORM\ManyToOne(targetEntity: \App\Domain\Comment\Entity\Comment::class, inversedBy: 'replies')]
     #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private ?self $parent = null;
 
     /**
      * @var Collection<int, Comment>
      */
-    #[ORM\OneToMany(targetEntity: \App\Domain\Comment\Comment::class, mappedBy: 'parent')]
+    #[ORM\OneToMany(targetEntity: \App\Domain\Comment\Entity\Comment::class, mappedBy: 'parent')]
     private Collection $replies;
 
     #[ORM\Column(type: 'string', length: 46, nullable: true)]
-    private ?string $ip = \App\Domain\Comment\Comment::class;
+    private ?string $ip;
 
     #[ORM\ManyToOne(targetEntity: \App\Domain\Application\Entity\Content::class)]
     #[ORM\JoinColumn(onDelete: 'CASCADE', nullable: false, name: 'content_id')]

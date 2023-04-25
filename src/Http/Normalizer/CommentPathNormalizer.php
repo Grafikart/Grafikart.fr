@@ -3,7 +3,7 @@
 namespace App\Http\Normalizer;
 
 use App\Domain\Blog\Post;
-use App\Domain\Comment\Comment;
+use App\Domain\Comment\Entity\Comment;
 use App\Domain\Course\Entity\Course;
 use App\Http\Encoder\PathEncoder;
 use App\Normalizer\Normalizer;

@@ -3,8 +3,10 @@
 namespace App\Domain\Comment;
 
 use App\Domain\Auth\User;
+use App\Domain\Comment\Entity\Comment;
 use App\Infrastructure\Orm\AbstractRepository;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -73,5 +75,21 @@ class CommentRepository extends AbstractRepository
             ->setParameter('user', $user)
             ->getQuery()
             ->getResult();
+    }
+
+    /**
+     * Trouve les commentaires suspicieux qui sont potentiellement des spams
+     *
+     * @param string[] $words
+     */
+    public function querySuspicious(array $words): QueryBuilder
+    {
+        $query = $this->createQueryBuilder('row')
+            ->where('row.content LIKE :search')
+            ->setParameter('search', '%http%');
+        foreach ($words as $k => $word) {
+            $query = $query->orWhere("row.content LIKE :spam{$k}")->setParameter("spam{$k}", "%{$word}%");
+        }
+        return $query;
     }
 }

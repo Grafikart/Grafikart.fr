@@ -3,7 +3,7 @@
 namespace App\Tests\Domain\Comment;
 
 use App\Domain\Auth\User;
-use App\Domain\Comment\Comment;
+use App\Domain\Comment\Entity\Comment;
 use App\Tests\FixturesTrait;
 use App\Tests\KernelTestCase;
 

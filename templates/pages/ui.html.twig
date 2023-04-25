@@ -428,50 +428,9 @@
       </style>
       <h1 class="h1 mb2">Icons</h1>
       <div class="hstack icons-grid">
-        {{ icon('home') }}
-        {{ icon('video') }}
-        {{ icon('lines') }}
-        {{ icon('comment') }}
-        {{ icon('camera') }}
-        {{ icon('pen') }}
-        {{ icon('search') }}
-        {{ icon('user') }}
-        {{ icon('clock') }}
-        {{ icon('warning') }}
-        {{ icon('cross') }}
-        {{ icon('check') }}
-        {{ icon('edit') }}
-        {{ icon('clone') }}
-        {{ icon('delete') }}
-        {{ icon('trash') }}
-        {{ icon('reply') }}
-        {{ icon('player') }}
-        {{ icon('comments') }}
-        {{ icon('sort') }}
-        {{ icon('breadcrumb') }}
-        {{ icon('lock') }}
-        {{ icon('cloud') }}
-        {{ icon('star') }}
-        {{ icon('info') }}
-        {{ icon('bell') }}
-        {{ icon('eye') }}
-        {{ icon('email') }}
-        {{ icon('tchat') }}
-        {{ icon('fingerprint') }}
-        {{ icon('info') }}
-        {{ icon('quotes') }}
-        {{ icon('list') }}
-        {{ icon('logout') }}
-        {{ icon('badge') }}
-        {{ icon('inbox') }}
-        {{ icon('arrow-down') }}
-        {{ icon('refund') }}
-        {{ icon('chart') }}
-        {{ icon('moon') }}
-        {{ icon('sun') }}
-        {{ icon('plus') }}
-        {{ icon('cursus') }}
-        {{ icon('ninja') }}
+        {% for v in icons %}
+          {{ icon(v) }}
+        {% endfor %}
       </div>
     </div>
   </div>

@@ -70,6 +70,51 @@ abstract class AbstractRepository extends ServiceEntityRepository
         return $queryBuilder->select($alias)->from($this->_entityName, $alias, $indexBy);
     }
 
+    /**
+     * @template T of array
+     * @param T $items
+     * @return T
+     * */
+    public function hydrateRelation(array $items, string $propertyName): array
+    {
+        if (!isset($items[0])) {
+            return $items;
+        }
+
+        $getter = 'get' . ucfirst($propertyName);
+        $setter = 'set' . ucfirst($propertyName);
+        $ids = array_map(fn($item) => $item->$getter()->getId(), $items);
+        /** @var class-string $entityClass */
+        $entityClass = get_class($items[0]);
+        $reflection = new \ReflectionClass($entityClass);
+        $relationType = $reflection->getProperty($propertyName)->getType();
+        if (!$relationType instanceof \ReflectionNamedType) {
+            throw new \Exception(sprintf("Impossible d'ingérer le type de la propriété %s de %s", $propertyName, $entityClass));
+        }
+        /** @var class-string $relationClass */
+        $relationClass = $relationType->getName();
+        if (!$relationClass || !str_contains($relationClass, 'Entity')) {
+            throw new \Exception(sprintf(
+                "Impossible d'hydrater la relation dans un %s, la propriété %s (%s) n'est pas une entité",
+                $entityClass,
+                $propertyName,
+                $relationClass
+            ));
+        }
+
+        // Trouve les éléments liés
+        /** @var object[] $relationItems */
+        $relationItems = $this->getEntityManager()->getRepository($relationClass)->findBy(['id' => $ids]);
+        $relationItemsById = collect($relationItems)->keyBy(fn(object $item) => method_exists($item, 'getId') ? $item->getId() : -1)->toArray();
+
+        // Remplit la relation
+        foreach ($items as $item) {
+            $item->$setter($relationItemsById[$item->$getter()->getId()] ?? null);
+        }
+
+        return $items;
+    }
+
     private function findByCaseInsensitiveQuery(array $conditions): Query
     {
         $conditionString = [];

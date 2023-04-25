@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Domain\Notification\Subscriber;
 
-use App\Domain\Comment\Comment;
 use App\Domain\Comment\CommentCreatedEvent;
+use App\Domain\Comment\Entity\Comment;
 use App\Domain\Notification\NotificationService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

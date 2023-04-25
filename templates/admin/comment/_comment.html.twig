@@ -1,0 +1,30 @@
+<article class="dashboard-comment stack" style="--gap:1">
+  <div class="flex">
+    <h3>
+      <strong>
+        {%- if comment.author -%}
+          <a href="{{ path('admin_user_index', {q: comment.author ? comment.author.id : '#'}) }}">{{ icon('user') }} {{ comment.username }}</a>
+        {%- else -%}
+          {{- comment.username -}}
+        {%- endif -%}
+      </strong>,
+      <a href="{{ path(comment.target) }}">
+        {{ comment.target.title }}
+      </a>,
+      <a class="text-small text-muted" href="{{ path('admin_comment_edit', {id: comment.id}) }}">Editer</a>
+    </h3>
+    <div class="hstack" style="--gap: 1">
+      {% if comment.ip %}
+        <a href="https://ipinfo.io/{{ comment.ip }}" target="_blank" class="text-small text-muted">
+          {{  comment.ip }}
+        </a>
+      {% endif %}
+      <ajax-delete class="dashboard-comment__delete"
+                   target=".dashboard-comment"
+                   url="{{ path('_api_/comments/{id}{._format}_delete', {id: comment.id}) }}">
+        {{ icon('delete') }}
+      </ajax-delete>
+    </div>
+  </div>
+  <p>{{ comment.content | nl2br | highlight_spamwords }}</p>
+</article>

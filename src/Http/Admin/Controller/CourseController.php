@@ -28,6 +28,7 @@ final class CourseController extends CrudController
     protected string $templatePath = 'course';
     protected string $menuItem = 'course';
     protected string $entity = Course::class;
+    protected bool $indexOnSave = false;
     protected string $routePrefix = 'admin_course';
     protected array $events = [
         'update' => ContentUpdatedEvent::class,

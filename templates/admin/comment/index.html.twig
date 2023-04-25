@@ -1,0 +1,26 @@
+{% extends 'admin/layout/card.html.twig' %}
+
+{% block title %}
+  {{ icon('lines') }}
+  Gérer les contenus
+{% endblock %}
+
+{% block actions %}
+  {% if suspicious_filter %}
+    <a href="{{ path(prefix ~ '_index') }}" class="btn-secondary">{{ icon('comments') }} Tous les commentaires</a>
+  {% else %}
+    <a href="{{ path(prefix ~ '_index', {suspicious: 1}) }}" class="btn-secondary">{{ icon('eye') }} Suspects</a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {% for comment in rows %}
+    {% include 'admin/comment/_comment.html.twig' %}
+    {% if not loop.last %}
+    <hr>
+    {% endif %}
+  {% endfor %}
+
+  {{ paginate(rows) }}
+{% endblock %}
+

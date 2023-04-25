@@ -23,5 +23,5 @@
       </ajax-delete>
     </div>
   </div>
-  <p>{{ target.content | highlight_words(spam_words) }}</p>
+  <p>{{ target.content | nl2br | highlight_spamwords }}</p>
 </article>

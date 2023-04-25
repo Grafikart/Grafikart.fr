@@ -33,7 +33,7 @@ App\Domain\Course\Entity\TechnologyUsage:
     technology: '@technology<numberBetween(1, 5)>'
     content: '@formation<current()>'
 
-App\Domain\Comment\Comment:
+App\Domain\Comment\Entity\Comment:
   comment{1..50} (extends comment):
 
 App\Domain\Forum\Entity\Tag:

@@ -19,6 +19,7 @@ final class BlogController extends CrudController
     protected string $menuItem = 'blog';
     protected string $entity = Post::class;
     protected string $routePrefix = 'admin_blog';
+    protected bool $indexOnSave = false;
     protected array $events = [
         'update' => PostUpdatedEvent::class,
         'delete' => PostDeletedEvent::class,

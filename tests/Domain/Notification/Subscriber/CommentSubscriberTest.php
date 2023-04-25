@@ -3,8 +3,8 @@
 namespace App\Tests\Domain\Notification\Subscriber;
 
 use App\Domain\Auth\User;
-use App\Domain\Comment\Comment;
 use App\Domain\Comment\CommentCreatedEvent;
+use App\Domain\Comment\Entity\Comment;
 use App\Domain\Notification\NotificationService;
 use App\Domain\Notification\Subscriber\CommentSubscriber;
 use App\Tests\EventSubscriberTest;

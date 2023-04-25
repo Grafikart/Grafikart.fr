@@ -2,6 +2,8 @@
 
 namespace App\Domain\Comment;
 
+use App\Domain\Comment\Entity\Comment;
+
 abstract class CommentData
 {
     public ?int $id = null;

@@ -35,8 +35,14 @@ class SpamService
      */
     public function words(): array
     {
-        $spamWords = preg_split('/\r\n|\r|\n/', $this->optionManager->get('spam_words') ?: '');
+        $wordList = preg_split('/\r\n|\r|\n/', $this->optionManager->get('spam_words') ?: '');
+        if (!is_array($wordList)) {
+            return [];
+        }
 
-        return is_array($spamWords) ? $spamWords : [];
+        return collect($wordList)
+            ->map(fn(string $word) => trim($word))
+            ->filter(fn(string $word) => !empty($word))
+            ->toArray();
     }
 }

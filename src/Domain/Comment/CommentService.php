@@ -4,6 +4,7 @@ namespace App\Domain\Comment;
 
 use App\Domain\Application\Entity\Content;
 use App\Domain\Auth\AuthService;
+use App\Domain\Comment\Entity\Comment;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RequestStack;

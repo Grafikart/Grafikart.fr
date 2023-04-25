@@ -4,12 +4,12 @@ namespace App\Infrastructure\Spam\Subscriber;
 
 use App\Domain\Forum\Event\PreMessageCreatedEvent;
 use App\Domain\Forum\Event\PreTopicCreatedEvent;
-use App\Helper\OptionManagerInterface;
+use App\Infrastructure\Spam\SpamService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class SpamSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private readonly OptionManagerInterface $optionManager)
+    public function __construct(readonly private SpamService $spamService)
     {
     }
 
@@ -25,7 +25,7 @@ class SpamSubscriber implements EventSubscriberInterface
     {
         $topic = $topicCreatedEvent->getTopic();
         $content = (string) $topic->getContent();
-        foreach ($this->getSpamWords() as $word) {
+        foreach ($this->spamService->words() as $word) {
             if (false !== stripos($content, (string) $word)) {
                 $topic->setSpam(true);
 
@@ -38,22 +38,12 @@ class SpamSubscriber implements EventSubscriberInterface
     {
         $message = $messageCreatedEvent->getMessage();
         $content = (string) $message->getContent();
-        foreach ($this->getSpamWords() as $word) {
+        foreach ($this->spamService->words() as $word) {
             if (false !== stripos($content, (string) $word)) {
                 $message->setSpam(true);
 
                 return;
             }
         }
-    }
-
-    private function getSpamWords(): array
-    {
-        $spamWords = $this->optionManager->get('spam_words');
-        if (null === $spamWords) {
-            return [];
-        }
-
-        return preg_split('/\r\n|\r|\n/', $spamWords) ?: [];
     }
 }

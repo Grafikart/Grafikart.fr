@@ -12,9 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class {{ class_name }} extends AbstractController
 {
-    /**
-     * @Route("/demo", name="demo")
-     */
+    #[Route(path: "/demo", name: "demo"]
     public function index(): {% if api %}JsonResponse{% else %}Response{% endif %}
     {
 

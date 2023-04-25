@@ -2,6 +2,8 @@
 
 namespace App\Domain\Comment;
 
+use App\Domain\Comment\Entity\Comment;
+
 class CommentCreatedEvent
 {
     public function __construct(private readonly Comment $comment)
