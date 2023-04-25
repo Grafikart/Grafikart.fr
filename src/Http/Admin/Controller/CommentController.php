@@ -10,14 +10,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route(path: '/comment', name: 'comment_')]
+#[Route(path: '/comments', name: 'comment_')]
 class CommentController extends CrudController
 {
     protected string $templatePath = 'comment';
     protected string $menuItem = 'comments';
     protected string $entity = Comment::class;
     protected string $routePrefix = 'admin_comment';
-    protected string $searchField = 'name';
+    protected string $searchField = 'content';
 
     #[Route(path: '/', name: 'index')]
     public function index(Request $request, SpamService $spamService): Response
