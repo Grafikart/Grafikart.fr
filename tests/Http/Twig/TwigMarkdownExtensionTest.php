@@ -6,26 +6,25 @@ use App\Domain\Application\Repository\ContentRepository;
 use App\Domain\Course\Entity\Course;
 use App\Http\Twig\TwigMarkdownExtension;
 use App\Http\Twig\ViewRendererInterface;
-use Mockery;
 use PHPUnit\Framework\TestCase;
 
 class TwigMarkdownExtensionTest extends TestCase
 {
 
-    public function tearDown(): void
-    {
-        Mockery::close();
-    }
-
     /**
      * @param ContentRepository $mock
      */
-    private function getExtension(
-        mixed $mock = null
-    ): TwigMarkdownExtension {
-        $mock ??= \Mockery::mock(ContentRepository::class);
-        $renderer = \Mockery::mock(ViewRendererInterface::class)->shouldReceive('render')->withAnyArgs()->andReturnUsing(fn (string $view) => $view)->getMock();
-        return new TwigMarkdownExtension($mock, $renderer);
+    private function getExtension(): TwigMarkdownExtension
+    {
+        $contentRepository = $this->createMock(ContentRepository::class);
+        $contentRepository
+            ->expects($this->any())
+            ->method('findOrFail')
+            ->with($this->equalTo(520))
+            ->willReturn(new Course());
+        $renderer = $this->createMock(ViewRendererInterface::class);
+        $renderer->method('render')->willReturnArgument(0);
+        return new TwigMarkdownExtension($contentRepository, $renderer);
     }
 
     public function testExcerptWithNull(): void
@@ -65,19 +64,23 @@ MARKDOWN
         ));
     }
 
-    public function testMarkdownParseContent()
+    public function testMarkdownParseContent(): void
     {
-        $mock = \Mockery::mock(ContentRepository::class);
-        $mock->expects()->findOrFail(520)->once()->andReturns(new Course());
-        $extension = $this->getExtension($mock);
+        $extension = $this->getExtension();
         $markdown = "Hello\n\n<content id=\"520\"/>\n\nword";
         $this->assertEquals("<p>Hello</p>\ncontent/_card.html.twig\n<p>word</p>", $extension->markdown($markdown));
     }
 
-    public function testMarkdownUntrusted()
+    public function testMarkdownUntrusted(): void
     {
         $extension = $this->getExtension();
-        $this->assertEquals('<p>Demo <a target="_blank" rel="noreferrer nofollow" href="https://grafikart.fr">Grafikart</a> Site</p>', $extension->markdownUntrusted('Demo [Grafikart](https://grafikart.fr) Site'));
-        $this->assertEquals('<p>Demo <a href="/tutoriel/demo">Grafikart</a> Site</p>', $extension->markdownUntrusted('Demo [Grafikart](/tutoriel/demo) Site'));
+        $this->assertEquals(
+            '<p>Demo <a target="_blank" rel="noreferrer nofollow" href="https://grafikart.fr">Grafikart</a> Site</p>',
+            $extension->markdownUntrusted('Demo [Grafikart](https://grafikart.fr) Site')
+        );
+        $this->assertEquals(
+            '<p>Demo <a href="/tutoriel/demo">Grafikart</a> Site</p>',
+            $extension->markdownUntrusted('Demo [Grafikart](/tutoriel/demo) Site')
+        );
     }
 }
