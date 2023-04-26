@@ -13,13 +13,7 @@
         , pour découvrir tout de <strong>A</strong> à <strong>Z</strong>
       </p>
     </div>
-    <form class="form-group flex glossary-search" action="">
-      <input type="text" name="q" placeholder="Rechercher un mot" value="" required>
-      <button type="submit">
-        <span class="reader-only">Rechercher</span>
-        {{ icon('search') }}
-      </button>
-    </form>
+    <glossary-search class="glossary-search"></glossary-search>
   </div>
 
   <glossary-letters class="glossary-letters container py2">
@@ -38,8 +32,8 @@
         {% for word in words %}
         <li>
           <a href="{{ path('glossary_show', {slug: word.slug}) }}" class="glossary-word">
-            {{ word.name }}{% if word.synonyms | length > 0 %},{% endif %}
-            <span>
+            <span class="glossary-word__name">{{ word.name }}</span>{% if word.synonyms | length > 0 %},{% endif %}
+            <span class="glossary-word__synonyms">
               {{ word.synonyms | join(', ') }}
             </span>
           </a>

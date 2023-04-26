@@ -18,14 +18,23 @@
   font-size: 20px;
 }
 
+// Search
+// =============
 .glossary-search {
+  z-index: 15;
   flex-grow: 1;
   max-width: 500px;
 }
 
 .glossary-search input {
   border-radius: 3px 0 0 3px;
+  background: var(--background-light);
 }
+
+.glossary-search .has-suggest {
+  border-radius: 3px 0 0 0;
+}
+
 
 .glossary-search button {
   flex: none;
@@ -39,6 +48,15 @@
 .glossary-search svg {
   width: 20px;
   height: 20px;
+}
+
+.glossary-search__dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  background-color: var(--background-light);
+  color: var(--color);
 }
 
 .glossary-letters {
@@ -113,24 +131,29 @@
   display: block;
   --light: var(--color-light);
 
-  &:hover {
+  &:hover,
+  &.is-selected {
     background: var(--background);
     --light: var(--contrast);
     color: var(--contrast);
   }
 
-  span {
-    color: var(--light);
-    font-size: 12px;
-  }
-
   &:first-letter {
     text-transform: uppercase;
-    font-size: 1.3em;
+    font-size: 1.2em;
     font-weight: bold;
   }
 
   li:last-child & {
     border: none;
   }
+
+  mark {
+    background: var(--contrast25);
+  }
+}
+
+.glossary-word__synonyms {
+  color: var(--light);
+  font-size: 12px;
 }

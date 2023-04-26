@@ -36,6 +36,7 @@ import { MarkAsWatched } from '/elements/courses/MarkAsWatched.jsx'
 import { PodcastVote } from '/elements/PodcastVote.js'
 import { SpoilerBox } from '/elements/SpoilerBox'
 import { GlossaryLetters } from '/elements/glossary/GlossaryLetters'
+import { GlossarySearch } from '/elements/glossary/GlossarySearch'
 
 // Custom Elements
 customElements.define('nav-tabs', NavTabs)
@@ -74,6 +75,7 @@ preactCustomElement('badge-unlock', BadgeUnlock, ['name', 'description'])
 preactCustomElement('search-button', Search)
 preactCustomElement('search-input', SearchInput)
 preactCustomElement('mark-as-watched', MarkAsWatched, ['contentId'])
+preactCustomElement('glossary-search', GlossarySearch)
 
 // CustomElement étendus
 customElements.define('input-switch', Switch, { extends: 'input' })
