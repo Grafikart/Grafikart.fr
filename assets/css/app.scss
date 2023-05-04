@@ -1,5 +1,9 @@
+@layer base, modules, pages, utilities;
+
 // Variables
 // ==================
+$font: 'Inter', sans-serif;
+$font-alt: 'Inter', sans-serif;
 :root {
   --color-dark: #000;
   --color: #121c42;
@@ -21,7 +25,7 @@
   --space-section: 150px;
   --card-footer: #f7fafd;
   --card-padding: 16px;
-  --header-height: 137px;
+  --header-height: 74px;
   --red: #f25353;
   --green: #41cf7c;
   --yellow: #feb32b;
@@ -35,11 +39,15 @@
 
 // Outils
 // ==================
-@import 'tools/reset';
+@layer base {
+  @import 'tools/reset';
+}
 @import 'tools/functions';
 @import 'tools/mixins';
-@import 'tools/layout';
-@import 'tools/typography';
+@layer utilities {
+  @import 'tools/layout';
+  @import 'tools/typography';
+}
 @import 'tools/animations';
 
 // Dark mode
@@ -140,56 +148,61 @@ spoiler-box {
 
 // Modules
 // ==================
-@import 'modules/header';
-@import 'modules/card';
-@import 'modules/color';
-@import 'modules/scrollbar';
-@import 'modules/btn';
-@import 'modules/pagination';
-@import 'modules/form';
-@import 'modules/alert';
-@import 'modules/formatted';
-@import 'modules/table';
-@import 'modules/tabs';
-@import 'modules/list';
-@import 'modules/pill';
-@import 'modules/modal';
-@import 'modules/comments';
-@import 'modules/page';
-@import 'modules/breadcrumb';
-@import 'modules/hero';
-@import 'modules/nav';
-@import 'modules/highlight';
-@import 'modules/pricing';
-@import 'modules/notifications';
-@import 'modules/footer';
-@import 'modules/stepper';
-@import 'modules/slider';
-@import 'modules/search';
-@import 'modules/filter';
-@import 'modules/dropdown';
-@import 'modules/noel';
-@import 'modules/themeswitcher';
-@import 'modules/avatars';
-@import 'modules/podcast';
-// @import 'modules/tooltips';
+@layer modules {
+  @import 'modules/header';
+  @import 'modules/card';
+  @import 'modules/color';
+  @import 'modules/scrollbar';
+  @import 'modules/btn';
+  @import 'modules/pagination';
+  @import 'modules/form';
+  @import 'modules/alert';
+  @import 'modules/formatted';
+  @import 'modules/table';
+  @import 'modules/tabs';
+  @import 'modules/list';
+  @import 'modules/pill';
+  @import 'modules/modal';
+  @import 'modules/comments';
+  @import 'modules/page';
+  @import 'modules/breadcrumb';
+  @import 'modules/hero';
+  @import 'modules/nav';
+  @import 'modules/highlight';
+  @import 'modules/pricing';
+  @import 'modules/notifications';
+  @import 'modules/footer';
+  @import 'modules/stepper';
+  @import 'modules/slider';
+  @import 'modules/search';
+  @import 'modules/filter';
+  @import 'modules/dropdown';
+  @import 'modules/noel';
+  @import 'modules/themeswitcher';
+  @import 'modules/avatars';
+  @import 'modules/podcast';
+  // @import 'modules/tooltips';
+}
 
 // Pages
 // ==================
-@import 'pages/live';
-@import 'pages/course';
-@import 'pages/cursus';
-@import 'pages/chapters';
-@import 'pages/auth';
-@import 'pages/blog';
-@import 'pages/env';
-@import 'pages/formations';
-@import 'pages/home';
-@import 'pages/forum';
-@import 'pages/user';
-@import 'pages/premium';
-@import 'pages/badges';
-@import 'pages/error';
-// @import "pages/single";
-// @import "pages/single";
-// @import "pages/single";
+@layer pages {
+  @import 'pages/live';
+  @import 'pages/course';
+  @import 'pages/cursus';
+  @import 'pages/chapters';
+  @import 'pages/auth';
+  @import 'pages/blog';
+  @import 'pages/env';
+  @import 'pages/formations';
+  @import 'pages/home';
+  @import 'pages/forum';
+  @import 'pages/user';
+  @import 'pages/premium';
+  @import 'pages/badges';
+  @import 'pages/error';
+  @import 'pages/glossary';
+  // @import "pages/single";
+  // @import "pages/single";
+  // @import "pages/single";
+}

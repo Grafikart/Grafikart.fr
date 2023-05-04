@@ -1,0 +1,59 @@
+{% if content.isCourse %}
+  <article class="card {{ content.premium ? 'card-premium' : '' }}">
+    <div class="card__body stack">
+      {# Titre du tutoriel #}
+      <div class="card__title my0">
+        <a class="underline" href="{{ path('course_show', {slug: content.slug, id: content.id}) }}"
+           title="{{ content.title }}"
+           class="card__link">
+          {{ content.title }}
+        </a>
+      </div>
+
+      <div class="card__description text-small">
+        {{ content.content | markdown | striptags | excerpt(130) | raw }}
+      </div>
+    </div>
+
+    {# Barre de progression #}
+    <footer class="card__footer text-small">
+      {% if content.formation %}
+        <div class="text-truncate">
+          {{ icon('list', 12) }} {{ content.formation.title }}
+        </div>
+      {% endif %}
+      <div>
+        {{ icon('clock', 14) }} {{ content.duration | duration }}
+      </div>
+    </footer>
+
+    {# Difficulté #}
+    <div class="card__pills">
+
+      {% include 'partials/level.html.twig' with {content: content, small: true} %}
+
+      {% if content.premium %}
+        <div class="pill small pill-yellow uppercase">{{ icon('star') }} Premium</div>
+      {% endif %}
+    </div>
+  </article>
+{% elseif content.isFormation %}
+    <article class="card">
+      <div class="card__body stack">
+        <div class="card__title">
+          <a href="{{ path('formation_show', {slug: content.slug}) }}" title="{{ content.title }}"
+             class="card__link">
+            {{ content.title }}
+          </a>
+        </div>
+        <div class="card__description text-small">
+          {{ content.content | markdown | striptags | excerpt(130) }}
+        </div>
+      </div>
+      <footer class="card__footer">
+        <div>{{ icon('lines', 12) }} {{ content.courses | length }} Chapitres</div>
+        <div>{{ icon('clock', 14) }} {{ content.duration | duration }}</div>
+      </footer>
+    </article>
+
+{% endif %}

@@ -1,0 +1,5 @@
+include:
+  - ../../fixtures/templates.yaml
+
+App\Domain\Glossary\Entity\GlossaryItem:
+  glossary_item{1..20} (extends glossary_item):

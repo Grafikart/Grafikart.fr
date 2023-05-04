@@ -137,3 +137,6 @@ services:
     bind:
       $persistProcessor: '@api_platform.doctrine.orm.state.persist_processor'
       $removeProcessor: '@api_platform.doctrine.orm.state.remove_processor'
+
+  App\Http\Twig\ViewRendererInterface:
+    class: App\Http\Twig\TwigViewRenderer

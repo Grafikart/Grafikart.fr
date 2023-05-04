@@ -1,6 +1,8 @@
 const DURATION = 5000
 
 /**
+ * Donne une classe spécifique aux enfants en fonction de l'ordre "item-1", "item-2"...
+ *
  * @property {number} timer
  * @property {HTMLElement[]} elements
  */

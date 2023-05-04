@@ -2,11 +2,18 @@
 
 namespace App\Http\Twig;
 
+use App\Domain\Application\Repository\ContentRepository;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
 class TwigMarkdownExtension extends AbstractExtension
 {
+    public function __construct(
+        private ContentRepository $contentRepository,
+        private ViewRendererInterface $renderer
+    ) {
+    }
+
     public function getFilters(): array
     {
         return [
@@ -45,6 +52,7 @@ class TwigMarkdownExtension extends AbstractExtension
             return '';
         }
         $content = (new \Parsedown())->setBreaksEnabled(true)->setSafeMode(false)->text($content);
+
         // On remplace les liens youtube par un embed
         $content = (string) preg_replace(
             '/<p><a href\="(http|https):\/\/www.youtube.com\/watch\?v=([^\""]+)">[^<]*<\/a><\/p>/',
@@ -69,6 +77,14 @@ class TwigMarkdownExtension extends AbstractExtension
             $timecode = (int) ($times[2] ?? 0) * 60 * 60 + (int) $times[1] * 60 + (int) $times[0];
 
             return "<a href=\"#t{$timecode}\">{$matches[1]}</a> $title";
+        }, $content) ?: $content;
+
+        // On génère les carte pour les contenus
+        $content = preg_replace_callback('/<content id="(\d+)".*?\/?>/i', function ($matches) {
+            $content = $this->contentRepository->findOrFail((int)$matches[1]);
+            return $this->renderer->render('content/_card.html.twig', [
+                'content' => $content
+            ]);
         }, $content) ?: $content;
 
         return $content;

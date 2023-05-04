@@ -79,3 +79,7 @@ App\Domain\Podcast\Entity\Podcast:
     scheduledAt: null
     votesCount: <numberBetween(2, 200)>
     author: '@user*'
+
+App\Domain\Glossary\Entity\GlossaryItem:
+  glossary_item{1..250} (extends glossary_item):
+

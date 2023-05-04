@@ -1,0 +1,159 @@
+.glossary-header {
+  padding-block: space(9);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem 124px;
+
+  @include down(800) {
+    flex-direction: column;
+  }
+}
+
+.glossary-header .h1 {
+  line-height: 1;
+}
+
+.glossary-header p {
+  font-size: 20px;
+}
+
+// Search
+// =============
+.glossary-search {
+  z-index: 15;
+  flex-grow: 1;
+  max-width: 500px;
+}
+
+.glossary-search input {
+  border-radius: 3px 0 0 3px;
+  background: var(--background-light);
+}
+
+.glossary-search .has-suggest {
+  border-radius: 3px 0 0 0;
+}
+
+
+.glossary-search button {
+  flex: none;
+  background-color: var(--color-dark);
+  color: var(--color-inversed);
+  width: 48px;
+  height: 48px;
+  border-radius: 0 3px 3px 0;
+}
+
+.glossary-search svg {
+  width: 20px;
+  height: 20px;
+}
+
+.glossary-search__dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  background-color: var(--background-light);
+  color: var(--color);
+}
+
+.glossary-letters {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background-color: var(--background-light);
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: repeat(26, 1fr);
+  gap: .5rem 0;
+  font-size: 23px;
+  transition: top .3s ease;
+
+  @include down(1071) {
+    font-size: 20px;
+  }
+
+  @include down(800) {
+    grid-template-columns: repeat(13, 1fr);
+  }
+
+  @include down(460) {
+    grid-template-columns: repeat(9, 1fr);
+  }
+}
+
+.glossary-letter {
+  border: 1px solid var(--border);
+  font-weight: bold;
+  padding-block: .35em;
+  max-height: 40px;
+  max-width: 38px;
+  line-height: 1;
+  transition: .3s;
+
+  &[disabled] {
+    color: var(--color-light);
+    opacity: .3;
+  }
+
+  &:hover {
+    color: var(--contrast);
+    background-color: var(--background);
+    border-color: var(--contrast);
+  }
+
+}
+
+.glossary-letter.is-active {
+  border-color: var(--contrast);
+  background-color: var(--contrast);
+  color: var(--color-inversed)
+}
+
+.glossary-section {
+  margin-top: space(2);
+  padding-top: space(3);
+  scroll-margin: var(--scrollOffset, 75px) 0 0 0;
+}
+
+.glossary-lettering {
+  text-transform: uppercase;
+}
+
+.glossary-word {
+  padding: space(1) space(1.5);
+  border-bottom: 1px solid var(--border);
+  color: var(--color);
+  display: block;
+  --light: var(--color-light);
+
+  &:hover,
+  &.is-selected {
+    background: var(--background);
+    --light: var(--contrast);
+    color: var(--contrast);
+  }
+
+  &:first-letter {
+    text-transform: uppercase;
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+
+  li:last-child & {
+    border: none;
+  }
+
+  mark {
+    background: var(--contrast25);
+  }
+}
+
+.glossary-word__synonyms {
+  color: var(--light);
+  font-size: 12px;
+}

@@ -1,8 +1,3 @@
-// Variables
-// ==================
-$font: 'Inter', sans-serif;
-$font-alt: 'Inter', sans-serif;
-
 // Font face
 // ==================
 @include font-face('Inter', '/fonts/Inter', 400 500 700, null, woff2);
