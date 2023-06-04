@@ -121,13 +121,17 @@ services:
     class: League\Flysystem\Filesystem
     factory: ['@App\Infrastructure\Storage\DropboxFilesystemFactory', 'createFilesystem']
 
-  App\Infrastructure\Captcha\CaptchaType:
+  App\Infrastructure\Captcha\HCaptcha\HCaptchaType:
     arguments:
       $apiKey: '%captcha_id%'
 
-  App\Infrastructure\Captcha\IsValidCaptchaValidator:
+  App\Infrastructure\Captcha\HCaptcha\IsValidHCaptchaValidator:
     arguments:
       $apiSecret: '%captcha_secret%'
+
+  App\Infrastructure\Captcha\CaptchaImageService:
+    arguments:
+      $imagePath: '%kernel.project_dir%/public/images/captcha'
 
   App\Http\Twig\TwigUrlExtension:
     arguments:

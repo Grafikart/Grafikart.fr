@@ -65,9 +65,21 @@
   {% endfor %}
 {%- endblock choice_widget_options -%}
 
-{% block captcha_widget  %}
+{% block hcaptcha_widget  %}
   <div class="form-group">
     <div class="h-captcha" data-sitekey="{{ hcaptcha_site_key }}"></div>
     <script src="https://hcaptcha.com/1/api.js?hl=fr" async defer></script>
+  </div>
+{% endblock %}
+
+{% block captcha_widget  %}
+  <div class="form-group">
+    <puzzle-captcha
+            {{ block('widget_attributes') }}
+            width="{{ captcha_width }}"
+            height="{{ captcha_height }}"
+            piecewidth="{{ captcha_piece_width }}"
+            pieceheight="{{ captcha_piece_height }}"
+    ></puzzle-captcha>
   </div>
 {% endblock %}

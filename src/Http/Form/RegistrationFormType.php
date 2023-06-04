@@ -4,6 +4,7 @@ namespace App\Http\Form;
 
 use App\Domain\Auth\User;
 use App\Infrastructure\Captcha\CaptchaType;
+use App\Infrastructure\Captcha\HCaptcha\HCaptchaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;

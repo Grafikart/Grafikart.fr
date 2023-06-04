@@ -198,3 +198,9 @@ export function useNotificationCount (n) {
     favIconBadge.setAttribute('badge', n === 0 ? 'false' : 'true')
   }, [n])
 }
+
+export function useRefSync(v) {
+  const ref = useRef(v)
+  ref.current = v
+  return ref
+}

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure\Captcha;
+namespace App\Infrastructure\Captcha\HCaptcha;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -8,20 +8,15 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CaptchaType extends AbstractType
+class HCaptchaType extends AbstractType
 {
-
-    public function __construct(private readonly CaptchaKeyService $captchaService)
+    public function __construct(private readonly string $apiKey)
     {
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
-        $this->captchaService->generateKey();
-        $view->vars['captcha_width'] = CaptchaKeyService::CAPTCHA_WIDTH;
-        $view->vars['captcha_height'] = CaptchaKeyService::CAPTCHA_HEIGHT;
-        $view->vars['captcha_piece_width'] = CaptchaKeyService::CAPTCHA_PIECE_WIDTH;
-        $view->vars['captcha_piece_height'] = CaptchaKeyService::CAPTCHA_PIECE_HEIGHT;
+        $view->vars['hcaptcha_site_key'] = $options['hcaptcha_site_key'];
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -30,9 +25,12 @@ class CaptchaType extends AbstractType
             'empty_data' => null,
             'mapped' => false,
             'constraints' => [
-                new IsValidCaptcha(),
+                new IsValidHCaptcha(),
             ],
         ]);
+
+        $resolver->setDefault('hcaptcha_site_key', $this->apiKey);
+        $resolver->setRequired('hcaptcha_site_key');
     }
 
     public function getParent(): ?string
@@ -42,7 +40,6 @@ class CaptchaType extends AbstractType
 
     public function getBlockPrefix(): string
     {
-        return 'captcha';
+        return 'hcaptcha';
     }
-
 }
