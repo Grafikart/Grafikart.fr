@@ -39,10 +39,6 @@ class CaptchaKeyService
         return $this->getSession()->get(self::SESSION_KEY);
     }
 
-    /**
-     * @param string $guessKey
-     * @return bool
-     */
     public function verifyKey(string $guessKey): bool
     {
         $guess = array_map(fn(string $v) => intval($v), explode('-', $guessKey));
