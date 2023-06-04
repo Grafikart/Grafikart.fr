@@ -5,22 +5,17 @@ import {Icon} from '/components/Icon'
 import clsx from 'clsx'
 import {ApiError, HTTP_FORBIDDEN, jsonFetch} from '/functions/api'
 import {useRefSync} from '/functions/hooks'
-import {windowHeight} from '/functions/window'
-import confetti from 'canvas-confetti'
 
 /**
- * Generate a puzzle captcha
+ * Génère un captcha sous forme de puzzle
  *
- * @param {string} props.width
- * @param {string} props.height
- * @param {string} props.piecewidth
- * @param {string} props.pieceheight
+ * @param {{width: string, height: string, piecewidth: string, pieceheight: string}} props
  * @param {string} name
  */
 export function Captcha ({name, ...props}) {
   const {width, height, piecewidth, pieceheight} = castInt(props)
   const max = useMemo(() => [width - piecewidth, height - pieceheight], [])
-  const [position, movePosition] = usePosition(max);
+  const [position, movePosition] = usePosition(max)
   const positionRef = useRefSync(position)
   const {state, cacheKey, guess} = useValidateCaptcha()
   const src = `/captcha?key=${cacheKey}`
@@ -36,21 +31,6 @@ export function Captcha ({name, ...props}) {
   // Confetti
   useEffect(() => {
     pieceRef.current.closest('form').querySelector('button').removeAttribute('disabled')
-    if (state === 'solved') {
-      const rect = pieceRef.current.getBoundingClientRect()
-      const y = (rect.top + rect.height / 2) / windowHeight()
-      confetti({
-        startVelocity: 30,
-        particleCount: 60,
-        zIndex: 3000,
-        spread: 100,
-        gravity: .8,
-        disableForReducedMotion: true,
-        colors: ['#41cf7c', '#feb32b', '#4869ee'],
-        ticks: 100,
-        origin: {  y: y }
-      })
-    }
   }, [state])
 
   // Désactive le bouton submit
@@ -68,10 +48,10 @@ export function Captcha ({name, ...props}) {
     if (!isPointerDown.current) {
       return
     }
-    movePosition(e.movementX, e.movementY);
+    movePosition(e.movementX, e.movementY)
   }, [movePosition])
 
-  const transform = `translate3d(${position[0]}px, ${position[1]}px, 0)`;
+  const transform = `translate3d(${position[0]}px, ${position[1]}px, 0)`
 
   const isLoading = state === 'loading'
   const isSolved = state === 'solved'
@@ -82,7 +62,9 @@ export function Captcha ({name, ...props}) {
       Placez la pièce du puzzle pour vérifier que vous n’êtes pas un
       robot
     </div>
-    <div className={clsx('relative captcha', isSolved && 'captcha--success', isLoading && 'captcha--loading', isError && 'captcha--error')} style={{width: width, height: height, '--width': width}}>
+    <div
+      className={clsx('relative captcha', isSolved && 'captcha--success', isLoading && 'captcha--loading', isError && 'captcha--error')}
+      style={{width: width, height: height, '--width': width}}>
       <div className="captcha__background"
            style={{backgroundImage: `url(${src})`}}
            onPointerMove={handleMove}>
@@ -100,14 +82,14 @@ export function Captcha ({name, ...props}) {
 }
 
 function useCacheKey () {
-  const [key, setKey] = useState(() => Date.now());
+  const [key, setKey] = useState(() => Date.now())
   const generate = () => {
     setKey(Date.now())
   }
   return [key, generate]
 }
 
-function usePosition([maxX, maxY]) {
+function usePosition ([maxX, maxY]) {
   const [position, setPosition] = useState(() => [randomBetween(0, maxX), randomBetween(0, maxY)])
   const movePosition = useCallback((x, y) => {
     setPosition(p => [
@@ -125,7 +107,7 @@ function useValidateCaptcha () {
   const [cacheKey, regenerateCacheKey] = useCacheKey()
   const [state, setState] = useState('default')
   const guess = async ([x, y]) => {
-    setState('loading');
+    setState('loading')
     try {
       await jsonFetch('/captcha/validate', {
         method: 'post',
@@ -138,9 +120,12 @@ function useValidateCaptcha () {
       if (e instanceof ApiError) {
         setState('error')
         if (e.status === HTTP_FORBIDDEN) {
-          setTimeout(() => regenerateCacheKey(), 1000)
+          setTimeout(() => setState('loading'), 500)
+          setTimeout(() => regenerateCacheKey(), 500)
+          setTimeout(() => setState('default'), 1000)
+        } else {
+          setTimeout(() => setState('default'), 500)
         }
-        setTimeout(() => setState('default'), 1000)
       } else {
         throw e
       }

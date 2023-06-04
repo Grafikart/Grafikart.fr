@@ -58,6 +58,7 @@ class CaptchaKeyService
                 $session = $this->getSession();
                 $tries = ($session->get(self::SESSION_KEY_TRIES) ?? 0) + 1;
                 if ($tries >= self::MAX_TRY) {
+                    $this->generateKey();
                     throw new TooManyTryException();
                 }
                 $session->set(self::SESSION_KEY_TRIES, $tries);
