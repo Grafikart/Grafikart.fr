@@ -97,6 +97,9 @@ class User implements UserInterface, ForumReaderUserInterface, CacheableInterfac
     #[ORM\Column(type: 'string', options: ['default' => null], nullable: true)]
     private ?string $invoiceInfo = null;
 
+    #[ORM\Column(type: 'integer', options: ['default' => 0], nullable: false)]
+    private int $registrationDuration = 0;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -374,6 +377,17 @@ class User implements UserInterface, ForumReaderUserInterface, CacheableInterfac
     {
         $this->invoiceInfo = $invoiceInfo;
 
+        return $this;
+    }
+
+    public function getRegistrationDuration(): int
+    {
+        return $this->registrationDuration;
+    }
+
+    public function setRegistrationDuration(int $registrationDuration): self
+    {
+        $this->registrationDuration = $registrationDuration;
         return $this;
     }
 }

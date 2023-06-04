@@ -6,6 +6,7 @@ use App\Domain\Auth\Service\UserBanService;
 use App\Domain\Auth\User;
 use App\Domain\Auth\UserRepository;
 use App\Domain\Premium\Exception\PremiumNotBanException;
+use App\Domain\Stats\UserStatsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -25,9 +26,23 @@ class UserController extends CrudController
     protected array $events = [];
 
     #[Route(path: '/', name: 'index')]
-    public function index(): Response
-    {
-        return $this->crudIndex();
+    public function index(
+        Request $request,
+        UserStatsRepository $repository
+    ): Response {
+        $filterBanned = $request->get('banned');
+        $query = null;
+        $params = [
+            'banned_filter' => $filterBanned
+        ];
+        if ($request->query->getInt('page', 1) === 1 && !$filterBanned) {
+            $params['months'] = $repository->getMonthlySignups();
+            $params['days'] = $repository->getDailySignups();
+        }
+        if ($filterBanned) {
+            $query = $this->getRepository()->queryBanned();
+        }
+        return $this->crudIndex($query, $params);
     }
 
     public function applySearch(string $search, QueryBuilder $query): QueryBuilder
@@ -48,10 +63,12 @@ class UserController extends CrudController
         $repository = $this->em->getRepository(User::class);
         $q = strtolower($request->query->get('q') ?: '');
         if ('moi' === $q) {
-            return new JsonResponse([[
-                'id' => $this->getUser()->getId(),
-                'username' => $this->getUser()->getUsername(),
-            ]]);
+            return new JsonResponse([
+                [
+                    'id'       => $this->getUser()->getId(),
+                    'username' => $this->getUser()->getUsername(),
+                ]
+            ]);
         }
         $users = $repository
             ->createQueryBuilder('u')
@@ -95,5 +112,10 @@ class UserController extends CrudController
         $this->addFlash('success', 'Le compte a bien été confirmé');
 
         return $this->redirectBack('admin_user_index');
+    }
+
+    public function getRepository(): UserRepository
+    {
+        return $this->em->getRepository(User::class);
     }
 }
