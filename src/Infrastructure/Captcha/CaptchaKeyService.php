@@ -46,7 +46,8 @@ class CaptchaKeyService
         if ($key === null) {
             return false;
         }
-        for($i = 0; $i < count($key); $i++) {
+        $keyLength = count($key);
+        for($i = 0; $i < $keyLength; $i++) {
             // Le nombre est trop petit ou trop grand
             $min = $key[$i] - self::MARGIN_OF_ERROR;
             $max = $key[$i] + self::MARGIN_OF_ERROR;
