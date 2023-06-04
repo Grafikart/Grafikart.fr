@@ -5,6 +5,34 @@
     Gestion des utilisateurs
 {% endblock %}
 
+{% block actions %}
+  {% if banned_filter %}
+    <a href="{{ path(prefix ~ '_index') }}" class="btn-secondary">{{ icon('comments') }} Tous les utilisateurs</a>
+  {% else %}
+    <a href="{{ path(prefix ~ '_index', {banned: 1}) }}" class="btn-secondary">{{ icon('eye') }} Bannis</a>
+  {% endif %}
+{% endblock %}
+
+{% block heading %}
+  {% if days is defined and months is defined %}
+  <section class="stack mb2">
+    <div class="flex">
+      <h1 class="dashboard-title">
+        {{ icon('user') }} Inscriptions
+      </h1>
+    </div>
+    <div class="dashboard-card">
+      <nav-tabs class="dashboard-card__tabs">
+        <a href="#daily" aria-controls="daily" aria-selected="true">30 derniers jours</a>
+        <a href="#monthly" aria-controls="monthly">24 derniers mois</a>
+      </nav-tabs>
+      <line-chart id="daily" points="{{ days | json_encode }}" x="date" y="amount"></line-chart>
+      <line-chart id="monthly" points="{{ months | json_encode }}" x="date" y="amount" hidden></line-chart>
+    </div>
+  </section>
+  {% endif %}
+{% endblock %}
+
 {% block content %}
     <table class="table">
       <thead>
@@ -15,6 +43,7 @@
         <th>Inscription</th>
         <th>Premium</th>
         <th>IP</th>
+        <th>Durée d'inscription</th>
         <th class="text-right">Actions</th>
       </tr>
       </thead>
@@ -38,6 +67,9 @@
           </td>
           <td>
             <a href="https://ipinfo.io/{{ user.lastLoginIp }}" target="_blank">{{ user.lastLoginIp }}</a>
+          </td>
+          <td>
+            {{ user.registrationDuration }}s
           </td>
           <td>
             <div class="dashboard-actions">

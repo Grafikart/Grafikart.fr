@@ -3,6 +3,7 @@
 namespace App\Http\Controller;
 
 use App\Domain\Auth\Authenticator;
+use App\Domain\Auth\Event\UserBeforeCreatedEvent;
 use App\Domain\Auth\Event\UserCreatedEvent;
 use App\Domain\Auth\User;
 use App\Http\Form\RegistrationFormType;
@@ -57,6 +58,7 @@ class RegistrationController extends AbstractController
             $user->setCreatedAt(new \DateTime());
             $user->setConfirmationToken($isOauthUser ? null : $tokenGenerator->generate(60));
             $user->setNotificationsReadAt(new \DateTimeImmutable());
+            $dispatcher->dispatch(new UserBeforeCreatedEvent($user, $request));
             $em->persist($user);
             $em->flush();
             $dispatcher->dispatch(new UserCreatedEvent($user, $isOauthUser));

@@ -3,6 +3,7 @@
 namespace App\Domain\Auth;
 
 use App\Infrastructure\Orm\AbstractRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -101,5 +102,13 @@ class UserRepository extends AbstractRepository implements PasswordUpgraderInter
             ->select('u.discordId')
             ->getQuery()
             ->getResult());
+    }
+
+    /**
+     * Liste les utilisateurs bannis
+     */
+    public function queryBanned(): QueryBuilder
+    {
+        return $this->createQueryBuilder('u')->where('u.bannedAt IS NOT NULL');
     }
 }

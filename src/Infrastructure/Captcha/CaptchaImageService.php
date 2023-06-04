@@ -12,8 +12,10 @@ class CaptchaImageService
     private string $backgroundImage;
     private string $noiseImage;
 
-    public function __construct(string $imagePath, private readonly CaptchaKeyService $keyService)
-    {
+    public function __construct(
+        string $imagePath,
+        private readonly CaptchaKeyService $keyService
+    ) {
         $number = random_int(1, 10);
         $this->backgroundImage = sprintf("%s/background%d.png", $imagePath, $number);
         $this->holeImage = $imagePath . '/hole.png';
