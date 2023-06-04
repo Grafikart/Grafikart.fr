@@ -82,7 +82,7 @@ export function Captcha ({name, ...props}) {
       Placez la pièce du puzzle pour vérifier que vous n’êtes pas un
       robot
     </div>
-    <div className={clsx('relative captcha', isSolved && 'captcha--success', isLoading && 'captcha--loading', isError && 'captcha--error')} style={{width: width, height: height}}>
+    <div className={clsx('relative captcha', isSolved && 'captcha--success', isLoading && 'captcha--loading', isError && 'captcha--error')} style={{width: width, height: height, '--width': width}}>
       <div className="captcha__background"
            style={{backgroundImage: `url(${src})`}}
            onPointerMove={handleMove}>
