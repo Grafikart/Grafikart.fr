@@ -1,6 +1,8 @@
 .captcha {
   touch-action: none;
   border: 1px solid var(--border);
+  position: relative;
+  left: calc(50% - var(--width));
 }
 
 .captcha__background {
