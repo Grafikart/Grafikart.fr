@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 class TooManyTryException extends \Exception
 {
 
+    /** @var string $message */
     protected $message = "Trop d'essais";
 
 }
