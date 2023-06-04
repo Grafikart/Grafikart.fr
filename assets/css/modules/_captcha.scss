@@ -1,0 +1,117 @@
+.captcha {
+  touch-action: none;
+  border: 1px solid var(--border);
+}
+
+.captcha__background {
+  position: absolute;
+  inset: 0;
+  transition: .3s;
+}
+
+.captcha__puzzle {
+  width: max-content;
+}
+
+.captcha__piece {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-position: right top;
+  cursor: move;
+
+  &::after {
+    content:'';
+    position: absolute;
+    left: -3px;
+    top: 0;
+    width: 88px;
+    height: 58px;
+    background: url(/images/puzzle-piece.png);
+    animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+}
+
+.captcha::after {
+  content:'';
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: soft-light;
+  z-index: 3;
+  opacity: 0;
+  transition: .3s;
+}
+
+// State : Success
+// =============
+.captcha .icon-check {
+  position: absolute;
+  color: var(--green);
+  top: calc(50% - 32px);
+  left: calc(50% - 32px);
+  width: 75px;
+  height: 75px;
+  z-index: 4;
+  animation: IconCheckIn 1s;
+}
+
+.captcha--success::after {
+  background-color: var(--green);
+  opacity: 1;
+}
+
+.captcha--success::before {
+  content:'';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.4);
+  z-index: 2;
+  animation: fadeIn 1s;
+}
+
+.captcha--success .captcha__piece::after {
+  opacity: 0;
+}
+
+.captcha--success .captcha__background {
+  filter: grayscale(1);
+}
+
+@keyframes IconCheckIn {
+  0% {
+    transform: translateX(-30px) rotate(-90deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0px) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+// State : Error
+// =============
+.captcha--error {
+  --wiggle: 5px;
+  animation: wiggle .4s linear;
+}
+.captcha--error::after {
+  background-color: var(--red);
+  opacity: 1;
+}
+.captcha--success .captcha__background {
+  filter: grayscale(1);
+}
+
+// State : Loading
+// =============
+.captcha__loader {
+  position: absolute;
+  top: calc(50% - 15px);
+  left: calc(50% - 15px);
+  width: 30px;
+  height: 30px;
+}
+.captcha--loading .captcha__background{
+  filter :grayscale(1);
+}
