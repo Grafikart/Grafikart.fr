@@ -49,6 +49,9 @@ export class LineChart extends HTMLElement {
         ]
       },
       options: {
+        layout: {
+          padding: 10
+        },
         plugins: {
           legend: {
             display: false
