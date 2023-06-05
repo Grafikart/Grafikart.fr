@@ -15,12 +15,12 @@ class UserStatsRepository extends AbstractRepository
 
     public function getDailySignups(): array
     {
-        return $this->aggregateSignup('yyy-mm-dd', 'dd', 30);
+        return $this->aggregateSignup('yyyy-mm-dd', 'dd', 30);
     }
 
     public function getMonthlySignups(): array
     {
-        return $this->aggregateSignup('yyy-mm', 'mm', 24);
+        return $this->aggregateSignup('yyyy-mm', 'mm', 24);
     }
 
     private function aggregateSignup(string $group, string $label, int $limit): array

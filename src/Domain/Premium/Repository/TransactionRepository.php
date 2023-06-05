@@ -32,12 +32,12 @@ class TransactionRepository extends AbstractRepository
 
     public function getMonthlyRevenues(): array
     {
-        return $this->aggregateRevenus('yyy-mm', 'mm', 24);
+        return $this->aggregateRevenus('yyyy-mm', 'mm', 24);
     }
 
     public function getDailyRevenues(): array
     {
-        return $this->aggregateRevenus('yyy-mm-dd', 'dd', 30);
+        return $this->aggregateRevenus('yyyy-mm-dd', 'dd', 30);
     }
 
     private function aggregateRevenus(string $group, string $label, int $limit): array
