@@ -1,6 +1,6 @@
 {
   "name": "grafikart",
-  "version": "1.0.92",
+  "version": "1.0.93",
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
@@ -28,10 +28,9 @@
   },
   "dependencies": {
     "@grafikart/spinning-dots-element": "^1.1.0",
-    "@types/chart.js": "^2.9.29",
     "body-scroll-lock": "^3.1.5",
     "canvas-confetti": "^1.3.2",
-    "chart.js": "^2.9.4",
+    "chart.js": "^4.3.0",
     "clsx": "^1.2.1",
     "codemirror": "^5.59.0",
     "favicon-badge": "^2.0.0",
