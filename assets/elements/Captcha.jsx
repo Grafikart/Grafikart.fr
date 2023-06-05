@@ -51,7 +51,7 @@ export function Captcha ({name, ...props}) {
     if (!isPointerDown.current) {
       return
     }
-    movePosition(e.clientX - pointerPosition.current[0], e.clientY - pointerPosition.current[1])
+    movePosition(Math.round(e.clientX - pointerPosition.current[0]), Math.round(e.clientY - pointerPosition.current[1]))
     pointerPosition.current = [e.clientX, e.clientY]
   }, [movePosition])
 
