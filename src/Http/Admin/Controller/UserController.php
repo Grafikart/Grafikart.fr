@@ -35,7 +35,11 @@ class UserController extends CrudController
         $params = [
             'banned_filter' => $filterBanned
         ];
-        if ($request->query->getInt('page', 1) === 1 && !$filterBanned) {
+        if (
+            $request->query->getInt('page', 1) === 1 &&
+            !$filterBanned &&
+            !$request->query->get('q')
+        ) {
             $params['months'] = $repository->getMonthlySignups();
             $params['days'] = $repository->getDailySignups();
         }
