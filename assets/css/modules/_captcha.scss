@@ -2,7 +2,7 @@
   touch-action: none;
   border: 1px solid var(--border);
   position: relative;
-  left: calc(50% - var(--width));
+  left: calc(50% - var(--width) * 0.5);
 }
 
 .captcha__background {

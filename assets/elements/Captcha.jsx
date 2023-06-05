@@ -76,7 +76,7 @@ export function Captcha ({name, ...props}) {
     </div>
     <div
       className={clsx('relative captcha', isSolved && 'captcha--success', isLoading && 'captcha--loading', isError && 'captcha--error')}
-      style={{width: width, height: height, '--width': width}}>
+      style={{width: width, height: height, '--width': `${width}px`}}>
       <div className="captcha__background"
            style={{backgroundImage: `url(${src})`}}
            onPointerMove={handleMove}>
