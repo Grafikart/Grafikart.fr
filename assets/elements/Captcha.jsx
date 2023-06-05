@@ -20,6 +20,7 @@ export function Captcha ({name, ...props}) {
   const {state, cacheKey, guess} = useValidateCaptcha()
   const src = `/captcha?key=${cacheKey}`
   const isPointerDown = useRef(false)
+  const pointerPosition = useRef([0, 0])
   /** @var {import('preact').RefObject<HTMLDivElement>} pieceRef */
   const pieceRef = useRef()
   /** @param {PointerEvent} e */
@@ -38,8 +39,10 @@ export function Captcha ({name, ...props}) {
     pieceRef.current.closest('form').querySelector('button').setAttribute('disabled', 'disabled')
   }, [])
 
-  const handleDown = () => {
+  /** @param {PointerEvent} e */
+  const handleDown = (e) => {
     isPointerDown.current = true
+    pointerPosition.current = [e.clientX, e.clientY]
     document.addEventListener('pointerup', handleUp, {once: true})
   }
 
@@ -48,7 +51,8 @@ export function Captcha ({name, ...props}) {
     if (!isPointerDown.current) {
       return
     }
-    movePosition(e.movementX, e.movementY)
+    movePosition(e.clientX - pointerPosition.current[0], e.clientY - pointerPosition.current[1])
+    pointerPosition.current = [e.clientX, e.clientY]
   }, [movePosition])
 
   const transform = `translate3d(${position[0]}px, ${position[1]}px, 0)`
