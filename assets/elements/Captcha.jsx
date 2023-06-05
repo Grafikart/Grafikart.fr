@@ -20,7 +20,8 @@ export function Captcha ({name, ...props}) {
   const {state, cacheKey, guess} = useValidateCaptcha()
   const src = `/captcha?key=${cacheKey}`
   const isPointerDown = useRef(false)
-  const pointerPosition = useRef([0, 0])
+  const cursorOffsetPosition = useRef({x: 0, y: 0})
+  const framePosition = useRef({x: 0, y: 0})
   /** @var {import('preact').RefObject<HTMLDivElement>} pieceRef */
   const pieceRef = useRef()
   /** @param {PointerEvent} e */
@@ -42,7 +43,12 @@ export function Captcha ({name, ...props}) {
   /** @param {PointerEvent} e */
   const handleDown = (e) => {
     isPointerDown.current = true
-    pointerPosition.current = [e.clientX, e.clientY]
+    const rect = pieceRef.current.getBoundingClientRect();
+    framePosition.current = pieceRef.current.parentElement.getBoundingClientRect()
+    cursorOffsetPosition.current = {
+      x: e.clientX - rect.x,
+      y: e.clientY - rect.y
+    }
     document.addEventListener('pointerup', handleUp, {once: true})
   }
 
@@ -51,8 +57,10 @@ export function Captcha ({name, ...props}) {
     if (!isPointerDown.current) {
       return
     }
-    movePosition(Math.round(e.clientX - pointerPosition.current[0]), Math.round(e.clientY - pointerPosition.current[1]))
-    pointerPosition.current = [e.clientX, e.clientY]
+    movePosition(
+      e.clientX - framePosition.current.x - cursorOffsetPosition.current.x,
+      e.clientY - framePosition.current.y - cursorOffsetPosition.current.y
+    )
   }, [movePosition])
 
   const transform = `translate3d(${position[0]}px, ${position[1]}px, 0)`
@@ -81,7 +89,7 @@ export function Captcha ({name, ...props}) {
       {isSolved && <Icon name="check"/>}
       {isLoading && <spinning-dots className="captcha__loader"/>}
     </div>
-    <input type="hidden" name={name} value={`${position[0]}-${position[1]}`}/>
+    <input type="hidden" name={name} value={`${Math.round(position[0])}-${Math.round(position[1])}`}/>
   </div>
 }
 
@@ -96,9 +104,9 @@ function useCacheKey () {
 function usePosition ([maxX, maxY]) {
   const [position, setPosition] = useState(() => [randomBetween(0, maxX), randomBetween(0, maxY)])
   const movePosition = useCallback((x, y) => {
-    setPosition(p => [
-      clamp(p[0] + x, 0, maxX),
-      clamp(p[1] + y, 0, maxY)
+    setPosition([
+      clamp(x, 0, maxX),
+      clamp(y, 0, maxY)
     ])
   }, [maxX, maxY, setPosition])
   return [position, movePosition]
@@ -116,7 +124,7 @@ function useValidateCaptcha () {
       await jsonFetch('/captcha/validate', {
         method: 'post',
         body: {
-          response: `${x}-${y}`
+          response: `${Math.round(x)}-${Math.round(y)}`
         }
       })
       setState('solved')
