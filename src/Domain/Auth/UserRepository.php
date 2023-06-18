@@ -109,6 +109,8 @@ class UserRepository extends AbstractRepository implements PasswordUpgraderInter
      */
     public function queryBanned(): QueryBuilder
     {
-        return $this->createQueryBuilder('u')->where('u.bannedAt IS NOT NULL');
+        return $this->createQueryBuilder('u')
+            ->where('u.bannedAt IS NOT NULL')
+            ->orderBy('u.bannedAt', 'DESC');
     }
 }
