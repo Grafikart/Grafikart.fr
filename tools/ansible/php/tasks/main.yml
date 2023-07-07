@@ -6,16 +6,16 @@
       - apt-transport-https
       - ca-certificates
     state: present
-- name: PHP | PHP 8.1 GPG Key
+- name: PHP | PHP 8 GPG Key
   when: ansible_distribution == 'Debian'
   apt_key:
     url: https://packages.sury.org/php/apt.gpg
-- name: PHP | PHP 8.1 Debian repository
+- name: PHP | PHP 8 Debian repository
   when: ansible_distribution == 'Debian'
   apt_repository:
     repo: deb https://packages.sury.org/php/ {{ ansible_distribution_release }} main
     state: present
-- name: PHP | PHP 8.1 Ubuntu repository
+- name: PHP | PHP 8 Ubuntu repository
   when: ansible_distribution == 'Ubuntu'
   apt_repository:
     repo: ppa:ondrej/php
@@ -29,7 +29,6 @@
       - "php{{ php_version }}-curl"
       - "php{{ php_version }}-ctype"
       - "php{{ php_version }}-iconv"
-      - "php{{ php_version }}-json"
       - "php{{ php_version }}-intl"
       - "php{{ php_version }}-pgsql"
       - "php{{ php_version }}-mbstring"
