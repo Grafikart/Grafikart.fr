@@ -22,6 +22,9 @@ class GeoIpService
     {
         try {
             $record = $this->getReader()->country($ip);
+            if (!$record->country->isoCode) {
+                return null;
+            }
             return new GeoIpRecord(
                 country: $record->country->isoCode,
             );
