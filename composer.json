@@ -20,6 +20,7 @@
     "erusev/parsedown": "^1.7",
     "friendsofphp/php-cs-fixer": "^3.8.0",
     "geertw/ip-anonymizer": "^1.1",
+    "geoip2/geoip2": "^2.13",
     "google/apiclient": "^2.0",
     "illuminate/collections": "^9.49",
     "intervention/image": "^2.7",

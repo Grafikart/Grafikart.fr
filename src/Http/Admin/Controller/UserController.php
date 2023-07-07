@@ -7,6 +7,7 @@ use App\Domain\Auth\User;
 use App\Domain\Auth\UserRepository;
 use App\Domain\Premium\Exception\PremiumNotBanException;
 use App\Domain\Stats\UserStatsRepository;
+use App\Infrastructure\Spam\GeoIpService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -28,7 +29,8 @@ class UserController extends CrudController
     #[Route(path: '/', name: 'index')]
     public function index(
         Request $request,
-        UserStatsRepository $repository
+        UserStatsRepository $repository,
+        GeoIpService $ipService
     ): Response {
         $filterBanned = $request->get('banned');
         $query = null;
@@ -46,6 +48,7 @@ class UserController extends CrudController
         if ($filterBanned) {
             $query = $this->getRepository()->queryBanned();
         }
+        $params['ipService'] = $ipService;
         return $this->crudIndex($query, $params);
     }
 

@@ -25,5 +25,6 @@
     # - {role: mail, tags: mail, when: not docker}
     # - {role: stats, tags: stats, when: not docker}
     # - {role: plausible, tags: plausible, when: not docker}
-    - {role: search, tags: search, when: not docker}
+    # - {role: search, tags: search, when: not docker}
+    # - {role: geoip, tags: php, when: not docker}
 

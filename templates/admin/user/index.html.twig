@@ -67,6 +67,9 @@
           </td>
           <td>
             <a href="https://ipinfo.io/{{ user.lastLoginIp }}" target="_blank">{{ user.lastLoginIp }}</a>
+            {% if user.lastLoginIp %}
+              {{ ipService.getLocation(user.lastLoginIp).emoji ?? '' }}
+            {% endif %}
           </td>
           <td>
             {{ user.registrationDuration }}s
