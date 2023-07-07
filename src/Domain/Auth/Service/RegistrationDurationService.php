@@ -24,5 +24,4 @@ class RegistrationDurationService
         $start = $request->getSession()->get(self::SESSION_KEY) ?? $time;
         return $time - $start;
     }
-
 }

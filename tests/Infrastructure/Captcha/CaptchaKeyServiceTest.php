@@ -9,7 +9,8 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 
-class CaptchaKeyServiceTest extends TestCase {
+class CaptchaKeyServiceTest extends TestCase
+{
 
     private CaptchaKeyService $service;
 
@@ -24,19 +25,21 @@ class CaptchaKeyServiceTest extends TestCase {
         $session->set('CAPTCHA', [100, 100]);
     }
 
-    public function testGoodAnswer () {
+    public function testGoodAnswer()
+    {
         $this->assertTrue($this->service->verifyKey('95-105'));
     }
 
-    public function testBadAnswer () {
+    public function testBadAnswer()
+    {
         $this->assertFalse($this->service->verifyKey('94-105'));
     }
 
-    public function testLimit () {
+    public function testLimit()
+    {
         $this->expectException(TooManyTryException::class);
         $this->assertFalse($this->service->verifyKey('94-105'));
         $this->assertFalse($this->service->verifyKey('94-105'));
         $this->assertFalse($this->service->verifyKey('94-105'));
     }
-
 }

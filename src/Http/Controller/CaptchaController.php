@@ -29,7 +29,5 @@ class CaptchaController extends AbstractController
         }
 
         return new Response("{}", Response::HTTP_UNPROCESSABLE_ENTITY);
-
     }
-
 }

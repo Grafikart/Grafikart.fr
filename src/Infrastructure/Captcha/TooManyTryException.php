@@ -11,5 +11,4 @@ class TooManyTryException extends \Exception
 
     /** @var string $message */
     protected $message = "Trop d'essais";
-
 }

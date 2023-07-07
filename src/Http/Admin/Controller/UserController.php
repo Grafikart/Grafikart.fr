@@ -37,8 +37,7 @@ class UserController extends CrudController
         $params = [
             'banned_filter' => $filterBanned
         ];
-        if (
-            $request->query->getInt('page', 1) === 1 &&
+        if ($request->query->getInt('page', 1) === 1 &&
             !$filterBanned &&
             !$request->query->get('q')
         ) {

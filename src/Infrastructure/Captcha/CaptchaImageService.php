@@ -57,5 +57,4 @@ class CaptchaImageService
 
         return $img->response('png');
     }
-
 }

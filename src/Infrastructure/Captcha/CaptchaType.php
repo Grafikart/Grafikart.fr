@@ -44,5 +44,4 @@ class CaptchaType extends AbstractType
     {
         return 'captcha';
     }
-
 }

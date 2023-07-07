@@ -7,8 +7,7 @@ readonly final class GeoIpRecord
 
     public function __construct(
         public string $country,
-    )
-    {
+    ) {
     }
 
     /**
@@ -28,5 +27,4 @@ readonly final class GeoIpRecord
             $this->country
         );
     }
-
 }

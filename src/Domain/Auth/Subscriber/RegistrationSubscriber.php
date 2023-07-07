@@ -27,8 +27,7 @@ class RegistrationSubscriber implements EventSubscriberInterface
     public function onRequest(RequestEvent $event): void
     {
         // La requête ne concerne pas l'inscription
-        if (
-            $event->getRequest()->attributes->get('_route') !== 'register' ||
+        if ($event->getRequest()->attributes->get('_route') !== 'register' ||
             !$event->getRequest()->isMethod('GET')
         ) {
             return;
@@ -41,5 +40,4 @@ class RegistrationSubscriber implements EventSubscriberInterface
     {
         $event->user->setRegistrationDuration($this->registrationDurationService->getDuration($event->request));
     }
-
 }

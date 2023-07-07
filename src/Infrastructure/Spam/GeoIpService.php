@@ -14,8 +14,7 @@ class GeoIpService
     public function __construct(
         #[Autowire('%geoip_database%')]
         private readonly string $dbPath
-    ){
-
+    ) {
     }
 
     public function getLocation(string $ip): ?GeoIpRecord
@@ -40,5 +39,4 @@ class GeoIpService
         }
         return $this->reader;
     }
-
 }
