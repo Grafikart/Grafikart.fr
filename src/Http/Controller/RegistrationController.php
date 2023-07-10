@@ -9,6 +9,7 @@ use App\Domain\Auth\User;
 use App\Http\Form\RegistrationFormType;
 use App\Infrastructure\Security\TokenGeneratorService;
 use App\Infrastructure\Social\SocialLoginService;
+use App\Infrastructure\Spam\GeoIpService;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormError;
@@ -30,7 +31,8 @@ class RegistrationController extends AbstractController
         EventDispatcherInterface $dispatcher,
         SocialLoginService $socialLoginService,
         UserAuthenticatorInterface $authenticator,
-        Authenticator $appAuthenticator
+        Authenticator $appAuthenticator,
+        GeoIpService $ipService,
     ): Response {
         // Si l'utilisateur est connecté, on le redirige vers la home
         $loggedInUser = $this->getUser();
@@ -49,12 +51,24 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // On shadow inscrit les bots
+            $location = $ipService->getLocation($request->getClientIp());
+            if ($location && in_array($location->country, ['IN'])) {
+                $this->addFlash(
+                    'success',
+                    'Votre compte a été créé avec succès'
+                );
+                return $this->redirectToRoute('auth_login');
+            }
+
+            // On enregistre l'utilisateur
             $user->setPassword(
                 $form->has('plainPassword') ? $hasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 ) : ''
             );
+            $user->setLastLoginIp($request->getClientIp());
             $user->setCreatedAt(new \DateTime());
             $user->setConfirmationToken($isOauthUser ? null : $tokenGenerator->generate(60));
             $user->setNotificationsReadAt(new \DateTimeImmutable());
