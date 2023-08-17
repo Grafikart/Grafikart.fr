@@ -38,7 +38,6 @@ class CourseTransformer
         $snippet = new \Google_Service_YouTube_VideoSnippet();
         $snippet->setCategoryId('28');
         $snippet->setDescription("Article ► {$url}
-Abonnez-vous ► https://bit.ly/GrafikartSubscribe
 
 {$course->getExcerpt()}
 
