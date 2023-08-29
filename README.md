@@ -10,7 +10,6 @@ Dépôt pour la nouvelle version de Grafikart.fr. L'objectif est de rendre le pr
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Etat d'avancement](#etat-davancement)
 - [Participer (faire une PR)](#participer-faire-une-pr)
 - [Objectifs, pourquoi une refonte ?](#objectifs-pourquoi-une-refonte-)
   - [Problèmes techniques](#probl%C3%A8mes-techniques)
@@ -22,10 +21,6 @@ Dépôt pour la nouvelle version de Grafikart.fr. L'objectif est de rendre le pr
 - [Référence](#r%C3%A9f%C3%A9rence)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-## Etat d'avancement
-
-L'avancement peut être suivi sur la [board trello de grafikart](https://trello.com/b/oKnfpVtU/grafikart)
 
 ## MR à suivre :
 
