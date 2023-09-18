@@ -2,8 +2,11 @@
 
 namespace App\Domain\Attachment\Repository;
 
+use App\Domain\Application\Entity\Content;
 use App\Domain\Attachment\Attachment;
+use App\Domain\Course\Entity\Course;
 use App\Infrastructure\Orm\AbstractRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -75,6 +78,33 @@ class AttachmentRepository extends AbstractRepository
             ->orderBy('a.createdAt', 'DESC')
             ->setMaxResults(25)
             ->setParameter('search', "%$q%")
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * Trouve les fichiers non rattachés à un contenu
+     * @return array<Attachment>
+     */
+    public function orphaned(): array
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a')
+            ->orderBy('a.createdAt', 'DESC')
+            ->leftJoin(
+                Content::class,
+                'c',
+                Join::WITH,
+                'c.image = a.id'
+            )
+            ->leftJoin(
+                Course::class,
+                'course',
+                Join::WITH,
+                'course.youtubeThumbnail = a.id'
+            )
+            ->where('c.id IS NULL AND course.id IS NULL')
+            ->setMaxResults(25)
             ->getQuery()
             ->getResult();
     }

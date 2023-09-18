@@ -45,7 +45,9 @@ class AttachmentController extends BaseController
     public function files(AttachmentRepository $repository, Request $request): JsonResponse
     {
         ['path' => $path, 'q' => $q] = $this->getFilterParams($request);
-        if (!empty($q)) {
+        if ($q === 'orphan') {
+            $attachments = $repository->orphaned();
+        } elseif (!empty($q)) {
             $attachments = $repository->search($q);
         } elseif (null === $path) {
             $attachments = $repository->findLatest();
