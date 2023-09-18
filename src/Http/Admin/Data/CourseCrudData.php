@@ -132,7 +132,7 @@ class CourseCrudData implements CrudDataInterface
             }
         }
         // On ne veut plus de source pour le tutoriel
-        if (!$this->source && $this->entity->getSource()) {
+        if ($this->uploaderHandler && !$this->source && $this->entity->getSource()) {
             $this->uploaderHandler->remove($this->entity, 'sourceFile');
         }
     }
