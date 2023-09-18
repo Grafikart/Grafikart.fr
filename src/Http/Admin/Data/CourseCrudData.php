@@ -12,7 +12,7 @@ use App\Validator\Slug;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Vich\UploaderBundle\Handler\UploadHandler;
 use const App\Domain\Course\Entity\MEDIUM;
 
 class CourseCrudData implements CrudDataInterface
@@ -71,7 +71,10 @@ class CourseCrudData implements CrudDataInterface
 
     private EntityManagerInterface $em;
 
-    public function __construct(private readonly Course $entity)
+    public function __construct(
+        private readonly Course         $entity,
+        private readonly ?UploadHandler $uploaderHandler = null
+    )
     {
         $this->title = $entity->getTitle();
         $this->slug = $entity->getSlug();
@@ -127,6 +130,10 @@ class CourseCrudData implements CrudDataInterface
             foreach ($removed as $usage) {
                 $this->em->remove($usage);
             }
+        }
+        // On ne veut plus de source pour le tutoriel
+        if (!$this->source && $this->entity->getSource()) {
+            $this->uploaderHandler->remove($this->entity, 'sourceFile');
         }
     }
 

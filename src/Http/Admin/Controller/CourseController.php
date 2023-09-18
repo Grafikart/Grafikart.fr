@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Vich\UploaderBundle\Handler\UploadHandler;
 
 /**
  * @method getRepository() App\Domain\Course\Repository\CourseRepository\CourseRepository
@@ -65,9 +66,14 @@ final class CourseController extends CrudController
     }
 
     #[Route(path: '/{id<\d+>}', name: 'edit', methods: ['POST', 'GET'])]
-    public function edit(Request $request, Course $course, SessionInterface $session): Response
+    public function edit(
+        Request          $request,
+        Course           $course,
+        SessionInterface $session,
+        UploadHandler    $uploaderHelper,
+    ): Response
     {
-        $data = (new CourseCrudData($course))->setEntityManager($this->em);
+        $data = (new CourseCrudData($course, $uploaderHelper))->setEntityManager($this->em);
         $response = $this->crudEdit($data);
         if ($request->request->get('upload')) {
             $session->set(self::UPLOAD_SESSION_KEY, $course->getId());
@@ -98,11 +104,12 @@ final class CourseController extends CrudController
      */
     #[Route(path: '/upload', methods: ['GET'], name: 'upload')]
     public function upload(
-        Request $request,
-        SessionInterface $session,
-        \Google_Client $googleClient,
+        Request             $request,
+        SessionInterface    $session,
+        \Google_Client      $googleClient,
         MessageBusInterface $messageBus,
-    ): Response {
+    ): Response
+    {
         // Si on n'a pas d'id dans la session, on redirige
         $courseId = $session->get(self::UPLOAD_SESSION_KEY);
         if (null === $courseId) {
@@ -125,7 +132,7 @@ final class CourseController extends CrudController
             $messageBus,
             YoutubeUploaderService::class,
             'upload',
-            [(int) $courseId, $googleClient->getAccessToken()]
+            [(int)$courseId, $googleClient->getAccessToken()]
         );
         $this->addFlash('success', "La vidéo est en cours d'envoi sur Youtube");
         $session->remove(self::UPLOAD_SESSION_KEY);
