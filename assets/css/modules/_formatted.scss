@@ -175,6 +175,31 @@
     padding:0 .2em;
     color: var(--color-light);
   }
+
+  table thead {
+    font-weight: 300;
+    text-transform: uppercase;
+    opacity: 0.6;
+    font-size: 0.9em;
+    text-align: center;
+    border-bottom: 2px solid var(--border);
+  }
+  table td, table th {
+    min-width: 75px;
+    vertical-align: middle;
+    padding: space(1);
+    border: 1px solid var(--border);
+  }
+  table tbody tr {
+    border-bottom: 1px solid var(--border);
+  }
+  table tr:nth-child(2n) {
+    background-color: var(--background);
+  }
+  table td {
+    text-align: center;
+    font-family: monospace;
+  }
 }
 
 @include dark() {
