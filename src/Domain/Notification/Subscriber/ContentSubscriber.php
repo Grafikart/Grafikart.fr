@@ -36,7 +36,8 @@ class ContentSubscriber implements EventSubscriberInterface
         $content = $event->getContent();
         if (($content instanceof Course || $content instanceof Formation) &&
             true === $content->isOnline() &&
-            false === $event->getPrevious()->isOnline()
+            false === $event->getPrevious()->isOnline() &&
+            $content->getCreatedAt() > new \DateTime('- 1 days')
         ) {
             $this->notifyContent($content);
         }

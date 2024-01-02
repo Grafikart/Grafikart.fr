@@ -15,7 +15,7 @@ class ContentSubscriberTest extends TestCase
     public function testNotificationSentWhenCourseBecomeOnline()
     {
         $course = (new Course())
-            ->setCreatedAt(new \DateTimeImmutable('- 10 days'))
+            ->setCreatedAt(new \DateTimeImmutable('- 1 hours'))
             ->setTitle('Titre de test');
         $previous = clone $course;
         $course->setOnline(true);
@@ -29,7 +29,7 @@ class ContentSubscriberTest extends TestCase
     public function testNotificationIsNotSentWhenCourseDoesNotBecomeOnline()
     {
         $course = (new Course())
-            ->setCreatedAt(new \DateTimeImmutable('- 10 days'))
+            ->setCreatedAt(new \DateTimeImmutable('- 1 hours'))
             ->setTitle('Titre de test')->setOnline(true);
         $previous = clone $course;
         $course->setTitle('Bonjour les gens');
@@ -59,7 +59,7 @@ class ContentSubscriberTest extends TestCase
     {
         $course = (new Course())
             ->setOnline(true)
-            ->setCreatedAt(new \DateTimeImmutable('- 10 days'))
+            ->setCreatedAt(new \DateTimeImmutable('- 1 hours'))
             ->setTitle('Titre de test');
         $event = new ContentCreatedEvent($course);
         $enqueuMethod = $this->createMock(EnqueueMethod::class);
@@ -72,7 +72,20 @@ class ContentSubscriberTest extends TestCase
     {
         $course = (new Course())
             ->setOnline(false)
-            ->setCreatedAt(new \DateTimeImmutable('- 10 days'))
+            ->setCreatedAt(new \DateTimeImmutable('- 1 hours'))
+            ->setTitle('Titre de test');
+        $event = new ContentCreatedEvent($course);
+        $enqueuMethod = $this->createMock(EnqueueMethod::class);
+        $notificationService = $this->createMock(NotificationService::class);
+        $notificationService->expects($this->never())->method('notifyChannel');
+        (new ContentSubscriber($notificationService, $enqueuMethod))->onCreate($event);
+    }
+
+    public function testNotificationNotSentWhenOldCourseIsOnline()
+    {
+        $course = (new Course())
+            ->setOnline(false)
+            ->setCreatedAt(new \DateTimeImmutable('- 3 days'))
             ->setTitle('Titre de test');
         $event = new ContentCreatedEvent($course);
         $enqueuMethod = $this->createMock(EnqueueMethod::class);
