@@ -41,8 +41,6 @@ class FormationController extends AbstractController
                 'git',
                 'apprendre-algorithmique',
                 'programmation-objet-php',
-                'ruby-on-rails',
-                'ruby',
                 'laravel',
                 'symfony-4-pratique',
                 'upload-site',

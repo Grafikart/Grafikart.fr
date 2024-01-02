@@ -53,7 +53,7 @@
         <div class="tree-row">
           <div class="tree-category">Spécialisation <strong>backend</strong></div>
           <div class="tree-choices">
-            {% for lang in ['php', 'nodejs', 'ruby'] %}
+            {% for lang in ['php', 'nodejs'] %}
               <div class="tree-choice {% if lang == 'php' %}is-active{% endif %}" data-choice="{{ lang }}"
                    style="width: 50%">
                 <img src="{{ uploads_path('icons/' ~ lang ~ '.svg') }}" alt="">
@@ -99,16 +99,6 @@
             {% include 'formations/_tree-card.html.twig' with {slug: 'apprendre-sql'} %}
           </div>
 
-          <!-- Ruby -->
-          <div class="tree-hidden" id="tree-ruby">
-            {% include 'formations/_tree-card.html.twig' with {slug: 'ruby'} %}
-            <div class="tree-link"></div>
-            {% include 'formations/_tree-card.html.twig' with {slug: 'apprendre-sql'} %}
-            <div class="tree-link"></div>
-            {% include 'formations/_tree-card.html.twig' with {slug: 'ruby-on-rails'} %}
-            <div class="tree-link"></div>
-            {% include 'formations/_tree-card.html.twig' with {slug: 'git'} %}
-          </div>
         </div>
       </div>
 
