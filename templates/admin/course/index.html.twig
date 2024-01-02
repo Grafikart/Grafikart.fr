@@ -37,23 +37,23 @@
           </td>
           <td>
             {% for technology in row.mainTechnologies %}
-              {{ technology.name }}{% if not loop.last %}, {% endif %}
+              <a href="{{ path('admin_course_index') }}?technology={{ technology.slug }}">{{ technology.name }}</a>{% if not loop.last %}, {% endif %}
             {% endfor %}
           </td>
           <td><span class="bullet {% if row.online == false %}bullet--danger{% endif %}"></span></td>
           <td><span class="bullet {% if not row.source %}bullet--danger{% endif %}"></span></td>
           <td>
             <div class="dashboard-actions">
+              {% if row.online %}
+                <form action="{{ path(prefix ~ '_edit', {id: row.id}) }}" method="post">
+                  <input type="hidden" name="_method" value="DELETE" />
+                  <button type="submit">
+                    {{ icon('delete') }}
+                  </button>
+                </form>
+              {% endif %}
               <a href="{{ path(prefix ~ '_clone', {id: row.id}) }}">{{ icon('clone') }}</a>
               <a href="{{ link }}">{{ icon('edit') }}</a>
-              {# La suppresion d'un tutoriel n'est pas prévue pour le moment
-              <form action="{{ path(prefix ~ '_edit', {id: row.id}) }}" method="post" onsubmit="return confirm('Voulez vous vraiment supprimer ce contenu')">
-                <input type="hidden" name="_method" value="DELETE" />
-                <button type="submit">
-                  {{ icon('delete') }}
-                </button>
-              </form>
-              #}
             </div>
           </td>
         </tr>

@@ -96,7 +96,12 @@ final class CourseController extends CrudController
     #[Route(path: '/{id<\d+>}', methods: ['DELETE'])]
     public function delete(Course $course): Response
     {
-        return $this->crudDelete($course);
+        $course->setOnline(false);
+        $course->setUpdatedAt(new \DateTime());
+        $this->em->flush();
+        $this->addFlash('success', 'Le tutoriel a bien été mis hors ligne');
+
+        return $this->redirectToRoute(($this->routePrefix.'_index'));
     }
 
     /**
