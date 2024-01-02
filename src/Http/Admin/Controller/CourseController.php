@@ -10,6 +10,7 @@ use App\Domain\Course\Helper\CourseCloner;
 use App\Http\Admin\Data\CourseCrudData;
 use App\Infrastructure\Youtube\YoutubeScopes;
 use App\Infrastructure\Youtube\YoutubeUploaderService;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -94,12 +95,16 @@ final class CourseController extends CrudController
     }
 
     #[Route(path: '/{id<\d+>}', methods: ['DELETE'])]
-    public function delete(Course $course): Response
+    public function delete(Course $course, EventDispatcherInterface $dispatcher): Response
     {
         $course->setOnline(false);
         $course->setUpdatedAt(new \DateTime());
         $this->em->flush();
         $this->addFlash('success', 'Le tutoriel a bien été mis hors ligne');
+
+        if ($this->events['delete'] ?? null) {
+            $dispatcher->dispatch(new $this->events['delete']($course));
+        }
 
         return $this->redirectBack(($this->routePrefix.'_index'));
     }
