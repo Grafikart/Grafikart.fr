@@ -101,7 +101,7 @@ final class CourseController extends CrudController
         $this->em->flush();
         $this->addFlash('success', 'Le tutoriel a bien été mis hors ligne');
 
-        return $this->redirectToRoute(($this->routePrefix.'_index'));
+        return $this->redirectBack(($this->routePrefix.'_index'));
     }
 
     /**
