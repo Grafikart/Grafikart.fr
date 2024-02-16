@@ -42,7 +42,7 @@ class FormationController extends AbstractController
                 'apprendre-algorithmique',
                 'programmation-objet-php',
                 'laravel',
-                'symfony-4-pratique',
+                'apprendre-symfony-7',
                 'upload-site',
                 'react',
             ],
