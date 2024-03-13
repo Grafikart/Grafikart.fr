@@ -93,7 +93,7 @@ abstract class CrudController extends BaseController
         ]);
     }
 
-    public function crudNew(CrudDataInterface $data): Response
+    public function crudNew(CrudDataInterface $data, array $extraData = []): Response
     {
         /** @var Request $request */
         $request = $this->requestStack->getCurrentRequest();
@@ -117,6 +117,7 @@ abstract class CrudController extends BaseController
             'form' => $form->createView(),
             'entity' => $data->getEntity(),
             'menu' => $this->menuItem,
+            ...$extraData,
         ]);
     }
 

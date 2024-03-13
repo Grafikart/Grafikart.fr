@@ -88,10 +88,12 @@ final class CourseController extends CrudController
     #[Route(path: '/{id<\d+>}/clone', name: 'clone', methods: ['GET', 'POST'])]
     public function clone(Course $course): Response
     {
-        $course = CourseCloner::clone($course);
-        $data = new CourseCrudData($course);
+        $clonedCourse = CourseCloner::clone($course);
+        $data = new CourseCrudData($clonedCourse);
 
-        return $this->crudNew($data);
+        return $this->crudNew($data, [
+            'clone' => $course,
+        ]);
     }
 
     #[Route(path: '/{id<\d+>}', methods: ['DELETE'])]

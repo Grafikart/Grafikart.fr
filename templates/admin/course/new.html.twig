@@ -2,7 +2,21 @@
 
 {% block title %}
   {{ icon('pen') }}
-  Créer l'article
+  {% if clone is defined %}
+    Cloner le tutoriel
+  {% else %}
+    Créer un nouveau tutoriel
+  {% endif %}
+{% endblock %}
+
+{% block top %}
+  {% if clone is defined %}
+    <div style="margin-block: -1rem;">
+      <alert-message type="info">
+        Le tutoriel sera cloné à partir du tutoriel "<strong>{{ clone.title }}</strong>"
+      </alert-message>
+    </div>
+  {% endif %}
 {% endblock %}
 
 {% block content %}
