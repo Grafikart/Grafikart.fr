@@ -66,7 +66,7 @@ abstract class CrudController extends BaseController
         ]);
     }
 
-    public function crudEdit(CrudDataInterface $data): Response
+    public function crudEdit(CrudDataInterface $data, array $extraData = []): Response
     {
         /** @var Request $request */
         $request = $this->requestStack->getCurrentRequest();
@@ -86,11 +86,14 @@ abstract class CrudController extends BaseController
             return $this->redirectAfterSave($entity);
         }
 
-        return $this->render("admin/{$this->templatePath}/edit.html.twig", [
-            'form' => $form->createView(),
-            'entity' => $data->getEntity(),
-            'menu' => $this->menuItem,
-        ]);
+        return $this->render("admin/{$this->templatePath}/edit.html.twig", array_merge(
+            [
+                'form' => $form->createView(),
+                'entity' => $data->getEntity(),
+                'menu' => $this->menuItem,
+            ],
+            $extraData
+        ));
     }
 
     public function crudNew(CrudDataInterface $data, array $extraData = []): Response

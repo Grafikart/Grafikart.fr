@@ -6,6 +6,7 @@ use App\Domain\Forum\Entity\ForumReaderUserInterface;
 use App\Domain\Notification\Entity\Notifiable;
 use App\Domain\Premium\Entity\PremiumTrait;
 use App\Domain\Profile\Entity\DeletableTrait;
+use App\Domain\School\Entity\School;
 use App\Http\Twig\CacheExtension\CacheableInterface;
 use App\Infrastructure\Payment\Stripe\StripeEntity;
 use App\Infrastructure\Social\Entity\SocialLoggableTrait;
@@ -99,6 +100,12 @@ class User implements UserInterface, ForumReaderUserInterface, CacheableInterfac
 
     #[ORM\Column(type: 'integer', options: ['default' => 0], nullable: false)]
     private int $registrationDuration = 0;
+
+    #[ORM\OneToOne(mappedBy: 'owner', cascade: ['persist', 'remove'])]
+    private ?School $administratedSchool = null;
+
+    #[ORM\ManyToOne(inversedBy: 'students')]
+    private ?School $school = null;
 
     public function getId(): ?int
     {
@@ -389,5 +396,39 @@ class User implements UserInterface, ForumReaderUserInterface, CacheableInterfac
     {
         $this->registrationDuration = $registrationDuration;
         return $this;
+    }
+
+    public function getAdministratedSchool(): ?School
+    {
+        return $this->administratedSchool;
+    }
+
+    public function setAdministratedSchool(School $administratedSchool): self
+    {
+        // set the owning side of the relation if necessary
+        if ($administratedSchool->getOwner() !== $this) {
+            $administratedSchool->setOwner($this);
+        }
+
+        $this->administratedSchool = $administratedSchool;
+
+        return $this;
+    }
+
+    public function getSchool(): ?School
+    {
+        return $this->school;
+    }
+
+    public function setSchool(?School $school): self
+    {
+        $this->school = $school;
+
+        return $this;
+    }
+
+    public function isSchoolOwner(): bool
+    {
+        return $this->school?->getOwner()->getId() === $this->getId();
     }
 }
