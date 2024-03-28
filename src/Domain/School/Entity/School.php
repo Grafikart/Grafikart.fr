@@ -13,15 +13,21 @@ use Doctrine\ORM\Mapping as ORM;
 class School
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
     private string $name = '';
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $emailTemplate = null;
+    private string $emailMessage = '';
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private string $emailSubject = '';
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private string $couponPrefix = '';
 
     #[ORM\OneToOne(inversedBy: 'administratedSchool', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
@@ -51,18 +57,6 @@ class School
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getEmailTemplate(): ?string
-    {
-        return $this->emailTemplate;
-    }
-
-    public function setEmailTemplate(?string $emailTemplate): self
-    {
-        $this->emailTemplate = $emailTemplate;
 
         return $this;
     }
@@ -119,6 +113,39 @@ class School
             }
         }
 
+        return $this;
+    }
+
+    public function getEmailSubject(): string
+    {
+        return $this->emailSubject;
+    }
+
+    public function setEmailSubject(string $emailSubject): self
+    {
+        $this->emailSubject = $emailSubject;
+        return $this;
+    }
+
+    public function getCouponPrefix(): string
+    {
+        return $this->couponPrefix;
+    }
+
+    public function setCouponPrefix(string $couponPrefix): self
+    {
+        $this->couponPrefix = $couponPrefix;
+        return $this;
+    }
+
+    public function getEmailMessage(): string
+    {
+        return $this->emailMessage;
+    }
+
+    public function setEmailMessage(string $emailMessage): School
+    {
+        $this->emailMessage = $emailMessage;
         return $this;
     }
 

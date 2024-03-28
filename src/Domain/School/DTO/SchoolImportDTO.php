@@ -16,7 +16,16 @@ class SchoolImportDTO
     #[Assert\NotBlank()]
     public string $emailMessage;
 
+    #[Assert\NotBlank()]
+    public string $emailSubject;
+
+    #[Assert\NotBlank()]
+    public string $couponPrefix;
+
     public function __construct(public readonly School $school){
+        $this->emailMessage = $this->school->getEmailMessage();
+        $this->emailSubject = $this->school->getEmailSubject();
+        $this->couponPrefix = $this->school->getCouponPrefix();
     }
 
 }

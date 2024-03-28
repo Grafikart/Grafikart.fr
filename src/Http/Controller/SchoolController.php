@@ -2,11 +2,11 @@
 
 namespace App\Http\Controller;
 
+use App\Domain\Coupon\Repository\CouponRepository;
 use App\Domain\School\DTO\SchoolImportDTO;
 use App\Domain\School\InvalidCSVException;
 use App\Domain\School\SchoolImportService;
 use App\Http\Form\SchoolImportForm;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,7 +20,7 @@ class SchoolController extends AbstractController
     public function index(
         Request $request,
         SchoolImportService $importer,
-        EntityManagerInterface $em
+        CouponRepository $couponRepository
     )
     {
         $school = $this->getUserOrThrow()->getSchool();
@@ -37,13 +37,13 @@ class SchoolController extends AbstractController
             } catch (InvalidCSVException $e) {
                 $error = new FormError($e->getMessage());
                 $form->get('file')->addError($error);
-                dd($e);
             }
         }
 
         return $this->render('school/index.html.twig', [
             'school' => $school,
             'form' => $form,
+            'coupons' => $couponRepository->findAllUnclaimedForSchool($school)
         ]);
     }
 

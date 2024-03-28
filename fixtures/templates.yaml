@@ -156,3 +156,11 @@ App\Domain\Revision\Revision:
     created_at: <dateTimeThisYear()>
     content: <paragraphs(5, true)>
     status: 0
+
+App\Domain\School\Entity\School:
+  school (template):
+    name: Ecole de test
+    coupon_prefix: ECOLE
+    email_subject: <sentence(5, true)>
+    email_message: <paragraphs(5, true)>
+    credits: 100

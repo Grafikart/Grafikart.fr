@@ -17,7 +17,13 @@ class SchoolCrudData extends AutomaticCrudData
     public string $name = '';
 
     #[Assert\NotBlank]
-    public ?string $emailTemplate = '';
+    public ?string $emailMessage = '';
+
+    #[Assert\NotBlank]
+    public ?string $emailSubject = 'Compte premium Grafikart.fr';
+
+    #[Assert\NotBlank]
+    public ?string $couponPrefix = 'ECOLE';
 
     #[Assert\NotBlank]
     public int $credits = 0;

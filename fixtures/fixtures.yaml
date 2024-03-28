@@ -3,6 +3,9 @@ include:
 
 App\Domain\Auth\User:
   user{1..5} (extends user):
+  director (extends user):
+    username: Director
+    email: director@grafikart.fr
   admin (extends user):
     username: Grafikart
     email: grafikart@grafikart.fr
@@ -79,3 +82,7 @@ App\Domain\Podcast\Entity\Podcast:
     scheduledAt: null
     votesCount: <numberBetween(2, 200)>
     author: '@user*'
+
+App\Domain\School\Entity\School:
+  school1 (extends school):
+    owner: '@director'
