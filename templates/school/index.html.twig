@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Mon compte' %}
+
+{% set bodyClass = 'header-light' %}
+
+{% block body %}
+
+  {% include 'account/_header.html.twig' with {title: 'Mon compte', user: app.user} %}
+
+  {% include 'account/_tabs.html.twig' with {active: 'school'} %}
+
+
+<div class="layout-sidebar py5" style="--gap:5; --sidebar-width: 350px">
+  <main class="stack-large">
+    <div class="stack">
+      <h2 class="h3">
+        {{ icon('student') }}
+        <strong>Étudiants de l'école</strong>
+      </h2>
+    </div>
+  </main>
+  <aside class="stack-large">
+    <div class="stack">
+      <h3 class="h4">Importer des étudiants</h3>
+      {% if school.credits <= 0 %}
+        <alert-message type="warning">Vous avez utilisé tous vos <strong>mois premium</strong>. Veuillez <a
+            href="{{ path('contact') }}">me contacter</a> pour importer de nouveaux étudiants
+        </alert-message>
+      {% else %}
+        <p class="formatted">Il vous reste <strong>{{ school.credits }} mois premium</strong> à donner à vos
+          étudiants.
+        </p>
+      {% endif %}
+      {{ form_start(form) }}
+      <div class="stack" style="--gap: 2">
+        {{ form_rest(form) }}
+      </div>
+      {{ form_end(form) }}
+    </div>
+  </aside>
+</div>
+
+
+{% endblock %}

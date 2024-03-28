@@ -28,7 +28,8 @@ blockquote {
 }
 
 a {
-  color: #3869d4;
+  color: inherit;
+  text-decoration: underline;
 }
 
 a img {
@@ -72,6 +73,13 @@ p.sub {
 
 img {
   max-width: 100%;
+}
+
+pre {
+  padding: .5rem;
+  background: #f5faff;
+  border-radius: 4px;
+  border: solid 1px #d8e6f3;
 }
 
 /* Layout */
@@ -287,3 +295,4 @@ img {
 .break-all {
   word-break: break-all;
 }
+
