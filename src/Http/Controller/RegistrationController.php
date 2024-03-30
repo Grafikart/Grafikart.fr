@@ -36,8 +36,7 @@ class RegistrationController extends AbstractController
         Authenticator               $appAuthenticator,
         CouponClaimerService        $couponClaimerService,
         GeoIpService                $ipService,
-    ): Response
-    {
+    ): Response {
         // Si l'utilisateur est connecté, on le redirige vers la home
         $loggedInUser = $this->getUser();
         if ($loggedInUser) {

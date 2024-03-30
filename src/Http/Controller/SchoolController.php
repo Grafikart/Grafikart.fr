@@ -25,8 +25,7 @@ class SchoolController extends AbstractController
         SchoolImportService $importer,
         SchoolRepository $schoolRepository,
         CouponRepository $couponRepository
-    ): Response
-    {
+    ): Response {
         $user = $this->getUserOrThrow();
         $school = $schoolRepository->findAdministratedByUser($user->getId() ?? 0);
 

@@ -23,5 +23,4 @@ class CouponCrudData extends AutomaticCrudData
     {
         return $this->id;
     }
-
 }
