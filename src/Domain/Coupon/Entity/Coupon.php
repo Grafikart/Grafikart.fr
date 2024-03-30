@@ -30,7 +30,7 @@ class Coupon
     private string $email = '';
 
     #[ORM\Column]
-    private int $months = 0;
+    private int $months = 1;
 
     public function __construct()
     {

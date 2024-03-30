@@ -12,12 +12,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 class CouponClaimDTO
 {
 
-    #[Assert\NotBlank()]
-    #[CouponCode()]
-    private string $code = '';
-
     public function __construct(
-        private readonly User $user
+        private readonly User $user,
+        #[Assert\NotBlank()]
+        #[CouponCode()]
+        private string $code = ''
     ) {
     }
 

@@ -127,6 +127,7 @@ class AccountController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $coupon = $this->couponClaimerService->claim($form->getData());
+            $this->em->flush();
             $this->addFlash('success', sprintf('Votre code a bien été activé, vous avez obtenu %s mois de compte premium', $coupon->getMonths()));
 
             return [$form, $this->redirectToRoute('user_edit')];

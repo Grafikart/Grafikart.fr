@@ -1,0 +1,22 @@
+{% extends layout %}
+
+{% import "mails/macros.twig" as e %}
+
+{% block body %}
+{% apply markdown_email %}
+
+## {{ title }}
+
+{{ message }}
+
+Pour profiter de vos **{{ months }}** mois de compte premium vous pouvez utiliser le code suivant à rentrer [lors de votre inscription]({{ url('register', {coupon: code}) }}).
+
+```
+{{ code }}
+```
+
+{% endapply %}
+
+{{ e.button("Créer mon compte sur Grafikart.fr", url('register', {coupon: code})) }}
+
+{% endblock %}

@@ -55,7 +55,7 @@ abstract class AutomaticCrudData implements CrudDataInterface
         return AutomaticForm::class;
     }
 
-    public function getId(): ?int
+    public function getId(): int|string|null
     {
         if (method_exists($this->entity, 'getId')) {
             return $this->entity->getId();

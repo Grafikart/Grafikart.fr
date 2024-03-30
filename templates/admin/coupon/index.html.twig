@@ -1,0 +1,53 @@
+{% extends 'admin/layout/card.html.twig' %}
+
+{% block title %}
+  {{ icon('lines') }}
+  Gérer les coupons
+{% endblock %}
+
+{% block actions %}
+    <a href="{{ path(prefix ~ '_new') }}" class="btn-primary">Ajouter</a>
+{% endblock %}
+
+{% block content %}
+  <table class="table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Date création</th>
+      <th>Date d'utilisation</th>
+      <th>Status</th>
+      <th>Mois</th>
+      <th class="text-right">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for row in rows %}
+      {% set link = path(prefix ~ '_edit', {id: row.id}) %}
+      <tr>
+        <td class="dashboard-id">
+          <a href="{{ link }}">{{ row.id }}</a>
+        </td>
+        <td>{{ row.createdAt | format_date('short') }}</td>
+        <td>{{ row.claimedAt | format_date('short') }}</td>
+        <td><span class="bullet {% if not row.claimedAt %}bullet--danger{% endif %}"></span></td>
+        <td>{{ row.months }}</td>
+        <td>
+          <div class="dashboard-actions">
+            <a href="{{ link }}">{{ icon('edit') }}</a>
+            <form action="{{ path(prefix ~ '_edit', {id: row.id}) }}" method="post" onsubmit="return confirm('Voulez vous vraiment supprimer ce contenu')">
+              <input type="hidden" name="_method" value="DELETE" />
+              <button type="submit">
+                {{ icon('delete') }}
+              </button>
+            </form>
+          </div>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+  {{ paginate(rows) }}
+{% endblock %}
+

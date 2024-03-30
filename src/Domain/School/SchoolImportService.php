@@ -61,7 +61,7 @@ class SchoolImportService
 
         // Send an email for each coupons
         foreach ($coupons as $coupon) {
-            $email = $this->mailer->createEmail('mails/school/import.twig', [
+            $email = $this->mailer->createEmail('mails/coupon/create.twig', [
                 'email' => $coupon->getEmail(),
                 'months' => $coupon->getMonths(),
                 'message' => $data->emailMessage,

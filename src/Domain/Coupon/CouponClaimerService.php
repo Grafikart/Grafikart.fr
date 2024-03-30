@@ -14,7 +14,6 @@ class CouponClaimerService
 
     public function __construct(
         private readonly CouponRepository         $couponRepository,
-        private readonly EntityManagerInterface   $em,
         private readonly EventDispatcherInterface $dispatcher
     ) {
     }
@@ -31,7 +30,6 @@ class CouponClaimerService
             $school->addStudent($user);
         }
         $user->addPremiumMonths($coupon->getMonths());
-        $this->em->flush();
         $this->dispatcher->dispatch(new CouponClaimedEvent($coupon));
         return $coupon;
     }

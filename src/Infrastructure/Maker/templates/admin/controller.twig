@@ -22,7 +22,7 @@ class {{ entity_name }}Controller extends CrudController
         return $this->crudIndex();
     }
 
-    #[Route(path: "/new", name:"new")
+    #[Route(path: "/new", name:"new")]
     public function new(): Response
     {
         ${{ slug}} = new {{ entity_name }}();
@@ -31,13 +31,13 @@ class {{ entity_name }}Controller extends CrudController
         return $this->crudNew($data);
     }
 
-    #[Route(path: "/{id<\d+>}", name: "delete", methods: ["DELETE"])
+    #[Route(path: "/{id<\d+>}", name: "delete", methods: ["DELETE"])]
     public function delete({{ entity_name}} ${{ slug }}): Response
     {
         return $this->crudDelete(${{ slug }});
     }
 
-    #[Route(path: "/{id<\d+>}", name: "edit")
+    #[Route(path: "/{id<\d+>}", name: "edit")]
     public function edit({{ entity_name}} ${{ slug }}): Response
     {
         $data = new {{ entity_name }}CrudData(${{ slug }});
