@@ -1,11 +1,16 @@
 twig:
-  default_path: '%kernel.project_dir%/templates'
-  form_themes:
-    - 'form/layout.html.twig'
-  date:
-    format: d F Y
-    interval_format: '%%d days'
-  globals:
-    mercure_subscribe_url: '%env(resolve:MERCURE_SUBSCRIBE_URL)%'
-  paths:
-    '%kernel.project_dir%/src/Infrastructure/Maker/templates': maker
+    file_name_pattern: '*.twig'
+    default_path: '%kernel.project_dir%/templates'
+    form_themes:
+        - 'form/layout.html.twig'
+    date:
+        format: d F Y
+        interval_format: '%%d days'
+    globals:
+        MERCURE_PUBLIC_URL: '%env(resolve:MERCURE_PUBLIC_URL)%'
+    paths:
+        '%kernel.project_dir%/src/Infrastructure/Maker/templates': maker
+
+when@test:
+    twig:
+        strict_variables: true
