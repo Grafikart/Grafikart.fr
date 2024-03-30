@@ -8,7 +8,7 @@ use App\Domain\School\Repository\SchoolRepository;
 use App\Http\Admin\Data\BadgeCrudData;
 use App\Http\Admin\Data\SchoolCrudData;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(path: '/schools', name: 'school_')]
 class SchoolsController extends CrudController

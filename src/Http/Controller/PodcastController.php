@@ -11,7 +11,7 @@ use App\Http\Form\PodcastForm;
 use App\Http\Security\PodcastVoter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class PodcastController extends AbstractController

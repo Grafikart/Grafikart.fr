@@ -5,7 +5,7 @@ namespace App\Http\Admin\Controller;
 use App\Domain\Coupon\Entity\Coupon;
 use App\Http\Admin\Data\CouponCrudData;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(path: "/coupon", name:"coupon_")]
 class CouponController extends CrudController

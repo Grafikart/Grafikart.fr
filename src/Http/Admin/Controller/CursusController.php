@@ -9,7 +9,7 @@ use App\Domain\Course\Entity\Cursus;
 use App\Domain\Course\Helper\CursusCloner;
 use App\Http\Admin\Data\CursusCrudData;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 /**
  * @method getRepository() App\Domain\

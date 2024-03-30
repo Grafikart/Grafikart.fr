@@ -6,7 +6,7 @@ use App\Domain\Course\Entity\CursusCategory;
 use App\Domain\Course\Repository\CursusCategoryRepository;
 use App\Http\Admin\Data\CursusCategoryCrudData;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(path: '/cursusc', name: 'cursuscategory_')]
 class CursusCategoryController extends CrudController

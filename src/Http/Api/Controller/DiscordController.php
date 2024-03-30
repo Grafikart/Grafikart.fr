@@ -5,7 +5,7 @@ namespace App\Http\Api\Controller;
 use App\Domain\Auth\UserRepository;
 use App\Http\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class DiscordController extends AbstractController
 {

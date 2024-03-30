@@ -4,7 +4,7 @@ namespace App\Http\Admin\Controller;
 
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class CacheController extends BaseController
 {
