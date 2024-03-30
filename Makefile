@@ -111,7 +111,7 @@ format: ## Formate le code
 
 .PHONY: refactor
 refactor: ## Reformate le code avec rector
-	docker run -v $(PWD):/app -w /app -t --rm php:8.2-cli-alpine php -d memory_limit=-1 ./vendor/bin/rector process --clear-cache
+	docker run -v $(PWD):/app -w /app -t --rm php:8.2-cli-alpine php -d memory_limit=-1 ./vendor/bin/rector process src
 
 .PHONY: doc
 doc: ## Génère le sommaire de la documentation
