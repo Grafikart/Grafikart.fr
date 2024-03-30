@@ -24,7 +24,7 @@ class SchoolImportForm extends AbstractType
                 'label' => "Sujet de l'email"
             ])
             ->add('emailMessage', TextareaType::class, [
-                'label' => 'Messsage',
+                'label' => 'Message',
                 'attr' => [
                     'placeholder' => 'Message envoyé avec leur code'
                 ]
