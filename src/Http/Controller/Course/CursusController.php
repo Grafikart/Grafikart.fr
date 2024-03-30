@@ -6,7 +6,7 @@ use App\Domain\Course\Entity\Cursus;
 use App\Domain\Course\Repository\CursusRepository;
 use App\Http\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class CursusController extends AbstractController
 {

@@ -5,7 +5,7 @@ namespace App\Http\Admin\Controller;
 use {{ entity }};
 use App\Http\Admin\Data\{{ entity_name }}CrudData;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(path: "/{{ route }}", name:"{{ slug }}_")]
 class {{ entity_name }}Controller extends CrudController
