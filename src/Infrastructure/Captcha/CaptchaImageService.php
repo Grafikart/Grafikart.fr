@@ -11,9 +11,9 @@ use Symfony\Component\HttpFoundation\Response;
 class CaptchaImageService
 {
 
-    private string $holeImage;
-    private string $backgroundImage;
-    private string $noiseImage;
+    private readonly string $holeImage;
+    private readonly string $backgroundImage;
+    private readonly string $noiseImage;
 
     public function __construct(
         string $imagePath,

@@ -14,9 +14,9 @@ use Symfony\Bundle\SecurityBundle\Security;
 /**
  * Filtre les notifications à renvoyer par l'API.
  */
-final class NotificationQueryExtention implements QueryCollectionExtensionInterface
+final readonly class NotificationQueryExtention implements QueryCollectionExtensionInterface
 {
-    public function __construct(private readonly Security $security, private readonly NotificationService $notificationService)
+    public function __construct(private Security $security, private NotificationService $notificationService)
     {
     }
 

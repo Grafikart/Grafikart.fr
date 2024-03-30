@@ -23,8 +23,8 @@ class CaptchaKeyService
 
     public function generateKey(): void
     {
-        $x = rand(0, self::CAPTCHA_WIDTH - self::CAPTCHA_PIECE_WIDTH);
-        $y = rand(0, self::CAPTCHA_HEIGHT - self::CAPTCHA_PIECE_HEIGHT);
+        $x = random_int(0, self::CAPTCHA_WIDTH - self::CAPTCHA_PIECE_WIDTH);
+        $y = random_int(0, self::CAPTCHA_HEIGHT - self::CAPTCHA_PIECE_HEIGHT);
         $session = $this->getSession();
         $session->set(self::SESSION_KEY, [$x, $y]);
         $session->set(self::SESSION_KEY_TRIES, 0);

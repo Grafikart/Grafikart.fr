@@ -38,7 +38,7 @@ class IsValidCaptchaValidator extends ConstraintValidator
                 $this->setAsInvalid($constraint);
                 return;
             }
-        } catch (TooManyTryException $e) {
+        } catch (TooManyTryException) {
             $this->setAsInvalid($constraint);
             return;
         }

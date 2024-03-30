@@ -28,5 +28,5 @@ class SchoolCrudData extends AutomaticCrudData
     #[Assert\NotBlank]
     public int $credits = 0;
 
-    public ?User $owner;
+    public ?User $owner = null;
 }

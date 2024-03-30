@@ -9,12 +9,12 @@ use App\Domain\Auth\User;
 use App\Domain\Notification\Entity\Notification;
 use Symfony\Bundle\SecurityBundle\Security;
 
-final class NotificationProcessor implements ProcessorInterface
+final readonly class NotificationProcessor implements ProcessorInterface
 {
     public function __construct(
         private ProcessorInterface $persistProcessor,
         private ProcessorInterface $removeProcessor,
-        private readonly Security $security
+        private Security $security
     ) {
     }
 
