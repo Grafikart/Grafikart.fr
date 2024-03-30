@@ -4,7 +4,7 @@ namespace App\Http\Controller;
 
 use App\Http\Security\CourseVoter;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 /**
  * Controller utilisé par nginx pour le auth_request

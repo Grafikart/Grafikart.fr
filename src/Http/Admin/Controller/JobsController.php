@@ -6,7 +6,7 @@ use App\Infrastructure\Queue\FailedJobsService;
 use App\Infrastructure\Queue\ScheduledJobsService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class JobsController extends BaseController
 {

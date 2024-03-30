@@ -8,7 +8,7 @@ use App\Domain\Auth\User;
 use App\Http\Controller\AbstractController;
 use App\Infrastructure\Payment\Stripe\StripeApi;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 

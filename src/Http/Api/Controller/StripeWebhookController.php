@@ -20,7 +20,7 @@ use Stripe\Event;
 use Stripe\PaymentIntent;
 use Stripe\Subscription as StripeSubscription;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class StripeWebhookController extends AbstractController
 {
