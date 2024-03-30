@@ -83,5 +83,4 @@ class CouponRepository extends AbstractRepository
             ->getQuery()
             ->getResult();
     }
-
 }

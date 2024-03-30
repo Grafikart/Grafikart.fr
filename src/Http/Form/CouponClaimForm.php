@@ -18,7 +18,6 @@ class CouponClaimForm extends AbstractType
 
     public function __construct(private readonly CouponRepository $couponRepository)
     {
-
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -38,5 +37,4 @@ class CouponClaimForm extends AbstractType
             'data_class' => CouponClaimDTO::class
         ]);
     }
-
 }

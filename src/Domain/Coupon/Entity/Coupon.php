@@ -32,7 +32,8 @@ class Coupon
     #[ORM\Column]
     private int $months = 0;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->createdAt = new \DateTimeImmutable();
     }
 
@@ -121,6 +122,4 @@ class Coupon
     {
         return $this->claimedAt !== null;
     }
-
-
 }

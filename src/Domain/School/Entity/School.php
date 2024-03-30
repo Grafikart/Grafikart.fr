@@ -141,5 +141,4 @@ class School
 
         return $this;
     }
-
 }

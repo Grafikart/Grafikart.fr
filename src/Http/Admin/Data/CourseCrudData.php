@@ -74,8 +74,7 @@ class CourseCrudData implements CrudDataInterface
     public function __construct(
         private readonly Course         $entity,
         private readonly ?UploadHandler $uploaderHandler = null
-    )
-    {
+    ) {
         $this->title = $entity->getTitle();
         $this->slug = $entity->getSlug();
         $this->author = $entity->getAuthor();

@@ -121,7 +121,8 @@ class AccountController extends AbstractController
     /**
      * Formulaire d'ajout de code promotionnel
      */
-    private function createCouponForm(Request $request): array {
+    private function createCouponForm(Request $request): array
+    {
         $form = $this->createForm(CouponClaimForm::class, new CouponClaimDTO($this->getUserOrThrow()));
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

@@ -18,8 +18,7 @@ class CouponClaimDTO
 
     public function __construct(
         private readonly User $user
-    )
-    {
+    ) {
     }
 
     public function getCode(): string
@@ -37,9 +36,4 @@ class CouponClaimDTO
     {
         return $this->user;
     }
-
-
-
-
-
 }

@@ -21,8 +21,7 @@ class SchoolImportService
         private readonly Mailer $mailer,
         private readonly CouponRepository $couponRepository,
         private readonly EntityManagerInterface $em
-    ){
-
+    ) {
     }
 
     /**
@@ -51,7 +50,7 @@ class SchoolImportService
 
         /** @var Coupon[] $coupons */
         $coupons = [];
-        foreach($students as $student) {
+        foreach ($students as $student) {
             $coupons[] = $this->couponRepository->createForSchool(school: $school, prefix: $data->couponPrefix, email: $student->email, months: $student->months);
         }
         // Update school credits
@@ -76,5 +75,4 @@ class SchoolImportService
 
         return $students;
     }
-
 }

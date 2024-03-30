@@ -8,8 +8,8 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class CouponCodeValidator extends ConstraintValidator
 {
-    public function __construct(private readonly CouponRepository $couponRepository){
-
+    public function __construct(private readonly CouponRepository $couponRepository)
+    {
     }
 
     public function validate($value, Constraint $constraint)

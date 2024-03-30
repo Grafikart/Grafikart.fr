@@ -38,5 +38,4 @@ class SchoolImportForm extends AbstractType
             'data_class' => SchoolImportDTO::class,
         ]);
     }
-
 }

@@ -15,5 +15,4 @@ class SchoolImportRow
     #[Assert\GreaterThan(0)]
     #[Assert\LessThan(24)]
     public int $months;
-
 }

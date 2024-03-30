@@ -16,9 +16,7 @@ class CouponClaimerService
         private readonly CouponRepository         $couponRepository,
         private readonly EntityManagerInterface   $em,
         private readonly EventDispatcherInterface $dispatcher
-    )
-    {
-
+    ) {
     }
 
     public function claim(CouponClaimDTO $claim): Coupon
@@ -37,5 +35,4 @@ class CouponClaimerService
         $this->dispatcher->dispatch(new CouponClaimedEvent($coupon));
         return $coupon;
     }
-
 }

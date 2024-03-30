@@ -24,8 +24,7 @@ class SchoolController extends AbstractController
         SchoolImportService $importer,
         SchoolRepository $schoolRepository,
         CouponRepository $couponRepository
-    )
-    {
+    ) {
         $user = $this->getUserOrThrow();
         $school = $schoolRepository->findAdministratedByUser($user->getId());
 
@@ -57,5 +56,4 @@ class SchoolController extends AbstractController
             'coupons' => $couponRepository->findAllUnclaimedForSchool($school)
         ]);
     }
-
 }

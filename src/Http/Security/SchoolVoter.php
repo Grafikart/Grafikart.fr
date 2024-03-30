@@ -15,8 +15,8 @@ class SchoolVoter extends Voter
     final public const MANAGE = 'SCHOOL_MANAGE';
     final public const IMPORT = 'SCHOOL_IMPORT';
 
-    public function __construct(private readonly SchoolRepository $schoolRepository){
-
+    public function __construct(private readonly SchoolRepository $schoolRepository)
+    {
     }
 
     protected function supports(string $attribute, $subject): bool
@@ -50,5 +50,4 @@ class SchoolVoter extends Voter
 
         return false;
     }
-
 }
