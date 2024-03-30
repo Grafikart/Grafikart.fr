@@ -33,4 +33,11 @@ class CommentPathNormalizer extends Normalizer
         return ($data instanceof Comment)
             && PathEncoder::FORMAT === $format;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Comment::class => true,
+        ];
+    }
 }

@@ -41,4 +41,11 @@ class AttachmentApiNormalizer extends Normalizer
     {
         return $data instanceof Attachment && 'json' === $format;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Attachment::class => true
+        ];
+    }
 }

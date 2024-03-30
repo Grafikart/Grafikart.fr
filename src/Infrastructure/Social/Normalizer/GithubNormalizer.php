@@ -24,4 +24,11 @@ class GithubNormalizer extends Normalizer
     {
         return $data instanceof GithubResourceOwner;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            GithubResourceOwner::class => true
+        ];
+    }
 }

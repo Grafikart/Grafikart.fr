@@ -23,4 +23,11 @@ class FailedJobNormalizer extends Normalizer
         return ($data instanceof FailedJob)
             && PathEncoder::FORMAT === $format;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            FailedJob::class => true
+        ];
+    }
 }
