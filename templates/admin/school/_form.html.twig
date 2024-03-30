@@ -10,10 +10,11 @@
       <div class="grid">
         {{ form_row(form.name) }}
         {{ form_row(form.owner) }}
-        {{ form_row(form.couponCode) }}
+        {{ form_row(form.couponPrefix) }}
         {{ form_row(form.credits) }}
       </div>
-      {{ form_row(form.emailTemplate, {help: 'Ce message apparaitra au dessus dans l\'email envoyé aux élèves lors de leur inscription sur le site'}) }}
+      {{ form_row(form.emailSubject) }}
+      {{ form_row(form.emailMessage, {help: 'Ce message apparaitra au dessus dans l\'email envoyé aux élèves lors de leur inscription sur le site'}) }}
     </div>
   </section>
 

@@ -29,15 +29,15 @@ class School
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private string $couponPrefix = '';
 
-    #[ORM\OneToOne(inversedBy: 'administratedSchool', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $owner = null;
-
     #[ORM\Column(options: ['default' => 0])]
     private int $credits = 0;
 
-    #[ORM\OneToMany(mappedBy: 'school', targetEntity: User::class)]
+    #[ORM\ManyToMany(targetEntity: User::class)]
     private Collection $students;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $owner = null;
 
     public function __construct()
     {
@@ -61,19 +61,6 @@ class School
         return $this;
     }
 
-    public function getOwner(): ?User
-    {
-        return $this->owner;
-    }
-
-    public function setOwner(User $owner): self
-    {
-        $this->owner = $owner;
-        $owner->setSchool($this);
-
-        return $this;
-    }
-
     public function getCredits(): int
     {
         return $this->credits;
@@ -82,36 +69,6 @@ class School
     public function setCredits(int $credits): self
     {
         $this->credits = $credits;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, User>
-     */
-    public function getStudents(): Collection
-    {
-        return $this->students;
-    }
-
-    public function addStudent(User $student): self
-    {
-        if (!$this->students->contains($student)) {
-            $this->students->add($student);
-            $student->setSchool($this);
-        }
-
-        return $this;
-    }
-
-    public function removeStudent(User $student): self
-    {
-        if ($this->students->removeElement($student)) {
-            // set the owning side to null (unless already changed)
-            if ($student->getSchool() === $this) {
-                $student->setSchool(null);
-            }
-        }
 
         return $this;
     }
@@ -146,6 +103,42 @@ class School
     public function setEmailMessage(string $emailMessage): School
     {
         $this->emailMessage = $emailMessage;
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getStudents(): Collection
+    {
+        return $this->students;
+    }
+
+    public function addStudent(User $student): self
+    {
+        if (!$this->students->contains($student)) {
+            $this->students->add($student);
+        }
+
+        return $this;
+    }
+
+    public function removeStudent(User $student): self
+    {
+        $this->students->removeElement($student);
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(User $owner): self
+    {
+        $this->owner = $owner;
+
         return $this;
     }
 

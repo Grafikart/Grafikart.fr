@@ -59,12 +59,7 @@ class PaymentSubscriber implements EventSubscriberInterface
             ->setCreatedAt(new \DateTime());
         $this->em->persist($transaction);
 
-        // On met à jour la date de fin de premium de l'utilisateur
-        $now = new \DateTimeImmutable();
-        $premiumEnd = $user->getPremiumEnd() ?: new \DateTimeImmutable();
-        // Si l'utilisateur a déjà une date de fin de premium dans le futur, alors on incrémentera son compte
-        $premiumEnd = $premiumEnd > $now ? $premiumEnd : new \DateTimeImmutable();
-        $user->setPremiumEnd($premiumEnd->add(new \DateInterval("P{$plan->getDuration()}M")));
+        $user->addPremiumMonths($plan->getDuration());
 
         // Flush & dispatch
         $this->em->flush();

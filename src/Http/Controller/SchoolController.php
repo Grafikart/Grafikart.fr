@@ -5,10 +5,12 @@ namespace App\Http\Controller;
 use App\Domain\Coupon\Repository\CouponRepository;
 use App\Domain\School\DTO\SchoolImportDTO;
 use App\Domain\School\InvalidCSVException;
+use App\Domain\School\Repository\SchoolRepository;
 use App\Domain\School\SchoolImportService;
 use App\Http\Form\SchoolImportForm;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
@@ -20,10 +22,16 @@ class SchoolController extends AbstractController
     public function index(
         Request $request,
         SchoolImportService $importer,
+        SchoolRepository $schoolRepository,
         CouponRepository $couponRepository
     )
     {
-        $school = $this->getUserOrThrow()->getSchool();
+        $user = $this->getUserOrThrow();
+        $school = $schoolRepository->findAdministratedByUser($user->getId());
+
+        if (!$school) {
+            throw new NotFoundHttpException();
+        }
 
         // CSV Import
         $data = new SchoolImportDTO($school);
@@ -40,9 +48,12 @@ class SchoolController extends AbstractController
             }
         }
 
+        $students = $couponRepository->findClaimedForSchool($school);
+
         return $this->render('school/index.html.twig', [
             'school' => $school,
             'form' => $form,
+            'students' => $students,
             'coupons' => $couponRepository->findAllUnclaimedForSchool($school)
         ]);
     }

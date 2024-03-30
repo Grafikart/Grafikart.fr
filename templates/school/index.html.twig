@@ -19,8 +19,8 @@
       {% if coupons | length > 0 %}
       <div class="stack">
         <h2 class="h3">
-          {{ icon('student') }}
-          <strong>Étudiants de l'école</strong>
+          {{ icon('badge') }}
+          <strong>Inscription en attente</strong>
         </h2>
         <div class="card p2">
           <table class="table">
@@ -29,14 +29,14 @@
               <th>Coupon</th>
               <th>Date</th>
               <th>Email</th>
-              <th>Mois</th>
+              <th class="text-left">Mois</th>
             </tr>
             </thead>
             <tbody>
             {% for coupon in coupons %}
             <tr>
               <td>{{ coupon.id }}</td>
-              <td>{{ coupon.createdAt | date("d M Y") }}</td>
+              <td>{{ coupon.createdAt | format_date('medium') }}</td>
               <td>{{ coupon.email }}</td>
               <td>{{ coupon.months }} mois</td>
             </tr>
@@ -45,6 +45,34 @@
           </table>
         </div>
       </div>
+      {% endif %}
+      {% if students | length > 0 %}
+        <div class="stack">
+          <h2 class="h3">
+            {{ icon('student') }}
+            <strong>Étudiants de l'école</strong>
+          </h2>
+          <div class="card p2">
+            <table class="table">
+              <thead>
+              <tr>
+                <th>Email</th>
+                <th>Date d'inscription</th>
+                <th class="text-left">Fin d'abonnement</th>
+              </tr>
+              </thead>
+              <tbody>
+              {% for student in students %}
+                <tr>
+                  <td>{{ student.email }}</td>
+                  <td>{{ student.claimedAt | format_date('medium') }}</td>
+                  <td>{{ student.claimedBy.premiumEnd | format_date('medium') }}</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
       {% endif %}
     </main>
     <aside class="stack-large">

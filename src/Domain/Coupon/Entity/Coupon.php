@@ -117,5 +117,10 @@ class Coupon
         return $this;
     }
 
+    public function isClaimed(): bool
+    {
+        return $this->claimedAt !== null;
+    }
+
 
 }

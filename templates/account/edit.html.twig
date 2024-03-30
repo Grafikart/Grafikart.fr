@@ -109,6 +109,15 @@
           'App\\Http\\Controller\\Template\\PremiumStateController::state'
         )) }}
       </div>
+      <h3 class="h5">Coupon</h3>
+      <p>
+        Si vous avez un code promotionnel / code d'école vous pouvez l'insérer ici
+      </p>
+      {{ form_start(form_coupon) }}
+      <div class="flex gap2">
+        {{ form_rest(form_coupon) }}
+      </div>
+      {{ form_end(form_coupon) }}
       <h3 class="h5">Connexion Discord</h3>
       <p>
         Reliez votre compte Discord à Grafikart.fr pour accéder au salon premium et obtenir un rôle spécial.

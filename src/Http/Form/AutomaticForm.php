@@ -56,7 +56,7 @@ class AutomaticForm extends AbstractType
         'links' => TextareaType::class,
         'requirements' => TechnologyChoiceType::class,
         'intervenants' => IntervenantsType::class,
-        'emailTemplate' => TextareaType::class,
+        'emailMessage' => TextareaType::class,
     ];
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

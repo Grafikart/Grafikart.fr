@@ -4,19 +4,19 @@ namespace App\Domain\Coupon\Repository;
 
 use App\Domain\Coupon\Entity\Coupon;
 use App\Domain\School\Entity\School;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Infrastructure\Orm\AbstractRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\String\ByteString;
 
 /**
- * @extends ServiceEntityRepository<Coupon>
+ * @extends AbstractRepository<Coupon>
  *
  * @method Coupon|null find($id, $lockMode = null, $lockVersion = null)
  * @method Coupon|null findOneBy(array $criteria, array $orderBy = null)
  * @method Coupon[]    findAll()
  * @method Coupon[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CouponRepository extends ServiceEntityRepository
+class CouponRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -65,6 +65,20 @@ class CouponRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('c')
             ->where('c.school = :school')
             ->andWhere('c.claimedAt IS NULL')
+            ->setParameter('school', $school)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return Coupon[]
+     */
+    public function findClaimedForSchool(?School $school): array
+    {
+        return $this->createQueryBuilder('c')
+            ->join('c.claimedBy', 'u')
+            ->where('c.school = :school')
+            ->andWhere('c.claimedAt IS NOT NULL')
             ->setParameter('school', $school)
             ->getQuery()
             ->getResult();

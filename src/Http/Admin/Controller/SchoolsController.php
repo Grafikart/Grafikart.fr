@@ -39,10 +39,9 @@ class SchoolsController extends CrudController
     public function edit(School $school, SchoolRepository $repository): Response
     {
         $data = new SchoolCrudData($school);
-        $students = $this->paginator->paginate($repository->findStudentsForSchool($school));
 
         return $this->crudEdit($data, [
-            'students' => $students
+            'students' => $school->getStudents()
         ]);
     }
 

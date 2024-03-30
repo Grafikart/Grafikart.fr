@@ -28,4 +28,14 @@ class SchoolRepository extends AbstractRepository
             SELECT u FROM App\Domain\Auth\User u WHERE u.school = :school AND u.id != :owner
         DQL)->setParameter('school', $school)->setParameter('owner', $school->getOwner()->getId());
     }
+
+    public function findAdministratedByUser(int $userId): ?School
+    {
+        return $this->createQueryBuilder('s')
+            ->setMaxResults(1)
+            ->where('s.owner = :user')
+            ->setParameter('user', $userId)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
