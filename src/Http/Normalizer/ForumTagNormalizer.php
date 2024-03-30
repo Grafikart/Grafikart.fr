@@ -3,7 +3,9 @@
 namespace App\Http\Normalizer;
 
 use ApiPlatform\Api\UrlGeneratorInterface;
+use App\Domain\Forum\Entity\Message;
 use App\Domain\Forum\Entity\Tag;
+use App\Domain\Forum\Entity\Topic;
 use App\Normalizer\Normalizer;
 
 class ForumTagNormalizer extends Normalizer
@@ -29,5 +31,12 @@ class ForumTagNormalizer extends Normalizer
     public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
         return $data instanceof Tag && 'json' === $format;
+    }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Tag::class => true
+        ];
     }
 }

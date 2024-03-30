@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Mon compte' %}
+
+{% set bodyClass = 'header-light' %}
+
+{% block body %}
+
+  {% include 'account/_header.html.twig' with {title: 'Mon compte', user: app.user} %}
+
+  {% include 'account/_tabs.html.twig' with {active: 'school'} %}
+
+  <div class="container">
+    {% include 'partials/flash.html.twig' %}
+  </div>
+
+  <div class="layout-sidebar py5" style="--gap:5; --sidebar-width: 350px">
+    <main class="stack-large">
+      {% if coupons | length > 0 %}
+      <div class="stack">
+        <h2 class="h3">
+          {{ icon('badge') }}
+          <strong>Inscription en attente</strong>
+        </h2>
+        <div class="card p2">
+          <table class="table">
+            <thead>
+            <tr>
+              <th>Coupon</th>
+              <th>Date</th>
+              <th>Email</th>
+              <th class="text-left">Mois</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for coupon in coupons %}
+            <tr>
+              <td>{{ coupon.id }}</td>
+              <td>{{ coupon.createdAt | format_date('medium') }}</td>
+              <td>{{ coupon.email }}</td>
+              <td>{{ coupon.months }} mois</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      {% endif %}
+      {% if students | length > 0 %}
+        <div class="stack">
+          <h2 class="h3">
+            {{ icon('student') }}
+            <strong>Étudiants de l'école</strong>
+          </h2>
+          <div class="card p2">
+            <table class="table">
+              <thead>
+              <tr>
+                <th>Email</th>
+                <th>Date d'inscription</th>
+                <th class="text-left">Fin d'abonnement</th>
+              </tr>
+              </thead>
+              <tbody>
+              {% for student in students %}
+                <tr>
+                  <td>{{ student.email }}</td>
+                  <td>{{ student.claimedAt | format_date('medium') }}</td>
+                  <td>{{ student.claimedBy.premiumEnd | format_date('medium') }}</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      {% endif %}
+    </main>
+    <aside class="stack-large">
+      <div class="stack">
+        <h3 class="h4">Importer des étudiants</h3>
+        {% if school.credits <= 0 %}
+          <alert-message type="warning">Vous avez utilisé tous vos <strong>mois premium</strong>. Veuillez <a
+              href="{{ path('contact') }}">me contacter</a> pour importer de nouveaux étudiants
+          </alert-message>
+        {% else %}
+          <p class="formatted">Il vous reste <strong>{{ school.credits }} mois premium</strong> à donner à vos
+            étudiants.
+          </p>
+        {% endif %}
+        {{ form_start(form) }}
+        <div class="stack" style="--gap: 2">
+          {{ form_rest(form) }}
+        </div>
+        {{ form_end(form) }}
+      </div>
+    </aside>
+  </div>
+
+
+{% endblock %}

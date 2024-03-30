@@ -19,6 +19,12 @@
     {{ icon('inbox') }}
     Factures
   </a>
+  {% if is_granted('SCHOOL_MANAGE') %}
+    <a href="{{ path('school') }}" {% if active == 'school' %}aria-selected="true"{% endif %} class="mla">
+      {{ icon('student') }}
+      École
+    </a>
+  {% endif %}
   {% if is_granted('ADMIN') %}
     <a href="{{ path('admin_home') }}" class="mla">
       {{ icon('edit') }}

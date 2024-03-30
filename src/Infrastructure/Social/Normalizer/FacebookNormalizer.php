@@ -24,4 +24,11 @@ class FacebookNormalizer extends Normalizer
     {
         return $data instanceof FacebookUser;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            FacebookUser::class => true
+        ];
+    }
 }

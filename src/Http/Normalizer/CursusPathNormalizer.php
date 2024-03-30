@@ -24,4 +24,11 @@ class CursusPathNormalizer extends Normalizer
         return ($data instanceof Cursus)
             && PathEncoder::FORMAT === $format;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Cursus::class => true,
+        ];
+    }
 }

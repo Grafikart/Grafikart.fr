@@ -24,4 +24,11 @@ class TechnologyPathNormalizer extends Normalizer
         return ($data instanceof Technology)
             && PathEncoder::FORMAT === $format;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Technology::class => true
+        ];
+    }
 }

@@ -72,8 +72,7 @@ final class CourseController extends CrudController
         Course           $course,
         SessionInterface $session,
         UploadHandler    $uploaderHelper,
-    ): Response
-    {
+    ): Response {
         $data = (new CourseCrudData($course, $uploaderHelper))->setEntityManager($this->em);
         $response = $this->crudEdit($data);
         if ($request->request->get('upload')) {
@@ -120,8 +119,7 @@ final class CourseController extends CrudController
         SessionInterface    $session,
         \Google_Client      $googleClient,
         MessageBusInterface $messageBus,
-    ): Response
-    {
+    ): Response {
         // Si on n'a pas d'id dans la session, on redirige
         $courseId = $session->get(self::UPLOAD_SESSION_KEY);
         if (null === $courseId) {

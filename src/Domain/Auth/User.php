@@ -6,6 +6,7 @@ use App\Domain\Forum\Entity\ForumReaderUserInterface;
 use App\Domain\Notification\Entity\Notifiable;
 use App\Domain\Premium\Entity\PremiumTrait;
 use App\Domain\Profile\Entity\DeletableTrait;
+use App\Domain\School\Entity\School;
 use App\Http\Twig\CacheExtension\CacheableInterface;
 use App\Infrastructure\Payment\Stripe\StripeEntity;
 use App\Infrastructure\Social\Entity\SocialLoggableTrait;

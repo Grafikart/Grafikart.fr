@@ -3,8 +3,8 @@
 namespace App\Http\Form;
 
 use App\Domain\Auth\User;
+use App\Domain\Coupon\Validator\CouponCode;
 use App\Infrastructure\Captcha\CaptchaType;
-use App\Infrastructure\Captcha\HCaptcha\HCaptchaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -21,6 +21,15 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('username', TextType::class, ['label' => "Nom d'utilisateur"])
+            ->add('coupon', TextType::class, [
+                'label' => "Code étudiant",
+                'required' => false,
+                "mapped" => false,
+                "help" => "Code donné par votre école si vous êtes étudiant",
+                "constraints" => [
+                    new CouponCode()
+                ]
+            ])
         ;
 
         if ($options['with_captcha']) {

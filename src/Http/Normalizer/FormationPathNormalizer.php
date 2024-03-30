@@ -24,4 +24,11 @@ class FormationPathNormalizer extends Normalizer
         return ($data instanceof Formation)
             && PathEncoder::FORMAT === $format;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Formation::class => true,
+        ];
+    }
 }

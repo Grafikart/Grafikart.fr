@@ -27,4 +27,11 @@ class TopicNormalizer extends Normalizer
             'created_at' => $object->getCreatedAt()->getTimestamp(),
         ];
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Topic::class => true
+        ];
+    }
 }

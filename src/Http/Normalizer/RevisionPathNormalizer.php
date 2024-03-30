@@ -22,4 +22,11 @@ class RevisionPathNormalizer extends Normalizer
     {
         return $data instanceof Revision && PathEncoder::FORMAT === $format;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Revision::class => true
+        ];
+    }
 }

@@ -1,0 +1,49 @@
+{% extends 'admin/layout/card.html.twig' %}
+
+{% block title %}
+  {{ icon('star') }}
+  Éditer l'école
+{% endblock %}
+
+{% block content %}
+  {% include 'admin/school/_form.html.twig' %}
+{% endblock %}
+
+{% block bottom %}
+  <div class="mt2">
+    <div class="section-title">
+      Etudiants
+    </div>
+    <div class="dashboard-card">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Pseudo</th>
+          <th>Email</th>
+          <th>Inscription</th>
+          <th>Premium</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in students %}
+          <tr>
+            <td>
+              {{ user.id }}
+            </td>
+            <td>
+              {{ user.username }}
+            </td>
+            <td>
+              {{ user.email }}
+            </td>
+            <td>
+              {{ user.createdAt | format_datetime(pattern="dd MMM. yyyy à kk:mm") }}
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

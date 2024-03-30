@@ -30,4 +30,11 @@ class BadgeNormalizer extends Normalizer
     {
         return $data instanceof Badge && 'json' === $format;
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Badge::class => true
+        ];
+    }
 }

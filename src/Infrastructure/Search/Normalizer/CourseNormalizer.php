@@ -20,6 +20,13 @@ class CourseNormalizer implements NormalizerInterface
         return $data instanceof Course && 'search' === $format;
     }
 
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Course::class => true
+        ];
+    }
+
     public function normalize($object, string $format = null, array $context = []): array
     {
         if (!$object instanceof Course) {

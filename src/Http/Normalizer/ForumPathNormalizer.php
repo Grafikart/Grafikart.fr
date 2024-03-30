@@ -26,7 +26,7 @@ class ForumPathNormalizer extends Normalizer
             return [
                 'path' => 'forum_show',
                 'params' => ['id' => $object->getTopic()->getId()],
-                'hash' => 'message-'.$object->getId(),
+                'hash' => 'message-' . $object->getId(),
             ];
         }
         throw new \RuntimeException("Can't normalize path");
@@ -36,5 +36,14 @@ class ForumPathNormalizer extends Normalizer
     {
         return ($data instanceof Tag || $data instanceof Topic || $data instanceof Message)
             && PathEncoder::FORMAT === $format;
+    }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Tag::class => true,
+            Topic::class => true,
+            Message::class => true,
+        ];
     }
 }

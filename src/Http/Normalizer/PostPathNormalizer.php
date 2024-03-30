@@ -3,6 +3,7 @@
 namespace App\Http\Normalizer;
 
 use App\Domain\Blog\Post;
+use App\Domain\Forum\Entity\Tag;
 use App\Http\Encoder\PathEncoder;
 use App\Normalizer\Normalizer;
 
@@ -23,5 +24,12 @@ class PostPathNormalizer extends Normalizer
     {
         return ($data instanceof Post)
             && PathEncoder::FORMAT === $format;
+    }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Post::class => true
+        ];
     }
 }

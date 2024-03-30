@@ -2,9 +2,12 @@
 
 namespace App\Http\Controller;
 
+use App\Domain\Coupon\CouponClaimerService;
+use App\Domain\Coupon\DTO\CouponClaimDTO;
 use App\Domain\Profile\Dto\ProfileUpdateDto;
 use App\Domain\Profile\Exception\TooManyEmailChangeException;
 use App\Domain\Profile\ProfileService;
+use App\Http\Form\CouponClaimForm;
 use App\Http\Form\UpdatePasswordForm;
 use App\Http\Form\UpdateProfileForm;
 use Doctrine\ORM\EntityManagerInterface;
@@ -19,7 +22,8 @@ class AccountController extends AbstractController
     public function __construct(
         private readonly UserPasswordHasherInterface $hasher,
         private readonly EntityManagerInterface $em,
-        private readonly ProfileService $profileService
+        private readonly ProfileService $profileService,
+        private readonly CouponClaimerService $couponClaimerService
     ) {
     }
 
@@ -41,7 +45,13 @@ class AccountController extends AbstractController
             return $response;
         }
 
+        [$formCoupon, $response] = $this->createCouponForm($request);
+        if ($response) {
+            return $response;
+        }
+
         return $this->render('account/edit.html.twig', [
+            'form_coupon' => $formCoupon->createView(),
             'form_password' => $formPassword->createView(),
             'form_update' => $formUpdate->createView(),
             'user' => $user,
@@ -105,6 +115,23 @@ class AccountController extends AbstractController
             $this->addFlash('error', "Vous avez déjà un changement d'email en cours.");
         }
 
+        return [$form, null];
+    }
+
+    /**
+     * Formulaire d'ajout de code promotionnel
+     */
+    private function createCouponForm(Request $request): array
+    {
+        $form = $this->createForm(CouponClaimForm::class, new CouponClaimDTO($this->getUserOrThrow()));
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $coupon = $this->couponClaimerService->claim($form->getData());
+            $this->em->flush();
+            $this->addFlash('success', sprintf('Votre code a bien été activé, vous avez obtenu %s mois de compte premium', $coupon->getMonths()));
+
+            return [$form, $this->redirectToRoute('user_edit')];
+        }
         return [$form, null];
     }
 }

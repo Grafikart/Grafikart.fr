@@ -38,4 +38,11 @@ class FormationNormalizer implements NormalizerInterface
             'created_at' => $object->getCreatedAt()->getTimestamp(),
         ];
     }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Formation::class => true
+        ];
+    }
 }

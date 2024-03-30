@@ -6,6 +6,8 @@ use App\Domain\Auth\Authenticator;
 use App\Domain\Auth\Event\UserBeforeCreatedEvent;
 use App\Domain\Auth\Event\UserCreatedEvent;
 use App\Domain\Auth\User;
+use App\Domain\Coupon\CouponClaimerService;
+use App\Domain\Coupon\DTO\CouponClaimDTO;
 use App\Http\Form\RegistrationFormType;
 use App\Infrastructure\Security\TokenGeneratorService;
 use App\Infrastructure\Social\SocialLoginService;
@@ -24,15 +26,16 @@ class RegistrationController extends AbstractController
 {
     #[Route(path: '/inscription', name: 'register')]
     public function register(
-        Request $request,
+        Request                     $request,
         UserPasswordHasherInterface $hasher,
-        EntityManagerInterface $em,
-        TokenGeneratorService $tokenGenerator,
-        EventDispatcherInterface $dispatcher,
-        SocialLoginService $socialLoginService,
-        UserAuthenticatorInterface $authenticator,
-        Authenticator $appAuthenticator,
-        GeoIpService $ipService,
+        EntityManagerInterface      $em,
+        TokenGeneratorService       $tokenGenerator,
+        EventDispatcherInterface    $dispatcher,
+        SocialLoginService          $socialLoginService,
+        UserAuthenticatorInterface  $authenticator,
+        Authenticator               $appAuthenticator,
+        CouponClaimerService        $couponClaimerService,
+        GeoIpService                $ipService,
     ): Response {
         // Si l'utilisateur est connecté, on le redirige vers la home
         $loggedInUser = $this->getUser();
@@ -48,6 +51,9 @@ class RegistrationController extends AbstractController
         $form = $this->createForm(RegistrationFormType::class, $user, [
             'with_captcha' => $env !== 'test',
         ]);
+        if ($request->query->get('coupon')) {
+            $form->get('coupon')->setData($request->get('coupon'));
+        }
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -62,16 +68,24 @@ class RegistrationController extends AbstractController
             }
 
             // On enregistre l'utilisateur
-            $user->setPassword(
-                $form->has('plainPassword') ? $hasher->hashPassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                ) : ''
-            );
-            $user->setLastLoginIp($request->getClientIp());
-            $user->setCreatedAt(new \DateTime());
-            $user->setConfirmationToken($isOauthUser ? null : $tokenGenerator->generate(60));
-            $user->setNotificationsReadAt(new \DateTimeImmutable());
+            $user
+                ->setPassword(
+                    $form->has('plainPassword') ? $hasher->hashPassword(
+                        $user,
+                        $form->get('plainPassword')->getData()
+                    ) : ''
+                )
+                ->setLastLoginIp($request->getClientIp())
+                ->setCreatedAt(new \DateTime())
+                ->setConfirmationToken($isOauthUser ? null : $tokenGenerator->generate(60))
+                ->setNotificationsReadAt(new \DateTimeImmutable())
+            ;
+            $coupon = $form->get('coupon')->getData();
+
+            if ($coupon) {
+                $couponClaimerService->claim(new CouponClaimDTO(user: $user, code: $coupon));
+            }
+
             $dispatcher->dispatch(new UserBeforeCreatedEvent($user, $request));
             $em->persist($user);
             $em->flush();

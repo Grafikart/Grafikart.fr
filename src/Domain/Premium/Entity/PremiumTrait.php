@@ -25,4 +25,15 @@ trait PremiumTrait
 
         return $this;
     }
+
+    public function addPremiumMonths(int $months): self
+    {
+        $now = new \DateTimeImmutable();
+        $premiumEnd = $this->getPremiumEnd() ?: new \DateTimeImmutable();
+        // Si l'utilisateur a déjà une date de fin de premium dans le futur, alors on incrémentera son compte
+        $premiumEnd = $premiumEnd > $now ? $premiumEnd : new \DateTimeImmutable();
+        $this->setPremiumEnd($premiumEnd->add(new \DateInterval("P{$months}M")));
+
+        return $this;
+    }
 }
