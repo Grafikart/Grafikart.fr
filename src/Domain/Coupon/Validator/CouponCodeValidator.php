@@ -12,8 +12,14 @@ class CouponCodeValidator extends ConstraintValidator
     {
     }
 
+    /**
+     * @param ?string $value
+     */
     public function validate($value, Constraint $constraint)
     {
+        if (!($constraint instanceof CouponCode)) {
+            throw new \RuntimeException(sprintf("%s ne peut valider que des %s", self::class, CouponCode::class));
+        }
         if (null === $value || '' === $value) {
             return;
         }

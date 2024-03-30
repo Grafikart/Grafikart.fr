@@ -3,7 +3,6 @@
 namespace App\Http\Form;
 
 use App\Domain\Coupon\DTO\CouponClaimDTO;
-use App\Domain\Coupon\Repository\CouponRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -15,10 +14,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class CouponClaimForm extends AbstractType
 {
-
-    public function __construct(private readonly CouponRepository $couponRepository)
-    {
-    }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

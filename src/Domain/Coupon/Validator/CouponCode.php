@@ -10,5 +10,5 @@ use Symfony\Component\Validator\Constraint;
 #[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::TARGET_METHOD)]
 class CouponCode extends Constraint
 {
-    public $message = "Ce coupon n'existe pas ou n'est plus valide";
+    public string $message = "Ce coupon n'existe pas ou n'est plus valide";
 }

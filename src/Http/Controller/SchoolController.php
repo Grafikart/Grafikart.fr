@@ -10,6 +10,7 @@ use App\Domain\School\SchoolImportService;
 use App\Http\Form\SchoolImportForm;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -24,9 +25,10 @@ class SchoolController extends AbstractController
         SchoolImportService $importer,
         SchoolRepository $schoolRepository,
         CouponRepository $couponRepository
-    ) {
+    ): Response
+    {
         $user = $this->getUserOrThrow();
-        $school = $schoolRepository->findAdministratedByUser($user->getId());
+        $school = $schoolRepository->findAdministratedByUser($user->getId() ?? 0);
 
         if (!$school) {
             throw new NotFoundHttpException();

@@ -19,14 +19,15 @@ class SchoolRepository extends AbstractRepository
         parent::__construct($registry, School::class);
     }
 
-    /**
-     * @return User[]
-     */
     public function findStudentsForSchool(School $school): Query
     {
+        $schoolOwnerId = $school->getOwner()?->getId();
+        if (!$schoolOwnerId) {
+            throw new \RuntimeException('School must have an owner');
+        }
         return $this->getEntityManager()->createQuery(<<<DQL
             SELECT u FROM App\Domain\Auth\User u WHERE u.school = :school AND u.id != :owner
-        DQL)->setParameter('school', $school)->setParameter('owner', $school->getOwner()->getId());
+        DQL)->setParameter('school', $school)->setParameter('owner', $schoolOwnerId);
     }
 
     public function findAdministratedByUser(int $userId): ?School

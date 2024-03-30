@@ -10,7 +10,7 @@ class SchoolImportDTO
 {
 
     #[Assert\NotBlank()]
-    #[Assert\File(extensions: ['csv' => ["text/csv", "application/csv", "text/x-comma-separated-values", "text/x-csv", "text/plain"]], maxSize: '2M')]
+    #[Assert\File(extensions: ['csv' => ["text/csv", "application/csv", "text/x-comma-separated-values", "text/x-csv", "text/plain"]], maxSize: '2M')] /** @phpstan-ignore-line */
     public UploadedFile $file;
 
     #[Assert\NotBlank()]
