@@ -43,7 +43,7 @@ class Comment
     private Collection $replies;
 
     #[ORM\Column(type: 'string', length: 46, nullable: true)]
-    private ?string $ip;
+    private ?string $ip = null;
 
     #[ORM\ManyToOne(targetEntity: \App\Domain\Application\Entity\Content::class)]
     #[ORM\JoinColumn(onDelete: 'CASCADE', nullable: false, name: 'content_id')]

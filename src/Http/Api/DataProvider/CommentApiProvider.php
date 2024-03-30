@@ -12,11 +12,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
-final class CommentApiProvider implements ProviderInterface
+final readonly class CommentApiProvider implements ProviderInterface
 {
     public function __construct(
-        private readonly CommentRepository $commentRepository,
-        private readonly UploaderHelper $uploaderHelper
+        private CommentRepository $commentRepository,
+        private UploaderHelper $uploaderHelper
     ) {
     }
 

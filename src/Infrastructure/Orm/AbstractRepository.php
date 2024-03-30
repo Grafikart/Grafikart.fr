@@ -87,7 +87,7 @@ abstract class AbstractRepository extends ServiceEntityRepository
         $setter = 'set'.ucfirst($propertyName);
         $ids = array_map(fn ($item) => $item->$getter()->getId(), $items);
         /** @var class-string $entityClass */
-        $entityClass = get_class($items[0]);
+        $entityClass = $items[0]::class;
         $reflection = new \ReflectionClass($entityClass);
         $relationType = $reflection->getProperty($propertyName)->getType();
         if (!$relationType instanceof \ReflectionNamedType) {

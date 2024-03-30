@@ -4,9 +4,9 @@ namespace App\Domain\Password\Event;
 
 use App\Domain\Auth\User;
 
-final class PasswordRecoveredEvent
+final readonly class PasswordRecoveredEvent
 {
-    public function __construct(private readonly User $user)
+    public function __construct(private User $user)
     {
     }
 
