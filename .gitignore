@@ -30,7 +30,6 @@ Migration.md
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
-.phpunit
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
@@ -43,8 +42,7 @@ Migration.md
 .idea
 
 ###> friendsofphp/php-cs-fixer ###
-/.php_cs
-/.php_cs.cache
+/.php-cs-fixer.php
 /.php-cs-fixer.cache
 ###< friendsofphp/php-cs-fixer ###
 

@@ -60,6 +60,7 @@
     "symfony/property-info": "6.4.*",
     "symfony/proxy-manager-bridge": "6.4.*",
     "symfony/redis-messenger": "6.4.*",
+    "symfony/runtime": "6.4.*",
     "symfony/security-bundle": "6.4.*",
     "symfony/sendinblue-mailer": "6.4.*",
     "symfony/serializer": "6.4.*",
