@@ -19,6 +19,12 @@ class SchoolImportForm extends AbstractType
         $builder
             ->add('file', FileType::class, [
                 'label' => 'Fichier CSV',
+                'help' => <<<HTML
+                    <a href='/schools/students.csv' download target='_blank'>Fichier d'exemple</a>
+                    (format <a href='/schools/students.xlsx' download target='_blank'>xlsx</a>,
+                    les en-têtes doivent être présentes.
+                HTML,
+                'help_html' => true,
             ])
             ->add('emailSubject', TextType::class, [
                 'label' => "Sujet de l'email"

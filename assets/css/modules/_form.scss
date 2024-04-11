@@ -219,6 +219,14 @@ input:focus + label .switch,
 button:not([class]):hover .icon-delete {
   color: var(--red);
 }
+small.form-text {
+  display: block;
+  line-height: 1.4;
+}
+small.form-text a {
+  line-height: 1.1;
+  text-decoration: underline;
+}
 
 // Radio
 // =============
