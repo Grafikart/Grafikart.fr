@@ -35,7 +35,6 @@ final class Version20240330091226 extends AbstractMigration
         $this->addSql('ALTER TABLE school ADD CONSTRAINT FK_F99EDABB7E3C61F9 FOREIGN KEY (owner_id) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE school_user ADD CONSTRAINT FK_CCBB09A4C32A47EE FOREIGN KEY (school_id) REFERENCES school (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE school_user ADD CONSTRAINT FK_CCBB09A4A76ED395 FOREIGN KEY (user_id) REFERENCES "user" (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE "user" DROP school_id');
     }
 
     public function down(Schema $schema): void
@@ -49,7 +48,5 @@ final class Version20240330091226 extends AbstractMigration
         $this->addSql('DROP TABLE coupon');
         $this->addSql('DROP TABLE school');
         $this->addSql('DROP TABLE school_user');
-        $this->addSql('ALTER TABLE "user" ADD school_id INT DEFAULT NULL');
-        $this->addSql('CREATE INDEX idx_8d93d649c32a47ee ON "user" (school_id)');
     }
 }
