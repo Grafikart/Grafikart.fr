@@ -16,11 +16,9 @@ class SchoolCrudData extends AutomaticCrudData
     #[Assert\NotBlank]
     public string $name = '';
 
-    #[Assert\NotBlank]
-    public ?string $emailMessage = '';
+    public string $emailMessage = '';
 
-    #[Assert\NotBlank]
-    public ?string $emailSubject = 'Compte premium Grafikart.fr';
+    public string $emailSubject = 'Compte premium Grafikart.fr';
 
     #[Assert\NotBlank]
     public ?string $couponPrefix = 'ECOLE';
@@ -29,4 +27,14 @@ class SchoolCrudData extends AutomaticCrudData
     public int $credits = 0;
 
     public ?User $owner;
+
+    public function setEmailMessage(?string $message)
+    {
+        $this->emailMessage = $message ?? '';
+    }
+
+    public function setEmailSubject(?string $subject)
+    {
+        $this->emailMessage = $subject ?? 'Compte premium Grafikart.fr';
+    }
 }
