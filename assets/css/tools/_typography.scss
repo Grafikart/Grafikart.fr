@@ -157,6 +157,9 @@ a.underline:hover {
 .text-muted {
   color: var(--color-light);
 }
+.text-title {
+  color: var(--color);
+}
 .text-truncate {
   overflow: hidden;
   text-overflow: ellipsis;

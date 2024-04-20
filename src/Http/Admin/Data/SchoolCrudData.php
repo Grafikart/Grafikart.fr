@@ -28,12 +28,12 @@ class SchoolCrudData extends AutomaticCrudData
 
     public ?User $owner;
 
-    public function setEmailMessage(?string $message)
+    public function setEmailMessage(?string $message): void
     {
         $this->emailMessage = $message ?? '';
     }
 
-    public function setEmailSubject(?string $subject)
+    public function setEmailSubject(?string $subject): void
     {
         $this->emailSubject = $subject ?? 'Compte premium Grafikart.fr';
     }

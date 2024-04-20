@@ -7,10 +7,13 @@ use App\Domain\School\DTO\SchoolImportDTO;
 use App\Domain\School\InvalidCSVException;
 use App\Domain\School\Repository\SchoolRepository;
 use App\Domain\School\SchoolImportService;
+use App\Http\DTO\SchoolImportConfirmRequestData;
 use App\Http\Form\SchoolImportForm;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -18,16 +21,21 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class SchoolController extends AbstractController
 {
 
+    public function __construct(
+        private readonly SchoolImportService $importer,
+        private readonly SchoolRepository $schoolRepository,
+        private readonly CouponRepository $couponRepository
+    ){
+
+    }
+
     #[Route('/ecole', name: 'school')]
     #[IsGranted('SCHOOL_MANAGE')]
     public function index(
         Request $request,
-        SchoolImportService $importer,
-        SchoolRepository $schoolRepository,
-        CouponRepository $couponRepository
     ): Response {
         $user = $this->getUserOrThrow();
-        $school = $schoolRepository->findAdministratedByUser($user->getId() ?? 0);
+        $school = $this->schoolRepository->findAdministratedByUser($user->getId() ?? 0);
 
         if (!$school) {
             throw new NotFoundHttpException();
@@ -39,22 +47,45 @@ class SchoolController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             try {
-                $students = $importer->process($data);
-                $this->addFlash('success', sprintf('%s étudiants ont été importés avec succcès', count($students)));
-                return $this->redirectToRoute('school');
+                $result = $this->importer->preprocess($data);
+                $months = $result->getMonths();
+                return $this->render('school/confirm.html.twig', [
+                    'rows' => $result->rows,
+                    'content' => $result->csv,
+                    'months' => $months,
+                    'credits' => $school->getCredits()
+                ]);
             } catch (InvalidCSVException $e) {
                 $error = new FormError($e->getMessage());
                 $form->get('file')->addError($error);
             }
         }
 
-        $students = $couponRepository->findClaimedForSchool($school);
+        $students = $this->couponRepository->findClaimedForSchool($school);
 
         return $this->render('school/index.html.twig', [
             'school' => $school,
             'form' => $form,
             'students' => $students,
-            'coupons' => $couponRepository->findAllUnclaimedForSchool($school)
+            'coupons' => $this->couponRepository->findAllUnclaimedForSchool($school)
         ]);
+    }
+
+    #[Route('/ecole/confirm', name: 'school_confirm', methods: ['POST'])]
+    #[IsGranted('SCHOOL_MANAGE')]
+    public function confirm(
+        #[MapRequestPayload]
+        SchoolImportConfirmRequestData $data,
+    ): RedirectResponse
+    {
+        $user = $this->getUserOrThrow();
+        $school = $this->schoolRepository->findAdministratedByUser($user->getId() ?? 0);
+        if (!$school) {
+            throw new NotFoundHttpException();
+        }
+
+        $result = $this->importer->process($data->content, $school);
+        $this->addFlash('success', sprintf('%s étudiants ont été importés avec succcès', count($result->rows)));
+        return $this->redirectToRoute('school');
     }
 }

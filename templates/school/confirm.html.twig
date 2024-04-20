@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title "Import d'apprenant" %}
+
+{% set bodyClass = 'header-light' %}
+
+{% block body %}
+
+  <div class="container">
+    <h1 class="h1 my4">Récapitulatif de votre import</h1>
+    <p class="my2">
+      Vous êtes sur le point d'importer <strong class="text-title bold">{{ rows | length }} étudiants</strong> ({{ months }} mois de compte premium). Il vous restera <strong class="text-title bold">{{ credits - months }} mois</strong> après cette opération
+    </p>
+    <table class="table mb3">
+      <thead>
+      <tr>
+        <th>Email</th>
+        <th>Nombre de mois</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for row in rows %}
+      <tr>
+        <td>{{ row.email }}</td>
+        <td>{{ row.months }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+
+    <form action="{{ path('school_confirm') }}" class="text-right my3" method="post">
+      <input type="hidden" value="{{ content }}" name="content">
+      <button type="submit" class="btn btn-primary">Confirmer l'import</button>
+    </form>
+  </div>
+
+
+{% endblock %}
