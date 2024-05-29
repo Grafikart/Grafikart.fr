@@ -35,7 +35,8 @@ function highlight ($codes) {
  * Détecte et ajoute la coloration syntaxique sur le site
  */
 export function bindHighlight (root = document) {
-  const $codes = root.querySelectorAll('pre code')
+  const $codes = Array.from(root.querySelectorAll('pre code'))
+    .filter(v => !v.classList.contains('language-mermaid'))
   if ($codes.length > 0) {
     if (window.hljs) {
       highlight($codes)

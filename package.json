@@ -1,6 +1,6 @@
 {
   "name": "grafikart",
-  "version": "1.0.102",
+  "version": "1.0.103",
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
@@ -38,6 +38,7 @@
     "headless-elements": "^0.0.2",
     "htm": "^3.0.4",
     "markdown-to-jsx": "7.1.2",
+    "mermaid": "^10.9.1",
     "preact": "^10.5.10",
     "react-diff-viewer": "^3.1.1",
     "scriptjs": "^2.5.9",
@@ -65,5 +66,6 @@
       "^/elements/(.*)$": "<rootDir>/../../assets/elements/$1"
     },
     "rootDir": "tests/js"
-  }
+  },
+  "packageManager": "pnpm@9.1.3+sha512.7c2ea089e1a6af306409c4fc8c4f0897bdac32b772016196c469d9428f1fe2d5a21daf8ad6512762654ac645b5d9136bb210ec9a00afa8dbc4677843ba362ecd"
 }

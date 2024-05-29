@@ -11,11 +11,13 @@ import { $$, $ } from '/functions/dom.js'
 import { registerKonami, registerBadgeAlert } from '/modules/badges.js'
 import { registerWindowHeightCSS } from '/modules/window.js'
 import { registerHeader } from '/modules/header.js'
+import { registerMermaid } from '/modules/mermaid.js'
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 import { slideDown } from '/functions/animation.js'
 import TomSelect from 'tom-select'
 
 registerKonami()
+registerMermaid()
 registerBadgeAlert()
 registerHeader()
 registerWindowHeightCSS()

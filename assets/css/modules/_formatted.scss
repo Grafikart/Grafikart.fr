@@ -200,6 +200,13 @@
     text-align: center;
     font-family: monospace;
   }
+  .language-mermaid {
+    display: block;
+  }
+  .language-mermaid svg {
+    display: block;
+    margin-inline: auto;
+  }
 }
 
 @include dark() {
