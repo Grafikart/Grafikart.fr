@@ -1,4 +1,4 @@
-- name: Donwload GEOIP Database
+- name: Download GEOIP Database
   unarchive:
     src: "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country&license_key={{ geoip_key }}&suffix=tar.gz"
     dest: "{{ root_path }}/var"

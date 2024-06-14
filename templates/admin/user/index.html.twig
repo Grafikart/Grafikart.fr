@@ -66,9 +66,14 @@
             {{ user.premium ? user.premiumEnd | ago('Pour') : '' }}
           </td>
           <td>
-            <a href="https://ipinfo.io/{{ user.lastLoginIp }}" target="_blank">{{ user.lastLoginIp }}</a>
+            <a href="https://ipinfo.io/{{ user.lastLoginIp }}" title="" target="_blank">{{ user.lastLoginIp }}</a>
             {% if user.lastLoginIp %}
-              {{ ipService.getLocation(user.lastLoginIp).emoji ?? '' }}
+              {% set location = ipService.getLocation(user.lastLoginIp) %}
+              {% if location %}
+              <span title="{{ location.country }}">
+                {{ location.emoji ?? '' }}
+              </span>
+              {% endif %}
             {% endif %}
           </td>
           <td>
