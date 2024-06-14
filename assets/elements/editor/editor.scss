@@ -6,6 +6,9 @@
   background: var(--background);
   transition: box-shadow 0.3s;
 }
+.mdeditor.is-invalid {
+  border-color: #fb4635;
+}
 .mdeditor--fullscreen {
   position: fixed;
   z-index: 100;

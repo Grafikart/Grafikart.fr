@@ -34,7 +34,7 @@ class Message implements SpammableInterface, CacheableInterface
 
     #[ORM\Column(type: 'text')]
     #[Assert\NotBlank]
-    #[Assert\Length(min: 10)]
+    #[Assert\Length(min: 10, max: 10_000)]
     #[Groups(['read:message', 'update:message'])]
     private ?string $content = null;
 

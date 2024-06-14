@@ -44,7 +44,7 @@ class CommentResource extends CommentData
 
     #[Assert\NotBlank(normalizer: 'trim')]
     #[Groups(['read', 'write'])]
-    #[Assert\Length(min: 4, normalizer: 'trim')]
+    #[Assert\Length(min: 4, max: 1_000, normalizer: 'trim')]
     public string $content = '';
 
     #[Groups(['read'])]

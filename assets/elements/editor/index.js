@@ -2,6 +2,7 @@ import './editor.scss'
 import Editor from './Editor'
 import Toolbar from './Toolbar'
 import { createElement } from '/functions/dom.js'
+import clsx from "clsx";
 
 /**
  * @property {HTMLDivElement} container
@@ -17,13 +18,13 @@ export class MarkdownEditor extends HTMLTextAreaElement {
 
   async connectedCallback () {
     const editor = new Editor(this.value, {
-      autofocus: this.getAttribute('autofocus') !== null
+      autofocus: this.getAttribute('autofocus') !== null,
     })
     await editor.boot()
     const toolbar = new Toolbar(editor)
 
     // Construction du DOM
-    this.container = createElement('div', { class: 'mdeditor' })
+    this.container = createElement('div', { class: clsx('mdeditor', this.getAttribute('class')) })
     this.container.appendChild(toolbar.element)
     this.container.appendChild(editor.element)
 

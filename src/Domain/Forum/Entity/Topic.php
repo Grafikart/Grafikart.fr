@@ -34,6 +34,7 @@ class Topic implements SpammableInterface, CacheableInterface
 
     #[ORM\Column(type: 'text')]
     #[Assert\NotBlank]
+    #[Assert\Length(min: 10, max: 10_000)]
     #[Groups(['read:topic'])]
     private ?string $content = null;
 

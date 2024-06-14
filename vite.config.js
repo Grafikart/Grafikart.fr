@@ -1,6 +1,6 @@
-// @ts-check
-import prefresh from "@prefresh/vite";
-import { resolve } from 'path'
+import preact from '@preact/preset-vite'
+import { resolve } from 'node:path'
+import {defineConfig} from "vite";
 
 const root = "./assets";
 
@@ -21,26 +21,19 @@ const twigRefreshPlugin = () => ({
   }
 })
 
-/**
- * @type { import('vite').UserConfig }
- */
-const config = {
+export default defineConfig({
   resolve: {
     alias: {
       react: "preact/compat",
       "react-dom": "preact/compat",
     }
   },
+  server: {
+    port: 3000,
+    host: "0.0.0.0",
+  },
   emitManifest: true,
   cors: true,
-  optimizeDeps: {
-    include: ['preact/hooks', 'preact/compat', 'htm/mini']
-  },
-  esbuild: {
-    jsxFactory: 'h',
-    jsxFragment: 'Fragment',
-    jsxInject: `import { h, Fragment } from 'preact'`
-  },
   base: '/assets/',
   build: {
     polyfillDynamicImport: false,
@@ -57,8 +50,6 @@ const config = {
       }
     },
   },
-  plugins: [prefresh(), twigRefreshPlugin()],
+  plugins: [preact(), twigRefreshPlugin()],
   root
-};
-
-module.exports = config;
+})
