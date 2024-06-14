@@ -145,6 +145,5 @@ var/dump:
 	mkdir var/dump
 
 public/assets/manifest.json: package.json
-	nvm use 20
 	$(bun) bun install
 	$(bun) bun run build
