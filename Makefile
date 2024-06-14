@@ -35,7 +35,7 @@ sync: ## Récupère les données depuis le serveur
 	rsync -avz --ignore-existing --progress --exclude=avatars grafikart:/home/grafikart/grafikart.fr/public/uploads/ ./public/uploads/
 
 .PHONY: install
-install: vendor/autoload.php public/assets/manifest.json ## Installe les différentes dépendances
+install: vendor/autoload.php public/assets/.vite/manifest.json ## Installe les différentes dépendances
 	APP_ENV=prod APP_DEBUG=0 $(php) composer install --no-dev --optimize-autoloader
 	make migrate
 	APP_ENV=prod APP_DEBUG=0 $(sy) cache:clear
@@ -144,6 +144,6 @@ public/assets: node_modules/time
 var/dump:
 	mkdir var/dump
 
-public/assets/manifest.json: package.json
+public/assets/.vite/manifest.json: package.json
 	$(bun) bun install
 	$(bun) bun run build
