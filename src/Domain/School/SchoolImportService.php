@@ -23,8 +23,7 @@ class SchoolImportService
         private readonly Mailer                 $mailer,
         private readonly CouponRepository       $couponRepository,
         private readonly EntityManagerInterface $em
-    )
-    {
+    ) {
     }
 
     /**

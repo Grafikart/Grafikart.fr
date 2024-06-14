@@ -25,8 +25,7 @@ class SchoolController extends AbstractController
         private readonly SchoolImportService $importer,
         private readonly SchoolRepository $schoolRepository,
         private readonly CouponRepository $couponRepository
-    ){
-
+    ) {
     }
 
     #[Route('/ecole', name: 'school')]
@@ -76,8 +75,7 @@ class SchoolController extends AbstractController
     public function confirm(
         #[MapRequestPayload]
         SchoolImportConfirmRequestData $data,
-    ): RedirectResponse
-    {
+    ): RedirectResponse {
         $user = $this->getUserOrThrow();
         $school = $this->schoolRepository->findAdministratedByUser($user->getId() ?? 0);
         if (!$school) {

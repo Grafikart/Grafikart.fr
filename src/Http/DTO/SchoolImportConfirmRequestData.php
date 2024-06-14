@@ -10,8 +10,6 @@ class SchoolImportConfirmRequestData
     public function __construct(
         #[NotBlank()]
         public readonly string $content = ""
-    ){
-
+    ) {
     }
-
 }
