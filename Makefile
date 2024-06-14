@@ -6,7 +6,7 @@ user := $(shell id -u)
 group := $(shell id -g)
 
 sy := php bin/console
-node :=
+bun :=
 php :=
 ifeq ($(isDocker), 1)
 	ifneq ($(isProd), 1)
@@ -16,7 +16,7 @@ ifeq ($(isDocker), 1)
 		dr := $(dc) run --rm
 		drtest := $(dc) -f docker-compose.test.yml run --rm
 		sy := $(de) php bin/console
-		node := $(dr) node
+		bun := $(dr) bun
 		php := $(dr) --no-deps php
 	endif
 endif
@@ -48,7 +48,6 @@ build-docker:
 	$(dc) pull --ignore-pull-failures
 	$(dc) build php
 	$(dc) build messenger
-	$(dc) build node
 
 .PHONY: dev
 dev: vendor/autoload.php node_modules/time ## Lance le serveur de développement
@@ -88,7 +87,7 @@ test: vendor/autoload.php node_modules/time ## Execute les tests
 	$(drtest) phptest bin/console doctrine:schema:validate --skip-sync
 	$(drtest) phptest vendor/bin/paratest -p 4 --runner=WrapperRunner
 	# $(drtest) phptest vendor/bin/phpunit --filter=ContentSubscriber
-	$(node) pnpm run test
+	$(bun) bun run test
 
 .PHONY: tt
 tt: vendor/autoload.php ## Lance le watcher phpunit
@@ -132,16 +131,20 @@ vendor/autoload.php: composer.lock
 	$(php) composer install
 	touch vendor/autoload.php
 
-node_modules/time: pnpm-lock.yaml
-	$(node) pnpm install
+node_modules/time: bun.lockb
+	$(bun) bun install
 	touch node_modules/time
 
+bun.lockb:
+	$(bun) bun install
+
 public/assets: node_modules/time
-	$(node) pnpm run build
+	$(bun) run build
 
 var/dump:
 	mkdir var/dump
 
 public/assets/manifest.json: package.json
-	$(node) pnpm install
-	$(node) pnpm run build
+	nvm use 20
+	$(bun) bun install
+	$(bun) bun run build

@@ -42,7 +42,7 @@ class TwigAssetExtension extends AbstractExtension
     {
         if (null === $this->paths) {
             $this->paths = $this->cache->get(self::CACHE_KEY, function () {
-                $manifest = $this->assetPath.'/manifest.json';
+                $manifest = $this->assetPath.'/.vite/manifest.json';
                 if (file_exists($manifest)) {
                     return json_decode((string) file_get_contents($manifest), true, 512, JSON_THROW_ON_ERROR);
                 } else {
@@ -123,7 +123,7 @@ class TwigAssetExtension extends AbstractExtension
         if (!$this->isProduction) {
             $request = $this->requestStack->getCurrentRequest();
 
-            return $request ? "http://{$request->getHost()}:3000/{$name}" : '';
+            return $request ? "http://{$request->getHost()}:3000/assets/{$name}" : '';
         }
 
         if (strpos($name, '.css')) {

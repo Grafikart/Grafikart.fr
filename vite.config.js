@@ -36,9 +36,6 @@ export default defineConfig({
   cors: true,
   base: '/assets/',
   build: {
-    polyfillDynamicImport: false,
-    assetsDir: '',
-    manifest: true,
     outDir: '../public/assets/',
     rollupOptions: {
       output: {
@@ -49,6 +46,9 @@ export default defineConfig({
         admin: resolve(__dirname, 'assets/admin.js')
       }
     },
+    polyfillDynamicImport: false,
+    assetsDir: '',
+    manifest: true,
   },
   plugins: [preact(), twigRefreshPlugin()],
   root

@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 .formations {
   @extend %container;
   z-index: 1;
@@ -267,7 +269,7 @@ $icon-size: 75px;
 .tree-item__icon {
   position: absolute;
   left: calc(50% - #{$icon-size*0.5});
-  top: $icon-size / -1.7;
+  top: math.div($icon-size, -1.7);
   width: $icon-size;
   height: $icon-size;
   // background: no-repeat center center / contain url(img/tree-icon.png);
