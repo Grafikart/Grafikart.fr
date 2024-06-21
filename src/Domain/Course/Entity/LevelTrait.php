@@ -14,9 +14,9 @@ trait LevelTrait
     private int $level = 0;
 
     public static array $levels = [
-        EASY => 'Débutant',
-        MEDIUM => 'Amateur',
-        HARD => 'Expert',
+        EASY => 'Junior',
+        MEDIUM => 'Intermédiaire',
+        HARD => 'Senior',
     ];
 
     public static array $colors = [
