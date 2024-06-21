@@ -31,6 +31,7 @@
   --selection-background: var(--border);
   --header-background: #FFFFFFF2;
   --header-background-inversed: #4869eeF2;
+  --video-background: var(--color);
 }
 
 // Outils
@@ -69,15 +70,12 @@
   --selection-background: #3D59A1;
   --header-background: #1b1e3dF2;
   --header-background-inversed: #263880F2;
+  --video-background: #111426;
 
   .lighten-dark {
     filter: brightness(10);
   }
 
-  youtube-player,
-  premium-player {
-    --color: #111426;
-  }
   waves-shape {
     --contrast: #263880;
   }

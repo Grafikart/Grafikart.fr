@@ -18,17 +18,24 @@ iframe ~ .ratio-svg {
 }
 .poster {
   border: none;
-  cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+button.poster {
+  cursor: pointer;
 }
 .poster:hover .play {
   transform: scale(1.1)
 }
 .poster:hover::before {
   opacity: .8;
+}
+slot {
+  position: relative;
+  z-index: 2;
+  display: block;
 }
 .title {
   margin-top: 4px;
@@ -58,7 +65,7 @@ iframe ~ .ratio-svg {
 }
 .poster::before {
   content:'';
-  background: linear-gradient(to top, var(--color) 0%, var(--color-transparent) 100%);
+  background: linear-gradient(to top, var(--video-background) 0%, var(--color-transparent) 100%);
   z-index: 2;
 }
 .poster,
@@ -81,4 +88,4 @@ img {
 .poster[aria-hidden] {
   pointer-events: none;
   opacity: 0;
-}`
+}`;

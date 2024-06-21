@@ -50,12 +50,29 @@
             <a href="{{ path('premium') }}" class="btn-secondary">{{ icon('star') }} Devenez premium pour accéder au contenu</a>
           </div>
         </div>
+      {% elseif course.premium and not user_premium and course.youtubeId %}
+        <youtube-player
+          class="course__player"
+          id="course-{{ course.id }}"
+          video="{{ course.youtubeId }}"
+          poster="{{ image_url(course.image, 1330, 750) }}"
+          button="#chapter{{ course.id }} play-button"
+          duration="{{ course.duration | duration }}"
+          class="shadow">
+          <div slot="overlay">
+            <p class="mb1">Contenu destiné aux membres premiums</p>
+            <p>
+              <a href="{{ path('premium') }}" class="btn-primary">{{ icon('star') }} Devenir premium</a>
+              <button class="btn-secondary">{{ icon('play') }} Voir l'extrait</button>
+            </p>
+          </div>
+        </youtube-player>
       {% elseif course.premium and not user_premium %}
         <div class="course-countdown" style="background-image: url({{ image_url(course.image, 1330, 750) }})">
           <div>
             <p class="mb1">Contenu destiné aux membres premiums</p>
             <p>
-              <a href="{{ path('premium') }}" class="btn-secondary">{{ icon('star') }} Devenir premium</a>
+              <a href="{{ path('premium') }}" class="btn-primary">{{ icon('star') }} Devenir premium</a>
             </p>
           </div>
         </div>
