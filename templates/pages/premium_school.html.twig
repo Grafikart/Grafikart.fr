@@ -1,0 +1,201 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Écoles' %}
+
+{% block body %}
+
+  <header class="wave-header" style="--side:473px">
+    <div>
+      <div class="wave-header__body stack">
+        <h1 class="wave-header__title">Vous êtes une école ou un professionnel de l'enseignement ?</h1>
+        <p>
+          Si vous souhaitez utiliser les contenus de Grafikart comme support dans le cadre de la formation de vos
+          étudiants vous pouvez demander l'accès à un compte "École".
+        </p>
+        <p>
+          <a href="{{ path('contact') }}" class="btn-white-outlined btn-big">{{ icon('inbox') }}
+            Obtenir un devis
+          </a>
+        </p>
+      </div>
+    </div>
+    <div class="wave-header__image pt0">
+      <img src="/images/illustrations/podcast.svg" width="473" height="367" alt="" style="height: auto; filter: none;">
+    </div>
+    <waves-shape class="waves" position="bottomWave" target=".wave-header"></waves-shape>
+  </header>
+
+  <div class="container stack my5" style="--gap: 15">
+
+    <section class="hero-grid">
+      <div class="stack">
+        <h2 class="hero-title">
+          Dashboard<br>
+          <strong>personnalisé</strong>
+        </h2>
+        <p class="hero-text">
+          Une interface d'administration vous permet de suivre la progression de vos étudiants sur les formations
+          proposées sur le site.
+        </p>
+      </div>
+      <div class="stack-large">
+        <div style="position:relative;">
+          <div class="stack-large" id="vscode" hidden="hidden">
+            <div class="card p3">
+              <table class="table text-small">
+                <thead>
+                <tr>
+                  <th>Email</th>
+                  <th>Date d'inscription</th>
+                  <th class="text-left">Fin d'abonnement</th>
+                  <th>Nombres de cours complétés</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% set today = date() %}
+                {% for i in 1..7 %}
+                  <tr>
+                    <td> etudiant{{ i }}@mon-ecole.fr</td>
+                    <td
+                      class="text-small text-muted">{{ today | date_modify('-' ~ (random(1, 3) * 30) ~ ' days') | format_date('medium') }}</td>
+                    <td
+                      class="text-small text-muted">{{ today | date_modify('+' ~ (random(1, 3) * 30) ~ ' days') | format_date('medium') }}</td>
+                    <td class="text-right">{{ random(20, 100) }}</td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="hero-grid is-inversed">
+      <div class="stack">
+        <h2 class="hero-title">
+          Suivi au<br>
+          <strong>cas par cas</strong>
+        </h2>
+        <p class="hero-text">
+          Vous pouvez voir le détail de la progression de chacun des étudiants pour un suivi plus fin et adapter
+          l'enseignement en fonction de sa progression.
+        </p>
+      </div>
+      <div class="stack-large">
+        <div style="position:relative;">
+          <div class="stack-large">
+            <h2 class="h3">
+              {{ icon('student') }}
+              <strong>Progression de Jane Doe</strong>
+            </h2>
+
+            <div class="formations">
+
+              {% for formation in formations %}
+                {% set isCompleted = formation.progress == 100 %}
+                <article class="card card--stacked {% if isCompleted %} is-completed{% endif %}"
+                         style="--progress:{{ formation.progress / 100 }}">
+                  <div class="card__body stack">
+                    <div class="card__icons">
+                      <img src="/uploads/icons/{{ formation.icon }}.svg" alt="">
+                    </div>
+
+                    <h2 class="card__title" style="margin-bottom: 4px;">
+                      {{ formation.title }}
+                    </h2>
+                  </div>
+                  <div class="card__progress"><span></span></div>
+                  <footer class="card__footer">
+                    <div>
+                      {{ icon('lines', 12) }}
+                      {{ (formation.count * formation.progress / 100) | round }}/{{ formation.count }} Chapitres
+                    </div>
+                    {% if isCompleted %}
+                      <div style="color: var(--contrast); font-weight: bold;">{{ icon('check', 14) }} Terminé !</div>
+                    {% else %}
+                      <div>{{ icon('clock', 14) }} {{ formation.progress }}%</div>
+                    {% endif %}
+                  </footer>
+                </article>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="hero-grid">
+
+      <div class="container-narrow">
+        <div class="stack">
+          <h2 class="hero-title">
+            Une formule<br>
+            <strong>sur mesure</strong>
+          </h2>
+          <p class="hero-text">
+            Spécifiez le nombre de mois premium que vous désirez utiliser pour vos étudiants et vous pourrez ensuite les
+            distribuer comme vous le souhaitez. Un import CSV vous permettra de donner accès au site à une liste d'étudiant (pour la rentrée par exemple).
+          </p>
+        </div>
+      </div>
+
+      <div class="card p4" style="max-width: 400px; margin-inline: auto;">
+
+        <div class="stack">
+          <h3 class="h4">Importer des étudiants</h3>
+          <p class="formatted">Il vous reste <strong>42 mois premium</strong> à donner à vos
+            étudiants.
+          </p>
+          <div class="stack" style="--gap: 2">
+            <div class="stack" style="--gap: 2">
+              <div class="form-group">
+                <label >Fichier CSV</label>
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input">
+                  <label for="school_import_form_file"  class="custom-file-label"></label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Sujet de
+                  l'email</label>
+                <input type="text" class="form-control" value="Compte premium Grafikart.fr">
+              </div>
+              <div class="form-group">
+                <label>Message</label>
+                <textarea placeholder="Message envoyé avec le code étudiant" class="form-control"></textarea>
+              </div>
+              <div class="form-group">
+                <button type="submit"
+                        class="btn-primary btn">Importer
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="stack-large">
+
+      <div class="container-narrow stack">
+          <h2 class="hero-title">
+            Des besoins<br>
+            <strong>spécifiques ?</strong>
+          </h2>
+        <p class="hero-text">
+          Vous avez des besoins spécifiques qui ne sont pas déjà couverts par les fonctionnalités précédentes ? N'hésitez pas à me contacter, car certains développements peuvent être faits pour adapter la plateforme à vos besoins.
+        </p>
+        <p class="flex center">
+          <a href="{{ path('contact') }}" class="btn-primary-outlined btn-big">{{ icon('inbox') }}
+            Obtenir plus d'informations
+          </a>
+        </p>
+      </div>
+    </section>
+
+
+  </div>
+
+{% endblock %}

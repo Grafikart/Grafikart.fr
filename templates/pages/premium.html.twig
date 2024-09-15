@@ -17,12 +17,12 @@
       </div>
     </section>
 
-    <div class="premium-grid">
+    <div class="premium-grid" >
       <div class="premium-grid__body stack">
         <h2 class="h2">
           Pourquoi cette offre ?
         </h2>
-        <div class="hero-text formatted">
+        <div class="text-big formatted">
           <p>
             Mon but à travers grafikart.fr est de partager mes connaissances avec le plus grand nombre, c'est pourquoi
             j'essaie de rendre un maximum de contenu gratuit et public.
@@ -33,6 +33,18 @@
             permet d'amortir une partie du temps passé et de continuer à faire vivre le site.
           </p>
         </div>
+
+        <h2 class="h2 mt5">Vous êtes une école<br/> ou un organisme de formation ?</h2>
+        <div class="formatted text-big">
+          Si vous souhaitez utiliser les contenus de Grafikart comme support dans le cadre de la formation de vos
+          étudiants
+          vous pouvez demander l'accès à un compte "École" qui vous permettra de créer des comptes premiums automatiquement et de suivre la progression de vos étudiants sur la plateforme.
+        </div>
+        <p>
+          <a href="{{ path('about_schools') }}" class="btn-primary-outlined">
+            En savoir plus
+          </a>
+        </p>
       </div>
       <div class="premium-grid__price">
         {% include 'partials/premium.html.twig' %}

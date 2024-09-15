@@ -59,14 +59,20 @@
                 <th>Email</th>
                 <th>Date d'inscription</th>
                 <th class="text-left">Fin d'abonnement</th>
+                <th>Nombres de cours complétés</th>
               </tr>
               </thead>
               <tbody>
               {% for student in students %}
                 <tr>
-                  <td>{{ student.email }}</td>
+                  <td>
+                    <a href="{{ path('school_student', {id: student.claimedBy.id}) }}">
+                      {{ student.email }}
+                    </a>
+                  </td>
                   <td>{{ student.claimedAt | format_date('medium') }}</td>
                   <td>{{ student.claimedBy.premiumEnd | format_date('medium') }}</td>
+                  <td class="text-right">{{ completions[student.claimedBy.id] ?? 0 }}</td>
                 </tr>
               {% endfor %}
               </tbody>

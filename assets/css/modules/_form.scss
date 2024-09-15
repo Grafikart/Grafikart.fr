@@ -14,6 +14,27 @@ input:disabled {
   opacity: 0.7;
 }
 
+.form-info {
+  margin-left: .5em;
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 100%;
+  margin-right: auto;
+  border: 1px solid currentColor;
+  color: var(--color-light);
+
+  &:hover {
+    color: var(--color);
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
 // Honeypot
 // =============
 .form-optional {
@@ -40,7 +61,6 @@ input:disabled {
   min-height: 150px;
 }
 .form-group label {
-  display: block;
   margin-bottom: space(1);
 }
 .form-group select {

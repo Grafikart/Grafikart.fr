@@ -12,17 +12,31 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class RegistrationFormType extends AbstractType
 {
+
+    public function __construct(private UrlGeneratorInterface $urlGenerator)
+    {
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $url = $this->urlGenerator->generate('about_schools');
         $builder
             ->add('username', TextType::class, ['label' => "Nom d'utilisateur"])
             ->add('coupon', TextType::class, [
-                'label' => "Code étudiant",
+                'label' => <<<HTML
+Code étudiant <a class="form-info" target="_blank" href="$url" title="En savoir plus"><svg class="icon icon-cursus">
+  <use href="/sprite.svg#info"></use>
+</svg></a>
+HTML
+,
+                'label_html' => true,
+                'label_attr' => ['class' => 'flex flex-start'],
                 'required' => false,
                 "mapped" => false,
                 "help" => "Code donné par votre école si vous êtes étudiant",

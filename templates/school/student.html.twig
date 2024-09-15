@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title student.username %}
+
+{% set bodyClass = 'header-light' %}
+
+{% block body %}
+
+  <header class="page-header container">
+    <div class="profil-header">
+      <div class="profil-header__avatar">
+        <img src="{{ student | avatar }}" alt="">
+      </div>
+      <div class="profil-header__body">
+        <h1 class="h1">{{ student.username }}</h1>
+        <p>
+          Étudiant de {{ school.name }}
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <div class="container py5">
+    <h2 class="h3">
+      {{ icon('student') }}
+      <strong>Progression de la formation</strong>
+    </h2>
+
+    <div class="formations mt3">
+      {% for item in progression %}
+        {% set formation = item.formation %}
+        {% set percent = (item.progress * 0.1) | round %}
+        {% set completedCourses = formation.coursesCount * (item.progress * 0.001) %}
+        {% set isCompleted = percent == 100 %}
+        <article class="card card--stacked {% if isCompleted %} is-completed{% endif%}" style="--progress:{{ percent / 100 }}">
+          <div class="card__body stack">
+            <h2 class="card__title" style="margin-bottom: 4px;">
+              <a href="{{ path('formation_show', {slug: formation.slug}) }}" title="{{ formation.title }}"
+                 class="card__link">
+                {{ formation.title }}
+              </a>
+            </h2>
+
+            <div class="card__description text-small">
+              <p>
+                {{ formation.short | markdown | striptags | excerpt(130) | raw }}
+              </p>
+            </div>
+          </div>
+          <div class="card__progress"><span></span></div>
+          <footer class="card__footer">
+            <div>
+              {{ icon('lines', 12) }}
+              {{ completedCourses }}/{{ formation.coursesCount }} Chapitres</div>
+            {% if isCompleted %}
+              <div style="color: var(--contrast); font-weight: bold;">{{ icon('check', 14) }} Terminé !</div>
+            {% else %}
+              <div>{{ icon('clock', 14) }} Terminé à {{ percent }}%</div>
+            {% endif %}
+          </footer>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+
+
+{% endblock %}
