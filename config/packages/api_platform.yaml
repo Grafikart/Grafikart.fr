@@ -1,6 +1,15 @@
 api_platform:
   show_webby: false
   keep_legacy_inflector: false
+  use_symfony_listeners: true
+  formats:
+    json: ['application/json']
+    html: ['text/html']
+    jsonld: ['application/ld+json']
+  docs_formats:
+    jsonld: ['application/ld+json']
+    jsonopenapi: ['application/vnd.openapi+json']
+    html: ['text/html']
   mapping:
     paths:
       - '%kernel.project_dir%/src/Http/Api/Resource'
@@ -9,12 +18,14 @@ api_platform:
   patch_formats:
     json: ['application/merge-patch+json']
   swagger:
-    versions: [3]
-  formats:
-    json: ['application/json']
-    html: ['text/html']
-    jsonld: ['application/ld+json']
+    versions: [ 3 ]
   defaults:
+    stateless: true
+    cache_headers:
+      vary: [ 'Content-Type', 'Authorization', 'Origin' ]
+    extra_properties:
+      standard_put: true
+      rfc_7807_compliant_errors: true
     pagination_client_items_per_page: false
   collection:
     pagination:
@@ -30,4 +41,3 @@ when@prod:
     formats:
       json: [ 'application/json' ]
       jsonld: [ 'application/ld+json' ]
-      html: [ 'application/json' ]
