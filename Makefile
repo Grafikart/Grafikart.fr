@@ -117,6 +117,10 @@ refactor: ## Reformate le code avec rector
 doc: ## Génère le sommaire de la documentation
 	npx doctoc ./README.md
 
+.PHONY: twitch
+twitch:
+	twitch event trigger stream.online -F http://localhost:8000/twitch/webhook -s testsecret
+
 # -----------------------------------
 # Déploiement
 # -----------------------------------

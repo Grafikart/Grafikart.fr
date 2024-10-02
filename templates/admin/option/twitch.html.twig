@@ -1,0 +1,25 @@
+{% extends 'admin/layout/card.html.twig' %}
+
+{% block title %}
+  {{ icon('camera') }}
+  Gestion des lives Twitch
+{% endblock %}
+
+{% block content %}
+  {% if subscriptions | length == 2 %}
+    <alert-message type="success">
+      Le webhook est bien enregistré
+    </alert-message>
+  {% else %}
+    <p>
+      Il y a {{ subscriptions | length }} abonnements enregistrés
+    </p>
+    {{ dump(subscriptions) }}
+    <form method="post">
+      <button class="btn btn-primary">
+        {{ icon('camera') }}
+        Enregistrer le webhook
+      </button>
+    </form>
+  {% endif %}
+{% endblock %}

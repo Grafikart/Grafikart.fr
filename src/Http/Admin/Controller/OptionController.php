@@ -4,6 +4,7 @@ namespace App\Http\Admin\Controller;
 
 use App\Domain\Live\LiveService;
 use App\Helper\OptionManagerInterface;
+use App\Infrastructure\Twitch\TwitchAPI;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,5 +40,18 @@ class OptionController extends BaseController
         $this->optionManager->set($key, $value);
 
         return $this->json([]);
+    }
+
+    #[Route(path: '/options/twitch', name: 'twitch')]
+    public function twitch(TwitchAPI $api, Request $request): Response
+    {
+        if ($request->getMethod() === 'POST') {
+            $api->addWebhookSubscription();
+            return $this->redirectToRoute('admin_twitch');
+        }
+        $subscriptions = $api->getSubscriptions();
+        return $this->render('admin/option/twitch.html.twig', [
+            'subscriptions' => $subscriptions,
+        ]);
     }
 }
