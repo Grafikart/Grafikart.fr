@@ -77,7 +77,7 @@ services:
 
   App\Infrastructure\Mercure\Service\CookieGenerator:
     arguments:
-      $secret: '%env(resolve:MERCURE_SUBSCRIBER_KEY)%'
+      $secret: '%env(resolve:MERCURE_JWT_SECRET)%'
 
   App\Http\Twig\TwigAssetExtension:
     arguments:
