@@ -6,8 +6,6 @@ parameters:
   sources_path:     '%download_path%/sources'
   image_resize_key: '%env(resolve:IMAGE_RESIZE_KEY)%'
   geoip_database:   '%kernel.project_dir%/var/GeoLite2-Country.mmdb'
-  container.dumper.inline_factories: true
-  container.dumper.inline_class_loader: true
   dkim_key: '%env(resolve:default::MAILER_DKIM)%'
   router.request_context.host: 'grafikart.fr'
   router.request_context.scheme: 'https'
@@ -86,9 +84,6 @@ services:
 
   App\Infrastructure\Image\ImageResizer:
     arguments: ['%image_resize_key%']
-
-  App\Infrastructure\Orm\DoctrineSchemaListener:
-    tags: ['doctrine.event_subscriber']
 
   App\Infrastructure\Queue\FailedJobsService:
     arguments: ['@messenger.transport.failed']

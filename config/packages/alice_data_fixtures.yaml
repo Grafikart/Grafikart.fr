@@ -1,0 +1,3 @@
+when@test:
+  fidry_alice_data_fixtures:
+    default_purge_mode: no_purge # truncate

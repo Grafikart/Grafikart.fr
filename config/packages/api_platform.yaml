@@ -1,5 +1,6 @@
 api_platform:
   show_webby: false
+  keep_legacy_inflector: false
   mapping:
     paths:
       - '%kernel.project_dir%/src/Http/Api/Resource'
@@ -20,3 +21,13 @@ api_platform:
       items_per_page_parameter_name: count
   mercure:
     enabled: false
+
+when@prod:
+  api_platform:
+    enable_entrypoint: false
+    enable_swagger_ui: false
+    enable_docs: false
+    formats:
+      json: [ 'application/json' ]
+      jsonld: [ 'application/ld+json' ]
+      html: [ 'application/json' ]
