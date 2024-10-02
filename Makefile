@@ -86,8 +86,8 @@ rollback:
 test: vendor/autoload.php node_modules/time ## Execute les tests
 	$(drtest) phptest bin/console doctrine:schema:validate --skip-sync
 	$(drtest) phptest vendor/bin/paratest -p 4 --runner=WrapperRunner
-	# $(drtest) phptest vendor/bin/phpunit --filter=ContentSubscriber
-	$(bun) bun run test
+	# $(drtest) phptest bin/phpunit --filter=ContentSubscriber
+	# $(bun) bun run test
 
 .PHONY: tt
 tt: vendor/autoload.php ## Lance le watcher phpunit

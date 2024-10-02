@@ -79,7 +79,7 @@
   },
   "require-dev": {
     "brianium/paratest": "^6.8",
-    "dama/doctrine-test-bundle": "^7.1",
+    "dama/doctrine-test-bundle": "^8.2",
     "doctrine/doctrine-fixtures-bundle": "^3.3",
     "hautelook/alice-bundle": "^2.8",
     "justinrainbow/json-schema": "^5.2",
@@ -97,7 +97,7 @@
     "symfony/phpunit-bridge": "^6.0",
     "symfony/stopwatch": "^6.0",
     "symfony/web-profiler-bundle": "^6.0",
-    "theofidry/alice-data-fixtures": "^1.3"
+    "theofidry/alice-data-fixtures": "^1.7"
   },
   "config": {
     "platform": {
