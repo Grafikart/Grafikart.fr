@@ -25,3 +25,9 @@ framework:
 #                # replace with your transport name here (e.g., my_transport: 'in-memory://')
 #                # For more Messenger testing tools, see https://github.com/zenstruck/messenger-test
 #                async: 'in-memory://'
+
+when@dev:
+  framework:
+    messenger:
+      routing:
+        App\Infrastructure\Queue\Message\ServiceMethodMessage: async
