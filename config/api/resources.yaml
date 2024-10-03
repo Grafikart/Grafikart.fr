@@ -1,8 +1,9 @@
 resources:
   App\Domain\Forum\Entity\Report:
-    shortName: 'forum/report'
+    shortName: 'ForumReport'
     operations:
       ApiPlatform\Metadata\Post:
+        uriTemplate: 'forum/reports'
         security: is_granted("forumReport")
         denormalizationContext:
           groups: [ 'create:report' ]
@@ -12,9 +13,9 @@ resources:
           summary: Crée un nouveau signalement
       ApiPlatform\Metadata\Delete:
         security: is_granted("DELETE_FORUM_REPORT", object)
-
   App\Domain\Forum\Entity\Topic:
-    shortName: 'forum/topic'
+    shortName: 'ForumTopic'
+    uriTemplate: 'forum/topics/{id}'
     collectionOperations: [ ]
     operations:
       ApiPlatform\Metadata\Get:
@@ -24,7 +25,8 @@ resources:
         security: is_granted("DELETE_TOPIC", object)
 
   App\Domain\Forum\Entity\Message:
-    shortName: 'forum/message'
+    uriTemplate: 'forum/messages/{id}'
+    shortName: 'ForumMessage'
     collectionOperations: [ ]
     operations:
       ApiPlatform\Metadata\Get:

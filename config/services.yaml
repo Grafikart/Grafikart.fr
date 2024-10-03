@@ -73,10 +73,6 @@ services:
   App\Infrastructure\Uploader\PropertyGroupedDirectoryNamer:
     public: true
 
-  App\Infrastructure\Mercure\Service\CookieGenerator:
-    arguments:
-      $secret: '%env(resolve:MERCURE_JWT_SECRET)%'
-
   App\Http\Twig\TwigAssetExtension:
     arguments:
       $assetPath: '%kernel.project_dir%/public/assets'
