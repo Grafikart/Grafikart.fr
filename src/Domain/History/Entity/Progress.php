@@ -14,7 +14,7 @@ class Progress
     final public const TOTAL = 1000;
 
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 

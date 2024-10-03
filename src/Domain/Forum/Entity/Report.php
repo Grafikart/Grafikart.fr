@@ -15,7 +15,7 @@ class Report
 {
     #[ApiProperty(identifier: true)]
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
     #[ORM\Column(type: 'integer')]
     #[Groups(['read:report'])]
     private ?int $id = null;

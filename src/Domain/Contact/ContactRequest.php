@@ -12,7 +12,7 @@ use geertw\IpAnonymizer\IpAnonymizer;
 class ContactRequest
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 

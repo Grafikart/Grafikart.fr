@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Notification
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 

@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Podcast
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
     #[ORM\Column(type: 'integer')]
     private readonly int $id;
 
