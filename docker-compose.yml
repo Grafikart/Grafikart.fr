@@ -27,7 +27,6 @@ services:
       MERCURE_PUBLISH_URL: http://mercure/.well-known/mercure
       MESSENGER_TRANSPORT_DSN: redis://redis:6379/messages
       MESSENGER_TRANSPORT_FAILED_DSN: redis://redis:6379/messages_failed
-      MERCURE_JWT_SECRET: mercure_subscriber_mercure_subscriber_mercure_subscriber
       MEILISEARCH_HOST: "meilisearch:7700"
   db:
     restart: unless-stopped
@@ -58,12 +57,13 @@ services:
       - search-data:/meili_data
   mercure:
     restart: unless-stopped
-    image: dunglas/mercure:v0.10.4
+    image: dunglas/mercure
     environment:
-      CORS_ALLOWED_ORIGINS: 'http://grafikart.localhost:8000'
-      JWT_KEY: mercure_subscriber
-      PUBLISHER_JWT_KEY: mercure_publisher
-      ALLOW_ANONYMOUS: 0
+      SERVER_NAME: ':80'
+      MERCURE_EXTRA_DIRECTIVES: 'cors_origins http://grafikart.localhost:8000'
+      MERCURE_SUBSCRIBER_JWT_KEY: MercureSubscriberJWTSecretForDebugPurpose
+      MERCURE_PUBLISHER_JWT_KEY: MercurePublisherJWTSecretForDebugPurpose
+      GLOBAL_OPTIONS: debug
     ports:
       - 8001:80
   messenger:
