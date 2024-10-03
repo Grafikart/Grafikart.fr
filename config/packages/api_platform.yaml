@@ -20,7 +20,7 @@ api_platform:
   swagger:
     versions: [ 3 ]
   defaults:
-    stateless: true
+    stateless: false
     cache_headers:
       vary: [ 'Content-Type', 'Authorization', 'Origin' ]
     extra_properties:
