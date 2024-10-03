@@ -16,7 +16,7 @@ class Message implements SpammableInterface, CacheableInterface
 {
     use SpamTrait;
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
     #[ORM\Column(type: 'integer')]
     #[Groups(['read:message'])]
     private ?int $id = null;

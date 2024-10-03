@@ -15,7 +15,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class Technology implements CacheableInterface, \Stringable
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 

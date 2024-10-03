@@ -20,7 +20,7 @@ class Topic implements SpammableInterface, CacheableInterface
     use SpamTrait;
 
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
     #[ORM\Column(type: 'integer')]
     #[ApiProperty(identifier: true)]
     #[Groups(['read:topic'])]

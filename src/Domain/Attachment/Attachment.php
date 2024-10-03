@@ -11,7 +11,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class Attachment implements \Stringable
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
     #[ORM\Column(type: 'integer')]
     protected ?int $id = null;
 

@@ -17,7 +17,7 @@ class Revision
     final public const REJECTED = -1;
 
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 

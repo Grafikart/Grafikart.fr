@@ -32,7 +32,7 @@ class User implements UserInterface, ForumReaderUserInterface, CacheableInterfac
     use DeletableTrait;
 
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 

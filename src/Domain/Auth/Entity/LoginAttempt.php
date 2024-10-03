@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 class LoginAttempt
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
     #[ORM\Column(type: 'integer')]
     private readonly int $id;
 
