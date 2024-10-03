@@ -18,7 +18,10 @@ if ($_SERVER['APP_DEBUG']) {
 // On charge la configuration de symfony
 require dirname(__DIR__).'/config/bootstrap.php';
 
-// On crée le base de données
+// On nettoie le cache
+(new \Symfony\Component\Filesystem\Filesystem())->remove(__DIR__.'/../var/cache/test');
+
+// On crée la base de données
 $kernel = new \App\Kernel('test', true);
 $kernel->boot();
 $application = new Application($kernel);

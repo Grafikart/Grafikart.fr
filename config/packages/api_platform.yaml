@@ -24,7 +24,7 @@ api_platform:
     cache_headers:
       vary: [ 'Content-Type', 'Authorization', 'Origin' ]
     extra_properties:
-      standard_put: true
+      standard_put: false
       rfc_7807_compliant_errors: true
     pagination_client_items_per_page: false
   collection:
