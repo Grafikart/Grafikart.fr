@@ -26,7 +26,7 @@ class Notification
 
     #[ORM\Column(type: 'string', nullable: true)]
     #[Assert\NotBlank]
-    #[Assert\Url]
+    #[Assert\Url(requireTld: true)]
     #[Groups(['read:notification', 'create:notification'])]
     private ?string $url = null;
 

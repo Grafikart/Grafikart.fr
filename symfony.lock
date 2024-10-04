@@ -309,6 +309,18 @@
     "nikic/php-parser": {
         "version": "v4.3.0"
     },
+    "omines/antispam-bundle": {
+        "version": "0.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "0.1",
+            "ref": "d9a98e83faed625423372bcc607ea371584264db"
+        },
+        "files": [
+            "config/packages/antispam.yaml"
+        ]
+    },
     "oneup/flysystem-bundle": {
         "version": "4.0",
         "recipe": {

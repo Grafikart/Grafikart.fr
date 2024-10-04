@@ -26,7 +26,7 @@ Dépôt pour la nouvelle version de Grafikart.fr. L'objectif est de rendre le pr
 
 - Erreur dans les logs de PHPUnit : https://github.com/symfony/monolog-bundle/pull/336
 - Plusieurs listeners Doctrine ne peuvent pas utiliser la même class : https://github.com/doctrine/DoctrineBundle/issues/1224
-- AntiSpam à utiliser : https://omines.github.io/antispam-bundle/advanced/
+- Twig utilise yield, mettre à jour le CacheNode pour gérer ce nouveau système
 
 ## Participer (faire une PR)
 
