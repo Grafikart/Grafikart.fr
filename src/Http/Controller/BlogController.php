@@ -6,6 +6,7 @@ use App\Domain\Blog\Category;
 use App\Domain\Blog\Post;
 use App\Domain\Blog\Repository\CategoryRepository;
 use App\Domain\Blog\Repository\PostRepository;
+use App\Http\Requirements;
 use Doctrine\ORM\Query;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,7 +34,7 @@ class BlogController extends AbstractController
         return $this->renderListing($title, $query, $request);
     }
 
-    #[Route(path: '/blog/category/{slug}', name: 'blog_category')]
+    #[Route(path: '/blog/category/{slug:category}', name: 'blog_category', requirements: ['slug' => Requirements::SLUG])]
     public function category(Category $category, Request $request): Response
     {
         $title = $category->getName();
@@ -42,7 +43,7 @@ class BlogController extends AbstractController
         return $this->renderListing($title, $query, $request, ['category' => $category]);
     }
 
-    #[Route(path: '/blog/{slug}', name: 'blog_show')]
+    #[Route(path: '/blog/{slug:post}', name: 'blog_show', requirements: ['slug' => Requirements::SLUG])]
     #[IsGranted('show', subject: 'post')]
     public function show(Post $post): Response
     {

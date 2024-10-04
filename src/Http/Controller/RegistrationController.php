@@ -9,6 +9,7 @@ use App\Domain\Auth\User;
 use App\Domain\Coupon\CouponClaimerService;
 use App\Domain\Coupon\DTO\CouponClaimDTO;
 use App\Http\Form\RegistrationFormType;
+use App\Http\Requirements;
 use App\Infrastructure\Security\TokenGeneratorService;
 use App\Infrastructure\Social\SocialLoginService;
 use App\Infrastructure\Spam\GeoIpService;
@@ -124,7 +125,7 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/inscription/confirmation/{id<\d+>}', name: 'register_confirm')]
+    #[Route(path: '/inscription/confirmation/{id}', name: 'register_confirm', requirements: ['id' => Requirements::ID])]
     public function confirmToken(User $user, Request $request, EntityManagerInterface $em): RedirectResponse
     {
         $token = $request->get('token');

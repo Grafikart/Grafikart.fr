@@ -7,6 +7,7 @@ namespace App\Http\Controller\Account;
 use App\Domain\Auth\User;
 use App\Domain\Premium\Repository\TransactionRepository;
 use App\Http\Controller\AbstractController;
+use App\Http\Requirements;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,7 +50,7 @@ class InvoicesController extends AbstractController
         return $this->redirectToRoute('user_invoices');
     }
 
-    #[Route(path: '/profil/factures/{id<\d+>}', name: 'user_invoice')]
+    #[Route(path: '/profil/factures/{id}', name: 'user_invoice', requirements: ['id' => Requirements::ID])]
     #[IsGranted('ROLE_USER')]
     public function show(int $id): Response
     {

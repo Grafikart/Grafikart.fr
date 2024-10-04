@@ -2,6 +2,7 @@
 
 namespace App\Http\Controller;
 
+use App\Http\Requirements;
 use App\Infrastructure\Image\SymfonyResponseFactory;
 use League\Glide\ServerFactory;
 use League\Glide\Signatures\SignatureException;
@@ -33,7 +34,7 @@ class ImageController extends AbstractController
         $this->resizeKey = $resizeKey;
     }
 
-    #[Route(path: '/media/resize/{width}/{height}/{path}', requirements: ['width' => '\d+', 'height' => '\d+', 'path' => '.+'], name: 'image_resizer')]
+    #[Route(path: '/media/resize/{width}/{height}/{path}', requirements: ['width' => Requirements::ID, 'height' => Requirements::ID, 'path' => Requirements::ANY], name: 'image_resizer')]
     public function image(int $width, int $height, string $path, Request $request): Response
     {
         $server = ServerFactory::create([

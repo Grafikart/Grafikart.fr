@@ -9,6 +9,7 @@ use App\Domain\Revision\RevisionRepository;
 use App\Domain\Revision\RevisionService;
 use App\Helper\Paginator\PaginatorInterface;
 use App\Http\Form\RevisionForm;
+use App\Http\Requirements;
 use App\Http\Security\RevisionVoter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,9 +39,9 @@ class RevisionController extends AbstractController
 
     /**
      * Affiche la page qui permet la soumission d'une révision.
-     * Pour ce endpoint on ne passe pas l'ID de la révision mais l'id du contenu à modifier.
+     * Pour ce endpoint, on ne passe pas l'ID de la révision, mais l'id du contenu à modifier.
      */
-    #[Route(path: '/revision/{id<\d+>}', name: 'revision', methods: ['GET', 'POST'])]
+    #[Route(path: '/revision/{id}', name: 'revision', methods: ['GET', 'POST'], requirements: ['id' => Requirements::ID])]
     #[IsGranted(RevisionVoter::ADD, subject: 'content')]
     public function show(Content $content, Request $request, RevisionService $service): Response
     {

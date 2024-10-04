@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d9274e6fc97836454241d67c2eca2cdb",
+    "content-hash": "194569c0d8a5ce86a4b2c2c7ae9ac4ae",
     "packages": [
         {
             "name": "api-platform/core",
@@ -4795,6 +4795,98 @@
                 "source": "https://github.com/nelmio/NelmioCorsBundle/tree/2.5.0"
             },
             "time": "2024-06-24T21:25:28+00:00"
+        },
+        {
+            "name": "omines/antispam-bundle",
+            "version": "0.1.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/omines/antispam-bundle.git",
+                "reference": "d51e0e8642bb344e4752cd7307415d50f5834c6f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/omines/antispam-bundle/zipball/d51e0e8642bb344e4752cd7307415d50f5834c6f",
+                "reference": "d51e0e8642bb344e4752cd7307415d50f5834c6f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=8.1",
+                "psr/log": "^3.0",
+                "symfony/clock": "^6.3|^7.0",
+                "symfony/form": "^6.3|^7.0",
+                "symfony/framework-bundle": "^6.3|^7.0",
+                "symfony/translation": "^6.3|^7.0",
+                "symfony/twig-bridge": "^6.3|^7.0",
+                "symfony/validator": "^6.3|^7.0",
+                "symfony/yaml": "^6.3|^7.0"
+            },
+            "conflict": {
+                "monolog/monolog": "<3",
+                "twig/twig": "<3.1"
+            },
+            "require-dev": {
+                "ekino/phpstan-banned-code": "^1.0",
+                "friendsofphp/php-cs-fixer": "^3.59.3",
+                "infection/infection": "^0.29.6",
+                "phpstan/extension-installer": "^1.4.1",
+                "phpstan/phpstan": "^1.11.6",
+                "phpstan/phpstan-phpunit": "^1.4.0",
+                "phpstan/phpstan-symfony": "^1.4.5",
+                "phpunit/phpunit": "^10.5.15 || ^11.2.5",
+                "symfony/browser-kit": "^6.3|^7.1.1",
+                "symfony/css-selector": "^6.3|^7.1.1",
+                "symfony/debug-bundle": "^6.3|^7.1.1",
+                "symfony/dotenv": "^6.3|^7.1.1",
+                "symfony/monolog-bundle": "^3.10",
+                "symfony/routing": "^6.3|^7.1.1",
+                "symfony/runtime": "^6.3|^7.1.1",
+                "symfony/twig-bundle": "^6.3|^7.1.1",
+                "symfony/web-profiler-bundle": "^6.3|^7.1.2"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Omines\\AntiSpamBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Niels Keurentjes",
+                    "email": "niels.keurentjes@omines.com",
+                    "homepage": "https://www.omines.nl/"
+                }
+            ],
+            "description": "The Swiss Army Knife for protecting your Symfony forms from all kinds of spam",
+            "keywords": [
+                "Honeypot",
+                "antispam",
+                "cyrillic",
+                "spam",
+                "spam timer",
+                "symfony"
+            ],
+            "support": {
+                "issues": "https://github.com/omines/antispam-bundle/issues",
+                "source": "https://github.com/omines/antispam-bundle/tree/0.1.9"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/curry684",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-08-05T15:17:30+00:00"
         },
         {
             "name": "oneup/flysystem-bundle",
@@ -16359,5 +16451,5 @@
     "platform-overrides": {
         "php": "8.2.7"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }

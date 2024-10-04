@@ -5,6 +5,7 @@ namespace App\Http\Controller\Course;
 use App\Domain\Course\Entity\Cursus;
 use App\Domain\Course\Repository\CursusRepository;
 use App\Http\Controller\AbstractController;
+use App\Http\Requirements;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -20,7 +21,7 @@ class CursusController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/cursus/{slug<[a-z0-9\-]+>}', name: 'cursus_show')]
+    #[Route(path: '/cursus/{slug:cursus}', name: 'cursus_show', requirements: ['slug' => Requirements::SLUG])]
     public function show(Cursus $cursus): Response
     {
         return $this->render('cursus/show.html.twig', [

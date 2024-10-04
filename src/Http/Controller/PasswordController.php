@@ -9,6 +9,7 @@ use App\Domain\Password\Entity\PasswordResetToken;
 use App\Domain\Password\Form\PasswordResetConfirmForm;
 use App\Domain\Password\Form\PasswordResetRequestForm;
 use App\Domain\Password\PasswordService;
+use App\Http\Requirements;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,11 +43,10 @@ class PasswordController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/password/new/{id<\d+>}/{token}', name: 'auth_password_reset_confirm')]
+    #[Route(path: '/password/new/{id:user}/{token:token}', name: 'auth_password_reset_confirm', requirements: ['id' => Requirements::ID])]
     public function confirm(
         Request $request,
         User $user,
-        #[MapEntity(mapping: ['token' => 'token'])]
         ?PasswordResetToken $token,
         PasswordService $service
     ): Response {

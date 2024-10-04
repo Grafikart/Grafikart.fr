@@ -14,6 +14,7 @@ use App\Domain\School\Repository\SchoolRepository;
 use App\Domain\School\SchoolImportService;
 use App\Http\DTO\SchoolImportConfirmRequestData;
 use App\Http\Form\SchoolImportForm;
+use App\Http\Requirements;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -80,7 +81,7 @@ class SchoolController extends AbstractController
         ]);
     }
 
-    #[Route("/ecole/student/{id<\d+>}", name: 'school_student')]
+    #[Route("/ecole/student/{id}", name: 'school_student', requirements: ['id' => Requirements::ID])]
     public function student(
         User $user
     ): Response {
