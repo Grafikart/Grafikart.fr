@@ -2,6 +2,7 @@
 
 namespace App\Http\Controller;
 
+use App\Http\Requirements;
 use App\Http\Security\CourseVoter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -12,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
  */
 class NginxAuthController extends AbstractController
 {
-    #[Route(path: '/downloads/videos/{video<.*>}', name: 'stream_video')]
+    #[Route(path: '/downloads/videos/{video}', name: 'stream_video', requirements: ['video' => Requirements::ANY])]
     public function videos(): Response
     {
         if ($this->isGranted(CourseVoter::DOWNLOAD_VIDEO)) {
@@ -22,7 +23,7 @@ class NginxAuthController extends AbstractController
         return new Response(null, Response::HTTP_FORBIDDEN);
     }
 
-    #[Route(path: '/downloads/sources/{source<.*>}', name: 'download_source')]
+    #[Route(path: '/downloads/sources/{source}', name: 'download_source', requirements: ['source' => Requirements::ANY])]
     public function sources(): Response
     {
         if ($this->isGranted(CourseVoter::DOWNLOAD_SOURCE)) {

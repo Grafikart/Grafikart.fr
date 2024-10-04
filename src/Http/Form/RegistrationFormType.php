@@ -5,6 +5,7 @@ namespace App\Http\Form;
 use App\Domain\Auth\User;
 use App\Domain\Coupon\Validator\CouponCode;
 use App\Infrastructure\Captcha\CaptchaType;
+use Omines\AntiSpamBundle\Form\Type\HoneypotType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -28,6 +29,7 @@ class RegistrationFormType extends AbstractType
         $url = $this->urlGenerator->generate('about_schools');
         $builder
             ->add('username', TextType::class, ['label' => "Nom d'utilisateur"])
+            ->add('job', HoneypotType::class, ['attr' => ['class' => null, 'style' => null]])
             ->add('coupon', TextType::class, [
                 'label' => <<<HTML
 Code étudiant <a class="form-info" target="_blank" href="$url" title="En savoir plus"><svg class="icon icon-cursus">

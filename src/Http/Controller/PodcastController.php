@@ -8,6 +8,7 @@ use App\Domain\Podcast\Repository\PodcastRepository;
 use App\Domain\Podcast\Repository\PodcastVoteRepository;
 use App\Helper\Paginator\PaginatorInterface;
 use App\Http\Form\PodcastForm;
+use App\Http\Requirements;
 use App\Http\Security\PodcastVoter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,7 +35,7 @@ class PodcastController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/podcasts/{id<\d+>}', name: 'podcast_show')]
+    #[Route(path: '/podcasts/{id:podcast}', name: 'podcast_show', requirements: ['id' => Requirements::ID])]
     public function show(Podcast $podcast, PodcastRepository $podcastRepository): Response
     {
         return $this->render('podcast/show.html.twig', [
