@@ -3,6 +3,7 @@
 namespace App\Http\Twig\CacheExtension;
 
 use App\Http\Twig\TwigCacheExtension;
+use Twig\Attribute\YieldReady;
 use Twig\Compiler;
 use Twig\Node\Expression\AbstractExpression;
 use Twig\Node\Node;
@@ -18,9 +19,9 @@ class CacheNode extends Node
      * @param AbstractExpression<AbstractExpression> $key
      * @param Node<AbstractExpression>               $body
      */
-    public function __construct(AbstractExpression $key, Node $body, int $lineno, string $tag = null)
+    public function __construct(AbstractExpression $key, Node $body, int $lineno)
     {
-        parent::__construct(['key' => $key, 'body' => $body], [], $lineno, $tag);
+        parent::__construct(['key' => $key, 'body' => $body], [], $lineno);
     }
 
     /**
