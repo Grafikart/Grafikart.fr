@@ -11,6 +11,7 @@ use Twig\Node\Node;
 /**
  * Cache twig node.
  **/
+#[YieldReady]
 class CacheNode extends Node
 {
     private static int $cacheCount = 1;
@@ -36,18 +37,19 @@ class CacheNode extends Node
             ->addDebugInfo($this)
             ->write("\$twigCacheExtension = \$this->env->getExtension('{$extension}');\n")
             ->write("\$twigCacheBody{$i} = \$twigCacheExtension->getCacheValue($templateParam")
-            ->subcompile($this->getNode('key'))
+            ->subcompile($this->getNode('key'), true)
             ->raw(");\n")
-            ->write("if (\$twigCacheBody{$i} !== null) { echo \$twigCacheBody{$i}; } else {\n")
+            ->write("if (\$twigCacheBody{$i} !== null) { yield \$twigCacheBody{$i}; } else {\n")
             ->indent()
-            ->write("ob_start();\n")
+            ->write("\$fn = function () {\n")
             ->subcompile($this->getNode('body'))
-            ->write("\$twigCacheBody{$i} = ob_get_clean();\n")
+            ->write("}\n")
+            ->write("\$twigCacheBody{$i} = implode('', iterator_to_array(\$fn()));\n")
             ->write("\$twigCacheExtension->setCacheValue($templateParam")
             ->subcompile($this->getNode('key'))
             ->raw(',')
             ->raw("\$twigCacheBody{$i});\n")
-            ->write("echo \$twigCacheBody{$i};\n")
+            ->write("yield \$twigCacheBody{$i};\n")
             ->outdent()
             ->write("}\n");
     }
