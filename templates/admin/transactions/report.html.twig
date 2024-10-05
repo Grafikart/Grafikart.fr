@@ -10,18 +10,19 @@
 {% endblock %}
 
 {% block content %}
-  <form class="form-group mla" style="width: 100px" method="get" is="auto-submit">
-    <select name="year" class="form-control">
+  <form class="form-group mla flex" method="get" is="auto-submit" style="gap: .5rem;">
+    <select name="year" class="form-control" style="width: 100px;">
       {% for y in current_year..2020 %}
       <option value="{{ y }}" {% if y == year %}selected{% endif %}>{{ y }}</option>
       {% endfor %}
     </select>
+    <a href="{{ path('admin_transaction_report.csv', {year: year}) }}" class="btn btn-secondary" style="flex: none;">Télécharger le CSV</a>
   </form>
   <table class="table">
     <thead>
     <tr>
       <th>Mois</th>
-      <th>Revenus</th>
+      <th>Montant TTC</th>
       <th>TVA</th>
       <th>Frais</th>
       <th>Revenus - frais</th>

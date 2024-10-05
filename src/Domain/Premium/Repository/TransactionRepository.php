@@ -74,4 +74,27 @@ class TransactionRepository extends AbstractRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getFiscalReport(int $year): array
+    {
+        $lastYear = $year - 1;
+        return $this->createQueryBuilder('t')
+            ->select(
+                't.method as method',
+                'EXTRACT(MONTH FROM t.createdAt) as month',
+                'ROUND(SUM(t.price) * 100) as price',
+                'ROUND(SUM(t.tax) * 100) as tax',
+                'ROUND(SUM(t.fee) * 100) as fee',
+            )
+            ->groupBy('month', 't.method')
+            ->where('t.refunded = false')
+            ->andWhere('t.createdAt >= :start')
+            ->andWhere('t.createdAt < :end')
+            ->setParameter('start', "$lastYear-08-01")
+            ->setParameter('end', "$year-08-01")
+            ->orderBy('month', 'DESC')
+            ->orderBy('t.method', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 }

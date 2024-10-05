@@ -11,6 +11,7 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @method getRepository() App\Domain\
@@ -51,6 +52,21 @@ final class TransactionsController extends CrudController
             'prefix' => 'admin_transaction',
             'current_year' => date('Y'),
             'year' => $year,
+        ]);
+    }
+
+    #[Route(path: '/transactions/report.csv', name: 'report.csv', methods: ['GET'])]
+    public function fiscalReport(TransactionRepository $repository, Request $request, SerializerInterface $serializer): Response
+    {
+        $year = $request->query->getInt('year', (int) date('Y'));
+        $items = $repository->getFiscalReport($year);
+        $csv = $serializer->serialize($items, 'csv');
+
+        dd($csv);
+
+        return new Response($csv, Response::HTTP_OK, [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="grafikart-' . $year . '.csv"'
         ]);
     }
 
