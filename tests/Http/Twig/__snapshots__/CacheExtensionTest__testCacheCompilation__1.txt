@@ -1,0 +1,89 @@
+<?php
+
+use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Extension\CoreExtension;
+use Twig\Extension\SandboxExtension;
+use Twig\Markup;
+use Twig\Sandbox\SecurityError;
+use Twig\Sandbox\SecurityNotAllowedTagError;
+use Twig\Sandbox\SecurityNotAllowedFilterError;
+use Twig\Sandbox\SecurityNotAllowedFunctionError;
+use Twig\Source;
+use Twig\Template;
+use Twig\TemplateWrapper;
+
+/* index.twig */
+class __TwigTemplate_69e89c3f0635caaa36296fd75402769c extends Template
+{
+    private Source $source;
+    /**
+     * @var array<string, Template>
+     */
+    private array $macros = [];
+
+    public function __construct(Environment $env)
+    {
+        parent::__construct($env);
+
+        $this->source = $this->getSourceContext();
+
+        $this->parent = false;
+
+        $this->blocks = [
+        ];
+    }
+
+    protected function doDisplay(array $context, array $blocks = []): iterable
+    {
+        $macros = $this->macros;
+        // line 1
+        $twigCacheExtension = $this->env->getExtension('App\Http\Twig\TwigCacheExtension');
+        $twigCacheBody1 = $twigCacheExtension->getCacheValue("index.twig", [($context["demo"] ?? null)]);
+        if ($twigCacheBody1 !== null) { yield $twigCacheBody1; } else {
+            $fn = function () {
+            // line 2
+            yield "    ";
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["firstname"] ?? null), "html", null, true);
+            yield " ";
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["lastname"] ?? null), "html", null, true);
+            yield " ";
+            }
+            $twigCacheBody1 = implode('', iterator_to_array($fn()));
+            $twigCacheExtension->setCacheValue("index.twig", [            // line 1
+($context["demo"] ?? null)],$twigCacheBody1);
+            yield $twigCacheBody1;
+        }
+        yield from [];
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getTemplateName(): string
+    {
+        return "index.twig";
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function isTraitable(): bool
+    {
+        return false;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getDebugInfo(): array
+    {
+        return array (  56 => 1,  47 => 2,  42 => 1,);
+    }
+
+    public function getSourceContext(): Source
+    {
+        return new Source("", "index.twig", "");
+    }
+}
