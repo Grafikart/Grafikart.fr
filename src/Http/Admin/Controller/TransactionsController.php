@@ -62,8 +62,6 @@ final class TransactionsController extends CrudController
         $items = $repository->getFiscalReport($year);
         $csv = $serializer->serialize($items, 'csv');
 
-        dd($csv);
-
         return new Response($csv, Response::HTTP_OK, [
             'Content-Type' => 'text/csv',
             'Content-Disposition' => 'attachment; filename="grafikart-' . $year . '.csv"'
