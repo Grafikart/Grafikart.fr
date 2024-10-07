@@ -49,7 +49,7 @@ class DoctrinePropertyChangeEventListener
         if (null === $listeners) {
             return;
         }
-        $changeSet = $event->getEntityManager()->getUnitOfWork()->getEntityChangeSet($entity);
+        $changeSet = $event->getObjectManager()->getUnitOfWork()->getEntityChangeSet($entity);
         foreach ($listeners as $key => $propertyListeners) {
             if (in_array($key, array_keys($changeSet))) {
                 foreach ($propertyListeners as $listener) {

@@ -12,7 +12,7 @@ class SocialLoginService
     final public const SESSION_KEY = 'oauth_login';
 
     public function __construct(
-        private readonly NormalizerInterface $normalizer
+        private readonly NormalizerInterface $normalizer,
     ) {
     }
 

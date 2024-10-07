@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -69,7 +69,7 @@ class AttachmentController extends BaseController
             $attachment = new Attachment();
         }
         $attachment->setFile($request->files->get('file'));
-        $attachment->setCreatedAt(new \DateTime());
+        $attachment->setCreatedAt(new \DateTimeImmutable());
         $em->persist($attachment);
         $em->flush();
 

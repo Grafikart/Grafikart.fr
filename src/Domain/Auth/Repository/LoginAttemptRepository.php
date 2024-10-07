@@ -22,11 +22,11 @@ class LoginAttemptRepository extends AbstractRepository
      */
     public function countRecentFor(User $user, int $minutes): int
     {
-        return $this->createQueryBuilder('l')
+        return (int) $this->createQueryBuilder('l')
             ->select('COUNT(l.id) as count')
             ->where('l.user = :user')
             ->andWhere('l.createdAt > :date')
-            ->setParameter('date', new \DateTime("-{$minutes} minutes"))
+            ->setParameter('date', new \DateTimeImmutable("-{$minutes} minutes"))
             ->setParameter('user', $user)
             ->setMaxResults(1)
             ->getQuery()

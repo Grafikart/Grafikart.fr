@@ -20,12 +20,12 @@ class ProgressionSubscriberTest extends TestCase
     /**
      * @var MockObject|ProgressRepository
      */
-    private \PHPUnit\Framework\MockObject\MockObject $repository;
+    private MockObject $repository;
 
     /**
      * @var MockObject|EntityManagerInterface
      */
-    private \PHPUnit\Framework\MockObject\MockObject $em;
+    private MockObject $em;
 
     /**
      * @var MockObject|EventDispatcherInterface
@@ -75,8 +75,8 @@ class ProgressionSubscriberTest extends TestCase
         $progress = (new Progress())
             ->setContent($event->getContent())
             ->setAuthor($event->getUser())
-            ->setCreatedAt(new \DateTime('@1231203'))
-            ->setUpdatedAt(new \DateTime('@1231203'));
+            ->setCreatedAt(new \DateTimeImmutable('@1231203'))
+            ->setUpdatedAt(new \DateTimeImmutable('@1231203'));
         $this->getSubscriber($event, $progress, 0)->onProgress($event);
         $this->assertEquals(0.6, $progress->getRatio());
         $this->assertNotEquals($progress->getCreatedAt(), $progress->getUpdatedAt());

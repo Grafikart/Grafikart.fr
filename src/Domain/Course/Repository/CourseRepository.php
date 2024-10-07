@@ -75,11 +75,11 @@ class CourseRepository extends AbstractRepository
 
     public function findTotalDuration(): int
     {
-        return $this->createQueryBuilder('c')
+        return (int) ($this->createQueryBuilder('c')
             ->select('SUM(c.duration)')
             ->where('c.online = true')
             ->getQuery()
-            ->getSingleScalarResult() ?: 0;
+            ->getSingleScalarResult() ?: 0);
     }
 
     /**

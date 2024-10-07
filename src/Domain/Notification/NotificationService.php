@@ -21,7 +21,7 @@ class NotificationService
         private readonly SerializerInterface $serializer,
         private readonly EntityManagerInterface $em,
         private readonly EventDispatcherInterface $dispatcher,
-        private readonly Security $security
+        private readonly Security $security,
     ) {
     }
 
@@ -36,7 +36,7 @@ class NotificationService
             ->setMessage($message)
             ->setUrl($url)
             ->setTarget($entity ? $this->getHashForEntity($entity) : null)
-            ->setCreatedAt(new \DateTime())
+            ->setCreatedAt(new \DateTimeImmutable())
             ->setChannel($channel);
         $this->em->persist($notification);
         $this->em->flush();
@@ -63,7 +63,7 @@ class NotificationService
             ->setMessage($message)
             ->setUrl($url)
             ->setTarget($this->getHashForEntity($entity))
-            ->setCreatedAt(new \DateTime())
+            ->setCreatedAt(new \DateTimeImmutable())
             ->setUser($user);
         $repository->persistOrUpdate($notification);
         $this->em->flush();

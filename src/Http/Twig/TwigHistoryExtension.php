@@ -3,6 +3,7 @@
 namespace App\Http\Twig;
 
 use App\Domain\Application\Entity\Content;
+use App\Domain\History\Entity\Progress;
 use App\Domain\History\Repository\ProgressRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -41,7 +42,7 @@ class TwigHistoryExtension extends AbstractExtension
         $progress = $this->repository->findForContents($user, $contents);
         $ids = [];
         foreach ($progress as $p) {
-            $ids[$p->getContent()->getId()] = $p->getRatio();
+            $ids[$p['id']] = $p['progress'] / Progress::TOTAL;
         }
         $ids = json_encode($ids, JSON_THROW_ON_ERROR);
 

@@ -10,11 +10,11 @@ use Doctrine\ORM\Mapping as ORM;
 class BadgeUnlock
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\GeneratedValue()]
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private \DateTimeInterface $createdAt;
 
     public function __construct(
@@ -23,7 +23,7 @@ class BadgeUnlock
         private User $owner,
         #[ORM\ManyToOne(targetEntity: Badge::class)]
         #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
-        private Badge $badge
+        private Badge $badge,
     ) {
         $this->createdAt = new \DateTimeImmutable();
     }

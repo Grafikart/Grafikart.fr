@@ -16,7 +16,7 @@ class MeilisearchItem implements SearchResultItemInterface
          *          [field: string]: string,
          *      }
          */
-        private readonly array $item
+        private readonly array $item,
     ) {
     }
 

@@ -220,7 +220,7 @@ class TopicRepository extends AbstractRepository
         // On convertit les résultat en objet Topic
         $topics = array_map(function ($row) {
             $topic = (new Topic())
-            ->setCreatedAt(new \DateTime($row['created_at']))
+            ->setCreatedAt(new \DateTimeImmutable($row['created_at']))
             ->setName($row['name'])
             ->setContent($row['excerpt'])
             ->setId($row['id'])
@@ -233,7 +233,7 @@ class TopicRepository extends AbstractRepository
             $topic->setAuthor($author);
 
             return $topic;
-        }, $query->fetchAll());
+        }, $query->fetchAllAssociative());
 
         return [$topics, $count];
     }

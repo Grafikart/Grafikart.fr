@@ -1,6 +1,6 @@
-import preact from '@preact/preset-vite'
-import { resolve } from 'node:path'
-import {defineConfig} from "vite";
+import preact from "@preact/preset-vite";
+import { resolve } from "node:path";
+import { defineConfig } from "vitest/config";
 
 const root = "./assets";
 
@@ -8,25 +8,28 @@ const root = "./assets";
  * Rafraichi la page quand on modifie un fichier twig
  */
 const twigRefreshPlugin = () => ({
-  name: 'twig-refresh',
+  name: "twig-refresh",
   configureServer({ watcher, ws }) {
     watcher.add(resolve(__dirname, "templates/**/*.twig"));
     watcher.on("change", function (path) {
       if (path.endsWith(".twig")) {
         ws.send({
-          type: 'full-reload',
-        })
+          type: "full-reload",
+        });
       }
     });
-  }
-})
+  },
+});
 
 export default defineConfig({
+  test: {
+    dir: "./tests/js",
+  },
   resolve: {
     alias: {
       react: "preact/compat",
       "react-dom": "preact/compat",
-    }
+    },
   },
   server: {
     port: 3000,
@@ -34,22 +37,22 @@ export default defineConfig({
   },
   emitManifest: true,
   cors: true,
-  base: '/assets/',
+  base: "/assets/",
   build: {
-    outDir: '../public/assets/',
+    outDir: "../public/assets/",
     rollupOptions: {
       output: {
-        manualChunks: undefined // Désactive la séparation du vendor
+        manualChunks: undefined, // Désactive la séparation du vendor
       },
       input: {
-        app: resolve(__dirname, 'assets/app.js'),
-        admin: resolve(__dirname, 'assets/admin.js')
-      }
+        app: resolve(__dirname, "assets/app.js"),
+        admin: resolve(__dirname, "assets/admin.js"),
+      },
     },
     polyfillDynamicImport: false,
-    assetsDir: '',
+    assetsDir: "",
     manifest: true,
   },
   plugins: [preact(), twigRefreshPlugin()],
-  root
-})
+  root,
+});

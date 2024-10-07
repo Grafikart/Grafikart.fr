@@ -5,9 +5,9 @@ namespace App\Domain\Password\Event;
 use App\Domain\Auth\User;
 use App\Domain\Password\Entity\PasswordResetToken;
 
-final class PasswordResetTokenCreatedEvent
+final readonly class PasswordResetTokenCreatedEvent
 {
-    public function __construct(private readonly PasswordResetToken $token)
+    public function __construct(private PasswordResetToken $token)
     {
     }
 

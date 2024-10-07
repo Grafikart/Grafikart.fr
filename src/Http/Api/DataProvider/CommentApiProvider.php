@@ -12,11 +12,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
-final class CommentApiProvider implements ProviderInterface
+final readonly class CommentApiProvider implements ProviderInterface
 {
     public function __construct(
-        private readonly CommentRepository $commentRepository,
-        private readonly UploaderHelper $uploaderHelper
+        private CommentRepository $commentRepository,
+        private UploaderHelper $uploaderHelper,
     ) {
     }
 
@@ -38,12 +38,12 @@ final class CommentApiProvider implements ProviderInterface
             );
         }
 
-        // Pour le reste des opérations on extrait les resources depuis la base de données
+        // Pour le reste des opérations, on extrait les resources depuis la base de données
         if (!isset($uriVariables['id'])) {
             return null;
         }
         $id = $uriVariables['id'] ?: 0;
-        $comment = $this->commentRepository->findPartial((int) $id);
+        $comment = $this->commentRepository->find((int) $id);
 
         return $comment ? CommentResource::fromComment($comment, $this->uploaderHelper) : null;
     }

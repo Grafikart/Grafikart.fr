@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class School
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\GeneratedValue()]
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
@@ -81,6 +81,7 @@ class School
     public function setEmailSubject(string $emailSubject): self
     {
         $this->emailSubject = $emailSubject;
+
         return $this;
     }
 
@@ -92,6 +93,7 @@ class School
     public function setCouponPrefix(string $couponPrefix): self
     {
         $this->couponPrefix = $couponPrefix;
+
         return $this;
     }
 
@@ -103,6 +105,7 @@ class School
     public function setEmailMessage(string $emailMessage): School
     {
         $this->emailMessage = $emailMessage;
+
         return $this;
     }
 

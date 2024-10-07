@@ -1,4 +1,0 @@
-framework:
-    messenger:
-      routing:
-        App\Infrastructure\Queue\Message\ServiceMethodMessage: async

@@ -24,7 +24,7 @@ class PasswordResetTokenRepository extends AbstractRepository implements Cleanab
     {
         return $this->createQueryBuilder('p')
             ->where('p.createdAt < :date')
-            ->setParameter('date', new \DateTime('-1 day'))
+            ->setParameter('date', new \DateTimeImmutable('-1 day'))
             ->delete(PasswordResetToken::class, 'p')
             ->getQuery()
             ->execute();

@@ -17,7 +17,7 @@ class DumpCommand extends Command
     public function __construct(
         private readonly EntityManagerInterface $em,
         private readonly string $dumpPath,
-        private readonly FilesystemOperator $filesystem
+        private readonly FilesystemOperator $filesystem,
     ) {
         parent::__construct();
     }

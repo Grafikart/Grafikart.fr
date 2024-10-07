@@ -2,10 +2,10 @@
 
 namespace App\Http\Twig;
 
-use ApiPlatform\Api\UrlGeneratorInterface;
 use App\Domain\Application\Entity\Content;
 use App\Domain\Auth\User;
 use App\Domain\Blog\Post;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -17,7 +17,7 @@ class TwigUrlExtension extends AbstractExtension
     public function __construct(
         private readonly UrlGeneratorInterface $urlGenerator,
         private readonly UploaderHelperInterface $uploaderHelper,
-        private readonly SerializerInterface $serializer
+        private readonly SerializerInterface $serializer,
     ) {
     }
 
@@ -81,7 +81,7 @@ class TwigUrlExtension extends AbstractExtension
             return $this->urlGenerator->generate(
                 $path,
                 $params,
-                \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL
+                UrlGeneratorInterface::ABSOLUTE_URL
             );
         }
 

@@ -5,6 +5,7 @@ namespace App\Http\Form;
 use App\Domain\Auth\User;
 use App\Domain\Coupon\Validator\CouponCode;
 use App\Infrastructure\Captcha\CaptchaType;
+use Omines\AntiSpamBundle\Form\Type\HoneypotType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -18,8 +19,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class RegistrationFormType extends AbstractType
 {
-
-    public function __construct(private UrlGeneratorInterface $urlGenerator)
+    public function __construct(private readonly UrlGeneratorInterface $urlGenerator)
     {
     }
 
@@ -28,21 +28,22 @@ class RegistrationFormType extends AbstractType
         $url = $this->urlGenerator->generate('about_schools');
         $builder
             ->add('username', TextType::class, ['label' => "Nom d'utilisateur"])
+            ->add('job', HoneypotType::class, ['attr' => ['class' => null, 'style' => null]])
             ->add('coupon', TextType::class, [
                 'label' => <<<HTML
 Code étudiant <a class="form-info" target="_blank" href="$url" title="En savoir plus"><svg class="icon icon-cursus">
   <use href="/sprite.svg#info"></use>
 </svg></a>
 HTML
-,
+                ,
                 'label_html' => true,
                 'label_attr' => ['class' => 'flex flex-start'],
                 'required' => false,
-                "mapped" => false,
-                "help" => "Code donné par votre école si vous êtes étudiant",
-                "constraints" => [
-                    new CouponCode()
-                ]
+                'mapped' => false,
+                'help' => 'Code donné par votre école si vous êtes étudiant',
+                'constraints' => [
+                    new CouponCode(),
+                ],
             ])
         ;
 

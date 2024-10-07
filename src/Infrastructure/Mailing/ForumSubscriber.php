@@ -10,7 +10,7 @@ class ForumSubscriber implements EventSubscriberInterface
 {
     public function __construct(
         private readonly Mailer $mailer,
-        private readonly TopicService $topicService
+        private readonly TopicService $topicService,
     ) {
     }
 

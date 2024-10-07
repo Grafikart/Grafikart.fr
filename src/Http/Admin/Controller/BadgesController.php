@@ -5,7 +5,7 @@ namespace App\Http\Admin\Controller;
 use App\Domain\Badge\Entity\Badge;
 use App\Http\Admin\Data\BadgeCrudData;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(path: '/badges', name: 'badge_')]
 class BadgesController extends CrudController

@@ -22,7 +22,7 @@ class TypesenseItem implements SearchResultItemInterface
          *          value: "the whole string with <mark>",
          *      }
          */
-        private readonly array $item
+        private readonly array $item,
     ) {
     }
 

@@ -51,17 +51,12 @@ class UserRepository extends AbstractRepository implements PasswordUpgraderInter
             ->where('u.email = :email')
             ->orWhere("u.{$service}Id = :serviceId")
             ->setMaxResults(1)
-            ->setParameters([
-                'email' => $email,
-                'serviceId' => $serviceId,
-            ])
+            ->setParameter('email', $email)
+            ->setParameter('serviceId', $serviceId)
             ->getQuery()
             ->getOneOrNullResult();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
         if (!$user instanceof User) {
@@ -69,8 +64,8 @@ class UserRepository extends AbstractRepository implements PasswordUpgraderInter
         }
 
         $user->setPassword($newHashedPassword);
-        $this->_em->persist($user);
-        $this->_em->flush();
+        $this->getEntityManager()->persist($user);
+        $this->getEntityManager()->flush();
     }
 
     /**
@@ -105,7 +100,7 @@ class UserRepository extends AbstractRepository implements PasswordUpgraderInter
     }
 
     /**
-     * Liste les utilisateurs bannis
+     * Liste les utilisateurs bannis.
      */
     public function queryBanned(): QueryBuilder
     {

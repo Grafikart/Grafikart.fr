@@ -11,16 +11,16 @@ class PostNormalizer implements NormalizerInterface
 {
     public function __construct(
         private readonly PostPathNormalizer $pathNormalizer,
-        private readonly UrlGeneratorInterface $urlGenerator
+        private readonly UrlGeneratorInterface $urlGenerator,
     ) {
     }
 
-    public function supportsNormalization(mixed $data, string $format = null, array $context = []): bool
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof Post && 'search' === $format;
     }
 
-    public function normalize(mixed $object, string $format = null, array $context = []): array
+    public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
         if (!$object instanceof Post) {
             throw new \InvalidArgumentException('Unexpected type for normalization, expected Course, got '.$object::class);
@@ -38,10 +38,11 @@ class PostNormalizer implements NormalizerInterface
             'created_at' => $object->getCreatedAt()->getTimestamp(),
         ];
     }
+
     public function getSupportedTypes(?string $format): array
     {
         return [
-            Post::class => true
+            Post::class => true,
         ];
     }
 }

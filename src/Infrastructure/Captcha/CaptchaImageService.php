@@ -6,23 +6,22 @@ use Intervention\Image\ImageManager;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Génère des captcha puzzle
+ * Génère des captcha puzzle.
  */
 class CaptchaImageService
 {
-
-    private string $holeImage;
-    private string $backgroundImage;
-    private string $noiseImage;
+    private readonly string $holeImage;
+    private readonly string $backgroundImage;
+    private readonly string $noiseImage;
 
     public function __construct(
         string $imagePath,
-        private readonly CaptchaKeyService $keyService
+        private readonly CaptchaKeyService $keyService,
     ) {
         $number = random_int(1, 10);
-        $this->backgroundImage = sprintf("%s/background%d.png", $imagePath, $number);
-        $this->holeImage = $imagePath . '/hole.png';
-        $this->noiseImage = $imagePath . '/noise.png';
+        $this->backgroundImage = sprintf('%s/background%d.png', $imagePath, $number);
+        $this->holeImage = $imagePath.'/hole.png';
+        $this->noiseImage = $imagePath.'/noise.png';
     }
 
     public function generateImage(): Response

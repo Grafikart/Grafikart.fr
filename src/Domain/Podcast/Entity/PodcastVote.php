@@ -10,14 +10,14 @@ use Doctrine\ORM\Mapping as ORM;
 class PodcastVote
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\GeneratedValue()]
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
     #[ORM\Column(type: 'float', options: ['default' => 1])]
     private float $weight = 1;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private \DateTimeInterface $createdAt;
 
     public function __construct(
@@ -26,9 +26,9 @@ class PodcastVote
         private User $voter,
         #[ORM\ManyToOne(targetEntity: Podcast::class)]
         #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
-        private Podcast $podcast
+        private Podcast $podcast,
     ) {
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int

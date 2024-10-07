@@ -16,7 +16,7 @@ class CommentProcessor implements ProcessorInterface
     public function __construct(
         private readonly ValidatorInterface $validator,
         private readonly Security $security,
-        private readonly CommentService $service
+        private readonly CommentService $service,
     ) {
     }
 
@@ -29,6 +29,10 @@ class CommentProcessor implements ProcessorInterface
             $this->service->delete($data->id);
 
             return $data;
+        }
+
+        if (!($data instanceof CommentResource)) {
+            throw new \Exception(sprintf('Cannot process data of %s in CommentProcessor', $data::class));
         }
 
         $user = $this->security->getUser();

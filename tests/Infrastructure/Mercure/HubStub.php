@@ -9,7 +9,7 @@ use Symfony\Component\Mercure\Update;
 
 class HubStub implements HubInterface
 {
-    public static $lastUpdate = null;
+    public static $lastUpdate;
 
     public function publish(Update $update): string
     {

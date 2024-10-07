@@ -11,7 +11,7 @@ trait PremiumTrait
 
     public function isPremium(): bool
     {
-        return $this->premiumEnd > new \DateTime();
+        return $this->premiumEnd > new \DateTimeImmutable();
     }
 
     public function getPremiumEnd(): ?\DateTimeImmutable

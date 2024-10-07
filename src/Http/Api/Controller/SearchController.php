@@ -9,7 +9,7 @@ use App\Infrastructure\Search\SearchInterface;
 use App\Infrastructure\Search\SearchResultItemInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class SearchController extends AbstractController
@@ -17,7 +17,7 @@ class SearchController extends AbstractController
     public function __construct(
         private readonly SearchInterface $search,
         private readonly TechnologyRepository $technologyRepository,
-        private readonly SerializerInterface $serializer
+        private readonly SerializerInterface $serializer,
     ) {
     }
 

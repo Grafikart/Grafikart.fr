@@ -8,7 +8,7 @@ use App\Domain\Application\Event\ContentUpdatedEvent;
 use App\Domain\Course\Entity\Formation;
 use App\Http\Admin\Data\FormationCrudData;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 /**
  * @method getRepository() App\Domain\Formation\$formation\$formation\Forma

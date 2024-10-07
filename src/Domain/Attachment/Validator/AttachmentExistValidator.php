@@ -8,10 +8,9 @@ use Symfony\Component\Validator\ConstraintValidator;
 class AttachmentExistValidator extends ConstraintValidator
 {
     /**
-     * @param mixed           $value
      * @param AttachmentExist $constraint
      */
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$value instanceof NonExistingAttachment) {
             return;

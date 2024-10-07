@@ -35,7 +35,7 @@ class EmailVerificationRepository extends AbstractRepository implements Cleanabl
     {
         return $this->createQueryBuilder('v')
             ->where('v.createdAt < :date')
-            ->setParameter('date', new \DateTime('-1 month'))
+            ->setParameter('date', new \DateTimeImmutable('-1 month'))
             ->delete(EmailVerification::class, 'v')
             ->getQuery()
             ->execute();

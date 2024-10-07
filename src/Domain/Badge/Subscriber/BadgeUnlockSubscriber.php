@@ -71,7 +71,7 @@ class BadgeUnlockSubscriber implements EventSubscriberInterface
         if (!($user instanceof User)) {
             return;
         }
-        $this->service->unlock($user, 'years', (int) $user->getCreatedAt()->diff(new \DateTime())->format('%y'));
+        $this->service->unlock($user, 'years', (int) $user->getCreatedAt()->diff(new \DateTimeImmutable())->format('%y'));
     }
 
     public function onPremium(PremiumSubscriptionEvent $event): void

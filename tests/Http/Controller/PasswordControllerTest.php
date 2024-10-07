@@ -10,6 +10,7 @@ use App\Tests\WebTestCase;
 class PasswordControllerTest extends WebTestCase
 {
     use FixturesTrait;
+
     final public const RESET_PASSWORD_PATH = '/password/new';
     final public const RESET_PASSWORD_BUTTON = 'M\'envoyer les instructions';
 

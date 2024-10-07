@@ -12,7 +12,7 @@ class TwigPathExtension extends AbstractExtension
 {
     public function __construct(
         private readonly ImageResizer $imageResizer,
-        private readonly UploaderHelper $helper
+        private readonly UploaderHelper $helper,
     ) {
     }
 

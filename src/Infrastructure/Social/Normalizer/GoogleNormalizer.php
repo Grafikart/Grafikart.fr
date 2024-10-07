@@ -3,7 +3,6 @@
 namespace App\Infrastructure\Social\Normalizer;
 
 use App\Normalizer\Normalizer;
-use League\OAuth2\Client\Provider\FacebookUser;
 use League\OAuth2\Client\Provider\GoogleUser;
 
 class GoogleNormalizer extends Normalizer
@@ -11,7 +10,7 @@ class GoogleNormalizer extends Normalizer
     /**
      * @param GoogleUser $object
      */
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         return [
             'email' => $object->getEmail(),
@@ -21,7 +20,7 @@ class GoogleNormalizer extends Normalizer
         ];
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof GoogleUser;
     }
@@ -29,7 +28,7 @@ class GoogleNormalizer extends Normalizer
     public function getSupportedTypes(?string $format): array
     {
         return [
-            GoogleUser::class => true
+            GoogleUser::class => true,
         ];
     }
 }

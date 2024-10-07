@@ -25,14 +25,11 @@ class ForumTagCrudData extends AutomaticCrudData
 
     public bool $visible = true;
 
-    /**
-     * @var Tag
-     */
     public ?Tag $parent = null;
 
     public function hydrate(): void
     {
         parent::hydrate();
-        $this->entity->setUpdatedAt(new \DateTime());
+        $this->entity->setUpdatedAt(new \DateTimeImmutable());
     }
 }

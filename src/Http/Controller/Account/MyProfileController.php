@@ -7,7 +7,7 @@ use App\Domain\History\HistoryService;
 use App\Domain\Revision\RevisionRepository;
 use App\Http\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class MyProfileController extends AbstractController
@@ -17,7 +17,7 @@ class MyProfileController extends AbstractController
     public function index(
         HistoryService $history,
         TopicRepository $topicRepository,
-        RevisionRepository $revisionRepository
+        RevisionRepository $revisionRepository,
     ): Response {
         $user = $this->getUserOrThrow();
         $revisions = $revisionRepository->findPendingFor($user);

@@ -19,12 +19,12 @@ class ContactServiceTest extends TestCase
     /**
      * @var MockObject|ContactRequestRepository
      */
-    private \PHPUnit\Framework\MockObject\MockObject $repository;
+    private MockObject $repository;
 
     /**
      * @var MockObject|EntityManagerInterface
      */
-    private \PHPUnit\Framework\MockObject\MockObject $em;
+    private MockObject $em;
 
     private ContactService $service;
 
@@ -88,7 +88,7 @@ class ContactServiceTest extends TestCase
     public function testUpdateCreatedAtIfARequestWasAlreadyDone(): void
     {
         $contactRequest = new ContactRequest();
-        $date = new \DateTime('-1 day');
+        $date = new \DateTimeImmutable('-1 day');
         $contactRequest->setCreatedAt($date);
         $this->repository->expects($this->once())
             ->method('findLastRequestForIp')

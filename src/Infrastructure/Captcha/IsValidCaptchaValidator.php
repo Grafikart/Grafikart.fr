@@ -8,7 +8,6 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class IsValidCaptchaValidator extends ConstraintValidator
 {
-
     public function __construct(private readonly CaptchaKeyService $service)
     {
     }
@@ -21,7 +20,6 @@ class IsValidCaptchaValidator extends ConstraintValidator
 
     public function validate(mixed $value, Constraint $constraint): void
     {
-
         if (!$constraint instanceof IsValidCaptcha) {
             throw new UnexpectedTypeException($constraint, IsValidCaptcha::class);
         }
@@ -36,10 +34,12 @@ class IsValidCaptchaValidator extends ConstraintValidator
             $isValid = $this->service->verifyKey($value);
             if (!$isValid) {
                 $this->setAsInvalid($constraint);
+
                 return;
             }
-        } catch (TooManyTryException $e) {
+        } catch (TooManyTryException) {
             $this->setAsInvalid($constraint);
+
             return;
         }
     }

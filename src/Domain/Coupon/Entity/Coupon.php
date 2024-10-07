@@ -17,7 +17,7 @@ class Coupon
     #[ORM\ManyToOne]
     private ?School $school = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: false)]
     private \DateTimeImmutable $createdAt;
 
     #[ORM\Column(nullable: true)]
@@ -40,6 +40,7 @@ class Coupon
     public function setId(string $id): self
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -104,6 +105,7 @@ class Coupon
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
         return $this;
     }
 
@@ -115,6 +117,7 @@ class Coupon
     public function setMonths(int $months): self
     {
         $this->months = $months;
+
         return $this;
     }
 

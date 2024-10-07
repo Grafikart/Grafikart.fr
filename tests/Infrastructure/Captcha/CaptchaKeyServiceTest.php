@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Tests\Infrastructure\Captcha;
 
 use App\Infrastructure\Captcha\CaptchaKeyService;
@@ -11,7 +12,6 @@ use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 
 class CaptchaKeyServiceTest extends TestCase
 {
-
     private CaptchaKeyService $service;
 
     protected function setUp(): void

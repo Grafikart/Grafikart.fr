@@ -8,7 +8,7 @@ use App\Domain\Revision\Constraint\NotSameContent;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: \App\Domain\Revision\RevisionRepository::class)]
+#[ORM\Entity(repositoryClass: RevisionRepository::class)]
 #[NotSameContent]
 class Revision
 {
@@ -17,15 +17,15 @@ class Revision
     final public const REJECTED = -1;
 
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\GeneratedValue()]
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Auth\User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private User $author;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Application\Entity\Content::class)]
+    #[ORM\ManyToOne(targetEntity: Content::class)]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private Content $target;
 
@@ -33,7 +33,7 @@ class Revision
     #[Assert\NotBlank]
     private string $content = '';
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\Column(type: 'integer', length: 1, options: ['default' => 0])]

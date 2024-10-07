@@ -37,9 +37,6 @@ class PathEncoder implements EncoderInterface
         return $this->urlGenerator->generate($path, $params, $url ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH).$hash;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function supportsEncoding(string $format, array $context = []): bool
     {
         return self::FORMAT === $format;

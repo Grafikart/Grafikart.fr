@@ -8,7 +8,7 @@ use App\Domain\Blog\Event\PostUpdatedEvent;
 use App\Domain\Blog\Post;
 use App\Http\Admin\Data\PostCrudData;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 /**
  * Permet la gestion du blog.

@@ -8,9 +8,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class SchoolImportDTO
 {
-
     #[Assert\NotBlank()]
-    #[Assert\File(extensions: ['csv' => ["text/csv", "application/csv", "text/x-comma-separated-values", "text/x-csv", "text/plain"]], maxSize: '2M')]
+    #[Assert\File(extensions: ['csv' => ['text/csv', 'application/csv', 'text/x-comma-separated-values', 'text/x-csv', 'text/plain']], maxSize: '2M')]
     public UploadedFile $file;
 
     #[Assert\NotBlank()]

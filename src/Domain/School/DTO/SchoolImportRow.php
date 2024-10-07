@@ -6,7 +6,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class SchoolImportRow
 {
-
     #[Assert\NotBlank()]
     #[Assert\Email()]
     public string $email;

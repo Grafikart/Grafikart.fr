@@ -2,13 +2,11 @@
 
 namespace App\Http\Admin\Controller;
 
-use App\Domain\Badge\Entity\Badge;
 use App\Domain\School\Entity\School;
 use App\Domain\School\Repository\SchoolRepository;
-use App\Http\Admin\Data\BadgeCrudData;
 use App\Http\Admin\Data\SchoolCrudData;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(path: '/schools', name: 'school_')]
 class SchoolsController extends CrudController
@@ -41,7 +39,7 @@ class SchoolsController extends CrudController
         $data = new SchoolCrudData($school);
 
         return $this->crudEdit($data, [
-            'students' => $school->getStudents()
+            'students' => $school->getStudents(),
         ]);
     }
 

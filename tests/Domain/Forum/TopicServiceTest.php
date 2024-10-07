@@ -66,7 +66,7 @@ class TopicServiceTest extends KernelTestCase
 
     public function testGetReadTopicsIdsWithUserForumReadTime(): void
     {
-        $this->user->setForumReadTime(new \DateTime());
+        $this->user->setForumReadTime(new \DateTimeImmutable());
         $this->assertCount(
             2,
             $this->service->getReadTopicsIds([

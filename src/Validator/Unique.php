@@ -2,7 +2,6 @@
 
 namespace App\Validator;
 
-use Attribute;
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
 
@@ -27,9 +26,9 @@ class Unique extends Constraint
     public function __construct(
         string $field = '',
         string $message = 'Cette valeur est déjà utilisée',
-        string $entityClass = null,
-        array $groups = null,
-        mixed $payload = null
+        ?string $entityClass = null,
+        ?array $groups = null,
+        mixed $payload = null,
     ) {
         parent::__construct([
             'field' => $field,

@@ -12,7 +12,7 @@ class PaymentTwigExtension extends AbstractExtension
 {
     public function __construct(
         private readonly string $stripePublicKey = '',
-        private readonly string $paypalClientId = ''
+        private readonly string $paypalClientId = '',
     ) {
     }
 

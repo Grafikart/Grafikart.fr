@@ -60,7 +60,7 @@ class DeadManSwitchListenerTest extends EventSubscriberTest
     public function testDoNothingIfNoPermission()
     {
         $post = new Post();
-        $date = new \DateTime();
+        $date = new \DateTimeImmutable();
         $post->setCreatedAt($date);
         $this->permission->expects($this->any())->method('decide')->willReturn(false);
         $this->listener->onAdminDeath($this->getEvent());
@@ -79,12 +79,12 @@ class DeadManSwitchListenerTest extends EventSubscriberTest
     public function testUpdateDateTimeIfPermissionOk()
     {
         $post = new Post();
-        $date = new \DateTime();
+        $date = new \DateTimeImmutable();
         $post->setCreatedAt($date);
         $this->repository->expects($this->any())->method('findOneBy')->willReturn($post);
         $this->permission->expects($this->any())->method('decide')->willReturn(true);
         $this->em->expects($this->once())->method('flush');
         $this->listener->onAdminDeath($this->getEvent());
-        $this->assertTrue($post->getCreatedAt() > new \DateTime('+6 days'));
+        $this->assertTrue($post->getCreatedAt() > new \DateTimeImmutable('+6 days'));
     }
 }

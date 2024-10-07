@@ -88,7 +88,7 @@ class ProfileServiceTest extends TestCase
         $data = new ProfileUpdateDto($user);
         $data->email = 'john2@doe.fr';
         $service = $this->getService(
-            (new EmailVerification())->setCreatedAt(new \DateTime('-10 minutes'))
+            (new EmailVerification())->setCreatedAt(new \DateTimeImmutable('-10 minutes'))
         );
 
         $this->em->expects($this->never())->method('persist');
@@ -103,7 +103,7 @@ class ProfileServiceTest extends TestCase
         $user->setEmail('john@doe.fr');
         $data = new ProfileUpdateDto($user);
         $data->email = 'john2@doe.fr';
-        $oldVerification = (new EmailVerification())->setCreatedAt(new \DateTime('-10 hours'));
+        $oldVerification = (new EmailVerification())->setCreatedAt(new \DateTimeImmutable('-10 hours'));
         $service = $this->getService($oldVerification);
 
         $this->em->expects($this->once())->method('persist');

@@ -35,7 +35,7 @@ class SeedCommand extends Command
             return $return;
         }
 
-        $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
+        $this->em->getConnection()->getConfiguration()->setMiddlewares([]);
 
         // On crée des chapitres pour les formations
         $courses = $this->em->getRepository(Course::class)->findAll();

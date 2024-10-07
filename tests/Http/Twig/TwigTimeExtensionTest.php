@@ -41,7 +41,7 @@ class TwigTimeExtensionTest extends TestCase
      */
     public function testAgo(int $time): void
     {
-        $date = new \DateTime('@'.$time);
+        $date = new \DateTimeImmutable('@'.$time);
         $this->assertEquals("<time-ago time=\"$time\"></time-ago>", $this->extension->ago($date));
     }
 

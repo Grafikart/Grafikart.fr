@@ -10,12 +10,12 @@ class RepositoryTestCase extends KernelTestCase
     /**
      * @var E
      */
-    protected $repository = null;
+    protected $repository;
 
     /**
      * @var class-string<E>
      */
-    protected $repositoryClass = null;
+    protected $repositoryClass;
 
     public function setUp(): void
     {

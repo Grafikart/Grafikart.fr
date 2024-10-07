@@ -1,3 +1,4 @@
+import { test, expect } from "vitest";
 import { vatPrice } from "/functions/vat.js";
 
 test("Trouve les taux de TVA correctement", () => {

@@ -30,17 +30,19 @@ class RevisionVoter extends Voter
         }
 
         // On ne peut ajouter de révision que sur les contenus en ligne
-        if ($attribute === self::ADD &&
-            $subject instanceof Content &&
-            $subject->isOnline()
+        if (
+            $attribute === self::ADD
+            && $subject instanceof Content
+            && $subject->isOnline()
         ) {
             return true;
         }
 
         // Il faut être l'auteur d'une révision pour pouvoir la supprimer
-        if ($attribute === self::DELETE &&
-            $subject instanceof Revision &&
-            $subject->getAuthor()->getId() === $user->getId()
+        if (
+            $attribute === self::DELETE
+            && $subject instanceof Revision
+            && $subject->getAuthor()->getId() === $user->getId()
         ) {
             return true;
         }

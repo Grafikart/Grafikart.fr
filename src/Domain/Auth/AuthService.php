@@ -17,7 +17,7 @@ class AuthService
     public function __construct(
         private readonly Security $security,
         private readonly TokenStorageInterface $tokenStorage,
-        private readonly EventDispatcherInterface $eventDispatcher
+        private readonly EventDispatcherInterface $eventDispatcher,
     ) {
     }
 

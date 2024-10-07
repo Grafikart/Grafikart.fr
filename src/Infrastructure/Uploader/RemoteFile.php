@@ -18,7 +18,7 @@ class RemoteFile extends UploadedFile
         parent::__construct($url, $originalName, null, UPLOAD_ERR_CANT_WRITE, false);
     }
 
-    public function move(string $directory, string $name = null): File
+    public function move(string $directory, ?string $name = null): File
     {
         if ($this->isValid()) {
             $targetFile = $this->getTargetFile($directory, $name);

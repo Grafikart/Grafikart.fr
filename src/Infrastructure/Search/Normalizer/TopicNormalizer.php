@@ -7,12 +7,12 @@ use App\Normalizer\Normalizer;
 
 class TopicNormalizer extends Normalizer
 {
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof Topic && 'search' === $format;
     }
 
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         if (!$object instanceof Topic) {
             throw new \InvalidArgumentException('Unexpected type for normalization, expected Formation, got '.$object::class);
@@ -31,7 +31,7 @@ class TopicNormalizer extends Normalizer
     public function getSupportedTypes(?string $format): array
     {
         return [
-            Topic::class => true
+            Topic::class => true,
         ];
     }
 }

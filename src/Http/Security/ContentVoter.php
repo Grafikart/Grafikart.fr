@@ -11,14 +11,11 @@ class ContentVoter extends Voter
 {
     final public const PROGRESS = 'progress';
 
-    /**
-     * {@inheritdoc}
-     */
     protected function supports(string $attribute, $subject): bool
     {
         return in_array($attribute, [
-                self::PROGRESS,
-            ]) && $subject instanceof Content;
+            self::PROGRESS,
+        ]) && $subject instanceof Content;
     }
 
     /**

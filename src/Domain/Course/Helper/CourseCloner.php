@@ -22,7 +22,7 @@ class CourseCloner
         $clone->setDemo($course->getDemo());
         $clone->setContent($course->getContent());
         $clone->setCreatedAt(
-            (new \DateTime(
+            (new \DateTimeImmutable(
                 '@'.$course->getCreatedAt()->getTimestamp().' +1 day'
             ))->setTimezone($course->getCreatedAt()->getTimezone())
         );

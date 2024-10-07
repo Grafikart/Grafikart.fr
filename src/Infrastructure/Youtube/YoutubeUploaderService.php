@@ -11,7 +11,7 @@ class YoutubeUploaderService
     public function __construct(
         private readonly \Google_Client $googleClient,
         private readonly EntityManagerInterface $em,
-        private readonly CourseTransformer $transformer
+        private readonly CourseTransformer $transformer,
     ) {
     }
 

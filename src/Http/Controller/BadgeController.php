@@ -4,20 +4,19 @@ namespace App\Http\Controller;
 
 use App\Domain\Badge\BadgeService;
 use App\Domain\Badge\Entity\Badge;
-use Symfony\Bridge\Doctrine\Attribute\MapEntity;
+use App\Http\Requirements;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class BadgeController extends AbstractController
 {
-    #[Route(path: '/badge/unlock/{badge_action}', name: 'badge_unlock')]
+    #[Route(path: '/badge/unlock/{action:badge}', name: 'badge_unlock', requirements: ['action' => Requirements::SLUG])]
     #[IsGranted('ROLE_USER')]
     public function unlock(
-        #[MapEntity(mapping: ['badge_action' => 'action'])]
         Badge $badge,
-        BadgeService $service
+        BadgeService $service,
     ): RedirectResponse {
         if (!$badge->isUnlockable()) {
             throw new NotFoundHttpException();

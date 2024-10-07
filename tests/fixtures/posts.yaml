@@ -9,7 +9,7 @@ App\Domain\Blog\Post:
   post{1..15} (extends post):
     category: '@category*'
   post_future (extends post):
-    created_at: <dateTimeBetween('+1 day', '+1 year')>
+    created_at: <dateTimeImmutableBetween('+1 day', '+1 year')>
     category: '@category*'
   post{16} (extends post):
     category: '@category2'

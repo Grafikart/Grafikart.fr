@@ -45,7 +45,7 @@ class PodcastRepository extends AbstractRepository
     public function findFuture(): array
     {
         return $this->createQueryBuilder('p')
-            ->select('partial p.{id, scheduledAt, title, createdAt}', 'partial a.{id, username, avatarName}')
+            ->select('p', 'a')
             ->join('p.author', 'a')
             ->where('p.scheduledAt > NOW()')
             ->orderBy('p.scheduledAt', 'ASC')
@@ -55,8 +55,8 @@ class PodcastRepository extends AbstractRepository
 
     public function findRelative(Podcast $podcast): array
     {
-        $scheduledAt = $podcast->getScheduledAt() ?: new \DateTime();
-        $date = (new \DateTime())->setTimestamp($scheduledAt->getTimestamp() + 300 * 24 * 60 * 60);
+        $scheduledAt = $podcast->getScheduledAt() ?: new \DateTimeImmutable();
+        $date = (new \DateTimeImmutable())->setTimestamp($scheduledAt->getTimestamp() + 300 * 24 * 60 * 60);
 
         return $this->queryPast()
             ->andWhere('p.scheduledAt < :date')
@@ -84,7 +84,7 @@ class PodcastRepository extends AbstractRepository
     public function querySuggestions(?string $orderKey): QueryBuilder
     {
         return $this->createQueryBuilder('p')
-            ->select('p', 'partial a.{id, username}')
+            ->select('p', 'a')
             ->where('p.scheduledAt IS NULL')
             ->join('p.author', 'a')
             ->orderBy('popular' === $orderKey ? 'p.votesCount' : 'p.createdAt', 'DESC');
@@ -121,14 +121,12 @@ class PodcastRepository extends AbstractRepository
 
     public function countRecentFromUser(User $user): int
     {
-        return $this->createQueryBuilder('p')
+        return (int) $this->createQueryBuilder('p')
             ->select('COUNT(p.id)')
             ->where('p.author = :author')
             ->andWhere('p.createdAt > :date')
-            ->setParameters([
-                'author' => $user->getId(),
-                'date' => new \DateTime('-1 month'),
-            ])
+            ->setParameter('author', $user->getId())
+            ->setParameter('date', new \DateTimeImmutable('-1 month'))
             ->getQuery()
             ->getSingleScalarResult();
     }

@@ -21,9 +21,7 @@ class SubscriptionRepository extends AbstractRepository
     {
         return $this->createQueryBuilder('sub')
             ->where('sub.user = :user')
-            ->setParameters([
-                'user' => $user,
-            ])
+            ->setParameter('user', $user)
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();

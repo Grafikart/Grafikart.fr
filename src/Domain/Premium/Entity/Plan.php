@@ -9,8 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 class Plan
 {
     use StripeEntity;
+
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\GeneratedValue()]
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 

@@ -10,7 +10,7 @@ use App\Normalizer\Normalizer;
 
 class ForumPathNormalizer extends Normalizer
 {
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         if ($object instanceof Tag) {
             return [
@@ -26,13 +26,13 @@ class ForumPathNormalizer extends Normalizer
             return [
                 'path' => 'forum_show',
                 'params' => ['id' => $object->getTopic()->getId()],
-                'hash' => 'message-' . $object->getId(),
+                'hash' => 'message-'.$object->getId(),
             ];
         }
         throw new \RuntimeException("Can't normalize path");
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return ($data instanceof Tag || $data instanceof Topic || $data instanceof Message)
             && PathEncoder::FORMAT === $format;

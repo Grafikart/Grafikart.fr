@@ -20,7 +20,7 @@ class Topic implements SpammableInterface, CacheableInterface
     use SpamTrait;
 
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\GeneratedValue()]
     #[ORM\Column(type: 'integer')]
     #[ApiProperty(identifier: true)]
     #[Groups(['read:topic'])]
@@ -44,31 +44,31 @@ class Topic implements SpammableInterface, CacheableInterface
     #[ORM\Column(type: 'boolean', options: ['default' => 0])]
     private ?bool $sticky = false;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private ?\DateTimeInterface $createdAt = null;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private ?\DateTimeInterface $updatedAt = null;
 
     #[ORM\JoinTable(name: 'forum_topic_tag')]
-    #[ORM\ManyToMany(targetEntity: \App\Domain\Forum\Entity\Tag::class, inversedBy: 'topics')]
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'topics')]
     #[Assert\NotBlank]
     #[Assert\Count(min: 1, max: 3)]
     #[Groups(['read:topic'])]
     private Collection $tags;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Auth\User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private User $author;
 
     #[ORM\Column(type: 'integer', options: ['default' => 0])]
     private int $messageCount = 0;
 
-    #[ORM\OneToMany(targetEntity: \App\Domain\Forum\Entity\Message::class, mappedBy: 'topic')]
+    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'topic')]
     #[ORM\OrderBy(['accepted' => 'DESC', 'createdAt' => 'ASC'])]
     private Collection $messages;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Forum\Entity\Message::class)]
+    #[ORM\ManyToOne(targetEntity: Message::class)]
     #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
     private ?Message $lastMessage = null;
 
@@ -140,7 +140,7 @@ class Topic implements SpammableInterface, CacheableInterface
 
     public function getCreatedAt(): \DateTimeInterface
     {
-        return $this->createdAt ?: new \DateTime();
+        return $this->createdAt ?: new \DateTimeImmutable();
     }
 
     public function setCreatedAt(\DateTimeInterface $createdAt): self
@@ -251,6 +251,6 @@ class Topic implements SpammableInterface, CacheableInterface
 
     public function isLocked(): bool
     {
-        return $this->getCreatedAt() < (new \DateTime('-6 month'));
+        return $this->getCreatedAt() < (new \DateTimeImmutable('-6 month'));
     }
 }

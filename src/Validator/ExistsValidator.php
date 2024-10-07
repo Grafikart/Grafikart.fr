@@ -13,10 +13,9 @@ class ExistsValidator extends ConstraintValidator
     }
 
     /**
-     * @param mixed  $value
      * @param Exists $constraint
      */
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (null === $value || '' === $value) {
             return;

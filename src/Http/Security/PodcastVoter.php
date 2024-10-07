@@ -21,13 +21,10 @@ class PodcastVoter extends Voter
     protected function supports(string $attribute, $subject): bool
     {
         return
-            in_array($attribute, [self::CREATE]) ||
-            (in_array($attribute, [self::VOTE, self::DELETE]) && $subject instanceof Podcast);
+            in_array($attribute, [self::CREATE])
+            || (in_array($attribute, [self::VOTE, self::DELETE]) && $subject instanceof Podcast);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();

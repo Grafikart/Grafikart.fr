@@ -15,7 +15,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 /**
  * @method \App\Domain\Auth\User getUser()
@@ -29,13 +29,13 @@ class ForumMessageController extends AbstractController
         Request $request,
         ValidatorInterface $validator,
         EntityManagerInterface $em,
-        EventDispatcherInterface $dispatcher
+        EventDispatcherInterface $dispatcher,
     ): JsonResponse {
         $this->denyAccessUnlessGranted(ForumVoter::CREATE_MESSAGE, $topic);
         $data = json_decode((string) $request->getContent(), true, 512, JSON_THROW_ON_ERROR);
         $message = (new Message())
-            ->setCreatedAt(new \DateTime())
-            ->setUpdatedAt(new \DateTime())
+            ->setCreatedAt(new \DateTimeImmutable())
+            ->setUpdatedAt(new \DateTimeImmutable())
             ->setTopic($topic)
             ->setNotification((bool) ($data['notification'] ?? false))
             ->setContent($data['content'] ?? null)

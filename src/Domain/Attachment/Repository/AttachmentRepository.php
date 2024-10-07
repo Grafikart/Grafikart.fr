@@ -46,10 +46,8 @@ class AttachmentRepository extends AbstractRepository
 
         return $this->createQueryBuilder('a')
             ->where('a.createdAt BETWEEN :start AND :end')
-            ->setParameters([
-                'start' => $start,
-                'end' => $end,
-            ])
+            ->setParameter('start', $start)
+            ->setParameter('end', $end)
             ->orderBy('a.createdAt', 'DESC')
             ->setMaxResults(50)
             ->getQuery()
@@ -83,7 +81,8 @@ class AttachmentRepository extends AbstractRepository
     }
 
     /**
-     * Trouve les fichiers non rattachés à un contenu
+     * Trouve les fichiers non rattachés à un contenu.
+     *
      * @return array<Attachment>
      */
     public function orphaned(): array

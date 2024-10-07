@@ -15,7 +15,7 @@ class CourseTransformer
     public function __construct(
         private readonly SerializerInterface $serializer,
         private readonly StorageInterface $storage,
-        private readonly string $videosPath
+        private readonly string $videosPath,
     ) {
     }
 

@@ -15,17 +15,18 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Message implements SpammableInterface, CacheableInterface
 {
     use SpamTrait;
+
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\GeneratedValue()]
     #[ORM\Column(type: 'integer')]
     #[Groups(['read:message'])]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Forum\Entity\Topic::class, inversedBy: 'messages')]
+    #[ORM\ManyToOne(targetEntity: Topic::class, inversedBy: 'messages')]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private Topic $topic;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Auth\User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private User $author;
 
@@ -38,13 +39,13 @@ class Message implements SpammableInterface, CacheableInterface
     #[Groups(['read:message', 'update:message'])]
     private ?string $content = null;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\Column(type: 'boolean', options: ['default' => 1])]
     private bool $notification = true;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private ?\DateTimeInterface $updatedAt = null;
 
     public function getId(): ?int

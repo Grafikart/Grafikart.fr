@@ -8,7 +8,7 @@ use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
 /**
- * Ajoute la durée d'inscription aux utilisateurs
+ * Ajoute la durée d'inscription aux utilisateurs.
  */
 final class Version20230604113247 extends AbstractMigration
 {

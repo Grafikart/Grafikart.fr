@@ -10,9 +10,6 @@ use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
 class NotSameContentValidator extends ConstraintValidator
 {
-    /**
-     * {@inheritdoc}
-     */
     public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof NotSameContent) {

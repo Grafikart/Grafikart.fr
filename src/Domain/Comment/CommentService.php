@@ -15,7 +15,7 @@ class CommentService
         private readonly AuthService $auth,
         private readonly EntityManagerInterface $em,
         private readonly EventDispatcherInterface $dispatcher,
-        private readonly RequestStack $requestStack
+        private readonly RequestStack $requestStack,
     ) {
     }
 
@@ -29,7 +29,7 @@ class CommentService
         $comment = (new Comment())
             ->setAuthor($this->auth->getUserOrNull())
             ->setUsername($data->username)
-            ->setCreatedAt(new \DateTime())
+            ->setCreatedAt(new \DateTimeImmutable())
             ->setContent($data->content)
             ->setParent($parent)
             ->setIp($this->requestStack->getMainRequest()?->getClientIp())

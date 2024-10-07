@@ -14,7 +14,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class CouponClaimForm extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -22,14 +21,14 @@ class CouponClaimForm extends AbstractType
                 'label' => false,
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Utiliser le code'
+                'label' => 'Utiliser le code',
             ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => CouponClaimDTO::class
+            'data_class' => CouponClaimDTO::class,
         ]);
     }
 }

@@ -13,7 +13,7 @@ class IndexerSubscriber implements EventSubscriberInterface
 {
     public function __construct(
         private readonly IndexerInterface $indexer,
-        private readonly NormalizerInterface $normalizer
+        private readonly NormalizerInterface $normalizer,
     ) {
     }
 

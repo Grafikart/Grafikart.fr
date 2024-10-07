@@ -6,10 +6,9 @@ use App\Domain\School\Entity\School;
 
 class SchoolPreprocessResult
 {
-
     public function __construct(
         /** @var SchoolImportRow[] */
-        public readonly array  $rows,
+        public readonly array $rows,
         public readonly School $school,
         public readonly string $csv = '',
     ) {

@@ -8,7 +8,7 @@ namespace App\Http\Controller{{ namespace }};
 
 use App\Http\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\{% if api %}JsonResponse{% else %}Response{% endif %};
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class {{ class_name }} extends AbstractController
 {

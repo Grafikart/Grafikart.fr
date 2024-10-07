@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(path: '/users', name: 'user_')]
 class UserController extends CrudController
@@ -30,16 +30,17 @@ class UserController extends CrudController
     public function index(
         Request $request,
         UserStatsRepository $repository,
-        GeoIpService $ipService
+        GeoIpService $ipService,
     ): Response {
         $filterBanned = $request->get('banned');
         $query = null;
         $params = [
-            'banned_filter' => $filterBanned
+            'banned_filter' => $filterBanned,
         ];
-        if ($request->query->getInt('page', 1) === 1 &&
-            !$filterBanned &&
-            !$request->query->get('q')
+        if (
+            $request->query->getInt('page', 1) === 1
+            && !$filterBanned
+            && !$request->query->get('q')
         ) {
             $params['months'] = $repository->getMonthlySignups();
             $params['days'] = $repository->getDailySignups();
@@ -48,6 +49,7 @@ class UserController extends CrudController
             $query = $this->getRepository()->queryBanned();
         }
         $params['ipService'] = $ipService;
+
         return $this->crudIndex($query, $params);
     }
 
@@ -71,9 +73,9 @@ class UserController extends CrudController
         if ('moi' === $q) {
             return new JsonResponse([
                 [
-                    'id'       => $this->getUser()->getId(),
+                    'id' => $this->getUser()->getId(),
                     'username' => $this->getUser()->getUsername(),
-                ]
+                ],
             ]);
         }
         $users = $repository

@@ -134,7 +134,7 @@ class RegistrationControllerTest extends WebTestCase
         /** @var User[] $users */
         $users = $this->loadFixtures(['users']);
         $user = $users['user_unconfirmed'];
-        $user->setCreatedAt(new \DateTime());
+        $user->setCreatedAt(new \DateTimeImmutable());
         $this->em->flush();
 
         $this->client->request('GET', self::CONFIRMATION_PATH.$user->getId().'?token='.$user->getConfirmationToken());
@@ -148,7 +148,7 @@ class RegistrationControllerTest extends WebTestCase
         /** @var User[] $users */
         $users = $this->loadFixtures(['users']);
         $user = $users['user_unconfirmed'];
-        $user->setCreatedAt(new \DateTime('-1 day'));
+        $user->setCreatedAt(new \DateTimeImmutable('-1 day'));
         $this->em->flush();
 
         $this->client->request('GET', self::CONFIRMATION_PATH.$user->getId().'?token='.$user->getConfirmationToken());

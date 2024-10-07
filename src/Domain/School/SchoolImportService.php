@@ -16,18 +16,17 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class SchoolImportService
 {
-
     public function __construct(
-        private readonly SerializerInterface    $serializer,
-        private readonly ValidatorInterface     $validator,
-        private readonly Mailer                 $mailer,
-        private readonly CouponRepository       $couponRepository,
-        private readonly EntityManagerInterface $em
+        private readonly SerializerInterface $serializer,
+        private readonly ValidatorInterface $validator,
+        private readonly Mailer $mailer,
+        private readonly CouponRepository $couponRepository,
+        private readonly EntityManagerInterface $em,
     ) {
     }
 
     /**
-     * Vérifie la structure des données et renvois le contenu du CSV (sous forme d'objet)
+     * Vérifie la structure des données et renvois le contenu du CSV (sous forme d'objet).
      */
     public function preprocess(SchoolImportDTO $data): SchoolPreprocessResult
     {
@@ -41,7 +40,7 @@ class SchoolImportService
     }
 
     /**
-     * Génère les coupons et envoie les emails aux étudiants
+     * Génère les coupons et envoie les emails aux étudiants.
      */
     public function process(string $csvContent, School $school): SchoolPreprocessResult
     {
@@ -64,23 +63,20 @@ class SchoolImportService
                 'months' => $coupon->getMonths(),
                 'message' => $school->getEmailMessage(),
                 'title' => $school->getEmailSubject(),
-                'code' => $coupon->getId()
+                'code' => $coupon->getId(),
             ])
                 ->to($coupon->getEmail())
                 ->subject($school->getEmailSubject());
             $this->mailer->send($email);
         }
+
         return $result;
     }
 
-    /**
-     * @param string $content
-     * @return SchoolPreprocessResult
-     */
     private function deserializeContent(string $content, School $school): SchoolPreprocessResult
     {
         /** @var SchoolImportRow[] $students */
-        $students = $this->serializer->deserialize($content, SchoolImportRow::class . '[]', 'csv');
+        $students = $this->serializer->deserialize($content, SchoolImportRow::class.'[]', 'csv');
         $errors = $this->validator->validate($students, new Valid());
         $result = new SchoolPreprocessResult(
             rows: $students,
@@ -91,7 +87,10 @@ class SchoolImportService
         // One or more lines of the CSV is not valid
         if (count($errors) > 0) {
             $firstError = $errors[0];
-            throw new InvalidCSVException(sprintf("Erreur sur %s, %s", $firstError->getPropertyPath(), $firstError->getMessage()));
+            if ($firstError) {
+                throw new InvalidCSVException(sprintf('Erreur sur %s, %s', $firstError->getPropertyPath(), $firstError->getMessage()));
+            }
+            throw new InvalidCSVException('Erreur');
         }
 
         // Before adding students, check we didn't reach the limit of the school account

@@ -16,7 +16,7 @@ class ImageResizer
          * (cf https://glide.thephpleague.com/1.0/config/security/).
          */
         private readonly string $signKey,
-        private readonly UrlGeneratorInterface $urlGenerator
+        private readonly UrlGeneratorInterface $urlGenerator,
     ) {
     }
 

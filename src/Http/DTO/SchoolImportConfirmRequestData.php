@@ -6,10 +6,9 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class SchoolImportConfirmRequestData
 {
-
     public function __construct(
         #[NotBlank()]
-        public readonly string $content = ""
+        public readonly string $content = '',
     ) {
     }
 }

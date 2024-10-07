@@ -51,8 +51,8 @@ class OptionManager implements OptionManagerInterface
             $options = $this->em->getRepository(OptionEntity::class)->findAll();
         } else {
             $options = $this->em->getRepository(OptionEntity::class)->findBy([
-                    'key' => $keys,
-                ]);
+                'key' => $keys,
+            ]);
         }
 
         $optionsByKey = array_reduce($options, function (array $acc, OptionEntity $option) {

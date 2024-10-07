@@ -101,7 +101,7 @@ class FormationCrudData implements CrudDataInterface
         $this->formation->setTitle($this->title);
         $this->formation->setSlug($this->slug);
         $this->formation->setCreatedAt($this->createdAt);
-        $this->formation->setUpdatedAt(new \DateTime());
+        $this->formation->setUpdatedAt(new \DateTimeImmutable());
         $this->formation->setAuthor($this->author);
         $this->formation->setYoutubePlaylist($this->youtubePlaylist);
         $this->formation->setOnline($this->online);

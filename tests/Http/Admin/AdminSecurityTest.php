@@ -7,7 +7,7 @@ use App\Tests\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Test fonctionnel pour vérifier que l'accès à l'administraiton est bien sécurisé.
+ * Test fonctionnel pour vérifier que l'accès à l'administration est bien sécurisé.
  */
 class AdminSecurityTest extends WebTestCase
 {

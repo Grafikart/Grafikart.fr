@@ -8,7 +8,7 @@ use App\Normalizer\Normalizer;
 
 class CategoryPathNormalizer extends Normalizer
 {
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         if ($object instanceof Category) {
             return [
@@ -19,7 +19,7 @@ class CategoryPathNormalizer extends Normalizer
         throw new \RuntimeException("Can't normalize path");
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return ($data instanceof Category)
             && PathEncoder::FORMAT === $format;

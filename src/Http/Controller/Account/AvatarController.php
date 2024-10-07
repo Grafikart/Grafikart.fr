@@ -9,7 +9,7 @@ use App\Http\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -24,7 +24,7 @@ class AvatarController extends AbstractController
         Request $request,
         ValidatorInterface $validator,
         ProfileService $profileService,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
     ): Response {
         /** @var User $user */
         $user = $this->getUser();

@@ -5,7 +5,7 @@ namespace App\Http\Controller;
 use App\Domain\Premium\Repository\PlanRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class PremiumController extends AbstractController
 {

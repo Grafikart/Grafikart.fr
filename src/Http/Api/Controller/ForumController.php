@@ -7,7 +7,7 @@ use App\Http\Controller\AbstractController;
 use App\Http\Security\ForumVoter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 /**
  * @method \App\Domain\Auth\User getUser()
@@ -17,7 +17,7 @@ class ForumController extends AbstractController
 {
     #[Route(path: '/read', name: 'forum/read_all', methods: ['POST'])]
     public function readAll(
-        TopicService $topicService
+        TopicService $topicService,
     ): JsonResponse {
         $this->denyAccessUnlessGranted(ForumVoter::READ_TOPICS);
         $topicService->readAllTopics($this->getUser());

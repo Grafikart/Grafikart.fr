@@ -22,7 +22,7 @@ class TwigAssetExtension extends AbstractExtension
         private readonly string $assetPath,
         string $env,
         private readonly CacheInterface $cache,
-        private readonly RequestStack $requestStack
+        private readonly RequestStack $requestStack,
     ) {
         $this->isProduction = 'prod' === $env;
     }
@@ -77,8 +77,10 @@ class TwigAssetExtension extends AbstractExtension
 
         if (false === $this->polyfillLoaded && $request instanceof Request) {
             $userAgent = $request->headers->get('User-Agent') ?: '';
-            if (strpos($userAgent, 'Safari') &&
-                !strpos($userAgent, 'Chrome')) {
+            if (
+                strpos($userAgent, 'Safari')
+                && !strpos($userAgent, 'Chrome')
+            ) {
                 $this->polyfillLoaded = true;
                 $script = <<<HTML
                     <script src="//unpkg.com/document-register-element" defer></script>

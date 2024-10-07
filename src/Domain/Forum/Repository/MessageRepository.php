@@ -40,7 +40,7 @@ class MessageRepository extends AbstractRepository
         $messages = $this->createQueryBuilder('m')
             ->where('m.topic = :topic')
             ->join('m.author', 'u')
-            ->select('m, partial u.{id, username, email, avatarName}')
+            ->select('m, u')
             ->setParameter('topic', $topic)
             ->orderBy('m.accepted', 'DESC')
             ->addOrderBy('m.createdAt', 'ASC')

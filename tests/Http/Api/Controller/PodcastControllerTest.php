@@ -19,7 +19,7 @@ class PodcastControllerTest extends ApiTestCase
         /** @var User $user */
         [
             'podcast_suggestions1' => $podcast,
-            'user1' => $user
+            'user1' => $user,
         ] = $this->loadFixtures(['users', 'podcasts']);
         $this->login($user);
         $count = $podcast->getVotesCount();
@@ -41,7 +41,7 @@ class PodcastControllerTest extends ApiTestCase
         /** @var User $user */
         [
             'podcast_suggestions1' => $podcast,
-            'user2' => $user
+            'user2' => $user,
         ] = $this->loadFixtures(['users', 'podcasts']);
         $this->login($user);
 
@@ -55,7 +55,7 @@ class PodcastControllerTest extends ApiTestCase
         /** @var User $user */
         [
             'podcast1' => $podcast,
-            'user1' => $user
+            'user1' => $user,
         ] = $this->loadFixtures(['users', 'podcasts']);
         $this->login($user);
 
