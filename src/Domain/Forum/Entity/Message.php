@@ -38,13 +38,13 @@ class Message implements SpammableInterface, CacheableInterface
     #[Groups(['read:message', 'update:message'])]
     private ?string $content = null;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\Column(type: 'boolean', options: ['default' => 1])]
     private bool $notification = true;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private ?\DateTimeInterface $updatedAt = null;
 
     public function getId(): ?int

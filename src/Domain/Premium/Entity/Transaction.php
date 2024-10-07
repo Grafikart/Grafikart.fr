@@ -38,7 +38,7 @@ class Transaction
     #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private bool $refunded = false;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private \DateTimeInterface $createdAt;
 
     #[ORM\ManyToOne(targetEntity: \App\Domain\Auth\User::class)]

@@ -40,9 +40,9 @@ class __TwigTemplate_69e89c3f0635caaa36296fd75402769c extends Template
         $macros = $this->macros;
         // line 1
         $twigCacheExtension = $this->env->getExtension('App\Http\Twig\TwigCacheExtension');
-        $twigCacheBody1 = $twigCacheExtension->getCacheValue("index.twig", [($context["demo"] ?? null)]);
-        if ($twigCacheBody1 !== null) { yield $twigCacheBody1; } else {
-            $twigCacheBody1 = ('' === $tmp = \Twig\Extension\CoreExtension::captureOutput((function () use (&$context, $macros, $blocks) {
+        $twigCacheBody7 = $twigCacheExtension->getCacheValue("index.twig", [($context["demo"] ?? null)]);
+        if ($twigCacheBody7 !== null) { yield $twigCacheBody7; } else {
+            $twigCacheBody7 = ('' === $tmp = \Twig\Extension\CoreExtension::captureOutput((function () use (&$context, $macros, $blocks) {
                 // line 2
                 yield "    ";
                 yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["firstname"] ?? null), "html", null, true);
@@ -53,8 +53,8 @@ class __TwigTemplate_69e89c3f0635caaa36296fd75402769c extends Template
                 yield from [];
             })())) ? '' : new Markup($tmp, $this->env->getCharset());            ;
             $twigCacheExtension->setCacheValue("index.twig", [            // line 1
-($context["demo"] ?? null)],$twigCacheBody1);
-            yield $twigCacheBody1;
+($context["demo"] ?? null)],$twigCacheBody7);
+            yield $twigCacheBody7;
         }
         yield from [];
     }

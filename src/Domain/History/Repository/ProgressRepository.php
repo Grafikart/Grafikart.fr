@@ -8,6 +8,7 @@ use App\Domain\Course\Entity\Course;
 use App\Domain\Course\Entity\Formation;
 use App\Domain\History\Entity\Progress;
 use App\Infrastructure\Orm\AbstractRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -51,10 +52,8 @@ class ProgressRepository extends AbstractRepository
             ->andWhere('p.progress < :progress')
             ->orderBy('p.updatedAt', 'DESC')
             ->setMaxResults(4)
-            ->setParameters([
-                'user' => $user,
-                'progress' => Progress::TOTAL,
-            ])
+            ->setParameter('user', $user)
+            ->setParameter('progress', Progress::TOTAL)
             ->getQuery()
             ->getResult();
     }
@@ -62,19 +61,16 @@ class ProgressRepository extends AbstractRepository
     /**
      * @param Content[] $contents
      *
-     * @return Progress[]
+     * @return array{id: int, progress: int}[]
      */
     public function findForContents(User $user, array $contents): array
     {
         return $this->createQueryBuilder('p')
-            ->leftJoin('p.content', 'c')
-            ->addSelect('partial c.{id}')
+            ->select('IDENTITY(p.content) as id', 'p.progress')
             ->where('p.content IN (:ids)')
             ->andWhere('p.author = :user')
-            ->setParameters([
-                'ids' => array_map(fn(Content $c) => $c->getId(), $contents),
-                'user' => $user,
-            ])
+            ->setParameter('ids', array_map(fn(Content $c) => $c->getId(), $contents))
+            ->setParameter('user', $user)
             ->getQuery()
             ->getResult();
     }
@@ -90,11 +86,9 @@ class ProgressRepository extends AbstractRepository
             ->where('p.content IN (:ids)')
             ->andWhere('p.author = :user')
             ->andWhere('p.progress = :total')
-            ->setParameters([
-                'user' => $user,
-                'ids' => $ids,
-                'total' => Progress::TOTAL,
-            ])
+            ->setParameter('user', $user)
+            ->setParameter('ids', $ids)
+            ->setParameter('total', Progress::TOTAL)
             ->getQuery()
             ->getResult());
     }

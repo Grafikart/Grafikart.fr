@@ -34,8 +34,8 @@ class ProgressionSubscriber implements EventSubscriberInterface
         ]);
         if (null === $progress) {
             $progress = (new Progress())
-                ->setUpdatedAt(new \DateTime())
-                ->setCreatedAt(new \DateTime())
+                ->setUpdatedAt(new \DateTimeImmutable())
+                ->setCreatedAt(new \DateTimeImmutable())
                 ->setAuthor($event->getUser())
                 ->setContent($event->getContent())
                 ->setRatio($event->getProgress());
@@ -45,7 +45,7 @@ class ProgressionSubscriber implements EventSubscriberInterface
                 throw new AlreadyFinishedException();
             }
             $progress
-                ->setUpdatedAt(new \DateTime())
+                ->setUpdatedAt(new \DateTimeImmutable())
                 ->setRatio($event->getProgress());
         }
 

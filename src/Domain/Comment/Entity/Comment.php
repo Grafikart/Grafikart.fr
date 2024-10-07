@@ -25,7 +25,7 @@ class Comment
     #[ORM\Column(type: 'text')]
     private string $content = '';
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private \DateTimeInterface $createdAt;
 
     #[ORM\ManyToOne(targetEntity: \App\Domain\Auth\User::class)]
@@ -51,7 +51,7 @@ class Comment
 
     public function __construct()
     {
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new \DateTimeImmutable();
         $this->replies = new ArrayCollection();
     }
 

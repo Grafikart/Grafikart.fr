@@ -26,7 +26,7 @@ class LoginAttemptRepository extends AbstractRepository
             ->select('COUNT(l.id) as count')
             ->where('l.user = :user')
             ->andWhere('l.createdAt > :date')
-            ->setParameter('date', new \DateTime("-{$minutes} minutes"))
+            ->setParameter('date', new \DateTimeImmutable("-{$minutes} minutes"))
             ->setParameter('user', $user)
             ->setMaxResults(1)
             ->getQuery()

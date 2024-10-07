@@ -27,7 +27,7 @@ class CommentRepository extends AbstractRepository
     public function findForApi(int $content): array
     {
         // Force l'enregistrement de l'entité dans l'entity manager pour éviter les requêtes supplémentaires
-        $this->_em->getReference(\App\Domain\Blog\Post::class, $content);
+        $this->getEntityManager()->getReference(\App\Domain\Blog\Post::class, $content);
 
         return $this->createQueryBuilder('c')
             ->select('c, u')
@@ -37,22 +37,6 @@ class CommentRepository extends AbstractRepository
             ->setParameter('content', $content)
             ->getQuery()
             ->getResult();
-    }
-
-    /**
-     * Renvoie un commentaire en évitant la liaison content.
-     */
-    public function findPartial(int $id): ?Comment
-    {
-        return $this->createQueryBuilder('c')
-            ->select('partial c.{id, username, email, content, createdAt}, partial u.{id, username, email}')
-            ->where('c.id = :id')
-            ->leftJoin('c.author', 'u')
-            ->setParameter('id', $id)
-            ->setMaxResults(1)
-            ->getQuery()
-            ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)
-            ->getOneOrNullResult();
     }
 
     public function queryLatest(): Query

@@ -36,10 +36,10 @@ abstract class Content implements CacheableInterface
     #[ORM\Column(type: 'text')]
     private ?string $content = null;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private ?\DateTimeInterface $createdAt = null;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private ?\DateTimeInterface $updated_at = null;
 
     #[ORM\Column(type: 'boolean', options: ['default' => 0])]
@@ -248,7 +248,7 @@ abstract class Content implements CacheableInterface
 
     public function getCreatedAt(): \DateTimeInterface
     {
-        return $this->createdAt ?: new \DateTime();
+        return $this->createdAt ?: new \DateTimeImmutable();
     }
 
     /**

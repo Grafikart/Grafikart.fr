@@ -24,7 +24,7 @@ class Attachment implements \Stringable
     #[ORM\Column(type: 'integer', options: ['unsigned' => true])]
     private int $fileSize = 0;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private \DateTimeInterface $createdAt;
 
     public function getId(): int

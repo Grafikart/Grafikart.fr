@@ -13,8 +13,8 @@ class PasswordResetToken
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'datetime')]
-    private \DateTime $createdAt;
+    #[ORM\Column(type: 'datetime_immutable')]
+    private \DateTimeImmutable $createdAt;
 
     #[ORM\Column(type: 'string')]
     private string $token;
@@ -28,12 +28,12 @@ class PasswordResetToken
         return $this->id;
     }
 
-    public function getCreatedAt(): \DateTime
+    public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTime $createdAt): self
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
 

@@ -36,7 +36,7 @@ final class ForumTagController extends CrudController
     #[Route(path: '/forum-tag/new', name: 'forum-tag_new')]
     public function new(): Response
     {
-        $tag = (new Tag())->setCreatedAt(new \DateTime());
+        $tag = (new Tag())->setCreatedAt(new \DateTimeImmutable());
         $data = new ForumTagCrudData($tag);
 
         return $this->crudNew($data);

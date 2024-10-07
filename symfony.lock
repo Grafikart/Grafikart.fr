@@ -43,24 +43,11 @@
             "config/packages/dama_doctrine_test_bundle.yaml"
         ]
     },
-    "doctrine/annotations": {
-        "version": "1.14",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "main",
-            "version": "1.10",
-            "ref": "64d8583af5ea57b7afa4aba4b159907f3a148b05"
-        },
-        "files": []
-    },
     "doctrine/cache": {
         "version": "1.10.0"
     },
     "doctrine/collections": {
         "version": "1.6.4"
-    },
-    "doctrine/common": {
-        "version": "2.12.0"
     },
     "doctrine/data-fixtures": {
         "version": "1.4.2"

@@ -36,8 +36,8 @@ class ReadTimeRepositoryTest extends RepositoryTestCase
         $data = $this->loadFixtures(['forums']);
         $topic = $data['topic1'];
         $user = $data['user1'];
-        $topic->setUpdatedAt(new \DateTime('-1 day'));
-        $oldReadDate = new \DateTime('-5 day');
+        $topic->setUpdatedAt(new \DateTimeImmutable('-1 day'));
+        $oldReadDate = new \DateTimeImmutable('-5 day');
         $lastReadTime = (new ReadTime())
             ->setReadAt($oldReadDate)
             ->setOwner($user)
@@ -53,8 +53,8 @@ class ReadTimeRepositoryTest extends RepositoryTestCase
         $data = $this->loadFixtures(['forums']);
         $topic = $data['topic1'];
         $user = $data['user1'];
-        $topic->setUpdatedAt(new \DateTime('-5 day'));
-        $oldReadDate = new \DateTime('-1 day');
+        $topic->setUpdatedAt(new \DateTimeImmutable('-5 day'));
+        $oldReadDate = new \DateTimeImmutable('-1 day');
         $lastReadTime = (new ReadTime())
             ->setReadAt($oldReadDate)
             ->setOwner($user)

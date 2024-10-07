@@ -50,7 +50,7 @@ final class PostCrudData implements CrudDataInterface
 
     public function __construct()
     {
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function hydrate(): void
@@ -62,7 +62,7 @@ final class PostCrudData implements CrudDataInterface
             ->setCreatedAt($this->createdAt)
             ->setContent($this->content)
             ->setOnline($this->online)
-            ->setUpdatedAt(new \DateTime())
+            ->setUpdatedAt(new \DateTimeImmutable())
             ->setAuthor($this->author)
             ->setSlug($this->slug);
     }

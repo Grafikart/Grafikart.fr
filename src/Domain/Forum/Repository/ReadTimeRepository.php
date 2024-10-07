@@ -28,10 +28,8 @@ class ReadTimeRepository extends AbstractRepository
         $lastReadTime = $this->createQueryBuilder('r')
             ->where('r.topic = :topic')
             ->andWhere('r.owner = :user')
-            ->setParameters([
-                'topic' => $topic,
-                'user' => $user,
-            ])
+            ->setParameter('topic', $topic)
+            ->setParameter('user', $user)
             ->getQuery()
             ->getOneOrNullResult();
 
@@ -53,7 +51,7 @@ class ReadTimeRepository extends AbstractRepository
         }
 
         // On met à jour la date de dernière lecture
-        $lastReadTime->setReadAt(new \DateTime());
+        $lastReadTime->setReadAt(new \DateTimeImmutable());
 
         return $lastReadTime;
     }
@@ -70,10 +68,8 @@ class ReadTimeRepository extends AbstractRepository
             ->where('r.topic IN (:topics)')
             ->andWhere('r.owner = :user')
             ->andWhere('topic.updatedAt <= r.readAt')
-            ->setParameters([
-                'topics' => $topics,
-                'user' => $user,
-            ])
+            ->setParameter('topics', $topics)
+            ->setParameter('user', $user)
             ->getQuery()
             ->getResult();
     }
@@ -104,7 +100,7 @@ class ReadTimeRepository extends AbstractRepository
             ->getResult();
         foreach ($readTimes as $readTime) {
             $readTime->setNotified(true);
-            $users = array_filter($users, fn (User $u) => $u->getId() !== $readTime->getOwner()->getId());
+            $users = array_filter($users, fn(User $u) => $u->getId() !== $readTime->getOwner()->getId());
         }
 
         // On crée de nouveaux readTime pour les utilisateur n'ayant pas déjà lu le sujet
@@ -112,7 +108,7 @@ class ReadTimeRepository extends AbstractRepository
             $lastReadTime = (new ReadTime())
                 ->setTopic($topic)
                 ->setNotified(true)
-                ->setReadAt(new \DateTime('-10 year'))
+                ->setReadAt(new \DateTimeImmutable('-10 year'))
                 ->setOwner($user);
             $this->getEntityManager()->persist($lastReadTime);
         }

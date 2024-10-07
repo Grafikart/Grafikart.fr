@@ -28,10 +28,10 @@ class Tag implements CacheableInterface
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $position = null;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private ?\DateTimeInterface $updatedAt = null;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\ManyToMany(targetEntity: \App\Domain\Forum\Entity\Topic::class, mappedBy: 'tags')]

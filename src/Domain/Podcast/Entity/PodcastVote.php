@@ -17,7 +17,7 @@ class PodcastVote
     #[ORM\Column(type: 'float', options: ['default' => 1])]
     private float $weight = 1;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private \DateTimeInterface $createdAt;
 
     public function __construct(
@@ -28,7 +28,7 @@ class PodcastVote
         #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
         private Podcast $podcast
     ) {
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int

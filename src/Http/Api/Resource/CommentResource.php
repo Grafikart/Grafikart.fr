@@ -96,4 +96,24 @@ class CommentResource extends CommentData
 
         return $resource;
     }
+
+    public static function fromPartialComment(PartialComment $comment, ?UploaderHelper $uploaderHelper = null): CommentResource
+    {
+        $resource = new self();
+        $resource->id = $comment->id;
+        $resource->username = $comment->userUsername ?? $comment->username ?? 'Anonymous';
+        $resource->content = $comment->content;
+        $resource->html = strip_tags(
+            (string) (new \Parsedown())
+                ->setBreaksEnabled(true)
+                ->setSafeMode(true)
+                ->text($comment->getContent()),
+            '<p><pre><code><ul><ol><li>'
+        );
+        $resource->createdAt = $comment->createdAt->getTimestamp();
+
+        return $resource;
+    }
+
+
 }

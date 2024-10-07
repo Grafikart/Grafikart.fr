@@ -33,6 +33,6 @@ class ForumTagCrudData extends AutomaticCrudData
     public function hydrate(): void
     {
         parent::hydrate();
-        $this->entity->setUpdatedAt(new \DateTime());
+        $this->entity->setUpdatedAt(new \DateTimeImmutable());
     }
 }

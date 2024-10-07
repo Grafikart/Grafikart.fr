@@ -33,7 +33,7 @@ class Revision
     #[Assert\NotBlank]
     private string $content = '';
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\Column(type: 'integer', length: 1, options: ['default' => 0])]

@@ -13,6 +13,6 @@ class FakeClass implements CacheableInterface
 
     public function getUpdatedAt(): \DateTimeInterface
     {
-        return new \DateTime('@12312312');
+        return new \DateTimeImmutable('@12312312');
     }
 }

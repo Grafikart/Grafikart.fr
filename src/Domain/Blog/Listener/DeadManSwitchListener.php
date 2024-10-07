@@ -43,7 +43,7 @@ class DeadManSwitchListener implements EventSubscriberInterface
         if (!($post instanceof Post)) {
             return;
         }
-        $post->setCreatedAt(new \DateTime('+7 days'));
+        $post->setCreatedAt(new \DateTimeImmutable('+7 days'));
         $this->em->flush();
     }
 }

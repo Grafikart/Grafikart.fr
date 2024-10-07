@@ -69,7 +69,7 @@ class NotificationRepository extends AbstractRepository implements CleanableRepo
     {
         return $this->createQueryBuilder('n')
             ->where('n.createdAt < :date')
-            ->setParameter('date', new \DateTime('-3 month'))
+            ->setParameter('date', new \DateTimeImmutable('-3 month'))
             ->delete(Notification::class, 'n')
             ->getQuery()
             ->execute();

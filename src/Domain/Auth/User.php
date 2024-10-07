@@ -62,10 +62,10 @@ class User implements UserInterface, ForumReaderUserInterface, CacheableInterfac
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $avatarName = null;
 
-    #[ORM\Column(type: 'datetime', nullable: true)]
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
 
-    #[ORM\Column(type: 'datetime', nullable: false)]
+    #[ORM\Column(type: 'datetime_immutable', nullable: false)]
     private \DateTimeInterface $createdAt;
 
     #[ORM\Column(type: 'string', length: 2, nullable: true, options: ['default' => 'FR'])]
@@ -74,10 +74,10 @@ class User implements UserInterface, ForumReaderUserInterface, CacheableInterfac
     /**
      * Date de dernière lecture du forum.
      */
-    #[ORM\Column(type: 'datetime', nullable: true)]
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private ?\DateTimeInterface $forumReadTime = null;
 
-    #[ORM\Column(type: 'datetime', nullable: true)]
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private ?\DateTimeInterface $bannedAt = null;
 
     #[ORM\Column(type: 'string', nullable: true)]
@@ -92,7 +92,7 @@ class User implements UserInterface, ForumReaderUserInterface, CacheableInterfac
     #[ORM\Column(type: 'string', options: ['default' => null], nullable: true)]
     private ?string $lastLoginIp = null;
 
-    #[ORM\Column(type: 'datetime', options: ['default' => null], nullable: true)]
+    #[ORM\Column(type: 'datetime_immutable', options: ['default' => null], nullable: true)]
     private ?\DateTimeInterface $lastLoginAt = null;
 
     #[ORM\Column(type: 'string', options: ['default' => null], nullable: true)]

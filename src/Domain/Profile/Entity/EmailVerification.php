@@ -21,7 +21,7 @@ class EmailVerification
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private User $author;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private \DateTimeInterface $createdAt;
 
     #[ORM\Column(type: 'string', length: 255)]
@@ -82,6 +82,6 @@ class EmailVerification
 
     public function isExpired(): bool
     {
-        return $this->createdAt < new \DateTime('-1 hour');
+        return $this->createdAt < new \DateTimeImmutable('-1 hour');
     }
 }

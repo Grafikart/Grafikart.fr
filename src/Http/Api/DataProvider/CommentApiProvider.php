@@ -38,12 +38,12 @@ final readonly class CommentApiProvider implements ProviderInterface
             );
         }
 
-        // Pour le reste des opérations on extrait les resources depuis la base de données
+        // Pour le reste des opérations, on extrait les resources depuis la base de données
         if (!isset($uriVariables['id'])) {
             return null;
         }
         $id = $uriVariables['id'] ?: 0;
-        $comment = $this->commentRepository->findPartial((int) $id);
+        $comment = $this->commentRepository->find((int) $id);
 
         return $comment ? CommentResource::fromComment($comment, $this->uploaderHelper) : null;
     }
