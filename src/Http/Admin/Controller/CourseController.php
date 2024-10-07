@@ -99,7 +99,7 @@ final class CourseController extends CrudController
     public function delete(Course $course, EventDispatcherInterface $dispatcher): Response
     {
         $course->setOnline(false);
-        $course->setUpdatedAt(new \DateTime());
+        $course->setUpdatedAt(new \DateTimeImmutable());
         $this->em->flush();
         $this->addFlash('success', 'Le tutoriel a bien été mis hors ligne');
 

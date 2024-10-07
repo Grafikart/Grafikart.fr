@@ -21,11 +21,11 @@ class ContactService
     {
         $contactRequest = (new ContactRequest())->setRawIp($request->getClientIp());
         $lastRequest = $this->repository->findLastRequestForIp($contactRequest->getIp());
-        if ($lastRequest && $lastRequest->getCreatedAt() > new \DateTime('- 1 hour')) {
+        if ($lastRequest && $lastRequest->getCreatedAt() > new \DateTimeImmutable('- 1 hour')) {
             throw new TooManyContactException();
         }
         if (null !== $lastRequest) {
-            $lastRequest->setCreatedAt(new \DateTime());
+            $lastRequest->setCreatedAt(new \DateTimeImmutable());
         } else {
             $this->em->persist($contactRequest);
         }

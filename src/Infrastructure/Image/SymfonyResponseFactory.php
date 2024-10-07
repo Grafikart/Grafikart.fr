@@ -28,10 +28,10 @@ class SymfonyResponseFactory implements ResponseFactoryInterface
         $response->headers->set('Content-Length', (string) $cache->fileSize($path));
         $response->setPublic();
         $response->setMaxAge(31_536_000);
-        $response->setExpires(new \DateTime('+ 1 years'));
+        $response->setExpires(new \DateTimeImmutable('+ 1 years'));
 
         if ($this->request) {
-            $response->setLastModified(new \DateTime(sprintf('@%s', $cache->lastModified($path))));
+            $response->setLastModified(new \DateTimeImmutable(sprintf('@%s', $cache->lastModified($path))));
             $response->isNotModified($this->request);
         }
 

@@ -56,7 +56,7 @@ class PaymentSubscriber implements EventSubscriberInterface
             ->setPostalCode($payment->postalCode)
             ->setMethodRef($payment->id)
             ->setFee($payment->fee)
-            ->setCreatedAt(new \DateTime());
+            ->setCreatedAt(new \DateTimeImmutable());
         $this->em->persist($transaction);
 
         $user->addPremiumMonths($plan->getDuration());

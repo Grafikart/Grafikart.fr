@@ -29,7 +29,7 @@ class CommentService
         $comment = (new Comment())
             ->setAuthor($this->auth->getUserOrNull())
             ->setUsername($data->username)
-            ->setCreatedAt(new \DateTime())
+            ->setCreatedAt(new \DateTimeImmutable())
             ->setContent($data->content)
             ->setParent($parent)
             ->setIp($this->requestStack->getMainRequest()?->getClientIp())

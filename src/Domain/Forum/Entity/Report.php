@@ -40,7 +40,7 @@ class Report
     #[Assert\NotBlank(normalizer: 'trim')]
     private string $reason;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private \DateTimeInterface $createdAt;
 
     public function getId(): ?int

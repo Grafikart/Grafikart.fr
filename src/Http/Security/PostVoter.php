@@ -23,6 +23,6 @@ class PostVoter extends Voter
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
-        return $subject instanceof Post && $subject->getCreatedAt() < new \DateTime();
+        return $subject instanceof Post && $subject->getCreatedAt() < new \DateTimeImmutable();
     }
 }

@@ -31,6 +31,10 @@ class CommentProcessor implements ProcessorInterface
             return $data;
         }
 
+        if (!($data instanceof CommentResource)) {
+            throw new \Exception(sprintf("Cannot process data of %s in CommentProcessor", $data::class));
+        }
+
         $user = $this->security->getUser();
         $groups = [];
         if (!$user instanceof User) {

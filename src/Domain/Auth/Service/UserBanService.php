@@ -14,7 +14,7 @@ class UserBanService
 
     public function ban(User $user): void
     {
-        $user->setBannedAt(new \DateTime());
+        $user->setBannedAt(new \DateTimeImmutable());
         $this->dispatcher->dispatch(new UserBannedEvent($user));
     }
 }

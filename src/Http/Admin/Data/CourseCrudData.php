@@ -115,7 +115,7 @@ class CourseCrudData implements CrudDataInterface
         $this->entity->setPremium($this->premium);
         $this->entity->setContent($this->content);
         $this->entity->setCreatedAt($this->createdAt);
-        $this->entity->setUpdatedAt(new \DateTime());
+        $this->entity->setUpdatedAt(new \DateTimeImmutable());
         $this->entity->setLevel($this->level);
         $this->entity->setForceRedirect($this->forceRedirect);
         foreach ($this->mainTechnologies as $technology) {

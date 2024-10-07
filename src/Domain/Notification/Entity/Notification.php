@@ -30,7 +30,7 @@ class Notification
     #[Groups(['read:notification', 'create:notification'])]
     private ?string $url = null;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     #[Groups(['read:notification'])]
     private \DateTimeInterface $createdAt;
 
@@ -43,7 +43,7 @@ class Notification
 
     public function __construct()
     {
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): int

@@ -22,7 +22,7 @@ class ReadTime
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private User $owner;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private \DateTimeInterface $readAt;
 
     #[ORM\Column(type: 'boolean', options: ['default' => false])]

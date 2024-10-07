@@ -88,7 +88,7 @@ class ContactServiceTest extends TestCase
     public function testUpdateCreatedAtIfARequestWasAlreadyDone(): void
     {
         $contactRequest = new ContactRequest();
-        $date = new \DateTime('-1 day');
+        $date = new \DateTimeImmutable('-1 day');
         $contactRequest->setCreatedAt($date);
         $this->repository->expects($this->once())
             ->method('findLastRequestForIp')

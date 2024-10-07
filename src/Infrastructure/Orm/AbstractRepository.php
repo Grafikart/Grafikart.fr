@@ -3,6 +3,7 @@
 namespace App\Infrastructure\Orm;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityNotFoundException;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
@@ -36,7 +37,7 @@ abstract class AbstractRepository extends ServiceEntityRepository
     {
         $entity = $this->find($id, null, null);
         if (null === $entity) {
-            throw EntityNotFoundException::fromClassNameAndIdentifier($this->_entityName, [(string) $id]);
+            throw EntityNotFoundException::fromClassNameAndIdentifier($this->getEntityName(), [(string) $id]);
         }
 
         return $entity;
@@ -65,9 +66,9 @@ abstract class AbstractRepository extends ServiceEntityRepository
     public function createIterableQuery(string $alias, $indexBy = null): IterableQueryBuilder
     {
         /** @var IterableQueryBuilder<E> $queryBuilder */
-        $queryBuilder = new IterableQueryBuilder($this->_em);
+        $queryBuilder = new IterableQueryBuilder($this->getEntityManager());
 
-        return $queryBuilder->select($alias)->from($this->_entityName, $alias, $indexBy);
+        return $queryBuilder->select($alias)->from($this->getEntityName(), $alias, $indexBy);
     }
 
     /**
@@ -118,12 +119,12 @@ abstract class AbstractRepository extends ServiceEntityRepository
         $parameters = [];
         foreach ($conditions as $k => $v) {
             $conditionString[] = "LOWER(o.$k) = :$k";
-            $parameters[$k] = strtolower((string) $v);
+            $parameters[] = new Query\Parameter($k, strtolower((string)$v));
         }
 
         return $this->createQueryBuilder('o')
             ->where(join(' AND ', $conditionString))
-            ->setParameters($parameters)
+            ->setParameters(new ArrayCollection($parameters))
             ->getQuery();
     }
 }

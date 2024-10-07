@@ -21,7 +21,7 @@ class FormationRepository extends AbstractRepository
     /**
      * @return formation[]
      */
-    public function findAll()
+    public function findAll(): array
     {
         return $this->createQueryBuilder('f')
             ->where('f.online = true')

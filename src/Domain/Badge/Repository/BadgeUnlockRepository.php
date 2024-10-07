@@ -20,15 +20,18 @@ class BadgeUnlockRepository extends AbstractRepository
 
     public function hasUnlocked(User $user, string $action, int $count = 0): bool
     {
-        return 0 === (int) $this->getEntityManager()->createQuery(<<<DQL
+        return 0 === (int)$this->getEntityManager()->createQuery(<<<DQL
           SELECT COUNT(b.id) as c FROM App\Domain\Badge\Entity\Badge b
           WHERE NOT EXISTS (
             SELECT bu.id FROM App\Domain\Badge\Entity\BadgeUnlock bu WHERE bu.badge = b.id AND bu.owner = :user
           )
           AND b.action = :action AND b.actionCount <= :count
-        DQL)
-            ->setParameters(compact('user', 'action', 'count'))
-            ->getSingleScalarResult();
+        DQL
+            )
+                ->setParameter('user', $user)
+                ->setParameter('action', $action)
+                ->setParameter('count', $count)
+                ->getSingleScalarResult();
     }
 
     /**
@@ -42,8 +45,11 @@ class BadgeUnlockRepository extends AbstractRepository
             SELECT bu.id FROM App\Domain\Badge\Entity\BadgeUnlock bu WHERE bu.badge = b.id AND bu.owner = :user
           )
           AND b.action = :action AND b.actionCount <= :count
-        DQL)
-            ->setParameters(compact('user', 'action', 'count'))
+        DQL
+        )
+            ->setParameter('user', $user)
+            ->setParameter('action', $action)
+            ->setParameter('count', $count)
             ->getResult();
     }
 }

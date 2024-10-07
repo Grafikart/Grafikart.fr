@@ -34,13 +34,13 @@ class Podcast
     #[ORM\Column(type: 'integer', options: ['default' => 0])]
     private int $votesCount = 1;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private \DateTimeInterface $updatedAt;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private \DateTimeInterface $createdAt;
 
-    #[ORM\Column(type: 'datetime', nullable: true)]
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private ?\DateTimeInterface $scheduledAt = null;
 
     #[ORM\Column(type: 'integer', options: ['default' => 0])]
@@ -57,8 +57,8 @@ class Podcast
 
     public function __construct()
     {
-        $this->updatedAt = new \DateTime();
-        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTimeImmutable();
+        $this->createdAt = new \DateTimeImmutable();
         $this->intervenants = new ArrayCollection();
     }
 

@@ -4,15 +4,15 @@ App\Domain\Live\Live:
     description: <sentence()>
     youtube_id: XPsy1cbE0Qk
     duration: <numberBetween(10, 25000)>
-    created_at: <dateTimeBetween("first day of this year", "last day of this year")>
+    created_at: <dateTimeImmutableBetween("first day of this year", "last day of this year")>
 
 App\Domain\Blog\Post:
   post (template):
     title: <sentence(5, true)>
     slug: <slug()>
     content: <text(1500)>
-    created_at: <dateTimeThisYear()>
-    updated_at: <dateTimeThisYear()>
+    created_at: <dateTimeImmutableThisYear()>
+    updated_at: <dateTimeImmutableThisYear()>
     online: true
     author: '@user1'
 
@@ -26,8 +26,8 @@ App\Domain\Course\Entity\Course:
     title: <sentence(3, true)>
     slug: <slug()>
     content: <text(1500)>
-    created_at: <dateTimeThisYear()>
-    updated_at: <dateTimeThisYear()>
+    created_at: <dateTimeImmutableThisYear()>
+    updated_at: <dateTimeImmutableThisYear()>
     online: true
     duration: <numberBetween(100, 5000)>
     youtube_id: 7UURBqlUUUk
@@ -43,8 +43,8 @@ App\Domain\Course\Entity\Formation:
     title: <sentence(5, true)>
     slug: <slug()>
     content: <text(500)>
-    created_at: <dateTimeThisYear()>
-    updated_at: <dateTimeThisYear()>
+    created_at: <dateTimeImmutableThisYear()>
+    updated_at: <dateTimeImmutableThisYear()>
     short: <sentence(15, true)>
     youtube_playlist: 7UURBqlUUUk
     links: <sentence(1, true)>
@@ -58,19 +58,19 @@ App\Domain\Course\Entity\Technology:
     slug: <slug()>
     content: <sentence(45)>
     image: <randomElement(['symfony','vuejs','docker', 'github', 'i3wm', 'jage', 'mjml', 'sass', 'yaml'])>.svg
-    updated_at: <dateTimeThisYear()>
+    updated_at: <dateTimeImmutableThisYear()>
 
 App\Domain\Auth\User:
   user (template):
     username: John<current()>
     email: john<current()>\@doe.fr
     password: <password('0000')>
-    createdAt: <dateTimeThisYear()>
+    createdAt: <dateTimeImmutableThisYear()>
 
 App\Domain\Comment\Entity\Comment:
   comment (template):
     username: john<numberBetween(0, 1000)>
-    createdAt: <dateTimeThisYear()>
+    createdAt: <dateTimeImmutableThisYear()>
     content: <sentence(100)>
     parent: '20%? @comment*'
     author: '@user*'
@@ -81,15 +81,15 @@ App\Domain\Forum\Entity\Tag:
     name: Tag <current()>
     slug: tag-<current()>
     position: <current()>
-    createdAt: <dateTimeThisYear()>
-    updatedAt: <dateTimeThisYear()>
+    createdAt: <dateTimeImmutableThisYear()>
+    updatedAt: <dateTimeImmutableThisYear()>
 
 App\Domain\Forum\Entity\Topic:
   topic (template):
     name: Topic <current()>
     content: <sentence(2)>
-    createdAt: <dateTimeThisYear()>
-    updatedAt: <dateTimeThisYear()>
+    createdAt: <dateTimeImmutableThisYear()>
+    updatedAt: <dateTimeImmutableThisYear()>
     message_count: <numberBetween(1, 50)>
     solved: 0
     sticky: 0
@@ -101,8 +101,8 @@ App\Domain\Forum\Entity\Message:
     topic: '@topic*'
     author: '@user*'
     content: <sentence(2)>
-    createdAt: <dateTimeThisYear()>
-    updatedAt: <dateTimeThisYear()>
+    createdAt: <dateTimeImmutableThisYear()>
+    updatedAt: <dateTimeImmutableThisYear()>
 
 App\Domain\Notification\Entity\Notification:
   notification (template):
@@ -110,7 +110,7 @@ App\Domain\Notification\Entity\Notification:
     url: <url()>
     channel: <slug()>
     message: <sentence(1)>
-    createdAt: <dateTimeThisYear()>
+    createdAt: <dateTimeImmutableThisYear()>
 
 App\Domain\Premium\Entity\Transaction:
   transaction (template):
@@ -121,7 +121,7 @@ App\Domain\Premium\Entity\Transaction:
     fee: 0.1
     method: 'paypal'
     method_ref: '123123'
-    createdAt: <dateTimeThisYear()>
+    createdAt: <dateTimeImmutableThisYear()>
     firstname: John<current()>
     lastname: Doe<current()>
 
@@ -135,8 +135,8 @@ App\Domain\Course\Entity\Cursus:
     title: <sentence(5, true)>
     slug: <slug()>
     content: <text(1500)>
-    created_at: <dateTimeThisYear()>
-    updated_at: <dateTimeThisYear()>
+    created_at: <dateTimeImmutableThisYear()>
+    updated_at: <dateTimeImmutableThisYear()>
     online: true
     author: '@user1'
     category: '@cursus_category*'
@@ -146,14 +146,14 @@ App\Domain\Podcast\Entity\Podcast:
     author: '@user1'
     title: <sentence(5, true)>
     content: <paragraphs(5, true)>
-    createdAt: <dateTimeThisYear()>
-    updatedAt: <dateTimeThisYear()>
-    scheduledAt: <dateTimeThisYear()>
+    createdAt: <dateTimeImmutableThisYear()>
+    updatedAt: <dateTimeImmutableThisYear()>
+    scheduledAt: <dateTimeImmutableThisYear()>
     duration: <numberBetween(3700, 7000)>
 
 App\Domain\Revision\Revision:
   revision (template):
-    created_at: <dateTimeThisYear()>
+    created_at: <dateTimeImmutableThisYear()>
     content: <paragraphs(5, true)>
     status: 0
 

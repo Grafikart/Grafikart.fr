@@ -29,7 +29,7 @@ class Badge
     #[ORM\Column(type: 'boolean', options: ['default' => 0])]
     private bool $unlockable = false;
 
-    #[ORM\Column(type: 'datetime', nullable: false)]
+    #[ORM\Column(type: 'datetime_immutable', nullable: false)]
     private \DateTimeInterface $updatedAt;
 
     public function __construct(

@@ -77,7 +77,7 @@ class RegistrationController extends AbstractController
                     ) : ''
                 )
                 ->setLastLoginIp($request->getClientIp())
-                ->setCreatedAt(new \DateTime())
+                ->setCreatedAt(new \DateTimeImmutable())
                 ->setConfirmationToken($isOauthUser ? null : $tokenGenerator->generate(60))
                 ->setNotificationsReadAt(new \DateTimeImmutable())
             ;
@@ -135,7 +135,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('register');
         }
 
-        if ($user->getCreatedAt() < new \DateTime('-2 hours')) {
+        if ($user->getCreatedAt() < new \DateTimeImmutable('-2 hours')) {
             $this->addFlash('error', 'Ce token a expiré');
 
             return $this->redirectToRoute('register');

@@ -40,7 +40,7 @@ class ReportUserSubscriber implements EventSubscriberInterface
 
         $request->attributes->set(
             'data',
-            $report->setAuthor($user)->setCreatedAt(new \DateTime())
+            $report->setAuthor($user)->setCreatedAt(new \DateTimeImmutable())
         );
     }
 }

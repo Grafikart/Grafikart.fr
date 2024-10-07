@@ -21,7 +21,7 @@ class Subscription
     #[ORM\Column(type: 'smallint')]
     private int $state = self::INACTIVE;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private \DateTimeInterface $nextPayment;
 
     #[ORM\ManyToOne(targetEntity: \App\Domain\Premium\Entity\Plan::class)]
@@ -32,7 +32,7 @@ class Subscription
     #[ORM\JoinColumn(nullable: false)]
     private User $user;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private \DateTimeInterface $createdAt;
 
     public function getId(): ?int

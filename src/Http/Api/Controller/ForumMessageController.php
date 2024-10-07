@@ -34,8 +34,8 @@ class ForumMessageController extends AbstractController
         $this->denyAccessUnlessGranted(ForumVoter::CREATE_MESSAGE, $topic);
         $data = json_decode((string) $request->getContent(), true, 512, JSON_THROW_ON_ERROR);
         $message = (new Message())
-            ->setCreatedAt(new \DateTime())
-            ->setUpdatedAt(new \DateTime())
+            ->setCreatedAt(new \DateTimeImmutable())
+            ->setUpdatedAt(new \DateTimeImmutable())
             ->setTopic($topic)
             ->setNotification((bool) ($data['notification'] ?? false))
             ->setContent($data['content'] ?? null)

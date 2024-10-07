@@ -34,11 +34,9 @@ class RevisionRepository extends AbstractRepository
             ->where('r.author = :author')
             ->andWhere('r.target = :target')
             ->andWhere('r.status != :status')
-            ->setParameters([
-                'author' => $user,
-                'target' => $content,
-                'status' => Revision::ACCEPTED,
-            ])
+            ->setParameter('author', $user)
+            ->setParameter('target', $content)
+            ->setParameter('status', Revision::ACCEPTED)
             ->getQuery()
             ->getOneOrNullResult();
     }

@@ -51,10 +51,8 @@ class UserRepository extends AbstractRepository implements PasswordUpgraderInter
             ->where('u.email = :email')
             ->orWhere("u.{$service}Id = :serviceId")
             ->setMaxResults(1)
-            ->setParameters([
-                'email' => $email,
-                'serviceId' => $serviceId,
-            ])
+            ->setParameter('email', $email)
+            ->setParameter('serviceId', $serviceId)
             ->getQuery()
             ->getOneOrNullResult();
     }
@@ -96,7 +94,7 @@ class UserRepository extends AbstractRepository implements PasswordUpgraderInter
      */
     public function findPremiumDiscordIds(): array
     {
-        return array_map(fn (array $user) => $user['discordId'], $this->createQueryBuilder('u')
+        return array_map(fn(array $user) => $user['discordId'], $this->createQueryBuilder('u')
             ->where('u.discordId IS NOT NULL AND u.discordId <> \'\'')
             ->andWhere('u.premiumEnd > NOW()')
             ->select('u.discordId')

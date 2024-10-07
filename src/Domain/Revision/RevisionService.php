@@ -22,7 +22,7 @@ class RevisionService
      */
     public function submitRevision(Revision $revision): void
     {
-        $revision->setCreatedAt(new \DateTime());
+        $revision->setCreatedAt(new \DateTimeImmutable());
         $revision->setComment(null);
         $revision->setStatus(Revision::PENDING);
         $isNew = null === $revision->getId();

@@ -36,18 +36,18 @@ class TwigLiveExtension extends AbstractExtension
     {
         $liveDate = $this->liveService->getNextLiveDate();
 
-        return $liveDate->modify('+5 hour') > new \DateTime();
+        return $liveDate->modify('+5 hour') > new \DateTimeImmutable();
     }
 
     public function getNextLiveTime(): string
     {
         $liveDate = $this->liveService->getNextLiveDate();
         // Le live est passé
-        if ($liveDate->modify('+2 hour') < new \DateTime()) {
+        if ($liveDate->modify('+2 hour') < new \DateTimeImmutable()) {
             return '';
         }
         // Le live est en cours
-        if ($liveDate < new \DateTime()) {
+        if ($liveDate < new \DateTimeImmutable()) {
             return "<small class='text-muted'>(En cours)</small>";
         }
         // Le live est dans le futur

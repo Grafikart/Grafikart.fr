@@ -69,7 +69,7 @@ class AttachmentController extends BaseController
             $attachment = new Attachment();
         }
         $attachment->setFile($request->files->get('file'));
-        $attachment->setCreatedAt(new \DateTime());
+        $attachment->setCreatedAt(new \DateTimeImmutable());
         $em->persist($attachment);
         $em->flush();
 

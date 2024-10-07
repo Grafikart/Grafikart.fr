@@ -29,8 +29,8 @@ class AttachmentRepository extends AbstractRepository
             ->getQuery()
             ->getResult();
 
-        return array_map(fn (array $row) => [
-            'path' => $row['year'].'/'.str_pad((string) $row['month'], 2, '0', STR_PAD_LEFT),
+        return array_map(fn(array $row) => [
+            'path' => $row['year'] . '/' . str_pad((string)$row['month'], 2, '0', STR_PAD_LEFT),
             'count' => $row['count'],
         ], $rows);
     }
@@ -46,10 +46,8 @@ class AttachmentRepository extends AbstractRepository
 
         return $this->createQueryBuilder('a')
             ->where('a.createdAt BETWEEN :start AND :end')
-            ->setParameters([
-                'start' => $start,
-                'end' => $end,
-            ])
+            ->setParameter('start', $start)
+            ->setParameter('end', $end)
             ->orderBy('a.createdAt', 'DESC')
             ->setMaxResults(50)
             ->getQuery()

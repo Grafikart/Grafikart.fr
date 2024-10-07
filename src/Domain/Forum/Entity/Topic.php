@@ -44,10 +44,10 @@ class Topic implements SpammableInterface, CacheableInterface
     #[ORM\Column(type: 'boolean', options: ['default' => 0])]
     private ?bool $sticky = false;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private ?\DateTimeInterface $createdAt = null;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private ?\DateTimeInterface $updatedAt = null;
 
     #[ORM\JoinTable(name: 'forum_topic_tag')]
@@ -140,7 +140,7 @@ class Topic implements SpammableInterface, CacheableInterface
 
     public function getCreatedAt(): \DateTimeInterface
     {
-        return $this->createdAt ?: new \DateTime();
+        return $this->createdAt ?: new \DateTimeImmutable();
     }
 
     public function setCreatedAt(\DateTimeInterface $createdAt): self
@@ -251,6 +251,6 @@ class Topic implements SpammableInterface, CacheableInterface
 
     public function isLocked(): bool
     {
-        return $this->getCreatedAt() < (new \DateTime('-6 month'));
+        return $this->getCreatedAt() < (new \DateTimeImmutable('-6 month'));
     }
 }
