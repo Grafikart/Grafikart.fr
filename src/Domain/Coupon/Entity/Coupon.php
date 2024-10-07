@@ -5,6 +5,7 @@ namespace App\Domain\Coupon\Entity;
 use App\Domain\Auth\User;
 use App\Domain\Coupon\Repository\CouponRepository;
 use App\Domain\School\Entity\School;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CouponRepository::class)]
@@ -17,7 +18,7 @@ class Coupon
     #[ORM\ManyToOne]
     private ?School $school = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: false)]
     private \DateTimeImmutable $createdAt;
 
     #[ORM\Column(nullable: true)]

@@ -233,7 +233,7 @@ class TopicRepository extends AbstractRepository
             $topic->setAuthor($author);
 
             return $topic;
-        }, $query->fetchAll());
+        }, $query->fetchAllAssociative());
 
         return [$topics, $count];
     }
