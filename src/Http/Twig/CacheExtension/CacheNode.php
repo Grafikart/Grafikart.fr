@@ -5,6 +5,7 @@ namespace App\Http\Twig\CacheExtension;
 use App\Http\Twig\TwigCacheExtension;
 use Twig\Attribute\YieldReady;
 use Twig\Compiler;
+use Twig\Node\CaptureNode;
 use Twig\Node\Expression\AbstractExpression;
 use Twig\Node\Node;
 
@@ -22,6 +23,7 @@ class CacheNode extends Node
      */
     public function __construct(AbstractExpression $key, Node $body, int $lineno)
     {
+        $body = new CaptureNode($body, $lineno);
         parent::__construct(['key' => $key, 'body' => $body], [], $lineno);
     }
 
@@ -33,6 +35,7 @@ class CacheNode extends Node
         $i = self::$cacheCount++;
         $extension = TwigCacheExtension::class;
         $templateParam = "\"{$this->getTemplateName()}\", ";
+
         $compiler
             ->addDebugInfo($this)
             ->write("\$twigCacheExtension = \$this->env->getExtension('{$extension}');\n")
@@ -41,10 +44,9 @@ class CacheNode extends Node
             ->raw(");\n")
             ->write("if (\$twigCacheBody{$i} !== null) { yield \$twigCacheBody{$i}; } else {\n")
             ->indent()
-            ->write("\$fn = function () {\n")
+            ->write("\$twigCacheBody{$i} = ")
             ->subcompile($this->getNode('body'))
-            ->write("}\n")
-            ->write("\$twigCacheBody{$i} = implode('', iterator_to_array(\$fn()));\n")
+            ->write(";\n")
             ->write("\$twigCacheExtension->setCacheValue($templateParam")
             ->subcompile($this->getNode('key'))
             ->raw(',')

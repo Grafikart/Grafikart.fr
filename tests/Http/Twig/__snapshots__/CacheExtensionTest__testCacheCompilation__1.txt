@@ -42,15 +42,16 @@ class __TwigTemplate_69e89c3f0635caaa36296fd75402769c extends Template
         $twigCacheExtension = $this->env->getExtension('App\Http\Twig\TwigCacheExtension');
         $twigCacheBody1 = $twigCacheExtension->getCacheValue("index.twig", [($context["demo"] ?? null)]);
         if ($twigCacheBody1 !== null) { yield $twigCacheBody1; } else {
-            $fn = function () {
-            // line 2
-            yield "    ";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["firstname"] ?? null), "html", null, true);
-            yield " ";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["lastname"] ?? null), "html", null, true);
-            yield " ";
-            }
-            $twigCacheBody1 = implode('', iterator_to_array($fn()));
+            $twigCacheBody1 = ('' === $tmp = \Twig\Extension\CoreExtension::captureOutput((function () use (&$context, $macros, $blocks) {
+                // line 2
+                yield "    ";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["firstname"] ?? null), "html", null, true);
+                yield " ";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["lastname"] ?? null), "html", null, true);
+                yield "
+";
+                yield from [];
+            })())) ? '' : new Markup($tmp, $this->env->getCharset());            ;
             $twigCacheExtension->setCacheValue("index.twig", [            // line 1
 ($context["demo"] ?? null)],$twigCacheBody1);
             yield $twigCacheBody1;

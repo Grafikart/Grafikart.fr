@@ -79,7 +79,7 @@ test: vendor/autoload.php node_modules/time ## Execute les tests
 
 tt: vendor/autoload.php ## Lance le watcher phpunit
 	$(drtest) phptest bin/console doctrine:schema:validate --skip-sync
-	$(drtest) phptest bin/phpunit --filter AdminSecurityTest
+	$(drtest) phptest bin/phpunit --filter CacheExtensionTest
 	# $(drtest) phptest bin/console cache:clear --env=test
 	# $(drtest) phptest vendor/bin/phpunit-watcher watch --filter="nothing"
 
