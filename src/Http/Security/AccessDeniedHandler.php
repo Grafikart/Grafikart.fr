@@ -23,10 +23,12 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
         $attributes = $accessDeniedException->getAttributes();
         if (count($attributes) > 0) {
             $attribute = $attributes[0];
-            if (in_array($attribute, [
-                CourseVoter::DOWNLOAD_VIDEO,
-                CourseVoter::DOWNLOAD_SOURCE,
-            ])) {
+            if (
+                in_array($attribute, [
+                    CourseVoter::DOWNLOAD_VIDEO,
+                    CourseVoter::DOWNLOAD_SOURCE,
+                ])
+            ) {
                 $session = $request->getSession();
                 if ($session instanceof Session) {
                     $session->getFlashBag()->add('error', 'Vous devez être premium pour pouvoir télécharger les sources ou les vidéos');

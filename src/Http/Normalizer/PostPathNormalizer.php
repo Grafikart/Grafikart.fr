@@ -3,13 +3,12 @@
 namespace App\Http\Normalizer;
 
 use App\Domain\Blog\Post;
-use App\Domain\Forum\Entity\Tag;
 use App\Http\Encoder\PathEncoder;
 use App\Normalizer\Normalizer;
 
 class PostPathNormalizer extends Normalizer
 {
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         if ($object instanceof Post) {
             return [
@@ -20,7 +19,7 @@ class PostPathNormalizer extends Normalizer
         throw new \RuntimeException("Can't normalize path");
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return ($data instanceof Post)
             && PathEncoder::FORMAT === $format;
@@ -29,7 +28,7 @@ class PostPathNormalizer extends Normalizer
     public function getSupportedTypes(?string $format): array
     {
         return [
-            Post::class => true
+            Post::class => true,
         ];
     }
 }

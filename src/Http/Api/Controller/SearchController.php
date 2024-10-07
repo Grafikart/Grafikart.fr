@@ -17,7 +17,7 @@ class SearchController extends AbstractController
     public function __construct(
         private readonly SearchInterface $search,
         private readonly TechnologyRepository $technologyRepository,
-        private readonly SerializerInterface $serializer
+        private readonly SerializerInterface $serializer,
     ) {
     }
 

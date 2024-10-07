@@ -14,7 +14,7 @@ final readonly class NotificationProcessor implements ProcessorInterface
     public function __construct(
         private ProcessorInterface $persistProcessor,
         private ProcessorInterface $removeProcessor,
-        private Security $security
+        private Security $security,
     ) {
     }
 

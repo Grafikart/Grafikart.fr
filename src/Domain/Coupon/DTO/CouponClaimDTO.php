@@ -7,16 +7,15 @@ use App\Domain\Coupon\Validator\CouponCode;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Demande d'activation d'un coupon
+ * Demande d'activation d'un coupon.
  */
 class CouponClaimDTO
 {
-
     public function __construct(
         private readonly User $user,
         #[Assert\NotBlank()]
         #[CouponCode()]
-        private string $code = ''
+        private string $code = '',
     ) {
     }
 
@@ -28,10 +27,11 @@ class CouponClaimDTO
     public function setCode(string $code): CouponClaimDTO
     {
         $this->code = $code;
+
         return $this;
     }
 
-    public function getUser():User
+    public function getUser(): User
     {
         return $this->user;
     }

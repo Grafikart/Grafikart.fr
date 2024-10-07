@@ -16,7 +16,7 @@ class DeleteAccountService
     public function __construct(
         private readonly EntityManagerInterface $em,
         private readonly EventDispatcherInterface $dispatcher,
-        private readonly AuthService $authService
+        private readonly AuthService $authService,
     ) {
     }
 

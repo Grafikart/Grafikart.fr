@@ -16,7 +16,7 @@ class Mailer
         private readonly Environment $twig,
         private readonly EnqueueMethod $enqueue,
         private readonly MailerInterface $mailer,
-        private readonly ?string $dkimKey = null
+        private readonly ?string $dkimKey = null,
     ) {
     }
 

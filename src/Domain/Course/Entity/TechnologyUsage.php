@@ -9,12 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
 class TechnologyUsage
 {
     #[ORM\Id]
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Course\Entity\Technology::class, inversedBy: 'usages', cascade: ['persist'])]
+    #[ORM\ManyToOne(targetEntity: Technology::class, inversedBy: 'usages', cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false)]
     private Technology $technology;
 
     #[ORM\Id]
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Application\Entity\Content::class, inversedBy: 'technologyUsages')]
+    #[ORM\ManyToOne(targetEntity: Content::class, inversedBy: 'technologyUsages')]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private Content $content;
 

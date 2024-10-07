@@ -16,7 +16,7 @@ class PaymentRefundedSubscriber implements EventSubscriberInterface
     public function __construct(
         private readonly TransactionRepository $transactionRepository,
         private readonly EventDispatcherInterface $dispatcher,
-        private readonly EntityManagerInterface $em
+        private readonly EntityManagerInterface $em,
     ) {
     }
 

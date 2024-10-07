@@ -26,7 +26,7 @@ class PodcastVote
         private User $voter,
         #[ORM\ManyToOne(targetEntity: Podcast::class)]
         #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
-        private Podcast $podcast
+        private Podcast $podcast,
     ) {
         $this->createdAt = new \DateTimeImmutable();
     }

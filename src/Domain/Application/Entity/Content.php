@@ -45,18 +45,18 @@ abstract class Content implements CacheableInterface
     #[ORM\Column(type: 'boolean', options: ['default' => 0])]
     private bool $online = false;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Attachment\Attachment::class, cascade: ['persist'])]
+    #[ORM\ManyToOne(targetEntity: Attachment::class, cascade: ['persist'])]
     #[ORM\JoinColumn(name: 'attachment_id', referencedColumnName: 'id')]
     private ?Attachment $image = null;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Auth\User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id')]
     private ?User $author = null;
 
     /**
      * @var Collection<int, TechnologyUsage>
      */
-    #[ORM\OneToMany(targetEntity: \App\Domain\Course\Entity\TechnologyUsage::class, mappedBy: 'content', cascade: ['persist'])]
+    #[ORM\OneToMany(targetEntity: TechnologyUsage::class, mappedBy: 'content', cascade: ['persist'])]
     private Collection $technologyUsages;
 
     public function __construct()
@@ -70,8 +70,6 @@ abstract class Content implements CacheableInterface
     }
 
     /**
-     * @param int $id
-     *
      * @return $this
      */
     public function setId(?int $id): self
@@ -87,8 +85,6 @@ abstract class Content implements CacheableInterface
     }
 
     /**
-     * @param string $title
-     *
      * @return $this
      */
     public function setTitle(?string $title): self
@@ -104,8 +100,6 @@ abstract class Content implements CacheableInterface
     }
 
     /**
-     * @param string $slug
-     *
      * @return $this
      */
     public function setSlug(?string $slug): self
@@ -132,8 +126,6 @@ abstract class Content implements CacheableInterface
     }
 
     /**
-     * @param string $content
-     *
      * @return $this
      */
     public function setContent(?string $content): self
@@ -312,8 +304,6 @@ abstract class Content implements CacheableInterface
     }
 
     /**
-     * @param User $author
-     *
      * @return $this
      */
     public function setAuthor(?User $author): self

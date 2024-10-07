@@ -11,16 +11,16 @@ class FormationNormalizer implements NormalizerInterface
 {
     public function __construct(
         private readonly FormationPathNormalizer $pathNormalizer,
-        private readonly UrlGeneratorInterface $urlGenerator
+        private readonly UrlGeneratorInterface $urlGenerator,
     ) {
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof Formation && 'search' === $format;
     }
 
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         if (!$object instanceof Formation) {
             throw new \InvalidArgumentException('Unexpected type for normalization, expected Formation, got '.$object::class);
@@ -42,7 +42,7 @@ class FormationNormalizer implements NormalizerInterface
     public function getSupportedTypes(?string $format): array
     {
         return [
-            Formation::class => true
+            Formation::class => true,
         ];
     }
 }

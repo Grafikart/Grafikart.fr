@@ -78,12 +78,12 @@ class AutomaticForm extends AbstractType
             if (array_key_exists($name, self::NAMES)) {
                 $builder->add($name, self::NAMES[$name], [
                     'required' => false,
-                    ...$extra
+                    ...$extra,
                 ]);
             } elseif (array_key_exists($typeName, self::TYPES)) {
                 $builder->add($name, self::TYPES[$typeName], [
                     'required' => !$type->allowsNull() && 'bool' !== $typeName,
-                    ...$extra
+                    ...$extra,
                 ]);
             } else {
                 throw new \RuntimeException(sprintf('Impossible de trouver le champs associé au type %s dans %s::%s', $typeName, $data::class, $name));
@@ -95,7 +95,7 @@ class AutomaticForm extends AbstractType
     {
         if ($type === \DateTimeInterface::class) {
             return [
-                'input' => "datetime_immutable"
+                'input' => 'datetime_immutable',
             ];
         }
         if ('requirements' === $name) {
@@ -104,11 +104,10 @@ class AutomaticForm extends AbstractType
         if ('level' === $name) {
             return [
                 'choices' => array_flip(Formation::$levels),
-                'required' => true
+                'required' => true,
             ];
         }
+
         return [];
-
-
     }
 }

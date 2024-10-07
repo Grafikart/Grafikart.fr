@@ -16,7 +16,7 @@ final readonly class CommentApiProvider implements ProviderInterface
 {
     public function __construct(
         private CommentRepository $commentRepository,
-        private UploaderHelper $uploaderHelper
+        private UploaderHelper $uploaderHelper,
     ) {
     }
 

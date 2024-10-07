@@ -3,13 +3,12 @@
 namespace App\Http\Normalizer;
 
 use App\Domain\Auth\User;
-use App\Domain\Course\Entity\Technology;
 use App\Http\Encoder\PathEncoder;
 use App\Normalizer\Normalizer;
 
 class UserPathNormalizer extends Normalizer
 {
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         if ($object instanceof User) {
             return [
@@ -20,7 +19,7 @@ class UserPathNormalizer extends Normalizer
         throw new \RuntimeException("Can't normalize path");
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof User && PathEncoder::FORMAT === $format;
     }
@@ -28,7 +27,7 @@ class UserPathNormalizer extends Normalizer
     public function getSupportedTypes(?string $format): array
     {
         return [
-            User::class => true
+            User::class => true,
         ];
     }
 }

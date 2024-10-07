@@ -6,7 +6,6 @@ use App\Domain\Forum\Entity\ForumReaderUserInterface;
 use App\Domain\Notification\Entity\Notifiable;
 use App\Domain\Premium\Entity\PremiumTrait;
 use App\Domain\Profile\Entity\DeletableTrait;
-use App\Domain\School\Entity\School;
 use App\Http\Twig\CacheExtension\CacheableInterface;
 use App\Infrastructure\Payment\Stripe\StripeEntity;
 use App\Infrastructure\Social\Entity\SocialLoggableTrait;
@@ -20,7 +19,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[Vich\Uploadable]
 #[ORM\Table(name: '`user`')]
-#[ORM\Entity(repositoryClass: \App\Domain\Auth\UserRepository::class)]
+#[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], repositoryMethod: 'findByCaseInsensitive')]
 #[UniqueEntity(fields: ['username'], repositoryMethod: 'findByCaseInsensitive')]
 class User implements UserInterface, ForumReaderUserInterface, CacheableInterface, PasswordAuthenticatedUserInterface
@@ -154,9 +153,6 @@ class User implements UserInterface, ForumReaderUserInterface, CacheableInterfac
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getRoles(): array
     {
         $roles = $this->roles;
@@ -166,17 +162,11 @@ class User implements UserInterface, ForumReaderUserInterface, CacheableInterfac
         return array_unique($roles);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSalt(): ?string
     {
         return null;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function eraseCredentials(): void
     {
     }
@@ -389,6 +379,7 @@ class User implements UserInterface, ForumReaderUserInterface, CacheableInterfac
     public function setRegistrationDuration(int $registrationDuration): self
     {
         $this->registrationDuration = $registrationDuration;
+
         return $this;
     }
 }

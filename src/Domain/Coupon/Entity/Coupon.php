@@ -5,7 +5,6 @@ namespace App\Domain\Coupon\Entity;
 use App\Domain\Auth\User;
 use App\Domain\Coupon\Repository\CouponRepository;
 use App\Domain\School\Entity\School;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CouponRepository::class)]
@@ -41,6 +40,7 @@ class Coupon
     public function setId(string $id): self
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -105,6 +105,7 @@ class Coupon
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
         return $this;
     }
 
@@ -116,6 +117,7 @@ class Coupon
     public function setMonths(int $months): self
     {
         $this->months = $months;
+
         return $this;
     }
 

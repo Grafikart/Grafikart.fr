@@ -42,7 +42,7 @@ class Badge
         #[ORM\Column(type: 'integer', options: ['default' => 0])]
         private int $actionCount = 0,
         #[ORM\Column(type: 'string', length: 255, options: ['default' => 'grey'])]
-        private string $theme = 'grey'
+        private string $theme = 'grey',
     ) {
         $this->updatedAt = new \DateTimeImmutable();
     }

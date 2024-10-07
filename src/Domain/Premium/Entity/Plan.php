@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Plan
 {
     use StripeEntity;
+
     #[ORM\Id]
     #[ORM\GeneratedValue()]
     #[ORM\Column(type: 'integer')]

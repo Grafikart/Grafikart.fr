@@ -11,7 +11,6 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class CaptchaController extends AbstractController
 {
-
     #[Route('/captcha', methods: ['GET'])]
     public function captcha(CaptchaImageService $captchaImageService): Response
     {
@@ -28,6 +27,6 @@ class CaptchaController extends AbstractController
             return new Response(null, Response::HTTP_NO_CONTENT);
         }
 
-        return new Response("{}", Response::HTTP_UNPROCESSABLE_ENTITY);
+        return new Response('{}', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 }

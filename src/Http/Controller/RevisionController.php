@@ -26,7 +26,7 @@ class RevisionController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function index(
         RevisionRepository $repository,
-        PaginatorInterface $paginator
+        PaginatorInterface $paginator,
     ): Response {
         $query = $repository->queryAllForUser($this->getUserOrThrow());
         $revisions = $paginator->paginate($query->getQuery());

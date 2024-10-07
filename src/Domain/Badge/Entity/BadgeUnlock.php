@@ -23,7 +23,7 @@ class BadgeUnlock
         private User $owner,
         #[ORM\ManyToOne(targetEntity: Badge::class)]
         #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
-        private Badge $badge
+        private Badge $badge,
     ) {
         $this->createdAt = new \DateTimeImmutable();
     }

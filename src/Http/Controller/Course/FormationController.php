@@ -58,7 +58,7 @@ class FormationController extends AbstractController
     #[Route(path: '/formations/{slug:formation}', name: 'formation_show', requirements: ['slug' => Requirements::SLUG])]
     public function show(
         Formation $formation,
-        ProgressRepository $progressRepository
+        ProgressRepository $progressRepository,
     ): Response {
         if ($formation->isForceRedirect() && $formation->getDeprecatedBy()) {
             $newFormation = $formation->getDeprecatedBy();
@@ -89,7 +89,7 @@ class FormationController extends AbstractController
         Formation $formation,
         HistoryService $historyService,
         EntityManagerInterface $em,
-        NormalizerInterface $normalizer
+        NormalizerInterface $normalizer,
     ): RedirectResponse {
         $user = $this->getUser();
         $ids = $formation->getModulesIds();

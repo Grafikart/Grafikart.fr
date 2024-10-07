@@ -10,7 +10,6 @@ use App\Domain\Password\Form\PasswordResetConfirmForm;
 use App\Domain\Password\Form\PasswordResetRequestForm;
 use App\Domain\Password\PasswordService;
 use App\Http\Requirements;
-use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,7 +47,7 @@ class PasswordController extends AbstractController
         Request $request,
         User $user,
         ?PasswordResetToken $token,
-        PasswordService $service
+        PasswordService $service,
     ): Response {
         if (!$token || $service->isExpired($token) || $token->getUser() !== $user) {
             $this->addFlash('error', 'Ce token a expiré');

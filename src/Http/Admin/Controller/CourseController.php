@@ -68,10 +68,10 @@ final class CourseController extends CrudController
 
     #[Route(path: '/{id<\d+>}', name: 'edit', methods: ['POST', 'GET'])]
     public function edit(
-        Request          $request,
-        Course           $course,
+        Request $request,
+        Course $course,
         SessionInterface $session,
-        UploadHandler    $uploaderHelper,
+        UploadHandler $uploaderHelper,
     ): Response {
         $data = (new CourseCrudData($course, $uploaderHelper))->setEntityManager($this->em);
         $response = $this->crudEdit($data);
@@ -107,7 +107,7 @@ final class CourseController extends CrudController
             $dispatcher->dispatch(new $this->events['delete']($course));
         }
 
-        return $this->redirectBack(($this->routePrefix.'_index'));
+        return $this->redirectBack($this->routePrefix.'_index');
     }
 
     /**
@@ -115,9 +115,9 @@ final class CourseController extends CrudController
      */
     #[Route(path: '/upload', methods: ['GET'], name: 'upload')]
     public function upload(
-        Request             $request,
-        SessionInterface    $session,
-        \Google_Client      $googleClient,
+        Request $request,
+        SessionInterface $session,
+        \Google_Client $googleClient,
         MessageBusInterface $messageBus,
     ): Response {
         // Si on n'a pas d'id dans la session, on redirige
@@ -142,7 +142,7 @@ final class CourseController extends CrudController
             $messageBus,
             YoutubeUploaderService::class,
             'upload',
-            [(int)$courseId, $googleClient->getAccessToken()]
+            [(int) $courseId, $googleClient->getAccessToken()]
         );
         $this->addFlash('success', "La vidéo est en cours d'envoi sur Youtube");
         $session->remove(self::UPLOAD_SESSION_KEY);

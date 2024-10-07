@@ -40,11 +40,11 @@ abstract class CrudController extends BaseController
         protected EntityManagerInterface $em,
         protected PaginatorInterface $paginator,
         private readonly EventDispatcherInterface $dispatcher,
-        private readonly RequestStack $requestStack
+        private readonly RequestStack $requestStack,
     ) {
     }
 
-    public function crudIndex(QueryBuilder $query = null, array $extraParams = []): Response
+    public function crudIndex(?QueryBuilder $query = null, array $extraParams = []): Response
     {
         /** @var Request $request */
         $request = $this->requestStack->getCurrentRequest();
@@ -139,7 +139,7 @@ abstract class CrudController extends BaseController
     public function getRepository(): EntityRepository
     {
         /* @var EntityRepository */
-        return $this->em->getRepository($this->entity); /* @phpstan-ignore-line */
+        return $this->em->getRepository($this->entity);
     }
 
     protected function applySearch(string $search, QueryBuilder $query): QueryBuilder

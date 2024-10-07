@@ -27,16 +27,16 @@ class RegistrationController extends AbstractController
 {
     #[Route(path: '/inscription', name: 'register')]
     public function register(
-        Request                     $request,
+        Request $request,
         UserPasswordHasherInterface $hasher,
-        EntityManagerInterface      $em,
-        TokenGeneratorService       $tokenGenerator,
-        EventDispatcherInterface    $dispatcher,
-        SocialLoginService          $socialLoginService,
-        UserAuthenticatorInterface  $authenticator,
-        Authenticator               $appAuthenticator,
-        CouponClaimerService        $couponClaimerService,
-        GeoIpService                $ipService,
+        EntityManagerInterface $em,
+        TokenGeneratorService $tokenGenerator,
+        EventDispatcherInterface $dispatcher,
+        SocialLoginService $socialLoginService,
+        UserAuthenticatorInterface $authenticator,
+        Authenticator $appAuthenticator,
+        CouponClaimerService $couponClaimerService,
+        GeoIpService $ipService,
     ): Response {
         // Si l'utilisateur est connecté, on le redirige vers la home
         $loggedInUser = $this->getUser();
@@ -60,11 +60,12 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // On shadow inscrit les bots
             $location = $ipService->getLocation($request->getClientIp() ?? '');
-            if ($location && in_array($location->country, ['IN','VN', 'RU', 'CN'])) {
+            if ($location && in_array($location->country, ['IN', 'VN', 'RU', 'CN'])) {
                 $this->addFlash(
                     'success',
                     'Votre compte a été créé avec succès'
                 );
+
                 return $this->redirectToRoute('auth_login');
             }
 

@@ -13,8 +13,8 @@ class PostVoter extends Voter
     protected function supports(string $attribute, $subject): bool
     {
         return in_array($attribute, [
-                self::SHOW,
-            ]) && ($subject instanceof Post);
+            self::SHOW,
+        ]) && ($subject instanceof Post);
     }
 
     /**

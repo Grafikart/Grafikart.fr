@@ -201,9 +201,6 @@ class Podcast
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getYoutube(): ?string
     {
         return $this->youtube;

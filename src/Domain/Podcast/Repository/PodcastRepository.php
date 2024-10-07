@@ -114,14 +114,14 @@ class PodcastRepository extends AbstractRepository
             LEFT JOIN "user" u ON pu.user_id = u.id
             WHERE pu.podcast_id IN (?)
         SQL, $rsm);
-        $query->setParameter(1, array_map(fn(Podcast $p) => $p->getId(), $podcasts));
+        $query->setParameter(1, array_map(fn (Podcast $p) => $p->getId(), $podcasts));
 
         return $query->getResult();
     }
 
     public function countRecentFromUser(User $user): int
     {
-        return $this->createQueryBuilder('p')
+        return (int) $this->createQueryBuilder('p')
             ->select('COUNT(p.id)')
             ->where('p.author = :author')
             ->andWhere('p.createdAt > :date')

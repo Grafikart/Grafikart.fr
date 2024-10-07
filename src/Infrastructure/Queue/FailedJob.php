@@ -16,9 +16,7 @@ class FailedJob
         // On obtient l'ID depuis le stamp doctrine
         /** @var ?DoctrineReceivedStamp $stamp */
         $stamp = $envelope->last(DoctrineReceivedStamp::class);
-        if ($stamp) {
-            $this->id = $stamp->getId();
-        }
+        $this->id = $stamp?->getId() ?? '';
     }
 
     public function getId(): string

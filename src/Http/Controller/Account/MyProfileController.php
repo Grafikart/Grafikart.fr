@@ -17,7 +17,7 @@ class MyProfileController extends AbstractController
     public function index(
         HistoryService $history,
         TopicRepository $topicRepository,
-        RevisionRepository $revisionRepository
+        RevisionRepository $revisionRepository,
     ): Response {
         $user = $this->getUserOrThrow();
         $revisions = $revisionRepository->findPendingFor($user);

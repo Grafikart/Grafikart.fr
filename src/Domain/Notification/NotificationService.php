@@ -21,7 +21,7 @@ class NotificationService
         private readonly SerializerInterface $serializer,
         private readonly EntityManagerInterface $em,
         private readonly EventDispatcherInterface $dispatcher,
-        private readonly Security $security
+        private readonly Security $security,
     ) {
     }
 

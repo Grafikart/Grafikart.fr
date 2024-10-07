@@ -15,17 +15,18 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Message implements SpammableInterface, CacheableInterface
 {
     use SpamTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue()]
     #[ORM\Column(type: 'integer')]
     #[Groups(['read:message'])]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Forum\Entity\Topic::class, inversedBy: 'messages')]
+    #[ORM\ManyToOne(targetEntity: Topic::class, inversedBy: 'messages')]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private Topic $topic;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Auth\User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private User $author;
 

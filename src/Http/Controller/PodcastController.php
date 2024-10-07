@@ -21,7 +21,7 @@ class PodcastController extends AbstractController
     public function index(
         Request $request,
         PodcastRepository $podcastRepository,
-        PaginatorInterface $paginator
+        PaginatorInterface $paginator,
     ): Response {
         $future = $podcastRepository->findFuture();
         $podcasts = $paginator->paginate($podcastRepository->queryPast()->setMaxResults(11)->getQuery());
@@ -53,7 +53,7 @@ class PodcastController extends AbstractController
         PodcastVoteRepository $podcastVoteRepository,
         PodcastService $podcastService,
         Request $request,
-        AuthorizationCheckerInterface $auth
+        AuthorizationCheckerInterface $auth,
     ): Response {
         $form = null;
         $user = $this->getUser();

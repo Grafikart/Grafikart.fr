@@ -13,7 +13,7 @@ class UserAuthenticatedException extends AuthenticationException
 {
     public function __construct(
         private readonly User $user,
-        private readonly ResourceOwnerInterface $resourceOwner
+        private readonly ResourceOwnerInterface $resourceOwner,
     ) {
     }
 

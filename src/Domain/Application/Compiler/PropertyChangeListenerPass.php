@@ -24,9 +24,6 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class PropertyChangeListenerPass implements CompilerPassInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function process(ContainerBuilder $container): void
     {
         $resolvers = $container->findTaggedServiceIds('doctrine.orm.property_change_listener');

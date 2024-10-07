@@ -6,10 +6,10 @@ use App\Domain\Application\Entity\Content;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Table('blog_post')]
-#[ORM\Entity(repositoryClass: \App\Domain\Blog\Repository\PostRepository::class)]
+#[ORM\Entity(repositoryClass: Repository\PostRepository::class)]
 class Post extends Content
 {
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Blog\Category::class, inversedBy: 'posts')]
+    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'posts')]
     #[ORM\JoinColumn(onDelete: 'SET NULL')]
     private ?Category $category = null;
 

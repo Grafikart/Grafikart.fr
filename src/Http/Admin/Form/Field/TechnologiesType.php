@@ -86,10 +86,10 @@ class TechnologiesType extends TextType implements DataTransformerInterface
 
         // On trouve les technologies depuis la base de données
         $technologies = $this->repository->findByNames(array_keys($versions));
-        $technologiesByName = collect($technologies)->keyBy(fn ($t) => $t->getName())->toArray();
+        $technologiesByName = collect($technologies)->keyBy(fn (Technology $t) => $t->getName() ?? '')->toArray();
 
         foreach ($versions as $name => $version) {
-            // Si la technologie n'existe pas déjà on la crée
+            // Si la technologie n'existe pas déjà, on la crée
             if (!isset($technologiesByName[$name])) {
                 $technologies[] = (new Technology())
                     ->setVersion($version)

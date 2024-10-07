@@ -4,7 +4,6 @@ namespace App\Tests\Http\Controller\Course;
 
 use App\Domain\Auth\User;
 use App\Domain\Course\Entity\Course;
-use App\Helper\Paginator\PageOutOfBoundException;
 use App\Tests\FixturesTrait;
 use App\Tests\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;

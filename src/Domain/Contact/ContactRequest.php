@@ -8,7 +8,7 @@ use geertw\IpAnonymizer\IpAnonymizer;
 /**
  * Sauvegarde les demandes de contact afin de limiter le spam.
  */
-#[ORM\Entity(repositoryClass: \App\Domain\Contact\ContactRequestRepository::class)]
+#[ORM\Entity(repositoryClass: ContactRequestRepository::class)]
 class ContactRequest
 {
     #[ORM\Id]

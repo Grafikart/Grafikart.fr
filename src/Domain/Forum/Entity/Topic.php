@@ -51,24 +51,24 @@ class Topic implements SpammableInterface, CacheableInterface
     private ?\DateTimeInterface $updatedAt = null;
 
     #[ORM\JoinTable(name: 'forum_topic_tag')]
-    #[ORM\ManyToMany(targetEntity: \App\Domain\Forum\Entity\Tag::class, inversedBy: 'topics')]
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'topics')]
     #[Assert\NotBlank]
     #[Assert\Count(min: 1, max: 3)]
     #[Groups(['read:topic'])]
     private Collection $tags;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Auth\User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private User $author;
 
     #[ORM\Column(type: 'integer', options: ['default' => 0])]
     private int $messageCount = 0;
 
-    #[ORM\OneToMany(targetEntity: \App\Domain\Forum\Entity\Message::class, mappedBy: 'topic')]
+    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'topic')]
     #[ORM\OrderBy(['accepted' => 'DESC', 'createdAt' => 'ASC'])]
     private Collection $messages;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Forum\Entity\Message::class)]
+    #[ORM\ManyToOne(targetEntity: Message::class)]
     #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
     private ?Message $lastMessage = null;
 

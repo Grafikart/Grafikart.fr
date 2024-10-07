@@ -2,8 +2,6 @@
 
 namespace App\Domain\School\Repository;
 
-use App\Domain\Application\Entity\Content;
-use App\Domain\Auth\User;
 use App\Domain\School\Entity\School;
 use App\Infrastructure\Orm\AbstractRepository;
 use Doctrine\ORM\Query;
@@ -25,6 +23,7 @@ class SchoolRepository extends AbstractRepository
         if (!$schoolOwnerId) {
             throw new \RuntimeException('School must have an owner');
         }
+
         return $this->getEntityManager()->createQuery(<<<DQL
             SELECT u FROM App\Domain\Auth\User u WHERE u.school = :school AND u.id != :owner
         DQL)->setParameter('school', $school)->setParameter('owner', $schoolOwnerId);

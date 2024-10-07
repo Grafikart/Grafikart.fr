@@ -19,12 +19,12 @@ class ContactServiceTest extends TestCase
     /**
      * @var MockObject|ContactRequestRepository
      */
-    private \PHPUnit\Framework\MockObject\MockObject $repository;
+    private MockObject $repository;
 
     /**
      * @var MockObject|EntityManagerInterface
      */
-    private \PHPUnit\Framework\MockObject\MockObject $em;
+    private MockObject $em;
 
     private ContactService $service;
 

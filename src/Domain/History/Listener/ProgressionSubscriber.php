@@ -50,9 +50,10 @@ class ProgressionSubscriber implements EventSubscriberInterface
         }
 
         // On vient de finir un tutoriel, on met alors à jour la progression dans la formation
-        if ($event->getContent() instanceof Course &&
-            $event->getContent()->getFormation() &&
-            1.0 === $event->getProgress()
+        if (
+            $event->getContent() instanceof Course
+            && $event->getContent()->getFormation()
+            && 1.0 === $event->getProgress()
         ) {
             /** @var Formation $formation */
             $formation = $event->getContent()->getFormation();

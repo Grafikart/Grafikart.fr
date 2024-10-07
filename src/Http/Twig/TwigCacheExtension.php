@@ -14,7 +14,7 @@ class TwigCacheExtension extends AbstractExtension
 {
     public function __construct(
         private readonly CacheItemPoolInterface $cache,
-        private readonly bool $active = true
+        private readonly bool $active = true,
     ) {
     }
 
@@ -31,7 +31,7 @@ class TwigCacheExtension extends AbstractExtension
     public function getCacheKey(
         string $templatePath,
         mixed $item,
-        bool $prefix = true
+        bool $prefix = true,
     ): string {
         if (true === $prefix) {
             $prefix = (new AsciiSlugger())->slug(str_replace('.html.twig', '', $templatePath)).'_';
@@ -73,7 +73,7 @@ class TwigCacheExtension extends AbstractExtension
 
     public function getCacheValue(
         string $templatePath,
-        mixed $item
+        mixed $item,
     ): ?string {
         if (!$this->active) {
             return null;
@@ -86,7 +86,7 @@ class TwigCacheExtension extends AbstractExtension
     public function setCacheValue(
         string $templatePath,
         mixed $item,
-        string $value
+        string $value,
     ): void {
         if (!$this->active) {
             return;

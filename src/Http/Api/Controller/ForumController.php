@@ -17,7 +17,7 @@ class ForumController extends AbstractController
 {
     #[Route(path: '/read', name: 'forum/read_all', methods: ['POST'])]
     public function readAll(
-        TopicService $topicService
+        TopicService $topicService,
     ): JsonResponse {
         $this->denyAccessUnlessGranted(ForumVoter::READ_TOPICS);
         $topicService->readAllTopics($this->getUser());

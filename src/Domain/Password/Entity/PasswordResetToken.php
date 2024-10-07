@@ -19,7 +19,7 @@ class PasswordResetToken
     #[ORM\Column(type: 'string')]
     private string $token;
 
-    #[ORM\OneToOne(targetEntity: \App\Domain\Auth\User::class)]
+    #[ORM\OneToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private User $user;
 

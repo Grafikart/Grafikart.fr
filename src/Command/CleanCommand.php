@@ -23,7 +23,7 @@ class CleanCommand extends Command
 {
     public function __construct(
         private readonly EntityManagerInterface $em,
-        private readonly UploadHandler $uploaderHandler
+        private readonly UploadHandler $uploaderHandler,
     ) {
         parent::__construct();
     }

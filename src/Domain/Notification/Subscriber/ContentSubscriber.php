@@ -34,10 +34,11 @@ class ContentSubscriber implements EventSubscriberInterface
     public function onUpdate(ContentUpdatedEvent $event): void
     {
         $content = $event->getContent();
-        if (($content instanceof Course || $content instanceof Formation) &&
-            true === $content->isOnline() &&
-            false === $event->getPrevious()->isOnline() &&
-            $content->getCreatedAt() > new \DateTimeImmutable('- 1 days')
+        if (
+            ($content instanceof Course || $content instanceof Formation)
+            && true === $content->isOnline()
+            && false === $event->getPrevious()->isOnline()
+            && $content->getCreatedAt() > new \DateTimeImmutable('- 1 days')
         ) {
             $this->notifyContent($content);
         }
@@ -49,7 +50,8 @@ class ContentSubscriber implements EventSubscriberInterface
     public function onCreate(ContentCreatedEvent $event): void
     {
         $content = $event->getContent();
-        if (($content instanceof Course || $content instanceof Formation)
+        if (
+            ($content instanceof Course || $content instanceof Formation)
             && true === $content->isOnline()
         ) {
             $this->notifyContent($content);

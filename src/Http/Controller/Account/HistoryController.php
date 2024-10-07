@@ -20,7 +20,7 @@ class HistoryController extends AbstractController
     public function index(
         ProgressRepository $progressRepository,
         PaginatorInterface $paginator,
-        Request $request
+        Request $request,
     ): Response {
         $query = $progressRepository->queryAllForUser($this->getUserOrThrow());
         $filter = $request->get('filter', 'progress');

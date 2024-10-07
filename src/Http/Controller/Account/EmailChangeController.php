@@ -17,7 +17,7 @@ class EmailChangeController extends AbstractController
         EmailVerification $emailVerification,
         ProfileService $service,
         EntityManagerInterface $em,
-        UserRepository $userRepository
+        UserRepository $userRepository,
     ): Response {
         if ($emailVerification->isExpired()) {
             $this->addFlash('error', 'Cette demande de confirmation a expiré');

@@ -19,9 +19,9 @@ class NotExists extends Constraint
     #[HasNamedArguments]
     public function __construct(
         string $class = \stdClass::class,
-        array $groups = null,
+        ?array $groups = null,
         string $field = 'id',
-        string $message = 'A record was found for {{ value }}'
+        string $message = 'A record was found for {{ value }}',
     ) {
         parent::__construct([
             'field' => $field,

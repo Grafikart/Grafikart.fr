@@ -8,8 +8,6 @@ use App\Domain\Course\Entity\Course;
 use App\Domain\Course\Entity\Formation;
 use App\Domain\History\Entity\Progress;
 use App\Infrastructure\Orm\AbstractRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -29,7 +27,7 @@ class ProgressRepository extends AbstractRepository
             ->orderBy('p.updatedAt', 'DESC')
             ->leftJoin('p.content', 'c')
             ->addSelect('c')
-            ->where('(c INSTANCE OF ' . Course::class . ' OR c INSTANCE OF ' . Formation::class . ')')
+            ->where('(c INSTANCE OF '.Course::class.' OR c INSTANCE OF '.Formation::class.')')
             ->andWhere('p.author = :user')
             ->setParameter('user', $user->getId());
     }
@@ -48,7 +46,7 @@ class ProgressRepository extends AbstractRepository
             ->leftJoin('p.content', 'c')
             ->addSelect('c')
             ->where('p.author = :user')
-            ->andWhere('(c INSTANCE OF ' . Course::class . ' OR c INSTANCE OF ' . Formation::class . ')')
+            ->andWhere('(c INSTANCE OF '.Course::class.' OR c INSTANCE OF '.Formation::class.')')
             ->andWhere('p.progress < :progress')
             ->orderBy('p.updatedAt', 'DESC')
             ->setMaxResults(4)
@@ -69,7 +67,7 @@ class ProgressRepository extends AbstractRepository
             ->select('IDENTITY(p.content) as id', 'p.progress')
             ->where('p.content IN (:ids)')
             ->andWhere('p.author = :user')
-            ->setParameter('ids', array_map(fn(Content $c) => $c->getId(), $contents))
+            ->setParameter('ids', array_map(fn (Content $c) => $c->getId(), $contents))
             ->setParameter('user', $user)
             ->getQuery()
             ->getResult();
@@ -82,7 +80,7 @@ class ProgressRepository extends AbstractRepository
      */
     public function findFinishedIdWithin(User $user, array $ids): array
     {
-        return array_map(fn(Progress $p) => $p->getContent()->getId() ?: 0, $this->createQueryBuilder('p')
+        return array_map(fn (Progress $p) => $p->getContent()->getId() ?: 0, $this->createQueryBuilder('p')
             ->where('p.content IN (:ids)')
             ->andWhere('p.author = :user')
             ->andWhere('p.progress = :total')
@@ -94,8 +92,10 @@ class ProgressRepository extends AbstractRepository
     }
 
     /**
-     * Return the number of content completed by a user
+     * Return the number of content completed by a user.
+     *
      * @param int[] $users
+     *
      * @return array<string, int>
      */
     public function findCompletionForUsers(array $users): array
@@ -110,14 +110,17 @@ class ProgressRepository extends AbstractRepository
             ->setParameter('users', $users)
             ->getQuery()
             ->getArrayResult();
+
         return array_reduce($progressions, function (array $result, array $progress) {
-            $result[$progress["user_id"]] = $progress["total"];
+            $result[$progress['user_id']] = $progress['total'];
+
             return $result;
         }, []);
     }
 
     /**
-     * Return the progress for formations as an associative array
+     * Return the progress for formations as an associative array.
+     *
      * @return array<int, int>
      */
     public function findSeenFormations(User $user): array
@@ -132,8 +135,10 @@ class ProgressRepository extends AbstractRepository
             ->setParameter('user', $user)
             ->getQuery()
             ->getArrayResult();
+
         return array_reduce($results, function (array $acc, array $p) {
-            $acc[$p["content_id"]] = $p["progress"];
+            $acc[$p['content_id']] = $p['progress'];
+
             return $acc;
         }, []);
     }

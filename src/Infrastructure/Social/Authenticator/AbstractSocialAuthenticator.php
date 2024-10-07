@@ -14,7 +14,6 @@ use KnpU\OAuth2ClientBundle\Security\Authenticator\OAuth2Authenticator;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Token\AccessTokenInterface;
-use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
@@ -25,6 +24,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\RememberMeBadge
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
+use Symfony\Component\Security\Http\SecurityRequestAttributes;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 abstract class AbstractSocialAuthenticator extends OAuth2Authenticator
@@ -37,7 +37,7 @@ abstract class AbstractSocialAuthenticator extends OAuth2Authenticator
         private readonly ClientRegistry $clientRegistry,
         protected EntityManagerInterface $em,
         private readonly RouterInterface $router,
-        private readonly AuthService $authService
+        private readonly AuthService $authService,
     ) {
     }
 
@@ -50,7 +50,7 @@ abstract class AbstractSocialAuthenticator extends OAuth2Authenticator
         return 'oauth_check' === $request->attributes->get('_route') && $request->get('service') === $this->serviceName;
     }
 
-    public function start(Request $request, AuthenticationException $authException = null): RedirectResponse
+    public function start(Request $request, ?AuthenticationException $authException = null): RedirectResponse
     {
         return new RedirectResponse($this->router->generate('auth_login'));
     }
@@ -106,7 +106,7 @@ abstract class AbstractSocialAuthenticator extends OAuth2Authenticator
         }
 
         if ($request->hasSession()) {
-            $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);
+            $request->getSession()->set(SecurityRequestAttributes::AUTHENTICATION_ERROR, $exception);
         }
 
         return new RedirectResponse($this->router->generate('auth_login'));
@@ -115,7 +115,7 @@ abstract class AbstractSocialAuthenticator extends OAuth2Authenticator
     public function onAuthenticationSuccess(
         Request $request,
         TokenInterface $token,
-        string $firewallName
+        string $firewallName,
     ): RedirectResponse {
         // On force le remember me pour déclencher le AbstractRememberMeServices (en attendant mieux)
         $request->request->set('_remember_me', '1');
@@ -134,7 +134,7 @@ abstract class AbstractSocialAuthenticator extends OAuth2Authenticator
 
     protected function getUserFromResourceOwner(
         ResourceOwnerInterface $resourceOwner,
-        UserRepository $repository
+        UserRepository $repository,
     ): ?User {
         return null;
     }

@@ -20,12 +20,12 @@ class ProgressionSubscriberTest extends TestCase
     /**
      * @var MockObject|ProgressRepository
      */
-    private \PHPUnit\Framework\MockObject\MockObject $repository;
+    private MockObject $repository;
 
     /**
      * @var MockObject|EntityManagerInterface
      */
-    private \PHPUnit\Framework\MockObject\MockObject $em;
+    private MockObject $em;
 
     /**
      * @var MockObject|EventDispatcherInterface
