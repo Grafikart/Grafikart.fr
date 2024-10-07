@@ -8,7 +8,7 @@ use App\Normalizer\Normalizer;
 
 class RevisionPathNormalizer extends Normalizer
 {
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         if ($object instanceof Revision) {
             return [
@@ -18,7 +18,7 @@ class RevisionPathNormalizer extends Normalizer
         throw new \RuntimeException("Can't normalize path");
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof Revision && PathEncoder::FORMAT === $format;
     }
@@ -26,7 +26,7 @@ class RevisionPathNormalizer extends Normalizer
     public function getSupportedTypes(?string $format): array
     {
         return [
-            Revision::class => true
+            Revision::class => true,
         ];
     }
 }

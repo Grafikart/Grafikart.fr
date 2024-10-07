@@ -4,7 +4,6 @@ namespace App\Domain\Auth;
 
 use App\Domain\Auth\Event\BadPasswordLoginEvent;
 use Psr\EventDispatcher\EventDispatcherInterface;
-use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,7 +33,7 @@ class Authenticator extends AbstractLoginFormAuthenticator
         private readonly UserRepository $userRepository,
         private readonly UrlGeneratorInterface $urlGenerator,
         private readonly EventDispatcherInterface $eventDispatcher,
-        private readonly UrlMatcherInterface $urlMatcher
+        private readonly UrlMatcherInterface $urlMatcher,
     ) {
     }
 
@@ -58,7 +57,7 @@ class Authenticator extends AbstractLoginFormAuthenticator
     public function onAuthenticationSuccess(
         Request $request,
         TokenInterface $token,
-        string $firewallName
+        string $firewallName,
     ): RedirectResponse {
         if ($redirect = $request->get('redirect')) {
             try {
@@ -79,8 +78,9 @@ class Authenticator extends AbstractLoginFormAuthenticator
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): Response
     {
         $user = $this->lastPassport?->getUser();
-        if ($user instanceof User &&
-            $exception instanceof BadCredentialsException
+        if (
+            $user instanceof User
+            && $exception instanceof BadCredentialsException
         ) {
             $this->eventDispatcher->dispatch(new BadPasswordLoginEvent($user));
         }
@@ -96,11 +96,11 @@ class Authenticator extends AbstractLoginFormAuthenticator
     /**
      * @return RedirectResponse|JsonResponse
      */
-    public function start(Request $request, AuthenticationException $authException = null): Response
+    public function start(Request $request, ?AuthenticationException $authException = null): Response
     {
         $url = $this->getLoginUrl($request);
 
-        if ('json' === $request->getContentType()) {
+        if (in_array('application/json', $request->getAcceptableContentTypes())) {
             return new JsonResponse([], Response::HTTP_FORBIDDEN);
         }
 

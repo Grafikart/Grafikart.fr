@@ -12,7 +12,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class CouponCrudData extends AutomaticCrudData
 {
-
     public string $id;
 
     #[Assert\NotBlank]

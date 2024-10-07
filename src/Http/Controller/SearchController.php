@@ -22,7 +22,7 @@ class SearchController extends AbstractController
         Request $request,
         SearchInterface $search,
         NormalizerInterface $normalizer,
-        TechnologyRepository $technologyRepository
+        TechnologyRepository $technologyRepository,
     ): Response {
         $q = $request->query->get('q', '');
         $redirect = $request->query->get('redirect', '1');

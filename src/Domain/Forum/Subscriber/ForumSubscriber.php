@@ -16,7 +16,7 @@ class ForumSubscriber implements EventSubscriberInterface
         private readonly TopicRepository $topicRepository,
         private readonly MessageRepository $messageRepository,
         private readonly EntityManagerInterface $em,
-        private readonly TopicService $topicService
+        private readonly TopicService $topicService,
     ) {
     }
 

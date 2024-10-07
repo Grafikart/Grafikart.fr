@@ -7,9 +7,8 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class CaptchaKeyService
 {
-
     public const CAPTCHA_WIDTH = 350;
-    public const CAPTCHA_HEIGHT= 200;
+    public const CAPTCHA_HEIGHT = 200;
     public const CAPTCHA_PIECE_WIDTH = 80;
     public const CAPTCHA_PIECE_HEIGHT = 50;
     private const MARGIN_OF_ERROR = 5;
@@ -41,13 +40,13 @@ class CaptchaKeyService
 
     public function verifyKey(string $guessKey): bool
     {
-        $guess = array_map(fn(string $v) => intval($v), explode('-', $guessKey));
+        $guess = array_map(fn (string $v) => intval($v), explode('-', $guessKey));
         $key = $this->getSession()->get(self::SESSION_KEY);
         if ($key === null) {
             return false;
         }
         $keyLength = count($key);
-        for ($i = 0; $i < $keyLength; $i++) {
+        for ($i = 0; $i < $keyLength; ++$i) {
             // Le nombre est trop petit ou trop grand
             $min = $key[$i] - self::MARGIN_OF_ERROR;
             $max = $key[$i] + self::MARGIN_OF_ERROR;
@@ -60,9 +59,11 @@ class CaptchaKeyService
                 }
                 $session->set(self::SESSION_KEY_TRIES, $tries);
                 $session->save();
+
                 return false;
             }
         }
+
         return true;
     }
 

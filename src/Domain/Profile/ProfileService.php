@@ -19,7 +19,7 @@ class ProfileService
         private readonly TokenGeneratorService $tokenGeneratorService,
         private readonly EmailVerificationRepository $emailVerificationRepository,
         private readonly EventDispatcherInterface $dispatcher,
-        private readonly EntityManagerInterface $em
+        private readonly EntityManagerInterface $em,
     ) {
     }
 

@@ -18,11 +18,11 @@ class Progress
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Auth\User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private User $author;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Application\Entity\Content::class)]
+    #[ORM\ManyToOne(targetEntity: Content::class)]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private Content $content;
 

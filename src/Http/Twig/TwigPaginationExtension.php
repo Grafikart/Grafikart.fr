@@ -39,7 +39,7 @@ class TwigPaginationExtension extends AbstractExtension
         Environment $env,
         SlidingPagination $pagination,
         array $queryParams = [],
-        array $viewParams = []
+        array $viewParams = [],
     ): string {
         return $env->render(
             $pagination->getTemplate() ?: 'partials/pagination.html.twig',
@@ -51,7 +51,7 @@ class TwigPaginationExtension extends AbstractExtension
         Environment $env,
         SlidingPagination $pagination,
         array $queryParams = [],
-        array $viewParams = []
+        array $viewParams = [],
     ): string {
         $pagination->setTemplate('partials/pagination-nav.html.twig');
 
@@ -65,7 +65,7 @@ class TwigPaginationExtension extends AbstractExtension
         string $key,
         array $options = [],
         array $params = [],
-        ?string $template = null
+        ?string $template = null,
     ): string {
         return $env->render(
             $template ?: (string) $pagination->getSortableTemplate(),

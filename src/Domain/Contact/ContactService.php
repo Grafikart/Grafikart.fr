@@ -13,7 +13,7 @@ class ContactService
     public function __construct(
         private readonly ContactRequestRepository $repository,
         private readonly EntityManagerInterface $em,
-        private readonly MailerInterface $mailer
+        private readonly MailerInterface $mailer,
     ) {
     }
 

@@ -19,7 +19,7 @@ class DeadManSwitchListener implements EventSubscriberInterface
     public function __construct(
         private readonly AccessDecisionManagerInterface $permission,
         private readonly PostRepository $postRepository,
-        private readonly EntityManagerInterface $em
+        private readonly EntityManagerInterface $em,
     ) {
     }
 

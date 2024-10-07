@@ -8,7 +8,6 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class UserStatsRepository extends AbstractRepository
 {
-
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);

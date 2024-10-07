@@ -23,7 +23,7 @@ class ForumController extends AbstractController
         private readonly TagRepository $tagRepository,
         private readonly TopicRepository $topicRepository,
         private readonly PaginatorInterface $paginator,
-        private readonly TopicService $topicService
+        private readonly TopicService $topicService,
     ) {
     }
 
@@ -117,7 +117,7 @@ class ForumController extends AbstractController
     public function search(
         Request $request,
         TopicRepository $topicRepository,
-        \Knp\Component\Pager\PaginatorInterface $paginator
+        \Knp\Component\Pager\PaginatorInterface $paginator,
     ): Response {
         $q = trim((string) $request->get('q', ''));
         if (empty($q)) {

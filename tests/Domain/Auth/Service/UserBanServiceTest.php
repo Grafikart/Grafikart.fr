@@ -14,7 +14,7 @@ class UserBanServiceTest extends TestCase
     /**
      * @var MockObject|EventDispatcherInterface
      */
-    private \PHPUnit\Framework\MockObject\MockObject $dispatcher;
+    private MockObject $dispatcher;
     private UserBanService $service;
 
     public function setUp(): void

@@ -54,7 +54,7 @@ class CourseCrudDataTest extends TestCase
     public function testRemoveUsageFromEntityManager(
         array $courseTechnologies,
         array $dataTechnologies,
-        array $expectedRemoved = []
+        array $expectedRemoved = [],
     ): void {
         // On crée le cours
         $course = new Course();

@@ -47,9 +47,11 @@ class OptionController extends BaseController
     {
         if ($request->getMethod() === 'POST') {
             $api->addWebhookSubscription();
+
             return $this->redirectToRoute('admin_twitch');
         }
         $subscriptions = $api->getSubscriptions();
+
         return $this->render('admin/option/twitch.html.twig', [
             'subscriptions' => $subscriptions,
         ]);

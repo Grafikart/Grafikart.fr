@@ -7,7 +7,7 @@ use App\Http\Admin\Data\CouponCrudData;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route(path: "/coupon", name:"coupon_")]
+#[Route(path: '/coupon', name: 'coupon_')]
 class CouponController extends CrudController
 {
     protected string $templatePath = 'coupon';
@@ -16,13 +16,13 @@ class CouponController extends CrudController
     protected string $routePrefix = 'admin_coupon';
     protected string $searchField = 'name';
 
-    #[Route(path: "/", name:"index")]
+    #[Route(path: '/', name: 'index')]
     public function index(): Response
     {
         return $this->crudIndex();
     }
 
-    #[Route(path: "/new", name:"new")]
+    #[Route(path: '/new', name: 'new')]
     public function new(): Response
     {
         $coupon = new Coupon();
@@ -31,13 +31,13 @@ class CouponController extends CrudController
         return $this->crudNew($data);
     }
 
-    #[Route(path: "/{id}", name: "delete", methods: ["DELETE"])]
+    #[Route(path: '/{id}', name: 'delete', methods: ['DELETE'])]
     public function delete(Coupon $coupon): Response
     {
         return $this->crudDelete($coupon);
     }
 
-    #[Route(path: "/{id}", name: "edit")]
+    #[Route(path: '/{id}', name: 'edit')]
     public function edit(Coupon $coupon): Response
     {
         $data = new CouponCrudData($coupon);

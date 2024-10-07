@@ -57,9 +57,6 @@ class UserRepository extends AbstractRepository implements PasswordUpgraderInter
             ->getOneOrNullResult();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
         if (!$user instanceof User) {
@@ -67,8 +64,8 @@ class UserRepository extends AbstractRepository implements PasswordUpgraderInter
         }
 
         $user->setPassword($newHashedPassword);
-        $this->_em->persist($user);
-        $this->_em->flush();
+        $this->getEntityManager()->persist($user);
+        $this->getEntityManager()->flush();
     }
 
     /**
@@ -94,7 +91,7 @@ class UserRepository extends AbstractRepository implements PasswordUpgraderInter
      */
     public function findPremiumDiscordIds(): array
     {
-        return array_map(fn(array $user) => $user['discordId'], $this->createQueryBuilder('u')
+        return array_map(fn (array $user) => $user['discordId'], $this->createQueryBuilder('u')
             ->where('u.discordId IS NOT NULL AND u.discordId <> \'\'')
             ->andWhere('u.premiumEnd > NOW()')
             ->select('u.discordId')
@@ -103,7 +100,7 @@ class UserRepository extends AbstractRepository implements PasswordUpgraderInter
     }
 
     /**
-     * Liste les utilisateurs bannis
+     * Liste les utilisateurs bannis.
      */
     public function queryBanned(): QueryBuilder
     {

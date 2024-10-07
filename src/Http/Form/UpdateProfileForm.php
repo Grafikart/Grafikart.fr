@@ -20,8 +20,8 @@ class UpdateProfileForm extends AbstractType
     {
         parent::buildForm($builder, $options);
         $builder->add('email', EmailType::class, [
-                'required' => true,
-            ])
+            'required' => true,
+        ])
             ->add('username', TextType::class, [
                 'required' => true,
             ])

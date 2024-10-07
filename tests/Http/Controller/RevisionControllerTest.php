@@ -29,7 +29,7 @@ class RevisionControllerTest extends WebTestCase
         /** @var User $user */
         [
             'post1' => $post,
-            'user1' => $user
+            'user1' => $user,
         ] = $this->loadFixtures(['posts', 'users']);
         $this->login($user);
         $crawler = $this->client->request('GET', '/revision/'.$post->getId());
@@ -43,7 +43,7 @@ class RevisionControllerTest extends WebTestCase
         /** @var User $user */
         [
             'post1' => $post,
-            'user1' => $user
+            'user1' => $user,
         ] = $this->loadFixtures(['posts', 'users']);
         $post->setOnline(false);
         $this->em->flush();
@@ -58,7 +58,7 @@ class RevisionControllerTest extends WebTestCase
         /** @var Revision $revision2 */
         [
             'revision1' => $revision1,
-            'revision2' => $revision2
+            'revision2' => $revision2,
         ] = $this->loadFixtures(['revisions']);
         $this->login($revision1->getAuthor());
         $this->client->request('DELETE', '/revision/'.$revision2->getId());

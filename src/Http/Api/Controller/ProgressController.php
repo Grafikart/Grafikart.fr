@@ -31,7 +31,7 @@ class ProgressController extends AbstractController
     #[IsGranted(ContentVoter::PROGRESS, subject: 'content')]
     public function progress(
         Content $content,
-        int $progress
+        int $progress,
     ): JsonResponse {
         $user = $this->getUser();
         try {

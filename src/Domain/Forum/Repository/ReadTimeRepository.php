@@ -100,7 +100,7 @@ class ReadTimeRepository extends AbstractRepository
             ->getResult();
         foreach ($readTimes as $readTime) {
             $readTime->setNotified(true);
-            $users = array_filter($users, fn(User $u) => $u->getId() !== $readTime->getOwner()->getId());
+            $users = array_filter($users, fn (User $u) => $u->getId() !== $readTime->getOwner()->getId());
         }
 
         // On crée de nouveaux readTime pour les utilisateur n'ayant pas déjà lu le sujet

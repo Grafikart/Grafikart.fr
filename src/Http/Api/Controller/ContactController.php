@@ -20,7 +20,7 @@ class ContactController extends AbstractController
         DenormalizerInterface $denormalizer,
         ValidatorInterface $validator,
         ContactService $contactService,
-        Request $request
+        Request $request,
     ): JsonResponse {
         $data = json_decode((string) $request->getContent(), true, 512, JSON_THROW_ON_ERROR);
         /** @var ContactData $contactData */

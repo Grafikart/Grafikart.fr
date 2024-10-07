@@ -16,7 +16,7 @@ class BadgeController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function unlock(
         Badge $badge,
-        BadgeService $service
+        BadgeService $service,
     ): RedirectResponse {
         if (!$badge->isUnlockable()) {
             throw new NotFoundHttpException();

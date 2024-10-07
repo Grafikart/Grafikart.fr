@@ -13,7 +13,7 @@ class RevisionService
     public function __construct(
         private readonly EventDispatcherInterface $eventDispatcher,
         private readonly RevisionRepository $repository,
-        private readonly EntityManagerInterface $em
+        private readonly EntityManagerInterface $em,
     ) {
     }
 

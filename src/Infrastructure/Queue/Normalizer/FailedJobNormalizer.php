@@ -8,7 +8,7 @@ use App\Normalizer\Normalizer;
 
 class FailedJobNormalizer extends Normalizer
 {
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         if ($object instanceof FailedJob) {
             return [
@@ -18,7 +18,7 @@ class FailedJobNormalizer extends Normalizer
         throw new \RuntimeException("Can't normalize path");
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return ($data instanceof FailedJob)
             && PathEncoder::FORMAT === $format;
@@ -27,7 +27,7 @@ class FailedJobNormalizer extends Normalizer
     public function getSupportedTypes(?string $format): array
     {
         return [
-            FailedJob::class => true
+            FailedJob::class => true,
         ];
     }
 }

@@ -25,39 +25,40 @@ class PagesController extends AbstractController
                 'title' => 'Apprendre React',
                 'count' => 31,
                 'progress' => 50,
-                'icon' => 'react'
+                'icon' => 'react',
             ],
             [
-                'title' => "Comprendre Git",
+                'title' => 'Comprendre Git',
                 'count' => 18,
                 'progress' => 20,
-                'icon' => 'git'
+                'icon' => 'git',
             ],
             [
                 'title' => 'Apprendre JavaScript',
                 'count' => 56,
                 'progress' => 100,
-                'icon' => 'javascript'
+                'icon' => 'javascript',
             ],
             [
                 'title' => "L'algorithmique",
                 'count' => 10,
                 'progress' => 100,
-                'icon' => 'algorithmique'
+                'icon' => 'algorithmique',
             ],
             [
-                'title' => "Découverte du CSS",
+                'title' => 'Découverte du CSS',
                 'count' => 37,
                 'progress' => 90,
-                'icon' => 'css'
+                'icon' => 'css',
             ],
             [
                 'title' => "Comprendre l'HTML",
                 'count' => 10,
                 'progress' => 100,
-                'icon' => 'html'
-            ]
+                'icon' => 'html',
+            ],
         ];
+
         return $this->render('pages/premium_school.html.twig', [
             'formations' => $formations,
             'form' => $this->createForm(SchoolImportForm::class),
@@ -80,7 +81,7 @@ class PagesController extends AbstractController
             $projectDir,
             DIRECTORY_SEPARATOR
         );
-        $spriteCode = (string)file_get_contents($spritePath);
+        $spriteCode = (string) file_get_contents($spritePath);
         preg_match_all('/id="([^"]*)"/i', $spriteCode, $matches);
 
         return $this->render('pages/ui.html.twig', [

@@ -21,7 +21,7 @@ class BlogController extends AbstractController
     public function __construct(
         private readonly PostRepository $postRepository,
         private readonly CategoryRepository $categoryRepository,
-        private readonly PaginatorInterface $paginator
+        private readonly PaginatorInterface $paginator,
     ) {
     }
 

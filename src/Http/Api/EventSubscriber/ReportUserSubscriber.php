@@ -31,9 +31,10 @@ class ReportUserSubscriber implements EventSubscriberInterface
         $method = $request->getMethod();
         $user = $this->security->getUser();
 
-        if (!$report instanceof Report ||
-            Request::METHOD_POST !== $method ||
-            !$user instanceof User
+        if (
+            !$report instanceof Report
+            || Request::METHOD_POST !== $method
+            || !$user instanceof User
         ) {
             return;
         }

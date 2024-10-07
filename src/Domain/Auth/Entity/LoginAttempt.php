@@ -13,7 +13,7 @@ class LoginAttempt
     #[ORM\Column(type: 'integer')]
     private readonly int $id;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Auth\User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private User $user;
 

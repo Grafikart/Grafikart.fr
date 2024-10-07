@@ -21,7 +21,7 @@ class AccountDeletionController extends AbstractController
     public function delete(
         DeleteAccountService $service,
         UserPasswordHasherInterface $passwordEncoder,
-        Request $request
+        Request $request,
     ): JsonResponse {
         /** @var User $user */
         $user = $this->getUser();

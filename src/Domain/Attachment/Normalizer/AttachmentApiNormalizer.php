@@ -16,7 +16,7 @@ class AttachmentApiNormalizer extends Normalizer
     /**
      * @param Attachment $object
      */
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         $info = pathinfo($object->getFileName());
         $filenameParts = explode('-', $info['filename']);
@@ -37,7 +37,7 @@ class AttachmentApiNormalizer extends Normalizer
     /**
      * @param mixed $data ;
      */
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof Attachment && 'json' === $format;
     }
@@ -45,7 +45,7 @@ class AttachmentApiNormalizer extends Normalizer
     public function getSupportedTypes(?string $format): array
     {
         return [
-            Attachment::class => true
+            Attachment::class => true,
         ];
     }
 }

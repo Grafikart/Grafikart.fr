@@ -7,7 +7,7 @@ class ServiceMethodMessage
     public function __construct(
         private readonly string $serviceName,
         private readonly string $method,
-        private readonly array $params = []
+        private readonly array $params = [],
     ) {
     }
 

@@ -19,10 +19,10 @@ if ($_SERVER['APP_DEBUG']) {
 require dirname(__DIR__).'/config/bootstrap.php';
 
 // On nettoie le cache
-(new \Symfony\Component\Filesystem\Filesystem())->remove(__DIR__.'/../var/cache/test');
+(new Symfony\Component\Filesystem\Filesystem())->remove(__DIR__.'/../var/cache/test');
 
 // On crée la base de données
-$kernel = new \App\Kernel('test', true);
+$kernel = new App\Kernel('test', true);
 $kernel->boot();
 $application = new Application($kernel);
 $application->setAutoExit(false);

@@ -25,9 +25,6 @@ class ForumTagCrudData extends AutomaticCrudData
 
     public bool $visible = true;
 
-    /**
-     * @var Tag
-     */
     public ?Tag $parent = null;
 
     public function hydrate(): void

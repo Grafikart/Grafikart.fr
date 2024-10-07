@@ -37,7 +37,7 @@ class Technology implements CacheableInterface, \Stringable
     /**
      * @var Collection<int, TechnologyUsage>
      */
-    #[ORM\OneToMany(targetEntity: \App\Domain\Course\Entity\TechnologyUsage::class, mappedBy: 'technology', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: TechnologyUsage::class, mappedBy: 'technology', orphanRemoval: true)]
     private Collection $usages;
 
     private bool $secondary = false;
@@ -51,13 +51,13 @@ class Technology implements CacheableInterface, \Stringable
      * @var Collection<int, Technology>
      */
     #[ORM\JoinTable(name: 'technology_requirement')]
-    #[ORM\ManyToMany(targetEntity: \App\Domain\Course\Entity\Technology::class, inversedBy: 'requiredBy')]
+    #[ORM\ManyToMany(targetEntity: Technology::class, inversedBy: 'requiredBy')]
     private Collection $requirements;
 
     /**
      * @var Collection<int, Technology>
      */
-    #[ORM\ManyToMany(targetEntity: \App\Domain\Course\Entity\Technology::class, mappedBy: 'requirements')]
+    #[ORM\ManyToMany(targetEntity: Technology::class, mappedBy: 'requirements')]
     private Collection $requiredBy;
 
     #[ORM\Column(type: 'string', length: 50, nullable: true)]

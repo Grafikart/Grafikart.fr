@@ -20,8 +20,7 @@ class MercureCookieMiddleware implements EventSubscriberInterface
         private readonly Authorization $authorization,
         private readonly NotificationService $notificationService,
         private readonly Security $security,
-    )
-    {
+    ) {
     }
 
     public static function getSubscribedEvents(): array
@@ -35,9 +34,10 @@ class MercureCookieMiddleware implements EventSubscriberInterface
     {
         $response = $event->getResponse();
         $request = $event->getRequest();
-        if (HttpKernelInterface::MAIN_REQUEST !== $event->getRequestType() ||
-            !in_array('text/html', $request->getAcceptableContentTypes()) ||
-            !($user = $this->security->getUser()) instanceof User
+        if (
+            HttpKernelInterface::MAIN_REQUEST !== $event->getRequestType()
+            || !in_array('text/html', $request->getAcceptableContentTypes())
+            || !($user = $this->security->getUser()) instanceof User
         ) {
             return;
         }
@@ -48,7 +48,7 @@ class MercureCookieMiddleware implements EventSubscriberInterface
         $exp = (new \DateTimeImmutable('+1 hour'));
         $cookie = $this->authorization->createCookie($request, $channels, [], [
             // We need to set a date without ms to avoid float in "exp"
-            'exp' => new \DateTimeImmutable("@" . $exp->getTimestamp()),
+            'exp' => new \DateTimeImmutable('@'.$exp->getTimestamp()),
         ]);
         $response->headers->setCookie($cookie);
     }

@@ -21,7 +21,7 @@ class IndexCommand extends Command
     public function __construct(
         private readonly IndexerInterface $indexer,
         private readonly EntityManagerInterface $em,
-        private readonly NormalizerInterface $normalizer
+        private readonly NormalizerInterface $normalizer,
     ) {
         parent::__construct();
     }
@@ -30,7 +30,7 @@ class IndexCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
+        $this->em->getConnection()->getConfiguration()->setMiddlewares([]);
         $io->progressStart();
         $this->indexer->clean();
 

@@ -27,7 +27,7 @@ class Category
     /**
      * @var Collection<int,Post>
      */
-    #[ORM\OneToMany(targetEntity: \App\Domain\Blog\Post::class, mappedBy: 'category')]
+    #[ORM\OneToMany(targetEntity: Post::class, mappedBy: 'category')]
     private Collection $posts;
 
     public function __construct()

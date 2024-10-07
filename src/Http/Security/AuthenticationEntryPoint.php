@@ -17,19 +17,20 @@ class AuthenticationEntryPoint implements AuthenticationEntryPointInterface
 {
     public function __construct(
         private readonly UrlGeneratorInterface $urlGenerator,
-        private readonly AccessDeniedHandler $accessDeniedHandler
+        private readonly AccessDeniedHandler $accessDeniedHandler,
     ) {
     }
 
-    public function start(Request $request, AuthenticationException $authException = null): Response
+    public function start(Request $request, ?AuthenticationException $authException = null): Response
     {
         $previous = $authException ? $authException->getPrevious() : null;
 
         // Parque le composant security est un peu bête et ne renvoie pas un AccessDenied pour les utilisateur connecté avec un cookie
         // On redirige le traitement de cette situation vers le AccessDeniedHandler
-        if ($authException instanceof InsufficientAuthenticationException &&
-            $previous instanceof AccessDeniedException &&
-            $authException->getToken() instanceof RememberMeToken
+        if (
+            $authException instanceof InsufficientAuthenticationException
+            && $previous instanceof AccessDeniedException
+            && $authException->getToken() instanceof RememberMeToken
         ) {
             return $this->accessDeniedHandler->handle($request, $previous);
         }

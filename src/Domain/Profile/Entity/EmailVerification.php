@@ -17,7 +17,7 @@ class EmailVerification
     #[ORM\Column(type: 'string', length: 255)]
     private string $email;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Auth\User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private User $author;
 

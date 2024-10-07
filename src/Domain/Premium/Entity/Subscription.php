@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Subscription
 {
     use StripeEntity;
+
     final public const ACTIVE = 1;
     final public const INACTIVE = 0;
 
@@ -24,11 +25,11 @@ class Subscription
     #[ORM\Column(type: 'datetime_immutable')]
     private \DateTimeInterface $nextPayment;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Premium\Entity\Plan::class)]
+    #[ORM\ManyToOne(targetEntity: Plan::class)]
     #[ORM\JoinColumn(nullable: false)]
     private Plan $plan;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Auth\User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false)]
     private User $user;
 

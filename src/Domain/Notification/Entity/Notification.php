@@ -15,7 +15,7 @@ class Notification
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Auth\User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(name: 'user_id', onDelete: 'CASCADE', nullable: true)]
     private ?User $user = null;
 

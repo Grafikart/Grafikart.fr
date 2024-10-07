@@ -5,7 +5,6 @@ namespace App\Http\Controller;
 use App\Domain\Auth\User;
 use App\Domain\Coupon\Entity\Coupon;
 use App\Domain\Coupon\Repository\CouponRepository;
-use App\Domain\History\Entity\Progress;
 use App\Domain\History\HistoryService;
 use App\Domain\History\Repository\ProgressRepository;
 use App\Domain\School\DTO\SchoolImportDTO;
@@ -27,13 +26,12 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class SchoolController extends AbstractController
 {
-
     public function __construct(
         private readonly SchoolImportService $importer,
-        private readonly SchoolRepository    $schoolRepository,
-        private readonly CouponRepository    $couponRepository,
-        private readonly ProgressRepository  $progressRepository,
-        private readonly HistoryService $historyService
+        private readonly SchoolRepository $schoolRepository,
+        private readonly CouponRepository $couponRepository,
+        private readonly ProgressRepository $progressRepository,
+        private readonly HistoryService $historyService,
     ) {
     }
 
@@ -57,11 +55,12 @@ class SchoolController extends AbstractController
             try {
                 $result = $this->importer->preprocess($data);
                 $months = $result->getMonths();
+
                 return $this->render('school/confirm.html.twig', [
                     'rows' => $result->rows,
                     'content' => $result->csv,
                     'months' => $months,
-                    'credits' => $school->getCredits()
+                    'credits' => $school->getCredits(),
                 ]);
             } catch (InvalidCSVException $e) {
                 $error = new FormError($e->getMessage());
@@ -70,26 +69,26 @@ class SchoolController extends AbstractController
         }
 
         $students = $this->couponRepository->findClaimedForSchool($school);
-        $userIds = array_map(fn(Coupon $coupon) => $coupon->getClaimedBy()?->getId() ?? 0, $students);
+        $userIds = array_map(fn (Coupon $coupon) => $coupon->getClaimedBy()?->getId() ?? 0, $students);
 
         return $this->render('school/index.html.twig', [
             'school' => $school,
             'form' => $form,
             'students' => $students,
             'coupons' => $this->couponRepository->findAllUnclaimedForSchool($school),
-            'completions' => $this->progressRepository->findCompletionForUsers($userIds)
+            'completions' => $this->progressRepository->findCompletionForUsers($userIds),
         ]);
     }
 
-    #[Route("/ecole/student/{id}", name: 'school_student', requirements: ['id' => Requirements::ID])]
+    #[Route('/ecole/student/{id}', name: 'school_student', requirements: ['id' => Requirements::ID])]
     public function student(
-        User $user
+        User $user,
     ): Response {
         $me = $this->getUserOrThrow();
         $school = $this->schoolRepository->findAdministratedByUser($me->getId() ?? 0);
         $coupon = $this->couponRepository->findOneBy([
             'claimedBy' => $user,
-            'school' => $school
+            'school' => $school,
         ]);
         if ($coupon === null) {
             throw new AccessDeniedException('This user is not a student of your school');
@@ -118,6 +117,7 @@ class SchoolController extends AbstractController
 
         $result = $this->importer->process($data->content, $school);
         $this->addFlash('success', sprintf('%s étudiants ont été importés avec succcès', count($result->rows)));
+
         return $this->redirectToRoute('school');
     }
 }

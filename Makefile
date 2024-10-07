@@ -79,7 +79,7 @@ test: vendor/autoload.php node_modules/time ## Execute les tests
 
 tt: vendor/autoload.php ## Lance le watcher phpunit
 	$(drtest) phptest bin/console doctrine:schema:validate --skip-sync
-	$(drtest) phptest bin/phpunit --filter CacheExtensionTest
+	$(drtest) phptest bin/phpunit
 	# $(drtest) phptest bin/console cache:clear --env=test
 	# $(drtest) phptest vendor/bin/phpunit-watcher watch --filter="nothing"
 
@@ -91,8 +91,7 @@ security-check: vendor/autoload.php ## Check pour les vulnérabilités des depen
 	$(de) php local-php-security-checker --path=/var/www
 
 format: ## Formate le code
-	npx prettier-standard --lint --changed "assets/**/*.{js,css,jsx}"
-	docker run -v $(PWD):/app -w /app -t --rm php:8.2-cli-alpine php -d memory_limit=-1 ./vendor/bin/phpcbf
+	bunx prettier-standard --lint --changed "assets/**/*.{js,css,jsx}"
 	docker run -v $(PWD):/app -w /app -t --rm php:8.2-cli-alpine php -d memory_limit=-1 ./vendor/bin/php-cs-fixer fix
 
 refactor: ## Reformate le code avec rector

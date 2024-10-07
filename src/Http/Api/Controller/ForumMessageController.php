@@ -29,7 +29,7 @@ class ForumMessageController extends AbstractController
         Request $request,
         ValidatorInterface $validator,
         EntityManagerInterface $em,
-        EventDispatcherInterface $dispatcher
+        EventDispatcherInterface $dispatcher,
     ): JsonResponse {
         $this->denyAccessUnlessGranted(ForumVoter::CREATE_MESSAGE, $topic);
         $data = json_decode((string) $request->getContent(), true, 512, JSON_THROW_ON_ERROR);

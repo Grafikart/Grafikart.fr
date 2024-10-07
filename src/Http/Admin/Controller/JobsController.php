@@ -12,7 +12,7 @@ class JobsController extends BaseController
 {
     public function __construct(
         private readonly FailedJobsService $failedJobsService,
-        private readonly ScheduledJobsService $scheduledJobsService
+        private readonly ScheduledJobsService $scheduledJobsService,
     ) {
     }
 

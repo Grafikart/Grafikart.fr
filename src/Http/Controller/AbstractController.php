@@ -38,7 +38,7 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
         MessageBusInterface $messageBus,
         string $service,
         string $method,
-        array $params = []
+        array $params = [],
     ): Envelope {
         return $messageBus->dispatch(new ServiceMethodMessage($service, $method, $params), []);
     }

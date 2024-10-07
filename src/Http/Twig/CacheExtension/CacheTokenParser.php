@@ -24,9 +24,6 @@ class CacheTokenParser extends AbstractTokenParser
         return new CacheNode($key, $body, $lineno);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTag(): string
     {
         return 'cache';

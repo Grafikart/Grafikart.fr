@@ -29,8 +29,8 @@ class AttachmentRepository extends AbstractRepository
             ->getQuery()
             ->getResult();
 
-        return array_map(fn(array $row) => [
-            'path' => $row['year'] . '/' . str_pad((string)$row['month'], 2, '0', STR_PAD_LEFT),
+        return array_map(fn (array $row) => [
+            'path' => $row['year'].'/'.str_pad((string) $row['month'], 2, '0', STR_PAD_LEFT),
             'count' => $row['count'],
         ], $rows);
     }
@@ -81,7 +81,8 @@ class AttachmentRepository extends AbstractRepository
     }
 
     /**
-     * Trouve les fichiers non rattachés à un contenu
+     * Trouve les fichiers non rattachés à un contenu.
+     *
      * @return array<Attachment>
      */
     public function orphaned(): array

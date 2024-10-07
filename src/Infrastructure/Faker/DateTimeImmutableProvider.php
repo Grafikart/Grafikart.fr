@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Infrastructure\Faker;
+
 use Faker\Generator;
 use Faker\Provider\Base as BaseProvider;
 
 /**
- * Faker helper to create immutable dates
+ * Faker helper to create immutable dates.
  */
 final class DateTimeImmutableProvider extends BaseProvider
 {
@@ -19,25 +20,23 @@ final class DateTimeImmutableProvider extends BaseProvider
         return \DateTimeImmutable::createFromMutable($this->generator->dateTimeBetween($start, $end));
     }
 
-    public function dateTimeImmutableThisDecade(string $max = "now")
+    public function dateTimeImmutableThisDecade(string $max = 'now'): \DateTimeImmutable
     {
         return \DateTimeImmutable::createFromMutable($this->generator->dateTimeThisDecade($max));
     }
 
-    public function dateTimeImmutableThisMonth(string $max = "now")
+    public function dateTimeImmutableThisMonth(string $max = 'now'): \DateTimeImmutable
     {
         return \DateTimeImmutable::createFromMutable($this->generator->dateTimeThisMonth($max));
     }
 
-    public function dateTimeImmutableThisYear(?string $max = "now")
+    public function dateTimeImmutableThisYear(?string $max = 'now'): \DateTimeImmutable
     {
         return \DateTimeImmutable::createFromMutable($this->generator->dateTimeThisYear($max));
     }
 
-    public function dateTimeImmutable(string $max = "now")
+    public function dateTimeImmutable(string $max = 'now'): \DateTimeImmutable
     {
         return \DateTimeImmutable::createFromMutable($this->generator->dateTime($max));
     }
-
-
 }

@@ -24,7 +24,7 @@ class AvatarController extends AbstractController
         Request $request,
         ValidatorInterface $validator,
         ProfileService $profileService,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
     ): Response {
         /** @var User $user */
         $user = $this->getUser();

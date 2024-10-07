@@ -8,7 +8,6 @@ use App\Domain\Course\Repository\CourseRepository;
 use App\Domain\Course\Repository\FormationRepository;
 use App\Helper\Paginator\PaginatorInterface;
 use App\Http\Requirements;
-use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +21,7 @@ class TechnologyController extends AbstractController
         FormationRepository $formationRepository,
         CourseRepository $courseRepository,
         PaginatorInterface $paginator,
-        Request $request
+        Request $request,
     ): Response {
         $page = $request->query->getInt('page', 1);
         $formations = [];

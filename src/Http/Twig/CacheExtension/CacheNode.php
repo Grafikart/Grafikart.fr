@@ -27,9 +27,6 @@ class CacheNode extends Node
         parent::__construct(['key' => $key, 'body' => $body], [], $lineno);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function compile(Compiler $compiler): void
     {
         $i = self::$cacheCount++;

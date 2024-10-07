@@ -9,7 +9,7 @@ class UserBeforeCreatedEvent
 {
     public function __construct(
         public readonly User $user,
-        public readonly Request $request
+        public readonly Request $request,
     ) {
     }
 }

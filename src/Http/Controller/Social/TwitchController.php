@@ -8,11 +8,10 @@ use App\Http\Controller\AbstractController;
 use App\Infrastructure\Twitch\TwitchAPI;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class TwitchController extends AbstractController
 {
-
     #[Route('/twitch/webhook', methods: ['POST'])]
     public function webhook(Request $request, TwitchAPI $api, OptionManagerInterface $optionManager): Response
     {

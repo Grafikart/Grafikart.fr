@@ -27,7 +27,7 @@ class StripeWebhookController extends AbstractController
     public function __construct(
         private readonly EventDispatcherInterface $dispatcher,
         private readonly EntityManagerInterface $em,
-        private readonly StripePaymentFactory $paymentFactory
+        private readonly StripePaymentFactory $paymentFactory,
     ) {
     }
 

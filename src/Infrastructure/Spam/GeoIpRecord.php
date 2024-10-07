@@ -2,9 +2,8 @@
 
 namespace App\Infrastructure\Spam;
 
-readonly final class GeoIpRecord
+final readonly class GeoIpRecord
 {
-
     public function __construct(
         public string $country,
     ) {

@@ -25,7 +25,7 @@ final class PageController extends BaseController
         ReportRepository $reportRepository,
         FailedJobsService $failedJobsService,
         TransactionRepository $transactionRepository,
-        ScheduledJobsService $scheduledJobsService
+        ScheduledJobsService $scheduledJobsService,
     ): Response {
         return $this->render('admin/home.html.twig', [
             'revisions' => $revisionRepository->findLatest(),
