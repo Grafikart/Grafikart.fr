@@ -17,7 +17,7 @@ class NotificationsController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function index(NotificationService $service): Response
     {
-        $notifications = $service->forUser($this->getUser());
+        $notifications = $service->forUser($this->getUser(), 15);
 
         return $this->render('notifications/index.html.twig', [
             'notifications' => $notifications,

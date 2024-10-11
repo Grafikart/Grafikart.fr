@@ -75,12 +75,12 @@ class NotificationService
     /**
      * @return Notification[]
      */
-    public function forUser(User $user): array
+    public function forUser(User $user, int $limit = 15): array
     {
         /** @var NotificationRepository $repository */
         $repository = $this->em->getRepository(Notification::class);
 
-        return $repository->findRecentForUser($user, $this->getChannelsForUser($user));
+        return $repository->findRecentForUser($user, channels: $this->getChannelsForUser($user),limit: $limit);
     }
 
     public function readAll(User $user): void
