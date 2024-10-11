@@ -1,18 +1,4 @@
 resources:
-  App\Domain\Forum\Entity\Report:
-    shortName: 'ForumReport'
-    operations:
-      ApiPlatform\Metadata\Post:
-        uriTemplate: 'forum/reports'
-        security: is_granted("forumReport")
-        denormalizationContext:
-          groups: [ 'create:report' ]
-        normalizationContext:
-          groups: [ 'read:report' ]
-        openapi_context:
-          summary: Crée un nouveau signalement
-      ApiPlatform\Metadata\Delete:
-        security: is_granted("DELETE_FORUM_REPORT", object)
   App\Domain\Forum\Entity\Topic:
     shortName: 'ForumTopic'
     uriTemplate: 'forum/topics/{id}'

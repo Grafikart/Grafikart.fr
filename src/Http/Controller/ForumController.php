@@ -75,7 +75,7 @@ class ForumController extends AbstractController
     #[Route(path: '/forum/new', name: 'forum_new')]
     public function create(Request $request): Response
     {
-        $this->denyAccessUnlessGranted(ForumVoter::CREATE);
+        $this->denyAccessUnlessGranted(ForumVoter::CREATE_TOPIC);
         /** @var User $user */
         $user = $this->getUser();
         $topic = (new Topic())->setContent($this->renderView('forum/template/placeholder.text.twig'));

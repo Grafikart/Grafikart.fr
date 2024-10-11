@@ -123,8 +123,3 @@ services:
   App\Http\Twig\TwigUrlExtension:
     arguments:
       $uploaderHelper: '@Vich\UploaderBundle\Templating\Helper\UploaderHelper'
-
-  App\Http\Api\Processor\NotificationProcessor:
-    bind:
-      $persistProcessor: '@api_platform.doctrine.orm.state.persist_processor'
-      $removeProcessor: '@api_platform.doctrine.orm.state.remove_processor'
