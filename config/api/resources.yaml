@@ -40,18 +40,3 @@ resources:
         normalizationContext:
           groups: [ 'read:message' ]
         security: is_granted("UPDATE_FORUM_MESSAGE", object)
-
-  App\Domain\Notification\Entity\Notification:
-    processor: "App\\Http\\Api\\Processor\\NotificationProcessor"
-    operations:
-      ApiPlatform\Metadata\GetCollection:
-        security: is_granted("ROLE_USER")
-        paginationClientItemsPerPage: true
-        normalizationContext:
-          groups: [ 'read:notification' ]
-      ApiPlatform\Metadata\Post:
-        security: is_granted("CREATE_NOTIFICATION")
-        normalizationContext:
-          groups: [ 'read:notification' ]
-        denormalizationContext:
-          groups: [ 'create:notification' ]

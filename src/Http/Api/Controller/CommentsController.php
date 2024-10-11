@@ -23,7 +23,7 @@ class CommentsController extends AbstractController
 {
 
 
-    #[Route("/comments", name: "api.comments", methods: ['GET'])]
+    #[Route("/comments", name: "comments", methods: ['GET'])]
     public function index(
         #[MapQueryParameter(name: 'content')]
         int $contentId,
@@ -63,7 +63,7 @@ class CommentsController extends AbstractController
         return $this->json(CommentResource::fromComment($comment), context: ['groups' => ['read']]);
     }
 
-    #[Route("/comments/{comment}", methods: ['DELETE'])]
+    #[Route("/comments/{comment}", name: "comment", methods: ['DELETE'])]
     #[IsGranted(CommentVoter::DELETE, 'comment')]
     public function delete(
         Comment $comment,

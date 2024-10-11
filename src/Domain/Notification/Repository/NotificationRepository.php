@@ -23,13 +23,18 @@ class NotificationRepository extends AbstractRepository implements CleanableRepo
      *
      * @return Notification[]
      */
-    public function findRecentForUser(User $user, array $channels = ['public']): array
+    public function findRecentForUser(
+        User $user,
+        array $channels = ['public'],
+        int $limit = 10
+    ): array
     {
         return array_map(fn ($n) => (clone $n)->setUser($user), $this->createQueryBuilder('notif')
             ->orderBy('notif.createdAt', 'DESC')
-            ->setMaxResults(10)
+            ->setMaxResults($limit)
             ->where('notif.user = :user')
             ->orWhere('notif.user IS NULL AND notif.channel IN (:channels)')
+            ->andWhere('notif.createdAt < NOW()')
             ->setParameter('user', $user)
             ->setParameter('channels', $channels)
             ->getQuery()
