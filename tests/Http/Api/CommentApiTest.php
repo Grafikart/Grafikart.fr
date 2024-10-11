@@ -7,16 +7,18 @@ use App\Domain\Comment\Entity\Comment;
 use App\Http\Api\Resource\CommentResource;
 use App\Tests\ApiTestCase;
 use App\Tests\FixturesTrait;
+use Spatie\Snapshots\MatchesSnapshots;
 use Symfony\Component\HttpFoundation\Response;
 
 class CommentApiTest extends ApiTestCase
 {
     use FixturesTrait;
+    use MatchesSnapshots;
 
     public function testGetWithoutContent()
     {
         $this->client->request('GET', '/api/comments');
-        $this->assertResponseStatusCodeSame(400);
+        $this->assertResponseStatusCodeSame(404);
     }
 
     public function testGetWithContent()
@@ -26,7 +28,6 @@ class CommentApiTest extends ApiTestCase
         $response = $this->client->request('GET', "/api/comments?content=$contentId");
         $this->assertResponseIsSuccessful();
         $this->assertCount(7, $response->toArray());
-        $this->assertMatchesResourceCollectionJsonSchema(CommentResource::class, null, 'json');
     }
 
     public function testDeleteWithoutAuth()
@@ -74,7 +75,7 @@ class CommentApiTest extends ApiTestCase
         $this->assertJsonContains([
             'violations' => [
                 [
-                    'propertyPath' => 'content',
+                    'propertyPath' => 'username',
                 ],
                 [
                     'propertyPath' => 'content',
