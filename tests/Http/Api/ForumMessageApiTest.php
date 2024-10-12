@@ -20,7 +20,7 @@ class ForumMessageApiTest extends ApiTestCase
         $data = $this->loadFixtures(['forums']);
         /** @var Message $message */
         $message = $data['message1'];
-        $this->client->request('DELETE', '/api/forum/messages/'.$message->getId());
+        $this->jsonRequest('DELETE', '/api/forum/messages/'.$message->getId());
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
@@ -30,7 +30,7 @@ class ForumMessageApiTest extends ApiTestCase
         /** @var Message $message */
         $message = $data['message1'];
         $this->login($message->getAuthor());
-        $this->client->request('DELETE', '/api/forum/messages/'.$message->getId());
+        $this->jsonRequest('DELETE', '/api/forum/messages/'.$message->getId());
         $this->assertResponseStatusCodeSame(Response::HTTP_NO_CONTENT);
     }
 
@@ -38,10 +38,8 @@ class ForumMessageApiTest extends ApiTestCase
     {
         ['topic_recent' => $topic] = $this->loadFixtures(['forums']);
         $this->login($topic->getAuthor());
-        $this->client->request('POST', "/api/forum/topics/{$topic->getId()}/messages", [
-            'json' => [
-                'content' => 'Some random content to test',
-            ],
+        $this->jsonRequest('POST', "/api/forum/topics/{$topic->getId()}/messages", [
+            'content' => 'Some random content to test',
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_CREATED);
     }
@@ -50,10 +48,8 @@ class ForumMessageApiTest extends ApiTestCase
     {
         ['topic_recent' => $topic] = $this->loadFixtures(['forums']);
         $this->login($topic->getAuthor());
-        $this->client->request('POST', "/api/forum/topics/{$topic->getId()}/messages", [
-            'json' => [
-                'content' => '',
-            ],
+        $this->jsonRequest('POST', "/api/forum/topics/{$topic->getId()}/messages", [
+            'content' => '',
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
@@ -63,10 +59,8 @@ class ForumMessageApiTest extends ApiTestCase
         /** @var Topic $topic */
         ['topic_old' => $topic] = $this->loadFixtures(['forums']);
         $this->login($topic->getAuthor());
-        $this->client->request('POST', "/api/forum/topics/{$topic->getId()}/messages", [
-            'json' => [
-                'content' => 'Some random content to test',
-            ],
+        $this->jsonRequest('POST', "/api/forum/topics/{$topic->getId()}/messages", [
+            'content' => 'Some random content to test',
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
@@ -77,10 +71,8 @@ class ForumMessageApiTest extends ApiTestCase
         /** @var Message $message */
         $message = $data['message1'];
         $this->login($message->getAuthor());
-        $this->client->request('PUT', '/api/forum/messages/'.$message->getId(), [
-            'json' => [
-                'content' => $message->getContent().' UPDATED',
-            ],
+        $this->jsonRequest('PUT', '/api/forum/messages/'.$message->getId(), [
+            'content' => $message->getContent().' UPDATED',
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
@@ -99,10 +91,8 @@ class ForumMessageApiTest extends ApiTestCase
 
         $message->setAuthor($user1);
         $this->login($user2);
-        $this->client->request('PUT', '/api/forum/messages/'.$message->getId(), [
-            'json' => [
-                'content' => $message->getContent().' UPDATED',
-            ],
+        $this->jsonRequest('PUT', '/api/forum/messages/'.$message->getId(), [
+            'content' => $message->getContent().' UPDATED',
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
@@ -113,7 +103,7 @@ class ForumMessageApiTest extends ApiTestCase
         /** @var Message $message */
         $message = $data['message1'];
         $this->login($message->getTopic()->getAuthor());
-        $this->client->request('POST', "/api/forum/messages/{$message->getId()}/solve");
+        $this->jsonRequest('POST', "/api/forum/messages/{$message->getId()}/solve");
         $this->assertResponseStatusCodeSame(Response::HTTP_NO_CONTENT);
         $this->em->refresh($message);
         $this->assertTrue($message->isAccepted());

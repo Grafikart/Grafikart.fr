@@ -42,9 +42,9 @@ export function ForumReport ({ message, topic, owner }) {
 function ReportForm ({ onSuccess, message, topic }) {
   const data = { message: null, topic: null }
   if (message) {
-    data.message = `/api/forum/messages/${message}`
+    data.message = message
   } else if (topic) {
-    data.topic = `/api/forum/topics/${topic}`
+    data.topic = topic
   } else {
     throw new Error('Impossible de charger le formulaire de signalement')
   }

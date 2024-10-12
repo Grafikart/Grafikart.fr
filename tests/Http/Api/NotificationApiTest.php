@@ -28,7 +28,7 @@ class NotificationApiTest extends ApiTestCase
      */
     public function testCreateUnauthenticated(array $data): void
     {
-        $this->client->request('POST', '/api/notifications', ['json' => $data]);
+        $this->jsonRequest('POST', '/api/notifications', $data);
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
@@ -40,9 +40,7 @@ class NotificationApiTest extends ApiTestCase
         $data['url'] = 'azeazeeazaz';
         $users = $this->loadFixtures(['users']);
         $this->login($users['user_admin']);
-        $this->client->request('POST', '/api/notifications', [
-            'json' => $data,
-        ]);
+        $this->jsonRequest('POST', '/api/notifications', $data);
         $this->assertResponseStatusCodeSame(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
@@ -53,9 +51,7 @@ class NotificationApiTest extends ApiTestCase
     {
         $users = $this->loadFixtures(['users']);
         $this->login($users['user_admin']);
-        $this->client->request('POST', '/api/notifications', [
-            'json' => $data,
-        ]);
+        $this->jsonRequest('POST', '/api/notifications', $data);
         $this->assertResponseStatusCodeSame(Response::HTTP_CREATED);
     }
 
@@ -66,9 +62,7 @@ class NotificationApiTest extends ApiTestCase
     {
         $users = $this->loadFixtures(['users']);
         $this->login($users['user_admin']);
-        $response = $this->client->request('POST', '/api/notifications', [
-            'json' => $data,
-        ]);
+        $response = $this->jsonRequest('POST', '/api/notifications', $data);
         $this->assertEquals(201, $response->getStatusCode(), $response->getContent());
         $this->assertPublishedOnTopic('/notifications/global');
     }

@@ -7,7 +7,7 @@ use App\Domain\Forum\Entity\Topic;
 use App\Domain\Forum\Event\MessageCreatedEvent;
 use App\Domain\Forum\Event\PreMessageCreatedEvent;
 use App\Domain\Forum\TopicService;
-use App\Http\Controller\AbstractController;
+use App\Http\Api\Controller\AbstractApiController;
 use App\Http\Requirements;
 use App\Http\Security\ForumVoter;
 use App\Http\ValueResolver\Attribute\MapHydratedEntity;
@@ -18,13 +18,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @method \App\Domain\Auth\User getUser()
  */
 #[Route(path: '/forum', name: 'forum_')]
-class ForumMessageController extends AbstractController
+class ForumMessageController extends AbstractApiController
 {
     #[Route('/messages/{message}', name: 'message', requirements: ['message' => Requirements::ID], methods: ['GET'])]
     public function show(
@@ -33,7 +32,7 @@ class ForumMessageController extends AbstractController
         return $this->json($message, context: ['groups' => ['read:message']]);
     }
 
-    #[Route('/messages/{message}', methods: ['PUT'], requirements: ['message' => Requirements::ID])]
+    #[Route('/messages/{message}', requirements: ['message' => Requirements::ID], methods: ['PUT'])]
     #[IsGranted(ForumVoter::UPDATE_MESSAGE, subject: 'message')]
     public function update(
         #[MapHydratedEntity(groups: ['update:message'])]
@@ -45,7 +44,7 @@ class ForumMessageController extends AbstractController
         return $this->json($message, context: ['groups' => ['read:message']]);
     }
 
-    #[Route('/messages/{message}', methods: ['DELETE'], requirements: ['message' => Requirements::ID])]
+    #[Route('/messages/{message}', requirements: ['message' => Requirements::ID], methods: ['DELETE'])]
     #[IsGranted(ForumVoter::DELETE_MESSAGE, subject: 'message')]
     public function delete(
         Message $message,
@@ -57,12 +56,11 @@ class ForumMessageController extends AbstractController
         return new JsonResponse(null, 204);
     }
 
-    #[Route('/topics/{topic}/messages', name: 'messages', methods: ['POST'], requirements: ['topic' => Requirements::ID])]
+    #[Route('/topics/{topic}/messages', name: 'messages', requirements: ['topic' => Requirements::ID], methods: ['POST'])]
     #[IsGranted(ForumVoter::CREATE_MESSAGE, subject: 'topic')]
     public function create(
         Topic $topic,
         Request $request,
-        ValidatorInterface $validator,
         EntityManagerInterface $em,
         EventDispatcherInterface $dispatcher,
     ): JsonResponse {
@@ -74,7 +72,7 @@ class ForumMessageController extends AbstractController
             ->setNotification((bool) ($data['notification'] ?? false))
             ->setContent($data['content'] ?? null)
             ->setAuthor($this->getUser());
-        $validator->validate($message);
+        $this->validateOrThrow($message);
         $dispatcher->dispatch(new PreMessageCreatedEvent($message));
         $em->persist($message);
         $em->flush();
@@ -86,7 +84,7 @@ class ForumMessageController extends AbstractController
         ], Response::HTTP_CREATED);
     }
 
-    #[Route('/messages/{message}/solve', name: 'message_solve ', methods: ['POST'], requirements: ['id' => Requirements::ID])]
+    #[Route('/messages/{message}/solve', name: 'message_solve ', requirements: ['id' => Requirements::ID], methods: ['POST'])]
     #[IsGranted(ForumVoter::SOLVE_MESSAGE, subject: 'message')]
     public function solve(Message $message, TopicService $service): JsonResponse
     {

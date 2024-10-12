@@ -8,7 +8,6 @@ use App\Domain\Comment\DTO\CreateCommentDTO;
 use App\Domain\Comment\DTO\UpdateCommentDTO;
 use App\Domain\Comment\Entity\Comment;
 use App\Http\Api\Resource\CommentResource;
-use App\Http\Controller\AbstractController;
 use App\Http\Security\CommentVoter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,9 +17,8 @@ use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class CommentsController extends AbstractController
+class CommentsController extends AbstractApiController
 {
     #[Route('/comments', name: 'comments', methods: ['GET'])]
     public function index(
@@ -37,7 +35,6 @@ class CommentsController extends AbstractController
     public function create(
         Request $request,
         SerializerInterface $serializer,
-        ValidatorInterface $validator,
         CommentService $service,
     ): JsonResponse {
         $user = $this->getUser();
@@ -52,11 +49,7 @@ class CommentsController extends AbstractController
             throw new \RuntimeException('Expected CreateCommentDTO got '.$data::class);
         }
 
-        $errors = $validator->validate($data, groups: $groups);
-        if ($errors->count() > 0) {
-            return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
-
+        $this->validateOrThrow($data, groups: $groups);
         $comment = $service->create($data);
 
         return $this->json(CommentResource::fromComment($comment), context: ['groups' => ['read']]);

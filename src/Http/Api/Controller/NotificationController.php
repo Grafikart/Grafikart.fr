@@ -10,6 +10,7 @@ use App\Http\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -43,7 +44,7 @@ class NotificationController extends AbstractController
         $em->flush();
         $dispatcher->dispatch(new NotificationCreatedEvent($notification));
 
-        return $this->json($notification, context: ['groups' => ['read:notification']]);
+        return $this->json($notification, context: ['groups' => ['read:notification']], status: Response::HTTP_CREATED);
     }
 
     #[Route(path: '/notifications/read', name: 'api_notification_read', methods: ['POST'])]
