@@ -123,3 +123,4 @@ services:
   App\Http\Twig\TwigUrlExtension:
     arguments:
       $uploaderHelper: '@Vich\UploaderBundle\Templating\Helper\UploaderHelper'
+

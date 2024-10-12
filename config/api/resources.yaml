@@ -9,20 +9,3 @@ resources:
           groups: [ 'read:topic' ]
       ApiPlatform\Metadata\Delete:
         security: is_granted("DELETE_TOPIC", object)
-
-  App\Domain\Forum\Entity\Message:
-    uriTemplate: 'forum/messages/{id}'
-    shortName: 'ForumMessage'
-    collectionOperations: [ ]
-    operations:
-      ApiPlatform\Metadata\Get:
-        normalizationContext:
-          groups: [ 'read:message' ]
-      ApiPlatform\Metadata\Delete:
-        security: is_granted("DELETE_FORUM_MESSAGE", object)
-      ApiPlatform\Metadata\Put:
-        denormalizationContext:
-          groups: [ 'update:message' ]
-        normalizationContext:
-          groups: [ 'read:message' ]
-        security: is_granted("UPDATE_FORUM_MESSAGE", object)

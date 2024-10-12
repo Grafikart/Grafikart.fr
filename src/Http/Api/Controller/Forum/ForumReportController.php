@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Api\Controller;
+namespace App\Http\Api\Controller\Forum;
 
 use App\Domain\Forum\Entity\Report;
 use App\Http\Controller\AbstractController;
