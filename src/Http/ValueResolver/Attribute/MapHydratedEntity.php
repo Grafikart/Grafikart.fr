@@ -3,7 +3,6 @@
 namespace App\Http\ValueResolver\Attribute;
 
 use App\Http\ValueResolver\EntityHydratorValueResolver;
-use Attribute;
 use Symfony\Component\HttpKernel\Attribute\ValueResolver;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\Validator\Constraints\GroupSequence;
@@ -12,12 +11,11 @@ use Symfony\Component\Validator\Constraints\GroupSequence;
  * Attribut permettant une fusion entre MapEntity & MapRequestPayload
  * - Récupère l'entité depuis la base de donnée (comme MapEntity)
  * - Injecte les données provenant de la requête
- * - Valide les données
+ * - Valide les données.
  */
-#[Attribute(Attribute::TARGET_PARAMETER)]
+#[\Attribute(\Attribute::TARGET_PARAMETER)]
 final class MapHydratedEntity extends ValueResolver
 {
-
     public ArgumentMetadata $metadata;
 
     public function __construct(
@@ -27,5 +25,4 @@ final class MapHydratedEntity extends ValueResolver
     ) {
         parent::__construct(EntityHydratorValueResolver::class);
     }
-
 }

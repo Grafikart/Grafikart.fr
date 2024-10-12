@@ -2,9 +2,9 @@
 
 namespace App\Infrastructure\Search\Normalizer;
 
-use ApiPlatform\Api\UrlGeneratorInterface;
 use App\Domain\Blog\Post;
 use App\Http\Normalizer\PostPathNormalizer;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class PostNormalizer implements NormalizerInterface

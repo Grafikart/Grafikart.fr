@@ -26,36 +26,34 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 #[Route(path: '/forum', name: 'forum_')]
 class ForumMessageController extends AbstractController
 {
-
-    #[Route("/messages/{message}", name: "message", requirements: ['message' => Requirements::ID], methods: ['GET'])]
+    #[Route('/messages/{message}', name: 'message', requirements: ['message' => Requirements::ID], methods: ['GET'])]
     public function show(
         Message $message,
-    )
-    {
+    ): JsonResponse {
         return $this->json($message, context: ['groups' => ['read:message']]);
     }
 
-    #[Route("/messages/{message}", methods: ['PUT'], requirements: ['message' => Requirements::ID])]
+    #[Route('/messages/{message}', methods: ['PUT'], requirements: ['message' => Requirements::ID])]
     #[IsGranted(ForumVoter::UPDATE_MESSAGE, subject: 'message')]
     public function update(
         #[MapHydratedEntity(groups: ['update:message'])]
         Message $message,
         EntityManagerInterface $em,
-    )
-    {
+    ): JsonResponse {
         $em->flush();
+
         return $this->json($message, context: ['groups' => ['read:message']]);
     }
 
-    #[Route("/messages/{message}", methods: ['DELETE'], requirements: ['message' => Requirements::ID])]
+    #[Route('/messages/{message}', methods: ['DELETE'], requirements: ['message' => Requirements::ID])]
     #[IsGranted(ForumVoter::DELETE_MESSAGE, subject: 'message')]
     public function delete(
         Message $message,
         EntityManagerInterface $em,
-    )
-    {
+    ): JsonResponse {
         $em->remove($message);
         $em->flush();
+
         return new JsonResponse(null, 204);
     }
 
@@ -90,9 +88,10 @@ class ForumMessageController extends AbstractController
 
     #[Route('/messages/{message}/solve', name: 'message_solve ', methods: ['POST'], requirements: ['id' => Requirements::ID])]
     #[IsGranted(ForumVoter::SOLVE_MESSAGE, subject: 'message')]
-    public function solve(Message $message, TopicService $service): Response
+    public function solve(Message $message, TopicService $service): JsonResponse
     {
         $service->messageSolveTopic($message);
-        return new Response(null, Response::HTTP_NO_CONTENT);
+
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 }

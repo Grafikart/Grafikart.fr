@@ -2,7 +2,6 @@
 
 namespace App\Domain\Forum\Entity;
 
-use ApiPlatform\Metadata\ApiProperty;
 use App\Domain\Auth\User;
 use App\Http\Twig\CacheExtension\CacheableInterface;
 use App\Infrastructure\Spam\SpammableInterface;
@@ -22,7 +21,6 @@ class Topic implements SpammableInterface, CacheableInterface
     #[ORM\Id]
     #[ORM\GeneratedValue()]
     #[ORM\Column(type: 'integer')]
-    #[ApiProperty(identifier: true)]
     #[Groups(['read:topic'])]
     private ?int $id = null;
 

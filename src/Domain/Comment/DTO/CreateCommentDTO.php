@@ -11,7 +11,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class CreateCommentDTO extends UpdateCommentDTO
 {
-
     #[Assert\NotBlank(normalizer: 'trim', groups: ['anonymous'])]
     #[NotExists(class: User::class, groups: ['anonymous'], field: 'username', message: 'Ce pseudo est utilisé par un utilisateur')]
     #[Groups(['anonymous'])]
@@ -26,5 +25,4 @@ class CreateCommentDTO extends UpdateCommentDTO
     #[Exists(class: Content::class, groups: ['write'])]
     #[Groups(['write'])]
     public ?int $parent = null;
-
 }

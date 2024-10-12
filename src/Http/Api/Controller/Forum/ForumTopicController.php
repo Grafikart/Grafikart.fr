@@ -15,13 +15,13 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[Route(path: '/forum', name: 'forum_')]
 class ForumTopicController extends AbstractController
 {
-
     #[Route(path: '/topics/{topic}', name: 'forum_topic', methods: ['DELETE'])]
     #[IsGranted(ForumVoter::DELETE_TOPIC, subject: 'topic')]
     public function delete(Topic $topic, EntityManagerInterface $em): JsonResponse
     {
         $em->remove($topic);
         $em->flush();
+
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 

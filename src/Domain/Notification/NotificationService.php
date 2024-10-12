@@ -80,7 +80,7 @@ class NotificationService
         /** @var NotificationRepository $repository */
         $repository = $this->em->getRepository(Notification::class);
 
-        return $repository->findRecentForUser($user, channels: $this->getChannelsForUser($user),limit: $limit);
+        return $repository->findRecentForUser($user, channels: $this->getChannelsForUser($user), limit: $limit);
     }
 
     public function readAll(User $user): void

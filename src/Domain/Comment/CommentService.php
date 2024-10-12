@@ -22,7 +22,7 @@ class CommentService
     }
 
     /**
-     * Crée un commentaire et l'enregistre en base
+     * Crée un commentaire et l'enregistre en base.
      */
     public function create(CreateCommentDTO $data): Comment
     {

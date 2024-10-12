@@ -4,7 +4,6 @@ namespace App\Tests\Http\Api;
 
 use App\Domain\Auth\User;
 use App\Domain\Comment\Entity\Comment;
-use App\Http\Api\Resource\CommentResource;
 use App\Tests\ApiTestCase;
 use App\Tests\FixturesTrait;
 use Spatie\Snapshots\MatchesSnapshots;
