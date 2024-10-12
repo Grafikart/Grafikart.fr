@@ -23,11 +23,11 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 /**
  * @method \App\Domain\Auth\User getUser()
  */
-#[Route(path: '/forum')]
+#[Route(path: '/forum', name: 'forum_')]
 class ForumMessageController extends AbstractController
 {
 
-    #[Route("/messages/{message}", name: "forum_message", requirements: ['message' => Requirements::ID], methods: ['GET'])]
+    #[Route("/messages/{message}", name: "message", requirements: ['message' => Requirements::ID], methods: ['GET'])]
     public function show(
         Message $message,
     )
@@ -59,7 +59,7 @@ class ForumMessageController extends AbstractController
         return new JsonResponse(null, 204);
     }
 
-    #[Route('/topics/{topic}/messages', name: 'forum_messages', methods: ['POST'], requirements: ['topic' => Requirements::ID])]
+    #[Route('/topics/{topic}/messages', name: 'messages', methods: ['POST'], requirements: ['topic' => Requirements::ID])]
     #[IsGranted(ForumVoter::CREATE_MESSAGE, subject: 'topic')]
     public function create(
         Topic $topic,
@@ -88,7 +88,7 @@ class ForumMessageController extends AbstractController
         ], Response::HTTP_CREATED);
     }
 
-    #[Route('/messages/{message}/solve', name: 'forum_message_solve ', methods: ['POST'], requirements: ['id' => Requirements::ID])]
+    #[Route('/messages/{message}/solve', name: 'message_solve ', methods: ['POST'], requirements: ['id' => Requirements::ID])]
     #[IsGranted(ForumVoter::SOLVE_MESSAGE, subject: 'message')]
     public function solve(Message $message, TopicService $service): Response
     {

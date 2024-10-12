@@ -1,20 +1,31 @@
 <?php
 
-namespace App\Http\Api\Controller;
+namespace App\Http\Api\Controller\Forum;
 
 use App\Domain\Forum\Entity\Topic;
 use App\Domain\Forum\TopicService;
 use App\Http\Controller\AbstractController;
+use App\Http\Security\ForumVoter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[Route(path: '/forum')]
-class ApiTopicController extends AbstractController
+#[Route(path: '/forum', name: 'forum_')]
+class ForumTopicController extends AbstractController
 {
-    #[Route(path: '/topics/{id<\d+>}/follow', name: 'api_forum/topic_follow', methods: ['POST'])]
+
+    #[Route(path: '/topics/{topic}', name: 'forum_topic', methods: ['DELETE'])]
+    #[IsGranted(ForumVoter::DELETE_TOPIC, subject: 'topic')]
+    public function delete(Topic $topic, EntityManagerInterface $em): JsonResponse
+    {
+        $em->remove($topic);
+        $em->flush();
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
+    }
+
+    #[Route(path: '/topics/{topic}/follow', name: 'topic_follow', methods: ['POST'])]
     #[IsGranted('ROLE_USER')]
     public function toggleFollow(Topic $topic, TopicService $topicService, EntityManagerInterface $em): JsonResponse
     {
