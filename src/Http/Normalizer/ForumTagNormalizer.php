@@ -2,9 +2,9 @@
 
 namespace App\Http\Normalizer;
 
-use ApiPlatform\Api\UrlGeneratorInterface;
 use App\Domain\Forum\Entity\Tag;
 use App\Normalizer\Normalizer;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ForumTagNormalizer extends Normalizer
 {

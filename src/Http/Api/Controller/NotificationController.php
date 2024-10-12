@@ -16,18 +16,18 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class NotificationController extends AbstractController
 {
-
     public function __construct(
-        private readonly NotificationService $service
-    ){
+        private readonly NotificationService $service,
+    ) {
     }
 
     #[Route(path: '/notifications', methods: ['GET'])]
     #[IsGranted('ROLE_USER')]
-    public function index()
+    public function index(): JsonResponse
     {
         $user = $this->getUserOrThrow();
         $notifications = $this->service->forUser($user, 15);
+
         return $this->json($notifications, context: ['groups' => ['read:notification']]);
     }
 
@@ -38,11 +38,11 @@ class NotificationController extends AbstractController
         Notification $notification,
         EntityManagerInterface $em,
         EventDispatcherInterface $dispatcher,
-    )
-    {
+    ): JsonResponse {
         $em->persist($notification);
         $em->flush();
         $dispatcher->dispatch(new NotificationCreatedEvent($notification));
+
         return $this->json($notification, context: ['groups' => ['read:notification']]);
     }
 

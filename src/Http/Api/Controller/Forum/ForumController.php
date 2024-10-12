@@ -12,7 +12,6 @@ use Symfony\Component\Routing\Attribute\Route;
 /**
  * @method \App\Domain\Auth\User getUser()
  */
-
 #[Route(path: '/forum', name: 'forum_')]
 class ForumController extends AbstractController
 {

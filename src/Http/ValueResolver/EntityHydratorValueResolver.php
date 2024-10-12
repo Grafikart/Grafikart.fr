@@ -19,19 +19,18 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Récupère une entité (comme MapEntity), l'hydrate et la valide
- * Agit comme une combinaison entre MapEntity & MapRequestPayload
+ * Agit comme une combinaison entre MapEntity & MapRequestPayload.
  */
-final class EntityHydratorValueResolver implements ValueResolverInterface
+final readonly class EntityHydratorValueResolver implements ValueResolverInterface
 {
-    private readonly EntityValueResolver $entityValueResolver;
+    private EntityValueResolver $entityValueResolver;
 
     public function __construct(
-        private readonly SerializerInterface $serializer,
-        private readonly ValidatorInterface  $validator,
-        ManagerRegistry                      $registry,
-        ?ExpressionLanguage                  $expressionLanguage = null,
-    )
-    {
+        private SerializerInterface $serializer,
+        private ValidatorInterface $validator,
+        ManagerRegistry $registry,
+        ?ExpressionLanguage $expressionLanguage = null,
+    ) {
         $this->entityValueResolver = new EntityValueResolver($registry, $expressionLanguage);
     }
 
@@ -49,23 +48,23 @@ final class EntityHydratorValueResolver implements ValueResolverInterface
 
         // Agit comme un MapEntity
         $entity = $this->entityValueResolver->resolve($request, $argument)[0] ?? null;
-        if ($entity::class !== $argument->getType()) {
-            throw new NotFoundHttpException((sprintf('"%s" object not found by "%s".', $argument->getType(), self::class)));
+        if (!$entity::class || $entity::class !== $argument->getType()) {
+            throw new NotFoundHttpException(sprintf('"%s" object not found by "%s".', $argument->getType(), self::class));
         }
 
         // Hydrate l'objet avec le contenu de la requête
-        $this->serializer->deserialize($request->getContent(), $entity::class, $request->getContentTypeFormat(), [
+        $this->serializer->deserialize($request->getContent(), $entity::class, $request->getContentTypeFormat() ?? 'json', [
             'groups' => $attribute->groups,
-            AbstractNormalizer::OBJECT_TO_POPULATE => $entity
+            AbstractNormalizer::OBJECT_TO_POPULATE => $entity,
         ]);
         $violations = $this->validator->validate($entity, groups: $attribute->validationGroups);
 
         if (\count($violations)) {
-            throw HttpException::fromStatusCode(Response::HTTP_UNPROCESSABLE_ENTITY, implode("\n", array_map(static fn($e) => $e->getMessage(), iterator_to_array($violations))), new ValidationFailedException($entity, $violations));
+            throw HttpException::fromStatusCode(Response::HTTP_UNPROCESSABLE_ENTITY, implode("\n", array_map(static fn ($e) => $e->getMessage(), iterator_to_array($violations))), new ValidationFailedException($entity, $violations));
         }
 
         return [
-            $entity
+            $entity,
         ];
     }
 }

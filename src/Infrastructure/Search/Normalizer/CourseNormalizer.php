@@ -2,9 +2,9 @@
 
 namespace App\Infrastructure\Search\Normalizer;
 
-use ApiPlatform\Api\UrlGeneratorInterface;
 use App\Domain\Course\Entity\Course;
 use App\Http\Normalizer\CoursePathNormalizer;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class CourseNormalizer implements NormalizerInterface

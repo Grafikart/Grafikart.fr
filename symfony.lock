@@ -1,18 +1,4 @@
 {
-    "api-platform/core": {
-        "version": "3.4",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "main",
-            "version": "3.3",
-            "ref": "74b45ac570c57eb1fbe56c984091a9ff87e18bab"
-        },
-        "files": [
-            "config/packages/api_platform.yaml",
-            "config/routes/api_platform.yaml",
-            "src/ApiResource/.gitignore"
-        ]
-    },
     "beberlei/doctrineextensions": {
         "version": "v1.2.6"
     },
@@ -924,9 +910,6 @@
     },
     "webmozart/assert": {
         "version": "1.6.0"
-    },
-    "willdurand/negotiation": {
-        "version": "v2.3.1"
     },
     "wohali/oauth2-discord-new": {
         "version": "v1.0.0"

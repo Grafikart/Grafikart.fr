@@ -22,13 +22,15 @@ class MercureCookieMiddleware implements EventSubscriberInterface
     private readonly TokenFactoryInterface $tokenFactory;
 
     public function __construct(
-        #[Autowire(env: "MERCURE_SUBSCRIBER_SECRET")]
-        string                               $secret,
+        #[Autowire(env: 'MERCURE_SUBSCRIBER_SECRET')]
+        string $secret,
         private readonly NotificationService $notificationService,
-        private readonly Security            $security,
-        private readonly Authorization       $authorization,
-    )
-    {
+        private readonly Security $security,
+        private readonly Authorization $authorization,
+    ) {
+        if (empty($secret)) {
+            throw new \RuntimeException('Mercure secret should not be empty');
+        }
         $this->tokenFactory = new LcobucciFactory($secret);
     }
 
@@ -51,7 +53,7 @@ class MercureCookieMiddleware implements EventSubscriberInterface
             return;
         }
         $channels = array_map(
-            fn(string $channel) => "/notifications/$channel",
+            fn (string $channel) => "/notifications/$channel",
             $this->notificationService->getChannelsForUser($user)
         );
         $exp = (new \DateTimeImmutable('+1 hour'));
@@ -62,5 +64,4 @@ class MercureCookieMiddleware implements EventSubscriberInterface
             ->withValue($this->tokenFactory->create($channels, null));
         $response->headers->setCookie($cookie);
     }
-
 }
