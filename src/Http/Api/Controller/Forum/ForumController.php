@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Api\Controller;
+namespace App\Http\Api\Controller\Forum;
 
 use App\Domain\Forum\TopicService;
 use App\Http\Controller\AbstractController;
