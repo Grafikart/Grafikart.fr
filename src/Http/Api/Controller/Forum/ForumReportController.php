@@ -11,10 +11,11 @@ use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[Route(path: '/forum', name: 'forum_')]
 class ForumReportController extends AbstractController
 {
 
-    #[Route(path: '/forum/reports/{report}', name: 'forum_report')]
+    #[Route(path: '/reports/{report}', name: 'report')]
     #[IsGranted(ForumVoter::DELETE_REPORT, subject: 'report')]
     public function delete(Report $report, EntityManagerInterface $em): JsonResponse
     {
@@ -23,7 +24,7 @@ class ForumReportController extends AbstractController
         return new JsonResponse(null, 204);
     }
 
-    #[Route(path: '/forum/reports', name: 'forum_reports')]
+    #[Route(path: '/reports', name: 'reports')]
     #[IsGranted(ForumVoter::CREATE_REPORT)]
     public function create(
         #[MapRequestPayload(serializationContext: ['groups' => ['create:report']])]

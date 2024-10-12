@@ -48,7 +48,7 @@
     {% endif %}
     <main class="forum-page__main stack">
       <div class="flex flex-end">
-        <forum-read endpoint="{{ path('api_forum/read_all') }}"></forum-read>
+        <forum-read endpoint="{{ path('api_forum_read_all') }}"></forum-read>
       </div>
       {% for topic in topics %}
         {% include('forum/_topic.html.twig') %}
