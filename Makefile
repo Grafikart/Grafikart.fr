@@ -49,7 +49,7 @@ build-docker:
 	$(dc) build php
 	$(dc) build messenger
 
-dev: vendor/autoload.php node_modules/time ## Lance le serveur de développement
+dev: node_modules/time ## Lance le serveur de développement
 	$(dc) up
 
 devmac: ## Sur MacOS on ne préfèrera exécuter PHP en local pour les performances

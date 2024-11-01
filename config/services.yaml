@@ -35,7 +35,7 @@ services:
     class: \Redis
     calls:
       - connect:
-          - '%env(REDIS_URL)%'
+          - '%env(REDIS_HOST)%'
 
   Symfony\Component\HttpFoundation\Session\Storage\Handler\RedisSessionHandler:
     arguments:
