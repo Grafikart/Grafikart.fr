@@ -12,9 +12,9 @@ bun :=
 php :=
 ifeq ($(isDocker), 1)
 	ifneq ($(isProd), 1)
-		dc := USER_ID=$(user) GROUP_ID=$(group) docker-compose
-		dcimport := USER_ID=$(user) GROUP_ID=$(group) docker-compose -f docker-compose.import.yml
-		de := docker-compose exec
+		dc := USER_ID=$(user) GROUP_ID=$(group) docker compose
+		dcimport := USER_ID=$(user) GROUP_ID=$(group) docker compose -f docker-compose.import.yml
+		de := docker compose exec
 		dr := $(dc) run --rm
 		drtest := $(dc) -f docker-compose.test.yml run --rm
 		sy := $(de) php bin/console
@@ -53,7 +53,7 @@ dev: node_modules/time ## Lance le serveur de développement
 	$(dc) up
 
 devmac: ## Sur MacOS on ne préfèrera exécuter PHP en local pour les performances
-	docker-compose -f docker-compose.macos.yml up
+	docker compose -f docker-compose.macos.yml up
 
 dump: var/dump ## Génère un dump SQL
 	$(de) db sh -c 'PGPASSWORD="grafikart" pg_dump grafikart -U grafikart > /var/www/var/dump/dump.sql'
@@ -61,14 +61,14 @@ dump: var/dump ## Génère un dump SQL
 dumpimport: ## Import un dump SQL
 	$(de) db sh -c 'pg_restore -c -d grafikart -U grafikart /var/www/var/dump'
 
-seed: vendor/autoload.php ## Génère des données dans la base de données (docker-compose up doit être lancé)
+seed: vendor/autoload.php ## Génère des données dans la base de données (docker compose up doit être lancé)
 	$(sy) doctrine:migrations:migrate -q
 	$(sy) app:seed -q
 
 migration: vendor/autoload.php ## Génère les migrations
 	$(sy) make:migration
 
-migrate: vendor/autoload.php ## Migre la base de données (docker-compose up doit être lancé)
+migrate: vendor/autoload.php ## Migre la base de données (docker compose up doit être lancé)
 	$(sy) doctrine:migrations:migrate -q
 
 rollback:
