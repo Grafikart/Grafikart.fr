@@ -85,10 +85,6 @@ services:
   App\Infrastructure\Queue\FailedJobsService:
     arguments: ['@messenger.transport.failed']
 
-  App\Infrastructure\Queue\ScheduledJobsService:
-    arguments:
-      $dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
-
   App\Infrastructure\Spam\SpamService:
     arguments: [['App\Domain\Forum\Entity\Topic', 'App\Domain\Forum\Entity\Message']]
 
