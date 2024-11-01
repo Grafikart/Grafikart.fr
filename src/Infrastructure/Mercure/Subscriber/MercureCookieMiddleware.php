@@ -60,8 +60,11 @@ class MercureCookieMiddleware implements EventSubscriberInterface
         // On n'utilise pas la méthode createCookie d'authorization car elle utiliserait la clef secrète publisher
         // On part du clear cookie, pour le modifier et utiliser la clef d'abonnement.
         $cookie = $this->authorization->createClearCookie($request, null)
-            ->withExpires(0)
-            ->withValue($this->tokenFactory->create($channels, null));
+            ->withExpires($exp)
+            ->withValue($this->tokenFactory->create($channels, null, [
+                // We need to set a date without ms to avoid float in "exp"
+                'exp' => new \DateTimeImmutable("@" . $exp->getTimestamp()),
+            ]));
         $response->headers->setCookie($cookie);
     }
 }
