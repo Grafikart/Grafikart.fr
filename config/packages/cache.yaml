@@ -16,7 +16,7 @@ services:
       $redis: '@Redis'
       $defaultLifetime: 604800
     tags:
-      - { name: 'cache.pool', namespace: 'grafikart_cache' }
+      - { name: 'cache.pool', namespace: '%env(resolve:REDIS_POOL)%' }
 
 when@prod:
   framework:

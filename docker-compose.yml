@@ -44,6 +44,8 @@ services:
   redis:
     restart: unless-stopped
     image: redis:7-alpine
+    ports:
+      - 6379:6379
   meilisearch:
     restart: unless-stopped
     image: getmeili/meilisearch:v1.0

@@ -30,6 +30,9 @@ help: ## Affiche cette aide
 deploy: ## Déploie une nouvelle version du site
 	ssh -A $(server) 'cd $(domain) && git pull origin master && make install'
 
+devdeploy: ## Déploie une nouvelle version du site
+	ssh -A $(server) 'cd dev.$(domain) && git pull origin develop && make install'
+
 sync: ## Récupère les données depuis le serveur
 	rsync -avz --ignore-existing --progress --exclude=avatars grafikart:/home/grafikart/grafikart.fr/public/uploads/ ./public/uploads/
 

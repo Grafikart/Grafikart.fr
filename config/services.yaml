@@ -32,9 +32,10 @@ services:
       tags: ['app.breadcrumb']
 
   Redis:
-    class: \Predis\Client
-    arguments:
-      - '%env(REDIS_URL)%'
+    class: \Redis
+    calls:
+      - connect:
+          - '%env(REDIS_URL)%'
 
   Symfony\Component\HttpFoundation\Session\Storage\Handler\RedisSessionHandler:
     arguments:
