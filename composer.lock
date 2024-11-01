@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "099ee6dddb384d2c29a50a2fb9cc72c6",
+    "content-hash": "dc9ec6ccfce59cb8e5376c874ddbf3ff",
     "packages": [
         {
             "name": "api-platform/core",
@@ -4625,92 +4625,6 @@
                 "source": "https://github.com/nelmio/NelmioCorsBundle/tree/2.3.1"
             },
             "time": "2023-02-16T08:49:29+00:00"
-        },
-        {
-            "name": "nucleos/antispam-bundle",
-            "version": "2.3.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nucleos/NucleosAntiSpamBundle.git",
-                "reference": "99e3410b14b0bc5b6c1bbd1907b2f3cc09f6bd53"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nucleos/NucleosAntiSpamBundle/zipball/99e3410b14b0bc5b6c1bbd1907b2f3cc09f6bd53",
-                "reference": "99e3410b14b0bc5b6c1bbd1907b2f3cc09f6bd53",
-                "shasum": ""
-            },
-            "require": {
-                "ext-pcre": "*",
-                "php": "^8.0",
-                "symfony/config": "^5.4 || ^6.0",
-                "symfony/dependency-injection": "^5.4 || ^6.0",
-                "symfony/event-dispatcher": "^5.4 || ^6.0",
-                "symfony/expression-language": "^5.4 || ^6.0",
-                "symfony/form": "^5.4 || ^6.0",
-                "symfony/framework-bundle": "^5.4 || ^6.0",
-                "symfony/http-foundation": "^5.4 || ^6.0",
-                "symfony/http-kernel": "^5.4 || ^6.0",
-                "symfony/options-resolver": "^5.4 || ^6.0",
-                "symfony/translation-contracts": "^1.1 || ^2.0 || ^3.0",
-                "twig/twig": "^2.4 || ^3.0"
-            },
-            "require-dev": {
-                "ergebnis/composer-normalize": "^2.0.1",
-                "symfony/browser-kit": "^5.4 || ^6.0",
-                "symfony/translation": "^5.4 || ^6.0",
-                "symfony/twig-bundle": "^5.4 || ^6.0"
-            },
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-4": {
-                    "Nucleos\\AntiSpamBundle\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Christian Gripp",
-                    "email": "mail@core23.de"
-                }
-            ],
-            "description": "This bundle provides some basic features to reduce spam in symfony forms.",
-            "homepage": "https://nucleos.rocks",
-            "keywords": [
-                "antispam",
-                "bundle",
-                "form",
-                "protection",
-                "spam",
-                "symfony",
-                "twig"
-            ],
-            "support": {
-                "issues": "https://github.com/nucleos/NucleosAntiSpamBundle/issues",
-                "source": "https://github.com/nucleos/NucleosAntiSpamBundle/tree/2.3.2"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/sponsors/core23",
-                    "type": "github"
-                },
-                {
-                    "url": "https://ko-fi.com/core23",
-                    "type": "ko-fi"
-                },
-                {
-                    "url": "https://opencollective.com/core23",
-                    "type": "opencollective"
-                },
-                {
-                    "url": "https://donate.core23.de",
-                    "type": "other"
-                }
-            ],
-            "time": "2021-12-20T15:27:39+00:00"
         },
         {
             "name": "oneup/flysystem-bundle",
@@ -15725,7 +15639,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
@@ -15735,9 +15649,9 @@
         "ext-json": "*",
         "ext-redis": "*"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "platform-overrides": {
         "php": "8.2.7"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }

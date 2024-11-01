@@ -314,9 +314,6 @@
     "nikic/php-parser": {
         "version": "v4.3.0"
     },
-    "nucleos/antispam-bundle": {
-        "version": "2.1.0"
-    },
     "oneup/flysystem-bundle": {
         "version": "4.0",
         "recipe": {
