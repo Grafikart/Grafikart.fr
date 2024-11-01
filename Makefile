@@ -87,18 +87,18 @@ tt: vendor/autoload.php ## Lance le watcher phpunit
 	# $(drtest) phptest vendor/bin/phpunit-watcher watch --filter="nothing"
 
 lint: vendor/autoload.php ## Analyse le code
-	docker run -v $(PWD):/app -w /app -t --rm php:8.2-cli-alpine php -d memory_limit=-1 bin/console lint:container
-	docker run -v $(PWD):/app -w /app -t --rm php:8.2-cli-alpine php -d memory_limit=-1 ./vendor/bin/phpstan analyse
+	docker run -v $(PWD):/app -w /app -t --rm grafikart/php:php8.2-2 php -d memory_limit=-1 bin/console lint:container
+	docker run -v $(PWD):/app -w /app -t --rm grafikart/php:php8.2-2 php -d memory_limit=-1 ./vendor/bin/phpstan analyse
 
 security-check: vendor/autoload.php ## Check pour les vulnérabilités des dependencies
 	$(de) php local-php-security-checker --path=/var/www
 
 format: ## Formate le code
 	bunx prettier-standard --lint --changed "assets/**/*.{js,css,jsx}"
-	docker run -v $(PWD):/app -w /app -t --rm php:8.2-cli-alpine php -d memory_limit=-1 ./vendor/bin/php-cs-fixer fix
+	docker run -v $(PWD):/app -w /app -t --rm grafikart/php:php8.2-2 php -d memory_limit=-1 ./vendor/bin/php-cs-fixer fix
 
 refactor: ## Reformate le code avec rector
-	docker run -v $(PWD):/app -w /app -t --rm php:8.2-cli-alpine php -d memory_limit=-1 ./vendor/bin/rector process src
+	docker run -v $(PWD):/app -w /app -t --rm grafikart/php:php8.2-2 php -d memory_limit=-1 ./vendor/bin/rector process src
 
 doc: ## Génère le sommaire de la documentation
 	npx doctoc ./README.md
