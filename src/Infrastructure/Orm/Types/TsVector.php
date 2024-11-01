@@ -10,7 +10,7 @@ use Doctrine\DBAL\Types\Type;
  */
 class TsVector extends Type
 {
-    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string
+    public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
     {
         return 'tsvector';
     }
@@ -25,9 +25,9 @@ class TsVector extends Type
         return $value;
     }
 
-    public function convertToDatabaseValueSQL($sqlExp, AbstractPlatform $platform): string
+    public function convertToDatabaseValueSQL(string $sqlExpr, AbstractPlatform $platform): string
     {
-        return sprintf("to_tsvector('french', %s)", $sqlExp);
+        return sprintf("to_tsvector('french', %s)", $sqlExpr);
     }
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform): mixed

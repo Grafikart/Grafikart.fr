@@ -4,7 +4,6 @@ namespace App\Domain\Auth;
 
 use App\Domain\Auth\Event\BadPasswordLoginEvent;
 use Psr\EventDispatcher\EventDispatcherInterface;
-use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,6 +19,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\RememberMeBadge
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
+use Symfony\Component\Security\Http\SecurityRequestAttributes;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 class Authenticator extends AbstractLoginFormAuthenticator
@@ -33,14 +33,14 @@ class Authenticator extends AbstractLoginFormAuthenticator
         private readonly UserRepository $userRepository,
         private readonly UrlGeneratorInterface $urlGenerator,
         private readonly EventDispatcherInterface $eventDispatcher,
-        private readonly UrlMatcherInterface $urlMatcher
+        private readonly UrlMatcherInterface $urlMatcher,
     ) {
     }
 
     public function authenticate(Request $request): Passport
     {
         $email = (string) $request->request->get('email', '');
-        $request->getSession()->set(Security::LAST_USERNAME, $email);
+        $request->getSession()->set(SecurityRequestAttributes::LAST_USERNAME, $email);
 
         $this->lastPassport = new Passport(
             new UserBadge($email, fn (string $email) => $this->userRepository->findForAuth($email)),
@@ -57,7 +57,7 @@ class Authenticator extends AbstractLoginFormAuthenticator
     public function onAuthenticationSuccess(
         Request $request,
         TokenInterface $token,
-        string $firewallName
+        string $firewallName,
     ): RedirectResponse {
         if ($redirect = $request->get('redirect')) {
             try {
@@ -78,8 +78,9 @@ class Authenticator extends AbstractLoginFormAuthenticator
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): Response
     {
         $user = $this->lastPassport?->getUser();
-        if ($user instanceof User &&
-            $exception instanceof BadCredentialsException
+        if (
+            $user instanceof User
+            && $exception instanceof BadCredentialsException
         ) {
             $this->eventDispatcher->dispatch(new BadPasswordLoginEvent($user));
         }
@@ -95,11 +96,11 @@ class Authenticator extends AbstractLoginFormAuthenticator
     /**
      * @return RedirectResponse|JsonResponse
      */
-    public function start(Request $request, AuthenticationException $authException = null): Response
+    public function start(Request $request, ?AuthenticationException $authException = null): Response
     {
         $url = $this->getLoginUrl($request);
 
-        if ('json' === $request->getContentType()) {
+        if (in_array('application/json', $request->getAcceptableContentTypes())) {
             return new JsonResponse([], Response::HTTP_FORBIDDEN);
         }
 

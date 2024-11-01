@@ -75,7 +75,7 @@ App\Domain\Podcast\Entity\Podcast:
     youtube: 'https://www.youtube.com/watch?v=zEJF1SnfxX8'
   podcast_future{1..3} (extends podcast):
     title: 'Podcast programmé <current()>'
-    scheduledAt: <dateTimeBetween('+1 week', '+1 month')>
+    scheduledAt: <dateTimeImmutableBetween('+1 week', '+1 month')>
     author: '@user*'
   podcast_suggestions{1..10} (extends podcast):
     title: 'Idée de podcast à faire <current()>'

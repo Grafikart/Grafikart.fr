@@ -19,7 +19,7 @@ class ProfileService
         private readonly TokenGeneratorService $tokenGeneratorService,
         private readonly EmailVerificationRepository $emailVerificationRepository,
         private readonly EventDispatcherInterface $dispatcher,
-        private readonly EntityManagerInterface $em
+        private readonly EntityManagerInterface $em,
     ) {
     }
 
@@ -34,7 +34,7 @@ class ProfileService
 
         // On la déplace dans le profil utilisateur
         $data->user->setAvatarFile($data->file);
-        $data->user->setUpdatedAt(new \DateTime());
+        $data->user->setUpdatedAt(new \DateTimeImmutable());
     }
 
     public function updateProfile(ProfileUpdateDto $data): void
@@ -49,7 +49,7 @@ class ProfileService
         }
         if ($data->email !== $data->user->getEmail()) {
             $lastRequest = $this->emailVerificationRepository->findLastForUser($data->user);
-            if ($lastRequest && $lastRequest->getCreatedAt() > new \DateTime('-1 hour')) {
+            if ($lastRequest && $lastRequest->getCreatedAt() > new \DateTimeImmutable('-1 hour')) {
                 throw new TooManyEmailChangeException($lastRequest);
             } else {
                 if ($lastRequest) {
@@ -59,7 +59,7 @@ class ProfileService
             $emailVerification = (new EmailVerification())
                 ->setEmail($data->email)
                 ->setAuthor($data->user)
-                ->setCreatedAt(new \DateTime())
+                ->setCreatedAt(new \DateTimeImmutable())
                 ->setToken($this->tokenGeneratorService->generate());
             $this->em->persist($emailVerification);
             $this->dispatcher->dispatch(new EmailVerificationEvent($emailVerification));

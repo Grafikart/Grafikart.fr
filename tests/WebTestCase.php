@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\HttpFoundation\Exception\SessionNotFoundException;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
@@ -34,14 +34,14 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
         parent::tearDown();
     }
 
-    public function jsonRequest(string $method, string $url, ?array $data = null): string
+    public function jsonRequest(string $method, string $url, ?array $data = null): Response
     {
         $this->client->request($method, $url, [], [], [
             'CONTENT_TYPE' => 'application/json',
             'HTTP_ACCEPT' => 'application/json',
         ], $data ? json_encode($data, JSON_THROW_ON_ERROR) : null);
 
-        return $this->client->getResponse()->getContent();
+        return $this->client->getResponse();
     }
 
     /**

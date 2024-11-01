@@ -19,18 +19,18 @@ class PodcastControllerTest extends ApiTestCase
         /** @var User $user */
         [
             'podcast_suggestions1' => $podcast,
-            'user1' => $user
+            'user1' => $user,
         ] = $this->loadFixtures(['users', 'podcasts']);
         $this->login($user);
         $count = $podcast->getVotesCount();
 
         // On vote une fois
-        $this->client->request('POST', "/api/podcasts/{$podcast->getId()}/vote");
+        $this->jsonRequest('POST', "/api/podcasts/{$podcast->getId()}/vote");
         $this->assertResponseStatusCodeSame(200);
         $this->assertJsonContains(['votesCount' => $count + 1]);
 
         // On retire notre vote
-        $this->client->request('POST', "/api/podcasts/{$podcast->getId()}/vote");
+        $this->jsonRequest('POST', "/api/podcasts/{$podcast->getId()}/vote");
         $this->assertResponseStatusCodeSame(200);
         $this->assertJsonContains(['votesCount' => $count]);
     }
@@ -41,11 +41,11 @@ class PodcastControllerTest extends ApiTestCase
         /** @var User $user */
         [
             'podcast_suggestions1' => $podcast,
-            'user2' => $user
+            'user2' => $user,
         ] = $this->loadFixtures(['users', 'podcasts']);
         $this->login($user);
 
-        $this->client->request('POST', "/api/podcasts/{$podcast->getId()}/vote");
+        $this->jsonRequest('POST', "/api/podcasts/{$podcast->getId()}/vote");
         $this->assertResponseStatusCodeSame(403);
     }
 
@@ -55,11 +55,11 @@ class PodcastControllerTest extends ApiTestCase
         /** @var User $user */
         [
             'podcast1' => $podcast,
-            'user1' => $user
+            'user1' => $user,
         ] = $this->loadFixtures(['users', 'podcasts']);
         $this->login($user);
 
-        $this->client->request('POST', "/api/podcasts/{$podcast->getId()}/vote");
+        $this->jsonRequest('POST', "/api/podcasts/{$podcast->getId()}/vote");
         $this->assertResponseStatusCodeSame(403);
     }
 }

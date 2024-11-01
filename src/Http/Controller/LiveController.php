@@ -3,14 +3,15 @@
 namespace App\Http\Controller;
 
 use App\Domain\Live\LiveService;
+use App\Http\Requirements;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class LiveController extends AbstractController
 {
-    #[Route(path: '/live/{year?}', name: 'live', requirements: ['year' => '\d{4}'])]
+    #[Route(path: '/live/{year?}', name: 'live', requirements: ['year' => Requirements::YEAR])]
     public function index(?int $year, Request $request, LiveService $liveService): Response
     {
         return $this->render('live/index.html.twig', [

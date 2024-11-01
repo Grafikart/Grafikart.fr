@@ -11,11 +11,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Notification
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\GeneratedValue()]
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Auth\User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(name: 'user_id', onDelete: 'CASCADE', nullable: true)]
     private ?User $user = null;
 
@@ -26,11 +26,11 @@ class Notification
 
     #[ORM\Column(type: 'string', nullable: true)]
     #[Assert\NotBlank]
-    #[Assert\Url]
+    #[Assert\Url(requireTld: true)]
     #[Groups(['read:notification', 'create:notification'])]
     private ?string $url = null;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     #[Groups(['read:notification'])]
     private \DateTimeInterface $createdAt;
 
@@ -43,7 +43,7 @@ class Notification
 
     public function __construct()
     {
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): int

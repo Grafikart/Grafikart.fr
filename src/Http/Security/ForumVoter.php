@@ -10,8 +10,9 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class ForumVoter extends Voter
 {
-    final public const CREATE = 'forumCreate';
-    final public const REPORT = 'forumReport';
+    final public const CREATE_TOPIC = 'CREATE_FORUM';
+    final public const CREATE_REPORT = 'CREATE_REPORT';
+    final public const DELETE_REPORT = 'DELETE_REPORT';
     final public const CREATE_MESSAGE = 'CREATE_FORUM_MESSAGE';
     final public const UPDATE_MESSAGE = 'UPDATE_FORUM_MESSAGE';
     final public const DELETE_MESSAGE = 'DELETE_FORUM_MESSAGE';
@@ -23,8 +24,8 @@ class ForumVoter extends Voter
     protected function supports(string $attribute, $subject): bool
     {
         return in_array($attribute, [
-            self::CREATE,
-            self::REPORT,
+            self::CREATE_TOPIC,
+            self::CREATE_REPORT,
             self::CREATE_MESSAGE,
             self::UPDATE_MESSAGE,
             self::DELETE_MESSAGE,
@@ -47,7 +48,7 @@ class ForumVoter extends Voter
             self::UPDATE_TOPIC, self::DELETE_TOPIC => $this->canUpdateTopic($user, $subject),
             self::UPDATE_MESSAGE, self::DELETE_MESSAGE => $this->ownMessage($user, $subject),
             self::SOLVE_MESSAGE => $this->canSolve($user, $subject),
-            self::READ_TOPICS, self::CREATE, self::REPORT => true,
+            self::READ_TOPICS, self::CREATE_TOPIC, self::CREATE_REPORT => true,
             default => false,
         };
     }

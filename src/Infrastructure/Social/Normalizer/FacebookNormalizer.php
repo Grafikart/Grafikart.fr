@@ -10,7 +10,7 @@ class FacebookNormalizer extends Normalizer
     /**
      * @param FacebookUser $object
      */
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         return [
             'email' => $object->getEmail(),
@@ -20,7 +20,7 @@ class FacebookNormalizer extends Normalizer
         ];
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof FacebookUser;
     }
@@ -28,7 +28,7 @@ class FacebookNormalizer extends Normalizer
     public function getSupportedTypes(?string $format): array
     {
         return [
-            FacebookUser::class => true
+            FacebookUser::class => true,
         ];
     }
 }

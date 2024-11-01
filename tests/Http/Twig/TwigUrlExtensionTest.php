@@ -2,9 +2,9 @@
 
 namespace App\Tests\Http\Twig;
 
-use ApiPlatform\Api\UrlGeneratorInterface;
 use App\Http\Twig\TwigUrlExtension;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelperInterface;
 

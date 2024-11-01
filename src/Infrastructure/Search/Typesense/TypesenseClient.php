@@ -11,7 +11,7 @@ class TypesenseClient
     public function __construct(
         private readonly string $host,
         string $apiKey,
-        private readonly HttpClientInterface $client
+        private readonly HttpClientInterface $client,
     ) {
         if (empty($apiKey)) {
             throw new \RuntimeException("Une clef d'API est nécessaire à l'utilisation de typesense");

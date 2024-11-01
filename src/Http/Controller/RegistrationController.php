@@ -9,6 +9,7 @@ use App\Domain\Auth\User;
 use App\Domain\Coupon\CouponClaimerService;
 use App\Domain\Coupon\DTO\CouponClaimDTO;
 use App\Http\Form\RegistrationFormType;
+use App\Http\Requirements;
 use App\Infrastructure\Security\TokenGeneratorService;
 use App\Infrastructure\Social\SocialLoginService;
 use App\Infrastructure\Spam\GeoIpService;
@@ -19,23 +20,23 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class RegistrationController extends AbstractController
 {
     #[Route(path: '/inscription', name: 'register')]
     public function register(
-        Request                     $request,
+        Request $request,
         UserPasswordHasherInterface $hasher,
-        EntityManagerInterface      $em,
-        TokenGeneratorService       $tokenGenerator,
-        EventDispatcherInterface    $dispatcher,
-        SocialLoginService          $socialLoginService,
-        UserAuthenticatorInterface  $authenticator,
-        Authenticator               $appAuthenticator,
-        CouponClaimerService        $couponClaimerService,
-        GeoIpService                $ipService,
+        EntityManagerInterface $em,
+        TokenGeneratorService $tokenGenerator,
+        EventDispatcherInterface $dispatcher,
+        SocialLoginService $socialLoginService,
+        UserAuthenticatorInterface $authenticator,
+        Authenticator $appAuthenticator,
+        CouponClaimerService $couponClaimerService,
+        GeoIpService $ipService,
     ): Response {
         // Si l'utilisateur est connecté, on le redirige vers la home
         $loggedInUser = $this->getUser();
@@ -59,11 +60,12 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // On shadow inscrit les bots
             $location = $ipService->getLocation($request->getClientIp() ?? '');
-            if ($location && in_array($location->country, ['IN','VN', 'RU', 'CN'])) {
+            if ($location && in_array($location->country, ['IN', 'VN', 'RU', 'CN'])) {
                 $this->addFlash(
                     'success',
                     'Votre compte a été créé avec succès'
                 );
+
                 return $this->redirectToRoute('auth_login');
             }
 
@@ -76,7 +78,7 @@ class RegistrationController extends AbstractController
                     ) : ''
                 )
                 ->setLastLoginIp($request->getClientIp())
-                ->setCreatedAt(new \DateTime())
+                ->setCreatedAt(new \DateTimeImmutable())
                 ->setConfirmationToken($isOauthUser ? null : $tokenGenerator->generate(60))
                 ->setNotificationsReadAt(new \DateTimeImmutable())
             ;
@@ -124,7 +126,7 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/inscription/confirmation/{id<\d+>}', name: 'register_confirm')]
+    #[Route(path: '/inscription/confirmation/{id}', name: 'register_confirm', requirements: ['id' => Requirements::ID])]
     public function confirmToken(User $user, Request $request, EntityManagerInterface $em): RedirectResponse
     {
         $token = $request->get('token');
@@ -134,7 +136,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('register');
         }
 
-        if ($user->getCreatedAt() < new \DateTime('-2 hours')) {
+        if ($user->getCreatedAt() < new \DateTimeImmutable('-2 hours')) {
             $this->addFlash('error', 'Ce token a expiré');
 
             return $this->redirectToRoute('register');

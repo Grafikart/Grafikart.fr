@@ -53,6 +53,7 @@ class AutomaticForm extends AbstractType
         'secondaryTechnologies' => TechnologiesType::class,
         'chapters' => ChaptersForm::class,
         'color' => ColorType::class,
+        'level' => ChoiceType::class,
         'links' => TextareaType::class,
         'requirements' => TechnologyChoiceType::class,
         'intervenants' => IntervenantsType::class,
@@ -71,29 +72,42 @@ class AutomaticForm extends AbstractType
             if (null === $type) {
                 return;
             }
-            if ('requirements' === $name) {
-                $builder->add('requirements', ChoiceType::class, [
-                    'multiple' => true,
-                ]);
-            }
-            // Input spécifique au niveau
-            if ('level' === $name) {
-                $builder->add($name, ChoiceType::class, [
-                    'required' => true,
-                    'choices' => array_flip(Formation::$levels),
-                ]);
-            // Input spécifique au nom du champs
-            } elseif (array_key_exists($name, self::NAMES)) {
+            $typeName = $type->getName();
+            $extra = $this->getExtraProperties($typeName, $name);
+            // Input spécifique au nom du champ
+            if (array_key_exists($name, self::NAMES)) {
                 $builder->add($name, self::NAMES[$name], [
                     'required' => false,
+                    ...$extra,
                 ]);
-            } elseif (array_key_exists($type->getName(), self::TYPES)) {
-                $builder->add($name, self::TYPES[$type->getName()], [
-                    'required' => !$type->allowsNull() && 'bool' !== $type->getName(),
+            } elseif (array_key_exists($typeName, self::TYPES)) {
+                $builder->add($name, self::TYPES[$typeName], [
+                    'required' => !$type->allowsNull() && 'bool' !== $typeName,
+                    ...$extra,
                 ]);
             } else {
-                throw new \RuntimeException(sprintf('Impossible de trouver le champs associé au type %s dans %s::%s', $type->getName(), $data::class, $name));
+                throw new \RuntimeException(sprintf('Impossible de trouver le champs associé au type %s dans %s::%s', $typeName, $data::class, $name));
             }
         }
+    }
+
+    private function getExtraProperties(string $type, string $name): array
+    {
+        if ($type === \DateTimeInterface::class) {
+            return [
+                'input' => 'datetime_immutable',
+            ];
+        }
+        if ('requirements' === $name) {
+            return ['multiple' => true];
+        }
+        if ('level' === $name) {
+            return [
+                'choices' => array_flip(Formation::$levels),
+                'required' => true,
+            ];
+        }
+
+        return [];
     }
 }

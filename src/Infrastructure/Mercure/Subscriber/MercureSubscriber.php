@@ -16,7 +16,7 @@ class MercureSubscriber implements EventSubscriberInterface
 {
     public function __construct(
         private readonly SerializerInterface $serializer,
-        private readonly EnqueueMethod $enqueue
+        private readonly EnqueueMethod $enqueue,
     ) {
     }
 

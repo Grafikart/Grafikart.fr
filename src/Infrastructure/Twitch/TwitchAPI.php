@@ -8,13 +8,12 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class TwitchAPI
 {
-
     public function __construct(
         #[Autowire(env: 'TWITCH_ID')]
-        private string $id,
+        private readonly string $id,
         #[Autowire(env: 'TWITCH_SECRET')]
-        private string $secret,
-        private HttpClientInterface $client,
+        private readonly string $secret,
+        private readonly HttpClientInterface $client,
     ) {
     }
 
@@ -24,8 +23,9 @@ class TwitchAPI
             'headers' => [
                 'Authorization' => "Bearer {$this->getAccessToken()}",
                 'Client-ID' => $this->id,
-            ]
+            ],
         ]);
+
         return $response->toArray()['data'];
     }
 
@@ -52,7 +52,7 @@ class TwitchAPI
                 ],
             ]);
             if ($response->getStatusCode() >= 300) {
-                throw new \Exception("Cannot add twitch subscription :\n" . $response->getContent());
+                throw new \Exception("Cannot add twitch subscription :\n".$response->getContent());
             }
         }
     }
@@ -66,6 +66,7 @@ class TwitchAPI
                 'grant_type' => 'client_credentials',
             ],
         ]);
+
         return $response->toArray()['access_token'];
     }
 
@@ -75,8 +76,9 @@ class TwitchAPI
         $messageId = $request->headers->get('Twitch-Eventsub-Message-Id');
         $timestamp = $request->headers->get('Twitch-Eventsub-Message-Timestamp');
         $content = $request->getContent();
-        $hmacMessage = $messageId . $timestamp . $content;
-        $expectedSignature = 'sha256=' . hash_hmac('sha256', $hmacMessage, $this->secret);
+        $hmacMessage = $messageId.$timestamp.$content;
+        $expectedSignature = 'sha256='.hash_hmac('sha256', $hmacMessage, $this->secret);
+
         return hash_equals($expectedSignature, $signature ?? '');
     }
 }

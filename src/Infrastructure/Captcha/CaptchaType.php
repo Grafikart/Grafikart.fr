@@ -10,7 +10,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CaptchaType extends AbstractType
 {
-
     public function __construct(private readonly CaptchaKeyService $captchaService)
     {
     }

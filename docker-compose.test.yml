@@ -6,10 +6,17 @@ services:
       - .:/var/www:delegated
     links:
       - dbtest
+      - redistest
     networks:
       - test
     environment:
+      REDIS_HOST: redistest
       DATABASE_URL: postgresql://test:test@dbtest:5432/test?serverVersion=12&charset=utf8
+  redistest:
+    restart: unless-stopped
+    image: redis:7-alpine
+    networks:
+      - test
   dbtest:
     image: postgres:12
     environment:

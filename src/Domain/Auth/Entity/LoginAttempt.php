@@ -9,20 +9,20 @@ use Doctrine\ORM\Mapping as ORM;
 class LoginAttempt
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\GeneratedValue()]
     #[ORM\Column(type: 'integer')]
     private readonly int $id;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Auth\User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private User $user;
 
-    #[ORM\Column(type: 'datetime')]
-    private \DateTime $createdAt;
+    #[ORM\Column(type: 'datetime_immutable')]
+    private \DateTimeImmutable $createdAt;
 
     public function __construct()
     {
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): int
@@ -42,12 +42,12 @@ class LoginAttempt
         return $this;
     }
 
-    public function getCreatedAt(): \DateTime
+    public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTime $createdAt): self
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
 

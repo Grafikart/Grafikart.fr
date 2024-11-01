@@ -139,7 +139,7 @@ class AccountControllerTest extends WebTestCase
         ['user1' => $user, 'user2' => $user2] = $this->loadFixtures(['users']);
         $emailVerification = (new EmailVerification())
             ->setAuthor($user)
-            ->setCreatedAt(new \DateTime())
+            ->setCreatedAt(new \DateTimeImmutable())
             ->setEmail($user2->getEmail())
             ->setToken('hello');
         $this->em->persist($emailVerification);

@@ -28,8 +28,9 @@ class FailedMessageSubscriber implements EventSubscriberInterface
     {
         $message = $event->getEnvelope()->getMessage();
         // Si le message qui a échoué, est une notification, on ne demande pas une nouvelle notification (cela créerait une boucle infinie)
-        if ($message instanceof ServiceMethodMessage &&
-            HubInterface::class === $message->getServiceName()
+        if (
+            $message instanceof ServiceMethodMessage
+            && HubInterface::class === $message->getServiceName()
         ) {
             return;
         }

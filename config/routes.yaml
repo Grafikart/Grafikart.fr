@@ -1,11 +1,27 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+controllers:
+    resource:
+        path: ../src/Http/Controller/
+        namespace: App\Http\Controller
+    type: attribute
+admin_controllers:
+    name_prefix: admin_
+    prefix: '%admin_prefix%'
+    resource:
+        path: ../src/Http/Admin/Controller/
+        namespace: App\Http\Admin\Controller
+    type: attribute
+api_controllers:
+    name_prefix: api_
+    prefix: /api
+    resource:
+      path: ../src/Http/Api/Controller/
+      namespace: App\Http\Api\Controller
+    type: attribute
 legacy_search:
-  path: /search
-  controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
-  defaults:
-    route: 'search'
-    permanent: true
-    keepQueryParams: true
-    keepRequestMethod: true
+    path: /search
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        route: 'search'
+        permanent: true
+        keepQueryParams: true
+        keepRequestMethod: true

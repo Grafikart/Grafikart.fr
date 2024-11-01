@@ -78,6 +78,7 @@ class TransactionRepository extends AbstractRepository
     public function getFiscalReport(int $year): array
     {
         $lastYear = $year - 1;
+
         return $this->createQueryBuilder('t')
             ->select(
                 't.method as method',

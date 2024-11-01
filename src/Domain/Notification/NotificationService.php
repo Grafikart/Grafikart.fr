@@ -21,7 +21,7 @@ class NotificationService
         private readonly SerializerInterface $serializer,
         private readonly EntityManagerInterface $em,
         private readonly EventDispatcherInterface $dispatcher,
-        private readonly Security $security
+        private readonly Security $security,
     ) {
     }
 
@@ -36,7 +36,7 @@ class NotificationService
             ->setMessage($message)
             ->setUrl($url)
             ->setTarget($entity ? $this->getHashForEntity($entity) : null)
-            ->setCreatedAt(new \DateTime())
+            ->setCreatedAt(new \DateTimeImmutable())
             ->setChannel($channel);
         $this->em->persist($notification);
         $this->em->flush();
@@ -63,7 +63,7 @@ class NotificationService
             ->setMessage($message)
             ->setUrl($url)
             ->setTarget($this->getHashForEntity($entity))
-            ->setCreatedAt(new \DateTime())
+            ->setCreatedAt(new \DateTimeImmutable())
             ->setUser($user);
         $repository->persistOrUpdate($notification);
         $this->em->flush();
@@ -75,12 +75,12 @@ class NotificationService
     /**
      * @return Notification[]
      */
-    public function forUser(User $user): array
+    public function forUser(User $user, int $limit = 15): array
     {
         /** @var NotificationRepository $repository */
         $repository = $this->em->getRepository(Notification::class);
 
-        return $repository->findRecentForUser($user, $this->getChannelsForUser($user));
+        return $repository->findRecentForUser($user, channels: $this->getChannelsForUser($user), limit: $limit);
     }
 
     public function readAll(User $user): void

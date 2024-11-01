@@ -1,13 +1,12 @@
 <?php
 
-$finder = PhpCsFixer\Finder::create()
-    ->in(__DIR__ . '/src')
-    ->in(__DIR__ . '/tests')
+$finder = (new PhpCsFixer\Finder())
+    ->in(__DIR__)
     ->exclude('var')
 ;
 
-$config = new PhpCsFixer\Config();
-return $config
+return (new PhpCsFixer\Config())
+    ->setParallelConfig(PhpCsFixer\Runner\Parallel\ParallelConfigFactory::detect())
     ->setRules([
         '@Symfony' => true,
         'array_syntax' => ['syntax' => 'short'],

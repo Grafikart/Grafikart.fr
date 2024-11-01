@@ -13,7 +13,7 @@ class Transaction
     final public const STRIPE = 'stripe';
 
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\GeneratedValue()]
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
@@ -38,10 +38,10 @@ class Transaction
     #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private bool $refunded = false;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private \DateTimeInterface $createdAt;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Auth\User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private User $author;
 

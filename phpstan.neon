@@ -11,7 +11,10 @@ parameters:
     - src
   excludePaths:
     - src/Infrastructure/Migrations/*
-  checkMissingIterableValueType: false
-  checkGenericClassInNonGenericObjectType: false
   doctrine:
     objectManagerLoader: tests/object-manager.php
+  ignoreErrors:
+    -
+      identifier: missingType.generics
+    -
+      identifier: missingType.iterableValue

@@ -13,7 +13,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SchoolImportForm extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -27,13 +26,13 @@ class SchoolImportForm extends AbstractType
                 'help_html' => true,
             ])
             ->add('emailSubject', TextType::class, [
-                'label' => "Sujet de l'email"
+                'label' => "Sujet de l'email",
             ])
             ->add('emailMessage', TextareaType::class, [
                 'label' => 'Message',
                 'attr' => [
-                    'placeholder' => 'Message envoyé avec leur code'
-                ]
+                    'placeholder' => 'Message envoyé avec leur code',
+                ],
             ])
             ->add('submit', SubmitType::class, ['label' => 'Importer', 'attr' => ['class' => 'btn-primary']]);
     }

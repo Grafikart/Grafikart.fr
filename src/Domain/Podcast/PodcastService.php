@@ -46,6 +46,6 @@ class PodcastService
         /** @var PodcastRepository $podcastRepository */
         $podcastRepository = $this->em->getRepository(Podcast::class);
 
-        return $user->getCreatedAt() < new \DateTime('-1 month') && $podcastRepository->countRecentFromUser($user) < self::LIMIT_PER_MONTH;
+        return $user->getCreatedAt() < new \DateTimeImmutable('-1 month') && $podcastRepository->countRecentFromUser($user) < self::LIMIT_PER_MONTH;
     }
 }

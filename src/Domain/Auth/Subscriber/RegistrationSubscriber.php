@@ -20,15 +20,16 @@ class RegistrationSubscriber implements EventSubscriberInterface
     {
         return [
             RequestEvent::class => 'onRequest',
-            UserBeforeCreatedEvent::class => 'onRegister'
+            UserBeforeCreatedEvent::class => 'onRegister',
         ];
     }
 
     public function onRequest(RequestEvent $event): void
     {
         // La requête ne concerne pas l'inscription
-        if ($event->getRequest()->attributes->get('_route') !== 'register' ||
-            !$event->getRequest()->isMethod('GET')
+        if (
+            $event->getRequest()->attributes->get('_route') !== 'register'
+            || !$event->getRequest()->isMethod('GET')
         ) {
             return;
         }

@@ -21,7 +21,7 @@ class Course extends Content
     #[ORM\Column(type: 'string', length: 12, nullable: true)]
     private ?string $youtubeId = null;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Attachment\Attachment::class, cascade: ['persist'])]
+    #[ORM\ManyToOne(targetEntity: Attachment::class, cascade: ['persist'])]
     #[ORM\JoinColumn(onDelete: 'SET NULL')]
     private ?Attachment $youtubeThumbnail = null;
 
@@ -40,13 +40,13 @@ class Course extends Content
     #[ORM\Column(type: 'boolean', options: ['default' => 0])]
     private bool $premium = false;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Course\Entity\Course::class)]
+    #[ORM\ManyToOne(targetEntity: Course::class)]
     private ?Course $deprecatedBy = null;
 
     #[ORM\Column(type: 'boolean', options: ['default' => 0])]
     private bool $forceRedirect = false;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Course\Entity\Formation::class, inversedBy: 'courses')]
+    #[ORM\ManyToOne(targetEntity: Formation::class, inversedBy: 'courses')]
     #[ORM\JoinColumn(onDelete: 'SET NULL')]
     private ?Formation $formation = null;
 

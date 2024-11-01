@@ -14,7 +14,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class AccountController extends AbstractController
@@ -23,14 +23,14 @@ class AccountController extends AbstractController
         private readonly UserPasswordHasherInterface $hasher,
         private readonly EntityManagerInterface $em,
         private readonly ProfileService $profileService,
-        private readonly CouponClaimerService $couponClaimerService
+        private readonly CouponClaimerService $couponClaimerService,
     ) {
     }
 
     #[Route(path: '/profil/edit', name: 'user_edit')]
     #[IsGranted('ROLE_USER')]
     public function edit(
-        Request $request
+        Request $request,
     ): Response {
         $user = $this->getUserOrThrow();
 
@@ -119,7 +119,7 @@ class AccountController extends AbstractController
     }
 
     /**
-     * Formulaire d'ajout de code promotionnel
+     * Formulaire d'ajout de code promotionnel.
      */
     private function createCouponForm(Request $request): array
     {
@@ -132,6 +132,7 @@ class AccountController extends AbstractController
 
             return [$form, $this->redirectToRoute('user_edit')];
         }
+
         return [$form, null];
     }
 }

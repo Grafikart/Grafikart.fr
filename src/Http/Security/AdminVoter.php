@@ -12,17 +12,11 @@ class AdminVoter extends Voter
     {
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function supports(string $attribute, $subject): bool
     {
         return !in_array($attribute, ['IS_IMPERSONATOR']);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();

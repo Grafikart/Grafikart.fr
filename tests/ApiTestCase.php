@@ -2,45 +2,23 @@
 
 namespace App\Tests;
 
-use ApiPlatform\Symfony\Bundle\Test\Client;
-use App\Domain\Auth\User;
+use App\Tests\Constraint\ArraySubset;
 use Doctrine\ORM\EntityManagerInterface;
 
-class ApiTestCase extends \ApiPlatform\Symfony\Bundle\Test\ApiTestCase
+class ApiTestCase extends WebTestCase
 {
-    final public const DEFAULT_OPTIONS = [
-        'auth_basic' => null,
-        'auth_bearer' => null,
-        'query' => [],
-        'headers' => [
-            'accept' => ['application/json'],
-            'content-type' => ['application/json'],
-        ],
-        'body' => '',
-        'json' => null,
-        'base_uri' => 'http://grafikart.localhost:8000',
-    ];
-    protected Client $client;
-
     protected EntityManagerInterface $em;
 
-    public function setUp(): void
+    public function assertJsonContains(array $subset, bool $checkForObjectIdentity = true, string $message = ''): void
     {
-        parent::setUp();
-        $this->client = static::createClient();
-        /** @var EntityManagerInterface $em */
-        $em = self::getContainer()->get(EntityManagerInterface::class);
-        $this->em = $em;
-        $this->em->getConnection()->getConfiguration()->setMiddlewares([]);
-        $this->client->setDefaultOptions(self::DEFAULT_OPTIONS);
-    }
+        if (!\is_array($subset)) {
+            throw new \InvalidArgumentException('$subset must be array or string (JSON array or JSON object)');
+        }
 
-    /**
-     * En attendant le merge de pour avoir accès à la méthode loginUser sur client directement
-     * https://github.com/api-platform/core/pull/4588.
-     */
-    public function login(User $user): void
-    {
-        $this->client->getKernelBrowser()->loginUser($user);
+        $this->assertThat(
+            json_decode($this->client->getResponse()->getContent(), true),
+            new ArraySubset($subset, $checkForObjectIdentity),
+            $message
+        );
     }
 }

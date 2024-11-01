@@ -25,8 +25,8 @@ class TopicService
      */
     public function createTopic(Topic $topic): void
     {
-        $topic->setCreatedAt(new \DateTime());
-        $topic->setUpdatedAt(new \DateTime());
+        $topic->setCreatedAt(new \DateTimeImmutable());
+        $topic->setUpdatedAt(new \DateTimeImmutable());
         $this->dispatcher->dispatch(new PreTopicCreatedEvent($topic));
         $this->em->persist($topic);
         $this->em->flush();
@@ -38,7 +38,7 @@ class TopicService
      */
     public function updateTopic(Topic $topic): void
     {
-        $topic->setUpdatedAt(new \DateTime());
+        $topic->setUpdatedAt(new \DateTimeImmutable());
         $this->em->flush();
     }
 
@@ -61,7 +61,7 @@ class TopicService
         /** @var ReadTimeRepository $repository */
         $repository = $this->em->getRepository(ReadTime::class);
         $repository->deleteAllForUser($user);
-        $user->setForumReadTime(new \DateTime());
+        $user->setForumReadTime(new \DateTimeImmutable());
         $this->em->flush();
     }
 

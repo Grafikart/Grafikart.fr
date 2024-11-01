@@ -25,14 +25,14 @@ class PasswordService
         private readonly TokenGeneratorService $generator,
         private readonly EntityManagerInterface $em,
         private readonly EventDispatcherInterface $dispatcher,
-        private readonly UserPasswordHasherInterface $hasher
+        private readonly UserPasswordHasherInterface $hasher,
     ) {
     }
 
     /**
      * Lance une demande de réinitialisation de mot de passe.
      *
-     * @throws \App\Domain\Password\Exception\OngoingPasswordResetException
+     * @throws OngoingPasswordResetException
      * @throws UserNotFoundException
      */
     public function resetPassword(PasswordResetRequestData $data): void
@@ -50,7 +50,7 @@ class PasswordService
             $this->em->persist($token);
         }
         $token->setUser($user)
-            ->setCreatedAt(new \DateTime())
+            ->setCreatedAt(new \DateTimeImmutable())
             ->setToken($this->generator->generate());
         $this->em->flush();
         $this->dispatcher->dispatch(new PasswordResetTokenCreatedEvent($token));
@@ -58,7 +58,7 @@ class PasswordService
 
     public function isExpired(PasswordResetToken $token): bool
     {
-        $expirationDate = new \DateTime('-'.self::EXPIRE_IN.' minutes');
+        $expirationDate = new \DateTimeImmutable('-'.self::EXPIRE_IN.' minutes');
 
         return $token->getCreatedAt() < $expirationDate;
     }

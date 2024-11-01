@@ -53,7 +53,7 @@ class CourseTest extends TestCase
     public function testUpdateVersion(
         array $courseTechnologies,
         array $syncTechnologies,
-        array $expectedReturn = []
+        array $expectedReturn = [],
     ): void {
         // On crée le cours
         $course = new Course();

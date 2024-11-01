@@ -10,19 +10,19 @@ use Doctrine\ORM\Mapping as ORM;
 class ReadTime
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\GeneratedValue()]
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Forum\Entity\Topic::class)]
+    #[ORM\ManyToOne(targetEntity: Topic::class)]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private Topic $topic;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Auth\User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private User $owner;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private \DateTimeInterface $readAt;
 
     #[ORM\Column(type: 'boolean', options: ['default' => false])]

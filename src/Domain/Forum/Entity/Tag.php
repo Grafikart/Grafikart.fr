@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Tag implements CacheableInterface
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\GeneratedValue()]
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
@@ -28,22 +28,22 @@ class Tag implements CacheableInterface
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $position = null;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private ?\DateTimeInterface $updatedAt = null;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private ?\DateTimeInterface $createdAt = null;
 
-    #[ORM\ManyToMany(targetEntity: \App\Domain\Forum\Entity\Topic::class, mappedBy: 'tags')]
+    #[ORM\ManyToMany(targetEntity: Topic::class, mappedBy: 'tags')]
     private Collection $topics;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $color = null;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Forum\Entity\Tag::class, inversedBy: 'children')]
+    #[ORM\ManyToOne(targetEntity: Tag::class, inversedBy: 'children')]
     private ?Tag $parent = null;
 
-    #[ORM\OneToMany(targetEntity: \App\Domain\Forum\Entity\Tag::class, mappedBy: 'parent')]
+    #[ORM\OneToMany(targetEntity: Tag::class, mappedBy: 'parent')]
     #[ORM\OrderBy(['position' => 'ASC'])]
     private Collection $children;
 

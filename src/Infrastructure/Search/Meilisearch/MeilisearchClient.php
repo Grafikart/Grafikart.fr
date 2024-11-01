@@ -6,14 +6,8 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class MeilisearchClient
 {
-    private readonly string $apiKey;
-
-    public function __construct(
-        private readonly string $host,
-        string $apiKey,
-        private readonly HttpClientInterface $client
-    ) {
-        $this->apiKey = $apiKey;
+    public function __construct(private readonly string $host, private readonly string $apiKey, private readonly HttpClientInterface $client)
+    {
     }
 
     public function get(string $endpoint): array

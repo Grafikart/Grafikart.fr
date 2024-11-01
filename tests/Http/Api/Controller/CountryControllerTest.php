@@ -14,7 +14,7 @@ class CountryControllerTest extends ApiTestCase
 
     public function testGetWithoutAuth()
     {
-        $this->client->request('GET', '/api/country');
+        $this->jsonRequest('GET', '/api/country');
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
@@ -22,7 +22,7 @@ class CountryControllerTest extends ApiTestCase
     {
         ['user1' => $user] = $this->loadFixtures(['users']);
         $this->login($user);
-        $this->client->request('GET', '/api/country');
+        $this->jsonRequest('GET', '/api/country');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $this->assertJsonContains([
             'FR' => 'France',

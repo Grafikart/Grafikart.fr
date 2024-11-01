@@ -8,10 +8,11 @@ use App\Domain\Course\Repository\FormationRepository;
 use App\Domain\History\HistoryService;
 use App\Domain\History\Repository\ProgressRepository;
 use App\Http\Controller\AbstractController;
+use App\Http\Requirements;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class FormationController extends AbstractController
@@ -54,10 +55,10 @@ class FormationController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/formations/{slug}', name: 'formation_show')]
+    #[Route(path: '/formations/{slug:formation}', name: 'formation_show', requirements: ['slug' => Requirements::SLUG])]
     public function show(
         Formation $formation,
-        ProgressRepository $progressRepository
+        ProgressRepository $progressRepository,
     ): Response {
         if ($formation->isForceRedirect() && $formation->getDeprecatedBy()) {
             $newFormation = $formation->getDeprecatedBy();
@@ -83,12 +84,12 @@ class FormationController extends AbstractController
     /**
      * Redirige vers le prochain chapitre à regarder.
      */
-    #[Route(path: '/formations/{slug}/continue', name: 'formation_resume')]
+    #[Route(path: '/formations/{slug:formation}/continue', name: 'formation_resume', requirements: ['slug' => Requirements::SLUG])]
     public function resume(
         Formation $formation,
         HistoryService $historyService,
         EntityManagerInterface $em,
-        NormalizerInterface $normalizer
+        NormalizerInterface $normalizer,
     ): RedirectResponse {
         $user = $this->getUser();
         $ids = $formation->getModulesIds();

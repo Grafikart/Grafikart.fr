@@ -38,7 +38,7 @@ class PasswordServiceTest extends TestCase
 
     public function testIsExpired(): void
     {
-        $this->assertTrue($this->service->isExpired((new PasswordResetToken())->setCreatedAt(new \DateTime('-40 minutes'))));
-        $this->assertFalse($this->service->isExpired((new PasswordResetToken())->setCreatedAt(new \DateTime('-10 minutes'))));
+        $this->assertTrue($this->service->isExpired((new PasswordResetToken())->setCreatedAt(new \DateTimeImmutable('-40 minutes'))));
+        $this->assertFalse($this->service->isExpired((new PasswordResetToken())->setCreatedAt(new \DateTimeImmutable('-10 minutes'))));
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Domain\Forum\Entity;
 
-use ApiPlatform\Metadata\ApiProperty;
 use App\Domain\Auth\User;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -13,23 +12,22 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[Assert\Expression(expression: 'this.getMessage() !== null || this.getTopic() !== null', message: 'Un signalement doit être associé à un topic ou un message')]
 class Report
 {
-    #[ApiProperty(identifier: true)]
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\GeneratedValue()]
     #[ORM\Column(type: 'integer')]
     #[Groups(['read:report'])]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Auth\User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private User $author;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Forum\Entity\Topic::class)]
+    #[ORM\ManyToOne(targetEntity: Topic::class)]
     #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     #[Groups(['create:report'])]
     private ?Topic $topic = null;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Forum\Entity\Message::class)]
+    #[ORM\ManyToOne(targetEntity: Message::class)]
     #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     #[Groups(['create:report'])]
     private ?Message $message = null;
@@ -40,7 +38,7 @@ class Report
     #[Assert\NotBlank(normalizer: 'trim')]
     private string $reason;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private \DateTimeInterface $createdAt;
 
     public function getId(): ?int

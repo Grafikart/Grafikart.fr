@@ -29,7 +29,7 @@ class GoogleTestHelper
         $thumbnails = new \Google_Service_YouTube_ThumbnailDetails();
         $snippet->setDescription($options['description'] ?? 'lorem ipsum');
         $snippet->setTitle($options['title'] ?? 'Title');
-        $snippet->setPublishedAt((new \DateTime($options['date'] ?? 'now'))->format('c'));
+        $snippet->setPublishedAt((new \DateTimeImmutable($options['date'] ?? 'now'))->format('c'));
         $snippet->setThumbnails($thumbnails);
         $contentDetails->setEndAt($options['duration'] ?? 1000);
         $snippet->setResourceId($id);

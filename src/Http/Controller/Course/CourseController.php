@@ -7,13 +7,15 @@ use App\Domain\Course\Repository\CourseRepository;
 use App\Domain\Course\Repository\TechnologyRepository;
 use App\Helper\Paginator\PaginatorInterface;
 use App\Http\Controller\AbstractController;
+use App\Http\Requirements;
 use App\Http\Security\CourseVoter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Vich\UploaderBundle\Storage\StorageInterface;
+
 use const App\Domain\Course\Entity\EASY;
 use const App\Domain\Course\Entity\HARD;
 
@@ -78,7 +80,7 @@ class CourseController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/tutoriels/{slug<[a-z0-9A-Z\-]+>}-{id<\d+>}', priority: 10, name: 'course_show')]
+    #[Route(path: '/tutoriels/{slug}-{id:course}', priority: 10, name: 'course_show', requirements: ['slug' => Requirements::SLUG, 'id' => Requirements::ID])]
     public function show(Course $course, string $slug): Response
     {
         if ($course->getSlug() !== $slug) {
@@ -109,7 +111,7 @@ class CourseController extends AbstractController
         ], $response);
     }
 
-    #[Route(path: '/tutoriels/{id<\d+>}/sources', name: 'course_download_source')]
+    #[Route(path: '/tutoriels/{id:course}/sources', name: 'course_download_source', requirements: ['id' => Requirements::ID])]
     public function downloadSource(Course $course, StorageInterface $storage): Response
     {
         $this->denyAccessUnlessGranted(CourseVoter::DOWNLOAD_SOURCE);
@@ -122,8 +124,8 @@ class CourseController extends AbstractController
         return $this->redirectToRoute('download_source', ['source' => $path]);
     }
 
-    #[Route(path: '/tutoriels/{id<\d+>}/video', name: 'course_download_video')]
-    public function downloadVideo(Course $course, StorageInterface $storage): Response
+    #[Route(path: '/tutoriels/{id:course}/video', name: 'course_download_video', requirements: ['id' => Requirements::ID])]
+    public function downloadVideo(Course $course): Response
     {
         $this->denyAccessUnlessGranted(CourseVoter::DOWNLOAD_VIDEO, $course);
 
@@ -133,8 +135,8 @@ class CourseController extends AbstractController
     /**
      * Redirection des anciennes URLs vers la nouvelle.
      */
-    #[Route(path: '/tutoriels/{technology<[a-z0-9A-Z\-]+>}/{slug<[a-z0-9A-Z\-]+>}-{id<\d+>}', name: 'legacy_course_show')]
-    public function legacyShow(string $technology, string $slug, string $id): Response
+    #[Route(path: '/tutoriels/{technology}/{slug}-{id}', name: 'legacy_course_show', requirements: ['id' => Requirements::ID, 'technology' => Requirements::SLUG, 'slug' => Requirements::SLUG])]
+    public function legacyShow(string $slug, string $id): Response
     {
         return $this->redirectToRoute('course_show', ['slug' => $slug, 'id' => $id], Response::HTTP_MOVED_PERMANENTLY);
     }

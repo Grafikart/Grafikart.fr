@@ -11,9 +11,6 @@ class CourseVoter extends Voter
     final public const DOWNLOAD_SOURCE = 'DOWNLOAD_SOURCE';
     final public const DOWNLOAD_VIDEO = 'DOWNLOAD_VIDEO';
 
-    /**
-     * {@inheritdoc}
-     */
     protected function supports(string $attribute, $subject): bool
     {
         return in_array($attribute, [
@@ -22,9 +19,6 @@ class CourseVoter extends Voter
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();

@@ -10,12 +10,14 @@ use App\Domain\History\Entity\Progress;
 use App\Domain\History\Event\ProgressEvent;
 use App\Domain\History\Exception\AlreadyFinishedException;
 use App\Http\Controller\AbstractController;
+use App\Http\Requirements;
 use App\Http\Security\ContentVoter;
+use App\Http\Security\ProgressVoter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 /**
@@ -27,11 +29,11 @@ class ProgressController extends AbstractController
     {
     }
 
-    #[Route(path: '/progress/{content<\d+>}/{progress}', name: 'progress', methods: ['POST'], requirements: ['progress' => '^([1-9][0-9]{0,2}|1000)$'])]
+    #[Route('/progress/{content}/{progress}', name: 'progress', requirements: ['progress' => '^([1-9][0-9]{0,2}|1000)$', 'content' => Requirements::ID], methods: ['POST'])]
     #[IsGranted(ContentVoter::PROGRESS, subject: 'content')]
     public function progress(
         Content $content,
-        int $progress
+        int $progress,
     ): JsonResponse {
         $user = $this->getUser();
         try {
@@ -77,8 +79,8 @@ class ProgressController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/progress/{id<\d+>}', name: 'delete_progress', methods: ['DELETE'])]
-    #[IsGranted('DELETE_PROGRESS', subject: 'progress')]
+    #[Route('/progress/{progress}', name: 'progress_delete', requirements: ['progress' => Requirements::ID], methods: ['DELETE'])]
+    #[IsGranted(ProgressVoter::DELETE_PROGRESS, subject: 'progress')]
     public function deleteProgress(Progress $progress): JsonResponse
     {
         $this->em->remove($progress);

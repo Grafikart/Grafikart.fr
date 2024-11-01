@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class OptionController extends BaseController
 {
@@ -47,9 +47,11 @@ class OptionController extends BaseController
     {
         if ($request->getMethod() === 'POST') {
             $api->addWebhookSubscription();
+
             return $this->redirectToRoute('admin_twitch');
         }
         $subscriptions = $api->getSubscriptions();
+
         return $this->render('admin/option/twitch.html.twig', [
             'subscriptions' => $subscriptions,
         ]);

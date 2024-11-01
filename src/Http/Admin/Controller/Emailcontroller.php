@@ -6,7 +6,7 @@ use App\Domain\Forum\Repository\MessageRepository;
 use App\Domain\Forum\Repository\TopicRepository;
 use App\Infrastructure\Mailing\Mailer;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class Emailcontroller extends BaseController
 {
@@ -21,7 +21,7 @@ class Emailcontroller extends BaseController
         string $format,
         Mailer $mailer,
         TopicRepository $topicRepository,
-        MessageRepository $messageRepository
+        MessageRepository $messageRepository,
     ): Response {
         $topic = $topicRepository->findOneBy(['author' => $this->getUser()]);
         $message = $messageRepository->findOneBy(['author' => $this->getUser()]);

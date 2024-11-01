@@ -6,8 +6,6 @@ parameters:
   sources_path:     '%download_path%/sources'
   image_resize_key: '%env(resolve:IMAGE_RESIZE_KEY)%'
   geoip_database:   '%kernel.project_dir%/var/GeoLite2-Country.mmdb'
-  container.dumper.inline_factories: true
-  container.dumper.inline_class_loader: true
   dkim_key: '%env(resolve:default::MAILER_DKIM)%'
   router.request_context.host: 'grafikart.fr'
   router.request_context.scheme: 'https'
@@ -34,9 +32,11 @@ services:
       tags: ['app.breadcrumb']
 
   Redis:
-    class: \Predis\Client
-    arguments:
-      - '%env(REDIS_URL)%'
+    lazy: true
+    class: \Redis
+    calls:
+      - connect:
+          - '%env(REDIS_HOST)%'
 
   Symfony\Component\HttpFoundation\Session\Storage\Handler\RedisSessionHandler:
     arguments:
@@ -75,10 +75,6 @@ services:
   App\Infrastructure\Uploader\PropertyGroupedDirectoryNamer:
     public: true
 
-  App\Infrastructure\Mercure\Service\CookieGenerator:
-    arguments:
-      $secret: '%env(resolve:MERCURE_SUBSCRIBER_KEY)%'
-
   App\Http\Twig\TwigAssetExtension:
     arguments:
       $assetPath: '%kernel.project_dir%/public/assets'
@@ -87,15 +83,8 @@ services:
   App\Infrastructure\Image\ImageResizer:
     arguments: ['%image_resize_key%']
 
-  App\Infrastructure\Orm\DoctrineSchemaListener:
-    tags: ['doctrine.event_subscriber']
-
   App\Infrastructure\Queue\FailedJobsService:
     arguments: ['@messenger.transport.failed']
-
-  App\Infrastructure\Queue\ScheduledJobsService:
-    arguments:
-      $dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
 
   App\Infrastructure\Spam\SpamService:
     arguments: [['App\Domain\Forum\Entity\Topic', 'App\Domain\Forum\Entity\Message']]
@@ -133,7 +122,3 @@ services:
     arguments:
       $uploaderHelper: '@Vich\UploaderBundle\Templating\Helper\UploaderHelper'
 
-  App\Http\Api\Processor\NotificationProcessor:
-    bind:
-      $persistProcessor: '@api_platform.doctrine.orm.state.persist_processor'
-      $removeProcessor: '@api_platform.doctrine.orm.state.remove_processor'

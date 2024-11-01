@@ -26,7 +26,7 @@ class UniqueValidatorTest extends ValidatorTestCase
     public function testUniqueValidator(
         FakeObjectWithSlug $value,
         ?FakeObjectWithSlug $repositoryResult,
-        $expectedViolation
+        $expectedViolation,
     ): void {
         // On crée le mock de repository qui renvera un count spécifique
         $repository = $this->getMockBuilder(ServiceEntityRepository::class)

@@ -6,7 +6,7 @@ use App\Domain\Podcast\Entity\Podcast;
 use App\Http\Admin\Data\PodcastCrudData;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(path: '/podcast', name: 'podcast_')]
 class PodcastController extends CrudController

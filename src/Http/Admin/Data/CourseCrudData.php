@@ -13,6 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Handler\UploadHandler;
+
 use const App\Domain\Course\Entity\MEDIUM;
 
 class CourseCrudData implements CrudDataInterface
@@ -72,8 +73,8 @@ class CourseCrudData implements CrudDataInterface
     private EntityManagerInterface $em;
 
     public function __construct(
-        private readonly Course         $entity,
-        private readonly ?UploadHandler $uploaderHandler = null
+        private readonly Course $entity,
+        private readonly ?UploadHandler $uploaderHandler = null,
     ) {
         $this->title = $entity->getTitle();
         $this->slug = $entity->getSlug();
@@ -115,7 +116,7 @@ class CourseCrudData implements CrudDataInterface
         $this->entity->setPremium($this->premium);
         $this->entity->setContent($this->content);
         $this->entity->setCreatedAt($this->createdAt);
-        $this->entity->setUpdatedAt(new \DateTime());
+        $this->entity->setUpdatedAt(new \DateTimeImmutable());
         $this->entity->setLevel($this->level);
         $this->entity->setForceRedirect($this->forceRedirect);
         foreach ($this->mainTechnologies as $technology) {

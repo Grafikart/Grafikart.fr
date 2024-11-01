@@ -8,23 +8,23 @@ use geertw\IpAnonymizer\IpAnonymizer;
 /**
  * Sauvegarde les demandes de contact afin de limiter le spam.
  */
-#[ORM\Entity(repositoryClass: \App\Domain\Contact\ContactRequestRepository::class)]
+#[ORM\Entity(repositoryClass: ContactRequestRepository::class)]
 class ContactRequest
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\GeneratedValue()]
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
     #[ORM\Column(type: 'string')]
     private string $ip = '';
 
-    #[ORM\Column(type: 'datetime')]
-    private \DateTime $createdAt;
+    #[ORM\Column(type: 'datetime_immutable')]
+    private \DateTimeImmutable $createdAt;
 
     public function __construct()
     {
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -58,12 +58,12 @@ class ContactRequest
         return $this;
     }
 
-    public function getCreatedAt(): \DateTime
+    public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTime $createdAt): ContactRequest
+    public function setCreatedAt(\DateTimeImmutable $createdAt): ContactRequest
     {
         $this->createdAt = $createdAt;
 

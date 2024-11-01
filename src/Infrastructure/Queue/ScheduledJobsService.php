@@ -2,20 +2,14 @@
 
 namespace App\Infrastructure\Queue;
 
-use Predis\Client;
 use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
 
 class ScheduledJobsService
 {
     public function __construct(
-        private readonly string $dsn,
+        private readonly \Redis $redis,
         private readonly SerializerInterface $serializer,
     ) {
-    }
-
-    public function getConnection(): Client
-    {
-        return new Client($this->dsn);
     }
 
     /**
@@ -23,10 +17,7 @@ class ScheduledJobsService
      */
     public function getJobs(): array
     {
-        if (!str_starts_with($this->dsn, 'redis://')) {
-            return [];
-        }
-        $messages = $this->getConnection()->zrange('messages__queue', 0, 10);
+        $messages = $this->redis->zrange('messages__queue', 0, 10);
         if (empty($messages)) {
             return [];
         }
@@ -39,6 +30,6 @@ class ScheduledJobsService
 
     public function deleteJob(int $jobId): void
     {
-        $this->getConnection()->zremrangebyrank('messages__queue', $jobId, $jobId);
+        $this->redis->zremrangebyrank('messages__queue', $jobId, $jobId);
     }
 }

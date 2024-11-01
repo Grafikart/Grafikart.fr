@@ -22,13 +22,13 @@ class Formation extends Content
     /**
      * @var Collection<int, Course>
      */
-    #[ORM\OneToMany(targetEntity: \App\Domain\Course\Entity\Course::class, mappedBy: 'formation')]
-    private \Doctrine\Common\Collections\Collection $courses;
+    #[ORM\OneToMany(targetEntity: Course::class, mappedBy: 'formation')]
+    private Collection $courses;
 
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $links = null;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Course\Entity\Formation::class)]
+    #[ORM\ManyToOne(targetEntity: Formation::class)]
     #[ORM\JoinColumn(onDelete: 'SET NULL')]
     private ?Formation $deprecatedBy = null;
 

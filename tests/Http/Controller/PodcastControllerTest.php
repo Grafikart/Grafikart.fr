@@ -18,7 +18,7 @@ class PodcastControllerTest extends WebTestCase
     {
         /** @var User $user */
         ['user1' => $user] = $this->loadFixtures(['users']);
-        $user->setCreatedAt(new \DateTime());
+        $user->setCreatedAt(new \DateTimeImmutable());
         $this->em->flush();
         $this->login($user);
         $this->client->request('GET', '/podcasts/votes');
@@ -30,7 +30,7 @@ class PodcastControllerTest extends WebTestCase
     {
         /** @var User $user */
         ['user1' => $user] = $this->loadFixtures(['users']);
-        $user->setCreatedAt(new \DateTime('2000-02-02'));
+        $user->setCreatedAt(new \DateTimeImmutable('2000-02-02'));
         $this->em->flush();
         $this->login($user);
         $crawler = $this->client->request('GET', '/podcasts/votes');
@@ -48,13 +48,13 @@ class PodcastControllerTest extends WebTestCase
     {
         /** @var User $user */
         ['user1' => $user] = $this->loadFixtures(['users']);
-        $user->setCreatedAt(new \DateTime('2000-02-02'));
+        $user->setCreatedAt(new \DateTimeImmutable('2000-02-02'));
         $this->em->flush();
         $this->login($user);
         $crawler = $this->client->request('GET', '/podcasts/votes');
         $form = $crawler->filter(self::CREATE_FORM)->form();
         $form->setValues([
-           self::TITLE_FIELD => 'lol',
+            self::TITLE_FIELD => 'lol',
         ]);
         $this->client->submit($form);
         $this->expectFormErrors();

@@ -4,7 +4,7 @@ namespace App\Http\Controller;
 
 use App\Domain\Application\Repository\ContentRepository;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class RSSController extends AbstractController
 {

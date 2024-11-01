@@ -2,20 +2,20 @@
 
 namespace App\Infrastructure\Search\Normalizer;
 
-use ApiPlatform\Api\UrlGeneratorInterface;
 use App\Domain\Course\Entity\Course;
 use App\Http\Normalizer\CoursePathNormalizer;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class CourseNormalizer implements NormalizerInterface
 {
     public function __construct(
         private readonly CoursePathNormalizer $pathNormalizer,
-        private readonly UrlGeneratorInterface $urlGenerator
+        private readonly UrlGeneratorInterface $urlGenerator,
     ) {
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof Course && 'search' === $format;
     }
@@ -23,11 +23,11 @@ class CourseNormalizer implements NormalizerInterface
     public function getSupportedTypes(?string $format): array
     {
         return [
-            Course::class => true
+            Course::class => true,
         ];
     }
 
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         if (!$object instanceof Course) {
             throw new \InvalidArgumentException('Unexpected type for normalization, expected Course, got '.$object::class);

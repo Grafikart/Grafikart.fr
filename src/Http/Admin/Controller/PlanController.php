@@ -5,7 +5,7 @@ namespace App\Http\Admin\Controller;
 use App\Domain\Premium\Entity\Plan;
 use App\Http\Admin\Data\CrudPlanData;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(path: '/plan', name: 'plan_')]
 class PlanController extends CrudController

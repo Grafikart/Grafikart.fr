@@ -9,17 +9,17 @@ use Doctrine\ORM\Mapping as ORM;
 class PasswordResetToken
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\GeneratedValue()]
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'datetime')]
-    private \DateTime $createdAt;
+    #[ORM\Column(type: 'datetime_immutable')]
+    private \DateTimeImmutable $createdAt;
 
     #[ORM\Column(type: 'string')]
     private string $token;
 
-    #[ORM\OneToOne(targetEntity: \App\Domain\Auth\User::class)]
+    #[ORM\OneToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private User $user;
 
@@ -28,12 +28,12 @@ class PasswordResetToken
         return $this->id;
     }
 
-    public function getCreatedAt(): \DateTime
+    public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTime $createdAt): self
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
 

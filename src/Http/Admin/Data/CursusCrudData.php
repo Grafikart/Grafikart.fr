@@ -84,7 +84,7 @@ class CursusCrudData implements CrudDataInterface
         $this->cursus->setTitle($this->title);
         $this->cursus->setSlug($this->slug);
         $this->cursus->setCreatedAt($this->createdAt);
-        $this->cursus->setUpdatedAt(new \DateTime());
+        $this->cursus->setUpdatedAt(new \DateTimeImmutable());
         $this->cursus->setAuthor($this->author);
         $this->cursus->setOnline($this->online);
         $this->cursus->setImage($this->image);

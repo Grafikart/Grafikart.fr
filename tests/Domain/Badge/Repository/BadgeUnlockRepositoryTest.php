@@ -14,7 +14,7 @@ class BadgeUnlockRepositoryTest extends RepositoryTestCase
     /**
      * @var BadgeUnlockRepository|null
      */
-    protected $repository = null;
+    protected $repository;
     protected $repositoryClass = BadgeUnlockRepository::class;
 
     public function testHasUnlockedWithNoBadge()

@@ -11,10 +11,11 @@ use App\Domain\Forum\Repository\TopicRepository;
 use App\Domain\Forum\TopicService;
 use App\Helper\Paginator\PaginatorInterface;
 use App\Http\Form\ForumTopicForm;
+use App\Http\Requirements;
 use App\Http\Security\ForumVoter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class ForumController extends AbstractController
 {
@@ -22,7 +23,7 @@ class ForumController extends AbstractController
         private readonly TagRepository $tagRepository,
         private readonly TopicRepository $topicRepository,
         private readonly PaginatorInterface $paginator,
-        private readonly TopicService $topicService
+        private readonly TopicService $topicService,
     ) {
     }
 
@@ -32,7 +33,7 @@ class ForumController extends AbstractController
         return $this->tag(null, $request);
     }
 
-    #[Route(path: '/forum/{slug<[a-z0-9\-]+>}-{id<\d+>}', name: 'forum_tag')]
+    #[Route(path: '/forum/{slug}-{id:tag}', name: 'forum_tag', requirements: ['slug' => Requirements::SLUG, 'id' => Requirements::ID])]
     public function tag(?Tag $tag, Request $request): Response
     {
         $topics = $this->paginator->paginate($this->topicRepository->queryAllForTag($tag));
@@ -47,7 +48,7 @@ class ForumController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/forum/{id<\d+>}', name: 'forum_show')]
+    #[Route(path: '/forum/{id:topic}', name: 'forum_show', requirements: ['id' => Requirements::ID])]
     public function show(Topic $topic, MessageRepository $messageRepository): Response
     {
         $user = $this->getUser();
@@ -65,7 +66,7 @@ class ForumController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/forum/topics/{id<\d+>}', name: 'forum_show_legacy')]
+    #[Route(path: '/forum/topics/{id}', name: 'forum_show_legacy', requirements: ['id' => Requirements::ID])]
     public function showLegacy(int $id): Response
     {
         return $this->redirectToRoute('forum_show', ['id' => $id], 301);
@@ -74,7 +75,7 @@ class ForumController extends AbstractController
     #[Route(path: '/forum/new', name: 'forum_new')]
     public function create(Request $request): Response
     {
-        $this->denyAccessUnlessGranted(ForumVoter::CREATE);
+        $this->denyAccessUnlessGranted(ForumVoter::CREATE_TOPIC);
         /** @var User $user */
         $user = $this->getUser();
         $topic = (new Topic())->setContent($this->renderView('forum/template/placeholder.text.twig'));
@@ -93,7 +94,7 @@ class ForumController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/forum/{id<\d+>}/edit', name: 'forum_edit')]
+    #[Route(path: '/forum/{id:topic}/edit', name: 'forum_edit', requirements: ['id' => Requirements::ID])]
     public function edit(Topic $topic, Request $request): Response
     {
         $this->denyAccessUnlessGranted(ForumVoter::UPDATE_TOPIC, $topic);
@@ -116,7 +117,7 @@ class ForumController extends AbstractController
     public function search(
         Request $request,
         TopicRepository $topicRepository,
-        \Knp\Component\Pager\PaginatorInterface $paginator
+        \Knp\Component\Pager\PaginatorInterface $paginator,
     ): Response {
         $q = trim((string) $request->get('q', ''));
         if (empty($q)) {

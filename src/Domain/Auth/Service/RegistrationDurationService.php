@@ -5,11 +5,10 @@ namespace App\Domain\Auth\Service;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Enregistre la durée du process d'inscription de l'utilisateur
+ * Enregistre la durée du process d'inscription de l'utilisateur.
  */
 class RegistrationDurationService
 {
-
     private const SESSION_KEY = 'registration_request_time';
 
     public function startTimer(Request $request): void
@@ -22,6 +21,7 @@ class RegistrationDurationService
     {
         $time = time();
         $start = $request->getSession()->get(self::SESSION_KEY) ?? $time;
+
         return $time - $start;
     }
 }

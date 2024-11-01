@@ -13,8 +13,8 @@ class PostVoter extends Voter
     protected function supports(string $attribute, $subject): bool
     {
         return in_array($attribute, [
-                self::SHOW,
-            ]) && ($subject instanceof Post);
+            self::SHOW,
+        ]) && ($subject instanceof Post);
     }
 
     /**
@@ -23,6 +23,6 @@ class PostVoter extends Voter
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
-        return $subject instanceof Post && $subject->getCreatedAt() < new \DateTime();
+        return $subject instanceof Post && $subject->getCreatedAt() < new \DateTimeImmutable();
     }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Controller\Account;
 use App\Domain\Badge\BadgeService;
 use App\Http\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class BadgesController extends AbstractController

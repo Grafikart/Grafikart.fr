@@ -30,13 +30,12 @@ trait ChapterableTrait
 
     public function getCoursesCount(): int
     {
-        return array_reduce($this->chapters, function (int $carry, array $item) {
-            return $carry + count($item["modules"]);
-        }, 0);
+        return array_reduce($this->chapters, fn (int $carry, array $item) => $carry + count($item['modules']), 0);
     }
 
     /**
      * Renvoie les données brutes (JSON).
+     *
      * @return array{title: string, modules: array<int, int>}[]
      */
     public function getRawChapters(): array

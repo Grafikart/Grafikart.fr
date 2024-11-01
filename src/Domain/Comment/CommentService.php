@@ -4,6 +4,8 @@ namespace App\Domain\Comment;
 
 use App\Domain\Application\Entity\Content;
 use App\Domain\Auth\AuthService;
+use App\Domain\Comment\DTO\CreateCommentDTO;
+use App\Domain\Comment\DTO\UpdateCommentDTO;
 use App\Domain\Comment\Entity\Comment;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
@@ -15,13 +17,15 @@ class CommentService
         private readonly AuthService $auth,
         private readonly EntityManagerInterface $em,
         private readonly EventDispatcherInterface $dispatcher,
-        private readonly RequestStack $requestStack
+        private readonly RequestStack $requestStack,
     ) {
     }
 
-    public function create(CommentData $data): Comment
+    /**
+     * Crée un commentaire et l'enregistre en base.
+     */
+    public function create(CreateCommentDTO $data): Comment
     {
-        // On crée un nouveau commentaire
         /** @var Content $target */
         $target = $this->em->getRepository(Content::class)->find($data->target);
         /** @var Comment|null $parent */
@@ -29,7 +33,7 @@ class CommentService
         $comment = (new Comment())
             ->setAuthor($this->auth->getUserOrNull())
             ->setUsername($data->username)
-            ->setCreatedAt(new \DateTime())
+            ->setCreatedAt(new \DateTimeImmutable())
             ->setContent($data->content)
             ->setParent($parent)
             ->setIp($this->requestStack->getMainRequest()?->getClientIp())
@@ -41,9 +45,9 @@ class CommentService
         return $comment;
     }
 
-    public function update(Comment $comment, string $content): Comment
+    public function update(Comment $comment, UpdateCommentDTO $data): Comment
     {
-        $comment->setContent($content);
+        $comment->setContent($data->content);
         $this->em->flush();
 
         return $comment;

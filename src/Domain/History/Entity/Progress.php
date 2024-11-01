@@ -14,25 +14,25 @@ class Progress
     final public const TOTAL = 1000;
 
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\GeneratedValue()]
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Auth\User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private User $author;
 
-    #[ORM\ManyToOne(targetEntity: \App\Domain\Application\Entity\Content::class)]
+    #[ORM\ManyToOne(targetEntity: Content::class)]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private Content $content;
 
     #[ORM\Column(type: 'integer')]
     private int $progress = 0;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private ?\DateTimeInterface $createdAt = null;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private ?\DateTimeInterface $updatedAt = null;
 
     public function getId(): ?int

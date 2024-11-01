@@ -11,7 +11,6 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class SchoolVoter extends Voter
 {
-
     final public const MANAGE = 'SCHOOL_MANAGE';
     final public const IMPORT = 'SCHOOL_IMPORT';
 
@@ -22,9 +21,9 @@ class SchoolVoter extends Voter
     protected function supports(string $attribute, $subject): bool
     {
         return in_array($attribute, [
-                self::MANAGE,
-                self::IMPORT,
-            ]);
+            self::MANAGE,
+            self::IMPORT,
+        ]);
     }
 
     /**

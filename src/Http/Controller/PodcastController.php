@@ -8,10 +8,11 @@ use App\Domain\Podcast\Repository\PodcastRepository;
 use App\Domain\Podcast\Repository\PodcastVoteRepository;
 use App\Helper\Paginator\PaginatorInterface;
 use App\Http\Form\PodcastForm;
+use App\Http\Requirements;
 use App\Http\Security\PodcastVoter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class PodcastController extends AbstractController
@@ -20,7 +21,7 @@ class PodcastController extends AbstractController
     public function index(
         Request $request,
         PodcastRepository $podcastRepository,
-        PaginatorInterface $paginator
+        PaginatorInterface $paginator,
     ): Response {
         $future = $podcastRepository->findFuture();
         $podcasts = $paginator->paginate($podcastRepository->queryPast()->setMaxResults(11)->getQuery());
@@ -34,7 +35,7 @@ class PodcastController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/podcasts/{id<\d+>}', name: 'podcast_show')]
+    #[Route(path: '/podcasts/{id:podcast}', name: 'podcast_show', requirements: ['id' => Requirements::ID])]
     public function show(Podcast $podcast, PodcastRepository $podcastRepository): Response
     {
         return $this->render('podcast/show.html.twig', [
@@ -52,7 +53,7 @@ class PodcastController extends AbstractController
         PodcastVoteRepository $podcastVoteRepository,
         PodcastService $podcastService,
         Request $request,
-        AuthorizationCheckerInterface $auth
+        AuthorizationCheckerInterface $auth,
     ): Response {
         $form = null;
         $user = $this->getUser();

@@ -13,7 +13,7 @@ class Badge
     final public const REQUEST_UNLOCKABLE = ['gamer', 'lochness'];
 
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\GeneratedValue()]
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
@@ -29,7 +29,7 @@ class Badge
     #[ORM\Column(type: 'boolean', options: ['default' => 0])]
     private bool $unlockable = false;
 
-    #[ORM\Column(type: 'datetime', nullable: false)]
+    #[ORM\Column(type: 'datetime_immutable', nullable: false)]
     private \DateTimeInterface $updatedAt;
 
     public function __construct(
@@ -42,7 +42,7 @@ class Badge
         #[ORM\Column(type: 'integer', options: ['default' => 0])]
         private int $actionCount = 0,
         #[ORM\Column(type: 'string', length: 255, options: ['default' => 'grey'])]
-        private string $theme = 'grey'
+        private string $theme = 'grey',
     ) {
         $this->updatedAt = new \DateTimeImmutable();
     }

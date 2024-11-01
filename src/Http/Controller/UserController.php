@@ -6,17 +6,18 @@ use App\Domain\Auth\User;
 use App\Domain\Badge\BadgeService;
 use App\Domain\Comment\CommentRepository;
 use App\Domain\Forum\Repository\TopicRepository;
+use App\Http\Requirements;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class UserController extends AbstractController
 {
-    #[Route(path: '/profil/{id<\d+>}', name: 'user_show', requirements: ['id' => '\d+'])]
+    #[Route(path: '/profil/{id}', name: 'user_show', requirements: ['id' => Requirements::ID])]
     public function show(
         User $user,
         TopicRepository $topicRepository,
         CommentRepository $commentRepository,
-        BadgeService $badgeService
+        BadgeService $badgeService,
     ): Response {
         $lastTopics = $topicRepository->findLastByUser($user);
         $badges = $badgeService->getBadges();
