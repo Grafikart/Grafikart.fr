@@ -28,7 +28,7 @@ class GeoIpService
             return new GeoIpRecord(
                 country: $record->country->isoCode,
             );
-        } catch (AddressNotFoundException|InvalidDatabaseException) {
+        } catch (\Exception) {
             return null;
         }
     }
