@@ -4,6 +4,7 @@ namespace App\Infrastructure\Spam;
 
 use GeoIp2\Database\Reader;
 use GeoIp2\Exception\AddressNotFoundException;
+use MaxMind\Db\Reader\InvalidDatabaseException;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 class GeoIpService
@@ -27,7 +28,7 @@ class GeoIpService
             return new GeoIpRecord(
                 country: $record->country->isoCode,
             );
-        } catch (AddressNotFoundException) {
+        } catch (AddressNotFoundException|InvalidDatabaseException) {
             return null;
         }
     }
