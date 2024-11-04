@@ -63,7 +63,7 @@ class MercureCookieMiddleware implements EventSubscriberInterface
             ->withExpires($exp)
             ->withValue($this->tokenFactory->create($channels, null, [
                 // We need to set a date without ms to avoid float in "exp"
-                'exp' => new \DateTimeImmutable("@" . $exp->getTimestamp()),
+                'exp' => new \DateTimeImmutable('@'.$exp->getTimestamp()),
             ]));
         $response->headers->setCookie($cookie);
     }

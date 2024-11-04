@@ -73,16 +73,17 @@ class ForumController extends AbstractController
     }
 
     #[Route(path: '/forum/new', name: 'forum_new')]
-    public function create(Request $request): Response
+    public function create(Request $request, TopicRepository $topicRepository): Response
     {
         $this->denyAccessUnlessGranted(ForumVoter::CREATE_TOPIC);
         /** @var User $user */
         $user = $this->getUser();
-        $topic = (new Topic())->setContent($this->renderView('forum/template/placeholder.text.twig'));
+        $topic = new Topic();
         $topic->setAuthor($user);
         $form = $this->createForm(ForumTopicForm::class, $topic);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+        $isSubmitted = $form->isSubmitted();
+        if ($isSubmitted && $form->isValid()) {
             $this->topicService->createTopic($topic);
             $this->addFlash('success', 'Le sujet a bien été créé');
 
@@ -91,6 +92,7 @@ class ForumController extends AbstractController
 
         return $this->render('forum/new.html.twig', [
             'form' => $form->createView(),
+            'has_onboarding' => !$isSubmitted && !$topicRepository->hasTopics($user),
         ]);
     }
 

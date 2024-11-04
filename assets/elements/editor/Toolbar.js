@@ -1,8 +1,9 @@
 /**
  * @property {HTMLDivElement} element
  */
-import { BoldButton, FullScreenButton, LinkButton, SpeechButton } from './buttons'
+import { BoldButton, FullScreenButton, LinkButton } from './buttons'
 import { createElement } from '/functions/dom.js'
+import CodeButton from '/elements/editor/buttons/CodeButton.js'
 
 export default class Toolbar {
   /**
@@ -14,7 +15,7 @@ export default class Toolbar {
     const left = createElement('div', { class: 'mdeditor__toolbarleft' })
     const right = createElement('div', { class: 'mdeditor__toolbarright' })
     const fullScreenButton = new FullScreenButton(editor)
-    this.addButtons(left, [new BoldButton(editor), new LinkButton(editor), new SpeechButton(editor)])
+    this.addButtons(left, [new CodeButton(editor), new BoldButton(editor), new LinkButton(editor)])
     this.addButtons(right, [fullScreenButton])
     this.element.appendChild(left)
     this.element.appendChild(right)

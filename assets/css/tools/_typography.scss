@@ -117,6 +117,15 @@ small, .text-small {
   font-size: .9em;
 }
 
+.snippet {
+  font-size: .95rem;
+  border: solid 1px var(--border);
+  background-color: var(--list-hover);
+  display: inline-block;
+  border-radius: .25rem;
+  padding: .4rem .5rem;
+}
+
 // Pour générer les polices : https://transfonter.org/
 
 // Alignements

@@ -4,6 +4,78 @@
 
 {% block body %}
 
+  {% if has_onboarding %}
+  <section class="container my5">
+
+    <h1 class="hero-title mb2">
+      Créer un <strong>sujet</strong>
+    </h1>
+
+    <div class="hero-text mb5">
+      Le forum utilise la syntaxe <a href="https://fr.wikipedia.org/wiki/Markdown#Formatage" target="_blank" rel="noopener noreferrer">markdown</a>, voici quelques étapes pour vous aider à formater votre sujet.
+    </div>
+
+  <forum-onboarding class="stack" style="--gap: 4">
+
+    <form class="onboarding-step">
+      <div class="onboarding-step__number card">{{ icon('check') }}</div>
+      <div class="onboarding-step__body stack">
+        <h2 class="h3 onboarding-step__title">Mettre en gras</h2>
+        <p class="text-big">
+          Pour mettre du texte en gras, vous pouvez l'entourer de deux * (exemple : <span class="snippet">ceci est **en gras**</span>)
+        </p>
+        <textarea name="challenge" is="markdown-editor" class="form-control" aria-label="Exercice pour la mise en gras en markdown">Pour vérifier que vous avez bien compris le formattage mettez le deuxième mot de cette phrase en gras.</textarea>
+        <button class="btn btn-secondary">Répondre</button>
+      </div>
+    </form>
+
+    <form class="onboarding-step is-disabled">
+      <div class="onboarding-step__number card">{{ icon('check') }}</div>
+      <div class="onboarding-step__body stack">
+        <h2 class="h3 onboarding-step__title">Formater le code</h2>
+        <p class="text-big">
+          Si votre question contient des morceaux de code, vous devez l'entourer de 3 `, exemple :
+        </p>
+        <pre class="snippet">J'ai un bug sur ce code
+
+```
+const a = 3
+```</pre>
+        <p>
+          Pour vérifier que vous avez bien compris, entourez le code
+        </p>
+        <textarea name="challenge" is="markdown-editor" class="form-control" aria-label="Exercice pour la mise en gras en markdown">Ceci est un exemple de sujet, avec du code à l'intérieur. Mais le code n'est pas formatté correctement :(, entourez le code de 3 ` pour le mettre en forme.
+
+const name = "John"
+console.log("Bonjour " + name)
+</textarea>
+        <button class="btn btn-secondary">Répondre</button>
+      </div>
+    </form>
+
+    <div class="onboarding-step is-disabled">
+      <div class="onboarding-step__number card">{{ icon('check') }}</div>
+      <div class="onboarding-step__body stack">
+        <h2 class="h3 onboarding-step__title">Créer votre sujet</h2>
+        <p class="text-big">
+          Afin de maximiser vos chances d'obtenir de l'aide, essayez de décrire au mieux votre problème (ne copiez pas des
+          centaines de lignes). Essayez de simplifier votre problème au maximum.
+        </p>
+        {{ form_start(form, {attr: {class: 'grid fit js-preventMultiSubmit', style: '--col:300px'}}) }}
+        {{ form_row(form.name, {label: 'Titre'}) }}
+        {{ form_row(form.tags, {label: 'Tags', attr: {placeholder: 'Sélectionner un ou plusieurs tags'}}) }}
+        {{ form_row(form.content, {label: false}) }}
+        <div class="full text-right">
+          <button type="submit" class="btn-primary" disabled>Créer le sujet</button>
+        </div>
+        {{ form_end(form) }}
+      </div>
+    </div>
+
+  </forum-onboarding>
+  </section>
+  {% else %}
+
   <section class="container hero-grid my5">
     <div class="stack" style="align-self: flex-start">
       <h2 class="hero-title">
@@ -28,6 +100,7 @@
       </div>
       {{ form_end(form) }}
     </div>
+    {% endif %}
   </section>
 
 

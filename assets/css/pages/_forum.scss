@@ -550,3 +550,59 @@
   border-right: 10px solid #0000;
   border-left: 10px solid #0000;
 }
+
+// Onboarding sur la création de sujet
+// =============
+.onboarding-step {
+  display: grid;
+  align-items: flex-start;
+  grid-template-columns: 32px 1fr;
+  gap: 1rem;
+  counter-increment: onboarding;
+  interpolate-size: allow-keywords;
+}
+.onboarding-step p {
+  color: var(--color-light);
+}
+.onboarding-step__number {
+  width: 32px;
+  height: 32px;
+  font-size: 1.2rem;
+  line-height: 1;
+  font-weight: bold;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+.onboarding-step__body {
+  height: auto;
+  transition: height .5s;
+  overflow: hidden;
+}
+.onboarding-step__number::after {
+  content: counter(onboarding);
+}
+.onboarding-step__number svg {
+  width: 32px;
+  height: 32px;
+  display: none;
+}
+.is-done .onboarding-step__number {
+  box-shadow: inset 0 0 0 3px var(--green);
+  background: var(--color);
+  color: var(--green);
+  border: none;
+}
+.is-done .onboarding-step__number svg {
+  display: block;
+}
+.is-done .onboarding-step__number::after {
+  display: none;
+}
+.is-done .onboarding-step__body,
+.is-disabled .onboarding-step__body {
+  height: 32px;
+}
+.is-disabled.onboarding-step {
+  opacity: .3;
+}

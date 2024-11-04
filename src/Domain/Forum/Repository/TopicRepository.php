@@ -8,6 +8,7 @@ use App\Domain\Forum\Entity\Tag;
 use App\Domain\Forum\Entity\Topic;
 use App\Infrastructure\Orm\AbstractRepository;
 use App\Infrastructure\Spam\SpammableRepositoryTrait;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,6 +20,23 @@ class TopicRepository extends AbstractRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Topic::class);
+    }
+
+    public function hasTopics(User $user): bool
+    {
+        try {
+            $this->createQueryBuilder('t')
+                ->select('t.id')
+                ->where('t.author = :user')
+                ->setMaxResults(1)
+                ->setParameter('user', $user)
+                ->getQuery()
+                ->getSingleScalarResult();
+        } catch (NoResultException) {
+            return false;
+        }
+
+        return true;
     }
 
     /**

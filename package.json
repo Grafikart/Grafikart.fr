@@ -7,6 +7,7 @@
   "devDependencies": {
     "@preact/preset-vite": "^2.8.2",
     "doctoc": "^2.0.1",
+    "eslint-config-preact": "^1.5.0",
     "prettier": "^3.2.5",
     "prettier-standard": "^16.4.1",
     "sass": "^1.77.2",

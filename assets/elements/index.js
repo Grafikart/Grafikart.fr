@@ -36,6 +36,7 @@ import { MarkAsWatched } from '/elements/courses/MarkAsWatched.jsx'
 import { PodcastVote } from '/elements/PodcastVote.js'
 import { SpoilerBox } from '/elements/SpoilerBox'
 import {Captcha} from '/elements/Captcha'
+import {ForumOnboarding} from "/elements/forum/ForumOnboarding.js";
 
 // Custom Elements
 customElements.define('nav-tabs', NavTabs)
@@ -64,6 +65,7 @@ customElements.define('premium-player', PremiumPlayer)
 customElements.define('loader-overlay', LoaderOverlay)
 customElements.define('theme-switcher', ThemeSwitcher)
 customElements.define('podcast-vote', PodcastVote)
+customElements.define('forum-onboarding', ForumOnboarding)
 preactCustomElement('site-notifications', Notifications)
 preactCustomElement('contact-form', ContactForm)
 preactCustomElement('comments-area', Comments, ['target'])
