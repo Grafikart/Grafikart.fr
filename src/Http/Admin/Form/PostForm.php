@@ -23,7 +23,9 @@ class PostForm extends AbstractType
             ->add('title', TextType::class)
             ->add('slug', TextType::class)
             ->add('image', AttachmentType::class)
-            ->add('createdAt', DateTimeType::class)
+            ->add('createdAt', DateTimeType::class, [
+                'input' => 'datetime_immutable',
+            ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name',
