@@ -5,6 +5,7 @@
 /public/demo
 /public/old
 /public/uploads
+/public/media-kit
 *.sql
 .pnpm-store
 
