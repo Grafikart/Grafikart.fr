@@ -85,7 +85,8 @@
 
   h1,
   h2,
-  h3 {
+  h3,
+  h4 {
     color: var(--color-dark);
     font-family: $font-alt;
     font-weight: bold;
@@ -109,7 +110,12 @@
     margin-top: space(2);
     margin-bottom: 2px;
   }
+
   h4 {
+    font-weight: 700;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 1.2;
     margin-top: space(2);
   }
 
