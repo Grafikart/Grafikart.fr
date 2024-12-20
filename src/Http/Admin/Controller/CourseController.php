@@ -7,6 +7,7 @@ use App\Domain\Application\Event\ContentDeletedEvent;
 use App\Domain\Application\Event\ContentUpdatedEvent;
 use App\Domain\Course\Entity\Course;
 use App\Domain\Course\Helper\CourseCloner;
+use App\Domain\Course\Repository\CourseRepository;
 use App\Http\Admin\Data\CourseCrudData;
 use App\Infrastructure\Youtube\YoutubeScopes;
 use App\Infrastructure\Youtube\YoutubeUploaderService;
@@ -19,6 +20,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Vich\UploaderBundle\Handler\UploadHandler;
+use Vich\UploaderBundle\Storage\StorageInterface;
 
 /**
  * @method getRepository() App\Domain\Course\Repository\CourseRepository\CourseRepository
@@ -148,5 +150,31 @@ final class CourseController extends CrudController
         $session->remove(self::UPLOAD_SESSION_KEY);
 
         return $this->redirectToRoute('admin_course_edit', ['id' => $courseId]);
+    }
+
+    /**
+     * Trouve tous les cours qui ont des sources manquantes
+     */
+    #[Route(path: '/missing', methods:['GET'], name: 'missing')]
+    public function missing(
+        CourseRepository $courseRepository,
+        StorageInterface $storage,
+    )
+    {
+        $rows = $this->paginator->paginate($courseRepository
+            ->queryAll()
+            ->where('c.source IS NOT NULL')
+            ->setMaxResults(2500)
+            ->getQuery()
+        );
+
+        $filteredRows = array_filter($rows->getItems(), fn(Course $c) => !file_exists($storage->resolvePath($c, 'sourceFile')));
+
+        return $this->render("admin/{$this->templatePath}/missing.html.twig", [
+            "rows" => $rows,
+            "filtered_rows" => $filteredRows,
+            "storage" => $storage,
+            'prefix' => $this->routePrefix,
+        ]);
     }
 }

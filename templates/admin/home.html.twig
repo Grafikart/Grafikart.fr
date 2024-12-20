@@ -78,13 +78,14 @@
           </div>
 
           <div class="dashboard-card">
-            <div class="flex">
+            <div class="stack flex-start">
               <form action="{{ path('admin_cache_clean') }}" method="post">
                 <button class="btn btn-small btn-danger">{{ icon('trash') }} Vider le cache</button>
               </form>
               <form action="{{ path('admin_spam_detect') }}" method="post">
                 <button class="btn btn-small btn-secondary">{{ icon('comments') }} Détecter le spam</button>
               </form>
+              <a class="btn btn-small btn-secondary" style="width: max-content" href="{{  url('admin_course_missing') }}">{{ icon('gift') }} Fichiers manquants</a>
             </div>
           </div>
         </section>

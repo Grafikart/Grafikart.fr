@@ -1,0 +1,31 @@
+{% extends 'admin/layout/card.html.twig' %}
+
+{% block title  %}
+  {{ icon('gift') }}
+  Sources manquantes
+{% endblock %}
+
+{% block content %}
+  <table class="table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nom</th>
+      <th>Fichier</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for row in filtered_rows %}
+      {% set link = path(prefix ~ '_edit', {id: row.id}) %}
+    <tr>
+      <td>{{ row.id }}</td>
+      <td><a href="{{ link }}">{{ row.title }}</a></td>
+      <td>{{ storage.resolvePath(row, 'sourceFile', null, true) }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+  {{ paginate(rows) }}
+
+{% endblock %}
