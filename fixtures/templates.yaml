@@ -70,11 +70,12 @@ App\Domain\Auth\User:
 App\Domain\Comment\Entity\Comment:
   comment (template):
     username: john<numberBetween(0, 1000)>
-    createdAt: <dateTimeImmutableThisYear()>
+    createdAt: <dateTimeImmutableThisYear('-1 hour')>
     content: <sentence(100)>
     parent: '20%? @comment*'
     author: '@user*'
     target: '@course*'
+    ip: '127.0.0.1'
 
 App\Domain\Forum\Entity\Tag:
   tag (template):

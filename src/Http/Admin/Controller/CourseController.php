@@ -153,14 +153,13 @@ final class CourseController extends CrudController
     }
 
     /**
-     * Trouve tous les cours qui ont des sources manquantes
+     * Trouve tous les cours qui ont des sources manquantes.
      */
-    #[Route(path: '/missing', methods:['GET'], name: 'missing')]
+    #[Route(path: '/missing', methods: ['GET'], name: 'missing')]
     public function missing(
         CourseRepository $courseRepository,
         StorageInterface $storage,
-    )
-    {
+    ): Response {
         $rows = $this->paginator->paginate($courseRepository
             ->queryAll()
             ->where('c.source IS NOT NULL')
@@ -168,12 +167,15 @@ final class CourseController extends CrudController
             ->getQuery()
         );
 
-        $filteredRows = array_filter($rows->getItems(), fn(Course $c) => !file_exists($storage->resolvePath($c, 'sourceFile')));
+        $filteredRows = array_filter(
+            [...$rows->getItems()],
+            fn (Course $c) => !file_exists($storage->resolvePath($c, 'sourceFile') ?? '')
+        );
 
         return $this->render("admin/{$this->templatePath}/missing.html.twig", [
-            "rows" => $rows,
-            "filtered_rows" => $filteredRows,
-            "storage" => $storage,
+            'rows' => $rows,
+            'filtered_rows' => $filteredRows,
+            'storage' => $storage,
             'prefix' => $this->routePrefix,
         ]);
     }

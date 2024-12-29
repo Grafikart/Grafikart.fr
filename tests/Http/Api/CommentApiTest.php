@@ -90,6 +90,23 @@ class CommentApiTest extends ApiTestCase
         $this->assertResponseIsSuccessful();
     }
 
+    public function testLimitSuccessiveComment()
+    {
+        $fixtures = $this->loadFixtures(['comments']);
+        $this->jsonRequest('POST', '/api/comments', [
+            'content' => 'Hello world !',
+            'username' => 'John Doe',
+            'target' => $fixtures['post1']->getId(),
+        ]);
+        $this->assertResponseIsSuccessful();
+        $this->jsonRequest('POST', '/api/comments', [
+            'content' => 'Hello world !',
+            'username' => 'John Doe',
+            'target' => $fixtures['post1']->getId(),
+        ]);
+        $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
+    }
+
     public function testCreateWithUsedUsername()
     {
         $fixtures = $this->loadFixtures(['comments', 'users']);

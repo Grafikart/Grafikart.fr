@@ -32,6 +32,7 @@ class CommentsController extends AbstractApiController
     }
 
     #[Route('/comments', methods: ['POST'])]
+    #[IsGranted(CommentVoter::CREATE)]
     public function create(
         Request $request,
         SerializerInterface $serializer,

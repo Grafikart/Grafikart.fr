@@ -85,4 +85,18 @@ class CommentRepository extends AbstractRepository
             ->where('row.ip LIKE :ip')
             ->setParameter('ip', $ip);
     }
+
+    public function hasIpCommentedRecently(string $ip, string $time = '-5 minutes'): bool
+    {
+        $date = new \DateTimeImmutable($time);
+
+        return $this->createQueryBuilder('c')
+            ->select('COUNT(c.id)')
+            ->where('c.ip = :ip')
+            ->andWhere('c.createdAt > :date')
+            ->setParameter('ip', $ip)
+            ->setParameter('date', $date)
+            ->getQuery()
+            ->getSingleScalarResult() === 0;
+    }
 }
