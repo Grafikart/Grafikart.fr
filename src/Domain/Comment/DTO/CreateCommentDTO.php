@@ -4,6 +4,7 @@ namespace App\Domain\Comment\DTO;
 
 use App\Domain\Application\Entity\Content;
 use App\Domain\Auth\User;
+use App\Domain\Comment\Entity\Comment;
 use App\Validator\Exists;
 use App\Validator\NotExists;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -22,7 +23,7 @@ class CreateCommentDTO extends UpdateCommentDTO
     public int $target;
 
     #[Assert\Positive(groups: ['write'])]
-    #[Exists(class: Content::class, groups: ['write'])]
+    #[Exists(class: Comment::class, groups: ['write'])]
     #[Groups(['write'])]
     public ?int $parent = null;
 }
