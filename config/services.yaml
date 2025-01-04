@@ -12,6 +12,7 @@ parameters:
   asset.request_context.secure: true
   captcha_id: '%env(resolve:default::CAPTCHA_ID)%'
   captcha_secret: '%env(resolve:default::CAPTCHA_SECRET)%'
+  bot_country_blacklist: '%env(json:BOT_COUNTRY_BLACKLIST)%'
 
 imports:
   - { resource: domains/ }
