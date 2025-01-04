@@ -60,7 +60,7 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // On shadow inscrit les bots
             $location = $ipService->getLocation($request->getClientIp() ?? '');
-            if ($location && in_array($location->country, ['IN', 'VN', 'RU', 'CN'])) {
+            if ($location && in_array($location->country, ['IN', 'VN', 'RU', 'CN', 'UA'])) {
                 $this->addFlash(
                     'success',
                     'Votre compte a été créé avec succès'
