@@ -32,6 +32,18 @@ class MessageRepository extends AbstractRepository
             ->execute();
     }
 
+    public function findLastByUsers(array $users, int $limit = 10): array
+    {
+        return $this->createQueryBuilder('m')
+            ->where('m.author IN (:users)')
+            ->orderBy('m.updatedAt', 'DESC')
+            ->setMaxResults($limit)
+            ->setParameter('users', $users)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     /**
      * Force l'hydratation des messages (pour éviter de faire n+1 requêtes).
      */

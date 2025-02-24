@@ -1,0 +1,158 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title 'IP ' ~ ip %}
+
+{% block body %}
+
+  <div class="stack" style="--gap:1">
+
+    <div class="flex mb1">
+      <h1 class="dashboard-title">
+        IP
+        <a class="text-small text-muted" href="https://ipinfo.io/{{ ip }}" target="_blank" rel="noreferrer">
+          {{ ip }}
+        </a>
+        {% if location %}
+          <span title="{{ location.country }}">
+            {{ location.emoji ?? '' }}
+          </span>
+        {% endif %}
+      </h1>
+      <aside class="hstack center" style="--gap:1;">
+        <pre style="font-size: .8rem; background-color:rgba(0,0,0,0.6); padding: 5px 10px;">sudo ufw insert 1 deny from {{ ip }}</pre>
+        <form action="{{ path('admin_ip', {ip: ip}) }}" method="post">
+          <input type="hidden" name="_method" value="DELETE">
+          <button class="btn-danger">
+            {{ icon('eye') }} Bloquer
+          </button>
+        </form>
+
+      </aside>
+    </div>
+
+    {% include 'partials/flash.html.twig' %}
+
+    <div class="grid2" style="--gap: 4">
+
+      <div>
+        <h2 class="h3 mb2">
+          {{ icon('user') }}
+          Inscriptions
+        </h2>
+        <div class="dashboard-card">
+          <table class="table">
+            <thead>
+            <tr>
+              <th>ID</th>
+              <th>Pseudo</th>
+              <th>Email</th>
+              <th>Inscription</th>
+              <th>Premium</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+              <tr>
+                <td>
+                  {{ user.id }}
+                </td>
+                <td>
+                  {{ user.username }}
+                </td>
+                <td>
+                  {{ user.email }}
+                </td>
+                <td>
+                  {{ user.createdAt | format_datetime(pattern="dd MMM. yyyy à kk:mm") }}
+                </td>
+                <td>
+                  {{ user.premium ? user.premiumEnd | ago('Pour') : '' }}
+                </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="h3 mb2">
+          {{ icon('comments') }}
+          Commentaires
+        </h2>
+        <div class="dashboard-card stack-large">
+          {% for comment in comments %}
+            <article class="dashboard-comment stack" style="--gap:1">
+              <div class="flex">
+                <h3>
+                  <strong>
+                    {%- if comment.author -%}
+                      <a href="{{ path('admin_user_index', {q: comment.author ? comment.author.id : '#'}) }}">{{ icon('user') }} {{ comment.username }}</a>
+                    {%- else -%}
+                      {{- comment.username -}}
+                    {%- endif -%}
+                  </strong>,
+                  <a href="{{ path(comment.target) }}">
+                    {{ comment.target.title }}
+                  </a>,
+                  <span class="text-small text-muted">
+        {{ comment.createdAt | ago }}
+      </span>
+                  <a class="text-small text-muted" href="{{ path('admin_comment_edit', {id: comment.id}) }}">Editer</a>
+                </h3>
+              </div>
+              <p>{{ comment.content | nl2br | highlight_spamwords(true) }}</p>
+            </article>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div>
+        <h2 class="h3 mb2">
+          {{ icon('edit') }}
+          Sujets créés
+        </h2>
+        <div class="dashboard-card stack-separated">
+          {% for topic in topics %}
+            <article class="dashboard-comment stack" style="--gap:1">
+              <div class="flex">
+                <h3>
+                  <a href="{{ path(topic) }}">
+                    {{ topic.name }}
+                  </a>, {{ topic.author.username }}
+                </h3>
+              </div>
+              <p>{{ topic.content | markdown_excerpt }}</p>
+            </article>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div>
+        <h2 class="h3 mb2">
+          {{ icon('edit') }}
+          Sujets créés
+        </h2>
+        <div class="dashboard-card stack-separated">
+          {% for message in messages %}
+            <article class="dashboard-comment stack" style="--gap:1">
+              <div class="flex">
+                <h3>
+                  <a href="{{ path(message) }}">
+                    {{ message.topic.name }}
+                  </a>, {{ message.author.username }}
+                </h3>
+              </div>
+              <p>{{ message.content | markdown_excerpt }}</p>
+            </article>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    {% block bottom '' %}
+
+  </div>
+
+{% endblock %}
+

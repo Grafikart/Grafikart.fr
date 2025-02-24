@@ -100,6 +100,21 @@ class UserRepository extends AbstractRepository implements PasswordUpgraderInter
     }
 
     /**
+     * Renvoie la liste des utilisateurs connectés depuis une certaine IP.
+     *
+     * @return User[]
+     */
+    public function findByIp(string $ip): array
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.lastLoginIp = :ip')
+            ->setMaxResults(15)
+            ->setParameter('ip', $ip)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
      * Liste les utilisateurs bannis.
      */
     public function queryBanned(): QueryBuilder

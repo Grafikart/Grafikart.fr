@@ -56,6 +56,20 @@ class TopicRepository extends AbstractRepository
     }
 
     /**
+     * Récupère les derniers sujets créés par des utilisateurs.
+     */
+    public function findLastByUsers(array $users, int $limit = 10): array
+    {
+        return $this->createQueryBuilder('t')
+            ->where('t.author IN (:users)')
+            ->orderBy('t.updatedAt', 'DESC')
+            ->setMaxResults($limit)
+            ->setParameter('users', $users)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
      * Récupère les derniers sujets sur lesquels l'utilisateur a participé.
      *
      * @return Topic[]

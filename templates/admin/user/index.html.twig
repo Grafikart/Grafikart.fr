@@ -66,8 +66,8 @@
             {{ user.premium ? user.premiumEnd | ago('Pour') : '' }}
           </td>
           <td>
-            <a href="https://ipinfo.io/{{ user.lastLoginIp }}" title="" target="_blank">{{ user.lastLoginIp }}</a>
             {% if user.lastLoginIp %}
+              <a href="{{ path('admin_ip', {ip: user.lastLoginIp}) }}" title="" target="_blank">{{ user.lastLoginIp }}</a>
               {% set location = ipService.getLocation(user.lastLoginIp) %}
               {% if location %}
               <span title="{{ location.country }}">
