@@ -1,6 +1,6 @@
 {
   "name": "grafikart",
-  "version": "1.0.109",
+  "version": "1.0.110",
   "main": "index.js",
   "license": "MIT",
   "type": "module",
@@ -18,7 +18,7 @@
     "lint": "prettier-standard --lint \"assets/**/*.{js,css,jsx}\"",
     "lint-staged": "prettier-standard --lint --changed \"assets/**/*.{js,css,jsx}\"",
     "dev": "rm -rf public/assets/time && npx vite",
-    "build": "npx vite build && touch public/assets/time && find ./public/assets -name \"*.*\" -mtime +7 -delete",
+    "build": "npx vite build && touch public/assets/time && find ./public/assets -type f -name \"*.*\" -mtime +7 -delete",
     "test": "vitest"
   },
   "dependencies": {
