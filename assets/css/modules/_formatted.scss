@@ -3,7 +3,6 @@
 }
 
 .formatted {
-
   iframe {
     aspect-ratio: 16 / 9;
     width: 100%;
@@ -71,12 +70,11 @@
   ul,
   ol,
   blockquote {
-    margin-top: 1rem;
-    margin-bottom: 30px;
+    margin-block: 1.33rem;
   }
 
-  p, ul, ol {
-    line-height: 1.6;
+  ul ul {
+    margin-top: 0;
   }
 
   p:first-child {
@@ -94,6 +92,7 @@
 
   h1 {
     font-size: 2em;
+    line-height: 1.1;
   }
 
   h2 {
@@ -221,5 +220,12 @@
       background: #1b1e3d;
       color: #A9B1D6;
       outline: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .formatted {
+    font-size: 1.125rem;
+    line-height: 1.7777778;
   }
 }
