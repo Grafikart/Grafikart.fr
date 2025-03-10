@@ -20,7 +20,6 @@ final class Version20200614191439 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf('postgresql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'postgresql\'.');
 
         $this->addSql('CREATE TABLE technology_requirement (technology_source INT NOT NULL, technology_target INT NOT NULL, PRIMARY KEY(technology_source, technology_target))');
         $this->addSql('CREATE INDEX IDX_FA5618B015B5A9D8 ON technology_requirement (technology_source)');
@@ -33,7 +32,6 @@ final class Version20200614191439 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf('postgresql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'postgresql\'.');
 
         $this->addSql('DROP TABLE technology_requirement');
         $this->addSql('ALTER TABLE technology DROP type');

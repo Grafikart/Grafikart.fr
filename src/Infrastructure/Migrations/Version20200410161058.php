@@ -19,9 +19,6 @@ final class Version20200410161058 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf('postgresql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'postgresql\'.');
-
         $this->addSql('CREATE TABLE forum_message (id SERIAL NOT NULL, topic_id INT NOT NULL, author_id INT NOT NULL, accepted BOOLEAN DEFAULT \'false\' NOT NULL, content TEXT NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_47717D0E1F55203D ON forum_message (topic_id)');
         $this->addSql('CREATE INDEX IDX_47717D0EF675F31B ON forum_message (author_id)');
@@ -97,7 +94,6 @@ final class Version20200410161058 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf('postgresql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'postgresql\'.');
 
         $this->addSql('CREATE SCHEMA public');
         $this->addSql('ALTER TABLE forum_topic DROP CONSTRAINT FK_853478CCBA0E79C3');

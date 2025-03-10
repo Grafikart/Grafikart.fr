@@ -56,7 +56,7 @@ SQL);
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf(
-            'postgresql' !== $this->connection->getDatabasePlatform()->getName(),
+            $this->connection->getDatabasePlatform() instanceof PostgreSQLPlatform,
             'Migration can only be executed safely on \'postgresql\'.'
         );
 

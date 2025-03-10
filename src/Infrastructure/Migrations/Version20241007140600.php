@@ -82,7 +82,6 @@ final class Version20241007140600 extends AbstractMigration
         $this->addSql("SELECT upgrade_serial_to_identity('forum_tag', 'id')");
         $this->addSql("SELECT upgrade_serial_to_identity('forum_topic', 'id')");
         $this->addSql("SELECT upgrade_serial_to_identity('login_attempt', 'id')");
-        $this->addSql("SELECT upgrade_serial_to_identity('messenger_messages', 'id')");
         $this->addSql("SELECT upgrade_serial_to_identity('notification', 'id')");
         $this->addSql("SELECT upgrade_serial_to_identity('password_reset_token', 'id')");
         $this->addSql("SELECT upgrade_serial_to_identity('plan', 'id')");
