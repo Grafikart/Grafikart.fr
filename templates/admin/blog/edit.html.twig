@@ -1,5 +1,9 @@
 {% extends 'admin/layout/card.html.twig' %}
 
+{% block actions %}
+  <a href="{{ path('blog_show', {slug: entity.slug}) }}" target="_blank" class="btn-secondary btn-small">Voir l'article</a>
+{% endblock %}
+
 {% block title %}
   {{ icon('pen') }}
   Editer l'article

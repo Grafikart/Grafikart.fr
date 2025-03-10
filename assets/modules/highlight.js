@@ -1,6 +1,6 @@
 import scriptjs from "scriptjs";
 
-const lazylangs = ["typescript", "tsx", "elixir", "less", "stylus", "scss", "sass", "yaml", "twig", "dockerfile"];
+const lazylangs = ["typescript", "elixir", "less", "stylus", "scss", "sass", "yaml", "twig", "dockerfile"];
 
 /**
  * Ajoute highlightjs sur les éléments sélectionnés

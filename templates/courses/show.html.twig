@@ -151,11 +151,11 @@
 
       {% if course.formation %}
       <nav-tabs class="course-tabs tabs-bar container bg-light">
-        <a href="#content" aria-controls="content"  aria-selected="true">
+        <a href="#content" aria-controls="content" aria-selected="true">
           {{ icon('edit') }}
           Description
         </a>
-        <a href="#sommaire" aria-controls="sommaire" >
+        <a href="#sommaire" aria-controls="sommaire">
           {{ icon('lines') }}
           Sommaire
         </a>
@@ -226,7 +226,7 @@
                 {% if is_granted('progress', course) %}
                 <mark-as-watched data-history="{{ course.id }}" content-id="{{ course.id }}"></mark-as-watched>
                 {% endif %}
-                <admin-edit hidden></admin-edit>
+                <admin-edit class="btn-primary" hidden></admin-edit>
               </div>
             </div>
           </div>

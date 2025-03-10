@@ -20,6 +20,7 @@
         <a href="{{ path('blog_category', {slug: post.category.slug})}}">{{post.category.name}}</a> -
         Par {{ post.author.username }} -
         <a href="{{ path('revision', {id: post.id}) }}">Proposer une correction</a>
+        <admin-edit hidden>- Editer</admin-edit>
       </div>
     </div>
 
@@ -33,5 +34,16 @@
   </div>
   {% endcache %}
 
+{% endblock %}
+
+{% block javascripts %}
+  {% if is_granted('ADMIN') %}
+    <script>
+      window.grafikart = {
+        EDIT_LINK: "{{ path('admin_blog_edit', {id: post.id}) }}"
+      }
+    </script>
+  {% endif %}
+  {{ parent() }}
 {% endblock %}
 

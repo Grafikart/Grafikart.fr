@@ -49,6 +49,10 @@
   border: solid 1px var(--contrast);
 }
 
+.btn-primary[hidden] {
+  display: none;
+}
+
 .btn-primary-outlined {
   @extend %btn;
   border: 1px solid var(--contrast);

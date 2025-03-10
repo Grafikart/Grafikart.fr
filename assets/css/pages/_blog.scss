@@ -72,7 +72,17 @@
 }
 .blog-single__meta a {
   text-decoration: underline;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
 }
+.blog-single__meta admin-edit:not([hidden])::before {
+  content: " - ";
+}
+.blog-single__meta admin-edit svg {
+  display: none;
+}
+
 
 // Contenu avec video
 .blog-single__body .video {
