@@ -14,17 +14,17 @@
   tasks:
 
   roles:
-    - {role: tools, tags: tools}
+    # - {role: tools, tags: tools}
     # - {role: docker, tags: docker, when: docker}
-    - {role: firewall, tags: firewall}
-    - {role: php, tags: php, when: not docker}
-    - {role: nginx, tags: nginx}
-    - {role: pgsql, tags: pgsql, when: not docker}
-    - {role: node, tags: node, when: not docker}
-    - {role: app, tags: app, when: not docker}
-    - {role: mail, tags: mail, when: not docker}
-    - {role: stats, tags: stats, when: not docker}
-    - {role: plausible, tags: plausible, when: not docker}
+    # - {role: firewall, tags: firewall}
+    # - {role: php, tags: php, when: not docker}
+    # - {role: nginx, tags: nginx}
+    # - {role: pgsql, tags: pgsql, when: not docker}
+    # - {role: node, tags: node, when: not docker}
+    # - {role: app, tags: app, when: not docker}
+    # - {role: mail, tags: mail, when: not docker}
+    # - {role: stats, tags: stats, when: not docker}
+    # - {role: plausible, tags: plausible, when: not docker}
     - {role: search, tags: search, when: not docker}
-    - {role: geoip, tags: php, when: not docker}
+    # - {role: geoip, tags: php, when: not docker}
 

@@ -35,26 +35,36 @@ services:
       POSTGRES_PASSWORD: grafikart
       POSTGRES_USER: grafikart
       POSTGRES_DB: grafikart
+      POSTGRES_HOST_AUTH_METHOD: trust
       TZ: Europe/Paris
       PGTZ: Europe/Paris
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - ./var/db:/var/lib/postgresql/data
       - ./var:/var/www/var
   redis:
     restart: unless-stopped
     image: redis:7-alpine
     ports:
       - 6379:6379
-  meilisearch:
+  #meilisearch:
+  #  restart: unless-stopped
+  #  image: getmeili/meilisearch:v1.0
+  #  environment:
+  #    MEILI_ENV: development
+  #    MEILI_MASTER_KEY:
+  #  ports:
+  #    - 7700:7700
+  #  volumes:
+  #    - ./var/meilisearch:/meili_data
+  typesense:
     restart: unless-stopped
-    image: getmeili/meilisearch:v1.0
-    environment:
-      MEILI_ENV: development
-      MEILI_MASTER_KEY:
+    image: typesense/typesense:28.0
     ports:
-      - 7700:7700
+      - "8108:8108"
+    command: '--data-dir /data --api-key=typesensekey --enable-cors'
     volumes:
-      - search-data:/meili_data
+      - ./var/typesense:/data
+
   mercure:
     restart: unless-stopped
     image: dunglas/mercure
@@ -112,11 +122,3 @@ services:
       POSTGRES_PASSWORD: test
       POSTGRES_USER: test
       POSTGRES_DB: test
-volumes:
-  db-data:
-    driver: local
-  search-data:
-    driver: local
-
-networks:
-  dev:

@@ -2,7 +2,7 @@
 - name: "Typesense | Install"
   become: yes
   apt:
-    deb: https://dl.typesense.org/releases/0.18.0/typesense-server-0.18.0-amd64.deb
+    deb: https://dl.typesense.org/releases/28.0/typesense-server-28.0-amd64.deb
 - name: Typesense | dossier uploads
   become: no
   file: state=directory path="{{ item }}"

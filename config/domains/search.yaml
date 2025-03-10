@@ -19,7 +19,7 @@ services:
     arguments: ['%meilisearch_host%', '%meilisearch_key%']
 
   App\Infrastructure\Search\IndexerInterface:
-    class: App\Infrastructure\Search\Meilisearch\MeilisearchIndexer
+    class: App\Infrastructure\Search\Typesense\TypesenseIndexer
 
   App\Infrastructure\Search\SearchInterface:
-    class: App\Infrastructure\Search\Meilisearch\MeilisearchSearch
+    class: App\Infrastructure\Search\Typesense\TypesenseSearch

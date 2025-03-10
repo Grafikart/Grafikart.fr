@@ -4,3 +4,8 @@
     become: no
     name: meilisearch
     state: restarted
+- name: typesense restart
+  service:
+    become: yes
+    name: typesense
+    state: restarted
