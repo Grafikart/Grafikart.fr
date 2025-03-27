@@ -36,7 +36,7 @@
             <a href="{{ path('formation_resume', {slug: formation.slug}) }}#autoplay"
                class="btn-white-outlined btn-big">{{ icon('play') }} Continuer</a>
           </p>
-        {% elseif formation.firstContent %}
+        {% elseif first_course %}
           <p>
             <a href="{{ path(first_course) }}#autoplay" class="btn-white-outlined btn-big">{{ icon('play') }}
               Commencer</a>
@@ -63,22 +63,35 @@
         <h2 class="h2 mb3">Présentation</h2>
         {% for technology in formation.mainTechnologies %}
           {% if technology.slug == 'symfony' %}
-          <alert-message type="info">
-            Cette formation n'est pas officiellement supportée par <a href="https://sensiolabs.com/" target="_blank">SensioLabs</a>.
-          </alert-message>
+            <alert-message type="info">
+              Cette formation n'est pas officiellement supportée par <a href="https://sensiolabs.com/" target="_blank">SensioLabs</a>.
+            </alert-message>
           {% endif %}
         {% endfor %}
         {% include 'formations/_deprecation.html.twig' with {class: 'mb2'} %}
         <div class="stack" style="--gap:4">
+
+          {% if first_course and not formation.hasYoutubeLink %}
+
+            <progress-tracker contentId="{{ first_course.id }}" data-history="{{ first_course.id }}"
+                              duration="{{ first_course.duration }}">
+              <youtube-player
+                id="course-{{ first_course.id }}"
+                video="{{ first_course.youtubeId }}"
+                poster="{{ image_url(first_course.image, 1330, 750) }}"
+                duration="{{ first_course.duration | duration }}"
+                button="#chapter{{ first_course.id }} play-button"
+                class="shadow formation-intro"></youtube-player>
+            </progress-tracker>
+
+          {% endif %}
           <div>
-            <div>
-              <div class="formatted">
-                {{ formation.content | markdown }}
-              </div>
-              <admin-edit class="btn-primary" hidden></admin-edit>
-              <div class="text-muted mt2">
-                {{ formation.createdAt | ago }}
-              </div>
+            <div class="formatted">
+              {{ formation.content | markdown }}
+            </div>
+            <admin-edit class="btn-primary" hidden></admin-edit>
+            <div class="text-muted mt2">
+              {{ formation.createdAt | ago }}
             </div>
           </div>
           <div class="formation-arguments">
@@ -106,21 +119,6 @@
               </div>
             {% endif %}
           </div>
-
-          {% if first_course %}
-
-            <progress-tracker contentId="{{ first_course.id }}" data-history="{{ first_course.id }}"
-                              duration="{{ first_course.duration }}">
-              <youtube-player
-                id="course-{{ first_course.id }}"
-                video="{{ first_course.youtubeId }}"
-                poster="{{ image_url(first_course.image, 1330, 750) }}"
-                duration="{{ first_course.duration | duration }}"
-                button="#chapter{{ first_course.id }} play-button"
-                class="shadow formation-intro"></youtube-player>
-            </progress-tracker>
-
-          {% endif %}
 
         </div>
 

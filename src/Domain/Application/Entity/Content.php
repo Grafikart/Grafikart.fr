@@ -335,4 +335,9 @@ abstract class Content implements CacheableInterface
     {
         return new \DateTimeImmutable() < $this->getCreatedAt();
     }
+
+    public function hasYoutubeLink(): bool
+    {
+        return str_contains($this->content ?? '', 'youtube.com/');
+    }
 }
