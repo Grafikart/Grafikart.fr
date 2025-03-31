@@ -19,7 +19,8 @@
   font-size: 14px;
 }
 .tabs-bar a {
-  display: block;
+  display: flex;
+  align-items: center;
   padding: space(2);
   font-size: 1.2em;
   white-space: nowrap;

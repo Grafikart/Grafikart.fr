@@ -1,0 +1,108 @@
+@layer fool {
+
+    body {
+        font-family: Arial, sans-serif !important;
+        background-color: silver !important;
+        --color-dark: #000 !important;
+        --color: #000 !important;
+        --color-light: #000000d2 !important;
+        --color-inversed: #effbec !important;
+        --color-inversed60: #effbec99 !important;
+        --color-transparent: #{rgba(#121c42, 0)} !important;
+        --contrast: #073aa3 !important;
+        --contrast25: #4869ee3f !important;
+        --border: grey !important;
+        --border-light: grey !important;
+        --background: silver !important;
+        --background-light: #dfdfdf !important;
+        --shadow: #d8e1e8 !important;
+        --list-hover: var(--background) !important;
+        --play: #f3f9fb !important; // Couleur de fond du bouton play
+        --space-section: 150px !important;
+        --card-footer: #f7fafd !important;
+        --card-bg: rgb(201, 201, 201) !important;
+        --card-padding: 16px !important;
+        --header-height: 137px !important;
+        --red: #f25353 !important;
+        --green: #41cf7c !important;
+        --yellow: #feb32b !important;
+        --yellow-alpha: #feb32b4c !important;
+        --skeleton: var(--border-light) !important;
+        --skeleton-wave: var(--border-light) !important;
+        --selection-background: var(--border) !important;
+        --header-background: silver !important;
+        --header-background-inversed: #4869eeF2 !important;
+        --video-background: var(--color) !important;
+    }
+
+    .card,
+    .chapters-split>div,
+    .grid-filter,
+    .auth-form {
+        background-color: var(--background) !important;
+        box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #dfdfdf, inset -2px -2px grey, inset 2px 2px #fff !important;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        border: none !important;
+        background: rgb(214, 214, 214) !important;
+        box-shadow: inset -1px -1px #ffffff,
+            inset 1px 1px #0a0a0a,
+            inset -2px -2px #dfdfdf,
+            inset 2px 2px #808080;
+    }
+
+    .card__footer {
+        background: linear-gradient(90deg, navy, #1084d0) !important;
+        color: #FFF !important;
+        margin: 2px !important;
+    }
+
+    .card__footer * {
+        color: #FFF !important;
+    }
+
+    .btn-primary,
+    .btn-gradient {
+        background: silver !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #fff, inset -2px -2px grey, inset 2px 2px #dfdfdf !important;
+        box-sizing: border-box !important;
+        color: transparent !important;
+        text-shadow: 0 0 #222 !important;
+    }
+
+    .btn-secondary {
+        background: silver !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #fff, inset -2px -2px grey, inset 2px 2px #dfdfdf !important;
+        box-sizing: border-box !important;
+        color: transparent !important;
+        background: silver !important;
+        text-shadow: 0 0 #222 !important;
+    }
+
+    .tabs-bar {
+        background: transparent !important;
+        border: none !important;
+    }
+
+    .tabs-bar::after {
+        background: #FFF !important;
+    }
+
+    .tabs-bar a {
+        padding: .5rem 1rem !important;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+        box-shadow: inset -1px 0 #0a0a0a, inset 1px 1px #dfdfdf, inset -2px 0 grey, inset 2px 2px #fff;
+    }
+
+    .tabs-bar a[aria-selected=true] {
+        position: relative;
+        border-bottom-color: var(--background) !important;
+    }
+}
