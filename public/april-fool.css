@@ -24,8 +24,8 @@
         --card-padding: 16px !important;
         --header-height: 137px !important;
         --red: #f25353 !important;
-        --green: #41cf7c !important;
-        --yellow: #feb32b !important;
+        --green: #1b8543 !important;
+        --yellow: #a97b2c !important;
         --yellow-alpha: #feb32b4c !important;
         --skeleton: var(--border-light) !important;
         --skeleton-wave: var(--border-light) !important;
@@ -34,6 +34,14 @@
         --header-background-inversed: #4869eeF2 !important;
         --video-background: var(--color) !important;
     }
+
+  .chapters__item:hover, .chapters__item.is-selected {
+    background: linear-gradient(90deg, navy, #1084d0) !important;
+    color: #FFF !important;
+    & > * {
+      color: #FFF !important;
+    }
+  }
 
     .card,
     .chapters-split>div,
