@@ -70,7 +70,7 @@
         border-radius: 0 !important;
         box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #fff, inset -2px -2px grey, inset 2px 2px #dfdfdf !important;
         box-sizing: border-box !important;
-        color: transparent !important;
+        color: #000 !important;
         text-shadow: 0 0 #222 !important;
     }
 
@@ -80,8 +80,7 @@
         border-radius: 0 !important;
         box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #fff, inset -2px -2px grey, inset 2px 2px #dfdfdf !important;
         box-sizing: border-box !important;
-        color: transparent !important;
-        background: silver !important;
+        color: #000 !important;
         text-shadow: 0 0 #222 !important;
     }
 
