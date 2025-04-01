@@ -83,8 +83,10 @@
 
 // Generic
 // ==================
+@include font-face('Inter', '/fonts/Inter', 400 500 700, null, woff2);
+
 body {
-  font-family: $font;
+  font-family: Inter, sans-serif;
   font-size: 16px;
   color: var(--color);
   line-height: 1.6;

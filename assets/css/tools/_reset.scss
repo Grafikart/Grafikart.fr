@@ -88,7 +88,7 @@ video {
   padding: 0;
   border: 0;
   font-size: 100%;
-  font: inherit;
+  font: unset;
   vertical-align: baseline;
 }
 
@@ -102,20 +102,20 @@ h6 {
 }
 
 button {
-  color: inherit;
+  color: unset;
   padding: 0;
   border: none;
   cursor: pointer;
   background: transparent;
-  font-size: inherit;
+  font-size: unset;
 }
 form {
   display: block;
 }
 select,
 input {
-  font-size: inherit;
-  font-family: inherit;
+  font-size: unset;
+  font-family: unset;
 }
 pre {
   font-family: monospace;
@@ -161,13 +161,13 @@ img {
 }
 a {
   text-decoration: none;
-  color: inherit;
+  color: unset;
   transition: color 0.3s;
 }
 textarea {
-  font-size: inherit;
-  font-family: inherit;
-  line-height: inherit;
+  font-size: unset;
+  font-family: unset;
+  line-height: unset;
   resize: none;
 }
 hr {

@@ -1,16 +1,8 @@
-// Variables
-// ==================
-$font: 'Inter', sans-serif;
-$font-alt: 'Inter', sans-serif;
-
 // Font face
 // ==================
-@include font-face('Inter', '/fonts/Inter', 400 500 700, null, woff2);
-
 %hero-title,
 .hero-title {
   font-size: 52px;
-  font-family: $font-alt;
   font-weight: 700;
   line-height: 1.2;
 
@@ -42,7 +34,6 @@ $font-alt: 'Inter', sans-serif;
 
 %section-title,
 .section-title {
-  font-family: $font-alt;
   font-size: 18px;
   font-weight: bold;
   border-bottom: 1px solid var(--border-light);
@@ -51,14 +42,12 @@ $font-alt: 'Inter', sans-serif;
 }
 
 %card-title {
-  font-family: $font-alt;
   font-size: 20px;
   font-weight: bold;
 }
 
 %h1,
 .h1 {
-  font-family: $font-alt;
   font-weight: 700;
   font-style: normal;
   font-size: 32px;
@@ -102,14 +91,12 @@ $font-alt: 'Inter', sans-serif;
 
 %h4,
 .h4 {
-  font-family: $font-alt;
   font-size: 20px;
   font-weight: bold;
 }
 
 %h5,
 .h5 {
-  font-family: $font-alt;
   font-weight: bold;
 }
 
