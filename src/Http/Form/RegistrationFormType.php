@@ -19,8 +19,9 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class RegistrationFormType extends AbstractType
 {
-    public function __construct(private readonly UrlGeneratorInterface $urlGenerator)
-    {
+    public function __construct(
+        private readonly UrlGeneratorInterface $urlGenerator,
+    ) {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -29,7 +30,10 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('username', TextType::class, ['label' => "Nom d'utilisateur"])
             ->add('job', HoneypotType::class, ['attr' => ['class' => null, 'style' => null]])
-            ->add('coupon', TextType::class, [
+        ;
+
+        if ($options['with_coupon']) {
+            $builder->add('coupon', TextType::class, [
                 'label' => <<<HTML
 Code étudiant <a class="form-info" target="_blank" href="$url" title="En savoir plus"><svg class="icon icon-cursus">
   <use href="/sprite.svg#info"></use>
@@ -44,8 +48,8 @@ HTML
                 'constraints' => [
                     new CouponCode(),
                 ],
-            ])
-        ;
+            ]);
+        }
 
         if ($options['with_captcha']) {
             $builder->add('captcha', CaptchaType::class);
@@ -84,6 +88,7 @@ HTML
     {
         $resolver->setDefaults([
             'with_captcha' => true,
+            'with_coupon' => false,
             'data_class' => User::class,
             'antispam_time' => true,
             'antispam_honeypot' => true,

@@ -49,10 +49,12 @@ class RegistrationController extends AbstractController
         // Si l'utilisateur provient de l'oauth, on préremplit ses données
         $isOauthUser = $request->get('oauth') ? $socialLoginService->hydrate($request->getSession(), $user) : false;
         $env = $this->getParameter('kernel.environment');
+        $coupon = $request->query->get('coupon');
         $form = $this->createForm(RegistrationFormType::class, $user, [
             'with_captcha' => $env !== 'test',
+            'with_coupon' => !empty($coupon),
         ]);
-        if ($request->query->get('coupon')) {
+        if ($form->has('coupon')) {
             $form->get('coupon')->setData($request->get('coupon'));
         }
         $form->handleRequest($request);
@@ -82,10 +84,13 @@ class RegistrationController extends AbstractController
                 ->setConfirmationToken($isOauthUser ? null : $tokenGenerator->generate(60))
                 ->setNotificationsReadAt(new \DateTimeImmutable())
             ;
-            $coupon = $form->get('coupon')->getData();
 
-            if ($coupon) {
-                $couponClaimerService->claim(new CouponClaimDTO(user: $user, code: $coupon));
+            // Si l'utilisateur a un coupon, on l'enregistre
+            if ($form->has('coupon')) {
+                $coupon = $form->get('coupon')->getData();
+                if ($coupon) {
+                    $couponClaimerService->claim(new CouponClaimDTO(user: $user, code: $coupon));
+                }
             }
 
             $dispatcher->dispatch(new UserBeforeCreatedEvent($user, $request));
