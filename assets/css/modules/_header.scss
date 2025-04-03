@@ -92,6 +92,9 @@
 .header a[aria-current] {
   color: var(--contrast);
 }
+.header-nav a[href$="/premium"] {
+  color: var(--yellow);
+}
 .header-nav > * + * {
   margin-left: space(5);
 }
