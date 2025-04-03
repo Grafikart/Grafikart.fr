@@ -9,6 +9,7 @@ use App\Domain\Course\Entity\Course;
 use App\Domain\Course\Helper\CourseCloner;
 use App\Domain\Course\Repository\CourseRepository;
 use App\Http\Admin\Data\CourseCrudData;
+use App\Infrastructure\Youtube\Transformer\CourseTransformer;
 use App\Infrastructure\Youtube\YoutubeScopes;
 use App\Infrastructure\Youtube\YoutubeUploaderService;
 use Psr\EventDispatcher\EventDispatcherInterface;
@@ -177,6 +178,14 @@ final class CourseController extends CrudController
             'filtered_rows' => $filteredRows,
             'storage' => $storage,
             'prefix' => $this->routePrefix,
+        ]);
+    }
+
+    #[Route(path: '/{id<\d+>}/snippet', methods:['GET'], name: 'snippet')]
+    public function snippet(Course $course, CourseTransformer $courseTransformer): Response {
+        $video = $courseTransformer->transform($course);
+        return $this->render("admin/{$this->templatePath}/snippet.html.twig", [
+            'snippet' => $video->getSnippet()
         ]);
     }
 }

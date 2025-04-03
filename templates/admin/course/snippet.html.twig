@@ -1,0 +1,14 @@
+{% extends 'admin/layout/card.html.twig' %}
+
+{% block title  %}
+  {{ icon('video') }}
+  {{  snippet.title }}
+{% endblock %}
+
+{% block content %}
+
+    <p>
+      {{ snippet.description | nl2br }}
+    </p>
+
+{% endblock %}

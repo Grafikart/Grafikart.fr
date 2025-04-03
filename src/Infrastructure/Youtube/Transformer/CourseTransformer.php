@@ -37,17 +37,17 @@ class CourseTransformer
         $video = new \Google_Service_YouTube_Video();
         $snippet = new \Google_Service_YouTube_VideoSnippet();
         $snippet->setCategoryId('28');
-        $snippet->setDescription("Article ► {$url}
+        $snippet->setDescription(sprintf("🔗 Article : {$url}
 
-{$course->getExcerpt()}
+%s
+______________________
 
-Soutenez Grafikart:
-Devenez premium ► https://grafikart.fr/premium
+Soutenir la chaîne :
+⭐ Devenez premium : https://grafikart.fr/premium
 
-Retrouvez Grafikart sur:
-Le site ► https://grafikart.fr
-Twitter ► https://twitter.com/grafikart_fr
-Discord ► https://grafikart.fr/tchat");
+Retrouvez Grafikart :
+🐦 Twitter : https://twitter.com/grafikart_fr
+💬 Discord : https://grafikart.fr/tchat", $course->getExcerpt()));
         $snippet->setTitle($title);
         $snippet->setDefaultAudioLanguage('fr');
         $snippet->setDefaultLanguage('fr');
