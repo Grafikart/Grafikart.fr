@@ -6,6 +6,7 @@ use App\Domain\Comment\CommentRepository;
 use App\Domain\Comment\Entity\Comment;
 use App\Http\Admin\Data\CommentCrudData;
 use App\Infrastructure\Spam\SpamService;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -56,5 +57,13 @@ class CommentController extends CrudController
     public function getRepository(): CommentRepository
     {
         return $this->em->getRepository(Comment::class);
+    }
+
+    protected function applySearch(string $search, QueryBuilder $query): QueryBuilder
+    {
+        return $query
+            ->where("LOWER(row.content) LIKE :search")
+            ->orWhere("LOWER(row.username) LIKE :search")
+            ->setParameter('search', '%'.strtolower($search).'%');
     }
 }
