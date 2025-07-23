@@ -7,7 +7,7 @@ interface CrudDataInterface
     public function getEntity(): object;
 
     /**
-     * @return class-string<\Symfony\Component\Form\FormTypeInterface<\App\Http\Admin\Data\CrudDataInterface>>
+     * @return class-string<\Symfony\Component\Form\FormTypeInterface<CrudDataInterface>>
      */
     public function getFormClass(): string;
 

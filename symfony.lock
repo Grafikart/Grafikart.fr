@@ -222,9 +222,6 @@
     "laminas/laminas-code": {
         "version": "3.4.1"
     },
-    "lcobucci/clock": {
-        "version": "2.0.0"
-    },
     "lcobucci/jwt": {
         "version": "3.3.2"
     },

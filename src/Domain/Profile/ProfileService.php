@@ -10,6 +10,7 @@ use App\Domain\Profile\Exception\TooManyEmailChangeException;
 use App\Domain\Profile\Repository\EmailVerificationRepository;
 use App\Infrastructure\Security\TokenGeneratorService;
 use Doctrine\ORM\EntityManagerInterface;
+use Intervention\Image\Drivers\Imagick\Driver;
 use Intervention\Image\ImageManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -29,8 +30,8 @@ class ProfileService
             throw new \RuntimeException('Impossible de redimensionner un avatar non existant');
         }
         // On redimensionne l'image
-        $manager = new ImageManager(['driver' => 'imagick']);
-        $manager->make($data->file)->fit(110, 110)->save($data->file->getRealPath());
+        $manager = new ImageManager(new Driver());
+        $manager->read($data->file)->cover(110, 110)->save($data->file->getRealPath());
 
         // On la déplace dans le profil utilisateur
         $data->user->setAvatarFile($data->file);

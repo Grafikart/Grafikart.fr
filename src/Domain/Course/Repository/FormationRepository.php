@@ -19,7 +19,7 @@ class FormationRepository extends AbstractRepository
     }
 
     /**
-     * @return formation[]
+     * @return Formation[]
      */
     public function findAll(): array
     {

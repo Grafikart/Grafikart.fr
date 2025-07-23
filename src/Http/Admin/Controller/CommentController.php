@@ -62,8 +62,8 @@ class CommentController extends CrudController
     protected function applySearch(string $search, QueryBuilder $query): QueryBuilder
     {
         return $query
-            ->where("LOWER(row.content) LIKE :search")
-            ->orWhere("LOWER(row.username) LIKE :search")
+            ->where('LOWER(row.content) LIKE :search')
+            ->orWhere('LOWER(row.username) LIKE :search')
             ->setParameter('search', '%'.strtolower($search).'%');
     }
 }

@@ -10,7 +10,7 @@ class TwigHighlightSpamExtension extends TwigHighlightExtension
     /** @var string[]|null */
     private ?array $spamWords = null;
 
-    public function __construct(readonly private SpamService $spamService)
+    public function __construct(private readonly SpamService $spamService)
     {
     }
 

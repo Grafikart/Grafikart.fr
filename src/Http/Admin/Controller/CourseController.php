@@ -181,11 +181,13 @@ final class CourseController extends CrudController
         ]);
     }
 
-    #[Route(path: '/{id<\d+>}/snippet', methods:['GET'], name: 'snippet')]
-    public function snippet(Course $course, CourseTransformer $courseTransformer): Response {
+    #[Route(path: '/{id<\d+>}/snippet', methods: ['GET'], name: 'snippet')]
+    public function snippet(Course $course, CourseTransformer $courseTransformer): Response
+    {
         $video = $courseTransformer->transform($course);
+
         return $this->render("admin/{$this->templatePath}/snippet.html.twig", [
-            'snippet' => $video->getSnippet()
+            'snippet' => $video->getSnippet(),
         ]);
     }
 }

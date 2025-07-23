@@ -103,6 +103,7 @@ abstract class AbstractRepository extends ServiceEntityRepository
         // Trouve les éléments liés
         /** @var object[] $relationItems */
         $relationItems = $this->getEntityManager()->getRepository($relationClass)->findBy(['id' => $ids]);
+        // @phpstan-ignore argument.templateType
         $relationItemsById = collect($relationItems)->keyBy(fn (object $item) => method_exists($item, 'getId') ? $item->getId() : -1)->toArray();
 
         // Remplit la relation

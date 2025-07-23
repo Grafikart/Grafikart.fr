@@ -9,7 +9,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class SpamSubscriber implements EventSubscriberInterface
 {
-    public function __construct(readonly private SpamService $spamService)
+    public function __construct(private readonly SpamService $spamService)
     {
     }
 
