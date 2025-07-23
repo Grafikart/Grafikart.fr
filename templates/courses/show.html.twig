@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% set user_premium = app.user and app.user.premium %}
+{% set html5_player = user_premium and app.user and app.user.html5Player %}
 
 {% block title %}
 {% if course.formation %}
@@ -20,7 +21,7 @@
 
 {% block body %}
 
-  {% cache [course, user_premium, course.scheduled] %}
+  {% cache [course, user_premium, course.scheduled, html5_player] %}
 
     <div class="container">
       {{ breadcrumb(course) }}
@@ -50,7 +51,7 @@
             <a href="{{ path('premium') }}" class="btn-secondary">{{ icon('star') }} Devenez premium pour accéder au contenu</a>
           </div>
         </div>
-      {% elseif course.premium and not user_premium and course.youtubeId %}
+      {% elseif course.premium and not user_premium and course.youtubeId and not html5_player %}
         <youtube-player
           class="course__player"
           id="course-{{ course.id }}"
@@ -76,7 +77,7 @@
             </p>
           </div>
         </div>
-      {% elseif (course.scheduled or course.premium) and user_premium %}
+      {% elseif (html5_player or (course.scheduled or course.premium) and user_premium) %}
         <progress-tracker contentId="{{ course.id }}" data-history="{{ course.id }}" duration="{{ course.duration }}">
           <premium-player
             class="course__player"

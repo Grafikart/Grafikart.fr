@@ -100,6 +100,9 @@ class User implements UserInterface, ForumReaderUserInterface, CacheableInterfac
     #[ORM\Column(type: 'integer', options: ['default' => 0], nullable: false)]
     private int $registrationDuration = 0;
 
+    #[ORM\Column(type: 'boolean', options: ['default' => false], nullable: false)]
+    private ?bool $html5Player = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -379,6 +382,18 @@ class User implements UserInterface, ForumReaderUserInterface, CacheableInterfac
     public function setRegistrationDuration(int $registrationDuration): self
     {
         $this->registrationDuration = $registrationDuration;
+
+        return $this;
+    }
+
+    public function isHtml5Player(): ?bool
+    {
+        return $this->html5Player;
+    }
+
+    public function setHtml5Player(bool $html5Player): static
+    {
+        $this->html5Player = $html5Player;
 
         return $this;
     }

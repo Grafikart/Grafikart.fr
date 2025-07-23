@@ -53,6 +53,16 @@
               </div>
             </div>
           </section>
+          {% if user.premium %}
+          <section>
+            <div class="section-title">
+              Option premium
+            </div>
+            <div class="stack">
+              {{ form_row(form_update.html5Player, {label: "Utiliser le lecteur HTML5 pour toutes les vidéos"}) }}
+            </div>
+          </section>
+          {% endif %}
         </div>
         <div class="text-right">
           <button type="submit" class="btn-primary" name="action" value="update">Modifier mes préférences</button>

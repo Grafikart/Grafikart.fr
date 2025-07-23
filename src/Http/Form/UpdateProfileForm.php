@@ -37,6 +37,9 @@ class UpdateProfileForm extends AbstractType
             ->add('useDarkTheme', SwitchType::class, [
                 'required' => false,
             ])
+            ->add('html5Player', SwitchType::class, [
+                'required' => false,
+            ])
         ;
     }
 

@@ -32,6 +32,7 @@ class ProfileUpdateDto
     public bool $forumNotification;
     public bool $useSystemTheme;
     public bool $useDarkTheme;
+    public bool $html5Player;
 
     public function __construct(User $user)
     {
@@ -42,6 +43,7 @@ class ProfileUpdateDto
         $this->forumNotification = $user->hasForumMailNotification();
         $this->useSystemTheme = null === $user->getTheme();
         $this->useDarkTheme = 'dark' === $user->getTheme();
+        $this->html5Player = $user->isHtml5Player() ?? false;
     }
 
     public function getId(): int

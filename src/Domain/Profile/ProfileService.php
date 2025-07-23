@@ -42,6 +42,7 @@ class ProfileService
         $data->user->setCountry($data->country);
         $data->user->setUsername($data->username);
         $data->user->setForumMailNotification($data->forumNotification);
+        $data->user->setHtml5Player($data->html5Player);
         if (true === $data->useSystemTheme) {
             $data->user->setTheme(null);
         } else {
