@@ -101,7 +101,7 @@ class User implements UserInterface, ForumReaderUserInterface, CacheableInterfac
     private int $registrationDuration = 0;
 
     #[ORM\Column(type: 'boolean', options: ['default' => false], nullable: false)]
-    private ?bool $html5Player = null;
+    private bool $html5Player = false;
 
     public function getId(): ?int
     {
