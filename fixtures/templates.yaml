@@ -142,16 +142,6 @@ App\Domain\Course\Entity\Cursus:
     author: '@user1'
     category: '@cursus_category*'
 
-App\Domain\Podcast\Entity\Podcast:
-  podcast (template):
-    author: '@user1'
-    title: <sentence(5, true)>
-    content: <paragraphs(5, true)>
-    createdAt: <dateTimeImmutableThisYear()>
-    updatedAt: <dateTimeImmutableThisYear()>
-    scheduledAt: <dateTimeImmutableThisYear()>
-    duration: <numberBetween(3700, 7000)>
-
 App\Domain\Revision\Revision:
   revision (template):
     created_at: <dateTimeImmutableThisYear()>

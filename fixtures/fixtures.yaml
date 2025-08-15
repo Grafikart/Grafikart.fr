@@ -69,20 +69,6 @@ App\Domain\Premium\Entity\Plan:
     duration: 12
     stripe_id: price_1HfQd2FCMNgisvowxxEQMysm
 
-App\Domain\Podcast\Entity\Podcast:
-  podcast{1..20} (extends podcast):
-    title: 'Podcast publié <current()>'
-    youtube: 'https://www.youtube.com/watch?v=zEJF1SnfxX8'
-  podcast_future{1..3} (extends podcast):
-    title: 'Podcast programmé <current()>'
-    scheduledAt: <dateTimeImmutableBetween('+1 week', '+1 month')>
-    author: '@user*'
-  podcast_suggestions{1..10} (extends podcast):
-    title: 'Idée de podcast à faire <current()>'
-    scheduledAt: null
-    votesCount: <numberBetween(2, 200)>
-    author: '@user*'
-
 App\Domain\School\Entity\School:
   school1 (extends school):
     owner: '@director'
