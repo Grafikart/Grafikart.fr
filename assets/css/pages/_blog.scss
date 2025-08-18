@@ -128,6 +128,7 @@
 
 // Lazy video
 .lazy-video {
+  margin-block: calc(3 * var(--space));
   aspect-ratio: 800/450;
   display: grid;
   place-items: center;
