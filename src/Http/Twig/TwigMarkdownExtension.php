@@ -48,7 +48,7 @@ class TwigMarkdownExtension extends AbstractExtension
         // On remplace les liens youtube par un embed
         $content = (string) preg_replace(
             '/<p><a href\="(http|https):\/\/www.youtube.com\/watch\?v=([^\""]+)">[^<]*<\/a><\/p>/',
-            '<iframe width="560" height="315" src="//www.youtube-nocookie.com/embed/$2" frameborder="0" allowfullscreen=""></iframe>',
+            '<lazy-youtube videoid="$2"></lazy-youtube>',
             (string) $content
         );
         // Spoiler tag

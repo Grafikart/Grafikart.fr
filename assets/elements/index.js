@@ -36,6 +36,7 @@ import { MarkAsWatched } from '/elements/courses/MarkAsWatched.jsx'
 import { SpoilerBox } from '/elements/SpoilerBox'
 import { Captcha } from '/elements/Captcha'
 import { ForumOnboarding } from '/elements/forum/ForumOnboarding.js'
+import {LazyYoutubeVideo} from "/elements/player/LazyYoutubeVideo.jsx";
 
 // Custom Elements
 customElements.define('nav-tabs', NavTabs)
@@ -74,6 +75,7 @@ preactCustomElement('search-button', Search)
 preactCustomElement('search-input', SearchInput)
 preactCustomElement('mark-as-watched', MarkAsWatched, ['contentId'])
 preactCustomElement('puzzle-captcha', Captcha, ['width', 'height', 'piecewidth', 'pieceheight', 'name'])
+preactCustomElement('lazy-youtube', LazyYoutubeVideo, ['videoid'])
 
 // CustomElement étendus
 customElements.define('input-switch', Switch, { extends: 'input' })

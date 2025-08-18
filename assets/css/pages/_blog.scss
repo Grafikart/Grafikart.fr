@@ -110,7 +110,8 @@
 }
 
 @include up(840) {
-  .blog-single .formatted iframe {
+  .blog-single .formatted iframe,
+  .blog-single .formatted .lazy-video {
     margin-inline: -50px;
     width: calc(100% + 100px);
   }
@@ -123,4 +124,31 @@
 }
 .blog-single__body.text-only {
   --wave-height: 100px;
+}
+
+// Lazy video
+.lazy-video {
+  aspect-ratio: 800/450;
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+}
+
+.lazy-video img {
+  width: 100%;
+  aspect-ratio: 800/450;
+  object-fit: cover;
+  grid-area: 1/1;
+}
+
+.lazy-video svg {
+  grid-area: 1/1;
+  position: relative;
+  z-index: 2;
+  height: 48px;
+  transition: .3s;
+}
+
+.lazy-video:hover svg {
+  transform: scale(1.1);
 }
