@@ -26,7 +26,7 @@
 
     <div class="blog-single__body formatted {{ post.video ? 'has-video' : 'text-only' }}">
       {{ post.content | markdown }}
-      <waves-shape background="{{ image_url(post.image) }}" target="{{ post.video ? '.formatted iframe' : '.formatted p:first-child' }}" {% if not post.video %}position="bottom"{% endif %}></waves-shape>
+      <waves-shape background="{{ image_url(post.image) }}" target="{{ post.video ? '.formatted lazy-video, .formatted iframe' : '.formatted p:first-child' }}" {% if not post.video %}position="bottom"{% endif %}></waves-shape>
     </div>
 
     {% include 'partials/comments.html.twig' with {target: post} only %}

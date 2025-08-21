@@ -75,7 +75,7 @@ preactCustomElement('search-button', Search)
 preactCustomElement('search-input', SearchInput)
 preactCustomElement('mark-as-watched', MarkAsWatched, ['contentId'])
 preactCustomElement('puzzle-captcha', Captcha, ['width', 'height', 'piecewidth', 'pieceheight', 'name'])
-preactCustomElement('lazy-youtube', LazyYoutubeVideo, ['videoid'])
+preactCustomElement('lazy-video', LazyYoutubeVideo, ['videoid'])
 
 // CustomElement étendus
 customElements.define('input-switch', Switch, { extends: 'input' })

@@ -104,7 +104,8 @@
 .blog-single__body.has-video {
   color: var(--color-inversed);
 
-  iframe ~ * {
+  iframe ~ *,
+  lazy-video ~ * {
     color: var(--color);
   }
 }
