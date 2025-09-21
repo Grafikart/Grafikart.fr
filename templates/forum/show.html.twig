@@ -36,7 +36,11 @@
       <div class="forum-message">
         <div class="forum-message__body">
           <div class="js-content formatted formatted">
-            {{ topic.content | markdown_untrusted }}
+            {% if is_granted_for_user(topic.author, 'ADMIN') %}
+              {{ topic.content | markdown }}
+            {% else %}
+              {{ topic.content | markdown_untrusted }}
+            {% endif %}
           </div>
           <div class="js-forum-edit"></div>
         </div>

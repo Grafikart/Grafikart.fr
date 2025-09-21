@@ -48,7 +48,7 @@ class ForumVoter extends Voter
             self::UPDATE_TOPIC, self::DELETE_TOPIC => $this->canUpdateTopic($user, $subject),
             self::UPDATE_MESSAGE, self::DELETE_MESSAGE => $this->ownMessage($user, $subject),
             self::SOLVE_MESSAGE => $this->canSolve($user, $subject),
-            self::READ_TOPICS, self::CREATE_TOPIC, self::CREATE_REPORT => true,
+            self::READ_TOPICS, self::CREATE_REPORT => true,
             default => false,
         };
     }

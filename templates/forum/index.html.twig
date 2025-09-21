@@ -11,10 +11,16 @@
     {% include 'forum/_searchform.html.twig' %}
   </div>
 
+  <div class="container bg">
+    <alert-message type="info">
+      Ce forum est en mode "lecture seule", il n'est plus possible de créer de nouveaux sujets. <a href="https://grafikart.fr/forum/39578">En savoir plus...</a>
+    </alert-message>
+  </div>
+
   <div class="forum-page bg py3">
     {% if tags | length > 0 %}
       <div class="forum-page__sidebar stack">
-        {% if app.user %}
+        {% if app.user and is_granted_for_user(app.user, constant("\\App\\Http\\Security\\ForumVoter::CREATE_TOPIC")) %}
         <a href="{{ path('forum_new') }}" class="btn-primary forum-page__sidebar-btn">
           Nouveau sujet
           {{ icon('plus') }}
