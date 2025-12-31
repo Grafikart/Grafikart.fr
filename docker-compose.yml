@@ -3,7 +3,7 @@ services:
     image: nginx:alpine
     restart: unless-stopped
     ports:
-      - 8000:80
+      - "8000:80"
     volumes:
       - .:/var/www:delegated
       - ./site.conf:/etc/nginx/conf.d/default.conf
@@ -30,7 +30,7 @@ services:
     restart: unless-stopped
     image: postgres:12-alpine
     ports:
-      - 5432:5432 # On expose le port pour pouvoir inspecter la base pendant la phase de développement
+      - "5432:5432" # On expose le port pour pouvoir inspecter la base pendant la phase de développement
     environment:
       POSTGRES_PASSWORD: grafikart
       POSTGRES_USER: grafikart
@@ -45,17 +45,7 @@ services:
     restart: unless-stopped
     image: redis:7-alpine
     ports:
-      - 6379:6379
-  #meilisearch:
-  #  restart: unless-stopped
-  #  image: getmeili/meilisearch:v1.0
-  #  environment:
-  #    MEILI_ENV: development
-  #    MEILI_MASTER_KEY:
-  #  ports:
-  #    - 7700:7700
-  #  volumes:
-  #    - ./var/meilisearch:/meili_data
+      - "6379:6379"
   typesense:
     restart: unless-stopped
     image: typesense/typesense:28.0
@@ -100,7 +90,7 @@ services:
   mail:
     image: mailhog/mailhog
     ports:
-      - 1080:8025
+      - "1080:8025"
   redis-gui:
     image: rediscommander/redis-commander
     environment:
@@ -115,7 +105,7 @@ services:
     volumes:
       - .:/usr/src/app
     ports:
-      - 3000:3000
+      - "3000:3000"
   dbtest:
     image: postgres:12
     environment:

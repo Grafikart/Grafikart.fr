@@ -312,6 +312,15 @@
     "paypal/paypalhttp": {
         "version": "1.0.0"
     },
+    "pentatrion/vite-bundle": {
+        "version": "8.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "6.5",
+            "ref": "3a6673f248f8fc1dd364dadfef4c5b381d1efab6"
+        }
+    },
     "phar-io/manifest": {
         "version": "1.0.3"
     },

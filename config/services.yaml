@@ -75,11 +75,6 @@ services:
   App\Infrastructure\Uploader\PropertyGroupedDirectoryNamer:
     public: true
 
-  App\Http\Twig\TwigAssetExtension:
-    arguments:
-      $assetPath: '%kernel.project_dir%/public/assets'
-      $env: '%kernel.environment%'
-
   App\Infrastructure\Image\ImageResizer:
     arguments: ['%image_resize_key%']
 
@@ -121,4 +116,3 @@ services:
   App\Http\Twig\TwigUrlExtension:
     arguments:
       $uploaderHelper: '@Vich\UploaderBundle\Templating\Helper\UploaderHelper'
-
