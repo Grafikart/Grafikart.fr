@@ -2,8 +2,10 @@
 
 namespace App\Http\Api\Controller;
 
+use App\Component\ObjectMapper\ObjectMapperInterface;
 use App\Domain\Course\Entity\Technology;
 use App\Domain\Course\Repository\TechnologyRepository;
+use App\Http\Api\Resource\OptionResource;
 use App\Http\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,18 +13,18 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class TechnologyController extends AbstractController
 {
-    #[Route(path: '/technologies/search', name: 'technology_search')]
-    public function search(Request $request, TechnologyRepository $technologyRepository): JsonResponse
-    {
+    #[Route(path: '/technologies', name: 'technology_search', methods: 'GET')]
+    public function search(
+        Request $request,
+        TechnologyRepository $technologyRepository,
+        ObjectMapperInterface $mapper,
+    ): JsonResponse {
         $search = $request->query->get('q');
         if (null === $search) {
             return $this->json([]);
         }
         $technologies = $technologyRepository->searchByName($search);
 
-        return $this->json(array_map(fn (Technology $t) => [
-            'name' => $t->getName(),
-            'slug' => $t->getSlug(),
-        ], $technologies));
+        return $this->json(array_map(fn (Technology $t) => $mapper->map($t, OptionResource::class), $technologies));
     }
 }

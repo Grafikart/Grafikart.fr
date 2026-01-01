@@ -7,6 +7,7 @@ use App\Domain\Comment\Entity\Comment;
 use App\Domain\School\Repository\SchoolRepository;
 use App\Http\Api\Resource\CommentResource;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class SchoolVoter extends Voter
@@ -30,7 +31,7 @@ class SchoolVoter extends Voter
      * @param string                  $attribute
      * @param Comment|CommentResource $subject
      */
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute($attribute, $subject, TokenInterface $token, Vote|null $vote = null): bool
     {
         $user = $token->getUser();
 

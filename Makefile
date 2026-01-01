@@ -18,7 +18,6 @@ ifeq ($(isDocker), 1)
 		dr := $(dc) run --rm
 		drtest := $(dc) -f docker-compose.test.yml run --rm
 		sy := $(de) php bin/console
-		bun := $(dr) bun
 		php := $(dr) --no-deps php
 	endif
 endif

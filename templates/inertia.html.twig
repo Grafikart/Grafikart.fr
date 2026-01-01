@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>{% apply striptags %}{% block title '' %}{% endapply %} | Grafikart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui"/>
+  {% block stylesheets %}
+    {{ vite_entry_link_tags('admin') }}
+  {% endblock %}
+  {% block javascripts %}
+    {{ vite_entry_script_tags('admin', { dependency: "react" }) }}
+  {% endblock %}
+  {{ inertiaHead(page) }}
+  <link rel="stylesheet" href="/print.css" media="print">
+</head>
+<body class="dark">
+{{ inertia(page) }}
+</body>
+</html>

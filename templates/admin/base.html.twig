@@ -5,12 +5,10 @@
   <title>{% apply striptags %}{% block title '' %}{% endapply %} | Grafikart</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui"/>
   {% block stylesheets %}
-    {{ encore_entry_link_tags('app', {media: 'screen'}) }}
-    {{ encore_entry_link_tags('admin', {media: 'screen'}) }}
+    {{ vite_entry_link_tags('app') }}
   {% endblock %}
   {% block javascripts %}
-    {{ encore_entry_script_tags('app') }}
-    {{ encore_entry_script_tags('admin') }}
+    {{ vite_entry_script_tags('app') }}
   {% endblock %}
   <link rel="stylesheet" href="/print.css" media="print">
   <meta name="turbolinks-cache-control" content="no-cache"/>

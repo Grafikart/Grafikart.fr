@@ -5,6 +5,7 @@ namespace App\Http\Security;
 use App\Domain\Blog\Post;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class PostVoter extends Voter
@@ -26,7 +27,7 @@ class PostVoter extends Voter
      * @param string $attribute
      * @param Post   $subject
      */
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute($attribute, $subject, TokenInterface $token, Vote|null $vote = null): bool
     {
         if (!($subject instanceof Post)) {
             return false;

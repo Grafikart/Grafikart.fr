@@ -6,6 +6,7 @@ use App\Domain\Auth\User;
 use App\Domain\Forum\Entity\Message;
 use App\Domain\Forum\Entity\Topic;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class ForumVoter extends Voter
@@ -36,7 +37,7 @@ class ForumVoter extends Voter
         ]);
     }
 
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token, Vote|null $vote = null): bool
     {
         $user = $token->getUser();
         if (!$user instanceof User) {

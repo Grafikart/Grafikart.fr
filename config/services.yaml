@@ -58,6 +58,11 @@ services:
     resource: '../src/Http/Api/Controller'
     tags: ['controller.service_arguments']
 
+  App\Component\ObjectMapper\Transform\:
+    resource: '../src/Component/ObjectMapper/Transform'
+    tags: ['objectMapper.transform']
+    public: true
+
   App\Infrastructure\Storage\Naming\IdDirectoryNamer:
     public: true
 
@@ -116,3 +121,5 @@ services:
   App\Http\Twig\TwigUrlExtension:
     arguments:
       $uploaderHelper: '@Vich\UploaderBundle\Templating\Helper\UploaderHelper'
+
+  Psr\Container\ContainerInterface: '@service_container'

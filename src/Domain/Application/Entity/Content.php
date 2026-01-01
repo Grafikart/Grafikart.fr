@@ -56,7 +56,7 @@ abstract class Content implements CacheableInterface
     /**
      * @var Collection<int, TechnologyUsage>
      */
-    #[ORM\OneToMany(targetEntity: TechnologyUsage::class, mappedBy: 'content', cascade: ['persist'])]
+    #[ORM\OneToMany(targetEntity: TechnologyUsage::class, mappedBy: 'content', cascade: ['persist'], orphanRemoval: true)]
     private Collection $technologyUsages;
 
     public function __construct()
@@ -151,6 +151,15 @@ abstract class Content implements CacheableInterface
         if (!$this->technologyUsages->contains($technologyUsage)) {
             $this->technologyUsages[] = $technologyUsage;
             $technologyUsage->setContent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTechnologyUsage(TechnologyUsage $technologyUsage): self
+    {
+        if ($this->technologyUsages->contains($technologyUsage)) {
+            $this->technologyUsages->removeElement($technologyUsage);
         }
 
         return $this;

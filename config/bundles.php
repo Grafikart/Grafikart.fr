@@ -24,4 +24,5 @@ return [
     KnpU\OAuth2ClientBundle\KnpUOAuth2ClientBundle::class => ['all' => true],
     Omines\AntiSpamBundle\AntiSpamBundle::class => ['all' => true],
     Pentatrion\ViteBundle\PentatrionViteBundle::class => ['all' => true],
+    Rompetomp\InertiaBundle\InertiaBundle::class => ['all' => true],
 ];

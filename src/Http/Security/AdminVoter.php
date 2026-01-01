@@ -4,6 +4,7 @@ namespace App\Http\Security;
 
 use App\Domain\Auth\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class AdminVoter extends Voter
@@ -17,7 +18,7 @@ class AdminVoter extends Voter
         return !in_array($attribute, ['IS_IMPERSONATOR']);
     }
 
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token, Vote|null $vote = null): bool
     {
         $user = $token->getUser();
 
@@ -25,9 +26,9 @@ class AdminVoter extends Voter
             return false;
         }
 
-        if ('prod' === $this->appEnv) {
-            return 'Grafikart' === $user->getUsername() && 1 === $user->getId();
-        }
+//        if ('prod' === $this->appEnv) {
+//            return 'Grafikart' === $user->getUsername() && 1 === $user->getId();
+//        }
 
         return 'Grafikart' === $user->getUsername();
     }

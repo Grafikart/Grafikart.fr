@@ -8,6 +8,7 @@ use App\Domain\Comment\Entity\Comment;
 use App\Http\Api\Resource\CommentResource;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -39,7 +40,7 @@ class CommentVoter extends Voter
      * @param string                  $attribute
      * @param Comment|CommentResource $subject
      */
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute($attribute, $subject, TokenInterface $token, Vote|null $vote = null): bool
     {
         if ($attribute === self::CREATE) {
             return $this->canCreate($token->getUser());

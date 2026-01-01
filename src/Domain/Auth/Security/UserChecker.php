@@ -7,6 +7,7 @@ use App\Domain\Auth\Exception\UserBannedException;
 use App\Domain\Auth\Exception\UserNotFoundException;
 use App\Domain\Auth\Service\LoginAttemptService;
 use App\Domain\Auth\User;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -34,7 +35,7 @@ class UserChecker implements UserCheckerInterface
     /**
      * Vérifie que l'utilisateur connecté a le droit de continuer.
      */
-    public function checkPostAuth(UserInterface $user): void
+    public function checkPostAuth(UserInterface $user, ?TokenInterface $token = null): void
     {
         if ($user instanceof User && $user->isBanned()) {
             throw new UserBannedException();

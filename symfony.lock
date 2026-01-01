@@ -473,6 +473,18 @@
     "sebastian/version": {
         "version": "2.0.1"
     },
+    "skipthedragon/inertia-bundle": {
+        "version": "1.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "1.0",
+            "ref": "1a4b069057491f799e12a412810180eefd622fcf"
+        },
+        "files": [
+            "config/packages/inertia.yaml"
+        ]
+    },
     "spatie/dropbox-api": {
         "version": "1.19.1"
     },
