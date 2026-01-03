@@ -10,7 +10,7 @@ final readonly class ContentTechnologyDTO
 {
     public function __construct(
         public int $id,
-        public bool $secondary = false,
+        public bool $primary = false,
         public ?string $version = null,
         public string $name = '',
     ) {
@@ -20,7 +20,7 @@ final readonly class ContentTechnologyDTO
     {
         return new self(
             id: $usage->getTechnology()->getId(),
-            secondary: $usage->getSecondary(),
+            primary: !$usage->getSecondary(),
             version: $usage->getVersion(),
             name: $usage->getTechnology()->getName()
         );

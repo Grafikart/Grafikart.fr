@@ -1,4 +1,4 @@
-import type { CourseData } from "@/types";
+import type { CourseFormData } from "@/types";
 import { withLayout } from "@/components/layout.tsx";
 import { adminPath } from "@/lib/url.ts";
 import "@mdxeditor/editor/style.css";
@@ -10,9 +10,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card.t
 import { LinkIcon, SaveIcon, UploadIcon } from "lucide-react";
 import { Input } from "@/components/ui/input.tsx";
 import { TechnologySelector } from "@/components/ui/form/technology-selector.tsx";
+import { LevelSelector } from "@/components/ui/form/level-selector.tsx";
+import { ImageInput } from "@/components/ui/form/image-input.tsx";
 
 type Props = {
-  course: CourseData;
+  course: CourseFormData;
 };
 
 function ItemForm({ course }: Props) {
@@ -41,14 +43,17 @@ function ItemForm({ course }: Props) {
         <MDEditor defaultValue={course.content} name="content" />
       </main>
       <aside className="space-y-6">
-        <Card>
+        {/* Métadonnées */}
+        <Card className="pt-0">
+          <ImageInput defaultValue={course.image} className="aspect-video" name="image" />
           <CardHeader>
-            <CardTitle>Vidéo</CardTitle>
+            <CardTitle>Informations</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="space-y-4">
+            <FormField label="Difficulté" name="level" defaultValue={course.level} render={<LevelSelector />} />
             <FormField label="Vidéo" name="videoPath">
               <div className="flex items-center gap-2">
-                <Input name="videoPath" defaultValue={course.videoPath} />
+                <Input name="videoPath" defaultValue={course.videoPath} id="videoPath" />
                 <Button variant="secondary" size="icon">
                   <UploadIcon />
                 </Button>
@@ -61,10 +66,11 @@ function ItemForm({ course }: Props) {
         {/* Technologies */}
         <Card>
           <CardContent>
-            <pre>{JSON.stringify(course.technologies)}</pre>
-            <FormField label="Outils & Langages" name="usages">
-              <TechnologySelector defaultValue={course.technologies} />
-            </FormField>
+            <FormField
+              label="Outils & Langages"
+              name="usages"
+              render={<TechnologySelector defaultValue={course.technologies} />}
+            />
           </CardContent>
         </Card>
       </aside>

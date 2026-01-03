@@ -44,7 +44,7 @@ class Technology implements CacheableInterface, \Stringable
 
     private ?string $version = null;
 
-    #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
+    #[ORM\Column(type: 'datetime_immutable')]
     private ?\DateTimeInterface $updatedAt = null;
 
     /**

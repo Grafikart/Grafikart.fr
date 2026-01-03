@@ -1,0 +1,48 @@
+<?php
+
+declare(strict_types=1);
+
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $containerConfigurator->extension('knpu_oauth2_client', [
+        'clients' => [
+            'discord' => [
+                'type' => 'discord',
+                'client_id' => '%env(DISCORD_ID)%',
+                'client_secret' => '%env(DISCORD_SECRET)%',
+                'redirect_route' => 'oauth_discord_check',
+                'redirect_params' => [
+                ],
+            ],
+            'github' => [
+                'type' => 'github',
+                'client_id' => '%env(GITHUB_ID)%',
+                'client_secret' => '%env(GITHUB_SECRET)%',
+                'redirect_route' => 'oauth_check',
+                'redirect_params' => [
+                    'service' => 'github',
+                ],
+            ],
+            'google' => [
+                'type' => 'google',
+                'client_id' => '%env(GOOGLE_ID)%',
+                'client_secret' => '%env(GOOGLE_SECRET)%',
+                'redirect_route' => 'oauth_check',
+                'redirect_params' => [
+                    'service' => 'google',
+                ],
+            ],
+            'facebook' => [
+                'type' => 'facebook',
+                'client_id' => '%env(FACEBOOK_ID)%',
+                'client_secret' => '%env(FACEBOOK_SECRET)%',
+                'redirect_route' => 'oauth_check',
+                'redirect_params' => [
+                    'service' => 'facebook',
+                ],
+                'graph_api_version' => 'v8.0',
+            ],
+        ],
+    ]);
+};

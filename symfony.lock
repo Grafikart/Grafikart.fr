@@ -18,12 +18,12 @@
         "version": "1.4.2"
     },
     "dama/doctrine-test-bundle": {
-        "version": "7.2",
+        "version": "8.4",
         "recipe": {
             "repo": "github.com/symfony/recipes-contrib",
             "branch": "main",
-            "version": "7.2",
-            "ref": "896306d79d4ee143af9eadf9b09fd34a8c391b70"
+            "version": "8.3",
+            "ref": "dfc51177476fb39d014ed89944cde53dc3326d23"
         },
         "files": [
             "config/packages/dama_doctrine_test_bundle.yaml"
@@ -113,9 +113,6 @@
     "erusev/parsedown": {
         "version": "1.7.4"
     },
-    "fakerphp/faker": {
-        "version": "v1.10.1"
-    },
     "fig/link-util": {
         "version": "1.1.0"
     },
@@ -171,7 +168,7 @@
         "version": "1.6.1"
     },
     "hautelook/alice-bundle": {
-        "version": "2.12",
+        "version": "2.16",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
@@ -253,7 +250,7 @@
         "version": "1.9.5"
     },
     "nelmio/alice": {
-        "version": "3.12",
+        "version": "3.16",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
@@ -428,12 +425,6 @@
     "sebastian/cli-parser": {
         "version": "1.0.1"
     },
-    "sebastian/code-unit": {
-        "version": "1.0.8"
-    },
-    "sebastian/code-unit-reverse-lookup": {
-        "version": "1.0.1"
-    },
     "sebastian/comparator": {
         "version": "3.0.2"
     },
@@ -463,9 +454,6 @@
     },
     "sebastian/recursion-context": {
         "version": "3.0.0"
-    },
-    "sebastian/resource-operations": {
-        "version": "2.0.1"
     },
     "sebastian/type": {
         "version": "1.1.3"
@@ -882,10 +870,10 @@
         "version": "v5.0.3"
     },
     "theofidry/alice-data-fixtures": {
-        "version": "1.0",
+        "version": "1.11",
         "recipe": {
             "repo": "github.com/symfony/recipes",
-            "branch": "master",
+            "branch": "main",
             "version": "1.0",
             "ref": "fe5a50faf580eb58f08ada2abe8afbd2d4941e05"
         }

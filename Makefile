@@ -44,9 +44,9 @@ install: vendor/autoload.php public/assets/.vite/manifest.json ## Installe les d
 	sudo service php8.2-fpm reload
 
 build-docker:
-	$(dc) pull --ignore-pull-failures
+	# $(dc) pull --ignore-pull-failures
 	$(dc) build php
-	$(dc) build messenger
+	# $(dc) build messenger
 
 dev: node_modules/time ## Lance le serveur de développement
 	$(dc) up

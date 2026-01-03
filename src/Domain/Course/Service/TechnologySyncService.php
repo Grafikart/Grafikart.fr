@@ -34,12 +34,12 @@ readonly class TechnologySyncService
         foreach ($technologies as $dto) {
             $usage = $this->findUsage($entity, $dto->id);
             if ($usage === null) {
-                $usage = (new TechnologyUsage())
-                    ->setTechnology($this->em->getReference(Technology::class, $dto->id))
-                    ->setContent($entity);
+                $usage = new TechnologyUsage()
+                    ->setTechnology($this->em->getReference(Technology::class, $dto->id));
+                $entity->addTechnologyUsage($usage);
             }
             $usage->setVersion($dto->version)
-                ->setSecondary($dto->secondary);
+                ->setSecondary(!$dto->primary);
         }
     }
 

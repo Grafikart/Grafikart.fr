@@ -1,16 +1,7 @@
-import { Check, LoaderCircle, PlusIcon, UnlinkIcon } from "lucide-react";
+import { Check, LoaderCircle, UnlinkIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandLoading,
-} from "@/components/ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Command, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { useApiFetch } from "@/hooks/use-api-fetch";
 import { useList } from "@/hooks/use-list";
 import { cn } from "@/lib/utils";
@@ -18,71 +9,60 @@ import { useDebounce } from "@uidotdev/usehooks";
 import { useMemo, useState } from "react";
 import type { TechnologyData } from "@/types";
 import { Input } from "@base-ui/react";
+import { Checkbox } from "@/components/ui/checkbox.tsx";
 
 type Props = {
   defaultValue: TechnologyData[];
+  id?: string;
 };
 
 export function TechnologySelector(props: Props) {
   const [items, toggleItem] = useList(props.defaultValue);
-  const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebounce(search, 300);
   const selectedItemsSet = useMemo(() => new Set(items.map((item) => item.id)), [items]);
 
   const { data, isFetching } = useApiFetch<TechnologyData[]>(`/api/technologies?q=${debouncedSearch}`, {
-    enabled: open,
+    enabled: debouncedSearch.length > 1,
     staleTime: 5_000,
   });
 
   return (
-    <div className="space-y-3">
-      <div className="grid items-center" style={{ gridTemplateColumns: "1fr 80px max-content" }}>
+    <fieldset className="space-y-3" id={props.id}>
+      <div className="grid items-center" style={{ gridTemplateColumns: "1fr 80px 2rem max-content" }}>
         {items.map((item, k) => (
           <Item k={k} item={item} key={item.id} onToggle={toggleItem} />
         ))}
       </div>
-      <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger render={<Button variant="secondary" role="combobox" aria-expanded={open} className="w-full" />}>
-          <PlusIcon />
-          Ajouter une technologie
-        </PopoverTrigger>
-        <PopoverContent className="w-[200px] p-0">
-          <Command shouldFilter={false}>
-            <CommandInput placeholder="Rechercher un véhicule" className="h-9" onValueChange={setSearch} />
-            <CommandList>
-              {isFetching ? (
-                <CommandLoading>Recherche...</CommandLoading>
-              ) : (
-                <CommandEmpty>Aucun véhicule trouvé</CommandEmpty>
-              )}
-              <CommandGroup>
-                {isFetching && (
-                  <div className="flex justify-center py-2 text-muted-foreground">
-                    <LoaderCircle className="animate-spin" size={16} />
-                  </div>
-                )}
-                {data
-                  ?.filter((item) => !selectedItemsSet.has(item.id))
-                  .map((item) => (
-                    <CommandItem
-                      key={item.id}
-                      value={item.name}
-                      onSelect={() => {
-                        toggleItem(item);
-                        setOpen(false);
-                      }}
-                    >
-                      {item.name}
-                      <Check className={cn("ml-auto", selectedItemsSet.has(item.id) ? "opacity-100" : "opacity-0")} />
-                    </CommandItem>
-                  ))}
-              </CommandGroup>
-            </CommandList>
-          </Command>
-        </PopoverContent>
-      </Popover>
-    </div>
+
+      <Command shouldFilter={false} className="relative">
+        <CommandInput placeholder="Rechercher un langage" onValueChange={setSearch} value={search} />
+        <CommandList className="absolute top-full left-0 w-full bg-card">
+          <CommandGroup>
+            {isFetching && (
+              <div className="flex justify-center py-2 text-muted-foreground">
+                <LoaderCircle className="animate-spin" size={16} />
+              </div>
+            )}
+            {data
+              ?.filter((item) => !selectedItemsSet.has(item.id))
+              .map((item) => (
+                <CommandItem
+                  key={item.id}
+                  value={item.name}
+                  onSelect={() => {
+                    toggleItem(item);
+                    setSearch("");
+                  }}
+                >
+                  {item.name}
+                  <Check className={cn("ml-auto", selectedItemsSet.has(item.id) ? "opacity-100" : "opacity-0")} />
+                </CommandItem>
+              ))}
+          </CommandGroup>
+        </CommandList>
+      </Command>
+    </fieldset>
   );
 }
 
@@ -94,11 +74,13 @@ function Item({ item, onToggle, k }: ItemProps) {
       <div className="flex items-center gap-2">{item.name}</div>
       <Input
         type="text"
+        autoFocus
         className="w-18"
         placeholder="version"
         name={`technologies[${k}][version]`}
         defaultValue={item.version ?? ""}
       />
+      <Checkbox name={`technologies[${k}][primary]`} value="1" defaultChecked={!item.secondary} />
       <Button
         variant="secondary"
         type="button"

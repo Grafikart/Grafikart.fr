@@ -1,6 +1,0 @@
-services:
-  Google_Client:
-    class: Google_Client
-    calls:
-      - [setClientId, ['%env(GOOGLE_ID)%']]
-      - [setClientSecret, ['%env(GOOGLE_SECRET)%']]

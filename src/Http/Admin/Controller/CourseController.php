@@ -7,7 +7,8 @@ use App\Domain\Application\Event\ContentCreatedEvent;
 use App\Domain\Application\Event\ContentDeletedEvent;
 use App\Domain\Application\Event\ContentUpdatedEvent;
 use App\Domain\Course\Entity\Course;
-use App\Http\Admin\Data\Course\CourseData;
+use App\Domain\Course\Service\TechnologySyncService;
+use App\Http\Admin\Data\Course\CourseFormData;
 use App\Http\Admin\Data\Course\CourseFormInput;
 use App\Http\Admin\Data\Course\CourseListItemData;
 use Rompetomp\InertiaBundle\Architecture\InertiaInterface;
@@ -16,6 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Serializer\SerializerInterface;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 /**
  * @method getRepository() App\Domain\Course\Repository\CourseRepository\CourseRepository
@@ -51,11 +53,11 @@ final class CourseController extends InertiaController
     #[Route(path: '/{id<\d+>}', name: 'edit', methods: ['GET'])]
     public function edit(
         Course $course,
-        ObjectMapperInterface $objectMapper,
         InertiaInterface $inertia,
+        UploaderHelper $uploaderHelper,
     ): Response {
         return $inertia->render('courses/form', [
-            'course' => new CourseData($course),
+            'course' => new CourseFormData($course, $uploaderHelper),
         ]);
     }
 
@@ -64,10 +66,9 @@ final class CourseController extends InertiaController
         Course $course,
         #[MapRequestPayload]
         CourseFormInput $data,
-        ObjectMapperInterface $mapper,
+        TechnologySyncService $sync,
     ) {
-        $course = $mapper->map($data, $course);
-        dd($data);
+        $data->hydrateEntity($course, $sync);
         $this->em->flush();
 
         return new JsonResponse(null);

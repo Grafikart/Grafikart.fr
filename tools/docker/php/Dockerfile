@@ -1,15 +1,46 @@
-FROM grafikart/php:php8.2-2
+FROM dunglas/frankenphp:1.11.1-builder-php8.4-alpine
 
-# On désactive xdebug
-RUN printf '%s%s' ";" "$(cat /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini)" > "/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini"
+# Install dependencies
+RUN apk --no-cache add curl git wget bash dpkg
 
-ARG USER_ID
-ARG GROUP_ID
+# Add PHP extensions
+RUN install-php-extensions iconv zip intl opcache soap gd imagick apcu redis pdo pdo_pgsql xdebug
 
-RUN groupadd -f --gid $GROUP_ID user
-RUN adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID user
+# Composer
+ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
+
+# Symfony tool
+RUN apk add --no-cache bash && \
+    curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.alpine.sh' | bash && \
+    apk add symfony-cli
+
+# Security checker tool
+#ENV PHP_SECURITY_CHECHER_VERSION=2.0.6
+#RUN curl -L https://github.com/fabpot/local-php-security-checker/releases/download/v${PHP_SECURITY_CHECHER_VERSION}/local-php-security-checker_${PHP_SECURITY_CHECHER_VERSION}_linux_$(dpkg --print-architecture) --output /usr/local/bin/local-php-security-checker && \
+#  chmod +x /usr/local/bin/local-php-security-checker
+
+# Pour la récupération des durées des vidéos
+RUN apk --no-cache add ffmpeg
+
+# PHP configuration
+RUN cp $PHP_INI_DIR/php.ini-development $PHP_INI_DIR/php.ini
+
+# Xdebug (disabled by default, but installed if required)
+#ADD php.ini /usr/local/etc/php/conf.d/
+
+ARG USER_ID=1000
+ARG GROUP_ID=1001
+
+# Create group and user
+RUN addgroup -g ${GROUP_ID} user
+RUN adduser -D -u ${USER_ID} -G user user
+
+# Ensure the right permissions on /data/caddy
+RUN mkdir -p /data/caddy && chown -R user:user /data/caddy
+
+
 USER user
 
-WORKDIR /var/www
+WORKDIR /app
 
-EXPOSE 9000
+EXPOSE 8000

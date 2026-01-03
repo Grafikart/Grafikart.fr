@@ -10,12 +10,11 @@ class TechnologyUsage
 {
     #[ORM\Id]
     #[ORM\ManyToOne(targetEntity: Technology::class, inversedBy: 'usages', cascade: ['persist'])]
-    #[ORM\JoinColumn(nullable: false)]
     private Technology $technology;
 
     #[ORM\Id]
     #[ORM\ManyToOne(targetEntity: Content::class, inversedBy: 'technologyUsages')]
-    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private Content $content;
 
     #[ORM\Column(type: 'string', length: 15, nullable: true)]

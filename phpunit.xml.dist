@@ -5,13 +5,7 @@
          xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
          backupGlobals="false"
          colors="true"
-         bootstrap="tests/bootstrap.php"
-         convertDeprecationsToExceptions="false"
->    <coverage processUncoveredFiles="true">
-        <include>
-            <directory suffix=".php">src</directory>
-        </include>
-    </coverage>
+         bootstrap="tests/bootstrap.php">
     <php>
         <ini name="display_errors" value="1" />
         <ini name="memory_limit" value="-1"/>
@@ -26,10 +20,7 @@
             <directory>tests</directory>
         </testsuite>
     </testsuites>
-    <listeners>
-        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener"/>
-    </listeners>
     <extensions>
-        <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension" />
+        <bootstrap class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension" />
     </extensions>
 </phpunit>

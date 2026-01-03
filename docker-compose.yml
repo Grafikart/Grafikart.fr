@@ -1,23 +1,16 @@
 services:
-  web:
-    image: nginx:alpine
-    restart: unless-stopped
-    ports:
-      - "8000:80"
-    volumes:
-      - .:/var/www:delegated
-      - ./site.conf:/etc/nginx/conf.d/default.conf
-    links:
-      - php
   php:
+    ports:
+      - "8000:8000"
     user: '${USER_ID}:${GROUP_ID}'
     restart: unless-stopped
-    image: grafikart/php:php8.2-2
+    build: ./tools/docker/php
     volumes:
-      - .:/var/www:delegated
+      - .:/app:delegated
     depends_on:
       - db
     environment:
+      SERVER_NAME: "http://localhost:8000"
       PHP_IDE_CONFIG: serverName=grafikart
       REDIS_HOST: redis
       MAILER_DSN: smtp://mail:1025?encryption=null&auth_mode=null

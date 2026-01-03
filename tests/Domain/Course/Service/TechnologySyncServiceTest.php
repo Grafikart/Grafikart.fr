@@ -2,11 +2,10 @@
 
 namespace App\Tests\Domain\Course\Service;
 
-use App\Domain\Course\Entity\Course;
 use App\Domain\Course\DTO\ContentTechnologyDTO;
+use App\Domain\Course\Entity\Course;
 use App\Domain\Course\Entity\Technology;
 use App\Domain\Course\Entity\TechnologyUsage;
-use App\Domain\Course\Repository\TechnologyRepository;
 use App\Domain\Course\Service\TechnologySyncService;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
@@ -49,14 +48,15 @@ class TechnologySyncServiceTest extends TestCase
     public function testSyncRemovesOldTechnologies(): void
     {
         $course = new Course();
-        $t1 = (new TechnologyUsage())->setTechnology($this->em->getReference(Technology::class, 1))->setContent($course);
-        $t2 = (new TechnologyUsage())->setTechnology($this->em->getReference(Technology::class, 2))->setContent($course);
+        $t1 = new TechnologyUsage()->setTechnology($this->em->getReference(Technology::class, 1))->setContent($course);
+        $t2 = new TechnologyUsage()->setTechnology($this->em->getReference(Technology::class, 2))->setContent($course);
         $course->addTechnologyUsage($t1);
         $course->addTechnologyUsage($t2);
 
         $data = [
             new ContentTechnologyDTO(
                 id: 2,
+                version: 3,
             ),
             new ContentTechnologyDTO(
                 id: 3,
@@ -65,5 +65,6 @@ class TechnologySyncServiceTest extends TestCase
         $this->service->sync($course, $data);
         $this->assertCount(2, $course->getTechnologyUsages());
         $this->assertEquals(2, $course->getTechnologyUsages()->first()->getTechnology()->getId());
+        $this->assertEquals(3, $course->getTechnologyUsages()->first()->getTechnology()->getVersion());
     }
 }

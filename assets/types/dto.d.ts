@@ -1,4 +1,4 @@
-export type CourseData = {
+export type CourseFormData = {
 url: string;
 id: number;
 title: string;
@@ -15,6 +15,8 @@ deprecatedBy: number | null;
 content: string;
 level: number;
 technologies: Array<TechnologyData>;
+image: string;
+youtubeThumbnail: string;
 };
 export type CourseListItemData = {
 id: number;
@@ -24,6 +26,10 @@ createdAt: string;
 isOnline: boolean;
 hasSource: boolean;
 technologies: Array<TechnologyListItemData>;
+};
+export type OptionResource = {
+id: number;
+name: string;
 };
 export type TechnologyData = {
 id: number;

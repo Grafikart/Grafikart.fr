@@ -40,7 +40,7 @@ export function Form(props: Props) {
   };
   return (
     <FormContext value={{ errors }}>
-      <form {...props} onSubmit={onSubmit} />
+      <form {...props} onSubmit={onSubmit} encType="multipart/form-data" />
     </FormContext>
   );
 }
