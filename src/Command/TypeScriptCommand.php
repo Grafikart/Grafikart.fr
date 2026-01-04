@@ -2,8 +2,6 @@
 
 namespace App\Command;
 
-use DateTime;
-use DateTimeImmutable;
 use Spatie\TypeScriptTransformer\Transformers\DtoTransformer;
 use Spatie\TypeScriptTransformer\TypeScriptTransformer;
 use Spatie\TypeScriptTransformer\TypeScriptTransformerConfig;
@@ -16,30 +14,30 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 /**
- * Génère les types TypeScript à partir des DTO
+ * Génère les types TypeScript à partir des DTO.
  */
 #[AsCommand('app:ts')]
 class TypeScriptCommand
 {
     public function __construct(
         #[Autowire('%kernel.project_dir%')]
-        private readonly string $rootDir
-    )
-    {
+        private readonly string $rootDir,
+    ) {
     }
 
     public function __invoke(
-        InputInterface  $input,
-        OutputInterface $output
-    ): int
-    {
-        $source = sprintf('%s/src/Http/Data', $this->rootDir);
+        InputInterface $input,
+        OutputInterface $output,
+    ): int {
         $dest = sprintf('%s/assets/types/dto.d.ts', $this->rootDir);
         $config = TypeScriptTransformerConfig::create()
-            ->autoDiscoverTypes($source)
+            ->autoDiscoverTypes(
+                sprintf('%s/src/Http/Data', $this->rootDir),
+                sprintf('%s/src/Domain/Course/DTO', $this->rootDir)
+            )
             ->defaultTypeReplacements([
-                DateTime::class => 'string',
-                DateTimeImmutable::class => 'string',
+                \DateTime::class => 'string',
+                \DateTimeImmutable::class => 'string',
             ])
             ->writer(ModuleWriter::class)
             ->transformers([
@@ -47,10 +45,9 @@ class TypeScriptCommand
             ])
             ->outputFile($dest);
         $io = new SymfonyStyle($input, $output);
-        $io->note(sprintf('Reading %s', $source));
         TypeScriptTransformer::create($config)->transform();
         $io->success(sprintf('Type generated in %s', $dest));
+
         return Command::SUCCESS;
     }
-
 }

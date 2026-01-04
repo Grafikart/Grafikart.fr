@@ -35,4 +35,18 @@ interface ObjectMapperInterface
      * @throws NoSuchPropertyException   When a property does not exist
      */
     public function map(object $source, object|string|null $target = null): object;
+
+    /**
+     * @template T of object
+     *
+     * @param array             $source The array of object to map from
+     * @param T|class-string<T> $target The object or class to map to
+     *
+     * @return T[]
+     *
+     * @throws MappingException          When the mapping configuration is wrong
+     * @throws MappingTransformException When a transformation on an object does not return an object
+     * @throws NoSuchPropertyException   When a property does not exist
+     */
+    public function mapCollection(array $source, string $target): array;
 }

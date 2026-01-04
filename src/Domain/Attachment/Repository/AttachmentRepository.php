@@ -5,6 +5,7 @@ namespace App\Domain\Attachment\Repository;
 use App\Domain\Application\Entity\Content;
 use App\Domain\Attachment\Attachment;
 use App\Domain\Course\Entity\Course;
+use App\Http\Admin\Data\Attachment\FolderData;
 use App\Infrastructure\Orm\AbstractRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,6 +20,9 @@ class AttachmentRepository extends AbstractRepository
         parent::__construct($registry, Attachment::class);
     }
 
+    /**
+     * @return array<FolderData>
+     */
     public function findYearsMonths(): array
     {
         $rows = $this->createQueryBuilder('a')
@@ -29,10 +33,9 @@ class AttachmentRepository extends AbstractRepository
             ->getQuery()
             ->getResult();
 
-        return array_map(fn (array $row) => [
-            'path' => $row['year'].'/'.str_pad((string) $row['month'], 2, '0', STR_PAD_LEFT),
-            'count' => $row['count'],
-        ], $rows);
+        return array_map(fn (array $row) => new FolderData(
+            path: $row['year'].'/'.str_pad((string) $row['month'], 2, '0', STR_PAD_LEFT),
+            count: $row['count']), $rows);
     }
 
     /**

@@ -18,7 +18,6 @@ import { adminPath } from "@/lib/url.ts";
 import { Separator } from "@/components/ui/separator.tsx";
 import { BreadcrumbNav } from "@/components/ui/breadcrumb.tsx";
 import type { NavItem } from "@/types";
-import { Toaster } from "@/components/ui/sonner.tsx";
 
 type Props = {
   breadcrumb: NavItem[];
@@ -28,7 +27,6 @@ type Props = {
 export function Layout({ children, ...props }: PropsWithChildren<Props>) {
   return (
     <SidebarProvider>
-      <Toaster position="top-center" richColors />
       <AppSidebar />
       <SidebarInset>
         <Header {...props} />
@@ -112,12 +110,12 @@ function SidebarItem({ item, root }: { item: NavItem; root?: boolean }) {
   }
 }
 
-type Extra = {
+type Extra<Props> = {
   breadcrumb: NavItem[] | ((props: Props) => NavItem[]);
   top: ReactNode;
 };
 
-export function withLayout<Props>(comp: FC<Props>, extra: Extra) {
+export function withLayout<Props>(comp: FC<Props>, extra: Extra<Props>) {
   // @ts-expect-error Inertia specific code
   comp.layout = function (page) {
     return (

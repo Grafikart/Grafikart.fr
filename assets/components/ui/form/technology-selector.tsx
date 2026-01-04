@@ -7,12 +7,12 @@ import { useList } from "@/hooks/use-list";
 import { cn } from "@/lib/utils";
 import { useDebounce } from "@uidotdev/usehooks";
 import { useMemo, useState } from "react";
-import type { TechnologyData } from "@/types";
-import { Input } from "@base-ui/react";
 import { Checkbox } from "@/components/ui/checkbox.tsx";
+import type { ContentTechnologyDTO } from "@/types";
+import { Input } from "@/components/ui/input.tsx";
 
 type Props = {
-  defaultValue: TechnologyData[];
+  defaultValue: ContentTechnologyDTO[];
   id?: string;
 };
 
@@ -22,14 +22,14 @@ export function TechnologySelector(props: Props) {
   const debouncedSearch = useDebounce(search, 300);
   const selectedItemsSet = useMemo(() => new Set(items.map((item) => item.id)), [items]);
 
-  const { data, isFetching } = useApiFetch<TechnologyData[]>(`/api/technologies?q=${debouncedSearch}`, {
+  const { data, isFetching } = useApiFetch<ContentTechnologyDTO[]>(`/api/technologies?q=${debouncedSearch}`, {
     enabled: debouncedSearch.length > 1,
     staleTime: 5_000,
   });
 
   return (
     <fieldset className="space-y-3" id={props.id}>
-      <div className="grid items-center" style={{ gridTemplateColumns: "1fr 80px 2rem max-content" }}>
+      <div className="grid items-center gap-y-2" style={{ gridTemplateColumns: "1fr 80px 2rem max-content" }}>
         {items.map((item, k) => (
           <Item k={k} item={item} key={item.id} onToggle={toggleItem} />
         ))}
@@ -66,7 +66,7 @@ export function TechnologySelector(props: Props) {
   );
 }
 
-type ItemProps = { item: TechnologyData; k: number; onToggle: (item: TechnologyData) => void };
+type ItemProps = { item: ContentTechnologyDTO; k: number; onToggle: (item: ContentTechnologyDTO) => void };
 
 function Item({ item, onToggle, k }: ItemProps) {
   return (
@@ -80,7 +80,7 @@ function Item({ item, onToggle, k }: ItemProps) {
         name={`technologies[${k}][version]`}
         defaultValue={item.version ?? ""}
       />
-      <Checkbox name={`technologies[${k}][primary]`} value="1" defaultChecked={!item.secondary} />
+      <Checkbox name={`technologies[${k}][primary]`} value="1" defaultChecked={item.primary} />
       <Button
         variant="secondary"
         type="button"

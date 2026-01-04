@@ -11,13 +11,13 @@
 
 namespace App\Component\ObjectMapper;
 
-use Psr\Container\ContainerInterface;
 use App\Component\ObjectMapper\Exception\MappingException;
 use App\Component\ObjectMapper\Exception\MappingTransformException;
 use App\Component\ObjectMapper\Exception\NoSuchPropertyException;
 use App\Component\ObjectMapper\Metadata\Mapping;
 use App\Component\ObjectMapper\Metadata\ObjectMapperMetadataFactoryInterface;
 use App\Component\ObjectMapper\Metadata\ReflectionObjectMapperMetadataFactory;
+use Psr\Container\ContainerInterface;
 use Symfony\Component\PropertyAccess\Exception\NoSuchPropertyException as PropertyAccessorNoSuchPropertyException;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\VarExporter\LazyObjectInterface;
@@ -40,6 +40,11 @@ final class ObjectMapper implements ObjectMapperInterface, ObjectMapperAwareInte
         private readonly ?ContainerInterface $transformCallableLocator = null,
         private readonly ?ContainerInterface $conditionCallableLocator = null,
     ) {
+    }
+
+    public function mapCollection(array $source, string $target): array
+    {
+        return array_map(callback: fn(object $item) => $this->map($item, $target), array: $source);
     }
 
     public function map(object $source, object|string|null $target = null): object
@@ -160,6 +165,10 @@ final class ObjectMapper implements ObjectMapperInterface, ObjectMapperAwareInte
                 }
 
                 $value = $this->getSourceValue($source, $mappedTarget, $this->getRawValue($source, $propertyName), $objectMap);
+                $class = $property->getType()->getName();
+                if (is_object($value) && !($value instanceof $class)) {
+                    $value = $this->doMap($value, $class, $objectMap, false);
+                }
                 $this->storeValue($propertyName, $mapToProperties, $ctorArguments, $value);
             }
         }
@@ -360,7 +369,7 @@ final class ObjectMapper implements ObjectMapperInterface, ObjectMapperAwareInte
             return $locator->get($fn);
         }
 
-        return null;
+        throw new \RuntimeException(sprintf('Cannot call %s in object mapper, service not found', $fn));
     }
 
     /**

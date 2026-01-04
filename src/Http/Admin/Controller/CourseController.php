@@ -7,14 +7,13 @@ use App\Domain\Application\Event\ContentCreatedEvent;
 use App\Domain\Application\Event\ContentDeletedEvent;
 use App\Domain\Application\Event\ContentUpdatedEvent;
 use App\Domain\Course\Entity\Course;
-use App\Domain\Course\Service\TechnologySyncService;
 use App\Http\Admin\Data\Course\CourseFormData;
 use App\Http\Admin\Data\Course\CourseFormInput;
 use App\Http\Admin\Data\Course\CourseListItemData;
-use Rompetomp\InertiaBundle\Architecture\InertiaInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
+use Symfony\Component\HttpKernel\Attribute\MapUploadedFile;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
@@ -53,11 +52,10 @@ final class CourseController extends InertiaController
     #[Route(path: '/{id<\d+>}', name: 'edit', methods: ['GET'])]
     public function edit(
         Course $course,
-        InertiaInterface $inertia,
-        UploaderHelper $uploaderHelper,
+        ObjectMapperInterface $mapper
     ): Response {
-        return $inertia->render('courses/form', [
-            'course' => new CourseFormData($course, $uploaderHelper),
+        return $this->renderComponent('courses/form', [
+            'course' => $mapper->map($course, CourseFormData::class)
         ]);
     }
 
@@ -66,11 +64,14 @@ final class CourseController extends InertiaController
         Course $course,
         #[MapRequestPayload]
         CourseFormInput $data,
-        TechnologySyncService $sync,
+        #[MapUploadedFile]
+        ?UploadedFile $source,
+        ObjectMapperInterface $mapper
     ) {
-        $data->hydrateEntity($course, $sync);
+        $mapper->map($data, $course);
+        $course->setSourceFile($source);
         $this->em->flush();
 
-        return new JsonResponse(null);
+        return $this->redirectToInertiaRoute('admin_course_edit', ['id' => $course->getId()]);
     }
 }

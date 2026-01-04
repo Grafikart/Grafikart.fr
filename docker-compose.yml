@@ -59,18 +59,6 @@ services:
       GLOBAL_OPTIONS: debug
     ports:
       - 8001:80
-  messenger:
-    user: '${USER_ID}:${GROUP_ID}'
-    image: grafikart/php:php8.2-2
-    volumes:
-      - .:/var/www:delegated
-    depends_on:
-      - db
-    restart: unless-stopped
-    command: ['php', 'bin/console', 'messenger:consume', 'async', '--limit=10', '-vv']
-    environment:
-      MESSENGER_TRANSPORT_DSN: redis://redis:6379/messages
-      MESSENGER_TRANSPORT_FAILED_DSN: redis://redis:6379/messages_failed
   # Dev tools
   adminer:
     image: adminer

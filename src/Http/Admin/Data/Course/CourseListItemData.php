@@ -3,7 +3,7 @@
 namespace App\Http\Admin\Data\Course;
 
 use App\Component\ObjectMapper\Attribute\Map;
-use App\Component\ObjectMapper\Transform\MapCollection;
+use App\Component\ObjectMapper\Transform\MapCollectionTransformer;
 use App\Component\ObjectMapper\Transform\UrlTransformer;
 use DateTimeImmutable;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
@@ -22,7 +22,7 @@ readonly class CourseListItemData
         public bool $isOnline,
         #[Map(source: 'source')]
         public bool $hasSource,
-        #[Map(source: 'mainTechnologies', transform: MapCollection::class, context: ['targetClass' => TechnologyListItemData::class])]
+        #[Map(source: 'mainTechnologies', transform: MapCollectionTransformer::class, context: ['targetClass' => TechnologyListItemData::class])]
         /** @var TechnologyListItemData[] */
         public array $technologies = [],
     )

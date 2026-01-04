@@ -3,7 +3,12 @@ import {
   useMutation,
   type UseMutationOptions,
   useQuery,
+  useQueryClient,
 } from "@tanstack/react-query";
+import { useCallback, useMemo } from "react";
+import type { Violation } from "@/types";
+import { toast } from "sonner";
+import { router } from "@inertiajs/react";
 
 export async function apiFetch<T>(url: string, params?: RequestInit): Promise<T> {
   return fetch(url, {
@@ -20,11 +25,21 @@ export async function apiFetch<T>(url: string, params?: RequestInit): Promise<T>
         : {}),
     },
   }).then(async (response) => {
-    // Expect empty response
+    // Pas de réponse, pas de retour
     if (response.status === 204) {
       return null as unknown as Promise<T>;
     }
-    // We are not receiving JSON
+    // Inertia redirection
+    if (response.status === 303) {
+      const location = response.headers.get("X-Inertia-Location");
+      if (!location) {
+        toast.error("Impossible de rediriger X-Inertia-Location attendu");
+        return;
+      }
+      router.visit(location, { replace: true });
+      return;
+    }
+    // La réponse n'est pas du JSON
     if (!response.headers.get("content-type")?.includes("application/json")) {
       throw new APIError({ message: await response.text() }, response.status);
     }
@@ -35,41 +50,83 @@ export async function apiFetch<T>(url: string, params?: RequestInit): Promise<T>
   });
 }
 
+/**
+ * Ajoute des les paramètres dans l'URL
+ */
+function urlWithQueryParams(url: string, params?: Record<string, unknown>) {
+  if (!params) {
+    return url;
+  }
+  const search = Object.entries(params)
+    .reduce((acc, [key, value]) => {
+      if (value || typeof value === "number") {
+        acc.set(key, value.toString());
+      }
+      return acc;
+    }, new URLSearchParams())
+    .toString();
+  return url + "?" + search;
+}
+
+/**
+ * Représente une erreur renvoyée par l'API
+ */
 export class APIError extends Error {
   constructor(
-    public data: Record<string, unknown>,
+    public data: unknown,
     public status: number,
   ) {
     super();
   }
 
   get message(): string {
-    return "message" in this.data && typeof this.data.message === "string" ? this.data.message : "Server error";
-  }
-
-  get errors(): Record<string, string> {
-    if (!("errors" in this.data)) {
-      return {};
+    if (this.data && typeof this.data === "object" && "title" in this.data && typeof this.data.title === "string") {
+      return this.data.title;
     }
-    return this.data.errors as Record<string, string>;
+    return "Erreur serveur";
+  }
+
+  get errors(): Violation[] {
+    if (!this.data || typeof this.data !== "object" || !("violations" in this.data)) {
+      return [];
+    }
+    return this.data.violations as Violation[];
   }
 }
 
-export function useApiFetch<T = unknown>(url: string, options?: Partial<UndefinedInitialDataOptions<T, APIError>>) {
-  return useQuery<T, APIError>({
-    ...options,
-    queryKey: [url],
-    queryFn: () => apiFetch<T>(url),
-  });
+export function useApiFetch<T = unknown>(
+  url: string,
+  options: Partial<UndefinedInitialDataOptions<T, APIError>> & { query?: Record<string, unknown> } = {},
+) {
+  const { query, ...otherOptions } = options;
+  if (query) {
+    url = urlWithQueryParams(url, query);
+  }
+  const queryKey = useMemo(() => [url], [url]);
+  const queryClient = useQueryClient();
+  return {
+    setData: useCallback(
+      (data: T | ((a: T) => T)) => {
+        // @ts-expect-error data is too dynamic here
+        queryClient.setQueryData<T>(queryKey, data);
+      },
+      [queryKey],
+    ),
+    ...useQuery<T, APIError>({
+      ...otherOptions,
+      queryKey,
+      queryFn: () => apiFetch<T>(url),
+    }),
+  };
 }
 
-export function useApiMutation<T = unknown, Body = Record<string, unknown> | FormData>(
+export function useApiMutation<T = unknown, Body = Record<string, unknown> | FormData | void>(
   url: string,
   params: { method: RequestInit["method"] } = { method: "POST" },
   options: UseMutationOptions<T, APIError, Body, unknown> = {},
 ) {
   const mutation = useMutation<T, APIError, Body>({
-    mutationFn: async (payload: Body) => {
+    mutationFn: async (payload?: Body) => {
       const isFormData = payload instanceof FormData;
       if (isFormData) {
         payload.append("_method", params.method ?? "POST");

@@ -1517,7 +1517,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *                 timeout?: scalar|null|Param, // Default: 90
  *                 utf8?: bool|Param, // Default: false
  *                 passive?: bool|Param, // Default: true
- *                 transferMode?: scalar|null|Param, // Default: 2
+ *                 transferMode?: scalar|null|Param, // Default: null
  *                 systemType?: scalar|null|Param, // Default: null
  *                 ignorePassiveAddress?: bool|null|Param, // Default: null
  *                 timestampsOnUnixListingsEnabled?: bool|Param, // Default: false

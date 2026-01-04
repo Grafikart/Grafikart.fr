@@ -21,7 +21,7 @@ use App\Component\ObjectMapper\TransformCallableWithContextInterface;
  *
  * @implements TransformCallableWithContextInterface<object, T>
  */
-class MapCollection implements TransformCallableWithContextInterface
+class MapCollectionTransformer implements TransformCallableWithContextInterface
 {
     public function __construct(
         private ObjectMapperInterface $objectMapper,

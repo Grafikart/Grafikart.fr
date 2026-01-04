@@ -3,6 +3,7 @@
 @import "@fontsource-variable/inter";
 @import './css/prose.css';
 @import './css/editor.css';
+@import './css/utility.css';
 
 @source "../templates/";
 @source "../assets/";
@@ -156,5 +157,22 @@
   }
   html {
     @apply font-sans;
+  }
+  button {
+    cursor: pointer;
+  }
+  ::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--background);
+    padding: 1px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 4px;
   }
 }

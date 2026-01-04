@@ -1,3 +1,21 @@
+export type AttachmentFileData = {
+id: number;
+createdAt: number;
+name: string;
+size: number;
+url: any;
+thumbnail: string;
+};
+export type ContentTechnologyDTO = {
+id: number;
+primary: boolean;
+version: string | null;
+name: string;
+};
+export type CourseAttachmentData = {
+id: number;
+url: string;
+};
 export type CourseFormData = {
 url: string;
 id: number;
@@ -14,9 +32,10 @@ duration: number;
 deprecatedBy: number | null;
 content: string;
 level: number;
-technologies: Array<TechnologyData>;
-image: string;
-youtubeThumbnail: string;
+source: boolean;
+technologies: Array<ContentTechnologyDTO>;
+image: CourseAttachmentData | null;
+youtubeThumbnail: CourseAttachmentData | null;
 };
 export type CourseListItemData = {
 id: number;
@@ -27,14 +46,12 @@ isOnline: boolean;
 hasSource: boolean;
 technologies: Array<TechnologyListItemData>;
 };
+export type FolderData = {
+path: string;
+count: number;
+};
 export type OptionResource = {
 id: number;
-name: string;
-};
-export type TechnologyData = {
-id: number;
-secondary: boolean;
-version: string | null;
 name: string;
 };
 export type TechnologyListItemData = {
