@@ -11,26 +11,25 @@ readonly class CourseFormData
 {
 
     public function __construct(
-        public int $id,
-        public string $title,
-        public string $slug,
-        public \DateTimeInterface $createdAt,
-        public bool $online,
-        public bool $premium,
-        public bool $forceRedirect,
-        public string $videoPath,
-        public string $demo,
-        public string $youtubeId,
-        public int $duration,
-        public ?int $deprecatedBy,
-        public string $content,
-        public int $level,
-        public bool $source,
+        public string $title = '',
+        public string $slug = '',
+        public \DateTimeInterface $createdAt = new \DateTimeImmutable(),
+        public bool $online = false,
+        public bool $premium = false,
+        public bool $forceRedirect = false,
+        public string $videoPath = '',
+        public string $demo = '',
+        public string $youtubeId = '',
+        public int $duration = 0,
+        public ?int $deprecatedBy = null,
+        public string $content = '',
+        public int $level = 1,
+        public bool $source = false,
         #[MapCollection(item: ContentTechnologyDTO::class, source: 'technologyUsages')]
         /** @var ContentTechnologyDTO[] */
-        public array $technologies,
-        public ?CourseAttachmentData $image,
-        public ?CourseAttachmentData $youtubeThumbnail,
+        public array $technologies = [],
+        public ?CourseAttachmentData $image = null,
+        public ?CourseAttachmentData $youtubeThumbnail = null,
     ) {
     }
 }

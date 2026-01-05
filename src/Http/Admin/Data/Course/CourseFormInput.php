@@ -12,8 +12,6 @@ use App\Validator\Exists;
 use App\Validator\Slug;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Range;
-use const App\Domain\Course\Entity\EASY;
-use const App\Domain\Course\Entity\HARD;
 
 readonly class CourseFormInput
 {
@@ -28,7 +26,7 @@ readonly class CourseFormInput
         public string $content,
         #[Map]
         #[NotBlank()]
-        #[Range(min: EASY, max: HARD)]
+        #[Range(min: 0, max: 2)]
         public int $level,
         #[Map]
         public bool $online,
@@ -51,7 +49,7 @@ readonly class CourseFormInput
         public string $slug,
         /** @var ContentTechnologyDTO[] */
         #[Map(transform: TechnologyUsageTransform::class)]
-        public array $technologies = [],
+        public ?array $technologies = [],
         #[MapEntity(Attachment::class)]
         #[Exists(class: Attachment::class)]
         public ?int $image,

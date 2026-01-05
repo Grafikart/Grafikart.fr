@@ -7,12 +7,12 @@ import { ButtonGroup } from "@/components/ui/button-group.tsx";
 import { adminPath } from "@/lib/url.ts";
 import { Pagination } from "@/components/ui/pagination.tsx";
 import { formatDate } from "@/lib/date.ts";
+import { Link } from "@inertiajs/react";
+import { Fragment } from "react";
 
 type Props = {
   pagination: PaginatedData<CourseListItemData>;
 };
-
-const breadcrumb = [{ label: "Tutoriel", href: adminPath("courses") }];
 
 export default withLayout<Props>(
   (props) => {
@@ -40,11 +40,12 @@ export default withLayout<Props>(
     );
   },
   {
-    breadcrumb: breadcrumb,
+    breadcrumb: [{ label: "Tutoriel", href: adminPath("courses") }],
   },
 );
 
 function Item({ item }: { item: CourseListItemData }) {
+  const href = adminPath(`/courses/${item.id}`);
   return (
     <TableRow className="group">
       <TableCell className="text-muted-foreground">{item.id}</TableCell>
@@ -52,30 +53,32 @@ function Item({ item }: { item: CourseListItemData }) {
       <TableCell>{formatDate(item.createdAt)}</TableCell>
       <TableCell>
         {item.technologies.map((tech, k) => (
-          <>
+          <Fragment key={k}>
             <span key={tech.name}>{tech.name}</span>
             {k > 0 && ","}
-          </>
+          </Fragment>
         ))}
       </TableCell>
       <TableCell>
-        {item.isOnline ? (
+        {item.online ? (
           <CheckCircle2Icon className="text-card fill-success size-4" />
         ) : (
-          <CircleXIcon className="text-card fill-ring" />
+          <CircleXIcon className="text-card fill-ring size-4" />
         )}
       </TableCell>
       <TableCell className="text-right">
         <div className="flex justify-end">
           <ButtonGroup className="opacity-0 group-hover:opacity-100">
-            <Button variant="destructive">
-              <TrashIcon />
-            </Button>
-            <ButtonLink href={adminPath(`/courses/${item.id}`)} variant="secondary">
+            {item.online && (
+              <ButtonLink variant="destructive" method="delete" href={href}>
+                <TrashIcon />
+              </ButtonLink>
+            )}
+            <ButtonLink href={adminPath(`/courses/new?clone=${item.id}`)} variant="secondary">
               <CopyIcon />
             </ButtonLink>
           </ButtonGroup>
-          <ButtonLink href={adminPath(`/courses/${item.id}`)} variant="secondary">
+          <ButtonLink href={href} variant="secondary">
             <EditIcon />
           </ButtonLink>
         </div>

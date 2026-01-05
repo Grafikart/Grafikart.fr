@@ -49,9 +49,14 @@ function Button({
   return <ButtonPrimitive data-slot="button" className={cn(buttonVariants({ variant, size, className }))} {...props} />;
 }
 
-function ButtonLink({ href, children, ...props }: { href: string } & ComponentProps<typeof Button>) {
+function ButtonLink({
+  href,
+  children,
+  method,
+  ...props
+}: { href: string; method?: "delete" | "post" | "put" } & ComponentProps<typeof Button>) {
   return (
-    <Button {...props} render={<Link href={href} />}>
+    <Button {...props} render={<Link href={href} method={method} />} nativeButton={false}>
       {children}
     </Button>
   );

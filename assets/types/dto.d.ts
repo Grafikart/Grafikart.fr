@@ -17,8 +17,6 @@ id: number;
 url: string;
 };
 export type CourseFormData = {
-url: string;
-id: number;
 title: string;
 slug: string;
 createdAt: any;
@@ -42,8 +40,7 @@ id: number;
 title: string;
 url: string;
 createdAt: string;
-isOnline: boolean;
-hasSource: boolean;
+online: boolean;
 technologies: Array<TechnologyListItemData>;
 };
 export type FolderData = {

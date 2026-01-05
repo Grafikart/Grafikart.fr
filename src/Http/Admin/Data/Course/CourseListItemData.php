@@ -18,10 +18,7 @@ readonly class CourseListItemData
         #[Map(source: 'id', transform: UrlTransformer::class)]
         public string $url,
         public DateTimeImmutable $createdAt,
-        #[Map(source: 'online')]
-        public bool $isOnline,
-        #[Map(source: 'source')]
-        public bool $hasSource,
+        public bool $online,
         #[Map(source: 'mainTechnologies', transform: MapCollectionTransformer::class, context: ['targetClass' => TechnologyListItemData::class])]
         /** @var TechnologyListItemData[] */
         public array $technologies = [],

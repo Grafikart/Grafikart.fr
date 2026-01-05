@@ -7,6 +7,8 @@ use App\Domain\Application\Entity\Content;
 use App\Domain\Course\DTO\ContentTechnologyDTO;
 use App\Domain\Course\Entity\Technology;
 use App\Domain\Course\Entity\TechnologyUsage;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
@@ -26,9 +28,12 @@ final readonly class TechnologyUsageTransform implements TransformCallableInterf
      * @param Content|null $target
      * @return mixed
      */
-    public function __invoke(mixed $value, object $source, ?object $target): mixed
+    public function __invoke(mixed $value, object $source, ?object $target): Collection
     {
         assert($target instanceof Content);
+        if (!$value) {
+            return new ArrayCollection();
+        }
         $technologyIds = array_map(fn (ContentTechnologyDTO $dto) => $dto->id, $value);
 
         // On supprime les usages qui ne sont plus dans la liste

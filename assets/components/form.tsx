@@ -1,9 +1,7 @@
-import { type ComponentProps, createContext, type FormEventHandler, useContext, useMemo, useState } from "react";
+import { type ComponentProps, createContext, type FormEventHandler, useContext, useMemo } from "react";
 import type { Violation } from "@/types";
 import { toast } from "sonner";
-import { Form as InertiaForm, router } from "@inertiajs/react";
 import { ValidationErrors } from "@/components/ui/form/validation-error.tsx";
-import { useMutation } from "@tanstack/react-query";
 import { useApiMutation } from "@/hooks/use-api-fetch.ts";
 
 type Props = Omit<ComponentProps<"form">, "action"> & { action?: string };

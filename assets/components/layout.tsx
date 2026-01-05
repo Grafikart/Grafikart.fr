@@ -112,7 +112,7 @@ function SidebarItem({ item, root }: { item: NavItem; root?: boolean }) {
 
 type Extra<Props> = {
   breadcrumb: NavItem[] | ((props: Props) => NavItem[]);
-  top: ReactNode;
+  top?: ReactNode;
 };
 
 export function withLayout<Props>(comp: FC<Props>, extra: Extra<Props>) {
