@@ -1,13 +1,12 @@
 import type { CourseListItemData, PaginatedData } from "@/types";
 import { withLayout } from "@/components/layout.tsx";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table.tsx";
-import { Button, ButtonLink } from "@/components/ui/button.tsx";
+import { ButtonLink } from "@/components/ui/button.tsx";
 import { CheckCircle2Icon, CircleXIcon, CopyIcon, EditIcon, TrashIcon } from "lucide-react";
 import { ButtonGroup } from "@/components/ui/button-group.tsx";
 import { adminPath } from "@/lib/url.ts";
 import { Pagination } from "@/components/ui/pagination.tsx";
 import { formatDate } from "@/lib/date.ts";
-import { Link } from "@inertiajs/react";
 import { Fragment } from "react";
 
 type Props = {

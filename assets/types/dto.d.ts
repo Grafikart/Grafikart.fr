@@ -51,6 +51,11 @@ export type OptionResource = {
 id: number;
 name: string;
 };
+export type PlanItemData = {
+id: number;
+name: string;
+price: number;
+};
 export type TechnologyListItemData = {
 name: string;
 url: string;

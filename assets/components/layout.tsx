@@ -12,7 +12,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { HouseIcon, MonitorPlayIcon } from "lucide-react";
+import { HouseIcon, MonitorPlayIcon, StarIcon } from "lucide-react";
 import { Link } from "@inertiajs/react";
 import { adminPath } from "@/lib/url.ts";
 import { Separator } from "@/components/ui/separator.tsx";
@@ -52,6 +52,7 @@ const nav = [
       },
     ],
   },
+  { label: "Premium", children: [{ label: "Formules", icon: StarIcon, href: "/plans" }] },
 ] satisfies NavItem[];
 
 function Header(props: Props) {
