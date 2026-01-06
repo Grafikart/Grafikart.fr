@@ -20,11 +20,7 @@ export function BreadcrumbNav({ items }: { items: NavItem[] }) {
           return (
             <Fragment key={index}>
               <BreadcrumbItem>
-                {isLast ? (
-                  <BreadcrumbPage>{item.label}</BreadcrumbPage>
-                ) : (
-                  <BreadcrumbLink render={<Link href={item.href} />}>{item.label}</BreadcrumbLink>
-                )}
+                <BreadcrumbLink render={<Link href={item.href} />}>{item.label}</BreadcrumbLink>
               </BreadcrumbItem>
               {!isLast && <BreadcrumbSeparator />}
             </Fragment>

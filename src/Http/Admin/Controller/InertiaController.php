@@ -59,15 +59,15 @@ abstract class InertiaController extends BaseController
     /**
      * Redirige en envoyant le bon type de réponse en fonction du contexte
      */
-    protected function redirectToInertiaRoute(string $name, array $params = []): Response
+    protected function redirectToInertiaRoute(string $route, array $params = []): Response
     {
         // Pour les requêtes Inertia, redirige classiquement
         if ($this->requestStack->getMainRequest()->headers->get('X-Inertia')) {
-            return $this->redirectToRoute($name, $params);
+            return $this->redirectToRoute($route, $params);
         }
         // Sinon renvoie une redirection sans "Location" qui sera interprété apiFetch côté client
         return new Response('', 303, [
-            'X-Inertia-Location' => $this->generateUrl($name, $params),
+            'X-Inertia-Location' => $this->generateUrl($route, $params),
         ]);
     }
 
@@ -77,12 +77,13 @@ abstract class InertiaController extends BaseController
         return $this->em->getRepository($this->entityClass);
     }
 
-    public function crudIndex(?QueryBuilder $builder): Response
+    public function crudIndex(?QueryBuilder $builder, array $params = []): Response
     {
         $pagination = $this->paginator->paginate($builder->getQuery());
 
         return $this->renderComponent(sprintf('%s/index', $this->componentDirectory), [
             'pagination' => $pagination,
+            ...$params,
         ], [
             'item' => $this->itemDataClass,
         ]);
@@ -118,7 +119,7 @@ abstract class InertiaController extends BaseController
         return $this->redirectToInertiaRoute(sprintf("admin_%s_edit", $this->routePrefix), ['id' => $entity->getId()]);
     }
 
-    public function crudUpdate(object $data, object $entity, ?object $old = null): Response
+    public function crudUpdate(object $data, object $entity, ?object $old = null, ?string $redirect = null): Response
     {
         assert($entity instanceof $this->entityClass);
         assert($data instanceof $this->inputDataClass);
@@ -129,6 +130,6 @@ abstract class InertiaController extends BaseController
         if ($this->events['update'] ?? null) {
             $this->dispatcher->dispatch(new $this->events['update']($entity, $old));
         }
-        return $this->redirectToInertiaRoute(sprintf('admin_%s_edit', $this->routePrefix), ['id' => $entity->getId()]);
+        return $this->redirectToInertiaRoute($redirect ?? sprintf('admin_%s_edit', $this->routePrefix), ['id' => $entity->getId()]);
     }
 }

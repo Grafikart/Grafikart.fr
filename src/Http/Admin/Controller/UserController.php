@@ -7,35 +7,32 @@ use App\Domain\Auth\User;
 use App\Domain\Auth\UserRepository;
 use App\Domain\Premium\Exception\PremiumNotBanException;
 use App\Domain\Stats\UserStatsRepository;
-use App\Infrastructure\Spam\GeoIpService;
+use App\Http\Admin\Data\User\UserItemData;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\QueryBuilder;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+/**
+ * @method UserRepository getRepository()
+ */
 #[Route(path: '/users', name: 'user_')]
-class UserController extends CrudController
+final class UserController extends InertiaController
 {
-    protected string $templatePath = 'user';
-    protected string $menuItem = 'user';
-    protected string $entity = User::class;
-    protected string $routePrefix = 'admin_user';
-    protected string $searchField = 'username';
-    protected array $events = [];
+    protected string $entityClass = User::class;
+    protected string $routePrefix = 'user';
+    protected string $componentDirectory = 'users';
+    protected string $itemDataClass = UserItemData::class;
 
     #[Route(path: '/', name: 'index')]
-    public function index(
-        Request $request,
-        UserStatsRepository $repository,
-        GeoIpService $ipService,
-    ): Response {
+    public function index(Request $request, UserStatsRepository $repository): Response
+    {
+        $query = $this->getRepository()
+            ->createQueryBuilder('row')
+            ->orderBy('row.createdAt', 'DESC');
         $filterBanned = $request->get('banned');
-        $query = null;
         $params = [
-            'banned_filter' => $filterBanned,
+            'banned_filter' => $filterBanned
         ];
         if (
             $request->query->getInt('page', 1) === 1
@@ -48,49 +45,11 @@ class UserController extends CrudController
         if ($filterBanned) {
             $query = $this->getRepository()->queryBanned();
         }
-        $params['ipService'] = $ipService;
 
         return $this->crudIndex($query, $params);
     }
 
-    public function applySearch(string $search, QueryBuilder $query): QueryBuilder
-    {
-        $query = $query->where('LOWER(row.username) LIKE :search')
-            ->orWhere('LOWER(row.email) LIKE :search');
-        if (preg_match('/^\d+$/', $search)) {
-            $query = $query->orWhere('row.id = :search');
-        }
-
-        return $query->setParameter('search', strtolower($search));
-    }
-
-    #[Route(path: '/search', name: 'autocomplete')]
-    public function search(Request $request): JsonResponse
-    {
-        /** @var UserRepository $repository */
-        $repository = $this->em->getRepository(User::class);
-        $q = strtolower($request->query->get('q') ?: '');
-        if ('moi' === $q) {
-            return new JsonResponse([
-                [
-                    'id' => $this->getUser()->getId(),
-                    'username' => $this->getUser()->getUsername(),
-                ],
-            ]);
-        }
-        $users = $repository
-            ->createQueryBuilder('u')
-            ->select('u.id', 'u.username')
-            ->where('LOWER(u.username) LIKE :username')
-            ->setParameter('username', "%$q%")
-            ->setMaxResults(25)
-            ->getQuery()
-            ->getResult();
-
-        return new JsonResponse($users);
-    }
-
-    #[Route(path: '/{id<\d+>}/ban', methods: ['POST', 'DELETE'], name: 'ban')]
+    #[Route(path: '/{id<\d+>}/ban', methods: ['DELETE'], name: 'ban')]
     public function ban(User $user, EntityManagerInterface $em, UserBanService $banService, Request $request): Response
     {
         $username = $user->getUsername();
@@ -103,27 +62,9 @@ class UserController extends CrudController
             return $this->redirectBack('admin_user_index');
         }
 
-        if ($request->isXmlHttpRequest()) {
-            return $this->json([]);
-        }
-
         $this->addFlash('success', "L'utilisateur $username a été banni");
 
         return $this->redirectBack('admin_user_index');
     }
 
-    #[Route(path: '/{id<\d+>}/confirm', methods: ['POST'], name: 'confirm')]
-    public function confirm(User $user, EntityManagerInterface $em): RedirectResponse
-    {
-        $user->setConfirmationToken(null);
-        $em->flush();
-        $this->addFlash('success', 'Le compte a bien été confirmé');
-
-        return $this->redirectBack('admin_user_index');
-    }
-
-    public function getRepository(): UserRepository
-    {
-        return $this->em->getRepository(User::class);
-    }
 }

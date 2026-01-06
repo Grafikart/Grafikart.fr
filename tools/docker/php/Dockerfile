@@ -37,7 +37,7 @@ RUN adduser -D -u ${USER_ID} -G user user
 
 # Ensure the right permissions on /data/caddy
 RUN mkdir -p /data/caddy && chown -R user:user /data/caddy
-
+RUN mkdir -p /config/caddy && chown -R user:user /config/caddy/
 
 USER user
 

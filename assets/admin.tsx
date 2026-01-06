@@ -1,5 +1,5 @@
 import "./app.css";
-import { createInertiaApp } from "@inertiajs/react";
+import { createInertiaApp, usePage } from "@inertiajs/react";
 import { createRoot } from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/sonner";

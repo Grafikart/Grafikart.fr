@@ -94,7 +94,5 @@ class CourseFormInputTest extends KernelTestCase
         $this->assertCount(2, $course->getTechnologyUsages());
         $this->assertEquals(2, $course->getTechnologyUsages()->first()->getTechnology()->getId());
         $this->assertEquals(3, $course->getTechnologyUsages()->first()->getVersion();
-
-
     }
 }

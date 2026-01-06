@@ -1,4 +1,4 @@
-import { type FC, Fragment, type PropsWithChildren, type ReactNode } from "react";
+import { type FC, Fragment, type PropsWithChildren, type ReactNode, useEffect } from "react";
 import {
   Sidebar,
   SidebarContent,
@@ -12,11 +12,12 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { HouseIcon, MonitorPlayIcon, StarIcon } from "lucide-react";
-import { Link } from "@inertiajs/react";
+import { BadgeEuroIcon, HouseIcon, MonitorPlayIcon, StarIcon, UserIcon } from "lucide-react";
+import { Link, usePage } from "@inertiajs/react";
 import { adminPath } from "@/lib/url.ts";
 import { Separator } from "@/components/ui/separator.tsx";
 import { BreadcrumbNav } from "@/components/ui/breadcrumb.tsx";
+import { toast } from "sonner";
 import type { NavItem } from "@/types";
 
 type Props = {
@@ -25,6 +26,14 @@ type Props = {
 };
 
 export function Layout({ children, ...props }: PropsWithChildren<Props>) {
+  const { flash } = usePage<{ flash?: { type: "success" | "error" | "info"; message: string } }>().props;
+
+  useEffect(() => {
+    if (flash) {
+      toast[flash.type](flash.message);
+    }
+  }, [flash]);
+
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -52,7 +61,14 @@ const nav = [
       },
     ],
   },
-  { label: "Premium", children: [{ label: "Formules", icon: StarIcon, href: "/plans" }] },
+  {
+    label: "Premium",
+    children: [
+      { label: "Utilisateurs", icon: UserIcon, href: "/users" },
+      { label: "Transactions", icon: BadgeEuroIcon, href: "/transactions" },
+      { label: "Formules", icon: StarIcon, href: "/plans" },
+    ],
+  },
 ] satisfies NavItem[];
 
 function Header(props: Props) {
@@ -83,12 +99,14 @@ function AppSidebar() {
 }
 
 function SidebarItem({ item, root }: { item: NavItem; root?: boolean }) {
+  const { url } = usePage();
   if (item.href) {
+    const href = adminPath(item.href);
     const Wrapper = root ? SidebarGroup : Fragment;
     return (
       <Wrapper>
         <SidebarMenuItem key={item.label}>
-          <SidebarMenuButton render={<Link href={adminPath(item.href)} />}>
+          <SidebarMenuButton render={<Link href={href} aria-current={url.startsWith(href + "/")} />}>
             {item.icon && <item.icon />}
             <span>{item.label}</span>
           </SidebarMenuButton>

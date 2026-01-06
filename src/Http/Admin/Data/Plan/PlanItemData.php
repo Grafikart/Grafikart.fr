@@ -11,6 +11,8 @@ readonly class PlanItemData
         public int $id,
         public string $name,
         public float $price,
+        public int $duration,
+        public ?string $stripeId,
     ) {
     }
 }

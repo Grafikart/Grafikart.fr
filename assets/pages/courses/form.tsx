@@ -15,14 +15,17 @@ import { DatetimePicker } from "@/components/ui/form/datetime-picker.tsx";
 import { Switch } from "@/components/ui/switch.tsx";
 import { Label } from "@/components/ui/label.tsx";
 import { AttachmentSelector } from "@/components/ui/form/attachment-selector.tsx";
+import { PageTitle } from "@/components/page-title.tsx";
 
 type Props = {
   item: CourseFormData;
 };
 
 function ItemForm({ item }: Props) {
+  const url = `/tutoriels/${item.slug}-${item.id}`;
   return (
     <Form className="grid grid-cols-[1fr_300px] gap-4" id="form" method="post">
+      <PageTitle>{item.title || "Nouveau tutoriel"}</PageTitle>
       <main>
         <input
           name="title"
@@ -33,7 +36,7 @@ function ItemForm({ item }: Props) {
         <div className="flex text-sm text-muted-foreground mb-3 items-center">
           <span className="opacity-50">grafikart.fr/tutoriels/</span>
           <input type="text" name="slug" defaultValue={item.slug} className="outline-none field-sizing-content" />
-          <Button nativeButton={false} variant="ghost" render={<a target="_blank" href={item.url} />} size="icon-xs">
+          <Button nativeButton={false} variant="ghost" render={<a target="_blank" href={url} />} size="icon-xs">
             <LinkIcon />
           </Button>
         </div>

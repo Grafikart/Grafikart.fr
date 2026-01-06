@@ -2,12 +2,14 @@ import type { CourseListItemData, PaginatedData } from "@/types";
 import { withLayout } from "@/components/layout.tsx";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table.tsx";
 import { ButtonLink } from "@/components/ui/button.tsx";
-import { CheckCircle2Icon, CircleXIcon, CopyIcon, EditIcon, TrashIcon } from "lucide-react";
+import { CheckCircle2Icon, CircleXIcon, CopyIcon, EditIcon, MonitorPlayIcon, TrashIcon } from "lucide-react";
 import { ButtonGroup } from "@/components/ui/button-group.tsx";
 import { adminPath } from "@/lib/url.ts";
 import { Pagination } from "@/components/ui/pagination.tsx";
 import { formatDate } from "@/lib/date.ts";
 import { Fragment } from "react";
+import { PageTitle } from "@/components/page-title.tsx";
+import { Link } from "@inertiajs/react";
 
 type Props = {
   pagination: PaginatedData<CourseListItemData>;
@@ -17,6 +19,11 @@ export default withLayout<Props>(
   (props) => {
     return (
       <div className="space-y-4">
+        <PageTitle>Tutoriels</PageTitle>
+        <h1 className="flex gap-2 items-center text-xl font-semibold">
+          <MonitorPlayIcon className="text-primary" />
+          Tutoriels
+        </h1>
         <Table>
           <TableHeader>
             <TableRow>
@@ -48,7 +55,9 @@ function Item({ item }: { item: CourseListItemData }) {
   return (
     <TableRow className="group">
       <TableCell className="text-muted-foreground">{item.id}</TableCell>
-      <TableCell>{item.title}</TableCell>
+      <TableCell>
+        <Link href={href}>{item.title}</Link>
+      </TableCell>
       <TableCell>{formatDate(item.createdAt)}</TableCell>
       <TableCell>
         {item.technologies.map((tech, k) => (

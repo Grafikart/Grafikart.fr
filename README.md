@@ -63,3 +63,22 @@ Lien de redirection pour l'oauth https://grafikart.fr/oauth/check/{github|google
 
 https://www.digitalocean.com/community/tools/nginx?domains.0.server.domain=test.grafikart.fr&domains.0.server.path=%2Fhome%2Fgrafikart%2Ftest.grafikart.fr&domains.0.logging.accessLog=true&domains.0.logging.errorLog=true&global.security.limitReq=true&global.php.phpServer=%2Fvar%2Frun%2Fphp%2Fphp7.4-fpm.sock&global.logging.accessLog=%2Fvar%2Flog%2Fnginx%2Faccess.log%20warn&global.logging.errorLog=%2Fvar%2Flog%2Fnginx%2Ferror.log%20warn%20warn
 
+## TODO
+
+### Backend
+
+- Contenus
+  - Formation
+  - Technologie
+  - Blog
+- Premium
+  - Utilisateurs
+  - Transactions
+  - Commentaires
+- Divers
+  - Coupons
+  - Badges
+  - Twitch (webhooks)
+  - Options
+  - Ecoles
+- Cursus (faire le plan de formation)

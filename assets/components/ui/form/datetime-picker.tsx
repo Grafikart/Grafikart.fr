@@ -7,7 +7,6 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { CalendarIcon, ClockIcon } from "lucide-react";
 import { Separator } from "@/components/ui/separator.tsx";
-import { Input } from "@/components/ui/input.tsx";
 
 type Props = {
   defaultValue?: string | null;
@@ -19,7 +18,7 @@ export function DatetimePicker(props: Props) {
   const [date, setDate] = React.useState<Date>(new Date(props.defaultValue ?? Date.now()));
 
   return (
-    <div className="flex gap-2 items-center border border-input rounded-lg dark:group-[.bg-card]/card:bg-background h-9">
+    <div className="flex gap-2 items-center border border-input rounded-lg in-[.bg-card]:bg-background/50! h-9">
       <input name={props.name} value={date.toISOString()} type="hidden" />
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger

@@ -17,6 +17,7 @@ id: number;
 url: string;
 };
 export type CourseFormData = {
+id: number | null;
 title: string;
 slug: string;
 createdAt: any;
@@ -43,20 +44,58 @@ createdAt: string;
 online: boolean;
 technologies: Array<TechnologyListItemData>;
 };
+export type DailyData = {
+date: string;
+value: number;
+};
 export type FolderData = {
 path: string;
 count: number;
+};
+export type MonthlyData = {
+month: number;
+year: number;
+value: number;
 };
 export type OptionResource = {
 id: number;
 name: string;
 };
+export type PlanFormData = {
+name: string;
+price: number;
+duration: number;
+stripeId: string | null;
+};
 export type PlanItemData = {
 id: number;
 name: string;
 price: number;
+duration: number;
+stripeId: string | null;
 };
 export type TechnologyListItemData = {
 name: string;
 url: string;
+};
+export type TransactionItemData = {
+id: number;
+price: number;
+tax: number;
+duration: number;
+method: string;
+refunded: boolean;
+createdAt: string;
+userId: number;
+username: string;
+email: string;
+};
+export type UserItemData = {
+id: number;
+username: string;
+email: string;
+createdAt: string;
+isPremium: boolean;
+isBanned: boolean;
+lastLoginIp: string | null;
 };

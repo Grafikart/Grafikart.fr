@@ -11,6 +11,7 @@ readonly class CourseFormData
 {
 
     public function __construct(
+        public ?int $id = null,
         public string $title = '',
         public string $slug = '',
         public \DateTimeInterface $createdAt = new \DateTimeImmutable(),

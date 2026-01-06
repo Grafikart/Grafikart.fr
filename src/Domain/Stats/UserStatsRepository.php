@@ -3,6 +3,8 @@
 namespace App\Domain\Stats;
 
 use App\Domain\Auth\User;
+use App\Http\Admin\Data\Chart\DailyData;
+use App\Http\Admin\Data\Chart\MonthlyData;
 use App\Infrastructure\Orm\AbstractRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -13,14 +15,24 @@ class UserStatsRepository extends AbstractRepository
         parent::__construct($registry, User::class);
     }
 
+    /**
+     * @return DailyData[]
+     */
     public function getDailySignups(): array
     {
-        return $this->aggregateSignup('yyyy-mm-dd', 'dd', 30);
+        /** @var array{date: string, fulldate: string, amount: int}[] $data */
+        $data = $this->aggregateSignup('yyyy-mm-dd', 'dd', 30);
+        return array_map(fn (array $datum) => new DailyData(date: $datum['fulldate'], value: $datum['amount']), $data);
     }
 
+    /**
+     * @return MonthlyData[]
+     */
     public function getMonthlySignups(): array
     {
-        return $this->aggregateSignup('yyyy-mm', 'mm', 24);
+        /** @var array{date: string, fulldate: string, amount: int}[] $data */
+        $data = $this->aggregateSignup('yyyy-mm', 'mm', 24);
+        return array_map(fn (array $datum) => new MonthlyData(month: intval($datum['date']), year: intval(explode('-', $datum['fulldate'])[0]), value: $datum['amount']), $data);
     }
 
     private function aggregateSignup(string $group, string $label, int $limit): array
