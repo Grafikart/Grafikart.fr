@@ -3,7 +3,7 @@
 namespace App\Http\Admin\Data\Technology;
 
 use App\Component\ObjectMapper\Attribute\MapCollection;
-use App\Http\Api\Resource\OptionResource;
+use App\Http\Data\OptionItemData;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
 #[TypeScript]
@@ -15,8 +15,8 @@ readonly class TechnologyFormData
         public string $slug = '',
         public string $content = '',
         public ?string $image = null,
-        #[MapCollection(item: OptionResource::class, source: 'requirements')]
-        /** @var OptionResource[] */
+        #[MapCollection(item: OptionItemData::class, source: 'requirements')]
+        /** @var OptionItemData[] */
         public array $requirements = [],
     ) {
     }

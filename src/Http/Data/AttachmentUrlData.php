@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Api\Resource;
+namespace App\Http\Data;
 
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
 #[TypeScript]
-readonly class OptionResource
+readonly class AttachmentUrlData
 {
     public function __construct(
         public int $id,
-        public string $name,
+        public string $url,
     ) {
     }
 }

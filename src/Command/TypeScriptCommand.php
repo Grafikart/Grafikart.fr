@@ -33,6 +33,7 @@ class TypeScriptCommand
         $config = TypeScriptTransformerConfig::create()
             ->autoDiscoverTypes(
                 sprintf('%s/src/Http/Data', $this->rootDir),
+                sprintf('%s/src/Http/Admin/Data', $this->rootDir),
                 sprintf('%s/src/Domain/Course/DTO', $this->rootDir)
             )
             ->defaultTypeReplacements([

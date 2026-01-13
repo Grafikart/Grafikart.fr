@@ -12,7 +12,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { BadgeEuroIcon, BotIcon, HouseIcon, MonitorPlayIcon, StarIcon, UserIcon } from "lucide-react";
+import { BadgeEuroIcon, BookOpenTextIcon, BotIcon, HouseIcon, MonitorPlayIcon, StarIcon, UserIcon } from "lucide-react";
 import { Link, usePage } from "@inertiajs/react";
 import { adminPath } from "@/lib/url.ts";
 import { Separator } from "@/components/ui/separator.tsx";
@@ -63,6 +63,11 @@ const nav = [
         label: "Technologies",
         icon: BotIcon,
         href: "/technologies",
+      },
+      {
+        label: "Blog",
+        icon: BookOpenTextIcon,
+        href: "/posts",
       },
     ],
   },

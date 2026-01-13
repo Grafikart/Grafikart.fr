@@ -22,7 +22,8 @@ readonly class PaginationNormalizer implements NormalizerInterface
         if (!$data instanceof SlidingPagination) {
             throw new \Exception(sprintf('%s cannot be used to serialize %s', self::class, $data::class));
         }
-        $itemCls = $context['item'] ?? '';
+        $firstItem = $data->getItems()[0] ?? null;
+        $itemCls = $context['item'] ?? ($firstItem ? get_class($firstItem) : null);
         if (empty($itemCls)) {
             throw new \Exception('you must set an item property in the context to choose how to map each item');
         }

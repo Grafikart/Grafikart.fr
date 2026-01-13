@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\HttpKernel\Attribute\MapUploadedFile;
 use Symfony\Component\Routing\Attribute\Route;
-use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 #[Route(path: '/technologies', name: 'technology_')]
 final class TechnologyController extends InertiaController

@@ -125,6 +125,7 @@ abstract class InertiaController extends BaseController
         assert($data instanceof $this->inputDataClass);
 
         $old ??= clone $entity;
+        $entity->setUpdatedAt(new \DateTimeImmutable());
         $this->mapper->map($data, $entity);
         $this->em->flush();
         if ($this->events['update'] ?? null) {

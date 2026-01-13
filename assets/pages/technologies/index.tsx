@@ -2,7 +2,7 @@ import type { PaginatedData, TechnologyItemData } from "@/types";
 import { withLayout } from "@/components/layout.tsx";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table.tsx";
 import { ButtonLink } from "@/components/ui/button.tsx";
-import { EditIcon, WrenchIcon } from "lucide-react";
+import { EditIcon, PlusCircleIcon, WrenchIcon } from "lucide-react";
 import { adminPath } from "@/lib/url.ts";
 import { Pagination } from "@/components/ui/pagination.tsx";
 import { PageTitle } from "@/components/page-title.tsx";
@@ -42,6 +42,12 @@ export default withLayout<Props>(
   },
   {
     breadcrumb: [{ label: "Technologies", href: adminPath("technologies") }],
+    top: (
+      <ButtonLink href={adminPath("/technologies/new")}>
+        <PlusCircleIcon />
+        Créer une technologie
+      </ButtonLink>
+    ),
   },
 );
 

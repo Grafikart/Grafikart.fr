@@ -6,6 +6,10 @@ size: number;
 url: any;
 thumbnail: string;
 };
+export type AttachmentUrlData = {
+id: number;
+url: string;
+};
 export type ContentTechnologyDTO = {
 id: number;
 primary: boolean;
@@ -57,7 +61,7 @@ month: number;
 year: number;
 value: number;
 };
-export type OptionResource = {
+export type OptionItemData = {
 id: number;
 name: string;
 };
@@ -74,13 +78,29 @@ price: number;
 duration: number;
 stripeId: string | null;
 };
+export type PostFormData = {
+id: number | null;
+title: string;
+slug: string;
+createdAt: any;
+category: number | null;
+online: boolean;
+image: AttachmentUrlData | null;
+content: string;
+categories: Array<OptionItemData>;
+};
+export type PostRowData = {
+id: number;
+title: string;
+online: boolean;
+};
 export type TechnologyFormData = {
 id: number | null;
 name: string;
 slug: string;
 content: string;
 image: string | null;
-requirements: Array<OptionResource>;
+requirements: Array<OptionItemData>;
 };
 export type TechnologyItemData = {
 id: number;

@@ -5,7 +5,7 @@ namespace App\Http\Api\Controller;
 use App\Component\ObjectMapper\ObjectMapperInterface;
 use App\Domain\Course\Entity\Technology;
 use App\Domain\Course\Repository\TechnologyRepository;
-use App\Http\Api\Resource\OptionResource;
+use App\Http\Data\OptionItemData;
 use App\Http\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,6 +25,6 @@ class TechnologyController extends AbstractController
         }
         $technologies = $technologyRepository->searchByName($search);
 
-        return $this->json(array_map(fn (Technology $t) => $mapper->map($t, OptionResource::class), $technologies));
+        return $this->json(array_map(fn (Technology $t) => $mapper->map($t, OptionItemData::class), $technologies));
     }
 }
