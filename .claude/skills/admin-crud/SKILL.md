@@ -1,4 +1,9 @@
-# Instruction pour créer un nouveau panneau d'administration
+---
+name: admin-crud
+description: Create admin panel CRUD interfaces with Inertia.js. Use when creating new admin pages, admin listings, admin forms, or admin controllers for managing entities.
+---
+
+# Instructions pour créer un nouveau panneau d'administration
 
 Voici les instructions à suivre pour créer une interface d'administration.
 

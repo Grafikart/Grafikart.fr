@@ -2,7 +2,15 @@ import type { CourseListItemData, PaginatedData } from "@/types";
 import { withLayout } from "@/components/layout.tsx";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table.tsx";
 import { ButtonLink } from "@/components/ui/button.tsx";
-import { CheckCircle2Icon, CircleXIcon, CopyIcon, EditIcon, MonitorPlayIcon, TrashIcon } from "lucide-react";
+import {
+  CheckCircle2Icon,
+  CircleXIcon,
+  CopyIcon,
+  EditIcon,
+  MonitorPlayIcon,
+  PlusCircleIcon,
+  TrashIcon,
+} from "lucide-react";
 import { ButtonGroup } from "@/components/ui/button-group.tsx";
 import { adminPath } from "@/lib/url.ts";
 import { Pagination } from "@/components/ui/pagination.tsx";
@@ -47,6 +55,12 @@ export default withLayout<Props>(
   },
   {
     breadcrumb: [{ label: "Tutoriel", href: adminPath("courses") }],
+    top: (
+      <ButtonLink href={adminPath("/courses/new")}>
+        <PlusCircleIcon />
+        Créer un cours
+      </ButtonLink>
+    ),
   },
 );
 

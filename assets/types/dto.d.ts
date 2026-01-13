@@ -74,6 +74,20 @@ price: number;
 duration: number;
 stripeId: string | null;
 };
+export type TechnologyFormData = {
+id: number | null;
+name: string;
+slug: string;
+content: string;
+image: string | null;
+requirements: Array<OptionResource>;
+};
+export type TechnologyItemData = {
+id: number;
+name: string;
+image: string | null;
+tutorialCount: number;
+};
 export type TechnologyListItemData = {
 name: string;
 url: string;

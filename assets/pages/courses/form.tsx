@@ -7,7 +7,8 @@ import { Form } from "@/components/form.tsx";
 import { FormField } from "@/components/form-field.tsx";
 import { MDEditor } from "@/components/ui/form/mdeditor.tsx";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card.tsx";
-import { CircleCheckIcon, LinkIcon, SaveIcon, UploadIcon } from "lucide-react";
+import { CircleCheckIcon, SaveIcon, UploadIcon } from "lucide-react";
+import { SlugInput } from "@/components/ui/form/slug-input.tsx";
 import { Input } from "@/components/ui/input.tsx";
 import { TechnologySelector } from "@/components/ui/form/technology-selector.tsx";
 import { LevelSelector } from "@/components/ui/form/level-selector.tsx";
@@ -22,7 +23,7 @@ type Props = {
 };
 
 function ItemForm({ item }: Props) {
-  const url = `/tutoriels/${item.slug}-${item.id}`;
+  const url = item.id ? `/tutoriels/${item.slug}-${item.id}` : undefined;
   return (
     <Form className="grid grid-cols-[1fr_300px] gap-4" id="form" method="post">
       <PageTitle>{item.title || "Nouveau tutoriel"}</PageTitle>
@@ -33,13 +34,7 @@ function ItemForm({ item }: Props) {
           className="text-2xl font-semibold outline-none block mb-1"
           placeholder="Titre"
         />
-        <div className="flex text-sm text-muted-foreground mb-3 items-center">
-          <span className="opacity-50">grafikart.fr/tutoriels/</span>
-          <input type="text" name="slug" defaultValue={item.slug} className="outline-none field-sizing-content" />
-          <Button nativeButton={false} variant="ghost" render={<a target="_blank" href={url} />} size="icon-xs">
-            <LinkIcon />
-          </Button>
-        </div>
+        <SlugInput defaultValue={item.slug} prefix="grafikart.fr/tutoriels/" url={url} />
         <MDEditor defaultValue={item.content} name="content" />
       </main>
       <aside className="space-y-6">

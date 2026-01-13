@@ -5,6 +5,7 @@ import { useRender } from "@base-ui/react/use-render";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { Input } from "@/components/ui/input.tsx";
 import { ValidationError } from "@/components/ui/form/validation-error.tsx";
+import { Textarea } from "@/components/ui/textarea.tsx";
 
 type Props = useRender.ComponentProps<"input"> & {
   label: string;
@@ -19,7 +20,7 @@ export function FormField(props: Props) {
   const children =
     props.children ??
     useRender({
-      render: render ?? <Input />,
+      render: render ?? fieldFor(props.type),
       props: mergeProps<"input">({ id: props.name, name: props.name, "aria-invalid": Boolean(error) }, otherProps),
     });
 
@@ -33,4 +34,11 @@ export function FormField(props: Props) {
       <ValidationError name={props.name} />
     </Field>
   );
+}
+
+function fieldFor(s?: string) {
+  if (s === "textarea") {
+    return <Textarea />;
+  }
+  return <Input />;
 }

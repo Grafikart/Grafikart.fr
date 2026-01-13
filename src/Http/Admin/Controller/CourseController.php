@@ -71,7 +71,7 @@ final class CourseController extends InertiaController
         }
 
         return $this->renderComponent('courses/form', [
-            'course' => $data,
+            'item' => $data,
         ]);
     }
 
