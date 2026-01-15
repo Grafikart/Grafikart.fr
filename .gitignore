@@ -1,54 +1,33 @@
-/BAK
-/public/report.html
-/downloads/*
-/public/assets
-/public/icons
-/public/demo
-/public/old
-/public/uploads
-/public/media-kit
-*.sql
-.pnpm-store
+# Project specific
+.vault_pass
+var
 
-# Assets
-/assets/css/app.css
-/assets/css/app.css.map
-/node_modules/
-/public/build/
-/public/podcasts/
+# Laravel gitignore
+/.phpunit.cache
+/bootstrap/ssr
+/node_modules
+/public/build
+/public/hot
+/public/storage
+/resources/js/actions
+/resources/js/routes
+/resources/js/wayfinder
+/storage/*.key
+/storage/pail
+/vendor
+.DS_Store
+.env
+.env.backup
+.env.production
+.phpactor.json
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
 npm-debug.log
 yarn-error.log
-.vault_pass
-Migration.md
-
-###> symfony/framework-bundle ###
-/.env.local
-/.env.local.php
-/.env.*.local
-/config/secrets/prod/prod.decrypt.private.php
-/public/bundles/
-/var/
-/vendor/
-###< symfony/framework-bundle ###
-
-###> symfony/phpunit-bridge ###
-.phpunit.result.cache
-/phpunit.xml
-###< symfony/phpunit-bridge ###
-
-###> phpunit/phpunit ###
-/phpunit.xml
-.phpunit.result.cache
-###< phpunit/phpunit ###
-
-.idea
-
-###> friendsofphp/php-cs-fixer ###
-/.php-cs-fixer.php
-/.php-cs-fixer.cache
-###< friendsofphp/php-cs-fixer ###
-
-###> pentatrion/vite-bundle ###
-/node_modules/
-/public/build/
-###< pentatrion/vite-bundle ###
+/auth.json
+/.fleet
+/.idea
+/.nova
+/.vscode
+/.zed

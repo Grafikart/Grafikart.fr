@@ -1,52 +1,27 @@
-import {defineConfig, type PluginOption} from "vite";
-import symfonyPlugin from "vite-plugin-symfony";
-import react from '@vitejs/plugin-react'
-import tailwindcss from "@tailwindcss/vite";
-import {resolve} from "node:path";
-
-/**
- * Rafraichi la page quand on modifie un fichier twig
- */
-const twigRefreshPlugin = (): PluginOption => ({
-  name: "twig-refresh",
-  configureServer({ watcher, ws }) {
-    watcher.add(resolve(__dirname, "templates/**/*.twig"));
-    watcher.on("change", function (path) {
-      if (path.endsWith(".twig")) {
-        ws.send({
-          type: "full-reload",
-        });
-      }
-    });
-  },
-});
+import { wayfinder } from '@laravel/vite-plugin-wayfinder';
+import tailwindcss from '@tailwindcss/vite';
+import react from '@vitejs/plugin-react';
+import laravel from 'laravel-vite-plugin';
+import { defineConfig } from 'vite';
 
 export default defineConfig({
-  server: {
-    port: 3000,
-    host: '0.0.0.0'
-  },
-  plugins: [
-    react({
-      babel: {
-        plugins: [['babel-plugin-react-compiler']],
-      },
-    }),
-    twigRefreshPlugin(),
-    tailwindcss(),
-    symfonyPlugin(),
-  ],
-  resolve: {
-    alias: {
-      "@": resolve(__dirname, "./assets"),
+    plugins: [
+        laravel({
+            input: ['resources/css/app.css', 'resources/js/app.tsx'],
+            ssr: 'resources/js/ssr.tsx',
+            refresh: true,
+        }),
+        react({
+            babel: {
+                plugins: ['babel-plugin-react-compiler'],
+            },
+        }),
+        tailwindcss(),
+        wayfinder({
+            formVariants: true,
+        }),
+    ],
+    esbuild: {
+        jsx: 'automatic',
     },
-  },
-  build: {
-    rolldownOptions: {
-      input: {
-        app: "./assets/app.ts",
-        admin: "./assets/admin.tsx"
-      },
-    }
-  },
 });

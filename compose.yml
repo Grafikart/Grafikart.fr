@@ -1,0 +1,95 @@
+services:
+#  php:
+#    ports:
+#      - "8000:8000"
+#    user: '${USER_ID}:${GROUP_ID}'
+#    restart: unless-stopped
+#    build: ./tools/docker/php
+#    volumes:
+#      - .:/app:delegated
+#    depends_on:
+#      - db
+#    environment:
+#      SERVER_NAME: "http://localhost:8000"
+#      PHP_IDE_CONFIG: serverName=grafikart
+#      REDIS_HOST: redis
+#      MAILER_DSN: smtp://mail:1025?encryption=null&auth_mode=null
+#      DATABASE_URL: postgresql://grafikart:grafikart@db:5432/grafikart?serverVersion=12&chartset=utf8
+#      MERCURE_PUBLISH_URL: http://mercure/.well-known/mercure
+#      MESSENGER_TRANSPORT_DSN: redis://redis:6379/messages
+#      MESSENGER_TRANSPORT_FAILED_DSN: redis://redis:6379/messages_failed
+#      MEILISEARCH_HOST: "meilisearch:7700"
+  db:
+    restart: unless-stopped
+    image: postgres:12-alpine
+    ports:
+      - "5432:5432" # On expose le port pour pouvoir inspecter la base pendant la phase de développement
+    environment:
+      POSTGRES_PASSWORD: grafikart
+      POSTGRES_USER: grafikart
+      POSTGRES_DB: grafikart
+      POSTGRES_HOST_AUTH_METHOD: trust
+      TZ: Europe/Paris
+      PGTZ: Europe/Paris
+    volumes:
+      - ./var/db:/var/lib/postgresql/data
+      - ./var:/var/www/var
+  redis:
+    restart: unless-stopped
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+  typesense:
+    restart: unless-stopped
+    image: typesense/typesense:28.0
+    ports:
+      - "8108:8108"
+    command: '--data-dir /data --api-key=typesensekey --enable-cors'
+    volumes:
+      - ./var/typesense:/data
+
+#  mercure:
+#    restart: unless-stopped
+#    image: dunglas/mercure
+#    environment:
+#      SERVER_NAME: ':80'
+#      MERCURE_EXTRA_DIRECTIVES: 'cors_origins http://grafikart.localhost:8000'
+#      MERCURE_SUBSCRIBER_JWT_KEY: MercureSubscriberJWTSecretForDebugPurpose
+#      MERCURE_PUBLISHER_JWT_KEY: MercurePublisherJWTSecretForDebugPurpose
+#      GLOBAL_OPTIONS: debug
+#    ports:
+#      - 8001:80
+  # Dev tools
+  adminer:
+    image: adminer
+    environment:
+      APP_ENV: dev
+      ADMINER_DESIGN: pepa-linha
+      ADMINER_DEFAULT_SERVER: db
+    ports:
+      - 8888:8080
+  mail:
+    image: mailhog/mailhog
+    ports:
+      - "1080:8025"
+#  redis-gui:
+#    image: rediscommander/redis-commander
+#    environment:
+#      - REDIS_HOSTS=local:redis:6379
+#    ports:
+#      - "8081:8081"
+#  bun:
+#    user: '${USER_ID}:${GROUP_ID}'
+#    image: oven/bun
+#    command: bun run dev
+#    working_dir: /usr/src/app
+#    volumes:
+#      - .:/usr/src/app
+#    ports:
+#      - "3000:3000"
+#  dbtest:
+#    image: postgres:12
+#    environment:
+#      POSTGRES_PASSWORD: test
+#      POSTGRES_USER: test
+#      POSTGRES_DB: test
