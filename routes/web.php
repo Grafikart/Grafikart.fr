@@ -6,7 +6,7 @@ use Laravel\Fortify\Features;
 
 
 Route::group(['prefix' => '/admin'], function () {
-    Route::resource('blog_category', \App\Http\Admin\BlogCategoryController::class);
+    Route::resource('blog_category', \App\Http\Cms\BlogCategoryController::class);
 });
 
 //Route::get('/', function () {
