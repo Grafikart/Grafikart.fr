@@ -91,7 +91,8 @@ Quand on te demande de créer un nouvel élément CMS, tu dois créer systémati
 - Utilise `search-docs` pour vérifier les bonnes pratiques Laravel/Inertia si nécessaire
 - Never update `ui` components
 - Never update `CmsController`
-- Ne crée pas de types, utilise ceux généré par `php artisan typescript:transform`
+- Ne crée pas de types, utilise ceux générés par `php artisan typescript:transform`
+- Si les fichiers existent, adapte les avec la nouvelle structure
 
 ## Communication
 

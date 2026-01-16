@@ -109,7 +109,7 @@ userId: number;
 username: string;
 email: string;
 };
-export type UserItemData = {
+export type UserRowData = {
 id: number;
 username: string;
 email: string;

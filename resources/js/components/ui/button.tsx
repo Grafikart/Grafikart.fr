@@ -52,19 +52,15 @@ function Button({
 
 function ButtonLink({
   href,
-  children,
-  method,
   confirm,
   ...props
-}: { href: string | UrlMethodPair; method?: "delete" | "post" | "put"; confirm?: string } & ComponentProps<typeof Button>) {
+}: { href: string | UrlMethodPair; confirm?: string } & ComponentProps<typeof Button>) {
   return (
     <Button
       {...props}
       render={<Link href={href} onBefore={confirm ? () => window.confirm(confirm) : undefined} />}
       nativeButton={false}
-    >
-      {children}
-    </Button>
+    />
   );
 }
 

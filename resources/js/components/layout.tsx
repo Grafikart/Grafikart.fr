@@ -1,3 +1,5 @@
+import PlanController from '@/actions/App/Http/Cms/PlanController.ts';
+import UserController from '@/actions/App/Http/Cms/UserController.ts';
 import { BreadcrumbNav } from '@/components/ui/breadcrumb.tsx';
 import { Separator } from '@/components/ui/separator.tsx';
 import {
@@ -93,13 +95,17 @@ const nav = [
     {
         label: 'Premium',
         children: [
-            { label: 'Utilisateurs', icon: UserIcon, href: '/users' },
+            {
+                label: 'Utilisateurs',
+                icon: UserIcon,
+                href: UserController.index(),
+            },
             {
                 label: 'Transactions',
                 icon: BadgeEuroIcon,
                 href: '/transactions',
             },
-            { label: 'Formules', icon: StarIcon, href: '/plans' },
+            { label: 'Formules', icon: StarIcon, href: PlanController.index() },
         ],
     },
 ] satisfies NavItem[];

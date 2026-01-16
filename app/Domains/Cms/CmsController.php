@@ -50,11 +50,11 @@ abstract class CmsController
         'destroy' => ContentDeletedEvent::class,
     ];
 
-    protected function cmsIndex(?Builder $builder = null, array $extra = []): Response
+    protected function cmsIndex(?Builder $query = null, array $extra = []): Response
     {
         return Inertia::render(sprintf('%s/index', $this->componentPath), [
             'pagination' => ($this->rowData)::collect(
-                ($builder ?? ($this->model)::query())->paginate(15)),
+                ($query ?? ($this->model)::query())->paginate(15)),
             ...$extra,
         ]);
     }
@@ -99,12 +99,12 @@ abstract class CmsController
         return to_route(sprintf('cms.%s.index', $this->route))->with('success', 'Le contenu a bien été créé');
     }
 
-    public function cmsDestroy(Model $model): RedirectResponse
+    public function cmsDestroy(Model $model, ?string $message = null): RedirectResponse
     {
         assert($model instanceof $this->model);
         $model->delete();
         event(new ($this->events['destroy'])($model));
 
-        return to_route(sprintf('cms.%s.index', $this->route))->with('success', 'Le contenu a bien été supprimé');
+        return to_route(sprintf('cms.%s.index', $this->route))->with('success', $message ?? 'Le contenu a bien été supprimé');
     }
 }

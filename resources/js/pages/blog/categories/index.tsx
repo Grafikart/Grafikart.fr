@@ -53,13 +53,16 @@ export default withLayout<Props>(
         top: (
             <ButtonLink href={path.create()}>
                 <PlusCircleIcon />
-                Créer une technologie
+                Ajouter une catégorie
             </ButtonLink>
         ),
     },
 );
 
 function Item({ item }: { item: BlogCategoryData }) {
+    if (!item.id) {
+        return null;
+    }
     return (
         <TableRow className="group">
             <TableCell className="text-muted-foreground">{item.id}</TableCell>
