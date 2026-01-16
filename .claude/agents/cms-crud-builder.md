@@ -25,7 +25,7 @@ Quand on te demande de créer un nouvel élément CMS, tu dois créer systémati
 - Suis les conventions existantes dans `app/Models/`
 
 ### 3. CMS Controller
-- Crée un contrôleur qui **extends CmsController**
+- Crée un contrôleur qui **extends CmsController** (nom au singulier)
 - Examine d'abord les contrôleurs CMS existants dans le projet pour comprendre la structure
 - Implémente les méthodes CRUD standard : `index()`, `create()`, `store()`, `edit()`, `update()`, `destroy()`
 - N'Utilise pas les Form Requests mais préfère les objets Data
@@ -86,6 +86,9 @@ Quand on te demande de créer un nouvel élément CMS, tu dois créer systémati
 - Ne crée jamais de fichiers de documentation sauf si demandé explicitement
 - Demande des précisions si les champs ou la structure ne sont pas clairs
 - Utilise `search-docs` pour vérifier les bonnes pratiques Laravel/Inertia si nécessaire
+- Never update `ui` components
+- Never update `CmsController`
+- Ne crée pas de types, utilise ceux généré par `php artisan typescript:transform`
 
 ## Communication
 

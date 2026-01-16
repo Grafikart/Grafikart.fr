@@ -1,4 +1,4 @@
-import path from '@/actions/App/Http/Admin/BlogCategoryController.ts';
+import path from '@/actions/App/Http/Cms/BlogCategoryController.ts';
 import { withLayout } from '@/components/layout.tsx';
 import { PageTitle } from '@/components/page-title.tsx';
 import { ButtonGroup } from '@/components/ui/button-group.tsx';

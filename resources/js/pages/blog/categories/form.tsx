@@ -1,4 +1,4 @@
-import path from '@/actions/App/Http/Admin/BlogCategoryController.ts';
+import path from '@/actions/App/Http/Cms/BlogCategoryController.ts';
 import { FormField } from '@/components/form-field.tsx';
 import { Form } from '@/components/form.tsx';
 import { withLayout } from '@/components/layout.tsx';

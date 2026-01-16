@@ -7,7 +7,7 @@ url: any;
 thumbnail: string;
 };
 export type BlogCategoryData = {
-id: number;
+id: number | null;
 name: string;
 slug: string;
 };
@@ -56,18 +56,12 @@ month: number;
 year: number;
 value: number;
 };
-export type PlanFormData = {
+export type PlanData = {
+id: number | null;
 name: string;
 price: number;
 duration: number;
-stripeId: string | null;
-};
-export type PlanItemData = {
-id: number;
-name: string;
-price: number;
-duration: number;
-stripeId: string | null;
+stripeId: string;
 };
 export type PostFormData = {
 id: number | null;

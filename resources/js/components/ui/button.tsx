@@ -56,7 +56,7 @@ function ButtonLink({
   method,
   confirm,
   ...props
-}: { href: UrlMethodPair; method?: "delete" | "post" | "put"; confirm?: string } & ComponentProps<typeof Button>) {
+}: { href: string | UrlMethodPair; method?: "delete" | "post" | "put"; confirm?: string } & ComponentProps<typeof Button>) {
   return (
     <Button
       {...props}

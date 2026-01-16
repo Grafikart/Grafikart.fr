@@ -51,6 +51,9 @@ build-docker:
 dev: node_modules/time ## Lance le serveur de développement
 	$(dc) up
 
+debug:
+	php -dxdebug.mode=debug -dxdebug.client_port=9003 -dxdebug.client_host=127.0.0.1 artisan serve
+
 devmac: ## Sur MacOS on ne préfèrera exécuter PHP en local pour les performances
 	docker compose -f docker-compose.macos.yml up
 
