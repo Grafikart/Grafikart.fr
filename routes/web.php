@@ -4,7 +4,7 @@ use App\Http\Cms\BlogCategoryController;
 use App\Http\Cms\PlanController;
 use Illuminate\Support\Facades\Route;
 
-Route::group(['prefix' => '/admin'], function () {
+Route::group(['prefix' => '/cms', 'as' => 'cms.'], function () {
     Route::resource('blog_categories', BlogCategoryController::class);
     Route::resource('plans', PlanController::class)->except(['edit', 'create']);
 });

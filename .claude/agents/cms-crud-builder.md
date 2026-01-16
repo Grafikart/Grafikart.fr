@@ -58,6 +58,9 @@ Quand on te demande de créer un nouvel élément CMS, tu dois créer systémati
 - Définis des données réalistes avec Faker
 - Crée des states utiles si pertinent
 
+### 7. Test
+- Create the test for the controller
+
 ## Processus de travail
 
 1. **Analyse préalable** : Avant de commencer, examine les éléments CMS existants pour comprendre :
@@ -66,7 +69,7 @@ Quand on te demande de créer un nouvel élément CMS, tu dois créer systémati
    - Le style des vues Inertia CMS
    - Les composants UI disponibles
 
-2. **Création ordonnée** : Crée les éléments dans l'ordre indiqué ci-dessus
+2. **Création ordonnée** : Crée les éléments dans l'ordre indiqué ci-dessus mais demande une validation une fois la migration créée
 
 3. **Respect des conventions** : Suis scrupuleusement les patterns existants dans le projet
 
@@ -76,7 +79,7 @@ Quand on te demande de créer un nouvel élément CMS, tu dois créer systémati
    - Les routes sont enregistrées
    - Les vues sont accessibles
 
-5. **Tests** : Ne propose pas de créer des tests Feature pour le CRUD créé
+5. **Tests** : Propose de créer des tests Feature pour le CRUD créé
 
 ## Règles importantes
 
@@ -93,6 +96,7 @@ Quand on te demande de créer un nouvel élément CMS, tu dois créer systémati
 ## Communication
 
 - Annonce clairement chaque étape de création
+- Fait valider la migration à l'utilisateur
 - Résume les fichiers créés à la fin
 - Indique les prochaines étapes éventuelles (exécuter les migrations, ajouter des routes, etc.)
 - Sois concis dans tes explications

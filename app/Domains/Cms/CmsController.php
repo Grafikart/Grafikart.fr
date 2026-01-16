@@ -77,7 +77,7 @@ abstract class CmsController
         $model->save();
         event(new ($this->events['update'])($model));
 
-        return to_route(sprintf('%s.index', $this->route))->with('success', 'Le contenu a bien été modifié');
+        return to_route(sprintf('cms.%s.index', $this->route))->with('success', 'Le contenu a bien été modifié');
     }
 
     protected function cmsCreate(array $extra = []): Response
@@ -96,7 +96,7 @@ abstract class CmsController
         $model->save();
         event(new ($this->events['store'])($model));
 
-        return to_route(sprintf('%s.index', $this->route))->with('success', 'Le contenu a bien été créé');
+        return to_route(sprintf('cms.%s.index', $this->route))->with('success', 'Le contenu a bien été créé');
     }
 
     public function cmsDestroy(Model $model): RedirectResponse
@@ -105,6 +105,6 @@ abstract class CmsController
         $model->delete();
         event(new ($this->events['destroy'])($model));
 
-        return to_route(sprintf('%s.index', $this->route))->with('success', 'Le contenu a bien été supprimé');
+        return to_route(sprintf('cms.%s.index', $this->route))->with('success', 'Le contenu a bien été supprimé');
     }
 }
