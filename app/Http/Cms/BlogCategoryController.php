@@ -15,7 +15,7 @@ class BlogCategoryController extends CmsController
     protected string $rowData = BlogCategoryData::class;
     protected string $formData = BlogCategoryData::class;
     protected string $requestData = BlogCategoryData::class;
-    protected string $route = 'blog_category';
+    protected string $route = 'blog_categories';
 
     public function index(): Response
     {

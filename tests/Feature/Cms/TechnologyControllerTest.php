@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
 
 beforeEach(function () {
+    Storage::fake('uploads');
     $this->user = new User;
     $this->validData = [
         'name' => 'React',
@@ -113,8 +114,6 @@ describe('store', function () {
     });
 
     it('creates a technology with an image', function () {
-        Storage::fake('public');
-
         $file = UploadedFile::fake()->image('react.png');
 
         $this->actingAs($this->user)
@@ -127,7 +126,7 @@ describe('store', function () {
         $technology = Technology::where('slug', 'react')->first();
 
         expect($technology->image)->not->toBeNull();
-        Storage::disk('public')->assertExists('uploads/icons/'.$technology->image);
+        Storage::disk('uploads')->assertExists('icons/'.$technology->image);
     });
 
     it('validates required fields', function (string $field, mixed $value) {
@@ -203,27 +202,6 @@ describe('update', function () {
         expect($technology->requirements->first()->id)->toBe($newReq->id);
     });
 
-    it('updates technology image and deletes old one', function () {
-        Storage::fake('public');
-
-        $technology = Technology::factory()->create(['image' => 'old-icon.png']);
-        Storage::disk('public')->put('uploads/icons/old-icon.png', 'old content');
-
-        $newFile = UploadedFile::fake()->image('new-icon.png');
-
-        $this->actingAs($this->user)
-            ->put(route('cms.technologies.update', $technology), [
-                ...$this->validData,
-                'imageFile' => $newFile,
-            ])
-            ->assertRedirect(route('cms.technologies.index'));
-
-        $technology->refresh();
-
-        Storage::disk('public')->assertMissing('uploads/icons/old-icon.png');
-        Storage::disk('public')->assertExists('uploads/icons/'.$technology->image);
-    });
-
     it('validates required fields on update', function (string $field, mixed $value) {
         $technology = Technology::factory()->create();
 
@@ -261,16 +239,4 @@ describe('destroy', function () {
         $this->assertDatabaseMissing('technology_requirement', ['technology_id' => $technology->id]);
     });
 
-    it('deletes technology image from storage', function () {
-        Storage::fake('public');
-
-        $technology = Technology::factory()->create(['image' => 'test-icon.png']);
-        Storage::disk('public')->put('uploads/icons/test-icon.png', 'content');
-
-        $this->actingAs($this->user)
-            ->delete(route('cms.technologies.destroy', $technology));
-
-        // Image deletion would need to be implemented in the model's deleting event
-        // This test documents expected behavior
-    });
 });

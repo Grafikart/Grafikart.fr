@@ -72,7 +72,7 @@ abstract class CmsController
     protected function cmsUpdate(Model $model, DataToModel $data): RedirectResponse
     {
         assert($model instanceof $this->model);
-        assert($data instanceof $this->formData);
+        assert($data instanceof $this->requestData);
         $data->toModel($model);
         $model->save();
         event(new ($this->events['update'])($model));

@@ -44,8 +44,11 @@ trait WithMedia
     /**
      * Attach a file to the model
      */
-    public function attachMedia(UploadedFile $file, string $property): static
+    public function attachMedia(?UploadedFile $file, string $property): static
     {
+        if (!$file) {
+            return $this;
+        }
         assert($this instanceof HasMedia);
         $this->registerMedia();
 

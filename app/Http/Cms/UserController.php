@@ -16,7 +16,7 @@ class UserController extends CmsController
 {
 
     protected string $componentPath = 'users';
-    protected string $model = UserRowData::class;
+    protected string $model = User::class;
     protected string $rowData = UserRowData::class;
     protected string $formData = UserRowData::class;
     protected string $requestData = UserRowData::class;

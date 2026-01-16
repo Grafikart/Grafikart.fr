@@ -62,6 +62,7 @@ describe('index', function () {
 
 describe('destroy (ban)', function () {
     it('bans a regular user', function () {
+        $this->withoutExceptionHandling();
         $user = User::factory()->create();
 
         $this->actingAs($this->admin)

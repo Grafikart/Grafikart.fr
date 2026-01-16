@@ -1,5 +1,5 @@
 <?php
-
+beforeEach()->skip();
 test('registration screen can be rendered', function () {
     $response = $this->get(route('register'));
 

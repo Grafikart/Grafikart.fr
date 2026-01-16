@@ -7,18 +7,12 @@ use App\Domains\Course\Models\Technology;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-use Spatie\LaravelData\Attributes\Validation\Min;
-use Spatie\LaravelData\Attributes\Validation\Required;
 use Spatie\LaravelData\Data;
 
 class TechnologyRequestData extends Data implements DataToModel
 {
     public function __construct(
-        #[Required]
-        #[Min(2)]
         public string $name,
-        #[Required]
-        #[Min(2)]
         public string $slug,
         public string $content,
         public ?string $type = null,
@@ -27,24 +21,23 @@ class TechnologyRequestData extends Data implements DataToModel
         public array $requirements = [],
     ) {}
 
+    public static function rules(): array
+    {
+        return [
+            'name' => ['required', 'string', 'min:2'],
+            'slug' => ['required', 'string', 'min:2'],
+            'content' => ['required', 'string'],
+            'type' => ['nullable', 'string'],
+            'imageFile' => ['nullable', 'file', 'image:allow_svg'],
+            'requirements' => ['array', 'exists:technologies,id'],
+        ];
+    }
+
     public function toModel(Model $model): Model
     {
         assert($model instanceof Technology);
 
-        // TODO : refactor this logic to put it inside a controller
-        // Handle image upload
-        if ($this->imageFile) {
-            // Delete old image if exists
-            if ($model->image) {
-                Storage::disk('public')->delete('uploads/icons/'.$model->image);
-            }
-
-            // Store new image
-            $filename = time().'_'.$this->imageFile->getClientOriginalName();
-            $this->imageFile->storeAs('uploads/icons', $filename, 'public');
-            $model->image = $filename;
-        }
-
+        $model->attachMedia($this->imageFile, 'image');
         $model->fill([
             'name' => $this->name,
             'slug' => $this->slug,

@@ -7,6 +7,7 @@ use App\Domains\Cms\DataToModel;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\LaravelData\Attributes\Validation\Min;
 use Spatie\LaravelData\Attributes\Validation\Required;
+use Spatie\LaravelData\Attributes\Validation\Unique;
 use Spatie\LaravelData\Data;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
@@ -20,6 +21,7 @@ class BlogCategoryData extends Data implements DataToModel
         #[Min(2)]
         readonly public string $name = '',
         #[Min(2)]
+        #[Unique(table: 'blog_categories')]
         readonly public string $slug = '',
     ){
 
