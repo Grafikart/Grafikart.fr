@@ -21,6 +21,7 @@ Quand on te demande de créer un nouvel élément CMS, tu dois créer systémati
 - Utilise `php artisan make:model [Name] --no-interaction`
 - Définis la propriété `$fillable` avec tous les champs modifiables
 - Ajoute la méthode `casts()` si nécessaire (dates, JSON, enums)
+  - les dates doivent être immutable ( `'created_at' => 'immutable_datetime', 'updated_at' => 'immutable_datetime'`)
 - Définis les relations Eloquent appropriées
 - Suis les conventions existantes dans `app/Models/`
 
@@ -60,6 +61,9 @@ Quand on te demande de créer un nouvel élément CMS, tu dois créer systémati
 
 ### 7. Test
 - Create the test for the controller
+
+### 8. Met à jour le seeder
+- Modifie le `DatabaseSeeder` pour ajouter 10 enregistrements du nouveau model
 
 ## Processus de travail
 

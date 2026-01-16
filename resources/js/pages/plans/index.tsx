@@ -1,4 +1,4 @@
-import path from '@/actions/App/Http/Cms/PlanController.ts';
+import route from '@/actions/App/Http/Cms/PlanController.ts';
 import { FormField } from '@/components/form-field.tsx';
 import { Form } from '@/components/form.tsx';
 import { withLayout } from '@/components/layout.tsx';
@@ -53,7 +53,7 @@ export default withLayout<Props>(
         );
     },
     {
-        breadcrumb: [{ label: 'Formules', href: path.index() }],
+        breadcrumb: [{ label: 'Formules', href: route.index() }],
     },
 );
 
@@ -118,7 +118,7 @@ function AddRow() {
 function RowForm({ item, onCancel }: { item: PlanData; onCancel: () => void }) {
     return (
         <Form
-            {...(item.id ? path.update.form(item.id) : path.store.form())}
+            {...(item.id ? route.update.form(item.id) : route.store.form())}
             className="flex items-end gap-2"
         >
             <FormField

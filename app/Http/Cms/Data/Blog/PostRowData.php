@@ -2,15 +2,16 @@
 
 namespace App\Http\Cms\Data\Blog;
 
+use Spatie\LaravelData\Data;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
 #[TypeScript]
-readonly class PostRowData
+class PostRowData extends Data
 {
     public function __construct(
-        public int $id,
-        public string $title,
-        public bool $online,
+        readonly public int $id,
+        readonly public string $title,
+        readonly public bool $online,
     ) {
     }
 }

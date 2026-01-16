@@ -1,18 +1,15 @@
 <?php
 
-namespace App\Http\Cms\Data\Technology;
+namespace App\Http\Cms\Data;
 
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
 #[TypeScript]
-readonly class TechnologyItemData
+readonly class OptionItemData
 {
     public function __construct(
         public int $id,
         public string $name,
-        public ?string $image,
-        public int $tutorialCount,
     ) {
     }
-
 }

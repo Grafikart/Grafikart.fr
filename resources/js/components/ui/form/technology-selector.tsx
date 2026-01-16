@@ -10,6 +10,7 @@ import { useMemo, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox.tsx";
 import type { ContentTechnologyDTO } from "@/types";
 import { Input } from "@/components/ui/input.tsx";
+import TechnologyController from '@/actions/App/Http/Cms/TechnologyController.ts';
 
 type Props = {
   defaultValue: ContentTechnologyDTO[];
@@ -22,7 +23,7 @@ export function TechnologySelector(props: Props) {
   const debouncedSearch = useDebounce(search, 300);
   const selectedItemsSet = useMemo(() => new Set(items.map((item) => item.id)), [items]);
 
-  const { data, isFetching } = useApiFetch<ContentTechnologyDTO[]>(`/api/technologies?q=${debouncedSearch}`, {
+  const { data, isFetching } = useApiFetch<ContentTechnologyDTO[]>(TechnologyController.index({query: {q: debouncedSearch}}).url, {
     enabled: debouncedSearch.length > 1,
     staleTime: 5_000,
   });

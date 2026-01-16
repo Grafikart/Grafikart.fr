@@ -6,6 +6,10 @@ size: number;
 url: any;
 thumbnail: string;
 };
+export type AttachmentUrlData = {
+id: number;
+url: string;
+};
 export type BlogCategoryData = {
 id: number | null;
 name: string;
@@ -56,6 +60,10 @@ month: number;
 year: number;
 value: number;
 };
+export type OptionItemData = {
+id: number;
+name: string;
+};
 export type PlanData = {
 id: number | null;
 name: string;
@@ -70,9 +78,9 @@ slug: string;
 createdAt: any;
 category: number | null;
 online: boolean;
-image: any | null;
+image: AttachmentUrlData | null;
 content: string;
-categories: Array<any>;
+categories: Array<OptionItemData>;
 };
 export type PostRowData = {
 id: number;
@@ -85,26 +93,27 @@ name: string;
 slug: string;
 content: string;
 image: string | null;
-requirements: Array<any>;
-};
-export type TechnologyItemData = {
-id: number;
-name: string;
-image: string | null;
-tutorialCount: number;
+requirements: Array<OptionItemData>;
 };
 export type TechnologyListItemData = {
 name: string;
 url: string;
 };
-export type TransactionItemData = {
+export type TechnologyRowData = {
 id: number;
+name: string;
+image: string | null;
+tutorialCount: number;
+};
+export type TransactionRowData = {
+id: number;
+duration: number;
 price: number;
 tax: number;
-duration: number;
+fee: number;
 method: string;
 refunded: boolean;
-createdAt: string;
+createdAt: any;
 userId: number;
 username: string;
 email: string;
@@ -113,7 +122,7 @@ export type UserRowData = {
 id: number;
 username: string;
 email: string;
-createdAt: string;
+createdAt: any;
 isPremium: boolean;
 isBanned: boolean;
 lastLoginIp: string | null;

@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use App\Domains\Blog\BlogCategory;
+use App\Domains\Course\Models\Technology;
 use App\Domains\Premium\Models\Plan;
+use App\Domains\Premium\Models\Transaction;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
@@ -17,6 +19,8 @@ class DatabaseSeeder extends Seeder
         User::class,
         BlogCategory::class,
         Plan::class,
+        Transaction::class,
+        Technology::class,
     ];
 
     /**
@@ -40,9 +44,14 @@ class DatabaseSeeder extends Seeder
             'name' => 'Grafikart',
             'email' => 'john@doe.fr',
         ]);
-        User::factory(10)->create();
+        $users = User::factory(10)->create();
         Plan::factory(3)->create();
         BlogCategory::factory(10)->create();
+        Transaction::factory(10)
+            ->recycle($users)
+            ->create();
+        Technology::factory(10)
+            ->create();
 
         // Reset settings
         DB::enableQueryLog();

@@ -1,3 +1,4 @@
+import route from '@/actions/App/Http/Cms/TransactionController.ts';
 import UserController from '@/actions/App/Http/Cms/UserController';
 import { withLayout } from '@/components/layout.tsx';
 import { PageTitle } from '@/components/page-title.tsx';
@@ -122,7 +123,9 @@ function Item({ item }: { item: UserRowData }) {
                     <ButtonLink
                         variant="secondary"
                         nativeButton={false}
-                        href={`/cms/transactions/?q=user:${item.id}`}
+                        href={route.index({
+                            query: { q: `user:${item.id}` },
+                        })}
                     >
                         <HandCoinsIcon />
                         Transactions

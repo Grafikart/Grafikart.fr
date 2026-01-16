@@ -2,12 +2,14 @@
 
 namespace App\Http\Cms\Data\Technology;
 
-use App\Component\ObjectMapper\Attribute\MapCollection;
-use App\Http\Data\OptionItemData;
+use App\Domains\Course\Models\Technology;
+use App\Http\Cms\Data\OptionItemData;
+use Illuminate\Support\Collection;
+use Spatie\LaravelData\Data;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
 #[TypeScript]
-readonly class TechnologyFormData
+class TechnologyFormData extends Data
 {
     public function __construct(
         public ?int $id = null,
@@ -15,9 +17,9 @@ readonly class TechnologyFormData
         public string $slug = '',
         public string $content = '',
         public ?string $image = null,
-        #[MapCollection(item: OptionItemData::class, source: 'requirements')]
-        /** @var OptionItemData[] */
-        public array $requirements = [],
+        /** @var Collection<OptionItemData> */
+        public ?Collection $requirements = null,
     ) {
+        $this->requirements ??= collect();
     }
 }

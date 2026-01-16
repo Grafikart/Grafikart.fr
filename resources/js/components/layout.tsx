@@ -1,4 +1,6 @@
 import PlanController from '@/actions/App/Http/Cms/PlanController.ts';
+import TechnologyController from '@/actions/App/Http/Cms/TechnologyController.ts';
+import TransactionController from '@/actions/App/Http/Cms/TransactionController.ts';
 import UserController from '@/actions/App/Http/Cms/UserController.ts';
 import { BreadcrumbNav } from '@/components/ui/breadcrumb.tsx';
 import { Separator } from '@/components/ui/separator.tsx';
@@ -83,7 +85,7 @@ const nav = [
             {
                 label: 'Technologies',
                 icon: BotIcon,
-                href: '/technologies',
+                href: TechnologyController.index(),
             },
             {
                 label: 'Blog',
@@ -103,7 +105,7 @@ const nav = [
             {
                 label: 'Transactions',
                 icon: BadgeEuroIcon,
-                href: '/transactions',
+                href: TransactionController.index(),
             },
             { label: 'Formules', icon: StarIcon, href: PlanController.index() },
         ],

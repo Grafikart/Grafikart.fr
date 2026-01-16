@@ -14,14 +14,14 @@ use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 class PlanData extends Data implements DataToModel
 {
     public function __construct(
-        public readonly ?int   $id = null,
+        public readonly ?int $id = null,
         #[Required]
         #[Min(2)]
         public readonly string $name = '',
         #[Required]
-        public readonly int    $price = 0,
+        public readonly int $price = 0,
         #[Required]
-        public readonly int    $duration = 0,
+        public readonly int $duration = 0,
         #[Required]
         #[Min(2)]
         public readonly string $stripeId = '',

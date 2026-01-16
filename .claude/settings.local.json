@@ -1,4 +1,10 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(php artisan:*)",
+      "Bash(vendor/bin/pint:*)"
+    ]
+  },
   "enabledMcpjsonServers": [
     "laravel-boost"
   ]

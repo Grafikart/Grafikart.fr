@@ -2,8 +2,8 @@
 
 namespace App\Http\Cms\Data\Blog;
 
-use App\Http\Data\AttachmentUrlData;
-use App\Http\Data\OptionItemData;
+use App\Http\Cms\Data\Attachment\AttachmentUrlData;
+use App\Http\Cms\Data\OptionItemData;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
 #[TypeScript]

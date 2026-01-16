@@ -24,6 +24,7 @@ Dépôt pour la nouvelle version de Grafikart.fr. L'objectif est de rendre le pr
 
 ## MR à suivre :
 
+- Dernière version Symfony : https://github.com/Grafikart/Grafikart.fr/tree/1a69e88748d6329dd86ac60d95e179699b0835e3
 - Erreur dans les logs de PHPUnit : https://github.com/symfony/monolog-bundle/pull/336
 - Plusieurs listeners Doctrine ne peuvent pas utiliser la même class : https://github.com/doctrine/DoctrineBundle/issues/1224
 - Mettre à jour les index côté SQL : https://www.doctrine-project.org/projects/doctrine-dbal/en/4.0/how-to/postgresql-identity-migration.html

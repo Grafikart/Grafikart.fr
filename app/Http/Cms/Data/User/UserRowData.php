@@ -3,8 +3,6 @@
 namespace App\Http\Cms\Data\User;
 
 use App\Models\User;
-use Carbon\CarbonImmutable;
-use DateTimeImmutable;
 use Spatie\LaravelData\Data;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
@@ -15,7 +13,7 @@ final class UserRowData extends Data
         public readonly int $id,
         public readonly string $username,
         public readonly string $email,
-        public readonly DateTimeImmutable $createdAt,
+        public readonly \DateTimeInterface $createdAt,
         public readonly bool $isPremium,
         public readonly bool $isBanned,
         public readonly ?string $lastLoginIp,

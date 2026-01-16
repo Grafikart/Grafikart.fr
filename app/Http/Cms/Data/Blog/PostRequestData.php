@@ -10,7 +10,7 @@ use App\Validator\Exists;
 use App\Validator\Slug;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-readonly class PostFormInput
+readonly class PostRequestData
 {
     public function __construct(
         #[NotBlank]
