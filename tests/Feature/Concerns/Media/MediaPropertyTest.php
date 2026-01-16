@@ -1,6 +1,6 @@
 <?php
 
-use App\Domains\Media\MediaProperty;
+use App\Concerns\Media\MediaProperty;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -21,7 +21,8 @@ beforeEach(function () {
     Storage::fake('uploads');
     $this->mediaProperty = new MediaProperty(
         property: 'avatar',
-        namer: fn ($model) => 'avatars/user-1',
+        directory: 'avatars',
+        filename: fn ($model) => 'user-1',
     );
 });
 
@@ -66,7 +67,8 @@ it('uses custom disk when specified', function () {
 
     $mediaProperty = new MediaProperty(
         property: 'avatar',
-        namer: fn ($model) => 'avatars/user-1',
+        directory: 'avatars',
+        filename: fn ($model) => 'user-1',
         disk: 's3',
     );
 

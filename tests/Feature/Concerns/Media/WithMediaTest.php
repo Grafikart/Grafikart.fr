@@ -1,7 +1,7 @@
 <?php
 
-use App\Domains\Media\HasMedia;
-use App\Domains\Media\WithMedia;
+use App\Concerns\Media\HasMedia;
+use App\Concerns\Media\WithMedia;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -24,7 +24,8 @@ function createFakeModel(): HasMedia|Model
         {
             $this->registerMediaForProperty(
                 'image',
-                fn (Model $model) => sprintf('avatars/%s.jpg', $model->slug),
+                directory: 'avatars',
+                filename: fn (Model $model) => $model->slug,
             );
         }
     };

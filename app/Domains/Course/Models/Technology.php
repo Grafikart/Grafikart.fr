@@ -2,9 +2,9 @@
 
 namespace App\Domains\Course\Models;
 
+use App\Concerns\Media\HasMedia;
+use App\Concerns\Media\WithMedia;
 use App\Domains\Course\Factory\TechnologyFactory;
-use App\Domains\Media\HasMedia;
-use App\Domains\Media\WithMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -61,6 +61,10 @@ class Technology extends Model implements HasMedia
 
     public function registerMedia(): void
     {
-        $this->registerMediaForProperty('image', fn (self $model) => sprintf('icons/%s.svg', $model->slug));
+        $this->registerMediaForProperty(
+            property: 'image',
+            directory: 'icons',
+            filename: 'slug',
+        );
     }
 }

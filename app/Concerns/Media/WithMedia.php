@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domains\Media;
+namespace App\Concerns\Media;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
@@ -31,14 +31,15 @@ trait WithMedia
      */
     public function registerMediaForProperty(
         string $property,
-        callable $namer,
+        string|callable $directory,
+        string|callable $filename,
         string $disk = 'uploads',
-    ) {
+    ): void {
         // A media is already registered for this property
         if (array_key_exists($property, $this->mediaProperties)) {
             return;
         }
-        $this->mediaProperties[$property] = new MediaProperty($property, $namer, $disk);
+        $this->mediaProperties[$property] = new MediaProperty($property, $directory, $filename, $disk);
     }
 
     /**

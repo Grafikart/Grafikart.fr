@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domains\Media;
+namespace App\Concerns\Media;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
@@ -13,9 +13,24 @@ readonly class MediaProperty
 {
     public function __construct(
         private string $property,
-        private \Closure $namer,
+        private string|\Closure $directory,
+        private string|\Closure $filename,
         private string $disk = 'uploads',
     ) {}
+
+    private function getDirectory(Model $model): string
+    {
+        return is_string($this->directory)
+            ? $this->directory
+            : ($this->directory)($model);
+    }
+
+    private function getFilename(Model $model): string
+    {
+        return is_string($this->filename)
+            ? $model->getAttribute($this->filename)
+            : ($this->filename)($model);
+    }
 
     /**
      * Remove a media attached to an element
@@ -27,9 +42,8 @@ readonly class MediaProperty
         if (! $fileName) {
             return;
         }
-        $dirname = pathinfo(($this->namer)($model), PATHINFO_DIRNAME);
-        $fileName = $model->getAttribute($this->property);
-        Storage::disk($this->disk)->delete(sprintf('%s/%s', $dirname, $fileName));
+        $directory = $this->getDirectory($model);
+        Storage::disk($this->disk)->delete(sprintf('%s/%s', $directory, $fileName));
     }
 
     /**
@@ -47,11 +61,10 @@ readonly class MediaProperty
             return '';
         }
 
-        $path = ($this->namer)($model);
         $this->delete($model);
-        $filename = sprintf('%s.%s', pathinfo($path, PATHINFO_FILENAME), $file->clientExtension());
+        $filename = sprintf('%s.%s', $this->getFilename($model), $file->clientExtension());
         $file->storeAs(
-            pathinfo($path, PATHINFO_DIRNAME),
+            $this->getDirectory($model),
             $filename,
             $this->disk
         );
