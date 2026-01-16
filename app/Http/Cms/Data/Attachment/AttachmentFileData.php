@@ -26,8 +26,7 @@ readonly class AttachmentFileData
         public mixed $url,
         #[Map(source: 'file', transform: ThumbnailUrlTransformer::class, context: ['width' => 250, 'height' => 100])]
         public string $thumbnail,
-    ) {
-    }
+    ) {}
 
     public static function formatName(string $filename)
     {

@@ -13,6 +13,7 @@ class Technology extends Model implements HasMedia
 {
     /** @use HasFactory<TechnologyFactory> */
     use HasFactory;
+
     use WithMedia;
 
     protected $fillable = [

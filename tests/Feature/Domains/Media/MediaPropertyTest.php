@@ -42,7 +42,6 @@ it('does nothing when no file is attached', function () {
 it('attaches a file to the model', function () {
     $file = UploadedFile::fake()->image('photo.jpg');
 
-
     $result = $this->mediaProperty->attach(getModelWithAvatar(null), $file);
 
     expect($result)->toBe('user-1.jpg');

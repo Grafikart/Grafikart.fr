@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Event;
 
 beforeEach(function () {
-    $this->user = new User();
+    $this->user = new User;
     $this->validData = [
         'name' => 'Plan Premium',
         'price' => 99,

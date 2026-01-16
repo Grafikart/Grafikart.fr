@@ -49,13 +49,12 @@ readonly class CourseFormInput
         public string $slug,
         /** @var ContentTechnologyDTO[] */
         #[Map(transform: TechnologyUsageTransform::class)]
-        public ?array $technologies = [],
+        public ?array $technologies,
         #[MapEntity(Attachment::class)]
         #[Exists(class: Attachment::class)]
         public ?int $image,
         #[MapEntity(Attachment::class)]
         #[Exists(class: Attachment::class)]
         public ?int $youtubeThumbnail,
-    ) {
-    }
+    ) {}
 }

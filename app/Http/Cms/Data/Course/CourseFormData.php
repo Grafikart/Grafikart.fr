@@ -9,12 +9,11 @@ use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 #[TypeScript]
 readonly class CourseFormData
 {
-
     public function __construct(
         public ?int $id = null,
         public string $title = '',
         public string $slug = '',
-        public \DateTimeInterface $createdAt = new \DateTimeImmutable(),
+        public \DateTimeInterface $createdAt = new \DateTimeImmutable,
         public bool $online = false,
         public bool $premium = false,
         public bool $forceRedirect = false,
@@ -31,6 +30,5 @@ readonly class CourseFormData
         public array $technologies = [],
         public ?CourseAttachmentData $image = null,
         public ?CourseAttachmentData $youtubeThumbnail = null,
-    ) {
-    }
+    ) {}
 }

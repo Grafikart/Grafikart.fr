@@ -16,10 +16,15 @@ use Inertia\Response;
 class TechnologyController extends CmsController
 {
     protected string $componentPath = 'technologies';
+
     protected string $model = Technology::class;
+
     protected string $rowData = TechnologyRowData::class;
+
     protected string $formData = TechnologyFormData::class;
+
     protected string $requestData = TechnologyRequestData::class;
+
     protected string $route = 'technologies';
 
     public function index(Request $request): Response|JsonResponse

@@ -11,9 +11,7 @@ final readonly class CourseAttachmentData
 {
     public function __construct(
         public int $id,
-        #[Map(source: "id", transform: AttachmentUrlTransformer::class)]
+        #[Map(source: 'id', transform: AttachmentUrlTransformer::class)]
         public string $url,
-    ){
-
-    }
+    ) {}
 }

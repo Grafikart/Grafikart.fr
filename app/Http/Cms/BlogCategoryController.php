@@ -11,10 +11,15 @@ use Inertia\Response;
 class BlogCategoryController extends CmsController
 {
     protected string $componentPath = 'blog/categories';
+
     protected string $model = BlogCategory::class;
+
     protected string $rowData = BlogCategoryData::class;
+
     protected string $formData = BlogCategoryData::class;
+
     protected string $requestData = BlogCategoryData::class;
+
     protected string $route = 'blog_categories';
 
     public function index(): Response

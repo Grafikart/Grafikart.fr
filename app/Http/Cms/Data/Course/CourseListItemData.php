@@ -11,9 +11,8 @@ use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 #[TypeScript]
 readonly class CourseListItemData
 {
-
     public function __construct(
-        public int    $id,
+        public int $id,
         public string $title,
         #[Map(source: 'id', transform: UrlTransformer::class)]
         public string $url,
@@ -22,11 +21,6 @@ readonly class CourseListItemData
         #[Map(source: 'mainTechnologies', transform: MapCollectionTransformer::class, context: ['targetClass' => TechnologyListItemData::class])]
         /** @var TechnologyListItemData[] */
         public array $technologies = [],
-    )
-    {
-
-    }
-
-
+    ) {}
 
 }

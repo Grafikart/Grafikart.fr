@@ -46,7 +46,7 @@ trait WithMedia
      */
     public function attachMedia(?UploadedFile $file, string $property): static
     {
-        if (!$file) {
+        if (! $file) {
             return $this;
         }
         assert($this instanceof HasMedia);

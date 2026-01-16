@@ -11,13 +11,12 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class TransactionFactory extends Factory
 {
-
-
     protected $model = Transaction::class;
 
     public function definition(): array
     {
         $price = fake()->randomElement([500, 5000]);
+
         return [
             'user_id' => User::factory(),
             'price' => fake()->numberBetween(500, 5000),

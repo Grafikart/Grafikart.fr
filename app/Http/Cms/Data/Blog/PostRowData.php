@@ -9,9 +9,8 @@ use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 class PostRowData extends Data
 {
     public function __construct(
-        readonly public int $id,
-        readonly public string $title,
-        readonly public bool $online,
-    ) {
-    }
+        public readonly int $id,
+        public readonly string $title,
+        public readonly bool $online,
+    ) {}
 }

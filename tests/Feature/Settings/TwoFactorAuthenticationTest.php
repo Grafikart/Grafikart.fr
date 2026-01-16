@@ -3,6 +3,7 @@
 use App\Models\User;
 use Inertia\Testing\AssertableInertia as Assert;
 use Laravel\Fortify\Features;
+
 beforeEach()->skip();
 test('two factor settings page can be rendered', function () {
     if (! Features::canManageTwoFactorAuthentication()) {

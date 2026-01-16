@@ -14,12 +14,16 @@ use Inertia\Response;
 
 class UserController extends CmsController
 {
-
     protected string $componentPath = 'users';
+
     protected string $model = User::class;
+
     protected string $rowData = UserRowData::class;
+
     protected string $formData = UserRowData::class;
+
     protected string $requestData = UserRowData::class;
+
     protected string $route = 'users';
 
     public function index(Request $request): Response
@@ -40,7 +44,7 @@ class UserController extends CmsController
         ];
 
         // Show charts only on the first page without filters
-        if ($request->integer('page', 1) === 1 && !$bannedFilter && !$request->filled('q')) {
+        if ($request->integer('page', 1) === 1 && ! $bannedFilter && ! $request->filled('q')) {
             $extra['months'] = $this->getMonthlySignups();
             $extra['days'] = $this->getDailySignups();
         }
@@ -69,7 +73,7 @@ class UserController extends CmsController
             ->orderBy('date')
             ->get();
 
-        return $results->map(fn($row) => new DailyData(
+        return $results->map(fn ($row) => new DailyData(
             date: $row->date,
             value: $row->value,
         ))->all();
@@ -98,7 +102,7 @@ class UserController extends CmsController
             ->orderBy('month')
             ->get();
 
-        return $results->map(fn($row) => new MonthlyData(
+        return $results->map(fn ($row) => new MonthlyData(
             month: $row->month,
             year: $row->year,
             value: $row->value,

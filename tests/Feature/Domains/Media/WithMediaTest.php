@@ -28,8 +28,9 @@ function createFakeModel(): HasMedia|Model
             );
         }
     };
-    $model->name ='PHP';
+    $model->name = 'PHP';
     $model->slug = 'php';
+
     return $model;
 }
 

@@ -14,25 +14,23 @@ use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 #[TypeScript]
 class BlogCategoryData extends Data implements DataToModel
 {
-
     public function __construct(
-        readonly public ?int $id = null,
+        public readonly ?int $id = null,
         #[Required]
         #[Min(2)]
-        readonly public string $name = '',
+        public readonly string $name = '',
         #[Min(2)]
         #[Unique(table: 'blog_categories')]
-        readonly public string $slug = '',
-    ){
-
-    }
+        public readonly string $slug = '',
+    ) {}
 
     public function toModel(Model $model): Model
     {
         assert($model instanceof BlogCategory);
+
         return $model->fill([
             'name' => $this->name,
-            'slug' => $this->slug
+            'slug' => $this->slug,
         ]);
     }
 }

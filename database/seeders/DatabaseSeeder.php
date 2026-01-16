@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Schema;
 
 class DatabaseSeeder extends Seeder
 {
-
     private array $models = [
         User::class,
         BlogCategory::class,
@@ -34,7 +33,7 @@ class DatabaseSeeder extends Seeder
 
         // Clean the database
         foreach ($this->models as $modelCls) {
-            $model = new $modelCls();
+            $model = new $modelCls;
             assert($model instanceof Model);
             DB::table($model->getTable())->truncate();
         }

@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+
 beforeEach()->skip();
 test('password update page is displayed', function () {
     $user = User::factory()->create();

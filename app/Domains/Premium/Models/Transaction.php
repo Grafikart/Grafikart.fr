@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Transaction extends Model
 {
-
     /** @use HasFactory<TransactionFactory> */
     use HasFactory;
 

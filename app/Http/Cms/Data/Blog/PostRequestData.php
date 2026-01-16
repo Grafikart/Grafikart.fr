@@ -33,6 +33,5 @@ readonly class PostRequestData
         #[NotBlank]
         #[Map]
         public string $content,
-    ) {
-    }
+    ) {}
 }

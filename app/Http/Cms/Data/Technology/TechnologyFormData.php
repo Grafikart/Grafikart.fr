@@ -2,7 +2,6 @@
 
 namespace App\Http\Cms\Data\Technology;
 
-use App\Domains\Course\Models\Technology;
 use App\Http\Cms\Data\OptionItemData;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Data;

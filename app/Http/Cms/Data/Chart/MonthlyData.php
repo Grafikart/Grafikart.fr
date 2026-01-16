@@ -11,6 +11,5 @@ final readonly class MonthlyData
         public int $month,
         public int $year,
         public int $value,
-    ) {
-    }
+    ) {}
 }

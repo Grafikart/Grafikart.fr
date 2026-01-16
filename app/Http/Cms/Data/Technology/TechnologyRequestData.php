@@ -6,7 +6,6 @@ use App\Domains\Cms\DataToModel;
 use App\Domains\Course\Models\Technology;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use Spatie\LaravelData\Data;
 
 class TechnologyRequestData extends Data implements DataToModel

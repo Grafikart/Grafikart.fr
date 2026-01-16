@@ -13,13 +13,12 @@ readonly class PostFormData
         public ?int $id = null,
         public string $title = '',
         public string $slug = '',
-        public \DateTimeInterface $createdAt = new \DateTimeImmutable(),
+        public \DateTimeInterface $createdAt = new \DateTimeImmutable,
         public ?int $category = null,
         public bool $online = false,
         public ?AttachmentUrlData $image = null,
         public string $content = '',
         /** @var OptionItemData[] */
         public array $categories = [],
-    ) {
-    }
+    ) {}
 }
