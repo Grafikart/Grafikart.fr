@@ -4,6 +4,7 @@ use App\Domains\Cms\Event\ContentCreatedEvent;
 use App\Domains\Cms\Event\ContentDeletedEvent;
 use App\Domains\Cms\Event\ContentUpdatedEvent;
 use App\Domains\Course\Course;
+use App\Domains\Course\Models\Technology;
 use App\Models\User;
 use Illuminate\Support\Facades\Event;
 
@@ -23,6 +24,7 @@ beforeEach(function () {
         'deprecatedBy' => null,
         'image' => null,
         'youtubeThumbnail' => null,
+        'createdAt' => '2024-01-01T10:00:00+01:00',
     ];
     $this->expectedRow = [
         'title' => 'Test Course Title',
@@ -32,6 +34,7 @@ beforeEach(function () {
         'premium' => false,
         'force_redirect' => false,
         'level' => 0,
+        'created_at' => '2024-01-01 10:00:00',
     ];
 });
 
@@ -168,5 +171,56 @@ describe('destroy', function () {
         $this->assertDatabaseMissing('courses', ['id' => $course->id]);
 
         Event::assertDispatched(ContentDeletedEvent::class);
+    });
+});
+
+describe('technologies', function () {
+    it('creates a course with technologies', function () {
+        $php = Technology::factory()->create(['name' => 'PHP']);
+        $laravel = Technology::factory()->create(['name' => 'Laravel']);
+
+        $this->actingAs($this->user)
+            ->post(route('cms.courses.store'), [
+                ...$this->validData,
+                'technologies' => [
+                    ['id' => $php->id, 'version' => '8.3', 'primary' => '1'],
+                    ['id' => $laravel->id, 'version' => '12'],
+                ],
+            ])
+            ->assertRedirect(route('cms.courses.index'));
+
+        $course = Course::where('slug', 'test-course-title')->first();
+        expect($course->technologies)->toHaveCount(2);
+        expect($course->technologies->firstWhere('id', $php->id)->pivot->version)->toBe('8.3');
+        expect((bool) $course->technologies->firstWhere('id', $php->id)->pivot->primary)->toBeTrue();
+        expect((bool) $course->technologies->firstWhere('id', $laravel->id)->pivot->primary)->toBeFalse();
+    });
+
+    it('updates course technologies', function () {
+        $course = Course::factory()->create();
+        $tech = Technology::factory()->create();
+
+        $this->actingAs($this->user)
+            ->put(route('cms.courses.update', $course), [
+                ...$this->validData,
+                'technologies' => [
+                    ['id' => $tech->id, 'version' => '1.0', 'primary' => '1'],
+                ],
+            ])
+            ->assertRedirect(route('cms.courses.index'));
+
+        $course->refresh();
+        expect($course->technologies)->toHaveCount(1);
+    });
+
+    it('loads technologies in edit form', function () {
+        $course = Course::factory()->withTechnologies(2)->create();
+
+        $this->actingAs($this->user)
+            ->get(route('cms.courses.edit', $course))
+            ->assertOk()
+            ->assertInertia(fn ($page) => $page
+                ->has('item.technologies', 2)
+            );
     });
 });

@@ -4,6 +4,7 @@ namespace App\Domains\Course\Models;
 
 use App\Concerns\Media\HasMedia;
 use App\Concerns\Media\WithMedia;
+use App\Domains\Course\Course;
 use App\Domains\Course\Factory\TechnologyFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -52,6 +53,15 @@ class Technology extends Model implements HasMedia
             'requirement_id',
             'technology_id'
         );
+    }
+
+    /**
+     * @return BelongsToMany<Course, $this>
+     */
+    public function courses(): BelongsToMany
+    {
+        return $this->belongsToMany(Course::class)
+            ->withPivot(['version', 'primary']);
     }
 
     protected static function newFactory(): TechnologyFactory

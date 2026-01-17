@@ -29,6 +29,7 @@ class PostRequestData extends Data implements DataToModel
         public readonly ?int $attachmentId,
         #[Required]
         public readonly string $content,
+        public readonly \DateTimeImmutable $createdAt,
     ) {}
 
     public function toModel(Model $model): Model
@@ -42,6 +43,7 @@ class PostRequestData extends Data implements DataToModel
             'online' => $this->online,
             'category_id' => $this->categoryId,
             'attachment_id' => $this->attachmentId,
+            'created_at' => $this->createdAt,
         ]);
     }
 }

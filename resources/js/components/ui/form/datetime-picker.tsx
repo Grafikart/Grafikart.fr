@@ -8,6 +8,23 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { CalendarIcon, ClockIcon } from "lucide-react";
 import { Separator } from "@/components/ui/separator.tsx";
 
+function formatDateAtom(date: Date): string {
+  const pad = (n: number) => String(n).padStart(2, "0");
+  const offset = -date.getTimezoneOffset();
+  const sign = offset >= 0 ? "+" : "-";
+  const offsetHours = pad(Math.floor(Math.abs(offset) / 60));
+  const offsetMinutes = pad(Math.abs(offset) % 60);
+
+  const year = date.getFullYear();
+  const month = pad(date.getMonth() + 1);
+  const day = pad(date.getDate());
+  const hours = pad(date.getHours());
+  const minutes = pad(date.getMinutes());
+  const seconds = pad(date.getSeconds());
+
+  return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}${sign}${offsetHours}:${offsetMinutes}`;
+}
+
 type Props = {
   defaultValue?: string | null;
   name?: string;
@@ -19,7 +36,7 @@ export function DatetimePicker(props: Props) {
 
   return (
     <div className="flex gap-2 items-center border border-input rounded-lg in-[.bg-card]:bg-background/50! h-9">
-      <input name={props.name} value={date.toISOString()} type="hidden" />
+      <input name={props.name} value={formatDateAtom(date)} type="hidden" />
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger
           render={<Button variant="ghost" id={props.name} className="w-max justify-between font-normal" />}

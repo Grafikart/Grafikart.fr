@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Domains\Blog\BlogCategory;
 use App\Domains\Blog\Post;
+use App\Domains\Course\Course;
 use App\Domains\Course\Models\Technology;
 use App\Domains\Premium\Models\Plan;
 use App\Domains\Premium\Models\Transaction;
@@ -22,6 +23,7 @@ class DatabaseSeeder extends Seeder
         Plan::class,
         Transaction::class,
         Technology::class,
+        Course::class,
     ];
 
     /**
@@ -39,6 +41,7 @@ class DatabaseSeeder extends Seeder
             assert($model instanceof Model);
             DB::table($model->getTable())->truncate();
         }
+        DB::table('course_technology')->truncate();
 
         // Fill it with fake data
         User::factory()->create([
@@ -54,7 +57,11 @@ class DatabaseSeeder extends Seeder
         Transaction::factory(10)
             ->recycle($users)
             ->create();
-        Technology::factory(10)
+        $technologies = Technology::factory(10)
+            ->create();
+        Course::factory(10)
+            ->withTechnologies(3)
+            ->recycle($technologies)
             ->create();
 
         // Reset settings

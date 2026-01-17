@@ -15,10 +15,6 @@ id: number | null;
 name: string;
 slug: string;
 };
-export type CourseAttachmentData = {
-id: number;
-url: string;
-};
 export type CourseFormData = {
 id: number | null;
 title: string;
@@ -33,24 +29,24 @@ youtubeId: string;
 duration: number;
 deprecatedBy: number | null;
 content: string;
-level: number;
+level: DifficultyLevel;
 source: boolean;
-technologies: Array<any>;
-image: CourseAttachmentData | null;
-youtubeThumbnail: CourseAttachmentData | null;
+attachment: AttachmentUrlData | null;
+youtubeThumbnail: AttachmentUrlData | null;
+technologies: { [key: number]: TechnologyUsageData } | Array<any> | null;
 };
-export type CourseListItemData = {
+export type CourseRowData = {
 id: number;
 title: string;
-url: string;
-createdAt: string;
 online: boolean;
-technologies: Array<TechnologyListItemData>;
+createdAt: string;
+technologies: Array<TechnologyUsageData> | Array<any>;
 };
 export type DailyData = {
 date: string;
 value: number;
 };
+export type DifficultyLevel = 0 | 1 | 2;
 export type FolderData = {
 path: string;
 count: number;
@@ -94,15 +90,17 @@ content: string;
 image: string | null;
 requirements: Array<OptionItemData> | Array<any> | null;
 };
-export type TechnologyListItemData = {
-name: string;
-url: string;
-};
 export type TechnologyRowData = {
 id: number;
 name: string;
 image: string | null;
 tutorialCount: number;
+};
+export type TechnologyUsageData = {
+id: number;
+name: string;
+version: string | null;
+primary: boolean;
 };
 export type TransactionRowData = {
 id: number;

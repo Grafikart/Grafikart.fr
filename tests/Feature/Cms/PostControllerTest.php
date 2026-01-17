@@ -18,6 +18,7 @@ beforeEach(function () {
         'online' => true,
         'categoryId' => $this->category->id,
         'attachmentId' => null,
+        'createdAt' => '2024-01-01T00:00:00+01:00',
     ];
     $this->expectedRow = [
         'title' => 'Test Post Title',
@@ -25,6 +26,7 @@ beforeEach(function () {
         'content' => 'This is the content of the test post.',
         'online' => true,
         'category_id' => $this->category->id,
+        'created_at' => '2024-01-01 00:00:00',
     ];
 });
 

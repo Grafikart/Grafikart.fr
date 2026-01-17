@@ -13,37 +13,12 @@ class TechnologyFactory extends Factory
 {
     protected $model = Technology::class;
 
-    private static int $nameIndex = 0;
-
-    private const NAMES = [
-        'PHP',
-        'JavaScript',
-        'TypeScript',
-        'NodeJS',
-        'React',
-        'Vue.js',
-        'Angular',
-        'Laravel',
-        'Symfony',
-        'Python',
-        'Ruby',
-        'Go',
-        'Rust',
-        'Docker',
-        'Kubernetes',
-        'MySQL',
-        'PostgreSQL',
-        'Redis',
-        'MongoDB',
-        'GraphQL',
-    ];
-
     /**
      * @return array<string, mixed>
      */
     public function definition(): array
     {
-        $name = self::NAMES[self::$nameIndex++ % count(self::NAMES)];
+        $name = fake()->word().uniqid();
 
         return [
             'name' => $name,

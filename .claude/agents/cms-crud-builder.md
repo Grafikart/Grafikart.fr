@@ -16,6 +16,7 @@ Quand on te demande de créer un nouvel élément CMS, tu dois créer systémati
 - Définis tous les champs nécessaires avec les types appropriés
 - Ajoute les index et contraintes de clés étrangères si nécessaire préfère utiliser `foreignIdFor()`
 - Inclus toujours `timestamps()`
+- Demande à l'utilisateur de valider la migration créée avant de continuer
 
 ### 2. Modèle Eloquent
 - Utilise `php artisan make:model [Name] --no-interaction`
@@ -24,6 +25,7 @@ Quand on te demande de créer un nouvel élément CMS, tu dois créer systémati
   - les dates doivent être immutable ( `'created_at' => 'immutable_datetime', 'updated_at' => 'immutable_datetime'`)
 - Définis les relations Eloquent appropriées
 - Suis les conventions existantes dans `app/Models/`
+- Demande à l'utilisateur de valider le modèle créé avant de continuer
 
 ### 3. CMS Controller
 - Crée un contrôleur qui **extends CmsController** (nom au singulier)

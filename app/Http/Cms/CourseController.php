@@ -29,6 +29,7 @@ class CourseController extends CmsController
     public function index(Request $request): Response
     {
         $query = Course::query()
+            ->with('technologies')
             ->orderBy('created_at', 'desc');
 
         if ($request->has('q')) {
@@ -42,8 +43,18 @@ class CourseController extends CmsController
         return $this->cmsIndex(query: $query);
     }
 
-    public function create(): Response
+    public function create(Request $request): Response
     {
+        $clone = $request->query->getInt('clone', 0);
+        // Create a clone to copy a course
+        if ($clone) {
+            $course = clone Course::findOrFail($clone);
+            $course->id = null;
+            $course->load('technologies');
+
+            return $this->cmsCreate(['index' => CourseFormData::from($course)]);
+        }
+
         return $this->cmsCreate();
     }
 
@@ -54,7 +65,7 @@ class CourseController extends CmsController
 
     public function edit(Course $course): Response
     {
-        $course->load(['attachment', 'youtubeThumbnail']);
+        $course->load(['attachment', 'youtubeThumbnail', 'technologies']);
 
         return $this->cmsEdit($course);
     }

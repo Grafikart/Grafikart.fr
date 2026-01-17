@@ -4,6 +4,7 @@ namespace App\Domains\Course\Factory;
 
 use App\Domains\Course\Course;
 use App\Domains\Course\DifficultyLevel;
+use App\Domains\Course\Models\Technology;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -87,5 +88,16 @@ class CourseFactory extends Factory
         return $this->state(fn (array $attributes) => [
             'level' => DifficultyLevel::Senior->value,
         ]);
+    }
+
+    public function withTechnologies(int $count = 3): static
+    {
+        return $this->hasAttached(
+            Technology::factory()->count($count),
+            fn () => [
+                'version' => fake()->optional(0.5)->numerify('#.#'),
+                'primary' => fake()->boolean(70),
+            ],
+        );
     }
 }

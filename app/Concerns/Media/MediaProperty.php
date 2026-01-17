@@ -27,7 +27,7 @@ readonly class MediaProperty
 
     private function getFilename(Model $model, UploadedFile $file): string
     {
-        if (!$this->filename) {
+        if (! $this->filename) {
             return pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         }
 
@@ -68,8 +68,10 @@ readonly class MediaProperty
     {
         // If the model is not persisted, delay the save at creation time
         if (! $model->exists && $force === false) {
-            $model::creating(function ($model) use ($file) {
-                $this->attach($model, $file, true);
+            $model::creating(function (Model $m) use ($file, $model) {
+                if ($m->is($model)) {
+                    $this->attach($m, $file, true);
+                }
             });
 
             return '';

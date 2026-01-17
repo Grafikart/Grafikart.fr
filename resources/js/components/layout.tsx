@@ -1,3 +1,4 @@
+import CourseController from '@/actions/App/Http/Cms/CourseController.ts';
 import PlanController from '@/actions/App/Http/Cms/PlanController.ts';
 import PostController from '@/actions/App/Http/Cms/PostController.ts';
 import TechnologyController from '@/actions/App/Http/Cms/TechnologyController.ts';
@@ -81,7 +82,7 @@ const nav = [
             {
                 label: 'Tutoriels',
                 icon: MonitorPlayIcon,
-                href: '/courses',
+                href: CourseController.index(),
             },
             {
                 label: 'Technologies',

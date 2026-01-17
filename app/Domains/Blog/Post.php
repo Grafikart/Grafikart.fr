@@ -22,6 +22,7 @@ class Post extends Model
         'online',
         'category_id',
         'attachment_id',
+        'created_at',
     ];
 
     /**

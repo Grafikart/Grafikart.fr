@@ -6,9 +6,11 @@ use App\Concerns\Media\HasMedia;
 use App\Concerns\Media\WithMedia;
 use App\Domains\Attachment\Attachment;
 use App\Domains\Course\Factory\CourseFactory;
+use App\Domains\Course\Models\Technology;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Course extends Model implements HasMedia
 {
@@ -33,6 +35,7 @@ class Course extends Model implements HasMedia
         'premium',
         'level',
         'force_redirect',
+        'created_at',
     ];
 
     /**
@@ -57,6 +60,15 @@ class Course extends Model implements HasMedia
     public function deprecatedBy(): BelongsTo
     {
         return $this->belongsTo(Course::class, 'deprecated_by_id');
+    }
+
+    /**
+     * @return BelongsToMany<Technology, $this>
+     */
+    public function technologies(): BelongsToMany
+    {
+        return $this->belongsToMany(Technology::class)
+            ->withPivot(['version', 'primary']);
     }
 
     protected function casts(): array

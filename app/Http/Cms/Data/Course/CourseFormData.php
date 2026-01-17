@@ -2,12 +2,16 @@
 
 namespace App\Http\Cms\Data\Course;
 
-use App\Component\ObjectMapper\Attribute\MapCollection;
-use App\Domain\Course\DTO\ContentTechnologyDTO;
+use App\Domains\Course\DifficultyLevel;
+use App\Http\Cms\Data\Attachment\AttachmentUrlData;
+use Illuminate\Support\Collection;
+use Spatie\LaravelData\Attributes\WithCast;
+use Spatie\LaravelData\Casts\EnumCast;
+use Spatie\LaravelData\Data;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
 #[TypeScript]
-readonly class CourseFormData
+class CourseFormData extends Data
 {
     public function __construct(
         public ?int $id = null,
@@ -23,12 +27,14 @@ readonly class CourseFormData
         public int $duration = 0,
         public ?int $deprecatedBy = null,
         public string $content = '',
-        public int $level = 1,
+        #[WithCast(EnumCast::class)]
+        public DifficultyLevel $level = DifficultyLevel::Junior,
         public bool $source = false,
-        #[MapCollection(item: ContentTechnologyDTO::class, source: 'technologyUsages')]
-        /** @var ContentTechnologyDTO[] */
-        public array $technologies = [],
-        public ?CourseAttachmentData $image = null,
-        public ?CourseAttachmentData $youtubeThumbnail = null,
-    ) {}
+        public ?AttachmentUrlData $attachment = null,
+        public ?AttachmentUrlData $youtubeThumbnail = null,
+        /** @var Collection<TechnologyUsageData> */
+        public ?Collection $technologies = null,
+    ) {
+        $this->technologies ??= collect();
+    }
 }
