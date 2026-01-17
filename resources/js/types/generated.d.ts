@@ -1,9 +1,9 @@
 export type AttachmentFileData = {
 id: number;
-createdAt: number;
+createdAt: any;
 name: string;
+url: string;
 size: number;
-url: any;
 thumbnail: string;
 };
 export type AttachmentUrlData = {
@@ -76,11 +76,10 @@ id: number | null;
 title: string;
 slug: string;
 createdAt: any;
-category: number | null;
+categoryId: number | null;
 online: boolean;
-image: AttachmentUrlData | null;
+attachment: AttachmentUrlData | null;
 content: string;
-categories: Array<OptionItemData>;
 };
 export type PostRowData = {
 id: number;
@@ -93,7 +92,7 @@ name: string;
 slug: string;
 content: string;
 image: string | null;
-requirements: Array<OptionItemData>;
+requirements: Array<OptionItemData> | Array<any> | null;
 };
 export type TechnologyListItemData = {
 name: string;

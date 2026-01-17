@@ -1,4 +1,5 @@
 import PlanController from '@/actions/App/Http/Cms/PlanController.ts';
+import PostController from '@/actions/App/Http/Cms/PostController.ts';
 import TechnologyController from '@/actions/App/Http/Cms/TechnologyController.ts';
 import TransactionController from '@/actions/App/Http/Cms/TransactionController.ts';
 import UserController from '@/actions/App/Http/Cms/UserController.ts';
@@ -90,7 +91,7 @@ const nav = [
             {
                 label: 'Blog',
                 icon: BookOpenTextIcon,
-                href: '/posts',
+                href: PostController.index(),
             },
         ],
     },

@@ -2,7 +2,6 @@ import type { AttachmentFileData, FolderData } from "@/types";
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group.tsx";
 import { FolderIcon, FolderOpenIcon, SearchIcon, TrashIcon } from "lucide-react";
 import { useApiFetch, useApiMutation } from "@/hooks/use-api-fetch.ts";
-import { adminPath } from "@/lib/url.ts";
 import { Separator } from "@/components/ui/separator.tsx";
 import { useCallback, useState } from "react";
 import { cn } from "@/lib/utils.ts";
@@ -12,6 +11,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { toast } from "sonner";
 import { humanSize } from "@/lib/file.ts";
 import { useDropzone } from "react-dropzone";
+import route from '@/actions/App/Http/Cms/AttachmentController'
 import { Spinner } from "@/components/ui/spinner.tsx";
 import { Input } from "@/components/ui/input.tsx";
 
@@ -20,13 +20,13 @@ type Props = {
 };
 
 export function FileExplorer(props: Props) {
-  const { data: folders } = useApiFetch<FolderData[]>(adminPath("/attachments/folders"));
+  const { data: folders } = useApiFetch<FolderData[]>(route.folders().url);
   const [folder, setFolder] = useState("");
 
-  const { data, setData } = useApiFetch<AttachmentFileData[]>(adminPath("/attachments/files"), {
+  const { data, setData } = useApiFetch<AttachmentFileData[]>(route.index({
     query: { path: folder },
-  });
-  const { mutate, isPending } = useApiMutation<AttachmentFileData>(adminPath("/attachments"));
+  }).url);
+  const { mutate, isPending } = useApiMutation<AttachmentFileData>(route.store().url);
 
   const onDrop = useCallback((files: File[]) => {
     for (const file of files) {
@@ -101,7 +101,7 @@ export function FileExplorer(props: Props) {
 
 function FileRow({ file, onSelect }: { file: AttachmentFileData; onSelect: Props["onSelect"] }) {
   const { mutate, isSuccess, isPending } = useApiMutation(
-    adminPath(`/attachments/${file.id}`),
+      route.destroy(file.id).url,
     {
       method: "DELETE",
     },

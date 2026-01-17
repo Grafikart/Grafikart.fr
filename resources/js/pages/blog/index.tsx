@@ -1,10 +1,10 @@
 import type { PostRowData, PaginatedData } from "@/types";
+import route from '@/actions/App/Http/Cms/PostController';
 import { withLayout } from "@/components/layout.tsx";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table.tsx";
 import { ButtonLink } from "@/components/ui/button.tsx";
 import { CheckCircle2Icon, CircleXIcon, EditIcon, PlusCircleIcon, TrashIcon, NewspaperIcon } from "lucide-react";
 import { ButtonGroup } from "@/components/ui/button-group.tsx";
-import { adminPath } from "@/lib/url.ts";
 import { Pagination } from "@/components/ui/pagination.tsx";
 import { PageTitle } from "@/components/page-title.tsx";
 import { Link } from "@inertiajs/react";
@@ -32,7 +32,7 @@ export default withLayout<Props>(
             </TableRow>
           </TableHeader>
           <TableBody>
-            {props.pagination.items.map((item) => (
+            {props.pagination.data.map((item) => (
               <Item item={item} key={item.id} />
             ))}
           </TableBody>
@@ -42,9 +42,9 @@ export default withLayout<Props>(
     );
   },
   {
-    breadcrumb: [{ label: "Articles", href: adminPath("posts") }],
+    breadcrumb: [{ label: "Articles", href: route.index() }],
     top: (
-      <ButtonLink href={adminPath("/posts/new")}>
+      <ButtonLink href={route.create()}>
         <PlusCircleIcon />
         Créer un article
       </ButtonLink>
@@ -53,7 +53,7 @@ export default withLayout<Props>(
 );
 
 function Item({ item }: { item: PostRowData }) {
-  const href = adminPath(`/posts/${item.id}`);
+  const href = route.edit(item.id);
   return (
     <TableRow className="group">
       <TableCell className="text-muted-foreground">{item.id}</TableCell>

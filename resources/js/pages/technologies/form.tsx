@@ -44,7 +44,7 @@ export default withLayout<Props>(
                     <input
                         name="name"
                         defaultValue={item.name}
-                        className="mb-1 block text-2xl font-semibold outline-none"
+                        className="mb-1 block w-full text-2xl font-semibold outline-none"
                         placeholder="Nom de la technologie"
                     />
                     <SlugInput

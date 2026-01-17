@@ -38,6 +38,7 @@ Quand on te demande de créer un nouvel élément CMS, tu dois créer systémati
   - **ListData** : pour l'affichage en liste/tableau
   - **FormData** : pour les formulaires de création/édition
   - **ShowData** : pour l'affichage détaillé (si applicable)
+- Utilise du camelCase pour les noms de propriétés
 - Examine les objets de données existants pour respecter les conventions du projet
 - Place-les dans le bon namespace selon la structure existante
 - Lance `php artisan typescript:transform` & `php artisan wayfinder:generate --with-form`

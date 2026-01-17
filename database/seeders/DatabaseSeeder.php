@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Domains\Blog\BlogCategory;
+use App\Domains\Blog\Post;
 use App\Domains\Course\Models\Technology;
 use App\Domains\Premium\Models\Plan;
 use App\Domains\Premium\Models\Transaction;
@@ -17,6 +18,7 @@ class DatabaseSeeder extends Seeder
     private array $models = [
         User::class,
         BlogCategory::class,
+        Post::class,
         Plan::class,
         Transaction::class,
         Technology::class,
@@ -45,7 +47,10 @@ class DatabaseSeeder extends Seeder
         ]);
         $users = User::factory(10)->create();
         Plan::factory(3)->create();
-        BlogCategory::factory(10)->create();
+        $categories = BlogCategory::factory(10)->create();
+        Post::factory(10)
+            ->recycle($categories)
+            ->create();
         Transaction::factory(10)
             ->recycle($users)
             ->create();
