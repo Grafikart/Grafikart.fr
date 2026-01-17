@@ -12,4 +12,6 @@ interface HasMedia
     public function registerMedia(): void;
 
     public function attachMedia(UploadedFile $file, string $name): self;
+
+    public function mediaUrl(string $property);
 }

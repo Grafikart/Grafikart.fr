@@ -63,11 +63,7 @@ export default withLayout<Props>(
                 <aside className="space-y-4">
                     <Card className="pt-0">
                         <ImageInput
-                            defaultValue={
-                                item.image
-                                    ? `/uploads/icons/${item.image}`
-                                    : undefined
-                            }
+                            defaultValue={item.image ?? undefined}
                             name="imageFile"
                             className="aspect-video"
                         />

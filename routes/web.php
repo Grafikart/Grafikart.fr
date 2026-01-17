@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Cms\AttachmentController;
 use App\Http\Cms\BlogCategoryController;
 use App\Http\Cms\PlanController;
 use App\Http\Cms\TechnologyController;
@@ -13,6 +14,10 @@ Route::group(['prefix' => '/cms', 'as' => 'cms.'], function () {
     Route::resource('technologies', TechnologyController::class);
     Route::resource('users', UserController::class)->only(['index', 'destroy']);
     Route::resource('transactions', TransactionController::class)->only(['index', 'destroy']);
+
+    // Attachments (JSON API)
+    Route::get('attachments/folders', [AttachmentController::class, 'folders'])->name('attachments.folders');
+    Route::resource('attachments', AttachmentController::class)->only(['store', 'destroy', 'index']);
 });
 
 // Route::get('/', function () {

@@ -4,6 +4,7 @@ namespace App\Concerns\Media;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @template TMedia of Model
@@ -30,11 +31,12 @@ trait WithMedia
      * Register the media supported by the model
      */
     public function registerMediaForProperty(
-        string $property,
-        string|callable $directory,
-        string|callable $filename,
-        string $disk = 'uploads',
-    ): void {
+        string               $property,
+        string|callable      $directory,
+        string|callable|null $filename = null,
+        string               $disk = 'uploads',
+    ): void
+    {
         // A media is already registered for this property
         if (array_key_exists($property, $this->mediaProperties)) {
             return;
@@ -47,14 +49,14 @@ trait WithMedia
      */
     public function attachMedia(?UploadedFile $file, string $property): static
     {
-        if (! $file) {
+        if (!$file) {
             return $this;
         }
         assert($this instanceof HasMedia);
         $this->registerMedia();
 
         $mapping = $this->mediaProperties[$property] ?? null;
-        if (! $mapping) {
+        if (!$mapping) {
             throw new \RuntimeException(sprintf('The property %s on %s has no media registered', $property, static::class));
         }
 
@@ -62,5 +64,20 @@ trait WithMedia
         $mapping->attach($this, $file);
 
         return $this;
+    }
+
+    public function mediaUrl(string $property): ?string
+    {
+        if (!$this->getAttribute($property)) {
+            return null;
+        }
+        assert($this instanceof HasMedia);
+        $this->registerMedia();
+
+        $mapping = $this->mediaProperties[$property] ?? null;
+        if (!$mapping) {
+            throw new \RuntimeException(sprintf('The property %s on %s has no media registered', $property, static::class));
+        }
+        return $mapping->url($this);
     }
 }

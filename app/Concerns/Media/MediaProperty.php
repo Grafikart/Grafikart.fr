@@ -14,7 +14,7 @@ readonly class MediaProperty
     public function __construct(
         private string $property,
         private string|\Closure $directory,
-        private string|\Closure $filename,
+        private string|\Closure|null $filename = null,
         private string $disk = 'uploads',
     ) {}
 
@@ -25,11 +25,26 @@ readonly class MediaProperty
             : ($this->directory)($model);
     }
 
-    private function getFilename(Model $model): string
+    private function getFilename(Model $model, UploadedFile $file): string
     {
+        if (!$this->filename) {
+            return pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+        }
+
         return is_string($this->filename)
             ? $model->getAttribute($this->filename)
             : ($this->filename)($model);
+    }
+
+    public function url(Model $model): ?string
+    {
+        $fileName = $model->getAttribute($this->property);
+        if (! $fileName) {
+            return null;
+        }
+        $directory = $this->getDirectory($model);
+
+        return Storage::disk($this->disk)->url(sprintf('%s/%s', $directory, $fileName));
     }
 
     /**
@@ -49,20 +64,19 @@ readonly class MediaProperty
     /**
      * Attach a media to the model
      */
-    public function attach(Model $model, UploadedFile $file): string
+    public function attach(Model $model, UploadedFile $file, bool $force = false): string
     {
         // If the model is not persisted, delay the save at creation time
-        if (! $model->exists) {
-            $model::created(function ($model) use ($file) {
-                $this->attach($model, $file);
-                $model->save();
+        if (! $model->exists && $force === false) {
+            $model::creating(function ($model) use ($file) {
+                $this->attach($model, $file, true);
             });
 
             return '';
         }
 
         $this->delete($model);
-        $filename = sprintf('%s.%s', $this->getFilename($model), $file->clientExtension());
+        $filename = sprintf('%s.%s', $this->getFilename($model, $file), $file->clientExtension());
         $file->storeAs(
             $this->getDirectory($model),
             $filename,

@@ -1,0 +1,71 @@
+<?php
+
+namespace App\Http\Cms;
+
+use App\Domains\Cms\CmsController;
+use App\Domains\Course\Course;
+use App\Http\Cms\Data\Course\CourseFormData;
+use App\Http\Cms\Data\Course\CourseRequestData;
+use App\Http\Cms\Data\Course\CourseRowData;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Inertia\Response;
+
+class CourseController extends CmsController
+{
+    protected string $componentPath = 'courses';
+
+    protected string $model = Course::class;
+
+    protected string $rowData = CourseRowData::class;
+
+    protected string $formData = CourseFormData::class;
+
+    protected string $requestData = CourseRequestData::class;
+
+    protected string $route = 'courses';
+
+    public function index(Request $request): Response
+    {
+        $query = Course::query()
+            ->orderBy('created_at', 'desc');
+
+        if ($request->has('q')) {
+            $search = $request->string('q');
+            $query->where(function (Builder $q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                    ->orWhere('content', 'like', "%{$search}%");
+            });
+        }
+
+        return $this->cmsIndex(query: $query);
+    }
+
+    public function create(): Response
+    {
+        return $this->cmsCreate();
+    }
+
+    public function store(CourseRequestData $data): RedirectResponse
+    {
+        return $this->cmsStore($data);
+    }
+
+    public function edit(Course $course): Response
+    {
+        $course->load(['attachment', 'youtubeThumbnail']);
+
+        return $this->cmsEdit($course);
+    }
+
+    public function update(Course $course, CourseRequestData $data): RedirectResponse
+    {
+        return $this->cmsUpdate(model: $course, data: $data);
+    }
+
+    public function destroy(Course $course): RedirectResponse
+    {
+        return $this->cmsDestroy($course, "Le cours {$course->title} a été supprimé");
+    }
+}

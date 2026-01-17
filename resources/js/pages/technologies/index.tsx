@@ -67,7 +67,7 @@ function Item({ item }: { item: TechnologyRowData }) {
                 <Link href={href} className="flex items-center gap-2">
                     {item.image && (
                         <img
-                            src={`/uploads/icons/${item.image}`}
+                            src={item.image}
                             alt={item.name}
                             className="size-6 rounded-sm object-contain"
                         />

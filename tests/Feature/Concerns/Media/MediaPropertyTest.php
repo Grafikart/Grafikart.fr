@@ -76,3 +76,17 @@ it('uses custom disk when specified', function () {
 
     Storage::disk('s3')->assertExists('avatars/user-1.jpg');
 });
+
+it('uses uploaded filename when filename is null', function () {
+    $file = UploadedFile::fake()->image('my-photo.jpg');
+
+    $mediaProperty = new MediaProperty(
+        property: 'avatar',
+        directory: 'avatars',
+    );
+
+    $result = $mediaProperty->attach(getModelWithAvatar(null), $file);
+
+    expect($result)->toBe('my-photo.jpg');
+    Storage::disk('uploads')->assertExists('avatars/my-photo.jpg');
+});

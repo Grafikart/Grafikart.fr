@@ -4,9 +4,6 @@ namespace App\Http\Cms\Data\Attachment;
 
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
-/**
- * Represente un dossier dans le système d'explorateur de fichier
- */
 #[TypeScript]
 readonly class FolderData
 {
@@ -14,5 +11,4 @@ readonly class FolderData
         public string $path,
         public int $count,
     ) {}
-
 }

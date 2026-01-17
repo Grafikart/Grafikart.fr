@@ -1,0 +1,87 @@
+<?php
+
+namespace App\Domains\Course;
+
+use App\Concerns\Media\HasMedia;
+use App\Concerns\Media\WithMedia;
+use App\Domains\Attachment\Attachment;
+use App\Domains\Course\Factory\CourseFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class Course extends Model implements HasMedia
+{
+    /** @use HasFactory<CourseFactory> */
+    use HasFactory;
+
+    use WithMedia;
+
+    protected $fillable = [
+        'title',
+        'slug',
+        'content',
+        'online',
+        'attachment_id',
+        'youtube_thumbnail_id',
+        'deprecated_by_id',
+        'duration',
+        'youtube_id',
+        'video_path',
+        'source',
+        'demo',
+        'premium',
+        'level',
+        'force_redirect',
+    ];
+
+    /**
+     * @return BelongsTo<Attachment, $this>
+     */
+    public function attachment(): BelongsTo
+    {
+        return $this->belongsTo(Attachment::class);
+    }
+
+    /**
+     * @return BelongsTo<Attachment, $this>
+     */
+    public function youtubeThumbnail(): BelongsTo
+    {
+        return $this->belongsTo(Attachment::class, 'youtube_thumbnail_id');
+    }
+
+    /**
+     * @return BelongsTo<Course, $this>
+     */
+    public function deprecatedBy(): BelongsTo
+    {
+        return $this->belongsTo(Course::class, 'deprecated_by_id');
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'online' => 'boolean',
+            'premium' => 'boolean',
+            'force_redirect' => 'boolean',
+            'level' => DifficultyLevel::class,
+            'created_at' => 'immutable_datetime',
+            'updated_at' => 'immutable_datetime',
+        ];
+    }
+
+    protected static function newFactory(): CourseFactory
+    {
+        return CourseFactory::new();
+    }
+
+    public function registerMedia(): void
+    {
+        $this->registerMediaForProperty(
+            property: 'source',
+            directory: fn () => 'courses/'.$this->id,
+            filename: 'slug',
+        );
+    }
+}
