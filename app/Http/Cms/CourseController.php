@@ -39,6 +39,11 @@ class CourseController extends CmsController
                     ->orWhere('content', 'like', "%{$search}%");
             });
         }
+        if ($request->has('technology')) {
+            $query->whereHas('technologies', function (Builder $builder) use ($request) {
+                $builder->where('id', $request->query->getInt('technology'));
+            });
+        }
 
         return $this->cmsIndex(query: $query);
     }

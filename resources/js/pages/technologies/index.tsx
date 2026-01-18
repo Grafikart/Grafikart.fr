@@ -1,3 +1,4 @@
+import CourseController from '@/actions/App/Http/Cms/CourseController.ts';
 import route from '@/actions/App/Http/Cms/TechnologyController';
 import { withLayout } from '@/components/layout.tsx';
 import { PageTitle } from '@/components/page-title.tsx';
@@ -75,7 +76,15 @@ function Item({ item }: { item: TechnologyRowData }) {
                     {item.name}
                 </Link>
             </TableCell>
-            <TableCell>{item.tutorialCount}</TableCell>
+            <TableCell>
+                <Link
+                    href={CourseController.index({
+                        query: { technology: item.id },
+                    })}
+                >
+                    {item.count}
+                </Link>
+            </TableCell>
             <TableCell className="text-right">
                 <ButtonLink href={href} variant="secondary">
                     <EditIcon />

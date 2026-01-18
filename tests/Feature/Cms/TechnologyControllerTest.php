@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
 
 beforeEach(function () {
-    Storage::fake('uploads');
+    Storage::fake('public');
     $this->user = new User;
     $this->validData = [
         'name' => 'React',
@@ -126,7 +126,7 @@ describe('store', function () {
         $technology = Technology::where('slug', 'react')->first();
 
         expect($technology->image)->not->toBeNull();
-        Storage::disk('uploads')->assertExists('icons/'.$technology->image);
+        Storage::disk('public')->assertExists('icons/'.$technology->image);
     });
 
     it('validates required fields', function (string $field, mixed $value) {

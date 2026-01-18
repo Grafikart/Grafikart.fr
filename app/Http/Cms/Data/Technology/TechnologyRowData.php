@@ -3,6 +3,7 @@
 namespace App\Http\Cms\Data\Technology;
 
 use App\Concerns\Media\MapMedia;
+use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Data;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
@@ -14,7 +15,8 @@ class TechnologyRowData extends Data
         public string $name,
         #[MapMedia()]
         public ?string $image,
-        public int $tutorialCount = 0,
+        #[MapInputName('courses_count')]
+        public int $count = 0,
     ) {}
 
 }

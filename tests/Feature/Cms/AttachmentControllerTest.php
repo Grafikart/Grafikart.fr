@@ -6,7 +6,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
 beforeEach(function () {
-    Storage::fake('uploads');
+    Storage::fake('public');
     $this->user = new User;
 });
 
@@ -129,7 +129,7 @@ describe('store', function () {
         expect($attachment->name)->toEndWith('.jpg');
         expect($attachment->size)->toBe($file->getSize());
 
-        Storage::disk('uploads')->assertExists("attachments/{$attachment->created_at->year}/{$attachment->name}");
+        Storage::disk('public')->assertExists("attachments/{$attachment->created_at->year}/{$attachment->name}");
     });
 
     it('returns the created attachment data', function () {
@@ -178,12 +178,12 @@ describe('destroy', function () {
         $attachment = Attachment::first();
         $filePath = "attachments/{$attachment->created_at->year}/{$attachment->name}";
 
-        Storage::disk('uploads')->assertExists($filePath);
+        Storage::disk('public')->assertExists($filePath);
 
         $this->actingAs($this->user)
             ->delete(route('cms.attachments.destroy', $attachment))
             ->assertOk();
 
-        Storage::disk('uploads')->assertMissing($filePath);
+        Storage::disk('public')->assertMissing($filePath);
     });
 });

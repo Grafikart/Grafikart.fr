@@ -2,6 +2,7 @@
 
 namespace App\Http\Cms\Data\Technology;
 
+use App\Concerns\AfterPersist;
 use App\Domains\Cms\DataToModel;
 use App\Domains\Course\Models\Technology;
 use Illuminate\Database\Eloquent\Model;
@@ -10,6 +11,8 @@ use Spatie\LaravelData\Data;
 
 class TechnologyRequestData extends Data implements DataToModel
 {
+    use AfterPersist;
+
     public function __construct(
         public string $name,
         public string $slug,
@@ -36,21 +39,15 @@ class TechnologyRequestData extends Data implements DataToModel
     {
         assert($model instanceof Technology);
 
-        $model->attachMedia($this->imageFile, 'image');
         $model->fill([
             'name' => $this->name,
             'slug' => $this->slug,
             'content' => $this->content,
             'type' => $this->type,
         ]);
+        $model->attachMedia($this->imageFile, 'image');
 
-        // Save the model first to get an ID
-        if (! $model->exists) {
-            $model->save();
-        }
-
-        // Sync requirements after model is saved
-        $model->requirements()->sync($this->requirements);
+        $this->afterPersist($model, fn () => $model->requirements()->sync($this->requirements));
 
         return $model;
     }

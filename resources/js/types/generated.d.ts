@@ -33,7 +33,7 @@ level: DifficultyLevel;
 source: boolean;
 attachment: AttachmentUrlData | null;
 youtubeThumbnail: AttachmentUrlData | null;
-technologies: { [key: number]: TechnologyUsageData } | Array<any> | null;
+technologies: Array<TechnologyUsageData> | Array<any> | null;
 };
 export type CourseRowData = {
 id: number;
@@ -94,7 +94,7 @@ export type TechnologyRowData = {
 id: number;
 name: string;
 image: string | null;
-tutorialCount: number;
+count: number;
 };
 export type TechnologyUsageData = {
 id: number;

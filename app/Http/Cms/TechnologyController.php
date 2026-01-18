@@ -46,6 +46,7 @@ class TechnologyController extends CmsController
         }
 
         $query = Technology::query()
+            ->withCount('courses')
             ->orderBy('name');
 
         return $this->cmsIndex(query: $query);

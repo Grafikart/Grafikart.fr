@@ -17,4 +17,5 @@ class CourseRowData extends Data
         /** @var Collection<TechnologyUsageData> */
         public readonly Collection $technologies,
     ) {}
+
 }

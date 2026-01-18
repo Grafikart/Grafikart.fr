@@ -3,19 +3,19 @@
 namespace App\Domains\Course\Models;
 
 use App\Concerns\Media\HasMedia;
-use App\Concerns\Media\WithMedia;
+use App\Concerns\Media\RegisterMedia;
 use App\Domains\Course\Course;
 use App\Domains\Course\Factory\TechnologyFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Technology extends Model implements HasMedia
+class Technology extends Model implements RegisterMedia
 {
     /** @use HasFactory<TechnologyFactory> */
     use HasFactory;
 
-    use WithMedia;
+    use HasMedia;
 
     protected $fillable = [
         'name',
@@ -69,9 +69,9 @@ class Technology extends Model implements HasMedia
         return TechnologyFactory::new();
     }
 
-    public function registerMedia(): void
+    public static function registerMedia(): void
     {
-        $this->registerMediaForProperty(
+        self::registerMediaForProperty(
             property: 'image',
             directory: 'icons',
             filename: 'slug',

@@ -14,13 +14,10 @@ final readonly class MapMedia implements InjectsPropertyValue
 {
     public function __construct(
         public ?string $property = null
-    ){
-
-    }
+    ) {}
 
     public function resolve(DataProperty $dataProperty, mixed $payload, array $properties, CreationContext $creationContext): mixed
     {
-        assert($payload instanceof HasMedia);
         return $payload->mediaUrl($this->property ?? $dataProperty->name);
     }
 

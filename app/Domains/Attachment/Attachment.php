@@ -3,7 +3,7 @@
 namespace App\Domains\Attachment;
 
 use App\Concerns\Media\HasMedia;
-use App\Concerns\Media\WithMedia;
+use App\Concerns\Media\RegisterMedia;
 use App\Domains\Attachment\Factory\AttachmentFactory;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,18 +12,18 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property CarbonImmutable $created_at
  */
-class Attachment extends Model implements HasMedia
+class Attachment extends Model implements RegisterMedia
 {
     /** @use HasFactory<\App\Domains\Attachment\Factory\AttachmentFactory> */
     use HasFactory;
 
-    use WithMedia;
+    use HasMedia;
 
     protected $fillable = [
         'name',
         'size',
         'attachable_id',
-        'attachable_type'
+        'attachable_type',
     ];
 
     // Attachments are never updated
@@ -39,9 +39,9 @@ class Attachment extends Model implements HasMedia
         ];
     }
 
-    public function registerMedia(): void
+    public static function registerMedia(): void
     {
-        $this->registerMediaForProperty(
+        self::registerMediaForProperty(
             property: 'name',
             directory: fn (self $attachment) => sprintf('attachments/%d', $attachment->created_at->year),
         );

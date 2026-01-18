@@ -7,15 +7,16 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
 /**
- * Represent a Media attached to a property
+ * Handle media attached to a property for a model
  */
-readonly class MediaProperty
+readonly class MediaMapping
 {
     public function __construct(
         private string $property,
         private string|\Closure $directory,
         private string|\Closure|null $filename = null,
-        private string $disk = 'uploads',
+        private string $disk = 'public',
+        public bool $needId = false,
     ) {}
 
     private function getDirectory(Model $model): string
@@ -33,7 +34,7 @@ readonly class MediaProperty
 
         return is_string($this->filename)
             ? $model->getAttribute($this->filename)
-            : ($this->filename)($model);
+            : ($this->filename)($model, $file);
     }
 
     public function url(Model $model): ?string
@@ -64,27 +65,27 @@ readonly class MediaProperty
     /**
      * Attach a media to the model
      */
-    public function attach(Model $model, UploadedFile $file, bool $force = false): string
+    public function attach(Model $model, UploadedFile $file): string
     {
-        // If the model is not persisted, delay the save at creation time
-        if (! $model->exists && $force === false) {
-            $model::creating(function (Model $m) use ($file, $model) {
-                if ($m->is($model)) {
-                    $this->attach($m, $file, true);
-                }
-            });
-
-            return '';
+        if ($this->needId && ! $model->exists) {
+            throw new \RuntimeException(sprintf('Cannot attach file to a non existing model %s', $model));
         }
 
-        $this->delete($model);
         $filename = sprintf('%s.%s', $this->getFilename($model, $file), $file->clientExtension());
-        $file->storeAs(
-            $this->getDirectory($model),
-            $filename,
-            $this->disk
-        );
-        $model->setAttribute($this->property, $filename);
+        try {
+            $file->storeAs(
+                $this->getDirectory($model),
+                $filename,
+                $this->disk
+            );
+            // The computed filename if different from the previous one
+            if ($filename !== $model->getAttribute($this->property)) {
+                $this->delete($model);
+            }
+            $model->setAttribute($this->property, $filename);
+        } catch (\Exception $e) {
+            // if the file is not writable just do nothing
+        }
 
         return $filename;
     }

@@ -3,7 +3,7 @@
 namespace App\Domains\Course;
 
 use App\Concerns\Media\HasMedia;
-use App\Concerns\Media\WithMedia;
+use App\Concerns\Media\RegisterMedia;
 use App\Domains\Attachment\Attachment;
 use App\Domains\Course\Factory\CourseFactory;
 use App\Domains\Course\Models\Technology;
@@ -12,12 +12,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Course extends Model implements HasMedia
+class Course extends Model implements RegisterMedia
 {
     /** @use HasFactory<CourseFactory> */
     use HasFactory;
 
-    use WithMedia;
+    use HasMedia;
 
     protected $fillable = [
         'title',
@@ -88,12 +88,13 @@ class Course extends Model implements HasMedia
         return CourseFactory::new();
     }
 
-    public function registerMedia(): void
+    public static function registerMedia(): void
     {
-        $this->registerMediaForProperty(
+        self::registerMediaForProperty(
             property: 'source',
             directory: fn () => 'courses/'.$this->id,
             filename: 'slug',
+            disk: 'downloads',
         );
     }
 }
