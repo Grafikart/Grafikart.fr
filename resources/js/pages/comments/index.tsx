@@ -9,10 +9,17 @@ import { Pagination } from '@/components/ui/pagination.tsx';
 import { useToggle } from '@/hooks/use-toggle.ts';
 import { formatRelative } from '@/lib/date.ts';
 import type { CommentRowData, PaginatedData } from '@/types';
-import { CheckIcon, MessageSquareIcon, TrashIcon, XIcon } from 'lucide-react';
+import {
+    CheckIcon,
+    EyeIcon,
+    MessageSquareIcon,
+    TrashIcon,
+    XIcon,
+} from 'lucide-react';
 
 type Props = {
     pagination: PaginatedData<CommentRowData>;
+    suspicious: boolean;
 };
 
 export default withLayout<Props>(
@@ -20,11 +27,31 @@ export default withLayout<Props>(
         return (
             <div className="space-y-4">
                 <PageTitle>Commentaires</PageTitle>
-                <h1 className="flex items-center gap-2 text-xl font-semibold">
-                    <MessageSquareIcon className="text-primary" />
-                    Commentaires
-                </h1>
-                <div className="grid gap-4 divide-y *:pb-4">
+                <div className="flex justify-between">
+                    <h1 className="flex items-center gap-2 text-xl font-semibold">
+                        {props.suspicious ? (
+                            <>
+                                <EyeIcon className="text-primary" />
+                                Commentaires suspects
+                            </>
+                        ) : (
+                            <>
+                                <MessageSquareIcon className="text-primary" />
+                                Commentaires
+                            </>
+                        )}
+                    </h1>
+                    {!props.suspicious && (
+                        <ButtonLink
+                            variant="secondary"
+                            href={route.index({ query: { suspicious: 1 } })}
+                        >
+                            <EyeIcon />
+                            Suspects
+                        </ButtonLink>
+                    )}
+                </div>
+                <div className="grid gap-6 divide-y *:pb-6">
                     {props.pagination.data.map((item) => (
                         <Item item={item} key={item.id} />
                     ))}

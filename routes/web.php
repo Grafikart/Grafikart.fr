@@ -6,6 +6,7 @@ use App\Http\Cms\CommentController;
 use App\Http\Cms\CourseController;
 use App\Http\Cms\PlanController;
 use App\Http\Cms\PostController;
+use App\Http\Cms\SettingsController;
 use App\Http\Cms\TechnologyController;
 use App\Http\Cms\TransactionController;
 use App\Http\Cms\UserController;
@@ -20,6 +21,7 @@ Route::group(['prefix' => '/cms', 'as' => 'cms.'], function () {
     Route::resource('technologies', TechnologyController::class);
     Route::resource('users', UserController::class)->only(['index', 'destroy']);
     Route::resource('transactions', TransactionController::class)->only(['index', 'destroy']);
+    Route::resource('settings', SettingsController::class)->only(['index', 'store']);
 
     // Attachments (JSON API)
     Route::get('attachments/folders', [AttachmentController::class, 'folders'])->name('attachments.folders');

@@ -2,6 +2,7 @@ import CommentController from '@/actions/App/Http/Cms/CommentController.ts';
 import CourseController from '@/actions/App/Http/Cms/CourseController.ts';
 import PlanController from '@/actions/App/Http/Cms/PlanController.ts';
 import PostController from '@/actions/App/Http/Cms/PostController.ts';
+import SettingsController from '@/actions/App/Http/Cms/SettingsController.ts';
 import TechnologyController from '@/actions/App/Http/Cms/TechnologyController.ts';
 import TransactionController from '@/actions/App/Http/Cms/TransactionController.ts';
 import UserController from '@/actions/App/Http/Cms/UserController.ts';
@@ -26,6 +27,7 @@ import {
     BadgeEuroIcon,
     BookOpenTextIcon,
     BotIcon,
+    CogIcon,
     HouseIcon,
     MessagesSquareIcon,
     MonitorPlayIcon,
@@ -124,6 +126,16 @@ const nav = [
             },
         ],
     },
+    {
+        label: 'Divers',
+        children: [
+            {
+                label: 'Paramètres',
+                icon: CogIcon,
+                href: SettingsController.index(),
+            },
+        ],
+    },
 ] satisfies NavItem[];
 
 function Header(props: Props) {
@@ -142,7 +154,7 @@ function Header(props: Props) {
 
 function AppSidebar() {
     return (
-        <Sidebar variant="inset">
+        <Sidebar collapsible="icon" variant="inset">
             <SidebarContent>
                 {nav.map((item) => (
                     <SidebarItem item={item} key={item.label} root />

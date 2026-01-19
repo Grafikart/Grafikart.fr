@@ -15,14 +15,7 @@ function formatDateAtom(date: Date): string {
   const offsetHours = pad(Math.floor(Math.abs(offset) / 60));
   const offsetMinutes = pad(Math.abs(offset) % 60);
 
-  const year = date.getFullYear();
-  const month = pad(date.getMonth() + 1);
-  const day = pad(date.getDate());
-  const hours = pad(date.getHours());
-  const minutes = pad(date.getMinutes());
-  const seconds = pad(date.getSeconds());
-
-  return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}${sign}${offsetHours}:${offsetMinutes}`;
+  return `${date.toISOString().split('.')[0]}${sign}${offsetHours}:${offsetMinutes}`
 }
 
 type Props = {
@@ -35,8 +28,8 @@ export function DatetimePicker(props: Props) {
   const [date, setDate] = React.useState<Date>(new Date(props.defaultValue ?? Date.now()));
 
   return (
-    <div className="flex gap-2 items-center border border-input rounded-lg in-[.bg-card]:bg-background/50! h-9">
-      <input name={props.name} value={formatDateAtom(date)} type="hidden" />
+    <div className="flex gap-2 items-center border border-input bg-input dark:bg-input/30 rounded-lg in-[.bg-card]:bg-background/50! h-9">
+      <input name={props.name} value={formatDateAtom(date)} type="hidden" className="w-full" />
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger
           render={<Button variant="ghost" id={props.name} className="w-max justify-between font-normal" />}

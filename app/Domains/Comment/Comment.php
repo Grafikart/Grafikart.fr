@@ -4,6 +4,8 @@ namespace App\Domains\Comment;
 
 use App\Domains\Comment\Factory\CommentFactory;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -70,5 +72,18 @@ class Comment extends Model
     protected static function newFactory(): CommentFactory
     {
         return CommentFactory::new();
+    }
+
+    #[Scope]
+    protected function Suspicious(Builder $query, array $words): Builder
+    {
+        $query = $query
+            ->whereLike('content', '%http%');
+
+        foreach ($words as $word) {
+            $query = $query->orWhereLike('content', "%{$word}%");
+        }
+
+        return $query;
     }
 }

@@ -17,8 +17,8 @@ slug: string;
 };
 export type CommentRowData = {
 id: number;
-username: string | null;
-email: string | null;
+username: string;
+email: string;
 content: string;
 ip: string;
 createdAt: any;
@@ -89,6 +89,10 @@ export type PostRowData = {
 id: number;
 title: string;
 online: boolean;
+};
+export type SettingsFormData = {
+liveAt: any;
+spamWords: string;
 };
 export type TechnologyFormData = {
 id: number | null;
