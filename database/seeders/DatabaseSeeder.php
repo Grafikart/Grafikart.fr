@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Domains\Blog\BlogCategory;
 use App\Domains\Blog\Post;
+use App\Domains\Comment\Comment;
 use App\Domains\Course\Course;
 use App\Domains\Course\Models\Technology;
 use App\Domains\Premium\Models\Plan;
@@ -20,6 +21,7 @@ class DatabaseSeeder extends Seeder
         User::class,
         BlogCategory::class,
         Post::class,
+        Comment::class,
         Plan::class,
         Transaction::class,
         Technology::class,
@@ -51,8 +53,12 @@ class DatabaseSeeder extends Seeder
         $users = User::factory(10)->create();
         Plan::factory(3)->create();
         $categories = BlogCategory::factory(10)->create();
-        Post::factory(10)
+        $posts = Post::factory(10)
             ->recycle($categories)
+            ->create();
+        Comment::factory(10)
+            ->recycle($users)
+            ->recycle($posts)
             ->create();
         Transaction::factory(10)
             ->recycle($users)

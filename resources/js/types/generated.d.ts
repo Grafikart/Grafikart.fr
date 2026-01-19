@@ -15,6 +15,14 @@ id: number | null;
 name: string;
 slug: string;
 };
+export type CommentRowData = {
+id: number;
+username: string | null;
+email: string | null;
+content: string;
+ip: string;
+createdAt: any;
+};
 export type CourseFormData = {
 id: number | null;
 title: string;

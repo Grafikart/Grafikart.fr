@@ -1,3 +1,4 @@
+import CommentController from '@/actions/App/Http/Cms/CommentController.ts';
 import CourseController from '@/actions/App/Http/Cms/CourseController.ts';
 import PlanController from '@/actions/App/Http/Cms/PlanController.ts';
 import PostController from '@/actions/App/Http/Cms/PostController.ts';
@@ -26,6 +27,7 @@ import {
     BookOpenTextIcon,
     BotIcon,
     HouseIcon,
+    MessagesSquareIcon,
     MonitorPlayIcon,
     StarIcon,
     UserIcon,
@@ -110,6 +112,16 @@ const nav = [
                 href: TransactionController.index(),
             },
             { label: 'Formules', icon: StarIcon, href: PlanController.index() },
+        ],
+    },
+    {
+        label: 'Communauté',
+        children: [
+            {
+                label: 'Commentaires',
+                icon: MessagesSquareIcon,
+                href: CommentController.index(),
+            },
         ],
     },
 ] satisfies NavItem[];
