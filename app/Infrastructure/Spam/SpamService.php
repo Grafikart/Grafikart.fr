@@ -6,24 +6,11 @@ use App\Infrastructure\Settings\SettingsService;
 
 final readonly class SpamService
 {
-    public const SETTING_KEY = 'spam_words';
+    public const string SETTING_KEY = 'spam_words';
 
     public function __construct(
         private SettingsService $settings
     ) {}
-
-    public function count(): int
-    {
-        $count = 0;
-        /** @var class-string $entity */
-        foreach ($this->entities as $entity) {
-            /** @var EntityRepository $repository */
-            $repository = $this->em->getRepository($entity);
-            $count += $repository->count(['spam' => true]);
-        }
-
-        return $count;
-    }
 
     /**
      * Find the list of spam words

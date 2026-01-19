@@ -25,11 +25,15 @@ class AttachmentRepository
             ->select(DB::raw("{$pathExpression} as path"), DB::raw('COUNT(*) as count'))
             ->groupBy('path')
             ->orderByDesc('path')
+            ->toBase()
             ->get()
-            ->map(fn ($row) => new FolderData(
-                path: $row->path,
-                count: $row->count,
-            ));
+            ->map(
+                /** @param object{path: string, count: int} $row */
+                fn (object $row) => new FolderData(
+                    path: $row->path,
+                    count: $row->count,
+                )
+            );
     }
 
     /**

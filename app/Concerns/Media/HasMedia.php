@@ -6,20 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 
 /**
- * @template TMedia of Model & RegisterMedia
+ * @template TMedia of Model
  */
 trait HasMedia
 {
     /** @var MediaMapping[] */
-    private static array $mediaProperties = [];
+    protected static array $mediaProperties = [];
 
     /** @var callable[] */
-    private static array $mediaDelayed = [];
+    protected static array $mediaDelayed = [];
 
     /**
      * Collect the media properties
      */
-    private static function ensureMediaRegistered(): void
+    protected static function ensureMediaRegistered(): void
     {
         if (! static::$mediaProperties) {
             static::registerMedia();
@@ -33,7 +33,7 @@ trait HasMedia
     {
         assert(is_subclass_of(static::class, RegisterMedia::class), 'The model has to implement RegisterMedia interface');
         static::deleting(function (RegisterMedia&Model $model) {
-            $model->registerMedia();
+            self::ensureMediaRegistered();
             foreach (static::$mediaProperties as $property) {
                 $property->delete($model);
             }

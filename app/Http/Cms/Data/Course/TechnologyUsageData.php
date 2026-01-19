@@ -16,6 +16,9 @@ class TechnologyUsageData extends Data
         public bool $primary = false,
     ) {}
 
+    /**
+     * @param Technology&object{pivot: object{version: ?string, primary: bool}} $model
+     */
     public static function fromModel(Technology $model)
     {
         return new self(

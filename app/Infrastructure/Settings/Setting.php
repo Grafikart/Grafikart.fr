@@ -32,7 +32,7 @@ class Setting extends Model
      */
     public static function findAll(): array
     {
-        return self::newQuery()
+        return static::query()
             ->get()
             ->keyBy('key')
             ->map(fn (Setting $s) => $s->value)

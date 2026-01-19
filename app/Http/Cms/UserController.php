@@ -71,12 +71,16 @@ class UserController extends CmsController
             ->where('created_at', '>=', now()->subDays(30))
             ->groupBy('date')
             ->orderBy('date')
+            ->toBase()
             ->get();
 
-        return $results->map(fn ($row) => new DailyData(
-            date: $row->date,
-            value: $row->value,
-        ))->all();
+        return $results->map(
+            /** @param object{date: string, value: int} $row */
+            fn (object $row) => new DailyData(
+                date: $row->date,
+                value: $row->value,
+            )
+        )->all();
     }
 
     /**
@@ -100,12 +104,16 @@ class UserController extends CmsController
             ->groupBy('year', 'month')
             ->orderBy('year')
             ->orderBy('month')
+            ->toBase()
             ->get();
 
-        return $results->map(fn ($row) => new MonthlyData(
-            month: $row->month,
-            year: $row->year,
-            value: $row->value,
-        ))->all();
+        return $results->map(
+            /** @param object{month: int, year: int, value: int} $row */
+            fn (object $row) => new MonthlyData(
+                month: $row->month,
+                year: $row->year,
+                value: $row->value,
+            )
+        )->all();
     }
 }

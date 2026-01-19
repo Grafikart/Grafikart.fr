@@ -92,7 +92,7 @@ class Course extends Model implements RegisterMedia
     {
         self::registerMediaForProperty(
             property: 'source',
-            directory: fn () => 'courses/'.$this->id,
+            directory: fn (Course $model) => 'courses/'.$model->id,
             filename: 'slug',
             disk: 'downloads',
         );

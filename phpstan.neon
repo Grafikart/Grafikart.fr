@@ -1,0 +1,17 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - vendor/nesbot/carbon/extension.neon
+
+parameters:
+    treatPhpDocTypesAsCertain: false
+    paths:
+        - app/
+    level: 6
+    ignoreErrors:
+        - '#PHPDoc tag @var#'
+        - identifier: function.alreadyNarrowedType
+        - identifier: instanceof.alwaysTrue
+        - identifier: nullsafe.neverNull
+#
+#    excludePaths:
+#        - ./*/*/FileToBeExcluded.php
