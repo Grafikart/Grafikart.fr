@@ -1,5 +1,6 @@
 import CommentController from '@/actions/App/Http/Cms/CommentController.ts';
 import CourseController from '@/actions/App/Http/Cms/CourseController.ts';
+import FormationController from '@/actions/App/Http/Cms/FormationController.ts';
 import PlanController from '@/actions/App/Http/Cms/PlanController.ts';
 import PostController from '@/actions/App/Http/Cms/PostController.ts';
 import SettingsController from '@/actions/App/Http/Cms/SettingsController.ts';
@@ -29,6 +30,7 @@ import {
     BotIcon,
     CogIcon,
     HouseIcon,
+    ListVideoIcon,
     MessagesSquareIcon,
     MonitorPlayIcon,
     StarIcon,
@@ -87,6 +89,11 @@ const nav = [
                 label: 'Tutoriels',
                 icon: MonitorPlayIcon,
                 href: CourseController.index(),
+            },
+            {
+                label: 'Formation',
+                icon: ListVideoIcon,
+                href: FormationController.index(),
             },
             {
                 label: 'Technologies',
@@ -176,7 +183,7 @@ function SidebarItem({ item, root }: { item: NavItem; root?: boolean }) {
                         render={
                             <Link
                                 href={item.href}
-                                aria-current={url.startsWith(item.href + '/')}
+                                aria-current={url.startsWith(item.href.url)}
                             />
                         }
                     >

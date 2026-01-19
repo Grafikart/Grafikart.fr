@@ -2,26 +2,26 @@
 
 namespace App\Domains\Course\Factory;
 
-use App\Domains\Course\Course;
 use App\Domains\Course\DifficultyLevel;
+use App\Domains\Course\Formation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends Factory<Course>
+ * @extends Factory<Formation>
  */
-class CourseFactory extends Factory
+class FormationFactory extends Factory
 {
     use WithTechnologies;
 
-    protected $model = Course::class;
+    protected $model = Formation::class;
 
     /**
      * @return array<string, mixed>
      */
     public function definition(): array
     {
-        $title = fake()->unique()->sentence(rand(3, 8));
+        $title = fake()->unique()->sentence(rand(3, 6));
 
         return [
             'title' => $title,
@@ -29,15 +29,12 @@ class CourseFactory extends Factory
             'content' => fake()->paragraphs(rand(3, 10), true),
             'online' => fake()->boolean(90),
             'attachment_id' => null,
-            'youtube_thumbnail_id' => null,
-            'deprecated_by_id' => null,
-            'duration' => fake()->numberBetween(0, 7200),
-            'youtube_id' => fake()->optional(0.7)->regexify('[A-Za-z0-9_-]{11}'),
-            'video_path' => null,
-            'source' => null,
-            'demo' => fake()->optional(0.3)->url(),
-            'premium' => fake()->boolean(20),
+            'short' => fake()->optional(0.7)->paragraph(),
+            'chapters' => [],
+            'youtube_playlist' => fake()->optional(0.3)->regexify('PL[A-Za-z0-9_-]{32}'),
+            'links' => fake()->optional(0.3)->url(),
             'level' => fake()->randomElement(DifficultyLevel::cases())->value,
+            'deprecated_by_id' => null,
             'force_redirect' => false,
             'created_at' => fake()->dateTimeBetween('-2 years'),
         ];
@@ -54,20 +51,6 @@ class CourseFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'online' => false,
-        ]);
-    }
-
-    public function premium(): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'premium' => true,
-        ]);
-    }
-
-    public function free(): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'premium' => false,
         ]);
     }
 
@@ -89,6 +72,16 @@ class CourseFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'level' => DifficultyLevel::Senior->value,
+        ]);
+    }
+
+    /**
+     * @param  array<array{title: string, content: int[]}>  $chapters
+     */
+    public function withChapters(array $chapters): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'chapters' => $chapters,
         ]);
     }
 }

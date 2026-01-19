@@ -18,7 +18,7 @@ export interface NavGroup {
 
 export type NavItem = {
     label: string;
-    href?: string | UrlMethodPair;
+    href?: UrlMethodPair;
     icon?: LucideIcon;
     children?: NavItem[];
 };

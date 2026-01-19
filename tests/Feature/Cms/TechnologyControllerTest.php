@@ -3,7 +3,7 @@
 use App\Domains\Cms\Event\ContentCreatedEvent;
 use App\Domains\Cms\Event\ContentDeletedEvent;
 use App\Domains\Cms\Event\ContentUpdatedEvent;
-use App\Domains\Course\Models\Technology;
+use App\Domains\Course\Technology;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Event;

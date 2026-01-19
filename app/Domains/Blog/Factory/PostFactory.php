@@ -28,6 +28,7 @@ class PostFactory extends Factory
             'online' => fake()->boolean(90),
             'category_id' => BlogCategory::factory(),
             'attachment_id' => null,
+            'created_at' => fake()->dateTimeBetween('-2 years'),
         ];
     }
 

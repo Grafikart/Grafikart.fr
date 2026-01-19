@@ -15,6 +15,14 @@ id: number | null;
 name: string;
 slug: string;
 };
+export type Chapter = {
+title: string;
+ids: Array<number>;
+};
+export type ChapterData = {
+title: string;
+courses: Array<OptionItemData>;
+};
 export type CommentRowData = {
 id: number;
 username: string;
@@ -59,6 +67,30 @@ export type FolderData = {
 path: string;
 count: number;
 };
+export type FormationFormData = {
+id: number | null;
+title: string;
+slug: string;
+createdAt: any;
+online: boolean;
+forceRedirect: boolean;
+deprecatedBy: number | null;
+content: string;
+short: string | null;
+level: DifficultyLevel;
+attachment: AttachmentUrlData | null;
+youtubePlaylist: string | null;
+links: string | null;
+chapters: Array<ChapterData>;
+technologies: { [key: number]: TechnologyUsageData } | Array<any> | null;
+};
+export type FormationRowData = {
+id: number;
+title: string;
+online: boolean;
+createdAt: string;
+technologies: { [key: number]: TechnologyUsageData } | Array<any>;
+};
 export type MonthlyData = {
 month: number;
 year: number;
@@ -91,7 +123,7 @@ title: string;
 online: boolean;
 };
 export type SettingsFormData = {
-liveAt: any;
+liveAt: string;
 spamWords: string;
 };
 export type TechnologyFormData = {

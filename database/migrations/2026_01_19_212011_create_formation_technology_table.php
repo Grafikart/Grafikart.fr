@@ -1,6 +1,6 @@
 <?php
 
-use App\Domains\Course\Course;
+use App\Domains\Course\Formation;
 use App\Domains\Course\Technology;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('course_technology', function (Blueprint $table) {
-            $table->foreignIdFor(Course::class)->constrained()->cascadeOnDelete();
+        Schema::create('formation_technology', function (Blueprint $table) {
+            $table->foreignIdFor(Formation::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Technology::class)->constrained()->cascadeOnDelete();
             $table->string('version', 15)->nullable();
             $table->boolean('primary')->default(true);
-            $table->primary(['course_id', 'technology_id']);
+            $table->primary(['formation_id', 'technology_id']);
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('course_technology');
+        Schema::dropIfExists('formation_technology');
     }
 };

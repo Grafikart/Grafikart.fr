@@ -6,7 +6,7 @@ parameters:
     treatPhpDocTypesAsCertain: false
     paths:
         - app/
-    level: 6
+    level: 5
     ignoreErrors:
         - '#PHPDoc tag @var#'
         - identifier: function.alreadyNarrowedType

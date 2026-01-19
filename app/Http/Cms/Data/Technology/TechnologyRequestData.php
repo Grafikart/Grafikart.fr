@@ -4,7 +4,7 @@ namespace App\Http\Cms\Data\Technology;
 
 use App\Concerns\AfterPersist;
 use App\Domains\Cms\DataToModel;
-use App\Domains\Course\Models\Technology;
+use App\Domains\Course\Technology;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Spatie\LaravelData\Data;

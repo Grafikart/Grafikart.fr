@@ -3,7 +3,7 @@
 namespace App\Http\Cms;
 
 use App\Domains\Cms\CmsController;
-use App\Domains\Course\Models\Technology;
+use App\Domains\Course\Technology;
 use App\Http\Cms\Data\OptionItemData;
 use App\Http\Cms\Data\Technology\TechnologyFormData;
 use App\Http\Cms\Data\Technology\TechnologyRequestData;
@@ -47,7 +47,7 @@ class TechnologyController extends CmsController
 
         $query = Technology::query()
             ->withCount('courses')
-            ->orderBy('name');
+            ->orderByDesc('created_at');
 
         return $this->cmsIndex(query: $query);
     }

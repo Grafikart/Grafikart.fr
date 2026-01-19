@@ -13,11 +13,11 @@ use Inertia\Response;
 use Spatie\LaravelData\Data;
 
 /**
- * Contrôleur de base pour les ressources CMS.
+ * Base controller for CMS resources.
  *
- * Fournit les méthodes CRUD standards pour gérer les contenus du CMS.
- * Les contrôleurs enfants doivent définir les propriétés de configuration
- * et peuvent surcharger les méthodes pour personnaliser le comportement.
+ * Provides standard CRUD methods for managing CMS content.
+ * Child controllers must define configuration properties
+ * and can override methods to customize behavior.
  *
  * @template TModel of Model
  * @template TRowData of Data
@@ -25,25 +25,25 @@ use Spatie\LaravelData\Data;
  */
 abstract class CmsController
 {
-    // @var string Chemin vers les composants Inertia (ex: 'plans', 'blog/categories')
+    // @var string Path to Inertia components (e.g., 'plans', 'blog/categories')
     protected string $componentPath = '';
 
-    // @var class-string<TModel> Classe du modèle Eloquent
+    // @var class-string<TModel> Eloquent model class
     protected string $model = '';
 
-    // @var class-string<TRowData> Classe Data pour la liste (index)
+    // @var class-string<TRowData> Data class for listing (index)
     protected string $rowData = '';
 
-    // @var class-string<TFormData> Classe Data pour le formulaire (edit/create)
+    // @var class-string<TFormData> Data class for the form (edit/create)
     protected string $formData = '';
 
-    // @var class-string<Data&DataToModel> Classe Data pour la validation des requêtes
+    // @var class-string<Data&DataToModel> Data class for request validation
     protected string $requestData = '';
 
-    // @var string Nom de la route pour les redirections (ex: 'plans', 'blog_categories')
+    // @var string Route name for redirections (e.g., 'plans', 'blog_categories')
     protected string $route = '';
 
-    // @var array{update: class-string, store: class-string, destroy: class-string} Événements à dispatcher
+    // @var array{update: class-string, store: class-string, destroy: class-string} Events to dispatch
     protected array $events = [
         'update' => ContentUpdatedEvent::class,
         'store' => ContentCreatedEvent::class,

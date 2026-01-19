@@ -1,6 +1,6 @@
 <?php
 
-use App\Domains\Course\Models\Technology;
+use App\Domains\Course\Technology;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

@@ -7,7 +7,9 @@ use App\Domains\Course\Course;
 use App\Http\Cms\Data\Course\CourseFormData;
 use App\Http\Cms\Data\Course\CourseRequestData;
 use App\Http\Cms\Data\Course\CourseRowData;
+use App\Http\Cms\Data\OptionItemData;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Response;
@@ -30,7 +32,7 @@ class CourseController extends CmsController
     {
         $query = Course::query()
             ->with('technologies')
-            ->orderBy('created_at', 'desc');
+            ->orderByDesc('created_at');
 
         if ($request->has('q')) {
             $search = $request->string('q');
@@ -66,6 +68,14 @@ class CourseController extends CmsController
     public function store(CourseRequestData $data): RedirectResponse
     {
         return $this->cmsStore($data);
+    }
+
+    public function show(Course $course): JsonResponse
+    {
+        return response()->json(new OptionItemData(
+            id: $course->id,
+            name: $course->title
+        ));
     }
 
     public function edit(Course $course): Response

@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Domains\Course\Models;
+namespace App\Domains\Course;
 
 use App\Concerns\Media\HasMedia;
 use App\Concerns\Media\RegisterMedia;
-use App\Domains\Course\Course;
 use App\Domains\Course\Factory\TechnologyFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

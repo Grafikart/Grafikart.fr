@@ -32,7 +32,7 @@ class PostController extends CmsController
     {
         $query = Post::query()
             ->with(['category'])
-            ->orderBy('created_at', 'desc');
+            ->orderByDesc('created_at');
 
         if ($request->has('category')) {
             $query->where('category_id', $request->integer('category'));

@@ -2,15 +2,14 @@
 
 namespace App\Domains\Course;
 
+use App\Concerns\HasTechnologies;
 use App\Concerns\Media\HasMedia;
 use App\Concerns\Media\RegisterMedia;
 use App\Domains\Attachment\Attachment;
 use App\Domains\Course\Factory\CourseFactory;
-use App\Domains\Course\Models\Technology;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Course extends Model implements RegisterMedia
 {
@@ -18,6 +17,7 @@ class Course extends Model implements RegisterMedia
     use HasFactory;
 
     use HasMedia;
+    use HasTechnologies;
 
     protected $fillable = [
         'title',
@@ -27,6 +27,7 @@ class Course extends Model implements RegisterMedia
         'attachment_id',
         'youtube_thumbnail_id',
         'deprecated_by_id',
+        'formation_id',
         'duration',
         'youtube_id',
         'video_path',
@@ -63,12 +64,11 @@ class Course extends Model implements RegisterMedia
     }
 
     /**
-     * @return BelongsToMany<Technology, $this>
+     * @return BelongsTo<Formation, $this>
      */
-    public function technologies(): BelongsToMany
+    public function formation(): BelongsTo
     {
-        return $this->belongsToMany(Technology::class)
-            ->withPivot(['version', 'primary']);
+        return $this->belongsTo(Formation::class);
     }
 
     protected function casts(): array

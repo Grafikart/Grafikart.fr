@@ -2,7 +2,7 @@
 
 namespace App\Http\Cms\Data\Course;
 
-use App\Domains\Course\Models\Technology;
+use App\Domains\Course\Technology;
 use Spatie\LaravelData\Data;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
