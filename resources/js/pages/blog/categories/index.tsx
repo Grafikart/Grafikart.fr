@@ -1,4 +1,8 @@
+import { Link } from '@inertiajs/react';
+import { EditIcon, PlusCircleIcon, TagsIcon, TrashIcon } from 'lucide-react';
+
 import path from '@/actions/App/Http/Cms/BlogCategoryController.ts';
+import PostController from '@/actions/App/Http/Cms/PostController.ts';
 import { withLayout } from '@/components/layout.tsx';
 import { PageTitle } from '@/components/page-title.tsx';
 import { ButtonGroup } from '@/components/ui/button-group.tsx';
@@ -13,8 +17,6 @@ import {
     TableRow,
 } from '@/components/ui/table.tsx';
 import type { BlogCategoryData, PaginatedData } from '@/types';
-import { Link } from '@inertiajs/react';
-import { EditIcon, PlusCircleIcon, TagsIcon, TrashIcon } from 'lucide-react';
 
 type Props = {
     pagination: PaginatedData<BlogCategoryData>;
@@ -49,7 +51,10 @@ export default withLayout<Props>(
         );
     },
     {
-        breadcrumb: [{ label: 'Catégories', href: path.index() }],
+        breadcrumb: [
+            { label: 'Articles', href: PostController.index() },
+            { label: 'Catégories', href: path.index() },
+        ],
         top: (
             <ButtonLink href={path.create()}>
                 <PlusCircleIcon />

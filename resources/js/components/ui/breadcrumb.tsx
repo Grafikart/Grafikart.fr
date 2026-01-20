@@ -1,12 +1,13 @@
-import * as React from "react";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
+import { Link } from "@inertiajs/react";
+import { ChevronRightIcon, MoreHorizontalIcon } from "lucide-react";
+import * as React from "react";
+import { Fragment } from "react";
 
 import { cn } from "@/lib/utils";
-import { ChevronRightIcon, MoreHorizontalIcon } from "lucide-react";
 import type { NavItem } from "@/types";
-import { Fragment } from "react";
-import { Link } from "@inertiajs/react";
+
 
 export function BreadcrumbNav({ items }: { items: NavItem[] }) {
   if (items.length === 0) {

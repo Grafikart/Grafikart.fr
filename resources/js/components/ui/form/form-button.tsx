@@ -1,5 +1,6 @@
-import type { ComponentProps } from "react";
 import { Button } from "@base-ui/react";
+import type { ComponentProps } from "react";
+
 import { useFormFetching } from "@/components/form.tsx";
 
 type Props = ComponentProps<typeof Button>;

@@ -122,7 +122,10 @@ function ChartTooltipContent({
     hideIndicator?: boolean
     indicator?: "line" | "dot" | "dashed"
     nameKey?: string
-    labelKey?: string
+    labelKey?: string,
+    // eslint-disable-next-line
+    payload?: any,
+    label?: string
   }) {
   const { config } = useChart()
 

@@ -34,7 +34,7 @@ class FormationFormData extends Data
         /** @var ChapterData[] */
         #[MapChapters]
         public array $chapters = [],
-        /** @var Collection<int, TechnologyUsageData> */
+        /** @var Collection<TechnologyUsageData> */
         public ?Collection $technologies = null,
     ) {
         $this->chapters ??= collect();

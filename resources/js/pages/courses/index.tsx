@@ -1,3 +1,14 @@
+import { Link } from '@inertiajs/react';
+import {
+    CheckCircle2Icon,
+    CircleXIcon,
+    CopyIcon,
+    EditIcon,
+    MonitorPlayIcon,
+    PlusCircleIcon,
+    TrashIcon,
+} from 'lucide-react';
+
 import route from '@/actions/App/Http/Cms/CourseController';
 import { withLayout } from '@/components/layout.tsx';
 import { PageTitle } from '@/components/page-title.tsx';
@@ -15,16 +26,6 @@ import {
 } from '@/components/ui/table.tsx';
 import { formatDate } from '@/lib/date.ts';
 import type { CourseRowData, PaginatedData } from '@/types';
-import { Link } from '@inertiajs/react';
-import {
-    CheckCircle2Icon,
-    CircleXIcon,
-    CopyIcon,
-    EditIcon,
-    MonitorPlayIcon,
-    PlusCircleIcon,
-    TrashIcon,
-} from 'lucide-react';
 
 type Props = {
     pagination: PaginatedData<CourseRowData>;

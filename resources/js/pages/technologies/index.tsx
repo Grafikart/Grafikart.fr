@@ -1,3 +1,6 @@
+import { Link } from '@inertiajs/react';
+import { EditIcon, PlusCircleIcon, WrenchIcon } from 'lucide-react';
+
 import CourseController from '@/actions/App/Http/Cms/CourseController.ts';
 import route from '@/actions/App/Http/Cms/TechnologyController';
 import { withLayout } from '@/components/layout.tsx';
@@ -13,8 +16,6 @@ import {
     TableRow,
 } from '@/components/ui/table.tsx';
 import type { PaginatedData, TechnologyRowData } from '@/types';
-import { Link } from '@inertiajs/react';
-import { EditIcon, PlusCircleIcon, WrenchIcon } from 'lucide-react';
 
 type Props = {
     pagination: PaginatedData<TechnologyRowData>;

@@ -14,7 +14,7 @@ class FormationRowData extends Data
         public readonly string $title,
         public readonly bool $online,
         public readonly \DateTimeImmutable $createdAt,
-        /** @var Collection<int, TechnologyUsageData> */
+        /** @var Collection<TechnologyUsageData> */
         public readonly Collection $technologies,
     ) {}
 }

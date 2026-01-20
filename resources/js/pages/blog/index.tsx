@@ -1,3 +1,15 @@
+import { Link } from '@inertiajs/react';
+import {
+    CheckCircle2Icon,
+    CircleXIcon,
+    EditIcon,
+    NewspaperIcon,
+    PlusCircleIcon,
+    TagIcon,
+    TrashIcon,
+} from 'lucide-react';
+
+import BlogCategoryController from '@/actions/App/Http/Cms/BlogCategoryController.ts';
 import route from '@/actions/App/Http/Cms/PostController';
 import { withLayout } from '@/components/layout.tsx';
 import { PageTitle } from '@/components/page-title.tsx';
@@ -13,15 +25,6 @@ import {
     TableRow,
 } from '@/components/ui/table.tsx';
 import type { PaginatedData, PostRowData } from '@/types';
-import { Link } from '@inertiajs/react';
-import {
-    CheckCircle2Icon,
-    CircleXIcon,
-    EditIcon,
-    NewspaperIcon,
-    PlusCircleIcon,
-    TrashIcon,
-} from 'lucide-react';
 
 type Props = {
     pagination: PaginatedData<PostRowData>;
@@ -32,10 +35,19 @@ export default withLayout<Props>(
         return (
             <div className="space-y-4">
                 <PageTitle>Articles</PageTitle>
-                <h1 className="flex items-center gap-2 text-xl font-semibold">
-                    <NewspaperIcon className="text-primary" />
-                    Articles
-                </h1>
+                <div className="flex items-center justify-between">
+                    <h1 className="flex items-center gap-2 text-xl font-semibold">
+                        <NewspaperIcon className="text-primary" />
+                        Articles
+                    </h1>
+                    <ButtonLink
+                        href={BlogCategoryController.index()}
+                        variant="secondary"
+                    >
+                        <TagIcon />
+                        Catégories
+                    </ButtonLink>
+                </div>
                 <Table>
                     <TableHeader>
                         <TableRow>
@@ -85,11 +97,7 @@ function Item({ item }: { item: PostRowData }) {
                 <div className="flex justify-end">
                     <ButtonGroup className="opacity-0 group-hover:opacity-100">
                         {item.online && (
-                            <ButtonLink
-                                variant="destructive"
-                                method="delete"
-                                href={href}
-                            >
+                            <ButtonLink variant="destructive" href={href}>
                                 <TrashIcon />
                             </ButtonLink>
                         )}

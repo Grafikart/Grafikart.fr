@@ -1,3 +1,11 @@
+import {
+    CheckIcon,
+    EyeIcon,
+    MessageSquareIcon,
+    TrashIcon,
+    XIcon,
+} from 'lucide-react';
+
 import route from '@/actions/App/Http/Cms/CommentController.ts';
 import { FormField } from '@/components/form-field.tsx';
 import { Form } from '@/components/form.tsx';
@@ -9,13 +17,6 @@ import { Pagination } from '@/components/ui/pagination.tsx';
 import { useToggle } from '@/hooks/use-toggle.ts';
 import { formatRelative } from '@/lib/date.ts';
 import type { CommentRowData, PaginatedData } from '@/types';
-import {
-    CheckIcon,
-    EyeIcon,
-    MessageSquareIcon,
-    TrashIcon,
-    XIcon,
-} from 'lucide-react';
 
 type Props = {
     pagination: PaginatedData<CommentRowData>;

@@ -1,7 +1,7 @@
 import { Switch as SwitchPrimitive } from "@base-ui/react/switch";
+import { useEffect, useRef } from "react";
 
 import { cn } from "@/lib/utils";
-import { useEffect, useRef } from "react";
 
 function Switch({
   className,

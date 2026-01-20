@@ -1,7 +1,8 @@
-import { Button } from '@/components/ui/button.tsx';
-import { slugify } from '@/lib/string.ts';
 import { LinkIcon } from 'lucide-react';
 import { type ChangeEvent } from 'react';
+
+import { Button } from '@/components/ui/button.tsx';
+import { slugify } from '@/lib/string.ts';
 
 type SlugInputProps = {
     defaultValue: string;

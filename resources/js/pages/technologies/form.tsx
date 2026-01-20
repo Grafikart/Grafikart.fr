@@ -1,3 +1,7 @@
+import { useDebounce } from '@uidotdev/usehooks';
+import { Check, LoaderCircle, SaveIcon, UnlinkIcon } from 'lucide-react';
+import { useMemo, useState } from 'react';
+
 import route from '@/actions/App/Http/Cms/TechnologyController';
 import { Form } from '@/components/form.tsx';
 import { withLayout } from '@/components/layout.tsx';
@@ -17,9 +21,6 @@ import { useApiFetch } from '@/hooks/use-api-fetch';
 import { useList } from '@/hooks/use-list';
 import { cn } from '@/lib/utils';
 import type { OptionItemData, TechnologyFormData } from '@/types';
-import { useDebounce } from '@uidotdev/usehooks';
-import { Check, LoaderCircle, SaveIcon, UnlinkIcon } from 'lucide-react';
-import { useMemo, useState } from 'react';
 
 type Props = {
     item: TechnologyFormData;
@@ -69,7 +70,7 @@ export default withLayout<Props>(
                         />
                         <CardContent>
                             <RequirementsSelector
-                                defaultValue={item.requirements}
+                                defaultValue={item.requirements ?? []}
                             />
                         </CardContent>
                     </Card>

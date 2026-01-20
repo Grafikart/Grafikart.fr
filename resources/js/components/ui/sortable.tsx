@@ -1,7 +1,5 @@
 'use client';
 
-import * as React from 'react';
-import { cn } from '@/lib/utils';
 import {
   DndContext,
   DragEndEvent,
@@ -24,6 +22,9 @@ import {
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Slot } from '@radix-ui/react-slot';
+import * as React from 'react';
+
+import { cn } from '@/lib/utils';
 
 // Sortable Item Context
 const SortableItemContext = React.createContext<{
@@ -131,10 +132,10 @@ function Sortable<T>({
         {activeId ? (
           <div className="z-50">
             {React.Children.map(children, (child) => {
-              if (React.isValidElement(child) && (child.props as any).value === activeId) {
-                return React.cloneElement(child as React.ReactElement<any>, {
-                  ...(child.props as any),
-                  className: cn((child.props as any).className, 'z-50 shadow-lg'),
+              if (React.isValidElement(child) && (child.props as {value: unknown}).value === activeId) {
+                return React.cloneElement(child as React.ReactElement<{className: string, [key: string]: unknown}>, {
+                  ...(child.props as Record<string, string>),
+                  className: cn((child.props as {className: string}).className, 'z-50 shadow-lg'),
                 });
               }
               return null;

@@ -1,31 +1,18 @@
-import { Button } from '@/components/ui/button.tsx';
-import { Input } from '@/components/ui/input.tsx';
-import { apiFetch, useApiFetch } from '@/hooks/use-api-fetch.ts';
-import { cn } from '@/lib/utils.ts';
-import type { Chapter, ChapterData, OptionItemData } from '@/types';
+import { GripVerticalIcon, PlusIcon, XCircleIcon } from 'lucide-react';
+import { type KeyboardEventHandler, useState } from 'react';
+
 import CourseController from '@/actions/App/Http/Cms/CourseController.ts';
-import {
-    ChevronDownIcon,
-    ChevronUpIcon, CrossIcon,
-    GripVerticalIcon,
-    LoaderCircle,
-    PlusIcon,
-    TrashIcon, XCircleIcon,
-    XIcon,
-} from 'lucide-react';
-import { type KeyboardEventHandler, useCallback, useState } from 'react';
-import { Card, CardContent } from '@/components/ui/card.tsx';
-import {
-    Sortable,
-    SortableContent,
-    SortableItem,
-    SortableItemHandle,
-    SortableOverlay,
-} from '@/components/ui/sortable.tsx';
+import { Button } from '@/components/ui/button.tsx';
+import { Card } from '@/components/ui/card.tsx';
+import { Sortable, SortableItem, SortableItemHandle } from '@/components/ui/sortable.tsx';
 import { Spinner } from '@/components/ui/spinner.tsx';
+import { apiFetch } from '@/hooks/use-api-fetch.ts';
+import type { ChapterData, OptionItemData } from '@/types';
+
 
 type Props = {
     defaultValue: ChapterData[];
+    name?: string
 };
 
 export function ChaptersInput({ defaultValue, name = 'chapters' }: Props) {
@@ -64,7 +51,7 @@ export function ChaptersInput({ defaultValue, name = 'chapters' }: Props) {
         );
     };
 
-    const setCourses = (chapterIndex: number, courses: OptionItemData) => {
+    const setCourses = (chapterIndex: number, courses: OptionItemData[]) => {
         setChapters((prev) =>
             prev.map((chapter, i) =>
                 i === chapterIndex

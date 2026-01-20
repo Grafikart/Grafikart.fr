@@ -1,6 +1,7 @@
-import { cn } from "@/lib/utils";
 import { UploadIcon } from "lucide-react";
 import { type ChangeEventHandler, type ComponentProps, useState } from "react";
+
+import { cn } from "@/lib/utils";
 
 function ImageInput({ className, defaultValue, ...props }: ComponentProps<"input">) {
   const [preview, setPreview] = useState(defaultValue as string);

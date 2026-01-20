@@ -1,3 +1,5 @@
+import { SaveIcon } from 'lucide-react';
+
 import path from '@/actions/App/Http/Cms/BlogCategoryController.ts';
 import { FormField } from '@/components/form-field.tsx';
 import { Form } from '@/components/form.tsx';
@@ -5,7 +7,6 @@ import { withLayout } from '@/components/layout.tsx';
 import { PageTitle } from '@/components/page-title.tsx';
 import { Button } from '@/components/ui/button.tsx';
 import type { BlogCategoryData } from '@/types';
-import { SaveIcon } from 'lucide-react';
 
 type Props = {
     item: BlogCategoryData;

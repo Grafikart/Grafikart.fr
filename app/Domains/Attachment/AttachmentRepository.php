@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class AttachmentRepository
 {
     /**
-     * @return Collection<int, FolderData>
+     * @return Collection<FolderData>
      */
     public function findYearsMonths(): Collection
     {

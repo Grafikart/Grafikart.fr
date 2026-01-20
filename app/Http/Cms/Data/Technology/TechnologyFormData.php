@@ -21,6 +21,5 @@ class TechnologyFormData extends Data
         /** @var Collection<OptionItemData> */
         public ?Collection $requirements = null,
     ) {
-        $this->requirements ??= collect();
     }
 }

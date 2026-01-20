@@ -1,8 +1,10 @@
-import { useFormError, useFormErrors } from "@/components/form.tsx";
-import { FieldError } from "@/components/ui/field.tsx";
-import { useEffect, useRef } from "react";
 import { AlertCircleIcon } from "lucide-react";
+import { useEffect, useRef } from "react";
+
+import { useFormError, useFormErrors } from "@/components/form.tsx";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert.tsx";
+import { FieldError } from "@/components/ui/field.tsx";
+
 
 type Props = {
   name: string;
@@ -24,7 +26,7 @@ export function ValidationErrors() {
     alertRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [errors]);
 
-  if (errors.length === 0) {
+  if (Object.keys(errors).length === 0) {
     return null;
   }
 
@@ -34,9 +36,9 @@ export function ValidationErrors() {
       <AlertTitle>Certaines données ne sont pas valides</AlertTitle>
       <AlertDescription>
         <ul className="list-inside list-disc text-sm">
-          {errors.map((error, index) => (
-            <li key={index}>
-              <strong>{error.propertyPath}</strong> : {error.title}
+          {Object.keys(errors).map((key) => (
+            <li key={key}>
+              <strong>{key}</strong> : {errors[key]}
             </li>
           ))}
         </ul>

@@ -1,3 +1,5 @@
+import { CheckIcon, EditIcon, PlusIcon, StarIcon, XIcon } from 'lucide-react';
+
 import route from '@/actions/App/Http/Cms/PlanController.ts';
 import { FormField } from '@/components/form-field.tsx';
 import { Form } from '@/components/form.tsx';
@@ -15,7 +17,6 @@ import {
 } from '@/components/ui/table.tsx';
 import { useToggle } from '@/hooks/use-toggle.ts';
 import type { PaginatedData, PlanData } from '@/types';
-import { CheckIcon, EditIcon, PlusIcon, StarIcon, XIcon } from 'lucide-react';
 
 type Props = {
     pagination: PaginatedData<PlanData>;

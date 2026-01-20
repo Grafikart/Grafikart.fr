@@ -1,3 +1,5 @@
+import { SaveIcon } from 'lucide-react';
+
 import route from '@/actions/App/Http/Cms/FormationController';
 import { FormField } from '@/components/form-field.tsx';
 import { Form } from '@/components/form.tsx';
@@ -21,8 +23,8 @@ import { Label } from '@/components/ui/label.tsx';
 import { Switch } from '@/components/ui/switch.tsx';
 import { Textarea } from '@/components/ui/textarea.tsx';
 import type { FormationFormData } from '@/types';
+
 import '@mdxeditor/editor/style.css';
-import { SaveIcon } from 'lucide-react';
 
 type Props = {
     item: FormationFormData;
@@ -104,7 +106,7 @@ export default withLayout<Props>(
                                 name="technologies"
                                 render={
                                     <TechnologySelector
-                                        defaultValue={item.technologies}
+                                        defaultValue={item.technologies ?? []}
                                     />
                                 }
                             />

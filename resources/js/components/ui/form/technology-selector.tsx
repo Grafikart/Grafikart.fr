@@ -1,19 +1,19 @@
+import { useDebounce } from "@uidotdev/usehooks";
 import { Check, LoaderCircle, UnlinkIcon } from "lucide-react";
+import { useMemo, useState } from "react";
 
+import TechnologyController from '@/actions/App/Http/Cms/TechnologyController.ts';
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox.tsx";
 import { Command, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { Input } from "@/components/ui/input.tsx";
 import { useApiFetch } from "@/hooks/use-api-fetch";
 import { useList } from "@/hooks/use-list";
 import { cn } from "@/lib/utils";
-import { useDebounce } from "@uidotdev/usehooks";
-import { useMemo, useState } from "react";
-import { Checkbox } from "@/components/ui/checkbox.tsx";
-import type { ContentTechnologyDTO } from "@/types";
-import { Input } from "@/components/ui/input.tsx";
-import TechnologyController from '@/actions/App/Http/Cms/TechnologyController.ts';
+import type { TechnologyUsageData } from '@/types';
 
 type Props = {
-  defaultValue: ContentTechnologyDTO[];
+  defaultValue: TechnologyUsageData[];
   id?: string;
 };
 
@@ -23,7 +23,7 @@ export function TechnologySelector(props: Props) {
   const debouncedSearch = useDebounce(search, 300);
   const selectedItemsSet = useMemo(() => new Set(items.map((item) => item.id)), [items]);
 
-  const { data, isFetching } = useApiFetch<ContentTechnologyDTO[]>(TechnologyController.index({query: {q: debouncedSearch}}).url, {
+  const { data, isFetching } = useApiFetch<TechnologyUsageData[]>(TechnologyController.index({query: {q: debouncedSearch}}).url, {
     enabled: debouncedSearch.length > 1,
     staleTime: 5_000,
   });
@@ -67,7 +67,7 @@ export function TechnologySelector(props: Props) {
   );
 }
 
-type ItemProps = { item: ContentTechnologyDTO; k: number; onToggle: (item: ContentTechnologyDTO) => void };
+type ItemProps = { item: TechnologyUsageData; k: number; onToggle: (item: TechnologyUsageData) => void };
 
 function Item({ item, onToggle, k }: ItemProps) {
   return (

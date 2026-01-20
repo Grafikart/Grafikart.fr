@@ -1,3 +1,5 @@
+import { CircleCheckIcon, SaveIcon, UploadIcon } from 'lucide-react';
+
 import route from '@/actions/App/Http/Cms/CourseController';
 import { FormField } from '@/components/form-field.tsx';
 import { Form } from '@/components/form.tsx';
@@ -20,8 +22,8 @@ import { Input } from '@/components/ui/input.tsx';
 import { Label } from '@/components/ui/label.tsx';
 import { Switch } from '@/components/ui/switch.tsx';
 import type { CourseFormData } from '@/types';
+
 import '@mdxeditor/editor/style.css';
-import { CircleCheckIcon, SaveIcon, UploadIcon } from 'lucide-react';
 
 type Props = {
     item: CourseFormData;
@@ -133,7 +135,7 @@ function ItemForm({ item }: Props) {
                             name="usages"
                             render={
                                 <TechnologySelector
-                                    defaultValue={item.technologies}
+                                    defaultValue={item.technologies ?? []}
                                 />
                             }
                         />

@@ -1,19 +1,20 @@
-import type { AttachmentFileData, FolderData } from "@/types";
-import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group.tsx";
 import { FolderIcon, FolderOpenIcon, SearchIcon, TrashIcon } from "lucide-react";
-import { useApiFetch, useApiMutation } from "@/hooks/use-api-fetch.ts";
-import { Separator } from "@/components/ui/separator.tsx";
 import { useCallback, useState } from "react";
-import { cn } from "@/lib/utils.ts";
-import { Button } from "@/components/ui/button.tsx";
-import { Badge } from "@/components/ui/badge.tsx";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table.tsx";
-import { toast } from "sonner";
-import { humanSize } from "@/lib/file.ts";
 import { useDropzone } from "react-dropzone";
+import { toast } from "sonner";
+
 import route from '@/actions/App/Http/Cms/AttachmentController'
-import { Spinner } from "@/components/ui/spinner.tsx";
+import { Badge } from "@/components/ui/badge.tsx";
+import { Button } from "@/components/ui/button.tsx";
+import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group.tsx";
 import { Input } from "@/components/ui/input.tsx";
+import { Separator } from "@/components/ui/separator.tsx";
+import { Spinner } from "@/components/ui/spinner.tsx";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table.tsx";
+import { useApiFetch, useApiMutation } from "@/hooks/use-api-fetch.ts";
+import { humanSize } from "@/lib/file.ts";
+import { cn } from "@/lib/utils.ts";
+import type { AttachmentFileData, FolderData } from "@/types";
 
 type Props = {
   onSelect: (file: AttachmentFileData) => void;
@@ -38,7 +39,7 @@ export function FileExplorer(props: Props) {
         },
       });
     }
-  }, []);
+  }, [mutate, setData]);
   const { getRootProps, isDragActive, getInputProps } = useDropzone({ onDrop, noClick: true });
 
   const files = data ?? [];

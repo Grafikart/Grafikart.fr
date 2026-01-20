@@ -1,5 +1,6 @@
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart.tsx";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
+
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart.tsx";
 
 type Props<T extends Record<string, unknown>> = {
   data: T[];

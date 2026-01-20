@@ -1,11 +1,11 @@
 "use client";
 
+import { CalendarIcon, ClockIcon } from "lucide-react";
 import * as React from "react";
 
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { CalendarIcon, ClockIcon } from "lucide-react";
 import { Separator } from "@/components/ui/separator.tsx";
 
 function formatDateAtom(date: Date): string {
@@ -25,6 +25,7 @@ type Props = {
 
 export function DatetimePicker(props: Props) {
   const [open, setOpen] = React.useState(false);
+    // eslint-disable-next-line react-hooks/purity
   const [date, setDate] = React.useState<Date>(new Date(props.defaultValue ?? Date.now()));
 
   return (

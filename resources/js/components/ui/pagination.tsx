@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button";
-import { Link } from "@inertiajs/react";
-import type { ReactNode } from "react";
-import type { PaginatedData } from "@/types";
+import { Link } from '@inertiajs/react';
+
+import { Button } from '@/components/ui/button';
+import type { PaginatedData } from '@/types';
 
 type Props = { pagination: PaginatedData<unknown> };
 
@@ -32,8 +32,4 @@ export function Pagination({ pagination }: Props) {
       </nav>
     </div>
   );
-}
-
-function label(s: string): ReactNode {
-  return s;
 }

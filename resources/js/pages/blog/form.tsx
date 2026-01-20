@@ -1,3 +1,5 @@
+import { SaveIcon } from 'lucide-react';
+
 import route from '@/actions/App/Http/Cms/PostController';
 import { FormField } from '@/components/form-field.tsx';
 import { Form } from '@/components/form.tsx';
@@ -16,8 +18,8 @@ import {
 } from '@/components/ui/native-select.tsx';
 import { Switch } from '@/components/ui/switch.tsx';
 import type { OptionItemData, PostFormData } from '@/types';
+
 import '@mdxeditor/editor/style.css';
-import { SaveIcon } from 'lucide-react';
 
 type Props = {
     item: PostFormData;

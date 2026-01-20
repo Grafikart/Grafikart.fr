@@ -1,3 +1,13 @@
+import { Link } from '@inertiajs/react';
+import {
+    CheckCircle2Icon,
+    CircleXIcon,
+    EditIcon,
+    GraduationCapIcon,
+    PlusCircleIcon,
+    TrashIcon,
+} from 'lucide-react';
+
 import route from '@/actions/App/Http/Cms/FormationController';
 import { withLayout } from '@/components/layout.tsx';
 import { PageTitle } from '@/components/page-title.tsx';
@@ -14,15 +24,6 @@ import {
     TableRow,
 } from '@/components/ui/table.tsx';
 import type { FormationRowData, PaginatedData } from '@/types';
-import { Link } from '@inertiajs/react';
-import {
-    CheckCircle2Icon,
-    CircleXIcon,
-    EditIcon,
-    GraduationCapIcon,
-    PlusCircleIcon,
-    TrashIcon,
-} from 'lucide-react';
 
 type Props = {
     pagination: PaginatedData<FormationRowData>;
@@ -98,7 +99,6 @@ function Item({ item }: { item: FormationRowData }) {
                         {!item.online && (
                             <ButtonLink
                                 variant="destructive"
-                                method="delete"
                                 href={route.destroy(item.id)}
                             >
                                 <TrashIcon />

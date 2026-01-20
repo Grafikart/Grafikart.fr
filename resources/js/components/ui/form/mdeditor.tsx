@@ -1,24 +1,27 @@
+// eslint-disable-next-line import/order
 import {
-  type CodeBlockEditorDescriptor,
-  codeBlockPlugin,
-  diffSourcePlugin,
-  headingsPlugin,
-  imagePlugin,
-  linkPlugin,
-  listsPlugin,
-  markdownShortcutPlugin,
-  MDXEditor,
-  type MDXEditorMethods,
-  quotePlugin,
-  thematicBreakPlugin,
-  useCodeBlockEditorContext,
+ type CodeBlockEditorDescriptor,
+ codeBlockPlugin,
+ diffSourcePlugin,
+ headingsPlugin,
+ imagePlugin,
+ linkPlugin,
+ listsPlugin,
+ markdownShortcutPlugin,
+ MDXEditor,
+ type MDXEditorMethods,
+ quotePlugin,
+ thematicBreakPlugin,
+ useCodeBlockEditorContext
 } from "@mdxeditor/editor";
+
 import "@mdxeditor/editor/style.css";
-import { Textarea } from "@/components/ui/textarea.tsx";
-import { useRef, useState } from "react";
-import { Button } from "@/components/ui/button.tsx";
 import { ImageIcon, SquareCodeIcon } from "lucide-react";
+import { useRef, useState } from "react";
 import { toast } from "sonner";
+
+import { Button } from "@/components/ui/button.tsx";
+import { Textarea } from "@/components/ui/textarea.tsx";
 
 type Props = {
   defaultValue: string;

@@ -1,3 +1,14 @@
+import {
+    CheckCircle2Icon,
+    CircleXIcon,
+    HandCoinsIcon,
+    UserLockIcon,
+    UserPlusIcon,
+    UserSearchIcon,
+    UsersIcon,
+    XCircleIcon,
+} from 'lucide-react';
+
 import route from '@/actions/App/Http/Cms/TransactionController.ts';
 import UserController from '@/actions/App/Http/Cms/UserController';
 import { withLayout } from '@/components/layout.tsx';
@@ -22,16 +33,6 @@ import type {
     PaginatedData,
     UserRowData,
 } from '@/types';
-import {
-    CheckCircle2Icon,
-    CircleXIcon,
-    HandCoinsIcon,
-    UserLockIcon,
-    UserPlusIcon,
-    UserSearchIcon,
-    UsersIcon,
-    XCircleIcon,
-} from 'lucide-react';
 
 type Props = {
     pagination: PaginatedData<UserRowData>;

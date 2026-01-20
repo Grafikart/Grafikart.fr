@@ -1,3 +1,25 @@
+import { Link, usePage } from '@inertiajs/react';
+import {
+    BadgeEuroIcon,
+    BookOpenTextIcon,
+    BotIcon,
+    CogIcon,
+    HouseIcon,
+    ListVideoIcon,
+    MessagesSquareIcon,
+    MonitorPlayIcon,
+    StarIcon,
+    UserIcon,
+} from 'lucide-react';
+import {
+    type FC,
+    Fragment,
+    type PropsWithChildren,
+    type ReactNode,
+    useEffect,
+} from 'react';
+import { toast } from 'sonner';
+
 import CommentController from '@/actions/App/Http/Cms/CommentController.ts';
 import CourseController from '@/actions/App/Http/Cms/CourseController.ts';
 import FormationController from '@/actions/App/Http/Cms/FormationController.ts';
@@ -23,27 +45,6 @@ import {
     SidebarTrigger,
 } from '@/components/ui/sidebar';
 import type { NavItem, SharedData } from '@/types';
-import { Link, usePage } from '@inertiajs/react';
-import {
-    BadgeEuroIcon,
-    BookOpenTextIcon,
-    BotIcon,
-    CogIcon,
-    HouseIcon,
-    ListVideoIcon,
-    MessagesSquareIcon,
-    MonitorPlayIcon,
-    StarIcon,
-    UserIcon,
-} from 'lucide-react';
-import {
-    type FC,
-    Fragment,
-    type PropsWithChildren,
-    type ReactNode,
-    useEffect,
-} from 'react';
-import { toast } from 'sonner';
 
 type Props = {
     breadcrumb: NavItem[];
@@ -80,7 +81,7 @@ const nav = [
     {
         label: 'Dashboard',
         icon: HouseIcon,
-        href: '/',
+        href: { method: 'get', url: '/' },
     },
     {
         label: 'Contenus',
