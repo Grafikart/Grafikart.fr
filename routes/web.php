@@ -13,6 +13,15 @@ use App\Http\Cms\TransactionController;
 use App\Http\Cms\UserController;
 use Illuminate\Support\Facades\Route;
 
+$slug = '[0-9]+';
+
+// Public routes
+Route::get('/tutoriels/{slug}-{course}', [\App\Http\Front\CourseController::class, 'show'])
+    ->whereNumber('course')
+    ->middleware(\App\Http\Middleware\RedirectIfSlugMismatch::class.':course')
+    ->name('courses.show');
+
+// Admin routes
 Route::group(['prefix' => '/cms', 'as' => 'cms.'], function () {
     Route::resource('blog_categories', BlogCategoryController::class);
     Route::resource('comments', CommentController::class)->only(['index', 'update', 'destroy']);

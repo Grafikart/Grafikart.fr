@@ -1,5 +1,6 @@
 # Project specific
 .vault_pass
+.junie
 var
 
 # Laravel gitignore

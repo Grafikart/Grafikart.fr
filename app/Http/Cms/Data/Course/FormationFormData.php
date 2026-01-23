@@ -2,9 +2,7 @@
 
 namespace App\Http\Cms\Data\Course;
 
-use App\Domains\Course\Chapter;
 use App\Domains\Course\DifficultyLevel;
-use App\Domains\Course\Formation;
 use App\Http\Cms\Data\Attachment\AttachmentUrlData;
 use App\Http\Cms\Data\MapChapters;
 use Illuminate\Support\Collection;

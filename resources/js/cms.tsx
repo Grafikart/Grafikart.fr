@@ -1,4 +1,4 @@
-import '../css/app.css';
+import '../css/cms.css';
 
 import { createInertiaApp } from '@inertiajs/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';

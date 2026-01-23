@@ -1,0 +1,14 @@
+{
+	frankenphp
+}
+
+:8000 {
+	root public/
+	encode zstd gzip
+	php_server {
+		hot_reload resources/views/**/*{.blade.php}
+	}
+	mercure {
+		anonymous
+	}
+}

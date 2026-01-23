@@ -1,0 +1,58 @@
+@import 'tailwindcss';
+@source "../../resources/views/";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+    --font-sans: 'Inter', sans-serif;
+    --font-serif: 'Crimson Pro', serif;
+    --color-*: initial;
+    --color-foreground: #121c42;
+    --color-muted: #121c4299;
+    --color-primary: #4869ee;
+    --color-primary-foreground: #eFFbec;
+    --color-background: #f7fafb;
+    --color-card: #FFF;
+    --color-border: #d5e3ec;
+
+    --dark: #000;
+    --olor: #121c42;
+    --light: #121c4299;
+    --inversed: #effbec;
+    --inversed60: #effbec99;
+    --transparent: #{rgba(#121c42, 0)};
+    --contrast: #4869ee;
+    --contrast25: #4869ee3f;
+    --gap: 20px;
+    --space: 8px;
+    --border: #d5e3ec;
+    --border-light: #e6eff4;
+    --background-light: #fff;
+    --shadow: #d8e1e8;
+    --list-hover: var(--background);
+    --play: #f3f9fb;
+--space-section: 150px;
+    --card-footer: #f7fafd;
+    --card-padding: 16px;
+    --header-height: 137px;
+    --red: #f25353;
+    --green: #41cf7c;
+    --yellow: #feb32b;
+    --yellow-alpha: #feb32b4c;
+    --skeleton: var(--border-light);
+    --skeleton-wave: var(--border-light);
+    --selection-background: var(--border);
+    --header-background: #FFFFFFF2;
+    --header-background-inversed: #4869eeF2;
+    --video-background: var(--color);
+}
+
+@layer base {
+    button, a {
+        cursor: pointer;
+    }
+    hr {
+        border: none;
+    }
+}

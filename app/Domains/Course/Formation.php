@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 /**
  * @property Chapter[] $chapters
@@ -85,5 +86,15 @@ class Formation extends Model
         return Attribute::make(
             get: fn () => collect($this->chapters)->pluck('ids')->flatten()
         );
+    }
+
+    public function chaptersWithCourses(): Collection
+    {
+        $coursesByIds = $this->courses->keyBy('id');
+
+        return $this->chapters->map(fn (Chapter $chapter) => [
+            'title' => $chapter->title,
+            'courses' => array_map(fn (int $id) => $coursesByIds[$id], $chapter->ids),
+        ]);
     }
 }

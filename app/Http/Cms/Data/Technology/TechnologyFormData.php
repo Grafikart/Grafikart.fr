@@ -20,6 +20,5 @@ class TechnologyFormData extends Data
         public ?string $image = null,
         /** @var Collection<OptionItemData> */
         public ?Collection $requirements = null,
-    ) {
-    }
+    ) {}
 }

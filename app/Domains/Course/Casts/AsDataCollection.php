@@ -20,11 +20,11 @@ class AsDataCollection implements Castable
             ) {}
 
             /**
-             * @return array<Chapter>
+             * @return Collection<Chapter>
              */
-            public function get(Model $model, string $key, mixed $value, array $attributes): array
+            public function get(Model $model, string $key, mixed $value, array $attributes): \Illuminate\Support\Collection
             {
-                return ($this->itemClass)::collect(json_decode($value, true));
+                return collect(($this->itemClass)::collect(json_decode($value, true)));
             }
 
             /**

@@ -209,4 +209,3 @@ describe('technologies', function () {
             );
     });
 });
-
