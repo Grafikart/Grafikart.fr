@@ -1,4 +1,4 @@
-@props(['orientation' => 'horizontal', 'class'])
+@props(['orientation' => 'horizontal'])
 
 <hr class="{{ cn([
     'bg-border',

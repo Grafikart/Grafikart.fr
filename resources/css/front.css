@@ -35,7 +35,7 @@
     --shadow: #d8e1e8;
     --list-hover: var(--background);
     --play: #f3f9fb;
---space-section: 150px;
+    --space-section: 150px;
     --card-footer: #f7fafd;
     --card-padding: 16px;
     --header-height: 137px;
@@ -66,6 +66,7 @@
         content:'';
         position: absolute;
         inset: 0;
+        z-index: 1;
     }
 }
 
@@ -73,4 +74,8 @@
     margin-inline: auto;
     padding-inline: 1rem;
     max-width: 1330px;
+}
+
+@utility grid-fill-* {
+    grid-template-columns: repeat(auto-fill, minmax(calc(--value(integer) * 1px), 1fr));
 }

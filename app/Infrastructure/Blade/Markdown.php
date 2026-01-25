@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Blade;
+namespace App\Infrastructure\Blade;
 
 final class Markdown
 {

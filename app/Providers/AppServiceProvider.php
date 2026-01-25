@@ -6,6 +6,7 @@ use App\Domains\Blog\Post;
 use App\Domains\Course\Course;
 use App\Domains\Course\Formation;
 use Carbon\CarbonImmutable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -36,6 +37,12 @@ class AppServiceProvider extends ServiceProvider
     protected function configureDefaults(): void
     {
         Date::use(CarbonImmutable::class);
+
+        // When cache is disabled, autoload relationships to make dev env faster
+        if(config('cache.default') === 'array') {
+           Model::automaticallyEagerLoadRelationships();
+        }
+
         Relation::enforceMorphMap([
             'post' => Post::class,
             'formation' => Formation::class,

@@ -17,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 $slug = '[0-9]+';
 
 // Public routes
+Route::group(['prefix' => '/blog', 'as' => 'blog.'], function () {
+    Route::get('/', [\App\Http\Front\BlogController::class, 'index'])->name('index');
+});
+
 Route::get('/tutoriels', [\App\Http\Front\CourseController::class, 'index'])->name('courses.index');
 Route::get('/tutoriels/{slug}-{course}', [\App\Http\Front\CourseController::class, 'show'])
     ->whereNumber('course')

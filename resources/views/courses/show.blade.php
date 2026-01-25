@@ -26,7 +26,8 @@
                                 @endif
                             </a>
                         @endforeach
-                    </div>                </div>
+                    </div>
+                </div>
                 <div class="flex items-center text-muted gap-2 ml-auto">
                     <x-lucide-calendar class="size-4"/> {{ $course->created_at->diffForHumans() }}
                 </div>
@@ -36,17 +37,17 @@
         <main>
             <x-atoms.card as="main">
                 <iframe
-                    class="aspect-video w-full mb-8"
-                    style="background: #000;"
-                    src="https://www.youtube-nocookie.com/embed/xSfZwqzs_OM?si=mcYzRO1_nis2Rort"
-                    title="YouTube video player"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin"
-                    allowfullscreen></iframe>
+                        class="aspect-video w-full mb-8"
+                        style="background: #000;"
+                        src="https://www.youtube-nocookie.com/embed/xSfZwqzs_OM?si=mcYzRO1_nis2Rort"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen></iframe>
 
-                <div class="prose px-8">
-                    {!! \App\Blade\Markdown::toHtml($course->content) !!}
+                <div class="prose prose-lg px-8">
+                    {!! \App\Infrastructure\Blade\Markdown::toHtml($course->content) !!}
                 </div>
 
             </x-atoms.card>
@@ -68,7 +69,7 @@
             </x-atoms.card>
 
             @if($course->formation)
-            <x-organisms.chapters :chapters="$course->formation->chaptersWithCourses()"/>
+                <x-organisms.chapters :chapters="$course->formation->chaptersWithCourses()"/>
             @endif
 
             <section class="space-y-3">
@@ -80,9 +81,9 @@
                 <x-atoms.card padded class="space-y-3">
                     <div class="space-y-1">
                        <textarea
-                           aria-label="Description du problème"
-                           class="p-2 border-border border w-full rounded-sm"
-                           placeholder="Je ne comprends pas pourquoi tu as fait... à ce moment là"></textarea>
+                               aria-label="Description du problème"
+                               class="p-2 border-border border w-full rounded-sm"
+                               placeholder="Je ne comprends pas pourquoi tu as fait... à ce moment là"></textarea>
                     </div>
 
                     <x-atoms.button class="w-full justify-center">Poser ma question
@@ -95,6 +96,5 @@
 
         </aside>
     </div>
-
 
 @endsection

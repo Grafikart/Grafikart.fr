@@ -1,5 +1,6 @@
 @props(['course'])
 
+@cache('course-card', $course)
 <x-atoms.card
     padded
     as="article"
@@ -7,27 +8,27 @@
 >
     <div class="flex items-start justify-between mb-3">
         <div class="h-10 flex items-center gap-1">
-           @foreach($course->mainTechnologies as $tech)
+            @foreach($course->mainTechnologies as $tech)
                 <img
                     src="{{ $tech->mediaUrl('image') }}"
                     alt="{{ $tech->name }}"
                     class="size-10 object-contain"
                 />
-           @endforeach
+            @endforeach
         </div>
 
         <x-atoms.level-badge :level="$course->level"/>
     </div>
 
     <h2 class="font-bold text-lg mb-2 line-clamp-2">
-        <a href="{{  route('courses.show', [$course->slug, $course])  }}"
-           class="overlay">
+        <a href="{{ route('courses.show', [$course->slug, $course])  }}"
+           class="overlay hover:text-primary hover:before:ring hover:before:ring-primary before:rounded-md">
             {{ $course->title }}
         </a>
     </h2>
 
     <p class="text-muted text-sm mb-4">
-        {{ \App\Blade\Markdown::excerpt($course->content, 130) }}
+        {{ \App\Infrastructure\Blade\Markdown::excerpt($course->content, 130) }}
     </p>
 
     <div
@@ -40,3 +41,4 @@
         <x-atoms.duration :duration="$course->duration"/>
     </div>
 </x-atoms.card>
+@endcache

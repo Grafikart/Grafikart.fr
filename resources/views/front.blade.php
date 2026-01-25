@@ -42,7 +42,8 @@
     @viteReactRefresh
     @vite(['resources/js/front.ts'])
 </head>
-<body class="font-sans antialiased text-foreground bg-background">
+<body class={{ cn(["font-sans antialiased text-foreground bg-background", $class ?? '']) }}>
+<x-organisms.header />
 @yield('body')
 </body>
 </html>
