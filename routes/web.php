@@ -4,6 +4,7 @@ use App\Http\Cms\AttachmentController;
 use App\Http\Cms\BlogCategoryController;
 use App\Http\Cms\CommentController;
 use App\Http\Cms\CourseController;
+use App\Http\Cms\DashboardController;
 use App\Http\Cms\FormationController;
 use App\Http\Cms\PlanController;
 use App\Http\Cms\PostController;
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 $slug = '[0-9]+';
 
 // Public routes
+Route::get('/tutoriels', [\App\Http\Front\CourseController::class, 'index'])->name('courses.index');
 Route::get('/tutoriels/{slug}-{course}', [\App\Http\Front\CourseController::class, 'show'])
     ->whereNumber('course')
     ->middleware(\App\Http\Middleware\RedirectIfSlugMismatch::class.':course')
@@ -23,6 +25,10 @@ Route::get('/tutoriels/{slug}-{course}', [\App\Http\Front\CourseController::clas
 
 // Admin routes
 Route::group(['prefix' => '/cms', 'as' => 'cms.'], function () {
+    Route::get('/', function () {
+        return redirect('/cms/dashboard');
+    });
+    Route::get('dashboard', DashboardController::class)->name('dashboard');
     Route::resource('blog_categories', BlogCategoryController::class);
     Route::resource('comments', CommentController::class)->only(['index', 'update', 'destroy']);
     Route::resource('courses', CourseController::class);

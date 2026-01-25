@@ -15,6 +15,9 @@
     --color-background: #f7fafb;
     --color-card: #FFF;
     --color-border: #d5e3ec;
+    --color-red: #f25353;
+    --color-green: #41cf7c;
+    --color-yellow: #feb32b;
 
     --dark: #000;
     --olor: #121c42;
@@ -36,9 +39,6 @@
     --card-footer: #f7fafd;
     --card-padding: 16px;
     --header-height: 137px;
-    --red: #f25353;
-    --green: #41cf7c;
-    --yellow: #feb32b;
     --yellow-alpha: #feb32b4c;
     --skeleton: var(--border-light);
     --skeleton-wave: var(--border-light);
@@ -55,4 +55,22 @@
     hr {
         border: none;
     }
+    * {
+        border-color: var(--color-border);
+        outline-color: var(--ring);
+    }
+}
+
+@utility overlay {
+    &::before {
+        content:'';
+        position: absolute;
+        inset: 0;
+    }
+}
+
+@utility container {
+    margin-inline: auto;
+    padding-inline: 1rem;
+    max-width: 1330px;
 }
