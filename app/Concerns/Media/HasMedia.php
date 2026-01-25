@@ -2,6 +2,7 @@
 
 namespace App\Concerns\Media;
 
+use App\Infrastructure\Image\ImageUrlGenerator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 
@@ -92,7 +93,7 @@ trait HasMedia
     /**
      * Resolve the url for an attached file
      */
-    public function mediaUrl(string $property): ?string
+    public function mediaUrl(string $property, ?int $width = null, ?int $height = null): ?string
     {
         if (! $this->getAttribute($property)) {
             return null;
@@ -104,6 +105,12 @@ trait HasMedia
             throw new \RuntimeException(sprintf('The property %s on %s has no media registered', $property, static::class));
         }
 
-        return $mapping->url($this);
+        $url = $mapping->url($this);
+        if (! $width) {
+            return $url;
+        }
+
+        return ImageUrlGenerator::resize($url, $width, $height);
+
     }
 }

@@ -4,7 +4,7 @@
 
     <header class="container flex items-center pb-10 justify-between">
 
-        <h1 class="text-5xl font-serif font-bold">Blog</h1>
+        <h1 class="text-6xl font-serif font-bold">Blog</h1>
         <form method="GET" action="{{ route('blog.index') }}">
             <select
                 name="category"
@@ -26,30 +26,29 @@
     </header>
 
     <section class="bg-background border-t">
-        <div class="container max-w-182 py-10">
+        <div class="container max-w-182 py-20 flex flex-col gap-20">
 
             @foreach($posts as $post)
                 <article class="flex gap-8">
                     @if($post->attachment)
-                        <div class="shrink-0">
-                            <img
-                                src="{{ $post->attachment->mediaUrl('name') }}"
-                                alt="{{ $post->title }}"
-                                class="w-40 h-32 object-cover rounded-md"
-                            />
-                        </div>
+                        <a href="{{ route('blog.show', [$post->slug]) }}" class="size-40 hover:ring hover:ring-primary flex-none rounded-md overflow-hidden hover:shadow-lg transition-all">
+                        <img
+                            src="{{ $post->attachment->url(160,160) }}"
+                            alt="{{ $post->title }}"
+                            class="size-40 object-cover shadow-sm"
+                        /></a>
                     @endif
 
-                    <div class="flex-1">
-                        <h2 class="text-3xl font-bold text-primary mb-2 leading-tight">
-                            {{ $post->title }}
+                    <div>
+                        <h2 class="text-4xl font-bold mb-4">
+                            <a class="hover:text-primary transition-colors" href="{{route('blog.show', [$post->slug])}}">{{ $post->title }}</a>
                         </h2>
 
-                        <div class="flex items-center gap-4 text-muted text-sm uppercase tracking-wide mb-4">
+                        <div class="flex items-center gap-4 text-muted text-sm uppercase mb-4 justify-between">
                             <time datetime="{{ $post->created_at->format('Y-m-d') }}">
                                 {{ $post->created_at->translatedFormat('j F Y') }}
                             </time>
-                            <span class="ml-auto">Auteur Grafikart</span>
+                            <span> Auteur Grafikart</span>
                         </div>
 
                         <p class="text-foreground/80 leading-relaxed">

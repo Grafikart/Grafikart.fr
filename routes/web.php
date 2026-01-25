@@ -17,8 +17,14 @@ use Illuminate\Support\Facades\Route;
 $slug = '[0-9]+';
 
 // Public routes
+Route::get('/media/resize/{width}/{height}/{path}', [\App\Http\Front\ImageController::class, 'resize'])
+    ->where('path', '.*')
+    ->whereNumber(['width', 'height'])
+    ->name('image.resize');
+
 Route::group(['prefix' => '/blog', 'as' => 'blog.'], function () {
     Route::get('/', [\App\Http\Front\BlogController::class, 'index'])->name('index');
+    Route::get('/{post:slug}', [\App\Http\Front\BlogController::class, 'show'])->name('show');
 });
 
 Route::get('/tutoriels', [\App\Http\Front\CourseController::class, 'index'])->name('courses.index');

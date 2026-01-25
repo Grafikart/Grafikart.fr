@@ -27,6 +27,11 @@ class Attachment extends Model implements RegisterMedia
         'attachable_type',
     ];
 
+    public function url(?int $width = null, ?int $height = null): string
+    {
+        return $this->mediaUrl('name', $width, $height);
+    }
+
     // Attachments are never updated
     public function getUpdatedAtColumn()
     {

@@ -33,4 +33,11 @@ class BlogController extends Controller
             'currentCategory' => $request->get('category'),
         ]);
     }
+
+    public function show(Post $post): View
+    {
+        return view('blog.show', [
+            'post' => $post,
+        ]);
+    }
 }
