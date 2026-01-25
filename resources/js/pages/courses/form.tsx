@@ -81,12 +81,16 @@ function ItemForm({ item }: Props) {
                         <AttachmentSelector
                             name="image"
                             className="aspect-8/9"
+                            attachableType="Course"
+                            attachableId={item.id}
                             defaultValue={item.attachment?.id}
                             preview={item.attachment?.url}
                         />
                         <AttachmentSelector
                             name="youtubeThumbnail"
                             className="aspect-8/9"
+                            attachableId={item.id}
+                            attachableType="Course"
                             defaultValue={item.youtubeThumbnail?.id}
                             preview={item.youtubeThumbnail?.url}
                         />

@@ -80,6 +80,8 @@ export default withLayout<Props>(
                             name="image"
                             className="aspect-video"
                             defaultValue={item.attachment?.id}
+                            attachableId={item.id}
+                            attachableType="Formation"
                             preview={item.attachment?.url}
                         />
                         <CardContent className="space-y-4">

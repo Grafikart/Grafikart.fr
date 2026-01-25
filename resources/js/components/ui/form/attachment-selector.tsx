@@ -10,9 +10,11 @@ type Props = {
   defaultValue?: number;
   preview?: string;
   name: string;
+  attachableType?: string;
+  attachableId?: number | null;
 } & ComponentProps<"div">;
 
-export function AttachmentSelector({ className, defaultValue, preview, name, ...props }: Props) {
+export function AttachmentSelector({ className, defaultValue, preview, name, attachableType, attachableId, ...props }: Props) {
   const [attachmentId, setAttachmentId] = useState(defaultValue);
   const [previewUrl, setPreviewUrl] = useState(preview);
   const onFileSelect = (file: AttachmentFileData) => {
@@ -44,7 +46,7 @@ export function AttachmentSelector({ className, defaultValue, preview, name, ...
           <UploadIcon size={16} className={cn(preview && "hidden group-hover:block relative z-5")} />
         </DialogTrigger>
         <DialogContent className="p-0 max-w-300 ">
-          <FileExplorer onSelect={onFileSelect} />
+          <FileExplorer onSelect={onFileSelect} attachableType={attachableType} attachableId={attachableId} />
         </DialogContent>
       </Dialog>
     </>

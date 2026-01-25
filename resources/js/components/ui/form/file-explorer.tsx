@@ -18,6 +18,8 @@ import type { AttachmentFileData, FolderData } from "@/types";
 
 type Props = {
   onSelect: (file: AttachmentFileData) => void;
+  attachableType?: string;
+  attachableId?: number;
 };
 
 export function FileExplorer(props: Props) {
@@ -33,13 +35,19 @@ export function FileExplorer(props: Props) {
     for (const file of files) {
       const data = new FormData();
       data.set("file", file);
+      if (props.attachableType) {
+        data.set("attachableType", props.attachableType);
+      }
+      if (props.attachableId) {
+        data.set("attachableId", props.attachableId.toString());
+      }
       mutate(data, {
         onSuccess: (newFile) => {
           setData((files) => [newFile, ...files]);
         },
       });
     }
-  }, [mutate, setData]);
+  }, [mutate, setData, props.attachableType, props.attachableId]);
   const { getRootProps, isDragActive, getInputProps } = useDropzone({ onDrop, noClick: true });
 
   const files = data ?? [];

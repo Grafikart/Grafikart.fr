@@ -70,6 +70,8 @@ export default withLayout<Props>(
                         <AttachmentSelector
                             name="attachmentId"
                             className="aspect-video"
+                            attachableType="Post"
+                            attachableId={item.id}
                             defaultValue={item.attachment?.id}
                             preview={item.attachment?.url}
                         />

@@ -15,12 +15,16 @@ class AttachmentUploadData extends Data implements DataToModel
 {
     public function __construct(
         public UploadedFile $file,
+        public ?string $attachableType = null,
+        public ?int $attachableId = null,
     ) {}
 
     public static function rules(): array
     {
         return [
             'file' => ['required', 'image'],
+            'attachableType' => ['nullable', 'string'],
+            'attachableId' => ['nullable', 'integer'],
         ];
     }
 
@@ -30,6 +34,8 @@ class AttachmentUploadData extends Data implements DataToModel
 
         $model->created_at = now();
         $model->size = $this->file->getSize();
+        $model->attachable_type = $this->attachableType;
+        $model->attachable_id = $this->attachableId;
         $model->attachMedia($this->file, 'name');
 
         return $model;

@@ -16,9 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->integer('size');
             $table->timestamp('created_at')->useCurrent();
-            $table->unsignedBigInteger('attachable_id')->nullable();
-            $table->string('attachable_type')->nullable();
-            $table->index(['attachable_id', 'attachable_type']);
+            $table->nullableMorphs('attachable');
         });
     }
 

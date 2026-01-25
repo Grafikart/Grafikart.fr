@@ -8,13 +8,14 @@ use App\Domains\Attachment\Factory\AttachmentFactory;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
  * @property CarbonImmutable $created_at
  */
 class Attachment extends Model implements RegisterMedia
 {
-    /** @use HasFactory<\App\Domains\Attachment\Factory\AttachmentFactory> */
+    /** @use HasFactory<AttachmentFactory> */
     use HasFactory;
 
     use HasMedia;
@@ -45,6 +46,14 @@ class Attachment extends Model implements RegisterMedia
             property: 'name',
             directory: fn (self $attachment) => sprintf('attachments/%d', $attachment->created_at->year),
         );
+    }
+
+    /**
+     * @return MorphTo<Model, $this>
+     */
+    public function attachable(): MorphTo
+    {
+        return $this->morphTo();
     }
 
     protected static function newFactory(): AttachmentFactory
