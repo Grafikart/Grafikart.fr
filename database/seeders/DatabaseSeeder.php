@@ -32,10 +32,7 @@ class DatabaseSeeder extends Seeder
         Attachment::class,
     ];
 
-    /**
-     * Seed the application's database.
-     */
-    public function run(): void
+    protected function clean()
     {
         // Optimize the performance for insertion
         DB::disableQueryLog();
@@ -49,7 +46,14 @@ class DatabaseSeeder extends Seeder
         }
         DB::table('course_technology')->truncate();
         DB::table('formation_technology')->truncate();
+    }
 
+    /**
+     * Seed the application's database.
+     */
+    public function run(): void
+    {
+        $this->clean();
         // Fill it with fake data
         User::factory()->create([
             'name' => 'Grafikart',

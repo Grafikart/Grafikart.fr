@@ -1,24 +1,20 @@
 @props(['course'])
 
-@php
-    $primaryTech = $course->technologies->first();
-@endphp
-
 <x-atoms.card
     padded
     as="article"
     class="flex flex-col rounded-md border h-full hover:shadow-md transition-shadow relative"
 >
     <div class="flex items-start justify-between mb-3">
-        @if($primaryTech && $primaryTech->image)
-            <img
-                src="{{ $primaryTech->image }}"
-                alt="{{ $primaryTech->name }}"
-                class="size-10 object-contain"
-            />
-        @else
-            <div class="size-10"></div>
-        @endif
+        <div class="h-10 flex items-center gap-1">
+           @foreach($course->mainTechnologies as $tech)
+                <img
+                    src="{{ $tech->mediaUrl('image') }}"
+                    alt="{{ $tech->name }}"
+                    class="size-10 object-contain"
+                />
+           @endforeach
+        </div>
 
         <x-atoms.level-badge :level="$course->level"/>
     </div>
@@ -31,7 +27,7 @@
     </h2>
 
     <p class="text-muted text-sm mb-4">
-        {{ str($course->content)->stripTags()->limit(150) }}
+        {{ \App\Blade\Markdown::excerpt($course->content, 130) }}
     </p>
 
     <div

@@ -61,7 +61,10 @@ dump: var/dump ## Génère un dump SQL
 	$(de) db sh -c 'PGPASSWORD="grafikart" pg_dump grafikart -U grafikart > /var/www/var/dump/dump.sql'
 
 dumpimport: ## Import un dump SQL
-	$(de) db sh -c 'pg_restore -c -d grafikart -U grafikart /var/www/var/dump'
+	$(de) db sh -c 'pg_restore -c -d grafikart -U grafikart /var/dump'
+
+dbupgrade: ## Migrate the database from the old site to the new
+	php artisan db:seed --class=DatabaseImporterSeeder
 
 seed: vendor/autoload.php ## Génère des données dans la base de données (docker compose up doit être lancé)
 	$(sy) doctrine:migrations:migrate -q

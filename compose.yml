@@ -21,7 +21,7 @@ services:
 #      MEILISEARCH_HOST: "meilisearch:7700"
   db:
     restart: unless-stopped
-    image: postgres:12-alpine
+    image: postgres:17-alpine
     ports:
       - "5432:5432" # On expose le port pour pouvoir inspecter la base pendant la phase de développement
     environment:
@@ -32,8 +32,8 @@ services:
       TZ: Europe/Paris
       PGTZ: Europe/Paris
     volumes:
-      - ./var/db:/var/lib/postgresql/data
-      - ./var:/var/www/var
+      - ./storage/db:/var/lib/postgresql/data
+      - ./storage/dump:/var/dump
   redis:
     restart: unless-stopped
     image: redis:7-alpine
@@ -46,7 +46,7 @@ services:
       - "8108:8108"
     command: '--data-dir /data --api-key=typesensekey --enable-cors'
     volumes:
-      - ./var/typesense:/data
+      - ./storage/typesense:/data
 
 #  mercure:
 #    restart: unless-stopped

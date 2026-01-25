@@ -15,6 +15,9 @@ var
 /resources/js/routes
 /resources/js/wayfinder
 /storage/*.key
+/storage/db
+/storage/dump
+/storage/typesense
 /storage/pail
 /storage/debugbar
 /vendor

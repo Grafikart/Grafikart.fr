@@ -15,4 +15,24 @@ trait HasTechnologies
         return $this->belongsToMany(Technology::class)
             ->withPivot(['version', 'primary']);
     }
+
+    /**
+     * @return BelongsToMany<Technology, $this>
+     */
+    public function mainTechnologies(): BelongsToMany
+    {
+        return $this->belongsToMany(Technology::class)
+            ->withPivot(['version', 'primary'])
+            ->wherePivot('primary', true);
+    }
+
+    /**
+     * @return BelongsToMany<Technology, $this>
+     */
+    public function secondaryTechnologies(): BelongsToMany
+    {
+        return $this->belongsToMany(Technology::class)
+            ->withPivot(['version', 'primary'])
+            ->wherePivot('primary', false);
+    }
 }

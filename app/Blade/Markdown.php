@@ -35,4 +35,21 @@ final class Markdown
 
         return $content;
     }
+
+    public static function excerpt(?string $content, int $characterLimit = 135): string
+    {
+        if (!$content) {
+            return '';
+        }
+        $content = strip_tags(self::toHtml($content));
+        if (mb_strlen($content) <= $characterLimit) {
+            return $content;
+        }
+        $lastSpace = strpos($content, ' ', $characterLimit);
+        if (false === $lastSpace) {
+            return $content;
+        }
+
+        return substr($content, 0, $lastSpace).'...';
+    }
 }
