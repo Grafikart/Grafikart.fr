@@ -63,7 +63,7 @@ class DatabaseImporterSeeder extends DatabaseSeeder
                         'updated_at' => $formation->updated_at,
                     ];
                 }
-                if (!empty($data)) {
+                if (! empty($data)) {
                     DB::table('formations')->upsert($data, uniqueBy: ['id']);
                 }
             });
@@ -99,7 +99,7 @@ class DatabaseImporterSeeder extends DatabaseSeeder
                         'updated_at' => $course->updated_at,
                     ];
                 }
-                if (!empty($data)) {
+                if (! empty($data)) {
                     DB::table('courses')->upsert($data, uniqueBy: ['id']);
                 }
             });
@@ -119,11 +119,11 @@ class DatabaseImporterSeeder extends DatabaseSeeder
                         'content' => $technology->content,
                         'image' => $technology->image,
                         'type' => $technology->type,
-                        'created_at' => $technology->updated_at,
+                        'created_at' => $technology->created_at,
                         'updated_at' => $technology->updated_at,
                     ];
                 }
-                if (!empty($data)) {
+                if (! empty($data)) {
                     DB::table('technologies')->upsert($data, uniqueBy: ['id']);
                 }
             });
@@ -138,7 +138,7 @@ class DatabaseImporterSeeder extends DatabaseSeeder
                         'requirement_id' => $requirement->technology_target,
                     ];
                 }
-                if (!empty($data)) {
+                if (! empty($data)) {
                     DB::table('technology_requirement')->upsert($data, uniqueBy: ['technology_id', 'requirement_id']);
                 }
             });
@@ -157,10 +157,10 @@ class DatabaseImporterSeeder extends DatabaseSeeder
                             "{$type}_id" => $usage->content_id,
                             'technology_id' => $usage->technology_id,
                             'version' => $usage->version,
-                            'primary' => !$usage->secondary,
+                            'primary' => ! $usage->secondary,
                         ];
                     }
-                    if (!empty($data)) {
+                    if (! empty($data)) {
                         DB::table("{$type}_technology")->upsert($data, uniqueBy: ["{$type}_id", 'technology_id']);
                     }
                 });
@@ -179,12 +179,11 @@ class DatabaseImporterSeeder extends DatabaseSeeder
                         'id' => $category->id,
                         'name' => $category->name,
                         'slug' => $category->slug,
-                        'posts_count' => $category->posts_count ?? 0,
                         'created_at' => now(),
                         'updated_at' => now(),
                     ];
                 }
-                if (!empty($data)) {
+                if (! empty($data)) {
                     DB::table('blog_categories')->upsert($data, uniqueBy: ['id']);
                 }
             });
@@ -208,7 +207,7 @@ class DatabaseImporterSeeder extends DatabaseSeeder
                         'updated_at' => $post->updated_at,
                     ];
                 }
-                if (!empty($data)) {
+                if (! empty($data)) {
                     DB::table('blog_posts')->upsert($data, uniqueBy: ['id']);
                 }
             });
@@ -223,11 +222,6 @@ class DatabaseImporterSeeder extends DatabaseSeeder
             ->chunk(self::CHUNK_SIZE, function ($comments) {
                 $data = [];
                 foreach ($comments as $comment) {
-                    // Skip comments for unknown content types
-                    if (!isset($typeMap[$comment->content_type])) {
-                        continue;
-                    }
-
                     $data[] = [
                         'id' => $comment->id,
                         'user_id' => $comment->author_id,
@@ -240,7 +234,7 @@ class DatabaseImporterSeeder extends DatabaseSeeder
                         'created_at' => $comment->created_at,
                     ];
                 }
-                if (!empty($data)) {
+                if (! empty($data)) {
                     DB::table('comments')->upsert($data, uniqueBy: ['id']);
                 }
             });

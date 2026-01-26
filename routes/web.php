@@ -17,13 +17,16 @@ use Illuminate\Support\Facades\Route;
 $slug = '[0-9]+';
 
 // Public routes
+Route::get('/ui', [\App\Http\Front\PageController::class, 'ui']);
 Route::get('/media/resize/{width}/{height}/{path}', [\App\Http\Front\ImageController::class, 'resize'])
     ->where('path', '.*')
     ->whereNumber(['width', 'height'])
     ->name('image.resize');
 
+// BLOG
 Route::group(['prefix' => '/blog', 'as' => 'blog.'], function () {
     Route::get('/', [\App\Http\Front\BlogController::class, 'index'])->name('index');
+    Route::get('/category/{category:slug}', [\App\Http\Front\BlogController::class, 'index'])->name('category');
     Route::get('/{post:slug}', [\App\Http\Front\BlogController::class, 'show'])->name('show');
 });
 

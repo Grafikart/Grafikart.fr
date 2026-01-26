@@ -47,7 +47,7 @@
                         allowfullscreen></iframe>
 
                 <div class="prose prose-lg px-8">
-                    {!! \App\Infrastructure\Blade\Markdown::toHtml($course->content) !!}
+                    {!! \App\Infrastructure\Blade\Markdown::html($course->content) !!}
                 </div>
 
             </x-atoms.card>

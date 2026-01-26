@@ -1,21 +1,28 @@
 @import 'tailwindcss';
+@import './form.css';
+@import './prose.css';
+@import './scrollbar.css';
 @source "../../resources/views/";
-@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
+@custom-variant selected (&[selected]);
 
 @theme {
     --font-sans: 'Inter', sans-serif;
     --font-serif: 'Crimson Pro', serif;
+    --font-mono: monospace;
     --color-*: initial;
-    --color-foreground: #121c42;
-    --color-muted: #121c4299;
+    --color-foreground-title: #121c42;
+    --color-foreground: color-mix(in oklab, var(--color-foreground-title) 85%, transparent);
+    --color-muted: color-mix(in oklab, var(--color-foreground-title) 60%, transparent) ;
     --color-primary: #4869ee;
     --color-primary-foreground: #eFFbec;
     --color-background: #f7fafb;
+    --color-background-light: #FFF;
     --color-card: #FFF;
     --color-border: #d5e3ec;
-    --color-red: #f25353;
+    --color-destructive: #f25353;
+    --color-destructive-foreground: #fff3f3;
     --color-green: #41cf7c;
     --color-yellow: #feb32b;
 

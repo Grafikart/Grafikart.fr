@@ -8,7 +8,7 @@
     ];
 @endphp
 
-<header class="mb-10">
+<header class="mb-10 text-foreground-title">
     <div class="container flex items-center gap-2 border-b py-2 pt-6 font-semibold">
         <a href="/" class="text-foreground mr-4">
             <x-atoms.logo/>

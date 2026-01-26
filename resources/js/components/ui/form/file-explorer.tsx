@@ -19,7 +19,7 @@ import type { AttachmentFileData, FolderData } from "@/types";
 type Props = {
   onSelect: (file: AttachmentFileData) => void;
   attachableType?: string;
-  attachableId?: number;
+  attachableId?: number | null;
 };
 
 export function FileExplorer(props: Props) {

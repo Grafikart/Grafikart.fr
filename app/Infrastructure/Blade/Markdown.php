@@ -4,13 +4,13 @@ namespace App\Infrastructure\Blade;
 
 final class Markdown
 {
-    public static function toHtml(string $content)
+    public static function html(string $content)
     {
         $content = (new \Parsedown)->setBreaksEnabled(true)->setSafeMode(false)->text($content);
         // On remplace les liens youtube par un embed
         $content = (string) preg_replace(
             '/<p><a href\="(http|https):\/\/www.youtube.com\/watch\?v=([^\""]+)">[^<]*<\/a><\/p>/',
-            '<lazy-video videoid="$2"></lazy-video>',
+            '<lazy-video videoid="$2" class="aspect-video block lg:-mx-12"></lazy-video>',
             (string) $content
         );
         // Spoiler tag
@@ -38,15 +38,15 @@ final class Markdown
 
     public static function excerpt(?string $content, int $characterLimit = 135): string
     {
-        if (!$content) {
+        if (! $content) {
             return '';
         }
-        $content = strip_tags(self::toHtml($content));
+        $content = strip_tags(self::html($content));
         if (mb_strlen($content) <= $characterLimit) {
             return $content;
         }
         $lastSpace = strpos($content, ' ', $characterLimit);
-        if (false === $lastSpace) {
+        if ($lastSpace === false) {
             return $content;
         }
 

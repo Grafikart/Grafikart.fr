@@ -10,27 +10,29 @@ use Illuminate\View\View;
 
 class BlogController extends Controller
 {
-    public function index(Request $request): View
+    public function index(BlogCategory $category, Request $request): View
     {
         $query = Post::query()
             ->where('online', true)
             ->with(['attachment', 'category'])
             ->orderByDesc('created_at');
 
-        if ($request->filled('category')) {
-            $query->whereHas('category', fn ($q) => $q->where('slug', $request->get('category')));
+        if ($category->exists) {
+            $query->where('category_id', $category->id);
         }
 
-        $posts = $query->paginate(15)->withQueryString();
+        $posts = $query->paginate(10);
 
         $categories = BlogCategory::query()
+            ->withCount(['posts' => fn ($query) => $query->where('online', true)])
             ->orderBy('name')
             ->get();
 
         return view('blog.index', [
             'posts' => $posts,
             'categories' => $categories,
-            'currentCategory' => $request->get('category'),
+            'category' => $category->exists ? $category : null,
+            'page' => $request->integer('page'),
         ]);
     }
 

@@ -8,7 +8,6 @@
 @source "../templates/";
 @source "../assets/";
 
-@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 

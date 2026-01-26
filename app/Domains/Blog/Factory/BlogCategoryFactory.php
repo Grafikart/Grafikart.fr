@@ -23,7 +23,6 @@ class BlogCategoryFactory extends Factory
         return [
             'name' => $name,
             'slug' => Str::slug($name),
-            'posts_count' => fake()->numberBetween(0, 100),
         ];
     }
 }
