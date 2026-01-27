@@ -122,7 +122,7 @@ function ItemForm({ item }: Props) {
                             label="Source"
                             right={
                                 item.source && (
-                                    <CircleCheckIcon className="size-4 text-primary" />
+                                    <CircleCheckIcon className="text-primary size-4" />
                                 )
                             }
                             type="file"

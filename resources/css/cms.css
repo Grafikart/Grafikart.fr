@@ -1,13 +1,12 @@
 @import 'tailwindcss';
-/*@import "shadcn/tailwind.css";*/
-/*@import "@fontsource-variable/inter";*/
 @import './prose.css';
+@import './flow.css';
 @import './editor.css';
 @import './utility.css';
+@import '@xyflow/react/dist/style.css';
 
 @source "../templates/";
 @source "../assets/";
-
 
 @custom-variant dark (&:is(.dark *));
 
@@ -133,11 +132,13 @@
     --color-ring: var(--ring);
     --color-input: var(--input);
     --color-border: var(--border);
+    --color-primary-light: var(--chart-1);
     --color-destructive: var(--destructive);
     --color-accent-foreground: var(--accent-foreground);
     --color-accent: var(--accent);
     --color-muted-foreground: var(--muted-foreground);
     --color-muted: var(--muted);
+    --color-edge: var(--ring);
     --color-secondary-foreground: var(--secondary-foreground);
     --color-secondary: var(--secondary);
     --color-primary-foreground: var(--primary-foreground);
@@ -162,7 +163,7 @@
         @apply border-border outline-ring/50;
     }
     body {
-        @apply bg-background font-sans text-foreground;
+        @apply bg-background text-foreground font-sans;
     }
     html {
         @apply font-sans;
@@ -184,4 +185,16 @@
         background: var(--border);
         border-radius: 4px;
     }
+}
+
+.tool-overlay {
+    pointer-events: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 4;
+    height: 100%;
+    width: 100%;
+    transform-origin: top left;
+    touch-action: none;
 }

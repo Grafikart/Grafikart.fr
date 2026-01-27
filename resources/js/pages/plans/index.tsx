@@ -105,7 +105,7 @@ function AddRow() {
                     <Button
                         onClick={toggle}
                         variant="ghost"
-                        className="w-full text-muted-foreground"
+                        className="text-muted-foreground w-full"
                     >
                         <PlusIcon />
                         Ajouter une formule

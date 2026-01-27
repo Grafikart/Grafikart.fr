@@ -2,6 +2,7 @@
 .vault_pass
 .junie
 var
+PLAN.md
 
 # Laravel gitignore
 /.phpunit.cache

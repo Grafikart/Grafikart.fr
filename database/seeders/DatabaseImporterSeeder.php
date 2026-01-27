@@ -13,7 +13,6 @@ class DatabaseImporterSeeder extends DatabaseSeeder
 
     public function run(): void
     {
-        /*
         $this->clean();
         $this->migrateAttachments();
         $this->migrateFormations();
@@ -21,7 +20,6 @@ class DatabaseImporterSeeder extends DatabaseSeeder
         $this->migrateTechnologies();
         $this->migrateBlog();
         $this->migrateComments();
-        */
     }
 
     private function migrateAttachments()
@@ -119,7 +117,7 @@ class DatabaseImporterSeeder extends DatabaseSeeder
                         'content' => $technology->content,
                         'image' => $technology->image,
                         'type' => $technology->type,
-                        'created_at' => $technology->created_at,
+                        'created_at' => $technology->updated_at,
                         'updated_at' => $technology->updated_at,
                     ];
                 }

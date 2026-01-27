@@ -6,6 +6,7 @@ use App\Domains\Course\DifficultyLevel;
 use App\Http\Cms\Data\Attachment\AttachmentUrlData;
 use App\Http\Cms\Data\MapChapters;
 use Illuminate\Support\Collection;
+use Spatie\LaravelData\Attributes\Validation\Present;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Casts\EnumCast;
 use Spatie\LaravelData\Data;
@@ -35,7 +36,6 @@ class FormationFormData extends Data
         /** @var Collection<TechnologyUsageData> */
         public ?Collection $technologies = null,
     ) {
-        $this->chapters ??= collect();
         $this->technologies ??= collect();
     }
 

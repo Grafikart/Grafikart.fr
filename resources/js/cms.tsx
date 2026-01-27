@@ -7,6 +7,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Toaster } from 'sonner';
 
+import { Search } from '@/components/search.tsx';
 import { initializeTheme } from '@/hooks/use-appearance';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
@@ -27,6 +28,7 @@ createInertiaApp({
             <StrictMode>
                 <QueryClientProvider client={queryClient}>
                     <Toaster position="top-center" richColors closeButton />
+                    <Search />
                     <App {...props} />
                 </QueryClientProvider>
             </StrictMode>,

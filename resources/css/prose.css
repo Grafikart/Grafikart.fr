@@ -2,7 +2,12 @@
     .prose {
         max-width: none;
 
-        h1, h2, h3, h4, h5, h6 {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
             color: var(--color-foreground-title);
         }
 
@@ -11,7 +16,7 @@
             margin-bottom: 1.25em;
         }
 
-        [class~="lead"] {
+        [class~='lead'] {
             font-size: 1.25em;
             line-height: 1.6;
             margin-top: 1.2em;
@@ -79,7 +84,7 @@
             color: var(--color-muted);
             border-inline-start-width: 0.25rem;
             border-inline-start-color: var(--color-border);
-            quotes: "\201C" "\201D" "\2018" "\2019";
+            quotes: '\201C' '\201D' '\2018' '\2019';
             margin-top: 1.6em;
             margin-bottom: 1.6em;
             padding-inline-start: 1em;
@@ -158,7 +163,9 @@
         kbd {
             font-weight: 500;
             font-family: inherit;
-            box-shadow: 0 0 0 1px var(--color-muted), 0 3px 0 var(--color-muted);
+            box-shadow:
+                0 0 0 1px var(--color-muted),
+                0 3px 0 var(--color-muted);
             font-size: 0.875em;
             border-radius: 0.3125rem;
             padding-top: 0.1875em;
@@ -169,10 +176,14 @@
 
         code {
             border: solid 1px var(--color-border);
-            padding: .3em .5em;
-            border-radius: .25rem;
+            padding: 0.3em 0.5em;
+            border-radius: 0.25rem;
             font-family: var(--font-mono);
-            background-color: color-mix(in oklab, var(--color-border) 20%, transparent);
+            background-color: color-mix(
+                in oklab,
+                var(--color-border) 20%,
+                transparent
+            );
             font-weight: 600;
             font-size: 0.875em;
         }
@@ -288,7 +299,8 @@
             vertical-align: top;
         }
 
-        th, td {
+        th,
+        td {
             text-align: start;
         }
 
@@ -343,7 +355,10 @@
             margin-bottom: 1.25em;
         }
 
-        ul ul, ul ol, ol ul, ol ol {
+        ul ul,
+        ul ol,
+        ol ul,
+        ol ol {
             margin-top: 0.75em;
             margin-bottom: 0.75em;
         }
@@ -382,18 +397,21 @@
             padding-inline-end: 0;
         }
 
-        tbody td, tfoot td {
+        tbody td,
+        tfoot td {
             padding-top: 0.5714286em;
             padding-inline-end: 0.5714286em;
             padding-bottom: 0.5714286em;
             padding-inline-start: 0.5714286em;
         }
 
-        tbody td:first-child, tfoot td:first-child {
+        tbody td:first-child,
+        tfoot td:first-child {
             padding-inline-start: 0;
         }
 
-        tbody td:last-child, tfoot td:last-child {
+        tbody td:last-child,
+        tfoot td:last-child {
             padding-inline-end: 0;
         }
 
@@ -418,7 +436,7 @@
             margin-top: 1.3333333em;
             margin-bottom: 1.3333333em;
         }
-        [class~="lead"] {
+        [class~='lead'] {
             font-size: 1.2222222em;
             line-height: 1.4545455;
             margin-top: 1.0909091em;
@@ -528,7 +546,10 @@
         & > ol > li > p:last-child {
             margin-bottom: 1.3333333em;
         }
-        ul ul, ul ol, ol ul, ol ol {
+        ul ul,
+        ul ol,
+        ol ul,
+        ol ol {
             margin-top: 0.8888889em;
             margin-bottom: 0.8888889em;
         }
@@ -574,16 +595,19 @@
         thead th:last-child {
             padding-inline-end: 0;
         }
-        tbody td, tfoot td {
+        tbody td,
+        tfoot td {
             padding-top: 0.75em;
             padding-inline-end: 0.75em;
             padding-bottom: 0.75em;
             padding-inline-start: 0.75em;
         }
-        tbody td:first-child, tfoot td:first-child {
+        tbody td:first-child,
+        tfoot td:first-child {
             padding-inline-start: 0;
         }
-        tbody td:last-child, tfoot td:last-child {
+        tbody td:last-child,
+        tfoot td:last-child {
             padding-inline-end: 0;
         }
         figure {
@@ -612,6 +636,5 @@
         .prose .shiki {
             margin-inline: -1.5rem;
         }
-}
-
+    }
 }

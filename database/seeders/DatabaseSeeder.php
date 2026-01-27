@@ -8,6 +8,8 @@ use App\Domains\Blog\Post;
 use App\Domains\Comment\Comment;
 use App\Domains\Course\Course;
 use App\Domains\Course\Formation;
+use App\Domains\Course\Path;
+use App\Domains\Course\PathNode;
 use App\Domains\Course\Technology;
 use App\Domains\Premium\Models\Plan;
 use App\Domains\Premium\Models\Transaction;
@@ -29,6 +31,8 @@ class DatabaseSeeder extends Seeder
         Technology::class,
         Course::class,
         Formation::class,
+        Path::class,
+        PathNode::class,
         Attachment::class,
     ];
 
@@ -46,6 +50,7 @@ class DatabaseSeeder extends Seeder
         }
         DB::table('course_technology')->truncate();
         DB::table('formation_technology')->truncate();
+        DB::table('path_node_links')->truncate();
     }
 
     /**
@@ -79,6 +84,15 @@ class DatabaseSeeder extends Seeder
         Formation::factory(10)
             ->withTechnologies(3, $technologies)
             ->create();
+        $paths = Path::factory(3)->create();
+        $paths->each(function (Path $path) {
+            $nodes = PathNode::factory(rand(5, 10))->create(['path_id' => $path->id]);
+            $nodes->skip(1)->each(function (PathNode $node) use ($nodes) {
+                $node->parents()->attach(
+                    $nodes->where('id', '<', $node->id)->random()
+                );
+            });
+        });
 
         // Reset settings
         DB::enableQueryLog();

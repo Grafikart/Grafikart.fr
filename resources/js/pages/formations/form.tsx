@@ -58,7 +58,7 @@ export default withLayout<Props>(
                     />
                     <MDEditor defaultValue={item.content} name="content" />
 
-                    <h2 className="mt-4 mb-1 block w-full text-2xl font-semibold">
+                    <h2 className="mb-1 mt-4 block w-full text-2xl font-semibold">
                         Chapitres
                     </h2>
                     <ChaptersInput defaultValue={item.chapters} />

@@ -100,6 +100,32 @@ export type OptionItemData = {
     id: number;
     name: string;
 };
+export type PathFormData = {
+    id: number | null;
+    title: string;
+    description: string;
+    nodes: Array<PathNodeData>;
+};
+export type PathNodeData = {
+    id: number;
+    icon: string | null;
+    title: string | null;
+    description: string | null;
+    contentType: string;
+    contentId: number | null;
+    x: number;
+    y: number;
+    parents: Array<PathNodeEdgeData>;
+};
+export type PathNodeEdgeData = {
+    id: number;
+    primary: boolean;
+};
+export type PathRowData = {
+    id: number;
+    title: string;
+    description: string;
+};
 export type PlanData = {
     id: number | null;
     name: string;
@@ -121,6 +147,12 @@ export type PostRowData = {
     id: number;
     title: string;
     online: boolean;
+};
+export type SearchResultData = {
+    id: number;
+    name: string;
+    type: string;
+    url: string;
 };
 export type SettingsFormData = {
     liveAt: string;

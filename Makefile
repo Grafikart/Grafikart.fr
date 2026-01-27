@@ -1,4 +1,4 @@
-.PHONY: help deploy sync install build-docker dev devmac dump dumpimport seed migration migrate rollback test tt lint security-check format refactor doc twitch routes provision
+.PHONY: help deploy sync install build-docker dev devmac dump dumpimport seed migration migrate rollback test tt lint security-check typescript format refactor doc twitch routes provision
 
 isDocker := $(shell docker info > /dev/null 2>&1 && echo 1)
 isProd := $(shell grep "APP_ENV=prod" .env.local > /dev/null && echo 1)
@@ -49,7 +49,7 @@ build-docker:
 	# $(dc) build messenger
 
 dev: node_modules/time ## Lance le serveur de développement
-	$(dc) up
+	parallel --ungroup ::: "frankenphp run" "bun run dev"
 
 debug:
 	php -dxdebug.mode=debug -dxdebug.client_port=9003 -dxdebug.client_host=127.0.0.1 artisan serve
@@ -97,6 +97,10 @@ lint: vendor/autoload.php ## Analyse le code
 
 security-check: vendor/autoload.php ## Check pour les vulnérabilités des dependencies
 	$(de) php local-php-security-checker --path=/var/www
+
+typescript: ## Génère les types TypeScript
+	php artisan typescript:transform
+	sed -i 's/ | Array<any>//g' resources/js/types/generated.d.ts
 
 format: ## Formate le code
 	bunx prettier-standard --lint --changed "assets/**/*.{js,css,jsx}"

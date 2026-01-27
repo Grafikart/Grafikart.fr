@@ -13,6 +13,7 @@ type Props = useRender.ComponentProps<'input'> & {
     name: string;
     children?: ReactNode;
     right?: ReactNode;
+    onValueChange?: (s: string) => void;
 };
 
 export function FormField(props: Props) {

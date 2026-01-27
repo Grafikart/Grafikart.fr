@@ -106,9 +106,9 @@ function Item({ item }: { item: UserRowData }) {
             <TableCell>{formatDate(item.createdAt)}</TableCell>
             <TableCell>
                 {item.isPremium ? (
-                    <CheckCircle2Icon className="size-4 fill-success text-background" />
+                    <CheckCircle2Icon className="fill-success text-background size-4" />
                 ) : (
-                    <CircleXIcon className="size-4 fill-ring text-background" />
+                    <CircleXIcon className="fill-ring text-background size-4" />
                 )}
             </TableCell>
             <TableCell>{item.lastLoginIp}</TableCell>

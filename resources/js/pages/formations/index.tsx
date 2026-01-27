@@ -88,9 +88,9 @@ function Item({ item }: { item: FormationRowData }) {
             </TableCell>
             <TableCell>
                 {item.online ? (
-                    <CheckCircle2Icon className="size-4 fill-success text-card" />
+                    <CheckCircle2Icon className="fill-success text-card size-4" />
                 ) : (
-                    <CircleXIcon className="size-4 fill-ring text-card" />
+                    <CircleXIcon className="fill-ring text-card size-4" />
                 )}
             </TableCell>
             <TableCell className="text-right">

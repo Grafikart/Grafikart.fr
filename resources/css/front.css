@@ -1,11 +1,9 @@
 @import 'tailwindcss';
 @import './form.css';
+@import './utility.css';
 @import './prose.css';
 @import './scrollbar.css';
 @source "../../resources/views/";
-
-@custom-variant dark (&:is(.dark *));
-@custom-variant selected (&[selected]);
 
 @theme {
     --font-sans: 'Inter', sans-serif;
@@ -13,13 +11,21 @@
     --font-mono: monospace;
     --color-*: initial;
     --color-foreground-title: #121c42;
-    --color-foreground: color-mix(in oklab, var(--color-foreground-title) 85%, transparent);
-    --color-muted: color-mix(in oklab, var(--color-foreground-title) 60%, transparent) ;
+    --color-foreground: color-mix(
+        in oklab,
+        var(--color-foreground-title) 85%,
+        transparent
+    );
+    --color-muted: color-mix(
+        in oklab,
+        var(--color-foreground-title) 60%,
+        transparent
+    );
     --color-primary: #4869ee;
-    --color-primary-foreground: #eFFbec;
+    --color-primary-foreground: #effbec;
     --color-background: #f7fafb;
-    --color-background-light: #FFF;
-    --color-card: #FFF;
+    --color-background-light: #fff;
+    --color-card: #fff;
     --color-border: #d5e3ec;
     --color-destructive: #f25353;
     --color-destructive-foreground: #fff3f3;
@@ -50,13 +56,14 @@
     --skeleton: var(--border-light);
     --skeleton-wave: var(--border-light);
     --selection-background: var(--border);
-    --header-background: #FFFFFFF2;
-    --header-background-inversed: #4869eeF2;
+    --header-background: #fffffff2;
+    --header-background-inversed: #4869eef2;
     --video-background: var(--color);
 }
 
 @layer base {
-    button, a {
+    button,
+    a {
         cursor: pointer;
     }
     hr {
@@ -66,23 +73,4 @@
         border-color: var(--color-border);
         outline-color: var(--ring);
     }
-}
-
-@utility overlay {
-    &::before {
-        content:'';
-        position: absolute;
-        inset: 0;
-        z-index: 1;
-    }
-}
-
-@utility container {
-    margin-inline: auto;
-    padding-inline: 1rem;
-    max-width: 1330px;
-}
-
-@utility grid-fill-* {
-    grid-template-columns: repeat(auto-fill, minmax(calc(--value(integer) * 1px), 1fr));
 }

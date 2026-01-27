@@ -44,7 +44,7 @@ final readonly class MapChapters implements InjectsPropertyValue
                     name: $course->title,
                 );
             }, $chapter->ids)
-        ))->toArray();
+        ))->all();
     }
 
     public function shouldBeReplacedWhenPresentInPayload(): bool

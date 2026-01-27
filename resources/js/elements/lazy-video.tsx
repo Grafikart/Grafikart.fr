@@ -24,7 +24,7 @@ export function LazyVideo({ videoid }: { videoid: string }) {
             url.searchParams.set('start', time.toString());
         }
         return url.toString();
-    }, [autoplay, time]);
+    }, [time, baseUrl]);
 
     useEffect(() => {
         const onHashChange = () => {

@@ -78,16 +78,16 @@ function Item({ item }: { item: CommentRowData }) {
             <div className="flex items-center gap-1">
                 <div className="font-medium">{item.username},</div>
 
-                <div className="text-sm text-muted-foreground">
+                <div className="text-muted-foreground text-sm">
                     {formatRelative(item.createdAt)}
                 </div>
                 <button
                     onClick={toggle}
-                    className="text-sm text-muted-foreground underline"
+                    className="text-muted-foreground text-sm underline"
                 >
                     Editer
                 </button>
-                <div className="ml-auto text-sm text-muted-foreground">
+                <div className="text-muted-foreground ml-auto text-sm">
                     {item.ip}
                 </div>
                 <ButtonLink
@@ -99,7 +99,7 @@ function Item({ item }: { item: CommentRowData }) {
                     <TrashIcon />
                 </ButtonLink>
             </div>
-            <div className="-mt-1 mb-1 text-sm text-muted-foreground">
+            <div className="text-muted-foreground -mt-1 mb-1 text-sm">
                 {item.email}
             </div>
             <p className="text-sm">

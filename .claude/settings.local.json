@@ -1,14 +1,11 @@
 {
-  "permissions": {
-    "allow": [
-      "Bash(php artisan:*)",
-      "Bash(vendor/bin/pint:*)",
-      "mcp__laravel-boost__database-schema",
-      "WebFetch(domain:raw.githubusercontent.com)"
-    ]
-  },
-  "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": [
-    "laravel-boost"
-  ]
+    "permissions": {
+        "allow": [
+            "Bash(vendor/bin/pint:*)",
+            "mcp__laravel-boost__database-schema",
+            "WebFetch(domain:raw.githubusercontent.com)"
+        ]
+    },
+    "enableAllProjectMcpServers": true,
+    "enabledMcpjsonServers": ["laravel-boost"]
 }

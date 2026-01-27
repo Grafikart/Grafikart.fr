@@ -1,0 +1,46 @@
+@import '@xyflow/react/dist/style.css';
+
+.tool-overlay {
+    pointer-events: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 4;
+    height: 100%;
+    width: 100%;
+    transform-origin: top left;
+    touch-action: none;
+}
+
+.react-flow img {
+    max-width: none;
+}
+
+.react-flow__handle {
+    --size: 20px;
+    opacity: 0;
+    width: var(--size) !important;
+    height: var(--size) !important;
+    top: calc(var(--size) * -0.5) !important;
+    left: calc(var(--size) * -0.5) !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    transform: none !important;
+    position: absolute;
+    bottom: auto !important;
+    background-color: var(--color-border) !important;
+    border-color: var(--color-edge) !important;
+
+    .react-flow__node:hover & {
+        opacity: 1;
+    }
+}
+
+.react-flow__node-default {
+    width: 0 !important;
+    padding: 0 !important;
+}
+
+.isometric {
+    transform: rotate(-45deg) skew(15deg, 15deg) scale(1, 1.1) translateX(30px);
+}

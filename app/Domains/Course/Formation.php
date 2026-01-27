@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 
 /**
- * @property Chapter[] $chapters
+ * @property \Illuminate\Support\Collection<int, Chapter> $chapters
  * @property int[] $courseIds
  */
 class Formation extends Model

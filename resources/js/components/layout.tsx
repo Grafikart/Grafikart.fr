@@ -10,6 +10,7 @@ import {
     MonitorPlayIcon,
     StarIcon,
     UserIcon,
+    WaypointsIcon,
 } from 'lucide-react';
 import {
     type FC,
@@ -23,6 +24,7 @@ import { toast } from 'sonner';
 import CommentController from '@/actions/App/Http/Cms/CommentController.ts';
 import CourseController from '@/actions/App/Http/Cms/CourseController.ts';
 import FormationController from '@/actions/App/Http/Cms/FormationController.ts';
+import PathController from '@/actions/App/Http/Cms/PathController.ts';
 import PlanController from '@/actions/App/Http/Cms/PlanController.ts';
 import PostController from '@/actions/App/Http/Cms/PostController.ts';
 import SettingsController from '@/actions/App/Http/Cms/SettingsController.ts';
@@ -97,6 +99,11 @@ const nav = [
                 href: FormationController.index(),
             },
             {
+                label: 'Parcours',
+                icon: WaypointsIcon,
+                href: PathController.index(),
+            },
+            {
                 label: 'Technologies',
                 icon: BotIcon,
                 href: TechnologyController.index(),
@@ -148,7 +155,7 @@ const nav = [
 
 function Header(props: Props) {
     return (
-        <header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
+        <header className="h-(--header-height) group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height) flex shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear">
             <div className="flex w-full items-center gap-1 px-4 lg:gap-2 lg:px-6">
                 <SidebarTrigger className="-ml-1" />
                 <Separator orientation="vertical" className="mx-2 h-4" />

@@ -1,0 +1,24 @@
+@custom-variant dark (&:is(.dark *));
+@custom-variant selected (&[selected], &[aria-selected=true]);
+
+@utility grid-fill-* {
+    grid-template-columns: repeat(
+        auto-fill,
+        minmax(calc(--value(integer) * 1px), 1fr)
+    );
+}
+
+@utility overlay {
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+    }
+}
+
+@utility container {
+    margin-inline: auto;
+    padding-inline: 1rem;
+    max-width: 1330px;
+}

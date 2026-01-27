@@ -118,7 +118,7 @@ function RequirementsSelector({ defaultValue }: RequirementsSelectorProps) {
                 {items.map((item, k) => (
                     <div
                         key={item.id}
-                        className="flex items-center gap-1 rounded-md bg-muted px-2 py-1 text-sm"
+                        className="bg-muted flex items-center gap-1 rounded-md px-2 py-1 text-sm"
                     >
                         {item.name}
                         <Button
@@ -140,10 +140,10 @@ function RequirementsSelector({ defaultValue }: RequirementsSelectorProps) {
             </div>
 
             <Command shouldFilter={false} className="relative">
-                <CommandList className="absolute top-full left-0 z-10 w-full bg-card">
+                <CommandList className="bg-card absolute left-0 top-full z-10 w-full">
                     <CommandGroup>
                         {isFetching && (
-                            <div className="flex justify-center py-2 text-muted-foreground">
+                            <div className="text-muted-foreground flex justify-center py-2">
                                 <LoaderCircle
                                     className="animate-spin"
                                     size={16}

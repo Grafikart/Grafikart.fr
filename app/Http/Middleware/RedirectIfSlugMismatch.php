@@ -21,10 +21,11 @@ class RedirectIfSlugMismatch
         $model = $request->route($modelName);
 
         assert($model instanceof Model, sprintf('Route parameter %s must be an eloquent model', $modelName));
-        if ($slug !== $model->slug) {
+        $modelSlug = $model->getAttribute('slug');
+        if ($slug !== $modelSlug) {
             return to_route($request->route()->getName(), [
                 ...$request->route()->parameters(),
-                'slug' => $model->slug,
+                'slug' => $modelSlug,
             ], 301);
         }
 

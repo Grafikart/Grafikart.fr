@@ -64,7 +64,7 @@ function Item({ item }: { item: TransactionRowData }) {
             <TableCell>
                 <div className="flex flex-col">
                     <span>{item.username}</span>
-                    <span className="text-xs text-muted-foreground">
+                    <span className="text-muted-foreground text-xs">
                         {item.email}
                     </span>
                 </div>
