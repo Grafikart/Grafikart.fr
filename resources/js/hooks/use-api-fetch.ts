@@ -1,5 +1,6 @@
 import { router } from '@inertiajs/react';
 import {
+    QueryClient,
     type UndefinedInitialDataOptions,
     useMutation,
     type UseMutationOptions,
@@ -8,6 +9,8 @@ import {
 } from '@tanstack/react-query';
 import { useCallback, useMemo } from 'react';
 import { toast } from 'sonner';
+
+export const queryClient = new QueryClient();
 
 export async function apiFetch<T>(
     url: string,

@@ -1,11 +1,30 @@
 @extends('front')
 
+@section('title', sprintf('Tutoriel video %s : %s',$course->mainTechnologies->pluck('name')->join(' & '), $course->title ))
+
+@section('meta')
+<meta property="og:image" content="{{ url($course->youtubeThumbnail) }}"/>
+<meta property="og:created_time" content="{{ $course->created_at->toIso8601String() }}"/>
+<meta property="og:type" content="video.other"/>
+<meta property="og:duration" content="{{ $course->duration }}"/>
+<meta name="twitter:card" content="summary_large_image"/>
+@endsection
+
 @section('body')
 
     <div class="grid grid-cols-[1fr_350px] container mx-auto py-6 gap-8">
 
         <div class="col-span-2">
-            <h1 class="text-4xl font-bold mb-2 font-serif">{{ $course->title }}</h1>
+            <h1 class="text-4xl font-bold mb-2 font-serif">
+                <span class="hidden">
+                    @if($course->formation)
+                        Formation {{ $course->formation->title }} :
+                    @else
+                        Tutoriel {{ $course->mainTechnologies->pluck('name')->join(' & ') }} :
+                    @endif
+                </span>
+                {{ $course->title }}
+            </h1>
 
             <div class="flex gap-8">
                 <div class="flex items-center text-muted gap-2">
@@ -69,7 +88,7 @@
             </x-atoms.card>
 
             @if($course->formation)
-                <x-organisms.chapters :chapters="$course->formation->chaptersWithCourses()"/>
+                <x-organisms.chapters :chapters="$course->formation->chaptersWithCourses"/>
             @endif
 
             <section class="space-y-3">

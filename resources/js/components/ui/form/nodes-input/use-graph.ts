@@ -13,7 +13,6 @@ const valueToFlow = (nodes: PathFormData['nodes']): {edges: Edge[], nodes: Node[
                 source: parent.id.toString(),
                 target: node.id!.toString(),
                 type: parent.primary ? 'primary' : 'secondary',
-                data: {},
             })
         }
     }

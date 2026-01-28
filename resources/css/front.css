@@ -1,8 +1,11 @@
 @import 'tailwindcss';
 @import './form.css';
+@import './flow.css';
 @import './utility.css';
 @import './prose.css';
 @import './scrollbar.css';
+@source "../../resources/js/components/flow/";
+@source "../../resources/js/elements/";
 @source "../../resources/views/";
 
 @theme {
@@ -31,6 +34,7 @@
     --color-destructive-foreground: #fff3f3;
     --color-green: #41cf7c;
     --color-yellow: #feb32b;
+    --color-edge: #acb8c0;
 
     --dark: #000;
     --olor: #121c42;
@@ -61,6 +65,25 @@
     --video-background: var(--color);
 }
 
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-foreground-title: #f0f3ff;
+        --color-foreground: #d4dcff;
+        --color-muted: #8491c7;
+        --color-primary: #5396e7;
+        --color-primary-foreground: #effbec;
+        --color-background: #171933;
+        --color-background-light: #1b1e3d;
+        --color-card: #22244d;
+        --color-border: #2a2e5e;
+        --color-destructive: #f25353;
+        --color-destructive-foreground: #fff3f3;
+        --color-green: #41cf7c;
+        --color-yellow: #feb32b;
+        --color-edge: #595e9d;
+    }
+}
+
 @layer base {
     button,
     a {
@@ -73,4 +96,9 @@
         border-color: var(--color-border);
         outline-color: var(--ring);
     }
+}
+
+.react-flow__handle {
+    pointer-events: none !important;
+    opacity: 0 !important;
 }

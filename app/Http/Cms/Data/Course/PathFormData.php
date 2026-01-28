@@ -11,6 +11,7 @@ class PathFormData extends Data
     public function __construct(
         public ?int $id = null,
         public string $title = '',
+        public string $slug = '',
         public string $description = '',
         /** @var PathNodeData[] */
         public array $nodes = [],

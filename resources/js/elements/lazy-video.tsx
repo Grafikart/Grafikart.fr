@@ -12,7 +12,7 @@ import {
  *
  * @param {string} videoid
  */
-export function LazyVideo({ videoid }: { videoid: string }) {
+function LazyVideo({ videoid }: { videoid: string }) {
     const baseUrl = `https://www.youtube-nocookie.com/embed/${videoid}?autoplay=1`;
     const [autoplay, setAutoplay] = useState(false);
     const [time, setTime] = useState(0);
@@ -106,3 +106,8 @@ export function LazyVideo({ videoid }: { videoid: string }) {
         />
     );
 }
+
+export default {
+    component: LazyVideo,
+    props: { videoid: 'string' },
+};

@@ -20,20 +20,23 @@ export const FlowNodeFork = memo(({ data }: Props) => {
                 viewBox={`${-size / 2} ${-size / 2} ${size} ${size}`}
                 xmlns="http://www.w3.org/2000/svg"
             >
-                <Circle fill="#FFFFFFDD" stroke="#FFF" />
+                <Circle fill="var(--color-background)" stroke="transparent" />
             </svg>
             <div className="skew-15 absolute -inset-5 -rotate-45">
-                <img
-                    alt=""
-                    width="30"
-                    height="30"
-                    src={'/images/flow/fork.svg'}
-                    className="size-10 animate-spin opacity-50 duration-[2s]"
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    className="fill-success size-10 animate-spin duration-[2s]"
                     style={{
                         animationDuration: '10s',
                         animationDirection: 'reverse',
                     }}
-                />
+                >
+                    <path
+                        className="fill-edge"
+                        d="M4 3h1v2.15a9.76 9.76 0 0 1 14.33.37l-.52.91A8.77 8.77 0 0 0 5.58 6H8v1H4zm16.4 4.67-2 3.47.87.5 1.18-2.06a8.77 8.77 0 0 1-7.27 11.13l.54.93a9.75 9.75 0 0 0 7.73-12.21l1.91 1.1.5-.86zm-9.1 13.8L9.3 18l-.86.5 1.12 1.95A8.76 8.76 0 0 1 3.74 9H2.67a9.78 9.78 0 0 0 6.7 12.43L7.33 22.6l.5.86z"
+                    />
+                </svg>
             </div>
             <div>
                 <div className="text-md z-3 absolute -bottom-9 w-max -translate-x-1/2 text-center font-bold">

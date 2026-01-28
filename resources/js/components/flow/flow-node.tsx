@@ -11,7 +11,12 @@ type Props = {
 
 export const FlowNode = memo(({ data, selected }: Props) => {
     return (
-        <div className={clsx('relative size-px', selected && 'is-selected')}>
+        <div
+            className={clsx(
+                'relative size-px group-data-[hide-title=true]:opacity-20',
+                selected && 'is-selected opacity-100!',
+            )}
+        >
             <SupportIcon selected={selected} />
             {data.icon && (
                 <img
@@ -22,15 +27,13 @@ export const FlowNode = memo(({ data, selected }: Props) => {
                     src={`/uploads/icons/${data.icon}.svg`}
                 />
             )}
-            <div>
-                <div
-                    className={clsx(
-                        'text-md z-3 absolute -bottom-9 w-max -translate-x-1/2 text-center font-bold',
-                        selected && 'text-primary',
-                    )}
-                >
-                    {data.title}
-                </div>
+            <div
+                className={clsx(
+                    'title text-md z-3 absolute -bottom-9 w-max -translate-x-1/2 text-center font-bold',
+                    selected && 'text-primary opacity-100!',
+                )}
+            >
+                {data.title}
             </div>
             {/* @ts-expect-error We are loose, Handle accepts no type */}
             <Handle position={Position.Top} className="react-flow__handle" />

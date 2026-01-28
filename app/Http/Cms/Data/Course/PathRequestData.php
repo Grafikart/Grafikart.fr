@@ -15,6 +15,7 @@ class PathRequestData extends Data implements DataToModel
 
     public function __construct(
         public string $title = '',
+        public string $slug = '',
         public string $description = '',
         /** @var PathNodeData[] */
         public array $nodes = [],
@@ -35,6 +36,7 @@ class PathRequestData extends Data implements DataToModel
 
         $model->fill([
             'title' => $this->title,
+            'slug' => $this->slug,
             'description' => empty($this->description) ? null : $this->description,
         ]);
 

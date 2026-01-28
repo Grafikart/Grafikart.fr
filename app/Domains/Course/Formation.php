@@ -11,11 +11,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Collection;
 
 /**
  * @property \Illuminate\Support\Collection<int, Chapter> $chapters
  * @property int[] $courseIds
+ * @property int $duration
+ * @property \Illuminate\Support\Collection<int, array{title: string, courses: Course[]}> $chaptersWithCourses
  */
 class Formation extends Model
 {
@@ -88,13 +89,24 @@ class Formation extends Model
         );
     }
 
-    public function chaptersWithCourses(): Collection
+    protected function duration(): Attribute
     {
-        $coursesByIds = $this->courses->keyBy('id');
+        return Attribute::make(
+            get: fn () => $this->courses->sum('duration')
+        );
+    }
 
-        return $this->chapters->map(fn (Chapter $chapter) => [
-            'title' => $chapter->title,
-            'courses' => array_map(fn (int $id) => $coursesByIds[$id], $chapter->ids),
-        ]);
+    protected function chaptersWithCourses(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                $coursesByIds = $this->courses->keyBy('id');
+
+                return $this->chapters->map(fn (Chapter $chapter) => [
+                    'title' => $chapter->title,
+                    'courses' => array_map(fn (int $id) => $coursesByIds[$id], $chapter->ids),
+                ]);
+            }
+        );
     }
 }

@@ -2,10 +2,8 @@ import { ConnectionMode, ReactFlow, useReactFlow } from '@xyflow/react';
 import { ExpandIcon, ShrinkIcon } from 'lucide-react';
 import { type MouseEventHandler, useMemo, useRef, useState } from 'react';
 
-import { FlowEdge } from '@/components/flow/flow-edge.tsx';
-import { FlowNodeFork } from '@/components/flow/flow-node-fork.tsx';
-import { FlowNodeGate } from '@/components/flow/flow-node-gate.tsx';
-import { FlowNode } from '@/components/flow/flow-node.tsx';
+
+import { edgeTypes, nodeTypes } from '@/components/flow/flow-config.ts';
 import { IsoBackground } from '@/components/flow/iso-background.tsx';
 import { Lasso } from '@/components/flow/lasso.tsx';
 import { FlowAdd } from '@/components/ui/form/nodes-input/flow-add.tsx';
@@ -18,21 +16,6 @@ import type { PathFormData } from '@/types';
 import { FlowEdgeMenu } from './flow-edge-menu.tsx';
 import { useContextMenu } from './use-context-menu.ts';
 import { GraphContext, useGraph } from './use-graph.ts';
-
-
-const nodeTypes = {
-    default: FlowNode,
-    course: FlowNode,
-    formation: FlowNode,
-    fork: FlowNodeFork,
-    gate: FlowNodeGate,
-};
-
-const edgeTypes = {
-    default: FlowEdge,
-    primary: FlowEdge,
-    secondary: FlowEdge,
-};
 
 type Props = {
     defaultValue: PathFormData['nodes']
@@ -96,7 +79,7 @@ export const NodesInput = (props: Props) => {
 
     return (
         <div className={isExpanded ? 'fixed inset-0 z-50 bg-background' : ''}>
-            <div ref={containerRef} className="w-full relative" style={{height: isExpanded ? '100vh' : 'max(200px, calc(100vh - 290px))'}}>
+            <div ref={containerRef} className="w-full relative border" style={{height: isExpanded ? '100vh' : 'max(200px, calc(100vh - 290px))'}}>
                 {addPosition && <FlowAdd onSelect={onAdd} onClose={() => setAddPosition(null)} />}
                 {selectedNode && <FlowDrawer node={selectedNode} onChange={updateNode} />}
                 <button

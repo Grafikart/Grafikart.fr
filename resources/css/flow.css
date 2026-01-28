@@ -36,6 +36,26 @@
     }
 }
 
+.react-flow__node {
+    transition: 0.5s;
+}
+
+.group[data-focus='true'] {
+    .react-flow__node:not(.selected) {
+        opacity: 0.2;
+        .title {
+            color: var(--color-muted);
+        }
+        /* Reduce img opacity even more to improve readability */
+        img {
+            filter: grayscale(1);
+            opacity: 0.3;
+        }
+    }
+    .react-flow__edge {
+        opacity: 0.2;
+    }
+}
 .react-flow__node-default {
     width: 0 !important;
     padding: 0 !important;

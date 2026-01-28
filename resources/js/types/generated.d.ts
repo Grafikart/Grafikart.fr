@@ -67,6 +67,17 @@ export type FolderData = {
     path: string;
     count: number;
 };
+export type FormationChapterData = {
+    title: string;
+    courses: Array<FormationCourseData>;
+};
+export type FormationCourseData = {
+    url: string;
+    id: number;
+    title: string;
+    slug: string;
+    duration: number;
+};
 export type FormationFormData = {
     id: number | null;
     title: string;
@@ -91,6 +102,13 @@ export type FormationRowData = {
     createdAt: string;
     technologies: Array<TechnologyUsageData>;
 };
+export type FormationViewData = {
+    type: string;
+    content: string;
+    links: string | null;
+    chapters: Array<FormationChapterData>;
+    duration: number;
+};
 export type MonthlyData = {
     month: number;
     year: number;
@@ -103,6 +121,7 @@ export type OptionItemData = {
 export type PathFormData = {
     id: number | null;
     title: string;
+    slug: string;
     description: string;
     nodes: Array<PathNodeData>;
 };
@@ -125,6 +144,13 @@ export type PathRowData = {
     id: number;
     title: string;
     description: string;
+};
+export type PathViewData = {
+    id: number | null;
+    title: string;
+    slug: string;
+    description: string;
+    nodes: Array<PathNodeData>;
 };
 export type PlanData = {
     id: number | null;

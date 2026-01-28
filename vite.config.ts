@@ -8,7 +8,7 @@ export default defineConfig({
     plugins: [
         laravel({
             input: ['resources/js/cms.tsx', 'resources/js/front.ts'],
-            refresh: false,
+            refresh: true,
         }),
         react({
             babel: {

@@ -1,6 +1,4 @@
-import r2wc from '@r2wc/react-to-web-component';
-
-import { LazyVideo } from '@/elements/lazy-video.tsx';
+import { r2wc } from '@/lib/custom-element.ts';
 import { onPageLoad } from '@/lib/dom.ts';
 import { bindSyntaxHighlighting } from '@/modules/highlighter.ts';
 import '../css/front.css';
@@ -9,11 +7,6 @@ onPageLoad(() => {
     bindSyntaxHighlighting();
 });
 
-customElements.define(
-    'lazy-video',
-    r2wc(LazyVideo, {
-        props: {
-            videoid: 'string',
-        },
-    }),
-);
+r2wc('lazy-video', () => import('@/elements/lazy-video.tsx'));
+r2wc('path-preview', () => import('@/elements/path-preview.tsx'));
+r2wc('path-detail', () => import('@/elements/path-detail.tsx'));

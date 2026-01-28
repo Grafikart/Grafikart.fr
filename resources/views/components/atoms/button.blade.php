@@ -2,7 +2,7 @@
 
 @php
     $classes = cn([
-        'rounded-sm [&_svg]:size-4 flex items-center gap-3 transition-all',
+        'rounded-sm [&_svg]:size-4 flex items-center gap-3 transition-all w-max',
         // Variants
         'bg-primary text-primary-foreground hover:brightness-140 ' => $variant === 'primary',
         'border hover:bg-border/30 bg-background-light' => $variant === 'secondary',
@@ -21,7 +21,7 @@
 @endphp
 
 @if ($href)
-    <a {{ $attributes->except('class') }} class="{{ $classes }}">{{ $slot }}</a>
+    <a {{ $attributes->except('class') }} href="{{ $href }}" class="{{ $classes }}">{{ $slot }}</a>
 @else
     <button {{ $attributes->except('class') }} class="{{ $classes }}">{{ $slot }}</button>
 @endif
