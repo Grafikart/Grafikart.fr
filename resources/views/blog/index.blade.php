@@ -1,11 +1,11 @@
 @extends('front', ['class' => 'bg-background-light'])
 
 @php
-$title = $category ? $category->name : 'Blog';
-$titleWithPage = $title;
-if ($page > 1) {
-    $titleWithPage.= ', page ' . $page;
-}
+    $title = $category ? $category->name : 'Blog';
+    $titleWithPage = $title;
+    if ($page > 1) {
+        $titleWithPage.= ', page ' . $page;
+    }
 @endphp
 
 @section('title', $titleWithPage)
@@ -78,7 +78,7 @@ if ($page > 1) {
                         </div>
 
                         <p class="leading-relaxed">
-                            {{ \App\Infrastructure\Blade\Markdown::excerpt($post->content, 300) }}
+                            {{ \App\Helpers\MarkdownHelper::excerpt($post->content, 300) }}
                         </p>
                     </div>
                 </article>

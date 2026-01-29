@@ -3,11 +3,11 @@
 @section('title', sprintf('Tutoriel video %s : %s',$course->mainTechnologies->pluck('name')->join(' & '), $course->title ))
 
 @section('meta')
-<meta property="og:image" content="{{ url($course->youtubeThumbnail) }}"/>
-<meta property="og:created_time" content="{{ $course->created_at->toIso8601String() }}"/>
-<meta property="og:type" content="video.other"/>
-<meta property="og:duration" content="{{ $course->duration }}"/>
-<meta name="twitter:card" content="summary_large_image"/>
+    <meta property="og:image" content="{{ url($course->youtubeThumbnail) }}"/>
+    <meta property="og:created_time" content="{{ $course->created_at->toIso8601String() }}"/>
+    <meta property="og:type" content="video.other"/>
+    <meta property="og:duration" content="{{ $course->duration }}"/>
+    <meta name="twitter:card" content="summary_large_image"/>
 @endsection
 
 @section('body')
@@ -56,17 +56,17 @@
         <main>
             <x-atoms.card as="main">
                 <iframe
-                        class="aspect-video w-full mb-8"
-                        style="background: #000;"
-                        src="https://www.youtube-nocookie.com/embed/xSfZwqzs_OM?si=mcYzRO1_nis2Rort"
-                        title="YouTube video player"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerpolicy="strict-origin-when-cross-origin"
-                        allowfullscreen></iframe>
+                    class="aspect-video w-full mb-8"
+                    style="background: #000;"
+                    src="https://www.youtube-nocookie.com/embed/xSfZwqzs_OM?si=mcYzRO1_nis2Rort"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen></iframe>
 
                 <div class="prose prose-lg px-8">
-                    {!! \App\Infrastructure\Blade\Markdown::html($course->content) !!}
+                    {!! \App\Helpers\MarkdownHelper::html($course->content) !!}
                 </div>
 
             </x-atoms.card>
@@ -100,9 +100,9 @@
                 <x-atoms.card padded class="space-y-3">
                     <div class="space-y-1">
                        <textarea
-                               aria-label="Description du problème"
-                               class="p-2 border-border border w-full rounded-sm"
-                               placeholder="Je ne comprends pas pourquoi tu as fait... à ce moment là"></textarea>
+                           aria-label="Description du problème"
+                           class="p-2 border-border border w-full rounded-sm"
+                           placeholder="Je ne comprends pas pourquoi tu as fait... à ce moment là"></textarea>
                     </div>
 
                     <x-atoms.button class="w-full justify-center">Poser ma question

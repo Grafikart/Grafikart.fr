@@ -6,11 +6,15 @@ use App\Concerns\HasTechnologies;
 use App\Domains\Attachment\Attachment;
 use App\Domains\Course\Casts\AsDataCollection;
 use App\Domains\Course\Factory\FormationFactory;
+use App\Helpers\MarkdownHelper;
+use App\Infrastructure\Search\Contracts\Searchable;
+use App\Infrastructure\Search\SearchDocument;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 /**
  * @property \Illuminate\Support\Collection<int, Chapter> $chapters
@@ -18,7 +22,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $duration
  * @property \Illuminate\Support\Collection<int, array{title: string, courses: Course[]}> $chaptersWithCourses
  */
-class Formation extends Model
+class Formation extends Model implements Searchable
 {
     /** @use HasFactory<FormationFactory> */
     use HasFactory;
@@ -96,17 +100,35 @@ class Formation extends Model
         );
     }
 
+    /**
+     * @return Attribute<Collection<array{title: string, courses: list<Course>}>, never>
+     */
     protected function chaptersWithCourses(): Attribute
     {
-        return Attribute::make(
-            get: function () {
-                $coursesByIds = $this->courses->keyBy('id');
+        return Attribute::make(get: function (): Collection {
+            $coursesByIds = $this->courses->keyBy('id');
 
-                return $this->chapters->map(fn (Chapter $chapter) => [
-                    'title' => $chapter->title,
-                    'courses' => array_map(fn (int $id) => $coursesByIds[$id], $chapter->ids),
-                ]);
-            }
+            return $this->chapters->map(fn (Chapter $chapter) => [
+                'title' => $chapter->title,
+                'courses' => array_map(fn (int $id): Course => $coursesByIds[$id], $chapter->ids),
+            ]);
+        });
+    }
+
+    public function toSearchDocument(): ?SearchDocument
+    {
+        if (! $this->online) {
+            return null;
+        }
+
+        return new SearchDocument(
+            id: (string) $this->id,
+            title: $this->title,
+            content: MarkdownHelper::text($this->content),
+            category: $this->mainTechnologies->pluck('name')->all(),
+            type: 'formation',
+            url: route('formations.show', $this),
+            created_at: $this->created_at->getTimestamp(),
         );
     }
 }

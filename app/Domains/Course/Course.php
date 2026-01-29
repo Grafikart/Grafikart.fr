@@ -7,11 +7,14 @@ use App\Concerns\Media\HasMedia;
 use App\Concerns\Media\RegisterMedia;
 use App\Domains\Attachment\Attachment;
 use App\Domains\Course\Factory\CourseFactory;
+use App\Helpers\MarkdownHelper;
+use App\Infrastructure\Search\Contracts\Searchable;
+use App\Infrastructure\Search\SearchDocument;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Course extends Model implements RegisterMedia
+class Course extends Model implements RegisterMedia, Searchable
 {
     /** @use HasFactory<CourseFactory> */
     use HasFactory;
@@ -95,6 +98,28 @@ class Course extends Model implements RegisterMedia
             directory: fn (Course $model) => 'courses/'.$model->id,
             filename: 'slug',
             disk: 'downloads',
+        );
+    }
+
+    public function toSearchDocument(): ?SearchDocument
+    {
+        if (! $this->online) {
+            return null;
+        }
+
+        $title = $this->title;
+        if ($this->formation !== null) {
+            $title = $this->formation->title.': '.$title;
+        }
+
+        return new SearchDocument(
+            id: (string) $this->id,
+            title: $title,
+            content: MarkdownHelper::text($this->content),
+            category: $this->mainTechnologies->pluck('name')->all(),
+            type: 'course',
+            url: route('courses.show', ['slug' => $this->slug, 'course' => $this]),
+            created_at: $this->created_at->getTimestamp(),
         );
     }
 }

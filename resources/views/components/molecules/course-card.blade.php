@@ -28,7 +28,7 @@
     </h2>
 
     <p class="text-muted text-sm mb-4">
-        {{ \App\Infrastructure\Blade\Markdown::excerpt($course->content, 130) }}
+        {{ \App\Helpers\MarkdownHelper::excerpt($course->content, 130) }}
     </p>
 
     <div

@@ -1,18 +1,5 @@
 <?php
 
-use App\Http\Cms\AttachmentController;
-use App\Http\Cms\BlogCategoryController;
-use App\Http\Cms\CommentController;
-use App\Http\Cms\CourseController;
-use App\Http\Cms\DashboardController;
-use App\Http\Cms\FormationController;
-use App\Http\Cms\PathController;
-use App\Http\Cms\PlanController;
-use App\Http\Cms\PostController;
-use App\Http\Cms\SettingsController;
-use App\Http\Cms\TechnologyController;
-use App\Http\Cms\TransactionController;
-use App\Http\Cms\UserController;
 use Illuminate\Support\Facades\Route;
 
 $slug = '[0-9]+';
@@ -36,6 +23,10 @@ Route::get('/tutoriels/{slug}-{course}', [\App\Http\Front\CourseController::clas
     ->whereNumber('course')
     ->middleware(\App\Http\Middleware\RedirectIfSlugMismatch::class.':course')
     ->name('courses.show');
+Route::get('/formations', [\App\Http\Front\CourseController::class, 'index'])->name('formations.index');
+Route::get('/formations/{formation:slug}', [\App\Http\Front\CourseController::class, 'show'])
+    ->name('formations.show');
+Route::get('/recherche', [\App\Http\Front\SearchController::class, 'index']);
 
 // BLOG
 Route::group(['prefix' => '/blog', 'as' => 'blog.'], function () {
@@ -49,23 +40,23 @@ Route::group(['prefix' => '/cms', 'as' => 'cms.'], function () {
     Route::get('/', function () {
         return redirect('/cms/dashboard');
     });
-    Route::get('dashboard', DashboardController::class)->name('dashboard');
-    Route::resource('blog_categories', BlogCategoryController::class);
-    Route::resource('comments', CommentController::class)->only(['index', 'update', 'destroy']);
-    Route::resource('courses', CourseController::class);
-    Route::resource('formations', FormationController::class)->except(['show']);
-    Route::resource('paths', PathController::class)->except(['show']);
-    Route::resource('posts', PostController::class)->except(['show']);
-    Route::resource('plans', PlanController::class)->except(['edit', 'create']);
-    Route::resource('technologies', TechnologyController::class)->except(['show']);
-    Route::resource('users', UserController::class)->only(['index', 'destroy']);
-    Route::resource('transactions', TransactionController::class)->only(['index', 'destroy']);
-    Route::resource('settings', SettingsController::class)->only(['index', 'store']);
+    Route::get('dashboard', \App\Http\Cms\DashboardController::class)->name('dashboard');
+    Route::resource('blog_categories', \App\Http\Cms\BlogCategoryController::class);
+    Route::resource('comments', \App\Http\Cms\CommentController::class)->only(['index', 'update', 'destroy']);
+    Route::resource('courses', \App\Http\Cms\CourseController::class);
+    Route::resource('formations', \App\Http\Cms\FormationController::class)->except(['show']);
+    Route::resource('paths', \App\Http\Cms\PathController::class)->except(['show']);
+    Route::resource('posts', \App\Http\Cms\PostController::class)->except(['show']);
+    Route::resource('plans', \App\Http\Cms\PlanController::class)->except(['edit', 'create']);
+    Route::resource('technologies', \App\Http\Cms\TechnologyController::class)->except(['show']);
+    Route::resource('users', \App\Http\Cms\UserController::class)->only(['index', 'destroy']);
+    Route::resource('transactions', \App\Http\Cms\TransactionController::class)->only(['index', 'destroy']);
+    Route::resource('settings', \App\Http\Cms\SettingsController::class)->only(['index', 'store']);
     Route::get('search', [\App\Http\Cms\SearchController::class, 'search'])->name('search');
 
     // Attachments (JSON API)
-    Route::get('attachments/folders', [AttachmentController::class, 'folders'])->name('attachments.folders');
-    Route::resource('attachments', AttachmentController::class)->only(['store', 'destroy', 'index']);
+    Route::get('attachments/folders', [\App\Http\Cms\AttachmentController::class, 'folders'])->name('attachments.folders');
+    Route::resource('attachments', \App\Http\Cms\AttachmentController::class)->only(['store', 'destroy', 'index']);
 });
 
 // Route::get('/', function () {

@@ -4,11 +4,14 @@ namespace App\Domains\Blog;
 
 use App\Domains\Attachment\Attachment;
 use App\Domains\Blog\Factory\PostFactory;
+use App\Helpers\MarkdownHelper;
+use App\Infrastructure\Search\Contracts\Searchable;
+use App\Infrastructure\Search\SearchDocument;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Post extends Model
+class Post extends Model implements Searchable
 {
     protected $table = 'blog_posts';
 
@@ -53,5 +56,22 @@ class Post extends Model
     protected static function newFactory(): PostFactory
     {
         return PostFactory::new();
+    }
+
+    public function toSearchDocument(): ?SearchDocument
+    {
+        if (! $this->online) {
+            return null;
+        }
+
+        return new SearchDocument(
+            id: (string) $this->id,
+            title: $this->title,
+            content: MarkdownHelper::text($this->content, 5000),
+            category: [],
+            type: 'post',
+            url: route('blog.show', $this),
+            created_at: $this->created_at->getTimestamp(),
+        );
     }
 }

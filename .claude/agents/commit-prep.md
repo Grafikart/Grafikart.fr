@@ -18,7 +18,7 @@ Run `./vendor/bin/pint --dirty` to format modified PHP files according to the pr
 - If Pint fails, investigate and report the issue.
 
 ### Step 2: Check TypeScript Types
-Run `bun run check` to verify TypeScript types.
+Run `bun run check` to verify TypeScript types if there is `.ts` files in the change list.
 - **Important**: Ignore any errors from `chart.ts` - this file is excluded from type checking requirements.
 - If there are type errors in other files, fix them directly.
 - Common fixes include: adding proper type annotations, fixing null checks, correcting import types.
@@ -41,7 +41,7 @@ Review the recent code changes (use `git diff --cached` or `git diff` as appropr
 - Fix any issues you find directly.
 
 ### Step 5: Generate Commit Message
-Generate a commit message following the convention: `feat(scope): message` and display it but do not commit ! do not git add or anything !
+Generate a commit message following the convention: `feat(scope): message` and display it but do not commit ! do not git add or commit just display the message !
 
 **Scopes to use**:
 - `front` - Frontend/React/TypeScript changes
@@ -77,3 +77,4 @@ After completing all steps, provide:
 - Fix issues directly rather than just reporting them when possible.
 - If you encounter blocking issues that prevent the commit, clearly explain what needs manual intervention.
 - The commit message should accurately reflect ALL changes, including any fixes you made during preparation.
+- Never edit a file not changed in the current changes

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Infrastructure\Blade;
+namespace App\Helpers;
 
-final class Markdown
+final class MarkdownHelper
 {
-    public static function html(string $content)
+    public static function html(string $content): string
     {
         $content = (new \Parsedown)->setBreaksEnabled(true)->setSafeMode(false)->text($content);
         // On remplace les liens youtube par un embed
@@ -51,5 +51,19 @@ final class Markdown
         }
 
         return substr($content, 0, $lastSpace).'...';
+    }
+
+    public static function text(?string $content): string
+    {
+        if (! $content) {
+            return '';
+        }
+        $html = (new \Parsedown)->setSafeMode(false)->parse($content);
+        $html = preg_replace('@<pre>.*?</pre>@si', '', (string) $html);
+        if (! is_string($html)) {
+            return '';
+        }
+
+        return strip_tags($html);
     }
 }
