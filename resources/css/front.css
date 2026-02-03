@@ -4,6 +4,7 @@
 @import './utility.css';
 @import './prose.css';
 @import './scrollbar.css';
+@import './code.css';
 @source "../../resources/js/components/flow/";
 @source "../../resources/js/elements/";
 @source "../../resources/views/";
@@ -91,6 +92,9 @@
     }
     hr {
         border: none;
+        margin: 0;
+        height: auto;
+        display: block;
     }
     * {
         border-color: var(--color-border);

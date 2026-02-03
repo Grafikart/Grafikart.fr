@@ -11,6 +11,9 @@ Route::get('/media/resize/{width}/{height}/{path}', [\App\Http\Front\ImageContro
     ->whereNumber(['width', 'height'])
     ->name('image.resize');
 
+// Forum
+Route::get('/forum/{topic}', [\App\Http\Front\ForumController::class, 'show'])->name('topics.show');
+
 // Course
 Route::get('/cursus', [\App\Http\Front\PathController::class, 'index'])->name('paths.index');
 Route::get('/cursus/{slug}-{path}', [\App\Http\Front\PathController::class, 'show'])

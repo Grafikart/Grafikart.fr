@@ -20,6 +20,7 @@ class DatabaseImporterSeeder extends DatabaseSeeder
         $this->migrateTechnologies();
         $this->migrateBlog();
         $this->migrateComments();
+        $this->migrateForum();
     }
 
     private function migrateAttachments()
@@ -234,6 +235,85 @@ class DatabaseImporterSeeder extends DatabaseSeeder
                 }
                 if (! empty($data)) {
                     DB::table('comments')->upsert($data, uniqueBy: ['id']);
+                }
+            });
+    }
+
+    private function migrateForum(): void
+    {
+        // Migrate forum tags
+        DB::table('old_forum_tag')
+            ->orderBy('id')
+            ->chunk(self::CHUNK_SIZE, function ($tags) {
+                $data = [];
+                foreach ($tags as $tag) {
+                    $data[] = [
+                        'id' => $tag->id,
+                        'parent_id' => $tag->parent_id,
+                        'name' => $tag->name,
+                        'color' => $tag->color,
+                    ];
+                }
+                if (! empty($data)) {
+                    DB::table('forum_tags')->upsert($data, uniqueBy: ['id']);
+                }
+            });
+
+        // Migrate forum topics
+        DB::table('old_forum_topic')
+            ->orderBy('id')
+            ->chunk(self::CHUNK_SIZE, function ($topics) {
+                $data = [];
+                foreach ($topics as $topic) {
+                    $data[] = [
+                        'id' => $topic->id,
+                        'user_id' => $topic->author_id,
+                        'name' => $topic->name,
+                        'content' => $topic->content,
+                        'solved' => $topic->solved,
+                        'created_at' => $topic->created_at,
+                        'updated_at' => $topic->updated_at,
+                    ];
+                }
+                if (! empty($data)) {
+                    DB::table('forum_topics')->upsert($data, uniqueBy: ['id']);
+                }
+            });
+
+        // Migrate forum messages
+        DB::table('old_forum_message')
+            ->orderBy('id')
+            ->chunk(self::CHUNK_SIZE, function ($messages) {
+                $data = [];
+                foreach ($messages as $message) {
+                    $data[] = [
+                        'id' => $message->id,
+                        'topic_id' => $message->topic_id,
+                        'user_id' => $message->author_id,
+                        'content' => $message->content,
+                        'accepted' => $message->accepted,
+                        'created_at' => $message->created_at,
+                        'updated_at' => $message->updated_at,
+                    ];
+                }
+                if (! empty($data)) {
+                    DB::table('forum_messages')->upsert($data, uniqueBy: ['id']);
+                }
+            });
+
+        // Migrate forum tag-topic pivot
+        DB::table('old_forum_topic_tag')
+            ->orderBy('topic_id')
+            ->chunk(self::CHUNK_SIZE, function ($relations) {
+                $data = [];
+                foreach ($relations as $relation) {
+                    $data[] = [
+                        'tag_id' => $relation->tag_id,
+                        'topic_id' => $relation->topic_id,
+                    ];
+                }
+                if (! empty($data)) {
+                    DB::table('forum_tag_topic')->upsert($data, uniqueBy: ['tag_id', 'topic_id']);
                 }
             });
     }

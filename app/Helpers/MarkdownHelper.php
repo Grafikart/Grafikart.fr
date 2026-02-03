@@ -6,7 +6,7 @@ final class MarkdownHelper
 {
     public static function html(string $content): string
     {
-        $content = (new \Parsedown)->setBreaksEnabled(true)->setSafeMode(false)->text($content);
+        $content = (new CustomParsedown)->setBreaksEnabled(true)->setSafeMode(false)->text($content);
         // On remplace les liens youtube par un embed
         $content = (string) preg_replace(
             '/<p><a href\="(http|https):\/\/www.youtube.com\/watch\?v=([^\""]+)">[^<]*<\/a><\/p>/',
@@ -65,5 +65,21 @@ final class MarkdownHelper
         }
 
         return strip_tags($html);
+    }
+
+    public static function htmlUntrusted(?string $content): string
+    {
+        if (! $content) {
+            return '';
+        }
+        $content = new CustomParsedown()
+            ->setSafeMode(true)
+            ->setBreaksEnabled(true)
+            ->text($content);
+
+        $content = str_replace('<a href="http', '<a target="_blank" rel="noreferrer nofollow" href="http', $content);
+        $content = str_replace('<a href="//', '<a target="_blank" rel="noreferrer nofollow" href="http', $content);
+
+        return $content;
     }
 }

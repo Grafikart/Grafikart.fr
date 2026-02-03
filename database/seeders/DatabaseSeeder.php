@@ -11,6 +11,9 @@ use App\Domains\Course\Formation;
 use App\Domains\Course\Path;
 use App\Domains\Course\PathNode;
 use App\Domains\Course\Technology;
+use App\Domains\Forum\Topic;
+use App\Domains\Forum\TopicMessage;
+use App\Domains\Forum\TopicTag;
 use App\Domains\Premium\Models\Plan;
 use App\Domains\Premium\Models\Transaction;
 use App\Models\User;
@@ -34,6 +37,9 @@ class DatabaseSeeder extends Seeder
         Path::class,
         PathNode::class,
         Attachment::class,
+        TopicMessage::class,
+        TopicTag::class,
+        Topic::class,
     ];
 
     protected function clean()
@@ -42,15 +48,17 @@ class DatabaseSeeder extends Seeder
         DB::disableQueryLog();
         Schema::disableForeignKeyConstraints();
 
+        DB::table('course_technology')->truncate();
+        DB::table('formation_technology')->truncate();
+        DB::table('path_node_links')->truncate();
+        DB::table('forum_tag_topic')->truncate();
+
         // Clean the database
         foreach ($this->models as $modelCls) {
             $model = new $modelCls;
             assert($model instanceof Model);
             DB::table($model->getTable())->truncate();
         }
-        DB::table('course_technology')->truncate();
-        DB::table('formation_technology')->truncate();
-        DB::table('path_node_links')->truncate();
     }
 
     /**

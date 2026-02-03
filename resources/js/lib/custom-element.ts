@@ -55,3 +55,37 @@ export function r2wc(
         },
     );
 }
+
+export abstract class LazyComponent {
+    constructor(protected el: HTMLElement) {}
+    abstract onMount(): void | Promise<void>;
+    onUnmount() {}
+}
+
+/**
+ * Register custom element lazily
+ */
+export function lazywc(
+    tagName: string,
+    cb: () => Promise<{
+        default: { new (el: HTMLElement): LazyComponent };
+    }>,
+) {
+    customElements.define(
+        tagName,
+        class A extends HTMLElement {
+            innerElement: LazyComponent | null = null;
+
+            connectedCallback() {
+                cb().then((module) => {
+                    this.innerElement = new module.default(this);
+                    this.innerElement.onMount();
+                });
+            }
+
+            disconnectedCallback() {
+                this.innerElement?.onUnmount();
+            }
+        },
+    );
+}

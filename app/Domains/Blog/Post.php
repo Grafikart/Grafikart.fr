@@ -67,7 +67,7 @@ class Post extends Model implements Searchable
         return new SearchDocument(
             id: (string) $this->id,
             title: $this->title,
-            content: MarkdownHelper::text($this->content, 5000),
+            content: MarkdownHelper::text($this->content),
             category: [],
             type: 'post',
             url: route('blog.show', $this),
