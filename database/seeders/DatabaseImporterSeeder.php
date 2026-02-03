@@ -14,6 +14,7 @@ class DatabaseImporterSeeder extends DatabaseSeeder
     public function run(): void
     {
         $this->clean();
+        $this->migrateUsers();
         $this->migrateAttachments();
         $this->migrateFormations();
         $this->migrateCourses();
@@ -21,6 +22,48 @@ class DatabaseImporterSeeder extends DatabaseSeeder
         $this->migrateBlog();
         $this->migrateComments();
         $this->migrateForum();
+    }
+
+    private function migrateUsers(): void
+    {
+        DB::table('old_user')
+            ->orderBy('id')
+            ->chunk(self::CHUNK_SIZE, function ($users) {
+                $data = [];
+                foreach ($users as $user) {
+                    $emailVerifiedAt = null;
+                    if ($user->confirmation_token === null) {
+                        $emailVerifiedAt = $user->created_at;
+                    }
+
+                    $data[] = [
+                        'id' => $user->id,
+                        'name' => $user->username,
+                        'email' => $user->email,
+                        'email_verified_at' => $emailVerifiedAt,
+                        'password' => $user->password,
+                        'premium_end_at' => $user->premium_end,
+                        'country' => $user->country ?? 'FR',
+                        'notifications_read_at' => $user->notifications_read_at ?? now(),
+                        'discord_id' => $user->discord_id,
+                        'github_id' => $user->github_id,
+                        'google_id' => $user->google_id,
+                        'stripe_id' => $user->stripe_id,
+                        'facebook_id' => $user->facebook_id,
+                        'theme' => $user->theme,
+                        'html5_player' => $user->html5_player,
+                        'last_login_at' => $user->last_login_at,
+                        'last_login_ip' => $user->last_login_ip,
+                        'deleted_at' => $user->delete_at,
+                        'created_at' => $user->created_at,
+                        'updated_at' => $user->updated_at,
+                        'invoice_info' => $user->invoice_info,
+                    ];
+                }
+                if (! empty($data)) {
+                    DB::table('users')->upsert($data, uniqueBy: ['id']);
+                }
+            });
     }
 
     private function migrateAttachments()
@@ -191,6 +234,7 @@ class DatabaseImporterSeeder extends DatabaseSeeder
         DB::table('old_blog_post')
             ->join('old_content', 'old_blog_post.id', '=', 'old_content.id')
             ->orderBy('old_blog_post.id')
+            ->whereNotLike('slug', '%dayclic%') // This slug is twice in the old database
             ->chunk(self::CHUNK_SIZE, function ($posts) {
                 $data = [];
                 foreach ($posts as $post) {

@@ -148,6 +148,7 @@
     --color-card-foreground: var(--card-foreground);
     --color-card: var(--card);
     --color-foreground: var(--foreground);
+    --color-overlay: rgba(0, 0, 0, 0.1);
     --color-background: var(--background);
     --radius-sm: calc(var(--radius) - 4px);
     --radius-md: calc(var(--radius) - 2px);

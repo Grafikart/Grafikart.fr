@@ -5,6 +5,7 @@
 @import './prose.css';
 @import './scrollbar.css';
 @import './code.css';
+@import './components/input.css';
 @source "../../resources/js/components/flow/";
 @source "../../resources/js/elements/";
 @source "../../resources/views/";
@@ -36,6 +37,7 @@
     --color-green: #41cf7c;
     --color-yellow: #feb32b;
     --color-edge: #acb8c0;
+    --color-overlay: #000000b3;
 
     --dark: #000;
     --olor: #121c42;
@@ -90,6 +92,10 @@
     a {
         cursor: pointer;
     }
+    dialog {
+        border: none;
+        outline: none;
+    }
     hr {
         border: none;
         margin: 0;
@@ -99,6 +105,15 @@
     * {
         border-color: var(--color-border);
         outline-color: var(--ring);
+    }
+    mark {
+        padding: 2px 4px;
+        border-radius: 2px;
+        background: var(--color-primary);
+        color: var(--color-primary-foreground);
+    }
+    *:focus-visible {
+        outline: solid 2px var(--color-primary);
     }
 }
 

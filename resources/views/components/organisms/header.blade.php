@@ -32,9 +32,10 @@
             @endforeach
         </nav>
 
-        <button type="button" class="p-2 hover:text-primary transition-colors ml-auto">
+
+        <site-search class="p-2 hover:text-primary transition-colors ml-auto">
             <x-lucide-search class="size-4"/>
-        </button>
+        </site-search>
 
         <x-atoms.separator orientation="vertical" class="h-4"/>
 

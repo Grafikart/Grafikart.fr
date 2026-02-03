@@ -1,3 +1,12 @@
+export type APISearchItem = {
+    title: string;
+    url: string;
+    type: string;
+};
+export type APISearchResponse = {
+    items: Array<APISearchItem>;
+    hits: number;
+};
 export type AttachmentFileData = {
     id: number;
     createdAt: string;

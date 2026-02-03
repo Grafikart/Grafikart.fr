@@ -23,6 +23,7 @@
 </head>
 <body class="{{ cn(["font-sans antialiased text-foreground bg-background", $class ?? '']) }}">
 <x-organisms.header />
+<search-input></search-input>
 @yield('body')
 </body>
 </html>

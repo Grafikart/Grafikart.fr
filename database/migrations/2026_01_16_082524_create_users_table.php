@@ -37,6 +37,10 @@ return new class extends Migration
             $table->dateTime('last_login_at')->nullable();
             $table->string('last_login_ip')->nullable();
 
+            // Payment
+            $table->string('stripe_id')->nullable();
+            $table->string('invoice_info')->nullable();
+
             // TOTP
             $table->text('two_factor_secret')->after('password')->nullable();
             $table->text('two_factor_recovery_codes')->after('two_factor_secret')->nullable();
@@ -60,7 +64,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');
+        Schema::dropIfExists('users');
     }
 };
