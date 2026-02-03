@@ -29,7 +29,7 @@ Route::get('/tutoriels/{slug}-{course}', [\App\Http\Front\CourseController::clas
 Route::get('/formations', [\App\Http\Front\CourseController::class, 'index'])->name('formations.index');
 Route::get('/formations/{formation:slug}', [\App\Http\Front\CourseController::class, 'show'])
     ->name('formations.show');
-Route::get('/recherche', [\App\Http\Front\SearchController::class, 'index']);
+Route::get('/recherche', [\App\Http\Front\SearchController::class, 'index'])->name('search.index');
 
 // BLOG
 Route::group(['prefix' => '/blog', 'as' => 'blog.'], function () {

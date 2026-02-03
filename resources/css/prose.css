@@ -11,16 +11,18 @@
             color: var(--color-foreground-title);
         }
 
+        lazy-video {
+            margin-block: 1.25rem;
+        }
+
         p {
-            margin-top: 1.25em;
-            margin-bottom: 1.25em;
+            margin-block: 1.25em;
         }
 
         [class~='lead'] {
             font-size: 1.25em;
             line-height: 1.6;
-            margin-top: 1.2em;
-            margin-bottom: 1.2em;
+            margin-block: 1.2em;
         }
 
         a {
@@ -47,15 +49,13 @@
 
         ol {
             list-style-type: decimal;
-            margin-top: 1.25em;
-            margin-bottom: 1.25em;
+            margin-block: 1.25em;
             padding-inline-start: 1.625em;
         }
 
         ul {
             list-style-type: disc;
-            margin-top: 1.25em;
-            margin-bottom: 1.25em;
+            margin-block: 1.25em;
             padding-inline-start: 1.625em;
         }
 
@@ -74,8 +74,7 @@
         hr {
             border-color: var(--color-border);
             border-top-width: 1px;
-            margin-top: 3em;
-            margin-bottom: 3em;
+            margin-block: 3em;
         }
 
         blockquote {
@@ -85,8 +84,7 @@
             border-inline-start-width: 0.25rem;
             border-inline-start-color: var(--color-border);
             quotes: '\201C' '\201D' '\2018' '\2019';
-            margin-top: 1.6em;
-            margin-bottom: 1.6em;
+            margin-block: 1.6em;
             padding-inline-start: 1em;
         }
 
@@ -151,13 +149,11 @@
 
         picture {
             display: block;
-            margin-top: 2em;
-            margin-bottom: 2em;
+            margin-block: 2em;
         }
 
         video {
-            margin-top: 2em;
-            margin-bottom: 2em;
+            margin-block: 2em;
         }
 
         kbd {
@@ -168,10 +164,8 @@
                 0 3px 0 var(--color-muted);
             font-size: 0.875em;
             border-radius: 0.3125rem;
-            padding-top: 0.1875em;
-            padding-inline-end: 0.375em;
-            padding-bottom: 0.1875em;
-            padding-inline-start: 0.375em;
+            padding-block: 0.1875em;
+            padding-inline: 0.375em;
         }
 
         code {
@@ -225,13 +219,10 @@
             font-weight: 400;
             font-size: 1em;
             line-height: 1.7142857;
-            margin-top: 1.7142857em;
-            margin-bottom: 1.7142857em;
+            margin-block: 1.7142857em;
             border-radius: 0.375rem;
-            padding-top: 0.8571429em;
-            padding-inline-end: 1.1428571em;
-            padding-bottom: 0.8571429em;
-            padding-inline-start: 1.1428571em;
+            padding-block: 0.8571429em;
+            padding-inline: 1.1428571em;
         }
 
         pre code {
@@ -257,8 +248,7 @@
         table {
             width: 100%;
             table-layout: auto;
-            margin-top: 2em;
-            margin-bottom: 2em;
+            margin-block: 2em;
             font-size: 0.875em;
             line-height: 1.7142857;
         }
@@ -305,8 +295,7 @@
         }
 
         figure > * {
-            margin-top: 0;
-            margin-bottom: 0;
+            margin-block: 0;
         }
 
         figcaption {
@@ -317,13 +306,11 @@
         }
 
         picture > img {
-            margin-top: 0;
-            margin-bottom: 0;
+            margin-block: 0;
         }
 
         li {
-            margin-top: 0.5em;
-            margin-bottom: 0.5em;
+            margin-block: 0.5em;
         }
 
         ol > li {
@@ -335,8 +322,7 @@
         }
 
         & > ul > li p {
-            margin-top: 0.75em;
-            margin-bottom: 0.75em;
+            margin-block: 0.75em;
         }
 
         & > ul > li > p:first-child {
@@ -359,13 +345,11 @@
         ul ol,
         ol ul,
         ol ol {
-            margin-top: 0.75em;
-            margin-bottom: 0.75em;
+            margin-block: 0.75em;
         }
 
         dl {
-            margin-top: 1.25em;
-            margin-bottom: 1.25em;
+            margin-block: 1.25em;
         }
 
         dd {
@@ -399,10 +383,8 @@
 
         tbody td,
         tfoot td {
-            padding-top: 0.5714286em;
-            padding-inline-end: 0.5714286em;
-            padding-bottom: 0.5714286em;
-            padding-inline-start: 0.5714286em;
+            padding-block: 0.5714286em;
+            padding-inline: 0.5714286em;
         }
 
         tbody td:first-child,
@@ -416,8 +398,7 @@
         }
 
         figure {
-            margin-top: 2em;
-            margin-bottom: 2em;
+            margin-block: 2em;
         }
 
         & > :first-child {
@@ -433,18 +414,15 @@
         font-size: 1.125rem;
         line-height: 1.7777778;
         p {
-            margin-top: 1.3333333em;
-            margin-bottom: 1.3333333em;
+            margin-block: 1.3333333em;
         }
         [class~='lead'] {
             font-size: 1.2222222em;
             line-height: 1.4545455;
-            margin-top: 1.0909091em;
-            margin-bottom: 1.0909091em;
+            margin-block: 1.0909091em;
         }
         blockquote {
-            margin-top: 1.6666667em;
-            margin-bottom: 1.6666667em;
+            margin-block: 1.6666667em;
             padding-inline-start: 1em;
         }
         h1 {
@@ -471,24 +449,19 @@
             line-height: 1.5555556;
         }
         picture {
-            margin-top: 1.7777778em;
-            margin-bottom: 1.7777778em;
+            margin-block: 1.7777778em;
         }
         picture > img {
-            margin-top: 0;
-            margin-bottom: 0;
+            margin-block: 0;
         }
         video {
-            margin-top: 1.7777778em;
-            margin-bottom: 1.7777778em;
+            margin-block: 1.7777778em;
         }
         kbd {
             font-size: 0.8888889em;
             border-radius: 0.3125rem;
-            padding-top: 0.2222222em;
-            padding-inline-end: 0.4444444em;
-            padding-bottom: 0.2222222em;
-            padding-inline-start: 0.4444444em;
+            padding-block: 0.2222222em;
+            padding-inline: 0.4444444em;
         }
         code {
             font-size: 0.8888889em;
@@ -502,27 +475,21 @@
         pre {
             font-size: 0.8888889em;
             line-height: 1.75;
-            margin-top: 2em;
-            margin-bottom: 2em;
+            margin-block: 2em;
             border-radius: 0.375rem;
-            padding-top: 1em;
-            padding-inline-end: 1.5em;
-            padding-bottom: 1em;
-            padding-inline-start: 1.5em;
+            padding-block: 1em;
+            padding-inline: 1.5em;
         }
         ol {
-            margin-top: 1.3333333em;
-            margin-bottom: 1.3333333em;
+            margin-block: 1.3333333em;
             padding-inline-start: 1.5555556em;
         }
         ul {
-            margin-top: 1.3333333em;
-            margin-bottom: 1.3333333em;
+            margin-block: 1.3333333em;
             padding-inline-start: 1.5555556em;
         }
         li {
-            margin-top: 0.6666667em;
-            margin-bottom: 0.6666667em;
+            margin-block: 0.6666667em;
         }
         ol > li {
             padding-inline-start: 0.4444444em;
@@ -531,8 +498,7 @@
             padding-inline-start: 0.4444444em;
         }
         & > ul > li p {
-            margin-top: 0.8888889em;
-            margin-bottom: 0.8888889em;
+            margin-block: 0.8888889em;
         }
         & > ul > li > p:first-child {
             margin-top: 1.3333333em;
@@ -550,12 +516,10 @@
         ul ol,
         ol ul,
         ol ol {
-            margin-top: 0.8888889em;
-            margin-bottom: 0.8888889em;
+            margin-block: 0.8888889em;
         }
         dl {
-            margin-top: 1.3333333em;
-            margin-bottom: 1.3333333em;
+            margin-block: 1.3333333em;
         }
         dt {
             margin-top: 1.3333333em;
@@ -565,8 +529,7 @@
             padding-inline-start: 1.5555556em;
         }
         hr {
-            margin-top: 3.1111111em;
-            margin-bottom: 3.1111111em;
+            margin-block: 3.1111111em;
         }
         hr + * {
             margin-top: 0;
@@ -597,10 +560,8 @@
         }
         tbody td,
         tfoot td {
-            padding-top: 0.75em;
-            padding-inline-end: 0.75em;
-            padding-bottom: 0.75em;
-            padding-inline-start: 0.75em;
+            padding-block: 0.75em;
+            padding-inline: 0.75em;
         }
         tbody td:first-child,
         tfoot td:first-child {
@@ -611,12 +572,10 @@
             padding-inline-end: 0;
         }
         figure {
-            margin-top: 1.7777778em;
-            margin-bottom: 1.7777778em;
+            margin-block: 1.7777778em;
         }
         figure > * {
-            margin-top: 0;
-            margin-bottom: 0;
+            margin-block: 0;
         }
         figcaption {
             font-size: 0.8888889em;

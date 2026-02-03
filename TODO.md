@@ -1,6 +1,6 @@
 # Tâches
 
-- [ ] Recherche
+- [x] Recherche
 - [ ] Uploader YouTube
 - [ ] Sidebar listing tutoriel
 - [ ] Page d'un cours (hors formation)

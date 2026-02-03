@@ -3,6 +3,7 @@
 namespace App\Infrastructure\Search\Typesense;
 
 use App\Infrastructure\Search\Contracts\SearchResultItemInterface;
+use Carbon\CarbonImmutable;
 
 class TypesenseItem implements SearchResultItemInterface
 {
@@ -89,9 +90,9 @@ class TypesenseItem implements SearchResultItemInterface
         return $type;
     }
 
-    public function getCreatedAt(): \DateTimeInterface
+    public function getCreatedAt(): CarbonImmutable
     {
-        return new \DateTimeImmutable('@'.$this->item['document']['created_at']);
+        return new CarbonImmutable('@'.$this->item['document']['created_at']);
     }
 
     /**
