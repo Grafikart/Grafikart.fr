@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'twitch' => [
+        'id' => env('TWITCH_ID'),
+        'secret' => env('TWITCH_SECRET'),
+    ],
+
 ];

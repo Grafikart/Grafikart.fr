@@ -22,7 +22,7 @@
                 <a
                     href="{{ $item['href'] }}"
                     class="{{ cn([
-                        'flex items-center gap-2 px-5 py-2 text-sm transition-colors hover:text-primary',
+                        'flex items-center gap-2 px-5 py-2 text-sm hover:text-primary transition-colors',
                         'text-yellow hover:text-yellow/80' => $item['highlight'] ?? false,
                     ])}}"
                 >
@@ -42,14 +42,16 @@
         {{-- Auth --}}
         @auth
             <a href="{{ route('cms.dashboard') }}"
-               class="flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors">
-                <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                     stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                    <circle cx="12" cy="7" r="4"/>
-                </svg>
+               class="flex items-center gap-2 text-sm hover:text-primary transition-colors">
+                <x-lucide-user-round  class="size-4"/>
                 <span>{{ auth()->user()->name }}</span>
             </a>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="p-2 text-sm hover:text-primary transition-colors" title="Se déconnecter">
+                    <x-lucide-log-out class="size-4"/>
+                </button>
+            </form>
         @else
             <div class="flex items-center gap-1">
                 <a href="{{ route('register') }}" class="flex items-center gap-2 hover:text-primary transition-colors">

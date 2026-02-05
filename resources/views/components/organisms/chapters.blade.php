@@ -12,7 +12,7 @@
                     class="appearance-none p-4 py-2 bg-background/50 hover:bg-background group:first:border-t-0 border-t flex items-center gap-2 cursor-pointer">
                     <div class="mr-auto">
                         <div class="text-muted text-sm">Chapitre {{$k + 1}}</div>
-                        <h3 class="text-title font-bold">{{ $chapter['title'] }}</h3>
+                        <h3 class="text-foreground-title font-bold">{{ $chapter['title'] }}</h3>
                     </div>
                     <div class="text-muted text-xs group-open:hidden">
                         {{ count($chapter['courses']) }} vidéos

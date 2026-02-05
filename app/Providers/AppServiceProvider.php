@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Domains\Blog\Post;
 use App\Domains\Course\Course;
 use App\Domains\Course\Formation;
+use App\Infrastructure\Twitch\TwitchAPI;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -21,7 +22,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(TwitchAPI::class, fn () => new TwitchAPI(
+            id: config('services.twitch.id'),
+            secret: config('services.twitch.secret'),
+        ));
     }
 
     /**

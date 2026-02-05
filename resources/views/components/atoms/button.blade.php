@@ -2,7 +2,7 @@
 
 @php
     $classes = cn([
-        'rounded-sm [&_svg]:size-4 flex items-center gap-3 transition-all w-max font-medium',
+        'rounded-sm [&_svg]:size-4 flex justify-center items-center gap-3 transition-all w-max font-medium',
         // Variants
         'bg-primary text-primary-foreground hover:brightness-140 ' => $variant === 'primary',
         'border hover:bg-border/30 bg-background' => $variant === 'secondary',

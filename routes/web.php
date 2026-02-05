@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 
 $slug = '[0-9]+';
 
+// Home
+Route::redirect('/', '/tutoriels')->name('home');
+
 // Public routes
 Route::get('/ui', [\App\Http\Front\PageController::class, 'ui']);
 Route::get('/media/resize/{width}/{height}/{path}', [\App\Http\Front\ImageController::class, 'resize'])

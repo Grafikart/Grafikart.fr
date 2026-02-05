@@ -3,7 +3,7 @@
 - [x] Recherche
 - [ ] Uploader YouTube
 - [ ] Sidebar listing tutoriel
-- [ ] Page d'un cours (hors formation)
+- [x] Page d'un cours (hors formation)
 - [ ] Page d'un cours dans une formation
 - [ ] Listing des cursus à améliorer
 - [ ] Homepage

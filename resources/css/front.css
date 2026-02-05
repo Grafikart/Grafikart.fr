@@ -31,6 +31,11 @@
     --color-background: #f7fafb;
     --color-background-light: #fff;
     --color-card: #fff;
+    --color-card-footer: color-mix(
+        in oklab,
+        var(--color-background) 50%,
+        transparent
+    );
     --color-border: #d5e3ec;
     --color-destructive: #f25353;
     --color-destructive-foreground: #fff3f3;
@@ -38,6 +43,9 @@
     --color-yellow: #feb32b;
     --color-edge: #acb8c0;
     --color-overlay: #000000b3;
+
+    --shadow-focus: 0 0 0 3px color-mix(in srgb, var(--color-primary) 25%, transparent);
+
 
     --dark: #000;
     --olor: #121c42;
