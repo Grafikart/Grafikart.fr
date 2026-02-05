@@ -1,6 +1,6 @@
 @props(['chapter', 'active' => false])
 
-<a href="{{ $chapter->url }}" class="{{ cn([
+<a href="{{ route('courses.show', ['slug' => $chapter->slug, 'course' => $chapter->id])}}" class="{{ cn([
     'text-sm flex items-center gap-2 py-3 px-4  hover:bg-background border-y border-l-3 border-transparent',
     'border-primary bg-primary/10 text-primary' => $active,
     $attributes->get('class'),

@@ -38,7 +38,7 @@
                     <x-lucide-tags class="size-4"/>
                     <div>
                         @foreach($course->technologies as $k => $technology)
-                            <a href="#">
+                            <a href="#" class="hover:underline">
                                 {{ $technology->name }}
                                 @if($technology->pivot->version)
                                     <span class="text-sm opacity-70">({{$technology->pivot->version}})</span>
@@ -47,6 +47,13 @@
                         @endforeach
                     </div>
                 </div>
+                @if($course->formation)
+                    <a href="{{ route('formations.show', $course->formation->slug) }}"
+                       class="flex items-center text-muted gap-2 hover:underline">
+                        <x-lucide-graduation-cap class="size-4"/>
+                        {{ $course->formation->title }}
+                    </a>
+                @endif
                 <div class="flex items-center text-muted gap-2 ml-auto">
                     <x-lucide-calendar class="size-4"/> {{ $course->created_at->diffForHumans() }}
                 </div>
@@ -55,7 +62,7 @@
             <iframe
                 class="aspect-video w-full mb-8 rounded-md shadow-lg"
                 style="background: #000;"
-                src="https://www.youtube-nocookie.com/embed/xSfZwqzs_OM?si=mcYzRO1_nis2Rort"
+                src="https://www.youtube-nocookie.com/embed/{{ $course->youtube_id }}?si=mcYzRO1_nis2Rort"
                 title="YouTube video player"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -71,13 +78,25 @@
         <aside class="space-y-8">
             <x-atoms.card class="p-4 space-y-2 border">
                 <div class="text-sm uppercase text-muted">Fichiers attachés</div>
+                @if($course->source)
                 <x-atoms.button variant="outline" class="w-full">
                     <x-lucide-download class="text-muted"/>
                     Sources du projet
+                    @if($course->source_size)
+                        <span class="text-xs text-muted text-trim ml-auto">
+                        {{ file_size($course->source_size) }}
+                    </span>
+                    @endif
                 </x-atoms.button>
+                @endif
                 <x-atoms.button variant="secondary" class="w-full">
                     <x-lucide-video class="text-muted"/>
                     Télécharger la vidéo
+                    @if($course->video_size)
+                        <span class="text-xs text-muted text-trim ml-auto">
+                        {{ file_size($course->video_size) }}
+                    </span>
+                    @endif
                 </x-atoms.button>
             </x-atoms.card>
 
@@ -85,17 +104,13 @@
                 <x-organisms.chapters :chapters="$course->formation->chaptersWithCourses" :active="$course->id"/>
             @endif
 
-            <section class="space-y-3">
-                <h2 class="font-serif font-bold text-2xl flex items-center gap-2">
-                    <x-lucide-circle-question-mark class="size-5"/>
-                    Poser une question
-                </h2>
 
-                <x-atoms.card padded class="space-y-3">
+            <x-atoms.card padded class="space-y-3">
+                <div class="text-sm uppercase text-muted">Poser une question</div>
                     <div class="space-y-1">
                        <textarea
                            aria-label="Description du problème"
-                           class="p-2 border-border border w-full rounded-sm"
+                           class="p-2 border-border border w-full rounded-sm bg-background"
                            placeholder="Je ne comprends pas pourquoi tu as fait... à ce moment là"></textarea>
                     </div>
 
@@ -105,7 +120,7 @@
                         </span>
                     </x-atoms.button>
                 </x-atoms.card>
-            </section>
+
 
         </aside>
     </div>

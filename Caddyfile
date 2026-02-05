@@ -1,5 +1,8 @@
 {
-	frankenphp
+	frankenphp {
+	    php_ini post_max_size 50M
+	    php_ini upload_max_filesize 50M
+	}
 }
 
 :8000 {

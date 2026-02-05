@@ -32,6 +32,8 @@ class Course extends Model implements RegisterMedia, Searchable
         'deprecated_by_id',
         'formation_id',
         'duration',
+        'video_size',
+        'source_size',
         'youtube_id',
         'video_path',
         'source',
@@ -98,6 +100,7 @@ class Course extends Model implements RegisterMedia, Searchable
             directory: fn (Course $model) => 'courses/'.$model->id,
             filename: 'slug',
             disk: 'downloads',
+            needId: true,
         );
     }
 

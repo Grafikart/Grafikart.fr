@@ -21,3 +21,7 @@
     padding-inline: 1rem;
     max-width: 1330px;
 }
+
+@utility text-trim {
+    text-box: trim-both cap alphabetic;
+}

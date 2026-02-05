@@ -15,20 +15,18 @@ final class ComputeCourseDurationJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public function __construct(public int $courseId)
-    {
-    }
+    public function __construct(public int $courseId) {}
 
     public function handle(): void
     {
         $videoPath = Course::select('video_path')->find($this->courseId)->video_path;
-        if (!$videoPath) {
+        if (! $videoPath) {
             return;
         }
 
-        $fullPath = Storage::disk('downloads')->path('videos/' . $videoPath);
+        $fullPath = Storage::disk('downloads')->path('videos/'.$videoPath);
 
-        if (!file_exists($fullPath)) {
+        if (! file_exists($fullPath)) {
             return;
         }
 
@@ -37,15 +35,25 @@ final class ComputeCourseDurationJob implements ShouldQueue
             '-v', 'error',
             '-show_entries', 'format=duration',
             '-of', 'default=noprint_wrappers=1:nokey=1',
-            $fullPath
+            $fullPath,
         ]);
 
-        if (!$result->successful()) {
-            throw new \Exception('Cannot probe video duration : ' . $result->output());
+        if (! $result->successful()) {
+            throw new \Exception('Cannot probe video duration : '.$result->output());
         }
-        $duration = (int)round((float)trim($result->output()));
+        $duration = (int) round((float) trim($result->output()));
+        $updateData = [];
         if ($duration > 0) {
-            Course::where('id', $this->courseId)->update(['duration' => $duration]);
+            $updateData['duration'] = $duration;
+        }
+
+        $size = filesize($fullPath);
+        if ($size > 0) {
+            $updateData['video_size'] = $size;
+        }
+
+        if (! empty($updateData)) {
+            Course::where('id', $this->courseId)->update($updateData);
         }
     }
 }

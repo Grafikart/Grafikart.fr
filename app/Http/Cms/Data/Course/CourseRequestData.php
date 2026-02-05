@@ -6,6 +6,7 @@ use App\Concerns\AfterPersist;
 use App\Domains\Cms\DataToModel;
 use App\Domains\Course\Course;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\UploadedFile;
 use Spatie\LaravelData\Attributes\Validation\Exists;
 use Spatie\LaravelData\Attributes\Validation\Max;
 use Spatie\LaravelData\Attributes\Validation\Min;
@@ -51,6 +52,7 @@ class CourseRequestData extends Data implements DataToModel
         public readonly ?\DateTimeImmutable $createdAt = null,
         /** @var array<TechnologyUsageData> */
         public readonly array $technologies = [],
+        public readonly ?UploadedFile $source = null,
     ) {}
 
     public function toModel(Model $model): Model
@@ -80,6 +82,11 @@ class CourseRequestData extends Data implements DataToModel
                 'primary' => $technology->primary,
             ],
         ])->toArray();
+
+        if ($this->source) {
+            $model->source_size = $this->source->getSize();
+            $model->attachMedia($this->source, 'source');
+        }
 
         $this->afterPersist($model, function (Course $model) use ($technologies) {
             $model->technologies()->sync($technologies);

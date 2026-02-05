@@ -115,8 +115,11 @@
     *:focus-visible {
         outline: solid 2px var(--color-primary);
     }
-    .text-trim {
-        text-box: trim-both cap alphabetic;
+    details > summary {
+        list-style: none;
+    }
+    details > summary::-webkit-details-marker {
+        display: none;
     }
 }
 

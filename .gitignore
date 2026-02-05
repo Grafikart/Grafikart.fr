@@ -1,4 +1,5 @@
 # Project specific
+/downloads
 .vault_pass
 .junie
 var
