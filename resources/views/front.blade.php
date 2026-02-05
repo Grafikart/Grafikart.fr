@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="view-transition" content="same-origin">
 
     <meta property="og:title" content="@yield('title')"/>
     <meta property="og:site_name" content="Grafikart.fr"/>
@@ -21,7 +22,7 @@
     @viteReactRefresh
     @vite(['resources/js/front.ts'])
 </head>
-<body class="{{ cn(["font-sans antialiased text-foreground bg-background", $class ?? '']) }}">
+<body class="{{ cn(["font-sans antialiased text-foreground bg-background pt-28", $class ?? '']) }}">
 <x-organisms.header />
 <search-input></search-input>
 @yield('body')

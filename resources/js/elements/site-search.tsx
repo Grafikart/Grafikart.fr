@@ -14,22 +14,15 @@ import { queryClient, useApiFetch } from '@/hooks/use-api-fetch.ts';
 import { useShortcut } from '@/hooks/use-shortcut.ts';
 import type { APISearchItem, APISearchResponse } from '@/types';
 
-type Props = { element: HTMLElement };
-
-export function SiteSearch(props: Props) {
+export function SiteSearch(_props: { element: HTMLElement }) {
     return (
         <QueryClientProvider client={queryClient}>
-            <SearchInputInner {...props} />
+            <SearchInputInner />
         </QueryClientProvider>
     );
 }
 
-function SearchInputInner({ element }: Props) {
-    const [triggerCls] = useState<string>(() => {
-        const cls = element.getAttribute('class');
-        element.setAttribute('class', 'contents');
-        return cls ?? '';
-    });
+function SearchInputInner() {
     const [open, setOpen] = useState(false);
     const [search, setSearch] = useState('');
     const debouncedSearch = useDebounce(search, 300);
@@ -49,7 +42,7 @@ function SearchInputInner({ element }: Props) {
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger className={triggerCls}>
+            <DialogTrigger className="grid size-6 place-items-center">
                 <SearchIcon className="size-4" />
             </DialogTrigger>
             <DialogContent

@@ -37,6 +37,7 @@
         "@dnd-kit/sortable": "^10.0.0",
         "@dnd-kit/utilities": "^3.2.2",
         "@headlessui/react": "^2.2.0",
+        "@hotwired/turbo": "^8.0.23",
         "@inertiajs/react": "^2.3.7",
         "@mdxeditor/editor": "^3.52.3",
         "@radix-ui/react-avatar": "^1.1.3",

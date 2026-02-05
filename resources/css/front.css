@@ -4,6 +4,7 @@
 @import './utility.css';
 @import './prose.css';
 @import './scrollbar.css';
+@import './layout.css';
 @import './code.css';
 @import './components/input.css';
 @source "../../resources/js/components/flow/";
@@ -44,8 +45,9 @@
     --color-edge: #acb8c0;
     --color-overlay: #000000b3;
 
-    --shadow-focus: 0 0 0 3px color-mix(in srgb, var(--color-primary) 25%, transparent);
-
+    --shadow-focus: 0 0 0 3px
+        color-mix(in srgb, var(--color-primary) 25%, transparent);
+    --sidebar-width: 350px;
 
     --dark: #000;
     --olor: #121c42;
@@ -79,7 +81,7 @@
 @media (prefers-color-scheme: dark) {
     :root {
         --color-foreground-title: #f0f3ff;
-        --color-foreground: #d4dcff;
+        --color-foreground: #adbef3;
         --color-muted: #8491c7;
         --color-primary: #5396e7;
         --color-primary-foreground: #effbec;
@@ -96,6 +98,9 @@
 }
 
 @layer base {
+    html {
+        scrollbar-gutter: stable;
+    }
     button,
     a {
         cursor: pointer;

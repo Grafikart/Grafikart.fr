@@ -1,0 +1,10 @@
+.right-sidebar {
+    padding-right: var(--sidebar-width);
+    --header-height: 60px;
+
+    & > header {
+        .container {
+            max-width: none;
+        }
+    }
+}

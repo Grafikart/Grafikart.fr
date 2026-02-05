@@ -1,6 +1,7 @@
 import { CourseChapters } from '@/elements/course-chapters.ts';
 import { SiteSearch } from '@/elements/site-search.tsx';
 import { lazywc, r2wc } from '@/lib/custom-element.ts';
+import '@hotwired/turbo';
 import '../css/front.css';
 
 r2wc('lazy-video', () => import('@/elements/lazy-video.tsx'));

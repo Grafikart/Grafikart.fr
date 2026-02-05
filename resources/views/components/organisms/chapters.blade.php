@@ -3,8 +3,8 @@
 @php
     $activeChapterTitle = $active ? collect($chapters)->firstWhere(fn ($chapter) => collect($chapter['courses'])->firstWhere('id', $active))['title'] : $chapters[0]['title'];
 @endphp
-<x-atoms.card class="pt-4 border block" as="course-chapters">
-    <div class="text-sm uppercase text-muted px-4 pb-4 border-b">Sommaire de la formation</div>
+<div>
+    <div class="text-sm uppercase text-muted px-4 pt-4 pb-4 border-b">Sommaire de la formation</div>
     <div class="max-h-200 overflow-auto">
         @foreach ($chapters as $k => $chapter)
             <details class="group" @if($chapter['title'] === $activeChapterTitle) open @endif>
@@ -29,4 +29,4 @@
             </details>
         @endforeach
     </div>
-</x-atoms.card>
+</div>

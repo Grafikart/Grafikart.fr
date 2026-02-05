@@ -1,4 +1,4 @@
-@extends('front')
+@extends('front', ['class' => 'bg-background-light' . ($course->formation_id ? ' right-sidebar' : '')])
 
 @section('title', sprintf('Tutoriel video %s : %s',$course->mainTechnologies->pluck('name')->join(' & '), $course->title ))
 
@@ -12,10 +12,9 @@
 
 @section('body')
 
-    <div class="grid md:grid-cols-[1fr_350px] container mx-auto py-6 gap-12">
-
         <main>
-            <h1 class="text-4xl font-bold mb-2 font-serif">
+            <div class="container">
+                <h1 class="text-5xl font-bold mb-2 font-serif text-foreground-title">
                 <span class="hidden">
                     @if($course->formation)
                         Formation {{ $course->formation->title }} :
@@ -23,106 +22,92 @@
                         Tutoriel {{ $course->mainTechnologies->pluck('name')->join(' & ') }} :
                     @endif
                 </span>
-                {{ $course->title }}
-            </h1>
+                    {{ $course->title }}
+                </h1>
 
-            <div class="flex gap-8 mb-8">
-                <div class="flex items-center text-muted gap-2">
-                    <x-lucide-clock class="size-4"/>
-                    <x-atoms.duration :duration="$course->duration"/>
-                </div>
-                <div class="flex items-center text-muted gap-2">
-                    <x-lucide-graduation-cap class="size-4"/> {{ $course->level->name }}
-                </div>
-                <div class="flex items-center text-muted gap-2">
-                    <x-lucide-tags class="size-4"/>
-                    <div>
-                        @foreach($course->technologies as $k => $technology)
-                            <a href="#" class="hover:underline">
-                                {{ $technology->name }}
-                                @if($technology->pivot->version)
-                                    <span class="text-sm opacity-70">({{$technology->pivot->version}})</span>
+                <div class="flex gap-8">
+                    <div class="flex items-center text-muted gap-2">
+                        <x-lucide-clock class="size-4"/>
+                        <x-atoms.duration :duration="$course->duration"/>
+                    </div>
+                    <div class="flex items-center text-muted gap-2">
+                        <x-lucide-graduation-cap class="size-4"/> {{ $course->level->name }}
+                    </div>
+                    <div class="flex items-center text-muted gap-2">
+                        <x-lucide-tags class="size-4"/>
+                        <div>
+                            @foreach($course->technologies as $k => $technology)
+                                <a href="#" class="hover:underline">
+                                    {{ $technology->name }}
+                                    @if($technology->pivot->version)
+                                        <span class="text-sm opacity-70">({{$technology->pivot->version}})</span>
+                                    @endif
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
+                    @if($course->formation)
+                        <a href="{{ route('formations.show', $course->formation->slug) }}"
+                           class="flex items-center text-muted gap-2 hover:underline">
+                            <x-lucide-graduation-cap class="size-4"/>
+                            {{ $course->formation->title }}
+                        </a>
+                    @endif
+                    <div class="flex items-center text-muted gap-2">
+                        <x-lucide-calendar class="size-4"/> {{ $course->created_at->diffForHumans() }}
+                    </div>
+                    <div class="flex justify-end gap-4 ml-auto">
+                        @if($course->source)
+                            <x-atoms.button variant="secondary">
+                                <x-lucide-download class="text-muted"/>
+                                Sources du projet
+                                @if($course->source_size)
+                                    <span class="text-xs text-muted text-trim mt-0.5">
+                                        {{ file_size($course->source_size) }}
+                                    </span>
                                 @endif
-                            </a>
-                        @endforeach
+                            </x-atoms.button>
+                        @endif
+                        <x-atoms.button variant="secondary">
+                            <x-lucide-video class="text-muted"/>
+                            Télécharger la vidéo
+                            @if($course->video_size)
+                                <span class="text-xs text-muted text-trim mt-0.5">
+                                    {{ file_size($course->video_size) }}
+                                </span>
+                            @endif
+                        </x-atoms.button>
                     </div>
                 </div>
-                @if($course->formation)
-                    <a href="{{ route('formations.show', $course->formation->slug) }}"
-                       class="flex items-center text-muted gap-2 hover:underline">
-                        <x-lucide-graduation-cap class="size-4"/>
-                        {{ $course->formation->title }}
-                    </a>
-                @endif
-                <div class="flex items-center text-muted gap-2 ml-auto">
-                    <x-lucide-calendar class="size-4"/> {{ $course->created_at->diffForHumans() }}
-                </div>
+
+                <iframe
+                    class="aspect-video w-full mb-12 mt-6 rounded-md shadow-lg"
+                    style="background: #000;"
+                    src="https://www.youtube-nocookie.com/embed/{{ $course->youtube_id }}?si=mcYzRO1_nis2Rort"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen></iframe>
             </div>
 
-            <iframe
-                class="aspect-video w-full mb-8 rounded-md shadow-lg"
-                style="background: #000;"
-                src="https://www.youtube-nocookie.com/embed/{{ $course->youtube_id }}?si=mcYzRO1_nis2Rort"
-                title="YouTube video player"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin"
-                allowfullscreen></iframe>
-
-            <div class="prose prose-lg">
-                {!! \App\Helpers\MarkdownHelper::html($course->content) !!}
+            <div class="bg-background pt-10 border-t">
+                <div class="prose prose-lg max-w-200 mx-auto">
+                    {!! \App\Helpers\MarkdownHelper::html($course->content) !!}
+                </div>
             </div>
 
         </main>
 
-        <aside class="space-y-8">
-            <x-atoms.card class="p-4 space-y-2 border">
+        @if($course->formation)
+        <aside class="fixed top-(--header-height) right-0 w-88 bottom-0 border-l bg-card flex flex-col gap-6 pb-4">
+            <x-organisms.chapters :chapters="$course->formation->chaptersWithCourses" :active="$course->id"/>
+            <div class="space-y-2 px-4 mt-auto">
                 <div class="text-sm uppercase text-muted">Fichiers attachés</div>
-                @if($course->source)
-                <x-atoms.button variant="outline" class="w-full">
-                    <x-lucide-download class="text-muted"/>
-                    Sources du projet
-                    @if($course->source_size)
-                        <span class="text-xs text-muted text-trim ml-auto">
-                        {{ file_size($course->source_size) }}
-                    </span>
-                    @endif
-                </x-atoms.button>
-                @endif
-                <x-atoms.button variant="secondary" class="w-full">
-                    <x-lucide-video class="text-muted"/>
-                    Télécharger la vidéo
-                    @if($course->video_size)
-                        <span class="text-xs text-muted text-trim ml-auto">
-                        {{ file_size($course->video_size) }}
-                    </span>
-                    @endif
-                </x-atoms.button>
-            </x-atoms.card>
-
-            @if($course->formation)
-                <x-organisms.chapters :chapters="$course->formation->chaptersWithCourses" :active="$course->id"/>
-            @endif
-
-
-            <x-atoms.card padded class="space-y-3">
-                <div class="text-sm uppercase text-muted">Poser une question</div>
-                    <div class="space-y-1">
-                       <textarea
-                           aria-label="Description du problème"
-                           class="p-2 border-border border w-full rounded-sm bg-background"
-                           placeholder="Je ne comprends pas pourquoi tu as fait... à ce moment là"></textarea>
-                    </div>
-
-                    <x-atoms.button class="w-full justify-center">Poser ma question
-                        <span class="opacity-50 text-sm inline-flex items-center">
-                            (<x-lucide-clock class="size-3! mr-1"/> 10:30)
-                        </span>
-                    </x-atoms.button>
-                </x-atoms.card>
-
-
+            </div>
         </aside>
-    </div>
+        @endif
+
+
 
 @endsection
