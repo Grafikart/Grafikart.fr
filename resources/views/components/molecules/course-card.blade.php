@@ -4,7 +4,7 @@
 <x-atoms.card
     padded
     as="article"
-    class="flex flex-col rounded-md border h-full hover:shadow-md transition-shadow relative"
+    class="flex flex-col h-full hover:shadow-md transition-shadow relative"
 >
     <div class="flex items-start justify-between mb-3">
         <div class="h-10 flex items-center gap-1">

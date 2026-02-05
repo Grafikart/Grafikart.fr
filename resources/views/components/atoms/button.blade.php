@@ -2,10 +2,10 @@
 
 @php
     $classes = cn([
-        'rounded-sm [&_svg]:size-4 flex items-center gap-3 transition-all w-max',
+        'rounded-sm [&_svg]:size-4 flex items-center gap-3 transition-all w-max font-medium',
         // Variants
         'bg-primary text-primary-foreground hover:brightness-140 ' => $variant === 'primary',
-        'border hover:bg-border/30 bg-background-light' => $variant === 'secondary',
+        'border hover:bg-border/30 bg-background' => $variant === 'secondary',
         'border hover:bg-border/30' => $variant === 'outline',
         'bg-destructive text-destructive-foreground hover:brightness-140 ' => $variant === 'destructive',
         'hover:bg-border/30' => $variant === 'ghost',
