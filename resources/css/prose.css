@@ -17,6 +17,7 @@
 
         p {
             margin-block: 1.25em;
+            text-wrap: pretty;
         }
 
         [class~='lead'] {
