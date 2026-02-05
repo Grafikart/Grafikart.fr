@@ -49,7 +49,7 @@ return [
 
         'downloads' => [
             'driver' => 'local',
-            'root' => storage_path('downloads'),
+            'root' => base_path('downloads'),
             'throw' => true,
             'report' => false,
         ],
