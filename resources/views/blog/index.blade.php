@@ -14,7 +14,7 @@
 
     <header class="container flex items-center pb-10 justify-between">
 
-        <h1 class="text-6xl font-serif font-bold text-foreground-title">
+        <h1 class="text-page-title">
             {{ $title }}
             @if($page > 1)
                 <span class="font-normal text-4xl -ml-2 text-muted">, page {{ $page }}</span>

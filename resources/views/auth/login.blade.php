@@ -4,7 +4,7 @@
 
 @section('body')
     <div class="container mt-10 mx-auto max-w-100">
-            <h1 class="text-6xl font-serif font-bold text-foreground-title font text-center mb-8">Se connecter</h1>
+            <h1 class="text-page-title text-center mb-8">Se connecter</h1>
 
             <x-atoms.card class="p-6">
                 @if($status ?? false)

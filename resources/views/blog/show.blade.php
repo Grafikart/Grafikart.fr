@@ -3,7 +3,9 @@
 @section('title', $post->title)
 
 @section('head')
+    @if($post->attachment)
     <meta property="og:image" content="{{ $post->attachment->url()  }}"/>
+    @endif
     <meta property="og:created_time" content="{{ $post->created_at->toIso8601String() }}"/>
     <meta name="twitter:card" content="summary_large_image"/>
 @endsection
@@ -12,7 +14,7 @@
 
     <div class="container max-w-182 py-20 flex flex-col">
 
-        <h1 class="text-6xl font-serif font-bold text-foreground-title mb-4">
+        <h1 class="text-page-title mb-4">
             {{ $post->title }}
         </h1>
         <div class="flex items-center text-muted text-sm uppercase gap-2 justify-start mb-10">

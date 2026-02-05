@@ -5,7 +5,7 @@
 @section('body')
 
     <header class="container flex items-center pb-10 justify-between gap-25">
-        <h1 class="text-6xl font-serif font-bold text-foreground-title w-max whitespace-nowrap text-trim">
+        <h1 class="text-page-title w-max whitespace-nowrap text-trim">
             @if(empty($q))
                 Ooops !
             @elseif(count($items) === 0)

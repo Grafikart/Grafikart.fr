@@ -25,3 +25,23 @@
 @utility text-trim {
     text-box: trim-both cap alphabetic;
 }
+
+@utility text-page-title {
+    font-size: var(--text-6xl);
+    line-height: var(--text-6xl--line-height);
+    font-family: var(--font-serif);
+    font-weight: 700;
+    color: var(--color-foreground-title);
+}
+
+@utility animate-live {
+    animation: live-running 3s infinite linear;
+}
+
+@keyframes live-running {
+    0% { color: var(--color-destructive); }
+    30% { color: var(--color-destructive); }
+    50% { color: inherit; }
+    70% { color: var(--color-destructive); }
+    100% { color: var(--color-destructive); }
+}

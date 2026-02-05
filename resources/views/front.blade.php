@@ -22,9 +22,10 @@
     @viteReactRefresh
     @vite(['resources/js/front.ts'])
 </head>
-<body class="{{ cn(["font-sans antialiased text-foreground bg-background pt-28", $class ?? '']) }}">
+<body class="{{ cn(["font-sans antialiased text-foreground bg-background pt-28 min-h-screen flex flex-col", $class ?? '']) }}">
 <x-organisms.header />
 <search-input></search-input>
 @yield('body')
+<x-organisms.footer />
 </body>
 </html>

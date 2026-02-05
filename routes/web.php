@@ -33,6 +33,7 @@ Route::get('/formations', [\App\Http\Front\CourseController::class, 'index'])->n
 Route::get('/formations/{formation:slug}', [\App\Http\Front\CourseController::class, 'show'])
     ->name('formations.show');
 Route::get('/recherche', [\App\Http\Front\SearchController::class, 'index'])->name('search.index');
+Route::get('/live', [\App\Http\Front\LiveController::class, 'show'])->name('live');
 
 // BLOG
 Route::group(['prefix' => '/blog', 'as' => 'blog.'], function () {
@@ -59,6 +60,7 @@ Route::group(['prefix' => '/cms', 'as' => 'cms.'], function () {
     Route::resource('transactions', \App\Http\Cms\TransactionController::class)->only(['index', 'destroy']);
     Route::resource('settings', \App\Http\Cms\SettingsController::class)->only(['index', 'store']);
     Route::get('search', [\App\Http\Cms\SearchController::class, 'search'])->name('search');
+    Route::post('twitch', [\App\Http\Cms\TwitchController::class, 'store'])->name('twitch.store');
 
     // Attachments (JSON API)
     Route::get('attachments/folders', [\App\Http\Cms\AttachmentController::class, 'folders'])->name('attachments.folders');

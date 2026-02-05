@@ -32,7 +32,7 @@
     </p>
 
     <div
-        class="flex items-center text-muted text-sm mt-auto bg-background border-t border-border/50 -mx-4 px-4 -mb-4 py-2 rounded-b-md">
+        class="flex items-center text-muted text-sm mt-auto bg-card-footer border-t border-border/50 -mx-4 px-4 -mb-4 py-2 rounded-b-md">
         @if($course->formation)
             <x-lucide-list class="size-4 mr-1"/>
             {{ $course->formation->title }}

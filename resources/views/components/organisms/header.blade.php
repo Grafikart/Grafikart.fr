@@ -32,6 +32,17 @@
                         <span>{{ $item['label'] }}</span>
                     </a>
                 @endforeach
+
+                @if(is_live_running())
+                    <a
+                        href="/live"
+                        @if(request()->is('live')) aria-current="page" @endif
+                        class="flex items-center gap-2 px-5 py-2 text-sm text-red-500 hover:text-red-400 transition-colors aria-[current=page]:text-destructive"
+                    >
+                        @svg('lucide-video', 'size-4 animate-live')
+                        <span>Live</span>
+                    </a>
+                @endif
             </nav>
         </div>
         <div class="flex items-center gap-2" style="view-transition-name: header-right">

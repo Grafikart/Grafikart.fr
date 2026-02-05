@@ -4,7 +4,7 @@
 
 @section('body')
     <div class="container mt-10 mx-auto max-w-100">
-            <h1 class="text-5xl font-serif font-bold text-foreground-title font text-center mb-8">Créer un compte</h1>
+            <h1 class="text-5xl font-serif font-bold text-foreground-title text-center mb-8">Créer un compte</h1>
 
             <x-atoms.card class="p-6">
                 <form method="POST" action="{{ route('register') }}" class="space-y-4">
