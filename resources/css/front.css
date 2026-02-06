@@ -15,6 +15,7 @@
     --font-sans: 'Inter', sans-serif;
     --font-serif: 'Crimson Pro', serif;
     --font-mono: monospace;
+
     --color-*: initial;
     --color-foreground-title: #121c42;
     --color-foreground: color-mix(
@@ -48,38 +49,10 @@
     --shadow-focus: 0 0 0 3px
         color-mix(in srgb, var(--color-primary) 25%, transparent);
     --sidebar-width: 350px;
-
-    --dark: #000;
-    --olor: #121c42;
-    --light: #121c4299;
-    --inversed: #effbec;
-    --inversed60: #effbec99;
-    --transparent: #{rgba(#121c42, 0)};
-    --contrast: #4869ee;
-    --contrast25: #4869ee3f;
-    --gap: 20px;
-    --space: 8px;
-    --border: #d5e3ec;
-    --border-light: #e6eff4;
-    --background-light: #fff;
-    --shadow: #d8e1e8;
-    --list-hover: var(--background);
-    --play: #f3f9fb;
-    --space-section: 150px;
-    --card-footer: #f7fafd;
-    --card-padding: 16px;
-    --header-height: 137px;
-    --yellow-alpha: #feb32b4c;
-    --skeleton: var(--border-light);
-    --skeleton-wave: var(--border-light);
-    --selection-background: var(--border);
-    --header-background: #fffffff2;
-    --header-background-inversed: #4869eef2;
-    --video-background: var(--color);
 }
 
 @media (prefers-color-scheme: dark) {
-    :root {
+    :root:not(.light) {
         --color-foreground-title: #f0f3ff;
         --color-foreground: #adbef3;
         --color-muted: #8491c7;
@@ -95,6 +68,23 @@
         --color-yellow: #feb32b;
         --color-edge: #595e9d;
     }
+}
+
+:root.dark {
+    --color-foreground-title: #f0f3ff;
+    --color-foreground: #adbef3;
+    --color-muted: #8491c7;
+    --color-primary: #5396e7;
+    --color-primary-foreground: #effbec;
+    --color-background: #171933;
+    --color-background-light: #1b1e3d;
+    --color-card: #22244d;
+    --color-border: #2a2e5e;
+    --color-destructive: #f25353;
+    --color-destructive-foreground: #fff3f3;
+    --color-green: #41cf7c;
+    --color-yellow: #feb32b;
+    --color-edge: #595e9d;
 }
 
 @layer base {
