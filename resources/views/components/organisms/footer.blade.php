@@ -17,7 +17,7 @@
         <div class="max-w-110">
             <h5 class="text-xl font-bold text-foreground-title mb-4">Me retrouver</h5>
             <p class="text-muted mb-4">
-                Après avoir appris sur Internet quoi de plus normal que de partager à son tour ? Passionné par le web depuis un peu plus de 15 ans maintenant j'aime partager mes compétences et mes découvertes avec les personnes qui ont cette même passion pour le web
+                Après avoir appris sur Internet quoi de plus normal que de partager à son tour ? Passionné par le web depuis un peu plus de {{ date('Y') - 2005 }} ans maintenant j'aime partager mes compétences et mes découvertes avec les personnes qui ont cette même passion pour le web
             </p>
             <div class="flex items-center gap-3">
                 @foreach($socials as $social)
@@ -25,7 +25,7 @@
                         <img src="/images/social/{{ $social['icon'] }}.svg" alt="{{ $social['label'] }}" width="20" height="20" loading="lazy" @class($social['class'] ?? '') />
                     </a>
                 @endforeach
-                <a href="https://www.infomaniak.com/goto/fr/hosting.managed-cloud?utm_term=59f74db50448d">
+                <a href="https://www.infomaniak.com/goto/fr/hosting.managed-cloud?utm_term=59f74db50448d" class="ml-auto">
                     <img src="/images/badge-infomaniak.svg" alt="" loading="lazy" width="150" />
                 </a>
             </div>
