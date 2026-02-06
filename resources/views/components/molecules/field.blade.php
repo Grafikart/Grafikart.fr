@@ -1,4 +1,4 @@
-@props(['name', 'label' => null, 'type' => 'text', 'value' => null])
+@props(['name', 'label' => null, 'type' => 'text', 'value' => null, 'class' => null])
 
 @php
     $label = $label ?? ucfirst($name);
@@ -14,9 +14,9 @@
         id="{{ $name }}"
         name="{{ $name }}"
         :value="old($name, $value)"
-        {{ $attributes }}
+        {{ $attributes->merge($errors->has($name) ? ['aria-invalid' => 'true'] : []) }}
     />
     @error($name)
-        <p class="text-sm text-destructive">{{ $message }}</p>
+        <p class="text-sm text-destructive hidden peer-aria-invalid:block">{{ $message }}</p>
     @enderror
 </div>

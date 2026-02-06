@@ -2,10 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
-$slug = '[0-9]+';
-
 // Home
 Route::redirect('/', '/tutoriels')->name('home');
+
+// Auth
+Route::get('/oauth/connect/{driver}', [\App\Http\Front\AuthController::class, 'connect'])->name('oauth');
+Route::get('/oauth/check/{driver}', [\App\Http\Front\AuthController::class, 'callback'])->name('oauth.callback');
 
 // Public routes
 Route::get('/ui', [\App\Http\Front\PageController::class, 'ui']);
@@ -35,7 +37,7 @@ Route::get('/formations/{formation:slug}', [\App\Http\Front\CourseController::cl
 Route::get('/recherche', [\App\Http\Front\SearchController::class, 'index'])->name('search.index');
 Route::get('/live', [\App\Http\Front\LiveController::class, 'show'])->name('live');
 
-// BLOG
+// Blog
 Route::group(['prefix' => '/blog', 'as' => 'blog.'], function () {
     Route::get('/', [\App\Http\Front\BlogController::class, 'index'])->name('index');
     Route::get('/category/{category:slug}', [\App\Http\Front\BlogController::class, 'index'])->name('category');
@@ -66,17 +68,5 @@ Route::group(['prefix' => '/cms', 'as' => 'cms.'], function () {
     Route::get('attachments/folders', [\App\Http\Cms\AttachmentController::class, 'folders'])->name('attachments.folders');
     Route::resource('attachments', \App\Http\Cms\AttachmentController::class)->only(['store', 'destroy', 'index']);
 });
-
-// Route::get('/', function () {
-//    return Inertia::render('welcome', [
-//        'canRegister' => Features::enabled(Features::registration()),
-//    ]);
-// })->name('home');
-
-// Route::middleware(['auth', 'verified'])->group(function () {
-//    Route::get('dashboard', function () {
-//        return Inertia::render('dashboard');
-//    })->name('dashboard');
-// });
 
 // require __DIR__.'/settings.php';

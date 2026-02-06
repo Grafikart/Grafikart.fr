@@ -6,7 +6,6 @@
 @import './scrollbar.css';
 @import './layout.css';
 @import './code.css';
-@import './components/input.css';
 @source "../../resources/js/components/flow/";
 @source "../../resources/js/elements/";
 @source "../../resources/views/";

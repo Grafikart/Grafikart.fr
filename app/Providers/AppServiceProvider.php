@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Domains\Blog\Post;
 use App\Domains\Course\Course;
 use App\Domains\Course\Formation;
+use App\Http\Front\AuthController;
 use App\Infrastructure\Twitch\TwitchAPI;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Model;
@@ -35,6 +36,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Route::pattern('id', '[0-9]+');
         Route::pattern('slug', '[a-z0-9\-]+');
+        Route::pattern('driver', implode('|', AuthController::DRIVERS));
         $this->configureDefaults();
     }
 

@@ -45,7 +45,7 @@ final class LiveService
         $date = $this->cache->remember(
             self::SETTING_KEY,
             600,
-            fn () => $this->settings->get(self::SETTING_KEY, now()->toIso8601String())
+            fn () => $this->settings->get(self::SETTING_KEY, now()->subDays(2)->toIso8601String())
         );
         if (! $date) {
             return CarbonImmutable::now()->subDay();
