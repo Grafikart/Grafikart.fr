@@ -11,6 +11,8 @@ Route::get('/oauth/check/{driver}', [\App\Http\Front\AuthController::class, 'cal
 
 // Public routes
 Route::get('/ui', [\App\Http\Front\PageController::class, 'ui']);
+Route::get('/contact', [\App\Http\Front\ContactController::class, 'show'])->name('contact');
+Route::post('/contact', [\App\Http\Front\ContactController::class, 'submit']);
 Route::get('/media/resize/{width}/{height}/{path}', [\App\Http\Front\ImageController::class, 'resize'])
     ->where('path', '.*')
     ->whereNumber(['width', 'height'])

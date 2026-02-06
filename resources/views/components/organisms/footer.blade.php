@@ -3,10 +3,7 @@
         ['label' => 'YouTube', 'href' => 'https://www.youtube.com/user/grafikarttv', 'icon' => 'youtube'],
         ['label' => 'GitHub', 'href' => 'https://github.com/Grafikart', 'icon' => 'github', 'class' => 'dark:brightness-1000'],
         ['label' => 'Twitter', 'href' => 'https://twitter.com/grafikart_fr', 'icon' => 'twitter'],
-        ['label' => 'Discord', 'href' => 'https://discord.gg/rAuuD7Q', 'icon' => 'discord'],
         ['label' => 'Twitch', 'href' => 'https://www.twitch.tv/grafikart', 'icon' => 'twitch'],
-        ['label' => 'Facebook', 'href' => 'https://www.facebook.com/grafikartfr', 'icon' => 'facebook'],
-        ['label' => 'RSS', 'href' => '/rss', 'icon' => 'rss'],
     ];
 @endphp
 

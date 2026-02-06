@@ -8,8 +8,8 @@
 - [ ] Listing des cursus à améliorer
 - [ ] Homepage
 - [ ] Authentification / Inscription
-- [ ] Oauth
-- [ ] Contact
+- [x] Oauth
+- [x] Contact
 - [ ] Live twitch
 - [ ] Système de suivi de progression
 - [ ] Paiement & Abonnement

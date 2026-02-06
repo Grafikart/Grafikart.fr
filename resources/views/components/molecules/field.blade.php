@@ -1,10 +1,10 @@
-@props(['name', 'label' => null, 'type' => 'text', 'value' => null, 'class' => null])
+@props(['name', 'label' => null, 'type' => 'text', 'value' => null, 'class' => null, 'class' => null, 'inputClass' => null])
 
 @php
     $label = $label ?? ucfirst($name);
 @endphp
 
-<div class="space-y-1">
+<div class="{{ cn(['space-y-1', $class]) }}">
     <div class="flex items-end justify-between">
         <x-atoms.label for="{{ $name }}">{{ $label }}</x-atoms.label>
         {{ $afterLabel ?? '' }}
@@ -14,6 +14,7 @@
         id="{{ $name }}"
         name="{{ $name }}"
         :value="old($name, $value)"
+        :class="$inputClass"
         {{ $attributes->merge($errors->has($name) ? ['aria-invalid' => 'true'] : []) }}
     />
     @error($name)

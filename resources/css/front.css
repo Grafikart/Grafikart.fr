@@ -45,8 +45,22 @@
     --color-edge: #acb8c0;
     --color-overlay: #000000b3;
 
+    --color-success-bg: hsl(143, 85%, 96%);
+    --color-success-border: hsl(145, 92%, 87%);
+    --color-success-text: hsl(140, 100%, 27%);
+    --color-info-bg: hsl(208, 100%, 97%);
+    --color-info-border: hsl(221, 91%, 93%);
+    --color-info-text: hsl(210, 92%, 45%);
+    --color-warning-bg: hsl(49, 100%, 97%);
+    --color-warning-border: hsl(49, 91%, 84%);
+    --color-warning-text: hsl(31, 92%, 45%);
+    --color-error-bg: hsl(359, 100%, 97%);
+    --color-error-border: hsl(359, 100%, 94%);
+    --color-error-text: hsl(360, 100%, 45%);
+
     --shadow-focus: 0 0 0 3px
         color-mix(in srgb, var(--color-primary) 25%, transparent);
+    --shadow-toast: 0 4px 12px rgba(0,0,0,.1);
     --sidebar-width: 350px;
 }
 
@@ -66,6 +80,20 @@
         --color-green: #41cf7c;
         --color-yellow: #feb32b;
         --color-edge: #595e9d;
+
+        --color-success-bg: hsl(150, 100%, 6%);
+        --color-success-border: hsl(147, 100%, 12%);
+        --color-success-text: hsl(150, 86%, 65%);
+        --color-info-bg: hsl(215, 100%, 6%);
+        --color-info-border: hsl(223, 43%, 17%);
+        --color-info-text: hsl(216, 87%, 65%);
+        --color-warning-bg: hsl(64, 100%, 6%);
+        --color-warning-border: hsl(60, 100%, 9%);
+        --color-warning-text: hsl(46, 87%, 65%);
+        --color-error-bg: hsl(358, 76%, 10%);
+        --color-error-border: hsl(357, 89%, 16%);
+        --color-error-text: hsl(358, 100%, 81%);
+
     }
 }
 
@@ -84,6 +112,19 @@
     --color-green: #41cf7c;
     --color-yellow: #feb32b;
     --color-edge: #595e9d;
+
+    --color-success-bg: hsl(150, 100%, 6%);
+    --color-success-border: hsl(147, 100%, 12%);
+    --color-success-text: hsl(150, 86%, 65%);
+    --color-info-bg: hsl(215, 100%, 6%);
+    --color-info-border: hsl(223, 43%, 17%);
+    --color-info-text: hsl(216, 87%, 65%);
+    --color-warning-bg: hsl(64, 100%, 6%);
+    --color-warning-border: hsl(60, 100%, 9%);
+    --color-warning-text: hsl(46, 87%, 65%);
+    --color-error-bg: hsl(358, 76%, 10%);
+    --color-error-border: hsl(357, 89%, 16%);
+    --color-error-text: hsl(358, 100%, 81%);
 }
 
 @layer base {
