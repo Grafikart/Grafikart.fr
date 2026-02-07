@@ -9,14 +9,25 @@ Route::redirect('/', '/tutoriels')->name('home');
 Route::get('/oauth/connect/{driver}', [\App\Http\Front\AuthController::class, 'connect'])->name('oauth');
 Route::get('/oauth/check/{driver}', [\App\Http\Front\AuthController::class, 'callback'])->name('oauth.callback');
 
-// Public routes
-Route::get('/ui', [\App\Http\Front\PageController::class, 'ui']);
-Route::get('/contact', [\App\Http\Front\ContactController::class, 'show'])->name('contact');
-Route::post('/contact', [\App\Http\Front\ContactController::class, 'submit']);
+// Pages
+Route::get('/ui', [\App\Http\Front\PageController::class, 'ui'])->name('pages.ui');
+Route::get('/a-propos', [\App\Http\Front\PageController::class, 'about'])->name('pages.about');
+Route::get('/tchat', fn () => redirect('https://discordapp.com/invite/rAuuD7Q'))->name('tchat');
+
+// Images / Assets
 Route::get('/media/resize/{width}/{height}/{path}', [\App\Http\Front\ImageController::class, 'resize'])
     ->where('path', '.*')
     ->whereNumber(['width', 'height'])
     ->name('image.resize');
+
+// Page
+Route::get('/politique-de-confidentialite', [\App\Http\Front\PageController::class, 'privacy'])->name('pages.privacy');
+Route::get('/contact', [\App\Http\Front\ContactController::class, 'show'])->name('contact');
+Route::post('/contact', [\App\Http\Front\ContactController::class, 'submit']);
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profil/edit', [\App\Http\Front\PageController::class, 'privacy'])->name('users.edit');
+    Route::get('/profil', [\App\Http\Front\PageController::class, 'privacy'])->name('users.show');
+});
 
 // Forum
 Route::get('/forum/{topic}', [\App\Http\Front\ForumController::class, 'show'])->name('topics.show');

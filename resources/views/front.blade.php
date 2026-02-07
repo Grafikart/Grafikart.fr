@@ -21,6 +21,11 @@
 
     @viteReactRefresh
     @vite(['resources/js/front.ts'])
+    @if (isset($_SERVER['FRANKENPHP_HOT_RELOAD']))
+        <meta name="frankenphp-hot-reload:url" content="{{$_SERVER['FRANKENPHP_HOT_RELOAD']}}">
+        <script src="https://cdn.jsdelivr.net/npm/idiomorph"></script>
+        <script src="https://cdn.jsdelivr.net/npm/frankenphp-hot-reload/+esm" type="module"></script>
+    @endif
 </head>
 <body class="{{ cn(["font-sans antialiased text-foreground bg-background pt-28 min-h-screen flex flex-col", $class ?? '']) }}">
 @if (session('success'))

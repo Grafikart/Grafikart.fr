@@ -9,8 +9,14 @@
 @source "../../resources/js/components/flow/";
 @source "../../resources/js/elements/";
 @source "../../resources/views/";
+@source not inline('container');
+
+:root {
+    --container-width: min(calc(100svw) - 2rem, 1330px);
+}
 
 @theme {
+    --container-*: initial;
     --font-sans: 'Inter', sans-serif;
     --font-serif: 'Crimson Pro', serif;
     --font-mono: monospace;
@@ -57,11 +63,13 @@
     --color-error-bg: hsl(359, 100%, 97%);
     --color-error-border: hsl(359, 100%, 94%);
     --color-error-text: hsl(360, 100%, 45%);
+    --color-video: #121c42;
 
     --shadow-focus: 0 0 0 3px
         color-mix(in srgb, var(--color-primary) 25%, transparent);
     --shadow-toast: 0 4px 12px rgba(0,0,0,.1);
     --sidebar-width: 350px;
+    --default-transition-duration: 300ms;
 }
 
 @media (prefers-color-scheme: dark) {

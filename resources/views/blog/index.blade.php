@@ -50,8 +50,8 @@
 
     </header>
 
-    <section class="bg-background border-t py-20">
-        <div class="container max-w-182 flex flex-col gap-20">
+    <section class="container bg-background border-t py-20">
+        <div class="max-w-182 mx-auto flex flex-col gap-20">
             @foreach($posts as $post)
                 <article class="flex gap-8">
                     @if($post->attachment)

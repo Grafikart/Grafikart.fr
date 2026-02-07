@@ -12,8 +12,7 @@
 
 @section('body')
 
-    <div class="container max-w-182 py-20 flex flex-col">
-
+    <div class="px-4 mx-auto max-w-182 pb-20 pt-10 flex flex-col">
         <h1 class="text-page-title mb-4">
             {{ $post->title }}
         </h1>

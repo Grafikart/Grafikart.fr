@@ -40,7 +40,7 @@
                             @foreach($socials as $social)
                                 <a href="{{ $social['href'] }}" title="{{ $social['label'] }}"
                                    class="hover:opacity-70 transition-opacity size-10 px-2">
-                                    <img src="/images/social/{{ $social['icon'] }}.svg" alt="{{ $social['label'] }}"
+                                    <img src="/images/icons/{{ $social['icon'] }}.svg" alt="{{ $social['label'] }}"
                                          width="24" height="24" loading="lazy" @class($social['class'] ?? '') />
                                 </a>
                             @endforeach

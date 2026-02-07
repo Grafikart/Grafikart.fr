@@ -8,9 +8,9 @@ final class MarkdownHelper
     {
         $content = (new CustomParsedown)->setBreaksEnabled(true)->setSafeMode(false)->text($content);
         // On remplace les liens youtube par un embed
-        $content = (string) preg_replace(
-            '/<p><a href\="(http|https):\/\/www.youtube.com\/watch\?v=([^\""]+)">[^<]*<\/a><\/p>/',
-            '<lazy-video videoid="$2" class="aspect-video block lg:-mx-12"></lazy-video>',
+        $content = (string) preg_replace_callback(
+            '/<p><a href\="(?:http|https):\/\/www.youtube.com\/watch\?v=([^\""]+)">[^<]*<\/a><\/p>/',
+            fn (array $matches) => view('components.atoms.lazy-video', ['video' => $matches[1]])->toHtml(),
             (string) $content
         );
         // Spoiler tag

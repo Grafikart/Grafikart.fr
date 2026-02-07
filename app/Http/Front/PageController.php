@@ -11,4 +11,14 @@ class PageController extends Controller
     {
         return view('pages.ui');
     }
+
+    public function privacy(): View
+    {
+        return view('pages.privacy');
+    }
+
+    public function about(): View
+    {
+        return view('pages.about');
+    }
 }
