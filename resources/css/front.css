@@ -4,12 +4,10 @@
 @import './utility.css';
 @import './prose.css';
 @import './scrollbar.css';
-@import './layout.css';
 @import './code.css';
 @source "../../resources/js/components/flow/";
 @source "../../resources/js/elements/";
 @source "../../resources/views/";
-@source not inline('container');
 
 :root {
     --container-width: min(calc(100svw) - 2rem, 1330px);
@@ -70,6 +68,7 @@
     --shadow-toast: 0 4px 12px rgba(0, 0, 0, 0.1);
     --sidebar-width: 350px;
     --default-transition-duration: 300ms;
+    --header-height: 60px;
 }
 
 @media (prefers-color-scheme: dark) {

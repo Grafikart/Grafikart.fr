@@ -16,7 +16,8 @@
     }
 }
 
-.container {
+@utility container {
+    max-width: unset;
     width: 100%;
     padding-inline: calc(50% - var(--container-width) * 0.5);
 }

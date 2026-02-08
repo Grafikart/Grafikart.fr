@@ -1,6 +1,7 @@
 import { CourseChapters } from '@/elements/course-chapters.ts';
 import { LazyVideo } from '@/elements/lazy-video.ts';
 import { NavTabs } from '@/elements/nav-tabs.ts';
+import { SiteHeader } from '@/elements/site-header.ts';
 import { SiteSearch } from '@/elements/site-search.tsx';
 import { ThemeSwitcher } from '@/elements/theme-switcher.tsx';
 import { TimeAgo } from '@/elements/time-ago.ts';
@@ -18,4 +19,5 @@ lazywc('code-block', () => import('@/elements/code-block.ts'));
 customElements.define('lazy-video', LazyVideo);
 customElements.define('course-chapters', CourseChapters);
 customElements.define('nav-tabs', NavTabs);
+customElements.define('site-header', SiteHeader);
 customElements.define('time-ago', TimeAgo);

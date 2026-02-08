@@ -1,15 +1,14 @@
 {
-  "permissions": {
-    "allow": [
-      "Bash(vendor/bin/pint:*)",
-      "mcp__laravel-boost__database-schema",
-      "WebFetch(domain:raw.githubusercontent.com)",
-      "Bash(./vendor/bin/pint:*)",
-      "Bash(./vendor/bin/phpstan analyse:*)"
-    ]
-  },
-  "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": [
-    "laravel-boost"
-  ]
+    "permissions": {
+        "allow": [
+            "Bash(vendor/bin/pint:*)",
+            "mcp__laravel-boost__database-schema",
+            "WebFetch(domain:raw.githubusercontent.com)",
+            "Bash(bun run check:*)",
+            "Bash(./vendor/bin/pint:*)",
+            "Bash(./vendor/bin/phpstan analyse:*)"
+        ]
+    },
+    "enableAllProjectMcpServers": true,
+    "enabledMcpjsonServers": ["laravel-boost"]
 }

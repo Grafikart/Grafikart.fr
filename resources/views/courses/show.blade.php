@@ -1,4 +1,4 @@
-@extends('front', ['class' => 'bg-background-light' . ($course->formation_id ? ' has-sidebar' : '')])
+@extends('front', ['class' => ($course->formation_id ? ' has-sidebar' : '')])
 
 @section('title', sprintf('Tutoriel video %s : %s',$course->mainTechnologies->pluck('name')->join(' & '), $course->title ))
 
@@ -12,7 +12,7 @@
 
 @section('body')
 
-        <main>
+        <main class="in-[.has-sidebar]:mr-(--sidebar-width) bg-background-light">
             <div class="container">
                 <h1 class="text-5xl font-bold mb-2 font-serif text-foreground-title">
                 <span class="hidden">
@@ -100,7 +100,7 @@
         </main>
 
         @if($course->formation)
-        <aside class="fixed top-(--header-height) right-0 w-88 bottom-0 border-l bg-card flex flex-col gap-6 pb-4">
+        <aside class="fixed top-(--header-height) right-0 w-88 bottom-0 border-l bg-card shadow-md flex flex-col gap-6 pb-4 transition-all">
             <x-organisms.chapters :chapters="$course->formation->chaptersWithCourses" :active="$course->id"/>
             <div class="space-y-2 px-4 mt-auto">
                 <div class="text-sm uppercase text-muted">Fichiers attachés</div>
