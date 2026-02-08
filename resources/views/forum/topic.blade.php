@@ -12,7 +12,7 @@
         <div class="flex gap-4">
             <p class="text-muted">
                 Par <span class="text-foreground">{{ $topic->user?->name ?? 'Anonyme' }}</span>,
-                {{ $topic->created_at->diffForHumans() }}
+                <x-atoms.ago :date="$topic->created_at"/>
             </p>
 
             <x-atoms.separator orientation="vertical"/>
@@ -46,7 +46,7 @@
                         <div>
                             {{ $message->user?->name ?? 'Anonyme' }},
                             <span class="text-muted text-sm">
-                        {{ $message->created_at->diffForHumans() }}
+                        <x-atoms.ago :date="$message->created_at"/>
                         </span>
                         </div>
                         <x-atoms.card class="prose p-4 rounded-md overflow-hidden">

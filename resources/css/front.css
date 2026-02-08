@@ -67,7 +67,7 @@
 
     --shadow-focus: 0 0 0 3px
         color-mix(in srgb, var(--color-primary) 25%, transparent);
-    --shadow-toast: 0 4px 12px rgba(0,0,0,.1);
+    --shadow-toast: 0 4px 12px rgba(0, 0, 0, 0.1);
     --sidebar-width: 350px;
     --default-transition-duration: 300ms;
 }
@@ -101,7 +101,6 @@
         --color-error-bg: hsl(358, 76%, 10%);
         --color-error-border: hsl(357, 89%, 16%);
         --color-error-text: hsl(358, 100%, 81%);
-
     }
 }
 

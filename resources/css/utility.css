@@ -38,9 +38,19 @@
 }
 
 @keyframes live-running {
-    0% { color: var(--color-destructive); }
-    30% { color: var(--color-destructive); }
-    50% { color: inherit; }
-    70% { color: var(--color-destructive); }
-    100% { color: var(--color-destructive); }
+    0% {
+        color: var(--color-destructive);
+    }
+    30% {
+        color: var(--color-destructive);
+    }
+    50% {
+        color: inherit;
+    }
+    70% {
+        color: var(--color-destructive);
+    }
+    100% {
+        color: var(--color-destructive);
+    }
 }

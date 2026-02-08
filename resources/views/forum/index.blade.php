@@ -75,7 +75,7 @@
                                 </a>
                             </div>
                             <div class="text-sm text-muted">
-                                {{ $topic->created_at->diffForHumans() }} par {{ $topic->user?->name }}
+                                <x-atoms.ago :date="$topic->created_at"/> par {{ $topic->user?->name }}
                             </div>
                         </div>
                         @include('forum._tags', ['class' => 'text-xs flex-wrap max-w-min justify-end ml-auto min-w-40 text-muted mt-0.5'])

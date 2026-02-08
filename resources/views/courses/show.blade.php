@@ -54,7 +54,7 @@
                         </a>
                     @endif
                     <div class="flex items-center text-muted gap-2">
-                        <x-lucide-calendar class="size-4"/> {{ $course->created_at->diffForHumans() }}
+                        <x-lucide-calendar class="size-4"/> <x-atoms.ago :date="$course->created_at"/>
                     </div>
                     <div class="flex justify-end gap-4 ml-auto">
                         @if($course->source)
