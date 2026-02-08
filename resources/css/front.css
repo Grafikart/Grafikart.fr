@@ -176,3 +176,11 @@
     pointer-events: none !important;
     opacity: 0 !important;
 }
+
+/* Disable Turbo fade animations */
+@layer base {
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+        animation: none !important;
+    }
+}

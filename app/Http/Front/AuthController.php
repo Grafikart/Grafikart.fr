@@ -3,6 +3,7 @@
 namespace App\Http\Front;
 
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -83,9 +84,12 @@ class AuthController
     /**
      * Handle checking permission for the forward_auth (caddy) / auth_request (nginx)
      */
-    public function checkPremium(): Response
+    public function checkPremium(): Response | RedirectResponse
     {
         $user = Auth::user();
+        if (!$user) {
+            return to_route('login')->with('error', 'Vous devez être premium pour accéder à ce contenu');
+        }
         if ($user && $user->isPremium()) {
             return response()->noContent();
         }

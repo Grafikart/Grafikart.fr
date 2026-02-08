@@ -23,7 +23,7 @@
 - [ ] Edition d'article (révision)
 - [ ] Notifications
 - [ ] Dump & Sauvegarde
-- [ ] Pages d'erreur (404)
+- [x] Pages d'erreur (404)
 - [ ] Mailing
 - [x] Footer
 - [ ] Header responsive

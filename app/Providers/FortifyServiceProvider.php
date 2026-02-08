@@ -50,7 +50,7 @@ class FortifyServiceProvider extends ServiceProvider
                 ->orWhere('name', $login)
                 ->first();
 
-            if ($user && Hash::check($request->input('password'), $user->password)) {
+            if ($user && password_verify($request->input('password'), $user->password)) {
                 return $user;
             }
 
