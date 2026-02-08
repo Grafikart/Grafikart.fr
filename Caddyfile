@@ -1,16 +1,29 @@
 {
 	frankenphp {
-	    php_ini post_max_size 50M
-	    php_ini upload_max_filesize 50M
+		php_ini post_max_size 50M
+		php_ini upload_max_filesize 50M
 	}
 }
 
 :8000 {
-	root public/
 	encode zstd gzip
-	php_server {
-	    hot_reload resources/views/**/*{.blade.php}
+
+	handle /downloads/* {
+		forward_auth localhost:8000 {
+			uri /auth/check/premium
+		}
+		uri strip_prefix /downloads
+		root * downloads/
+		file_server
 	}
+
+	handle {
+		root * public/
+		php_server {
+			hot_reload resources/views/**/*{.blade.php}
+		}
+	}
+
 	mercure {
 		anonymous
 	}

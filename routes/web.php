@@ -8,6 +8,7 @@ Route::redirect('/', '/tutoriels')->name('home');
 // Auth
 Route::get('/oauth/connect/{driver}', [\App\Http\Front\AuthController::class, 'connect'])->name('oauth');
 Route::get('/oauth/check/{driver}', [\App\Http\Front\AuthController::class, 'callback'])->name('oauth.callback');
+Route::get('/auth/check/premium', [\App\Http\Front\AuthController::class, 'checkPremium'])->name('auth.check.premium');
 
 // Pages
 Route::get('/ui', [\App\Http\Front\PageController::class, 'ui'])->name('pages.ui');

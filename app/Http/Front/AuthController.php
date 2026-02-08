@@ -3,6 +3,7 @@
 namespace App\Http\Front;
 
 use App\Models\User;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
@@ -14,6 +15,16 @@ class AuthController
     public function connect(string $driver)
     {
         return Socialite::driver($driver)->redirect();
+    }
+
+    public function checkPremium(): Response
+    {
+        $user = Auth::user();
+        if ($user && $user->isPremium()) {
+            return response()->noContent();
+        }
+
+        abort(Response::HTTP_FORBIDDEN);
     }
 
     public function callback(string $driver)
