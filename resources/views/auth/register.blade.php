@@ -3,7 +3,7 @@
 @section('title', 'Créer un compte')
 
 @section('body')
-    <div class="container mt-10 mx-auto max-w-100">
+    <div class="px-4 mt-10 mx-auto max-w-100 pb-20">
             <h1 class="text-5xl font-serif font-bold text-foreground-title text-center mb-8">Créer un compte</h1>
 
             <x-atoms.card class="p-6">
@@ -33,5 +33,7 @@
                     Se connecter
                 </a>
             </div>
+
+        @include('auth.oauth')
     </div>
 @endsection

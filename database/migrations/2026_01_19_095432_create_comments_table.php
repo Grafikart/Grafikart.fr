@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('username')->nullable();
             $table->text('content');
-            $table->string('ip');
+            $table->string('ip')->nullable();
             $table->timestamp('created_at')->useCurrent();
         });
     }

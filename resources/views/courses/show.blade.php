@@ -1,4 +1,4 @@
-@extends('front', ['class' => 'bg-background-light' . ($course->formation_id ? ' right-sidebar' : '')])
+@extends('front', ['class' => 'bg-background-light' . ($course->formation_id ? ' has-sidebar' : '')])
 
 @section('title', sprintf('Tutoriel video %s : %s',$course->mainTechnologies->pluck('name')->join(' & '), $course->title ))
 
@@ -91,7 +91,7 @@
                     allowfullscreen></iframe>
             </div>
 
-            <div class="bg-background pt-10 border-t">
+            <div class="bg-background pt-10 border-t pb-20">
                 <div class="prose prose-lg max-w-200 mx-auto">
                     {!! \App\Helpers\MarkdownHelper::html($course->content) !!}
                 </div>

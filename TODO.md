@@ -7,26 +7,25 @@
 - [ ] Page d'un cours dans une formation
 - [ ] Listing des cursus à améliorer
 - [ ] Homepage
-- [ ] Authentification / Inscription
+- [x] Authentification / Inscription
 - [x] Oauth
 - [x] Contact
-- [ ] Live twitch
+- [x] Live twitch
 - [ ] Système de suivi de progression
 - [ ] Paiement & Abonnement
-- [ ] A propos
+- [x] A propos
 - [ ] Confidentialité / Condition de vente
 - [ ] Edition de profil
 - [ ] Factures
 - [ ] Mode école
 - [ ] Support sur les vidéos
 - [ ] Quiz sur les formations
-- [ ] Homepage
 - [ ] Edition d'article (révision)
 - [ ] Notifications
 - [ ] Dump & Sauvegarde
 - [ ] Pages d'erreur (404)
 - [ ] Mailing
-- [ ] Footer
+- [x] Footer
 - [ ] Header responsive
 
 ## En plus

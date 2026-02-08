@@ -1,12 +1,12 @@
-@extends('front', ['class' => 'bg-background-light'])
+@extends('front')
 
 @section('title', 'Me contacter')
 
 @section('body')
 
-    <div class="container pb-10">
+    <div class="container pb-10 bg-background-light">
         <h1 class="text-page-title mb-4">Me contacter</h1>
-        <p class="text-lg text-muted max-w-2xl">
+        <p class="text-lg text-muted max-w-175">
             Si vous avez des problèmes ou un bug dans votre code n'utilisez pas ce formulaire, utilisez plutôt le
             système de support présent sur les vidéos.
         </p>

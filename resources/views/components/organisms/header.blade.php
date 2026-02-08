@@ -8,8 +8,8 @@
     ];
 @endphp
 
-<header class="text-foreground-title fixed top-0 left-0 right-0 backdrop-blur-2xl z-50 bg-background/60 in-[.bg-background-light]:bg-background-light/60">
-    <div class="container flex items-center justify-between gap-2 border-b py-3 font-semibold">
+<site-header class="container block text-foreground-title fixed top-0 left-0 right-0 z-50 [&+*]:pt-28">
+    <div class="flex items-center justify-between gap-2 border-b py-3 font-semibold">
         <div style="view-transition-name:header-left" class="flex items-center">
             <a href="/" class="text-foreground mr-6">
                 <x-atoms.logo/>
@@ -79,4 +79,4 @@
             @endauth
         </div>
     </div>
-</header>
+</site-header>

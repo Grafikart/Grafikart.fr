@@ -296,6 +296,7 @@ class DatabaseImporterSeeder extends DatabaseSeeder
                         'parent_id' => $tag->parent_id,
                         'name' => $tag->name,
                         'color' => $tag->color,
+                        'visible' => $tag->visible,
                     ];
                 }
                 if (! empty($data)) {
@@ -317,6 +318,7 @@ class DatabaseImporterSeeder extends DatabaseSeeder
                         'solved' => $topic->solved,
                         'created_at' => $topic->created_at,
                         'updated_at' => $topic->updated_at,
+                        'messages_count' => $topic->message_count,
                     ];
                 }
                 if (! empty($data)) {

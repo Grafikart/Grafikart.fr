@@ -31,7 +31,14 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // Forum
-Route::get('/forum/{topic}', [\App\Http\Front\ForumController::class, 'show'])->name('topics.show');
+Route::group(['prefix' => '/forum', 'as' => 'forum.'], function () {
+    Route::get('/', [\App\Http\Front\ForumController::class, 'index'])->name('index');
+    Route::get('/{slug}-{tag}', [\App\Http\Front\ForumController::class, 'tag'])
+        ->whereNumber('tag')
+        ->middleware(\App\Http\Middleware\RedirectIfSlugMismatch::class.':tag')
+        ->name('tag');
+    Route::get('/{topic}', [\App\Http\Front\ForumController::class, 'topic'])->name('topic')->whereNumber('topic');
+});
 
 // Course
 Route::get('/cursus', [\App\Http\Front\PathController::class, 'index'])->name('paths.index');

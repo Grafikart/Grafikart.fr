@@ -1,10 +1,9 @@
-@extends('front', ['class' => 'bg-background-light'])
+@extends('front')
 
 @section('title', 'Recherche : ' . $q)
 
 @section('body')
-
-    <header class="container flex items-center pb-10 justify-between gap-25">
+    <header class="bg-background-light container flex items-center pb-15 justify-between gap-25">
         <h1 class="text-page-title w-max whitespace-nowrap text-trim">
             @if(empty($q))
                 Ooops !
@@ -15,15 +14,14 @@
             @endif
         </h1>
         <form method="GET" action="{{ route('search.index') }}" class="relative w-full">
-            <input type="text" name="q" class="input pl-10" value="{{ $q }}" autofocus>
+            <x-atoms.input type="text" name="q" class="pl-10" value="{{ $q }}" autofocus/>
             <button class="absolute left-3 top-1/2 size-5 -translate-y-1/2">
                 <x-lucide-search class="size-4"/>
             </button>
         </form>
-
     </header>
 
-    <section class="bg-background border-t py-10">
+    <section class="bg-background border-t pt-5">
         <div class="container">
             @if(empty($q))
                 <div class="prose prose-lg text-center">

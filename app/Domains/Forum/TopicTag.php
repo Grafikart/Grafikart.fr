@@ -2,16 +2,28 @@
 
 namespace App\Domains\Forum;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
+/**
+ * @property-read string $slug
+ */
 class TopicTag extends Model
 {
     protected $table = 'forum_tags';
 
     public $timestamps = false;
+
+    protected function slug(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => Str::slug($this->name),
+        );
+    }
 
     /**
      * @return BelongsTo<TopicTag, $this>
@@ -35,5 +47,10 @@ class TopicTag extends Model
     public function topics(): BelongsToMany
     {
         return $this->belongsToMany(Topic::class, 'forum_tag_topic');
+    }
+
+    public function url(): string
+    {
+        return route('forum.tag', ['slug' => $this->slug, 'tag' => $this->id]);
     }
 }

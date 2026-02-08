@@ -1,10 +1,10 @@
-@extends('front', ['class' => 'bg-background-light'])
+@extends('front')
 
 @section('title', 'Forum : ' . $topic->name )
 
 @section('body')
     @cache('forum-topic', $topic)
-    <div class="container pb-14 pt-5 space-y-3">
+    <div class="container pb-10 space-y-3 bg-background-light">
         <h1 class="text-4xl font-bold font-serif">
             {{ $topic->name }}
         </h1>
@@ -17,38 +17,16 @@
 
             <x-atoms.separator orientation="vertical"/>
 
-            @if($topic->tags->isNotEmpty())
-                <div class="flex gap-2">
-                    @foreach($topic->tags as $tag)
-                        <div class="flex rounded-md overflow-hidden bg-card">
-                            @if($tag->parent)
-                                <span
-                                    class="px-2"
-                                    @if($tag->parent->color !== '#000000') style="background-color: {{ $tag->parent->color }}" @endif>
-                                {{ $tag->parent->name }}
-                            </span>
-                            @endif
-                            <a
-                                class="pill px-2 small pill-square pill-grey"
-                                @if($tag->color !== '#000000') style="background-color: {{ $tag->color }}" @endif>
-                                {{ $tag->name }}
-                            </a>
-                        </div>
-                    @endforeach
-                </div>
-            @endif
+            @include('forum._tags')
         </div>
     </div>
 
-    <main class="bg-background border-t pt-10">
-
-        <div class="container">
-
-            <div class="prose  mb-10">
+    <main class="bg-background border-t pt-10 container space-y-10">
+        <div class="prose top-30">
                 {!! \App\Helpers\MarkdownHelper::htmlUntrusted($topic->content) !!}
             </div>
 
-
+        <div>
             <h2 class="text-4xl font-serif font-bold border-b pb-1">
                 @php
                     $count = $topic->messages->count();
@@ -78,6 +56,7 @@
                 @endforeach
             </div>
         </div>
+
 
     </main>
 

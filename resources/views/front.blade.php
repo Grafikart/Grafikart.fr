@@ -27,7 +27,7 @@
         <script src="https://cdn.jsdelivr.net/npm/frankenphp-hot-reload/+esm" type="module"></script>
     @endif
 </head>
-<body class="{{ cn(["font-sans antialiased text-foreground bg-background pt-28 min-h-screen flex flex-col", $class ?? '']) }}">
+<body class="{{ cn(["font-sans antialiased text-foreground bg-background min-h-screen flex flex-col", $class ?? '']) }}">
 @if (session('success'))
     <x-atoms.toast type="success" :message="session('success')" />
 @endif
@@ -35,8 +35,8 @@
     <x-atoms.toast type="error" :message="session('error')" />
 @endif
 <x-organisms.header />
-<search-input></search-input>
 @yield('body')
 <x-organisms.footer />
+<search-input></search-input>
 </body>
 </html>

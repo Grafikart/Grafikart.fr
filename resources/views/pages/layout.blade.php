@@ -1,7 +1,7 @@
-@extends('front', ['class' => 'bg-background-light'])
+@extends('front')
 
 @section('body')
-    <div class="container pb-10">
+    <div class="container bg-background-light pb-10">
         <h1 class="text-page-title mb-4">@yield('title')</h1>
         @if(isset($description))
         <p class="text-lg text-muted max-w-2xl">

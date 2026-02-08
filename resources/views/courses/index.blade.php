@@ -2,7 +2,7 @@
 
 @section('body')
     <div class="container mx-auto">
-        <div class="grid grid-cols-1 grid-fill-261 gap-6 grid-flow-row-dense">
+        <div class="grid grid-fill-261 gap-6 grid-flow-row-dense">
             @if($page === 1)
             <div class="sm:col-span-2 self-center">
                 <h1 class="text-6xl font-bold font-serif mb-4 text-foreground-title">

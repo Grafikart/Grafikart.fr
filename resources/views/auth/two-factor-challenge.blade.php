@@ -3,7 +3,7 @@
 @section('title', 'Authentification à deux facteurs')
 
 @section('body')
-    <div class="container mt-10 mx-auto max-w-100">
+    <div class="px-4 mt-10 mx-auto max-w-100 pb-20">
             <h1 class="text-page-title text-center mb-8">Vérification 2FA</h1>
 
             <x-atoms.card class="p-6">

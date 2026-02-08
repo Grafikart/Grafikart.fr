@@ -1,4 +1,4 @@
-@extends('front', ['class' => 'bg-background-light'])
+@extends('front')
 
 @php
     $title = $category ? $category->name : 'Blog';
@@ -12,7 +12,7 @@
 
 @section('body')
 
-    <header class="container flex items-center pb-10 justify-between">
+    <header class="container bg-background-light flex items-center pb-10 justify-between">
 
         <h1 class="text-page-title">
             {{ $title }}

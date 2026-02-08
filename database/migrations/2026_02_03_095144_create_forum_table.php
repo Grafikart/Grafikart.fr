@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('content');
             $table->boolean('solved');
+            $table->integer('messages_count')->default(0);
             $table->timestamps();
         });
 
@@ -34,6 +35,7 @@ return new class extends Migration
             $table->foreignIdFor(\App\Domains\Forum\TopicTag::class, 'parent_id')->nullable()->constrained('forum_tags')->nullOnDelete();
             $table->string('name');
             $table->string('color');
+            $table->boolean('visible')->default(false);
         });
 
         Schema::create('forum_tag_topic', function (Blueprint $table) {
