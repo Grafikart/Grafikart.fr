@@ -1,3 +1,13 @@
+=== Grafikart rules ===
+
+## Important rules
+
+- Everytime I tell I refuse an edit and ask you to change something, update these rules for later use
+
+### Migrations
+
+- Always use `foreignIdFor` and `morph` for relations
+
 <laravel-boost-guidelines>
 === foundation rules ===
 
@@ -13,6 +23,7 @@ This application is a Laravel application and its main Laravel ecosystems packag
 - laravel/fortify (FORTIFY) - v1
 - laravel/framework (LARAVEL) - v12
 - laravel/prompts (PROMPTS) - v0
+- laravel/sanctum (SANCTUM) - v4
 - laravel/socialite (SOCIALITE) - v5
 - laravel/wayfinder (WAYFINDER) - v0
 - larastan/larastan (LARASTAN) - v3

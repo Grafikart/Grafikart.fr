@@ -23,7 +23,7 @@
                                    autocomplete="current-password">
                     <x-slot:after-label>
                         @if($canResetPassword ?? false)
-                            <a href="{{ route('password.request') }}" class="text-xs text-primary hover:underline">
+                            <a href="{{ route('password.request') }}" tabindex="-1" class="text-xs text-primary hover:underline">
                                 Mot de passe oublié ?
                             </a>
                         @endif

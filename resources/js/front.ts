@@ -1,4 +1,5 @@
 import { CourseChapters } from '@/elements/course-chapters.ts';
+import { CourseVideo } from '@/elements/course-video.ts';
 import { LazyVideo } from '@/elements/lazy-video.ts';
 import { NavTabs } from '@/elements/nav-tabs.ts';
 import { SiteHeader } from '@/elements/site-header.ts';
@@ -16,8 +17,17 @@ r2wc('theme-switcher', ThemeSwitcher, {});
 
 lazywc('code-block', () => import('@/elements/code-block.ts'));
 
+customElements.define('course-video', CourseVideo);
 customElements.define('lazy-video', LazyVideo);
 customElements.define('course-chapters', CourseChapters);
 customElements.define('nav-tabs', NavTabs);
 customElements.define('site-header', SiteHeader);
 customElements.define('time-ago', TimeAgo);
+
+document.addEventListener('turbo:click', (event) => {
+    // Prevent reloading the page when the hash change
+    const target = event.target as HTMLAnchorElement;
+    if (target.getAttribute('href')?.startsWith('#')) {
+        event.preventDefault();
+    }
+});

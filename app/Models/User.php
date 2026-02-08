@@ -3,9 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Domains\History\Progress;
 use App\Models\Factory\UserFactory;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -62,6 +64,14 @@ class User extends Authenticatable
     public function isPremium(): bool
     {
         return $this->premium_end_at !== null && $this->premium_end_at->isFuture();
+    }
+
+    /**
+     * @return HasMany<Progress, $this>
+     */
+    public function progress(): HasMany
+    {
+        return $this->hasMany(Progress::class);
     }
 
     protected static function newFactory(): UserFactory

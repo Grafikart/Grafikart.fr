@@ -20,7 +20,7 @@
         <x-atoms.level-badge :level="$course->level"/>
     </div>
 
-    <h2 class="font-bold text-lg mb-2 line-clamp-2 text-foreground-title">
+    <h2 class="font-semibold text-md mb-2 line-clamp-2 text-foreground-title">
         <a href="{{ route('courses.show', [$course->slug, $course])  }}"
            class="overlay hover:text-primary hover:before:ring hover:before:ring-primary before:rounded-md">
             {{ $course->title }}

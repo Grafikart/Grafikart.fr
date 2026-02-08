@@ -76,12 +76,30 @@ class FormationFactory extends Factory
     }
 
     /**
-     * @param  array<array{title: string, content: int[]}>  $chapters
+     * Create a formation with chapters and courses
      */
-    public function withChapters(array $chapters): static
+    public function withChapters(int $chapterCount, int $coursesPerChapter): static
     {
-        return $this->state(fn (array $attributes) => [
-            'chapters' => $chapters,
-        ]);
+        return $this->afterCreating(function (Formation $formation) use ($chapterCount, $coursesPerChapter) {
+            $chapters = [];
+
+            for ($i = 1; $i <= $chapterCount; $i++) {
+                $courseIds = [];
+
+                for ($j = 1; $j <= $coursesPerChapter; $j++) {
+                    $course = \App\Domains\Course\Course::factory()->create([
+                        'formation_id' => $formation->id,
+                    ]);
+                    $courseIds[] = $course->id;
+                }
+
+                $chapters[] = [
+                    'title' => "Chapter {$i}",
+                    'ids' => $courseIds,
+                ];
+            }
+
+            $formation->update(['chapters' => $chapters]);
+        });
     }
 }

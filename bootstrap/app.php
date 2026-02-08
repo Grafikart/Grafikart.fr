@@ -18,6 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->validateCsrfTokens(except: ['*']);
         $middleware->encryptCookies(except: ['appearance', 'sidebar_state']);
+        $middleware->statefulApi();
 
         $middleware->web(append: [
             HandleAppearance::class,

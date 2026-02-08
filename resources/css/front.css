@@ -36,6 +36,7 @@
     --color-background: #f7fafb;
     --color-background-light: #fff;
     --color-card: #fff;
+    --color-white: #fff;
     --color-card-footer: color-mix(
         in oklab,
         var(--color-background) 50%,

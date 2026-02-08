@@ -27,7 +27,7 @@
         <script src="https://cdn.jsdelivr.net/npm/frankenphp-hot-reload/+esm" type="module"></script>
     @endif
 </head>
-<body class="{{ cn(["font-sans antialiased text-foreground bg-background min-h-screen flex flex-col", $class ?? '']) }}">
+<body class="{{ cn(["font-sans antialiased text-foreground bg-background min-h-screen flex flex-col", $class ?? '']) }}" @if(auth()->user()?->isPremium()) data-premium @endif @auth data-user="{{ auth()->id() }}" @endauth>
 @if (session('success'))
     <x-atoms.toast type="success" :message="session('success')" />
 @endif

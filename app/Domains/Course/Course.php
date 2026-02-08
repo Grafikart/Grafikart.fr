@@ -7,6 +7,7 @@ use App\Concerns\Media\HasMedia;
 use App\Concerns\Media\RegisterMedia;
 use App\Domains\Attachment\Attachment;
 use App\Domains\Course\Factory\CourseFactory;
+use App\Domains\History\Progress;
 use App\Helpers\MarkdownHelper;
 use App\Infrastructure\Search\Contracts\Searchable;
 use App\Infrastructure\Search\SearchDocument;
@@ -15,6 +16,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Course extends Model implements RegisterMedia, Searchable
 {
@@ -76,6 +78,14 @@ class Course extends Model implements RegisterMedia, Searchable
     public function formation(): BelongsTo
     {
         return $this->belongsTo(Formation::class);
+    }
+
+    /**
+     * @return MorphMany<Progress, $this>
+     */
+    public function progress(): MorphMany
+    {
+        return $this->morphMany(Progress::class, 'progressable');
     }
 
     protected function casts(): array
