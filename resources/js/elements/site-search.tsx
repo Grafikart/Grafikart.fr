@@ -14,7 +14,7 @@ import { queryClient, useApiFetch } from '@/hooks/use-api-fetch.ts';
 import { useShortcut } from '@/hooks/use-shortcut.ts';
 import type { APISearchItem, APISearchResponse } from '@/types';
 
-export function SiteSearch(_props: { element: HTMLElement }) {
+export function SiteSearch() {
     return (
         <QueryClientProvider client={queryClient}>
             <SearchInputInner />

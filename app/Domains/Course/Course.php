@@ -10,6 +10,8 @@ use App\Domains\Course\Factory\CourseFactory;
 use App\Helpers\MarkdownHelper;
 use App\Infrastructure\Search\Contracts\Searchable;
 use App\Infrastructure\Search\SearchDocument;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -124,5 +126,14 @@ class Course extends Model implements RegisterMedia, Searchable
             url: route('courses.show', ['slug' => $this->slug, 'course' => $this]),
             created_at: $this->created_at->getTimestamp(),
         );
+    }
+
+    #[Scope]
+    protected function published(Builder $query, $future = false): void
+    {
+        $query->where('online', true)->whereNull('deprecated_by_id');
+        if (! $future) {
+            $query->where('created_at', '<', now());
+        }
     }
 }
