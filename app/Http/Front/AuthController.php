@@ -17,16 +17,6 @@ class AuthController
         return Socialite::driver($driver)->redirect();
     }
 
-    public function checkPremium(): Response
-    {
-        $user = Auth::user();
-        if ($user && $user->isPremium()) {
-            return response()->noContent();
-        }
-
-        abort(Response::HTTP_FORBIDDEN);
-    }
-
     public function callback(string $driver)
     {
         assert(in_array($driver, self::DRIVERS));
@@ -89,4 +79,19 @@ class AuthController
             $field => $oauthId,
         ]);
     }
+
+    /**
+     * Handle checking permission for the forward_auth (caddy) / auth_request (nginx)
+     */
+    public function checkPremium(): Response
+    {
+        $user = Auth::user();
+        if ($user && $user->isPremium()) {
+            return response()->noContent();
+        }
+
+        abort(403, 'Vous devez être premium pour télécharger le contenu');
+    }
+
+
 }
