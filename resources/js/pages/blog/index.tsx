@@ -14,7 +14,7 @@ import route from '@/actions/App/Http/Cms/PostController';
 import { withLayout } from '@/components/layout.tsx';
 import { PageTitle } from '@/components/page-title.tsx';
 import { ButtonGroup } from '@/components/ui/button-group.tsx';
-import { ButtonLink } from '@/components/ui/button.tsx';
+import { ButtonLink } from '@/components/ui/button-link.tsx';
 import { Pagination } from '@/components/ui/pagination.tsx';
 import {
     Table,

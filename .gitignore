@@ -23,6 +23,7 @@ PLAN.md
 /storage/pail
 /storage/debugbar
 /vendor
+.sonda
 .DS_Store
 .env
 .env.backup

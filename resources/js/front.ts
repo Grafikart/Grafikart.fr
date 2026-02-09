@@ -7,7 +7,7 @@ import { SiteSearch } from '@/elements/site-search.tsx';
 import { ThemeSwitcher } from '@/elements/theme-switcher.tsx';
 import { TimeAgo } from '@/elements/time-ago.ts';
 import { lazywc, r2wc } from '@/lib/custom-element.ts';
-// import '@hotwired/turbo';
+import { start as startTurbo } from '@/lib/turbo/index.ts';
 import '../css/front.css';
 
 r2wc('path-preview', () => import('@/elements/path-preview.tsx'));
@@ -24,10 +24,4 @@ customElements.define('nav-tabs', NavTabs);
 customElements.define('site-header', SiteHeader);
 customElements.define('time-ago', TimeAgo);
 
-document.addEventListener('turbo:click', (event) => {
-    // Prevent reloading the page when the hash change
-    const target = event.target as HTMLAnchorElement;
-    if (target.getAttribute('href')?.startsWith('#')) {
-        event.preventDefault();
-    }
-});
+startTurbo();

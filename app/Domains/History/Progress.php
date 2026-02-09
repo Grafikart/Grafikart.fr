@@ -62,7 +62,7 @@ class Progress extends Model
     protected function ratio(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->progress / 1000
+            get: fn () => round($this->progress / 1000)
         );
     }
 }

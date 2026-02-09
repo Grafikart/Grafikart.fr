@@ -1,4 +1,4 @@
-import { router } from '@inertiajs/react';
+import { router } from '@inertiajs/core';
 import {
     QueryClient,
     type UndefinedInitialDataOptions,
@@ -43,6 +43,7 @@ export async function apiFetch<T>(
                 );
                 return;
             }
+            // TODO : find a way to trigger an inertia redirection without loading inertia
             router.visit(location, { replace: true });
             return;
         }

@@ -11,7 +11,7 @@
 @section('title', $titleWithPage)
 
 @section('body')
-    @cache('forum-topic', $selectedTag->id, $page)
+    @cache('forum-topic', $selectedTag?->id ?? '0', $page)
     <h1 class="container text-page-title pb-10 bg-background-light">
         {{ $title }}
         @if($page > 1)

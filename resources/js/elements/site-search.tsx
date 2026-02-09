@@ -9,6 +9,7 @@ import {
     DialogContent,
     DialogTrigger,
 } from '@/components/ui/dialog.tsx';
+import { Input } from '@/components/ui/input.tsx';
 import { Spinner } from '@/components/ui/spinner.tsx';
 import { queryClient, useApiFetch } from '@/hooks/use-api-fetch.ts';
 import { useShortcut } from '@/hooks/use-shortcut.ts';
@@ -59,7 +60,8 @@ function SearchInputInner() {
                     <div className="relative">
                         <Autocomplete.Input
                             placeholder="Rechercher un contenu"
-                            className="input rounded-md pl-10"
+                            className="rounded-md pl-10"
+                            render={<Input />}
                         />
                         {isFetching ? (
                             <Spinner className={iconCls} />
