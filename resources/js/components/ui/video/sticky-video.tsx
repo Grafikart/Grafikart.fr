@@ -22,7 +22,7 @@ export function StickyVideo (props: Props) {
         }
         return w
     }, [width])
-    const [visible, setVisible] = useState(false)
+    const [visible, setVisible] = useState(true)
     const sticky = !visible && availableWidth > minWidth
 
 
