@@ -7,7 +7,7 @@ import { SiteSearch } from '@/elements/site-search.tsx';
 import { ThemeSwitcher } from '@/elements/theme-switcher.tsx';
 import { TimeAgo } from '@/elements/time-ago.ts';
 import { lazywc, r2wc } from '@/lib/custom-element.ts';
-import '@hotwired/turbo';
+// import '@hotwired/turbo';
 import '../css/front.css';
 
 r2wc('path-preview', () => import('@/elements/path-preview.tsx'));

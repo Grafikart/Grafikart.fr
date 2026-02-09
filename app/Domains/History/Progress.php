@@ -6,11 +6,15 @@ use App\Domains\Course\Course;
 use App\Domains\Course\Formation;
 use App\Domains\History\Factory\ProgressFactory;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
+/**
+ * @property int $ratio
+ */
 class Progress extends Model
 {
     /** @use HasFactory<ProgressFactory> */
@@ -53,5 +57,12 @@ class Progress extends Model
     protected static function newFactory(): ProgressFactory
     {
         return ProgressFactory::new();
+    }
+
+    protected function ratio(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->progress / 1000
+        );
     }
 }

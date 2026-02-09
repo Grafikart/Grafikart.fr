@@ -1,1 +1,1 @@
-<time-ago time="{{ $date->getTimestamp() }}">aaa {{ $date->diffForHumans() }}</time-ago>
+<time-ago time="{{ $date->getTimestamp() }}">{{ $date->diffForHumans() }}</time-ago>

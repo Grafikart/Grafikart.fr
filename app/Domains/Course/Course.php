@@ -11,13 +11,18 @@ use App\Domains\History\Progress;
 use App\Helpers\MarkdownHelper;
 use App\Infrastructure\Search\Contracts\Searchable;
 use App\Infrastructure\Search\SearchDocument;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
+/**
+ * @property string $video_url
+ */
 class Course extends Model implements RegisterMedia, Searchable
 {
     /** @use HasFactory<CourseFactory> */
@@ -145,5 +150,28 @@ class Course extends Model implements RegisterMedia, Searchable
         if (! $future) {
             $query->where('created_at', '<', now());
         }
+    }
+
+    protected function video_url(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->video_path ? ('/downloads/videos/'.$this->video_path) : null
+        );
+    }
+
+    public function startTimeForUser(?User $user): int
+    {
+        if (! $user) {
+            return 0;
+        }
+        $progress = Progress::where('user_id', $user->id)
+            ->where('progressable_type', $this->getMorphClass())
+            ->where('progressable_id', $this->id)
+            ->first();
+        if (! $progress) {
+            return 0;
+        }
+
+        return round($progress->ratio * $this->duration);
     }
 }

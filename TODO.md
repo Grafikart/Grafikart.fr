@@ -11,7 +11,7 @@
 - [x] Oauth
 - [x] Contact
 - [x] Live twitch
-- [ ] Système de suivi de progression
+- [x] Système de suivi de progression
 - [ ] Paiement & Abonnement
 - [x] A propos
 - [ ] Confidentialité / Condition de vente

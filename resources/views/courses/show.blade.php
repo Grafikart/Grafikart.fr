@@ -2,12 +2,13 @@
 
 @section('title', sprintf('Tutoriel video %s : %s',$course->mainTechnologies->pluck('name')->join(' & '), $course->title ))
 
-@section('meta')
+@section('head')
     <meta property="og:image" content="{{ $course->youtubeThumbnail }}"/>
     <meta property="og:created_time" content="{{ $course->created_at->toIso8601String() }}"/>
     <meta property="og:type" content="video.other"/>
     <meta property="og:duration" content="{{ $course->duration }}"/>
     <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="video:start" content="{{ $course->startTimeForUser(auth()->user()) }}"/>
 @endsection
 
 @section('body')
@@ -81,12 +82,12 @@
             </div>
 
 
-            <x-atoms.course-video :course="$course->id" :video="$course->youtube_id"
+            <x-atoms.course-video :course="$course->id" :video="$course->youtube_id ?? $course->video_url"
                                   :poster="$course->attachment->url(1330, 750)" class="mt-6 mb-12"/>
         </div>
 
         <div class="bg-background pt-10 border-t pb-20">
-            <div class="prose prose-lg max-w-200 mx-auto">
+            <div class="prose prose-lg max-w-200 mx-auto px-4">
                 {!! \App\Helpers\MarkdownHelper::html($course->content) !!}
             </div>
         </div>

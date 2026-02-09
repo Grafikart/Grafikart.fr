@@ -171,6 +171,13 @@
     details > summary::-webkit-details-marker {
         display: none;
     }
+    media-play-button,
+    media-time-display,
+    media-mute-button,
+    media-fullscreen-button,
+    media-pip-button {
+        padding: 10px;
+    }
 }
 
 .react-flow__handle {

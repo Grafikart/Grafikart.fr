@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/search', [SearchController::class, 'index']);
 Route::post('/twitch/webhook', [TwitchController::class, 'webhook']);
+Route::get('/courses/{course}/vtt', [\App\Http\API\CourseController::class, 'vtt'])->name('course.vtt');
 
 Route::middleware('auth')->group(function () {
-    Route::post('/progress/{course}', [ProgressController::class, 'store']);
+    Route::post('/courses/{course}/progress', [ProgressController::class, 'store']);
 });
