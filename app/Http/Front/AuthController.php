@@ -84,18 +84,16 @@ class AuthController
     /**
      * Handle checking permission for the forward_auth (caddy) / auth_request (nginx)
      */
-    public function checkPremium(): Response | RedirectResponse
+    public function checkPremium(): Response|RedirectResponse
     {
         $user = Auth::user();
-        if (!$user) {
+        if (! $user) {
             return to_route('login')->with('error', 'Vous devez être premium pour accéder à ce contenu');
         }
-        if ($user && $user->isPremium()) {
+        if ($user->isPremium()) {
             return response()->noContent();
         }
 
         abort(403, 'Vous devez être premium pour télécharger le contenu');
     }
-
-
 }
