@@ -3,22 +3,42 @@
 namespace App\Http\Front;
 
 use App\Domains\Course\Course;
-use App\Http\Controller;
-use Illuminate\Http\Request;
+use App\Http\Front\Data\ContentFilterData;
 use Illuminate\View\View;
 
-class CourseController extends Controller
+class CourseController
 {
-    public function index(Request $request): View
+    public function index(ContentFilterData $filter): View
     {
-        $courses = Course::query()
-            ->where('online', true)
-            ->orderByDesc('created_at')
-            ->paginate(26);
+        $query = Course::query()
+            ->published()
+            ->with('mainTechnologies', 'formation')
+            ->whereNull('formation_id')
+            ->orderByDesc('created_at');
+
+        if ($filter->technology) {
+            $query->whereHas('mainTechnologies', fn ($q) => $q->where('slug', $filter->technology));
+        }
+
+        if ($filter->level) {
+            $query->where('level', $filter->level);
+        }
+
+        if ($filter->duration) {
+            $query->where('duration', '<=', $filter->duration * 60);
+        }
+
+        if ($filter->premium) {
+            $query->where('premium', true);
+        }
+
+        $items = $query->paginate($filter->perPage())->withQueryString();
 
         return view('courses.index', [
-            'courses' => $courses,
-            'page' => $request->integer('page', 1),
+            'items' => $items,
+            'page' => $filter->page,
+            'type' => 'course',
+            'show_title' => ! $filter->isActive(),
         ]);
     }
 

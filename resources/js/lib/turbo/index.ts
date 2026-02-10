@@ -39,8 +39,12 @@ function onClick(event: MouseEvent): void {
     }
     event.preventDefault();
     const url = new URL(link.href, document.baseURI);
+    const action: VisitAction =
+        link.getAttribute('data-turbo-action') === 'replace'
+            ? 'replace'
+            : 'advance';
     currentPathname = url.pathname;
-    performVisit(url, 'advance');
+    performVisit(url, action);
 }
 
 function onPopState(): void {

@@ -95,13 +95,12 @@
     </main>
 
     @if($course->formation)
-        <aside
-            class="fixed top-(--header-height) right-0 w-88 bottom-0 border-l bg-card shadow-md flex flex-col gap-6 pb-4 transition-all">
+        <x-molecules.drawer side="right">
             <x-organisms.chapters :chapters="$course->formation->chaptersWithCourses" :active="$course->id"/>
             <div class="space-y-2 px-4 mt-auto">
                 <div class="text-sm uppercase text-muted">Fichiers attachés</div>
             </div>
-        </aside>
+        </x-molecules.drawer>
     @endif
 
 

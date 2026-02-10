@@ -9,10 +9,6 @@
 @source "../../resources/js/elements/";
 @source "../../resources/views/";
 
-:root {
-    --container-width: min(calc(100svw) - 2rem, 1330px);
-}
-
 @theme {
     --container-*: initial;
     --font-sans: 'Inter', sans-serif;
@@ -63,6 +59,7 @@
     --color-error-border: hsl(359, 100%, 94%);
     --color-error-text: hsl(360, 100%, 45%);
     --color-video: #121c42;
+    --color-sidebar: #fbfcfd;
 
     --shadow-focus: 0 0 0 3px
         color-mix(in srgb, var(--color-primary) 25%, transparent);

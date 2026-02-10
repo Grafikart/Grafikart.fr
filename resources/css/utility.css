@@ -19,7 +19,11 @@
 @utility container {
     max-width: unset;
     width: 100%;
-    padding-inline: calc(50% - var(--container-width) * 0.5);
+    padding-inline: calc(50% - min(calc(100% - 2rem), 1330px) * 0.5);
+}
+
+@utility max-w-container {
+    max-width: min(calc(100% - 2rem), 1330px);
 }
 
 @utility text-trim {
@@ -32,6 +36,34 @@
     font-family: var(--font-serif);
     font-weight: 700;
     color: var(--color-foreground-title);
+}
+
+@utility card-stacked {
+    &::after,
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        transition: 0.3s;
+        background-color: var(--color-card);
+        border: 1px solid var(--color-border);
+        box-shadow: var(--shadow-xs);
+        border-radius: var(--radius-lg);
+    }
+    &::after {
+        transform: translate(6px, 6px);
+    }
+    &::before {
+        transform: translate(0px, 0px);
+    }
+    &:hover::after {
+        transform: translate(6px, 6px) rotate(3deg);
+    }
+    &:hover::before {
+        opacity: 1;
+        transform: translate(0px, 0px) rotate(-3deg);
+    }
 }
 
 @utility animate-live {

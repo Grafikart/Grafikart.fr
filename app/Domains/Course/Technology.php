@@ -57,10 +57,21 @@ class Technology extends Model implements RegisterMedia
     /**
      * @return BelongsToMany<Course, $this>
      */
+    public function formations(): BelongsToMany
+    {
+        return $this->belongsToMany(Formation::class)
+            ->withPivot(['version', 'primary'])
+            ->wherePivot('primary', true);
+    }
+
+    /**
+     * @return BelongsToMany<Course, $this>
+     */
     public function courses(): BelongsToMany
     {
         return $this->belongsToMany(Course::class)
-            ->withPivot(['version', 'primary']);
+            ->withPivot(['version', 'primary'])
+            ->wherePivot('primary', true);
     }
 
     protected static function newFactory(): TechnologyFactory

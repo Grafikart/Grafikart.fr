@@ -52,8 +52,8 @@ Route::get('/tutoriels/{slug}-{course}', [\App\Http\Front\CourseController::clas
     ->whereNumber('course')
     ->middleware(\App\Http\Middleware\RedirectIfSlugMismatch::class.':course')
     ->name('courses.show');
-Route::get('/formations', [\App\Http\Front\CourseController::class, 'index'])->name('formations.index');
-Route::get('/formations/{formation:slug}', [\App\Http\Front\CourseController::class, 'show'])
+Route::get('/formations', [\App\Http\Front\FormationController::class, 'index'])->name('formations.index');
+Route::get('/formations/{formation:slug}', [\App\Http\Front\FormationController::class, 'show'])
     ->name('formations.show');
 Route::get('/recherche', [\App\Http\Front\SearchController::class, 'index'])->name('search.index');
 Route::get('/live', [\App\Http\Front\LiveController::class, 'show'])->name('live');

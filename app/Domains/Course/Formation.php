@@ -10,6 +10,8 @@ use App\Domains\History\Progress;
 use App\Helpers\MarkdownHelper;
 use App\Infrastructure\Search\Contracts\Searchable;
 use App\Infrastructure\Search\SearchDocument;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -140,5 +142,14 @@ class Formation extends Model implements Searchable
             url: route('formations.show', $this),
             created_at: $this->created_at->getTimestamp(),
         );
+    }
+
+    #[Scope]
+    protected function published(Builder $query, $future = false): void
+    {
+        $query->where('online', true)->whereNull('deprecated_by_id');
+        if (! $future) {
+            $query->where('created_at', '<', now());
+        }
     }
 }
