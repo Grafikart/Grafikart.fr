@@ -11,6 +11,7 @@
     "require": {
         "php": "^8.4",
         "erusev/parsedown": "^1.7",
+        "google/apiclient": "^2.19",
         "inertiajs/inertia-laravel": "^2.0",
         "laravel-lang/common": "^6.7",
         "laravel/fortify": "^1.30",

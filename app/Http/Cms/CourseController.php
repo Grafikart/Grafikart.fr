@@ -8,6 +8,8 @@ use App\Http\Cms\Data\Course\CourseFormData;
 use App\Http\Cms\Data\Course\CourseRequestData;
 use App\Http\Cms\Data\Course\CourseRowData;
 use App\Http\Cms\Data\OptionItemData;
+use App\Infrastructure\Youtube\YoutubeScopes;
+use App\Infrastructure\Youtube\YoutubeUploaderService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -93,5 +95,29 @@ class CourseController extends CmsController
     public function destroy(Course $course): RedirectResponse
     {
         return $this->cmsDestroy($course, "Le cours {$course->title} a été supprimé");
+    }
+
+    public function upload(\Google_Client $client, \Illuminate\Http\Request $request): RedirectResponse
+    {
+        // Use ?state to get course ID since this is the only parameter accepted by google Oauth
+        $courseId = $request->get('state');
+        $redirectUri = route('cms.courses.upload', absolute: true);
+        $code = $request->get('code');
+        $client->setRedirectUri($redirectUri);
+        if (! $code) {
+            return redirect($client->createAuthUrl(YoutubeScopes::UPLOAD, [
+                'state' => $courseId,
+            ]));
+        }
+
+        // We received an auth code
+        $client->fetchAccessTokenWithAuthCode($code);
+        $accessToken = $client->getAccessToken();
+        if (! $accessToken) {
+            return to_route('cms.courses.edit', $courseId)->with('error', 'Impossible de récupérer le token d\'accès');
+        }
+        dispatch(new YoutubeUploaderService($courseId, $client->getAccessToken()));
+
+        return to_route('cms.courses.edit', $courseId)->with('success', "La vidéo est en cours d'upload sur YouTube");
     }
 }

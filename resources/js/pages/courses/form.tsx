@@ -1,6 +1,9 @@
 import { CircleCheckIcon, SaveIcon, UploadIcon } from 'lucide-react';
 
-import route from '@/actions/App/Http/Cms/CourseController';
+import {
+    default as CourseController,
+    default as route,
+} from '@/actions/App/Http/Cms/CourseController';
 import { FormField } from '@/components/form-field.tsx';
 import { Form } from '@/components/form.tsx';
 import { withLayout } from '@/components/layout.tsx';
@@ -109,13 +112,26 @@ function ItemForm({ item }: Props) {
                                     defaultValue={item.videoPath}
                                     id="videoPath"
                                 />
-                                <Button
-                                    type="button"
-                                    variant="secondary"
-                                    size="icon"
-                                >
-                                    <UploadIcon />
-                                </Button>
+                                {item.id && (
+                                    <Button
+                                        render={
+                                            <a
+                                                href={
+                                                    CourseController.upload({
+                                                        query: {
+                                                            state: item.id,
+                                                        },
+                                                    }).url
+                                                }
+                                            />
+                                        }
+                                        type="button"
+                                        variant="secondary"
+                                        size="icon"
+                                    >
+                                        <UploadIcon />
+                                    </Button>
+                                )}
                             </div>
                         </FormField>
                         <FormField

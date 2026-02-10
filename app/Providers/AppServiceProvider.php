@@ -27,6 +27,13 @@ class AppServiceProvider extends ServiceProvider
             id: config('services.twitch.id'),
             secret: config('services.twitch.secret'),
         ));
+        $this->app->singleton(\Google_Client::class, function () {
+            $client = new \Google_Client([]);
+            $client->setClientId(config('services.google.client_id'));
+            $client->setClientSecret(config('services.google.client_secret'));
+
+            return $client;
+        });
     }
 
     /**

@@ -43,7 +43,7 @@ function onClick(event: MouseEvent): void {
     performVisit(url, 'advance');
 }
 
-function onPopState(_event: PopStateEvent): void {
+function onPopState(): void {
     if (window.location.pathname === currentPathname) {
         return;
     }

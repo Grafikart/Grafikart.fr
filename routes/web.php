@@ -73,6 +73,7 @@ Route::group(['prefix' => '/cms', 'as' => 'cms.'], function () {
     Route::get('dashboard', \App\Http\Cms\DashboardController::class)->name('dashboard');
     Route::resource('blog_categories', \App\Http\Cms\BlogCategoryController::class);
     Route::resource('comments', \App\Http\Cms\CommentController::class)->only(['index', 'update', 'destroy']);
+    Route::get('courses/upload', [\App\Http\Cms\CourseController::class, 'upload'])->name('courses.upload');
     Route::resource('courses', \App\Http\Cms\CourseController::class);
     Route::resource('formations', \App\Http\Cms\FormationController::class)->except(['show']);
     Route::resource('paths', \App\Http\Cms\PathController::class)->except(['show']);

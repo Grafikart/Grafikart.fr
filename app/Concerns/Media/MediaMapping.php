@@ -48,6 +48,17 @@ readonly class MediaMapping
         return Storage::disk($this->disk)->url(sprintf('%s/%s', $directory, $fileName));
     }
 
+    public function path(Model $model): ?string
+    {
+        $fileName = $model->getAttribute($this->property);
+        if (! $fileName) {
+            return null;
+        }
+        $directory = $this->getDirectory($model);
+
+        return Storage::disk($this->disk)->path(sprintf('%s/%s', $directory, $fileName));
+    }
+
     /**
      * Remove a media attached to an element
      */

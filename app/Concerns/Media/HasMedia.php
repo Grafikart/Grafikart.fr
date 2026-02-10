@@ -111,6 +111,20 @@ trait HasMedia
         }
 
         return ImageUrlGenerator::resize($url, $width, $height);
+    }
 
+    public function mediaPath(string $property): ?string
+    {
+        if (! $this->getAttribute($property)) {
+            return null;
+        }
+        static::ensureMediaRegistered();
+
+        $mapping = static::$mediaProperties[$property] ?? null;
+        if (! $mapping) {
+            throw new \RuntimeException(sprintf('The property %s on %s has no media registered', $property, static::class));
+        }
+
+        return $mapping->path($this);
     }
 }
