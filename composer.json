@@ -22,9 +22,11 @@
         "laravel/wayfinder": "^0.1.9",
         "league/glide": "^3.1",
         "mallardduck/blade-lucide-icons": "^1.26",
+        "paypal/paypal-server-sdk": "^2.2",
         "spatie/enum": "*",
         "spatie/laravel-data": "^4.18",
         "spatie/laravel-typescript-transformer": "^2.5",
+        "stripe/stripe-php": "^19.3",
         "tales-from-a-dev/tailwind-merge-php": "*"
     },
     "require-dev": {

@@ -13,7 +13,7 @@ class Transaction extends Model
     /** @use HasFactory<TransactionFactory> */
     use HasFactory;
 
-    protected $fillable = [];
+    protected $guarded = [];
 
     protected function casts(): array
     {

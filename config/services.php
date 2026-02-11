@@ -56,4 +56,13 @@ return [
         'client_secret' => env('FACEBOOK_SECRET'),
         'redirect' => '/oauth/check/facebook',
     ],
+    'stripe' => [
+        'public' => env('STRIPE_PUBLIC'),
+        'secret' => env('STRIPE_SECRET'),
+        'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),
+    ],
+    'paypal' => [
+        'id' => env('PAYPAL_ID'),
+        'secret' => env('PAYPAL_SECRET'),
+    ],
 ];

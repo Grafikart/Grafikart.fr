@@ -1,4 +1,4 @@
-@props(['variant' => 'primary', 'size' => 'md', 'href' => null])
+@props(['variant' => 'primary', 'size' => 'md', 'href' => null, 'as' => 'button'])
 
 @php
     $classes = cn([
@@ -6,7 +6,7 @@
         // Variants
         'bg-primary text-primary-foreground hover:brightness-140 ' => $variant === 'primary',
         'border hover:bg-border/30 bg-background' => $variant === 'secondary',
-        'border hover:bg-border/30' => $variant === 'outline',
+        'border border-primary text-primary hover:bg-primary hover:text-white' => $variant === 'outline',
         'bg-destructive text-destructive-foreground hover:brightness-140 ' => $variant === 'destructive',
         'hover:bg-border/30' => $variant === 'ghost',
         // Sizes
@@ -23,5 +23,5 @@
 @if ($href)
     <a {{ $attributes->except('class') }} href="{{ $href }}" class="{{ $classes }}">{{ $slot }}</a>
 @else
-    <button {{ $attributes->except('class') }} class="{{ $classes }}">{{ $slot }}</button>
+    <{{ $as }} {{ $attributes->except('class') }} class="{{ $classes }}">{{ $slot }}</{{$as}}>
 @endif

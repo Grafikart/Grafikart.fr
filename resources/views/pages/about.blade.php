@@ -4,7 +4,7 @@
 
 @section('body')
 
-    <h1 class="text-page-title mb-4 container pb-10 bg-background-light">Mon environnement</h1>
+    <h1 class="text-page-title container pb-10 bg-background-light">Mon environnement</h1>
 
     <div
         class="border-t bg-background container grid grid-cols-1 md:grid-cols-[400px_1fr] gap-8 md:gap-16 py-10 md:pt-15 md:pb-20">

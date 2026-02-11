@@ -1,8 +1,10 @@
+import { Confetti } from '@/elements/con-fetti.ts';
 import { CourseChapters } from '@/elements/course-chapters.ts';
 import { CourseFilters } from '@/elements/course-filters.tsx';
 import { CourseVideo } from '@/elements/course-video.ts';
 import { LazyVideo } from '@/elements/lazy-video.ts';
 import { NavTabs } from '@/elements/nav-tabs.ts';
+import { PremiumButton } from '@/elements/premium-button.tsx';
 import { SiteHeader } from '@/elements/site-header.ts';
 import { SiteSearch } from '@/elements/site-search.tsx';
 import { ThemeSwitcher } from '@/elements/theme-switcher.tsx';
@@ -23,6 +25,8 @@ customElements.define('course-video', CourseVideo);
 customElements.define('lazy-video', LazyVideo);
 customElements.define('course-chapters', CourseChapters);
 customElements.define('nav-tabs', NavTabs);
+customElements.define('premium-button', PremiumButton);
+customElements.define('con-fetti', Confetti);
 customElements.define('site-header', SiteHeader);
 customElements.define('time-ago', TimeAgo);
 

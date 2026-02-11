@@ -23,6 +23,7 @@ Route::get('/media/resize/{width}/{height}/{path}', [\App\Http\Front\ImageContro
 
 // Page
 Route::get('/politique-de-confidentialite', [\App\Http\Front\PageController::class, 'privacy'])->name('pages.privacy');
+Route::get('/premium', [\App\Http\Front\PageController::class, 'premium'])->name('premium');
 Route::get('/contact', [\App\Http\Front\ContactController::class, 'show'])->name('contact');
 Route::post('/contact', [\App\Http\Front\ContactController::class, 'submit']);
 Route::middleware(['auth'])->group(function () {

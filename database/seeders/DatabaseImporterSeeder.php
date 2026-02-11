@@ -22,6 +22,7 @@ class DatabaseImporterSeeder extends DatabaseSeeder
         $this->migrateBlog();
         $this->migrateComments();
         $this->migrateForum();
+        $this->migratePremium();
     }
 
     private function migrateUsers(): void
@@ -279,6 +280,52 @@ class DatabaseImporterSeeder extends DatabaseSeeder
                 }
                 if (! empty($data)) {
                     DB::table('comments')->upsert($data, uniqueBy: ['id']);
+                }
+            });
+    }
+
+    private function migratePremium(): void
+    {
+        // Migrate plans
+        DB::table('old_plan')
+            ->orderBy('id')
+            ->chunk(self::CHUNK_SIZE, function ($plans) {
+                $data = [];
+                foreach ($plans as $plan) {
+                    $data[] = [
+                        'id' => $plan->id,
+                        'name' => $plan->name,
+                        'price' => (int) $plan->price,
+                        'duration' => $plan->duration,
+                        'stripe_id' => $plan->stripe_id,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
+                }
+                if (! empty($data)) {
+                    DB::table('plans')->upsert($data, uniqueBy: ['id']);
+                }
+            });
+
+        // Migrate subscriptions
+        DB::table('old_subscription')
+            ->orderBy('id')
+            ->chunk(self::CHUNK_SIZE, function ($subscriptions) {
+                $data = [];
+                foreach ($subscriptions as $subscription) {
+                    $data[] = [
+                        'id' => $subscription->id,
+                        'user_id' => $subscription->user_id,
+                        'plan_id' => $subscription->plan_id,
+                        'state' => $subscription->state,
+                        'next_payment' => $subscription->next_payment,
+                        'stripe_id' => $subscription->stripe_id,
+                        'created_at' => $subscription->created_at,
+                        'updated_at' => $subscription->created_at,
+                    ];
+                }
+                if (! empty($data)) {
+                    DB::table('subscriptions')->upsert($data, uniqueBy: ['id']);
                 }
             });
     }

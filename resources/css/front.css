@@ -98,6 +98,8 @@
         --color-error-bg: hsl(358, 76%, 10%);
         --color-error-border: hsl(357, 89%, 16%);
         --color-error-text: hsl(358, 100%, 81%);
+        --color-video: #121c42;
+        --color-sidebar: #1e1f3f;
     }
 }
 
@@ -129,11 +131,16 @@
     --color-error-bg: hsl(358, 76%, 10%);
     --color-error-border: hsl(357, 89%, 16%);
     --color-error-text: hsl(358, 100%, 81%);
+    --color-video: #121c42;
+    --color-sidebar: #1e1f3f;
 }
 
 @layer base {
     html {
         scrollbar-gutter: stable;
+    }
+    label {
+        display: block;
     }
     button,
     a {
