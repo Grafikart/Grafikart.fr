@@ -1,8 +1,9 @@
+import type { Stripe } from '@stripe/stripe-js';
+import { useState } from 'react';
+
 import { Button } from '@/components/ui/button.tsx';
 import { Spinner } from '@/components/ui/spinner.tsx';
 import { apiFetch } from '@/hooks/use-api-fetch.ts';
-import type { Stripe } from '@stripe/stripe-js';
-import { useState } from 'react';
 
 type Props = {
     plan: number;

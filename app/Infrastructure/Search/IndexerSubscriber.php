@@ -28,12 +28,12 @@ class IndexerSubscriber
 
     public function handleCreated(ContentCreatedEvent $event): void
     {
-        $this->index($event->item);
+        $this->index($event->content);
     }
 
     public function handleUpdated(ContentUpdatedEvent $event): void
     {
-        $item = $event->item;
+        $item = $event->content;
 
         if (! $item instanceof Searchable) {
             return;
@@ -44,7 +44,11 @@ class IndexerSubscriber
         if ($document !== null) {
             $this->indexer->index($document->toArray());
         } elseif ($item instanceof Model) {
-            $this->indexer->remove((string) $item->getKey());
+            try {
+                $this->indexer->remove((string) $item->getKey());
+            } catch (\Exception) {
+
+            }
         }
     }
 

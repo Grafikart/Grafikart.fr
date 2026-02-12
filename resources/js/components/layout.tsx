@@ -23,6 +23,7 @@ import { toast } from 'sonner';
 
 import CommentController from '@/actions/App/Http/Cms/CommentController.ts';
 import CourseController from '@/actions/App/Http/Cms/CourseController.ts';
+import DashboardController from '@/actions/App/Http/Cms/DashboardController.ts';
 import FormationController from '@/actions/App/Http/Cms/FormationController.ts';
 import PathController from '@/actions/App/Http/Cms/PathController.ts';
 import PlanController from '@/actions/App/Http/Cms/PlanController.ts';
@@ -83,7 +84,7 @@ const nav = [
     {
         label: 'Dashboard',
         icon: HouseIcon,
-        href: { method: 'get', url: '/' },
+        href: DashboardController.index(),
     },
     {
         label: 'Contenus',

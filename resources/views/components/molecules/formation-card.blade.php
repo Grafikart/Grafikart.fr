@@ -38,7 +38,7 @@
         <x-lucide-list class="size-4 mr-1"/>
         {{ $formation->courses->count() }} chapitres
         <x-lucide-clock class="size-4 mr-1 ml-auto"/>
-        <x-atoms.duration :duration="$formation->duration"/>
+        {{ duration($formation->duration) }}
     </div>
 </x-atoms.card>
 @endcache

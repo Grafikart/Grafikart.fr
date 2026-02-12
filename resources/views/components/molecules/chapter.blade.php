@@ -7,5 +7,5 @@
 ]) }}" @if($active) aria-selected="true" @endif>
     <x-lucide-play class="size-4 {{ $active ? 'text-primary' : 'text-muted' }}"/>
     <p>{{ $chapter->title }}</p>
-    <x-atoms.duration :duration="$chapter->duration" class="text-muted text-sm ml-auto" />
+    <span class="text-muted text-sm ml-auto">{{ duration($chapter->duration) }}</span>
 </a>

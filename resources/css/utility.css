@@ -19,7 +19,8 @@
 @utility container {
     max-width: unset;
     width: 100%;
-    padding-inline: calc(50% - min(calc(100% - 2rem), 1330px) * 0.5);
+    --width: 1330px;
+    padding-inline: calc(50% - min(calc(100% - 2rem), var(--width)) * 0.5);
 }
 
 @utility max-w-container {

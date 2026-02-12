@@ -38,7 +38,7 @@
             {{ $course->formation->title }}
         @endif
         <x-lucide-clock class="size-4 mr-1 ml-auto"/>
-        <x-atoms.duration :duration="$course->duration"/>
+            {{ duration($course->duration) }}
     </div>
 </x-atoms.card>
 @endcache

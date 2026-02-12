@@ -28,7 +28,7 @@
             <div class="flex gap-8">
                 <div class="flex items-center text-muted gap-2">
                     <x-lucide-clock class="size-4"/>
-                    <x-atoms.duration :duration="$course->duration"/>
+                    {{ duration($course->duration) }}
                 </div>
                 <div class="flex items-center text-muted gap-2">
                     <x-lucide-graduation-cap class="size-4"/> {{ $course->level->name }}

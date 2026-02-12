@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 // Home
-Route::redirect('/', '/tutoriels')->name('home');
+Route::get('/', [\App\Http\Front\HomeController::class, 'index'])->name('home');
 
 // Auth
 Route::get('/oauth/connect/{driver}', [\App\Http\Front\AuthController::class, 'connect'])->name('oauth');
@@ -29,6 +29,7 @@ Route::post('/contact', [\App\Http\Front\ContactController::class, 'submit']);
 Route::middleware(['auth'])->group(function () {
     Route::get('/profil/edit', [\App\Http\Front\PageController::class, 'privacy'])->name('users.edit');
     Route::get('/profil', [\App\Http\Front\PageController::class, 'privacy'])->name('users.show');
+    Route::get('/notifications', [\App\Http\Front\NotificationController::class, 'index'])->name('notifications');
 });
 
 // Forum
@@ -71,7 +72,7 @@ Route::group(['prefix' => '/cms', 'as' => 'cms.'], function () {
     Route::get('/', function () {
         return redirect('/cms/dashboard');
     });
-    Route::get('dashboard', \App\Http\Cms\DashboardController::class)->name('dashboard');
+    Route::get('dashboard', [\App\Http\Cms\DashboardController::class, 'index'])->name('dashboard');
     Route::resource('blog_categories', \App\Http\Cms\BlogCategoryController::class);
     Route::resource('comments', \App\Http\Cms\CommentController::class)->only(['index', 'update', 'destroy']);
     Route::get('courses/upload', [\App\Http\Cms\CourseController::class, 'upload'])->name('courses.upload');
@@ -84,6 +85,10 @@ Route::group(['prefix' => '/cms', 'as' => 'cms.'], function () {
     Route::resource('users', \App\Http\Cms\UserController::class)->only(['index', 'destroy']);
     Route::resource('transactions', \App\Http\Cms\TransactionController::class)->only(['index', 'destroy']);
     Route::resource('settings', \App\Http\Cms\SettingsController::class)->only(['index', 'store']);
+    Route::delete('jobs/{job}', [\App\Http\Cms\JobController::class, 'destroy'])->name('jobs.destroy');
+    Route::delete('failed-jobs/{job}', [\App\Http\Cms\JobController::class, 'destroyFailed'])->name('failed-jobs.destroy');
+    Route::post('failed-jobs/{job}/retry', [\App\Http\Cms\JobController::class, 'retryFailed'])->name('failed-jobs.retry');
+    Route::delete('failed-jobs', [\App\Http\Cms\JobController::class, 'flushFailed'])->name('failed-jobs.flush');
     Route::get('search', [\App\Http\Cms\SearchController::class, 'search'])->name('search');
     Route::post('twitch', [\App\Http\Cms\TwitchController::class, 'store'])->name('twitch.store');
 

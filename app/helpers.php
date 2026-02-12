@@ -43,3 +43,17 @@ function file_size(int|float $bytes, int $precision = 0, ?int $maxPrecision = nu
 
     return sprintf('%s %s', Number::format($bytes, $precision, $maxPrecision), $units[$i]);
 }
+
+function duration(?int $duration): string
+{
+    if (! $duration) {
+        return '';
+    }
+    $hours = floor($duration / 3600);
+    $minutes = floor(($duration % 3600) / 60);
+    if ($hours > 0) {
+        return sprintf('%sh%s', $hours, str_pad((string) $minutes, 2, '0', STR_PAD_LEFT));
+    }
+
+    return $minutes.'min';
+}

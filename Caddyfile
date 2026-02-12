@@ -25,6 +25,8 @@
 	}
 
 	mercure {
+		publisher_jwt publishersecretkeypublishersecretkey
+		subscriber_jwt subscribersecretkeysubscribersecretkey
 		anonymous
 	}
 }

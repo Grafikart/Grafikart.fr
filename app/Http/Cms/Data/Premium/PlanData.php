@@ -4,9 +4,11 @@ namespace App\Http\Cms\Data\Premium;
 
 use App\Domains\Cms\DataToModel;
 use App\Domains\Premium\Models\Plan;
+use App\Infrastructure\Payment\Rules\StripePriceId;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\LaravelData\Attributes\Validation\Min;
 use Spatie\LaravelData\Attributes\Validation\Required;
+use Spatie\LaravelData\Attributes\Validation\Rule;
 use Spatie\LaravelData\Data;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
@@ -24,6 +26,7 @@ class PlanData extends Data implements DataToModel
         public readonly int $duration = 0,
         #[Required]
         #[Min(2)]
+        #[Rule(new StripePriceId)]
         public readonly string $stripeId = '',
     ) {}
 

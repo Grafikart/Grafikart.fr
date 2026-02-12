@@ -31,3 +31,10 @@ customElements.define('site-header', SiteHeader);
 customElements.define('time-ago', TimeAgo);
 
 startTurbo();
+
+const es = new EventSource(
+    'http://localhost:8000/.well-known/mercure?topic=live',
+);
+es.addEventListener('message', (messageEvent) => {
+    JSON.parse(messageEvent.data);
+});

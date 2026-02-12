@@ -17,11 +17,11 @@
     <div>
         @foreach ($plans as $plan)
             <x-atoms.card
-                class="max-w-112.5 overflow-auto text-center"
+                class="max-w-100 mx-auto overflow-auto text-center"
                 id="plan{{ $plan->id }}"
                 :hidden="!$loop->first ?: null"
             >
-                <div class="px-4 pt-8 pb-2 text-[100px] font-bold leading-none text-primary">
+                <div class="px-4 pt-8 text-[100px] font-bold leading-none text-primary">
                     {{ $plan->price }}<sup class="whitespace-nowrap text-xl">€ TTC</sup>
                 </div>
 
@@ -41,17 +41,20 @@
                     <strong>Télécharger</strong>
                     les sources
                 </div>
+                <div class="p-4 bg-background">
                     <x-atoms.button
                         size="lg"
-                        class="w-max mx-auto my-8"
+                        class="w-full mx-auto cursor-pointer items-baseline"
                         as="premium-button"
                         duration="{{ $plan->duration }}"
                         plan="{{ $plan->id }}"
                         price="{{ $plan->price }}"
                         paypalid="{{ config('services.paypal.id') }}"
                     >
-                        Devenir premium ({{ $plan->name }})
+                        Devenir premium
+                        <div class="opacity-70 font-medium text-sm">({{ $plan->name }})</div>
                     </x-atoms.button>
+                </div>
             </x-atoms.card>
         @endforeach
     </div>

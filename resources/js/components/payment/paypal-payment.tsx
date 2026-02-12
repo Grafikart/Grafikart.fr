@@ -1,7 +1,8 @@
-import { APIError, apiFetch } from '@/hooks/use-api-fetch.ts';
 import { loadScript } from '@paypal/paypal-js';
 import { useEffect, useEffectEvent, useRef, useState } from 'react';
 import { toast } from 'sonner';
+
+import { APIError, apiFetch } from '@/hooks/use-api-fetch.ts';
 
 type Props = {
     price: number;

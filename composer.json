@@ -22,6 +22,7 @@
         "laravel/wayfinder": "^0.1.9",
         "league/glide": "^3.1",
         "mallardduck/blade-lucide-icons": "^1.26",
+        "mvanduijker/laravel-mercure-broadcaster": "^3.8",
         "paypal/paypal-server-sdk": "^2.2",
         "spatie/enum": "*",
         "spatie/laravel-data": "^4.18",

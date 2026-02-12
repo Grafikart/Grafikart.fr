@@ -21,7 +21,7 @@
 
 
     <div
-        class="border-t bg-background container grid grid-cols-1 md:grid-cols-[500px_1fr] gap-8 md:gap-16 py-10 md:pt-15 md:pb-20">
+        class="border-t bg-background container grid grid-cols-1 md:grid-cols-[500px_1fr] gap-8 md:gap-16 py-10 md:pt-15 md:pb-20" style="--width:1100px;">
         <x-organisms.premium :plans="$plans"/>
         <div>
             <div class="prose prose-lg">

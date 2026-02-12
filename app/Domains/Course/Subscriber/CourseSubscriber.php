@@ -20,7 +20,7 @@ class CourseSubscriber
 
     public function dispatchJob(ContentCreatedEvent|ContentUpdatedEvent $event): void
     {
-        $item = $event->item;
+        $item = $event->content;
         if (! $item instanceof Course) {
             return;
         }
