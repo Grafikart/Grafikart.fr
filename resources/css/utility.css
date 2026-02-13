@@ -1,8 +1,10 @@
 @custom-variant dark (&:is(.dark *));
 @custom-variant selected (&[selected],
 &[aria-selected="true"]);
-@custom-variant drawer-visible (body[data-drawer="visible"] &);
-@custom-variant drawer-hidden (body[data-drawer="hidden"] &);
+@custom-variant drawer-visible (&[data-drawer="visible"],
+body[data-drawer="visible"] &);
+@custom-variant drawer-hidden (&[data-drawer="hidden"],
+body[data-drawer="hidden"] &);
 
 @utility grid-fill-* {
   grid-template-columns: repeat(

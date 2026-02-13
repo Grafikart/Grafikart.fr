@@ -28,7 +28,12 @@
     @endif
 </head>
 <body
-    class="{{ cn(["font-sans antialiased text-foreground bg-background min-h-screen flex flex-col", $class ?? '', ($drawer ?? null) ? 'has-drawer' : '']) }}"
+    class="{{ cn([
+        "font-sans antialiased text-foreground bg-background min-h-screen flex flex-col",
+        $class ?? '',
+        ($drawer ?? null) === 'left' ? 'has-drawer lg:ml-(--drawer-width) drawer-hidden:ml-0!' : '',
+        ($drawer ?? null) === 'right' ? 'has-drawer lg:mr-(--drawer-width) drawer-hidden:mr-0!' : '',
+    ]) }}"
     @if(auth()->user()?->isPremium()) data-premium @endif @auth data-user="{{ auth()->id() }}" @endauth
     @if($style ?? null) style="{{ $style }}" @endif
 >

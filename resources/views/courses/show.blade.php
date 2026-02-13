@@ -12,8 +12,8 @@
 @endsection
 
 @section('body')
-    <main class="lg:mr-(--drawer-width) bg-background-light">
-        <div class="container">
+    <main class="bg-background-light">
+        <div class="max-w-container mx-auto">
             <h1 class="text-5xl font-bold mb-2 font-serif text-foreground-title">
                 <span class="hidden">
                     @if($course->formation)
