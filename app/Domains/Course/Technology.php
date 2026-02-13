@@ -55,7 +55,7 @@ class Technology extends Model implements RegisterMedia
     }
 
     /**
-     * @return BelongsToMany<Course, $this>
+     * @return BelongsToMany<Formation, $this>
      */
     public function formations(): BelongsToMany
     {

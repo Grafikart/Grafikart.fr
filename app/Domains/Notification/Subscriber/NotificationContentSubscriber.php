@@ -9,7 +9,7 @@ use App\Domains\Course\Formation;
 use App\Domains\Notification\NotificationService;
 use Illuminate\Events\Dispatcher;
 
-class ContentSubscriber
+class NotificationContentSubscriber
 {
     public function __construct(private NotificationService $service) {}
 

@@ -81,6 +81,7 @@ return [
             'driver' => 'mercure',
             'url' => env('MERCURE_URL', 'http://localhost:8000/.well-known/mercure'),
             'secret' => env('MERCURE_SECRET', 'publishersecretkeypublishersecretkey'),
+            'subscriberSecret' => env('MERCURE_SUBSCRIBER_SECRET', 'subscribersecretkeysubscribersecretkey'),
         ],
 
     ],

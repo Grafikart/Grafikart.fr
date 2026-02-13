@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'default' => env('SEARCH_ENGINE', 'typesense'),
+    'default' => env('SEARCH_ENGINE', ''),
 
     /*
     |--------------------------------------------------------------------------

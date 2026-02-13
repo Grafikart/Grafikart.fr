@@ -61,7 +61,7 @@ export function PaypalPayment(props: Props) {
                 throw new Error('Cannot load paypal Button SDK');
             }
             container.current!.innerHTML = '';
-            const buttons = await paypal
+            await paypal
                 .Buttons({
                     style: {
                         label: 'pay',
@@ -111,7 +111,7 @@ export function PaypalPayment(props: Props) {
                         apiFetch(`/api/premium/paypal/${data.orderID}`, {
                             method: 'POST',
                         })
-                            .then((r) => {
+                            .then(() => {
                                 window.location.href = '?success=1';
                             })
                             .catch((e: APIError) => {
@@ -120,7 +120,7 @@ export function PaypalPayment(props: Props) {
                     },
                 })
                 .render(container.current!);
-        } catch (e) {
+        } catch {
             toast.error(
                 'Une erreur est survenue lors du chargement des boutons PaypPal',
             );

@@ -18,10 +18,9 @@ readonly class NotificationService
     /**
      * Send a notification on a specific Channel
      */
-    public function send(string $message, ?object $model, ?User $user = null, string $channel = 'public', ?CarbonInterface $date = null): Notification
+    public function send(string $message, ?Model $model = null, ?User $user = null, string $channel = 'public', ?CarbonInterface $date = null, $url = null): Notification
     {
-        $url = $model ? $this->urlGenerator->url($model) : null;
-        assert($model === null || $model instanceof Model);
+        $url ??= $model ? $this->urlGenerator->url($model) : '/';
         $notification = Notification::updateOrCreate([
             'url' => $url,
             'channel' => $channel,
@@ -49,6 +48,13 @@ readonly class NotificationService
         $user->notifications_read_at = now();
         $user->save();
         event(new NotificationReadEvent($user));
+    }
+
+    public function clean(): int
+    {
+        return Notification::query()
+            ->where('created_at', '<', now()->subMonths(6))
+            ->delete();
     }
 
     public function getChannelsForUser(User $user): array

@@ -6,18 +6,18 @@ use App\Infrastructure\Payment\Payment;
 use Stripe\Charge;
 use Stripe\PaymentIntent;
 
-class StripePaymentFactory
+readonly class StripePaymentFactory
 {
-    public function __construct(private readonly StripeApi $api) {}
+    public function __construct(private StripeApi $api) {}
 
     public function createPaymentFromIntent(PaymentIntent $intent): Payment
     {
-        /** @var Charge $charge */
-        $charge = $intent->charges->data[0];
+        $charge = $intent->latest_charge;
+        assert($charge instanceof Charge, 'Cannot resolve the charge from the payment intent');
         if (is_string($charge->balance_transaction)) {
             $charge->balance_transaction = $this->api->getTransaction($charge->balance_transaction);
         }
-        // Le paiement provient d'un abonnement et dispose d'une facture
+        // TODO : Check if it still exists in the API
         if ($intent->invoice) {
             $invoice = $this->api->getInvoice($intent->invoice);
             $subscription = $this->api->getSubscription((string) $invoice->subscription);

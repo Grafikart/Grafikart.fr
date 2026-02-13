@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property \DateTimeImmutable|null $next_payment
+ */
 class Subscription extends Model
 {
     /** @use HasFactory<SubscriptionFactory> */

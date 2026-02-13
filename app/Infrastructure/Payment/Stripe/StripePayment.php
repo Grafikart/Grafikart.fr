@@ -17,20 +17,21 @@ class StripePayment extends Payment
      */
     public function __construct(PaymentIntent $intent, object $extra)
     {
-        /** @var Charge $charge */
-        $charge = $intent->charges->data[0];
-        /** @var BalanceTransaction $transaction */
+        $charge = $intent->latest_charge;
+        assert($charge instanceof Charge, 'Cannot resolve the charge from the payment intent '.$intent->id);
         $transaction = $charge->balance_transaction;
+        assert($transaction instanceof BalanceTransaction, 'Cannot resolve the balance_transaction from the payment intent '.$intent->id);
 
         $amount = 0;
         $vat = 0;
         if ($extra instanceof Invoice) {
-            /** @var InvoiceLineItem $line */
             $line = $extra->lines->data[0];
+            assert($line instanceof InvoiceLineItem, 'Expecting a line when reading extra data for intent '.$intent->id);
             $amount = $line->amount;
             if (isset($line->tax_amounts[0])) {
                 /** @var \stdClass $tax */
                 $tax = $line->tax_amounts[0];
+                assert($tax instanceof \stdClass, 'Expecting a tax_amount.0 to be a class on '.$intent->id);
                 $vat = $tax->amount;
             }
         } elseif ($extra instanceof Session) {

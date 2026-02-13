@@ -2,15 +2,21 @@
 
 namespace App\Domains\Notification\Events;
 
+use App\Domains\Notification\Models\Notification;
+use App\Domains\Notification\NotificationData;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Illuminate\Queue\SerializesModels;
+use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
+#[TypeScript]
 readonly class NotificationCreatedEvent implements ShouldBroadcast
 {
-    use SerializesModels;
+    public NotificationData $notification;
 
-    public function __construct(public \App\Domains\Notification\Models\Notification $notification) {}
+    public function __construct(Notification $notification)
+    {
+        $this->notification = NotificationData::from($notification);
+    }
 
     public function broadcastOn(): Channel
     {

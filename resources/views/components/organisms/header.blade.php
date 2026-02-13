@@ -6,6 +6,7 @@
         ['label' => 'Premium', 'href' => '/premium', 'icon' => 'star', 'highlight' => true],
         ['label' => 'Blog', 'href' => '/blog', 'icon' => 'notebook-pen'],
     ];
+    $user = auth()->user();
 @endphp
 
 <site-header class="[body:not(.has-sidebar)_&]:container block text-foreground-title fixed top-0 left-0 right-0 z-50 transition-all [&+*]:pt-28">
@@ -46,6 +47,11 @@
             </nav>
         </div>
         <div class="flex items-center gap-2" style="view-transition-name: header-right">
+            @if($user)
+            <site-notification class="size-6 grid place-items-center hover:text-primary transition-colors relative" read-at="{{ $user->notifications_read_at->getTimestamp() ?? $user->created_at->getTimestamp() }}">
+                <x-lucide-bell class="size-4"/>
+            </site-notification>
+            @endif
             <site-search class="size-6 grid place-items-center hover:text-primary transition-colors">
                 <x-lucide-search class="size-4"/>
             </site-search>

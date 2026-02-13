@@ -6,6 +6,7 @@ import { LazyVideo } from '@/elements/lazy-video.ts';
 import { NavTabs } from '@/elements/nav-tabs.ts';
 import { PremiumButton } from '@/elements/premium-button.tsx';
 import { SiteHeader } from '@/elements/site-header.ts';
+import { SiteNotificationElement } from '@/elements/site-notification.ts';
 import { SiteSearch } from '@/elements/site-search.tsx';
 import { ThemeSwitcher } from '@/elements/theme-switcher.tsx';
 import { TimeAgo } from '@/elements/time-ago.ts';
@@ -28,6 +29,7 @@ customElements.define('nav-tabs', NavTabs);
 customElements.define('premium-button', PremiumButton);
 customElements.define('con-fetti', Confetti);
 customElements.define('site-header', SiteHeader);
+customElements.define('site-notification', SiteNotificationElement);
 customElements.define('time-ago', TimeAgo);
 
 startTurbo();

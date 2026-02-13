@@ -11,11 +11,11 @@
     <div class="border-t bg-background pt-10">
         <div class="container">
             @foreach($notifications as $notification)
-                <div>
-                    <p>
-                        <a class="formatted ignore-br" href="{{ $notification->url }}">{!! $notification->message !!}</a>
-                    </p>
-                    <x-atoms.ago :time="$notification->created_at"/>
+                <div class="p-4 -mx-4 border-b relative">
+                    <a href="{{ $notification->url }}" class="overlay hover:underline block">
+                       {!! $notification->message !!}
+                    </a>
+                    <x-atoms.ago class="text-muted text-sm block" :date="$notification->created_at"/>
                 </div>
             @endforeach
         </div>

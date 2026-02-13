@@ -1,5 +1,6 @@
 <?php
 
+use App\Domains\Notification\Http\MercureSubscriberMiddleware;
 use App\Http\Middleware\HandleAppearance;
 use App\Http\Middleware\HandleInertiaRequests;
 use Illuminate\Foundation\Application;
@@ -18,13 +19,14 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->validateCsrfTokens(except: ['*']);
-        $middleware->encryptCookies(except: ['appearance', 'sidebar_state']);
+        $middleware->encryptCookies(except: ['appearance', 'sidebar_state', 'mercureAuthorization']);
         $middleware->statefulApi();
 
         $middleware->web(append: [
             HandleAppearance::class,
             HandleInertiaRequests::class,
             AddLinkHeadersForPreloadedAssets::class,
+            MercureSubscriberMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

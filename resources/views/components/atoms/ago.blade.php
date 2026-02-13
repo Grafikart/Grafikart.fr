@@ -1,1 +1,2 @@
-<time-ago time="{{ $date->getTimestamp() }}">{{ $date->diffForHumans() }}</time-ago>
+@props(['date'])
+<time-ago time="{{ $date->getTimestamp() }}" {{ $attributes }}>{{ $date->diffForHumans() }}</time-ago>

@@ -42,6 +42,7 @@ class Progress extends Model
      */
     public function progressable(): MorphTo
     {
+        /** @phpstan-ignore return.type */
         return $this->morphTo();
     }
 

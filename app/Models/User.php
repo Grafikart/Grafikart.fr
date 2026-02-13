@@ -53,6 +53,7 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'immutable_datetime',
+            'notifications_read_at' => 'immutable_datetime',
             'password' => 'hashed',
             'two_factor_confirmed_at' => 'immutable_datetime',
             'created_at' => 'immutable_datetime',

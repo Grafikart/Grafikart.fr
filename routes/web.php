@@ -73,6 +73,7 @@ Route::group(['prefix' => '/cms', 'as' => 'cms.'], function () {
         return redirect('/cms/dashboard');
     });
     Route::get('dashboard', [\App\Http\Cms\DashboardController::class, 'index'])->name('dashboard');
+    Route::post('dashboard/notifications', [\App\Http\Cms\DashboardController::class, 'notification'])->name('notifications.store');
     Route::resource('blog_categories', \App\Http\Cms\BlogCategoryController::class);
     Route::resource('comments', \App\Http\Cms\CommentController::class)->only(['index', 'update', 'destroy']);
     Route::get('courses/upload', [\App\Http\Cms\CourseController::class, 'upload'])->name('courses.upload');

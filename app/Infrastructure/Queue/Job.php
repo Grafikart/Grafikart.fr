@@ -38,11 +38,6 @@ class Job extends Model
         });
     }
 
-    /**
-     * @return Attribute<object|null, never>
-     *
-     * @phpstan-ignore return.type
-     */
     public function job(): Attribute
     {
         return Attribute::get(function (): ?object {

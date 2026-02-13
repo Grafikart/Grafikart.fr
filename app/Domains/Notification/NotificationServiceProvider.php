@@ -2,7 +2,7 @@
 
 namespace App\Domains\Notification;
 
-use App\Domains\Notification\Subscriber\ContentSubscriber;
+use App\Domains\Notification\Subscriber\NotificationContentSubscriber;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
@@ -15,6 +15,6 @@ class NotificationServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        Event::subscribe(ContentSubscriber::class);
+        Event::subscribe(NotificationContentSubscriber::class);
     }
 }

@@ -1,22 +1,25 @@
 import {
     AlertTriangleIcon,
     BarChart3Icon,
+    BellIcon,
     ClockIcon,
     RotateCcwIcon,
     TrashIcon,
 } from 'lucide-react';
 import type { ReactNode } from 'react';
+import { toast } from 'sonner';
 
 import {
     destroy,
     destroyFailed,
     flushFailed,
     retryFailed,
-} from '@/actions/App/Http/Cms/JobController';
+} from '@/actions/App/Http/Cms/JobController.ts';
 import { withLayout } from '@/components/layout.tsx';
 import { PageTitle } from '@/components/page-title.tsx';
 import { ButtonLink } from '@/components/ui/button-link.tsx';
-import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button.tsx';
+import { Card, CardContent } from '@/components/ui/card.tsx';
 import { SimpleChart } from '@/components/ui/simple-chart.tsx';
 import {
     Table,
@@ -25,9 +28,15 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from '@/components/ui/table';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { formatDate } from '@/lib/date';
+} from '@/components/ui/table.tsx';
+import {
+    Tabs,
+    TabsContent,
+    TabsList,
+    TabsTrigger,
+} from '@/components/ui/tabs.tsx';
+import { apiFetch } from '@/hooks/use-api-fetch.ts';
+import { formatDate } from '@/lib/date.ts';
 import type { DailyData, JobItemData, MonthlyData } from '@/types';
 
 type Props = {
@@ -61,6 +70,17 @@ export default withLayout<Props>(
                     />
                 )}
                 <RevenueChart months={props.months} days={props.days} />
+                <Button
+                    variant="secondary"
+                    onClick={() => {
+                        apiFetch('/cms/dashboard/notifications', {
+                            method: 'POST',
+                        }).then(() => toast.success('Notification envoyée'));
+                    }}
+                >
+                    <BellIcon />
+                    Envoyer une notification de test
+                </Button>
             </div>
         );
     },

@@ -79,7 +79,7 @@ readonly class StripeWebhookController
         $user = $this->getUserFromCustomer((string) $stripeSubscription->customer);
         Subscription::create([
             'state' => 1,
-            'next_payment' => new \DateTimeImmutable("@{$stripeSubscription->current_period_end}"),
+            'next_payment' => new \DateTimeImmutable('@'.($stripeSubscription?->current_period_end ?? 0)),
             'plan_id' => $plan->id,
             'user_id' => $user->id,
             'stripe_id' => $stripeSubscription->id,
@@ -98,7 +98,7 @@ readonly class StripeWebhookController
             $subscription->state = Subscription::INACTIVE;
         } else {
             $subscription->state = Subscription::ACTIVE;
-            $subscription->next_payment = new \DateTimeImmutable("@{$stripeSubscription->current_period_end}");
+            $subscription->next_payment = new \DateTimeImmutable('@'.($stripeSubscription?->current_period_end ?? 0));
         }
         $subscription->save();
 
