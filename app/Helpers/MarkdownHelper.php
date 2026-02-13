@@ -4,8 +4,11 @@ namespace App\Helpers;
 
 final class MarkdownHelper
 {
-    public static function html(string $content): string
+    public static function html(?string $content = null): string
     {
+        if (! $content) {
+            return '';
+        }
         $content = (new CustomParsedown)->setBreaksEnabled(true)->setSafeMode(false)->text($content);
         // On remplace les liens youtube par un embed
         $content = (string) preg_replace_callback(

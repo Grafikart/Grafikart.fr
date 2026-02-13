@@ -5,6 +5,7 @@ namespace App\Http\Cms\Data;
 use App\Domains\Blog\Post;
 use App\Domains\Course\Course;
 use App\Domains\Course\Formation;
+use App\Domains\Course\Technology;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\LaravelData\Data;
@@ -34,6 +35,12 @@ class SearchResultData extends Data
                 name: $model->title,
                 type: 'post',
                 url: route('cms.posts.edit', [$model->id]),
+            ),
+            $model instanceof Technology => new self(
+                id: $model->id,
+                name: $model->name,
+                type: 'technology',
+                url: route('cms.technologies.edit', [$model->id]),
             ),
             $model instanceof Formation => new self(
                 id: $model->id,

@@ -5,6 +5,7 @@ namespace App\Http\Cms;
 use App\Domains\Blog\Post;
 use App\Domains\Course\Course;
 use App\Domains\Course\Formation;
+use App\Domains\Course\Technology;
 use App\Http\Cms\Data\SearchResultData;
 use App\Http\Controller;
 use App\Models\User;
@@ -33,9 +34,19 @@ class SearchController extends Controller
         $search = $pos !== false ? substr($q, $pos + 1) : $q;
         $searchLike = "%{$search}%";
 
+        if (str_starts_with($q, 'c:')) {
+            return Technology::query()
+                ->whereLike('name', $searchLike)
+                ->orderByDesc('created_at')
+                ->limit(10)
+                ->get()
+                ->map(fn (Technology $technology) => SearchResultData::from($technology));
+        }
+
         $query = match (true) {
             str_starts_with($q, 'b:') => Post::query(),
             str_starts_with($q, 'f:') => Formation::query(),
+            str_starts_with($q, 'c:') => Technology::query(),
             default => Course::query(),
         };
 

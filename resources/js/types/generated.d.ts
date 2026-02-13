@@ -73,14 +73,14 @@ export type CourseFormData = {
   source: boolean
   attachment: AttachmentUrlData | null
   youtubeThumbnail: AttachmentUrlData | null
-  technologies: Array<TechnologyUsageData> | null
+  technologies: Array<TechnologyUsageData> | Array<any> | null
 }
 export type CourseRowData = {
   id: number
   title: string
   online: boolean
   createdAt: string
-  technologies: Array<TechnologyUsageData>
+  technologies: Array<TechnologyUsageData> | Array<any>
 }
 export type DailyData = {
   date: string
@@ -117,14 +117,14 @@ export type FormationFormData = {
   youtubePlaylist: string | null
   links: string | null
   chapters: Array<ChapterData>
-  technologies: Array<TechnologyUsageData> | null
+  technologies: Array<TechnologyUsageData> | Array<any> | null
 }
 export type FormationRowData = {
   id: number
   title: string
   online: boolean
   createdAt: string
-  technologies: Array<TechnologyUsageData>
+  technologies: Array<TechnologyUsageData> | Array<any>
 }
 export type FormationViewData = {
   type: string
@@ -228,8 +228,9 @@ export type TechnologyFormData = {
   name: string
   slug: string
   content: string
+  deprecated: boolean
   image: string | null
-  requirements: Array<OptionItemData> | null
+  requirements: Array<OptionItemData> | Array<any> | null
 }
 export type TechnologyRowData = {
   id: number

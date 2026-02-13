@@ -9,11 +9,13 @@
     <div class="flex items-start justify-between mb-3">
         <div class="h-10 flex items-center gap-1">
             @foreach($course->mainTechnologies as $tech)
-                <img
-                    src="{{ $tech->mediaUrl('image') }}"
-                    alt="{{ $tech->name }}"
-                    class="size-10 object-contain"
-                />
+                <a href="{{ route('technologies.show', ['technology' => $tech->slug]) }}" class="relative z-2">
+                    <img
+                        src="{{ $tech->mediaUrl('image') }}"
+                        alt="{{ $tech->name }}"
+                        class="size-10 object-contain"
+                    />
+                </a>
             @endforeach
         </div>
 

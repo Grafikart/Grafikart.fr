@@ -4,6 +4,7 @@ import {
   SearchIcon,
   SquarePlayIcon,
   StarIcon,
+  XIcon,
 } from "lucide-react"
 import {
   createContext,
@@ -86,6 +87,15 @@ function CourseFiltersInner() {
           onChange={(e) => setSearch(e.target.value)}
         />
         <SearchIcon className="absolute top-3 left-2 size-4 text-muted peer-focus:text-primary" />
+        {hasSearch && (
+          <button
+            type="button"
+            onClick={() => setSearch("")}
+            className="absolute top-3 right-2 size-4 cursor-pointer text-muted hover:text-foreground"
+          >
+            <XIcon className="size-4" />
+          </button>
+        )}
       </div>
       {!hasSearch && (
         <div>

@@ -22,6 +22,7 @@ class Technology extends Model implements RegisterMedia
         'content',
         'image',
         'type',
+        'deprecated',
     ];
 
     /**

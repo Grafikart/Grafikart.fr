@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/command"
 import { ImageInput } from "@/components/ui/form/image-input.tsx"
 import { SlugInput } from "@/components/ui/form/slug-input.tsx"
+import { Switch } from "@/components/ui/switch.tsx"
 import { useApiFetch } from "@/hooks/use-api-fetch"
 import { useList } from "@/hooks/use-list"
 import { cn } from "@/lib/utils"
@@ -65,7 +66,15 @@ export default withLayout<Props>(
               name="imageFile"
               className="aspect-video"
             />
-            <CardContent>
+            <CardContent className="space-y-4">
+              <div className="flex items-center gap-2">
+                <Switch
+                  id="deprecated"
+                  name="deprecated"
+                  defaultChecked={item.deprecated}
+                />
+                <label htmlFor="deprecated">Dépréciée</label>
+              </div>
               <RequirementsSelector defaultValue={item.requirements ?? []} />
             </CardContent>
           </Card>

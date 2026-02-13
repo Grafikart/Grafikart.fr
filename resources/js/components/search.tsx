@@ -34,7 +34,7 @@ export function Search() {
     <CommandDialog
       open={open}
       onOpenChange={setOpen}
-      className="top-10 w-full max-w-100 translate-y-0"
+      className="mt-10 w-full max-w-100 translate-y-0"
     >
       <SearchCommand />
     </CommandDialog>
