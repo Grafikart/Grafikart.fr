@@ -13,6 +13,7 @@ import { TimeAgo } from "@/elements/time-ago.ts"
 import { lazywc, r2wc } from "@/lib/custom-element.ts"
 import { start as startTurbo } from "@/lib/turbo/index.ts"
 import "../css/front.css"
+import { DrawerToggle } from "@/elements/DrawerToggle.ts"
 
 r2wc("path-preview", () => import("@/elements/path-preview.tsx"))
 r2wc("path-detail", () => import("@/elements/path-detail.tsx"))
@@ -31,6 +32,7 @@ customElements.define("con-fetti", Confetti)
 customElements.define("site-header", SiteHeader)
 customElements.define("site-notification", SiteNotificationElement)
 customElements.define("time-ago", TimeAgo)
+customElements.define("drawer-toggle", DrawerToggle)
 
 startTurbo()
 

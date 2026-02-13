@@ -16,7 +16,7 @@ export function StickyVideo(props: Props) {
   })
   const availableWidth = useMemo(() => {
     const w = (width - 900) / 2
-    if (document.body.classList.contains("has-sidebar")) {
+    if (document.body.classList.contains("has-drawer")) {
       return w + 120
     }
     return w

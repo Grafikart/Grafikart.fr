@@ -9,8 +9,18 @@
     $user = auth()->user();
 @endphp
 
-<site-header class="[body:not(.has-sidebar)_&]:container block text-foreground-title fixed top-0 left-0 right-0 z-50 transition-all [&+*]:pt-28">
-    <div class="flex items-center justify-between gap-2 border-b py-3 font-semibold in-[.has-sidebar]:px-4">
+<site-header class="[body:not(.has-drawer)_&]:container block text-foreground-title fixed top-0 left-0 right-0 z-50 transition-all [&+*]:pt-28">
+    <div class="flex items-center gap-2 border-b py-3 font-semibold in-[.has-drawer]:px-4">
+        @if($drawer === 'left')
+            <div class="contents 3xl:hidden">
+                <drawer-toggle class="p-2 -ml-2 cursor-pointer block hover:text-primary">
+                    <x-lucide-panel-left-open class="size-4 lg:hidden drawer-visible:hidden drawer-hidden:block"/>
+                    <x-lucide-panel-left-close
+                        class="size-4 hidden lg:block drawer-visible:block drawer-hidden:hidden"/>
+                </drawer-toggle>
+                <x-atoms.separator class="h-4 mr-2" orientation="vertical"/>
+            </div>
+        @endif
         <div style="view-transition-name:header-left" class="flex items-center">
             <a href="/" class="text-foreground mr-6">
                 <x-atoms.logo/>
@@ -46,7 +56,7 @@
                 @endif
             </nav>
         </div>
-        <div class="flex items-center gap-2" style="view-transition-name: header-right">
+        <div class="flex items-center gap-2 ml-auto" style="view-transition-name: header-right">
             @if($user)
             <site-notification class="size-6 grid place-items-center hover:text-primary transition-colors relative" read-at="{{ $user->notifications_read_at->getTimestamp() ?? $user->created_at->getTimestamp() }}">
                 <x-lucide-bell class="size-4"/>
@@ -84,5 +94,15 @@
                 </div>
             @endauth
         </div>
+        @if($drawer === 'right')
+            <div class="contents 3xl:hidden">
+                <x-atoms.separator class="h-4 mr-2" orientation="vertical"/>
+                <drawer-toggle class="p-2 -mr-2 cursor-pointer block hover:text-primary">
+                    <x-lucide-panel-right-open class="size-4 lg:hidden drawer-visible:hidden drawer-hidden:block"/>
+                    <x-lucide-panel-right-close
+                        class="size-4 hidden lg:block drawer-visible:block drawer-hidden:hidden"/>
+                </drawer-toggle>
+            </div>
+        @endif
     </div>
 </site-header>

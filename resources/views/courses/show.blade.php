@@ -1,4 +1,4 @@
-@extends('front', ['class' => ($course->formation_id ? ' has-sidebar' : '')])
+@extends('front', ['class' => ($course->formation_id ? ' has-drawer' : ''), 'style' => '--drawer-width: 350px', 'drawer' => 'right'])
 
 @section('title', sprintf('Tutoriel video %s : %s',$course->mainTechnologies->pluck('name')->join(' & '), $course->title ))
 
@@ -12,7 +12,7 @@
 @endsection
 
 @section('body')
-    <main class="in-[.has-sidebar]:mr-(--sidebar-width) bg-background-light">
+    <main class="lg:mr-(--drawer-width) bg-background-light">
         <div class="container">
             <h1 class="text-5xl font-bold mb-2 font-serif text-foreground-title">
                 <span class="hidden">

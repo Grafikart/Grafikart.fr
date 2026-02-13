@@ -50,11 +50,11 @@ Route::get('/cursus/{slug}-{path}', [\App\Http\Front\PathController::class, 'sho
     ->middleware(\App\Http\Middleware\RedirectIfSlugMismatch::class.':path');
 Route::get('/cursus/{node}', [\App\Http\Front\PathController::class, 'node'])->name('paths.node');
 Route::get('/tutoriels', [\App\Http\Front\CourseController::class, 'index'])->name('courses.index');
-Route::get('/tutoriels/{technology:slug}', [\App\Http\Front\TechnologyController::class, 'show'])->name('technologies.show');
 Route::get('/tutoriels/{slug}-{course}', [\App\Http\Front\CourseController::class, 'show'])
     ->whereNumber('course')
     ->middleware(\App\Http\Middleware\RedirectIfSlugMismatch::class.':course')
     ->name('courses.show');
+Route::get('/tutoriels/{technology:slug}', [\App\Http\Front\TechnologyController::class, 'show'])->name('technologies.show');
 Route::get('/formations', [\App\Http\Front\FormationController::class, 'index'])->name('formations.index');
 Route::get('/formations/{formation:slug}', [\App\Http\Front\FormationController::class, 'show'])
     ->name('formations.show');

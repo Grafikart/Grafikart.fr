@@ -92,9 +92,12 @@ tt: vendor/autoload.php ## Lance le watcher phpunit
 	# $(drtest) phptest bin/console cache:clear --env=test
 	# $(drtest) phptest vendor/bin/phpunit-watcher watch --filter="nothing"
 
-lint: vendor/autoload.php ## Analyse le code
-	docker run -v $(PWD):/app -w /app -t --rm grafikart/php:php8.2-2 php -d memory_limit=-1 bin/console lint:container
-	docker run -v $(PWD):/app -w /app -t --rm grafikart/php:php8.2-2 php -d memory_limit=-1 ./vendor/bin/phpstan analyse
+format: ## Analyse le code
+	bunx biome check --write
+	./vendor/bin/pint --dirty
+
+lint: ## Analyse le code
+	./vendor/bin/phpstan analyse --memory-limit=2G
 
 security-check: vendor/autoload.php ## Check pour les vulnérabilités des dependencies
 	$(de) php local-php-security-checker --path=/var/www
@@ -102,10 +105,6 @@ security-check: vendor/autoload.php ## Check pour les vulnérabilités des depen
 typescript: ## Génère les types TypeScript
 	php artisan typescript:transform
 	sed -i 's/ | Array<any>//g' resources/js/types/generated.d.ts
-
-format: ## Formate le code
-	bunx prettier-standard --lint --changed "assets/**/*.{js,css,jsx}"
-	docker run -v $(PWD):/app -w /app -t --rm grafikart/php:php8.2-2 php -d memory_limit=-1 ./vendor/bin/php-cs-fixer fix
 
 refactor: ## Reformate le code avec rector
 	docker run -v $(PWD):/app -w /app -t --rm grafikart/php:php8.2-2 php -d memory_limit=-1 ./vendor/bin/rector process src

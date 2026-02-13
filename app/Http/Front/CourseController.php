@@ -13,7 +13,6 @@ class CourseController
         $query = Course::query()
             ->published()
             ->with('mainTechnologies', 'formation')
-            ->whereNull('formation_id')
             ->orderByDesc('created_at');
 
         if ($filter->technology) {

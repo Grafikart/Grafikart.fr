@@ -27,14 +27,18 @@
         <script src="https://cdn.jsdelivr.net/npm/frankenphp-hot-reload/+esm" type="module"></script>
     @endif
 </head>
-<body class="{{ cn(["font-sans antialiased text-foreground bg-background min-h-screen flex flex-col", $class ?? '']) }}" @if(auth()->user()?->isPremium()) data-premium @endif @auth data-user="{{ auth()->id() }}" @endauth>
+<body
+    class="{{ cn(["font-sans antialiased text-foreground bg-background min-h-screen flex flex-col", $class ?? '', ($drawer ?? null) ? 'has-drawer' : '']) }}"
+    @if(auth()->user()?->isPremium()) data-premium @endif @auth data-user="{{ auth()->id() }}" @endauth
+    @if($style ?? null) style="{{ $style }}" @endif
+>
 @if (session('success'))
     <x-atoms.toast type="success" :message="session('success')" />
 @endif
 @if (session('error'))
     <x-atoms.toast type="error" :message="session('error')" />
 @endif
-<x-organisms.header />
+<x-organisms.header :drawer="$drawer ?? null" />
 @yield('body')
 <x-organisms.footer />
 <search-input></search-input>

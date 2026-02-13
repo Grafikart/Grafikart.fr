@@ -1,10 +1,10 @@
-@extends('front', ['class' => 'has-sidebar'])
+@extends('front', ['drawer' => 'left', 'style' => '--drawer-width: 300px;'])
 
-@section('title', ($type === 'course' ? 'Tous les tutoriesl' : 'Toutes les formations') . ($page > 1 ? ', page ' . $page : ''))
+@section('title', ($type === 'course' ? 'Tous les tutoriels' : 'Toutes les formations') . ($page > 1 ? ', page ' . $page : ''))
 
 @section('body')
-    <div class="ml-(--sidebar-width)" style="--sidebar-width: 300px;">
-        <main class="max-w-container mx-auto">
+    <main class="lg:ml-(--drawer-width)">
+        <div class="max-w-container mx-auto">
             <div class="grid grid-fill-261 gap-6 grid-flow-row-dense">
                 @if($show_title)
                     @if($page === 1)
@@ -54,11 +54,12 @@
             <div class="mt-8">
                 {{ $items->links() }}
             </div>
-        </main>
+        </div>
 
-        <x-molecules.drawer side="left" class="w-75">
-            <course-filters></course-filters>
-        </x-molecules.drawer>
-    </div>
+    </main>
+
+    <x-molecules.drawer side="left" class="w-75">
+        <course-filters></course-filters>
+    </x-molecules.drawer>
 
 @endsection

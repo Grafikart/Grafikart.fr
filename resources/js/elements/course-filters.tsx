@@ -285,8 +285,8 @@ function FilterLink({
       className={cn(
         "flex items-center gap-2 px-2 py-1.5 text-sm [&_svg]:size-4",
         !root && "border-l",
-        "aria-selected:border-l-2 aria-selected:border-l-primary aria-selected:bg-primary/5 aria-selected:text-primary",
-        "hover:bg-border/20",
+        "aria-selected:border-l-2 aria-selected:border-l-primary aria-selected:bg-list-hover aria-selected:text-primary",
+        "hover:bg-list-hover",
         className,
       )}
     >
