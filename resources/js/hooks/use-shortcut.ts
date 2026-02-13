@@ -1,44 +1,44 @@
-import { useEffect, useEffectEvent } from 'react';
+import { useEffect, useEffectEvent } from "react"
 
 type Modifiers = {
-    ctrlKey?: boolean;
-    shiftKey?: boolean;
-    altKey?: boolean;
-    metaKey?: boolean;
-    when?: boolean;
-};
+  ctrlKey?: boolean
+  shiftKey?: boolean
+  altKey?: boolean
+  metaKey?: boolean
+  when?: boolean
+}
 
 export function useShortcut(
-    key: string,
-    modifiers: Modifiers,
-    callback: () => void,
+  key: string,
+  modifiers: Modifiers,
+  callback: () => void,
 ): void {
-    const onKeyDown = useEffectEvent((e: KeyboardEvent) => {
-        const lowerKey = key.toLowerCase();
+  const onKeyDown = useEffectEvent((e: KeyboardEvent) => {
+    const lowerKey = key.toLowerCase()
 
-        if (e.key.toLowerCase() !== lowerKey) {
-            return;
-        }
-        if (!!modifiers.ctrlKey !== e.ctrlKey) return;
-        if (!!modifiers.shiftKey !== e.shiftKey) return;
-        if (!!modifiers.altKey !== e.altKey) return;
-        if (!!modifiers.metaKey !== e.metaKey) return;
+    if (e.key.toLowerCase() !== lowerKey) {
+      return
+    }
+    if (!!modifiers.ctrlKey !== e.ctrlKey) return
+    if (!!modifiers.shiftKey !== e.shiftKey) return
+    if (!!modifiers.altKey !== e.altKey) return
+    if (!!modifiers.metaKey !== e.metaKey) return
 
-        e.preventDefault();
-        callback();
-    });
-    useEffect(() => {
-        if (modifiers.when === false) {
-            return;
-        }
+    e.preventDefault()
+    callback()
+  })
+  useEffect(() => {
+    if (modifiers.when === false) {
+      return
+    }
 
-        const lowerKey = key.toLowerCase();
-        const eventName = lowerKey === 'escape' ? 'keyup' : 'keydown';
+    const lowerKey = key.toLowerCase()
+    const eventName = lowerKey === "escape" ? "keyup" : "keydown"
 
-        document.addEventListener(eventName, onKeyDown);
+    document.addEventListener(eventName, onKeyDown)
 
-        return () => {
-            document.removeEventListener(eventName, onKeyDown);
-        };
-    }, [key, modifiers.when]);
+    return () => {
+      document.removeEventListener(eventName, onKeyDown)
+    }
+  }, [key, modifiers.when])
 }

@@ -1,33 +1,31 @@
-import { AlertCircleIcon } from "lucide-react";
-import { useEffect, useRef } from "react";
-
-import { useFormError, useFormErrors } from "@/components/form.tsx";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert.tsx";
-import { FieldError } from "@/components/ui/field.tsx";
-
+import { AlertCircleIcon } from "lucide-react"
+import { useEffect, useRef } from "react"
+import { useFormError, useFormErrors } from "@/components/form.tsx"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert.tsx"
+import { FieldError } from "@/components/ui/field.tsx"
 
 type Props = {
-  name: string;
-};
+  name: string
+}
 
 export function ValidationError(props: Props) {
-  const error = useFormError(props.name);
+  const error = useFormError(props.name)
   if (!error) {
-    return null;
+    return null
   }
-  return <FieldError>{error}</FieldError>;
+  return <FieldError>{error}</FieldError>
 }
 
 export function ValidationErrors() {
-  const errors = useFormErrors();
-  const alertRef = useRef<HTMLDivElement>(null);
+  const errors = useFormErrors()
+  const alertRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    alertRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [errors]);
+    alertRef.current?.scrollIntoView({ behavior: "smooth" })
+  }, [])
 
   if (Object.keys(errors).length === 0) {
-    return null;
+    return null
   }
 
   return (
@@ -44,5 +42,5 @@ export function ValidationErrors() {
         </ul>
       </AlertDescription>
     </Alert>
-  );
+  )
 }

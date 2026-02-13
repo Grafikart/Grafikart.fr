@@ -1,17 +1,20 @@
-import { UploadIcon } from "lucide-react";
-import { type ChangeEventHandler, type ComponentProps, useState } from "react";
+import { UploadIcon } from "lucide-react"
+import { type ChangeEventHandler, type ComponentProps, useState } from "react"
+import { cn } from "@/lib/utils"
 
-import { cn } from "@/lib/utils";
-
-function ImageInput({ className, defaultValue, ...props }: ComponentProps<"input">) {
-  const [preview, setPreview] = useState(defaultValue as string);
+function ImageInput({
+  className,
+  defaultValue,
+  ...props
+}: ComponentProps<"input">) {
+  const [preview, setPreview] = useState(defaultValue as string)
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    const target = event.target as HTMLInputElement;
+    const target = event.target as HTMLInputElement
     if (target.files && target.files.length > 0) {
-      const file = target.files[0];
-      setPreview(URL.createObjectURL(file));
+      const file = target.files[0]
+      setPreview(URL.createObjectURL(file))
     }
-  };
+  }
 
   return (
     <div
@@ -35,9 +38,12 @@ function ImageInput({ className, defaultValue, ...props }: ComponentProps<"input
           className="absolute inset-0 w-full h-full object-cover group-hover:opacity-20 transition-opacity"
         />
       )}
-      <UploadIcon size={16} className={cn(preview && "hidden group-hover:block relative z-5")} />
+      <UploadIcon
+        size={16}
+        className={cn(preview && "hidden group-hover:block relative z-5")}
+      />
     </div>
-  );
+  )
 }
 
-export { ImageInput };
+export { ImageInput }

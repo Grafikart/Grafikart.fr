@@ -1,110 +1,78 @@
-@import 'tailwindcss';
-@import './form.css';
-@import './flow.css';
-@import './utility.css';
-@import './prose.css';
-@import './scrollbar.css';
-@import './code.css';
+@import "tailwindcss";
+@import "./form.css";
+@import "./flow.css";
+@import "./utility.css";
+@import "./prose.css";
+@import "./scrollbar.css";
+@import "./code.css";
 @source "../../resources/js/components/flow/";
 @source "../../resources/js/elements/";
 @source "../../resources/views/";
 
 @theme {
-    --container-*: initial;
-    --font-sans: 'Inter', sans-serif;
-    --font-serif: 'Crimson Pro', serif;
-    --font-mono: monospace;
+  --container-*: initial;
+  --font-sans: "Inter", sans-serif;
+  --font-serif: "Crimson Pro", serif;
+  --font-mono: monospace;
 
-    --color-*: initial;
-    --color-foreground-title: #121c42;
-    --color-foreground: color-mix(
-        in oklab,
-        var(--color-foreground-title) 85%,
-        transparent
-    );
-    --color-muted: color-mix(
-        in oklab,
-        var(--color-foreground-title) 60%,
-        transparent
-    );
-    --color-primary: #4869ee;
-    --color-primary-foreground: #effbec;
-    --color-background: #f7fafb;
-    --color-background-light: #fff;
-    --color-card: #fff;
-    --color-white: #fff;
-    --color-card-footer: color-mix(
-        in oklab,
-        var(--color-background) 50%,
-        transparent
-    );
-    --color-border: #d5e3ec;
-    --color-destructive: #f25353;
-    --color-destructive-foreground: #fff3f3;
-    --color-green: #41cf7c;
-    --color-yellow: #feb32b;
-    --color-edge: #acb8c0;
-    --color-overlay: #000000b3;
+  --color-*: initial;
+  --color-foreground-title: #121c42;
+  --color-foreground: color-mix(
+    in oklab,
+    var(--color-foreground-title) 85%,
+    transparent
+  );
+  --color-muted: color-mix(
+    in oklab,
+    var(--color-foreground-title) 60%,
+    transparent
+  );
+  --color-primary: #4869ee;
+  --color-primary-foreground: #effbec;
+  --color-background: #f7fafb;
+  --color-background-light: #fff;
+  --color-card: #fff;
+  --color-white: #fff;
+  --color-card-footer: color-mix(
+    in oklab,
+    var(--color-background) 50%,
+    transparent
+  );
+  --color-border: #d5e3ec;
+  --color-destructive: #f25353;
+  --color-destructive-foreground: #fff3f3;
+  --color-green: #41cf7c;
+  --color-yellow: #feb32b;
+  --color-edge: #acb8c0;
+  --color-overlay: #000000b3;
 
-    --color-success-bg: hsl(143, 85%, 96%);
-    --color-success-border: hsl(145, 92%, 87%);
-    --color-success-text: hsl(140, 100%, 27%);
-    --color-info-bg: hsl(208, 100%, 97%);
-    --color-info-border: hsl(221, 91%, 93%);
-    --color-info-text: hsl(210, 92%, 45%);
-    --color-warning-bg: hsl(49, 100%, 97%);
-    --color-warning-border: hsl(49, 91%, 84%);
-    --color-warning-text: hsl(31, 92%, 45%);
-    --color-error-bg: hsl(359, 100%, 97%);
-    --color-error-border: hsl(359, 100%, 94%);
-    --color-error-text: hsl(360, 100%, 45%);
-    --color-video: #121c42;
-    --color-sidebar: #fbfcfd;
+  --color-success-bg: hsl(143, 85%, 96%);
+  --color-success-border: hsl(145, 92%, 87%);
+  --color-success-text: hsl(140, 100%, 27%);
+  --color-info-bg: hsl(208, 100%, 97%);
+  --color-info-border: hsl(221, 91%, 93%);
+  --color-info-text: hsl(210, 92%, 45%);
+  --color-warning-bg: hsl(49, 100%, 97%);
+  --color-warning-border: hsl(49, 91%, 84%);
+  --color-warning-text: hsl(31, 92%, 45%);
+  --color-error-bg: hsl(359, 100%, 97%);
+  --color-error-border: hsl(359, 100%, 94%);
+  --color-error-text: hsl(360, 100%, 45%);
+  --color-video: #121c42;
+  --color-sidebar: #fbfcfd;
+  --color-list-hover: color-mix(in srgb, var(--color-primary) 8%, transparent);
 
-    --shadow-focus: 0 0 0 3px
-        color-mix(in srgb, var(--color-primary) 25%, transparent);
-    --shadow-toast: 0 4px 12px rgba(0, 0, 0, 0.1);
-    --shadow-button: 0 1px 2px #24398d66;
-    --sidebar-width: 350px;
-    --default-transition-duration: 300ms;
-    --header-height: 60px;
+  --shadow-focus: 0 0 0 3px
+    color-mix(in srgb, var(--color-primary) 25%, transparent);
+  --shadow-toast: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-button: 0 1px 2px #24398d66;
+  --sidebar-width: 350px;
+  --default-transition-duration: 300ms;
+  --header-height: 60px;
 }
 
 @media (prefers-color-scheme: dark) {
-    :root:not(.light) {
-        --color-foreground-title: #f0f3ff;
-        --color-foreground: #adbef3;
-        --color-muted: #8491c7;
-        --color-primary: #5396e7;
-        --color-primary-foreground: #effbec;
-        --color-background: #171933;
-        --color-background-light: #1b1e3d;
-        --color-card: #22244d;
-        --color-border: #2a2e5e;
-        --color-destructive: #f25353;
-        --color-destructive-foreground: #fff3f3;
-        --color-green: #41cf7c;
-        --color-yellow: #feb32b;
-        --color-edge: #595e9d;
-
-        --color-success-bg: hsl(150, 100%, 6%);
-        --color-success-border: hsl(147, 100%, 12%);
-        --color-success-text: hsl(150, 86%, 65%);
-        --color-info-bg: hsl(215, 100%, 6%);
-        --color-info-border: hsl(223, 43%, 17%);
-        --color-info-text: hsl(216, 87%, 65%);
-        --color-warning-bg: hsl(64, 100%, 6%);
-        --color-warning-border: hsl(60, 100%, 9%);
-        --color-warning-text: hsl(46, 87%, 65%);
-        --color-error-bg: hsl(358, 76%, 10%);
-        --color-error-border: hsl(357, 89%, 16%);
-        --color-error-text: hsl(358, 100%, 81%);
-        --color-video: #121c42;
-        --color-sidebar: #1e1f3f;
-    }
-}
-
-:root.dark {
+  :root:not(.light) {
     --color-foreground-title: #f0f3ff;
     --color-foreground: #adbef3;
     --color-muted: #8491c7;
@@ -134,66 +102,99 @@
     --color-error-text: hsl(358, 100%, 81%);
     --color-video: #121c42;
     --color-sidebar: #1e1f3f;
+  }
+}
+
+:root.dark {
+  --color-foreground-title: #f0f3ff;
+  --color-foreground: #adbef3;
+  --color-muted: #8491c7;
+  --color-primary: #5396e7;
+  --color-primary-foreground: #effbec;
+  --color-background: #171933;
+  --color-background-light: #1b1e3d;
+  --color-card: #22244d;
+  --color-border: #2a2e5e;
+  --color-destructive: #f25353;
+  --color-destructive-foreground: #fff3f3;
+  --color-green: #41cf7c;
+  --color-yellow: #feb32b;
+  --color-edge: #595e9d;
+
+  --color-success-bg: hsl(150, 100%, 6%);
+  --color-success-border: hsl(147, 100%, 12%);
+  --color-success-text: hsl(150, 86%, 65%);
+  --color-info-bg: hsl(215, 100%, 6%);
+  --color-info-border: hsl(223, 43%, 17%);
+  --color-info-text: hsl(216, 87%, 65%);
+  --color-warning-bg: hsl(64, 100%, 6%);
+  --color-warning-border: hsl(60, 100%, 9%);
+  --color-warning-text: hsl(46, 87%, 65%);
+  --color-error-bg: hsl(358, 76%, 10%);
+  --color-error-border: hsl(357, 89%, 16%);
+  --color-error-text: hsl(358, 100%, 81%);
+  --color-video: #121c42;
+  --color-sidebar: #1e1f3f;
 }
 
 @layer base {
-    html {
-        scrollbar-gutter: stable;
-    }
-    label {
-        display: block;
-    }
-    button,
-    a {
-        cursor: pointer;
-    }
-    dialog {
-        border: none;
-        outline: none;
-    }
-    hr {
-        border: none;
-        margin: 0;
-        height: auto;
-        display: block;
-    }
-    * {
-        border-color: var(--color-border);
-        outline-color: var(--ring);
-    }
-    mark {
-        padding: 2px 4px;
-        border-radius: 2px;
-        background: var(--color-primary);
-        color: var(--color-primary-foreground);
-    }
-    *:focus-visible {
-        outline: solid 2px var(--color-primary);
-    }
-    details > summary {
-        list-style: none;
-    }
-    details > summary::-webkit-details-marker {
-        display: none;
-    }
-    media-play-button,
-    media-time-display,
-    media-mute-button,
-    media-fullscreen-button,
-    media-pip-button {
-        padding: 10px;
-    }
+  html {
+    scrollbar-gutter: stable;
+  }
+  label {
+    display: block;
+  }
+  button,
+  a {
+    cursor: pointer;
+  }
+  dialog {
+    border: none;
+    outline: none;
+  }
+  hr {
+    border: none;
+    margin: 0;
+    height: auto;
+    display: block;
+  }
+  * {
+    border-color: var(--color-border);
+    outline-color: var(--ring);
+  }
+  mark {
+    padding: 2px 4px;
+    border-radius: 2px;
+    background: var(--color-primary);
+    color: var(--color-primary-foreground);
+  }
+  *:focus-visible {
+    outline: solid 2px var(--color-primary);
+  }
+  details > summary {
+    list-style: none;
+  }
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+  media-play-button,
+  media-time-display,
+  media-mute-button,
+  media-fullscreen-button,
+  media-pip-button {
+    padding: 10px;
+  }
 }
 
 .react-flow__handle {
-    pointer-events: none !important;
-    opacity: 0 !important;
+  pointer-events: none;
+  opacity: 0;
 }
 
 /* Disable Turbo fade animations */
 @layer base {
-    ::view-transition-old(root),
-    ::view-transition-new(root) {
-        animation: none !important;
-    }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
 }

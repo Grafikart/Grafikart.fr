@@ -1,37 +1,37 @@
 .select,
 .select::picker(select) {
-    appearance: base-select;
+  appearance: base-select;
 }
 .select {
-    /* Style du bouton select */
+  /* Style du bouton select */
 }
 .select-wrapper:focus-within button svg {
-    transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 .select::picker-icon {
-    display: none;
+  display: none;
 }
 .select::picker(select) {
-    padding: 8px;
-    border: solid 1px var(--color-border);
-    border-radius: 4px;
+  padding: 8px;
+  border: solid 1px var(--color-border);
+  border-radius: 4px;
 }
 .select option::checkmark {
-    display: none;
+  display: none;
 }
 
 .select::picker(select) {
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: all 0.4s allow-discrete;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.4s allow-discrete;
 }
 
 .select::picker(select):popover-open {
-    transform: translateY(0px);
-    opacity: 1;
+  transform: translateY(0px);
+  opacity: 1;
 
-    @starting-style {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
+  @starting-style {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
 }

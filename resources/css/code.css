@@ -1,13 +1,13 @@
 :root {
-    --shiki-foreground: #a9b1d6;
-    --shiki-background: #1b1e3d;
-    --shiki-token-constant: #7aa2f7;
-    --shiki-token-string: #9ece6a;
-    --shiki-token-comment: #5d6791;
-    --shiki-token-keyword: #bb9af7;
-    --shiki-token-parameter: #fd914e;
-    --shiki-token-function: #7aa2f7;
-    --shiki-token-string-expression: #9ece6a;
-    --shiki-token-punctuation: #a9b1d6;
-    --shiki-token-link: #9ece6a;
+  --shiki-foreground: #a9b1d6;
+  --shiki-background: #1b1e3d;
+  --shiki-token-constant: #7aa2f7;
+  --shiki-token-string: #9ece6a;
+  --shiki-token-comment: #5d6791;
+  --shiki-token-keyword: #bb9af7;
+  --shiki-token-parameter: #fd914e;
+  --shiki-token-function: #7aa2f7;
+  --shiki-token-string-expression: #9ece6a;
+  --shiki-token-punctuation: #a9b1d6;
+  --shiki-token-link: #9ece6a;
 }

@@ -1,14 +1,13 @@
-import { Link } from '@inertiajs/react';
+import { Link } from "@inertiajs/react"
+import { Button } from "@/components/ui/button"
+import type { PaginatedData } from "@/types"
 
-import { Button } from '@/components/ui/button';
-import type { PaginatedData } from '@/types';
-
-type Props = { pagination: PaginatedData<unknown> };
+type Props = { pagination: PaginatedData<unknown> }
 
 export function Pagination({ pagination }: Props) {
-    if (pagination.last_page === 1) {
-        return null;
-    }
+  if (pagination.last_page === 1) {
+    return null
+  }
   return (
     <div className="flex items-center justify-between">
       <div className="hidden flex-1 text-sm text-muted-foreground lg:flex">
@@ -24,12 +23,14 @@ export function Pagination({ pagination }: Props) {
                 data-active={link.active}
                 variant={link.active ? "ghost" : "outline"}
                 render={<Link href={link.url ?? "#"} />}
-                dangerouslySetInnerHTML={{__html: link.label.toString()}}
+                dangerouslySetInnerHTML={{
+                  __html: link.label.toString(),
+                }}
               />
             </li>
           ))}
         </ul>
       </nav>
     </div>
-  );
+  )
 }

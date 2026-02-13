@@ -1,3 +1,3 @@
 export function PageTitle({ children }: { children: string }) {
-    return <title>{`${children} | Grafikart`}</title>;
+  return <title>{`${children} | Grafikart`}</title>
 }

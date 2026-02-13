@@ -1,90 +1,91 @@
 @custom-variant dark (&:is(.dark *));
-@custom-variant selected (&[selected], &[aria-selected=true]);
+@custom-variant selected (&[selected],
+&[aria-selected="true"]);
 
 @utility grid-fill-* {
-    grid-template-columns: repeat(
-        auto-fill,
-        minmax(calc(--value(integer) * 1px), 1fr)
+  grid-template-columns: repeat(
+      auto-fill,
+      minmax(calc(--value(integer) * 1px), 1fr)
     );
 }
 
 @utility overlay {
-    &::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-    }
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
 }
 
 @utility container {
-    max-width: unset;
-    width: 100%;
-    --width: 1330px;
-    padding-inline: calc(50% - min(calc(100% - 2rem), var(--width)) * 0.5);
+  max-width: unset;
+  width: 100%;
+  --width: 1330px;
+  padding-inline: calc(50% - min(calc(100% - 2rem), var(--width)) * 0.5);
 }
 
 @utility max-w-container {
-    max-width: min(calc(100% - 2rem), 1330px);
+  max-width: min(calc(100% - 2rem), 1330px);
 }
 
 @utility text-trim {
-    text-box: trim-both cap alphabetic;
+  text-box: trim-both cap alphabetic;
 }
 
 @utility text-page-title {
-    font-size: var(--text-6xl);
-    line-height: var(--text-6xl--line-height);
-    font-family: var(--font-serif);
-    font-weight: 700;
-    color: var(--color-foreground-title);
+  font-size: var(--text-6xl);
+  line-height: var(--text-6xl--line-height);
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--color-foreground-title);
 }
 
 @utility card-stacked {
-    &::after,
-    &::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        z-index: -1;
-        transition: 0.3s;
-        background-color: var(--color-card);
-        border: 1px solid var(--color-border);
-        box-shadow: var(--shadow-xs);
-        border-radius: var(--radius-lg);
-    }
-    &::after {
-        transform: translate(6px, 6px);
-    }
-    &::before {
-        transform: translate(0px, 0px);
-    }
-    &:hover::after {
-        transform: translate(6px, 6px) rotate(3deg);
-    }
-    &:hover::before {
-        opacity: 1;
-        transform: translate(0px, 0px) rotate(-3deg);
-    }
+  &::after,
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    transition: 0.3s;
+    background-color: var(--color-card);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-xs);
+    border-radius: var(--radius-lg);
+  }
+  &::after {
+    transform: translate(6px, 6px);
+  }
+  &::before {
+    transform: translate(0px, 0px);
+  }
+  &:hover::after {
+    transform: translate(6px, 6px) rotate(3deg);
+  }
+  &:hover::before {
+    opacity: 1;
+    transform: translate(0px, 0px) rotate(-3deg);
+  }
 }
 
 @utility animate-live {
-    animation: live-running 3s infinite linear;
+  animation: live-running 3s infinite linear;
 }
 
 @keyframes live-running {
-    0% {
-        color: var(--color-destructive);
-    }
-    30% {
-        color: var(--color-destructive);
-    }
-    50% {
-        color: inherit;
-    }
-    70% {
-        color: var(--color-destructive);
-    }
-    100% {
-        color: var(--color-destructive);
-    }
+  0% {
+    color: var(--color-destructive);
+  }
+  30% {
+    color: var(--color-destructive);
+  }
+  50% {
+    color: inherit;
+  }
+  70% {
+    color: var(--color-destructive);
+  }
+  100% {
+    color: var(--color-destructive);
+  }
 }

@@ -1,56 +1,76 @@
-import { FolderIcon, FolderOpenIcon, SearchIcon, TrashIcon } from "lucide-react";
-import { useCallback, useState } from "react";
-import { useDropzone } from "react-dropzone";
-import { toast } from "sonner";
-
-import route from '@/actions/App/Http/Cms/AttachmentController'
-import { Badge } from "@/components/ui/badge.tsx";
-import { Button } from "@/components/ui/button.tsx";
-import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group.tsx";
-import { Input } from "@/components/ui/input.tsx";
-import { Separator } from "@/components/ui/separator.tsx";
-import { Spinner } from "@/components/ui/spinner.tsx";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table.tsx";
-import { useApiFetch, useApiMutation } from "@/hooks/use-api-fetch.ts";
-import { humanSize } from "@/lib/file.ts";
-import { cn } from "@/lib/utils.ts";
-import type { AttachmentFileData, FolderData } from "@/types";
+import { FolderIcon, FolderOpenIcon, SearchIcon, TrashIcon } from "lucide-react"
+import { useCallback, useState } from "react"
+import { useDropzone } from "react-dropzone"
+import { toast } from "sonner"
+import route from "@/actions/App/Http/Cms/AttachmentController"
+import { Badge } from "@/components/ui/badge.tsx"
+import { Button } from "@/components/ui/button.tsx"
+import { Input } from "@/components/ui/input.tsx"
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "@/components/ui/input-group.tsx"
+import { Separator } from "@/components/ui/separator.tsx"
+import { Spinner } from "@/components/ui/spinner.tsx"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table.tsx"
+import { useApiFetch, useApiMutation } from "@/hooks/use-api-fetch.ts"
+import { humanSize } from "@/lib/file.ts"
+import { cn } from "@/lib/utils.ts"
+import type { AttachmentFileData, FolderData } from "@/types"
 
 type Props = {
-  onSelect: (file: AttachmentFileData) => void;
-  attachableType?: string;
-  attachableId?: number | null;
-};
+  onSelect: (file: AttachmentFileData) => void
+  attachableType?: string
+  attachableId?: number | null
+}
 
 export function FileExplorer(props: Props) {
-  const { data: folders } = useApiFetch<FolderData[]>(route.folders().url);
-  const [folder, setFolder] = useState("");
+  const { data: folders } = useApiFetch<FolderData[]>(route.folders().url)
+  const [folder, setFolder] = useState("")
 
-  const { data, setData } = useApiFetch<AttachmentFileData[]>(route.index({
-    query: { path: folder },
-  }).url);
-  const { mutate, isPending } = useApiMutation<AttachmentFileData>(route.store().url);
+  const { data, setData } = useApiFetch<AttachmentFileData[]>(
+    route.index({
+      query: { path: folder },
+    }).url,
+  )
+  const { mutate, isPending } = useApiMutation<AttachmentFileData>(
+    route.store().url,
+  )
 
-  const onDrop = useCallback((files: File[]) => {
-    for (const file of files) {
-      const data = new FormData();
-      data.set("file", file);
-      if (props.attachableType) {
-        data.set("attachableType", props.attachableType);
+  const onDrop = useCallback(
+    (files: File[]) => {
+      for (const file of files) {
+        const data = new FormData()
+        data.set("file", file)
+        if (props.attachableType) {
+          data.set("attachableType", props.attachableType)
+        }
+        if (props.attachableId) {
+          data.set("attachableId", props.attachableId.toString())
+        }
+        mutate(data, {
+          onSuccess: (newFile) => {
+            setData((files) => [newFile, ...files])
+          },
+        })
       }
-      if (props.attachableId) {
-        data.set("attachableId", props.attachableId.toString());
-      }
-      mutate(data, {
-        onSuccess: (newFile) => {
-          setData((files) => [newFile, ...files]);
-        },
-      });
-    }
-  }, [mutate, setData, props.attachableType, props.attachableId]);
-  const { getRootProps, isDragActive, getInputProps } = useDropzone({ onDrop, noClick: true });
+    },
+    [mutate, setData, props.attachableType, props.attachableId],
+  )
+  const { getRootProps, isDragActive, getInputProps } = useDropzone({
+    onDrop,
+    noClick: true,
+  })
 
-  const files = data ?? [];
+  const files = data ?? []
 
   return (
     <div className="grid grid-cols-[300px_1fr] relative" {...getRootProps()}>
@@ -88,7 +108,12 @@ export function FileExplorer(props: Props) {
           <TableBody>
             <TableRow>
               <TableCell colSpan={4}>
-                <Input {...getInputProps()} type="file" style={{}} disabled={isPending} />
+                <Input
+                  {...getInputProps()}
+                  type="file"
+                  style={{}}
+                  disabled={isPending}
+                />
               </TableCell>
             </TableRow>
             {isPending && (
@@ -105,12 +130,18 @@ export function FileExplorer(props: Props) {
         </Table>
       </main>
     </div>
-  );
+  )
 }
 
-function FileRow({ file, onSelect }: { file: AttachmentFileData; onSelect: Props["onSelect"] }) {
+function FileRow({
+  file,
+  onSelect,
+}: {
+  file: AttachmentFileData
+  onSelect: Props["onSelect"]
+}) {
   const { mutate, isSuccess, isPending } = useApiMutation(
-      route.destroy(file.id).url,
+    route.destroy(file.id).url,
     {
       method: "DELETE",
     },
@@ -118,64 +149,85 @@ function FileRow({ file, onSelect }: { file: AttachmentFileData; onSelect: Props
       onError: (error) => toast.error(error.toString()),
       onSuccess: () => toast.success("Fichier supprimé avec succès"),
     },
-  );
+  )
 
   if (isSuccess) {
-    return null;
+    return null
   }
 
   return (
     <TableRow key={file.id}>
       <TableCell>
         <button onClick={() => onSelect(file)} type="button">
-          <img className="rounded-lg shadow" src={file.thumbnail} alt="" width={250} height={100} />
+          <img
+            className="rounded-lg shadow"
+            src={file.thumbnail}
+            alt=""
+            width={250}
+            height={100}
+          />
         </button>
       </TableCell>
       <TableCell>{file.name}</TableCell>
       <TableCell>{humanSize(file.size)}</TableCell>
       <TableCell>
-        <Button variant="destructive" disabled={isPending} type="button" onClick={() => mutate()}>
+        <Button
+          variant="destructive"
+          disabled={isPending}
+          type="button"
+          onClick={() => mutate()}
+        >
           <TrashIcon />
         </Button>
       </TableCell>
     </TableRow>
-  );
+  )
 }
 
-const defaultFolder = `${new Date().getFullYear()}/${(new Date().getMonth() + 1).toString().padStart(2, "0")}`;
+const defaultFolder = `${new Date().getFullYear()}/${(new Date().getMonth() + 1).toString().padStart(2, "0")}`
 
-function Folders(props: { folders: FolderData[]; onSelect: (path: string) => void }) {
+function Folders(props: {
+  folders: FolderData[]
+  onSelect: (path: string) => void
+}) {
   const years = Array.from(
     props.folders.reduce((acc, folder) => {
-      acc.add(folder.path.split("/")[0]);
-      return acc;
+      acc.add(folder.path.split("/")[0])
+      return acc
     }, new Set<string>()),
-  );
-  const [selected, setSelected] = useState(defaultFolder);
-  const selectedYear = selected.split("/")[0];
+  )
+  const [selected, setSelected] = useState(defaultFolder)
+  const selectedYear = selected.split("/")[0]
 
   const folderForYear = (y: string) => {
-    return props.folders.filter((f) => f.path.startsWith(y));
-  };
+    return props.folders.filter((f) => f.path.startsWith(y))
+  }
 
   const onSelectFolder = (path: string) => {
-    setSelected(path);
-    props.onSelect(path);
-  };
+    setSelected(path)
+    props.onSelect(path)
+  }
 
   return (
     <div>
       {years.map((year) => {
-        const folders = folderForYear(year);
-        const count = folders.reduce((acc, f) => acc + f.count, 0);
+        const folders = folderForYear(year)
+        const count = folders.reduce((acc, f) => acc + f.count, 0)
         return (
           <div key={year}>
             <Button
               onClick={() => setSelected(year)}
               variant="ghost"
-              className={cn("w-full justify-start", selectedYear === year && "text-primary")}
+              className={cn(
+                "w-full justify-start",
+                selectedYear === year && "text-primary",
+              )}
             >
-              {selectedYear === year ? <FolderOpenIcon size={16} /> : <FolderIcon size={16} />}
+              {selectedYear === year ? (
+                <FolderOpenIcon size={16} />
+              ) : (
+                <FolderIcon size={16} />
+              )}
               {year}
               <Badge variant="secondary" className="ml-2">
                 {count}
@@ -189,21 +241,28 @@ function Folders(props: { folders: FolderData[]; onSelect: (path: string) => voi
                       onClick={() => onSelectFolder(folder.path)}
                       key={folder.path}
                       variant="ghost"
-                      className={cn("w-full justify-start", selected === folder.path && "text-primary")}
+                      className={cn(
+                        "w-full justify-start",
+                        selected === folder.path && "text-primary",
+                      )}
                     >
-                      {folder.path === selected ? <FolderOpenIcon size={16} /> : <FolderIcon size={16} />}
+                      {folder.path === selected ? (
+                        <FolderOpenIcon size={16} />
+                      ) : (
+                        <FolderIcon size={16} />
+                      )}
                       {folder.path.replace(`${year}/`, "")}
                       <Badge variant="secondary" className="ml-2">
                         {folder.count}
                       </Badge>
                     </Button>
-                  );
+                  )
                 })}
               </div>
             )}
           </div>
-        );
+        )
       })}
     </div>
-  );
+  )
 }

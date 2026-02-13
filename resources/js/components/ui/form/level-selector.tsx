@@ -1,14 +1,17 @@
-import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select.tsx";
+import {
+  NativeSelect,
+  NativeSelectOption,
+} from "@/components/ui/native-select.tsx"
 
 type Props = {
-  defaultValue?: number;
-};
+  defaultValue?: number
+}
 
 const levels = [
   { value: 0, label: "Junior" },
   { value: 1, label: "Intermédiaire" },
   { value: 2, label: "Senior" },
-];
+]
 
 export function LevelSelector(props: Props) {
   return (
@@ -19,5 +22,5 @@ export function LevelSelector(props: Props) {
         </NativeSelectOption>
       ))}
     </NativeSelect>
-  );
+  )
 }

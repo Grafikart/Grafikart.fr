@@ -1,601 +1,598 @@
 @layer base {
-    .prose {
-        max-width: none;
-
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            color: var(--color-foreground-title);
-        }
-
-        lazy-video {
-            margin-block: 1.25rem;
-        }
-
-        p {
-            margin-block: 1.25em;
-            text-wrap: pretty;
-        }
-
-        [class~='lead'] {
-            font-size: 1.25em;
-            line-height: 1.6;
-            margin-block: 1.2em;
-        }
-
-        a {
-            text-decoration: underline;
-            font-weight: 500;
-        }
-
-        strong {
-            color: var(--color-foreground-title);
-            font-weight: 600;
-        }
-
-        a strong {
-            color: inherit;
-        }
-
-        blockquote strong {
-            color: inherit;
-        }
-
-        thead th strong {
-            color: inherit;
-        }
-
-        ol {
-            list-style-type: decimal;
-            margin-block: 1.25em;
-            padding-inline-start: 1.625em;
-        }
-
-        ul {
-            list-style-type: disc;
-            margin-block: 1.25em;
-            padding-inline-start: 1.625em;
-        }
-
-        ol > li::marker {
-            font-weight: 400;
-        }
-
-        ul > li::marker {
-        }
-
-        dt {
-            font-weight: 600;
-            margin-top: 1.25em;
-        }
-
-        hr {
-            height: 1px;
-            background-color: var(--color-border);
-            margin-block: 3em;
-        }
-
-        blockquote {
-            font-weight: 500;
-            font-style: italic;
-            color: var(--color-muted);
-            border-inline-start-width: 0.25rem;
-            border-inline-start-color: var(--color-border);
-            quotes: '\201C' '\201D' '\2018' '\2019';
-            margin-block: 1.6em;
-            padding-inline-start: 1em;
-        }
-
-        blockquote p:first-of-type::before {
-            content: open-quote;
-        }
-
-        blockquote p:last-of-type::after {
-            content: close-quote;
-        }
-
-        h1 {
-            font-weight: 800;
-            font-size: 2.25em;
-            margin-top: 0;
-            margin-bottom: 0.8888889em;
-            line-height: 1.1111111;
-        }
-
-        h1 strong {
-            font-weight: 900;
-            color: inherit;
-        }
-
-        h2 {
-            font-weight: 700;
-            font-size: 1.5em;
-            margin-top: 2em;
-            margin-bottom: 1em;
-            line-height: 1.3333333;
-        }
-
-        h2 strong {
-            font-weight: 800;
-            color: inherit;
-        }
-
-        h3 {
-            font-weight: 600;
-            font-size: 1.25em;
-            margin-top: 1.6em;
-            margin-bottom: 0.6em;
-            line-height: 1.6;
-        }
-
-        h3 strong {
-            font-weight: 700;
-            color: inherit;
-        }
-
-        h4 {
-            font-weight: 600;
-            margin-top: 1.5em;
-            margin-bottom: 0.5em;
-            line-height: 1.5;
-        }
-
-        h4 strong {
-            font-weight: 700;
-            color: inherit;
-        }
-
-        picture {
-            display: block;
-            margin-block: 2em;
-        }
-
-        video {
-            margin-block: 2em;
-        }
-
-        kbd {
-            font-weight: 500;
-            font-family: inherit;
-            box-shadow:
-                0 0 0 1px var(--color-muted),
-                0 3px 0 var(--color-muted);
-            font-size: 0.875em;
-            border-radius: 0.3125rem;
-            padding-block: 0.1875em;
-            padding-inline: 0.375em;
-        }
-
-        code {
-            border: solid 1px var(--color-border);
-            padding: 0.3em 0.5em;
-            border-radius: 0.25rem;
-            font-family: var(--font-mono);
-            background-color: color-mix(
-                in oklab,
-                var(--color-border) 20%,
-                transparent
-            );
-            font-weight: 600;
-            font-size: 0.875em;
-        }
-
-        a code {
-            color: inherit;
-        }
-
-        h1 code {
-            color: inherit;
-        }
-
-        h2 code {
-            color: inherit;
-            font-size: 0.875em;
-        }
-
-        h3 code {
-            color: inherit;
-            font-size: 0.9em;
-        }
-
-        h4 code {
-            color: inherit;
-        }
-
-        blockquote code {
-            color: inherit;
-        }
-
-        thead th code {
-            color: inherit;
-        }
-
-        pre {
-            color: var(--color-muted);
-            background-color: var(--color-border);
-            overflow-x: auto;
-            font-weight: 400;
-            font-size: 1em;
-            line-height: 1.7142857;
-            margin-block: 1.7142857em;
-            border-radius: 0.375rem;
-            padding-block: 0.8571429em;
-            padding-inline: 1.1428571em;
-        }
-
-        pre code {
-            background-color: transparent;
-            border-width: 0;
-            border-radius: 0;
-            padding: 0;
-            font-weight: inherit;
-            color: inherit;
-            font-size: inherit;
-            font-family: inherit;
-            line-height: inherit;
-        }
-
-        pre code::before {
-            content: none;
-        }
-
-        pre code::after {
-            content: none;
-        }
-
-        table {
-            width: 100%;
-            table-layout: auto;
-            margin-block: 2em;
-            font-size: 0.875em;
-            line-height: 1.7142857;
-        }
-
-        thead {
-            border-bottom-width: 1px;
-            border-bottom-color: var(--color-border);
-        }
-
-        thead th {
-            color: var(--color-foreground-title);
-            font-weight: 600;
-            vertical-align: bottom;
-            padding-inline-end: 0.5714286em;
-            padding-bottom: 0.5714286em;
-            padding-inline-start: 0.5714286em;
-        }
-
-        tbody tr {
-            border-bottom-width: 1px;
-            border-bottom-color: var(--color-border);
-        }
-
-        tbody tr:last-child {
-            border-bottom-width: 0;
-        }
-
-        tbody td {
-            vertical-align: baseline;
-        }
-
-        tfoot {
-            border-top-width: 1px;
-            border-top-color: var(--color-border);
-        }
-
-        tfoot td {
-            vertical-align: top;
-        }
-
-        th,
-        td {
-            text-align: start;
-        }
-
-        figure > * {
-            margin-block: 0;
-        }
-
-        figcaption {
-            color: var(--color-muted);
-            font-size: 0.875em;
-            line-height: 1.4285714;
-            margin-top: 0.8571429em;
-        }
-
-        picture > img {
-            margin-block: 0;
-        }
-
-        li {
-            margin-block: 0.5em;
-        }
-
-        ol > li {
-            padding-inline-start: 0.375em;
-        }
-
-        ul > li {
-            padding-inline-start: 0.375em;
-        }
-
-        & > ul > li p {
-            margin-block: 0.75em;
-        }
-
-        & > ul > li > p:first-child {
-            margin-top: 1.25em;
-        }
-
-        & > ul > li > p:last-child {
-            margin-bottom: 1.25em;
-        }
-
-        & > ol > li > p:first-child {
-            margin-top: 1.25em;
-        }
-
-        & > ol > li > p:last-child {
-            margin-bottom: 1.25em;
-        }
-
-        ul ul,
-        ul ol,
-        ol ul,
-        ol ol {
-            margin-block: 0.75em;
-        }
-
-        dl {
-            margin-block: 1.25em;
-        }
-
-        dd {
-            margin-top: 0.5em;
-            padding-inline-start: 1.625em;
-        }
-
-        hr + * {
-            margin-top: 0;
-        }
-
-        h2 + * {
-            margin-top: 0;
-        }
-
-        h3 + * {
-            margin-top: 0;
-        }
-
-        h4 + * {
-            margin-top: 0;
-        }
-
-        thead th:first-child {
-            padding-inline-start: 0;
-        }
-
-        thead th:last-child {
-            padding-inline-end: 0;
-        }
-
-        tbody td,
-        tfoot td {
-            padding-block: 0.5714286em;
-            padding-inline: 0.5714286em;
-        }
-
-        tbody td:first-child,
-        tfoot td:first-child {
-            padding-inline-start: 0;
-        }
-
-        tbody td:last-child,
-        tfoot td:last-child {
-            padding-inline-end: 0;
-        }
-
-        figure {
-            margin-block: 2em;
-        }
-
-        & > :first-child {
-            margin-top: 0;
-        }
-
-        & > :last-child {
-            margin-bottom: 0;
-        }
+  .prose {
+    max-width: none;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: var(--color-foreground-title);
     }
 
-    .prose-lg {
-        font-size: 1.125rem;
-        line-height: 1.7777778;
-        p {
-            margin-block: 1.3333333em;
-        }
-        [class~='lead'] {
-            font-size: 1.2222222em;
-            line-height: 1.4545455;
-            margin-block: 1.0909091em;
-        }
-        blockquote {
-            margin-block: 1.6666667em;
-            padding-inline-start: 1em;
-        }
-        h1 {
-            font-size: 2.6666667em;
-            margin-top: 0;
-            margin-bottom: 0.8333333em;
-            line-height: 1;
-        }
-        h2 {
-            font-size: 1.6666667em;
-            margin-top: 1.8666667em;
-            margin-bottom: 1.0666667em;
-            line-height: 1.3333333;
-        }
-        h3 {
-            font-size: 1.3333333em;
-            margin-top: 1.6666667em;
-            margin-bottom: 0.6666667em;
-            line-height: 1.5;
-        }
-        h4 {
-            margin-top: 1.7777778em;
-            margin-bottom: 0.4444444em;
-            line-height: 1.5555556;
-        }
-        picture {
-            margin-block: 1.7777778em;
-        }
-        picture > img {
-            margin-block: 0;
-        }
-        video {
-            margin-block: 1.7777778em;
-        }
-        kbd {
-            font-size: 0.8888889em;
-            border-radius: 0.3125rem;
-            padding-block: 0.2222222em;
-            padding-inline: 0.4444444em;
-        }
-        code {
-            font-size: 0.8888889em;
-        }
-        h2 code {
-            font-size: 0.8666667em;
-        }
-        h3 code {
-            font-size: 0.875em;
-        }
-        pre {
-            font-size: 0.8888889em;
-            line-height: 1.75;
-            margin-block: 2em;
-            border-radius: 0.375rem;
-            padding-block: 1em;
-            padding-inline: 1.5em;
-        }
-        ol {
-            margin-block: 1.3333333em;
-            padding-inline-start: 1.5555556em;
-        }
-        ul {
-            margin-block: 1.3333333em;
-            padding-inline-start: 1.5555556em;
-        }
-        ol > li {
-            padding-inline-start: 0.4444444em;
-        }
-        ul > li {
-            padding-inline-start: 0.4444444em;
-        }
-        & > ul > li p {
-            margin-block: 0.8888889em;
-        }
-        & > ul > li > p:first-child {
-            margin-top: 1.3333333em;
-        }
-        & > ul > li > p:last-child {
-            margin-bottom: 1.3333333em;
-        }
-        & > ol > li > p:first-child {
-            margin-top: 1.3333333em;
-        }
-        & > ol > li > p:last-child {
-            margin-bottom: 1.3333333em;
-        }
-        ul ul,
-        ul ol,
-        ol ul,
-        ol ol {
-            margin-block: 0.8888889em;
-        }
-        dl {
-            margin-block: 1.3333333em;
-        }
-        dt {
-            margin-top: 1.3333333em;
-        }
-        dd {
-            margin-top: 0.6666667em;
-            padding-inline-start: 1.5555556em;
-        }
-        hr {
-            margin-block: 3.1111111em;
-        }
-        hr + * {
-            margin-top: 0;
-        }
-        h2 + * {
-            margin-top: 0;
-        }
-        h3 + * {
-            margin-top: 0;
-        }
-        h4 + * {
-            margin-top: 0;
-        }
-        table {
-            font-size: 0.8888889em;
-            line-height: 1.5;
-        }
-        thead th {
-            padding-inline-end: 0.75em;
-            padding-bottom: 0.75em;
-            padding-inline-start: 0.75em;
-        }
-        thead th:first-child {
-            padding-inline-start: 0;
-        }
-        thead th:last-child {
-            padding-inline-end: 0;
-        }
-        tbody td,
-        tfoot td {
-            padding-block: 0.75em;
-            padding-inline: 0.75em;
-        }
-        tbody td:first-child,
-        tfoot td:first-child {
-            padding-inline-start: 0;
-        }
-        tbody td:last-child,
-        tfoot td:last-child {
-            padding-inline-end: 0;
-        }
-        figure {
-            margin-block: 1.7777778em;
-        }
-        figure > * {
-            margin-block: 0;
-        }
-        figcaption {
-            font-size: 0.8888889em;
-            line-height: 1.5;
-            margin-top: 1em;
-        }
-        & > :first-child {
-            margin-top: 0;
-        }
-        & > :last-child {
-            margin-bottom: 0;
-        }
+    lazy-video {
+      margin-block: 1.25rem;
     }
 
-    /* Special decorations */
-    @media (width > 1000px) {
-        .prose .shiki {
-            margin-inline: -1.5rem;
-        }
-
-        .prose lazy-video {
-            margin-inline: -3rem;
-        }
+    p {
+      margin-block: 1.25em;
+      text-wrap: pretty;
     }
+
+    [class~="lead"] {
+      font-size: 1.25em;
+      line-height: 1.6;
+      margin-block: 1.2em;
+    }
+
+    a {
+      text-decoration: underline;
+      font-weight: 500;
+    }
+
+    strong {
+      color: var(--color-foreground-title);
+      font-weight: 600;
+    }
+
+    a strong {
+      color: inherit;
+    }
+
+    blockquote strong {
+      color: inherit;
+    }
+
+    thead th strong {
+      color: inherit;
+    }
+
+    ol {
+      list-style-type: decimal;
+      margin-block: 1.25em;
+      padding-inline-start: 1.625em;
+    }
+
+    ul {
+      list-style-type: disc;
+      margin-block: 1.25em;
+      padding-inline-start: 1.625em;
+    }
+
+    ol > li::marker {
+      font-weight: 400;
+    }
+
+    dt {
+      font-weight: 600;
+      margin-top: 1.25em;
+    }
+
+    hr {
+      height: 1px;
+      background-color: var(--color-border);
+      margin-block: 3em;
+    }
+
+    blockquote {
+      font-weight: 500;
+      font-style: italic;
+      color: var(--color-muted);
+      border-inline-start-width: 0.25rem;
+      border-inline-start-color: var(--color-border);
+      quotes: "\201C" "\201D" "\2018" "\2019";
+      margin-block: 1.6em;
+      padding-inline-start: 1em;
+    }
+
+    blockquote p:first-of-type::before {
+      content: open-quote;
+    }
+
+    blockquote p:last-of-type::after {
+      content: close-quote;
+    }
+
+    h1 {
+      font-weight: 800;
+      font-size: 2.25em;
+      margin-top: 0;
+      margin-bottom: 0.8888889em;
+      line-height: 1.1111111;
+    }
+
+    h1 strong {
+      font-weight: 900;
+      color: inherit;
+    }
+
+    h2 {
+      font-weight: 700;
+      font-size: 1.5em;
+      margin-top: 2em;
+      margin-bottom: 1em;
+      line-height: 1.3333333;
+    }
+
+    h2 strong {
+      font-weight: 800;
+      color: inherit;
+    }
+
+    h3 {
+      font-weight: 600;
+      font-size: 1.25em;
+      margin-top: 1.6em;
+      margin-bottom: 0.6em;
+      line-height: 1.6;
+    }
+
+    h3 strong {
+      font-weight: 700;
+      color: inherit;
+    }
+
+    h4 {
+      font-weight: 600;
+      margin-top: 1.5em;
+      margin-bottom: 0.5em;
+      line-height: 1.5;
+    }
+
+    h4 strong {
+      font-weight: 700;
+      color: inherit;
+    }
+
+    picture {
+      display: block;
+      margin-block: 2em;
+    }
+
+    video {
+      margin-block: 2em;
+    }
+
+    kbd {
+      font-weight: 500;
+      font-family: inherit;
+      box-shadow:
+        0 0 0 1px var(--color-muted),
+        0 3px 0 var(--color-muted);
+      font-size: 0.875em;
+      border-radius: 0.3125rem;
+      padding-block: 0.1875em;
+      padding-inline: 0.375em;
+    }
+
+    code {
+      border: solid 1px var(--color-border);
+      padding: 0.3em 0.5em;
+      border-radius: 0.25rem;
+      font-family: var(--font-mono);
+      background-color: color-mix(
+        in oklab,
+        var(--color-border) 20%,
+        transparent
+      );
+      font-weight: 600;
+      font-size: 0.875em;
+    }
+
+    a code {
+      color: inherit;
+    }
+
+    h1 code {
+      color: inherit;
+    }
+
+    h2 code {
+      color: inherit;
+      font-size: 0.875em;
+    }
+
+    h3 code {
+      color: inherit;
+      font-size: 0.9em;
+    }
+
+    h4 code {
+      color: inherit;
+    }
+
+    blockquote code {
+      color: inherit;
+    }
+
+    thead th code {
+      color: inherit;
+    }
+
+    pre {
+      color: var(--color-muted);
+      background-color: var(--color-border);
+      overflow-x: auto;
+      font-weight: 400;
+      font-size: 1em;
+      line-height: 1.7142857;
+      margin-block: 1.7142857em;
+      border-radius: 0.375rem;
+      padding-block: 0.8571429em;
+      padding-inline: 1.1428571em;
+    }
+
+    pre code {
+      background-color: transparent;
+      border-width: 0;
+      border-radius: 0;
+      padding: 0;
+      font-weight: inherit;
+      color: inherit;
+      font-size: inherit;
+      font-family: inherit;
+      line-height: inherit;
+    }
+
+    pre code::before {
+      content: none;
+    }
+
+    pre code::after {
+      content: none;
+    }
+
+    table {
+      width: 100%;
+      table-layout: auto;
+      margin-block: 2em;
+      font-size: 0.875em;
+      line-height: 1.7142857;
+    }
+
+    thead {
+      border-bottom-width: 1px;
+      border-bottom-color: var(--color-border);
+    }
+
+    thead th {
+      color: var(--color-foreground-title);
+      font-weight: 600;
+      vertical-align: bottom;
+      padding-inline-end: 0.5714286em;
+      padding-bottom: 0.5714286em;
+      padding-inline-start: 0.5714286em;
+    }
+
+    tbody tr {
+      border-bottom-width: 1px;
+      border-bottom-color: var(--color-border);
+    }
+
+    tbody tr:last-child {
+      border-bottom-width: 0;
+    }
+
+    tbody td {
+      vertical-align: baseline;
+    }
+
+    tfoot {
+      border-top-width: 1px;
+      border-top-color: var(--color-border);
+    }
+
+    tfoot td {
+      vertical-align: top;
+    }
+
+    th,
+    td {
+      text-align: start;
+    }
+
+    figure > * {
+      margin-block: 0;
+    }
+
+    figcaption {
+      color: var(--color-muted);
+      font-size: 0.875em;
+      line-height: 1.4285714;
+      margin-top: 0.8571429em;
+    }
+
+    picture > img {
+      margin-block: 0;
+    }
+
+    li {
+      margin-block: 0.5em;
+    }
+
+    ol > li {
+      padding-inline-start: 0.375em;
+    }
+
+    ul > li {
+      padding-inline-start: 0.375em;
+    }
+
+    & > ul > li p {
+      margin-block: 0.75em;
+    }
+
+    & > ul > li > p:first-child {
+      margin-top: 1.25em;
+    }
+
+    & > ul > li > p:last-child {
+      margin-bottom: 1.25em;
+    }
+
+    & > ol > li > p:first-child {
+      margin-top: 1.25em;
+    }
+
+    & > ol > li > p:last-child {
+      margin-bottom: 1.25em;
+    }
+
+    ul ul,
+    ul ol,
+    ol ul,
+    ol ol {
+      margin-block: 0.75em;
+    }
+
+    dl {
+      margin-block: 1.25em;
+    }
+
+    dd {
+      margin-top: 0.5em;
+      padding-inline-start: 1.625em;
+    }
+
+    hr + * {
+      margin-top: 0;
+    }
+
+    h2 + * {
+      margin-top: 0;
+    }
+
+    h3 + * {
+      margin-top: 0;
+    }
+
+    h4 + * {
+      margin-top: 0;
+    }
+
+    thead th:first-child {
+      padding-inline-start: 0;
+    }
+
+    thead th:last-child {
+      padding-inline-end: 0;
+    }
+
+    tbody td,
+    tfoot td {
+      padding-block: 0.5714286em;
+      padding-inline: 0.5714286em;
+    }
+
+    tbody td:first-child,
+    tfoot td:first-child {
+      padding-inline-start: 0;
+    }
+
+    tbody td:last-child,
+    tfoot td:last-child {
+      padding-inline-end: 0;
+    }
+
+    figure {
+      margin-block: 2em;
+    }
+
+    & > :first-child {
+      margin-top: 0;
+    }
+
+    & > :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .prose-lg {
+    font-size: 1.125rem;
+    line-height: 1.7777778;
+    p {
+      margin-block: 1.3333333em;
+    }
+    [class~="lead"] {
+      font-size: 1.2222222em;
+      line-height: 1.4545455;
+      margin-block: 1.0909091em;
+    }
+    blockquote {
+      margin-block: 1.6666667em;
+      padding-inline-start: 1em;
+    }
+    h1 {
+      font-size: 2.6666667em;
+      margin-top: 0;
+      margin-bottom: 0.8333333em;
+      line-height: 1;
+    }
+    h2 {
+      font-size: 1.6666667em;
+      margin-top: 1.8666667em;
+      margin-bottom: 1.0666667em;
+      line-height: 1.3333333;
+    }
+    h3 {
+      font-size: 1.3333333em;
+      margin-top: 1.6666667em;
+      margin-bottom: 0.6666667em;
+      line-height: 1.5;
+    }
+    h4 {
+      margin-top: 1.7777778em;
+      margin-bottom: 0.4444444em;
+      line-height: 1.5555556;
+    }
+    picture {
+      margin-block: 1.7777778em;
+    }
+    picture > img {
+      margin-block: 0;
+    }
+    video {
+      margin-block: 1.7777778em;
+    }
+    kbd {
+      font-size: 0.8888889em;
+      border-radius: 0.3125rem;
+      padding-block: 0.2222222em;
+      padding-inline: 0.4444444em;
+    }
+    code {
+      font-size: 0.8888889em;
+    }
+    h2 code {
+      font-size: 0.8666667em;
+    }
+    h3 code {
+      font-size: 0.875em;
+    }
+    pre {
+      font-size: 0.8888889em;
+      line-height: 1.75;
+      margin-block: 2em;
+      border-radius: 0.375rem;
+      padding-block: 1em;
+      padding-inline: 1.5em;
+    }
+    ol {
+      margin-block: 1.3333333em;
+      padding-inline-start: 1.5555556em;
+    }
+    ul {
+      margin-block: 1.3333333em;
+      padding-inline-start: 1.5555556em;
+    }
+    ol > li {
+      padding-inline-start: 0.4444444em;
+    }
+    ul > li {
+      padding-inline-start: 0.4444444em;
+    }
+    & > ul > li p {
+      margin-block: 0.8888889em;
+    }
+    & > ul > li > p:first-child {
+      margin-top: 1.3333333em;
+    }
+    & > ul > li > p:last-child {
+      margin-bottom: 1.3333333em;
+    }
+    & > ol > li > p:first-child {
+      margin-top: 1.3333333em;
+    }
+    & > ol > li > p:last-child {
+      margin-bottom: 1.3333333em;
+    }
+    ul ul,
+    ul ol,
+    ol ul,
+    ol ol {
+      margin-block: 0.8888889em;
+    }
+    dl {
+      margin-block: 1.3333333em;
+    }
+    dt {
+      margin-top: 1.3333333em;
+    }
+    dd {
+      margin-top: 0.6666667em;
+      padding-inline-start: 1.5555556em;
+    }
+    hr {
+      margin-block: 3.1111111em;
+    }
+    hr + * {
+      margin-top: 0;
+    }
+    h2 + * {
+      margin-top: 0;
+    }
+    h3 + * {
+      margin-top: 0;
+    }
+    h4 + * {
+      margin-top: 0;
+    }
+    table {
+      font-size: 0.8888889em;
+      line-height: 1.5;
+    }
+    thead th {
+      padding-inline-end: 0.75em;
+      padding-bottom: 0.75em;
+      padding-inline-start: 0.75em;
+    }
+    thead th:first-child {
+      padding-inline-start: 0;
+    }
+    thead th:last-child {
+      padding-inline-end: 0;
+    }
+    tbody td,
+    tfoot td {
+      padding-block: 0.75em;
+      padding-inline: 0.75em;
+    }
+    tbody td:first-child,
+    tfoot td:first-child {
+      padding-inline-start: 0;
+    }
+    tbody td:last-child,
+    tfoot td:last-child {
+      padding-inline-end: 0;
+    }
+    figure {
+      margin-block: 1.7777778em;
+    }
+    figure > * {
+      margin-block: 0;
+    }
+    figcaption {
+      font-size: 0.8888889em;
+      line-height: 1.5;
+      margin-top: 1em;
+    }
+    & > :first-child {
+      margin-top: 0;
+    }
+    & > :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  /* Special decorations */
+  @media (width > 1000px) {
+    .prose .shiki {
+      margin-inline: -1.5rem;
+    }
+
+    .prose lazy-video {
+      margin-inline: -3rem;
+    }
+  }
 }

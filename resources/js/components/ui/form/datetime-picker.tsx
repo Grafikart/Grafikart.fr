@@ -1,39 +1,55 @@
-"use client";
+"use client"
 
-import { CalendarIcon, ClockIcon } from "lucide-react";
-import * as React from "react";
-
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Separator } from "@/components/ui/separator.tsx";
+import { CalendarIcon, ClockIcon } from "lucide-react"
+import * as React from "react"
+import { Button } from "@/components/ui/button"
+import { Calendar } from "@/components/ui/calendar"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import { Separator } from "@/components/ui/separator.tsx"
 
 function formatDateAtom(date: Date): string {
-  const pad = (n: number) => String(n).padStart(2, "0");
-  const offset = -date.getTimezoneOffset();
-  const sign = offset >= 0 ? "+" : "-";
-  const offsetHours = pad(Math.floor(Math.abs(offset) / 60));
-  const offsetMinutes = pad(Math.abs(offset) % 60);
+  const pad = (n: number) => String(n).padStart(2, "0")
+  const offset = -date.getTimezoneOffset()
+  const sign = offset >= 0 ? "+" : "-"
+  const offsetHours = pad(Math.floor(Math.abs(offset) / 60))
+  const offsetMinutes = pad(Math.abs(offset) % 60)
 
-  return `${date.toISOString().split('.')[0]}${sign}${offsetHours}:${offsetMinutes}`
+  return `${date.toISOString().split(".")[0]}${sign}${offsetHours}:${offsetMinutes}`
 }
 
 type Props = {
-  defaultValue?: string | null;
-  name?: string;
-};
+  defaultValue?: string | null
+  name?: string
+}
 
 export function DatetimePicker(props: Props) {
-  const [open, setOpen] = React.useState(false);
-    // eslint-disable-next-line react-hooks/purity
-  const [date, setDate] = React.useState<Date>(new Date(props.defaultValue ?? Date.now()));
+  const [open, setOpen] = React.useState(false)
+  // eslint-disable-next-line react-hooks/purity
+  const [date, setDate] = React.useState<Date>(
+    new Date(props.defaultValue ?? Date.now()),
+  )
 
   return (
     <div className="flex gap-2 items-center border border-input bg-input dark:bg-input/30 rounded-lg in-[.bg-card]:bg-background/50! h-9">
-      <input name={props.name} value={formatDateAtom(date)} type="hidden" className="w-full" />
+      <input
+        name={props.name}
+        value={formatDateAtom(date)}
+        type="hidden"
+        className="w-full"
+      />
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger
-          render={<Button variant="ghost" id={props.name} className="w-max justify-between font-normal" />}
+          render={
+            <Button
+              variant="ghost"
+              id={props.name}
+              className="w-max justify-between font-normal"
+            />
+          }
         >
           <CalendarIcon className="text-muted-foreground size-4" />
           {date ? date.toLocaleDateString() : "Selectionner une date"}
@@ -45,9 +61,9 @@ export function DatetimePicker(props: Props) {
             captionLayout="dropdown"
             onSelect={(date) => {
               if (date) {
-                setDate(date);
+                setDate(date)
               }
-              setOpen(false);
+              setOpen(false)
             }}
           />
         </PopoverContent>
@@ -68,11 +84,11 @@ export function DatetimePicker(props: Props) {
               e.currentTarget.valueAsDate?.getMinutes() ?? 0,
               0,
             ),
-          );
+          )
         }}
         defaultValue={`${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}:00`}
         className="bg-background appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none field-sizing-content w-max"
       />
     </div>
-  );
+  )
 }

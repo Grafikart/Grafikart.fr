@@ -1,66 +1,66 @@
-@import '@xyflow/react/dist/style.css';
+@import "@xyflow/react/dist/style.css";
 
 .tool-overlay {
-    pointer-events: auto;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 4;
-    height: 100%;
-    width: 100%;
-    transform-origin: top left;
-    touch-action: none;
+  pointer-events: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  height: 100%;
+  width: 100%;
+  transform-origin: top left;
+  touch-action: none;
 }
 
 .react-flow img {
-    max-width: none;
+  max-width: none;
 }
 
 .react-flow__handle {
-    --size: 20px;
-    opacity: 0;
-    width: var(--size) !important;
-    height: var(--size) !important;
-    top: calc(var(--size) * -0.5) !important;
-    left: calc(var(--size) * -0.5) !important;
-    min-width: 0 !important;
-    min-height: 0 !important;
-    transform: none !important;
-    position: absolute;
-    bottom: auto !important;
-    background-color: var(--color-border) !important;
-    border-color: var(--color-edge) !important;
+  --size: 20px;
+  opacity: 0;
+  width: var(--size);
+  height: var(--size);
+  top: calc(var(--size) * -0.5);
+  left: calc(var(--size) * -0.5);
+  min-width: 0;
+  min-height: 0;
+  transform: none;
+  position: absolute;
+  bottom: auto;
+  background-color: var(--color-border);
+  border-color: var(--color-edge);
 
-    .react-flow__node:hover & {
-        opacity: 1;
-    }
+  .react-flow__node:hover & {
+    opacity: 1;
+  }
 }
 
 .react-flow__node {
-    transition: 0.5s;
+  transition: 0.5s;
 }
 
-.group[data-focus='true'] {
-    .react-flow__node:not(.selected) {
-        opacity: 0.2;
-        .title {
-            color: var(--color-muted);
-        }
-        /* Reduce img opacity even more to improve readability */
-        img {
-            filter: grayscale(1);
-            opacity: 0.3;
-        }
+.group[data-focus="true"] {
+  .react-flow__node:not(.selected) {
+    opacity: 0.2;
+    .title {
+      color: var(--color-muted);
     }
-    .react-flow__edge {
-        opacity: 0.2;
+    /* Reduce img opacity even more to improve readability */
+    img {
+      filter: grayscale(1);
+      opacity: 0.3;
     }
+  }
+  .react-flow__edge {
+    opacity: 0.2;
+  }
 }
 .react-flow__node-default {
-    width: 0 !important;
-    padding: 0 !important;
+  width: 0;
+  padding: 0;
 }
 
 .isometric {
-    transform: rotate(-45deg) skew(15deg, 15deg) scale(1, 1.1) translateX(30px);
+  transform: rotate(-45deg) skew(15deg, 15deg) scale(1, 1.1) translateX(30px);
 }

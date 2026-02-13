@@ -32,11 +32,8 @@ jobs:
       - name: Run Pint
         run: composer lint
 
-      - name: Format Frontend
-        run: npm run format
-
-      - name: Lint Frontend
-        run: npm run lint
+      - name: Check Frontend
+        run: npx biome ci resources/
 
       # - name: Commit Changes
       #   uses: stefanzweifel/git-auto-commit-action@v7
