@@ -6,29 +6,29 @@ use App\Infrastructure\Payment\Payment;
 use Stripe\Charge;
 use Stripe\PaymentIntent;
 
-readonly class StripePaymentFactory
+class StripePaymentFactory
 {
-    public function __construct(private StripeApi $api) {}
+    public function __construct(private readonly StripeApi $api) {}
 
     public function createPaymentFromIntent(PaymentIntent $intent): Payment
     {
+        $intent = $this->api->getPaymentIntent($intent->id);
         $charge = $intent->latest_charge;
-        assert($charge instanceof Charge, 'Cannot resolve the charge from the payment intent');
-        if (is_string($charge->balance_transaction)) {
-            $charge->balance_transaction = $this->api->getTransaction($charge->balance_transaction);
-        }
-        // TODO : Check if it still exists in the API
-        if ($intent->invoice) {
-            $invoice = $this->api->getInvoice($intent->invoice);
-            $subscription = $this->api->getSubscription((string) $invoice->subscription);
-            $intent->metadata = $subscription->metadata;
+        assert($charge instanceof Charge, "Cannot read latest_charge for {$intent->id}");
+        $details = $intent->amount_details;
 
-            return new StripePayment($intent, $invoice);
-        }
-
-        // Le paiement provient d'une checkout session
-        $session = $this->api->getCheckoutSessionFromIntent($intent->id);
-
-        return new StripePayment($intent, $session);
+        return new Payment(
+            id: $intent->id,
+            amount: $intent->amount,
+            vat: $details['tax']['total_tax_amount'] ?? 0,
+            fee: 0,
+            planId: $intent->metadata['plan_id'],
+            method: 'stripe',
+            firstname: $charge->billing_details['name'] ?: '',
+            address: $charge->billing_details['address']['line1']."\n".$charge->billing_details['address']['line2'],
+            city: $charge->billing_details['address']['city'] ?: '',
+            postalCode: $charge->billing_details['address']['postal_code'] ?: '',
+            countryCode: $charge->billing_details['address']['country'] ?: '',
+        );
     }
 }

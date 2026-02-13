@@ -5,6 +5,7 @@ namespace App\Infrastructure\Payment\Stripe;
 use App\Domains\Premium\Models\Plan;
 use App\Models\User;
 use Stripe\BalanceTransaction;
+use Stripe\Charge;
 use Stripe\Checkout\Session;
 use Stripe\Customer;
 use Stripe\Invoice;
@@ -22,7 +23,7 @@ class StripeApi
 
     public function __construct(string $privateKey)
     {
-        Stripe::setApiVersion('2020-08-27');
+        Stripe::setApiVersion('2026-01-28.clover');
         $this->taxes = ['txr_1SzcN4FLYwyu3L7pEz2Rnhlc'];
         if (str_contains($privateKey, 'live')) {
             $this->taxes = ['txr_1I7c7DFCMNgisvowdAol5zkl'];
@@ -68,7 +69,12 @@ class StripeApi
 
     public function getPaymentIntent(string $id): PaymentIntent
     {
-        return $this->stripe->paymentIntents->retrieve($id);
+        return $this->stripe->paymentIntents->retrieve($id, [
+            'expand' => [
+                'amount_details.line_items.data.tax',
+                'latest_charge',
+            ]]
+        );
     }
 
     /**
@@ -87,6 +93,9 @@ class StripeApi
                 'metadata' => [
                     'plan_id' => $plan->id,
                 ],
+            ],
+            'metadata' => [
+                'plan_id' => $plan->id,
             ],
             'customer' => $user->stripe_id,
             'line_items' => [
@@ -148,6 +157,11 @@ class StripeApi
     public function getPlan(string $id): StripePlan
     {
         return $this->stripe->plans->retrieve($id);
+    }
+
+    public function getCharge(string $id): Charge
+    {
+        return $this->stripe->charges->retrieve($id);
     }
 
     public function getCheckoutSessionFromIntent(string $paymentIntent): Session

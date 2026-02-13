@@ -2,10 +2,11 @@
 
 - [x] Recherche
 - [x] Uploader YouTube
-- [ ] Sidebar listing tutoriel
-- [ ] Page d'un langage
+- [x] Sidebar listing tutoriel
+- [x] Page d'un langage
 - [x] Page d'un cours (hors formation)
 - [ ] Page d'un cours dans une formation
+- [ ] Page d'une formation
 - [ ] Listing des cursus à améliorer
 - [ ] Homepage
 - [x] Authentification / Inscription
@@ -13,7 +14,7 @@
 - [x] Contact
 - [x] Live twitch
 - [x] Système de suivi de progression
-- [ ] Paiement & Abonnement
+- [x] Paiement & Abonnement
 - [x] A propos
 - [ ] Confidentialité / Condition de vente
 - [ ] Edition de profil
@@ -22,7 +23,7 @@
 - [ ] Support sur les vidéos
 - [ ] Quiz sur les formations
 - [ ] Edition d'article (révision)
-- [ ] Notifications
+- [x] Notifications
 - [ ] Dump & Sauvegarde
 - [x] Pages d'erreur (404)
 - [ ] Mailing

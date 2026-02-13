@@ -138,6 +138,27 @@ describe('payment_intent.succeeded', function () {
 
         expect(Transaction::count())->toBe(0);
     });
+
+    it('handles raw events correctly', function () {
+        $eventFactory = new \App\Infrastructure\Payment\Stripe\Factory\StripeEventFactory;
+        $apiFactory = new \App\Infrastructure\Payment\Stripe\Factory\StripeAPIDataFactory;
+        $user = User::factory()->create(['stripe_id' => 'cus_test123']);
+        $plan = Plan::factory()->create(['price' => 5, 'duration' => 1]);
+        // Mock the database call
+        $this->mock(\App\Infrastructure\Payment\Stripe\StripeApi::class)
+            ->shouldReceive('getPaymentIntent')
+            ->once()
+            ->andReturn($apiFactory->paymentIntent($user, $plan));
+
+        $response = sendWebhookEvent($this, $eventFactory->paymentIntentSucceeded($user, $plan));
+        $response->assertOk();
+        $transaction = Transaction::first();
+        expect($transaction)->not->toBeNull();
+        expect($transaction->user_id)->toBe($user->id);
+        expect($transaction->price)->toBe(500);
+        expect($transaction->duration)->toBe($plan->duration);
+        expect($transaction->method)->toBe('stripe');
+    });
 });
 
 describe('customer.subscription.created', function () {

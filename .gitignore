@@ -4,6 +4,7 @@
 .junie
 var
 PLAN.md
+*.private.env.json
 
 # Laravel gitignore
 /.phpunit.cache
