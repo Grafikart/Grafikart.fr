@@ -13,12 +13,17 @@ Route::get('/auth/check/premium', [\App\Http\Front\AuthController::class, 'check
 // Auth restricted page
 Route::middleware(['auth'])->group(function () {
     Route::get('/profil', [\App\Http\Front\UserController::class, 'me'])->name('users.me');
+    Route::delete('/profil', [\App\Http\Front\UserController::class, 'delete'])->name('users.delete');
     Route::get('/profil/edit', [\App\Http\Front\UserController::class, 'edit'])->name('users.edit');
+    Route::get('/profil/factures', [\App\Http\Front\Account\InvoiceController::class, 'index'])->name('transactions.index');
+    Route::post('/profil/factures', [\App\Http\Front\Account\InvoiceController::class, 'update'])->name('transactions.update');
+    Route::get('/profil/factures/{transaction}', [\App\Http\Front\Account\InvoiceController::class, 'show'])
+        ->name('transactions.show');
+    Route::post('/profil/subscription', [\App\Http\Front\Account\SubscriptionController::class, 'manage'])->name('users.subscription');
     Route::post('/profil/edit', [\App\Http\Front\UserController::class, 'update']);
     Route::post('/profil/password', [\App\Http\Front\UserController::class, 'password'])->name('users.password');
     Route::get('/notifications', [\App\Http\Front\NotificationController::class, 'index'])->name('notifications');
     Route::get('/oauth/unlink/{driver}', [\App\Http\Front\AuthController::class, 'unlink'])->name('oauth.unlink');
-    Route::delete('/profil', [\App\Http\Front\UserController::class, 'delete'])->name('users.delete');
 });
 
 // Pages

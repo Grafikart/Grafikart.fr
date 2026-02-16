@@ -62,7 +62,7 @@ class UserController
         return to_route('users.edit')->with('success', 'Votre mot de passe a bien été mis à jour');
     }
 
-    public function delete(UserDeletionRequestData $data, AccountService $account,  Request $request): RedirectResponse
+    public function delete(UserDeletionRequestData $data, AccountService $account, Request $request): RedirectResponse
     {
         $user = $request->user();
         assert($user instanceof User);
@@ -72,6 +72,7 @@ class UserController
             return to_route('users.edit')->with('error', 'Mot de passe incorrect');
         }
         Auth::logout();
+
         return to_route('home')->with('success', 'Votre compte a bien été supprimé');
     }
 }

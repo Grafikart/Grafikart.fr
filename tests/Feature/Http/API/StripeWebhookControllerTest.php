@@ -163,31 +163,21 @@ describe('payment_intent.succeeded', function () {
 
 describe('customer.subscription.created', function () {
     it('creates a subscription when the plan exists', function () {
+        $eventFactory = new \App\Infrastructure\Payment\Stripe\Factory\StripeEventFactory;
         $user = User::factory()->create(['stripe_id' => 'cus_test123']);
         $plan = Plan::factory()->create();
-        $periodEnd = now()->addMonth()->getTimestamp();
+        $nextPayment = now()->addMonth();
 
-        sendWebhookEvent($this, [
-            'id' => 'evt_sub_created',
-            'object' => 'event',
-            'type' => 'customer.subscription.created',
-            'data' => [
-                'object' => [
-                    'object' => 'subscription',
-                    'id' => 'sub_test123',
-                    'customer' => 'cus_test123',
-                    'current_period_end' => $periodEnd,
-                    'metadata' => ['plan_id' => $plan->id],
-                ],
-            ],
-        ])->assertOk();
+        $event = $eventFactory->subscriptionCreated($user, $plan, $nextPayment);
+        $response = sendWebhookEvent($this, $event);
+        $response->assertOk();
 
         $subscription = Subscription::first();
         expect($subscription)->not->toBeNull();
         expect($subscription->user_id)->toBe($user->id);
         expect($subscription->plan_id)->toBe($plan->id);
         expect($subscription->state)->toBe(Subscription::ACTIVE);
-        expect($subscription->stripe_id)->toBe('sub_test123');
-        expect($subscription->next_payment->format('Y-m-d'))->toBe(now()->addMonth()->format('Y-m-d'));
+        expect($subscription->stripe_id)->toBe($event['data']['object']['id']);
+        expect($subscription->next_payment->format('Y-m-d'))->toBe($nextPayment->format('Y-m-d'));
     });
 });

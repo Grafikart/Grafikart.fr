@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Domains\History\Progress;
+use App\Domains\Premium\Models\Transaction;
 use App\Models\Factory\UserFactory;
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -59,6 +60,14 @@ class User extends Authenticatable implements MustVerifyEmail
     public function progress(): HasMany
     {
         return $this->hasMany(Progress::class);
+    }
+
+    /**
+     * @return HasMany<Transaction, $this>
+     */
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class);
     }
 
     protected static function newFactory(): UserFactory

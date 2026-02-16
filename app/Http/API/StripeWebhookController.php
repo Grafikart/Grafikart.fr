@@ -19,6 +19,7 @@ use Stripe\Charge;
 use Stripe\Event;
 use Stripe\PaymentIntent;
 use Stripe\Subscription as StripeSubscription;
+use Stripe\SubscriptionItem;
 use Stripe\Webhook;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -95,9 +96,11 @@ readonly class StripeWebhookController
             throw new NotFoundHttpException;
         }
         $user = $this->getUserFromCustomer((string) $stripeSubscription->customer);
+        $item = $stripeSubscription->items->first();
+        assert($item instanceof SubscriptionItem);
         Subscription::create([
             'state' => 1,
-            'next_payment' => new \DateTimeImmutable('@'.($stripeSubscription?->current_period_end ?? 0)),
+            'next_payment' => new \DateTimeImmutable('@'.($item->current_period_end)),
             'plan_id' => $plan->id,
             'user_id' => $user->id,
             'stripe_id' => $stripeSubscription->id,
@@ -110,11 +113,13 @@ readonly class StripeWebhookController
         if (! ($subscription instanceof Subscription)) {
             throw new \Exception("Impossible de trouver l'abonnement correspondant");
         }
-        if ($stripeSubscription->cancel_at_period_end) {
+        if ($stripeSubscription->cancel_at !== null) {
             $subscription->state = Subscription::INACTIVE;
         } else {
+            $item = $stripeSubscription->items->first();
+            assert($item instanceof SubscriptionItem);
             $subscription->state = Subscription::ACTIVE;
-            $subscription->next_payment = new \DateTimeImmutable('@'.($stripeSubscription->current_period_end ?? 0));
+            $subscription->next_payment = new \DateTimeImmutable('@'.($item->current_period_end ?? 0));
         }
         $subscription->save();
     }

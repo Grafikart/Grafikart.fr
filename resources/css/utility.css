@@ -93,3 +93,18 @@ body[data-drawer="hidden"] &);
     color: var(--color-destructive);
   }
 }
+
+@utility table {
+  th {
+    font-weight: 300;
+    font-size: 0.9em;
+    text-align: left;
+    color: var(--color-muted);
+  }
+  td {
+    padding: 1rem 0;
+  }
+  tbody tr {
+    border-bottom: 1px solid var(--color-border);
+  }
+}

@@ -73,46 +73,51 @@
             </section>
         </main>
 
-        <aside>
-            <h2 class="text-xl font-bold text-foreground-title">Connexion social</h2>
-            <p class="mb-4">Reliez votre compte à un réseau social afin de l'utiliser comme mode de connexion</p>
+        <aside class="space-y-8">
 
-            <div class="space-y-2">
-                @php
-                    $drivers = ['github', 'google', 'facebook'];
-                @endphp
+            @include('users._subscription')
 
-                @foreach($drivers as $driver)
+            <section>
+                <h2 class="text-xl font-bold text-foreground-title">Connexion social</h2>
+                <p class="mb-4">Reliez votre compte à un réseau social afin de l'utiliser comme mode de connexion</p>
+                <div class="space-y-2">
                     @php
-                        $field = "{$driver}_id";
-                        $isConnected = (bool)$user->getAttribute($field);
+                        $drivers = ['github', 'google', 'facebook'];
                     @endphp
-                    <x-atoms.button href="{{ route($isConnected ? 'oauth.unlink' : 'oauth', ['driver' => $driver]) }}"
-                                    variant="secondary"
-                                    class="w-full justify-start relative">
-                        @switch($driver)
-                            @case('github')
-                                <x-lucide-github/>
-                                @break
-                            @case('google')
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                     viewBox="0 0 48 48"
-                                >
-                                    <path
-                                        fill="currentColor"
-                                        d="M24.7 20.5v7.6h10.9a10.9 10.9 0 0 1-10.9 8 12.1 12.1 0 1 1 7.9-21.3l5.6-5.6A20 20 0 1 0 24.7 44c16.8 0 20.5-15.7 18.9-23.5Z"
 
-                                    />
-                                </svg>
-                                @break;
-                            @case('facebook')
-                                <x-lucide-facebook/>
-                                @break;
-                        @endswitch
-                        {{ $isConnected ? 'Dissocier' : 'Lier' }} votre compte {{ ucfirst($driver) }}
-                    </x-atoms.button>
-                @endforeach
-            </div>
+                    @foreach($drivers as $driver)
+                        @php
+                            $field = "{$driver}_id";
+                            $isConnected = (bool)$user->getAttribute($field);
+                        @endphp
+                        <x-atoms.button
+                            href="{{ route($isConnected ? 'oauth.unlink' : 'oauth', ['driver' => $driver]) }}"
+                            variant="secondary"
+                            class="w-full justify-start relative">
+                            @switch($driver)
+                                @case('github')
+                                    <x-lucide-github/>
+                                    @break
+                                @case('google')
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         viewBox="0 0 48 48"
+                                    >
+                                        <path
+                                            fill="currentColor"
+                                            d="M24.7 20.5v7.6h10.9a10.9 10.9 0 0 1-10.9 8 12.1 12.1 0 1 1 7.9-21.3l5.6-5.6A20 20 0 1 0 24.7 44c16.8 0 20.5-15.7 18.9-23.5Z"
+
+                                        />
+                                    </svg>
+                                    @break;
+                                @case('facebook')
+                                    <x-lucide-facebook/>
+                                    @break;
+                            @endswitch
+                            {{ $isConnected ? 'Dissocier' : 'Lier' }} votre compte {{ ucfirst($driver) }}
+                        </x-atoms.button>
+                    @endforeach
+                </div>
+            </section>
         </aside>
     </div>
     <x-molecules.dialog id="delete-confirm" class="max-w-87" title="Confirmer la suppression">

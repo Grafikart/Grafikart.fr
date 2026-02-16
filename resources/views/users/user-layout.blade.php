@@ -21,7 +21,7 @@ $active = Route::currentRouteName();
             <x-lucide-align-justify class="size-5"/>
             Profil
         </a>
-        <a href="#" class="{{ $tabCls }}" @if($active === 'users.edit') aria-selected="true" @endif>
+        <a href="{{ route('users.edit') }}" class="{{ $tabCls }}" @if($active === 'users.edit') aria-selected="true" @endif>
             <x-lucide-user-pen class="size-5"/>
             Editer
         </a>
@@ -33,7 +33,7 @@ $active = Route::currentRouteName();
             <x-lucide-award class="size-5"/>
             Badges
         </a>
-        <a href="#" class="{{ $tabCls }}" @if($active === 'invoices') aria-selected="true" @endif>
+        <a href="{{ route('transactions.index') }}" class="{{ $tabCls }}" @if($active === 'transactions.index') aria-selected="true" @endif>
             <x-lucide-inbox class="size-5"/>
             Factures
         </a>
