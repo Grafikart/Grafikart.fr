@@ -25,8 +25,6 @@ import { Label } from "@/components/ui/label.tsx"
 import { Switch } from "@/components/ui/switch.tsx"
 import type { CourseFormData } from "@/types"
 
-import "@mdxeditor/editor/style.css"
-
 type Props = {
   item: CourseFormData
 }

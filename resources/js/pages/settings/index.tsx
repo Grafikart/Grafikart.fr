@@ -8,8 +8,6 @@ import { Button } from "@/components/ui/button.tsx"
 import { DatetimePicker } from "@/components/ui/form/datetime-picker.tsx"
 import type { SettingsFormData } from "@/types"
 
-import "@mdxeditor/editor/style.css"
-
 type Props = {
   settings: SettingsFormData
 }

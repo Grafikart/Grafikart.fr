@@ -23,8 +23,6 @@ import { Switch } from "@/components/ui/switch.tsx"
 import { Textarea } from "@/components/ui/textarea.tsx"
 import type { FormationFormData } from "@/types"
 
-import "@mdxeditor/editor/style.css"
-
 type Props = {
   item: FormationFormData
 }

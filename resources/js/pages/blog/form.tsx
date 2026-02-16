@@ -18,8 +18,6 @@ import {
 import { Switch } from "@/components/ui/switch.tsx"
 import type { OptionItemData, PostFormData } from "@/types"
 
-import "@mdxeditor/editor/style.css"
-
 type Props = {
   item: PostFormData
   categories: OptionItemData[]

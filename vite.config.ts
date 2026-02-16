@@ -3,7 +3,6 @@ import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import laravel from 'laravel-vite-plugin';
 import { copyFileSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
-import { SondaVitePlugin as Sonda } from 'sonda';
 import { defineConfig, type Plugin } from 'vite';
 
 const inputs = {
@@ -51,7 +50,6 @@ function manifestMerge(): Plugin {
 
 export default defineConfig({
     plugins: [
-        Sonda(),
         laravel({
             input: entry ? inputs[entry] : [...inputs.front, ...inputs.cms],
             refresh: false,
