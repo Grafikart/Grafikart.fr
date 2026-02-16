@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions\Fortify;
+namespace App\Domains\Account\Data;
 
 use App\Concerns\PasswordValidationRules;
 use App\Concerns\ProfileValidationRules;

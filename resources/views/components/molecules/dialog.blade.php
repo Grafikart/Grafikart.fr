@@ -10,7 +10,7 @@
 ])]) }}>
     @if($title)
         <div class="gap-2 flex flex-col">
-            <h2 class="text-sm leading-none font-medium">{{ $title }}</h2>
+            <h2 class="text-xl leading-none font-bold">{{ $title }}</h2>
         </div>
     @endif
 

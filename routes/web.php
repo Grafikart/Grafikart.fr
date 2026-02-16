@@ -10,6 +10,17 @@ Route::get('/oauth/connect/{driver}', [\App\Http\Front\AuthController::class, 'c
 Route::get('/oauth/check/{driver}', [\App\Http\Front\AuthController::class, 'callback'])->name('oauth.callback');
 Route::get('/auth/check/premium', [\App\Http\Front\AuthController::class, 'checkPremium'])->name('auth.check.premium');
 
+// Auth restricted page
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profil', [\App\Http\Front\UserController::class, 'me'])->name('users.me');
+    Route::get('/profil/edit', [\App\Http\Front\UserController::class, 'edit'])->name('users.edit');
+    Route::post('/profil/edit', [\App\Http\Front\UserController::class, 'update']);
+    Route::post('/profil/password', [\App\Http\Front\UserController::class, 'password'])->name('users.password');
+    Route::get('/notifications', [\App\Http\Front\NotificationController::class, 'index'])->name('notifications');
+    Route::get('/oauth/unlink/{driver}', [\App\Http\Front\AuthController::class, 'unlink'])->name('oauth.unlink');
+    Route::delete('/profil', [\App\Http\Front\UserController::class, 'delete'])->name('users.delete');
+});
+
 // Pages
 Route::get('/ui', [\App\Http\Front\PageController::class, 'ui'])->name('pages.ui');
 Route::get('/a-propos', [\App\Http\Front\PageController::class, 'about'])->name('pages.about');
@@ -26,11 +37,6 @@ Route::get('/politique-de-confidentialite', [\App\Http\Front\PageController::cla
 Route::get('/premium', [\App\Http\Front\PageController::class, 'premium'])->name('premium');
 Route::get('/contact', [\App\Http\Front\ContactController::class, 'show'])->name('contact');
 Route::post('/contact', [\App\Http\Front\ContactController::class, 'submit']);
-Route::middleware(['auth'])->group(function () {
-    Route::get('/profil/edit', [\App\Http\Front\PageController::class, 'privacy'])->name('users.edit');
-    Route::get('/profil', [\App\Http\Front\PageController::class, 'privacy'])->name('users.show');
-    Route::get('/notifications', [\App\Http\Front\NotificationController::class, 'index'])->name('notifications');
-});
 
 // Forum
 Route::group(['prefix' => '/forum', 'as' => 'forum.'], function () {
@@ -69,7 +75,7 @@ Route::group(['prefix' => '/blog', 'as' => 'blog.'], function () {
 });
 
 // Admin routes
-Route::group(['prefix' => '/cms', 'as' => 'cms.'], function () {
+Route::group(['prefix' => '/cms', 'as' => 'cms.', 'middleware' => ['auth', 'can:manageSite']], function () {
     Route::get('/', function () {
         return redirect('/cms/dashboard');
     });

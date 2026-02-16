@@ -11,7 +11,6 @@ import { SiteSearch } from "@/elements/site-search.tsx"
 import { ThemeSwitcher } from "@/elements/theme-switcher.tsx"
 import { TimeAgo } from "@/elements/time-ago.ts"
 import { lazywc, r2wc } from "@/lib/custom-element.ts"
-import { start as startTurbo } from "@/lib/turbo/index.ts"
 import "../css/front.css"
 import { DrawerToggle } from "@/elements/DrawerToggle.ts"
 
@@ -33,12 +32,3 @@ customElements.define("site-header", SiteHeader)
 customElements.define("site-notification", SiteNotificationElement)
 customElements.define("time-ago", TimeAgo)
 customElements.define("drawer-toggle", DrawerToggle)
-
-startTurbo()
-
-const es = new EventSource(
-  "http://localhost:8000/.well-known/mercure?topic=live",
-)
-es.addEventListener("message", (messageEvent) => {
-  JSON.parse(messageEvent.data)
-})

@@ -7,11 +7,13 @@ use App\Domains\Course\Course;
 use App\Domains\Course\Formation;
 use App\Http\Front\AuthController;
 use App\Infrastructure\Twitch\TwitchAPI;
+use App\Models\User;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
@@ -44,6 +46,13 @@ class AppServiceProvider extends ServiceProvider
         Route::pattern('id', '[0-9]+');
         Route::pattern('slug', '[a-z0-9\-]+');
         Route::pattern('driver', implode('|', AuthController::DRIVERS));
+
+        Gate::before(function (User $user) {
+            if ($user->isAdmin()) {
+                return true;
+            }
+        });
+
         $this->configureDefaults();
     }
 

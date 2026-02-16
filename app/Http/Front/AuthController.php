@@ -4,6 +4,7 @@ namespace App\Http\Front;
 
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -18,32 +19,51 @@ class AuthController
         return Socialite::driver($driver)->redirect();
     }
 
-    public function callback(string $driver)
+    public function unlink(string $driver, Request $request)
+    {
+        $user = $request->user();
+        assert($user instanceof User);
+        $user->setAttribute("{$driver}_id", null);
+        $user->save();
+
+        return to_route('users.edit')->with('success', 'Votre compte a bien été déconnecté de '.ucfirst($driver));
+    }
+
+    public function callback(string $driver, Request $request)
     {
         assert(in_array($driver, self::DRIVERS));
         $oauthUser = Socialite::driver($driver)->user();
 
         // Find the user based on the token
-        $user = $this->findUser($driver, $oauthUser);
+        $user = $this->findUser($driver, $oauthUser, $request->user());
         if (! $user) {
             return to_route('home')->with('error', "Impossible de vous authentifier avec {$driver}");
         }
 
         Auth::login($user);
 
-        return to_route('home');
+        return to_route('users.edit')->with('success', 'Votre compte a bien été relié à '.ucfirst($driver));
     }
 
     /**
      * Resolve a User from an oauth user
      */
-    private function findUser(string $driver, \Laravel\Socialite\Contracts\User $oauthUser): ?User
+    private function findUser(string $driver, \Laravel\Socialite\Contracts\User $oauthUser, ?User $user): ?User
     {
         $field = "{$driver}_id";
         $oauthId = $oauthUser->getId();
         if (! $oauthId) {
             return null;
         }
+
+        // We have an authenticated user
+        if ($user) {
+            $user->setAttribute($field, $oauthUser->getId());
+            $user->save();
+
+            return $user;
+        }
+
         // Find the user using its oauth_id
         $user = User::where($field, $oauthUser->getId())->first();
         if ($user) {
