@@ -1,4 +1,5 @@
-import { type UrlMethodPair } from "@inertiajs/core"
+import type { UrlMethodPair } from "@inertiajs/core"
+import "temporal-polyfill/global"
 
 export * from "./generated.d.ts"
 

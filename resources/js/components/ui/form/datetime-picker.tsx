@@ -11,14 +11,28 @@ import {
 } from "@/components/ui/popover"
 import { Separator } from "@/components/ui/separator.tsx"
 
-function formatDateAtom(date: Date): string {
-  const pad = (n: number) => String(n).padStart(2, "0")
-  const offset = -date.getTimezoneOffset()
-  const sign = offset >= 0 ? "+" : "-"
-  const offsetHours = pad(Math.floor(Math.abs(offset) / 60))
-  const offsetMinutes = pad(Math.abs(offset) % 60)
+function parseDatetime(value?: string | null): Temporal.PlainDateTime {
+  if (!value) {
+    return Temporal.Now.plainDateTimeISO()
+  }
+  try {
+    const instant = Temporal.Instant.from(value)
+    return instant
+      .toZonedDateTimeISO(Temporal.Now.timeZoneId())
+      .toPlainDateTime()
+  } catch {
+    try {
+      return Temporal.PlainDateTime.from(value)
+    } catch {
+      return Temporal.Now.plainDateTimeISO()
+    }
+  }
+}
 
-  return `${date.toISOString().split(".")[0]}${sign}${offsetHours}:${offsetMinutes}`
+function formatAtom(dt: Temporal.PlainDateTime): string {
+  return dt
+    .toZonedDateTime(Temporal.Now.timeZoneId())
+    .toString({ timeZoneName: "never" })
 }
 
 type Props = {
@@ -28,16 +42,15 @@ type Props = {
 
 export function DatetimePicker(props: Props) {
   const [open, setOpen] = React.useState(false)
-  // eslint-disable-next-line react-hooks/purity
-  const [date, setDate] = React.useState<Date>(
-    new Date(props.defaultValue ?? Date.now()),
+  const [dateTime, setDateTime] = React.useState<Temporal.PlainDateTime>(() =>
+    parseDatetime(props.defaultValue),
   )
 
   return (
     <div className="flex gap-2 items-center border border-input bg-input dark:bg-input/30 rounded-lg in-[.bg-card]:bg-background/50! h-9">
       <input
         name={props.name}
-        value={formatDateAtom(date)}
+        value={formatAtom(dateTime)}
         type="hidden"
         className="w-full"
       />
@@ -52,16 +65,26 @@ export function DatetimePicker(props: Props) {
           }
         >
           <CalendarIcon className="text-muted-foreground size-4" />
-          {date ? date.toLocaleDateString() : "Selectionner une date"}
+          {dateTime.toLocaleString(undefined, {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
         </PopoverTrigger>
         <PopoverContent className="w-auto overflow-hidden p-0" align="start">
           <Calendar
             mode="single"
-            selected={date}
+            selected={new Date(dateTime.year, dateTime.month - 1, dateTime.day)}
             captionLayout="dropdown"
-            onSelect={(date) => {
-              if (date) {
-                setDate(date)
+            onSelect={(selected) => {
+              if (selected) {
+                setDateTime((dt) =>
+                  dt.with({
+                    year: selected.getFullYear(),
+                    month: selected.getMonth() + 1,
+                    day: selected.getDate(),
+                  }),
+                )
               }
               setOpen(false)
             }}
@@ -75,18 +98,12 @@ export function DatetimePicker(props: Props) {
         id="time-picker"
         step="5"
         onChange={(e) => {
-          setDate(
-            new Date(
-              date.getFullYear(),
-              date.getMonth(),
-              date.getDate(),
-              e.currentTarget.valueAsDate?.getHours() ?? 0,
-              e.currentTarget.valueAsDate?.getMinutes() ?? 0,
-              0,
-            ),
+          const time = Temporal.PlainTime.from(e.currentTarget.value)
+          setDateTime((dt) =>
+            dt.with({ hour: time.hour, minute: time.minute, second: 0 }),
           )
         }}
-        defaultValue={`${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}:00`}
+        defaultValue={dateTime.toPlainTime().toString()}
         className="bg-background appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none field-sizing-content w-max"
       />
     </div>
