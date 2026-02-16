@@ -17,8 +17,8 @@
 - [x] Paiement & Abonnement
 - [x] A propos
 - [ ] Confidentialité / Condition de vente
-- [ ] Edition de profil
-- [ ] Factures
+- [x] Edition de profil
+- [x] Factures
 - [ ] Mode école
 - [ ] Support sur les vidéos
 - [ ] Quiz sur les formations

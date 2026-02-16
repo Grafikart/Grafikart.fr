@@ -26,10 +26,10 @@
                 <x-atoms.logo/>
             </a>
 
-            <x-atoms.separator orientation="vertical" class="h-4"/>
+            <x-atoms.separator orientation="vertical" class="h-4 hidden md:block"/>
 
             {{-- Navigation --}}
-            <nav class="flex items-center">
+            <nav class="items-center hidden md:flex" id="navigation">
                 @foreach($navItems as $item)
                     <a
                         href="{{ $item['href'] }}"
@@ -58,42 +58,48 @@
         </div>
         <div class="flex items-center gap-2 ml-auto" style="view-transition-name: header-right">
             @if($user)
-            <site-notification class="size-6 grid place-items-center hover:text-primary transition-colors relative" read-at="{{ $user->notifications_read_at->getTimestamp() ?? $user->created_at->getTimestamp() }}">
+            <site-notification class="size-6 grid place-items-center hover:text-primary transition-colors relative cursor-pointer" read-at="{{ $user->notifications_read_at->getTimestamp() ?? $user->created_at->getTimestamp() }}">
                 <x-lucide-bell class="size-4"/>
             </site-notification>
             @endif
-            <site-search class="size-6 grid place-items-center hover:text-primary transition-colors">
+            <site-search class="size-6 grid place-items-center hover:text-primary transition-colors cursor-pointer">
                 <x-lucide-search class="size-4"/>
             </site-search>
 
             <x-atoms.separator orientation="vertical" class="h-4"/>
 
             {{-- Auth --}}
-            @auth
-                <a href="{{ route('cms.dashboard') }}"
-                   class="flex items-center gap-2 text-sm hover:text-primary transition-colors">
-                    <x-lucide-user-round  class="size-4"/>
-                    <span>{{ auth()->user()->name }}</span>
-                </a>
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit" class="p-2 text-sm hover:text-primary transition-colors" title="Se déconnecter">
-                        <x-lucide-log-out class="size-4"/>
-                    </button>
-                </form>
-            @else
-                <div class="flex items-center gap-1">
-                    <a href="{{ route('register') }}" class="flex items-center gap-2 hover:text-primary transition-colors">
-                        <x-lucide-user-round-plus class="size-4"/>
-                        <span>S'inscrire</span>
+            <div class="hidden lg:contents" id="navigation-right">
+                @auth
+                    <a href="{{ route('cms.dashboard') }}"
+                       class="flex items-center gap-2 text-sm hover:text-primary transition-colors">
+                        <x-lucide-user-round  class="size-4"/>
+                        <span>{{ auth()->user()->name }}</span>
                     </a>
-                    <span class="text-muted">·</span>
-                    <a href="{{ route('login') }}" class="hover:text-primary transition-colors">
-                        Se connecter
-                    </a>
-                </div>
-            @endauth
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="p-2 text-sm hover:text-primary transition-colors" title="Se déconnecter">
+                            <x-lucide-log-out class="size-4"/>
+                        </button>
+                    </form>
+                @else
+                    <div class="flex items-center gap-1">
+                        <a href="{{ route('register') }}" class="flex items-center gap-2 hover:text-primary transition-colors">
+                            <x-lucide-user-round-plus class="size-4"/>
+                            <span>S'inscrire</span>
+                        </a>
+                        <span class="text-muted">·</span>
+                        <a href="{{ route('login') }}" class="hover:text-primary transition-colors">
+                            Se connecter
+                        </a>
+                    </div>
+                @endauth
+            </div>
         </div>
+        <burger-menu class="size-6 grid md:hidden place-items-center hover:text-primary transition-colors relative cursor-pointer">
+            <x-lucide-menu class="size-4"/>
+        </burger-menu>
+
         @if($drawer === 'right')
             <div class="contents 3xl:hidden">
                 <x-atoms.separator class="h-4 mr-2" orientation="vertical"/>
@@ -104,5 +110,6 @@
                 </drawer-toggle>
             </div>
         @endif
+
     </div>
 </site-header>

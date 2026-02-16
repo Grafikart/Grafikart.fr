@@ -39,6 +39,7 @@ export function r2wc(
   tagName: string,
   component: FC<{ element: HTMLElement; [k: string]: unknown }>,
   props: Record<string, string>,
+  options?: { append: boolean },
 ): void
 export function r2wc(
   tagName: string,
@@ -46,6 +47,7 @@ export function r2wc(
     | FC<{ element: HTMLElement; [k: string]: unknown }>
     | LazyImport,
   props?: Record<string, string>,
+  options?: { append: boolean },
 ): void {
   customElements.define(
     tagName,
@@ -53,9 +55,15 @@ export function r2wc(
       root: Root | null = null
 
       connectedCallback() {
+        let anchorElement = this as HTMLElement | DocumentFragment
+        if (options?.append) {
+          anchorElement = document.createElement("div")
+          anchorElement.classList.add("hidden")
+          this.append(anchorElement)
+        }
         // Direct component passed
         if (props !== undefined) {
-          this.root = createRoot(this)
+          this.root = createRoot(anchorElement)
           const element = createElement(
             componentOrImport as FC<{
               element: HTMLElement
@@ -68,7 +76,7 @@ export function r2wc(
         }
         // Lazy import passed
         ;(componentOrImport as LazyImport)().then((module) => {
-          this.root = createRoot(this)
+          this.root = createRoot(anchorElement)
           const element = createElement(
             module.default.component,
             parseProps(module.default.props, this),
