@@ -1,4 +1,4 @@
-@extends('front', ['class' => ($course->formation_id ? ' has-drawer' : ''), 'style' => '--drawer-width: 350px', 'drawer' => 'right'])
+@extends('front', $course->formation_id ? ['style' => '--drawer-width: 350px', 'drawer' => 'right'] : [])
 
 @section('title', sprintf('Tutoriel video %s : %s',$course->mainTechnologies->pluck('name')->join(' & '), $course->title ))
 
@@ -8,10 +8,11 @@
     <meta property="og:type" content="video.other"/>
     <meta property="og:duration" content="{{ $course->duration }}"/>
     <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="video:start" content="{{ $course->startTimeForUser(auth()->user()) }}"/>
+    <meta name="video:start" content="{{ $course->startTimeForUser($user) }}"/>
 @endsection
 
 @section('body')
+    @cache("course-show", ($course->isPublic() || $user?->isPremium()) ? 'visible' : 'premium')
     <main class="bg-background-light">
         <div class="max-w-container mx-auto">
             <h1 class="text-5xl font-bold mb-2 font-serif text-foreground-title">
@@ -30,9 +31,9 @@
                     <x-lucide-clock class="size-4"/>
                     {{ duration($course->duration) }}
                 </div>
-                <div class="flex items-center text-muted gap-2">
+                <a href="{{ route('courses.index', ['level' => $course->level->value]) }}" class="flex items-center text-muted gap-2">
                     <x-lucide-graduation-cap class="size-4"/> {{ $course->level->name }}
-                </div>
+                </a>
                 <div class="flex items-center text-muted gap-2">
                     <x-lucide-tags class="size-4"/>
                     <div>
@@ -81,9 +82,29 @@
                 </div>
             </div>
 
-
-            <x-atoms.course-video :course="$course->id" :video="$course->youtube_id ?? $course->video_url"
-                                  :poster="$course->attachment->url(1330, 750)" class="mt-6 mb-12"/>
+            @if($course->isPublic() || $user?->can('watch', $course))
+                <x-atoms.course-video :course="$course->id" :video="$course->youtube_id ?? $course->video_url"
+                                      :poster="$course->posterUrl(1330, 750)" class="mt-6 mb-12"/>
+            @else
+                <div class="aspect-video stack bg-cover relative rounded-lg mt-6 mb-12 overflow-hidden shadow-lg"
+                     style="background-image: url({{ $course->posterUrl(1330, 750)  }})">
+                    <div class="inset-0 absolute bg-video/80"></div>
+                    <div class="relative z-2 text-white flex flex-col items-center gap-4">
+                        <p class="mb1 text-3xl font-bold">
+                            @if($course->isScheduled())
+                                <span class="font-light">Disponible <x-atoms.ago class="font-bold"
+                                                                                 :date="$course->created_at"/></span>
+                            @else
+                                Contenu destiné aux membres premiums
+                            @endif
+                        </p>
+                        <x-atoms.button href="{{ route('premium') }}">
+                            <x-lucide-star class="size-4"/>
+                            Devenir premium
+                        </x-atoms.button>
+                    </div>
+                </div>
+            @endif
         </div>
 
         <div class="bg-background pt-10 border-t pb-20">
@@ -103,6 +124,7 @@
         </x-molecules.drawer>
     @endif
 
+    @endcache
 
 
 @endsection

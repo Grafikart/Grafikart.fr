@@ -9,8 +9,7 @@ enum HeaderState {
 }
 
 /**
- * Custom element that handles header visibility based on scroll position
- * Adds 'is-fixed' class when scrolling up and 'is-hidden' when scrolling down
+ * A custom element that handles header visibility based on scroll position
  */
 export class SiteHeader extends HTMLElement {
   private currentTop = 0
@@ -21,6 +20,7 @@ export class SiteHeader extends HTMLElement {
   private scrollListener: (() => void) | null = null
 
   connectedCallback() {
+    console.log("connected")
     this.scrollOffset = this.offsetHeight
 
     this.classList.add(

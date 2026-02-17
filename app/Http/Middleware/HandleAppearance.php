@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 class HandleAppearance
 {
     /**
-     * Handle an incoming request.
+     * Add appearance variable (light/dark theme) for the view
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */

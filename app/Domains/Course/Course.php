@@ -154,7 +154,7 @@ class Course extends Model implements RegisterMedia, Searchable
     {
         $query->where('online', true)->whereNull('deprecated_by_id');
         if (! $future) {
-            $query->where('created_at', '<', now());
+            $query->where('created_at', '<', now()->addDays(10));
         }
     }
 
@@ -164,6 +164,26 @@ class Course extends Model implements RegisterMedia, Searchable
     public function videoUrl(): ?string
     {
         return $this->video_path ? ('/downloads/videos/'.$this->video_path) : null;
+    }
+
+    public function isPremium(): bool
+    {
+        return $this->premium;
+    }
+
+    public function isPublic(): bool
+    {
+        return ! $this->isScheduled() && ! $this->isPremium();
+    }
+
+    public function posterUrl(int $width, int $height): string
+    {
+        return $this->attachment?->url($width, $height) ?? '';
+    }
+
+    public function isScheduled(): bool
+    {
+        return $this->created_at->isFuture();
     }
 
     public function startTimeForUser(?User $user): int

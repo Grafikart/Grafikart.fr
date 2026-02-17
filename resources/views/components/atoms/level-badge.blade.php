@@ -2,9 +2,9 @@
 
 @php
     $colors = [
-        0 => 'bg-green/10 text-green',
-        1 => 'bg-yellow/10 text-yellow',
-        2 => 'bg-red/10 text-red',
+        0 => 'bg-green/5 text-green',
+        1 => 'bg-yellow/5 text-yellow',
+        2 => 'bg-destructive/5 text-destructive',
     ];
 @endphp
 

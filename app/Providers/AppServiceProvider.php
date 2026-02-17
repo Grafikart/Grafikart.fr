@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Validation\Rules\Password;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -43,20 +43,45 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Route::pattern('id', '[0-9]+');
-        Route::pattern('slug', '[a-z0-9\-]+');
-        Route::pattern('driver', implode('|', AuthController::DRIVERS));
+        $this->registerPermissions();
+        $this->registerRoutePatterns();
+        $this->registerViewGlobals();
+        $this->configureDefaults();
+    }
 
+    private function registerPermissions(): void
+    {
         Gate::before(function (User $user) {
             if ($user->isAdmin()) {
                 return true;
             }
-        });
 
-        $this->configureDefaults();
+            return false;
+        });
     }
 
-    protected function configureDefaults(): void
+    private function registerRoutePatterns()
+    {
+        Route::pattern('id', '[0-9]+');
+        Route::pattern('slug', '[a-z0-9\-]+');
+        Route::pattern('driver', implode('|', AuthController::DRIVERS));
+    }
+
+    private function registerViewGlobals()
+    {
+        // Add appearance (theme) to the view
+        View::composer('front', function (\Illuminate\View\View $view): void {
+            $view->with('appearance', request()->cookie('appearance'));
+        });
+
+        // Inject the authenticated user for all the views
+        View::composer('*', function (\Illuminate\View\View $view): void {
+            $view->with('user', auth()->user());
+        });
+
+    }
+
+    private function configureDefaults(): void
     {
         Date::use(CarbonImmutable::class);
 
@@ -78,14 +103,14 @@ class AppServiceProvider extends ServiceProvider
             app()->isProduction(),
         );
 
-        Password::defaults(fn (): ?Password => app()->isProduction()
-            ? Password::min(12)
-                ->mixedCase()
-                ->letters()
-                ->numbers()
-                ->symbols()
-                ->uncompromised()
-            : null
-        );
+        //        Password::defaults(fn (): ?Password => app()->isProduction()
+        //            ? Password::min(12)
+        //                ->mixedCase()
+        //                ->letters()
+        //                ->numbers()
+        //                ->symbols()
+        //                ->uncompromised()
+        //            : null
+        //        );
     }
 }

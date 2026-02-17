@@ -22,6 +22,9 @@ function cache_key(mixed $expression): string
         /** @var object{id: int, updated_at: DateTimeInterface} $expression */
         return sprintf('%s-%s', $expression->id, $expression->updated_at->getTimestamp());
     }
+    if (! $expression) {
+        return '';
+    }
 
     return $expression;
 };

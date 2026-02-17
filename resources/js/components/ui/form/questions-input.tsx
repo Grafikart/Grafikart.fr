@@ -29,8 +29,8 @@ import { Spinner } from "@/components/ui/spinner.tsx"
 import { apiFetch, useApiFetch, useApiMutation } from "@/hooks/use-api-fetch.ts"
 import { times } from "@/lib/array.ts"
 import { formToObject } from "@/lib/dom.ts"
-import type { QuestionChoicesAnswer, QuestionData } from "@/types"
 import { importSchema } from "@/lib/schema/questions-schema.ts"
+import type { QuestionChoicesAnswer, QuestionData } from "@/types"
 
 type Props = {
   courseId: number

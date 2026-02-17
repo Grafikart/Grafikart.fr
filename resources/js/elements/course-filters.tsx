@@ -13,6 +13,7 @@ import {
   useContext,
   useState,
 } from "react"
+import { useIntersectionObserver } from "usehooks-ts"
 import { queryClient, useApiFetch } from "@/hooks/use-api-fetch.ts"
 import { cn } from "@/lib/utils.ts"
 import type { CourseFiltersResponse } from "@/types"
@@ -43,10 +44,12 @@ export function CourseFilters() {
 }
 
 function CourseFiltersInner() {
+  const { isIntersecting, ref } = useIntersectionObserver()
   const { data, isLoading } = useApiFetch<CourseFiltersResponse>(
     "/api/courses/filters",
     {
-      staleTime: 60_000,
+      staleTime: 600_000,
+      enabled: isIntersecting,
     },
   )
   const [expanded, setExpanded] = useState(false)
@@ -55,7 +58,7 @@ function CourseFiltersInner() {
 
   if (isLoading || !data) {
     return (
-      <div>
+      <div ref={ref}>
         {[...Array(4)].map((_, i) => (
           <div key={i} className="mb-6">
             <div className="mx-2 mb-3 h-3 w-16 animate-pulse rounded bg-border/40" />
@@ -78,7 +81,7 @@ function CourseFiltersInner() {
   const hasSearch = !!search
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" ref={ref}>
       <div className="relative border-b pt-px">
         <input
           className="peer w-full border-2 border-transparent py-2 pl-8 text-sm outline-none focus:border-primary"

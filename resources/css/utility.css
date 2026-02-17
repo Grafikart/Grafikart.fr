@@ -6,11 +6,21 @@ body[data-drawer="visible"] &);
 @custom-variant drawer-hidden (&[data-drawer="hidden"],
 body[data-drawer="hidden"] &);
 
+/**
+ * Layout
+ */
 @utility grid-fill-* {
   grid-template-columns: repeat(
       auto-fill,
       minmax(calc(--value(integer) * 1px), 1fr)
     );
+}
+@utility stack {
+  display: grid;
+  place-items: center;
+  & > * {
+    grid-area: 1 / 1;
+  }
 }
 
 @utility overlay {

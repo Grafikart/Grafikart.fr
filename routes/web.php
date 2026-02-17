@@ -80,7 +80,11 @@ Route::group(['prefix' => '/blog', 'as' => 'blog.'], function () {
 });
 
 // Admin routes
-Route::group(['prefix' => '/cms', 'as' => 'cms.', 'middleware' => ['auth', 'can:manageSite']], function () {
+Route::group([
+    'prefix' => '/cms',
+    'as' => 'cms.',
+    'middleware' => ['auth', 'can:manageSite', \App\Http\Middleware\HandleInertiaRequests::class],
+], function () {
     Route::get('/', function () {
         return redirect('/cms/dashboard');
     });
@@ -111,5 +115,3 @@ Route::group(['prefix' => '/cms', 'as' => 'cms.', 'middleware' => ['auth', 'can:
     Route::get('attachments/folders', [\App\Http\Cms\AttachmentController::class, 'folders'])->name('attachments.folders');
     Route::resource('attachments', \App\Http\Cms\AttachmentController::class)->only(['store', 'destroy', 'index']);
 });
-
-// require __DIR__.'/settings.php';
