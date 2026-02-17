@@ -140,7 +140,11 @@ export function useApiFetch<T = unknown>(
 
 export function useApiMutation<
   T = unknown,
-  Body = Record<string, unknown> | FormData | undefined,
+  Body =
+    | Record<string, unknown>
+    | Record<string, unknown>[]
+    | FormData
+    | undefined,
 >(
   url: string,
   params: { method: RequestInit["method"] } = { method: "POST" },

@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Questions Import",
+  "description": "Schema for importing evaluation questions via paste into the questions dialog. Accepts either a bare array of questions or an object with a \"questions\" key.",
+  "oneOf": [
+    {
+      "type": "array",
+      "items": { "$ref": "#/$defs/question" },
+      "minItems": 1
+    },
+    {
+      "type": "object",
+      "required": ["questions"],
+      "additionalProperties": false,
+      "properties": {
+        "questions": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/question" },
+          "minItems": 1
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "question": {
+      "type": "object",
+      "required": ["question", "type", "answer"],
+      "additionalProperties": false,
+      "properties": {
+        "question": {
+          "type": "string",
+          "minLength": 2,
+          "description": "The question text"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["choice", "text"],
+          "description": "\"choice\" = multiple choice, \"text\" = free text"
+        },
+        "answer": {
+          "oneOf": [
+            { "$ref": "#/$defs/choiceAnswer" },
+            { "$ref": "#/$defs/textAnswer" }
+          ]
+        }
+      }
+    },
+    "choiceAnswer": {
+      "type": "object",
+      "description": "Answer for a multiple choice question (type=\"choice\")",
+      "required": ["choices", "answer"],
+      "additionalProperties": false,
+      "properties": {
+        "choices": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 2,
+          "description": "The list of possible choices"
+        },
+        "answer": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Zero-based index of the correct choice"
+        }
+      }
+    },
+    "textAnswer": {
+      "type": "object",
+      "description": "Answer for a free text question (type=\"text\")",
+      "required": ["answer"],
+      "additionalProperties": false,
+      "properties": {
+        "answer": {
+          "type": "string",
+          "description": "The expected text answer"
+        }
+      }
+    }
+  }
+}

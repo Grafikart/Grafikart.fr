@@ -90,6 +90,8 @@ Route::group(['prefix' => '/cms', 'as' => 'cms.', 'middleware' => ['auth', 'can:
     Route::resource('comments', \App\Http\Cms\CommentController::class)->only(['index', 'update', 'destroy']);
     Route::get('courses/upload', [\App\Http\Cms\CourseController::class, 'upload'])->name('courses.upload');
     Route::resource('courses', \App\Http\Cms\CourseController::class);
+    Route::apiResource('courses.questions', \App\Http\Cms\QuestionController::class)->except(['show'])->shallow();
+    Route::post('courses/{course}/questions/import', [\App\Http\Cms\QuestionController::class, 'import'])->name('courses.questions.import');
     Route::resource('formations', \App\Http\Cms\FormationController::class)->except(['show']);
     Route::resource('paths', \App\Http\Cms\PathController::class)->except(['show']);
     Route::resource('posts', \App\Http\Cms\PostController::class)->except(['show']);

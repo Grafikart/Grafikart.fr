@@ -73,6 +73,8 @@ export type CourseFormData = {
   source: boolean
   attachment: AttachmentUrlData | null
   youtubeThumbnail: AttachmentUrlData | null
+  formationId: number | null
+  questionsCount: number
   technologies: Array<TechnologyUsageData> | Array<any> | null
 }
 export type CourseRowData = {
@@ -213,6 +215,20 @@ export type PostRowData = {
   title: string
   online: boolean
 }
+export type QuestionChoicesAnswer = {
+  choices: Array<string>
+  answer: number
+}
+export type QuestionData = {
+  id: number
+  question: string
+  type: QuestionType
+  answer: QuestionChoicesAnswer | QuestionTextAnswer
+}
+export type QuestionTextAnswer = {
+  answer: string
+}
+export type QuestionType = "choice" | "text"
 export type SearchResultData = {
   id: number
   name: string

@@ -82,7 +82,7 @@ class CourseController extends CmsController
 
     public function edit(Course $course): Response
     {
-        $course->load(['attachment', 'youtubeThumbnail', 'technologies']);
+        $course->load(['attachment', 'youtubeThumbnail', 'technologies'])->loadCount('questions');
 
         return $this->cmsEdit($course);
     }

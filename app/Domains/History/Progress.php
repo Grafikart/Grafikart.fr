@@ -27,6 +27,7 @@ class Progress extends Model
         'progressable_id',
         'progressable_type',
         'progress',
+        'score',
     ];
 
     /**
@@ -50,6 +51,7 @@ class Progress extends Model
     {
         return [
             'progress' => 'integer',
+            'score' => 'integer',
             'created_at' => 'immutable_datetime',
             'updated_at' => 'immutable_datetime',
         ];

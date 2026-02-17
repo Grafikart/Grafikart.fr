@@ -32,6 +32,8 @@ class CourseFormData extends Data
         public bool $source = false,
         public ?AttachmentUrlData $attachment = null,
         public ?AttachmentUrlData $youtubeThumbnail = null,
+        public ?int $formationId = null,
+        public int $questionsCount = 0,
         /** @var Collection<TechnologyUsageData> */
         public ?Collection $technologies = null,
     ) {

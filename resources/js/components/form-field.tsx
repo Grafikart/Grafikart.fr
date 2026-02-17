@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input.tsx"
 import { Textarea } from "@/components/ui/textarea.tsx"
 
 type Props = useRender.ComponentProps<"input"> & {
-  label: string
+  label?: string
   name: string
   children?: ReactNode
   right?: ReactNode
@@ -35,10 +35,12 @@ export function FormField(props: Props) {
 
   return (
     <Field className="group/field">
-      <div className="flex items-center justify-between">
-        <FieldLabel htmlFor={props.name}>{label}</FieldLabel>
-        {props.right}
-      </div>
+      {label && (
+        <div className="flex items-center justify-between">
+          <FieldLabel htmlFor={props.name}>{label}</FieldLabel>
+          {props.right}
+        </div>
+      )}
       {children}
       <ValidationError name={props.name} />
     </Field>
