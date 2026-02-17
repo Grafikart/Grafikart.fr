@@ -144,7 +144,7 @@ export function useApiMutation<
     | Record<string, unknown>
     | Record<string, unknown>[]
     | FormData
-    | undefined,
+    | void,
 >(
   url: string,
   params: { method: RequestInit["method"] } = { method: "POST" },

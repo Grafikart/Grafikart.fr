@@ -39,9 +39,9 @@ export function SimpleChart<T extends Record<string, unknown>>(
         <ChartTooltip
           cursor={false}
           content={
+            // @ts-expect-error recharts injects props at runtime
             <ChartTooltipContent
               labelFormatter={(_, series) => props.formatter(series[0].payload)}
-              indicator="dot"
             />
           }
         />

@@ -1,11 +1,13 @@
+import Ajv from "ajv"
 import {
   BadgeQuestionMarkIcon,
+  BotIcon,
   CircleCheckIcon,
   PencilIcon,
   PlusIcon,
   TrashIcon,
 } from "lucide-react"
-import { type FormEventHandler, useEffect, useState } from "react"
+import { type FormEventHandler, useEffect, useRef, useState } from "react"
 import { toast } from "sonner"
 import {
   destroy,
@@ -17,6 +19,7 @@ import {
 import { FormField } from "@/components/form-field.tsx"
 import { Badge } from "@/components/ui/badge.tsx"
 import { Button } from "@/components/ui/button.tsx"
+import { CopyButton } from "@/components/ui/copy-button.tsx"
 import { Drawer } from "@/components/ui/drawer.tsx"
 import { Input } from "@/components/ui/input.tsx"
 import { NativeSelect } from "@/components/ui/native-select.tsx"
@@ -27,6 +30,7 @@ import { apiFetch, useApiFetch, useApiMutation } from "@/hooks/use-api-fetch.ts"
 import { times } from "@/lib/array.ts"
 import { formToObject } from "@/lib/dom.ts"
 import type { QuestionChoicesAnswer, QuestionData } from "@/types"
+import { importSchema } from "@/lib/schema/questions-schema.ts"
 
 type Props = {
   courseId: number
@@ -41,9 +45,10 @@ export function QuestionsInput({ courseId, questionsCount }: Props) {
       open={open}
       side="bottom"
       onOpenChange={setOpen}
+      width={1024}
       trigger={
         <button
-          className="flex items-center gap-2 fixed bottom-0 left-0 right-0 w-max px-6 py-2 mx-auto bg-card rounded-t-lg z-500 border shadow-lg"
+          className="flex items-center gap-2 fixed bottom-0 left-0 right-0 w-max px-6 py-2 mx-auto bg-card rounded-t-lg z-500 border shadow-lg outline-none focus:border-primary transition border-b-0"
           type="button"
         >
           <BadgeQuestionMarkIcon className="size-4 -mt-0.5 text-muted-foreground" />
@@ -58,13 +63,9 @@ export function QuestionsInput({ courseId, questionsCount }: Props) {
   )
 }
 
-type PastedQuestion = {
-  question: string
-  type: "choice" | "text"
-  answer: { choices: string[]; answer: number } | { answer: string }
-}
-
-function parseQuestionsJson(text: string): PastedQuestion[] | null {
+function parseQuestionsJson(
+  text: string,
+): { data: QuestionData[] } | { error: string } | null {
   let data: unknown
   try {
     data = JSON.parse(text)
@@ -72,36 +73,20 @@ function parseQuestionsJson(text: string): PastedQuestion[] | null {
     return null
   }
 
-  const items = Array.isArray(data)
-    ? data
-    : data &&
-        typeof data === "object" &&
-        "questions" in data &&
-        Array.isArray((data as { questions: unknown }).questions)
-      ? (data as { questions: unknown[] }).questions
-      : null
-
-  if (!items || items.length === 0) {
+  if (!Array.isArray(data)) {
     return null
   }
 
-  for (const item of items) {
-    if (!item || typeof item !== "object") {
-      return null
-    }
-    const q = item as Record<string, unknown>
-    if (typeof q.question !== "string" || q.question.length < 2) {
-      return null
-    }
-    if (q.type !== "choice" && q.type !== "text") {
-      return null
-    }
-    if (!q.answer || typeof q.answer !== "object" || Array.isArray(q.answer)) {
-      return null
-    }
+  if (validateImport(data)) {
+    return { data }
   }
 
-  return items as PastedQuestion[]
+  const firstError = validateImport.errors?.[0]
+  const error = firstError
+    ? `${firstError.instancePath || "/"} ${firstError.message}`
+    : "Format invalide"
+
+  return { error }
 }
 
 function QuestionsManager({ courseId }: { courseId: number }) {
@@ -126,20 +111,26 @@ function QuestionsManager({ courseId }: { courseId: number }) {
         return
       }
 
-      const parsed = parseQuestionsJson(text)
-      if (!parsed) {
+      const pasted = parseQuestionsJson(text)
+      // The pasted content is not JSON let the normal behaviour happens
+      if (!pasted) {
         return
       }
 
       e.preventDefault()
-      mutate(parsed, {
+      if ("error" in pasted) {
+        toast.error(pasted.error)
+        return
+      }
+
+      mutate(pasted.data, {
         onError() {
           toast.error("Erreur lors de l'import des questions")
         },
-        onSuccess(result) {
-          setData((prev) => [...(prev ?? []), ...result])
+        onSuccess(data) {
+          setData((prev) => [...(prev ?? []), ...data])
           toast.success(
-            `${result.length} question${result.length > 1 ? "s" : ""} importée${result.length > 1 ? "s" : ""}`,
+            `${data.length} question${data.length > 1 ? "s" : ""} importée${data.length > 1 ? "s" : ""}`,
           )
         },
       })
@@ -179,7 +170,10 @@ function QuestionsManager({ courseId }: { courseId: number }) {
   }
 
   return (
-    <div className="space-y-3  max-w-5xl mx-auto">
+    <div className="space-y-3">
+      <div className="relative">
+        <PromptDrawer />
+      </div>
       {questions?.map((question) =>
         editing === question.id ? (
           <QuestionForm
@@ -228,10 +222,10 @@ function QuestionRow({
   onDelete: () => void
 }) {
   return (
-    <div className="flex items-center gap-2 rounded-lg border p-3">
+    <div className="flex items-center rounded-lg border p-3 gap-1">
       <span
-        className="flex-1 min-w-0 font-medium text-sm"
-        onDoubleClick={onEdit}
+        className="flex-1 min-w-0 font-medium text-sm cursor-pointer"
+        onClick={onEdit}
       >
         {question.question}
       </span>
@@ -241,7 +235,13 @@ function QuestionRow({
       <Button type="button" variant="ghost" size="icon-sm" onClick={onEdit}>
         <PencilIcon />
       </Button>
-      <Button type="button" variant="ghost" size="icon-sm" onClick={onDelete}>
+      <Button
+        type="button"
+        variant="ghost"
+        className="text-destructive -mr-0.5"
+        size="icon-sm"
+        onClick={onDelete}
+      >
         <TrashIcon />
       </Button>
     </div>
@@ -281,6 +281,7 @@ function QuestionForm({
     <form className="space-y-3 rounded-lg border p-3" onSubmit={handleSubmit}>
       <div className="flex items-center gap-2">
         <Input
+          autoFocus
           name="question"
           placeholder="Question"
           defaultValue={question?.question}
@@ -377,3 +378,44 @@ function ChoiceEditor(props: { choices: string[]; answer: number }) {
     </RadioGroup>
   )
 }
+
+function PromptDrawer() {
+  const ref = useRef<HTMLDivElement>(null)
+  return (
+    <Drawer
+      side="bottom"
+      width={1024}
+      trigger={
+        <Button variant="ghost" size="icon" className="absolute -top-10">
+          <BotIcon />
+        </Button>
+      }
+      actions={<CopyButton text={() => ref.current?.innerText ?? ""} />}
+    >
+      <div className="text-lg" ref={ref}>
+        <p className="mb-4">
+          Tu es un formateur chargé de générer un quiz pour les personnes qui
+          viennent de regarder un cours. La réponse à la question doit être
+          incluse dans la transcription. Tu ne peux pas utiliser de
+          connaissances que le spectateur aurait acquises en dehors de la vidéo.
+        </p>
+        <p className="mb-4">
+          Ta réponse doit être uniquement en JSON en respectant le schéma
+          fourni. Génère les questions en français. Choisi le bon type de
+          question en fonction.
+        </p>
+        <pre className="bg-sidebar border rounded-md p-4">
+          <code>
+            ```{"\n"}
+            {JSON.stringify(importSchema, null, 2)}
+            {"\n"}
+            ```
+          </code>
+        </pre>
+      </div>
+    </Drawer>
+  )
+}
+
+const ajv = new Ajv({ allErrors: true, discriminator: true })
+const validateImport = ajv.compile<QuestionData[]>(importSchema)
