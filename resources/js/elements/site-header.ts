@@ -20,7 +20,6 @@ export class SiteHeader extends HTMLElement {
   private scrollListener: (() => void) | null = null
 
   connectedCallback() {
-    console.log("connected")
     this.scrollOffset = this.offsetHeight
 
     this.classList.add(

@@ -124,6 +124,10 @@
         </x-molecules.drawer>
     @endif
 
+    @if($course->questions()->exists())
+        <questions-button course="{{ $course->id }}"></questions-button>
+    @endif
+
     @endcache
 
 

@@ -159,3 +159,43 @@ describe('formation progress tracking', function () {
             ->and($formationProgress->progress)->toBe(1000);
     });
 });
+
+describe('score tracking', function () {
+    it('saves score when provided', function () {
+        $course = Course::factory()->create();
+
+        $this->service->trackProgress($this->user, $course, 500, 75);
+
+        $progress = Progress::query()->first();
+        expect($progress->progress)->toBe(500)
+            ->and($progress->score)->toBe(75);
+    });
+
+    it('saves score only without touching progress', function () {
+        $course = Course::factory()->create();
+
+        // First set progress
+        $this->service->trackProgress($this->user, $course, 500);
+
+        // Then update score only
+        $this->service->trackProgress($this->user, $course, score: 80);
+
+        $progress = Progress::query()->first();
+        expect($progress->progress)->toBe(500)
+            ->and($progress->score)->toBe(80);
+    });
+
+    it('does not overwrite score when only updating progress', function () {
+        $course = Course::factory()->create();
+
+        // Set score
+        $this->service->trackProgress($this->user, $course, 500, 75);
+
+        // Update progress only
+        $this->service->trackProgress($this->user, $course, 700);
+
+        $progress = Progress::query()->first();
+        expect($progress->progress)->toBe(700)
+            ->and($progress->score)->toBe(75);
+    });
+});

@@ -14,6 +14,7 @@ type Props = PropsWithChildren<{
   side?: Side
   width?: number
   actions?: ReactNode
+  hideClose?: boolean
 }>
 
 export function Drawer({
@@ -23,6 +24,7 @@ export function Drawer({
   side = "right",
   width,
   actions,
+  hideClose,
   ...props
 }: Props) {
   return (
@@ -47,15 +49,17 @@ export function Drawer({
               className={cn("mx-auto w-full", className)}
               style={width ? { maxWidth: width } : undefined}
             >
-              <div className="flex items-center mb-2 -mx-2">
-                {actions}
-                <DrawerBase.Close
-                  className="flex ml-auto"
-                  render={<Button variant="ghost" size="icon" />}
-                >
-                  <XIcon className="size-4" />
-                </DrawerBase.Close>
-              </div>
+              {!hideClose && (
+                <div className="flex items-center mb-2 -mx-2">
+                  {actions}
+                  <DrawerBase.Close
+                    className="flex ml-auto"
+                    render={<Button variant="ghost" size="icon" />}
+                  >
+                    <XIcon className="size-4" />
+                  </DrawerBase.Close>
+                </div>
+              )}
               {children}
             </DrawerBase.Content>
           </DrawerBase.Popup>

@@ -5,7 +5,7 @@
 - [x] Sidebar listing tutoriel
 - [x] Page d'un langage
 - [x] Page d'un cours (hors formation)
-- [ ] Page d'un cours dans une formation
+- [x] Page d'un cours dans une formation
 - [ ] Page d'une formation
 - [ ] Listing des cursus à améliorer
 - [ ] Homepage
@@ -21,7 +21,7 @@
 - [x] Factures
 - [ ] Mode école
 - [ ] Support sur les vidéos
-- [ ] Quiz sur les formations
+- [x] Quiz sur les formations
 - [ ] Edition d'article (révision)
 - [x] Notifications
 - [ ] Dump & Sauvegarde
@@ -29,6 +29,7 @@
 - [ ] Mailing
 - [x] Footer
 - [ ] Header responsive
+- [ ] Page mes résultats (listing de quiz)
 
 ## En plus
 

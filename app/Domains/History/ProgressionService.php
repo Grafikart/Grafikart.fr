@@ -8,17 +8,20 @@ use App\Models\User;
 
 class ProgressionService
 {
-    public function trackProgress(User $user, Course $course, int $progress): Course
+    public function trackProgress(User $user, Course $course, ?int $progress = null, ?int $score = null): Course
     {
+        $data = array_filter([
+            'progress' => $progress,
+            'score' => $score,
+        ], fn ($value) => $value !== null);
+
         Progress::query()->updateOrCreate(
             [
                 'user_id' => $user->id,
                 'progressable_id' => $course->id,
                 'progressable_type' => $course->getMorphClass(),
             ],
-            [
-                'progress' => $progress,
-            ]
+            $data,
         );
 
         // If a course is completed, and it belongs to a formation, update formation progress

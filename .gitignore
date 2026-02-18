@@ -5,6 +5,7 @@
 var
 PLAN.md
 *.private.env.json
+*.http
 
 # Laravel gitignore
 /.phpunit.cache

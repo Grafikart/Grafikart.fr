@@ -1,0 +1,41 @@
+@keyframes mascot {
+  0% {
+    transform: rotate(1deg);
+  }
+  50% {
+    transform: rotate(-1deg);
+    transform-origin: bottom right 100px;
+  }
+  100% {
+    transform: rotate(1deg);
+  }
+}
+
+.mascot {
+  animation: mascot 1s infinite both;
+  transform-origin: bottom left 100px;
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-4px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(4px);
+  }
+}
+
+.wiggle {
+  animation: wiggle 0.4s ease-in-out;
+}

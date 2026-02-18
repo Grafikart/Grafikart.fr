@@ -5,7 +5,7 @@
 @endphp
 
 @if ($user->premium)
-    <span {{ $attributes->class([$pill, 'gap-1 uppercase text-yellow bg-yellow/10']) }}>
+    <span {{ $attributes->class([$pill, 'gap-1 uppercase text-warning bg-warning/10']) }}>
         <x-lucide-star class="size-3" />
         premium
     </span>

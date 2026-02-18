@@ -15,4 +15,9 @@ class CoursePolicy
 
         return true;
     }
+
+    public function quiz(User $user, Course $course): bool
+    {
+        return $user->isPremium();
+    }
 }

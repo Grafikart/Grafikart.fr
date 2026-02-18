@@ -36,7 +36,7 @@
                         @if(request()->is(ltrim($item['href'], '/') . '*')) aria-current="page" @endif
                         class="{{ cn([
                         'flex items-center gap-2 px-5 py-2 text-sm hover:text-primary transition-colors aria-[current=page]:text-primary',
-                        'text-yellow hover:text-yellow/80 aria-[current=page]:text-yellow' => $item['highlight'] ?? false,
+                        'text-warning hover:text-warning/80 aria-[current=page]:text-warning' => $item['highlight'] ?? false,
                     ])}}"
                     >
                         @svg('lucide-' . $item['icon'], 'size-4')

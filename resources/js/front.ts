@@ -15,8 +15,15 @@ import "../css/front.css"
 import { BurgerMenu } from "@/elements/burger-menu.tsx"
 import { DrawerToggle } from "@/elements/DrawerToggle.ts"
 
-r2wc("path-preview", () => import("@/elements/path-preview.tsx"))
-r2wc("path-detail", () => import("@/elements/path-detail.tsx"))
+r2wc("path-preview", () => import("@/elements/path-preview.tsx"), {
+  path: "json",
+})
+r2wc("path-detail", () => import("@/elements/path-detail.tsx"), {
+  path: "json",
+})
+r2wc("questions-button", () => import("@/elements/questions-button.tsx"), {
+  course: "string",
+})
 r2wc("course-filters", CourseFilters, {})
 r2wc("site-search", SiteSearch, {})
 r2wc("theme-switcher", ThemeSwitcher, {})

@@ -5,9 +5,16 @@
 @import "./prose.css";
 @import "./scrollbar.css";
 @import "./code.css";
+@import "./wobbly-dialog.css";
+@import "./animation.css";
 @source "../../resources/js/components/flow/";
 @source "../../resources/js/elements/";
 @source "../../resources/views/";
+
+:root {
+  color-scheme: light dark;
+  background: light-dark(lightblue, darkblue);
+}
 
 @theme {
   --container-*: initial;
@@ -41,8 +48,8 @@
   --color-border: #d5e3ec;
   --color-destructive: #f25353;
   --color-destructive-foreground: #fff3f3;
-  --color-green: #2aa75e;
-  --color-yellow: #f49f01;
+  --color-success: #2aa75e;
+  --color-warning: #f49f01;
   --color-edge: #acb8c0;
   --color-overlay: #000000b3;
 
@@ -64,6 +71,10 @@
 
   --shadow-focus: 0 0 0 3px
     color-mix(in srgb, var(--color-primary) 25%, transparent);
+  --shadow-success: 0 0 0 3px
+    color-mix(in srgb, var(--color-success) 25%, transparent);
+  --shadow-destructive: 0 0 0 3px
+    color-mix(in srgb, var(--color-destructive) 25%, transparent);
   --shadow-toast: 0 4px 12px rgba(0, 0, 0, 0.1);
   --shadow-button: 0 1px 2px #24398d66;
   --default-transition-duration: 300ms;

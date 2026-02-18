@@ -31,22 +31,15 @@ function convertAttribute(value: string | null, type: string) {
 
 type LazyImport = () => Promise<{
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  default: { component: FC<any>; props: Record<string, string> }
+  default: FC<any>
 }>
 
-export function r2wc(tagName: string, lazyImport: LazyImport): void
-export function r2wc(
-  tagName: string,
-  component: FC<{ element: HTMLElement; [k: string]: unknown }>,
-  props: Record<string, string>,
-  options?: { append: boolean },
-): void
 export function r2wc(
   tagName: string,
   componentOrImport:
     | FC<{ element: HTMLElement; [k: string]: unknown }>
     | LazyImport,
-  props?: Record<string, string>,
+  props: Record<string, string>,
   options?: { append: boolean },
 ): void {
   customElements.define(
@@ -61,8 +54,9 @@ export function r2wc(
           anchorElement.classList.add("hidden")
           this.append(anchorElement)
         }
-        // Direct component passed
-        if (props !== undefined) {
+
+        // If a function named is passed, this is a component
+        if (componentOrImport.name) {
           this.root = createRoot(anchorElement)
           const element = createElement(
             componentOrImport as FC<{
@@ -74,15 +68,16 @@ export function r2wc(
           this.root.render(element)
           return
         }
-        // Lazy import passed
+        // Async load of the component
         ;(componentOrImport as LazyImport)().then((module) => {
           this.root = createRoot(anchorElement)
-          const element = createElement(
-            module.default.component,
-            parseProps(module.default.props, this),
-          )
+          const element = createElement(module.default, parseProps(props, this))
           this.root.render(element)
         })
+
+        console.log(componentOrImport.name)
+        //
+        return
       }
 
       disconnectedCallback() {

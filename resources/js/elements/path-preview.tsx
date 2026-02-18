@@ -11,7 +11,7 @@ type Props = {
 
 const fitViewOptions = { padding: "100px" } satisfies FitViewOptions
 
-export function PathPreview({ path }: Props) {
+export default function PathPreview({ path }: Props) {
   const { nodes, edges } = useGraph(path.nodes)
   return (
     <ReactFlow
@@ -28,9 +28,4 @@ export function PathPreview({ path }: Props) {
       <IsoBackground id="2" gap={snapGrid} color="var(--color-border)" />
     </ReactFlow>
   )
-}
-
-export default {
-  component: PathPreview,
-  props: { path: "json" },
 }

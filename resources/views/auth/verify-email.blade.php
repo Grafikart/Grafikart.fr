@@ -12,7 +12,7 @@
                 </p>
 
                 @if($status == 'verification-link-sent')
-                    <div class="mb-4 rounded-md bg-green-50 p-3 text-sm text-green-700 dark:bg-green-900/20 dark:text-green-400">
+                    <div class="mb-4 rounded-md bg-success-50 p-3 text-sm text-success-700 dark:bg-success-900/20 dark:text-success-400">
                         Un nouveau lien de vérification a été envoyé à votre adresse email.
                     </div>
                 @endif

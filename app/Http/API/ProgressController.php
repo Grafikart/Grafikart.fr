@@ -24,7 +24,8 @@ class ProgressController extends Controller
         $this->progressionService->trackProgress(
             user: $user,
             course: $course,
-            progress: $data->progress
+            progress: $data->progress,
+            score: $data->score,
         );
 
         return response()->json(['message' => 'Progress updated successfully']);

@@ -23,7 +23,7 @@ type Props = {
 const fitViewOptions = { padding: "25px" } satisfies FitViewOptions
 const duration = 800
 
-export function PathDetail({ path }: Props) {
+export default function PathDetail({ path }: Props) {
   const { nodes, edges, updateNode } = useGraph(path.nodes)
   const flow = useRef<GraphInstance>(null)
   const viewport = useRef<Viewport>(null)
@@ -86,9 +86,4 @@ export function PathDetail({ path }: Props) {
       )}
     </QueryClientProvider>
   )
-}
-
-export default {
-  component: PathDetail,
-  props: { path: "json" },
 }

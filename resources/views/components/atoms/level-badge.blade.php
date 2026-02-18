@@ -2,8 +2,8 @@
 
 @php
     $colors = [
-        0 => 'bg-green/5 text-green',
-        1 => 'bg-yellow/5 text-yellow',
+        0 => 'bg-success/5 text-success',
+        1 => 'bg-warning/5 text-warning',
         2 => 'bg-destructive/5 text-destructive',
     ];
 @endphp

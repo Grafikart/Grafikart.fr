@@ -3,7 +3,7 @@
 <x-atoms.card
     padded
     as="article"
-    @class(["flex flex-col h-full hover:shadow-md transition-shadow relative", "outline-yellow/20 outline-5 border-yellow" => $course->isPremium()])
+    @class(["flex flex-col h-full hover:shadow-md transition-shadow relative", "outline-warning/20 outline-5 border-warning" => $course->isPremium()])
 >
     @cache('course-card', $course, ($course->isScheduled() && !$user?->premium) ? 'scheduled' : 'public')
     <div class="flex items-start mb-3">
@@ -21,7 +21,7 @@
 
         <x-atoms.level-badge :level="$course->level" class="ml-auto"/>
         @if($course->premium)
-            <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-yellow/5 text-yellow flex items-center gap-1">
+            <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-warning/5 text-warning flex items-center gap-1">
                 <x-lucide-star class="size-3"/>
                 Premium
             </span>
