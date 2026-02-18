@@ -31,7 +31,9 @@ export function BurgerMenu(props: Props) {
                 <a
                   key={item.href}
                   href={item.href}
-                  dangerouslySetInnerHTML={{ __html: item.html }}
+                  dangerouslySetInnerHTML={{
+                    __html: item.html,
+                  }}
                   className="flex border-b items-center py-2 px-4 gap-2"
                 />
               ))}

@@ -11,9 +11,9 @@ body[data-drawer="hidden"] &);
  */
 @utility grid-fill-* {
   grid-template-columns: repeat(
-      auto-fill,
-      minmax(calc(--value(integer) * 1px), 1fr)
-    );
+    auto-fill,
+    minmax(calc(--value(integer) * 1px), 1fr)
+  );
 }
 @utility stack {
   display: grid;

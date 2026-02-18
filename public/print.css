@@ -27,15 +27,14 @@
   --skeleton: var(--border-light);
   --skeleton-wave: var(--border-light);
   --selection-background: var(--border);
-  --header-background: #FFFFFFF2;
-  --header-background-inversed: #4869eeF2;
+  --header-background: #fffffff2;
+  --header-background-inversed: #4869eef2;
 }
 
 body {
   font-family: sans-serif;
   color: var(--color);
 }
-
 
 aside,
 form,
@@ -76,7 +75,8 @@ td {
 .breadcrumb,
 .course-actions,
 .layout-sidebar > div:last-child,
-.comments-area, comments-area,
+.comments-area,
+comments-area,
 .footer {
   display: none !important;
 }

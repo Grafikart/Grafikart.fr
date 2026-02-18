@@ -21,10 +21,16 @@ export function ResultScreen({
   const resultMessages = [
     { percentage: 100, message: "Parfait, sans faute !" },
     { percentage: 80, message: "Bravo, vous maîtrisez bien le sujet !" },
-    { percentage: 60, message: "Bien joué, vous avez retenu l'essentiel !" },
+    {
+      percentage: 60,
+      message: "Bien joué, vous avez retenu l'essentiel !",
+    },
     { percentage: 40, message: "Pas mal, mais vous pouvez faire mieux." },
     { percentage: 20, message: "Il y a du progrès à faire, courage !" },
-    { percentage: 0, message: "Aïe, c'est pas encore ça... On recommence ?" },
+    {
+      percentage: 0,
+      message: "Aïe, c'est pas encore ça... On recommence ?",
+    },
   ]
 
   useEffect(() => {

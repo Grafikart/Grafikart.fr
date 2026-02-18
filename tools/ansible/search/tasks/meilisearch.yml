@@ -13,7 +13,7 @@
   ansible.builtin.file:
     path: "{{ root_path }}/var/meilisearch"
     state: directory
-    mode: '0777'
+    mode: "0777"
 - name: Meilisearch | Service
   become: no
   template:
@@ -48,5 +48,5 @@
 - name: Meilisearch | API Key .env.local
   ansible.builtin.lineinfile:
     path: "{{ root_path }}/.env.local"
-    regexp: '^MEILISEARCH_KEY'
+    regexp: "^MEILISEARCH_KEY"
     line: "MEILISEARCH_KEY={{ meilisearch_key_response.json.results[1].key }}"

@@ -2,7 +2,7 @@
 - name: Symfony | Clone
   become: no
   git:
-    repo: 'https://github.com/Grafikart/Grafikart.fr.git'
+    repo: "https://github.com/Grafikart/Grafikart.fr.git"
     dest: "{{ root_path }}"
     version: master
 - name: Symfony | .env.local"

@@ -1,24 +1,24 @@
 services:
-#  php:
-#    ports:
-#      - "8000:8000"
-#    user: '${USER_ID}:${GROUP_ID}'
-#    restart: unless-stopped
-#    build: ./tools/docker/php
-#    volumes:
-#      - .:/app:delegated
-#    depends_on:
-#      - db
-#    environment:
-#      SERVER_NAME: "http://localhost:8000"
-#      PHP_IDE_CONFIG: serverName=grafikart
-#      REDIS_HOST: redis
-#      MAILER_DSN: smtp://mail:1025?encryption=null&auth_mode=null
-#      DATABASE_URL: postgresql://grafikart:grafikart@db:5432/grafikart?serverVersion=12&chartset=utf8
-#      MERCURE_PUBLISH_URL: http://mercure/.well-known/mercure
-#      MESSENGER_TRANSPORT_DSN: redis://redis:6379/messages
-#      MESSENGER_TRANSPORT_FAILED_DSN: redis://redis:6379/messages_failed
-#      MEILISEARCH_HOST: "meilisearch:7700"
+  #  php:
+  #    ports:
+  #      - "8000:8000"
+  #    user: '${USER_ID}:${GROUP_ID}'
+  #    restart: unless-stopped
+  #    build: ./tools/docker/php
+  #    volumes:
+  #      - .:/app:delegated
+  #    depends_on:
+  #      - db
+  #    environment:
+  #      SERVER_NAME: "http://localhost:8000"
+  #      PHP_IDE_CONFIG: serverName=grafikart
+  #      REDIS_HOST: redis
+  #      MAILER_DSN: smtp://mail:1025?encryption=null&auth_mode=null
+  #      DATABASE_URL: postgresql://grafikart:grafikart@db:5432/grafikart?serverVersion=12&chartset=utf8
+  #      MERCURE_PUBLISH_URL: http://mercure/.well-known/mercure
+  #      MESSENGER_TRANSPORT_DSN: redis://redis:6379/messages
+  #      MESSENGER_TRANSPORT_FAILED_DSN: redis://redis:6379/messages_failed
+  #      MEILISEARCH_HOST: "meilisearch:7700"
   db:
     restart: unless-stopped
     image: postgres:17-alpine
@@ -44,21 +44,21 @@ services:
     image: typesense/typesense:28.0
     ports:
       - "8108:8108"
-    command: '--data-dir /data --api-key=typesensekey --enable-cors'
+    command: "--data-dir /data --api-key=typesensekey --enable-cors"
     volumes:
       - ./storage/typesense:/data
 
-#  mercure:
-#    restart: unless-stopped
-#    image: dunglas/mercure
-#    environment:
-#      SERVER_NAME: ':80'
-#      MERCURE_EXTRA_DIRECTIVES: 'cors_origins http://grafikart.localhost:8000'
-#      MERCURE_SUBSCRIBER_JWT_KEY: MercureSubscriberJWTSecretForDebugPurpose
-#      MERCURE_PUBLISHER_JWT_KEY: MercurePublisherJWTSecretForDebugPurpose
-#      GLOBAL_OPTIONS: debug
-#    ports:
-#      - 8001:80
+  #  mercure:
+  #    restart: unless-stopped
+  #    image: dunglas/mercure
+  #    environment:
+  #      SERVER_NAME: ':80'
+  #      MERCURE_EXTRA_DIRECTIVES: 'cors_origins http://grafikart.localhost:8000'
+  #      MERCURE_SUBSCRIBER_JWT_KEY: MercureSubscriberJWTSecretForDebugPurpose
+  #      MERCURE_PUBLISHER_JWT_KEY: MercurePublisherJWTSecretForDebugPurpose
+  #      GLOBAL_OPTIONS: debug
+  #    ports:
+  #      - 8001:80
   # Dev tools
   adminer:
     image: adminer

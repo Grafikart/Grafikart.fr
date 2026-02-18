@@ -62,9 +62,8 @@ export class CourseVideo extends HTMLElement {
         createElement(Spinner, { className: "text-white size-10" }),
       )
     }
-    const { VideoPlayer } = await import(
-      "../components/ui/video/video-player.tsx"
-    )
+    const { VideoPlayer } =
+      await import("../components/ui/video/video-player.tsx")
     this.state = "loaded"
     const hasChapters = Boolean(document.querySelector('a[href^="#t"]'))
     this.root?.render(

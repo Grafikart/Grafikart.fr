@@ -4,11 +4,11 @@ Gestion de l'abonnement premium, des paiements (Stripe et PayPal) et du suivi de
 
 ## Schema BDD
 
-Le systeme repose sur trois tables. 
+Le systeme repose sur trois tables.
 
 - Les `plans` definissent les formules d'abonnement (prix, duree).
 - Les `transactions` enregistrent chaque paiement effectue.
-- Les `subscriptions` suivent les abonnements Stripe recurrents. 
+- Les `subscriptions` suivent les abonnements Stripe recurrents.
 
 L'état premium de l'utilisateur est stocké directement sur le modele `User` via `premium_end_at`, ce qui permet d'empiler les durées en cas de renouvellement anticipé.
 

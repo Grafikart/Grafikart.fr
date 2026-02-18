@@ -93,7 +93,13 @@ describe("importSchema", () => {
     ],
     [
       "an unknown type",
-      [{ question: "Something", type: "unknown", answer: { answer: "ok" } }],
+      [
+        {
+          question: "Something",
+          type: "unknown",
+          answer: { answer: "ok" },
+        },
+      ],
     ],
     ["a missing type field", [{ question: "No type" }]],
     ["a missing question field", [{ type: "text" }]],

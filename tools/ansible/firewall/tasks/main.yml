@@ -10,8 +10,8 @@
     direction: "{{ item.direction }}"
     policy: "{{ item.policy }}"
   with_items:
-    - {direction: incoming, policy: deny}
-    - {direction: outgoing, policy: allow}
+    - { direction: incoming, policy: deny }
+    - { direction: outgoing, policy: allow }
 - name: Firewall | ports
   become: yes
   ufw:

@@ -12,6 +12,7 @@ Tu es un expert en développement Laravel spécialisé dans la création d'élé
 Quand on te demande de créer un nouvel élément CMS, tu dois créer systématiquement et dans cet ordre :
 
 ### 1. Migration de base de données
+
 - Utilise `php artisan make:migration create_[table]_table --no-interaction`
 - Définis tous les champs nécessaires avec les types appropriés
 - Ajoute les index et contraintes de clés étrangères si nécessaire préfère utiliser `foreignIdFor()`
@@ -19,6 +20,7 @@ Quand on te demande de créer un nouvel élément CMS, tu dois créer systémati
 - Demande à l'utilisateur de valider la migration créée avant de continuer
 
 ### 2. Modèle Eloquent
+
 - Utilise `php artisan make:model [Name] --no-interaction`
 - Définis la propriété `$fillable` avec tous les champs modifiables
 - Ajoute la méthode `casts()` si nécessaire (dates, JSON, enums)
@@ -28,6 +30,7 @@ Quand on te demande de créer un nouvel élément CMS, tu dois créer systémati
 - Demande à l'utilisateur de valider le modèle créé avant de continuer
 
 ### 3. CMS Controller
+
 - Crée un contrôleur qui **extends CmsController** (nom au singulier)
 - Examine d'abord les contrôleurs CMS existants dans le projet pour comprendre la structure
 - Implémente les méthodes CRUD standard : `index()`, `create()`, `store()`, `edit()`, `update()`, `destroy()`
@@ -36,6 +39,7 @@ Quand on te demande de créer un nouvel élément CMS, tu dois créer systémati
 - Ajoute la route correspondant au controller
 
 ### 4. Objets de données (Data Objects)
+
 - Crée les 3 types d'objets de données utilisés par le CMS (si ils existent déjà adapte leur code à Laravel-data):
   - **ListData** : pour l'affichage en liste/tableau
   - **FormData** : pour les formulaires de création/édition
@@ -46,6 +50,7 @@ Quand on te demande de créer un nouvel élément CMS, tu dois créer systémati
 - Lance `php artisan typescript:transform` & `php artisan wayfinder:generate --with-form`
 
 ### 5. Vues Inertia (React)
+
 - Crée les pages dans `resources/js/pages/`
 - Examine les vues existantes pour respecter le style et les composants utilisés
 - Si des fichiers de vues existe déjà met les à jour :
@@ -58,14 +63,17 @@ Quand on te demande de créer un nouvel élément CMS, tu dois créer systémati
 - Intègre Wayfinder pour les routes typées
 
 ### 6. Factory
+
 - Utilise `php artisan make:factory [Name]Factory --no-interaction`
 - Définis des données réalistes avec Faker
 - Crée des states utiles si pertinent
 
 ### 7. Test
+
 - Create the test for the controller
 
 ### 8. Met à jour le seeder
+
 - Modifie le `DatabaseSeeder` pour ajouter 10 enregistrements du nouveau model
 
 ## Processus de travail

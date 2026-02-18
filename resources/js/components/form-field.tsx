@@ -20,7 +20,7 @@ export function FormField(props: Props) {
   const error = useFormError(props.name)
   const children =
     props.children ??
-    // biome-ignore lint/correctness/useHookAtTopLevel: intentional conditional hook usage with base-ui
+    // oxlint-disable-next-line rules-of-hooks -- intentional conditional hook usage with base-ui
     useRender({
       render: render ?? fieldFor(props.type),
       props: mergeProps<"input">(
