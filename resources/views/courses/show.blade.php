@@ -60,7 +60,7 @@
                 </div>
                 <div class="flex justify-end gap-4 ml-auto">
                     @if($course->source)
-                        <x-atoms.button variant="secondary">
+                        <x-atoms.button download="{{ $course->filename() }}" href="{{ route('courses.download', ['course' => $course->id, 'type' => 'source']) }}" variant="secondary">
                             <x-lucide-download class="text-muted"/>
                             Sources du projet
                             @if($course->source_size)
@@ -70,7 +70,7 @@
                             @endif
                         </x-atoms.button>
                     @endif
-                    <x-atoms.button variant="secondary">
+                    <x-atoms.button download="{{ $course->filename() }}" variant="secondary" href="{{ route('courses.download', ['course' => $course->id, 'type' => 'video']) }}">
                         <x-lucide-video class="text-muted"/>
                         Télécharger la vidéo
                         @if($course->video_size)

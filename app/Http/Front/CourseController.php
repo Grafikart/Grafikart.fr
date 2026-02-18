@@ -46,4 +46,16 @@ class CourseController
             'course' => $course,
         ]);
     }
+
+    public function download(Course $course, string $type)
+    {
+        \Gate::authorize('download', $course);
+        abort_if($type === 'source' && ! $course->source, 404, "Il n'y a pas de source pour ce tutoriel");
+
+        if ($type === 'source') {
+            return redirect($course->mediaUrl('source'));
+        }
+
+        return redirect($course->videoUrl());
+    }
 }

@@ -20,4 +20,9 @@ class CoursePolicy
     {
         return $user->isPremium();
     }
+
+    public function download(User $user, Course $course): bool
+    {
+        return $user->isPremium();
+    }
 }

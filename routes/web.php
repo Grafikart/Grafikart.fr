@@ -24,6 +24,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/profil/password', [\App\Http\Front\UserController::class, 'password'])->name('users.password');
     Route::get('/notifications', [\App\Http\Front\NotificationController::class, 'index'])->name('notifications');
     Route::get('/oauth/unlink/{driver}', [\App\Http\Front\AuthController::class, 'unlink'])->name('oauth.unlink');
+    Route::get('/tutoriels/{course}/download/{type}', [\App\Http\Front\CourseController::class, 'download'])->name('courses.download')->where('type', 'source|video');
 });
 
 // Pages

@@ -1,8 +1,8 @@
 import { Moon, Sun } from "lucide-react"
 import { useRef, useState } from "react"
 import { cookie } from "@/lib/cookie.ts"
-import { cn } from "@/lib/utils.ts"
 import { withViewTransition } from "@/lib/dom.ts"
+import { cn } from "@/lib/utils.ts"
 
 type Theme = "light" | "dark"
 

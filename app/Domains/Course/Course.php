@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Support\Str;
 
 class Course extends Model implements RegisterMedia, Searchable
 {
@@ -120,7 +121,7 @@ class Course extends Model implements RegisterMedia, Searchable
     {
         self::registerMediaForProperty(
             property: 'source',
-            directory: fn (Course $model) => 'courses/'.$model->id,
+            directory: fn (Course $model) => 'sources/'.ceil($model->id / 1000),
             filename: 'slug',
             disk: 'downloads',
             needId: true,
@@ -211,5 +212,10 @@ class Course extends Model implements RegisterMedia, Searchable
         $parts = preg_split("/(\r\n|\r|\n){2}/", $this->content);
 
         return $parts === false ? '' : strip_tags($parts[0]);
+    }
+
+    public function filename(): string
+    {
+        return Str::slug(config('app.name').'_'.$this->title, '_');
     }
 }

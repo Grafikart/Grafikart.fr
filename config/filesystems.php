@@ -50,6 +50,7 @@ return [
         'downloads' => [
             'driver' => 'local',
             'root' => base_path('downloads'),
+            'url' => rtrim(env('APP_URL') ?? '', '/').'/downloads',
             'throw' => true,
             'report' => false,
         ],
