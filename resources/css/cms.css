@@ -16,7 +16,7 @@
   --header-height: calc(var(--spacing) * 12);
 
   --background: oklch(1 0 0);
-  --foreground: oklch(0.13 0.028 261.692);
+  --text: oklch(0.13 0.028 261.692);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.13 0.028 261.692);
   --popover: oklch(1 0 0);
@@ -51,7 +51,7 @@
 
 .dark {
   --background: oklch(0.1743 0.0227 283.7998);
-  --foreground: oklch(0.9185 0.0257 285.8834);
+  --text: oklch(0.9185 0.0257 285.8834);
   --card: oklch(0.2284 0.0384 282.9324);
   --card-foreground: oklch(0.9185 0.0257 285.8834);
   --popover: oklch(0.2284 0.0384 282.9324);
@@ -147,7 +147,7 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-  --color-foreground: var(--foreground);
+  --color-foreground: var(--text);
   --color-overlay: rgba(0, 0, 0, 0.1);
   --color-background: var(--background);
   --radius-sm: calc(var(--radius) - 4px);

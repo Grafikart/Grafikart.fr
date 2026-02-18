@@ -16,7 +16,7 @@
 
     {{ $slot }}
 
-    <button type="button" onclick="this.closest('dialog').close()" class="absolute top-2 right-2 p-2 rounded-full hover:bg-border/30 transition-all [&_svg]:size-4">
+    <button type="button" onclick="this.closest('dialog').close()" class="absolute top-2 right-2 p-2 rounded-full hover:bg-border/30 transition-background [&_svg]:size-4">
         <x-lucide-x />
         <span class="sr-only">Close</span>
     </button>

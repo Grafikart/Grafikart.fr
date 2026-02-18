@@ -28,7 +28,7 @@
 - [x] Pages d'erreur (404)
 - [ ] Mailing
 - [x] Footer
-- [ ] Header responsive
+- [x] Header responsive
 - [ ] Page mes résultats (listing de quiz)
 
 ## En plus

@@ -22,12 +22,14 @@ export function strToDom<T extends HTMLElement>(str: string): T {
 
 type ViewTransitionCallback = () => void | Promise<void>
 
-export function withViewTransition(callback: ViewTransitionCallback) {
+export function withViewTransition(
+  callback: ViewTransitionCallback,
+): Promise<void> {
   if (!document.startViewTransition) {
-    return callback()
+    return Promise.resolve(callback())
   }
 
-  return document.startViewTransition(callback)
+  return document.startViewTransition(callback).ready
 }
 
 /**

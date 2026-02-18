@@ -1,7 +1,7 @@
 @props(['video', 'poster', 'course'])
 
 <course-video video="{{$video}}" {{ $attributes->merge(['class' => "
-    grid place-items-center overflow-hidden aspect-video group relative rounded-lg shadow-lg cursor-pointer bg-[#000] hover:shadow-md transition-all w-full h-auto [&_iframe]:w-full [&_iframe]:aspect-video [&_iframe]:h-auto" ])}} poster="{{ $poster }}" course="{{ $course }}">
+    grid place-items-center overflow-hidden aspect-video group relative rounded-lg shadow-lg cursor-pointer bg-[#000] hover:shadow-md w-full h-auto [&_iframe]:w-full [&_iframe]:aspect-video [&_iframe]:h-auto" ])}} poster="{{ $poster }}" course="{{ $course }}">
     <img
         alt=""
         loading="lazy"

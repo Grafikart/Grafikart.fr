@@ -28,7 +28,7 @@
             >
                 <x-atoms.button variant="secondary">
                     {{ $category ? $category->name : 'Toutes les catégories' }}
-                    <x-lucide-chevron-down class="transition-all"/>
+                    <x-lucide-chevron-down class="transition-transform"/>
                 </x-atoms.button>
 
                 <x-atoms.option value="">Toutes les catégories</x-atoms.option>

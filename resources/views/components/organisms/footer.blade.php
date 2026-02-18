@@ -31,11 +31,11 @@
         <div class="max-w-93 md:ml-auto">
             <h5 class="text-xl font-bold text-foreground-title mb-4">Me contacter</h5>
             <ul class="space-y-1 text-muted mb-6">
-                <li><a href="{{ route('contact') }}" class="flex items-center gap-2 hover:text-primary transition-colors"><x-lucide-mail class="size-4" /> Par email</a></li>
-                <li><a href="{{ route('tchat') }}" class="flex items-center gap-2 hover:text-primary transition-colors"><x-lucide-message-circle class="size-4" /> Tchat</a></li>
-                <li><a href="https://www.youtube.com/user/grafikarttv" class="flex items-center gap-2 hover:text-primary transition-colors"><x-lucide-video class="size-4" /> Chaine youtube</a></li>
-                <li><a href="{{ route('pages.about') }}" class="flex items-center gap-2 hover:text-primary transition-colors"><x-lucide-info class="size-4" /> A propos</a></li>
-                <li><a href="{{ route('pages.privacy') }}" class="flex items-center gap-2 hover:text-primary transition-colors"><x-lucide-fingerprint class="size-4" /> Politique de confidentialité</a></li>
+                <li><a href="{{ route('contact') }}" class="flex items-center gap-2 hover:text-primary"><x-lucide-mail class="size-4" /> Par email</a></li>
+                <li><a href="{{ route('tchat') }}" class="flex items-center gap-2 hover:text-primary"><x-lucide-message-circle class="size-4" /> Tchat</a></li>
+                <li><a href="https://www.youtube.com/user/grafikarttv" class="flex items-center gap-2 hover:text-primary"><x-lucide-video class="size-4" /> Chaine youtube</a></li>
+                <li><a href="{{ route('pages.about') }}" class="flex items-center gap-2 hover:text-primary"><x-lucide-info class="size-4" /> A propos</a></li>
+                <li><a href="{{ route('pages.privacy') }}" class="flex items-center gap-2 hover:text-primary"><x-lucide-fingerprint class="size-4" /> Politique de confidentialité</a></li>
             </ul>
             <h5 class="text-xl font-bold text-foreground-title mb-4">Thème</h5>
             <theme-switcher/>

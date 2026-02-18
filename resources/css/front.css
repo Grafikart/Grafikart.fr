@@ -7,72 +7,55 @@
 @import "./code.css";
 @import "./wobbly-dialog.css";
 @import "./animation.css";
+@import "./colors.css";
 @source "../../resources/js/components/flow/";
 @source "../../resources/js/elements/";
 @source "../../resources/views/";
 
-:root {
-  color-scheme: light dark;
-  background: light-dark(lightblue, darkblue);
-}
-
-@theme {
+@theme inline {
   --container-*: initial;
   --font-sans: "Inter", sans-serif;
   --font-serif: "Crimson Pro", serif;
   --font-mono: monospace;
 
   --color-*: initial;
-  --color-foreground-title: #121c42;
-  --color-foreground: color-mix(
-    in oklab,
-    var(--color-foreground-title) 85%,
-    transparent
-  );
-  --color-muted: color-mix(
-    in oklab,
-    var(--color-foreground-title) 60%,
-    transparent
-  );
-  --color-primary: #4869ee;
-  --color-primary-foreground: #effbec;
-  --color-background: #f7fafb;
-  --color-background-light: #fff;
-  --color-card: #fff;
-  --color-white: #fff;
-  --color-card-footer: color-mix(
-    in oklab,
-    var(--color-background) 50%,
-    transparent
-  );
-  --color-border: #d5e3ec;
-  --color-destructive: #f25353;
-  --color-destructive-foreground: #fff3f3;
-  --color-success: #2aa75e;
-  --color-warning: #f49f01;
-  --color-edge: #acb8c0;
-  --color-overlay: #000000b3;
+  --color-foreground-title: var(--title);
+  --color-foreground: var(--text);
+  --color-muted: var(--muted);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-background: var(--background);
+  --color-background-light: var(--background-light);
+  --color-card: var(--card);
+  --color-white: var(--white);
+  --color-card-footer: var(--card-footer);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--green);
+  --color-warning: var(--yellow);
+  --color-edge: var(--edge);
+  --color-overlay: var(--overlay);
 
-  --color-success-bg: hsl(143, 85%, 96%);
-  --color-success-border: hsl(145, 92%, 87%);
-  --color-success-text: hsl(140, 100%, 27%);
-  --color-info-bg: hsl(208, 100%, 97%);
-  --color-info-border: hsl(221, 91%, 93%);
-  --color-info-text: hsl(210, 92%, 45%);
-  --color-warning-bg: hsl(49, 100%, 97%);
-  --color-warning-border: hsl(49, 91%, 84%);
-  --color-warning-text: hsl(31, 92%, 45%);
-  --color-error-bg: hsl(359, 100%, 97%);
-  --color-error-border: hsl(359, 100%, 94%);
-  --color-error-text: hsl(360, 100%, 45%);
-  --color-video: #121c42;
-  --color-sidebar: #fbfcfd;
-  --color-list-hover: color-mix(in srgb, var(--color-primary) 8%, transparent);
+  --color-success-bg: var(--success-bg);
+  --color-success-border: var(--success-border);
+  --color-success-text: var(--success-text);
+  --color-info-bg: var(--info-bg);
+  --color-info-border: var(--info-border);
+  --color-info-text: var(--info-text);
+  --color-warning-bg: var(--warning-bg);
+  --color-warning-border: var(--warning-border);
+  --color-warning-text: var(--warning-text);
+  --color-error-bg: var(--error-bg);
+  --color-error-border: var(--error-border);
+  --color-error-text: var(--error-text);
+  --color-video: var(--video);
+  --color-sidebar: var(--sidebar);
+  --color-list-hover: var(--list-hover);
 
   --shadow-focus: 0 0 0 3px
     color-mix(in srgb, var(--color-primary) 25%, transparent);
-  --shadow-success: 0 0 0 3px
-    color-mix(in srgb, var(--color-success) 25%, transparent);
+  --shadow-success: 0 0 0 3px color-mix(in srgb, var(--green) 25%, transparent);
   --shadow-destructive: 0 0 0 3px
     color-mix(in srgb, var(--color-destructive) 25%, transparent);
   --shadow-toast: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -80,72 +63,6 @@
   --default-transition-duration: 300ms;
   --header-height: 60px;
   --breakpoint-3xl: 105rem;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not(.light) {
-    --color-foreground-title: #f0f3ff;
-    --color-foreground: #adbef3;
-    --color-muted: #8491c7;
-    --color-primary: #5396e7;
-    --color-primary-foreground: #effbec;
-    --color-background: #171933;
-    --color-background-light: #1b1e3d;
-    --color-card: #22244d;
-    --color-border: #2a2e5e;
-    --color-destructive: #f25353;
-    --color-destructive-foreground: #fff3f3;
-    --color-green: #41cf7c;
-    --color-yellow: #feb32b;
-    --color-edge: #595e9d;
-
-    --color-success-bg: hsl(150, 100%, 6%);
-    --color-success-border: hsl(147, 100%, 12%);
-    --color-success-text: hsl(150, 86%, 65%);
-    --color-info-bg: hsl(215, 100%, 6%);
-    --color-info-border: hsl(223, 43%, 17%);
-    --color-info-text: hsl(216, 87%, 65%);
-    --color-warning-bg: hsl(64, 100%, 6%);
-    --color-warning-border: hsl(60, 100%, 9%);
-    --color-warning-text: hsl(46, 87%, 65%);
-    --color-error-bg: hsl(358, 76%, 10%);
-    --color-error-border: hsl(357, 89%, 16%);
-    --color-error-text: hsl(358, 100%, 81%);
-    --color-video: #121c42;
-    --color-sidebar: #1e1f3f;
-  }
-}
-
-:root.dark {
-  --color-foreground-title: #f0f3ff;
-  --color-foreground: #adbef3;
-  --color-muted: #8491c7;
-  --color-primary: #5396e7;
-  --color-primary-foreground: #effbec;
-  --color-background: #171933;
-  --color-background-light: #1b1e3d;
-  --color-card: #22244d;
-  --color-border: #2a2e5e;
-  --color-destructive: #f25353;
-  --color-destructive-foreground: #fff3f3;
-  --color-green: #41cf7c;
-  --color-yellow: #feb32b;
-  --color-edge: #595e9d;
-
-  --color-success-bg: hsl(150, 100%, 6%);
-  --color-success-border: hsl(147, 100%, 12%);
-  --color-success-text: hsl(150, 86%, 65%);
-  --color-info-bg: hsl(215, 100%, 6%);
-  --color-info-border: hsl(223, 43%, 17%);
-  --color-info-text: hsl(216, 87%, 65%);
-  --color-warning-bg: hsl(64, 100%, 6%);
-  --color-warning-border: hsl(60, 100%, 9%);
-  --color-warning-text: hsl(46, 87%, 65%);
-  --color-error-bg: hsl(358, 76%, 10%);
-  --color-error-border: hsl(357, 89%, 16%);
-  --color-error-text: hsl(358, 100%, 81%);
-  --color-video: #121c42;
-  --color-sidebar: #1e1f3f;
 }
 
 @layer base {
@@ -200,12 +117,4 @@
 .react-flow__handle {
   pointer-events: none;
   opacity: 0;
-}
-
-/* Disable Turbo fade animations */
-@layer base {
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation: none;
-  }
 }

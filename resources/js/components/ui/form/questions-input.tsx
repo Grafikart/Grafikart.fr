@@ -73,10 +73,6 @@ function parseQuestionsJson(
     return null
   }
 
-  if (!Array.isArray(data)) {
-    return null
-  }
-
   if (validateImport(data)) {
     return { data }
   }
@@ -300,9 +296,9 @@ function QuestionForm({
       {type === "choice" ? (
         <ChoiceEditor
           choices={
-            (question?.answer as QuestionChoicesAnswer).choices ?? ["", ""]
+            (question?.answer as QuestionChoicesAnswer)?.choices ?? ["", ""]
           }
-          answer={(question?.answer as QuestionChoicesAnswer).answer ?? 0}
+          answer={(question?.answer as QuestionChoicesAnswer)?.answer ?? 0}
         />
       ) : (
         <FormField

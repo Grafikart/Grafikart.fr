@@ -1,44 +1,44 @@
 .mdxeditor {
-  --accentBase: var(--foreground);
-  --accentBgSubtle: var(--foreground);
-  --accentBg: var(--foreground);
-  --accentBgHover: var(--foreground);
-  --accentBgActive: var(--foreground);
-  --accentLine: var(--foreground);
-  --accentBorder: var(--foreground);
-  --accentBorderHover: var(--foreground);
-  --accentSolid: var(--foreground);
-  --accentSolidHover: var(--foreground);
-  --accentText: var(--foreground);
-  --accentTextContrast: var(--foreground);
+  --accentBase: var(--text);
+  --accentBgSubtle: var(--text);
+  --accentBg: var(--text);
+  --accentBgHover: var(--text);
+  --accentBgActive: var(--text);
+  --accentLine: var(--text);
+  --accentBorder: var(--text);
+  --accentBorderHover: var(--text);
+  --accentSolid: var(--text);
+  --accentSolidHover: var(--text);
+  --accentText: var(--text);
+  --accentTextContrast: var(--text);
 
-  --baseBase: var(--foreground);
-  --baseBgSubtle: var(--foreground);
+  --baseBase: var(--text);
+  --baseBgSubtle: var(--text);
   --baseBg: var(--background);
-  --baseBgHover: var(--foreground);
-  --baseBgActive: var(--foreground);
-  --baseLine: var(--foreground);
-  --baseBorder: var(--foreground);
-  --baseBorderHover: var(--foreground);
-  --baseSolid: var(--foreground);
-  --baseSolidHover: var(--foreground);
-  --baseText: var(--foreground);
-  --baseTextContrast: var(--foreground);
+  --baseBgHover: var(--text);
+  --baseBgActive: var(--text);
+  --baseLine: var(--text);
+  --baseBorder: var(--text);
+  --baseBorderHover: var(--text);
+  --baseSolid: var(--text);
+  --baseSolidHover: var(--text);
+  --baseText: var(--text);
+  --baseTextContrast: var(--text);
 
-  --admonitionTipBg: var(--foreground);
-  --admonitionTipBorder: var(--foreground);
+  --admonitionTipBg: var(--text);
+  --admonitionTipBorder: var(--text);
 
-  --admonitionInfoBg: var(--foreground);
-  --admonitionInfoBorder: var(--foreground);
+  --admonitionInfoBg: var(--text);
+  --admonitionInfoBorder: var(--text);
 
-  --admonitionCautionBg: var(--foreground);
-  --admonitionCautionBorder: var(--foreground);
+  --admonitionCautionBg: var(--text);
+  --admonitionCautionBorder: var(--text);
 
-  --admonitionDangerBg: var(--foreground);
-  --admonitionDangerBorder: var(--foreground);
+  --admonitionDangerBg: var(--text);
+  --admonitionDangerBorder: var(--text);
 
-  --admonitionNoteBg: var(--foreground);
-  --admonitionNoteBorder: var(--foreground);
+  --admonitionNoteBg: var(--text);
+  --admonitionNoteBorder: var(--text);
 
   font-family:
     system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
@@ -47,7 +47,7 @@
     ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
     "Courier New", monospace;
 
-  color: var(--foreground);
+  color: var(--text);
   --basePageBg: transparent;
   background: transparent;
 

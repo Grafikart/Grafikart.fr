@@ -1,22 +1,49 @@
 import { Moon, Sun } from "lucide-react"
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { cookie } from "@/lib/cookie.ts"
 import { cn } from "@/lib/utils.ts"
+import { withViewTransition } from "@/lib/dom.ts"
 
 type Theme = "light" | "dark"
 
 export function ThemeSwitcher() {
   const [theme, setTheme] = useState<Theme>(getInitialTheme)
+  const ref = useRef<HTMLButtonElement>(null)
 
-  const toggle = () => {
+  const toggle = async () => {
+    if (!ref.current) {
+      return
+    }
     const next = theme === "dark" ? "light" : "dark"
     setTheme(next)
-    applyTheme(next)
+    await withViewTransition(() => {
+      applyTheme(next)
+    })
+    const { top, left, width, height } = ref.current.getBoundingClientRect()
+    const x = left + width / 2
+    const y = top + height / 2
+    const right = window.innerWidth - left
+    const bottom = window.innerHeight - top
+    const maxRadius = Math.hypot(Math.max(left, right), Math.max(top, bottom))
+    document.documentElement.animate(
+      {
+        clipPath: [
+          `circle(0px at ${x}px ${y}px)`,
+          `circle(${maxRadius}px at ${x}px ${y}px)`,
+        ],
+      },
+      {
+        duration: 500,
+        easing: "ease-in-out",
+        pseudoElement: "::view-transition-new(root)",
+      },
+    )
     cookie("appearance", next, { expires: 365 })
   }
 
   return (
     <button
+      ref={ref}
       type="button"
       onClick={toggle}
       aria-label="Changer de thème"
