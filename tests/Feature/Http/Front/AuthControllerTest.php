@@ -15,8 +15,8 @@ function fakeSocialiteUser(array $attributes = []): SocialiteUser
 }
 
 describe('checkPremium', function () {
-    it('returns 403 for guests', function () {
-        $this->get('/auth/check/premium')->assertForbidden();
+    it('redirects guests to login', function () {
+        $this->get('/auth/check/premium')->assertRedirect(route('login'));
     });
 
     it('returns 403 for non-premium users', function () {
@@ -46,7 +46,7 @@ describe('oauth callback', function () {
         Socialite::fake('github', fakeSocialiteUser());
 
         $this->get('/oauth/check/github')
-            ->assertRedirect(route('home'));
+            ->assertRedirect(route('users.edit'));
 
         $this->assertAuthenticatedAs($user);
     });
@@ -57,7 +57,7 @@ describe('oauth callback', function () {
         Socialite::fake('github', fakeSocialiteUser());
 
         $this->get('/oauth/check/github')
-            ->assertRedirect(route('home'));
+            ->assertRedirect(route('users.edit'));
 
         $this->assertAuthenticatedAs($user);
         expect($user->fresh()->github_id)->toBe('12345');
@@ -67,7 +67,7 @@ describe('oauth callback', function () {
         Socialite::fake('github', fakeSocialiteUser());
 
         $this->get('/oauth/check/github')
-            ->assertRedirect(route('home'));
+            ->assertRedirect(route('users.edit'));
 
         $user = User::where('email', 'john@example.com')->first();
         expect($user)->not->toBeNull();
@@ -82,7 +82,7 @@ describe('oauth callback', function () {
         Socialite::fake('github', fakeSocialiteUser());
 
         $this->get('/oauth/check/github')
-            ->assertRedirect(route('home'));
+            ->assertRedirect(route('users.edit'));
 
         $user = User::where('email', 'john@example.com')->first();
         expect($user->name)->toStartWith('John Doe_');

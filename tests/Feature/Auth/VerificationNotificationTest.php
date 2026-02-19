@@ -4,7 +4,6 @@ use App\Models\User;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Support\Facades\Notification;
 
-beforeEach()->skip();
 test('sends verification notification', function () {
     Notification::fake();
 
@@ -28,7 +27,7 @@ test('does not send verification notification if email is verified', function ()
 
     $this->actingAs($user)
         ->post(route('verification.send'))
-        ->assertRedirect(route('dashboard', absolute: false));
+        ->assertRedirect(route('users.edit', absolute: false));
 
     Notification::assertNothingSent();
 });

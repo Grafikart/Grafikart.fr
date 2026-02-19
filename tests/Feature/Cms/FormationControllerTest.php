@@ -9,7 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Event;
 
 beforeEach(function () {
-    $this->user = new User;
+    $this->user = User::factory()->admin()->create();
     $this->validData = [
         'title' => 'Test Formation Title',
         'slug' => 'test-formation-title',
@@ -132,6 +132,35 @@ describe('update', function () {
         ]);
 
         Event::assertDispatched(ContentUpdatedEvent::class);
+    });
+
+    it('removes formation_id from courses removed from chapters', function () {
+        Event::fake();
+        $this->user = User::factory()->admin()->create();
+        $courses = \App\Domains\Course\Course::factory(3)->create();
+        $formation = Formation::factory()->create([
+            'chapters' => [
+                new \App\Domains\Course\Chapter(title: 'Chapter 1', ids: $courses->pluck('id')->toArray()),
+            ],
+        ]);
+        // Set formation_id on all 3 courses
+        $courses->each->update(['formation_id' => $formation->id]);
+
+        // Update formation keeping only the first course
+        $this->actingAs($this->user)
+            ->put(route('cms.formations.update', $formation), [
+                ...$this->validData,
+                'chapters' => [
+                    ['title' => 'Chapter 1', 'ids' => [$courses[0]->id]],
+                ],
+            ])
+            ->assertRedirect(route('cms.formations.index'));
+
+        // Course 1 should still belong to the formation
+        expect($courses[0]->fresh()->formation_id)->toBe($formation->id);
+        // Courses 2 and 3 should have formation_id set to null
+        expect($courses[1]->fresh()->formation_id)->toBeNull();
+        expect($courses[2]->fresh()->formation_id)->toBeNull();
     });
 
     it('validates required fields on update', function (string $field, mixed $value, ?string $validationKey = null) {

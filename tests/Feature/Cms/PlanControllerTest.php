@@ -4,11 +4,13 @@ use App\Domains\Cms\Event\ContentCreatedEvent;
 use App\Domains\Cms\Event\ContentDeletedEvent;
 use App\Domains\Cms\Event\ContentUpdatedEvent;
 use App\Domains\Premium\Models\Plan;
+use App\Infrastructure\Payment\Stripe\StripeApi;
 use App\Models\User;
 use Illuminate\Support\Facades\Event;
 
 beforeEach(function () {
-    $this->user = new User;
+    $this->user = User::factory()->admin()->create();
+    $this->mock(StripeApi::class)->shouldReceive('getPlan')->andReturn(Mockery::mock(\Stripe\Plan::class));
     $this->validData = [
         'name' => 'Plan Premium',
         'price' => 99,

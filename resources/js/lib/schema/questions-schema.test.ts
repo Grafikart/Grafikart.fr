@@ -44,7 +44,7 @@ describe("importSchema", () => {
       ],
     ],
   ])("accepts %s", (_label, data) => {
-    expect(validate(data)).toBe(true)
+    expect(validate({ questions: data })).toBe(true)
   })
 
   it.each([
@@ -125,6 +125,6 @@ describe("importSchema", () => {
       ],
     ],
   ])("rejects %s", (_label, data) => {
-    expect(validate(data)).toBe(false)
+    expect(validate({ questions: data })).toBe(false)
   })
 })

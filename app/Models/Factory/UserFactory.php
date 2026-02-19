@@ -79,6 +79,16 @@ class UserFactory extends Factory
     }
 
     /**
+     * Indicate that the user is an admin.
+     */
+    public function admin(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'name' => 'Grafikart',
+        ]);
+    }
+
+    /**
      * Indicate that the user is banned (soft deleted).
      */
     public function banned(): static

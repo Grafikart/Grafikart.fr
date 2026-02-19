@@ -4,7 +4,7 @@ use App\Domains\Premium\Models\Transaction;
 use App\Models\User;
 
 beforeEach(function () {
-    $this->admin = User::factory()->create();
+    $this->admin = User::factory()->admin()->create();
 });
 
 describe('index', function () {

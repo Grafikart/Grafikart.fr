@@ -9,7 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Event;
 
 beforeEach(function () {
-    $this->user = new User;
+    $this->user = User::factory()->admin()->create();
     $this->category = BlogCategory::factory()->create();
     $this->validData = [
         'title' => 'Test Post Title',

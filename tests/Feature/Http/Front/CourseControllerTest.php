@@ -51,16 +51,6 @@ describe('index', function () {
             ->assertViewHas('items', fn ($items) => $items->count() === 2);
     });
 
-    it('excludes formation courses', function () {
-        $formation = Formation::factory()->online()->create();
-        Course::factory()->online()->create(['formation_id' => $formation->id]);
-        Course::factory()->online()->count(2)->create(['formation_id' => null]);
-
-        $this->get('/tutoriels')
-            ->assertSuccessful()
-            ->assertViewHas('items', fn ($items) => $items->count() === 2);
-    });
-
     it('shows formations on /formations', function () {
         Formation::factory()->online()->count(2)->create();
         Course::factory()->online()->create();

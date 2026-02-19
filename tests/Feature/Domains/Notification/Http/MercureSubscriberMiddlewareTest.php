@@ -28,5 +28,5 @@ it('sets mercureAuthorization cookie for authenticated users', function () {
     $parsed = $jwtConfiguration->parser()->parse($token);
     $claims = $parsed->claims();
 
-    expect($claims->get('mercure'))->toBe(['subscribe' => ['notification']]);
+    expect($claims->get('mercure'))->toBe(['subscribe' => ['notification', "notification/{$user->id}"]]);
 });

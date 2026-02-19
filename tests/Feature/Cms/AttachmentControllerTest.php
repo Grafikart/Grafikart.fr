@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 
 beforeEach(function () {
     Storage::fake('public');
-    $this->user = new User;
+    $this->user = User::factory()->admin()->create();
 });
 
 describe('folders', function () {

@@ -82,7 +82,9 @@ class FormationRequestData extends Data implements DataToModel
 
         $this->afterPersist($model, function (Formation $model) use ($technologies) {
             $model->technologies()->sync($technologies);
-            Course::whereIn('id', $model->courseIds)->update(['formation_id' => $model->id]);
+            $newCourseIds = $model->courseIds;
+            Course::where('formation_id', $model->id)->whereNotIn('id', $newCourseIds)->update(['formation_id' => null]);
+            Course::whereIn('id', $newCourseIds)->update(['formation_id' => $model->id]);
         });
 
         return $model;

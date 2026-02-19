@@ -56,7 +56,7 @@ class IndexerSubscriber
     {
         $item = $event->item;
 
-        if ($item instanceof Model) {
+        if ($item instanceof Searchable && $item instanceof Model) {
             $this->indexer->remove((string) $item->getKey());
         }
     }
