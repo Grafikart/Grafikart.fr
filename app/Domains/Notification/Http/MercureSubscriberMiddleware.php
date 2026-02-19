@@ -2,6 +2,7 @@
 
 namespace App\Domains\Notification\Http;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Lcobucci\JWT\Configuration;
@@ -14,8 +15,8 @@ class MercureSubscriberMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         $response = $next($request);
-
-        if (! $request->user()) {
+        $user = $request->user();
+        if (! ($user instanceof User)) {
             return $response;
         }
 
@@ -25,7 +26,7 @@ class MercureSubscriberMiddleware
         );
 
         $token = $jwtConfiguration->builder()
-            ->withClaim('mercure', ['subscribe' => ['notification']])
+            ->withClaim('mercure', ['subscribe' => ['notification', sprintf('notification/%s', $user->id)]])
             ->getToken($jwtConfiguration->signer(), $jwtConfiguration->signingKey())
             ->toString();
 

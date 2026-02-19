@@ -14,6 +14,7 @@ class NotificationData extends Data
         public string $url,
         #[MapInputName('created_at')]
         public \DateTimeInterface $date,
+        public ?int $userId,
     ) {}
 
 }

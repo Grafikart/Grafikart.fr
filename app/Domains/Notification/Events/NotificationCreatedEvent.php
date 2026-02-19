@@ -20,6 +20,9 @@ readonly class NotificationCreatedEvent implements ShouldBroadcast
 
     public function broadcastOn(): Channel
     {
+        if ($this->notification->userId) {
+            return new Channel('notification/' . $this->notification->userId);
+        }
         return new Channel('notification');
     }
 }

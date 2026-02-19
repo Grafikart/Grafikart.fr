@@ -3,6 +3,7 @@
 namespace App\Http\Cms;
 
 use App\Domains\Revision\Revision;
+use App\Domains\Revision\RevisionService;
 use App\Domains\Revision\RevisionStatus;
 use App\Http\Cms\Data\Revision\RevisionRowData;
 use App\Http\Cms\Data\Revision\RevisionShowData;
@@ -14,6 +15,8 @@ use Inertia\Response;
 
 final readonly class RevisionController
 {
+    public function __construct(private RevisionService $service) {}
+
     public function index(Request $request): Response
     {
         $query = Revision::query()
@@ -46,14 +49,11 @@ final readonly class RevisionController
 
     public function update(Revision $revision, RevisionUpdateData $data): RedirectResponse
     {
-        if ($data->state === RevisionStatus::Accepted && $revision->revisionable) {
-            $revision->revisionable->update(['content' => $revision->content]);
+        if ($data->state === RevisionStatus::Accepted) {
+            $this->service->accept($revision, $data->comment);
+        } else {
+            $this->service->reject($revision, $data->comment);
         }
-
-        $revision->update([
-            'state' => $data->state,
-            'comment' => $data->comment,
-        ]);
 
         $message = $data->state === RevisionStatus::Accepted ? 'Révision acceptée.' : 'Révision rejetée.';
 

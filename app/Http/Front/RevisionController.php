@@ -72,7 +72,7 @@ class RevisionController extends Controller
 
         $service->sendRevision($target, $data->content);
 
-        return back()->with('success', 'Votre proposition de modification a bien été envoyée.');
+        return to_route('revisions.index')->with('success', 'Votre proposition de modification a bien été envoyée.');
     }
 
     public function delete(Revision $revision): RedirectResponse

@@ -2,6 +2,8 @@
 
 namespace App\Domains\Revision;
 
+use App\Domains\Revision\Event\AcceptedRevisionEvent;
+use App\Domains\Revision\Event\RejectedRevisionEvent;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,6 +18,7 @@ class RevisionService
         $revision = new Revision;
         $revision->user_id = $userId;
         $revision->content = $content;
+        $revision->state = RevisionStatus::Pending;
         $revision->revisionable()->associate($target);
         $revision->save();
 
@@ -44,5 +47,29 @@ class RevisionService
             ->first();
 
         return $pendingRevision?->content ?? $target->content;
+    }
+
+    public function accept(Revision $revision, ?string $comment = null): void
+    {
+        if ($revision->revisionable) {
+            $revision->revisionable->update(['content' => $revision->content]);
+        }
+
+        $revision->update([
+            'state' => RevisionStatus::Accepted,
+            'comment' => $comment,
+        ]);
+
+        event(new AcceptedRevisionEvent($revision));
+    }
+
+    public function reject(Revision $revision, ?string $comment = null): void
+    {
+        $revision->update([
+            'state' => RevisionStatus::Rejected,
+            'comment' => $comment,
+        ]);
+
+        event(new RejectedRevisionEvent($revision));
     }
 }

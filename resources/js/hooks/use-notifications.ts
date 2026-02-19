@@ -10,6 +10,7 @@ import { apiFetch } from "@/hooks/use-api-fetch.ts"
 import { subscribeToMercure } from "@/lib/mercure.ts"
 import { isActiveWindow } from "@/lib/window.ts"
 import type { NotificationData } from "@/types"
+import { userId } from "@/lib/auth.ts"
 
 const notificationsAtom = atom<NotificationData[] | null>(null)
 let isSubscribed = false
@@ -20,7 +21,7 @@ export function startSubscription(): void {
   }
   const store = getDefaultStore()
   isSubscribed = true
-  subscribeToMercure(["notification"], (event) => {
+  subscribeToMercure(["notification", `notification/${userId()}`], (event) => {
     if (event.type === "NotificationCreatedEvent") {
       store.set(notificationsAtom, (prev) => [
         event.notification,

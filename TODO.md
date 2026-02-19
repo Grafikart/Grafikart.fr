@@ -22,7 +22,7 @@
 - [ ] Mode école
 - [ ] Support sur les vidéos
 - [x] Quiz sur les formations
-- [ ] Edition d'article (révision)
+- [x] Edition d'article (révision)
 - [x] Notifications
 - [ ] Dump & Sauvegarde
 - [x] Pages d'erreur (404)
