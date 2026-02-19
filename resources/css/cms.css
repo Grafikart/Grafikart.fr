@@ -2,7 +2,7 @@
 @import "./prose.css";
 @import "./flow.css";
 @import "./utility.css";
-@import "editor.css";
+@import "./editor.css";
 @import "@xyflow/react/dist/style.css";
 
 @source "../templates/";

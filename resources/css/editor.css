@@ -13,13 +13,28 @@
     background: var(--background);
     color: var(--text);
     border: none;
-    padding: 1rem 0 !important;
+    padding: 1rem 0;
+  }
+
+  .front & .CodeMirror {
+    border: solid 1px var(--border);
+    border-top: none;
+    padding: 0.5rem;
   }
 
   .editor-toolbar {
     background: var(--card);
     border-radius: 0.5rem;
     border: 1px solid var(--border);
+
+    .front & {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+
+  .editor-toolbar.fullscreen {
+    border-radius: 0;
   }
 
   .CodeMirror-code {
