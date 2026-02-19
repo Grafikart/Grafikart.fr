@@ -30,6 +30,7 @@ r2wc("theme-switcher", ThemeSwitcher, {})
 r2wc("burger-menu", BurgerMenu, {}, { append: true })
 
 lazywc("code-block", () => import("@/elements/code-block.ts"))
+lazywc("md-editor", () => import("@/elements/md-editor.ts"))
 
 customElements.define("course-video", CourseVideo)
 customElements.define("lazy-video", LazyVideo)

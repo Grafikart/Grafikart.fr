@@ -15,10 +15,12 @@
 
     <div class="border-t bg-background pt-10">
         <div class="container">
-            <form class="grid gap-4 max-w-200" method="post"
+            <form class="grid gap-4" method="post"
                   action="{{ route('revision.update', ['type' => $type, 'id' => $id]) }}">
                 @csrf
-                <x-molecules.field name="content" required label="Contenu" type="textarea" :value="$content" rows="20"/>
+                <md-editor>
+                    <textarea name="content" required type="textarea" rows="20">{{ $content }}</textarea>
+                </md-editor>
                 <x-atoms.button>
                     <x-lucide-send/>
                     Envoyer la proposition

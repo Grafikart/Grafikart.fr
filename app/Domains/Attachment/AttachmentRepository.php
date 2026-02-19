@@ -15,11 +15,11 @@ class AttachmentRepository
     {
         $driver = DB::getDriverName();
 
-        if ($driver === 'sqlite') {
-            $pathExpression = "strftime('%Y/%m', created_at)";
-        } else {
-            $pathExpression = "DATE_FORMAT(created_at, '%Y/%m')";
-        }
+        $pathExpression = match ($driver) {
+            'sqlite' => "strftime('%Y/%m', created_at)",
+            'pgsql' => "TO_CHAR(created_at, 'YYYY/MM')",
+            default => "DATE_FORMAT(created_at, '%Y/%m')",
+        };
 
         return Attachment::query()
             ->select(DB::raw("{$pathExpression} as path"), DB::raw('COUNT(*) as count'))

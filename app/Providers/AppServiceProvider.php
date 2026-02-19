@@ -70,7 +70,7 @@ class AppServiceProvider extends ServiceProvider
     private function registerViewGlobals()
     {
         // Add appearance (theme) to the view
-        View::composer('front', function (\Illuminate\View\View $view): void {
+        View::composer(['front', 'cms'], function (\Illuminate\View\View $view): void {
             $view->with('appearance', request()->cookie('appearance'));
         });
 

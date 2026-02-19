@@ -8,6 +8,7 @@
 @import "./wobbly-dialog.css";
 @import "./animation.css";
 @import "./colors.css";
+@import "editor.css";
 @source "../../resources/js/components/flow/";
 @source "../../resources/js/elements/";
 @source "../../resources/views/";

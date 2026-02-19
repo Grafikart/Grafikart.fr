@@ -56,7 +56,12 @@ export function TechnologySelector(props: Props) {
           onValueChange={setSearch}
           value={search}
         />
-        <CommandList className="absolute top-full left-0 w-full bg-card">
+        <CommandList
+          className={cn(
+            "absolute z-100 top-full left-0 w-full bg-card",
+            search === "" ? "opacity-0" : "",
+          )}
+        >
           <CommandGroup>
             {isFetching && (
               <div className="flex justify-center py-2 text-muted-foreground">

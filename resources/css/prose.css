@@ -8,7 +8,7 @@
     h4,
     h5,
     h6 {
-      color: var(--color-foreground-title);
+      color: var(--title);
     }
 
     lazy-video {
@@ -32,7 +32,7 @@
     }
 
     strong {
-      color: var(--color-foreground-title);
+      color: var(--title);
       font-weight: 600;
     }
 
@@ -71,16 +71,16 @@
 
     hr {
       height: 1px;
-      background-color: var(--color-border);
+      background-color: var(--border);
       margin-block: 3em;
     }
 
     blockquote {
       font-weight: 500;
       font-style: italic;
-      color: var(--color-muted);
+      color: var(--muted);
       border-inline-start-width: 0.25rem;
-      border-inline-start-color: var(--color-border);
+      border-inline-start-color: var(--border);
       quotes: "\201C" "\201D" "\2018" "\2019";
       margin-block: 1.6em;
       padding-inline-start: 1em;
@@ -158,8 +158,8 @@
       font-weight: 500;
       font-family: inherit;
       box-shadow:
-        0 0 0 1px var(--color-muted),
-        0 3px 0 var(--color-muted);
+        0 0 0 1px var(--muted),
+        0 3px 0 var(--muted);
       font-size: 0.875em;
       border-radius: 0.3125rem;
       padding-block: 0.1875em;
@@ -167,13 +167,13 @@
     }
 
     code {
-      border: solid 1px var(--color-border);
+      border: solid 1px var(--border);
       padding: 0.3em 0.5em;
       border-radius: 0.25rem;
       font-family: var(--font-mono);
       background-color: color-mix(
         in oklab,
-        var(--color-border) 20%,
+        var(--border) 20%,
         transparent
       );
       font-weight: 600;
@@ -211,8 +211,8 @@
     }
 
     pre {
-      color: var(--color-muted);
-      background-color: var(--color-border);
+      color: var(--muted);
+      background-color: var(--border);
       overflow-x: auto;
       font-weight: 400;
       font-size: 1em;
@@ -253,11 +253,11 @@
 
     thead {
       border-bottom-width: 1px;
-      border-bottom-color: var(--color-border);
+      border-bottom-color: var(--border);
     }
 
     thead th {
-      color: var(--color-foreground-title);
+      color: var(--title);
       font-weight: 600;
       vertical-align: bottom;
       padding-inline-end: 0.5714286em;
@@ -267,7 +267,7 @@
 
     tbody tr {
       border-bottom-width: 1px;
-      border-bottom-color: var(--color-border);
+      border-bottom-color: var(--border);
     }
 
     tbody tr:last-child {
@@ -280,7 +280,7 @@
 
     tfoot {
       border-top-width: 1px;
-      border-top-color: var(--color-border);
+      border-top-color: var(--border);
     }
 
     tfoot td {
@@ -297,7 +297,7 @@
     }
 
     figcaption {
-      color: var(--color-muted);
+      color: var(--muted);
       font-size: 0.875em;
       line-height: 1.4285714;
       margin-top: 0.8571429em;

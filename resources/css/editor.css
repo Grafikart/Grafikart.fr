@@ -1,66 +1,168 @@
-.mdxeditor {
-  --accentBase: var(--text);
-  --accentBgSubtle: var(--text);
-  --accentBg: var(--text);
-  --accentBgHover: var(--text);
-  --accentBgActive: var(--text);
-  --accentLine: var(--text);
-  --accentBorder: var(--text);
-  --accentBorderHover: var(--text);
-  --accentSolid: var(--text);
-  --accentSolidHover: var(--text);
-  --accentText: var(--text);
-  --accentTextContrast: var(--text);
+.mdeditor .EasyMDEContainer {
+    &:has(>.fullscreen) {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+        background: var(--background);
+    }
 
-  --baseBase: var(--text);
-  --baseBgSubtle: var(--text);
-  --baseBg: var(--background);
-  --baseBgHover: var(--text);
-  --baseBgActive: var(--text);
-  --baseLine: var(--text);
-  --baseBorder: var(--text);
-  --baseBorderHover: var(--text);
-  --baseSolid: var(--text);
-  --baseSolidHover: var(--text);
-  --baseText: var(--text);
-  --baseTextContrast: var(--text);
+    /* Editor container */
+    .CodeMirror {
+        background: var(--background);
+        color: var(--text);
+        border: none;
+        padding: 1rem 0!important;
+    }
 
-  --admonitionTipBg: var(--text);
-  --admonitionTipBorder: var(--text);
+    .editor-toolbar{
+        background: var(--card);
+        border-radius: .5rem;
+        border: 1px solid var(--border);
+    }
 
-  --admonitionInfoBg: var(--text);
-  --admonitionInfoBorder: var(--text);
+    .CodeMirror-code {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        max-width: 800px;
+    }
 
-  --admonitionCautionBg: var(--text);
-  --admonitionCautionBorder: var(--text);
+    /* Cursor */
+    .CodeMirror-cursor {
+        border-left-color: var(--title);
+    }
 
-  --admonitionDangerBg: var(--text);
-  --admonitionDangerBorder: var(--text);
+    /* Selection */
+    .CodeMirror-selected,
+    .CodeMirror-focused .CodeMirror-selected {
+        background: color-mix(in srgb, var(--primary) 25%, transparent);
+    }
 
-  --admonitionNoteBg: var(--text);
-  --admonitionNoteBorder: var(--text);
+    /* Gutters */
+    .CodeMirror-gutters {
+        background-color: var(--background);
+        border-right-color: var(--border);
+    }
 
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    "Open Sans",
-    "Helvetica Neue",
-    sans-serif;
-  --font-mono:
-    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
+    .CodeMirror-linenumber {
+        color: var(--muted-foreground, var(--muted));
+    }
 
-  color: var(--text);
-  --basePageBg: transparent;
-  background: transparent;
+    .EasyMDEContainer {
+        position: relative;
+    }
 
-  div[contenteditable] {
-    padding: 0;
-  }
+    /* Toolbar */
+    .editor-toolbar:not(.fullscreen) {
+        position: sticky;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
+    }
+
+
+    .editor-toolbar a {
+        color: var(--title) !important;
+    }
+
+    .editor-toolbar button:hover,
+    .editor-toolbar button.active {
+        background: var(--primary);
+        color: var(--primary-foreground);
+        border-color: var(--edge);
+    }
+
+    .editor-toolbar i.separator {
+        border-left-color: var(--border);
+        border-right-color: var(--border);
+    }
+
+    .editor-toolbar.disabled-for-preview a:not(.no-disable) {
+        color: var(--muted-foreground) !important;
+    }
+
+    /* Preview */
+    .editor-preview {
+        background: var(--background);
+    }
+
+    .editor-preview pre {
+        background: var(--card);
+    }
+
+    .editor-preview table td,
+    .editor-preview table th {
+        border-color: var(--border);
+    }
+
+    /* Fullscreen */
+    .CodeMirror-fullscreen,
+    .editor-toolbar.fullscreen,
+    .editor-preview-side {
+        background: var(--background-light);
+    }
+
+    .editor-toolbar.fullscreen {
+        border-bottom: 1px solid var(--border);
+    }
+
+    .editor-preview-side {
+        border-left: 1px solid var(--border);
+    }
+
+    /* Syntax highlighting */
+    .cm-s-easymde .cm-comment {
+        background: transparent;
+        font-family: monospace;
+        color: var(--muted-foreground, var(--muted));
+    }
+
+    .cm-s-easymde .cm-header {
+        color: var(--title);
+    }
+
+    .cm-s-easymde .cm-quote {
+        color: var(--muted-foreground);
+    }
+
+    .cm-s-easymde .cm-link {
+        color: var(--primary);
+    }
+
+    .cm-s-easymde .cm-url {
+        color: var(--muted-foreground);
+    }
+
+    .cm-s-easymde .cm-tag {
+        color: var(--green);
+    }
+
+    /* Placeholder */
+    .CodeMirror .CodeMirror-placeholder {
+        color: var(--muted-foreground);
+    }
+
+    .cm-s-easymde .cm-header-2 {
+        font-size: 1.5em;
+        line-height: 1.3333333;
+    }
+
+    .cm-s-easymde .cm-header-3 {
+        font-size: 1.25em;
+        line-height: 1.6;
+    }
+
+    .cm-s-easymde .cm-header-4 {
+        font-size: 1em;
+        line-height: 1.5;
+    }
+
+    .cm-s-easymde .cm-header-5,
+    .cm-s-easymde .cm-header-6 {
+        font-size: 0.875em;
+        line-height: 1.5;
+    }
+
 }
