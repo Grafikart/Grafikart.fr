@@ -3,46 +3,32 @@ import {
   BarChart3Icon,
   BellIcon,
   ClockIcon,
+  GitCompareArrowsIcon,
   RotateCcwIcon,
   TrashIcon,
 } from "lucide-react"
-import type { ReactNode } from "react"
-import { toast } from "sonner"
-import {
-  destroy,
-  destroyFailed,
-  flushFailed,
-  retryFailed,
-} from "@/actions/App/Http/Cms/JobController.ts"
-import { withLayout } from "@/components/layout.tsx"
-import { PageTitle } from "@/components/page-title.tsx"
-import { Button } from "@/components/ui/button.tsx"
-import { ButtonLink } from "@/components/ui/button-link.tsx"
-import { Card, CardContent } from "@/components/ui/card.tsx"
-import { SimpleChart } from "@/components/ui/simple-chart.tsx"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table.tsx"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs.tsx"
-import { apiFetch } from "@/hooks/use-api-fetch.ts"
-import { formatDate } from "@/lib/date.ts"
-import type { DailyData, JobItemData, MonthlyData } from "@/types"
+import type {ReactNode} from "react"
+import {toast} from "sonner"
+import {destroy, destroyFailed, flushFailed, retryFailed,} from "@/actions/App/Http/Cms/JobController.ts"
+import {withLayout} from "@/components/layout.tsx"
+import {PageTitle} from "@/components/page-title.tsx"
+import {RevisionsTable} from "@/components/revisions/revisions-table.tsx"
+import {Button} from "@/components/ui/button.tsx"
+import {ButtonLink} from "@/components/ui/button-link.tsx"
+import {Card, CardContent} from "@/components/ui/card.tsx"
+import {SimpleChart} from "@/components/ui/simple-chart.tsx"
+import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow,} from "@/components/ui/table.tsx"
+import {Tabs, TabsContent, TabsList, TabsTrigger,} from "@/components/ui/tabs.tsx"
+import {apiFetch} from "@/hooks/use-api-fetch.ts"
+import {formatDate} from "@/lib/date.ts"
+import type {DailyData, JobItemData, MonthlyData, RevisionRowData} from "@/types"
 
 type Props = {
   months: MonthlyData[]
   days: DailyData[]
   jobs: JobItemData[]
   failedJobs: JobItemData[]
+  revisions: RevisionRowData[]
 }
 
 export default withLayout<Props>(
@@ -50,6 +36,15 @@ export default withLayout<Props>(
     return (
       <div className="space-y-6">
         <PageTitle>Dashboard</PageTitle>
+        {props.revisions.length > 0 && (
+          <div>
+            <h2 className="mb-4 flex items-center gap-2 font-semibold text-xl">
+              <GitCompareArrowsIcon className="text-primary" />
+              Révisions en attente
+            </h2>
+            <RevisionsTable items={props.revisions} />
+          </div>
+        )}
         {props.jobs.length > 0 && (
           <JobsTable
             type="future"

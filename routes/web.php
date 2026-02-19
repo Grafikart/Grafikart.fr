@@ -25,6 +25,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/notifications', [\App\Http\Front\NotificationController::class, 'index'])->name('notifications');
     Route::get('/oauth/unlink/{driver}', [\App\Http\Front\AuthController::class, 'unlink'])->name('oauth.unlink');
     Route::get('/tutoriels/{course}/download/{type}', [\App\Http\Front\CourseController::class, 'download'])->name('courses.download')->where('type', 'source|video');
+    Route::get('/profil/revisions', [\App\Http\Front\RevisionController::class, 'index'])->name('revisions.index');
+    Route::get('/revision/{type}/{id}', [\App\Http\Front\RevisionController::class, 'edit'])->whereIn('type', ['course', 'post'])->whereNumber('id')->name('revision.edit');
+    Route::post('/revision/{type}/{id}', [\App\Http\Front\RevisionController::class, 'update'])->whereIn('type', ['course', 'post'])->whereNumber('id')->name('revision.update');
+    Route::delete('/revision/{revision}', [\App\Http\Front\RevisionController::class, 'delete'])->name('revision.delete');
 });
 
 // Pages
@@ -109,6 +113,9 @@ Route::group([
     Route::delete('failed-jobs/{job}', [\App\Http\Cms\JobController::class, 'destroyFailed'])->name('failed-jobs.destroy');
     Route::post('failed-jobs/{job}/retry', [\App\Http\Cms\JobController::class, 'retryFailed'])->name('failed-jobs.retry');
     Route::delete('failed-jobs', [\App\Http\Cms\JobController::class, 'flushFailed'])->name('failed-jobs.flush');
+    Route::get('revisions', [\App\Http\Cms\RevisionController::class, 'index'])->name('revisions.index');
+    Route::get('revisions/{revision}', [\App\Http\Cms\RevisionController::class, 'show'])->name('revisions.show');
+    Route::post('revisions/{revision}', [\App\Http\Cms\RevisionController::class, 'update'])->name('revisions.update');
     Route::get('search', [\App\Http\Cms\SearchController::class, 'search'])->name('search');
     Route::post('twitch', [\App\Http\Cms\TwitchController::class, 'store'])->name('twitch.store');
 

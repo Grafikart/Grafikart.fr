@@ -56,7 +56,7 @@ class AppServiceProvider extends ServiceProvider
                 return true;
             }
 
-            return false;
+            return null;
         });
     }
 

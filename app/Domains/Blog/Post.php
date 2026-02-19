@@ -2,8 +2,10 @@
 
 namespace App\Domains\Blog;
 
+use App\Concerns\HasRevisions;
 use App\Domains\Attachment\Attachment;
 use App\Domains\Blog\Factory\PostFactory;
+use App\Domains\Revision\Revisionable;
 use App\Helpers\MarkdownHelper;
 use App\Infrastructure\Search\Contracts\Searchable;
 use App\Infrastructure\Search\SearchDocument;
@@ -11,12 +13,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Post extends Model implements Searchable
+class Post extends Model implements Revisionable, Searchable
 {
     protected $table = 'blog_posts';
 
     /** @use HasFactory<PostFactory> */
     use HasFactory;
+
+    use HasRevisions;
 
     protected $fillable = [
         'title',

@@ -4,6 +4,7 @@ import {
   BookOpenTextIcon,
   BotIcon,
   CogIcon,
+  GitCompareArrowsIcon,
   HouseIcon,
   ListVideoIcon,
   MessagesSquareIcon,
@@ -21,6 +22,7 @@ import {
 } from "react"
 import { toast } from "sonner"
 import CommentController from "@/actions/App/Http/Cms/CommentController.ts"
+import RevisionController from "@/actions/App/Http/Cms/RevisionController.ts"
 import CourseController from "@/actions/App/Http/Cms/CourseController.ts"
 import DashboardController from "@/actions/App/Http/Cms/DashboardController.ts"
 import FormationController from "@/actions/App/Http/Cms/FormationController.ts"
@@ -138,6 +140,11 @@ const nav = [
         label: "Commentaires",
         icon: MessagesSquareIcon,
         href: CommentController.index(),
+      },
+      {
+        label: "Révisions",
+        icon: GitCompareArrowsIcon,
+        href: RevisionController.index(),
       },
     ],
   },

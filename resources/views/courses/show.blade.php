@@ -130,5 +130,6 @@
 
     @endcache
 
+    <x-molecules.revision-link :model="$course"/>
 
 @endsection

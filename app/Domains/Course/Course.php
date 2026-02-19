@@ -2,6 +2,7 @@
 
 namespace App\Domains\Course;
 
+use App\Concerns\HasRevisions;
 use App\Concerns\HasTechnologies;
 use App\Concerns\Media\HasMedia;
 use App\Concerns\Media\RegisterMedia;
@@ -9,6 +10,7 @@ use App\Domains\Attachment\Attachment;
 use App\Domains\Course\Factory\CourseFactory;
 use App\Domains\Evaluation\Question;
 use App\Domains\History\Progress;
+use App\Domains\Revision\Revisionable;
 use App\Helpers\MarkdownHelper;
 use App\Infrastructure\Search\Contracts\Searchable;
 use App\Infrastructure\Search\SearchDocument;
@@ -22,12 +24,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Str;
 
-class Course extends Model implements RegisterMedia, Searchable
+class Course extends Model implements RegisterMedia, Revisionable, Searchable
 {
     /** @use HasFactory<CourseFactory> */
     use HasFactory;
 
     use HasMedia;
+    use HasRevisions;
     use HasTechnologies;
 
     protected $fillable = [

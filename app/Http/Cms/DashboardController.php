@@ -4,7 +4,9 @@ namespace App\Http\Cms;
 
 use App\Domains\Notification\NotificationService;
 use App\Domains\Premium\TransactionRepository;
+use App\Domains\Revision\Revision;
 use App\Http\Cms\Data\JobItemData;
+use App\Http\Cms\Data\Revision\RevisionRowData;
 use App\Infrastructure\Queue\FailedJob;
 use App\Infrastructure\Queue\Job;
 use App\Models\User;
@@ -22,6 +24,9 @@ final readonly class DashboardController
             'failedJobs' => JobItemData::collect(FailedJob::query()->latest('failed_at')->limit(10)->get()),
             'days' => $repository->getDailyRevenues(),
             'months' => $repository->getMonthlyRevenues(),
+            'revisions' => RevisionRowData::collect(
+                Revision::query()->pending()->with(['user', 'revisionable'])->latest()->limit(5)->get()
+            ),
         ]);
     }
 

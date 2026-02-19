@@ -37,18 +37,27 @@ $active = Route::currentRouteName();
             <x-lucide-inbox class="size-5"/>
             Factures
         </a>
-        @can('school-manage')
-            <a href="#" class="{{ $tabCls }} ml-auto" @if($active === 'school') aria-selected="true" @endif>
-                <x-lucide-graduation-cap class="size-5"/>
-                École
+        @if(\App\Domains\Revision\Revision::existsForUser($user))
+            <a href="{{ route('revisions.index') }}" class="{{ $tabCls }}" @if($active === 'revisions.index') aria-selected="true" @endif>
+                <x-lucide-file-pen-line class="size-5"/>
+                Révisions
             </a>
-        @endcan
-        @can('admin')
-            <a href="#" class="{{ $tabCls }} ml-auto">
-                <x-lucide-pencil class="size-5"/>
-                Administration
-            </a>
-        @endcan
+        @endif
+
+        <div class="flex ml-auto">
+            @can('school-manage')
+                <a href="#" class="{{ $tabCls }}" @if($active === 'school') aria-selected="true" @endif>
+                    <x-lucide-graduation-cap class="size-5"/>
+                    École
+                </a>
+            @endcan
+            @can('admin')
+                <a href="#" class="{{ $tabCls }}">
+                    <x-lucide-pencil class="size-5"/>
+                    Administration
+                </a>
+            @endcan
+        </div>
     </div>
 
     <div class="border-t bg-background pt-10 container">

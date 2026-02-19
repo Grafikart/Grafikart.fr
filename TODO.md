@@ -26,7 +26,7 @@
 - [x] Notifications
 - [ ] Dump & Sauvegarde
 - [x] Pages d'erreur (404)
-- [ ] Mailing
+- [x] Mailing
 - [x] Footer
 - [x] Header responsive
 - [ ] Page mes résultats (listing de quiz)
