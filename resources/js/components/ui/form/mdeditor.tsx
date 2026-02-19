@@ -1,10 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import EasyMDE from "easymde"
 import "easymde/dist/easymde.min.css"
-import {
-  Dialog,
-  DialogContent,
-} from "@/components/ui/dialog.tsx"
+import { Dialog, DialogContent } from "@/components/ui/dialog.tsx"
 import { FileExplorer } from "@/components/ui/form/file-explorer.tsx"
 import type { AttachmentFileData } from "@/types"
 

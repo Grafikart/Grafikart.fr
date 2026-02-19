@@ -7,21 +7,43 @@ import {
   RotateCcwIcon,
   TrashIcon,
 } from "lucide-react"
-import type {ReactNode} from "react"
-import {toast} from "sonner"
-import {destroy, destroyFailed, flushFailed, retryFailed,} from "@/actions/App/Http/Cms/JobController.ts"
-import {withLayout} from "@/components/layout.tsx"
-import {PageTitle} from "@/components/page-title.tsx"
-import {RevisionsTable} from "@/components/revisions/revisions-table.tsx"
-import {Button} from "@/components/ui/button.tsx"
-import {ButtonLink} from "@/components/ui/button-link.tsx"
-import {Card, CardContent} from "@/components/ui/card.tsx"
-import {SimpleChart} from "@/components/ui/simple-chart.tsx"
-import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow,} from "@/components/ui/table.tsx"
-import {Tabs, TabsContent, TabsList, TabsTrigger,} from "@/components/ui/tabs.tsx"
-import {apiFetch} from "@/hooks/use-api-fetch.ts"
-import {formatDate} from "@/lib/date.ts"
-import type {DailyData, JobItemData, MonthlyData, RevisionRowData} from "@/types"
+import type { ReactNode } from "react"
+import { toast } from "sonner"
+import {
+  destroy,
+  destroyFailed,
+  flushFailed,
+  retryFailed,
+} from "@/actions/App/Http/Cms/JobController.ts"
+import { withLayout } from "@/components/layout.tsx"
+import { PageTitle } from "@/components/page-title.tsx"
+import { RevisionsTable } from "@/components/revisions/revisions-table.tsx"
+import { Button } from "@/components/ui/button.tsx"
+import { ButtonLink } from "@/components/ui/button-link.tsx"
+import { Card, CardContent } from "@/components/ui/card.tsx"
+import { SimpleChart } from "@/components/ui/simple-chart.tsx"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table.tsx"
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs.tsx"
+import { apiFetch } from "@/hooks/use-api-fetch.ts"
+import { formatDate } from "@/lib/date.ts"
+import type {
+  DailyData,
+  JobItemData,
+  MonthlyData,
+  RevisionRowData,
+} from "@/types"
 
 type Props = {
   months: MonthlyData[]

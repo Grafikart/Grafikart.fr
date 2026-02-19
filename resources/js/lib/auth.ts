@@ -3,11 +3,11 @@ export function isAuthenticated(): boolean {
 }
 
 export function userId(): number | null {
-  const userId = document.body.getAttribute('data-user')
+  const userId = document.body.getAttribute("data-user")
   if (!userId) {
-    return null;
+    return null
   }
-  return parseInt(userId, 10);
+  return parseInt(userId, 10)
 }
 
 export function isPremium(): boolean {

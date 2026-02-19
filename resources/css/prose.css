@@ -171,11 +171,7 @@
       padding: 0.3em 0.5em;
       border-radius: 0.25rem;
       font-family: var(--font-mono);
-      background-color: color-mix(
-        in oklab,
-        var(--border) 20%,
-        transparent
-      );
+      background-color: color-mix(in oklab, var(--border) 20%, transparent);
       font-weight: 600;
       font-size: 0.875em;
     }

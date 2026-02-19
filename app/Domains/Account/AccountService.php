@@ -11,20 +11,16 @@ use Illuminate\Support\Facades\Hash;
 
 class AccountService
 {
-    public function __construct(private readonly StatefulGuard $auth){
-
-    }
-
+    public function __construct(private readonly StatefulGuard $auth) {}
 
     public function deleteUser(User $user, UserDeletionRequestData $data): void
     {
-        if (!Hash::check($data->password, $user->password)) {
-            throw new PasswordMismatchException();
+        if (! Hash::check($data->password, $user->password)) {
+            throw new PasswordMismatchException;
         }
 
         $user->delete();
         event(new UserDeletedEvent($user, $data->reason));
         $this->auth->logout();
     }
-
 }

@@ -2,7 +2,4 @@
 
 namespace App\Domains\Account\Exceptions;
 
-class PasswordMismatchException extends \Exception
-{
-
-}
+class PasswordMismatchException extends \Exception {}

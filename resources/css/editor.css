@@ -1,168 +1,166 @@
 .mdeditor .EasyMDEContainer {
-    &:has(>.fullscreen) {
-        position: fixed;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1000;
-        background: var(--background);
-    }
+  &:has(> .fullscreen) {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background: var(--background);
+  }
 
-    /* Editor container */
-    .CodeMirror {
-        background: var(--background);
-        color: var(--text);
-        border: none;
-        padding: 1rem 0!important;
-    }
+  /* Editor container */
+  .CodeMirror {
+    background: var(--background);
+    color: var(--text);
+    border: none;
+    padding: 1rem 0 !important;
+  }
 
-    .editor-toolbar{
-        background: var(--card);
-        border-radius: .5rem;
-        border: 1px solid var(--border);
-    }
+  .editor-toolbar {
+    background: var(--card);
+    border-radius: 0.5rem;
+    border: 1px solid var(--border);
+  }
 
-    .CodeMirror-code {
-        font-size: 1.1rem;
-        line-height: 1.6;
-        max-width: 800px;
-    }
+  .CodeMirror-code {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 800px;
+  }
 
-    /* Cursor */
-    .CodeMirror-cursor {
-        border-left-color: var(--title);
-    }
+  /* Cursor */
+  .CodeMirror-cursor {
+    border-left-color: var(--title);
+  }
 
-    /* Selection */
-    .CodeMirror-selected,
-    .CodeMirror-focused .CodeMirror-selected {
-        background: color-mix(in srgb, var(--primary) 25%, transparent);
-    }
+  /* Selection */
+  .CodeMirror-selected,
+  .CodeMirror-focused .CodeMirror-selected {
+    background: color-mix(in srgb, var(--primary) 25%, transparent);
+  }
 
-    /* Gutters */
-    .CodeMirror-gutters {
-        background-color: var(--background);
-        border-right-color: var(--border);
-    }
+  /* Gutters */
+  .CodeMirror-gutters {
+    background-color: var(--background);
+    border-right-color: var(--border);
+  }
 
-    .CodeMirror-linenumber {
-        color: var(--muted-foreground, var(--muted));
-    }
+  .CodeMirror-linenumber {
+    color: var(--muted-foreground, var(--muted));
+  }
 
-    .EasyMDEContainer {
-        position: relative;
-    }
+  .EasyMDEContainer {
+    position: relative;
+  }
 
-    /* Toolbar */
-    .editor-toolbar:not(.fullscreen) {
-        position: sticky;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 10;
-    }
+  /* Toolbar */
+  .editor-toolbar:not(.fullscreen) {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+  }
 
+  .editor-toolbar a {
+    color: var(--title) !important;
+  }
 
-    .editor-toolbar a {
-        color: var(--title) !important;
-    }
+  .editor-toolbar button:hover,
+  .editor-toolbar button.active {
+    background: var(--primary);
+    color: var(--primary-foreground);
+    border-color: var(--edge);
+  }
 
-    .editor-toolbar button:hover,
-    .editor-toolbar button.active {
-        background: var(--primary);
-        color: var(--primary-foreground);
-        border-color: var(--edge);
-    }
+  .editor-toolbar i.separator {
+    border-left-color: var(--border);
+    border-right-color: var(--border);
+  }
 
-    .editor-toolbar i.separator {
-        border-left-color: var(--border);
-        border-right-color: var(--border);
-    }
+  .editor-toolbar.disabled-for-preview a:not(.no-disable) {
+    color: var(--muted-foreground) !important;
+  }
 
-    .editor-toolbar.disabled-for-preview a:not(.no-disable) {
-        color: var(--muted-foreground) !important;
-    }
+  /* Preview */
+  .editor-preview {
+    background: var(--background);
+  }
 
-    /* Preview */
-    .editor-preview {
-        background: var(--background);
-    }
+  .editor-preview pre {
+    background: var(--card);
+  }
 
-    .editor-preview pre {
-        background: var(--card);
-    }
+  .editor-preview table td,
+  .editor-preview table th {
+    border-color: var(--border);
+  }
 
-    .editor-preview table td,
-    .editor-preview table th {
-        border-color: var(--border);
-    }
+  /* Fullscreen */
+  .CodeMirror-fullscreen,
+  .editor-toolbar.fullscreen,
+  .editor-preview-side {
+    background: var(--background-light);
+  }
 
-    /* Fullscreen */
-    .CodeMirror-fullscreen,
-    .editor-toolbar.fullscreen,
-    .editor-preview-side {
-        background: var(--background-light);
-    }
+  .editor-toolbar.fullscreen {
+    border-bottom: 1px solid var(--border);
+  }
 
-    .editor-toolbar.fullscreen {
-        border-bottom: 1px solid var(--border);
-    }
+  .editor-preview-side {
+    border-left: 1px solid var(--border);
+  }
 
-    .editor-preview-side {
-        border-left: 1px solid var(--border);
-    }
+  /* Syntax highlighting */
+  .cm-s-easymde .cm-comment {
+    background: transparent;
+    font-family: monospace;
+    color: var(--muted-foreground, var(--muted));
+  }
 
-    /* Syntax highlighting */
-    .cm-s-easymde .cm-comment {
-        background: transparent;
-        font-family: monospace;
-        color: var(--muted-foreground, var(--muted));
-    }
+  .cm-s-easymde .cm-header {
+    color: var(--title);
+  }
 
-    .cm-s-easymde .cm-header {
-        color: var(--title);
-    }
+  .cm-s-easymde .cm-quote {
+    color: var(--muted-foreground);
+  }
 
-    .cm-s-easymde .cm-quote {
-        color: var(--muted-foreground);
-    }
+  .cm-s-easymde .cm-link {
+    color: var(--primary);
+  }
 
-    .cm-s-easymde .cm-link {
-        color: var(--primary);
-    }
+  .cm-s-easymde .cm-url {
+    color: var(--muted-foreground);
+  }
 
-    .cm-s-easymde .cm-url {
-        color: var(--muted-foreground);
-    }
+  .cm-s-easymde .cm-tag {
+    color: var(--green);
+  }
 
-    .cm-s-easymde .cm-tag {
-        color: var(--green);
-    }
+  /* Placeholder */
+  .CodeMirror .CodeMirror-placeholder {
+    color: var(--muted-foreground);
+  }
 
-    /* Placeholder */
-    .CodeMirror .CodeMirror-placeholder {
-        color: var(--muted-foreground);
-    }
+  .cm-s-easymde .cm-header-2 {
+    font-size: 1.5em;
+    line-height: 1.3333333;
+  }
 
-    .cm-s-easymde .cm-header-2 {
-        font-size: 1.5em;
-        line-height: 1.3333333;
-    }
+  .cm-s-easymde .cm-header-3 {
+    font-size: 1.25em;
+    line-height: 1.6;
+  }
 
-    .cm-s-easymde .cm-header-3 {
-        font-size: 1.25em;
-        line-height: 1.6;
-    }
+  .cm-s-easymde .cm-header-4 {
+    font-size: 1em;
+    line-height: 1.5;
+  }
 
-    .cm-s-easymde .cm-header-4 {
-        font-size: 1em;
-        line-height: 1.5;
-    }
-
-    .cm-s-easymde .cm-header-5,
-    .cm-s-easymde .cm-header-6 {
-        font-size: 0.875em;
-        line-height: 1.5;
-    }
-
+  .cm-s-easymde .cm-header-5,
+  .cm-s-easymde .cm-header-6 {
+    font-size: 0.875em;
+    line-height: 1.5;
+  }
 }
