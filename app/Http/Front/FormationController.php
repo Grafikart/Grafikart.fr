@@ -2,8 +2,13 @@
 
 namespace App\Http\Front;
 
+use App\Domains\Course\Course;
 use App\Domains\Course\Formation;
+use App\Domains\History\Progress;
+use App\Domains\History\ProgressionService;
+use App\Helpers\UrlGenerator;
 use App\Http\Front\Data\ContentFilterData;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -31,8 +36,47 @@ class FormationController
         ]);
     }
 
-    public function show(Request $request)
+    public function show(Formation $formation, Request $request, ProgressionService $progressService)
     {
-        throw new \Error('Implement this');
+        [$completed, $total] = $progressService->progress($formation, $request->user());
+
+        return view('courses.formation', [
+            'formation' => $formation,
+            'completed' => $completed,
+            'total' => $total,
+        ]);
+    }
+
+    /**
+     * Redirect to the first "not completed" course of a Formation
+     */
+    public function continue(Formation $formation, Request $request, UrlGenerator $urlGenerator): RedirectResponse
+    {
+        $courseIds = $formation->courseIds;
+        $firstCourseId = $courseIds->first();
+
+        abort_if($firstCourseId === null, 404);
+
+        $nextCourseId = $firstCourseId;
+        $user = $request->user();
+
+        if ($user) {
+            $completedCourseIds = Progress::query()
+                ->completed()
+                ->where('user_id', $user->id)
+                ->where('progressable_type', (new Course)->getMorphClass())
+                ->whereIn('progressable_id', $courseIds)
+                ->pluck('progressable_id');
+
+            $nextCourseId = $courseIds->first(
+                fn (int $courseId) => ! $completedCourseIds->contains($courseId)
+            ) ?? $firstCourseId;
+        }
+
+        $course = Course::query()
+            ->select('slug', 'id')
+            ->findOrFail($nextCourseId);
+
+        return redirect()->to($urlGenerator->url($course));
     }
 }

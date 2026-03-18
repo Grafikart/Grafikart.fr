@@ -72,6 +72,8 @@ Route::get('/tutoriels/{slug}-{course}', [\App\Http\Front\CourseController::clas
     ->name('courses.show');
 Route::get('/tutoriels/{technology:slug}', [\App\Http\Front\TechnologyController::class, 'show'])->name('technologies.show');
 Route::get('/formations', [\App\Http\Front\FormationController::class, 'index'])->name('formations.index');
+Route::get('/formations/{formation:slug}/continue', [\App\Http\Front\FormationController::class, 'continue'])
+    ->name('formations.continue');
 Route::get('/formations/{formation:slug}', [\App\Http\Front\FormationController::class, 'show'])
     ->name('formations.show');
 Route::get('/recherche', [\App\Http\Front\SearchController::class, 'index'])->name('search.index');

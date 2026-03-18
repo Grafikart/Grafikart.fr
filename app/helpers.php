@@ -3,6 +3,11 @@
 use Illuminate\Database\Eloquent\Model;
 use TalesFromADev\TailwindMerge\TailwindMerge;
 
+function app_url(mixed $model, bool $absolute = false)
+{
+    return app(\App\Helpers\UrlGenerator::class)->url($model, $absolute);
+}
+
 /**
  * @param  string[]  $args
  */

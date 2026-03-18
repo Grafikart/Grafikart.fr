@@ -17,6 +17,12 @@
             <x-atoms.button size="icon"><x-lucide-youtube /></x-atoms.button>
         </div>
 
+        <h2 class="mt-12 mb-4 text-4xl font-bold font-serif">Progression</h2>
+
+        <div class="max-w-4xl">
+            <x-atoms.progress-bar :current="1" :total="58" />
+        </div>
+
     </div>
 
 @endsection

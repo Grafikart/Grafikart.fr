@@ -16,7 +16,14 @@ install: vendor/autoload.php public/assets/.vite/manifest.json ## Installe les d
 	APP_ENV=prod APP_DEBUG=0 php artisan optimize
 
 dev: node_modules/time ## Lance le serveur de développement
-	parallel --ungroup ::: "frankenphp run" "bun run dev"
+	tmux kill-session -t dev 2>/dev/null || true
+	tmux new-session -d -s dev
+	tmux send-keys -t dev 'docker compose up' Enter
+	tmux split-window -h -t dev
+	tmux send-keys -t dev 'bun run dev' Enter
+	tmux split-window -v -t dev
+	tmux send-keys -t dev 'frankenphp run' Enter
+	tmux attach -t dev
 
 debug:
 	php -dxdebug.mode=debug -dxdebug.client_port=9003 -dxdebug.client_host=127.0.0.1 artisan serve
@@ -60,7 +67,7 @@ vendor/autoload.php: composer.lock
 	touch vendor/autoload.php
 
 node_modules/time: bun.lock
-	bun bun install
+	bun install
 	touch node_modules/time
 
 bun.lock:

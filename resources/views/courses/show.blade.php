@@ -14,8 +14,9 @@
 @section('body')
     @cache("course-show", ($course->isPublic() || $user?->isPremium()) ? 'visible' : 'premium')
     <main class="bg-background-light">
-        <div class="max-w-container mx-auto">
-            <h1 class="text-5xl font-bold mb-2 font-serif text-foreground-title">
+        <div class="max-w-container mx-auto space-y-2">
+            <x-breadcrumbs :model="$course" class="hidden"/>
+            <h1 class="text-5xl font-bold font-serif text-foreground-title">
                 <span class="hidden">
                     @if($course->formation)
                         Formation {{ $course->formation->title }} :

@@ -6,6 +6,8 @@ use App\Domains\Course\Course;
 use App\Domains\Course\Formation;
 use App\Domains\History\Factory\ProgressFactory;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -67,5 +69,11 @@ class Progress extends Model
         return Attribute::make(
             get: fn () => round($this->progress / 1000)
         );
+    }
+
+    #[Scope]
+    protected function completed(Builder $query): void
+    {
+        $query->where('progress', 1000);
     }
 }

@@ -35,4 +35,10 @@ trait HasTechnologies
             ->withPivot(['version', 'primary'])
             ->wherePivot('primary', false);
     }
+
+    public function technology(): ?Technology
+    {
+        $technologies = $this->mainTechnologies;
+        return $technologies->count() > 0 ? $technologies[0] : null;
+    }
 }

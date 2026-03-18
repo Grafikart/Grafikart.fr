@@ -33,6 +33,30 @@ class ProgressionService
     }
 
     /**
+     * Return the progress of the user on a specific content as a tuple [completed, total]
+     *
+     * @return int[]
+     */
+    public function progress(Formation $formation, ?User $user): array
+    {
+        $courseIds = $formation->courseIds;
+        $totalCourses = $courseIds->count();
+
+        if ($totalCourses === 0 || ! $user) {
+            return [0, $totalCourses];
+        }
+
+        $completedCount = Progress::query()
+            ->where('user_id', $user->id)
+            ->completed()
+            ->where('progressable_type', (new Course)->getMorphClass())
+            ->whereIn('progressable_id', $courseIds)
+            ->count();
+
+        return [$completedCount, $totalCourses];
+    }
+
+    /**
      * Update the progression for a formation
      */
     private function updateFormationProgress(User $user, Formation $formation): void

@@ -19,6 +19,7 @@ export class CourseVideo extends HTMLElement {
     window.addEventListener("hashchange", this.onHashChange, {
       capture: true,
     })
+    this.onHashChange()
   }
 
   disconnectedCallback() {
@@ -27,6 +28,10 @@ export class CourseVideo extends HTMLElement {
   }
 
   onHashChange = async () => {
+    if (window.location.hash === "#autoplay") {
+      this.init()
+      return
+    }
     if (!window.location.hash.startsWith("#t")) {
       return
     }

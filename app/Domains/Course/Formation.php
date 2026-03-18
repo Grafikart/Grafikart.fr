@@ -152,4 +152,9 @@ class Formation extends Model implements Searchable
             $query->where('created_at', '<', now());
         }
     }
+
+    public function hasYoutubeLink(): bool
+    {
+        return str_contains($this->content ?? '', 'youtube.com/');
+    }
 }

@@ -37,7 +37,7 @@
 
     <div class="stack">
         <p class="text-muted text-sm mb-4 {{ $course->isScheduled() ? 'opacity-10 blur-xs' : '' }}">
-            {{ \App\Helpers\MarkdownHelper::excerpt($course->content, 130) }}
+            {!! \App\Helpers\MarkdownHelper::excerpt($course->content, 130) !!}
         </p>
         @if($course->isScheduled())
             <div class="flex flex-col items-center my-4 mb-8">

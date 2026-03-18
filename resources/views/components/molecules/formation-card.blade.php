@@ -30,7 +30,7 @@
     </h2>
 
     <p class="text-muted text-sm mb-4">
-        {{ \App\Helpers\MarkdownHelper::excerpt($formation->content, 130) }}
+        {!! \App\Helpers\MarkdownHelper::excerpt($formation->content, 130) !!}
     </p>
 
     <div

@@ -118,3 +118,28 @@ body[data-drawer="hidden"] &);
     border-bottom: 1px solid var(--color-border);
   }
 }
+
+@utility list-big {
+  li + li {
+    margin-top: 0.5rem;
+  }
+  li {
+    display: flex;
+    gap: 0.5rem;
+  }
+  li a:hover {
+    text-decoration: underline;
+  }
+  li::before {
+    transform: translateY(5px);
+    content: "";
+    display: inline-block;
+    width: 15px;
+    flex: none;
+    height: 15px;
+    border-radius: 15px;
+    background: currentColor;
+    border: 5px solid var(--background-light);
+    margin-right: calc(1 * var(--space));
+  }
+}

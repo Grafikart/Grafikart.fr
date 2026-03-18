@@ -13,6 +13,7 @@
   --primary-foreground: #effbec;
   --background: light-dark(#f7fafb, #171933);
   --background-light: light-dark(#fff, #1b1e3d);
+  --background-dark: light-dark(#e6eff4, #1b1e3d);
   --card: light-dark(#fff, #22244d);
   --white: #fff;
   --card-footer: color-mix(in oklab, var(--background) 50%, transparent);
