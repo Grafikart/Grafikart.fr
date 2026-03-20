@@ -126,7 +126,10 @@
     @endif
 
     @if($course->questions()->exists())
-        <questions-button course="{{ $course->id }}"></questions-button>
+        <questions-button
+            course="{{ $course->id }}"
+            completed="{{ $quizCompleted ? 'true' : 'false' }}"
+        ></questions-button>
     @endif
 
     @endcache

@@ -12,10 +12,12 @@ import { cn } from "@/lib/utils.ts"
 export function QuizRunner({
   courseId,
   onClose,
+  onComplete,
   stateRef,
 }: {
   courseId: string
   onClose: () => void
+  onComplete: () => void
   stateRef: RefObject<Quiz["state"]>
 }) {
   const quiz = useQuestions(courseId)
@@ -31,7 +33,12 @@ export function QuizRunner({
     <AnimatePresenceSlide step={panel}>
       {panel === "start" && <StartingPanel onStart={() => quiz.next()} />}
       {panel === "end" && (
-        <ResultScreen quiz={quiz} courseId={courseId} onClose={onClose} />
+        <ResultScreen
+          quiz={quiz}
+          courseId={courseId}
+          onClose={onClose}
+          onComplete={onComplete}
+        />
       )}
       {panel === "question" && <Question quiz={quiz} />}
     </AnimatePresenceSlide>

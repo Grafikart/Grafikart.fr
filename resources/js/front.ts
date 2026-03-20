@@ -23,6 +23,7 @@ r2wc("path-detail", () => import("@/elements/path-detail.tsx"), {
 })
 r2wc("questions-button", () => import("@/elements/questions-button.tsx"), {
   course: "string",
+  completed: "string",
 })
 r2wc("course-filters", CourseFilters, {})
 r2wc("site-search", SiteSearch, {})

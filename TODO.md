@@ -3,9 +3,9 @@
 - [ ] Page d'une formation
 - [ ] Listing des cursus à améliorer
 - [ ] Homepage
-- [x] Système de suivi de progression 
+- [x] Système de suivi de progression
   - Afficher la progression sur la carte
-- [x] Paiement & Abonnement 
+- [x] Paiement & Abonnement
   - Rappel avant renouvellement
   - Amélioration switch de période ?
 - [ ] Confidentialité / Condition de vente

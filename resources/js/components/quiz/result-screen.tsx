@@ -1,5 +1,5 @@
 import { ChevronDownIcon, RotateCcwIcon } from "lucide-react"
-import { useEffect } from "react"
+import { useEffect, useEffectEvent } from "react"
 import { Button } from "@/components/ui/button.tsx"
 import { useApiMutation } from "@/hooks/use-api-fetch.ts"
 import type { useQuestions } from "@/hooks/use-questions.ts"
@@ -8,15 +8,21 @@ export function ResultScreen({
   quiz,
   courseId,
   onClose,
+  onComplete: onCompleteProps,
 }: {
   quiz: ReturnType<typeof useQuestions>
   courseId: string
   onClose: () => void
+  onComplete: () => void
 }) {
   const { mutate, isPending } = useApiMutation<void, { score: number }>(
     `/api/courses/${courseId}/progress`,
     { method: "POST" },
   )
+
+  const onComplete = useEffectEvent(() => {
+    onCompleteProps()
+  })
 
   const resultMessages = [
     { percentage: 100, message: "Parfait, sans faute !" },
@@ -34,6 +40,7 @@ export function ResultScreen({
   ]
 
   useEffect(() => {
+    onComplete()
     mutate({ score: quiz.percentage })
   }, [mutate, quiz.percentage])
 

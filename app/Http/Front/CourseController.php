@@ -3,7 +3,9 @@
 namespace App\Http\Front;
 
 use App\Domains\Course\Course;
+use App\Domains\Evaluation\QuizService;
 use App\Http\Front\Data\ContentFilterData;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class CourseController
@@ -40,10 +42,11 @@ class CourseController
         ]);
     }
 
-    public function show(string $slug, Course $course): View
+    public function show(string $slug, Course $course, Request $request, QuizService $quizCompletionService): View
     {
         return view('courses.show', [
             'course' => $course,
+            'quizCompleted' => $quizCompletionService->isCompleted($course, $request->user()),
         ]);
     }
 
