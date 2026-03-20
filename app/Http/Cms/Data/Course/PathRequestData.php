@@ -17,15 +17,21 @@ class PathRequestData extends Data implements DataToModel
         public string $title = '',
         public string $slug = '',
         public string $description = '',
+        public string $tags = '',
         /** @var PathNodeData[] */
         public array $nodes = [],
     ) {}
 
     public static function prepareForPipeline(array $properties): array
     {
-        if (is_string($properties['nodes'])) {
+        if (isset($properties['nodes']) && is_string($properties['nodes'])) {
             $properties['nodes'] = json_decode($properties['nodes'], true);
         }
+        $properties['tags'] = collect(explode(',', $properties['tags'] ?? ''))
+            ->map(fn (string $tag): string => trim($tag))
+            ->filter()
+            ->unique()
+            ->implode(', ');
 
         return $properties;
     }
@@ -38,6 +44,7 @@ class PathRequestData extends Data implements DataToModel
             'title' => $this->title,
             'slug' => $this->slug,
             'description' => empty($this->description) ? null : $this->description,
+            'tags' => empty($this->tags) ? null : $this->tags,
         ]);
 
         $this->afterPersist($model, function (Path $path): void {
@@ -64,7 +71,7 @@ class PathRequestData extends Data implements DataToModel
                     'y' => $nodeData->y,
                 ];
 
-                if ($nodeData->id > 0) {
+                if ($nodeData->id > 0 && isset($nodesById[$nodeData->id])) {
                     $nodesById[$nodeData->id]->update($attributes);
                     $idMap[$nodeData->id] = $nodeData->id;
                 } else {

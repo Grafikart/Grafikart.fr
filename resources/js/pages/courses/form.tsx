@@ -53,6 +53,7 @@ function ItemForm({ item }: Props) {
             defaultValue={item.slug}
             prefix="grafikart.fr/tutoriels/"
             url={url}
+            className="mb-3"
           />
           <MDEditor defaultValue={item.content} name="content" />
         </main>

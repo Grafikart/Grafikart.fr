@@ -50,6 +50,7 @@ export default withLayout<Props>(
             defaultValue={item.slug}
             prefix="grafikart.fr/formations/"
             url={url}
+            className="mb-3"
           />
           <MDEditor defaultValue={item.content} name="content" />
 

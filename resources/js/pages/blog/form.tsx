@@ -45,6 +45,7 @@ export default withLayout<Props>(
           <SlugInput
             defaultValue={item.slug}
             prefix="grafikart.fr/blog/"
+            className="mb-3"
             url={url}
           />
           <MDEditor defaultValue={item.content} name="content" />

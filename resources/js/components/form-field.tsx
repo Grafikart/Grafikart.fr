@@ -6,6 +6,7 @@ import { Field, FieldLabel } from "@/components/ui/field.tsx"
 import { ValidationError } from "@/components/ui/form/validation-error.tsx"
 import { Input } from "@/components/ui/input.tsx"
 import { Textarea } from "@/components/ui/textarea.tsx"
+import { cn } from "@/lib/utils.ts"
 
 type Props = useRender.ComponentProps<"input"> & {
   label?: string
@@ -13,10 +14,11 @@ type Props = useRender.ComponentProps<"input"> & {
   children?: ReactNode
   right?: ReactNode
   onValueChange?: (s: string) => void
+  wrapperClass?: string
 }
 
 export function FormField(props: Props) {
-  const { render, label, ...otherProps } = props
+  const { render, label, wrapperClass, ...otherProps } = props
   const error = useFormError(props.name)
   const children =
     props.children ??
@@ -34,7 +36,7 @@ export function FormField(props: Props) {
     })
 
   return (
-    <Field className="group/field">
+    <Field className={cn("group/field", wrapperClass)}>
       {label && (
         <div className="flex items-center justify-between">
           <FieldLabel htmlFor={props.name}>{label}</FieldLabel>

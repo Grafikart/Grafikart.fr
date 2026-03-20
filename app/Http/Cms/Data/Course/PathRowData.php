@@ -12,5 +12,6 @@ class PathRowData extends Data
         public int $id,
         public string $title,
         public string $description,
+        public string $tags = '',
     ) {}
 }

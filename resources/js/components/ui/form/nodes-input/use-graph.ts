@@ -66,9 +66,16 @@ export const useGraph = (initial: PathNodeData[]) => {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialFlow.nodes)
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialFlow.edges)
 
+  const setValue = useCallback((v: PathNodeData[]) => {
+    const flow = valueToFlow(v)
+    setNodes(flow.nodes)
+    setEdges(flow.edges)
+  }, [])
+
   // Initial fetch
   const onConnect: OnConnect = useCallback(
-    (params) => setEdges((edges) => addEdge(params, edges)),
+    (params) =>
+      setEdges((edges) => addEdge({ ...params, type: "primary" }, edges)),
     [setEdges],
   )
   const addNode = useCallback(
@@ -126,6 +133,7 @@ export const useGraph = (initial: PathNodeData[]) => {
     updateEdge,
     addNode,
     value: flowToValue(nodes, edges),
+    setValue,
   }
 }
 

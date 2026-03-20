@@ -16,6 +16,7 @@ class Path extends Model
         'title',
         'slug',
         'description',
+        'tags',
     ];
 
     /**

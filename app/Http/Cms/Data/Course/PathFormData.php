@@ -13,6 +13,7 @@ class PathFormData extends Data
         public string $title = '',
         public string $slug = '',
         public string $description = '',
+        public string $tags = '',
         /** @var PathNodeData[] */
         public array $nodes = [],
     ) {}

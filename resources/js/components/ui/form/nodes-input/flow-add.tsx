@@ -33,7 +33,7 @@ export function FlowAdd(props: Props) {
   }
   return (
     <div
-      className="absolute inset-0 bg-background/40 z-10 grid justify-center"
+      className="absolute inset-0 bg-background/40 z-10 grid justify-center items-start"
       onClick={onOverlayClick}
     >
       <div className="flex gap-2">

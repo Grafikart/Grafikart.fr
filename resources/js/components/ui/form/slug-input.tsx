@@ -2,20 +2,32 @@ import { LinkIcon } from "lucide-react"
 import type { ChangeEvent } from "react"
 import { Button } from "@/components/ui/button.tsx"
 import { slugify } from "@/lib/string.ts"
+import { cn } from "@/lib/utils.ts"
 
 type SlugInputProps = {
   defaultValue: string
   prefix: string
   url?: string
+  className?: string
 }
 
-export function SlugInput({ defaultValue, prefix, url }: SlugInputProps) {
+export function SlugInput({
+  defaultValue,
+  prefix,
+  url,
+  className,
+}: SlugInputProps) {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.target.value = slugify(e.target.value)
   }
 
   return (
-    <div className="flex text-sm text-muted-foreground mb-3 items-center">
+    <div
+      className={cn(
+        "flex text-sm text-muted-foreground items-center",
+        className,
+      )}
+    >
       <span className="opacity-50">{prefix}</span>
       <input
         type="text"

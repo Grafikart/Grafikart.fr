@@ -32,6 +32,7 @@ export const NodesInput = (props: Props) => {
     updateEdge,
     onConnect,
     value,
+    setValue,
   } = useGraph(props.defaultValue)
 
   const containerRef = useRef<HTMLDivElement>(null)
@@ -157,9 +158,9 @@ export const NodesInput = (props: Props) => {
         </GraphContext>
       </div>
       <textarea
-        readOnly
         name="nodes"
         className="w-full min-h-100 border p-2"
+        onChange={(e) => setValue(JSON.parse(e.currentTarget.value))}
         value={JSON.stringify(value, null, 2)}
       />
     </div>

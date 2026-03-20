@@ -34,6 +34,7 @@ export default withLayout<Props>(
               <TableHead className="w-10">ID</TableHead>
               <TableHead>Titre</TableHead>
               <TableHead>Description</TableHead>
+              <TableHead>Tags</TableHead>
               <TableHead className="text-end">Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -68,6 +69,9 @@ function Item({ item }: { item: PathRowData }) {
       </TableCell>
       <TableCell className="max-w-md truncate text-muted-foreground">
         {item.description}
+      </TableCell>
+      <TableCell className="max-w-md truncate text-muted-foreground">
+        {item.tags}
       </TableCell>
       <TableCell className="text-right">
         <ButtonLink href={href} variant="secondary">

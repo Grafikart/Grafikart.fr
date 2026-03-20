@@ -50,6 +50,7 @@ export default withLayout<Props>(
             defaultValue={item.slug}
             prefix="grafikart.fr/tutoriels/"
             url={url}
+            className="mb-3"
           />
 
           <textarea

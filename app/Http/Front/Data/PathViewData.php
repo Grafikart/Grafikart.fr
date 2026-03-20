@@ -13,9 +13,14 @@ class PathViewData extends Data
         public readonly ?int $id = null,
         public readonly string $title = '',
         public string $slug = '',
+        public string $tags = '',
         public readonly string $description = '',
         /** @var PathNodeData[] */
         public readonly array $nodes = [],
     ) {}
 
+    public function tags(): array
+    {
+        return array_map(fn(string $tag) => trim($tag), explode(',', $this->tags));
+    }
 }
