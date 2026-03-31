@@ -2,6 +2,7 @@
 
 namespace App\Http\Front\Data;
 
+use App\Data\Mappers\MapUrl;
 use App\Data\Transformers\MarkdownTransformer;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Attributes\WithTransformer;
@@ -22,5 +23,7 @@ class FormationViewData extends Data
         #[MapInputName('chaptersWithCourses')]
         public readonly array $chapters = [],
         public readonly int $duration = 0,
+        #[MapUrl()]
+        public readonly string $url = '',
     ) {}
 }

@@ -134,6 +134,7 @@ content: string;
 links: string | null;
 chapters: Array<FormationChapterData>;
 duration: number;
+url: string;
 };
 export type JobItemData = {
 id: number;
@@ -193,6 +194,7 @@ export type PathViewData = {
 id: number | null;
 title: string;
 slug: string;
+tags: string;
 description: string;
 nodes: Array<PathNodeData>;
 };

@@ -45,14 +45,11 @@ export class CourseVideo extends HTMLElement {
   }
 
   init = () => {
-    this.play(
-      parseInt(
-        document
-          .querySelector('meta[name="video:start"]')!
-          .getAttribute("content")!,
-        10,
-      ),
-    )
+    const meta = document.querySelector('meta[name="video:start"]')
+    if (!meta) {
+      return this.play(0)
+    }
+    this.play(parseInt(meta.getAttribute("content") ?? "0", 10))
   }
 
   play = async (time: number) => {
@@ -95,6 +92,9 @@ export class CourseVideo extends HTMLElement {
         progress: Math.round(n * 1000),
       }),
     })
+    if (n === 1) {
+      // TODO : Display the success popup
+    }
   }
 
   get course(): string {

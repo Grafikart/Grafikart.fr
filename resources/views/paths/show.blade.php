@@ -2,6 +2,14 @@
 
 @section('title', $path->title)
 
+@section('head')
+    <style>
+        site-header {
+            background: linear-gradient(to top, transparent, var(--background) 20%)!important;
+        }
+    </style>
+@endsection
+
 @section('body')
     <div class="-mt-27 relative">
         <div class="absolute inset-0 h-27 bg-linear-to-b from-background to-background/0 z-2"></div>
