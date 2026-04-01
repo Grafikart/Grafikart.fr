@@ -157,4 +157,9 @@ class Formation extends Model implements Searchable
     {
         return str_contains($this->content ?? '', 'youtube.com/');
     }
+
+    public function icon(): ?string
+    {
+        return $this->technology()->mediaUrl('image');
+    }
 }

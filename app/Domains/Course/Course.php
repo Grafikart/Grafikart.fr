@@ -153,6 +153,11 @@ class Course extends Model implements RegisterMedia, Revisionable, Searchable
         );
     }
 
+    public static function totalHours(): int
+    {
+        return ceil(self::query()->published(true)->selectRaw('SUM(duration) as duration')->value('duration') / 3600);
+    }
+
     #[Scope]
     protected function published(Builder $query, $future = false): void
     {

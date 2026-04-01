@@ -1,6 +1,6 @@
 @props(['plans'])
 
-<div>
+<div {{ $attributes }}>
     @if ($plans->count() > 1)
         <x-atoms.tabs as="nav-tabs" class="mb-8 mx-auto">
             @foreach ($plans as $plan)
