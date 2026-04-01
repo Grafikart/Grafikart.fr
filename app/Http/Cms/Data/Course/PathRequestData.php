@@ -16,6 +16,8 @@ class PathRequestData extends Data implements DataToModel
     public function __construct(
         public string $title = '',
         public string $slug = '',
+        public ?\DateTimeImmutable $createdAt = null,
+        public bool $online = false,
         public string $description = '',
         public string $tags = '',
         /** @var PathNodeData[] */
@@ -43,6 +45,8 @@ class PathRequestData extends Data implements DataToModel
         $model->fill([
             'title' => $this->title,
             'slug' => $this->slug,
+            'created_at' => $this->createdAt ?? now(),
+            'online' => $this->online,
             'description' => empty($this->description) ? null : $this->description,
             'tags' => empty($this->tags) ? null : $this->tags,
         ]);

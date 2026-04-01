@@ -165,6 +165,8 @@ export type PathFormData = {
 id: number | null;
 title: string;
 slug: string;
+createdAt: string;
+online: boolean;
 description: string;
 tags: string;
 nodes: Array<PathNodeData>;
@@ -187,6 +189,8 @@ primary: boolean;
 export type PathRowData = {
 id: number;
 title: string;
+online: boolean;
+createdAt: string;
 description: string;
 tags: string;
 };

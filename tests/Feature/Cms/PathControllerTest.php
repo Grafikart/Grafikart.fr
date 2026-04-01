@@ -14,6 +14,8 @@ beforeEach(function () {
     $this->validData = [
         'title' => 'Test Path Title',
         'slug' => 'test-path-title',
+        'createdAt' => '2024-01-01T10:00:00+01:00',
+        'online' => true,
         'description' => 'This is the description of the test path.',
         'tags' => 'php, laravel, api',
         'nodes' => [],
@@ -21,6 +23,8 @@ beforeEach(function () {
     $this->expectedRow = [
         'title' => 'Test Path Title',
         'slug' => 'test-path-title',
+        'created_at' => '2024-01-01 10:00:00',
+        'online' => true,
         'description' => 'This is the description of the test path.',
         'tags' => 'php, laravel, api',
     ];
@@ -46,6 +50,21 @@ describe('index', function () {
             ->assertOk()
             ->assertInertia(fn ($page) => $page
                 ->where('pagination.data.0.tags', 'php, laravel')
+            );
+    });
+
+    it('loads publication fields in the table rows', function () {
+        Path::factory()->create([
+            'online' => true,
+            'created_at' => new DateTimeImmutable('2024-01-01 10:00:00'),
+        ]);
+
+        $this->actingAs($this->user)
+            ->get(route('cms.paths.index'))
+            ->assertOk()
+            ->assertInertia(fn ($page) => $page
+                ->where('pagination.data.0.online', true)
+                ->where('pagination.data.0.createdAt', fn ($value) => is_string($value) && $value !== '')
             );
     });
 });
@@ -153,6 +172,21 @@ describe('edit', function () {
             ->assertOk()
             ->assertInertia(fn ($page) => $page
                 ->where('item.tags', 'php, laravel')
+            );
+    });
+
+    it('loads publication fields in edit form', function () {
+        $path = Path::factory()->create([
+            'online' => true,
+            'created_at' => new DateTimeImmutable('2024-01-01 10:00:00'),
+        ]);
+
+        $this->actingAs($this->user)
+            ->get(route('cms.paths.edit', $path))
+            ->assertOk()
+            ->assertInertia(fn ($page) => $page
+                ->where('item.online', true)
+                ->where('item.createdAt', fn ($value) => is_string($value) && $value !== '')
             );
     });
 });

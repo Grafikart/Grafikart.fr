@@ -19,6 +19,8 @@ class Path extends Model
         'slug',
         'description',
         'tags',
+        'online',
+        'created_at',
     ];
 
     /**
@@ -32,6 +34,7 @@ class Path extends Model
     protected function casts(): array
     {
         return [
+            'online' => 'boolean',
             'created_at' => 'immutable_datetime',
             'updated_at' => 'immutable_datetime',
         ];
@@ -47,7 +50,7 @@ class Path extends Model
     {
         $query->where('online', true);
         if (! $future) {
-            $query->where('created_at', '<', now()->addDays(10));
+            $query->where('created_at', '<', now());
         }
     }
 }

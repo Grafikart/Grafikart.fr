@@ -19,6 +19,6 @@ class PathViewData extends Data
 
     public function tags(): array
     {
-        return array_map(fn(string $tag) => trim($tag), explode(',', $this->tags));
+        return array_map(fn (string $tag) => trim($tag), explode(',', $this->tags));
     }
 }

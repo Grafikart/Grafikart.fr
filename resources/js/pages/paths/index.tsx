@@ -1,5 +1,11 @@
 import { Link } from "@inertiajs/react"
-import { EditIcon, MapIcon, PlusCircleIcon } from "lucide-react"
+import {
+  CheckCircle2Icon,
+  CircleXIcon,
+  EditIcon,
+  MapIcon,
+  PlusCircleIcon,
+} from "lucide-react"
 import route from "@/actions/App/Http/Cms/PathController"
 import { withLayout } from "@/components/layout.tsx"
 import { PageTitle } from "@/components/page-title.tsx"
@@ -13,6 +19,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table.tsx"
+import { formatDate } from "@/lib/date.ts"
 import type { PaginatedData, PathRowData } from "@/types"
 
 type Props = {
@@ -33,8 +40,10 @@ export default withLayout<Props>(
             <TableRow>
               <TableHead className="w-10">ID</TableHead>
               <TableHead>Titre</TableHead>
+              <TableHead>Publication</TableHead>
               <TableHead>Description</TableHead>
               <TableHead>Tags</TableHead>
+              <TableHead className="w-10">Status</TableHead>
               <TableHead className="text-end">Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -67,11 +76,19 @@ function Item({ item }: { item: PathRowData }) {
       <TableCell>
         <Link href={href}>{item.title}</Link>
       </TableCell>
+      <TableCell>{formatDate(item.createdAt)}</TableCell>
       <TableCell className="max-w-md truncate text-muted-foreground">
         {item.description}
       </TableCell>
       <TableCell className="max-w-md truncate text-muted-foreground">
         {item.tags}
+      </TableCell>
+      <TableCell>
+        {item.online ? (
+          <CheckCircle2Icon className="size-4 fill-success text-card" />
+        ) : (
+          <CircleXIcon className="size-4 fill-ring text-card" />
+        )}
       </TableCell>
       <TableCell className="text-right">
         <ButtonLink href={href} variant="secondary">

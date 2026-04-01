@@ -11,6 +11,8 @@ class PathRowData extends Data
     public function __construct(
         public int $id,
         public string $title,
+        public bool $online,
+        public \DateTimeImmutable $createdAt,
         public string $description,
         public string $tags = '',
     ) {}

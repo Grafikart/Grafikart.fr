@@ -15,6 +15,7 @@ class PathController extends Controller
     public function index(): View
     {
         $paths = Path::query()
+            ->published()
             ->with(['nodes.parents'])
             ->get();
 

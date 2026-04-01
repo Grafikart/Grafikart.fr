@@ -12,6 +12,8 @@ class PathFormData extends Data
         public ?int $id = null,
         public string $title = '',
         public string $slug = '',
+        public \DateTimeInterface $createdAt = new \DateTimeImmutable,
+        public bool $online = false,
         public string $description = '',
         public string $tags = '',
         /** @var PathNodeData[] */
