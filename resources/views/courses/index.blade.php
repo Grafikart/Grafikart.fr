@@ -3,7 +3,7 @@
 @section('title', ($type === 'course' ? 'Tous les tutoriels' : 'Toutes les formations') . ($page > 1 ? ', page ' . $page : ''))
 
 @section('body')
-    <main class="max-w-container mx-auto">
+    <main class="max-w-container mx-auto pb-20">
         <div class="grid grid-fill-261 gap-6 grid-flow-row-dense">
             @if($show_title)
                 @if($page === 1)

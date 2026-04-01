@@ -155,7 +155,7 @@
 
     </section>
 
-    <section class="container -mt-15 gap-8 pt-35 bg-background grid md:grid-cols-[29fr_29fr_42fr] items-end">
+    <section class="container -mt-15 gap-8 pt-35 pb-25 bg-background grid md:grid-cols-[29fr_29fr_42fr] items-end">
         <div class="flex flex-col">
             <h2 class="text-5xl lg:text-6xl font-serif font-bold mb-6 text-foreground-title">
                 Des nouvelles du blog

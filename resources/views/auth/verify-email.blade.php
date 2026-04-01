@@ -3,7 +3,7 @@
 @section('title', 'Vérifier votre email')
 
 @section('body')
-    <div class="px-4 mt-10 mx-auto max-w-100 pb-20">
+    <div class="px-4 my-10 mx-auto max-w-100 pb-20">
             <h1 class="text-page-title text-center mb-8">Vérifiez votre email</h1>
 
             <x-atoms.card class="p-6">

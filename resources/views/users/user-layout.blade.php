@@ -60,7 +60,7 @@ $active = Route::currentRouteName();
         </div>
     </div>
 
-    <div class="border-t bg-background pt-10 container">
+    <div class="border-t bg-background pt-10 pb-20 container">
         @yield('content')
     </div>
 @endsection

@@ -7,7 +7,6 @@
     ];
 @endphp
 
-<div class="bg-background h-15"></div>
 <footer class="mt-auto border-t-4 border-border py-12">
     <div class="container grid grid-cols-1 gap-8 md:grid-cols-[440fr_375fr]">
         <div class="max-w-110">
