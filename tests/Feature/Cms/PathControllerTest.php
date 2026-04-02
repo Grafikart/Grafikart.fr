@@ -6,6 +6,7 @@ use App\Domains\Cms\Event\ContentUpdatedEvent;
 use App\Domains\Course\Course;
 use App\Domains\Course\Formation;
 use App\Domains\Course\Path;
+use App\Domains\Course\PathNode;
 use App\Models\User;
 use Illuminate\Support\Facades\Event;
 
@@ -189,6 +190,23 @@ describe('edit', function () {
                 ->where('item.createdAt', fn ($value) => is_string($value) && $value !== '')
             );
     });
+
+    it('loads fork meta in edit form', function () {
+        $path = Path::factory()->create();
+        $fork = PathNode::factory()->create([
+            'path_id' => $path->id,
+            'content_type' => 'fork',
+            'meta' => ['video' => 'abc123'],
+        ]);
+
+        $this->actingAs($this->user)
+            ->get(route('cms.paths.edit', $path))
+            ->assertOk()
+            ->assertInertia(fn ($page) => $page
+                ->where('item.nodes.0.id', $fork->id)
+                ->where('item.nodes.0.meta.video', 'abc123')
+            );
+    });
 });
 
 describe('update', function () {
@@ -221,6 +239,74 @@ describe('update', function () {
 
         $path->refresh();
         expect($path->tags)->toBe('laravel, api');
+    });
+
+    it('updates fork meta video', function () {
+        $path = Path::factory()->create();
+        $fork = PathNode::factory()->create([
+            'path_id' => $path->id,
+            'content_type' => 'fork',
+            'meta' => null,
+        ]);
+
+        $this->actingAs($this->user)
+            ->put(route('cms.paths.update', $path), [
+                ...$this->validData,
+                'nodes' => [
+                    [
+                        'id' => $fork->id,
+                        'icon' => $fork->icon,
+                        'title' => $fork->title,
+                        'description' => $fork->description,
+                        'contentType' => 'fork',
+                        'contentId' => null,
+                        'meta' => [
+                            'video' => 'abc123',
+                        ],
+                        'x' => $fork->x,
+                        'y' => $fork->y,
+                        'parents' => [],
+                    ],
+                ],
+            ])
+            ->assertRedirect(route('cms.paths.index'));
+
+        $fork->refresh();
+        expect($fork->meta)->toBe(['video' => 'abc123']);
+    });
+
+    it('clears fork meta when the video is empty', function () {
+        $path = Path::factory()->create();
+        $fork = PathNode::factory()->create([
+            'path_id' => $path->id,
+            'content_type' => 'fork',
+            'meta' => ['video' => 'abc123'],
+        ]);
+
+        $this->actingAs($this->user)
+            ->put(route('cms.paths.update', $path), [
+                ...$this->validData,
+                'nodes' => [
+                    [
+                        'id' => $fork->id,
+                        'icon' => $fork->icon,
+                        'title' => $fork->title,
+                        'description' => $fork->description,
+                        'contentType' => 'fork',
+                        'contentId' => null,
+                        'meta' => [
+                            'video' => '',
+                        ],
+                        'x' => $fork->x,
+                        'y' => $fork->y,
+                        'parents' => [],
+                    ],
+                ],
+            ])
+            ->assertRedirect(route('cms.paths.index'));
+
+        $fork->refresh();
+        expect($fork->meta)->toBeNull();
     });
 });
 

@@ -71,6 +71,7 @@ class PathRequestData extends Data implements DataToModel
                     'description' => $nodeData->description,
                     'content_type' => $nodeData->contentType,
                     'content_id' => $nodeData->contentId,
+                    'meta' => self::normalizeMeta($nodeData->meta),
                     'x' => $nodeData->x,
                     'y' => $nodeData->y,
                 ];
@@ -95,5 +96,16 @@ class PathRequestData extends Data implements DataToModel
         });
 
         return $model;
+    }
+
+    private static function normalizeMeta(?PathNodeMetaData $meta): ?array
+    {
+        if ($meta === null) {
+            return null;
+        }
+
+        $normalizedMeta = array_filter($meta->toArray(), fn (mixed $value): bool => $value !== null && $value !== '');
+
+        return $normalizedMeta === [] ? null : $normalizedMeta;
     }
 }

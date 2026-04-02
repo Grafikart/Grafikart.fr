@@ -50,7 +50,6 @@ export default function PathDetail({ path }: Props) {
     setSelectedNode(node)
   }
   const handleDismiss = () => {
-    console.log("paneclick")
     if (!selectedNode) {
       return
     }

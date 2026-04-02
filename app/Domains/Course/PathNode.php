@@ -24,6 +24,7 @@ class PathNode extends Model
         'description',
         'content_type',
         'content_id',
+        'meta',
         'x',
         'y',
     ];
@@ -65,6 +66,7 @@ class PathNode extends Model
     protected function casts(): array
     {
         return [
+            'meta' => 'array',
             'x' => 'float',
             'y' => 'float',
         ];

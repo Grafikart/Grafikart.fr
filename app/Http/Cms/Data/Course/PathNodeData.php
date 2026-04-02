@@ -19,6 +19,7 @@ class PathNodeData extends Data
         public ?int $contentId,
         public float $x,
         public float $y,
+        public ?PathNodeMetaData $meta = null,
         /** @var PathNodeEdgeData[] */
         #[Present]
         public array $parents = [],
@@ -33,6 +34,7 @@ class PathNodeData extends Data
             description: $pathNode->description,
             contentType: $pathNode->content_type ?? '',
             contentId: $pathNode->content_id,
+            meta: $pathNode->meta ? PathNodeMetaData::from($pathNode->meta) : null,
             x: $pathNode->x,
             y: $pathNode->y,
             parents: $pathNode->parents->map(

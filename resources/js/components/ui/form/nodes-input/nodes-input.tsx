@@ -72,6 +72,7 @@ export const NodesInput = (props: Props) => {
         contentId: item.id,
         contentType: item.type,
         description: null,
+        meta: null,
         parents: [],
         icon: item.icon ?? "",
       },

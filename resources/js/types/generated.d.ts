@@ -187,11 +187,15 @@ contentType: string;
 contentId: number | null;
 x: number;
 y: number;
+meta: PathNodeMetaData | null;
 parents: Array<PathNodeEdgeData>;
 };
 export type PathNodeEdgeData = {
 id: number;
 primary: boolean;
+};
+export type PathNodeMetaData = {
+video: string | null;
 };
 export type PathRowData = {
 id: number;

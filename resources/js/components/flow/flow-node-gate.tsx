@@ -21,7 +21,7 @@ export const FlowNodeGate = memo(({ data, selected }: Props) => {
         width={30}
         height={30}
         className="absolute -bottom-2 -left-6 size-18 -translate-x-1/2 translate-y-3 transition-all"
-        src={`/images/flow/${data.icon ?? "gate"}.svg`}
+        src={`/images/flow/${data.icon || "gate"}.svg`}
       />
       <div>
         <div className={clsx(titleStyle, "isometric w-max")}>{data.title}</div>

@@ -25,6 +25,7 @@ class PathNodeFactory extends Factory
             'description' => fake()->paragraphs(rand(1, 2), true),
             'content_type' => null,
             'content_id' => null,
+            'meta' => null,
             'x' => fake()->randomFloat(2, 0, 1000),
             'y' => fake()->randomFloat(2, 0, 1000),
         ];
