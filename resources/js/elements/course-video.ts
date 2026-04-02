@@ -102,14 +102,20 @@ export class CourseVideo extends HTMLElement {
   }
 
   onProgress = async (n: number) => {
-    await apiFetch(`/api/courses/${this.course}/progress`, {
-      method: "post",
-      body: JSON.stringify({
-        progress: Math.round(n * 1000),
-      }),
-    })
-    if (n === 1) {
-      // TODO : Display the success popup
+    const r = await apiFetch<{ html?: string }>(
+      `/api/courses/${this.course}/progress`,
+      {
+        method: "post",
+        body: JSON.stringify({
+          progress: Math.round(n * 1000),
+        }),
+      },
+    )
+    // If we receive a dialog, inject it into the HTML
+    if (r.html) {
+      document.body.insertAdjacentHTML("beforeend", r.html)
+      const dialog = document.getElementById("completion") as HTMLDialogElement
+      dialog?.showModal()
     }
   }
 

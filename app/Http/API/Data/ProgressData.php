@@ -15,4 +15,9 @@ class ProgressData extends Data
         #[Nullable, IntegerType, Between(0, 100)]
         public ?int $score = null,
     ) {}
+
+    public function isFinished(): bool
+    {
+        return $this->progress === 1000;
+    }
 }

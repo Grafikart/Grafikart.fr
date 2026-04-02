@@ -28,6 +28,16 @@ class ProgressController extends Controller
             score: $data->score,
         );
 
-        return response()->json(['message' => 'Progress updated successfully']);
+        // If the course is finished render the dialog
+        if ($data->isFinished() && $data->score === null) {
+            return response()->json([
+                'html' => view('components.molecules.completion-dialog', [
+                    'course' => $course,
+                    'next' => $course->formation?->nextCourse($course->id),
+                ])->toHtml(),
+            ]);
+        }
+
+        return response()->json();
     }
 }

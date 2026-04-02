@@ -22,7 +22,7 @@ use Illuminate\Support\Collection;
 
 /**
  * @property \Illuminate\Support\Collection<int, Chapter> $chapters
- * @property int[] $courseIds
+ * @property Collection<int, int> $courseIds
  * @property int $duration
  * @property \Illuminate\Support\Collection<int, array{title: string, courses: Course[]}> $chaptersWithCourses
  */
@@ -161,5 +161,22 @@ class Formation extends Model implements Searchable
     public function icon(): ?string
     {
         return $this->technology()->mediaUrl('image');
+    }
+
+    public function nextCourse(int $courseId): ?Course
+    {
+        $currentIndex = $this->courseIds->search($courseId);
+
+        if ($currentIndex === false) {
+            return null;
+        }
+        $nextCourseId = $this->courseIds[$currentIndex + 1] ?? null;
+
+        if (!$nextCourseId) {
+            return null;
+        }
+        return $this->relationLoaded('courses') ?
+            $this->courses->firstWhere('id', $nextCourseId) :
+            $this->courses()->find($nextCourseId);
     }
 }
