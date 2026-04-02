@@ -58,16 +58,15 @@
     </div>
 
     @if(request()->boolean('success'))
-        <x-molecules.dialog class="max-w-110 overflow-visible text-foreground">
+        <x-molecules.dialog class="max-w-110 overflow-visible text-foreground" id="premium-dialog">
             <con-fetti>
                 <div class="text-center -mt-28.75">
                     <img src="/images/illustrations/payment.svg" alt="" class="max-w-50 inline" />
                 </div>
             </con-fetti>
-            <h1 class="text-3xl font-bold text-center font-sserif">Merci</h1>
-            <p class="text-center text-lg text-pretty">
-                Vous êtes maintenant premium jusqu'au<br/>
-                <strong>{{ auth()->user()?->premium_end_at?->translatedFormat('d F Y') }}</strong>.
+            <h1 class="text-4xl font-bold text-center font-serif  mt-4 mb-2">Merci</h1>
+            <p class="text-center text-lg text-pretty mb-4">
+                Vous êtes maintenant premium jusqu'au <strong>{{ auth()->user()?->premium_end_at?->translatedFormat('d F Y') }}</strong>.
             </p>
             <x-atoms.button href="{{ route('courses.index', ['premium' => 1]) }}" class="w-full" size="lg">
                 <x-lucide-star />

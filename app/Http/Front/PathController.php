@@ -2,10 +2,12 @@
 
 namespace App\Http\Front;
 
+use App\Domains\Course\Course;
 use App\Domains\Course\Formation;
 use App\Domains\Course\Path;
 use App\Domains\Course\PathNode;
 use App\Http\Controller;
+use App\Http\Front\Data\CourseViewData;
 use App\Http\Front\Data\FormationViewData;
 use App\Http\Front\Data\PathViewData;
 use Illuminate\View\View;
@@ -39,6 +41,10 @@ class PathController extends Controller
             $node->content->load('courses');
 
             return FormationViewData::from($node->content);
+        }
+
+        if ($node->content instanceof Course) {
+            return CourseViewData::from($node->content);
         }
     }
 }

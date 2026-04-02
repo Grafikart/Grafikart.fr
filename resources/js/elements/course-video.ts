@@ -14,6 +14,22 @@ export class CourseVideo extends HTMLElement {
   private state: State = "poster"
   private root: Root | null = null
 
+  private getRequiredAttribute(name: string): string {
+    const value = this.getAttribute(name)
+    if (!value) {
+      throw new Error(`A ${name} attribute must be set on <course-video>`)
+    }
+    return value
+  }
+
+  private setOptionalAttribute(name: string, value: string | null) {
+    if (!value) {
+      this.removeAttribute(name)
+      return
+    }
+    this.setAttribute(name, value)
+  }
+
   connectedCallback() {
     this.addEventListener("click", this.init)
     window.addEventListener("hashchange", this.onHashChange, {
@@ -98,10 +114,26 @@ export class CourseVideo extends HTMLElement {
   }
 
   get course(): string {
-    const course = this.getAttribute("course")
-    if (!course) {
-      throw new Error(`A course attribute must be set on <course-video>`)
-    }
-    return course
+    return this.getRequiredAttribute("course")
+  }
+
+  set course(value: string) {
+    this.setOptionalAttribute("course", value)
+  }
+
+  get video(): string {
+    return this.getRequiredAttribute("video")
+  }
+
+  set video(value: string) {
+    this.setOptionalAttribute("video", value)
+  }
+
+  get poster(): string | null {
+    return this.getAttribute("poster")
+  }
+
+  set poster(value: string | null) {
+    this.setOptionalAttribute("poster", value)
   }
 }

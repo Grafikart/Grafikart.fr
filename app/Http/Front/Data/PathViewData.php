@@ -15,6 +15,8 @@ class PathViewData extends Data
         public string $slug = '',
         public string $tags = '',
         public readonly string $description = '',
+        /** @var PathNodeData[] */
+        public readonly array $nodes = []
     ) {}
 
     public function tags(): array

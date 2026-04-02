@@ -32,10 +32,11 @@ export default function PathDetail({ path }: Props) {
   }, [])
   const [selectedNode, setSelectedNode] = useState<Node | null>(null)
   const onNodeClick: NodeMouseHandler<Node> = (_e, node) => {
+    const offset = node.type === "formation" ? 170 : 0
     const zoom = 1.5
     viewport.current = flow.current?.getViewport() ?? null
     flow.current?.setCenter(
-      node.position.x + 170 / zoom,
+      node.position.x + offset / zoom,
       node.position.y + (window.innerHeight / 2 - 200) / zoom,
       {
         duration,
@@ -49,6 +50,7 @@ export default function PathDetail({ path }: Props) {
     setSelectedNode(node)
   }
   const handleDismiss = () => {
+    console.log("paneclick")
     if (!selectedNode) {
       return
     }

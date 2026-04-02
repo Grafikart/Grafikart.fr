@@ -4,9 +4,9 @@
     $classes = cn([
         'rounded-sm [&_svg]:size-4 flex justify-center items-center gap-3 transition-all w-max font-semibold ',
         // Variants
-        'bg-primary text-primary-foreground hover:brightness-140 shadow-button ' => $variant === 'primary',
+        'bg-primary text-primary-foreground hover:brightness-120 shadow-button ' => $variant === 'primary',
         'border hover:bg-border/30 bg-background font-medium' => $variant === 'secondary',
-        'border border-primary text-primary hover:bg-primary hover:text-white' => $variant === 'outline',
+        'border border-primary text-primary hover:bg-primary/15' => $variant === 'outline',
         'bg-destructive text-destructive-foreground hover:brightness-140 ' => $variant === 'destructive',
         'hover:bg-border/30' => $variant === 'ghost',
         // Sizes

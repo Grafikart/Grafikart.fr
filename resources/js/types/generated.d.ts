@@ -84,6 +84,13 @@ online: boolean;
 createdAt: string;
 technologies: Array<TechnologyUsageData> | Array<any>;
 };
+export type CourseViewData = {
+type: string;
+id: number;
+title: string;
+content: string;
+poster: string;
+};
 export type DailyData = {
 date: string;
 value: number;
