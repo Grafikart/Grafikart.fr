@@ -15,7 +15,12 @@ export const FlowNodeGate = memo(({ data, selected }: Props) => {
   )
 
   return (
-    <div className={clsx("relative size-px", selected && "is-selected")}>
+    <div
+      className={clsx(
+        "relative size-px in-[.front]:pointer-events-none!",
+        selected && "is-selected",
+      )}
+    >
       <img
         alt=""
         width={30}

@@ -64,3 +64,15 @@
 .isometric {
   transform: rotate(-45deg) skew(15deg, 15deg) scale(1, 1.1) translateX(30px);
 }
+
+.front .react-flow__edge {
+    pointer-events: none;
+}
+
+.front .react-flow__node {
+    cursor: pointer;
+}
+
+.front .react-flow__node:has( > div[data-disabled="true"]) {
+    pointer-events: none!important;
+}

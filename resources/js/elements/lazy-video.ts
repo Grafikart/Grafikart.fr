@@ -2,9 +2,27 @@
  * Lazy YouTube player that responds to the hash "#t40" to update it's starting time
  */
 export class LazyVideo extends HTMLElement {
-  private video = ""
   private time = 0
   private _iframe: HTMLIFrameElement | null = null
+
+  static observedAttributes = ["video"]
+
+  private getRequiredAttribute(name: string): string {
+    const value = this.getAttribute(name)
+    if (!value) {
+      throw new Error(`A ${name} attribute must be set on <lazy-video>`)
+    }
+    return value
+  }
+
+  private setOptionalAttribute(name: string, value: string | null) {
+    if (!value) {
+      this.removeAttribute(name)
+      return
+    }
+
+    this.setAttribute(name, value)
+  }
 
   public onHashChange = () => {
     if (!window.location.hash.startsWith("#t")) {
@@ -49,15 +67,22 @@ export class LazyVideo extends HTMLElement {
   }
 
   connectedCallback() {
-    this.video = this.getAttribute("video") ?? ""
-    if (!this.video) {
-      throw new Error("Cannot load a video without its id")
-    }
     window.addEventListener("hashchange", this.onHashChange)
-    this.addEventListener("click", this.play)
+    if (this.getAttribute("video")) {
+      this.addEventListener("click", this.play)
+    }
   }
 
   disconnectedCallback() {
     window.removeEventListener("hashchange", this.onHashChange)
+    this.removeEventListener("click", this.play)
+  }
+
+  get video(): string {
+    return this.getRequiredAttribute("video")
+  }
+
+  set video(value: string) {
+    this.setOptionalAttribute("video", value)
   }
 }

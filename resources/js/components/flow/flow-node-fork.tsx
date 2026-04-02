@@ -1,4 +1,5 @@
 import { Handle, Position } from "@xyflow/react"
+import { PlayIcon } from "lucide-react"
 import { memo } from "react"
 import type { Node } from "./types.ts"
 
@@ -9,8 +10,10 @@ type Props = {
 const size = 50
 
 export const FlowNodeFork = memo(({ data }: Props) => {
+  const hasVideo = Boolean(data.meta?.video)
+
   return (
-    <div className="relative size-px">
+    <div className="relative size-px group/node" data-disabled={!hasVideo}>
       <SupportIcon />
       <svg
         className="-translate-1/2 absolute top-0 left-0"
@@ -42,6 +45,14 @@ export const FlowNodeFork = memo(({ data }: Props) => {
           {data.title}
         </div>
       </div>
+      {hasVideo && (
+        <div
+          aria-label="Node contains a video"
+          className="size-10 bg-[#3C424C] -top-10 -left-5 rounded-full fill-text absolute text-edge border-2 border-white outline-border outline-1 grid place-items-center group-hover/node:-translate-y-1 duration-300"
+        >
+          <PlayIcon fill="#FFF" className="text-white size-4" />
+        </div>
+      )}
       {/* @ts-expect-error We are loose, Handle accepts no type */}
       <Handle position={Position.Top} className="react-flow__handle" />
     </div>

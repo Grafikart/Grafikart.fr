@@ -67,10 +67,14 @@ export default function PathDetail({ path }: Props) {
       <ReactFlow
         connectionMode={ConnectionMode.Loose}
         maxZoom={2}
-        minZoom={0.1}
+        minZoom={1}
         onNodeClick={onNodeClick}
         nodes={nodes}
-        edges={edges}
+        edges={edges.map((edge) => ({
+          ...edge,
+          selectable: false,
+          focusable: false,
+        }))}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
         fitView

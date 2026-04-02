@@ -12,7 +12,7 @@ export const FlowNode = memo(({ data, selected }: Props) => {
   return (
     <div
       className={clsx(
-        "relative size-px group-data-[hide-title=true]:opacity-20",
+        "relative size-px group-data-[hide-title=true]:opacity-20 group/node",
         selected && "is-selected opacity-100!",
       )}
     >
@@ -22,7 +22,7 @@ export const FlowNode = memo(({ data, selected }: Props) => {
           alt=""
           width={50}
           height={50}
-          className="absolute bottom-2 left-0 size-12 -translate-x-1/2 transition-all hover:-translate-y-1"
+          className="absolute bottom-2 left-0 size-12 -translate-x-1/2 transition-all group-hover/node:-translate-y-1"
           src={`/uploads/icons/${data.icon}.svg`}
         />
       )}

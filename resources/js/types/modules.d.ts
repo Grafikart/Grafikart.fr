@@ -3,6 +3,21 @@ import "react"
 declare module "react" {
   namespace JSX {
     interface IntrinsicElements {
+      "course-video": React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLElement>,
+        HTMLElement
+      > & {
+        class?: string
+        course?: string
+        video?: string
+      }
+      "lazy-video": React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLElement>,
+        HTMLElement
+      > & {
+        class?: string
+        video?: string
+      }
       "con-fetti": React.DetailedHTMLProps<
         React.HTMLAttributes<HTMLElement>,
         HTMLElement
