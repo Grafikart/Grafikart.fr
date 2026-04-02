@@ -1,8 +1,10 @@
-import { BaseEdge, getStraightPath } from "@xyflow/react"
+import { BaseEdge, getStraightPath, useStore } from "@xyflow/react"
 import { clsx } from "clsx"
 
 type Props = {
   id: string
+  source: string
+  target: string
   sourceX: number
   sourceY: number
   targetX: number
@@ -12,12 +14,19 @@ type Props = {
 
 export function FlowEdge({
   id,
+  source,
+  target,
   sourceX,
   sourceY,
   targetX,
   targetY,
   type,
 }: Props) {
+  const completed = useStore(
+    (state) =>
+      state.nodeLookup.get(source)?.data.completed ||
+      state.nodeLookup.get(target)?.data.completed,
+  )
   // Offset the position of the edge to center it
   const [edgePath] = getStraightPath({
     sourceX,
@@ -32,7 +41,10 @@ export function FlowEdge({
       path={edgePath}
       style={{ strokeDasharray: "5" }}
       className={clsx(
-        "animate-[dashdraw_0.5s_linear_infinite] stroke-2! stroke-edge! [stroke-dasharray:5]",
+        " stroke-2!",
+        completed
+          ? "stroke-success! [stroke-dasharray:none]!"
+          : "stroke-edge! animate-[dashdraw_0.5s_linear_infinite] [stroke-dasharray:5]",
         type === "secondary" && "opacity-30",
       )}
     />

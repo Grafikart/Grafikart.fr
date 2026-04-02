@@ -88,6 +88,7 @@ export type CourseViewData = {
 type: string;
 id: number;
 title: string;
+video: string;
 content: string;
 poster: string;
 };

@@ -10,7 +10,9 @@ import type { PathFormData, PathNodeData } from "@/types"
 
 const valueToFlow = (
   nodes: PathFormData["nodes"],
+  completedIds: number[] = [],
 ): { edges: Edge[]; nodes: Node[] } => {
+  const completedIdsSet = new Set(completedIds)
   const edges = [] as Edge[]
   for (const node of nodes) {
     for (const parent of node.parents) {
@@ -22,30 +24,40 @@ const valueToFlow = (
       })
     }
   }
+
+  const flowNodes = nodes.map(
+    (node) =>
+      ({
+        id: node.id?.toString() ?? "",
+        type: node.contentType,
+        position: { x: node.x, y: node.y },
+        data: {
+          ...node,
+          completed: completedIdsSet.has(node.id),
+        },
+      }) satisfies Node,
+  )
+
   return {
-    edges,
-    nodes: nodes.map(
-      (node) =>
-        ({
-          id: node.id?.toString() ?? "",
-          type: node.contentType,
-          position: { x: node.x, y: node.y },
-          data: node,
-        }) satisfies Node,
-    ),
+    edges: edges,
+    nodes: flowNodes,
   }
 }
 
 const flowToValue = (nodes: Node[], edges: Edge[]): PathNodeData[] => {
   const paths = new Map(
-    nodes.map((node) => [
-      node.id,
-      {
-        ...node.data,
-        ...node.position,
-        parents: [] as { id: number; primary: boolean }[],
-      },
-    ]),
+    nodes.map((node) => {
+      const { completed: _completed, ...data } = node.data
+
+      return [
+        node.id,
+        {
+          ...data,
+          ...node.position,
+          parents: [] as { id: number; primary: boolean }[],
+        } satisfies PathNodeData,
+      ]
+    }),
   )
 
   for (const edge of edges) {
@@ -58,21 +70,32 @@ const flowToValue = (nodes: Node[], edges: Edge[]): PathNodeData[] => {
   return Array.from(paths.values())
 }
 
+const empty = [] as number[]
+
 /**
  * Custom hook that manages the state of a graph, including nodes, edges, and interactions between them.
  */
-export const useGraph = (initial: PathNodeData[]) => {
-  const initialFlow = useMemo(() => valueToFlow(initial), [initial])
+export const useGraph = (
+  initial: PathNodeData[],
+  completedIds: number[] = empty,
+) => {
+  const initialFlow = useMemo(
+    () => valueToFlow(initial, completedIds),
+    [completedIds, initial],
+  )
   const [nodes, setNodes, onNodesChange] = useNodesState(initialFlow.nodes)
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialFlow.edges)
 
-  const setValue = useCallback((v: PathNodeData[]) => {
-    const flow = valueToFlow(v)
-    setNodes(flow.nodes)
-    setEdges(flow.edges)
-  }, [])
+  // Update nodes when the data changes
+  const setValue = useCallback(
+    (v: PathNodeData[]) => {
+      const flow = valueToFlow(v, completedIds)
+      setNodes(flow.nodes)
+      setEdges(flow.edges)
+    },
+    [completedIds, setNodes, setEdges],
+  )
 
-  // Initial fetch
   const onConnect: OnConnect = useCallback(
     (params) =>
       setEdges((edges) => addEdge({ ...params, type: "primary" }, edges)),

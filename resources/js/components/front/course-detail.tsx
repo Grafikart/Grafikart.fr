@@ -21,7 +21,7 @@ export function CourseDetail({
       <Card className="pt-0 gap-0">
         <course-video
           class="grid place-items-center overflow-hidden aspect-video group relative rounded-t-lg cursor-pointer bg-[#000] w-full h-auto [&_iframe]:w-full [&_iframe]:aspect-video [&_iframe]:h-auto"
-          video="KaheIi944OA"
+          video={data.video}
           course={data.id.toString()}
         >
           <img

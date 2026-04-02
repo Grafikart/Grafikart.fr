@@ -1,6 +1,5 @@
 import { XIcon } from "lucide-react"
 import type { Node } from "@/components/flow/types"
-import { Card } from "@/components/ui/card.tsx"
 import { Spinner } from "@/components/ui/spinner.tsx"
 import { useApiFetch } from "@/hooks/use-api-fetch.ts"
 import type { CourseViewData, FormationViewData } from "@/types"

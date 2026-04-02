@@ -6,6 +6,7 @@ use App\Domains\Course\Course;
 use App\Domains\Course\Formation;
 use App\Domains\Course\Path;
 use App\Domains\Course\PathNode;
+use App\Domains\History\ProgressionService;
 use App\Http\Controller;
 use App\Http\Front\Data\CourseViewData;
 use App\Http\Front\Data\FormationViewData;
@@ -26,12 +27,13 @@ class PathController extends Controller
         ]);
     }
 
-    public function show(string $slug, Path $path): View
+    public function show(string $slug, Path $path, ProgressionService $progressionService): View
     {
         $path->load(['nodes.parents']);
 
         return view('paths.show', [
             'path' => PathViewData::from($path),
+            'completedNodeIds' => $progressionService->completedNodeIds($path),
         ]);
     }
 

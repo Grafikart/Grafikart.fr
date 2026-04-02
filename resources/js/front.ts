@@ -20,6 +20,7 @@ r2wc("path-preview", () => import("@/elements/path-preview.tsx"), {
 })
 r2wc("path-detail", () => import("@/elements/path-detail.tsx"), {
   path: "json",
+  completednodeids: "json",
 })
 r2wc("questions-button", () => import("@/elements/questions-button.tsx"), {
   course: "string",

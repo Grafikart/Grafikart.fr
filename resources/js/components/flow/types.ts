@@ -1,11 +1,15 @@
 import type { ReactFlowInstance } from "@xyflow/react"
 import type { PathNodeData } from "@/types"
 
+export type FlowNodeData = Omit<PathNodeData, "x" | "y"> & {
+  completed?: boolean
+}
+
 export type Node = {
   id: string
   type: string
   selected?: boolean
-  data: Omit<PathNodeData, "x" | "y">
+  data: FlowNodeData
   position: {
     x: number
     y: number
@@ -14,7 +18,7 @@ export type Node = {
 
 export type NewNode = {
   type: string
-  data: Omit<PathNodeData, "x" | "y" | "id">
+  data: Omit<FlowNodeData, "id">
   position: {
     x: number
     y: number

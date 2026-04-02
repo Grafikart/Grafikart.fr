@@ -4,7 +4,10 @@ namespace App\Domains\History;
 
 use App\Domains\Course\Course;
 use App\Domains\Course\Formation;
+use App\Domains\Course\Path;
+use App\Domains\Course\PathNode;
 use App\Models\User;
+use Illuminate\Support\Collection;
 
 class ProgressionService
 {
@@ -54,6 +57,43 @@ class ProgressionService
             ->count();
 
         return [$completedCount, $totalCourses];
+    }
+
+    /**
+     * Return the completed node in a cursus
+     *
+     * @return int[]
+     */
+    public function completedNodeIds(Path $path): array
+    {
+        $user = auth()->user();
+        if (!$user instanceof User) {
+            return [];
+        }
+
+        /** @var Collection<int, PathNode> $nodes */
+        $nodes = $path->nodes;
+        $contentIds = $path->nodes
+            ->filter(fn(PathNode $node) => $node->content_id !== null)
+            ->pluck('content_id');
+
+        if ($contentIds->isEmpty()) {
+            return [];
+        }
+
+        /** @var Collection $completedItems */
+        $completedItems = Progress::query()
+            ->completed()
+            ->where('user_id', $user->id)
+            ->whereIn('progressable_id', $contentIds)
+            ->get(['progressable_type', 'progressable_id'])
+            ->map(fn(Progress $p): string => sprintf('%s:%s', $p->progressable_type, $p->progressable_id));
+
+        return $path->nodes
+            ->filter(fn(PathNode $node) => $completedItems->contains(sprintf('%s:%s', $node->content_type, $node->content_id)))
+            ->pluck('id')
+            ->values()
+            ->all();
     }
 
     /**

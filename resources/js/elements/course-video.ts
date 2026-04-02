@@ -102,15 +102,29 @@ export class CourseVideo extends HTMLElement {
   }
 
   onProgress = async (n: number) => {
+    const progress = Math.round(n * 1000)
     const r = await apiFetch<{ html?: string }>(
       `/api/courses/${this.course}/progress`,
       {
         method: "post",
         body: JSON.stringify({
-          progress: Math.round(n * 1000),
+          progress,
         }),
       },
     )
+
+    // Emit an event on course completion
+    if (progress === 1000) {
+      this.dispatchEvent(
+        new CustomEvent("course:completed", {
+          bubbles: true,
+          detail: {
+            courseId: parseInt(this.course, 10),
+          },
+        }),
+      )
+    }
+
     // If we receive a dialog, inject it into the HTML
     if (r.html) {
       document.body.insertAdjacentHTML("beforeend", r.html)
