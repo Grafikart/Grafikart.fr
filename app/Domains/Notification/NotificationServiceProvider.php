@@ -4,6 +4,7 @@ namespace App\Domains\Notification;
 
 use App\Domains\Notification\Subscriber\NotificationContentSubscriber;
 use App\Domains\Notification\Subscriber\NotificationRevisionSubscriber;
+use App\Domains\Notification\Subscriber\NotificationSupportSubscriber;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
@@ -18,5 +19,6 @@ class NotificationServiceProvider extends ServiceProvider
     {
         Event::subscribe(NotificationContentSubscriber::class);
         Event::subscribe(NotificationRevisionSubscriber::class);
+        Event::subscribe(NotificationSupportSubscriber::class);
     }
 }

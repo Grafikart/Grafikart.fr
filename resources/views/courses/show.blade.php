@@ -134,11 +134,11 @@
         </x-atoms.tabs>
 
         <div class="bg-background pt-10 border-t pb-20">
-            <div id="support" class="container">
-                <support-course course="{{ $course->id }}"></support-course>
-            </div>
             <div class="prose prose-lg max-w-200 mx-auto px-4" id="content">
                 {!! \App\Helpers\MarkdownHelper::html($course->content) !!}
+            </div>
+            <div id="support" class="container" hidden">
+                <support-course course="{{ $course->id }}"></support-course>
             </div>
             @if($hasEvaluation)
                 <div id="quizz" class="max-w-200 mx-auto px-4" hidden>

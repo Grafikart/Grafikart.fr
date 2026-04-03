@@ -3,9 +3,13 @@
 use App\Domains\Cms\Event\ContentDeletedEvent;
 use App\Domains\Cms\Event\ContentUpdatedEvent;
 use App\Domains\Course\Course;
+use App\Domains\Notification\Models\Notification;
+use App\Domains\Support\Event\SupportQuestionAnswered;
 use App\Domains\Support\SupportQuestion;
+use App\Infrastructure\Mailing\Mail\SupportQuestionAnsweredMail;
 use App\Models\User;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Mail;
 
 beforeEach(function () {
     $this->user = User::factory()->admin()->create();
@@ -17,6 +21,7 @@ beforeEach(function () {
         'online' => false,
         'timestamp' => 60,
     ]);
+    $this->author = $this->question->user;
     $this->validData = [
         'title' => 'Question mise à jour',
         'content' => 'Contexte mis à jour',
@@ -54,8 +59,11 @@ describe('edit', function () {
 });
 
 describe('update', function () {
-    it('updates an existing support question', function () {
-        Event::fake();
+    it('updates an existing support question and dispatches the first answer event', function () {
+        Event::fake([
+            ContentUpdatedEvent::class,
+            SupportQuestionAnswered::class,
+        ]);
 
         $this->actingAs($this->user)
             ->put(route('cms.support.update', $this->question), $this->validData)
@@ -73,9 +81,14 @@ describe('update', function () {
         ]);
 
         Event::assertDispatched(ContentUpdatedEvent::class);
+        Event::assertDispatched(SupportQuestionAnswered::class, function (SupportQuestionAnswered $event) {
+            return $event->question->is($this->question);
+        });
     });
 
     it('normalizes blank answers to null', function () {
+        Event::fake([SupportQuestionAnswered::class]);
+
         $this->actingAs($this->user)
             ->put(route('cms.support.update', $this->question), [
                 ...$this->validData,
@@ -87,8 +100,70 @@ describe('update', function () {
             'id' => $this->question->id,
             'answer' => null,
         ]);
+
+        Event::assertNotDispatched(SupportQuestionAnswered::class);
     });
 
+    it('does not dispatch the support answered event when the question already had an answer', function () {
+        Event::fake([SupportQuestionAnswered::class]);
+
+        $this->question->update([
+            'answer' => 'Réponse existante',
+        ]);
+
+        $this->actingAs($this->user)
+            ->put(route('cms.support.update', $this->question), $this->validData)
+            ->assertRedirect(route('cms.support.index'));
+
+        Event::assertNotDispatched(SupportQuestionAnswered::class);
+    });
+
+    it('sends an email to the author when answering a question for the first time', function () {
+        Mail::fake();
+
+        $this->actingAs($this->user)
+            ->put(route('cms.support.update', $this->question), $this->validData)
+            ->assertRedirect(route('cms.support.index'));
+
+        Mail::assertSent(SupportQuestionAnsweredMail::class, function (SupportQuestionAnsweredMail $mail) {
+            return $mail->hasTo($this->author->email)
+                && $mail->question->is($this->question)
+                && $mail->url === route('courses.show', ['slug' => $this->course->slug, 'course' => $this->course]) . '#support';
+        });
+    });
+
+    it('does not send an email when updating an already answered question', function () {
+        Mail::fake();
+
+        $this->question->update([
+            'answer' => 'Réponse existante',
+        ]);
+
+        $this->actingAs($this->user)
+            ->put(route('cms.support.update', $this->question), $this->validData)
+            ->assertRedirect(route('cms.support.index'));
+
+        Mail::assertNotSent(SupportQuestionAnsweredMail::class);
+    });
+
+    it('does not create a notification when updating an already answered question', function () {
+        $existingUrl = route('courses.show', ['slug' => $this->course->slug, 'course' => $this->course]) . '#support';
+
+        $this->question->update([
+            'answer' => 'Réponse existante',
+        ]);
+
+        $this->actingAs($this->user)
+            ->put(route('cms.support.update', $this->question), $this->validData)
+            ->assertRedirect(route('cms.support.index'));
+
+        $notifications = Notification::query()
+            ->where('user_id', $this->author->id)
+            ->where('url', $existingUrl)
+            ->count();
+
+        expect($notifications)->toBe(0);
+    });
 });
 
 describe('destroy', function () {

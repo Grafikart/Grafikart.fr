@@ -56,4 +56,9 @@ class SupportQuestion extends Model
     {
         return SupportQuestionFactory::new();
     }
+
+    public function hasAnswer(): bool
+    {
+        return filled(trim((string) $this->answer));
+    }
 }

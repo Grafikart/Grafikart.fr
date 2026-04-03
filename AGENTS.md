@@ -235,6 +235,7 @@ Route::get('/users', function () {
 ### URL Generation
 
 - When generating links to other pages, prefer named routes and the `route()` function.
+- When dealing with a model and you want the URL to the public "show" page, prefer `app_url()` instead of `route()`.
 
 ### Configuration
 

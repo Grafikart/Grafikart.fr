@@ -3,6 +3,7 @@
 namespace App\Http\Cms;
 
 use App\Domains\Cms\CmsController;
+use App\Domains\Support\Event\SupportQuestionAnswered;
 use App\Domains\Support\SupportQuestion;
 use App\Http\Cms\Data\Support\SupportQuestionFormData;
 use App\Http\Cms\Data\Support\SupportQuestionRequestData;
@@ -42,7 +43,14 @@ class SupportController extends CmsController
 
     public function update(SupportQuestion $support, SupportQuestionRequestData $data): RedirectResponse
     {
-        return $this->cmsUpdate(model: $support, data: $data);
+        $hadAnswer = $support->hasAnswer();
+        $response = $this->cmsUpdate(model: $support, data: $data);
+
+        if (! $hadAnswer && $support->hasAnswer()) {
+            event(new SupportQuestionAnswered($support));
+        }
+
+        return $response;
     }
 
     public function destroy(SupportQuestion $support): RedirectResponse
