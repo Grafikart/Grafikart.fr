@@ -49,5 +49,4 @@ class SupportController extends CmsController
     {
         return $this->cmsDestroy($support, 'La question de support a bien été supprimée');
     }
-
 }

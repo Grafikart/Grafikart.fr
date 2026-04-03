@@ -39,6 +39,7 @@ trait HasTechnologies
     public function technology(): ?Technology
     {
         $technologies = $this->mainTechnologies;
+
         return $technologies->count() > 0 ? $technologies[0] : null;
     }
 }

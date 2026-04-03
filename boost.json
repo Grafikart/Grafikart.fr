@@ -1,13 +1,5 @@
 {
-    "agents": [
-        "codex",
-        "opencode"
-    ],
-    "editors": [
-        "codex",
-        "opencode"
-    ],
-    "guidelines": [
-        "laravel/fortify"
-    ]
+    "agents": ["codex", "opencode"],
+    "editors": ["codex", "opencode"],
+    "guidelines": ["laravel/fortify"]
 }

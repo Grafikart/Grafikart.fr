@@ -4,7 +4,7 @@ type UseVisibleOptions = IntersectionObserverInit & {
   once?: boolean
 }
 
-export function useVisible<T>({
+export function useVisible<T extends Element>({
   once = false,
   root = null,
   rootMargin,

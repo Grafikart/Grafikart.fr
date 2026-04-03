@@ -66,13 +66,13 @@
 }
 
 .front .react-flow__edge {
-    pointer-events: none;
+  pointer-events: none;
 }
 
 .front .react-flow__node {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-.front .react-flow__node:has( > div[data-disabled="true"]) {
-    pointer-events: none!important;
+.front .react-flow__node:has(> div[data-disabled="true"]) {
+  pointer-events: none !important;
 }

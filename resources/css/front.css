@@ -81,9 +81,9 @@
     cursor: pointer;
   }
   dialog {
-      margin: 0;
-      padding: 0;
-      background: transparent;
+    margin: 0;
+    padding: 0;
+    background: transparent;
     border: none;
     outline: none;
   }
@@ -122,6 +122,6 @@
 }
 
 .react-flow__handle {
-  pointer-events: none!important;
-  opacity: 0!important;
+  pointer-events: none !important;
+  opacity: 0 !important;
 }

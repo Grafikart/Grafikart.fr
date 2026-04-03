@@ -2,12 +2,8 @@
 
 namespace App\Http\Front\Data;
 
-use App\Data\Mappers\MapUrl;
-use App\Data\Transformers\MarkdownTransformer;
 use App\Domains\Course\Course;
 use App\Helpers\MarkdownHelper;
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Attributes\WithTransformer;
 use Spatie\LaravelData\Data;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 

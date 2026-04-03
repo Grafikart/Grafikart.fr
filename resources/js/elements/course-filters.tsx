@@ -44,7 +44,7 @@ export function CourseFilters() {
 }
 
 function CourseFiltersInner() {
-  const { isVisible, ref } = useVisible()
+  const { isVisible, ref } = useVisible<HTMLDivElement>({ once: true })
   const { data, isLoading } = useApiFetch<CourseFiltersResponse>(
     "/api/courses/filters",
     {

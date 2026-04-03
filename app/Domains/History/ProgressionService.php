@@ -67,14 +67,14 @@ class ProgressionService
     public function completedNodeIds(Path $path): array
     {
         $user = auth()->user();
-        if (!$user instanceof User) {
+        if (! $user instanceof User) {
             return [];
         }
 
         /** @var Collection<int, PathNode> $nodes */
         $nodes = $path->nodes;
         $contentIds = $path->nodes
-            ->filter(fn(PathNode $node) => $node->content_id !== null)
+            ->filter(fn (PathNode $node) => $node->content_id !== null)
             ->pluck('content_id');
 
         if ($contentIds->isEmpty()) {
@@ -87,10 +87,10 @@ class ProgressionService
             ->where('user_id', $user->id)
             ->whereIn('progressable_id', $contentIds)
             ->get(['progressable_type', 'progressable_id'])
-            ->map(fn(Progress $p): string => sprintf('%s:%s', $p->progressable_type, $p->progressable_id));
+            ->map(fn (Progress $p): string => sprintf('%s:%s', $p->progressable_type, $p->progressable_id));
 
         return $path->nodes
-            ->filter(fn(PathNode $node) => $completedItems->contains(sprintf('%s:%s', $node->content_type, $node->content_id)))
+            ->filter(fn (PathNode $node) => $completedItems->contains(sprintf('%s:%s', $node->content_type, $node->content_id)))
             ->pluck('id')
             ->values()
             ->all();

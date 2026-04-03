@@ -3,7 +3,6 @@
 namespace App\Http\Cms\Data\Support;
 
 use App\Domains\Cms\DataToModel;
-use App\Domains\Course\Course;
 use App\Domains\Support\SupportQuestion;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\LaravelData\Data;

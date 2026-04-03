@@ -172,9 +172,10 @@ class Formation extends Model implements Searchable
         }
         $nextCourseId = $this->courseIds[$currentIndex + 1] ?? null;
 
-        if (!$nextCourseId) {
+        if (! $nextCourseId) {
             return null;
         }
+
         return $this->relationLoaded('courses') ?
             $this->courses->firstWhere('id', $nextCourseId) :
             $this->courses()->find($nextCourseId);

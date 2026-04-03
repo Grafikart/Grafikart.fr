@@ -3,7 +3,6 @@
 namespace App\Domains\Blog;
 
 use App\Concerns\HasRevisions;
-use App\Concerns\Media\HasMedia;
 use App\Domains\Attachment\Attachment;
 use App\Domains\Blog\Factory\PostFactory;
 use App\Domains\Revision\Revisionable;
@@ -22,6 +21,7 @@ class Post extends Model implements Revisionable, Searchable
 
     /** @use HasFactory<PostFactory> */
     use HasFactory;
+
     use HasRevisions;
 
     protected $fillable = [

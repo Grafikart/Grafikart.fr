@@ -3,8 +3,6 @@
 use App\Domains\Cms\Event\ContentCreatedEvent;
 use App\Domains\Cms\Event\ContentDeletedEvent;
 use App\Domains\Cms\Event\ContentUpdatedEvent;
-use App\Domains\Course\Course;
-use App\Domains\Course\Formation;
 use App\Domains\Course\Path;
 use App\Domains\Course\PathNode;
 use App\Models\User;

@@ -2,7 +2,6 @@
 
 namespace App\Http\Cms\Data\Support;
 
-use App\Domains\Support\SupportQuestion;
 use Spatie\LaravelData\Data;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 

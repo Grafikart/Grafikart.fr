@@ -16,9 +16,7 @@ class Breadcrumbs extends Component
     public function __construct(
         private UrlGenerator $urlGenerator,
         public Model $model
-    )
-    {
-    }
+    ) {}
 
     /**
      * Get the view / contents that represent the component.
@@ -30,14 +28,14 @@ class Breadcrumbs extends Component
                 $this->model instanceof Course => $this->course($this->model),
                 $this->model instanceof Formation => $this->formation($this->model),
                 default => [],
-            }
+            },
         ]);
     }
 
     private function course(Course $course): array
     {
         $items = collect([['label' => 'Tutoriels', 'url' => route('courses.index')]]);
-        $categories = $course->mainTechnologies->map(fn(Technology $technology) => ['label' => $technology->name, 'url' => route('technologies.show', ['technology' => $technology->slug])]);
+        $categories = $course->mainTechnologies->map(fn (Technology $technology) => ['label' => $technology->name, 'url' => route('technologies.show', ['technology' => $technology->slug])]);
         if ($categories->count() > 0) {
             $items->push($categories);
         }
@@ -47,21 +45,22 @@ class Breadcrumbs extends Component
         }
         $items->push([
             'label' => $course->title,
-            'url' => $this->urlGenerator->url($course)
+            'url' => $this->urlGenerator->url($course),
         ]);
+
         return $items->all();
     }
 
     private function formation(Formation $formation): array
     {
         $items = collect([
-            ['label' => 'Formation', 'url' => route('formations.index')]
+            ['label' => 'Formation', 'url' => route('formations.index')],
         ]);
-        $categories = $formation->mainTechnologies->map(fn(Technology $technology) => ['label' => $technology->name, 'url' => route('technologies.show', ['technology' => $technology->slug])]);
+        $categories = $formation->mainTechnologies->map(fn (Technology $technology) => ['label' => $technology->name, 'url' => route('technologies.show', ['technology' => $technology->slug])]);
         if ($categories->count() > 0) {
             $items->push($categories);
         }
+
         return $items->all();
     }
-
 }
