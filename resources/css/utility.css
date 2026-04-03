@@ -1,4 +1,6 @@
 @custom-variant dark (&:is(.dark *));
+@custom-variant premium (.user-premium &);
+@custom-variant not-premium (body:not(.user-premium) &);
 @custom-variant selected (&[selected],
 &[aria-selected="true"]);
 @custom-variant drawer-visible (&[data-drawer="visible"],
