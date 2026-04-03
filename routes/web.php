@@ -107,6 +107,7 @@ Route::group([
     Route::resource('paths', \App\Http\Cms\PathController::class)->except(['show']);
     Route::resource('posts', \App\Http\Cms\PostController::class)->except(['show']);
     Route::resource('plans', \App\Http\Cms\PlanController::class)->except(['edit', 'create']);
+    Route::resource('support', \App\Http\Cms\SupportController::class)->only(['index', 'edit', 'update', 'destroy']);
     Route::resource('technologies', \App\Http\Cms\TechnologyController::class)->except(['show']);
     Route::resource('users', \App\Http\Cms\UserController::class)->only(['index', 'destroy']);
     Route::resource('transactions', \App\Http\Cms\TransactionController::class)->only(['index', 'destroy']);

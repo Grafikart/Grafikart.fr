@@ -3,6 +3,8 @@
 ## Important rules
 
 - Everytime I tell I refuse an edit and ask you to change something, update these rules for later use
+- When I explicitly ask for no tests, do not create, update, or run tests
+- Prefer Spatie Laravel Data DTOs for controller payload validation instead of FormRequest classes when following existing controller conventions
 
 ### Migrations
 

@@ -108,10 +108,45 @@
             @endif
         </div>
 
+        @php
+            $hasEvaluation = $course->questions()->exists();
+        @endphp
+
+        <x-atoms.tabs as="nav-tabs">
+            <x-atoms.tab href="#content" :active="true">
+                <x-lucide-newspaper class="size-5"/>
+                Résumé
+            </x-atoms.tab>
+            <x-atoms.tab href="#support">
+                <x-lucide-circle-question-mark class="size-5"/>
+                Support
+            </x-atoms.tab>
+            @if($hasEvaluation)
+                <x-atoms.tab href="#quizz" :class="$quizCompleted ? 'text-success' : null">
+                    @if($quizCompleted)
+                        <x-lucide-thumbs-up class="size-5"/>
+                    @else
+                        <x-lucide-list-checks class="size-5"/>
+                    @endif
+                    Quiz
+                </x-atoms.tab>
+            @endif
+        </x-atoms.tabs>
+
         <div class="bg-background pt-10 border-t pb-20">
-            <div class="prose prose-lg max-w-200 mx-auto px-4">
+            <div id="support" class="container">
+                <support-course course="{{ $course->id }}"></support-course>
+            </div>
+            <div class="prose prose-lg max-w-200 mx-auto px-4" id="content">
                 {!! \App\Helpers\MarkdownHelper::html($course->content) !!}
             </div>
+            @if($hasEvaluation)
+                <div id="quizz" class="max-w-200 mx-auto px-4" hidden>
+                    <evaluation-questions
+                        course="{{ $course->id }}"
+                    ></evaluation-questions>
+                </div>
+            @endif
         </div>
 
     </main>
@@ -123,13 +158,6 @@
                 <div class="text-sm uppercase text-muted">Fichiers attachés</div>
             </div>
         </x-molecules.drawer>
-    @endif
-
-    @if($course->questions()->exists())
-        <questions-button
-            course="{{ $course->id }}"
-            completed="{{ $quizCompleted ? 'true' : 'false' }}"
-        ></questions-button>
     @endif
 
     @endcache

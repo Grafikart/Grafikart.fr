@@ -18,6 +18,12 @@ declare module "react" {
         class?: string
         video?: string
       }
+      "support-course": React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLElement>,
+        HTMLElement
+      > & {
+        course?: string
+      }
       "con-fetti": React.DetailedHTMLProps<
         React.HTMLAttributes<HTMLElement>,
         HTMLElement

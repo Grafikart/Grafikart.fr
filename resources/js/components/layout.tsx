@@ -6,6 +6,7 @@ import {
   CogIcon,
   GitCompareArrowsIcon,
   HouseIcon,
+  LifeBuoyIcon,
   ListVideoIcon,
   MessagesSquareIcon,
   MonitorPlayIcon,
@@ -30,6 +31,7 @@ import PathController from "@/actions/App/Http/Cms/PathController.ts"
 import PlanController from "@/actions/App/Http/Cms/PlanController.ts"
 import PostController from "@/actions/App/Http/Cms/PostController.ts"
 import SettingsController from "@/actions/App/Http/Cms/SettingsController.ts"
+import SupportController from "@/actions/App/Http/Cms/SupportController.ts"
 import TechnologyController from "@/actions/App/Http/Cms/TechnologyController.ts"
 import TransactionController from "@/actions/App/Http/Cms/TransactionController.ts"
 import UserController from "@/actions/App/Http/Cms/UserController.ts"
@@ -140,6 +142,11 @@ const nav = [
         label: "Commentaires",
         icon: MessagesSquareIcon,
         href: CommentController.index(),
+      },
+      {
+        label: "Support",
+        icon: LifeBuoyIcon,
+        href: SupportController.index(),
       },
       {
         label: "Révisions",

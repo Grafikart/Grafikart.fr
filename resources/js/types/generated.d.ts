@@ -275,6 +275,33 @@ export type SettingsFormData = {
 liveAt: string;
 spamWords: string;
 };
+export type SupportQuestionData = {
+id: number;
+title: string;
+content: string;
+answer: string | null;
+timestamp: number;
+createdAt: string;
+me: boolean;
+};
+export type SupportQuestionFormData = {
+id: number;
+title: string;
+content: string;
+answer: string;
+online: boolean;
+courseId: number;
+timestamp: number;
+createdAt: string;
+};
+export type SupportQuestionRowData = {
+id: number;
+title: string;
+courseTitle: string;
+online: boolean;
+answered: boolean;
+createdAt: string;
+};
 export type TechnologyFormData = {
 id: number | null;
 name: string;

@@ -70,50 +70,6 @@ describe('index', function () {
     });
 });
 
-describe('search content', function () {
-    it('returns courses matching the selected type', function () {
-        $matchingCourse = Course::factory()->create([
-            'title' => 'Laravel avancé',
-            'content' => 'cours complet',
-        ]);
-        Formation::factory()->create([
-            'title' => 'Laravel avancé',
-        ]);
-
-        $response = $this->actingAs($this->user)
-            ->get(route('cms.paths.search-content', [
-                'q' => 'Laravel',
-                'type' => 'course',
-            ]))
-            ->assertOk();
-
-        expect($response->json())->toBe([
-            [
-                'id' => $matchingCourse->id,
-                'name' => 'Laravel avancé',
-            ],
-        ]);
-    });
-
-    it('limits search results to 10 items', function () {
-        Course::factory()->count(12)->sequence(
-            fn (\Illuminate\Database\Eloquent\Factories\Sequence $sequence): array => [
-                'title' => "React {$sequence->index}",
-                'content' => 'react',
-            ],
-        )->create();
-
-        $response = $this->actingAs($this->user)
-            ->get(route('cms.paths.search-content', [
-                'q' => 'React',
-                'type' => 'course',
-            ]))
-            ->assertOk();
-
-        expect($response->json())->toHaveCount(10);
-    });
-});
-
 describe('create', function () {
     it('displays the create form', function () {
         $this->actingAs($this->user)

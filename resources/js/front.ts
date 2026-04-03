@@ -13,7 +13,7 @@ import { TimeAgo } from "@/elements/time-ago.ts"
 import { lazywc, r2wc } from "@/lib/custom-element.ts"
 import "../css/front.css"
 import { BurgerMenu } from "@/elements/burger-menu.tsx"
-import { DrawerToggle } from "@/elements/DrawerToggle.ts"
+import { DrawerToggle } from "@/elements/drawer-toggle.ts"
 
 r2wc("path-preview", () => import("@/elements/path-preview.tsx"), {
   path: "json",
@@ -22,9 +22,11 @@ r2wc("path-detail", () => import("@/elements/path-detail.tsx"), {
   path: "json",
   completednodeids: "json",
 })
-r2wc("questions-button", () => import("@/elements/questions-button.tsx"), {
+r2wc("evaluation-questions", () => import("@/elements/evaluation.tsx"), {
   course: "string",
-  completed: "string",
+})
+r2wc("support-course", () => import("@/elements/support-course.tsx"), {
+  course: "string",
 })
 r2wc("course-filters", CourseFilters, {})
 r2wc("site-search", SiteSearch, {})

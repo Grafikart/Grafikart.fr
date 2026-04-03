@@ -13,6 +13,7 @@ type State = "poster" | "loading" | "loaded"
 export class CourseVideo extends HTMLElement {
   private state: State = "poster"
   private root: Root | null = null
+  private currentTimeSeconds = 0
 
   private getRequiredAttribute(name: string): string {
     const value = this.getAttribute(name)
@@ -69,6 +70,8 @@ export class CourseVideo extends HTMLElement {
   }
 
   play = async (time: number) => {
+    this.currentTimeSeconds = time
+
     if (this.state === "loading") {
       return
     }
@@ -96,9 +99,14 @@ export class CourseVideo extends HTMLElement {
           poster: this.getAttribute("poster"),
           start: time,
           onProgress: isAuthenticated() ? this.onProgress : undefined,
+          onTimeChange: this.onTimeChange,
         }),
       }),
     )
+  }
+
+  onTimeChange = (time: number) => {
+    this.currentTimeSeconds = time
   }
 
   onProgress = async (n: number) => {
@@ -155,5 +163,9 @@ export class CourseVideo extends HTMLElement {
 
   set poster(value: string | null) {
     this.setOptionalAttribute("poster", value)
+  }
+
+  get currentTime(): number {
+    return this.currentTimeSeconds
   }
 }

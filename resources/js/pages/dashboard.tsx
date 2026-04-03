@@ -4,6 +4,7 @@ import {
   BellIcon,
   ClockIcon,
   GitCompareArrowsIcon,
+  LifeBuoyIcon,
   RotateCcwIcon,
   TrashIcon,
 } from "lucide-react"
@@ -15,9 +16,11 @@ import {
   flushFailed,
   retryFailed,
 } from "@/actions/App/Http/Cms/JobController.ts"
+import SupportController from "@/actions/App/Http/Cms/SupportController.ts"
 import { withLayout } from "@/components/layout.tsx"
 import { PageTitle } from "@/components/page-title.tsx"
 import { RevisionsTable } from "@/components/revisions/revisions-table.tsx"
+import { Badge } from "@/components/ui/badge.tsx"
 import { Button } from "@/components/ui/button.tsx"
 import { ButtonLink } from "@/components/ui/button-link.tsx"
 import { Card, CardContent } from "@/components/ui/card.tsx"
@@ -43,6 +46,7 @@ import type {
   JobItemData,
   MonthlyData,
   RevisionRowData,
+  SupportQuestionRowData,
 } from "@/types"
 
 type Props = {
@@ -51,6 +55,7 @@ type Props = {
   jobs: JobItemData[]
   failedJobs: JobItemData[]
   revisions: RevisionRowData[]
+  supportQuestions: SupportQuestionRowData[]
 }
 
 export default withLayout<Props>(
@@ -66,6 +71,9 @@ export default withLayout<Props>(
             </h2>
             <RevisionsTable items={props.revisions} />
           </div>
+        )}
+        {props.supportQuestions.length > 0 && (
+          <SupportQuestions items={props.supportQuestions} />
         )}
         {props.jobs.length > 0 && (
           <JobsTable
@@ -102,6 +110,43 @@ export default withLayout<Props>(
     breadcrumb: [{ label: "Dashboard" }],
   },
 )
+
+function SupportQuestions({ items }: { items: SupportQuestionRowData[] }) {
+  return (
+    <div>
+      <h2 className="mb-4 flex items-center gap-2 font-semibold text-xl">
+        <LifeBuoyIcon className="text-primary" />
+        Questions
+      </h2>
+      <div className="grid gap-3">
+        {items.map((item) => (
+          <Card key={item.id} className="relative group">
+            <CardContent className="flex items-start">
+              <div className="min-w-0 flex-1 space-y-1">
+                <div className="flex flex-wrap items-center gap-2">
+                  <div className="font-semibold group-hover:text-primary">
+                    {item.title}
+                  </div>{" "}
+                  ·<Badge variant="outline">{item.courseTitle}</Badge>
+                </div>
+                <div className="text-muted-foreground text-sm">
+                  {formatDate(item.createdAt)}
+                </div>
+              </div>
+              <ButtonLink
+                variant="secondary"
+                href={SupportController.edit(item.id)}
+                className="overlay"
+              >
+                Répondre
+              </ButtonLink>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 function JobsTable({
   type,

@@ -32,6 +32,8 @@
   --color-white: var(--white);
   --color-card-footer: var(--card-footer);
   --color-border: var(--border);
+  --color-secondary: var(--background);
+  --color-secondary-foreground: var(--muted);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-success: var(--green);

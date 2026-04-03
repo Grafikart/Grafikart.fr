@@ -5,8 +5,10 @@ namespace App\Http\Cms;
 use App\Domains\Notification\NotificationService;
 use App\Domains\Premium\TransactionRepository;
 use App\Domains\Revision\Revision;
+use App\Domains\Support\SupportQuestion;
 use App\Http\Cms\Data\JobItemData;
 use App\Http\Cms\Data\Revision\RevisionRowData;
+use App\Http\Cms\Data\Support\SupportQuestionRowData;
 use App\Infrastructure\Queue\FailedJob;
 use App\Infrastructure\Queue\Job;
 use App\Models\User;
@@ -26,6 +28,14 @@ final readonly class DashboardController
             'months' => $repository->getMonthlyRevenues(),
             'revisions' => RevisionRowData::collect(
                 Revision::query()->pending()->with(['user', 'revisionable'])->latest()->limit(5)->get()
+            ),
+            'supportQuestions' => SupportQuestionRowData::collect(
+                SupportQuestion::query()
+                    ->with(['user:id,name', 'course:id,title'])
+                    ->whereNull('answer')
+                    ->orderByDesc('id')
+                    ->limit(5)
+                    ->get()
             ),
         ]);
     }

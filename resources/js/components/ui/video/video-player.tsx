@@ -29,6 +29,7 @@ type Props = {
   chapters?: string
   start?: number
   onProgress?: (n: number) => void
+  onTimeChange?: (time: number) => void
 }
 
 const videoCls = `aspect-video w-full h-auto`
@@ -47,6 +48,7 @@ export function VideoPlayer(props: Props) {
     currentTime: number
   }> = (e) => {
     const currentTime = e.currentTarget.currentTime
+    props.onTimeChange?.(currentTime)
     if (currentTime - previousTime.current > PROGRESSION_THRESHOLD) {
       previousTime.current = currentTime
       props.onProgress?.(currentTime / e.currentTarget.duration)

@@ -5,7 +5,7 @@ export class NavTabs extends HTMLElement {
     this.querySelectorAll("a").forEach((a) => {
       a.addEventListener("click", (e) => {
         e.preventDefault()
-        if (a.hasAttribute("aria-selected")) {
+        if (a.getAttribute("aria-selected") === "true") {
           return
         }
         // Toggle aria-selected attribute

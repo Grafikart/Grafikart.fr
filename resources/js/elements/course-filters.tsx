@@ -13,8 +13,8 @@ import {
   useContext,
   useState,
 } from "react"
-import { useIntersectionObserver } from "usehooks-ts"
 import { queryClient, useApiFetch } from "@/hooks/use-api-fetch.ts"
+import { useVisible } from "@/hooks/use-visible.ts"
 import { cn } from "@/lib/utils.ts"
 import type { CourseFiltersResponse } from "@/types"
 
@@ -44,12 +44,12 @@ export function CourseFilters() {
 }
 
 function CourseFiltersInner() {
-  const { isIntersecting, ref } = useIntersectionObserver()
+  const { isVisible, ref } = useVisible()
   const { data, isLoading } = useApiFetch<CourseFiltersResponse>(
     "/api/courses/filters",
     {
       staleTime: 600_000,
-      enabled: isIntersecting,
+      enabled: isVisible,
     },
   )
   const [expanded, setExpanded] = useState(false)
