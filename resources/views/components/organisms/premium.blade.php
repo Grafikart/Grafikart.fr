@@ -2,9 +2,10 @@
 
 <div {{ $attributes }}>
     @if ($plans->count() > 1)
-        <x-atoms.tabs as="nav-tabs" class="mb-8 mx-auto">
+        <x-atoms.tabs as="nav-tabs" class="mb-8 mx-auto" variant="pill">
             @foreach ($plans as $plan)
                 <x-atoms.tab
+                    variant="pill"
                     href="#plan{{ $plan->id }}"
                     :active="$loop->first"
                 >

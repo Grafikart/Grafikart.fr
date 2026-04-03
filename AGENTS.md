@@ -3,7 +3,8 @@
 ## Important rules
 
 - Everytime I tell I refuse an edit and ask you to change something, update these rules for later use
-- When I explicitly ask for no tests, do not create, update, or run tests
+- Do not create tests unless explicitly told so
+- For blade component merge the class doing the following `class="{{ cn([$class, $attributes->get('class') ]) }}"` and make "class" a props
 - Prefer Spatie Laravel Data DTOs for controller payload validation instead of FormRequest classes when following existing controller conventions
 
 ### Migrations
