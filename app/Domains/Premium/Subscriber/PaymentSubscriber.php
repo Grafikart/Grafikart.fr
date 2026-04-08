@@ -37,6 +37,7 @@ class PaymentSubscriber
             'method_id' => $payment->id,
             'firstname' => $payment->firstname,
             'lastname' => $payment->lastname,
+            'city' => $payment->city,
             'address' => $payment->address,
             'postal_code' => $payment->postalCode,
             'country_code' => $payment->countryCode,

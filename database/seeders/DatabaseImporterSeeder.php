@@ -23,6 +23,7 @@ class DatabaseImporterSeeder extends DatabaseSeeder
         $this->migrateComments();
         $this->migrateForum();
         $this->migratePremium();
+        $this->migrateTransactions();
     }
 
     private function migrateUsers(): void
@@ -328,6 +329,44 @@ class DatabaseImporterSeeder extends DatabaseSeeder
                     DB::table('subscriptions')->upsert($data, uniqueBy: ['id']);
                 }
             });
+    }
+
+    private function migrateTransactions(): void
+    {
+        DB::table('old_transaction')
+            ->orderBy('id')
+            ->chunk(self::CHUNK_SIZE, function ($transactions) {
+                $data = [];
+                foreach ($transactions as $transaction) {
+                    $data[] = [
+                        'id' => $transaction->id,
+                        'user_id' => $transaction->author_id,
+                        'duration' => $transaction->duration,
+                        'price' => $this->eurosToCents($transaction->price),
+                        'tax' => $this->eurosToCents($transaction->tax),
+                        'method' => $transaction->method,
+                        'method_id' => $transaction->method_ref,
+                        'refunded_at' => $transaction->refunded ? $transaction->updated_at : null,
+                        'firstname' => $transaction->firstname,
+                        'lastname' => $transaction->lastname,
+                        'address' => $transaction->address,
+                        'city' => $transaction->city,
+                        'postal_code' => $transaction->postal_code,
+                        'country_code' => $transaction->country_code,
+                        'fee' => $this->eurosToCents($transaction->fee),
+                        'created_at' => $transaction->created_at,
+                        'updated_at' => $transaction->created_at,
+                    ];
+                }
+                if (! empty($data)) {
+                    DB::table('transactions')->upsert($data, uniqueBy: ['id']);
+                }
+            });
+    }
+
+    private function eurosToCents(float|int|null $amount): int
+    {
+        return (int) round(((float) $amount) * 100, 0, PHP_ROUND_HALF_UP);
     }
 
     private function migrateForum(): void

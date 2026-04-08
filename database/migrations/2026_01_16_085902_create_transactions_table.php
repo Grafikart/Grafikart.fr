@@ -20,12 +20,13 @@ return new class extends Migration
             $table->string('method');
             $table->string('method_id');
             $table->dateTime('refunded_at')->nullable();
-            $table->string('firstname');
-            $table->string('lastname');
-            $table->string('address');
-            $table->string('postal_code');
-            $table->string('country_code');
-            $table->integer('fee');
+            $table->string('firstname')->nullable();
+            $table->string('lastname')->nullable();
+            $table->string('address')->nullable();
+            $table->string('city')->nullable();
+            $table->string('postal_code')->nullable();
+            $table->string('country_code')->nullable();
+            $table->integer('fee')->default(0);
             $table->timestamps();
         });
     }
