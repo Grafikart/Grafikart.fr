@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Seed the database using data from the previous site version
+ * Seed the database using data from the previous site.
  */
 class DatabaseImporterSeeder extends DatabaseSeeder
 {
@@ -18,16 +18,19 @@ class DatabaseImporterSeeder extends DatabaseSeeder
         $this->migrateAttachments();
         $this->migrateFormations();
         $this->migrateCourses();
+        $this->migrateProgress();
         $this->migrateTechnologies();
         $this->migrateBlog();
-        $this->migrateComments();
-        $this->migrateForum();
+        //        $this->migrateComments();
+        //        $this->migrateForum();
         $this->migratePremium();
         $this->migrateTransactions();
     }
 
     private function migrateUsers(): void
     {
+        $this->startMigration('users');
+
         DB::table('old_user')
             ->orderBy('id')
             ->chunk(self::CHUNK_SIZE, function ($users) {
@@ -68,8 +71,10 @@ class DatabaseImporterSeeder extends DatabaseSeeder
             });
     }
 
-    private function migrateAttachments()
+    private function migrateAttachments(): void
     {
+        $this->startMigration('attachments');
+
         $attachments = DB::table('old_attachment')->get();
         foreach ($attachments as $attachment) {
             DB::table('attachments')->upsert([
@@ -83,6 +88,8 @@ class DatabaseImporterSeeder extends DatabaseSeeder
 
     private function migrateFormations(): void
     {
+        $this->startMigration('formations');
+
         DB::table('old_formation')
             ->join('old_content', 'old_formation.id', '=', 'old_content.id')
             ->orderBy('old_formation.id')
@@ -115,6 +122,8 @@ class DatabaseImporterSeeder extends DatabaseSeeder
 
     private function migrateCourses(): void
     {
+        $this->startMigration('courses');
+
         DB::table('old_course')
             ->join('old_content', 'old_course.id', '=', 'old_content.id')
             ->orderBy('old_course.id')
@@ -151,6 +160,8 @@ class DatabaseImporterSeeder extends DatabaseSeeder
 
     private function migrateTechnologies(): void
     {
+        $this->startMigration('technologies');
+
         DB::table('old_technology')
             ->orderBy('id')
             ->chunk(self::CHUNK_SIZE, function ($technologies) {
@@ -213,6 +224,8 @@ class DatabaseImporterSeeder extends DatabaseSeeder
 
     private function migrateBlog(): void
     {
+        $this->startMigration('blog');
+
         // Migrate blog categories
         DB::table('old_blog_category')
             ->orderBy('id')
@@ -224,7 +237,7 @@ class DatabaseImporterSeeder extends DatabaseSeeder
                         'name' => $category->name,
                         'slug' => $category->slug,
                         'created_at' => now(),
-                        'updated_at' => now(),
+                        'epdated_at' => now(),
                     ];
                 }
                 if (! empty($data)) {
@@ -260,6 +273,8 @@ class DatabaseImporterSeeder extends DatabaseSeeder
 
     private function migrateComments(): void
     {
+        $this->startMigration('comments');
+
         DB::table('old_comment')
             ->join('old_content', 'old_comment.content_id', '=', 'old_content.id')
             ->select('old_comment.*', 'old_content.type as content_type')
@@ -285,8 +300,52 @@ class DatabaseImporterSeeder extends DatabaseSeeder
             });
     }
 
+    private function migrateProgress(): void
+    {
+        $this->startMigration('progress');
+
+        DB::table('old_progress')
+            ->join('old_content', 'old_progress.content_id', '=', 'old_content.id')
+            ->select('old_progress.*', 'old_content.type as content_type')
+            ->where(function ($query) {
+                $query
+                    ->where('old_progress.progress', 1000)
+                    ->orWhere('old_progress.created_at', '>=', now()->subYear());
+            })
+            ->orderBy('old_progress.id')
+            ->chunk(self::CHUNK_SIZE, function ($progressions) {
+                $data = [];
+                foreach ($progressions as $progression) {
+                    $progressableType = match ($progression->content_type) {
+                        'course', 'formation' => $progression->content_type,
+                        default => null,
+                    };
+
+                    if ($progressableType === null) {
+                        continue;
+                    }
+
+                    $data[] = [
+                        'id' => $progression->id,
+                        'user_id' => $progression->author_id,
+                        'progressable_type' => $progressableType,
+                        'progressable_id' => $progression->content_id,
+                        'progress' => $progression->progress,
+                        'score' => null,
+                        'created_at' => $progression->created_at,
+                        'updated_at' => $progression->updated_at,
+                    ];
+                }
+                if (! empty($data)) {
+                    DB::table('progress')->upsert($data, uniqueBy: ['id']);
+                }
+            });
+    }
+
     private function migratePremium(): void
     {
+        $this->startMigration('premium');
+
         // Migrate plans
         DB::table('old_plan')
             ->orderBy('id')
@@ -333,6 +392,8 @@ class DatabaseImporterSeeder extends DatabaseSeeder
 
     private function migrateTransactions(): void
     {
+        $this->startMigration('transactions');
+
         DB::table('old_transaction')
             ->orderBy('id')
             ->chunk(self::CHUNK_SIZE, function ($transactions) {
@@ -346,7 +407,7 @@ class DatabaseImporterSeeder extends DatabaseSeeder
                         'tax' => $this->eurosToCents($transaction->tax),
                         'method' => $transaction->method,
                         'method_id' => $transaction->method_ref,
-                        'refunded_at' => $transaction->refunded ? $transaction->updated_at : null,
+                        'refunded_at' => $transaction->refunded ? $transaction->created_at : null,
                         'firstname' => $transaction->firstname,
                         'lastname' => $transaction->lastname,
                         'address' => $transaction->address,
@@ -369,8 +430,15 @@ class DatabaseImporterSeeder extends DatabaseSeeder
         return (int) round(((float) $amount) * 100, 0, PHP_ROUND_HALF_UP);
     }
 
+    private function startMigration(string $category): void
+    {
+        $this->command?->info("Migrating {$category}...");
+    }
+
     private function migrateForum(): void
     {
+        $this->startMigration('forum');
+
         // Migrate forum tags
         DB::table('old_forum_tag')
             ->orderBy('id')

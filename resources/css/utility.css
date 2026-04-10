@@ -8,6 +8,17 @@ body[data-drawer="visible"] &);
 @custom-variant drawer-hidden (&[data-drawer="hidden"],
 body[data-drawer="hidden"] &);
 
+@utility triangle-top-* {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    border-left: solid calc(--value(integer) * .25rem) transparent;
+    border-top: solid calc(--value(integer) * .25rem) currentColor;
+}
+
 /**
  * Layout
  */

@@ -25,7 +25,7 @@ $active = Route::currentRouteName();
             <x-lucide-user-pen class="size-5"/>
             Editer
         </a>
-        <a href="#" class="{{ $tabCls }}" @if($active === 'history') aria-selected="true" @endif>
+        <a href="{{ route('users.history') }}" class="{{ $tabCls }}" @if($active === 'users.history') aria-selected="true" @endif>
             <x-lucide-video class="size-5"/>
             Historique
         </a>

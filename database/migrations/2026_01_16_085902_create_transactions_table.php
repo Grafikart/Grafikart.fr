@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('price');
             $table->integer('tax');
             $table->string('method');
-            $table->string('method_id');
+            $table->string('method_id')->nullable();
             $table->dateTime('refunded_at')->nullable();
             $table->string('firstname')->nullable();
             $table->string('lastname')->nullable();

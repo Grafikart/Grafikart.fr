@@ -5,6 +5,7 @@ namespace App\Http\Front;
 use App\Domains\Account\AccountService;
 use App\Domains\Account\Data\UserDeletionRequestData;
 use App\Domains\Account\Exceptions\PasswordMismatchException;
+use App\Domains\History\ProgressRepository;
 use App\Http\Front\Data\User\PasswordUpdateData;
 use App\Http\Front\Data\User\ProfileUpdateData;
 use App\Models\User;
@@ -14,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UserController
 {
@@ -74,5 +76,21 @@ class UserController
         Auth::logout();
 
         return to_route('home')->with('success', 'Votre compte a bien été supprimé');
+    }
+
+    public function history(Request $request, ProgressRepository $repository)
+    {
+        $user = $request->user();
+        $type = $request->query('type', 'course');
+        if (! in_array($type, ['course', 'formation'])) {
+            throw new NotFoundHttpException("Impossible de trouver l'historique associé à ce contenu");
+        }
+        assert($user instanceof User);
+
+        return view('users.history', [
+            'items' => $repository->findItemsForUser($user->id, $type),
+            'type' => $type,
+        ]);
+
     }
 }

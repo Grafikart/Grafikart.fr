@@ -14,6 +14,7 @@ use App\Domains\Course\Technology;
 use App\Domains\Forum\Topic;
 use App\Domains\Forum\TopicMessage;
 use App\Domains\Forum\TopicTag;
+use App\Domains\History\Progress;
 use App\Domains\Premium\Models\Plan;
 use App\Domains\Premium\Models\Transaction;
 use App\Models\User;
@@ -40,6 +41,7 @@ class DatabaseSeeder extends Seeder
         TopicMessage::class,
         TopicTag::class,
         Topic::class,
+        Progress::class,
     ];
 
     protected function clean()

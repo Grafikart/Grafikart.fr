@@ -160,7 +160,7 @@ class Formation extends Model implements Searchable
 
     public function icon(): ?string
     {
-        return $this->technology()->mediaUrl('image');
+        return $this->technology()?->mediaUrl('image');
     }
 
     public function nextCourse(int $courseId): ?Course

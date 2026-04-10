@@ -204,6 +204,7 @@ class Course extends Model implements RegisterMedia, Revisionable, Searchable
             ->where('progressable_type', $this->getMorphClass())
             ->where('progressable_id', $this->id)
             ->first();
+
         if (! $progress || $progress->ratio >= 1) {
             return 0;
         }

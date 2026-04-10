@@ -15,6 +15,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profil', [\App\Http\Front\UserController::class, 'me'])->name('users.me');
     Route::delete('/profil', [\App\Http\Front\UserController::class, 'delete'])->name('users.delete');
     Route::get('/profil/edit', [\App\Http\Front\UserController::class, 'edit'])->name('users.edit');
+    Route::get('/profil/historique', [\App\Http\Front\UserController::class, 'history'])->name('users.history');
     Route::get('/profil/factures', [\App\Http\Front\Account\InvoiceController::class, 'index'])->name('transactions.index');
     Route::post('/profil/factures', [\App\Http\Front\Account\InvoiceController::class, 'update'])->name('transactions.update');
     Route::get('/profil/factures/{transaction}', [\App\Http\Front\Account\InvoiceController::class, 'show'])

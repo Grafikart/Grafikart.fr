@@ -1,11 +1,17 @@
-@props(['formation'])
+@props(['formation', 'progress' => 0])
 
 @cache('formation-card', $formation)
 <x-atoms.card
     padded
     as="article"
-    class="flex flex-col h-full hover:shadow-md transition-shadow relative card-stacked"
+    @class(["flex flex-col h-full hover:shadow-md transition-shadow relative card-stacked", "outline-success/20 outline-4 border-3 border-success before:triangle-top-12 overflow-hidden before:border-top-success before:text-success" => $progress === 1000])
 >
+    @if($progress === 1000)
+        <x-lucide-check class="size-5 text-white absolute top-1 right-1"/>
+    @endif
+    @if($progress > 0 && $progress < 1000)
+        <div class="absolute bottom-9 left-0 right-0 h-1 bg-border"><div style="width: {{ $progress / 10 }}%;" class="bg-primary h-1"></div></div>
+    @endif
     <div class="flex items-start justify-between mb-3">
         <div class="h-10 flex items-center gap-1">
             @foreach($formation->mainTechnologies as $tech)

@@ -86,7 +86,7 @@
                 <div class="divide-y">
                     @foreach($courses as $course)
                         <div class="flex gap-4 items-center py-4 relative">
-                            <img src="{{ $course->technology()->mediaUrl('image') }}" alt="" class="w-10">
+                            <img src="{{ $course->technology()?->mediaUrl('image') }}" alt="" class="w-10">
                             <div class="">
                                 <h3 class="font-bold text-lg">
                                     <a href="{{ app_url($course) }}" class="overlay hover:text-primary">

@@ -64,10 +64,13 @@ class Progress extends Model
         return ProgressFactory::new();
     }
 
+    /**
+     * Ratio value between 0 and 1
+     */
     protected function ratio(): Attribute
     {
         return Attribute::make(
-            get: fn () => round($this->progress / 1000)
+            get: fn (): float => $this->progress / 1000
         );
     }
 
