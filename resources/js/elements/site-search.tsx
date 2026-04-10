@@ -35,7 +35,8 @@ function SearchInputInner() {
   )
 
   const items = data?.items ?? []
-  const iconCls = "absolute left-3 top-1/2 size-5 -translate-y-1/2"
+  const iconCls =
+    "absolute left-3 top-1/2 size-5 -translate-y-1/2 peer-focus:text-primary"
   useShortcut("K", { ctrlKey: true }, () => {
     setOpen(true)
   })
@@ -59,7 +60,7 @@ function SearchInputInner() {
           <div className="relative">
             <Autocomplete.Input
               placeholder="Rechercher un contenu"
-              className="rounded-md pl-10"
+              className="rounded-md pl-10 peer"
               render={<Input />}
             />
             {isFetching ? (

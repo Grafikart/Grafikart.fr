@@ -1,4 +1,4 @@
-import { DrawerPreview as Drawer } from "@base-ui/react/drawer"
+import { Drawer } from "@base-ui/react/drawer"
 import { useEffect, useMemo, useState } from "react"
 
 type Props = {

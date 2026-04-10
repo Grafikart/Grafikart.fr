@@ -24,6 +24,7 @@
   --color-foreground: var(--text);
   --color-muted: var(--muted);
   --color-primary: var(--primary);
+  --color-ring: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-background: var(--background);
   --color-background-light: var(--background-light);

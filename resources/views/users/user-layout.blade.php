@@ -17,13 +17,9 @@ $active = Route::currentRouteName();
     </div>
 
     <div class="container border-t bg-background-light/50 flex overflow-x-auto relative before:absolute before:left-0 before:right-0 before:bottom-0 before:h-px before:bg-border">
-        <a href="#" class="{{ $tabCls }}" @if($active === 'profil') aria-selected="true" @endif>
-            <x-lucide-align-justify class="size-5"/>
-            Profil
-        </a>
         <a href="{{ route('users.edit') }}" class="{{ $tabCls }}" @if($active === 'users.edit') aria-selected="true" @endif>
             <x-lucide-user-pen class="size-5"/>
-            Editer
+            Profil
         </a>
         <a href="{{ route('users.history') }}" class="{{ $tabCls }}" @if($active === 'users.history') aria-selected="true" @endif>
             <x-lucide-video class="size-5"/>
