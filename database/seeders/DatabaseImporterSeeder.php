@@ -15,6 +15,8 @@ class DatabaseImporterSeeder extends DatabaseSeeder
     {
         $this->clean();
         $this->migrateUsers();
+        $this->migrateSchools();
+        $this->migrateCoupons();
         $this->migrateBadges();
         $this->migrateAttachments();
         $this->migrateFormations();
@@ -85,6 +87,81 @@ class DatabaseImporterSeeder extends DatabaseSeeder
                 'created_at' => $attachment->created_at,
             ], uniqueBy: ['id']);
         }
+    }
+
+    private function migrateSchools(): void
+    {
+        $this->startMigration('schools');
+
+        DB::table('old_school')
+            ->orderBy('id')
+            ->chunk(self::CHUNK_SIZE, function ($schools) {
+                $data = [];
+                $timestamp = now();
+
+                foreach ($schools as $school) {
+                    $data[] = [
+                        'id' => $school->id,
+                        'user_id' => $school->owner_id,
+                        'name' => $school->name,
+                        'email_message' => $school->email_message,
+                        'email_subject' => $school->email_subject,
+                        'coupon_prefix' => $school->coupon_prefix,
+                        'credits' => $school->credits,
+                        'created_at' => $timestamp,
+                        'updated_at' => $timestamp,
+                    ];
+                }
+
+                if (! empty($data)) {
+                    DB::table('schools')->upsert($data, uniqueBy: ['id']);
+                }
+            });
+
+        DB::table('old_school_user')
+            ->orderBy('school_id')
+            ->orderBy('user_id')
+            ->chunk(self::CHUNK_SIZE, function ($schoolUsers) {
+                $data = [];
+
+                foreach ($schoolUsers as $schoolUser) {
+                    $data[] = [
+                        'school_id' => $schoolUser->school_id,
+                        'user_id' => $schoolUser->user_id,
+                    ];
+                }
+
+                if (! empty($data)) {
+                    DB::table('school_user')->upsert($data, uniqueBy: ['school_id', 'user_id']);
+                }
+            });
+    }
+
+    private function migrateCoupons(): void
+    {
+        $this->startMigration('coupons');
+
+        DB::table('old_coupon')
+            ->orderBy('id')
+            ->chunk(self::CHUNK_SIZE, function ($coupons) {
+                $data = [];
+
+                foreach ($coupons as $coupon) {
+                    $data[] = [
+                        'id' => $coupon->id,
+                        'school_id' => $coupon->school_id,
+                        'user_id' => $coupon->claimed_by_id,
+                        'claimed_at' => $coupon->claimed_at,
+                        'email' => $coupon->email,
+                        'months' => $coupon->months,
+                        'created_at' => $coupon->created_at,
+                    ];
+                }
+
+                if (! empty($data)) {
+                    DB::table('coupons')->upsert($data, uniqueBy: ['id']);
+                }
+            });
     }
 
     private function migrateBadges(): void

@@ -15,6 +15,7 @@ type Props = useRender.ComponentProps<"input"> & {
   right?: ReactNode
   onValueChange?: (s: string) => void
   wrapperClass?: string
+  help?: ReactNode
 }
 
 export function FormField(props: Props) {
@@ -39,11 +40,19 @@ export function FormField(props: Props) {
     <Field className={cn("group/field", wrapperClass)}>
       {label && (
         <div className="flex items-center justify-between">
-          <FieldLabel htmlFor={props.name}>{label}</FieldLabel>
+          <FieldLabel
+            htmlFor={props.name}
+            className="text-xs font-medium text-muted-foreground uppercase"
+          >
+            {label}
+          </FieldLabel>
           {props.right}
         </div>
       )}
       {children}
+      {props.help && (
+        <p className="text-sm text-muted-foreground">{props.help}</p>
+      )}
       <ValidationError name={props.name} />
     </Field>
   )

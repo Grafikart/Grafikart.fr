@@ -118,18 +118,23 @@ body[data-drawer="hidden"] &);
 }
 
 @utility table {
-  th {
-    font-weight: 300;
-    font-size: 0.9em;
-    text-align: left;
-    color: var(--color-muted);
-  }
-  td {
-    padding: 1rem 0;
-  }
-  tbody tr {
-    border-bottom: 1px solid var(--color-border);
-  }
+    @layer components {
+        th {
+            font-weight: 300;
+            font-size: 0.8em;
+            text-align: left;
+            text-transform: uppercase;
+            color: var(--color-muted);
+        }
+
+        td {
+            padding: 1rem 0;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid var(--color-border);
+        }
+    }
 }
 
 @utility list-big {

@@ -28,6 +28,13 @@ r2wc("evaluation-questions", () => import("@/elements/evaluation.tsx"), {
 r2wc("support-course", () => import("@/elements/support-course.tsx"), {
   course: "string",
 })
+r2wc("student-importer", () => import("@/elements/student-importer.tsx"), {
+  action: "string",
+  "example-url": "string",
+  credits: "number",
+  subject: "json",
+  message: "json",
+})
 r2wc("course-filters", CourseFilters, {})
 r2wc("site-search", SiteSearch, {})
 r2wc("theme-switcher", ThemeSwitcher, {})

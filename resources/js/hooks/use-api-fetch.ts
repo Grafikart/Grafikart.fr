@@ -94,6 +94,14 @@ export class APIError extends Error {
     ) {
       return this.data.title
     }
+    if (
+      this.data &&
+      typeof this.data === "object" &&
+      "message" in this.data &&
+      typeof this.data.message === "string"
+    ) {
+      return this.data.message
+    }
     return "Erreur serveur"
   }
 

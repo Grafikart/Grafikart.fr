@@ -57,6 +57,17 @@ content: string;
 ip: string;
 createdAt: string;
 };
+export type CouponFormData = {
+id: string;
+months: number;
+};
+export type CouponRowData = {
+id: string;
+email: string;
+months: number;
+claimedAt: string | null;
+createdAt: string;
+};
 export type CourseFilterItem = {
 label: string;
 value: string;
@@ -282,6 +293,27 @@ currentContent: string;
 state: RevisionStatus;
 };
 export type RevisionStatus = -1 | 0 | 1;
+export type SchoolFormData = {
+id: number | null;
+name: string;
+couponPrefix: string;
+credits: number;
+emailSubject: string;
+emailMessage: string;
+owner: OptionItemData | null;
+students: Array<SchoolStudentData>;
+};
+export type SchoolRowData = {
+id: number;
+name: string;
+};
+export type SchoolStudentData = {
+id: number;
+username: string;
+email: string;
+createdAt: string;
+isPremium: boolean;
+};
 export type SearchResultData = {
 id: number;
 name: string;

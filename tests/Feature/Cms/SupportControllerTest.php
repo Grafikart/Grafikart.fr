@@ -3,13 +3,13 @@
 use App\Domains\Cms\Event\ContentDeletedEvent;
 use App\Domains\Cms\Event\ContentUpdatedEvent;
 use App\Domains\Course\Course;
-use App\Domains\Notification\Models\Notification;
+use App\Domains\Notification\Models\Notification as UserNotification;
 use App\Domains\Support\Event\SupportQuestionAnswered;
 use App\Domains\Support\SupportQuestion;
-use App\Infrastructure\Mailing\Mail\SupportQuestionAnsweredMail;
+use App\Infrastructure\Mailing\Notification\SupportQuestionAnsweredNotification;
 use App\Models\User;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 
 beforeEach(function () {
     $this->user = User::factory()->admin()->create();
@@ -119,21 +119,19 @@ describe('update', function () {
     });
 
     it('sends an email to the author when answering a question for the first time', function () {
-        Mail::fake();
+        Notification::fake();
 
         $this->actingAs($this->user)
             ->put(route('cms.support.update', $this->question), $this->validData)
             ->assertRedirect(route('cms.support.index'));
 
-        Mail::assertSent(SupportQuestionAnsweredMail::class, function (SupportQuestionAnsweredMail $mail) {
-            return $mail->hasTo($this->author->email)
-                && $mail->question->is($this->question)
-                && $mail->url === route('courses.show', ['slug' => $this->course->slug, 'course' => $this->course]) . '#support';
+        Notification::assertSentTo($this->author, function (SupportQuestionAnsweredNotification $notification, array $channels) {
+            return $channels === ['mail'];
         });
     });
 
     it('does not send an email when updating an already answered question', function () {
-        Mail::fake();
+        Notification::fake();
 
         $this->question->update([
             'answer' => 'Réponse existante',
@@ -143,11 +141,11 @@ describe('update', function () {
             ->put(route('cms.support.update', $this->question), $this->validData)
             ->assertRedirect(route('cms.support.index'));
 
-        Mail::assertNotSent(SupportQuestionAnsweredMail::class);
+        Notification::assertNotSentTo($this->author, SupportQuestionAnsweredNotification::class);
     });
 
     it('does not create a notification when updating an already answered question', function () {
-        $existingUrl = route('courses.show', ['slug' => $this->course->slug, 'course' => $this->course]) . '#support';
+        $existingUrl = route('courses.show', ['slug' => $this->course->slug, 'course' => $this->course]).'#support';
 
         $this->question->update([
             'answer' => 'Réponse existante',
@@ -157,7 +155,7 @@ describe('update', function () {
             ->put(route('cms.support.update', $this->question), $this->validData)
             ->assertRedirect(route('cms.support.index'));
 
-        $notifications = Notification::query()
+        $notifications = UserNotification::query()
             ->where('user_id', $this->author->id)
             ->where('url', $existingUrl)
             ->count();

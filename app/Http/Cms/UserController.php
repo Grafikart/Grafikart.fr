@@ -5,8 +5,10 @@ namespace App\Http\Cms;
 use App\Domains\Cms\CmsController;
 use App\Http\Cms\Data\Chart\DailyData;
 use App\Http\Cms\Data\Chart\MonthlyData;
+use App\Http\Cms\Data\OptionItemData;
 use App\Http\Cms\Data\User\UserRowData;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -59,6 +61,37 @@ class UserController extends CmsController
         }
 
         return $this->cmsDestroy(model: $user, message: "L'utilisateur {$user->name} a été banni");
+    }
+
+    public function search(Request $request): \Illuminate\Support\Collection
+    {
+        $search = $request->string('q')->trim()->toString();
+
+        if ($search === '') {
+            return OptionItemData::collect([]);
+        }
+
+        $users = User::query()
+            ->select(['id', 'name', 'email'])
+            ->where(function (Builder $query) use ($search) {
+                if (is_numeric($search)) {
+                    $query->orWhereKey((int) $search);
+
+                    return;
+                }
+
+                $searchLike = "%{$search}%";
+
+                $query
+                    ->orWhereLike('name', $searchLike)
+                    ->orWhereLike('email', $searchLike);
+            })
+            ->latest()
+            ->limit(10)
+            ->get();
+
+        return OptionItemData::collect($users);
+
     }
 
     /**

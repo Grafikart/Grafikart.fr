@@ -12,6 +12,8 @@ Route::get('/auth/check/premium', [\App\Http\Front\AuthController::class, 'check
 
 // Auth restricted page
 Route::middleware(['auth'])->group(function () {
+
+    // User profil
     Route::get('/profil', [\App\Http\Front\UserController::class, 'me'])->name('users.me');
     Route::delete('/profil', [\App\Http\Front\UserController::class, 'delete'])->name('users.delete');
     Route::get('/profil/edit', [\App\Http\Front\UserController::class, 'edit'])->name('users.edit');
@@ -24,10 +26,18 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/profil/subscription', [\App\Http\Front\Account\SubscriptionController::class, 'manage'])->name('users.subscription');
     Route::post('/profil/edit', [\App\Http\Front\UserController::class, 'update']);
     Route::post('/profil/password', [\App\Http\Front\UserController::class, 'password'])->name('users.password');
+
+    // School
+    Route::get('/ecole', [\App\Http\Front\SchoolController::class, 'show'])->name('schools.show');
+    Route::post('/ecole', [\App\Http\Front\SchoolController::class, 'import'])->name('schools.import');
+
+    // Misc
     Route::get('/notifications', [\App\Http\Front\NotificationController::class, 'index'])->name('notifications');
     Route::get('/oauth/unlink/{driver}', [\App\Http\Front\AuthController::class, 'unlink'])->name('oauth.unlink');
     Route::get('/tutoriels/{course}/download/{type}', [\App\Http\Front\CourseController::class, 'download'])->name('courses.download')->where('type', 'source|video');
     Route::get('/profil/revisions', [\App\Http\Front\RevisionController::class, 'index'])->name('revisions.index');
+
+    // Revision content
     Route::get('/revision/{type}/{id}', [\App\Http\Front\RevisionController::class, 'edit'])->whereIn('type', ['course', 'post'])->whereNumber('id')->name('revision.edit');
     Route::post('/revision/{type}/{id}', [\App\Http\Front\RevisionController::class, 'update'])->whereIn('type', ['course', 'post'])->whereNumber('id')->name('revision.update');
     Route::delete('/revision/{revision}', [\App\Http\Front\RevisionController::class, 'delete'])->name('revision.delete');
@@ -102,6 +112,7 @@ Route::group([
     Route::post('dashboard/notifications', [\App\Http\Cms\DashboardController::class, 'notification'])->name('notifications.store');
     Route::resource('blog_categories', \App\Http\Cms\BlogCategoryController::class);
     Route::resource('comments', \App\Http\Cms\CommentController::class)->only(['index', 'update', 'destroy']);
+    Route::resource('coupons', \App\Http\Cms\CouponController::class)->except(['show']);
     Route::get('courses/upload', [\App\Http\Cms\CourseController::class, 'upload'])->name('courses.upload');
     Route::resource('courses', \App\Http\Cms\CourseController::class);
     Route::apiResource('courses.questions', \App\Http\Cms\QuestionController::class)->except(['show'])->shallow();
@@ -110,8 +121,10 @@ Route::group([
     Route::resource('paths', \App\Http\Cms\PathController::class)->except(['show']);
     Route::resource('posts', \App\Http\Cms\PostController::class)->except(['show']);
     Route::resource('plans', \App\Http\Cms\PlanController::class)->except(['edit', 'create']);
+    Route::resource('schools', \App\Http\Cms\SchoolController::class)->except(['show']);
     Route::resource('support', \App\Http\Cms\SupportController::class)->only(['index', 'edit', 'update', 'destroy']);
     Route::resource('technologies', \App\Http\Cms\TechnologyController::class)->except(['show']);
+    Route::get('users/search', [\App\Http\Cms\UserController::class, 'search'])->name('users.search');
     Route::resource('users', \App\Http\Cms\UserController::class)->only(['index', 'destroy']);
     Route::resource('transactions', \App\Http\Cms\TransactionController::class)->only(['index', 'destroy']);
     Route::resource('settings', \App\Http\Cms\SettingsController::class)->only(['index', 'store']);

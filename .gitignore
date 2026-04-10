@@ -7,6 +7,13 @@ PLAN.md
 *.private.env.json
 *.http
 
+# IA
+.agents
+.claude
+skills-lock.json
+.codex
+.opencode
+
 # Laravel gitignore
 /.phpunit.cache
 /bootstrap/ssr

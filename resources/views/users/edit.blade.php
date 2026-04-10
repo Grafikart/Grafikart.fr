@@ -8,7 +8,7 @@
         <main>
             <section class="flex flex-col gap-4">
                 <h2 class="text-2xl font-bold text-foreground-title flex items-center gap-2">
-                    <x-lucide-user class="size-6"/>
+                    <x-lucide-user class="size-6 text-primary"/>
                     Mes informations
                 </h2>
 
@@ -38,7 +38,7 @@
 
             <section class="flex flex-col gap-4">
                 <h2 class="text-2xl font-bold text-foreground-title flex items-center gap-2">
-                    <x-lucide-user-lock class="size-6"/>
+                    <x-lucide-user-lock class="size-6 text-primary"/>
                     Mot de passe
                 </h2>
 

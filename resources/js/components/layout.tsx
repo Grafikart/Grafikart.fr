@@ -1,16 +1,20 @@
 import { Link, usePage } from "@inertiajs/react"
 import {
+  AwardIcon,
   BadgeEuroIcon,
   BookOpenTextIcon,
   BotIcon,
+  Building2Icon,
   CogIcon,
   GitCompareArrowsIcon,
+  GraduationCapIcon,
   HouseIcon,
   LifeBuoyIcon,
   ListVideoIcon,
   MessagesSquareIcon,
   MonitorPlayIcon,
   StarIcon,
+  TicketIcon,
   UserIcon,
   WaypointsIcon,
 } from "lucide-react"
@@ -25,12 +29,14 @@ import { toast } from "sonner"
 import CommentController from "@/actions/App/Http/Cms/CommentController.ts"
 import RevisionController from "@/actions/App/Http/Cms/RevisionController.ts"
 import CourseController from "@/actions/App/Http/Cms/CourseController.ts"
+import CouponController from "@/actions/App/Http/Cms/CouponController.ts"
 import DashboardController from "@/actions/App/Http/Cms/DashboardController.ts"
 import FormationController from "@/actions/App/Http/Cms/FormationController.ts"
 import PathController from "@/actions/App/Http/Cms/PathController.ts"
 import PlanController from "@/actions/App/Http/Cms/PlanController.ts"
 import PostController from "@/actions/App/Http/Cms/PostController.ts"
 import SettingsController from "@/actions/App/Http/Cms/SettingsController.ts"
+import SchoolController from "@/actions/App/Http/Cms/SchoolController.ts"
 import SupportController from "@/actions/App/Http/Cms/SupportController.ts"
 import TechnologyController from "@/actions/App/Http/Cms/TechnologyController.ts"
 import TransactionController from "@/actions/App/Http/Cms/TransactionController.ts"
@@ -51,6 +57,7 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar"
 import type { NavItem, SharedData } from "@/types"
+import BadgeController from "@/actions/App/Http/Cms/BadgeController.ts"
 
 type Props = {
   breadcrumb: NavItem[]
@@ -132,6 +139,16 @@ const nav = [
         icon: BadgeEuroIcon,
         href: TransactionController.index(),
       },
+      {
+        label: "Écoles",
+        icon: Building2Icon,
+        href: SchoolController.index(),
+      },
+      {
+        label: "Coupons",
+        icon: TicketIcon,
+        href: CouponController.index(),
+      },
       { label: "Formules", icon: StarIcon, href: PlanController.index() },
     ],
   },
@@ -139,14 +156,19 @@ const nav = [
     label: "Communauté",
     children: [
       {
-        label: "Commentaires",
-        icon: MessagesSquareIcon,
-        href: CommentController.index(),
+        label: "Écoles",
+        icon: GraduationCapIcon,
+        href: SchoolController.index(),
       },
       {
         label: "Support",
         icon: LifeBuoyIcon,
         href: SupportController.index(),
+      },
+      {
+        label: "Commentaires",
+        icon: MessagesSquareIcon,
+        href: CommentController.index(),
       },
       {
         label: "Révisions",
@@ -158,6 +180,11 @@ const nav = [
   {
     label: "Divers",
     children: [
+      {
+        label: "Badges",
+        icon: AwardIcon,
+        href: BadgeController.index(),
+      },
       {
         label: "Paramètres",
         icon: CogIcon,

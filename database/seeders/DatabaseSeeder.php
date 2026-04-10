@@ -6,6 +6,7 @@ use App\Domains\Attachment\Attachment;
 use App\Domains\Blog\BlogCategory;
 use App\Domains\Blog\Post;
 use App\Domains\Comment\Comment;
+use App\Domains\Coupon\Coupon;
 use App\Domains\Course\Course;
 use App\Domains\Course\Formation;
 use App\Domains\Course\Path;
@@ -37,6 +38,7 @@ class DatabaseSeeder extends Seeder
         Formation::class,
         Path::class,
         PathNode::class,
+        Coupon::class,
         Attachment::class,
         TopicMessage::class,
         TopicTag::class,
@@ -75,6 +77,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'john@doe.fr',
         ]);
         $users = User::factory(10)->create();
+        Coupon::factory(10)->create();
         Plan::factory(3)->create();
         $categories = BlogCategory::factory(10)->create();
         $posts = Post::factory(10)

@@ -23,6 +23,7 @@
   --color-foreground-title: var(--title);
   --color-foreground: var(--text);
   --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted);
   --color-primary: var(--primary);
   --color-ring: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
@@ -30,6 +31,7 @@
   --color-background-light: var(--background-light);
   --color-background-dark: var(--background-dark);
   --color-card: var(--card);
+  --color-popover: var(--card);
   --color-white: var(--white);
   --color-card-footer: var(--card-footer);
   --color-border: var(--border);

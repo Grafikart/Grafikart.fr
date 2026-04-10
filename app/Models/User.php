@@ -83,4 +83,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
         return $this->name === 'Grafikart' && $this->id = 1;
     }
+
+    public static function findAdmin(): self
+    {
+        return self::query()->where('name', 'Grafikart')->firstOrFail();
+    }
 }

@@ -19,7 +19,6 @@ class ContactMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('noreply@grafikart.fr', 'Grafikart'),
             replyTo: [
                 new Address($this->data->email, $this->data->name),
             ],
@@ -30,7 +29,7 @@ class ContactMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.contact',
+            text: $this->data->content,
         );
     }
 
