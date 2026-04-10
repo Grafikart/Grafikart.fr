@@ -16,6 +16,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/profil', [\App\Http\Front\UserController::class, 'delete'])->name('users.delete');
     Route::get('/profil/edit', [\App\Http\Front\UserController::class, 'edit'])->name('users.edit');
     Route::get('/profil/historique', [\App\Http\Front\UserController::class, 'history'])->name('users.history');
+    Route::get('/profil/badges', [\App\Http\Front\UserController::class, 'badges'])->name('users.badges');
     Route::get('/profil/factures', [\App\Http\Front\Account\InvoiceController::class, 'index'])->name('transactions.index');
     Route::post('/profil/factures', [\App\Http\Front\Account\InvoiceController::class, 'update'])->name('transactions.update');
     Route::get('/profil/factures/{transaction}', [\App\Http\Front\Account\InvoiceController::class, 'show'])
@@ -96,6 +97,7 @@ Route::group([
     Route::get('/', function () {
         return redirect('/cms/dashboard');
     });
+    Route::resource('badges', \App\Http\Cms\BadgeController::class)->except(['show']);
     Route::get('dashboard', [\App\Http\Cms\DashboardController::class, 'index'])->name('dashboard');
     Route::post('dashboard/notifications', [\App\Http\Cms\DashboardController::class, 'notification'])->name('notifications.store');
     Route::resource('blog_categories', \App\Http\Cms\BlogCategoryController::class);

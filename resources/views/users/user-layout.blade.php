@@ -29,10 +29,12 @@ $active = Route::currentRouteName();
             <x-lucide-video class="size-5"/>
             Historique
         </a>
-        <a href="#" class="{{ $tabCls }}" @if($active === 'badges') aria-selected="true" @endif>
+        @if($user->created_at->lt('2026-05-30'))
+        <a href="{{route('users.badges')}}" class="{{ $tabCls }}" @if($active === 'users.badges') aria-selected="true" @endif>
             <x-lucide-award class="size-5"/>
             Badges
         </a>
+        @endif
         <a href="{{ route('transactions.index') }}" class="{{ $tabCls }}" @if($active === 'transactions.index') aria-selected="true" @endif>
             <x-lucide-inbox class="size-5"/>
             Factures

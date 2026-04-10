@@ -5,6 +5,7 @@ namespace App\Http\Front;
 use App\Domains\Account\AccountService;
 use App\Domains\Account\Data\UserDeletionRequestData;
 use App\Domains\Account\Exceptions\PasswordMismatchException;
+use App\Domains\Badge\BadgeRepository;
 use App\Domains\History\ProgressRepository;
 use App\Http\Front\Data\User\PasswordUpdateData;
 use App\Http\Front\Data\User\ProfileUpdateData;
@@ -78,7 +79,7 @@ class UserController
         return to_route('home')->with('success', 'Votre compte a bien été supprimé');
     }
 
-    public function history(Request $request, ProgressRepository $repository)
+    public function history(Request $request, ProgressRepository $repository): View
     {
         $user = $request->user();
         $type = $request->query('type', 'course');
@@ -91,6 +92,15 @@ class UserController
             'items' => $repository->findItemsForUser($user->id, $type),
             'type' => $type,
         ]);
+    }
 
+    public function badges(Request $request, BadgeRepository $repository): View
+    {
+        $user = $request->user();
+        assert($user instanceof User);
+
+        return view('users.badges', [
+            'badges' => $repository->forUser($user->id),
+        ]);
     }
 }

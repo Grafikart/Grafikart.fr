@@ -15,6 +15,7 @@ class DatabaseImporterSeeder extends DatabaseSeeder
     {
         $this->clean();
         $this->migrateUsers();
+        $this->migrateBadges();
         $this->migrateAttachments();
         $this->migrateFormations();
         $this->migrateCourses();
@@ -84,6 +85,58 @@ class DatabaseImporterSeeder extends DatabaseSeeder
                 'created_at' => $attachment->created_at,
             ], uniqueBy: ['id']);
         }
+    }
+
+    private function migrateBadges(): void
+    {
+        $this->startMigration('badges');
+
+        DB::table('old_badge')
+            ->orderBy('id')
+            ->chunk(self::CHUNK_SIZE, function ($badges) {
+                $data = [];
+                foreach ($badges as $badge) {
+                    $data[] = [
+                        'id' => $badge->id,
+                        'name' => $badge->name,
+                        'description' => $badge->description,
+                        'position' => $badge->position,
+                        'action' => $badge->action,
+                        'action_count' => $badge->action_count,
+                        'theme' => $badge->theme,
+                        'image' => $badge->image,
+                        'unlockable' => $badge->unlockable,
+                        'created_at' => $badge->updated_at,
+                        'updated_at' => $badge->updated_at,
+                    ];
+                }
+
+                if (! empty($data)) {
+                    DB::table('badges')->upsert($data, uniqueBy: ['id']);
+                }
+            });
+
+        DB::table('old_badge_unlock')
+            ->select('badge_id', 'owner_id')
+            ->selectRaw('MIN(created_at) as created_at')
+            ->groupBy('badge_id', 'owner_id')
+            ->orderBy('badge_id')
+            ->orderBy('owner_id')
+            ->chunk(self::CHUNK_SIZE, function ($unlocks) {
+                $data = [];
+
+                foreach ($unlocks as $unlock) {
+                    $data[] = [
+                        'badge_id' => $unlock->badge_id,
+                        'user_id' => $unlock->owner_id,
+                        'created_at' => $unlock->created_at,
+                    ];
+                }
+
+                if (! empty($data)) {
+                    DB::table('badge_user')->upsert($data, uniqueBy: ['badge_id', 'user_id']);
+                }
+            });
     }
 
     private function migrateFormations(): void
@@ -237,7 +290,7 @@ class DatabaseImporterSeeder extends DatabaseSeeder
                         'name' => $category->name,
                         'slug' => $category->slug,
                         'created_at' => now(),
-                        'epdated_at' => now(),
+                        'updated_at' => now(),
                     ];
                 }
                 if (! empty($data)) {

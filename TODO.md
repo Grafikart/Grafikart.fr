@@ -30,8 +30,8 @@ A voir si on a le temps
 ## Migration
 
 - [x] old_attachment
-- [ ] old_badge
-- [ ] old_badge_unlock
+- [x] old_badge
+- [x] old_badge_unlock
 - [x] old_blog_category
 - [x] old_blog_post
 - [x] old_comment
@@ -43,9 +43,9 @@ A voir si on a le temps
 - [x] old_forum_tag
 - [x] old_forum_topic
 - [x] old_forum_topic_tag
-- [ ] old_option
+- [x] old_option
 - [x] old_plan
-- [ ] old_progress
+- [x] old_progress
 - [ ] old_revision
 - [ ] old_school
 - [ ] old_school_user
