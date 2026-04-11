@@ -6,7 +6,7 @@ use App\Models\User;
 
 class CouponService
 {
-    public function claim(string $code, User $user): void
+    public function claim(string $code, User $user): Coupon
     {
         $coupon = Coupon::query()
             ->notClaimed()
@@ -18,5 +18,7 @@ class CouponService
         $coupon->user()->associate($user);
         $coupon->claimed_at = now();
         $coupon->save();
+
+        return $coupon;
     }
 }

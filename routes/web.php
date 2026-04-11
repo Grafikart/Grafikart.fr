@@ -24,6 +24,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profil/factures/{transaction}', [\App\Http\Front\Account\InvoiceController::class, 'show'])
         ->name('transactions.show');
     Route::post('/profil/subscription', [\App\Http\Front\Account\SubscriptionController::class, 'manage'])->name('users.subscription');
+    Route::post('/profil/coupon', [\App\Http\Front\CouponController::class, 'claim'])->middleware('throttle:3')->name('users.coupon');
     Route::post('/profil/edit', [\App\Http\Front\UserController::class, 'update']);
     Route::post('/profil/password', [\App\Http\Front\UserController::class, 'password'])->name('users.password');
 

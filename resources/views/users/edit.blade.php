@@ -80,10 +80,13 @@
             <section>
                 <h2 class="text-xl font-bold text-foreground-title">Coupon</h2>
                 <p class="mb-4">Si vous avez un code promotionnel / code d'école vous pouvez l'insérer ici</p>
-                <form method="post" class="flex">
-                   <x-atoms.input placeholder="Code" name="coupon" label="Coupon" />
+                <form method="post" action="{{ route('users.coupon') }}" class="flex">
+                   <x-atoms.input placeholder="Code" name="coupon" label="Coupon" :value="old('coupon')" />
                    <x-atoms.button type="submit" variant="primary" class="w-max flex-none">Utiliser ce code</x-atoms.button>
                 </form>
+                @error('coupon')
+                <p class="text-sm text-destructive mt-2">{{ $message }}</p>
+                @enderror
             </section>
 
             <section>
