@@ -9,12 +9,13 @@
             <x-atoms.card class="p-6">
                 <form method="POST" action="{{ route('register') }}" class="space-y-4">
                     @csrf
-
                     <x-molecules.field name="name" label="Nom d'utilisateur" required autofocus autocomplete="name" />
-                    <x-molecules.field name="email" type="email" required autocomplete="username" />
+                    <x-molecules.field name="email" type="email" :value="$email ?? ''" required autocomplete="username" />
                     <x-molecules.field name="password" label="Mot de passe" type="password" required autocomplete="new-password" />
                     <x-molecules.field name="password_confirmation" label="Confirmer le mot de passe" type="password" required autocomplete="new-password" />
-
+                    @if(($coupon ?? '') !== '' || old('coupon'))
+                        <x-molecules.field name="coupon" label="Code étudiant" :value="$coupon ?? ''" readonly />
+                    @endif
                     <x-atoms.button type="submit" class="w-full">
                         Créer mon compte
                         <x-lucide-arrow-right class="size-4" />

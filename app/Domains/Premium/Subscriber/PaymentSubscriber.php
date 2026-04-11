@@ -44,8 +44,7 @@ class PaymentSubscriber
             'fee' => $payment->fee,
         ]);
 
-        $premiumEnd = $user->premium_end_at?->isFuture() ? $user->premium_end_at : now();
-        $user->premium_end_at = $premiumEnd->addMonths($plan->duration);
+        $user->extendsPremium($plan->duration);
         $user->save();
 
         event(new PremiumSubscriptionEvent($user));

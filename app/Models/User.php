@@ -54,6 +54,12 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->premium_end_at !== null && $this->premium_end_at->isFuture();
     }
 
+    public function extendsPremium(int $month): void
+    {
+        $premiumEnd = $this->premium_end_at?->isFuture() ? $this->premium_end_at : now();
+        $this->premium_end_at = $premiumEnd->addMonths($month);
+    }
+
     /**
      * @return HasMany<Progress, $this>
      */

@@ -1,11 +1,12 @@
 <?php
 
-use App\Infrastructure\Mailing\Mail\UserDeletedMail;
+use App\Infrastructure\Mailing\Notification\UserDeletionNotification;
 use App\Models\User;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 
 beforeEach(function () {
     $this->user = User::factory()->create();
+    $this->admin = User::factory()->admin()->create();
 });
 
 it('does not delete the user when the password is incorrect', function () {
@@ -24,7 +25,7 @@ it('does not delete the user when the password is incorrect', function () {
 });
 
 it('allows an empty reason', function () {
-    Mail::fake();
+    Notification::fake();
 
     $this->actingAs($this->user)
         ->delete(route('users.delete'), [
@@ -34,12 +35,12 @@ it('allows an empty reason', function () {
         ->assertRedirect()
         ->assertSessionHasNoErrors();
 
-    Mail::assertNotSent(UserDeletedMail::class);
+    Notification::assertNothingSent();
     $this->assertSoftDeleted('users', ['id' => $this->user->id]);
 });
 
 it('sends an email when a reason is provided', function () {
-    Mail::fake();
+    Notification::fake();
 
     $this->actingAs($this->user)
         ->delete(route('users.delete'), [
@@ -48,9 +49,9 @@ it('sends an email when a reason is provided', function () {
         ])
         ->assertRedirect();
 
-    Mail::assertSent(UserDeletedMail::class, function (UserDeletedMail $mail) {
-        return $mail->user->is($this->user)
-            && $mail->reason === 'I no longer need this account';
+    Notification::assertSentTo($this->admin, function (UserDeletionNotification $notification, array $channels) {
+        return $channels === ['mail']
+            && $notification->toMail($this->admin)->introLines[1] === 'I no longer need this account';
     });
 });
 

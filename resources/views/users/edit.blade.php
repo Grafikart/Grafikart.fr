@@ -78,6 +78,15 @@
             @include('users._subscription')
 
             <section>
+                <h2 class="text-xl font-bold text-foreground-title">Coupon</h2>
+                <p class="mb-4">Si vous avez un code promotionnel / code d'école vous pouvez l'insérer ici</p>
+                <form method="post" class="flex">
+                   <x-atoms.input placeholder="Code" name="coupon" label="Coupon" />
+                   <x-atoms.button type="submit" variant="primary" class="w-max flex-none">Utiliser ce code</x-atoms.button>
+                </form>
+            </section>
+
+            <section>
                 <h2 class="text-xl font-bold text-foreground-title">Connexion social</h2>
                 <p class="mb-4">Reliez votre compte à un réseau social afin de l'utiliser comme mode de connexion</p>
                 <div class="space-y-2">

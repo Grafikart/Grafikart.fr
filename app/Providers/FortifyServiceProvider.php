@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Domains\Account\Data\CreateNewUser;
 use App\Domains\Account\Data\ResetUserPassword;
+use App\Domains\Coupon\Coupon;
 use App\Models\User;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
@@ -81,7 +82,14 @@ class FortifyServiceProvider extends ServiceProvider
             'status' => $request->session()->get('status'),
         ]));
 
-        Fortify::registerView(fn () => view('auth.register'));
+        Fortify::registerView(function (Request $request) {
+            $coupon = $request->query('coupon') ? Coupon::find($request->query('coupon')) : null;
+
+            return view('auth.register', [
+                'coupon' => $coupon?->id ?? '',
+                'email' => $coupon?->email ?? '',
+            ]);
+        });
 
         Fortify::twoFactorChallengeView(fn () => view('auth.two-factor-challenge'));
 
