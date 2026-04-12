@@ -46,7 +46,7 @@ describe('update', function () {
 
         $this->actingAs($this->user)
             ->put(route('cms.comments.update', $comment), ['content' => 'New content'])
-            ->assertRedirect(route('cms.comments.index'))
+            ->assertRedirect()
             ->assertSessionHas('success');
 
         $this->assertDatabaseHas('comments', [

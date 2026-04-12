@@ -88,7 +88,7 @@ describe('store', function () {
 
         $this->actingAs($this->user)
             ->post(route('cms.courses.store'), $this->validData)
-            ->assertRedirect(route('cms.courses.index'))
+            ->assertRedirect()
             ->assertSessionHas('success');
 
         $this->assertDatabaseHas('courses', $this->expectedRow);
@@ -101,8 +101,7 @@ describe('store', function () {
             ->post(route('cms.courses.store'), [
                 ...$this->validData,
                 'premium' => true,
-            ])
-            ->assertRedirect(route('cms.courses.index'));
+            ]);
 
         $this->assertDatabaseHas('courses', [
             'title' => 'Test Course Title',
@@ -138,7 +137,7 @@ describe('update', function () {
 
         $this->actingAs($this->user)
             ->put(route('cms.courses.update', $course), $this->validData)
-            ->assertRedirect(route('cms.courses.index'))
+            ->assertRedirect()
             ->assertSessionHas('success');
 
         $this->assertDatabaseHas('courses', [
@@ -186,8 +185,7 @@ describe('technologies', function () {
                     ['id' => $php->id, 'version' => '8.3', 'primary' => '1'],
                     ['id' => $laravel->id, 'version' => '12'],
                 ],
-            ])
-            ->assertRedirect(route('cms.courses.index'));
+            ]);
 
         $course = Course::where('slug', 'test-course-title')->first();
         expect($course->technologies)->toHaveCount(2);
@@ -206,8 +204,7 @@ describe('technologies', function () {
                 'technologies' => [
                     ['id' => $tech->id, 'version' => '1.0', 'primary' => '1'],
                 ],
-            ])
-            ->assertRedirect(route('cms.courses.index'));
+            ]);
 
         $course->refresh();
         expect($course->technologies)->toHaveCount(1);

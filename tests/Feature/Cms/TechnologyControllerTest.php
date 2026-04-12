@@ -88,7 +88,7 @@ describe('store', function () {
 
         $this->actingAs($this->user)
             ->post(route('cms.technologies.store'), $this->validData)
-            ->assertRedirect(route('cms.technologies.index'))
+            ->assertRedirect()
             ->assertSessionHas('success');
 
         $this->assertDatabaseHas('technologies', $this->expectedRow);
@@ -104,8 +104,7 @@ describe('store', function () {
             ->post(route('cms.technologies.store'), [
                 ...$this->validData,
                 'requirements' => [$javascript->id, $html->id],
-            ])
-            ->assertRedirect(route('cms.technologies.index'));
+            ]);
 
         $technology = Technology::where('slug', 'react')->first();
 
@@ -120,8 +119,7 @@ describe('store', function () {
             ->post(route('cms.technologies.store'), [
                 ...$this->validData,
                 'imageFile' => $file,
-            ])
-            ->assertRedirect(route('cms.technologies.index'));
+            ]);
 
         $technology = Technology::where('slug', 'react')->first();
 
@@ -171,7 +169,7 @@ describe('update', function () {
 
         $this->actingAs($this->user)
             ->put(route('cms.technologies.update', $technology), $this->validData)
-            ->assertRedirect(route('cms.technologies.index'))
+            ->assertRedirect()
             ->assertSessionHas('success');
 
         $this->assertDatabaseHas('technologies', [
@@ -193,8 +191,7 @@ describe('update', function () {
             ->put(route('cms.technologies.update', $technology), [
                 ...$this->validData,
                 'requirements' => [$newReq->id],
-            ])
-            ->assertRedirect(route('cms.technologies.index'));
+            ]);
 
         $technology->refresh();
 

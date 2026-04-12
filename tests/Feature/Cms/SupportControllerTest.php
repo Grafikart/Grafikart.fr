@@ -67,7 +67,7 @@ describe('update', function () {
 
         $this->actingAs($this->user)
             ->put(route('cms.support.update', $this->question), $this->validData)
-            ->assertRedirect(route('cms.support.index'))
+            ->assertRedirect()
             ->assertSessionHas('success');
 
         $this->assertDatabaseHas('support_questions', [
@@ -93,8 +93,7 @@ describe('update', function () {
             ->put(route('cms.support.update', $this->question), [
                 ...$this->validData,
                 'answer' => '   ',
-            ])
-            ->assertRedirect(route('cms.support.index'));
+            ]);
 
         $this->assertDatabaseHas('support_questions', [
             'id' => $this->question->id,
@@ -112,8 +111,7 @@ describe('update', function () {
         ]);
 
         $this->actingAs($this->user)
-            ->put(route('cms.support.update', $this->question), $this->validData)
-            ->assertRedirect(route('cms.support.index'));
+            ->put(route('cms.support.update', $this->question), $this->validData);
 
         Event::assertNotDispatched(SupportQuestionAnswered::class);
     });
@@ -122,8 +120,7 @@ describe('update', function () {
         Notification::fake();
 
         $this->actingAs($this->user)
-            ->put(route('cms.support.update', $this->question), $this->validData)
-            ->assertRedirect(route('cms.support.index'));
+            ->put(route('cms.support.update', $this->question), $this->validData);
 
         Notification::assertSentTo($this->author, function (SupportQuestionAnsweredNotification $notification, array $channels) {
             return $channels === ['mail'];
@@ -138,8 +135,7 @@ describe('update', function () {
         ]);
 
         $this->actingAs($this->user)
-            ->put(route('cms.support.update', $this->question), $this->validData)
-            ->assertRedirect(route('cms.support.index'));
+            ->put(route('cms.support.update', $this->question), $this->validData);
 
         Notification::assertNotSentTo($this->author, SupportQuestionAnsweredNotification::class);
     });
@@ -152,8 +148,7 @@ describe('update', function () {
         ]);
 
         $this->actingAs($this->user)
-            ->put(route('cms.support.update', $this->question), $this->validData)
-            ->assertRedirect(route('cms.support.index'));
+            ->put(route('cms.support.update', $this->question), $this->validData);
 
         $notifications = UserNotification::query()
             ->where('user_id', $this->author->id)

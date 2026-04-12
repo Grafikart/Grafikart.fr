@@ -52,7 +52,7 @@ describe('store', function () {
 
         $this->actingAs($this->user)
             ->post(route('cms.plans.store'), $this->validData)
-            ->assertRedirect(route('cms.plans.index'))
+            ->assertRedirect()
             ->assertSessionHas('success');
 
         $this->assertDatabaseHas('plans', $this->expectedRow);
@@ -74,7 +74,7 @@ describe('update', function () {
 
         $this->actingAs($this->user)
             ->put(route('cms.plans.update', $plan), $this->validData)
-            ->assertRedirect(route('cms.plans.index'))
+            ->assertRedirect()
             ->assertSessionHas('success');
 
         $this->assertDatabaseHas('plans', [

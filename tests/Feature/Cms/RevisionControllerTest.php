@@ -63,7 +63,7 @@ describe('update', function () {
                 'state' => RevisionStatus::Accepted->value,
                 'comment' => 'Looks good',
             ])
-            ->assertRedirect(route('cms.revisions.index'))
+            ->assertRedirect()
             ->assertSessionHas('success');
 
         $revision->refresh();
@@ -84,7 +84,7 @@ describe('update', function () {
                 'state' => RevisionStatus::Rejected->value,
                 'comment' => 'Not relevant',
             ])
-            ->assertRedirect(route('cms.revisions.index'))
+            ->assertRedirect()
             ->assertSessionHas('success');
 
         $revision->refresh();

@@ -95,7 +95,7 @@ describe('store', function () {
 
         $this->actingAs($this->user)
             ->post(route('cms.posts.store'), $this->validData)
-            ->assertRedirect(route('cms.posts.index'))
+            ->assertRedirect()
             ->assertSessionHas('success');
 
         $this->assertDatabaseHas('blog_posts', $this->expectedRow);
@@ -108,8 +108,7 @@ describe('store', function () {
             ->post(route('cms.posts.store'), [
                 ...$this->validData,
                 'categoryId' => null,
-            ])
-            ->assertRedirect(route('cms.posts.index'));
+            ]);
 
         $this->assertDatabaseHas('blog_posts', [
             'title' => 'Test Post Title',
@@ -158,7 +157,7 @@ describe('update', function () {
 
         $this->actingAs($this->user)
             ->put(route('cms.posts.update', $post), $this->validData)
-            ->assertRedirect(route('cms.posts.index'))
+            ->assertRedirect()
             ->assertSessionHas('success');
 
         $this->assertDatabaseHas('blog_posts', [

@@ -77,7 +77,7 @@ abstract class CmsController
         $model->save();
         event(new ($this->events['update'])($model));
 
-        return to_route(sprintf('cms.%s.edit', $this->route), $model)->with('success', 'Le contenu a bien été modifié');
+        return $this->redirectAfterSave($model, 'Le contenu a bien été modifié');
     }
 
     protected function cmsCreate(array $extra = []): Response
@@ -88,7 +88,7 @@ abstract class CmsController
         ]);
     }
 
-    public function cmsStore(DataToModel $data): RedirectResponse
+    protected function cmsStore(DataToModel $data): RedirectResponse
     {
         assert($data instanceof DataToModel);
         $model = new ($this->model)();
@@ -96,15 +96,23 @@ abstract class CmsController
         $model->save();
         event(new ($this->events['store'])($model));
 
-        return to_route(sprintf('cms.%s.index', $this->route))->with('success', 'Le contenu a bien été créé');
+        return $this->redirectAfterSave($model);
     }
 
-    public function cmsDestroy(Model $model, ?string $message = null): RedirectResponse
+    protected function cmsDestroy(Model $model, ?string $message = null): RedirectResponse
     {
         assert($model instanceof $this->model);
         $model->delete();
         event(new ($this->events['destroy'])($model));
 
         return to_route(sprintf('cms.%s.index', $this->route))->with('success', $message ?? 'Le contenu a bien été supprimé');
+    }
+
+    private function redirectAfterSave(Model $model, string $message = 'Le contenu a bien été créé'): RedirectResponse
+    {
+        if (method_exists($this, 'edit')) {
+            return to_route(sprintf('cms.%s.edit', $this->route), [$model])->with('success', $message);
+        }
+        return to_route(sprintf('cms.%s.index', $this->route))->with('success', $message);
     }
 }

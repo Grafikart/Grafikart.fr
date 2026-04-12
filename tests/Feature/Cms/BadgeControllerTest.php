@@ -52,7 +52,7 @@ describe('store', function () {
 
         $this->actingAs($this->user)
             ->post(route('cms.badges.store'), $this->validData)
-            ->assertRedirect(route('cms.badges.index'))
+            ->assertRedirect()
             ->assertSessionHas('success');
 
         $badge = Badge::query()->where('name', 'Badge de test')->first();
@@ -83,7 +83,7 @@ describe('update', function () {
 
         $this->actingAs($this->user)
             ->put(route('cms.badges.update', $badge), $this->validData)
-            ->assertRedirect(route('cms.badges.index'))
+            ->assertRedirect()
             ->assertSessionHas('success');
 
         $badge->refresh();

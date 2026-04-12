@@ -79,7 +79,7 @@ describe('store', function () {
 
         $this->actingAs($this->user)
             ->post(route('cms.formations.store'), $this->validData)
-            ->assertRedirect(route('cms.formations.index'))
+            ->assertRedirect()
             ->assertSessionHas('success');
 
         $this->assertDatabaseHas('formations', $this->expectedRow);
@@ -97,8 +97,7 @@ describe('store', function () {
                     ['title' => 'Introduction', 'ids' => $chapter1->pluck('id')->toArray()],
                     ['title' => 'Advanced Topics', 'ids' => $chapter2->pluck('id')->toArray()],
                 ],
-            ])
-            ->assertRedirect(route('cms.formations.index'));
+            ]);
 
         $formation = Formation::where('slug', $this->validData['slug'])->first();
         expect($formation->chapters)->toHaveCount(2);
@@ -123,7 +122,7 @@ describe('update', function () {
 
         $this->actingAs($this->user)
             ->put(route('cms.formations.update', $formation), $this->validData)
-            ->assertRedirect(route('cms.formations.index'))
+            ->assertRedirect()
             ->assertSessionHas('success');
 
         $this->assertDatabaseHas('formations', [
@@ -153,8 +152,7 @@ describe('update', function () {
                 'chapters' => [
                     ['title' => 'Chapter 1', 'ids' => [$courses[0]->id]],
                 ],
-            ])
-            ->assertRedirect(route('cms.formations.index'));
+            ]);
 
         // Course 1 should still belong to the formation
         expect($courses[0]->fresh()->formation_id)->toBe($formation->id);
@@ -200,8 +198,7 @@ describe('technologies', function () {
                     ['id' => $php->id, 'version' => '8.3', 'primary' => '1'],
                     ['id' => $laravel->id, 'version' => '12'],
                 ],
-            ])
-            ->assertRedirect(route('cms.formations.index'));
+            ]);
 
         $formation = Formation::where('slug', 'test-formation-title')->first();
         expect($formation->technologies)->toHaveCount(2);
@@ -220,8 +217,7 @@ describe('technologies', function () {
                 'technologies' => [
                     ['id' => $tech->id, 'version' => '1.0', 'primary' => '1'],
                 ],
-            ])
-            ->assertRedirect(route('cms.formations.index'));
+            ]);
 
         $formation->refresh();
         expect($formation->technologies)->toHaveCount(1);

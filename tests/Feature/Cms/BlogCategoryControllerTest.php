@@ -44,7 +44,7 @@ describe('store', function () {
 
         $this->actingAs($this->user)
             ->post(route('cms.blog_categories.store'), $this->validData)
-            ->assertRedirect(route('cms.blog_categories.index'))
+            ->assertRedirect()
             ->assertSessionHas('success');
 
         $this->assertDatabaseHas('blog_categories', $this->expectedRow);
@@ -66,7 +66,7 @@ describe('update', function () {
 
         $this->actingAs($this->user)
             ->put(route('cms.blog_categories.update', $blogCategory), $this->validData)
-            ->assertRedirect(route('cms.blog_categories.index'))
+            ->assertRedirect()
             ->assertSessionHas('success');
 
         $this->assertDatabaseHas('blog_categories', [

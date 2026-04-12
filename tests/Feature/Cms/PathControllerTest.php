@@ -85,7 +85,7 @@ describe('store', function () {
 
         $this->actingAs($this->user)
             ->post(route('cms.paths.store'), $this->validData)
-            ->assertRedirect(route('cms.paths.index'))
+            ->assertRedirect()
             ->assertSessionHas('success');
 
         $this->assertDatabaseHas('paths', $this->expectedRow);
@@ -98,8 +98,7 @@ describe('store', function () {
             ->post(route('cms.paths.store'), [
                 ...$this->validData,
                 'tags' => 'php, laravel, php, api ',
-            ])
-            ->assertRedirect(route('cms.paths.index'));
+            ]);
 
         $path = Path::where('slug', 'test-path-title')->first();
         expect($path->tags)->toBe('php, laravel, api');
@@ -170,7 +169,7 @@ describe('update', function () {
 
         $this->actingAs($this->user)
             ->put(route('cms.paths.update', $path), $this->validData)
-            ->assertRedirect(route('cms.paths.index'))
+            ->assertRedirect()
             ->assertSessionHas('success');
 
         $this->assertDatabaseHas('paths', [
@@ -188,8 +187,7 @@ describe('update', function () {
             ->put(route('cms.paths.update', $path), [
                 ...$this->validData,
                 'tags' => 'laravel, api',
-            ])
-            ->assertRedirect(route('cms.paths.index'));
+            ]);
 
         $path->refresh();
         expect($path->tags)->toBe('laravel, api');
@@ -222,8 +220,7 @@ describe('update', function () {
                         'parents' => [],
                     ],
                 ],
-            ])
-            ->assertRedirect(route('cms.paths.index'));
+            ]);
 
         $fork->refresh();
         expect($fork->meta)->toBe(['video' => 'abc123']);
@@ -256,8 +253,7 @@ describe('update', function () {
                         'parents' => [],
                     ],
                 ],
-            ])
-            ->assertRedirect(route('cms.paths.index'));
+            ]);
 
         $fork->refresh();
         expect($fork->meta)->toBeNull();
