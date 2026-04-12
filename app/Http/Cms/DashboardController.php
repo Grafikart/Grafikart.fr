@@ -2,13 +2,14 @@
 
 namespace App\Http\Cms;
 
-use App\Domains\Notification\NotificationService;
 use App\Domains\Premium\TransactionRepository;
 use App\Domains\Revision\Revision;
 use App\Domains\Support\SupportQuestion;
 use App\Http\Cms\Data\JobItemData;
 use App\Http\Cms\Data\Revision\RevisionRowData;
 use App\Http\Cms\Data\Support\SupportQuestionRowData;
+use App\Infrastructure\Notification\Notification\TestNotification;
+use App\Infrastructure\Notification\NotificationService;
 use App\Infrastructure\Queue\FailedJob;
 use App\Infrastructure\Queue\Job;
 use App\Models\User;
@@ -44,10 +45,7 @@ final readonly class DashboardController
     {
         $user = $request->user();
         assert($user instanceof User);
-        $service->send(
-            message: 'Ceci est une <strong>notification de test</strong>',
-            url: '/',
-        );
+        $user->notify(new TestNotification);
 
         return new JsonResponse;
     }

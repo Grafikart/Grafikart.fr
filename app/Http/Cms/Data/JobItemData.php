@@ -2,10 +2,11 @@
 
 namespace App\Http\Cms\Data;
 
-use App\Domains\Notification\Jobs\NotificationBroadcasterJob;
+use App\Infrastructure\Notification\Channel\HasSiteNotification;
 use App\Infrastructure\Queue\FailedJob;
 use App\Infrastructure\Queue\Job;
 use Carbon\CarbonImmutable;
+use Illuminate\Notifications\SendQueuedNotifications;
 use Spatie\LaravelData\Data;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
@@ -23,8 +24,13 @@ class JobItemData extends Data
     public static function fromModel(Job $job): self
     {
         $message = $job->name;
-        if ($job->job instanceof NotificationBroadcasterJob) {
-            $message = $job->job->notification->message;
+
+        // For site notification, extract the message from the notification
+        if ($job->job instanceof SendQueuedNotifications && $job->job->notification instanceof HasSiteNotification) {
+            $notification = $job->job->notification;
+            assert($notification instanceof HasSiteNotification);
+            $notifiable = $job->job->notifiables->firstOrFail();
+            $message = $notification->toSiteNotification($notifiable)->message;
         }
 
         $date = $job instanceof FailedJob ? $job->failed_at : $job->available_at;

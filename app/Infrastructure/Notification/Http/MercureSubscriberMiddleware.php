@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domains\Notification\Http;
+namespace App\Infrastructure\Notification\Http;
 
 use App\Models\User;
 use Closure;
@@ -10,6 +10,9 @@ use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Lcobucci\JWT\Signer\Key\InMemory;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Inject mercureAuthorization cookie for authenticated user to receive notifications
+ */
 class MercureSubscriberMiddleware
 {
     public function handle(Request $request, Closure $next): Response

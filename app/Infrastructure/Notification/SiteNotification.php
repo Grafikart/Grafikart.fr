@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Domains\Notification\Models;
+namespace App\Infrastructure\Notification;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
-class Notification extends Model
+class SiteNotification extends Model
 {
     public const null UPDATED_AT = null;
+    protected $table = 'notifications';
 
     protected $guarded = [];
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure\Mailing\Notification;
+namespace App\Infrastructure\Notification\Notification;
 
 use App\Models\User;
 use Illuminate\Notifications\Messages\MailMessage;

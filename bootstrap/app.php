@@ -1,6 +1,6 @@
 <?php
 
-use App\Domains\Notification\Http\MercureSubscriberMiddleware;
+use App\Infrastructure\Notification\Http\MercureSubscriberMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;

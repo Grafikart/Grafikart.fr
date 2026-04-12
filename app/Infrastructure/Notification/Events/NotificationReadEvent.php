@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domains\Notification;
+namespace App\Infrastructure\Notification\Events;
 
 final readonly class NotificationReadEvent
 {

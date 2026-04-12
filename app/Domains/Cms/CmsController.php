@@ -77,7 +77,7 @@ abstract class CmsController
         $model->save();
         event(new ($this->events['update'])($model));
 
-        return to_route(sprintf('cms.%s.index', $this->route))->with('success', 'Le contenu a bien été modifié');
+        return to_route(sprintf('cms.%s.edit', $this->route), $model)->with('success', 'Le contenu a bien été modifié');
     }
 
     protected function cmsCreate(array $extra = []): Response

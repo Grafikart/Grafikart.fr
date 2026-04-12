@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Domains\Notification\NotificationService;
+use App\Infrastructure\Notification\NotificationService;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\Isolatable;
 

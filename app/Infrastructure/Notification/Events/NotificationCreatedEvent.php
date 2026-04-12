@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Domains\Notification\Events;
+namespace App\Infrastructure\Notification\Events;
 
-use App\Domains\Notification\Models\Notification;
-use App\Domains\Notification\NotificationData;
+use App\Infrastructure\Notification\NotificationData;
+use App\Infrastructure\Notification\SiteNotification;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
@@ -13,7 +13,7 @@ readonly class NotificationCreatedEvent implements ShouldBroadcast
 {
     public NotificationData $notification;
 
-    public function __construct(Notification $notification)
+    public function __construct(SiteNotification $notification)
     {
         $this->notification = NotificationData::from($notification);
     }

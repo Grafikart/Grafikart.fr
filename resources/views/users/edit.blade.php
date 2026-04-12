@@ -78,8 +78,8 @@
             @include('users._subscription')
 
             <section>
-                <h2 class="text-xl font-bold text-foreground-title">Coupon</h2>
-                <p class="mb-4">Si vous avez un code promotionnel / code d'école vous pouvez l'insérer ici</p>
+                <h2 class="text-xl font-bold text-foreground-title mb-1">Coupon</h2>
+                <p class="mb-4 text-muted">Si vous avez un code promotionnel / code d'école vous pouvez l'insérer ici</p>
                 <form method="post" action="{{ route('users.coupon') }}" class="flex">
                    <x-atoms.input placeholder="Code" name="coupon" label="Coupon" :value="old('coupon')" />
                    <x-atoms.button type="submit" variant="primary" class="w-max flex-none">Utiliser ce code</x-atoms.button>
@@ -90,8 +90,8 @@
             </section>
 
             <section>
-                <h2 class="text-xl font-bold text-foreground-title">Connexion social</h2>
-                <p class="mb-4">Reliez votre compte à un réseau social afin de l'utiliser comme mode de connexion</p>
+                <h2 class="text-xl font-bold text-foreground-title mb-1">Connexion social</h2>
+                <p class="mb-4 text-muted">Reliez votre compte à un réseau social afin de l'utiliser comme mode de connexion</p>
                 <div class="space-y-2">
                     @php
                         $drivers = ['github', 'google', 'facebook'];
@@ -125,7 +125,7 @@
                                     <x-lucide-facebook/>
                                     @break;
                             @endswitch
-                            {{ $isConnected ? 'Dissocier' : 'Lier' }} votre compte {{ ucfirst($driver) }}
+                            {{ $isConnected ? 'Dissocier de ' : 'Lier avec ' }} {{ ucfirst($driver) }}
                         </x-atoms.button>
                     @endforeach
                 </div>

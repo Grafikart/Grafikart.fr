@@ -3,10 +3,10 @@
 use App\Domains\Cms\Event\ContentDeletedEvent;
 use App\Domains\Cms\Event\ContentUpdatedEvent;
 use App\Domains\Course\Course;
-use App\Domains\Notification\Models\Notification as UserNotification;
 use App\Domains\Support\Event\SupportQuestionAnswered;
 use App\Domains\Support\SupportQuestion;
-use App\Infrastructure\Mailing\Notification\SupportQuestionAnsweredNotification;
+use App\Infrastructure\Notification\Notification\SupportQuestionAnsweredNotification;
+use App\Infrastructure\Notification\SiteNotification as UserNotification;
 use App\Models\User;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;

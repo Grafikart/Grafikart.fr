@@ -5,7 +5,6 @@ $subscription = app(\App\Domains\Premium\PremiumService::class)->findSubscriptio
 <section>
     @if($subscription)
         <h2 class="text-xl font-bold text-foreground-title mb-2">
-            <x-lucide-user class="size-5 inline"/>
             Mon abonnement
         </h2>
         @if($subscription->isActive())
@@ -35,7 +34,6 @@ $subscription = app(\App\Domains\Premium\PremiumService::class)->findSubscriptio
         @endif
     @elseif($user->isPremium())
         <h2 class="text-xl font-bold text-foreground-title mb-2">
-            <x-lucide-user class="size-5 inline"/>
             Mon abonnement
         </h2>
         <p class="mb-2 text-muted">

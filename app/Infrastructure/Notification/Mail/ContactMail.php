@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure\Mailing\Mail;
+namespace App\Infrastructure\Notification\Mail;
 
 use App\Http\Front\Data\ContactData;
 use Illuminate\Bus\Queueable;

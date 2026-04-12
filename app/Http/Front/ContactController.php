@@ -4,7 +4,7 @@ namespace App\Http\Front;
 
 use App\Http\Controller;
 use App\Http\Front\Data\ContactData;
-use App\Infrastructure\Mailing\Mail\ContactMail;
+use App\Infrastructure\Notification\Mail\ContactMail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;

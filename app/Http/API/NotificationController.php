@@ -2,9 +2,9 @@
 
 namespace App\Http\API;
 
-use App\Domains\Notification\Models\Notification;
-use App\Domains\Notification\NotificationData;
-use App\Domains\Notification\NotificationService;
+use App\Infrastructure\Notification\NotificationData;
+use App\Infrastructure\Notification\NotificationService;
+use App\Infrastructure\Notification\SiteNotification;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -16,7 +16,7 @@ class NotificationController
         $limit = min($request->integer('limit', 15), 15);
         $user = $request->user();
         assert($user instanceof User);
-        $notifications = Notification::query()
+        $notifications = SiteNotification::query()
             ->latest()
             ->forUser($user)
             ->limit($limit)

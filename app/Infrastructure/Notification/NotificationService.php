@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Domains\Notification;
+namespace App\Infrastructure\Notification;
 
 use App\Domains\Notification\Jobs\NotificationBroadcasterJob;
-use App\Domains\Notification\Models\Notification;
 use App\Helpers\UrlGenerator;
 use App\Models\User;
 use Carbon\CarbonInterface;
@@ -18,10 +17,10 @@ readonly class NotificationService
     /**
      * Send a notification on a specific Channel
      */
-    public function send(string $message, ?Model $model = null, ?User $user = null, string $channel = 'public', ?CarbonInterface $date = null, $url = null): Notification
+    public function send(string $message, ?Model $model = null, ?User $user = null, string $channel = 'public', ?CarbonInterface $date = null, $url = null): SiteNotification
     {
         $url ??= $model ? $this->urlGenerator->url($model) : '/';
-        $notification = Notification::updateOrCreate([
+        $notification = SiteNotification::updateOrCreate([
             'url' => $url,
             'channel' => $channel,
             ...$model ? [
@@ -52,7 +51,7 @@ readonly class NotificationService
 
     public function clean(): int
     {
-        return Notification::query()
+        return SiteNotification::query()
             ->where('created_at', '<', now()->subMonths(6))
             ->delete();
     }

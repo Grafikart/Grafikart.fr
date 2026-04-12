@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domains\Notification;
+namespace App\Infrastructure\Notification;
 
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Data;

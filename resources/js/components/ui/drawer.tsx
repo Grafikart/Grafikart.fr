@@ -1,4 +1,4 @@
-import { DrawerPreview as DrawerBase } from "@base-ui/react/drawer"
+import { Drawer as DrawerBase } from "@base-ui/react/drawer"
 import { XIcon } from "lucide-react"
 import type { ComponentProps, PropsWithChildren, ReactNode } from "react"
 import { Button } from "@/components/ui/button.tsx"

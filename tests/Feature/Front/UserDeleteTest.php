@@ -1,6 +1,6 @@
 <?php
 
-use App\Infrastructure\Mailing\Notification\UserDeletionNotification;
+use App\Infrastructure\Notification\Notification\UserDeletionNotification;
 use App\Models\User;
 use Illuminate\Support\Facades\Notification;
 
