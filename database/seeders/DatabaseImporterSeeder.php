@@ -28,6 +28,8 @@ class DatabaseImporterSeeder extends DatabaseSeeder
         //        $this->migrateForum();
         $this->migratePremium();
         $this->migrateTransactions();
+
+        $this->resetSequences();
     }
 
     private function migrateUsers(): void
@@ -553,6 +555,35 @@ class DatabaseImporterSeeder extends DatabaseSeeder
                     DB::table('transactions')->upsert($data, uniqueBy: ['id']);
                 }
             });
+    }
+
+    private function resetSequences(): void
+    {
+        $this->command?->info('Resetting PostgreSQL sequences...');
+
+        $tables = [
+            'users',
+            'schools',
+            'badges',
+            'attachments',
+            'formations',
+            'courses',
+            'technologies',
+            'blog_categories',
+            'blog_posts',
+            'comments',
+            'forum_tags',
+            'forum_topics',
+            'forum_messages',
+            'plans',
+            'subscriptions',
+            'transactions',
+            'progress',
+        ];
+
+        foreach ($tables as $table) {
+            DB::statement("SELECT setval(pg_get_serial_sequence('$table', 'id'), coalesce(max(id), 1), max(id) IS NOT NULL) FROM $table;");
+        }
     }
 
     private function eurosToCents(float|int|null $amount): int
