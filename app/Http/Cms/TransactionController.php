@@ -5,6 +5,7 @@ namespace App\Http\Cms;
 use App\Domains\Cms\CmsController;
 use App\Domains\Premium\Models\Transaction;
 use App\Http\Cms\Data\Transaction\TransactionRowData;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Response;
@@ -25,17 +26,18 @@ class TransactionController extends CmsController
             ->with('user')
             ->orderByDesc('created_at');
 
-        $search = $request->string('q')->trim()->toString();
-        if ($search !== '') {
-            if (str_starts_with($search, 'user:')) {
-                $userId = (int) substr($search, 5);
-                $query->where('user_id', $userId);
-            } else {
-                $query->where('method_id', 'LIKE', "%{$search}%");
-            }
-        }
+        return $this->cmsIndex(query: $query);
+    }
 
-        return $this->cmsIndex(query: $query, extra: ['q' => $search]);
+    protected function applySearch(string $search, Builder $query): Builder
+    {
+        if (str_starts_with($search, 'user:')) {
+            $userId = (int) substr($search, 5);
+
+            return $query->where('user_id', $userId);
+        } else {
+            return $query->whereLike('method_id', "%{$search}%");
+        }
     }
 
     public function destroy(Transaction $transaction): RedirectResponse

@@ -22,6 +22,8 @@ class PlanController extends CmsController
 
     protected string $route = 'plans';
 
+    protected string $searchField = 'name';
+
     public function index(): Response
     {
         return $this->cmsIndex();

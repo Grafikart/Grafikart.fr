@@ -1,4 +1,4 @@
-import { Link, usePage } from "@inertiajs/react"
+import {Link, usePage} from "@inertiajs/react"
 import {
   AwardIcon,
   BadgeEuroIcon,
@@ -13,19 +13,14 @@ import {
   ListVideoIcon,
   MessagesSquareIcon,
   MonitorPlayIcon,
+  SearchIcon,
   StarIcon,
   TicketIcon,
   UserIcon,
   WaypointsIcon,
 } from "lucide-react"
-import {
-  type FC,
-  Fragment,
-  type PropsWithChildren,
-  type ReactNode,
-  useEffect,
-} from "react"
-import { toast } from "sonner"
+import {type FC, Fragment, type PropsWithChildren, type ReactNode, useEffect,} from "react"
+import {toast} from "sonner"
 import CommentController from "@/actions/App/Http/Cms/CommentController.ts"
 import RevisionController from "@/actions/App/Http/Cms/RevisionController.ts"
 import CourseController from "@/actions/App/Http/Cms/CourseController.ts"
@@ -41,8 +36,8 @@ import SupportController from "@/actions/App/Http/Cms/SupportController.ts"
 import TechnologyController from "@/actions/App/Http/Cms/TechnologyController.ts"
 import TransactionController from "@/actions/App/Http/Cms/TransactionController.ts"
 import UserController from "@/actions/App/Http/Cms/UserController.ts"
-import { BreadcrumbNav } from "@/components/ui/breadcrumb.tsx"
-import { Separator } from "@/components/ui/separator.tsx"
+import {BreadcrumbNav} from "@/components/ui/breadcrumb.tsx"
+import {Separator} from "@/components/ui/separator.tsx"
 import {
   Sidebar,
   SidebarContent,
@@ -56,8 +51,10 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
-import type { NavItem, SharedData } from "@/types"
+import type {NavItem, SharedData} from "@/types"
 import BadgeController from "@/actions/App/Http/Cms/BadgeController.ts"
+import {Form} from "@/components/form.tsx"
+import {InputGroup, InputGroupAddon, InputGroupInput,} from "@/components/ui/input-group.tsx"
 
 type Props = {
   breadcrumb: NavItem[]
@@ -202,6 +199,20 @@ function Header(props: Props) {
         <Separator orientation="vertical" className="mx-2 h-4" />
         {props.breadcrumb && <BreadcrumbNav items={props.breadcrumb} />}
         <div className="ml-auto" />
+          <Form method="get">
+            <InputGroup className="max-w-xs">
+              <InputGroupInput
+                placeholder="Rechercher..."
+                name="q"
+                defaultValue={
+                  new URLSearchParams(window.location.search).get("q") ?? ""
+                }
+              />
+              <InputGroupAddon>
+                <SearchIcon />
+              </InputGroupAddon>
+            </InputGroup>
+          </Form>
         {props.top}
       </div>
     </header>

@@ -43,6 +43,9 @@ abstract class CmsController
     // @var string Route name for redirections (e.g., 'plans', 'blog_categories')
     protected string $route = '';
 
+    // @var string Field used when searching
+    protected string $searchField = 'title';
+
     // @var array{update: class-string, store: class-string, destroy: class-string} Events to dispatch
     protected array $events = [
         'update' => ContentUpdatedEvent::class,
@@ -52,9 +55,15 @@ abstract class CmsController
 
     protected function cmsIndex(?Builder $query = null, array $extra = []): Response
     {
+        $search = trim(request()->query('q', ''));
+        $query = $query ?? ($this->model)::query();
+        if (! empty($search)) {
+            $query = $this->applySearch($search, $query);
+        }
+
         return Inertia::render(sprintf('%s/index', $this->componentPath), [
             'pagination' => ($this->rowData)::collect(
-                ($query ?? ($this->model)::query())->paginate(15)),
+                $query->paginate(15)),
             ...$extra,
         ]);
     }
@@ -108,11 +117,17 @@ abstract class CmsController
         return to_route(sprintf('cms.%s.index', $this->route))->with('success', $message ?? 'Le contenu a bien été supprimé');
     }
 
+    protected function applySearch(string $search, Builder $query): Builder
+    {
+        return $query->whereLike($this->searchField, '%'.$search.'%');
+    }
+
     private function redirectAfterSave(Model $model, string $message = 'Le contenu a bien été créé'): RedirectResponse
     {
         if (method_exists($this, 'edit')) {
             return to_route(sprintf('cms.%s.edit', $this->route), [$model])->with('success', $message);
         }
+
         return to_route(sprintf('cms.%s.index', $this->route))->with('success', $message);
     }
 }

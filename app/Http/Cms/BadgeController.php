@@ -24,6 +24,8 @@ class BadgeController extends CmsController
 
     protected string $route = 'badges';
 
+    protected string $searchField = 'name';
+
     public function index(): Response
     {
         $query = Badge::query()

@@ -36,10 +36,6 @@
   }
 }
 
-.react-flow__node {
-  transition: 0.5s;
-}
-
 .group[data-focus="true"] {
   .react-flow__node:not(.selected) {
     opacity: 0.2;

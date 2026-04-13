@@ -24,6 +24,8 @@ final class CouponController extends CmsController
 
     protected string $route = 'coupons';
 
+    protected string $searchField = 'id';
+
     public function index(): Response
     {
         $query = Coupon::query()->orderByDesc('created_at');

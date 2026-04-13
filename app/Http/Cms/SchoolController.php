@@ -27,6 +27,8 @@ final class SchoolController extends CmsController
 
     protected string $route = 'schools';
 
+    protected string $searchField = 'name';
+
     public function index(): Response
     {
         $query = School::query()->orderByDesc('created_at');
@@ -47,6 +49,7 @@ final class SchoolController extends CmsController
     public function edit(School $school): Response
     {
         $school->load('students');
+
         return $this->cmsEdit($school);
     }
 

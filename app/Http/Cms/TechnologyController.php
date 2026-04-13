@@ -27,10 +27,12 @@ class TechnologyController extends CmsController
 
     protected string $route = 'technologies';
 
+    protected string $searchField = 'name';
+
     public function index(Request $request): Response|JsonResponse
     {
         // Handle API request for autocomplete
-        if ($request->has('q')) {
+        if ($request->has('q') && ! $request->inertia()) {
             $search = $request->string('q');
             $technologies = Technology::query()
                 ->where('name', 'like', "%{$search}%")

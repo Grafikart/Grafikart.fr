@@ -23,6 +23,7 @@ export function Pagination({ pagination }: Props) {
                 data-active={link.active}
                 variant={link.active ? "ghost" : "outline"}
                 render={<Link href={link.url ?? "#"} />}
+                nativeButton={false}
                 dangerouslySetInnerHTML={{
                   __html: link.label.toString(),
                 }}

@@ -51,6 +51,10 @@ class UserController extends CmsController
             $extra['days'] = $this->getDailySignups();
         }
 
+        if ($request->query('q')) {
+            $query->whereLike('name', '%'.$request->query('q').'%');
+        }
+
         return $this->cmsIndex(query: $query, extra: $extra);
     }
 
@@ -92,6 +96,14 @@ class UserController extends CmsController
 
         return OptionItemData::collect($users);
 
+    }
+
+    protected function applySearch(string $search, Builder $builder): Builder
+    {
+        $search = '%'.$search.'%';
+
+        return $builder->where(fn (Builder $b) => $b->whereLike('email', $search)->orWhereLike('name', $search)
+        );
     }
 
     /**

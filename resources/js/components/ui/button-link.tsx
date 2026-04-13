@@ -19,7 +19,7 @@ function ButtonLink({
           onBefore={confirm ? () => window.confirm(confirm) : undefined}
         />
       }
-      nativeButton={false}
+      nativeButton={!!confirm}
     />
   )
 }
