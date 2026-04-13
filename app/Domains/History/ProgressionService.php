@@ -159,7 +159,7 @@ class ProgressionService
         return Progress::query()
             ->where('progressable_type', $type)
             ->where('user_id', $user->id)
-            ->where('completed', '>=',$minCompleted)
+            ->where('progress', '>=',$minCompleted)
             ->whereIn('progressable_id', $ids)
             ->pluck('progress', 'progressable_id');
     }

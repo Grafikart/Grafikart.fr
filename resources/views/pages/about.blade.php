@@ -17,12 +17,12 @@
             </p>
         </div>
         <div>
-            <x-atoms.tabs class="mb-4 mx-auto block" as="nav-tabs">
-                <x-atoms.tab href="#phpstorm" :active="true">
+            <x-atoms.tabs variant="pill" class="mb-4 mx-auto block" as="nav-tabs">
+                <x-atoms.tab variant="pill" href="#phpstorm" :active="true">
                     <img src="/images/icons/phpstorm.svg" class="size-5" alt=""/>
                     PHPStorm
                 </x-atoms.tab>
-                <x-atoms.tab href="#vscode">
+                <x-atoms.tab variant="pill" href="#vscode">
                     <img src="/images/icons/vscode.svg" alt="" class="size-5">
                     VScode
                 </x-atoms.tab>

@@ -44,7 +44,14 @@ final class MarkdownHelper
         if (! $content) {
             return '';
         }
-        $content = strip_tags(self::html($content));
+        // Cut the content before the first title (avoid parsing unecessary content)
+        $firstTitlePos = strpos($content, '##');
+        if ($firstTitlePos > 50) {
+            $content = substr($content, 0, $firstTitlePos);
+        }
+
+        // Generate the text from the markdown
+        $content = strip_tags(self::htmlUntrusted($content));
         if (mb_strlen($content) <= $characterLimit) {
             return $content;
         }
