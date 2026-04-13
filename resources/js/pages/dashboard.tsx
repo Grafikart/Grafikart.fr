@@ -16,6 +16,10 @@ import {
   flushFailed,
   retryFailed,
 } from "@/actions/App/Http/Cms/JobController.ts"
+import {
+  clearCache,
+  notification,
+} from "@/actions/App/Http/Cms/DashboardController.ts"
 import SupportController from "@/actions/App/Http/Cms/SupportController.ts"
 import { withLayout } from "@/components/layout.tsx"
 import { PageTitle } from "@/components/page-title.tsx"
@@ -92,17 +96,27 @@ export default withLayout<Props>(
           />
         )}
         <RevenueChart months={props.months} days={props.days} />
-        <Button
-          variant="secondary"
-          onClick={() => {
-            apiFetch("/cms/dashboard/notifications", {
-              method: "POST",
-            }).then(() => toast.success("Notification envoyée"))
-          }}
-        >
-          <BellIcon />
-          Envoyer une notification de test
-        </Button>
+        <div className="flex flex-wrap gap-2">
+          <Button
+            variant="secondary"
+            onClick={() => {
+              apiFetch(notification.url(), {
+                method: "POST",
+              }).then(() => toast.success("Notification envoyée"))
+            }}
+          >
+            <BellIcon />
+            Envoyer une notification de test
+          </Button>
+          <ButtonLink
+            variant="destructive"
+            href={clearCache()}
+            confirm="Voulez-vous vraiment vider le cache ?"
+          >
+            <TrashIcon />
+            Vider le cache
+          </ButtonLink>
+        </div>
       </div>
     )
   },

@@ -14,7 +14,9 @@ use App\Infrastructure\Queue\FailedJob;
 use App\Infrastructure\Queue\Job;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -48,5 +50,12 @@ final readonly class DashboardController
         $user->notify(new TestNotification);
 
         return new JsonResponse;
+    }
+
+    public function clearCache(): RedirectResponse
+    {
+        Artisan::call('cache:clear');
+
+        return back()->with('success', 'Le cache a bien été vidé');
     }
 }
