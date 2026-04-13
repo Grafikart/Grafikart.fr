@@ -54,7 +54,7 @@
                     <tbody>
                 @foreach($students as $student)
                     <tr>
-                        <td>{{ $student->email }}</td>
+                        <td><a href="{{ route('schools.student', ['student' => $student->id]) }}">{{ $student->email }}</a></td>
                         <td>{{ $student->createdAt->translatedFormat('j F Y') }}</td>
                         <td>{{ $student->endAt }}</td>
                         <td class="text-end">{{ $student->completions }}</td>

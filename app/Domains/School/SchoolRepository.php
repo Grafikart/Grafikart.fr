@@ -10,7 +10,6 @@ use Illuminate\Support\Collection;
 
 class SchoolRepository
 {
-
     public function countPending(int $schoolId): int
     {
         return Coupon::query()
@@ -43,6 +42,7 @@ class SchoolRepository
         $coupons->setCollection(
             $coupons->getCollection()->map(
                 fn (Coupon $coupon): SchoolStudentData => new SchoolStudentData(
+                    id: $coupon->user->id,
                     email: $coupon->user->email,
                     createdAt: $coupon->user->created_at,
                     endAt: $coupon->user->premium_end_at,

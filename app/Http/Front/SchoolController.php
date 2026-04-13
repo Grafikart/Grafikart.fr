@@ -2,17 +2,24 @@
 
 namespace App\Http\Front;
 
+use App\Domains\Coupon\Coupon;
+use App\Domains\History\Progress;
 use App\Domains\School\Data\SchoolImportData;
 use App\Domains\School\Data\SchoolImportRow;
 use App\Domains\School\InvalidCSVException;
 use App\Domains\School\School;
 use App\Domains\School\SchoolImportService;
 use App\Domains\School\SchoolRepository;
+use App\Http\Front\Data\StudentProgressData;
+use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 
 class SchoolController
 {
-    public function show(\Illuminate\Http\Request $request, SchoolRepository $repository)
+    public function show(\Illuminate\Http\Request $request, SchoolRepository $repository): View
     {
         $school = $this->school();
         $page = $request->query->getInt('page', 1);
@@ -24,7 +31,7 @@ class SchoolController
         ]);
     }
 
-    public function import(SchoolImportData $data, SchoolImportService $service)
+    public function import(SchoolImportData $data, SchoolImportService $service): JsonResponse|array
     {
         $school = $this->school();
         try {
@@ -52,5 +59,28 @@ class SchoolController
     private function school(): School
     {
         return School::where('user_id', Auth::user()->id)->firstOrFail();
+    }
+
+    public function student(User $student): View
+    {
+        $school = $this->school();
+        $coupon = Coupon::where('user_id', $student->id)->where('school_id', $school->id)->first();
+        if (! $coupon) {
+            throw new AccessDeniedException("Cet utilisateur n'est pas un élève de votre école");
+        }
+
+        $progress = Progress::query()
+            ->where('progressable_type', 'formation')
+            ->with('progressable', 'progressable.technologies')
+            ->where('user_id', $student->id)
+            ->get();
+
+        return view('schools.student', [
+            'name' => $student->name,
+            'email' => $student->email,
+            'school' => $school->name,
+            'items' => StudentProgressData::collect($progress),
+        ]);
+
     }
 }

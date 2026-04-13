@@ -30,6 +30,7 @@ Route::middleware(['auth'])->group(function () {
 
     // School
     Route::get('/ecole', [\App\Http\Front\SchoolController::class, 'show'])->name('schools.show');
+    Route::get('/student/{student}', [\App\Http\Front\SchoolController::class, 'student'])->name('schools.student');
     Route::post('/ecole', [\App\Http\Front\SchoolController::class, 'import'])->name('schools.import');
 
     // Misc
@@ -44,22 +45,21 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/revision/{revision}', [\App\Http\Front\RevisionController::class, 'delete'])->name('revision.delete');
 });
 
-// Pages
-Route::get('/ui', [\App\Http\Front\PageController::class, 'ui'])->name('pages.ui');
-Route::get('/a-propos', [\App\Http\Front\PageController::class, 'about'])->name('pages.about');
-Route::get('/tchat', fn () => redirect('https://discordapp.com/invite/rAuuD7Q'))->name('tchat');
-
 // Images / Assets
 Route::get('/media/resize/{width}/{height}/{path}', [\App\Http\Front\ImageController::class, 'resize'])
     ->where('path', '.*')
     ->whereNumber(['width', 'height'])
     ->name('image.resize');
 
-// Page
+// Pages
+Route::get('/ui', [\App\Http\Front\PageController::class, 'ui'])->name('pages.ui');
+Route::get('/a-propos', [\App\Http\Front\PageController::class, 'about'])->name('pages.about');
 Route::get('/politique-de-confidentialite', [\App\Http\Front\PageController::class, 'privacy'])->name('pages.privacy');
 Route::get('/premium', [\App\Http\Front\PageController::class, 'premium'])->name('premium');
+Route::get('/premium/ecoles', [\App\Http\Front\PageController::class, 'school'])->name('pages.school');
 Route::get('/contact', [\App\Http\Front\ContactController::class, 'show'])->name('contact');
 Route::post('/contact', [\App\Http\Front\ContactController::class, 'submit']);
+Route::get('/tchat', fn () => redirect('https://discordapp.com/invite/rAuuD7Q'))->name('tchat');
 
 // Forum
 Route::group(['prefix' => '/forum', 'as' => 'forum.'], function () {

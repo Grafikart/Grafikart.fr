@@ -7,6 +7,7 @@ use Carbon\CarbonImmutable;
 final readonly class SchoolStudentData
 {
     public function __construct(
+        public string $id,
         public string $email,
         public CarbonImmutable $createdAt,
         public CarbonImmutable $endAt,
