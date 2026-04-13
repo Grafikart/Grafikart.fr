@@ -7,6 +7,7 @@ use App\Domains\Course\Formation;
 use App\Domains\Course\Path;
 use App\Domains\Course\PathNode;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 class ProgressionService
@@ -130,5 +131,41 @@ class ProgressionService
                 'progress' => $formationProgress,
             ]
         );
+    }
+
+    /**
+     * Return the progression linked to the collection
+     */
+    public function forCollection(?User $user, ?Collection $collection, $minCompleted = 0): Collection
+    {
+        if (! $user || !$collection) {
+            return collect();
+        }
+        $first = $collection->first();
+        if (! $first) {
+            return collect();
+        }
+
+        $type = $first instanceof Model ? $first->getMorphClass() : 'course';
+        $ids = $collection->map(function ($item) {
+            if (is_int($item)) {
+                return $item;
+            }
+            assert($item instanceof Model);
+
+            return $item->getKey();
+        });
+
+        return Progress::query()
+            ->where('progressable_type', $type)
+            ->where('user_id', $user->id)
+            ->where('completed', '>=',$minCompleted)
+            ->whereIn('progressable_id', $ids)
+            ->pluck('progress', 'progressable_id');
+    }
+
+    public function completedForCollection(?User $user, ?Collection $collection): Collection
+    {
+        return $this->forCollection($user, $collection, 1000)->keys();
     }
 }

@@ -14,6 +14,7 @@ import { lazywc, r2wc } from "@/lib/custom-element.ts"
 import "../css/front.css"
 import { BurgerMenu } from "@/elements/burger-menu.tsx"
 import { DrawerToggle } from "@/elements/drawer-toggle.ts"
+import { HasCompletedElement } from "@/elements/has-completed.ts"
 
 r2wc("path-preview", () => import("@/elements/path-preview.tsx"), {
   path: "json",
@@ -53,3 +54,4 @@ customElements.define("site-header", SiteHeader)
 customElements.define("site-notification", SiteNotificationElement)
 customElements.define("time-ago", TimeAgo)
 customElements.define("drawer-toggle", DrawerToggle)
+customElements.define("has-completed", HasCompletedElement, { extends: "a" })

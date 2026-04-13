@@ -9,6 +9,7 @@
     <meta property="og:duration" content="{{ $course->duration }}"/>
     <meta name="twitter:card" content="summary_large_image"/>
     <meta name="video:start" content="{{ $course->startTimeForUser($user) }}"/>
+    <meta name="user:completed" content="{{ $completed->join(',') }}"/>
 @endsection
 
 @section('body')

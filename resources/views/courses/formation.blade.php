@@ -8,6 +8,7 @@
     <meta property="og:type" content="video.other"/>
     <meta property="og:duration" content="{{ $formation->duration }}"/>
     <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="user:completed" content="{{ $completed->join(',') }}"/>
 @endsection
 
 @section('body')
@@ -30,8 +31,8 @@
                     </div>
                 @endif
 
-                @if($completed > 0 && auth()->user())
-                    <x-atoms.progress-bar :current="$completed" :total="$total"/>
+                @if($completed->count() > 0 && auth()->user())
+                    <x-atoms.progress-bar :current="$completed->count()" :total="$total"/>
                     <x-atoms.button size="lg"
                                     href="{{ route('formations.continue', ['formation' => $formation->slug]) }}#autoplay">
                         <x-lucide-play-circle/>

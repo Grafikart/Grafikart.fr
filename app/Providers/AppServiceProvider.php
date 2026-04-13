@@ -86,9 +86,7 @@ class AppServiceProvider extends ServiceProvider
         Date::use(CarbonImmutable::class);
 
         // When cache is disabled, autoload relationships to make dev env faster
-        if (config('cache.default') === 'array') {
-            Model::automaticallyEagerLoadRelationships();
-        }
+        Model::automaticallyEagerLoadRelationships();
 
         Relation::enforceMorphMap([
             'post' => Post::class,

@@ -110,6 +110,7 @@ Route::group([
     });
     Route::resource('badges', \App\Http\Cms\BadgeController::class)->except(['show']);
     Route::get('dashboard', [\App\Http\Cms\DashboardController::class, 'index'])->name('dashboard');
+    Route::post('dashboard/cache', [\App\Http\Cms\DashboardController::class, 'clearCache'])->name('dashboard.cache.clear');
     Route::post('dashboard/notifications', [\App\Http\Cms\DashboardController::class, 'notification'])->name('notifications.store');
     Route::resource('blog_categories', \App\Http\Cms\BlogCategoryController::class);
     Route::resource('comments', \App\Http\Cms\CommentController::class)->only(['index', 'update', 'destroy']);

@@ -43,9 +43,9 @@
             @endif
             @foreach($items as $item)
                 @if($type === 'formation')
-                    <x-molecules.formation-card :formation="$item"/>
+                    <x-molecules.formation-card :formation="$item" :progress="$progress->get($item->id)"/>
                 @else
-                    <x-molecules.course-card :course="$item"/>
+                    <x-molecules.course-card :course="$item" :progress="$progress->get($item->id)"/>
                 @endif
             @endforeach
         </div>

@@ -14,7 +14,7 @@ use Illuminate\View\View;
 
 class FormationController
 {
-    public function index(ContentFilterData $filter): View
+    public function index(Request $request, ContentFilterData $filter, ProgressionService $progressionService): View
     {
         $query = Formation::query()
             ->where('online', true)
@@ -32,18 +32,17 @@ class FormationController
             'items' => $items,
             'page' => $filter->page,
             'type' => 'formation',
+            'progress' => $progressionService->forCollection($request->user(), $items->getCollection()),
             'show_title' => ! $filter->isActive(),
         ]);
     }
 
-    public function show(Formation $formation, Request $request, ProgressionService $progressService)
+    public function show(Formation $formation, Request $request, ProgressionService $progressService): View
     {
-        [$completed, $total] = $progressService->progress($formation, $request->user());
-
         return view('courses.formation', [
             'formation' => $formation,
-            'completed' => $completed,
-            'total' => $total,
+            'completed' => $progressService->completedForCollection($request->user(), $formation->course_ids),
+            'total' => $formation->course_ids->count(),
         ]);
     }
 
