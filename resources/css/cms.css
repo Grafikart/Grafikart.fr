@@ -94,13 +94,14 @@
   --sidebar-accent-foreground: var(--primary);
   --sidebar-border: light-dark(#d5e3ec, oklch(0.3261 0.0597 282.5832));
   --sidebar-ring: light-dark(#d5e3ec, oklch(0.7162 0.1597 290.3962));
+  --edge: light-dark(#acb8c0, #595e9d);
 }
 
-.light {
+html.light {
   color-scheme: light;
 }
 
-.dark {
+html.dark {
   color-scheme: dark;
 }
 
@@ -131,7 +132,7 @@
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
   --color-muted: var(--muted);
-  --color-edge: var(--ring);
+  --color-edge: var(--edge);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);

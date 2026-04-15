@@ -16,9 +16,6 @@ import { BurgerMenu } from "@/elements/burger-menu.tsx"
 import { DrawerToggle } from "@/elements/drawer-toggle.ts"
 import { HasCompletedElement } from "@/elements/has-completed.ts"
 
-r2wc("path-preview", () => import("@/elements/path-preview.tsx"), {
-  path: "json",
-})
 r2wc("path-detail", () => import("@/elements/path-detail.tsx"), {
   path: "json",
   completednodeids: "json",

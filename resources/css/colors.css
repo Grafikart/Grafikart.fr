@@ -42,10 +42,10 @@
   --list-hover: color-mix(in srgb, var(--primary) 8%, transparent);
 }
 
-.light {
+html.light {
   color-scheme: light;
 }
 
-.dark {
+html.dark {
   color-scheme: dark;
 }

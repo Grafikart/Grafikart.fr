@@ -143,7 +143,7 @@ export const NodesInput = (props: Props) => {
             fitView
             onDoubleClickCapture={onDblClick}
           >
-            <IsoBackground id="2" gap={snapGrid} color="var(--border)" />
+            <IsoBackground id="2" gap={snapGrid} />
             {spacePressed && <Lasso partial />}
           </ReactFlow>
           {edge && (

@@ -10,10 +10,9 @@ const selector = (s: ReactFlowState) => ({
 type Props = {
   id: string
   gap: [number, number]
-  color: string
 }
 
-function BackgroundComponent({ id, gap, color }: Props) {
+function BackgroundComponent({ id, gap }: Props) {
   const ref = useRef<SVGSVGElement>(null)
   const { transform, patternId } = useStore(selector, shallow)
 
@@ -45,12 +44,12 @@ function BackgroundComponent({ id, gap, color }: Props) {
       >
         <path
           d={`M 0 ${scaledGap[1]} L ${scaledGap[0]} 0`}
-          stroke={color}
+          stroke="var(--border)"
           strokeWidth={1}
         />
         <path
           d={`M 0 0 L ${scaledGap[0]} ${scaledGap[1]}`}
-          stroke={color}
+          stroke="var(--border)"
           strokeWidth={0.5}
         />
       </pattern>

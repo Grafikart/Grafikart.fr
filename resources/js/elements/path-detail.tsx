@@ -119,7 +119,7 @@ export default function PathDetail({ element, path, completednodeids }: Props) {
         data-focus={Boolean(selectedNode)}
         onPaneClick={handleDismiss}
       >
-        <IsoBackground id="2" gap={snapGrid} color="var(--color-border)" />
+        <IsoBackground id="2" gap={snapGrid} />
       </ReactFlow>
       {selectedNode && (
         <NodeDetail node={selectedNode} onClose={handleDismiss} />

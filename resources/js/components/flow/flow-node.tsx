@@ -63,7 +63,7 @@ function SupportIcon(props: { selected: boolean; completed: boolean }) {
       <path
         className={clsx(
           "fill-card stroke-edge",
-          props.selected && "fill-primary-light stroke-primary",
+          props.selected && "stroke-primary",
           props.completed && "fill-success-bg stroke-success",
         )}
         strokeWidth="10"
