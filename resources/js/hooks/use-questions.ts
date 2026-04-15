@@ -25,7 +25,7 @@ export function useQuestions(courseId: string) {
       staleTime: 600_000,
     },
   )
-  const questions = data ? data.slice(0, 2) : []
+  const questions = data ?? []
   const [state, setState] = useState<QuizState>("start")
   const [step, setStep] = useState(0)
   const [score, setScore] = useState(0)
