@@ -130,5 +130,10 @@
         </div>
     </div>
     @endcache
-
+    @can('edit', $formation)
+        <x-atoms.floating-button href="{{ route('cms.formations.edit', $formation->id) }}">
+            <x-lucide-edit/>
+            Editer
+        </x-atoms.floating-button>
+    @endcan
 @endsection

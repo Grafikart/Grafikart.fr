@@ -38,4 +38,11 @@
     </div>
     @endcache
 
+    @can('edit', $post)
+        <x-atoms.floating-button href="{{ route('cms.posts.edit', $post->id) }}">
+            <x-lucide-edit/>
+            Editer
+        </x-atoms.floating-button>
+    @endcan
+
 @endsection

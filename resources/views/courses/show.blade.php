@@ -155,14 +155,17 @@
     @if($course->formation)
         <x-molecules.drawer side="right">
             <x-organisms.chapters :chapters="$course->formation->chaptersWithCourses" :active="$course->id"/>
-            <div class="space-y-2 px-4 mt-auto">
-                <div class="text-sm uppercase text-muted">Fichiers attachés</div>
-            </div>
         </x-molecules.drawer>
     @endif
 
+    <x-molecules.revision-link :model="$course" class="mb-20"/>
     @endcache
 
-    <x-molecules.revision-link :model="$course" class="mb-20"/>
+    @can('edit', $course)
+        <x-atoms.floating-button href="{{ route('cms.courses.edit', $course->id) }}">
+            <x-lucide-edit/>
+            Editer
+        </x-atoms.floating-button>
+    @endcan
 
 @endsection
