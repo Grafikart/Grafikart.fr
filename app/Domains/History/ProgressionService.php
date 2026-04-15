@@ -73,10 +73,11 @@ class ProgressionService
         }
 
         /** @var Collection<int, PathNode> $nodes */
-        $nodes = $path->nodes;
-        $contentIds = $path->nodes
-            ->filter(fn (PathNode $node) => $node->content_id !== null)
-            ->pluck('content_id');
+        $nodes = $path->nodes()
+            ->whereNotNull('content_id')
+            ->select('content_id', 'content_type')
+            ->get();
+        $contentIds = $nodes->pluck('content_id');
 
         if ($contentIds->isEmpty()) {
             return [];
@@ -90,7 +91,7 @@ class ProgressionService
             ->get(['progressable_type', 'progressable_id'])
             ->map(fn (Progress $p): string => sprintf('%s:%s', $p->progressable_type, $p->progressable_id));
 
-        return $path->nodes
+        return $nodes
             ->filter(fn (PathNode $node) => $completedItems->contains(sprintf('%s:%s', $node->content_type, $node->content_id)))
             ->pluck('id')
             ->values()
@@ -138,7 +139,7 @@ class ProgressionService
      */
     public function forCollection(?User $user, ?Collection $collection, $minCompleted = 0): Collection
     {
-        if (! $user || !$collection) {
+        if (! $user || ! $collection) {
             return collect();
         }
         $first = $collection->first();
@@ -159,7 +160,7 @@ class ProgressionService
         return Progress::query()
             ->where('progressable_type', $type)
             ->where('user_id', $user->id)
-            ->where('progress', '>=',$minCompleted)
+            ->where('progress', '>=', $minCompleted)
             ->whereIn('progressable_id', $ids)
             ->pluck('progress', 'progressable_id');
     }
@@ -167,5 +168,21 @@ class ProgressionService
     public function completedForCollection(?User $user, ?Collection $collection): Collection
     {
         return $this->forCollection($user, $collection, 1000)->keys();
+    }
+
+    /**
+     * Retrieve the progression for the User
+     */
+    public function findProgress(?User $user, Model $model): ?Progress
+    {
+        if (! $user) {
+            return null;
+        }
+
+        return Progress::query()
+            ->where('user_id', $user->id)
+            ->where('progressable_type', $model->getMorphClass())
+            ->where('progressable_id', $model->getKey())
+            ->first();
     }
 }

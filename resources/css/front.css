@@ -32,7 +32,7 @@
   --color-background-dark: var(--background-dark);
   --color-card: var(--card);
   --color-popover: var(--card);
-  --color-white: var(--white);
+  --color-white: #f7fafb;
   --color-card-footer: var(--card-footer);
   --color-border: var(--border);
   --color-secondary: var(--background);

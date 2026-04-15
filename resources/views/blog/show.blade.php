@@ -12,6 +12,7 @@
 
 @section('body')
 
+    @cache('post-show', $post)
     <div class="px-4 mx-auto max-w-182 pb-20 pt-10 flex flex-col">
         <h1 class="text-page-title mb-4">
             {{ $post->title }}
@@ -34,7 +35,7 @@
         </div>
 
         <x-molecules.revision-link :model="$post" class="mt-4"/>
-
     </div>
+    @endcache
 
 @endsection

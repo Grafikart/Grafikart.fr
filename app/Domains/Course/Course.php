@@ -14,7 +14,6 @@ use App\Domains\Revision\Revisionable;
 use App\Helpers\MarkdownHelper;
 use App\Infrastructure\Search\Contracts\Searchable;
 use App\Infrastructure\Search\SearchDocument;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -167,6 +166,12 @@ class Course extends Model implements RegisterMedia, Revisionable, Searchable
         }
     }
 
+    #[Scope]
+    protected function selectForUrl(Builder $query): void
+    {
+        $query->select('id', 'slug');
+    }
+
     /**
      * Getters
      */
@@ -193,23 +198,6 @@ class Course extends Model implements RegisterMedia, Revisionable, Searchable
     public function isScheduled(): bool
     {
         return $this->created_at->isFuture();
-    }
-
-    public function startTimeForUser(?User $user): int
-    {
-        if (! $user) {
-            return 0;
-        }
-        $progress = Progress::where('user_id', $user->id)
-            ->where('progressable_type', $this->getMorphClass())
-            ->where('progressable_id', $this->id)
-            ->first();
-
-        if (! $progress || $progress->ratio >= 1) {
-            return 0;
-        }
-
-        return (int) round($progress->ratio * $this->duration);
     }
 
     public function excerpt(): string

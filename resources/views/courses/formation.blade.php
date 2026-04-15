@@ -3,19 +3,20 @@
 @section('title', sprintf('Formation %s',$formation->title))
 
 @section('head')
+    @cache('formation-show-head', $formation)
     <meta property="og:image" content="{{ $formation->youtubeThumbnail }}"/>
     <meta property="og:created_time" content="{{ $formation->created_at->toIso8601String() }}"/>
     <meta property="og:type" content="video.other"/>
     <meta property="og:duration" content="{{ $formation->duration }}"/>
     <meta name="twitter:card" content="summary_large_image"/>
+    @endcache
     <meta name="user:completed" content="{{ $completed->join(',') }}"/>
 @endsection
 
 @section('body')
     @php
         $technology = $formation->technology();
-        $chapters = $formation->chaptersWithCourses;
-        $course = $chapters[0]['courses'][0] ?? null;
+        $course = \App\Domains\Course\Course::query()->selectForUrl()->find($formation->chapters->first()->ids[0])
     @endphp
 
     <div class="bg-background-light pb-12">
@@ -40,7 +41,7 @@
                     </x-atoms.button>
                 @else
 
-                    <x-atoms.button size="lg" href="{{ app_url($course) }}">
+                <x-atoms.button size="lg" href="{{ app_url($course) }}">
                     <x-lucide-play-circle/>
                     Commencer
                 </x-atoms.button>
@@ -52,6 +53,8 @@
         </div>
     </div>
 
+
+    @cache('formation-show', $formation)
     <div class="container py-10 grid grid-cols-1 md:grid-cols-[1fr_420px] gap-30">
         {{-- Presentation --}}
         <div>
@@ -126,5 +129,6 @@
             @endforeach
         </div>
     </div>
+    @endcache
 
 @endsection

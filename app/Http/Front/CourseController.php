@@ -3,7 +3,6 @@
 namespace App\Http\Front;
 
 use App\Domains\Course\Course;
-use App\Domains\Evaluation\QuizService;
 use App\Domains\History\ProgressionService;
 use App\Http\Front\Data\ContentFilterData;
 use Illuminate\Http\RedirectResponse;
@@ -46,12 +45,15 @@ class CourseController
         ]);
     }
 
-    public function show(string $slug, Course $course, Request $request, QuizService $quizCompletionService, ProgressionService $progressionService): View
+    public function show(string $slug, Course $course, Request $request, ProgressionService $progressionService): View
     {
+        $progress = $progressionService->findProgress($request->user(), $course);
+
         return view('courses.show', [
             'course' => $course,
             'completed' => $progressionService->completedForCollection($request->user(), $course->formation?->course_ids),
-            'quizCompleted' => $quizCompletionService->isCompleted($course, $request->user()),
+            'start' => $progress ? round($progress->ratio * $course->duration) : 0,
+            'quizCompleted' => $progress?->score !== null,
         ]);
     }
 

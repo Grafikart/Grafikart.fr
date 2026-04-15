@@ -14,7 +14,6 @@ class BlogController extends Controller
     {
         $query = Post::query()
             ->where('online', true)
-            ->with(['attachment', 'category'])
             ->orderByDesc('created_at');
 
         if ($category->exists) {

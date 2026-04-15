@@ -1,6 +1,6 @@
 @extends('front', $course->formation_id ? ['style' => '--drawer-width: 350px', 'drawer' => 'right'] : [])
 
-@section('title', sprintf('Tutoriel video %s : %s',$course->mainTechnologies->pluck('name')->join(' & '), $course->title ))
+@section('title', sprintf('%s, Tutoriel video %s', $course->title, $course->mainTechnologies->pluck('name')->join(' & ')))
 
 @section('head')
     <meta property="og:image" content="{{ $course->youtubeThumbnail }}"/>
@@ -8,12 +8,12 @@
     <meta property="og:type" content="video.other"/>
     <meta property="og:duration" content="{{ $course->duration }}"/>
     <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="video:start" content="{{ $course->startTimeForUser($user) }}"/>
+    <meta name="video:start" content="{{ $start }}"/>
     <meta name="user:completed" content="{{ $completed->join(',') }}"/>
 @endsection
 
 @section('body')
-    @cache("course-show", ($course->isPublic() || $user?->isPremium()) ? 'visible' : 'premium')
+    @cache("course-show", $course, ($course->isPublic() || $user?->isPremium()) ? 'visible' : 'premium')
     <main class="bg-background-light">
         <div class="max-w-container mx-auto space-y-2">
             <x-breadcrumbs :model="$course" class="hidden"/>
@@ -138,7 +138,7 @@
             <div class="prose prose-lg max-w-200 mx-auto px-4" id="content">
                 {!! \App\Helpers\MarkdownHelper::html($course->content) !!}
             </div>
-            <div id="support" class="container" hidden">
+            <div id="support" class="container" hidden>
                 <support-course course="{{ $course->id }}"></support-course>
             </div>
             @if($hasEvaluation)

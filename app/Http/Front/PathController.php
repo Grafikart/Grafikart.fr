@@ -29,10 +29,10 @@ class PathController extends Controller
 
     public function show(string $slug, Path $path, ProgressionService $progressionService): View
     {
-        $path->load(['nodes.parents']);
+        $cacheKey = 'path.show.'.cache_key($path);
 
         return view('paths.show', [
-            'path' => PathViewData::from($path),
+            'path' => cache()->remember($cacheKey, 3600, fn () => PathViewData::from($path->load('nodes.parents'))),
             'completedNodeIds' => $progressionService->completedNodeIds($path),
         ]);
     }
