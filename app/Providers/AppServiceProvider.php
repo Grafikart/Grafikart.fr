@@ -9,14 +9,20 @@ use App\Http\Front\AuthController;
 use App\Infrastructure\Twitch\TwitchAPI;
 use App\Models\User;
 use Carbon\CarbonImmutable;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use League\Flysystem\Filesystem;
+use Spatie\Dropbox\Client as DropboxClient;
+use Spatie\FlysystemDropbox\DropboxAdapter;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -47,6 +53,7 @@ class AppServiceProvider extends ServiceProvider
         $this->registerRoutePatterns();
         $this->registerViewGlobals();
         $this->configureDefaults();
+        $this->registerFileSystems();
     }
 
     private function registerPermissions(): void
@@ -110,5 +117,15 @@ class AppServiceProvider extends ServiceProvider
         //                ->uncompromised()
         //            : null
         //        );
+    }
+
+    private function registerFileSystems(): void
+    {
+        Storage::extend('dropbox', function (Application $app, array $config) {
+            $client = new DropboxClient($config['token']);
+            $adapter = new DropboxAdapter($client);
+
+            return new FilesystemAdapter(new Filesystem($adapter, $config), $adapter, $config);
+        });
     }
 }

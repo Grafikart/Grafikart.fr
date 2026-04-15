@@ -68,6 +68,12 @@ return [
             'report' => false,
         ],
 
+        'snapshots' => [
+            'driver' => 'dropbox',
+            'token' => env('DROPBOX_TOKEN'),
+            'root' => database_path('snapshots'),
+        ],
+
     ],
 
     /*
