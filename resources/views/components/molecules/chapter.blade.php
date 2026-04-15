@@ -15,6 +15,9 @@
         <circle cx="16" cy="16" r="15" fill="var(--color-success)" stroke-width="1"></circle>
         <path d="M20.3 12.3L14 18.58l-2.3-2.3a1 1 0 00-1.4 1.42l3 3a1 1 0 001.4 0l7-7a1 1 0 00-1.4-1.42z" fill="#fff"></path>
     </svg>
-    <p @class(["not-premium:text-warning" => $chapter->premium])>{{ $chapter->title }}</p>
+    <p @class(["not-premium:text-warning" => $chapter->premium])>
+        {{ $chapter->title }}<br/>
+        <time-ago prefix="Disponible" hidden class="premium:hidden text-xs text-muted" display="future" time="{{ $chapter->created_at->getTimestamp() }}"></time-ago>
+    </p>
     <span class="text-muted text-sm ml-auto">{{ duration($chapter->duration) }}</span>
 </a>

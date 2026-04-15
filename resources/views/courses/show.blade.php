@@ -16,7 +16,7 @@
     @cache("course-show", $course, ($course->isPublic() || $user?->isPremium()) ? 'visible' : 'premium')
     <main class="bg-background-light">
         <div class="max-w-container mx-auto space-y-2">
-            <x-breadcrumbs :model="$course" class="hidden"/>
+            <x-breadcrumbs :model="$course" />
             <h1 class="text-5xl font-bold font-serif text-foreground-title">
                 <span class="hidden">
                     @if($course->formation)
@@ -36,26 +36,6 @@
                 <a href="{{ route('courses.index', ['level' => $course->level->value]) }}" class="flex items-center text-muted gap-2">
                     <x-lucide-graduation-cap class="size-4"/> {{ $course->level->name }}
                 </a>
-                <div class="flex items-center text-muted gap-2">
-                    <x-lucide-tags class="size-4"/>
-                    <div>
-                        @foreach($course->technologies as $k => $technology)
-                            <a href="#" class="hover:underline">
-                                {{ $technology->name }}
-                                @if($technology->pivot->version)
-                                    <span class="text-sm opacity-70">({{$technology->pivot->version}})</span>
-                                @endif
-                            </a>
-                        @endforeach
-                    </div>
-                </div>
-                @if($course->formation)
-                    <a href="{{ route('formations.show', $course->formation->slug) }}"
-                       class="flex items-center text-muted gap-2 hover:underline">
-                        <x-lucide-graduation-cap class="size-4"/>
-                        {{ $course->formation->title }}
-                    </a>
-                @endif
                 <div class="flex items-center text-muted gap-2">
                     <x-lucide-calendar class="size-4"/>
                     <x-atoms.ago :date="$course->created_at"/>

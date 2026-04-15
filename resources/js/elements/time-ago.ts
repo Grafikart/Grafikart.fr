@@ -8,8 +8,10 @@ const formatter = new Intl.RelativeTimeFormat("fr", {
  * Usage: <time-ago time="1770404862">Il y a environ un jour</time-ago>
  */
 export class TimeAgo extends HTMLElement {
-  private timestamp = 0
-  private intervalId: number | null = null
+  private _timestamp = 0
+  private _intervalId: number | null = null
+  private _display: "future" | "always" | "past" = "always"
+  private _prefix: string | null = null
 
   connectedCallback() {
     const timeAttr = this.getAttribute("time")
@@ -18,33 +20,52 @@ export class TimeAgo extends HTMLElement {
       return
     }
 
-    this.timestamp = parseInt(timeAttr, 10)
-    if (Number.isNaN(this.timestamp)) {
+    this._timestamp = parseInt(timeAttr, 10)
+    if (Number.isNaN(this._timestamp)) {
       console.error("TimeAgo: invalid timestamp value")
       return
     }
 
-    // Initial update
-    this.updateTime()
+    this._display =
+      (this.getAttribute("display") as typeof this._display) ?? "always"
+    this._prefix = this.getAttribute("prefix")
 
     // Update every minute for fresh relative times
-    this.intervalId = window.setInterval(() => this.updateTime(), 60000)
+    this._intervalId = window.setInterval(() => this.updateTime(), 60000)
+
+    // Initial update
+    this.updateTime()
   }
 
   disconnectedCallback() {
-    if (this.intervalId !== null) {
-      clearInterval(this.intervalId)
-      this.intervalId = null
+    if (this._intervalId !== null) {
+      clearInterval(this._intervalId)
+      this._intervalId = null
     }
   }
 
   private updateTime() {
     const now = Date.now()
-    const timestampMs = this.timestamp * 1000
+    const timestampMs = this._timestamp * 1000
     const diffInSeconds = Math.floor((timestampMs - now) / 1000)
 
+    // Toggle visibility of the element depending on the display condition
+    if (this._display === "future" && diffInSeconds < 0) {
+      this.setAttribute("hidden", "")
+      this.remove()
+    } else if (this._display === "past" && diffInSeconds > 0) {
+      this.setAttribute("hidden", "")
+      this.remove()
+    } else {
+      this.removeAttribute("hidden")
+    }
+
     const { value, unit } = this.getRelativeTimeValue(diffInSeconds)
-    this.textContent = formatter.format(value, unit)
+    let text = formatter.format(value, unit)
+    if (this._prefix) {
+      text = `${this._prefix} ${text}`
+    }
+    this.textContent = text
   }
 
   private getRelativeTimeValue(diffInSeconds: number): {

@@ -1,4 +1,4 @@
-import { GripVerticalIcon, PlusIcon, XCircleIcon } from "lucide-react"
+import { GripVerticalIcon, PlusIcon, XCircleIcon, XIcon } from "lucide-react"
 import { type KeyboardEventHandler, useState } from "react"
 import CourseController from "@/actions/App/Http/Cms/CourseController.ts"
 import { Button } from "@/components/ui/button.tsx"
@@ -11,6 +11,7 @@ import {
 import { Spinner } from "@/components/ui/spinner.tsx"
 import { apiFetch } from "@/hooks/use-api-fetch.ts"
 import type { ChapterData, OptionItemData } from "@/types"
+import { Link } from "@inertiajs/react"
 
 type Props = {
   defaultValue: ChapterData[]
@@ -168,7 +169,9 @@ function ChapterItem({
                     <GripVerticalIcon />
                   </Button>
                 </SortableItemHandle>
-                {course.name}
+                <Link href={CourseController.edit(course.id)} target="_blank">
+                  {course.name}
+                </Link>
                 <Button
                   type="button"
                   variant="ghost"
@@ -176,7 +179,7 @@ function ChapterItem({
                   onClick={() => onRemoveCourse(k)}
                   className="flex-none ml-auto"
                 >
-                  <XCircleIcon className="text-muted-foreground" />
+                  <XIcon className="text-muted-foreground" />
                 </Button>
               </Card>
             </SortableItem>
