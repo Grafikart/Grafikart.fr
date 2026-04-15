@@ -44,13 +44,13 @@ $active = Route::currentRouteName();
 
         <div class="flex ml-auto">
             @can('school-manage')
-                <a href="#" class="{{ $tabCls }}" @if($active === 'school') aria-selected="true" @endif>
+                <a href="{{ route('schools.show') }}" class="{{ $tabCls }}" @if($active === 'school') aria-selected="true" @endif>
                     <x-lucide-graduation-cap class="size-5"/>
                     École
                 </a>
             @endcan
             @can('admin')
-                <a href="#" class="{{ $tabCls }}">
+                <a href="{{ route('cms.dashboard') }}" class="{{ $tabCls }}" data-turbo="false">
                     <x-lucide-pencil class="size-5"/>
                     Administration
                 </a>
