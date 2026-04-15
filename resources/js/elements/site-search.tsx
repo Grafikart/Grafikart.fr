@@ -57,10 +57,11 @@ function SearchInputInner() {
           itemToStringValue={(item) => item.title}
           filter={null}
         >
-          <div className="relative">
+          <form className="relative" method="get" action="/recherche">
             <Autocomplete.Input
               placeholder="Rechercher un contenu"
               className="rounded-md pl-10 peer"
+              name="q"
               render={<Input />}
             />
             {isFetching ? (
@@ -68,7 +69,7 @@ function SearchInputInner() {
             ) : (
               <SearchIcon className={iconCls} />
             )}
-          </div>
+          </form>
 
           <Autocomplete.List hidden={items.length === 0}>
             {(item: APISearchItem) => (

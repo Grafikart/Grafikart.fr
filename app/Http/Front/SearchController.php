@@ -2,8 +2,10 @@
 
 namespace App\Http\Front;
 
+use App\Domains\Course\Technology;
 use App\Http\Controller;
 use App\Infrastructure\Search\Contracts\SearchInterface;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\View\View;
@@ -14,7 +16,7 @@ class SearchController extends Controller
 
     public function __construct(private readonly SearchInterface $search) {}
 
-    public function index(Request $request): View
+    public function index(Request $request): View|RedirectResponse
     {
         $q = $request->query('q', '');
         $page = $request->integer('page', 1);
@@ -25,6 +27,14 @@ class SearchController extends Controller
                 'total' => 0,
                 'items' => new LengthAwarePaginator(items: [], total: 0, perPage: self::PER_PAGE),
             ]);
+        }
+
+        // Look for a technology matching the query
+        if (strlen($q) < 15 && ! strpos(' ', $q)) {
+            $technology = Technology::query()->whereLike('name', $q)->first();
+            if ($technology) {
+                return redirect()->to(app_url($technology));
+            }
         }
 
         $results = $this->search->search($request->string('q'), [], self::PER_PAGE, $page);

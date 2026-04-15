@@ -18,7 +18,7 @@
         />
     </div>
 
-    <div class="border-t bg-background pt-10 container grid grid-cols-1 md:grid-cols-[1fr_400px] gap-10">
+    <div class="border-t bg-background pt-10 container grid grid-cols-1 md:grid-cols-[1fr_400px] gap-10 pb-20">
         <main class="space-y-8">
             @if($isEmpty)
                 <x-atoms.alert type="info">
@@ -37,6 +37,7 @@
                         </div>
                     </div>
                 @endforeach
+                @if($courses->isNotEmpty())
                 <div class="space-y-4">
                     <h2 class="text-2xl font-bold text-foreground-title">
                         Découvrir {{ $technology->name }} avec des tutoriels
@@ -51,6 +52,7 @@
                 <div class="mt-8">
                     {{ $courses->links() }}
                 </div>
+                @endif
             @endif
         </main>
 
