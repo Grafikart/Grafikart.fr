@@ -11,9 +11,10 @@ function app_url(mixed $model, bool $absolute = false)
 /**
  * @param  string[]  $args
  */
-function cn(array $args)
+function cn(array $args): string
 {
-    $tw = new TailwindMerge;
+    static $tw = null;
+    $tw ??= new TailwindMerge(cache: app('cache.store'));
 
     return $tw->merge(Arr::toCssClasses($args));
 }

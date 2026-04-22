@@ -32,6 +32,10 @@ skills-lock.json
 /storage/*.json
 /storage/pail
 /storage/debugbar
+/storage/app
+/storage/framework
+/storage/logs
+
 /vendor
 .sonda
 .DS_Store

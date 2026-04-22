@@ -17,17 +17,18 @@ class DatabaseImporterSeeder extends DatabaseSeeder
         $this->migrateUsers();
         $this->migrateSchools();
         $this->migrateCoupons();
-        $this->migrateBadges();
         $this->migrateAttachments();
         $this->migrateFormations();
         $this->migrateCourses();
-        $this->migrateProgress();
         $this->migrateTechnologies();
         $this->migrateBlog();
-        //        $this->migrateComments();
-        //        $this->migrateForum();
+        $this->migrateComments();
         $this->migratePremium();
+
         $this->migrateTransactions();
+        $this->migrateForum();
+        $this->migrateProgress();
+        $this->migrateBadges();
 
         $this->resetSequences();
     }
