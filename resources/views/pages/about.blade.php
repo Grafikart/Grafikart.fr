@@ -72,13 +72,13 @@
                         <p>
                             En revanche, je ne l'utilise pas quotidiennement car il offre une auto-complétion moins
                             performante sur
-                            le language PHP
+                            le langage PHP
                             et n'offre pas forcément tous les outils que je suis habitué à utiliser sur PHPStorm.
                         </p>
                         <p>
                             Dans la plupart des vidéos j'utilise un éditeur sans configuration pour avoir une
                             interface familière
-                            mais voici quelques extensions incontournable que j'utilise pour ma propose installation
+                            mais voici quelques extensions incontournables que j'utilise pour ma propre installation
                             de l'éditeur
                         </p>
                         <ul>
@@ -90,7 +90,7 @@
                                 fichier.
                             </li>
                             <li><a href="https://marketplace.visualstudio.com/items?itemName=2gua.rainbow-brackets">Rainbow
-                                    Brackets</a> colorise les parenthèse / crochets et permet de mieux s'y repérer
+                                    Brackets</a> colorise les parenthèses / crochets et permet de mieux s'y repérer
                                 dans la ponctuation.
                             </li>
                         </ul>
@@ -118,16 +118,16 @@
         <x-atoms.lazy-video video="C5BSFB4_il4" poster="/images/env/phpstorm.jpg" class="my-8 max-w-250 mx-auto"/>
         <div class="prose prose-lg max-w-175 mx-auto">
             <p>
-                Cette distribution dispose d'un système de "rolling release" qui permet de disposer des dernière
+                Cette distribution dispose d'un système de "rolling release" qui permet de disposer des dernières
                 versions
                 des logiciels en continu (pour le meilleur et pour le pire). Un dépôt supplémentaire et accessible par
                 la
                 communauté,
-                le Arch User Repository, permet aussi d'installer simplement et rapidement des application plus
+                le Arch User Repository, permet aussi d'installer simplement et rapidement des applications plus
                 spécifiques.
             </p>
             <p>
-                Mon environnement de bureau (l'interface qui permet d'intéragir avec le système) est <a
+                Mon environnement de bureau (l'interface qui permet d'interagir avec le système) est <a
                     href="https://i3wm.org/">Hyprland</a>. C'est un environnement un peu particulier qui dispose les fenêtres
                 sous formes de mosaïques plutôt que d'avoir des fenêtres flottantes.
             </p>
