@@ -14,6 +14,7 @@ class ProfileUpdateData extends Data
         public string $name,
         public string $email,
         public ?string $country = null,
+        public bool $html5_player = false,
     ) {}
 
     public static function rules(ValidationContext $context): array

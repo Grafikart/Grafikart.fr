@@ -22,6 +22,13 @@
                         <x-molecules.field name="country" label="Pays" type="select" :value="$user->country ?? 'FR'"
                                            :options="\App\Helpers\IntlHelper::countries()">
                         </x-molecules.field>
+                        @if($user->isPremium())
+                        <div class="col-span-full flex items-center gap-2">
+                            <input type="hidden" name="html5_player" value="0">
+                            <x-atoms.switch name="html5_player" value="1" :checked="$user->html5_player" id="html5_player"/>
+                            <label for="html5_player" class="text-sm">Utiliser le lecteur HTML5 pour toutes les vidéos</label>
+                        </div>
+                        @endif
                         @if(!$user->hasVerifiedEmail())
                         <div class="text-sm text-muted col-span-full -mt-2">
                             Un lien de vérification a été envoyé à cet email.
