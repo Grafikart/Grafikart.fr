@@ -1,8 +1,7 @@
 @props(['orientation' => 'horizontal'])
 
-<hr class="{{ cn([
+<hr {{ $attributes->class([
     'bg-border',
     'h-px w-full' => $orientation === 'horizontal',
     'w-px' => $orientation === 'vertical',
-    $attributes->get('class'),
-]) }}" />
+]) }} />

@@ -1,14 +1,33 @@
 ::-webkit-scrollbar {
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-background-light);
+  background: var(--color-background);
   padding: 1px;
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--color-border);
   border-radius: 4px;
+  border-right: solid 3px transparent;
+  background-clip: padding-box;
+}
+
+.select::picker(select)::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.select::picker(select)::-webkit-scrollbar-track {
+  background: var(--color-background-light);
+  padding: 1px;
+}
+
+.select::picker(select)::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+  border-right: solid 1px transparent;
+  background-clip: padding-box;
 }

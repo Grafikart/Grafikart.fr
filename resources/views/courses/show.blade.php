@@ -133,7 +133,7 @@
     </main>
 
     @if($course->formation)
-        <x-molecules.drawer side="right">
+        <x-molecules.drawer side="right" class="w-88">
             <x-organisms.chapters :chapters="$course->formation->chaptersWithCourses" :active="$course->id"/>
         </x-molecules.drawer>
     @endif

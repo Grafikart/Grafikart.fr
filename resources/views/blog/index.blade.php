@@ -21,10 +21,10 @@
             @endif
         </h1>
         <form method="GET" action="{{ route('blog.index') }}">
-            <x-atoms.select
+            <select
                 name="category"
                 onchange="window.location.href = '{{ route('blog.index') }}/category/' + this.value"
-                class="dropdown group"
+                class="select"
             >
                 <x-atoms.button variant="secondary">
                     {{ $category ? $category->name : 'Toutes les catégories' }}
@@ -44,7 +44,7 @@
                         </div>
                     </x-atoms.option>
                 @endforeach
-            </x-atoms.select>
+            </select>
 
         </form>
 

@@ -1,5 +1,11 @@
 @extends('front')
 
+@section('title', 'UI')
+
+@section('head')
+    <meta name="robots" content="noindex, nofollow">
+@endsection
+
 @section('body')
 
     <div class="container py-8 space-y-16">
@@ -8,14 +14,18 @@
         <section>
             <h2 class="text-4xl font-bold font-serif mb-4">Boutons</h2>
             <div class="flex flex-col gap-2 *:w-max">
+                @foreach(['md', 'sm', 'lg', 'icon'] as $size)
                 <div class="flex items-center gap-2 flex-wrap">
                     @foreach(['primary', 'secondary', 'outline', 'ghost', 'destructive'] as $variant)
-                        <x-atoms.button :variant="$variant"><x-lucide-youtube /> Bouton {{ $variant }}</x-atoms.button>
+                        <x-atoms.button :size="$size" :variant="$variant">
+                            <x-lucide-youtube />
+                            @if($size !== 'icon')
+                                Bouton {{ $variant }}
+                            @endif
+                        </x-atoms.button>
                     @endforeach
                 </div>
-                <x-atoms.button size="sm">Bouton sm</x-atoms.button>
-                <x-atoms.button size="lg">Bouton lg</x-atoms.button>
-                <x-atoms.button size="icon"><x-lucide-youtube /></x-atoms.button>
+                @endforeach
             </div>
         </section>
 
@@ -73,11 +83,11 @@
                 </div>
                 <div class="space-y-1">
                     <x-atoms.label for="demo-select">Select</x-atoms.label>
-                    <x-atoms.select id="demo-select">
+                    <x-atoms.input type="select" id="demo-select">
                         <option value="">Choisir...</option>
                         <option value="a">Option A</option>
                         <option value="b">Option B</option>
-                    </x-atoms.select>
+                    </x-atoms.input>
                 </div>
                 <div class="flex items-center gap-2">
                     <x-atoms.checkbox id="demo-checkbox" />
@@ -169,15 +179,6 @@
                     <p class="text-sm text-muted mb-1">Ago</p>
                     <x-atoms.ago :date="now()->subHours(3)" />
                 </div>
-            </div>
-        </section>
-
-        {{-- Logo --}}
-        <section>
-            <h2 class="text-4xl font-bold font-serif mb-4">Logo</h2>
-            <div class="flex items-center gap-4">
-                <x-atoms.logo class="size-8 text-primary" />
-                <x-atoms.logo class="size-16 text-foreground" />
             </div>
         </section>
 

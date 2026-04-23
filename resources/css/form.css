@@ -1,11 +1,9 @@
+/* Custom select : https://grafikart.fr/tutoriels/select-css-appearance-2284 */
 .select,
 .select::picker(select) {
   appearance: base-select;
 }
-.select {
-  /* Style du bouton select */
-}
-.select-wrapper:focus-within button svg {
+.select:focus-within button svg {
   transform: rotate(180deg);
 }
 .select::picker-icon {

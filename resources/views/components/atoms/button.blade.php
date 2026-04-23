@@ -1,7 +1,7 @@
 @props(['variant' => 'primary', 'size' => 'md', 'href' => null, 'as' => 'button'])
 
 @php
-    $classes = cn([
+    $cls = [
         'rounded-sm [&_svg]:size-4 flex justify-center items-center gap-3 transition-all w-max font-semibold ',
         // Variants
         'bg-primary text-primary-foreground hover:brightness-120 shadow-button ' => $variant === 'primary',
@@ -16,12 +16,11 @@
         'p-2 rounded-full' => $size === 'icon',
         // Offset the icon a bit for better alignment
         '[&_svg:first-child]:-ml-0.5 [&_svg:last-child]:-mr-0.5' => $size !== 'icon',
-        $attributes->get('class'),
-    ]);
+    ];
 @endphp
 
 @if ($href)
-    <a {{ $attributes->except('class') }} href="{{ $href }}" class="{{ $classes }}">{{ $slot }}</a>
+    <a {{ $attributes->class($cls) }} href="{{ $href }}">{{ $slot }}</a>
 @else
-    <{{ $as }} {{ $attributes->except('class') }} class="{{ $classes }}">{{ $slot }}</{{$as}}>
+    <{{ $as }} {{ $attributes->class($cls) }}>{{ $slot }}</{{$as}}>
 @endif

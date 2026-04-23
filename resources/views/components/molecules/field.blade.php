@@ -4,7 +4,7 @@
     $label = $label ?? ucfirst($name);
 @endphp
 
-<div class="{{ cn(['space-y-1', $class]) }}">
+<div @class(['space-y-1', $class])>
     <div class="flex items-end justify-between">
         <x-atoms.label for="{{ $name }}">{{ $label }}</x-atoms.label>
         {{ $afterLabel ?? '' }}

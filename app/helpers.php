@@ -1,22 +1,10 @@
 <?php
 
 use Illuminate\Database\Eloquent\Model;
-use TalesFromADev\TailwindMerge\TailwindMerge;
 
 function app_url(mixed $model, bool $absolute = false)
 {
     return app(\App\Helpers\UrlGenerator::class)->url($model, $absolute);
-}
-
-/**
- * @param  string[]  $args
- */
-function cn(array $args): string
-{
-    static $tw = null;
-    $tw ??= new TailwindMerge(cache: app('cache.store'));
-
-    return $tw->merge(Arr::toCssClasses($args));
 }
 
 function cache_key(mixed $expression): string

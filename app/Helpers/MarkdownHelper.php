@@ -4,7 +4,6 @@ namespace App\Helpers;
 
 final class MarkdownHelper
 {
-
     /**
      * Convert trusted Markdown to HTML (never use on user-generated content)
      */
@@ -59,6 +58,9 @@ final class MarkdownHelper
         if ($firstTitlePos > 50) {
             $content = substr($content, 0, $firstTitlePos);
         }
+
+        // Remove html tags outside of markdown
+        $content = strip_tags($content);
 
         // Remove line starting with an url
         $content = preg_replace('/^https?:\/\/.+$/m', '', $content);

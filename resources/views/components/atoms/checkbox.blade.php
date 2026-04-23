@@ -1,7 +1,8 @@
 @props(['checked' => false])
 
 <div
-    class="{{ cn([ 'relative', $attributes->get('class') ]) }}">
+    @class([ 'relative', $attributes->get('class') ])
+>
     <input
         type="checkbox"
         class="absolute inset-0 w-full h-full opacity-0 peer"

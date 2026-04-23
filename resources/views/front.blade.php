@@ -28,13 +28,13 @@
     @endif
 </head>
 <body
-    class="{{ cn([
+    @class([
         "font-sans antialiased text-foreground bg-background min-h-screen flex flex-col",
         $class ?? '',
         ($drawer ?? null) === 'left' ? 'has-drawer lg:ml-(--drawer-width) drawer-hidden:ml-0!' : '',
         ($drawer ?? null) === 'right' ? 'has-drawer lg:mr-(--drawer-width) drawer-hidden:mr-0!' : '',
         $user?->isPremium() ? 'user-premium' : '',
-    ]) }}"
+    ])
     @if($user?->isPremium()) data-premium @endif @if($user) data-user="{{ $user->id }}" @endif
     @if($style ?? null) style="{{ $style }}" @endif
 >

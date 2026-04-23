@@ -1,15 +1,11 @@
 @props(['checked' => false, 'size' => 'default'])
 
-@php
-    $container = cn([
+<label @class([
         'container-size rounded-full border bg-background has-[:checked]:bg-primary has-[:focus]:shadow-focus has-[:focus]:border-primary duration-300 flex relative items-center px-px',
         'h-4.5 w-8' => $size === 'default',
         'h-3.5 w-6' => $size === 'sm',
-        $attributes->get('class'),
-    ]);
-@endphp
-
-<label class="{{ $container }}">
+        $attributes->get('class')
+    ])>
     <input
         type="checkbox"
         class="sr-only peer"

@@ -52,7 +52,9 @@ Route::get('/media/resize/{width}/{height}/{path}', [\App\Http\Front\ImageContro
     ->name('image.resize');
 
 // Pages
-Route::get('/ui', [\App\Http\Front\PageController::class, 'ui'])->name('pages.ui');
+if (!app()->isProduction()) {
+    Route::get('/ui', [\App\Http\Front\PageController::class, 'ui'])->name('pages.ui');
+}
 Route::get('/a-propos', [\App\Http\Front\PageController::class, 'about'])->name('pages.about');
 Route::get('/politique-de-confidentialite', [\App\Http\Front\PageController::class, 'privacy'])->name('pages.privacy');
 Route::get('/premium', [\App\Http\Front\PageController::class, 'premium'])->name('premium');

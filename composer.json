@@ -32,8 +32,7 @@
         "spatie/laravel-db-snapshots": "^2.10",
         "spatie/laravel-typescript-transformer": "^2.5",
         "stripe/stripe-php": "^19.3",
-        "symfony/intl": "^8.0",
-        "tales-from-a-dev/tailwind-merge-php": "*"
+        "symfony/intl": "^8.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
