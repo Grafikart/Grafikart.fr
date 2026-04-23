@@ -113,3 +113,35 @@ describe('oauth callback', function () {
             ->assertSessionHas('error');
     });
 });
+
+describe('last login tracking', function () {
+    it('updates last_login_at and last_login_ip on oauth login', function () {
+        $user = User::factory()->create(['github_id' => '12345']);
+
+        Socialite::fake('github', fakeSocialiteUser());
+
+        $this->get('/oauth/check/github');
+
+        $user->refresh();
+        expect($user->last_login_at)->not->toBeNull();
+        expect($user->last_login_ip)->toBe('127.0.0.1');
+    });
+
+    it('updates last_login_at and last_login_ip on password login', function () {
+        $user = User::factory()->create([
+            'email' => 'john@example.com',
+            'password' => bcrypt('password'),
+            'last_login_at' => null,
+            'last_login_ip' => null,
+        ]);
+
+        $this->post('/login', [
+            'email' => 'john@example.com',
+            'password' => 'password',
+        ]);
+
+        $user->refresh();
+        expect($user->last_login_at)->not->toBeNull();
+        expect($user->last_login_ip)->toBe('127.0.0.1');
+    });
+});
