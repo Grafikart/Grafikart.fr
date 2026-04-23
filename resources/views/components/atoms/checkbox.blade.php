@@ -8,7 +8,7 @@
         @checked($checked)
         {{$attributes->except('class')}}
     />
-    <div class="size-5 rounded-sm border bg-background peer-checked:bg-primary peer-checked:border-primary peer-checked:text-foreground grid place-items-center text-transparent peer-focus:shadow-focus peer-focus:border-primary">
+    <div class="size-5 rounded-sm border bg-background peer-checked:bg-primary peer-checked:border-primary peer-checked:text-white grid place-items-center text-transparent peer-focus:shadow-focus peer-focus:border-primary">
         <x-lucide-check class="size-4"/>
     </div>
 </div>

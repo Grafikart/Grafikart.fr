@@ -9,14 +9,18 @@ body[data-drawer="visible"] &);
 body[data-drawer="hidden"] &);
 
 @utility triangle-top-* {
-    content: "";
-    width: 0;
-    height: 0;
-    position: absolute;
-    top: -1px;
-    right: -1px;
-    border-left: solid calc(--value(integer) * .25rem) transparent;
-    border-top: solid calc(--value(integer) * .25rem) currentColor;
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  border-left: solid calc(--value(integer) * 0.25rem) transparent;
+  border-top: solid calc(--value(integer) * 0.25rem) currentColor;
+}
+
+@utility container-size {
+  container-type: size;
 }
 
 /**
@@ -118,23 +122,23 @@ body[data-drawer="hidden"] &);
 }
 
 @utility table {
-    @layer components {
-        th {
-            font-weight: 300;
-            font-size: 0.8em;
-            text-align: left;
-            text-transform: uppercase;
-            color: var(--color-muted);
-        }
-
-        td {
-            padding: 1rem 0;
-        }
-
-        tbody tr {
-            border-bottom: 1px solid var(--color-border);
-        }
+  @layer components {
+    th {
+      font-weight: 300;
+      font-size: 0.8em;
+      text-align: left;
+      text-transform: uppercase;
+      color: var(--color-muted);
     }
+
+    td {
+      padding: 1rem 0;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--color-border);
+    }
+  }
 }
 
 @utility list-big {
