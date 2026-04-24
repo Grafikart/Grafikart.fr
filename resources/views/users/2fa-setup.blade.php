@@ -4,11 +4,11 @@
 
 @section('content')
 
-    <x-molecules.dialog open class="w-175!">
+    <x-molecules.dialog open class="w-125!">
         <section class="flex flex-col gap-4">
             <h2 class="text-2xl font-bold text-foreground-title flex items-center gap-2">
                 <x-lucide-shield class="size-6 text-primary"/>
-                Mon profil
+                Authentification à 2 facteurs
             </h2>
 
             <p class="text-sm text-muted">
@@ -20,7 +20,7 @@
             </div>
             <form action="{{ route('two-factor.confirm')}}" method="post" class="contents">
                 @csrf
-                <x-molecules.field name="code" label="Code de confirmation" bag="confirmTwoFactorAuthentication"
+                <x-molecules.field type="code" name="code" label="Code de confirmation" bag="confirmTwoFactorAuthentication"
                                    inputmode="numeric" autocomplete="one-time-code" autofocus/>
 
                 <div class="flex items-center justify-end gap-2">

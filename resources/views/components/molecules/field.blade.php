@@ -9,6 +9,15 @@
         <x-atoms.label for="{{ $name }}">{{ $label }}</x-atoms.label>
         {{ $afterLabel ?? '' }}
     </div>
+    @if($type === 'code')
+        <code-input
+            size="6"
+            id="{{ $name }}"
+            class="peer block"
+            name="{{ $name }}"
+            {{ $attributes->merge($errors->getBag($bag)->has($name) ? ['aria-invalid' => 'true'] : []) }}
+        >{{ $slot }}</code-input>
+    @else
     <x-atoms.input
         type="{{ $type }}"
         id="{{ $name }}"
@@ -17,6 +26,7 @@
         :class="$inputClass"
         {{ $attributes->merge($errors->getBag($bag)->has($name) ? ['aria-invalid' => 'true'] : []) }}
     >{{ $slot }}</x-atoms.input>
+    @endif
     @error($name, $bag)
         <p class="text-sm text-destructive hidden peer-aria-invalid:block">{{ $message }}</p>
     @enderror

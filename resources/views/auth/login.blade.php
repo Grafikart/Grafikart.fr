@@ -41,8 +41,6 @@
                 </x-atoms.button>
             </form>
 
-            <x-atoms.separator/>
-
             @if($canRegister ?? false)
                 <div class="mt-6 border-t pt-4 text-center text-sm text-muted italic">
                     Pas encore de compte ?

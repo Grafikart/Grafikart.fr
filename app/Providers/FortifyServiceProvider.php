@@ -91,7 +91,7 @@ class FortifyServiceProvider extends ServiceProvider
             ]);
         });
 
-        Fortify::twoFactorChallengeView(fn () => view('auth.two-factor-challenge'));
+        Fortify::twoFactorChallengeView(fn () => view('auth.2fa-challenge'));
 
         Fortify::confirmPasswordView(fn () => view('auth.confirm-password'));
     }
