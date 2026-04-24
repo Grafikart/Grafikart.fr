@@ -48,12 +48,12 @@
 
     <section class="container pt-17 grid gap-8 lg:grid lg:grid-cols-[480fr_800px] lg:gap-0 items-start">
         <div>
-            <h2 class="text-6xl font-serif font-bold text-foreground-title text-balance">
+            <h2 class="text-5xl md:text-6xl font-serif font-bold text-foreground-title text-balance">
                 Apprendre grâce à
                 <div class="text-primary"> plusieurs formats
                 </div>
             </h2>
-            <p class="text-2xl text-pretty text-muted mt-4">
+            <p class="text-xl md:text-2xl text-pretty text-muted mt-4">
                 Vous cherchez une formation complète pour apprendre de A à Z ou une vidéo pour découvrir un nouvel outil
                 ?
                 Vous devriez trouver votre bonheur
@@ -125,11 +125,11 @@
 
     <section class="container -mt-22 pt-40 pb-20">
         <div class="flex flex-col md:flex-row gap-4 md:items-end md:gap-10 mb-8">
-            <h2 class="text-6xl font-serif font-bold text-foreground-title text-balance w-max flex-none">
+            <h2 class="text-5xl md:text-6xl font-serif font-bold text-foreground-title text-balance w-max flex-none">
                 Choisissez votre
                 <div class="text-primary">prochain parcours</div>
             </h2>
-            <p class="text-2xl text-pretty text-muted mt-4">
+            <p class="text-xl md:text-2xl text-pretty text-muted mt-4">
                 Chaque parcours est conçu pour vous aider à construire des bases solides, découvrir des outils modernes et gagner en autonomie.
             </p>
         </div>

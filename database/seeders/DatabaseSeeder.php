@@ -91,7 +91,7 @@ class DatabaseSeeder extends Seeder
             ->recycle($users)
             ->create();
         $technologies = Technology::factory(10)->create()->all();
-        Course::factory(10)
+        Course::factory(50)
             ->withTechnologies(3, $technologies)
             ->create();
         Formation::factory(10)

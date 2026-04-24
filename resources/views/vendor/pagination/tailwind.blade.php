@@ -1,22 +1,24 @@
 @php
     $linkClass = 'grid place-items-center size-8 rounded-sm hover:bg-primary/5';
+    $navClass = 'flex items-center h-8 gap-1';
     $activeClass = 'border';
     $disabledClass = 'pointer-events-none opacity-50';
 @endphp
 
 @if ($paginator->hasPages())
-    <nav role="navigation" aria-label="{{ __('Pagination Navigation') }}" class="mx-auto flex w-full justify-center text-sm">
-        <ul class="flex items-center gap-0.5">
+
+        <ul class="flex w-full sm:w-max sm:mx-auto items-center gap-0.5 text-sm" aria-label="{{ __('Pagination Navigation') }}">
             {{-- Previous Page Link --}}
             <li>
                 @if ($paginator->onFirstPage())
-                    <span class="{{ $linkClass }} {{ $disabledClass }} h-8 gap-1.5 px-2.5 w-auto">
+                    <span class="{{ $navClass }} {{ $disabledClass }}">
                         <x-lucide-chevron-left class="size-4" />
-                        <span class="hidden">Précédent</span>
+                        <span class="sm:hidden">Précédent</span>
                     </span>
                 @else
-                    <a href="{{ $paginator->previousPageUrl() }}" rel="prev" class="{{ $linkClass }} h-8 gap-1.5 px-2.5 w-auto" title="Précédent">
+                    <a href="{{ $paginator->previousPageUrl() }}" rel="prev" class="{{ $navClass }}" title="Précédent">
                         <x-lucide-chevron-left class="size-4" />
+                        <span class="sm:hidden">Précédent</span>
                     </a>
                 @endif
             </li>
@@ -25,7 +27,7 @@
             @foreach ($elements as $element)
                 {{-- "Three Dots" Separator --}}
                 @if (is_string($element))
-                    <li>
+                    <li class="hidden sm:block">
                         <span class="flex size-8 items-center justify-center">
                             <x-lucide-ellipsis class="size-4" />
                             <span class="sr-only">Plus de pages</span>
@@ -36,7 +38,7 @@
                 {{-- Array Of Links --}}
                 @if (is_array($element))
                     @foreach ($element as $page => $url)
-                        <li>
+                        <li class="hidden sm:block">
                             @if ($page == $paginator->currentPage())
                                 <span aria-current="page" class="{{ $linkClass }} {{ $activeClass }}">
                                     {{ $page }}
@@ -52,17 +54,19 @@
             @endforeach
 
             {{-- Next Page Link --}}
-            <li>
+            <li class="ml-auto md:ml-0">
                 @if ($paginator->hasMorePages())
-                    <a href="{{ $paginator->nextPageUrl() }}" rel="next" class="{{ $linkClass }} h-8 gap-1.5 px-2.5 w-auto" title="Suivant">
+                    <a href="{{ $paginator->nextPageUrl() }}" rel="next" class="{{ $navClass }}" title="Suivant">
+                        <span class="sm:hidden">Page suivante</span>
                         <x-lucide-chevron-right class="size-4" />
                     </a>
                 @else
-                    <span class="{{ $linkClass }} {{ $disabledClass }} h-8 gap-1.5 px-2.5 w-auto">
+                    <span class="{{ $navClass }} {{ $disabledClass }}">
+                        <span class="sm:hidden">Page suivante</span>
                         <x-lucide-chevron-right class="size-4" />
                     </span>
                 @endif
             </li>
         </ul>
-    </nav>
+
 @endif
