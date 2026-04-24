@@ -12,7 +12,7 @@
 
 @section('body')
 
-    <header class="container bg-background-light flex items-center pb-10 justify-between">
+    <header class="container bg-background-light flex sm:items-center pb-10 flex-col sm:flex-row justify-between gap-4">
 
         <h1 class="text-page-title">
             {{ $title }}

@@ -13,7 +13,7 @@
             </div>
         @else
             <a itemprop="url" title="{{ $item['label'] }}" href="{{ $item['url'] }}" class="hover:text-foreground hover:underline transition-colors">
-                <span itemprop="title">{{ $item['label'] }}</span>
+                <span itemprop="title" class="line-clamp-1 text-ellipsis">{{ $item['label'] }}</span>
             </a>
         @endif
         @if (!$loop->last)

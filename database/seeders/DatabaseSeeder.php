@@ -75,6 +75,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Grafikart',
             'email' => 'john@doe.fr',
+            'password' => '0000',
         ]);
         $users = User::factory(10)->create();
         Coupon::factory(10)->create();
@@ -95,6 +96,7 @@ class DatabaseSeeder extends Seeder
             ->withTechnologies(3, $technologies)
             ->create();
         Formation::factory(10)
+            ->withChapters(3, 4)
             ->withTechnologies(3, $technologies)
             ->create();
         $paths = Path::factory(3)->create();

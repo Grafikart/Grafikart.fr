@@ -5,7 +5,7 @@
 'border-l-primary' => $type === 'info'
 ])}}>
     @if($type === 'info')
-    <x-lucide-info class="text-primary size-5"/>
+    <x-lucide-info class="text-primary size-5 flex-none"/>
     @endif
     <p class="prose">
         {{ $slot  }}

@@ -2,6 +2,7 @@
 
 namespace App\Domains\Course\Factory;
 
+use App\Domains\Course\Chapter;
 use App\Domains\Course\DifficultyLevel;
 use App\Domains\Course\Formation;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -93,10 +94,7 @@ class FormationFactory extends Factory
                     $courseIds[] = $course->id;
                 }
 
-                $chapters[] = [
-                    'title' => "Chapter {$i}",
-                    'ids' => $courseIds,
-                ];
+                $chapters[] = new Chapter("Chapter {$i}", $courseIds);
             }
 
             $formation->update(['chapters' => $chapters]);

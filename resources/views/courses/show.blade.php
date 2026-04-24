@@ -28,12 +28,12 @@
                 {{ $course->title }}
             </h1>
 
-            <div class="flex gap-8">
+            <div class="flex flex-wrap gap-8">
                 <div class="flex items-center text-muted gap-2">
                     <x-lucide-clock class="size-4"/>
                     {{ duration($course->duration) }}
                 </div>
-                <a href="{{ route('courses.index', ['level' => $course->level->value]) }}" class="flex items-center text-muted gap-2">
+                <a href="{{ route('courses.index', ['level' => $course->level->value]) }}" class="hidden sm:flex items-center text-muted gap-2">
                     <x-lucide-graduation-cap class="size-4"/> {{ $course->level->name }}
                 </a>
                 <div class="flex items-center text-muted gap-2">

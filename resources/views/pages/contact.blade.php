@@ -12,7 +12,7 @@
         </p>
     </div>
 
-    <div class="border-t bg-background pt-10">
+    <div class="border-t bg-background py-10">
         <div class="container">
             <div class="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10">
                 <form class="grid grid-cols-2 gap-4" method="post" action="{{ route('contact') }}">
