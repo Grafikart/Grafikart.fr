@@ -29,14 +29,44 @@ class UserController
     {
         $user = $request->user();
         assert($user instanceof User);
+        $errors = $request->session()->get('errors');
+        $status = $request->session()->get('status');
 
         if ($request->boolean('verified')) {
             $request->session()->flash('success', 'Votre email a bien été confirmé');
         }
 
+        if ($status === 'two-factor-authentication-disabled') {
+            $request->session()->flash('success', "L'authentification à 2 facteurs a bien été désactivée");
+        }
+
+        if ($status === 'two-factor-authentication-confirmed') {
+            $request->session()->flash('success', "L'authentification à 2 facteurs a bien été activée");
+        }
+
+        $twoFactorPending = $status === 'two-factor-authentication-enabled' || $errors?->hasBag('confirmTwoFactorAuthentication');
+        $twoFactorConfirmed = $status === 'two-factor-authentication-confirmed' || $status === 'recovery-codes-generated';
+
+        if ($twoFactorPending) {
+            return view('users.2fa-setup', [
+                'user' => $user,
+                'twoFactorQrCode' => $user->twoFactorQrCodeSvg(),
+            ]);
+        }
+
+        if ($twoFactorConfirmed) {
+            return view('users.2fa-codes', [
+                'user' => $user,
+                'codes' => $user->recoveryCodes(),
+            ]);
+        }
+
+        $twoFactorEnabled = $user->hasEnabledTwoFactorAuthentication();
+
         return view('users.edit', [
             'user' => $user,
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+            'twoFactorEnabled' => $twoFactorEnabled,
         ]);
     }
 

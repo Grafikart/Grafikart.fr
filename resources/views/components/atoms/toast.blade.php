@@ -2,7 +2,7 @@
 
 <div
     {{ $attributes->class([
-        "leading-tight text-sm shadow-toast max-w-87 fixed top-6 left-0 right-0 mx-auto z-100 border p-4 px-3 rounded-lg flex items-center gap-2 transition-all duration-500 starting:opacity-0 starting:-translate-y-4 data-hide:opacity-0 data-hide:-translate-y-4",
+        "leading-tight text-sm shadow-toast max-w-87 fixed top-6 left-0 right-0 mx-auto z-500 border p-4 px-3 rounded-lg flex items-center gap-2 transition-all duration-500 starting:opacity-0 starting:-translate-y-4 data-hide:opacity-0 data-hide:-translate-y-4",
         'bg-success-bg border-success-border text-success-text' => $type === 'success',
         'bg-error-bg border-error-border text-error-text' => $type === 'error',
         ]) }}

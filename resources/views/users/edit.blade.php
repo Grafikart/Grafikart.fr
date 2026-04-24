@@ -62,6 +62,50 @@
             </section>
 
             <section class="flex flex-col gap-4">
+                <h2 class="text-2xl font-bold text-foreground-title flex items-center gap-2">
+                    <x-lucide-shield class="size-6 text-primary"/>
+                    Authentification à deux facteurs
+                </h2>
+
+                @if($twoFactorEnabled)
+                    <p>
+                        L'authentification à deux facteurs est <strong class="text-success">activée</strong>.
+                        À chaque connexion, vous devrez entrer un code depuis votre application d'authentification.
+                    </p>
+
+                    <div class="flex items-center justify-end gap-2">
+                        <form action="{{ route('two-factor.regenerate-recovery-codes') }}" method="post">
+                            @csrf
+                            <x-atoms.button type="submit" variant="secondary" size="sm">
+                                <x-lucide-refresh-ccw-dot class="size-4"/>
+                                Régénérer les codes de récupérations
+                            </x-atoms.button>
+                        </form>
+                        <form action="{{ route('two-factor.disable' )}}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <x-atoms.button type="submit" variant="destructive" size="sm">
+                                <x-lucide-shield-off class="size-4"/>
+                                Désactiver la 2FA
+                            </x-atoms.button>
+                        </form>
+                    </div>
+                @else
+                    <p>
+                        Protégez votre compte en activant la double authentification. Vous aurez besoin d'une application comme
+                        <a href="https://getaegis.app/" class="underline">Aegis</a>.
+                    </p>
+                    <form action="{{ url('/user/two-factor-authentication') }}" method="post">
+                        @csrf
+                        <x-atoms.button type="submit" class="ml-auto">
+                            <x-lucide-shield class="size-4"/>
+                            Activer la 2FA
+                        </x-atoms.button>
+                    </form>
+                @endif
+            </section>
+
+            <section class="flex flex-col gap-4">
                 <h2 class="text-xl font-bold flex items-center gap-2 text-destructive">
                     <x-lucide-circle-alert class="size-5"/>
                     Zone de non retour

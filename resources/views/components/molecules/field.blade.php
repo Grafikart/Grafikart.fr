@@ -1,4 +1,4 @@
-@props(['name', 'label' => null, 'type' => 'text', 'value' => null, 'class' => null, 'class' => null, 'inputClass' => null, 'help' => null])
+@props(['name', 'label' => null, 'type' => 'text', 'value' => null, 'class' => null, 'inputClass' => null, 'help' => null, 'bag' => 'default'])
 
 @php
     $label = $label ?? ucfirst($name);
@@ -15,9 +15,9 @@
         name="{{ $name }}"
         :value="old($name, $value)"
         :class="$inputClass"
-        {{ $attributes->merge($errors->has($name) ? ['aria-invalid' => 'true'] : []) }}
+        {{ $attributes->merge($errors->getBag($bag)->has($name) ? ['aria-invalid' => 'true'] : []) }}
     >{{ $slot }}</x-atoms.input>
-    @error($name)
+    @error($name, $bag)
         <p class="text-sm text-destructive hidden peer-aria-invalid:block">{{ $message }}</p>
     @enderror
     @if($help)
