@@ -6,7 +6,5 @@ use Illuminate\Notifications\Notifiable;
 
 class Site
 {
-
     use Notifiable;
-
 }

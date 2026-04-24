@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class SiteNotification extends Model
 {
     public const null UPDATED_AT = null;
+
     protected $table = 'notifications';
 
     protected $guarded = [];

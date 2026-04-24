@@ -1,11 +1,11 @@
-import { GraduationCapIcon, SaveIcon } from "lucide-react";
-import route from "@/actions/App/Http/Cms/SchoolController";
-import { Form } from "@/components/form.tsx";
-import { FormField } from "@/components/form-field.tsx";
-import { withLayout } from "@/components/layout.tsx";
-import { PageTitle } from "@/components/page-title.tsx";
-import { Button } from "@/components/ui/button.tsx";
-import { NativeSelectOption } from "@/components/ui/native-select.tsx";
+import { GraduationCapIcon, SaveIcon } from "lucide-react"
+import route from "@/actions/App/Http/Cms/SchoolController"
+import { Form } from "@/components/form.tsx"
+import { FormField } from "@/components/form-field.tsx"
+import { withLayout } from "@/components/layout.tsx"
+import { PageTitle } from "@/components/page-title.tsx"
+import { Button } from "@/components/ui/button.tsx"
+import { NativeSelectOption } from "@/components/ui/native-select.tsx"
 import {
   Table,
   TableBody,
@@ -13,21 +13,19 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table.tsx";
-import { formatDate } from "@/lib/date.ts";
-import type { SchoolFormData } from "@/types";
-import { UserSelector } from "@/components/ui/form/user-selector.tsx";
+} from "@/components/ui/table.tsx"
+import { formatDate } from "@/lib/date.ts"
+import type { SchoolFormData } from "@/types"
+import { UserSelector } from "@/components/ui/form/user-selector.tsx"
 
 type Props = {
-  item: SchoolFormData;
-};
+  item: SchoolFormData
+}
 
 export default withLayout<Props>(
   ({ item }) => {
-    const formAction = item.id
-      ? route.update.form(item.id)
-      : route.store.form();
-    const title = item.id ? "Éditer l'école" : "Nouvelle école";
+    const formAction = item.id ? route.update.form(item.id) : route.store.form()
+    const title = item.id ? "Éditer l'école" : "Nouvelle école"
 
     return (
       <div className="space-y-6">
@@ -122,7 +120,7 @@ export default withLayout<Props>(
           )}
         </Form>
       </div>
-    );
+    )
   },
   {
     breadcrumb: (props) => [
@@ -135,4 +133,4 @@ export default withLayout<Props>(
       </Button>
     ),
   },
-);
+)

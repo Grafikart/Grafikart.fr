@@ -70,7 +70,9 @@ function Item({ item }: { item: CouponRowData }) {
       <TableCell>
         <Link href={href}>{item.id}</Link>
       </TableCell>
-      <TableCell className="text-muted-foreground">{item.email || "—"}</TableCell>
+      <TableCell className="text-muted-foreground">
+        {item.email || "—"}
+      </TableCell>
       <TableCell>{item.months}</TableCell>
       <TableCell>
         {item.claimedAt ? formatDate(item.claimedAt) : "Non réclamé"}

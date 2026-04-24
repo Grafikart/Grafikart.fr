@@ -41,7 +41,7 @@ class AnonymizeCommand extends Command
 
         \App\Models\User::query()
             ->update([
-                'password' => \Hash::make('0000')
+                'password' => \Hash::make('0000'),
             ]);
 
         $this->info('Anonymising coupons...');

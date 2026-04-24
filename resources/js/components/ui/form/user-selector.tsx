@@ -1,18 +1,18 @@
-import { Autocomplete } from "@base-ui/react/autocomplete";
-import { useDebounce } from "@uidotdev/usehooks";
-import { type ComponentProps, useState } from "react";
-import UserController from "@/actions/App/Http/Cms/UserController.ts";
-import { Input } from "@/components/ui/input.tsx";
-import { useApiFetch } from "@/hooks/use-api-fetch.ts";
-import { cn } from "@/lib/utils";
-import type { OptionItemData } from "@/types";
-import { Card } from "../card";
+import { Autocomplete } from "@base-ui/react/autocomplete"
+import { useDebounce } from "@uidotdev/usehooks"
+import { type ComponentProps, useState } from "react"
+import UserController from "@/actions/App/Http/Cms/UserController.ts"
+import { Input } from "@/components/ui/input.tsx"
+import { useApiFetch } from "@/hooks/use-api-fetch.ts"
+import { cn } from "@/lib/utils"
+import type { OptionItemData } from "@/types"
+import { Card } from "../card"
 
 type Props = {
-  defaultValue?: number;
-  defaultName?: string;
-  name?: string;
-} & ComponentProps<"div">;
+  defaultValue?: number
+  defaultName?: string
+  name?: string
+} & ComponentProps<"div">
 
 export function UserSelector({
   className,
@@ -21,11 +21,11 @@ export function UserSelector({
   name = "userId",
   ...props
 }: Props) {
-  const [label, setLabel] = useState(name);
-  const [value, setValue] = useState(defaultValue);
-  const [search, setSearch] = useState(defaultName ?? "");
-  const debouncedSearch = useDebounce(search, 300);
-  const shouldSearch = Boolean(debouncedSearch && debouncedSearch !== label);
+  const [label, setLabel] = useState(name)
+  const [value, setValue] = useState(defaultValue)
+  const [search, setSearch] = useState(defaultName ?? "")
+  const debouncedSearch = useDebounce(search, 300)
+  const shouldSearch = Boolean(debouncedSearch && debouncedSearch !== label)
 
   const { data, isFetching } = useApiFetch<OptionItemData[]>(
     UserController.search({
@@ -37,14 +37,14 @@ export function UserSelector({
       enabled: shouldSearch,
       staleTime: 5_000,
     },
-  );
+  )
 
-  const users = data ?? [];
+  const users = data ?? []
 
   const selectUser = (u: OptionItemData) => {
-    setLabel(u.name);
-    setValue(u.id);
-  };
+    setLabel(u.name)
+    setValue(u.id)
+  }
 
   return (
     <div className={cn("relative", className)} {...props}>
@@ -54,8 +54,8 @@ export function UserSelector({
         items={users}
         value={search}
         onValueChange={(value) => {
-          setSearch(value);
-          console.log("onValueChange", value);
+          setSearch(value)
+          console.log("onValueChange", value)
         }}
         itemToStringValue={(user) => user.name}
         filter={null}
@@ -80,7 +80,7 @@ export function UserSelector({
                     key={user.id}
                     value={user}
                     onClick={() => {
-                      selectUser(user);
+                      selectUser(user)
                     }}
                     className="flex gap-4 items-center justify-between data-highlighted:bg-muted p-1 rounded-md cursor-pointer"
                   >
@@ -96,5 +96,5 @@ export function UserSelector({
         </Autocomplete.Portal>
       </Autocomplete.Root>
     </div>
-  );
+  )
 }

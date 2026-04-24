@@ -18,7 +18,11 @@ export default withLayout<Props>(
     const formAction = item.id ? route.update.form(item.id) : route.store.form()
 
     return (
-      <Form className="grid grid-cols-[1fr_300px] gap-4" id="form" {...formAction}>
+      <Form
+        className="grid grid-cols-[1fr_300px] gap-4"
+        id="form"
+        {...formAction}
+      >
         <PageTitle>{item.name || "Nouveau badge"}</PageTitle>
         <main className="space-y-4">
           <input
@@ -34,7 +38,11 @@ export default withLayout<Props>(
             placeholder="Description"
           />
           <div className="grid grid-cols-2 gap-4">
-            <FormField label="Action" name="action" defaultValue={item.action} />
+            <FormField
+              label="Action"
+              name="action"
+              defaultValue={item.action}
+            />
             <FormField
               label="Objectif"
               name="actionCount"
@@ -53,7 +61,11 @@ export default withLayout<Props>(
         <aside className="space-y-4">
           <Card>
             <CardContent className="space-y-4">
-              <FormField label="Image" name="image" defaultValue={item.image ?? ""} />
+              <FormField
+                label="Image"
+                name="image"
+                defaultValue={item.image ?? ""}
+              />
               <div className="flex items-center gap-2">
                 <Switch
                   id="unlockable"

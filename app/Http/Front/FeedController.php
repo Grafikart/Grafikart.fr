@@ -13,7 +13,6 @@ use Illuminate\Http\Response;
  */
 class FeedController extends Controller
 {
-
     /**
      * Retrieve the last Course, Blog post and Formation for the RSS feed
      */

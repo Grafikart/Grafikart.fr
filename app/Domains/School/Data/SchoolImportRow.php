@@ -13,10 +13,8 @@ class SchoolImportRow extends Data
 {
     public function __construct(
         public string $email,
-        public int    $months,
-    )
-    {
-    }
+        public int $months,
+    ) {}
 
     public static function rules(): array
     {
@@ -54,6 +52,7 @@ class SchoolImportRow extends Data
                 throw new InvalidCSVException(sprintf('Erreur sur la ligne %d, %s', $line + 1, $exception->getMessage()));
             }
         }
+
         return $rows;
     }
 }

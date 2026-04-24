@@ -5,7 +5,6 @@ use App\Domains\Coupon\CouponService;
 use App\Domains\Premium\Event\PremiumSubscriptionEvent;
 use App\Models\User;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Validation\ValidationException;
 
 beforeEach(function () {
     $this->service = app(CouponService::class);
