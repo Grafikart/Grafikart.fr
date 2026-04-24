@@ -30,6 +30,7 @@
         "spatie/flysystem-dropbox": "^3.1",
         "spatie/laravel-data": "^4.18",
         "spatie/laravel-db-snapshots": "^2.10",
+        "spatie/laravel-responsecache": "^8.3",
         "spatie/laravel-typescript-transformer": "^2.5",
         "stripe/stripe-php": "^19.3",
         "symfony/intl": "^8.0"

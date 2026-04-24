@@ -19,7 +19,7 @@
         </p>
     </div>
 
-    <div class="bg-background border-t pt-15 container">
+    <div class="bg-background border-t py-15 container">
         <h2 class="text-3xl font-bold font-serif mb-6 text-foreground-title">
             Profitez d'être perdu pour apprendre de nouvelles choses
         </h2>

@@ -1,5 +1,11 @@
 {
-    "agents": ["codex", "opencode"],
-    "editors": ["codex", "opencode"],
-    "guidelines": ["laravel/fortify"]
+    "agents": [
+        "claude_code"
+    ],
+    "editors": [
+        "claude_code"
+    ],
+    "guidelines": [
+        "laravel/fortify"
+    ]
 }

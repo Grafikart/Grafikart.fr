@@ -101,6 +101,11 @@ Route::group(['prefix' => '/blog', 'as' => 'blog.'], function () {
     Route::get('/{post:slug}', [\App\Http\Front\BlogController::class, 'show'])->name('show');
 });
 
+// RSS Feed
+Route::get('/feed.rss', [\App\Http\Front\FeedController::class, 'index'])
+    ->name('feed.rss')
+    ->middleware(\Spatie\ResponseCache\Middlewares\CacheResponse::for(\Illuminate\Support\minutes(15)));
+
 // Admin routes
 Route::group([
     'prefix' => '/cms',
