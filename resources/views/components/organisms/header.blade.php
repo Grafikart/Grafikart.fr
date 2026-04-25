@@ -1,7 +1,7 @@
 @php
     $navItems = [
         ['label' => 'Tutoriels', 'href' => route('courses.index', absolute: false), 'icon' => 'square-play'],
-        ['label' => 'Cursus', 'href' => '/cursus', 'icon' => 'list-video'],
+        ['label' => 'Cursus', 'href' => '/cursus', 'icon' => 'waypoints'],
         ['label' => 'Formations', 'href' => '/formations', 'icon' => 'list-video'],
         ['label' => 'Premium', 'href' => '/premium', 'icon' => 'star', 'highlight' => true],
         ['label' => 'Blog', 'href' => '/blog', 'icon' => 'notebook-pen'],
@@ -96,7 +96,7 @@
                 @endauth
             </div>
         </div>
-        <burger-menu class="size-6 grid md:hidden place-items-center hover:text-primary transition-colors relative cursor-pointer">
+        <burger-menu class="size-6 grid lg:hidden place-items-center hover:text-primary transition-colors relative cursor-pointer">
             <x-lucide-menu class="size-4"/>
         </burger-menu>
 

@@ -52,9 +52,10 @@ Route::get('/media/resize/{width}/{height}/{path}', [\App\Http\Front\ImageContro
     ->name('image.resize');
 
 // Pages
-if (!app()->isProduction()) {
+if (! app()->isProduction()) {
     Route::get('/ui', [\App\Http\Front\PageController::class, 'ui'])->name('pages.ui');
 }
+Route::get('/sponsors', [\App\Http\Front\SponsorController::class, 'index'])->name('pages.sponsors');
 Route::get('/a-propos', [\App\Http\Front\PageController::class, 'about'])->name('pages.about');
 Route::get('/politique-de-confidentialite', [\App\Http\Front\PageController::class, 'privacy'])->name('pages.privacy');
 Route::get('/terms', [\App\Http\Front\PageController::class, 'terms'])->name('pages.terms');
@@ -133,6 +134,7 @@ Route::group([
     Route::resource('plans', \App\Http\Cms\PlanController::class)->except(['edit', 'create']);
     Route::resource('schools', \App\Http\Cms\SchoolController::class)->except(['show']);
     Route::resource('support', \App\Http\Cms\SupportController::class)->only(['index', 'edit', 'update', 'destroy']);
+    Route::resource('sponsors', \App\Http\Cms\SponsorController::class)->except(['show']);
     Route::resource('technologies', \App\Http\Cms\TechnologyController::class)->except(['show']);
     Route::get('users/search', [\App\Http\Cms\UserController::class, 'search'])->name('users.search');
     Route::resource('users', \App\Http\Cms\UserController::class)->only(['index', 'destroy']);

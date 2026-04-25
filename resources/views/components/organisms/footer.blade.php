@@ -34,6 +34,7 @@
                 <li><a href="{{ route('tchat') }}" class="flex items-center gap-2 hover:text-primary"><x-lucide-message-circle class="size-4" /> Tchat</a></li>
                 <li><a href="https://www.youtube.com/user/grafikarttv" class="flex items-center gap-2 hover:text-primary"><x-lucide-video class="size-4" /> Chaine youtube</a></li>
                 <li><a href="{{ route('pages.about') }}" class="flex items-center gap-2 hover:text-primary"><x-lucide-info class="size-4" /> A propos</a></li>
+                <li><a href="{{ route('pages.sponsors') }}" class="flex items-center gap-2 hover:text-primary"><x-lucide-heart class="size-4" /> Sponsors</a></li>
                 <li><a href="{{ route('pages.terms') }}" class="flex items-center gap-2 hover:text-primary"><x-lucide-signature class="size-4" /> Conditions d'utilisation</a></li>
                 <li><a href="{{ route('pages.privacy') }}" class="flex items-center gap-2 hover:text-primary"><x-lucide-fingerprint class="size-4" /> Politique de confidentialité</a></li>
             </ul>

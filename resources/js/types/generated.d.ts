@@ -324,6 +324,23 @@ export type SettingsFormData = {
   liveAt: string
   spamWords: string
 }
+export type SponsorFormData = {
+  createdAt: string
+  id: number | null
+  name: string
+  url: string
+  content: string
+  type: SponsorType
+  logo: string | null
+}
+export type SponsorLevel = "platinum" | "gold" | "silver" | "bronze"
+export type SponsorRowData = {
+  id: number
+  name: string
+  type: string
+  url: string
+}
+export type SponsorType = "affiliation" | "sponsor"
 export type SupportQuestionData = {
   id: number
   title: string

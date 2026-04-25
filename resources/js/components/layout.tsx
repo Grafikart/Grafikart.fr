@@ -65,6 +65,7 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group.tsx"
+import SponsorController from "@/actions/App/Http/Cms/SponsorController.ts"
 
 type Props = {
   breadcrumb: NavItem[]
@@ -187,6 +188,11 @@ const nav = [
   {
     label: "Divers",
     children: [
+      {
+        label: "Sponsors",
+        icon: Building2Icon,
+        href: SponsorController.index(),
+      },
       {
         label: "Badges",
         icon: AwardIcon,

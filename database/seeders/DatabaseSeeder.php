@@ -18,6 +18,7 @@ use App\Domains\Forum\TopicTag;
 use App\Domains\History\Progress;
 use App\Domains\Premium\Models\Plan;
 use App\Domains\Premium\Models\Transaction;
+use App\Domains\Sponsorship\Sponsor;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
@@ -44,6 +45,7 @@ class DatabaseSeeder extends Seeder
         TopicTag::class,
         Topic::class,
         Progress::class,
+        Sponsor::class,
     ];
 
     protected function clean()
@@ -108,6 +110,8 @@ class DatabaseSeeder extends Seeder
                 );
             });
         });
+
+        Sponsor::factory(10)->create();
 
         // Reset settings
         DB::enableQueryLog();
