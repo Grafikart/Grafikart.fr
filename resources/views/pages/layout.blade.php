@@ -11,7 +11,7 @@
         @endif
     </div>
 
-    <div class="border-t bg-background pt-10">
+    <div class="border-t bg-background py-10">
         <div class="container prose prose-lg">
             @yield('content')
         </div>

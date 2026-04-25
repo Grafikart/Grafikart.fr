@@ -57,6 +57,7 @@ if (!app()->isProduction()) {
 }
 Route::get('/a-propos', [\App\Http\Front\PageController::class, 'about'])->name('pages.about');
 Route::get('/politique-de-confidentialite', [\App\Http\Front\PageController::class, 'privacy'])->name('pages.privacy');
+Route::get('/terms', [\App\Http\Front\PageController::class, 'terms'])->name('pages.terms');
 Route::get('/premium', [\App\Http\Front\PageController::class, 'premium'])->name('premium');
 Route::get('/premium/ecoles', [\App\Http\Front\PageController::class, 'school'])->name('pages.school');
 Route::get('/contact', [\App\Http\Front\ContactController::class, 'show'])->name('contact');
