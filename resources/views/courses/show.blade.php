@@ -13,7 +13,7 @@
 @endsection
 
 @section('body')
-    @cache("course-show", $course, ($course->isPublic() || $user?->isPremium()) ? 'visible' : 'premium')
+    @cache("course-show", $course, ($course->isPublic() || $user?->isPremium()), $user?->html5_player)
     <main class="bg-background-light">
         <div class="max-w-container mx-auto space-y-2">
             <x-breadcrumbs :model="$course" />
@@ -65,7 +65,7 @@
             </div>
 
             @if($course->isPublic() || $user?->can('watch', $course))
-                <x-atoms.course-video :course="$course->id" :video="$course->youtube_id ?? $course->video_url"
+                <x-atoms.course-video :course="$course->id" :video="$course->videoSrc($user?->html5_player)"
                                       :poster="$course->posterUrl(1330, 750)" class="mt-6 mb-12"/>
             @else
                 <div class="aspect-video stack bg-cover relative rounded-lg mt-6 mb-12 overflow-hidden shadow-lg"

@@ -11,6 +11,7 @@ use App\Http\Controller;
 use App\Http\Front\Data\CourseViewData;
 use App\Http\Front\Data\FormationViewData;
 use App\Http\Front\Data\PathViewData;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class PathController extends Controller
@@ -37,7 +38,7 @@ class PathController extends Controller
         ]);
     }
 
-    public function node(PathNode $node)
+    public function node(Request $request, PathNode $node)
     {
         if ($node->content instanceof Formation) {
             $node->content->load('courses');
@@ -46,7 +47,7 @@ class PathController extends Controller
         }
 
         if ($node->content instanceof Course) {
-            return CourseViewData::from($node->content);
+            return CourseViewData::fromModel($node->content, $request->user());
         }
     }
 }

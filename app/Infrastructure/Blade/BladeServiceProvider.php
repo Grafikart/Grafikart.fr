@@ -54,6 +54,12 @@ unset(\$__cache_directive_key, \$__cache_directive_ttl, \$__cache_directive_buff
             /** @var object{id: int, updated_at: DateTimeInterface} $expression */
             return sprintf('%s-%s', $expression->id, $expression->updated_at->getTimestamp());
         }
+        if (is_bool($expression)) {
+            return $expression ? '1' : '0';
+        }
+        if (is_null($expression)) {
+            return '0';
+        }
 
         return $expression;
     }

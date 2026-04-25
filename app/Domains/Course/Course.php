@@ -215,4 +215,13 @@ class Course extends Model implements RegisterMedia, Revisionable, Searchable
     {
         return Str::slug(config('app.name').'_'.$this->title, '_');
     }
+
+    public function videoSrc(bool $forceHTML = false): ?string
+    {
+        if ($forceHTML) {
+            return $this->videoUrl();
+        }
+
+        return $this->youtube_id ?? $this->videoUrl();
+    }
 }
