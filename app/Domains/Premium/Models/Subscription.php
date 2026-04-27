@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property \DateTimeImmutable|null $next_payment
+ * @property \DateTimeImmutable|null $notified_at
  */
 class Subscription extends Model
 {
@@ -25,6 +26,7 @@ class Subscription extends Model
         'plan_id',
         'state',
         'next_payment',
+        'notified_at',
         'stripe_id',
     ];
 
@@ -33,6 +35,7 @@ class Subscription extends Model
         return [
             'state' => 'integer',
             'next_payment' => 'immutable_datetime',
+            'notified_at' => 'immutable_datetime',
             'created_at' => 'immutable_datetime',
             'updated_at' => 'immutable_datetime',
         ];
