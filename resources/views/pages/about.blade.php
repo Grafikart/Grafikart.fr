@@ -17,7 +17,7 @@
             </p>
         </div>
         <div>
-            <x-atoms.tabs variant="pill" class="mb-4 mx-auto block" as="nav-tabs">
+            <x-atoms.tabs variant="pill" class="mb-4 mx-auto" as="nav-tabs">
                 <x-atoms.tab variant="pill" href="#phpstorm" :active="true">
                     <img src="/images/icons/phpstorm.svg" class="size-5" alt=""/>
                     PHPStorm

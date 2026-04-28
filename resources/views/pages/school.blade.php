@@ -37,7 +37,7 @@
             </p>
         </div>
 
-        <x-atoms.card class="p-4 flex-1">
+        <x-atoms.card padded class="flex-1">
             <table class="table w-full">
                 <thead>
                 <tr>
@@ -110,7 +110,7 @@
                     <x-molecules.field type="file" label="Fichier CSV" name="csv"/>
                     <x-molecules.field type="text" label="Sujet de l'email" name="email"
                                        value="Compte premium Grafikart.fr"/>
-                    <x-molecules.field input-class="h-20" type="textarea" label="Message" name="message"
+                    <x-molecules.field type="textarea" label="Message" name="message"
                                        placeholder="Message envoyé avec le code aux étudiants"/>
                 </div>
             </x-atoms.card>

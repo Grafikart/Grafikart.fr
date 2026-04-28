@@ -30,12 +30,11 @@ class MercureSubscriberMiddleware
 
         $token = $jwtConfiguration->builder()
             ->withClaim('mercure', ['subscribe' => ['notification', sprintf('notification/%s', $user->id)]])
-            ->getToken($jwtConfiguration->signer(), $jwtConfiguration->signingKey())
-            ->toString();
+            ->getToken($jwtConfiguration->signer(), $jwtConfiguration->signingKey());
 
         $response->headers->setCookie(cookie(
             name: 'mercureAuthorization',
-            value: $token,
+            value: $token->toString(),
             path: '/.well-known/mercure',
             httpOnly: true,
         ));

@@ -42,11 +42,11 @@
     </h2>
 
     <div class="stack">
-        <p class="text-muted text-sm mb-4 {{ $course->isScheduled() ? 'opacity-10 blur-xs' : '' }}">
+        <p class="text-muted text-sm mb-4 {{ $course->isScheduled() ? 'not-premium:opacity-10 not-premium:blur-xs' : '' }}">
             {!! \App\Helpers\MarkdownHelper::excerpt($course->content, 130) !!}
         </p>
         @if($course->isScheduled())
-            <div class="flex flex-col items-center my-4 mb-8">
+            <div class="hidden flex-col items-center my-4 mb-8 not-premium:flex">
                 <div class="text-muted text-sm">Disponible</div>
                 <strong class="block mb-4">
                     <x-atoms.ago :date=" $course->created_at "/>

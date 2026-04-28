@@ -32,8 +32,17 @@ class PathController extends CmsController
         return $this->cmsIndex(query: $query);
     }
 
-    public function create(): Response
+    public function create(Request $request): Response
     {
+        $clone = $request->query->getInt('clone', 0);
+        if ($clone) {
+            $path = clone Path::findOrFail($clone);
+            $path->load('nodes', 'nodes.content', 'nodes.parents');
+            $path->setAttribute('id', null);
+
+            return $this->cmsCreate(['item' => PathFormData::from($path)]);
+        }
+
         return $this->cmsCreate();
     }
 

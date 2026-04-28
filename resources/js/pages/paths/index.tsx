@@ -2,6 +2,7 @@ import { Link } from "@inertiajs/react"
 import {
   CheckCircle2Icon,
   CircleXIcon,
+  CopyIcon,
   EditIcon,
   MapIcon,
   PlusCircleIcon,
@@ -91,9 +92,17 @@ function Item({ item }: { item: PathRowData }) {
         )}
       </TableCell>
       <TableCell className="text-right">
-        <ButtonLink href={href} variant="secondary">
-          <EditIcon />
-        </ButtonLink>
+        <div className="flex justify-end gap-1">
+          <ButtonLink
+            href={route.create({ query: { clone: item.id } })}
+            variant="secondary"
+          >
+            <CopyIcon />
+          </ButtonLink>
+          <ButtonLink href={href} variant="secondary">
+            <EditIcon />
+          </ButtonLink>
+        </div>
       </TableCell>
     </TableRow>
   )

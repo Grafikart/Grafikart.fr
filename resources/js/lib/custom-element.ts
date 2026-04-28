@@ -75,8 +75,6 @@ export function r2wc(
           this.root.render(element)
         })
 
-        console.log(componentOrImport.name)
-        //
         return
       }
 

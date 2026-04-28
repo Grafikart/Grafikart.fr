@@ -52,7 +52,7 @@ class CourseController
         return view('courses.show', [
             'course' => $course,
             'completed' => $progressionService->completedForCollection($request->user(), $course->formation?->course_ids),
-            'start' => $progress ? round($progress->ratio * $course->duration) : 0,
+            'start' => ($progress && $progress->ratio !== 1.0) ? round($progress->ratio * $course->duration) : 0,
             'quizCompleted' => $progress?->score !== null,
         ]);
     }

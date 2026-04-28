@@ -9,6 +9,7 @@
     <meta property="og:site_name" content="Grafikart.fr"/>
     <meta property="og:language" content="fr"/>
     <meta name="twitter:author" content="@grafikart_fr"/>
+    <meta name="turbo-cache-control" content="no-cache">
     @yield('head')
     <link rel="alternate" type="application/rss+xml" title="Grafikart.fr | Flux" href="{{ url('rss') }}"/>
     <link rel="apple-touch-icon" sizes="128x128" href="/favicons/icon-128x128.png">

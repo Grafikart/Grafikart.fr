@@ -13,7 +13,7 @@
                 </h2>
 
                 <form action="" class="contents" method="post">
-                    <x-atoms.card class="grid grid-cols-1 md:grid-cols-3 p-4 gap-4">
+                    <x-atoms.card padded class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <x-molecules.field name="email" label="Email" :value="$user->email">
                             <x-slot:help class="font-bold">
                             </x-slot>

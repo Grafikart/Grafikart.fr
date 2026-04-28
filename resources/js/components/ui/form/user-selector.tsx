@@ -55,7 +55,6 @@ export function UserSelector({
         value={search}
         onValueChange={(value) => {
           setSearch(value)
-          console.log("onValueChange", value)
         }}
         itemToStringValue={(user) => user.name}
         filter={null}

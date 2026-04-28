@@ -1,7 +1,7 @@
 @props(['video', 'poster'])
 
 <lazy-video video="{{$video}}" {{ $attributes->merge(['class' => "
-    grid place-items-center overflow-hidden aspect-video group relative rounded-md shadow-lg  cursor-pointer bg-[#000] hover:shadow-md transition-shadow" ])}}>
+    grid place-items-center overflow-hidden aspect-video group relative rounded-md shadow-lg cursor-pointer bg-[#000] hover:shadow-md transition-shadow" ])}}>
     <img
         alt=""
         loading="lazy"

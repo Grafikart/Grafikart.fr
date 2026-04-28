@@ -1,4 +1,4 @@
-<x-molecules.dialog class="max-w-110 overflow-visible text-foreground" id="completion">
+<x-molecules.dialog class="max-w-110! overflow-visible text-foreground" id="completion">
     <con-fetti>
         <div class="text-center -mt-32">
             <img src="/images/illustrations/success.svg" alt="" class="max-w-75 inline"/>
@@ -17,7 +17,7 @@
         <p class="text-center text-lg text-pretty mb-4">
             Bien joué ! On poursuit l'apprentissage avec une nouvelle vidéo {{ $course->technology()?->name }} ?
         </p>
-        <x-atoms.button href="{{ app_url($course->technology()) }}" class="w-full" size="lg">
+        <x-atoms.button href="{{ app_url($course->technology()) }}" class="w-full!" size="lg">
             <x-lucide-star/>
             Découvrir les vidéos {{ $course->technology()?->name }}
         </x-atoms.button>
