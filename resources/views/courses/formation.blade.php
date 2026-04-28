@@ -16,7 +16,7 @@
 @section('body')
     @php
         $technology = $formation->technology();
-        $course = \App\Domains\Course\Course::query()->selectForUrl()->find($formation->chapters->first()->ids[0])
+        $course = \App\Domains\Course\Course::query()->select('id', 'slug', 'youtube_id')->find($formation->chapters->first()->ids[0])
     @endphp
 
     <div class="bg-background-light pb-12">
