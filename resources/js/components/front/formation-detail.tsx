@@ -15,7 +15,7 @@ export function FormationDetail({
 }) {
   const chapters = data.chapters
   return (
-    <div className="grid gap-4 md:grid-cols-[1fr_350px] md:gap-8">
+    <div className="grid gap-4 md:grid-cols-[1fr_350px] md:gap-8 items-start">
       {/* Content */}
       <div className="max-w-200 mx-auto flex flex-col gap-4 starting:-translate-x-20 starting:opacity-0 duration-600">
         <div className="-mt-10 flex justify-end">

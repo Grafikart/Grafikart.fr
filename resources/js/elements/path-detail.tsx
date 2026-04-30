@@ -67,11 +67,12 @@ export default function PathDetail({ element, path, completednodeids }: Props) {
   }, [element])
 
   const onNodeClick: NodeMouseHandler<Node> = (_e, node) => {
+    const isMobile = window.innerWidth < 769
     const offset = node.type === "formation" ? 170 : 0
     const zoom = 1.5
     viewport.current = flow.current?.getViewport() ?? null
     flow.current?.setCenter(
-      node.position.x + offset / zoom,
+      node.position.x + (isMobile ? 0 : offset / zoom),
       node.position.y + (window.innerHeight / 2 - 200) / zoom,
       {
         duration,
@@ -102,7 +103,7 @@ export default function PathDetail({ element, path, completednodeids }: Props) {
       <ReactFlow
         connectionMode={ConnectionMode.Loose}
         maxZoom={2}
-        minZoom={1}
+        minZoom={0.8}
         onNodeClick={onNodeClick}
         nodes={nodes}
         edges={edges.map((edge) => ({

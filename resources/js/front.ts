@@ -16,11 +16,7 @@ import { BurgerMenu } from "@/elements/burger-menu.tsx"
 import { CodeInput } from "@/elements/code-input.ts"
 import { DrawerToggle } from "@/elements/drawer-toggle.ts"
 import { HasCompletedElement } from "@/elements/has-completed.ts"
-// @ts-expect-error temporary fix while waiting this mr (https://github.com/hotwired/turbo/pull/1505), remove idiomorph to when it's merged
-import * as Turbo from "../../node_modules/@hotwired/turbo/src/index.js"
-
-Turbo.session.drive = true
-Turbo.session.preloadLinks = false
+import "../../node_modules/@hotwired/turbo/src/index.js"
 
 r2wc("path-detail", () => import("@/elements/path-detail.tsx"), {
   path: "json",
