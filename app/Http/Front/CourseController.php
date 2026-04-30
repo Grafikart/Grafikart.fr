@@ -48,7 +48,7 @@ class CourseController
     public function show(string $slug, Course $course, Request $request, ProgressionService $progressionService): View|RedirectResponse
     {
         if ($course->force_redirect && $course->deprecatedBy) {
-            return redirect(app_url($course->deprecatedBy));
+            return redirect(app_url($course->deprecatedBy), 301);
         }
 
         $progress = $progressionService->findProgress($request->user(), $course);

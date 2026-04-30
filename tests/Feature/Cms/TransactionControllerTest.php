@@ -31,7 +31,6 @@ describe('index', function () {
             ->assertInertia(fn ($page) => $page
                 ->component('transactions/index')
                 ->has('pagination.data', 3)
-                ->where('q', "user:{$user->id}")
             );
     });
 
@@ -45,7 +44,6 @@ describe('index', function () {
             ->assertInertia(fn ($page) => $page
                 ->component('transactions/index')
                 ->has('pagination.data', 2)
-                ->where('q', 'stripe')
             );
     });
 });

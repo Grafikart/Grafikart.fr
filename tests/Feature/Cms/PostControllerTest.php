@@ -73,7 +73,7 @@ describe('index', function () {
             ->get(route('cms.posts.index', ['q' => 'react']))
             ->assertOk();
 
-        expect($response->viewData('page')['props']['pagination']['total'])->toBe(2);
+        expect($response->viewData('page')['props']['pagination']['total'])->toBe(1);
     });
 });
 

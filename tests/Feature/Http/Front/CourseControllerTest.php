@@ -93,3 +93,35 @@ describe('index', function () {
             ->assertViewHas('items', fn ($items) => $items->count() === 1);
     });
 });
+
+describe('show', function () {
+    it('redirects to replacement course when force_redirect is true', function () {
+        $replacement = Course::factory()->online()->create();
+        $deprecated = Course::factory()->create([
+            'deprecated_by_id' => $replacement->id,
+            'force_redirect' => true,
+        ]);
+
+        $this->get("/tutoriels/{$deprecated->slug}-{$deprecated->id}")
+            ->assertRedirect(route('courses.show', ['slug' => $replacement->slug, 'course' => $replacement->id]))
+            ->assertStatus(301);
+    });
+
+    it('does not redirect when force_redirect is false', function () {
+        $replacement = Course::factory()->online()->create();
+        $deprecated = Course::factory()->online()->create([
+            'deprecated_by_id' => $replacement->id,
+            'force_redirect' => false,
+        ]);
+
+        $this->get("/tutoriels/{$deprecated->slug}-{$deprecated->id}")
+            ->assertSuccessful();
+    });
+
+    it('does not redirect when no replacement course is set', function () {
+        $course = Course::factory()->online()->create(['force_redirect' => true]);
+
+        $this->get("/tutoriels/{$course->slug}-{$course->id}")
+            ->assertSuccessful();
+    });
+});
