@@ -42,7 +42,7 @@ class CourseRequestData extends Data implements DataToModel
         public readonly ?string $demo,
         #[Nullable]
         #[Exists(table: 'courses', column: 'id')]
-        public readonly ?int $deprecatedBy,
+        public readonly ?int $deprecatedById,
         #[Nullable]
         #[Exists(table: 'attachments', column: 'id')]
         public readonly ?int $image,
@@ -70,7 +70,7 @@ class CourseRequestData extends Data implements DataToModel
             'youtube_id' => $this->youtubeId,
             'video_path' => $this->videoPath,
             'demo' => $this->demo,
-            'deprecated_by_id' => $this->deprecatedBy,
+            'deprecated_by_id' => $this->deprecatedById,
             'attachment_id' => $this->image,
             'youtube_thumbnail_id' => $this->youtubeThumbnail,
             'created_at' => $this->createdAt ?? now(),

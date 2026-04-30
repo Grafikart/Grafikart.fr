@@ -32,7 +32,7 @@
                 </div>
                 <div class="border-b py-5 text-lg flex flex-col gap-1">
                     Voir les vidéos
-                    <a href="/premium" class="hover:underline flex gap-2 items-center mx-auto w-max font-bold text-warning"><x-lucide-star class="size-4"/> premium</a>
+                    <a href="/tutoriels?premium=1" class="hover:underline flex gap-2 items-center mx-auto w-max font-bold text-warning"><x-lucide-star class="size-4"/> premium</a>
                 </div>
                 <div class="border-b py-5 text-lg flex flex-col gap-1">
                     <strong>Télécharger</strong>

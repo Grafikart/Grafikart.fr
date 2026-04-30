@@ -25,7 +25,7 @@ class CourseFormData extends Data
         public string $demo = '',
         public string $youtubeId = '',
         public int $duration = 0,
-        public ?int $deprecatedBy = null,
+        public ?int $deprecatedById = null,
         public string $content = '',
         #[WithCast(EnumCast::class)]
         public DifficultyLevel $level = DifficultyLevel::Junior,

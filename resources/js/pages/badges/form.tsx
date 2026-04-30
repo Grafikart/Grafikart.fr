@@ -1,23 +1,21 @@
-import { SaveIcon } from "lucide-react";
-import route from "@/actions/App/Http/Cms/BadgeController";
-import { Form } from "@/components/form.tsx";
-import { FormField } from "@/components/form-field.tsx";
-import { withLayout } from "@/components/layout.tsx";
-import { PageTitle } from "@/components/page-title.tsx";
-import { Button } from "@/components/ui/button.tsx";
-import { Card, CardContent } from "@/components/ui/card.tsx";
-import { Switch } from "@/components/ui/switch.tsx";
-import type { BadgeFormData } from "@/types";
+import { SaveIcon } from "lucide-react"
+import route from "@/actions/App/Http/Cms/BadgeController"
+import { Form } from "@/components/form.tsx"
+import { FormField } from "@/components/form-field.tsx"
+import { withLayout } from "@/components/layout.tsx"
+import { PageTitle } from "@/components/page-title.tsx"
+import { Button } from "@/components/ui/button.tsx"
+import { Card, CardContent } from "@/components/ui/card.tsx"
+import { Switch } from "@/components/ui/switch.tsx"
+import type { BadgeFormData } from "@/types"
 
 type Props = {
-  item: BadgeFormData;
-};
+  item: BadgeFormData
+}
 
 export default withLayout<Props>(
   ({ item }) => {
-    const formAction = item.id
-      ? route.update.form(item.id)
-      : route.store.form();
+    const formAction = item.id ? route.update.form(item.id) : route.store.form()
 
     return (
       <Form
@@ -80,7 +78,7 @@ export default withLayout<Props>(
           </Card>
         </aside>
       </Form>
-    );
+    )
   },
   {
     breadcrumb: (props) => [
@@ -93,4 +91,4 @@ export default withLayout<Props>(
       </Button>
     ),
   },
-);
+)

@@ -95,7 +95,7 @@ export type CourseFormData = {
   demo: string
   youtubeId: string
   duration: number
-  deprecatedBy: number | null
+  deprecatedById: number | null
   content: string
   level: DifficultyLevel
   source: boolean
@@ -333,11 +333,10 @@ export type SponsorFormData = {
   type: SponsorType
   logo: string | null
 }
-export type SponsorLevel = "platinum" | "gold" | "silver" | "bronze"
 export type SponsorRowData = {
   id: number
   name: string
-  type: string
+  type: SponsorType
   url: string
 }
 export type SponsorType = "affiliation" | "sponsor"

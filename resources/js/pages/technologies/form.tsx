@@ -1,37 +1,35 @@
-import { useDebounce } from "@uidotdev/usehooks";
-import { Check, LoaderCircle, SaveIcon, UnlinkIcon } from "lucide-react";
-import { useMemo, useState } from "react";
-import route from "@/actions/App/Http/Cms/TechnologyController";
-import { Form } from "@/components/form.tsx";
-import { withLayout } from "@/components/layout.tsx";
-import { PageTitle } from "@/components/page-title.tsx";
-import { Button } from "@/components/ui/button.tsx";
-import { Card, CardContent } from "@/components/ui/card.tsx";
+import { useDebounce } from "@uidotdev/usehooks"
+import { Check, LoaderCircle, SaveIcon, UnlinkIcon } from "lucide-react"
+import { useMemo, useState } from "react"
+import route from "@/actions/App/Http/Cms/TechnologyController"
+import { Form } from "@/components/form.tsx"
+import { withLayout } from "@/components/layout.tsx"
+import { PageTitle } from "@/components/page-title.tsx"
+import { Button } from "@/components/ui/button.tsx"
+import { Card, CardContent } from "@/components/ui/card.tsx"
 import {
   Command,
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
-import { ImageInput } from "@/components/ui/form/image-input.tsx";
-import { SlugInput } from "@/components/ui/form/slug-input.tsx";
-import { Switch } from "@/components/ui/switch.tsx";
-import { useApiFetch } from "@/hooks/use-api-fetch";
-import { useList } from "@/hooks/use-list";
-import { cn } from "@/lib/utils";
-import type { OptionItemData, TechnologyFormData } from "@/types";
+} from "@/components/ui/command"
+import { ImageInput } from "@/components/ui/form/image-input.tsx"
+import { SlugInput } from "@/components/ui/form/slug-input.tsx"
+import { Switch } from "@/components/ui/switch.tsx"
+import { useApiFetch } from "@/hooks/use-api-fetch"
+import { useList } from "@/hooks/use-list"
+import { cn } from "@/lib/utils"
+import type { OptionItemData, TechnologyFormData } from "@/types"
 
 type Props = {
-  item: TechnologyFormData;
-};
+  item: TechnologyFormData
+}
 
 export default withLayout<Props>(
   ({ item }) => {
-    const url = item.slug ? `/tutoriels/${item.slug}` : undefined;
-    const formAction = item.id
-      ? route.update.form(item.id)
-      : route.store.form();
+    const url = item.slug ? `/tutoriels/${item.slug}` : undefined
+    const formAction = item.id ? route.update.form(item.id) : route.store.form()
 
     return (
       <Form
@@ -83,7 +81,7 @@ export default withLayout<Props>(
           </Card>
         </aside>
       </Form>
-    );
+    )
   },
   {
     breadcrumb: (props) => [
@@ -96,20 +94,20 @@ export default withLayout<Props>(
       </Button>
     ),
   },
-);
+)
 
 type RequirementsSelectorProps = {
-  defaultValue: OptionItemData[];
-};
+  defaultValue: OptionItemData[]
+}
 
 function RequirementsSelector({ defaultValue }: RequirementsSelectorProps) {
-  const [items, toggleItem] = useList(defaultValue);
-  const [search, setSearch] = useState("");
-  const debouncedSearch = useDebounce(search, 300);
+  const [items, toggleItem] = useList(defaultValue)
+  const [search, setSearch] = useState("")
+  const debouncedSearch = useDebounce(search, 300)
   const selectedItemsSet = useMemo(
     () => new Set(items.map((item) => item.id)),
     [items],
-  );
+  )
 
   const { data, isFetching } = useApiFetch<OptionItemData[]>(
     route.index({ query: { q: debouncedSearch } }).url,
@@ -117,7 +115,7 @@ function RequirementsSelector({ defaultValue }: RequirementsSelectorProps) {
       enabled: debouncedSearch.length > 1,
       staleTime: 5_000,
     },
-  );
+  )
 
   return (
     <div className="space-y-3">
@@ -157,8 +155,8 @@ function RequirementsSelector({ defaultValue }: RequirementsSelectorProps) {
                   key={item.id}
                   value={item.name}
                   onSelect={() => {
-                    toggleItem(item);
-                    setSearch("");
+                    toggleItem(item)
+                    setSearch("")
                   }}
                 >
                   {item.name}
@@ -181,5 +179,5 @@ function RequirementsSelector({ defaultValue }: RequirementsSelectorProps) {
         />
       </Command>
     </div>
-  );
+  )
 }

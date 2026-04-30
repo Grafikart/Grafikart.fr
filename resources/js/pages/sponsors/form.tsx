@@ -1,31 +1,29 @@
-import { LinkIcon, SaveIcon } from "lucide-react";
-import route from "@/actions/App/Http/Cms/SponsorController";
-import { Form } from "@/components/form.tsx";
-import { FormField } from "@/components/form-field.tsx";
-import { withLayout } from "@/components/layout.tsx";
-import { PageTitle } from "@/components/page-title.tsx";
-import { Card, CardContent } from "@/components/ui/card.tsx";
-import { ImageInput } from "@/components/ui/form/image-input.tsx";
+import { LinkIcon, SaveIcon } from "lucide-react"
+import route from "@/actions/App/Http/Cms/SponsorController"
+import { Form } from "@/components/form.tsx"
+import { FormField } from "@/components/form-field.tsx"
+import { withLayout } from "@/components/layout.tsx"
+import { PageTitle } from "@/components/page-title.tsx"
+import { Card, CardContent } from "@/components/ui/card.tsx"
+import { ImageInput } from "@/components/ui/form/image-input.tsx"
 import {
   NativeSelect,
   NativeSelectOption,
-} from "@/components/ui/native-select.tsx";
-import type { SponsorFormData, SponsorType } from "@/types";
-import { MDEditor } from "@/components/ui/form/mdeditor.tsx";
-import { DatetimePicker } from "@/components/ui/form/datetime-picker.tsx";
-import { Button } from "@/components/ui/button.tsx";
-import { cn } from "@/lib/utils.ts";
+} from "@/components/ui/native-select.tsx"
+import type { SponsorFormData, SponsorType } from "@/types"
+import { MDEditor } from "@/components/ui/form/mdeditor.tsx"
+import { DatetimePicker } from "@/components/ui/form/datetime-picker.tsx"
+import { Button } from "@/components/ui/button.tsx"
+import { cn } from "@/lib/utils.ts"
 
 type Props = {
-  item: SponsorFormData;
-  types: { value: SponsorType; label: string }[];
-};
+  item: SponsorFormData
+  types: { value: SponsorType; label: string }[]
+}
 
 export default withLayout<Props>(
   ({ item, types }) => {
-    const formAction = item.id
-      ? route.update.form(item.id)
-      : route.store.form();
+    const formAction = item.id ? route.update.form(item.id) : route.store.form()
 
     return (
       <Form
@@ -77,7 +75,7 @@ export default withLayout<Props>(
           </Card>
         </aside>
       </Form>
-    );
+    )
   },
   {
     breadcrumb: (props) => [
@@ -90,12 +88,12 @@ export default withLayout<Props>(
       </Button>
     ),
   },
-);
+)
 
 type SlugInputProps = {
-  defaultValue: string;
-  className?: string;
-};
+  defaultValue: string
+  className?: string
+}
 
 function UrlInput({ defaultValue, className }: SlugInputProps) {
   return (
@@ -124,5 +122,5 @@ function UrlInput({ defaultValue, className }: SlugInputProps) {
         </Button>
       )}
     </div>
-  );
+  )
 }

@@ -1,38 +1,38 @@
-import { CircleCheckIcon, SaveIcon, UploadIcon } from "lucide-react";
+import { CircleCheckIcon, SaveIcon, UploadIcon } from "lucide-react"
 import {
   default as CourseController,
   default as route,
-} from "@/actions/App/Http/Cms/CourseController";
-import { Form } from "@/components/form.tsx";
-import { FormField } from "@/components/form-field.tsx";
-import { withLayout } from "@/components/layout.tsx";
-import { PageTitle } from "@/components/page-title.tsx";
-import { Button } from "@/components/ui/button.tsx";
+} from "@/actions/App/Http/Cms/CourseController"
+import { Form } from "@/components/form.tsx"
+import { FormField } from "@/components/form-field.tsx"
+import { withLayout } from "@/components/layout.tsx"
+import { PageTitle } from "@/components/page-title.tsx"
+import { Button } from "@/components/ui/button.tsx"
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card.tsx";
-import { AttachmentSelector } from "@/components/ui/form/attachment-selector.tsx";
-import { DatetimePicker } from "@/components/ui/form/datetime-picker.tsx";
-import { LevelSelector } from "@/components/ui/form/level-selector.tsx";
-import { MDEditor } from "@/components/ui/form/mdeditor.tsx";
-import { QuestionsInput } from "@/components/ui/form/questions-input.tsx";
-import { SlugInput } from "@/components/ui/form/slug-input.tsx";
-import { TechnologySelector } from "@/components/ui/form/technology-selector.tsx";
-import { Input } from "@/components/ui/input.tsx";
-import { Label } from "@/components/ui/label.tsx";
-import { Switch } from "@/components/ui/switch.tsx";
-import type { CourseFormData } from "@/types";
+} from "@/components/ui/card.tsx"
+import { AttachmentSelector } from "@/components/ui/form/attachment-selector.tsx"
+import { DatetimePicker } from "@/components/ui/form/datetime-picker.tsx"
+import { LevelSelector } from "@/components/ui/form/level-selector.tsx"
+import { MDEditor } from "@/components/ui/form/mdeditor.tsx"
+import { QuestionsInput } from "@/components/ui/form/questions-input.tsx"
+import { SlugInput } from "@/components/ui/form/slug-input.tsx"
+import { TechnologySelector } from "@/components/ui/form/technology-selector.tsx"
+import { Input } from "@/components/ui/input.tsx"
+import { Label } from "@/components/ui/label.tsx"
+import { Switch } from "@/components/ui/switch.tsx"
+import type { CourseFormData } from "@/types"
 
 type Props = {
-  item: CourseFormData;
-};
+  item: CourseFormData
+}
 
 function ItemForm({ item }: Props) {
-  const url = item.id ? `/tutoriels/${item.slug}-${item.id}` : undefined;
-  const formAction = item.id ? route.update.form(item.id) : route.store.form();
+  const url = item.id ? `/tutoriels/${item.slug}-${item.id}` : undefined
+  const formAction = item.id ? route.update.form(item.id) : route.store.form()
 
   return (
     <>
@@ -171,8 +171,8 @@ function ItemForm({ item }: Props) {
               <div className="flex items-end gap-2">
                 <FormField
                   label="Déprécié par"
-                  name="deprecatedBy"
-                  defaultValue={item.deprecatedBy ?? ""}
+                  name="deprecatedById"
+                  defaultValue={item.deprecatedById ?? ""}
                 />
                 <div className="pb-1">
                   <Switch
@@ -198,12 +198,12 @@ function ItemForm({ item }: Props) {
         />
       )}
     </>
-  );
+  )
 }
 
 export default withLayout<Props>(
   ({ item }) => {
-    return <ItemForm item={item} />;
+    return <ItemForm item={item} />
   },
   {
     breadcrumb: (props) => [
@@ -216,4 +216,4 @@ export default withLayout<Props>(
       </Button>
     ),
   },
-);
+)

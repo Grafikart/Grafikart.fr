@@ -64,6 +64,12 @@
                 </div>
             </div>
 
+            @if($course->deprecatedBy)
+                <x-atoms.alert type="warning" class="my-4">
+                    <strong class="text-warning-text">Ce tutoriel est déprécié !</strong> Un tutoriel plus récent est maintenant disponible : <a href="{{ app_url($course->deprecatedBy) }}">{{ $course->deprecatedBy->title }}</a>.
+                </x-atoms.alert>
+            @endif
+
             @if($course->isPublic() || $user?->can('watch', $course))
                 <x-atoms.course-video :course="$course->id" :video="$course->videoSrc($user?->html5_player)"
                                       :poster="$course->posterUrl(1330, 750)" class="mt-6 mb-12"/>

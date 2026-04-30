@@ -1,10 +1,22 @@
-import {QueryClientProvider} from "@tanstack/react-query"
-import {ListVideoIcon, SearchIcon, SquarePlayIcon, StarIcon, XIcon,} from "lucide-react"
-import {createContext, type MouseEventHandler, type ReactNode, useContext, useState,} from "react"
-import {queryClient, useApiFetch} from "@/hooks/use-api-fetch.ts"
-import {useVisible} from "@/hooks/use-visible.ts"
-import {cn} from "@/lib/utils.ts"
-import type {CourseFiltersResponse} from "@/types"
+import { QueryClientProvider } from "@tanstack/react-query"
+import {
+  ListVideoIcon,
+  SearchIcon,
+  SquarePlayIcon,
+  StarIcon,
+  XIcon,
+} from "lucide-react"
+import {
+  createContext,
+  type MouseEventHandler,
+  type ReactNode,
+  useContext,
+  useState,
+} from "react"
+import { queryClient, useApiFetch } from "@/hooks/use-api-fetch.ts"
+import { useVisible } from "@/hooks/use-visible.ts"
+import { cn } from "@/lib/utils.ts"
+import type { CourseFiltersResponse } from "@/types"
 
 const SearchParamsContext = createContext(
   {} as {
