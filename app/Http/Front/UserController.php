@@ -20,11 +20,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UserController
 {
-    public function me()
-    {
-        return 'me';
-    }
-
     public function edit(\Illuminate\Http\Request $request): View
     {
         $user = $request->user();

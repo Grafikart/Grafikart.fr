@@ -11,12 +11,12 @@ Route::get('/oauth/check/{driver}', [\App\Http\Front\AuthController::class, 'cal
 Route::get('/auth/check/premium', [\App\Http\Front\AuthController::class, 'checkPremium'])->name('auth.check.premium');
 
 // Auth restricted page
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
 
     // User profil
-    Route::get('/profil', [\App\Http\Front\UserController::class, 'me'])->name('users.me');
+    Route::get('/profil', [\App\Http\Front\UserController::class, 'edit'])->name('users.edit');
+    Route::post('/profil', [\App\Http\Front\UserController::class, 'update']);
     Route::delete('/profil', [\App\Http\Front\UserController::class, 'delete'])->name('users.delete');
-    Route::get('/profil/edit', [\App\Http\Front\UserController::class, 'edit'])->name('users.edit');
     Route::get('/profil/historique', [\App\Http\Front\UserController::class, 'history'])->name('users.history');
     Route::get('/profil/badges', [\App\Http\Front\UserController::class, 'badges'])->name('users.badges');
     Route::get('/profil/factures', [\App\Http\Front\Account\InvoiceController::class, 'index'])->name('transactions.index');
@@ -25,7 +25,6 @@ Route::middleware(['auth'])->group(function () {
         ->name('transactions.show');
     Route::post('/profil/subscription', [\App\Http\Front\Account\SubscriptionController::class, 'manage'])->name('users.subscription');
     Route::post('/profil/coupon', [\App\Http\Front\CouponController::class, 'claim'])->middleware('throttle:3')->name('users.coupon');
-    Route::post('/profil/edit', [\App\Http\Front\UserController::class, 'update']);
     Route::post('/profil/password', [\App\Http\Front\UserController::class, 'password'])->name('users.password');
 
     // School

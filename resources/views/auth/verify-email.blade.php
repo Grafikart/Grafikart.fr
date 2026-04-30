@@ -7,7 +7,7 @@
             <h1 class="text-page-title text-center mb-8">Vérifiez votre email</h1>
 
             <x-atoms.card class="p-6">
-                <p class="mb-4 text-sm text-muted">
+                <p class="mb-4 text-muted">
                     Merci de votre inscription ! Avant de commencer, veuillez vérifier votre adresse email en cliquant sur le lien que nous venons de vous envoyer.
                 </p>
 
@@ -20,7 +20,7 @@
                 <div class="flex flex-col gap-4">
                     <form method="POST" action="{{ route('verification.send') }}">
                         @csrf
-                        <x-atoms.button type="submit" class="w-full">
+                        <x-atoms.button type="submit" class="w-full!">
                             Renvoyer l'email de vérification
                             <x-lucide-send class="size-4" />
                         </x-atoms.button>
@@ -28,7 +28,7 @@
 
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <x-atoms.button type="submit" variant="ghost" class="w-full">
+                        <x-atoms.button type="submit" variant="ghost" class="w-full!">
                             Se déconnecter
                         </x-atoms.button>
                     </form>
