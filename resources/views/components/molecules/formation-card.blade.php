@@ -15,11 +15,13 @@
     <div class="flex items-start justify-between mb-3">
         <div class="h-10 flex items-center gap-1">
             @foreach($formation->mainTechnologies as $tech)
-                <img
-                    src="{{ $tech->mediaUrl('image') }}"
-                    alt="{{ $tech->name }}"
-                    class="size-10 object-contain"
-                />
+                <a href="{{ app_url($tech) }}" class="relative z-2">
+                    <img
+                        src="{{ $tech->mediaUrl('image') }}"
+                        alt="{{ $tech->name }}"
+                        class="size-10 object-contain"
+                    />
+                </a>
             @endforeach
         </div>
 

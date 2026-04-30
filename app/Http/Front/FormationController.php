@@ -37,8 +37,12 @@ class FormationController
         ]);
     }
 
-    public function show(Formation $formation, Request $request, ProgressionService $progressService): View
+    public function show(Formation $formation, Request $request, ProgressionService $progressService): View|RedirectResponse
     {
+        if ($formation->force_redirect && $formation->deprecatedBy) {
+            return redirect(app_url($formation->deprecatedBy), 301);
+        }
+
         return view('courses.formation', [
             'formation' => $formation,
             'completed' => $progressService->completedForCollection($request->user(), $formation->course_ids),

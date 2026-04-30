@@ -15,7 +15,7 @@
     <div class="flex items-start mb-3">
         <div class="h-10 flex items-center gap-1">
             @foreach($course->mainTechnologies as $tech)
-                <a href="{{ route('technologies.show', ['technology' => $tech->slug]) }}" class="relative z-2">
+                <a href="{{ app_url($tech) }}" class="relative z-2">
                     <img
                         src="{{ $tech->mediaUrl('image') }}"
                         alt="{{ $tech->name }}"

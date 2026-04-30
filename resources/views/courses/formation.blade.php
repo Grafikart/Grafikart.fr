@@ -56,10 +56,17 @@
 
     @cache('formation-show', $formation)
     <div class="container py-10 grid grid-cols-1 md:grid-cols-[1fr_420px] gap-30">
+
         {{-- Presentation --}}
         <div>
             <div class="sticky top-20">
                 <h2 class="text-4xl text-foreground-title font-serif font-bold mb-4">Présentation</h2>
+
+                @if($formation->deprecatedBy)
+                    <x-atoms.alert type="warning" class="my-4">
+                        <strong class="text-warning-text">Cette formation est dépréciée !</strong> Une formation plus récente est maintenant disponible : <a href="{{ app_url($formation->deprecatedBy) }}">{{ $formation->deprecatedBy->title }}</a>.
+                    </x-atoms.alert>
+                @endif
 
 
                 @if($course && !$formation->hasYoutubeLink())

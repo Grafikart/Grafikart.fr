@@ -152,6 +152,9 @@ class ProgressionService
             if (is_int($item)) {
                 return $item;
             }
+            if (is_string($item)) {
+                return intval($item);
+            }
             assert($item instanceof Model);
 
             return $item->getKey();
