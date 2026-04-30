@@ -8,6 +8,7 @@ use App\Domains\Support\SupportQuestion;
 use App\Http\Cms\Data\JobItemData;
 use App\Http\Cms\Data\Revision\RevisionRowData;
 use App\Http\Cms\Data\Support\SupportQuestionRowData;
+use App\Infrastructure\Notification\Mail\TestMail;
 use App\Infrastructure\Notification\Notification\TestNotification;
 use App\Infrastructure\Notification\NotificationService;
 use App\Infrastructure\Queue\FailedJob;
@@ -17,6 +18,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -50,6 +52,20 @@ final readonly class DashboardController
         $user->notify(new TestNotification);
 
         return new JsonResponse;
+    }
+
+    public function emailTest(Request $request): RedirectResponse
+    {
+        $data = $request->validate([
+            'email' => ['required', 'email'],
+        ]);
+
+        Mail::to($data['email'])->send(new TestMail(
+            fakeSubject: fake()->sentence(),
+            fakeBody: fake()->paragraphs(3, true),
+        ));
+
+        return back()->with('success', "Email de test envoyé à {$data['email']}");
     }
 
     public function clearCache(): RedirectResponse

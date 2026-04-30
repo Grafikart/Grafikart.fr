@@ -120,6 +120,7 @@ Route::group([
     Route::get('dashboard', [\App\Http\Cms\DashboardController::class, 'index'])->name('dashboard');
     Route::post('dashboard/cache', [\App\Http\Cms\DashboardController::class, 'clearCache'])->name('dashboard.cache.clear');
     Route::post('dashboard/notifications', [\App\Http\Cms\DashboardController::class, 'notification'])->name('notifications.store');
+    Route::post('dashboard/email', [\App\Http\Cms\DashboardController::class, 'emailTest'])->name('dashboard.email.test');
     Route::resource('blog_categories', \App\Http\Cms\BlogCategoryController::class);
     Route::resource('comments', \App\Http\Cms\CommentController::class)->only(['index', 'update', 'destroy']);
     Route::resource('coupons', \App\Http\Cms\CouponController::class)->except(['show']);
