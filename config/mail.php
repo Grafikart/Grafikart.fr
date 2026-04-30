@@ -115,4 +115,11 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+    'dkim' => [
+        'domain' => env('MAIL_DKIM_DOMAIN', 'grafikart.fr'),
+        'selector' => env('MAIL_DKIM_SELECTOR', 'default'),
+        'private_key_path' => env('MAIL_DKIM_KEY_PATH', storage_path('dkim/dkim.pem')),
+        'passphrase' => env('MAIL_DKIM_PASSPHRASE', ''),
+    ],
+
 ];

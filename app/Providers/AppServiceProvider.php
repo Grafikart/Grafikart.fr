@@ -7,12 +7,14 @@ use App\Domains\Course\Course;
 use App\Domains\Course\Formation;
 use App\Http\Front\AuthController;
 use App\Infrastructure\Twitch\TwitchAPI;
+use App\Mail\DkimTransport;
 use App\Models\User;
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Filesystem\FilesystemAdapter;
+use Illuminate\Mail\Mailer;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -23,6 +25,7 @@ use Illuminate\Support\ServiceProvider;
 use League\Flysystem\Filesystem;
 use Spatie\Dropbox\Client as DropboxClient;
 use Spatie\FlysystemDropbox\DropboxAdapter;
+use Symfony\Component\Mime\Crypto\DkimSigner;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -54,6 +57,35 @@ class AppServiceProvider extends ServiceProvider
         $this->registerViewGlobals();
         $this->configureDefaults();
         $this->registerFileSystems();
+        $this->registerDkimSigner();
+    }
+
+    private function registerDkimSigner(): void
+    {
+        $config = config('mail.dkim');
+        $domain = $config['domain'] ?? null;
+        $keyPath = $config['private_key_path'] ?? null;
+
+        if (! $domain || ! $keyPath || ! is_file($keyPath)) {
+            return;
+        }
+
+        $this->app->extend('mailer.default', function (Mailer $mailer) use ($config, $domain, $keyPath) {
+            $signer = new DkimSigner(
+                'file://'.$keyPath,
+                $domain,
+                $config['selector'] ?? 'default',
+                [],
+                $config['passphrase'] ?? '',
+            );
+
+            $mailer->setSymfonyTransport(new DkimTransport(
+                $mailer->getSymfonyTransport(),
+                $signer,
+            ));
+
+            return $mailer;
+        });
     }
 
     private function registerPermissions(): void
