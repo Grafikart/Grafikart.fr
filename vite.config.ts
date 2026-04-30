@@ -1,16 +1,16 @@
-import { wayfinder } from "@laravel/vite-plugin-wayfinder"
-import tailwindcss from "@tailwindcss/vite"
-import react from "@vitejs/plugin-react"
-import laravel from "laravel-vite-plugin"
-import { copyFileSync, readFileSync, unlinkSync, writeFileSync } from "node:fs"
-import { defineConfig, type Plugin } from "vite"
+import { wayfinder } from "@laravel/vite-plugin-wayfinder";
+import tailwindcss from "@tailwindcss/vite";
+import react from "@vitejs/plugin-react";
+import laravel from "laravel-vite-plugin";
+import { copyFileSync, readFileSync, unlinkSync, writeFileSync } from "node:fs";
+import { defineConfig, type Plugin } from "vite";
 
 const inputs = {
   front: ["resources/js/front.ts"],
   cms: ["resources/js/cms.tsx"],
-}
+};
 
-const entry = process.env.BUILD_ENTRY as keyof typeof inputs
+const entry = process.env.BUILD_ENTRY as keyof typeof inputs;
 
 function manifestMerge(): Plugin {
   return {
@@ -18,12 +18,12 @@ function manifestMerge(): Plugin {
     apply: "build",
     closeBundle() {
       if (!entry) {
-        return
+        return;
       }
 
-      const dir = "public/build"
-      const manifestPath = `${dir}/manifest.json`
-      const manifestTempPath = `${dir}/manifesttmp.json`
+      const dir = "public/build";
+      const manifestPath = `${dir}/manifest.json`;
+      const manifestTempPath = `${dir}/manifesttmp.json`;
 
       // Build the final manifest combining the previous one
       if (entry === "cms") {
@@ -37,13 +37,13 @@ function manifestMerge(): Plugin {
             null,
             2,
           ),
-        )
-        unlinkSync(manifestTempPath)
+        );
+        unlinkSync(manifestTempPath);
       } else {
-        copyFileSync(manifestPath, manifestTempPath)
+        copyFileSync(manifestPath, manifestTempPath);
       }
     },
-  }
+  };
 }
 
 export default defineConfig({
@@ -65,7 +65,7 @@ export default defineConfig({
   ],
   build: {
     emptyOutDir: entry === "front",
-    sourcemap: true,
+    sourcemap: false,
     rolldownOptions: {
       output: {
         advancedChunks: {
@@ -79,4 +79,4 @@ export default defineConfig({
       },
     },
   },
-})
+});

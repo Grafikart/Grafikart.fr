@@ -17,7 +17,7 @@ class CourseFilterController
         $scope = fn ($q) => $q->published(true);
 
         $technologies = Technology::query()
-            ->withCount(['courses' => fn ($q) => $scope($q)->whereNull('formation_id'), 'formations' => $scope])
+            ->withCount(['courses' => $scope, 'formations' => $scope])
             ->whereHas('courses', $scope)
             ->orderByDesc('courses_count')
             ->get()
