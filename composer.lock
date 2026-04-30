@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c3705fc22686b8f25f1c552a3741a3a1",
+    "content-hash": "dd4243bc6de6fc439169bf3c178b0a09",
     "packages": [
         {
             "name": "apimatic/core",
@@ -7887,6 +7887,58 @@
                 "source": "https://github.com/ramsey/uuid/tree/4.9.2"
             },
             "time": "2025-12-14T04:43:48+00:00"
+        },
+        {
+            "name": "simonschaufi/laravel-dkim",
+            "version": "v3.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/simonschaufi/laravel-dkim.git",
+                "reference": "8842499dec4836a71e2913451e990ece3d47ea8b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/simonschaufi/laravel-dkim/zipball/8842499dec4836a71e2913451e990ece3d47ea8b",
+                "reference": "8842499dec4836a71e2913451e990ece3d47ea8b",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/config": "^9.0 || ^10.0 || ^11.0 || ^12.0 || ^13.0",
+                "illuminate/contracts": "^9.0 || ^10.0 || ^11.0 || ^12.0 || ^13.0",
+                "illuminate/mail": "^9.0 || ^10.0 || ^11.0 || ^12.0 || ^13.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SimonSchaufi\\LaravelDKIM\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Simon Schaufelberger",
+                    "email": "simonschaufi+dkim@gmail.com"
+                }
+            ],
+            "description": "Laravel package for signing outgoing messages with DKIM.",
+            "support": {
+                "issues": "https://github.com/simonschaufi/laravel-dkim/issues",
+                "source": "https://github.com/simonschaufi/laravel-dkim/tree/v3.6.0"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.me/simonschaufi/10",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/simonschaufi",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-03-05T12:51:17+00:00"
         },
         {
             "name": "spatie/db-dumper",

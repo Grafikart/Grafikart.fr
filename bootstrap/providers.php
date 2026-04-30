@@ -10,4 +10,5 @@ return [
     App\Domains\Course\CourseServiceProvider::class,
     App\Domains\Premium\PremiumServiceProvider::class,
     App\Providers\FortifyServiceProvider::class,
+    \SimonSchaufi\LaravelDKIM\DKIMMailServiceProvider::class,
 ];
