@@ -1,5 +1,7 @@
 @extends('front')
 
+@section('title', "Parcours d'apprentissage")
+
 @section('body')
     <section class="container pb-15 bg-background-light">
         <h1 class="text-6xl font-bold font-serif mb-4 text-foreground-title">
