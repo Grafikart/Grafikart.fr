@@ -192,7 +192,7 @@ class Course extends Model implements RegisterMedia, Revisionable, Searchable
 
     public function posterUrl(int $width, int $height): string
     {
-        return $this->attachment?->url($width, $height) ?? '';
+        return $this->attachment?->url($width, $height) ?? "https://img.youtube.com/vi/{$this->youtube_id}/hqdefault.jpg";
     }
 
     public function isScheduled(): bool
