@@ -104,7 +104,11 @@ export default withLayout<Props>(
 function Item({ item }: { item: TransactionReportRowData }) {
   return (
     <TableRow className="group">
-      <TableCell className="w-10">{item.month}</TableCell>
+      <TableCell className="w-10 capitalize">
+        {new Date(2000, item.month - 1).toLocaleString("fr-FR", {
+          month: "long",
+        })}
+      </TableCell>
       <TableCell>{(item.price / 100).toFixed(2)} €</TableCell>
       <TableCell>{(item.tax / 100).toFixed(2)} €</TableCell>
       <TableCell>{(item.fee / 100).toFixed(2)} €</TableCell>

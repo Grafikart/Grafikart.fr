@@ -43,7 +43,7 @@ class TransactionController extends CmsController
         $results = Transaction::query()
             ->whereNull('refunded_at')
             ->whereRaw("{$yearExpr} = ?", [$year])
-            ->selectRaw("method, {$monthExpr} as month, ROUND(SUM(price) * 100) / 100 as price, ROUND(SUM(tax) * 100) / 100 as tax, ROUND(SUM(fee) * 100) / 100 as fee")
+            ->selectRaw("method, {$monthExpr} as month, SUM(price) as price, SUM(tax) as tax, SUM(fee) as fee")
             ->groupByRaw("{$monthExpr}, method")
             ->orderByRaw("{$monthExpr} DESC")
             ->get();
