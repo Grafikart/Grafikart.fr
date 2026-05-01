@@ -1,19 +1,21 @@
 .PHONY: help deploy sync install dev debug dump dumpimport dbupgrade seed format typescript twitch provision
 .DEFAULT_GOAL := help
 
+domain := "beta.grafikart.fr"
+
 help: ## Affiche cette aide
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 deploy: ## Déploie une nouvelle version du site
-	ssh -A $(server) 'cd $(domain) && git pull origin master && make install'
+	ssh -A $(server) 'cd $(domain) && git pull origin develop && make install'
 
 sync: ## Récupère les données depuis le serveur
 	rsync -avz --ignore-existing --progress --exclude=avatars grafikart:/home/grafikart/grafikart.fr/public/uploads/ ./public/uploads/
 
 install: vendor/autoload.php public/assets/.vite/manifest.json ## Installe les différentes dépendances
-	APP_ENV=prod APP_DEBUG=0 php composer install --no-dev --optimize-autoloader
-	make migrate
-	APP_ENV=prod APP_DEBUG=0 php artisan optimize
+	php-zts composer install --no-dev --optimize-autoloader
+	php-zts artisan migrate --force
+	php-zts artisan optimize
 
 dev: node_modules/time ## Lance le serveur de développement
 	tmux kill-session -t dev 2>/dev/null || true

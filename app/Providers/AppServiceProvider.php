@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Demo;
 use App\Domains\Blog\Post;
 use App\Domains\Course\Course;
 use App\Domains\Course\Formation;
@@ -25,13 +26,9 @@ use Illuminate\Support\ServiceProvider;
 use League\Flysystem\Filesystem;
 use Spatie\Dropbox\Client as DropboxClient;
 use Spatie\FlysystemDropbox\DropboxAdapter;
-use Symfony\Component\Mime\Crypto\DkimSigner;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
     public function register(): void
     {
         $this->app->singleton(TwitchAPI::class, fn () => new TwitchAPI(
@@ -47,9 +44,6 @@ class AppServiceProvider extends ServiceProvider
         });
     }
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
         $this->registerPermissions();
