@@ -163,6 +163,10 @@ describe('payment_intent.succeeded', function () {
 
 describe('customer.subscription.created', function () {
     it('creates a subscription when the plan exists', function () {
+        config([
+            'services.stripe.public' => 'pk_stripe_demo',
+            'services.stripe.secret' => 'sk_stripe_demo',
+        ]);
         $eventFactory = new \App\Infrastructure\Payment\Stripe\Factory\StripeEventFactory;
         $user = User::factory()->create(['stripe_id' => 'cus_test123']);
         $plan = Plan::factory()->create();

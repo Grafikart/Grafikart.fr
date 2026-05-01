@@ -11,7 +11,7 @@
     "arrowParens": "always",
     "bracketSameLine": false,
     "bracketSpacing": true,
-    "ignorePatterns": ["resources/views/mail/*"],
+    "ignorePatterns": ["resources/views/mail/*", "*.yml", "*.md"],
     "overrides": [
         {
             "files": ["*.json"],

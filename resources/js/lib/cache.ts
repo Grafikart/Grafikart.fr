@@ -12,7 +12,7 @@ export class SimpleCachedValue<T> {
 
   getValue(): T {
     const newKey = this.key()
-    if (newKey === this.keyValue && this.cachedValue) {
+    if (newKey === this.keyValue && this.cachedValue !== null) {
       return this.cachedValue
     }
 
