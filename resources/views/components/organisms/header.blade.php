@@ -1,8 +1,8 @@
 @php
     $navItems = [
         ['label' => 'Tutoriels', 'href' => route('courses.index', absolute: false), 'icon' => 'square-play'],
-        ['label' => 'Cursus', 'href' => '/cursus', 'icon' => 'waypoints'],
         ['label' => 'Formations', 'href' => '/formations', 'icon' => 'list-video'],
+        ['label' => 'Cursus', 'href' => '/cursus', 'icon' => 'waypoints'],
         ['label' => 'Premium', 'href' => '/premium', 'icon' => 'star', 'highlight' => true],
         ['label' => 'Blog', 'href' => '/blog', 'icon' => 'notebook-pen'],
     ];
@@ -22,7 +22,7 @@
             </div>
         @endif
         <div style="view-transition-name:header-left" class="flex items-center">
-            <a href="/" class="text-foreground mr-6">
+            <a href="/" class="text-foreground mr-6" title="Revenir à l'accueil">
                 <x-atoms.logo/>
             </a>
 

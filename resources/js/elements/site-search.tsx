@@ -43,7 +43,10 @@ function SearchInputInner() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger className="grid size-6 place-items-center">
+      <DialogTrigger
+        className="grid size-6 place-items-center"
+        title="Rechercher un contenu"
+      >
         <SearchIcon className="size-4" />
       </DialogTrigger>
       <DialogContent

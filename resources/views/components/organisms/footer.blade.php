@@ -20,7 +20,7 @@
                         <img src="/images/icons/{{ $social['icon'] }}.svg" alt="{{ $social['label'] }}" width="20" height="20" loading="lazy" @class($social['class'] ?? '') />
                     </a>
                 @endforeach
-                <a href="https://www.infomaniak.com/goto/fr/hosting.managed-cloud?utm_term=59f74db50448d" class="ml-auto">
+                <a href="https://www.infomaniak.com/goto/fr/hosting.managed-cloud?utm_term=59f74db50448d" class="ml-auto" title="Hébergé par Infomaniak">
                     <img src="/images/badge-infomaniak.svg" alt="" loading="lazy" width="150" />
                 </a>
             </div>
@@ -28,7 +28,7 @@
 
         {{-- Contact --}}
         <div class="max-w-93 md:ml-auto">
-            <h5 class="text-xl font-bold text-foreground-title mb-4">Me contacter</h5>
+            <div class="text-xl font-bold text-foreground-title mb-4">Me contacter</div>
             <ul class="space-y-1 text-muted mb-6">
                 <li><a href="{{ route('contact') }}" class="flex items-center gap-2 hover:text-primary"><x-lucide-mail class="size-4" /> Par email</a></li>
                 <li><a href="{{ route('tchat') }}" class="flex items-center gap-2 hover:text-primary"><x-lucide-message-circle class="size-4" /> Tchat</a></li>
@@ -38,7 +38,7 @@
                 <li><a href="{{ route('pages.terms') }}" class="flex items-center gap-2 hover:text-primary"><x-lucide-signature class="size-4" /> Conditions d'utilisation</a></li>
                 <li><a href="{{ route('pages.privacy') }}" class="flex items-center gap-2 hover:text-primary"><x-lucide-fingerprint class="size-4" /> Politique de confidentialité</a></li>
             </ul>
-            <h5 class="text-xl font-bold text-foreground-title mb-4">Thème</h5>
+            <div class="text-xl font-bold text-foreground-title mb-4">Thème</div>
             <theme-switcher/>
         </div>
     </div>
