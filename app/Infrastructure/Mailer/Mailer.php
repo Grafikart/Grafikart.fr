@@ -6,7 +6,6 @@ namespace App\Infrastructure\Mailer;
 
 use Illuminate\Contracts\Mail\Mailable as MailableContract;
 use Illuminate\Mail\SentMessage;
-use InvalidArgumentException;
 use Symfony\Component\Mime\Crypto\DkimSigner;
 
 class Mailer extends \Illuminate\Mail\Mailer

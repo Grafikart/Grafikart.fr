@@ -4,12 +4,9 @@ namespace App\Http\Cms;
 
 use App\Domains\Cms\CmsController;
 use App\Domains\School\School;
-use App\Http\Cms\Data\OptionItemData;
 use App\Http\Cms\Data\School\SchoolFormData;
 use App\Http\Cms\Data\School\SchoolRequestData;
 use App\Http\Cms\Data\School\SchoolRowData;
-use App\Models\User;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Response;
 

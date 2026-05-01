@@ -2,20 +2,17 @@
 
 namespace App\Providers;
 
-use App\Demo;
 use App\Domains\Blog\Post;
 use App\Domains\Course\Course;
 use App\Domains\Course\Formation;
 use App\Http\Front\AuthController;
 use App\Infrastructure\Twitch\TwitchAPI;
-use App\Mail\DkimTransport;
 use App\Models\User;
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Filesystem\FilesystemAdapter;
-use Illuminate\Mail\Mailer;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;

@@ -2,7 +2,6 @@
 
 namespace App\Infrastructure\Notification;
 
-use App\Domains\Notification\Jobs\NotificationBroadcasterJob;
 use App\Helpers\UrlGenerator;
 use App\Infrastructure\Notification\Events\NotificationReadEvent;
 use App\Models\User;

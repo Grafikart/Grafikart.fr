@@ -10,7 +10,6 @@ use Illuminate\Support\Collection;
 
 class SchoolRepository
 {
-
     /**
      * @return LengthAwarePaginator<int, SchoolStudentData>
      */

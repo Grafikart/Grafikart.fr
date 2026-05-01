@@ -25,6 +25,7 @@ class Breadcrumbs extends Component
     public function render(): View|Closure|string
     {
         $model = $this->model;
+
         return view('components.breadcrumbs', [
             'items' => match (true) {
                 $model instanceof Course => $this->course($model),
