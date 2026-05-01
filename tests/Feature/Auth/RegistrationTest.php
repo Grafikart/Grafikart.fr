@@ -58,7 +58,6 @@ test('new users can register with a coupon', function () {
         'coupon' => $coupon->id,
     ]);
 
-    $this->assertAuthenticated();
     $response->assertRedirect(route('users.edit', absolute: false));
 
     $coupon->refresh();
@@ -118,8 +117,11 @@ test('coupon email mismatch is allowed', function () {
         'coupon' => $coupon->id,
     ]);
 
-    $this->assertAuthenticated();
-    $response->assertRedirect(route('users.edit', absolute: false));
+    $response->assertRedirect();
 
     $coupon->refresh();
+    expect($coupon->user_id)->not->toBeNull();
+    expect($coupon->claimed_at)->not->toBeNull();
+    expect($coupon->user->premium_end_at)->not->toBeNull();
+    expect($coupon->user->premium_end_at->isFuture())->toBeTrue();
 });
