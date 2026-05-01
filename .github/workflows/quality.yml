@@ -37,5 +37,14 @@ jobs:
         uses: oven-sh/setup-bun@v2
       - name: Install frontend dependencies
         run: bun install
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.5"
+          tools: composer:v2
+      - name: Install PHP dependencies
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+      - name: Wayfinder
+        run: php artisan wayfinder:generate --with-form
       - name: Check
         run: bun run check

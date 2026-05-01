@@ -12,7 +12,7 @@ deploy: ## Déploie une nouvelle version du site
 sync: ## Récupère les données depuis le serveur
 	rsync -avz --ignore-existing --progress --exclude=avatars grafikart:/home/grafikart/grafikart.fr/public/uploads/ ./public/uploads/
 
-install: vendor/autoload.php public/assets/.vite/manifest.json ## Installe les différentes dépendances
+install: vendor/autoload.php public/build/manifest.json ## Installe les différentes dépendances
 	php-zts composer install --no-dev --optimize-autoloader
 	php-zts artisan migrate --force
 	php-zts artisan config:cache
@@ -79,12 +79,11 @@ node_modules/time: bun.lock
 bun.lock:
 	bun install
 
-public/assets: node_modules/time
+public/build: node_modules/time
+	php artisan wayfinder:generate --with-form
 	bun run build
 
-var/dump:
-	mkdir var/dump
-
-public/assets/.vite/manifest.json: package.json
-	bun bun install
-	bun bun run build
+public/build/manifest.json: package.json
+	bun install
+	php artisan wayfinder:generate --with-form
+	bun run build
