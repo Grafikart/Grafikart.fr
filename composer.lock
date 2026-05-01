@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dd4243bc6de6fc439169bf3c178b0a09",
+    "content-hash": "272185f101eb72547315c96f8f2f8b03",
     "packages": [
         {
             "name": "apimatic/core",
@@ -7889,56 +7889,51 @@
             "time": "2025-12-14T04:43:48+00:00"
         },
         {
-            "name": "simonschaufi/laravel-dkim",
-            "version": "v3.6.0",
+            "name": "shaffe/laravel-dkim",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/simonschaufi/laravel-dkim.git",
-                "reference": "8842499dec4836a71e2913451e990ece3d47ea8b"
+                "url": "https://github.com/shaffe-fr/laravel-dkim.git",
+                "reference": "dd80229cc7cfd113fe1a79c4702d5a8cda434095"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simonschaufi/laravel-dkim/zipball/8842499dec4836a71e2913451e990ece3d47ea8b",
-                "reference": "8842499dec4836a71e2913451e990ece3d47ea8b",
+                "url": "https://api.github.com/repos/shaffe-fr/laravel-dkim/zipball/dd80229cc7cfd113fe1a79c4702d5a8cda434095",
+                "reference": "dd80229cc7cfd113fe1a79c4702d5a8cda434095",
                 "shasum": ""
             },
             "require": {
-                "illuminate/config": "^9.0 || ^10.0 || ^11.0 || ^12.0 || ^13.0",
-                "illuminate/contracts": "^9.0 || ^10.0 || ^11.0 || ^12.0 || ^13.0",
-                "illuminate/mail": "^9.0 || ^10.0 || ^11.0 || ^12.0 || ^13.0"
+                "illuminate/mail": "^10.0|^11.0|^12.0",
+                "illuminate/support": "^10.0|^11.0|^12.0",
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^8.0|^9.0|^10.0",
+                "phpunit/phpunit": "^10.0|^11.0"
             },
             "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Shaffe\\LaravelDkim\\DkimServiceProvider"
+                    ]
+                }
+            },
             "autoload": {
                 "psr-4": {
-                    "SimonSchaufi\\LaravelDKIM\\": "src/"
+                    "Shaffe\\LaravelDkim\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Simon Schaufelberger",
-                    "email": "simonschaufi+dkim@gmail.com"
-                }
-            ],
-            "description": "Laravel package for signing outgoing messages with DKIM.",
+            "description": "Laravel package to add DKIM signatures to outgoing emails",
             "support": {
-                "issues": "https://github.com/simonschaufi/laravel-dkim/issues",
-                "source": "https://github.com/simonschaufi/laravel-dkim/tree/v3.6.0"
+                "issues": "https://github.com/shaffe-fr/laravel-dkim/issues",
+                "source": "https://github.com/shaffe-fr/laravel-dkim/tree/v1.0.0"
             },
-            "funding": [
-                {
-                    "url": "https://www.paypal.me/simonschaufi/10",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/simonschaufi",
-                    "type": "github"
-                }
-            ],
-            "time": "2026-03-05T12:51:17+00:00"
+            "time": "2026-03-03T11:29:19+00:00"
         },
         {
             "name": "spatie/db-dumper",

@@ -26,7 +26,7 @@
         "mallardduck/blade-lucide-icons": "^1.26",
         "mvanduijker/laravel-mercure-broadcaster": "^3.8",
         "paypal/paypal-server-sdk": "^2.2",
-        "simonschaufi/laravel-dkim": "^3.6",
+        "shaffe/laravel-dkim": "^1.0",
         "spatie/enum": "*",
         "spatie/flysystem-dropbox": "^3.1",
         "spatie/laravel-data": "^4.18",
