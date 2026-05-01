@@ -3,7 +3,7 @@
 namespace App\Http\Cms\Data\Coupon;
 
 use App\Domains\Coupon\Coupon;
-use DateTimeInterface;
+use Carbon\CarbonImmutable;
 use Spatie\LaravelData\Data;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
@@ -14,8 +14,8 @@ final class CouponRowData extends Data
         public readonly string $id,
         public readonly string $email,
         public readonly int $months,
-        public readonly ?DateTimeInterface $claimedAt,
-        public readonly DateTimeInterface $createdAt,
+        public readonly ?CarbonImmutable $claimedAt,
+        public readonly CarbonImmutable $createdAt,
     ) {}
 
     public static function fromModel(Coupon $coupon): self

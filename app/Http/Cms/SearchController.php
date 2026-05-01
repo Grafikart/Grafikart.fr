@@ -46,7 +46,6 @@ class SearchController extends Controller
         $query = match (true) {
             str_starts_with($q, 'b:') => Post::query(),
             str_starts_with($q, 'f:') => Formation::query(),
-            str_starts_with($q, 'c:') => Technology::query(),
             default => Course::query(),
         };
 

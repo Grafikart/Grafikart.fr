@@ -62,23 +62,4 @@ final class SchoolController extends CmsController
     {
         return $this->cmsDestroy($school, "L'école {$school->name} a été supprimée");
     }
-
-    /**
-     * @return array<OptionItemData>
-     */
-    private function getOwners(?School $school = null): array
-    {
-        $usedOwnerIds = School::query()
-            ->when($school !== null, fn (Builder $query) => $query->whereKeyNot($school->id))
-            ->pluck('user_id');
-
-        return OptionItemData::collect(
-            User::query()
-                ->select(['id', 'name'])
-                ->when($usedOwnerIds->isNotEmpty(), fn (Builder $query) => $query->whereNotIn('id', $usedOwnerIds))
-                ->when($school?->user_id !== null, fn (Builder $query) => $query->orWhereKey($school->user_id))
-                ->orderBy('name')
-                ->get()
-        )->toArray();
-    }
 }

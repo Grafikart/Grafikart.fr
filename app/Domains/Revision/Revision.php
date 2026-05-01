@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
+/**
+ * @property RevisionStatus $state
+ */
 class Revision extends Model
 {
     /** @use HasFactory<RevisionFactory> */

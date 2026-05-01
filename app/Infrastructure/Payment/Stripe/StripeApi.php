@@ -91,11 +91,11 @@ class StripeApi
             ],
             'subscription_data' => [
                 'metadata' => [
-                    'plan_id' => $plan->id,
+                    'plan_id' => (string) $plan->id,
                 ],
             ],
             'metadata' => [
-                'plan_id' => $plan->id,
+                'plan_id' => (string) $plan->id,
             ],
             'customer' => $user->stripe_id,
             'line_items' => [
@@ -119,11 +119,11 @@ class StripeApi
             ],
             'customer' => $user->stripe_id,
             'metadata' => [
-                'plan_id' => $plan->id,
+                'plan_id' => (string) $plan->id,
             ],
             'payment_intent_data' => [
                 'metadata' => [
-                    'plan_id' => $plan->id,
+                    'plan_id' => (string) $plan->id,
                 ],
             ],
             'line_items' => [

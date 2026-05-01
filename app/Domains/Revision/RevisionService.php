@@ -11,7 +11,7 @@ class RevisionService
 {
     public function __construct(private readonly Guard $guard) {}
 
-    public function sendRevision(Revisionable $target, string $content): Revision
+    public function sendRevision(Revisionable&Model $target, string $content): Revision
     {
         $userId = $this->guard->id();
         assert($userId, "Impossible de récupérer l'id de l'utilisateur connecté");
@@ -29,14 +29,14 @@ class RevisionService
      * Returns the content of the user's last pending revision for that target if it exists,
      * otherwise returns the target's current content.
      */
-    public function getContentForUser(Revisionable $target): string
+    public function getContentForUser(Revisionable&Model $target): string
     {
         $userId = $this->guard->id();
 
         assert($target instanceof Model && $target->hasAttribute('content'), 'Impossible de récupérer le contenu associé');
 
         if (! $userId) {
-            return $target->content;
+            return $target->getAttribute('content');
         }
 
         $pendingRevision = Revision::query()
@@ -46,7 +46,7 @@ class RevisionService
             ->latest()
             ->first();
 
-        return $pendingRevision?->content ?? $target->content;
+        return $pendingRevision?->content ?? $target->getAttribute('content');
     }
 
     public function accept(Revision $revision, ?string $comment = null): void

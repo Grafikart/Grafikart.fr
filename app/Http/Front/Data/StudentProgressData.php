@@ -26,7 +26,7 @@ class StudentProgressData extends Data
             title: $formation->title,
             icon: $formation->icon(),
             chapters: $chaptersCount,
-            completedChapters: round($chaptersCount * $progress->progress / 1000),
+            completedChapters: (int) round($chaptersCount * $progress->progress / 1000),
             url: app_url($formation),
         );
     }

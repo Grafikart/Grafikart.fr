@@ -85,10 +85,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isAdmin(): bool
     {
         if (config('app.env') !== 'production') {
-            return $this->name === 'Grafikart';
+            return 'Grafikart' === $this->name;
         }
 
-        return $this->name === 'Grafikart' && $this->id = 1;
+        return "Grafikart" === $this->name && 1 === $this->id;
     }
 
     public static function findAdmin(): self

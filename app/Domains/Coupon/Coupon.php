@@ -5,12 +5,16 @@ namespace App\Domains\Coupon;
 use App\Domains\Coupon\Factory\CouponFactory;
 use App\Domains\School\School;
 use App\Models\User;
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property CarbonImmutable|null $claimed_at
+ */
 class Coupon extends Model
 {
     /** @use HasFactory<CouponFactory> */

@@ -10,16 +10,9 @@ use Illuminate\Support\Collection;
 
 class SchoolRepository
 {
-    public function countPending(int $schoolId): int
-    {
-        return Coupon::query()
-            ->notClaimed()
-            ->where('school_id', $schoolId)
-            ->count();
-    }
 
     /**
-     * @return LengthAwarePaginator<SchoolStudentData>
+     * @return LengthAwarePaginator<int, SchoolStudentData>
      */
     public function activeStudents(int $schoolId): LengthAwarePaginator
     {
@@ -39,19 +32,19 @@ class SchoolRepository
             ->groupBy('user_id')
             ->pluck('completions', 'user_id');
 
-        $coupons->setCollection(
-            $coupons->getCollection()->map(
-                fn (Coupon $coupon): SchoolStudentData => new SchoolStudentData(
-                    id: $coupon->user->id,
-                    email: $coupon->user->email,
-                    createdAt: $coupon->user->created_at,
-                    endAt: $coupon->user->premium_end_at,
-                    completions: (int) ($completedCoursesCount[$coupon->user_id] ?? 0),
-                )
+        $mapped = $coupons->getCollection()->map(
+            fn (Coupon $coupon): SchoolStudentData => new SchoolStudentData(
+                id: (string) $coupon->user->id,
+                email: $coupon->user->email,
+                createdAt: $coupon->user->created_at,
+                endAt: $coupon->user->premium_end_at,
+                completions: (int) ($completedCoursesCount[$coupon->user_id] ?? 0),
             )
         );
 
-        /** @var LengthAwarePaginator<SchoolStudentData> $coupons */
+        /** @var \Illuminate\Pagination\LengthAwarePaginator<int, SchoolStudentData> $coupons */
+        $coupons->setCollection($mapped);
+
         return $coupons;
     }
 

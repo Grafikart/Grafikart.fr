@@ -71,5 +71,7 @@ class Mailer extends \Illuminate\Mail\Mailer
                 return $sentMessage;
             }
         }
+
+        return null;
     }
 }

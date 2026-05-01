@@ -21,10 +21,11 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
 
 /**
- * @property \Illuminate\Support\Collection<int, Chapter> $chapters
+ * @property Collection<int, Chapter> $chapters
  * @property Collection<int, int> $courseIds
+ * @property Collection<int, int> $course_ids
  * @property int $duration
- * @property \Illuminate\Support\Collection<int, array{title: string, courses: Course[]}> $chaptersWithCourses
+ * @property Collection<int, array{title: string, courses: Course[]}> $chaptersWithCourses
  */
 class Formation extends Model implements Searchable
 {

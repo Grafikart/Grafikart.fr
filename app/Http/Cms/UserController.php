@@ -72,14 +72,14 @@ class UserController extends CmsController
         $search = $request->string('q')->trim()->toString();
 
         if ($search === '') {
-            return OptionItemData::collect([]);
+            return collect([]);
         }
 
         $users = User::query()
             ->select(['id', 'name', 'email'])
             ->where(function (Builder $query) use ($search) {
                 if (is_numeric($search)) {
-                    $query->orWhereKey((int) $search);
+                    $query->orWhere('id', (int) $search);
 
                     return;
                 }
