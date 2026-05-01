@@ -4,7 +4,7 @@
   git:
     repo: "https://github.com/Grafikart/Grafikart.fr.git"
     dest: "{{ root_path }}"
-    version: master
+    version: main
 - name: Laravel | Scheduler
   become: no
   cron:

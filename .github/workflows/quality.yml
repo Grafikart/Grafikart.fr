@@ -1,4 +1,4 @@
-name: tests
+name: quality
 
 on:
   push:
@@ -14,7 +14,7 @@ permissions:
   contents: write
 
 jobs:
-  php-test:
+  php-quality:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -25,9 +25,11 @@ jobs:
           tools: composer:v2
       - name: Install PHP dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
-      - name: Tests
-        run: php artisan test
-  front-test:
+      - name: Laravel Pint
+        run: ./vendor/bin/pint --test
+      - name: PHPStan
+        run: ./vendor/bin/phpstan analyse --memory-limit=2G
+  front-quality:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -35,5 +37,5 @@ jobs:
         uses: oven-sh/setup-bun@v2
       - name: Install frontend dependencies
         run: bun install
-      - name: Test
-        run: bun run test
+      - name: Check
+        run: bun run check
