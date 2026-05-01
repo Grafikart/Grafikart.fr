@@ -3,7 +3,10 @@
 <lazy-video video="{{$video}}" {{ $attributes->merge(['class' => "
     grid place-items-center overflow-hidden aspect-video group relative rounded-md shadow-lg cursor-pointer bg-[#000] hover:shadow-md transition-shadow" ])}}>
     <img
+        width="800"
+        height="450"
         alt=""
+        fetchpriority="high"
         loading="lazy"
         class="aspect-video w-full object-cover [grid-area:1/1]"
         src="{{$poster ?? "https://img.youtube.com/vi/{$video}/hqdefault.jpg"}}"

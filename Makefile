@@ -15,6 +15,7 @@ sync: ## Récupère les données depuis le serveur
 install: vendor/autoload.php public/assets/.vite/manifest.json ## Installe les différentes dépendances
 	php-zts composer install --no-dev --optimize-autoloader
 	php-zts artisan migrate --force
+	php-zts artisan config:cache
 	php-zts artisan optimize
 
 dev: node_modules/time ## Lance le serveur de développement

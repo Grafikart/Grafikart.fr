@@ -28,6 +28,8 @@ export function startSubscription(): void {
         ...(prev ?? []),
       ])
       playNotification()
+    } else {
+      console.error("Unmanaged mercure event", event)
     }
   })
 }

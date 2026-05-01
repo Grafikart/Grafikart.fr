@@ -17,6 +17,8 @@
             @foreach($formation->mainTechnologies as $tech)
                 <a href="{{ app_url($tech) }}" class="relative z-2">
                     <img
+                        width="40"
+                        height="40"
                         src="{{ $tech->mediaUrl('image') }}"
                         alt="{{ $tech->name }}"
                         class="size-10 object-contain"
