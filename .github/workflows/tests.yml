@@ -25,6 +25,8 @@ jobs:
           tools: composer:v2
       - name: Install PHP dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
+      - name: Create env
+        run: cp .env.example .env
       - name: Create key
         run: php artisan key:generate
       - name: Tests
@@ -47,4 +49,4 @@ jobs:
       - name: Wayfinder
         run: php artisan wayfinder:generate --with-form
       - name: Test
-        run: bun run test --run
+        run: LARAVEL_BYPASS_ENV_CHECK=1 bunx vitest --run
