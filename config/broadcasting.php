@@ -79,7 +79,7 @@ return [
 
         'mercure' => [
             'driver' => 'mercure',
-            'url' => env('MERCURE_URL', 'http://localhost:8000/.well-known/mercure'),
+            'url' => env('MERCURE_URL', config('app.url').'/.well-known/mercure'),
             'secret' => env('MERCURE_SECRET', 'publishersecretkeypublishersecretkey'),
             'subscriberSecret' => env('MERCURE_SUBSCRIBER_SECRET', 'subscribersecretkeysubscribersecretkey'),
         ],

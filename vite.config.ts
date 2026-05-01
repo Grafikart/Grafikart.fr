@@ -66,6 +66,7 @@ export default defineConfig({
   build: {
     emptyOutDir: entry === "front",
     sourcemap: false,
+    minify: false,
     rolldownOptions: {
       output: {
         advancedChunks: {

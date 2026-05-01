@@ -18,6 +18,7 @@ export async function apiFetch<T>(
 ): Promise<T> {
   return fetch(url, {
     ...params,
+    credentials: "include",
     headers: {
       ...params?.headers,
       "X-Requested-With": "XMLHttpRequest",
