@@ -57,7 +57,7 @@ return [
         'redirect' => '/oauth/check/facebook',
     ],
     'stripe' => [
-        'public' => env('STRIPE_PUBLIC'),
+        'public' => env('STRIPE_ID'),
         'secret' => env('STRIPE_SECRET'),
         'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),
     ],

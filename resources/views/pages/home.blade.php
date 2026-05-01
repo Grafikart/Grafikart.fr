@@ -3,6 +3,7 @@
 @section('title', 'Tutoriels et Formations vidéos sur le développement web')
 
 @section('head')
+    <meta name="stripe" content="{{ config('services.stripe.public') }}">
     <style>
         section.container {
             background: var(--background-light);
