@@ -1,86 +1,34 @@
 ---
-- name: Symfony | Clone
+- name: Laravel | Clone
   become: no
   git:
     repo: "https://github.com/Grafikart/Grafikart.fr.git"
     dest: "{{ root_path }}"
     version: master
-- name: Symfony | .env.local"
+- name: Laravel | Scheduler
+  become: no
+  cron:
+    name: {{ domain }} scheduler
+    job: "cd {{ root_path }} && php-zts artisan schedule:run >> /dev/null 2>&1"
+- name: Laravel | Queue Service
   become: no
   template:
-    src: .env.local.j2
-    force: no
-    dest: "{{ root_path }}/.env.local"
-- name: Symfony | CRON backup
+    src: "queue.service.j2"
+    dest: "~/.config/systemd/user/queue.service"
+- name: Laravel | Queue Service activation
   become: no
-  cron:
-    name: sql dump
-    special_time: daily
-    job: "cd {{ root_path }} && php bin/console app:dump"
-- name: Symfony | CRON clean
-  become: no
-  cron:
-    name: grafikart clean
-    special_time: daily
-    job: "cd {{ root_path }} && php bin/console app:clean"
-- include_tasks: messenger.yml
-- include_tasks: mercure.yml
-- name: Symfony | var permission
-  ansible.posix.acl:
-    path: "{{ root_path }}/var"
-    entity: "{{ ansible_user }}"
-    etype: user
-    default: yes
-    permissions: rwx
-    state: present
-    recursive: yes
-- name: Symfony | var permission www-data
-  ansible.posix.acl:
-    path: "{{ root_path }}/var"
-    entity: "www-data"
-    etype: user
-    default: yes
-    permissions: rwx
-    state: present
-    recursive: yes
-- name: Symfony | var permission www-data
-  ansible.posix.acl:
-    path: "{{ root_path }}/var"
-    entity: "www-data"
-    etype: user
-    permissions: rwx
-    state: present
-    recursive: yes
-- name: Symfony | dossier uploads
-  become: no
-  file: state=directory path="{{ root_path }}/public/uploads"
-- name: Symfony | uploads permission
-  ansible.posix.acl:
-    path: "{{ root_path }}/public/uploads"
-    entity: www-data
-    etype: user
-    default: yes
-    permissions: rwx
-    state: present
-    recursive: yes
-- name: Symfony | uploads permission
-  ansible.posix.acl:
-    path: "{{ root_path }}/public/uploads"
-    entity: www-data
-    etype: user
-    permissions: rwx
-    state: present
-    recursive: yes
-- name: Symfony | uploads permission
-  ansible.posix.acl:
-    path: "{{ root_path }}/public/uploads"
-    entity: "{{ ansible_user }}"
-    etype: user
-    default: yes
-    permissions: rwx
-    state: present
-    recursive: yes
-- name: Logrotate | Rotation des logs"
+  systemd:
+    scope: user
+    state: started
+    daemon_reload: yes
+    enabled: yes
+    name: "queue"
+- name: Laravel | Logrotate"
   template:
     src: logrotate.j2
     dest: "/etc/logrotate.d/{{ domain }}"
+- name: Laravel | Caddy configuration
+  become: true
+  template:
+    src: caddyfile.j2
+    dest: "/etc/frankenphp/Caddyfile.d/{{ domain }}.caddyfile"
