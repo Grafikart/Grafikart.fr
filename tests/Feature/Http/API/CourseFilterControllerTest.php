@@ -4,9 +4,11 @@ use App\Domains\Course\Course;
 use App\Domains\Course\Factory\TechnologyFactory;
 use App\Domains\Course\Formation;
 use App\Domains\Course\Technology;
+use Spatie\ResponseCache\Middlewares\CacheResponse;
 
 beforeEach(function () {
     TechnologyFactory::resetSequence();
+    $this->withoutMiddleware(CacheResponse::class);
 });
 
 describe('index', function () {
