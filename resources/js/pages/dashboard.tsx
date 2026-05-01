@@ -132,7 +132,7 @@ export default withLayout<Props>(
               placeholder="Email de test"
               required
             />
-            <Button>Envoyer</Button>
+            <Button type="submit">Envoyer</Button>
           </Form>
         </div>
       </div>
