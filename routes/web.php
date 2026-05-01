@@ -139,6 +139,7 @@ Route::group([
     Route::get('users/search', [\App\Http\Cms\UserController::class, 'search'])->name('users.search');
     Route::resource('users', \App\Http\Cms\UserController::class)->only(['index', 'destroy']);
     Route::resource('transactions', \App\Http\Cms\TransactionController::class)->only(['index', 'destroy']);
+    Route::get('transactions/report', [\App\Http\Cms\TransactionController::class, 'report'])->name('transactions.report');
     Route::resource('settings', \App\Http\Cms\SettingsController::class)->only(['index', 'store']);
     Route::delete('jobs/{job}', [\App\Http\Cms\JobController::class, 'destroy'])->name('jobs.destroy');
     Route::delete('failed-jobs/{job}', [\App\Http\Cms\JobController::class, 'destroyFailed'])->name('failed-jobs.destroy');

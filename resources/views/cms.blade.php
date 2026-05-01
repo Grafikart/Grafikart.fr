@@ -42,6 +42,7 @@
         @viteReactRefresh
         @vite(['resources/js/cms.tsx', "resources/js/pages/{$page['component']}.tsx"])
         @inertiaHead
+        <link rel="stylesheet" href="/print.css" media="print">
     </head>
     <body class="font-sans antialiased">
         @inertia

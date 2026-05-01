@@ -38,9 +38,15 @@ body {
 
 aside,
 form,
+header,
+a,
+button,
+*[data-slot="dialog-header"],
+.sidebar,
+svg,
 .icon,
 .hidden-print {
-  display: none;
+  display: none !important;
 }
 table {
   width: 100%;

@@ -4,10 +4,13 @@ namespace App\Http\Cms;
 
 use App\Domains\Cms\CmsController;
 use App\Domains\Premium\Models\Transaction;
+use App\Http\Cms\Data\Transaction\TransactionReportRowData;
 use App\Http\Cms\Data\Transaction\TransactionRowData;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
 use Inertia\Response;
 
 class TransactionController extends CmsController
@@ -27,6 +30,28 @@ class TransactionController extends CmsController
             ->orderByDesc('created_at');
 
         return $this->cmsIndex(query: $query);
+    }
+
+    public function report(Request $request): Response
+    {
+        $year = $request->integer('year', now()->year);
+        $isSqlite = DB::connection()->getDriverName() === 'sqlite';
+
+        $monthExpr = $isSqlite ? "CAST(strftime('%m', created_at) AS INTEGER)" : 'EXTRACT(MONTH FROM created_at)';
+        $yearExpr = $isSqlite ? "CAST(strftime('%Y', created_at) AS INTEGER)" : 'EXTRACT(YEAR FROM created_at)';
+
+        $results = Transaction::query()
+            ->whereNull('refunded_at')
+            ->whereRaw("{$yearExpr} = ?", [$year])
+            ->selectRaw("method, {$monthExpr} as month, ROUND(SUM(price) * 100) / 100 as price, ROUND(SUM(tax) * 100) / 100 as tax, ROUND(SUM(fee) * 100) / 100 as fee")
+            ->groupByRaw("{$monthExpr}, method")
+            ->orderByRaw("{$monthExpr} DESC")
+            ->get();
+
+        return Inertia::render('transactions/report', [
+            'year' => $year,
+            'items' => TransactionReportRowData::collect($results),
+        ]);
     }
 
     protected function applySearch(string $search, Builder $query): Builder

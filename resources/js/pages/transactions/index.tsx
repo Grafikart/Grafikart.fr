@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/table.tsx"
 import { formatDate } from "@/lib/date.ts"
 import type { PaginatedData, TransactionRowData } from "@/types"
+import TransactionController from "@/actions/App/Http/Cms/TransactionController.ts"
 
 type Props = {
   pagination: PaginatedData<TransactionRowData>
@@ -25,10 +26,18 @@ export default withLayout<Props>(
     return (
       <div className="space-y-4">
         <PageTitle>Transactions</PageTitle>
-        <h1 className="flex items-center gap-2 font-semibold text-xl">
-          <HandCoinsIcon className="text-primary" />
-          Transactions
-        </h1>
+        <div className="flex justify-between">
+          <h1 className="flex items-center gap-2 font-semibold text-xl">
+            <HandCoinsIcon className="text-primary" />
+            Transactions
+          </h1>
+          <ButtonLink
+            href={TransactionController.report.url()}
+            variant="secondary"
+          >
+            Rapports financiers
+          </ButtonLink>
+        </div>{" "}
         <Table>
           <TableHeader>
             <TableRow>

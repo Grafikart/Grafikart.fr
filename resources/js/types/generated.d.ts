@@ -391,6 +391,13 @@ export type TechnologyUsageData = {
   version: string | null
   primary: boolean
 }
+export type TransactionReportRowData = {
+  method: string
+  month: number
+  price: number
+  tax: number
+  fee: number
+}
 export type TransactionRowData = {
   id: number
   duration: number
