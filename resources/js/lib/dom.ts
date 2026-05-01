@@ -74,3 +74,26 @@ export function onAll<T extends Element>(
     el.addEventListener(eventName, callback)
   })
 }
+
+/**
+ * Load script asynchronously
+ */
+const loadedJs = new Set<string>() // Cache the loaded scripts
+export function loadJs<T>(path: string): Promise<T> {
+  return new Promise<T>((resolve, reject) => {
+    if (loadedJs.has(path)) {
+      resolve(window as T)
+      return
+    }
+    const e = document.createElement("script")
+    e.src = path
+    e.onload = function () {
+      loadedJs.add(path)
+      resolve(window as T)
+    }
+    e.onerror = function () {
+      reject(new Error(`Failed to load script: ${path}`))
+    }
+    document.head.appendChild(e)
+  })
+}

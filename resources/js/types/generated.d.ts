@@ -326,7 +326,6 @@ export type SearchResultData = {
 }
 export type SettingsFormData = {
   liveAt: string
-  spamWords: string
 }
 export type SponsorFormData = {
   createdAt: string

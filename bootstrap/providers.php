@@ -10,5 +10,5 @@ return [
     App\Domains\Course\CourseServiceProvider::class,
     App\Domains\Premium\PremiumServiceProvider::class,
     App\Providers\FortifyServiceProvider::class,
-    \App\Infrastructure\Mailer\MailerServiceProvider::class,
+    App\Infrastructure\Mailer\MailerServiceProvider::class,
 ];

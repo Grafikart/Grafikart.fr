@@ -13,6 +13,7 @@ import { TimeAgo } from "@/elements/time-ago.ts"
 import { lazywc, r2wc } from "@/lib/custom-element.ts"
 import "../css/front.css"
 import { BurgerMenu } from "@/elements/burger-menu.tsx"
+import { CaptchaChallenge } from "@/elements/captcha-challenge.ts"
 import { CodeInput } from "@/elements/code-input.ts"
 import { DrawerToggle } from "@/elements/drawer-toggle.ts"
 import { HasCompletedElement } from "@/elements/has-completed.ts"
@@ -55,3 +56,4 @@ customElements.define("time-ago", TimeAgo)
 customElements.define("drawer-toggle", DrawerToggle)
 customElements.define("has-completed", HasCompletedElement, { extends: "a" })
 customElements.define("code-input", CodeInput)
+customElements.define("captcha-challenge", CaptchaChallenge)

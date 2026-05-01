@@ -15,10 +15,8 @@ class SettingsFormData extends Data
     public CarbonImmutable $liveAt;
 
     public function __construct(
-        public string $spamWords = '',
         ?CarbonImmutable $liveAt = null,
     ) {
         $this->liveAt = $liveAt ?? now()->subDay();
     }
-
 }

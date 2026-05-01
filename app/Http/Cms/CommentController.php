@@ -6,7 +6,6 @@ use App\Domains\Cms\CmsController;
 use App\Domains\Comment\Comment;
 use App\Http\Cms\Data\Comment\CommentRequestData;
 use App\Http\Cms\Data\Comment\CommentRowData;
-use App\Infrastructure\Spam\SpamService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Response;
@@ -25,7 +24,7 @@ class CommentController extends CmsController
 
     protected string $route = 'comments';
 
-    public function index(Request $request, SpamService $spam): Response
+    public function index(Request $request): Response
     {
         $query = Comment::query()
             ->with(['user', 'commentable'])
@@ -33,7 +32,7 @@ class CommentController extends CmsController
 
         $filterSuspicious = $request->query->getBoolean('suspicious');
         if ($request->query('suspicious')) {
-            $query->suspicious($spam->words());
+            $query->suspicious();
         }
 
         return $this->cmsIndex(query: $query, extra: [

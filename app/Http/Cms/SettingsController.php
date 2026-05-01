@@ -5,7 +5,6 @@ namespace App\Http\Cms;
 use App\Domains\Live\LiveService;
 use App\Http\Cms\Data\SettingsFormData;
 use App\Infrastructure\Settings\SettingsService;
-use App\Infrastructure\Spam\SpamService;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -27,7 +26,6 @@ final readonly class SettingsController
     {
         $this->settings->updateAll([
             LiveService::SETTING_KEY => $data->liveAt->toAtomString(),
-            SpamService::SETTING_KEY => $data->spamWords,
         ]);
 
         return to_route('cms.settings.index')->with('success', 'Les paramètres ont bien été mis à jour');

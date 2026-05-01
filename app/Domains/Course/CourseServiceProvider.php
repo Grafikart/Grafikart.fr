@@ -9,14 +9,6 @@ use Illuminate\Support\ServiceProvider;
 class CourseServiceProvider extends ServiceProvider
 {
     /**
-     * Register services.
-     */
-    public function register(): void
-    {
-        //
-    }
-
-    /**
      * Bootstrap services.
      */
     public function boot(): void

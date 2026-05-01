@@ -29,12 +29,6 @@ export default withLayout<Props>(
           render={<DatetimePicker />}
           defaultValue={settings.liveAt}
         />
-        <FormField
-          type="textarea"
-          label="Mots spam"
-          name="spam_words"
-          defaultValue={settings.spamWords}
-        />
       </Form>
     )
   },

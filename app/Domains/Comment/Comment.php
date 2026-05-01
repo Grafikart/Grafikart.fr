@@ -75,15 +75,9 @@ class Comment extends Model
     }
 
     #[Scope]
-    protected function Suspicious(Builder $query, array $words): Builder
+    protected function Suspicious(Builder $query): Builder
     {
-        $query = $query
+        return $query
             ->whereLike('content', '%http%');
-
-        foreach ($words as $word) {
-            $query = $query->orWhereLike('content', "%{$word}%");
-        }
-
-        return $query;
     }
 }

@@ -6,6 +6,7 @@ use App\Concerns\PasswordValidationRules;
 use App\Concerns\ProfileValidationRules;
 use App\Domains\Coupon\CouponClaimable;
 use App\Domains\Coupon\CouponService;
+use App\Infrastructure\Spam\CaptchaRulesFactory;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -16,7 +17,7 @@ class CreateNewUser implements CreatesNewUsers
     use PasswordValidationRules, ProfileValidationRules;
 
     public function __construct(
-        public CouponService $couponService
+        public CouponService $couponService,
     ) {}
 
     /**
@@ -30,6 +31,7 @@ class CreateNewUser implements CreatesNewUsers
             ...$this->profileRules(),
             'password' => $this->passwordRules(),
             'coupon' => ['nullable', 'string', new CouponClaimable],
+            ...CaptchaRulesFactory::rules(),
         ])->validate();
 
         $couponId = trim((string) ($input['coupon'] ?? ''));
