@@ -1,7 +1,9 @@
 import { loadScript } from "@paypal/paypal-js"
 import { useEffect, useEffectEvent, useRef, useState } from "react"
 import { toast } from "sonner"
-import { type APIError, apiFetch } from "@/hooks/use-api-fetch.ts"
+import { type APIError, apiFetch, useApiFetch } from "@/hooks/use-api-fetch.ts"
+import { Spinner } from "@/components/ui/spinner.tsx"
+import type { CountryData } from "@/types"
 
 type Props = {
   price: number
@@ -9,28 +11,6 @@ type Props = {
   clientId: string
   plan: number
 }
-const countries = [
-  "France",
-  "Belgique",
-  "Suisse",
-  "Canada",
-  "Luxembourg",
-  "Monaco",
-  "Allemagne",
-  "Espagne",
-  "Italie",
-  "Pays-Bas",
-  "Portugal",
-  "Royaume-Uni",
-  "États-Unis",
-  "Maroc",
-  "Tunisie",
-  "Algérie",
-  "Sénégal",
-  "Côte d'Ivoire",
-  "Cameroun",
-  "Madagascar",
-]
 
 export function vatRate(countryCode: string): number {
   if (countryCode === "FR") {
@@ -45,10 +25,12 @@ export function vatPrice(price: number, countryCode: string) {
 
 export function PaypalPayment(props: Props) {
   const [country, setCountry] = useState("FR")
+  const { data, isPending } = useApiFetch<CountryData[]>("/api/countries")
   const description = `Compte premium ${props.duration} mois`
   const tax = country ? vatPrice(props.price, country) : 0
   const currency = "EUR"
   const priceWithoutTax = props.price - tax
+  const countries = data ?? []
 
   const loadButtons = useEffectEvent(async () => {
     try {
@@ -119,19 +101,34 @@ export function PaypalPayment(props: Props) {
           },
         })
         .render(container.current!)
-    } catch {
+    } catch (e) {
       toast.error(
-        "Une erreur est survenue lors du chargement des boutons PaypPal",
+        `Une erreur est survenue lors du chargement des boutons PaypPal, ${e}`,
       )
     }
   })
   const container = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (country) {
+    if (country && !isPending) {
       loadButtons()
     }
-  }, [country])
+  }, [country, isPending])
+
+  if (!countries) {
+    return (
+      <div className="flex py-2 justify-center">
+        <Spinner />
+      </div>
+    )
+  }
+
+  const priorityCodes = ["FR", "BE", "MA", "CA", "CH", "CI"]
+  const priorityCountries = countries
+    .filter((c) => priorityCodes.includes(c.code))
+    .sort(
+      (a, b) => priorityCodes.indexOf(a.code) - priorityCodes.indexOf(b.code),
+    )
 
   return (
     <div>
@@ -145,11 +142,20 @@ export function PaypalPayment(props: Props) {
           className="w-full rounded-md border border-border bg-background px-4 py-3"
         >
           <option value="">Veuillez sélectionner un pays</option>
-          {countries.map((c) => (
-            <option key={c} value={c}>
-              {c}
-            </option>
-          ))}
+          <optgroup label="Les plus utilisés">
+            {priorityCountries.map((c) => (
+              <option key={c.code} value={c.code}>
+                {c.name}
+              </option>
+            ))}
+          </optgroup>
+          <optgroup label="Ordre alphabétique">
+            {countries.map((c) => (
+              <option key={c.code} value={c.code}>
+                {c.name}
+              </option>
+            ))}
+          </optgroup>
         </select>
         <div ref={container}></div>
       </div>

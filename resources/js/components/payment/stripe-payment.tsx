@@ -3,6 +3,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button.tsx"
 import { Spinner } from "@/components/ui/spinner.tsx"
 import { apiFetch } from "@/hooks/use-api-fetch.ts"
+import { toast } from "sonner"
 
 type Props = {
   plan: number
@@ -18,22 +19,25 @@ export function StripePayment(props: Props) {
 
   const startPayment = async () => {
     setFetching(true)
-    const stripe = await fetchStripe()
-    if (!stripe) {
-      alert("Impossible de charger le module de paiement stripe")
-      return
+    try {
+      const stripe = await fetchStripe()
+      if (!stripe) {
+        throw new Error("Impossible de charger le module de paiement stripe")
+      }
+      const session = await apiFetch<StripeSession>(
+        `/api/premium/${props.plan}/stripe?subscription=${subscription ? 1 : 0}`,
+        {
+          method: "post",
+        },
+      )
+      if (!session.url) {
+        throw new Error("Impossible de résoudre l'url de redirection Stripe")
+      }
+      window.location.href = session.url
+    } catch (e) {
+      toast.error(`Impossible d'initialiser le paiement ${e}`)
+      console.error(e)
     }
-    const session = await apiFetch<StripeSession>(
-      `/api/premium/${props.plan}/stripe?subscription=${subscription ? 1 : 0}`,
-      {
-        method: "post",
-      },
-    )
-    if (!session.url) {
-      alert("Impossible de résoudre l'url de redirection Stripe")
-      return
-    }
-    window.location.href = session.url
   }
 
   return (

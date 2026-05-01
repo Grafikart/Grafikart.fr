@@ -57,6 +57,10 @@ export type CommentRowData = {
   ip: string
   createdAt: string
 }
+export type CountryData = {
+  name: string
+  code: string
+}
 export type CouponFormData = {
   id: string
   months: number

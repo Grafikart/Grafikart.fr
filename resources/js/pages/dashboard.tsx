@@ -7,29 +7,29 @@ import {
   LifeBuoyIcon,
   RotateCcwIcon,
   TrashIcon,
-} from "lucide-react";
-import type { ReactNode } from "react";
-import { toast } from "sonner";
+} from "lucide-react"
+import type { ReactNode } from "react"
+import { toast } from "sonner"
 import {
   destroy,
   destroyFailed,
   flushFailed,
   retryFailed,
-} from "@/actions/App/Http/Cms/JobController.ts";
+} from "@/actions/App/Http/Cms/JobController.ts"
 import {
   clearCache,
   emailTest,
   notification,
-} from "@/actions/App/Http/Cms/DashboardController.ts";
-import SupportController from "@/actions/App/Http/Cms/SupportController.ts";
-import { withLayout } from "@/components/layout.tsx";
-import { PageTitle } from "@/components/page-title.tsx";
-import { RevisionsTable } from "@/components/revisions/revisions-table.tsx";
-import { Badge } from "@/components/ui/badge.tsx";
-import { Button } from "@/components/ui/button.tsx";
-import { ButtonLink } from "@/components/ui/button-link.tsx";
-import { Card, CardContent } from "@/components/ui/card.tsx";
-import { SimpleChart } from "@/components/ui/simple-chart.tsx";
+} from "@/actions/App/Http/Cms/DashboardController.ts"
+import SupportController from "@/actions/App/Http/Cms/SupportController.ts"
+import { withLayout } from "@/components/layout.tsx"
+import { PageTitle } from "@/components/page-title.tsx"
+import { RevisionsTable } from "@/components/revisions/revisions-table.tsx"
+import { Badge } from "@/components/ui/badge.tsx"
+import { Button } from "@/components/ui/button.tsx"
+import { ButtonLink } from "@/components/ui/button-link.tsx"
+import { Card, CardContent } from "@/components/ui/card.tsx"
+import { SimpleChart } from "@/components/ui/simple-chart.tsx"
 import {
   Table,
   TableBody,
@@ -37,33 +37,33 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table.tsx";
+} from "@/components/ui/table.tsx"
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/components/ui/tabs.tsx";
-import { apiFetch } from "@/hooks/use-api-fetch.ts";
-import { formatDate } from "@/lib/date.ts";
+} from "@/components/ui/tabs.tsx"
+import { apiFetch } from "@/hooks/use-api-fetch.ts"
+import { formatDate } from "@/lib/date.ts"
 import type {
   DailyData,
   JobItemData,
   MonthlyData,
   RevisionRowData,
   SupportQuestionRowData,
-} from "@/types";
-import { Input } from "@/components/ui/input";
-import { Form } from "@/components/form.tsx";
+} from "@/types"
+import { Input } from "@/components/ui/input"
+import { Form } from "@/components/form.tsx"
 
 type Props = {
-  months: MonthlyData[];
-  days: DailyData[];
-  jobs: JobItemData[];
-  failedJobs: JobItemData[];
-  revisions: RevisionRowData[];
-  supportQuestions: SupportQuestionRowData[];
-};
+  months: MonthlyData[]
+  days: DailyData[]
+  jobs: JobItemData[]
+  failedJobs: JobItemData[]
+  revisions: RevisionRowData[]
+  supportQuestions: SupportQuestionRowData[]
+}
 
 export default withLayout<Props>(
   (props) => {
@@ -105,7 +105,7 @@ export default withLayout<Props>(
             onClick={() => {
               apiFetch(notification.url(), {
                 method: "POST",
-              }).then(() => toast.success("Notification envoyée"));
+              }).then(() => toast.success("Notification envoyée"))
             }}
           >
             <BellIcon />
@@ -136,12 +136,12 @@ export default withLayout<Props>(
           </Form>
         </div>
       </div>
-    );
+    )
   },
   {
     breadcrumb: [{ label: "Dashboard" }],
   },
-);
+)
 
 function SupportQuestions({ items }: { items: SupportQuestionRowData[] }) {
   return (
@@ -177,7 +177,7 @@ function SupportQuestions({ items }: { items: SupportQuestionRowData[] }) {
         ))}
       </div>
     </div>
-  );
+  )
 }
 
 function JobsTable({
@@ -186,10 +186,10 @@ function JobsTable({
   icon,
   jobs,
 }: {
-  type: "future" | "failed";
-  title: string;
-  icon: ReactNode;
-  jobs: JobItemData[];
+  type: "future" | "failed"
+  title: string
+  icon: ReactNode
+  jobs: JobItemData[]
 }) {
   return (
     <div>
@@ -269,7 +269,7 @@ function JobsTable({
         </TableBody>
       </Table>
     </div>
-  );
+  )
 }
 
 function RevenueChart({ days, months }: Pick<Props, "days" | "months">) {
@@ -294,7 +294,7 @@ function RevenueChart({ days, months }: Pick<Props, "days" | "months">) {
                 return new Date(v.date).toLocaleDateString("fr-FR", {
                   month: "short",
                   day: "numeric",
-                });
+                })
               }}
             />
           </TabsContent>
@@ -307,12 +307,12 @@ function RevenueChart({ days, months }: Pick<Props, "days" | "months">) {
                   {
                     month: "long",
                   },
-                );
+                )
               }}
             />
           </TabsContent>
         </CardContent>
       </Card>
     </Tabs>
-  );
+  )
 }
