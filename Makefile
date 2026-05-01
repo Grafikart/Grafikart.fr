@@ -1,4 +1,4 @@
-.PHONY: help deploy sync install dev debug dump dumpimport dbupgrade seed format typescript twitch provision
+.PHONY: help deploy sync install dev debug dump dumpimport dbupgrade seed format typescript twitch provision lint
 .DEFAULT_GOAL := help
 
 domain := "beta.grafikart.fr"
@@ -47,6 +47,9 @@ format: ## Analyse le code
 	bun run check
 	bun run format
 	./vendor/bin/pint
+
+lint: ## Lint le code
+	./vendor/bin/phpstan analyse --memory-limit=2G
 
 typescript: ## Génère les types TypeScript
 	php artisan typescript:transform

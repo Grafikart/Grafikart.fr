@@ -8,9 +8,8 @@ use App\Domains\Support\SupportQuestion;
 use App\Http\Cms\Data\JobItemData;
 use App\Http\Cms\Data\Revision\RevisionRowData;
 use App\Http\Cms\Data\Support\SupportQuestionRowData;
-use App\Infrastructure\Notification\Mail\TestMail;
 use App\Infrastructure\Notification\Notification\TestNotification;
-use App\Infrastructure\Notification\NotificationService;
+use App\Infrastructure\Notification\Notification\UserDeletionNotification;
 use App\Infrastructure\Queue\FailedJob;
 use App\Infrastructure\Queue\Job;
 use App\Models\User;
@@ -18,12 +17,15 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Inertia\Inertia;
 use Inertia\Response;
 
 final readonly class DashboardController
 {
+    /**
+     * Dashboard with the last events happening on the site
+     */
     public function index(TransactionRepository $repository): Response
     {
         return Inertia::render('dashboard', [
@@ -45,7 +47,10 @@ final readonly class DashboardController
         ]);
     }
 
-    public function notification(Request $request, NotificationService $service): JsonResponse
+    /**
+     * Send a fake notification for the current user signed in
+     */
+    public function notification(Request $request): JsonResponse
     {
         $user = $request->user();
         assert($user instanceof User);
@@ -54,16 +59,17 @@ final readonly class DashboardController
         return new JsonResponse;
     }
 
+    /**
+     * Send a fake email to test the email setup (DKIM signature, DNS records...)
+     */
     public function emailTest(Request $request): RedirectResponse
     {
         $data = $request->validate([
             'email' => ['required', 'email'],
         ]);
 
-        Mail::to($data['email'])->send(new TestMail(
-            fakeSubject: fake()->sentence(),
-            fakeBody: fake()->paragraphs(3, true),
-        ));
+        Notification::route('mail', $data['email'])
+            ->notify(new UserDeletionNotification($request->user(), 'Email de test'));
 
         return back()->with('success', "Email de test envoyé à {$data['email']}");
     }
