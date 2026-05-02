@@ -15,6 +15,7 @@ sync: ## Récupère les données depuis le serveur
 
 install: vendor/autoload.php public/build/manifest.json ## Installe les différentes dépendances
 	php artisan migrate --force
+	php artisan cache:clear
 	php artisan config:cache
 	php artisan optimize
 	sudo systemctl reload frankenphp.service

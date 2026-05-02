@@ -19,6 +19,16 @@ class ProgressionService
             'score' => $score,
         ], fn ($value) => $value !== null);
 
+        $existing = Progress::query()
+            ->where('user_id', $user->id)
+            ->where('progressable_id', $course->id)
+            ->where('progressable_type', $course->getMorphClass())
+            ->value('progress');
+
+        if ($existing === 1000) {
+            return $course;
+        }
+
         Progress::query()->updateOrCreate(
             [
                 'user_id' => $user->id,

@@ -49,6 +49,18 @@ it('validates progress range 0-1000', function () {
         ->assertUnprocessable();
 });
 
+it('does not update progress when already completed', function () {
+    Progress::factory()->forUser($this->user)->forCourse($this->course)->completed()->create();
+
+    $this->actingAs($this->user)
+        ->postJson("/api/courses/{$this->course->id}/progress", [
+            'progress' => 500,
+        ])
+        ->assertSuccessful();
+
+    expect(Progress::query()->first()->progress)->toBe(1000);
+});
+
 it('returns 401 for unauthenticated user', function () {
     $this->postJson("/api/courses/{$this->course->id}/progress", [
         'progress' => 500,

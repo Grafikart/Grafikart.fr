@@ -23,7 +23,7 @@ class ProgressFactory extends Factory
         return [
             'user_id' => User::factory(),
             'progressable_id' => Course::factory(),
-            'progressable_type' => Course::class,
+            'progressable_type' => (new Course)->getMorphClass(),
             'progress' => fake()->numberBetween(0, 1000),
         ];
     }
@@ -32,7 +32,7 @@ class ProgressFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'progressable_id' => $course?->id ?? Course::factory(),
-            'progressable_type' => Course::class,
+            'progressable_type' => (new Course)->getMorphClass(),
         ]);
     }
 
@@ -40,7 +40,7 @@ class ProgressFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'progressable_id' => $formation?->id ?? Formation::factory(),
-            'progressable_type' => Formation::class,
+            'progressable_type' => (new Formation)->getMorphClass(),
         ]);
     }
 
