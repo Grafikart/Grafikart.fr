@@ -23,6 +23,7 @@ class DumpCommand extends Command
             '-U', $connection['username'],
             '-Ft',
             '-h', $connection['host'],
+            '--exclude-table=old_*',
             '-f', $dumpFile,
             $connection['database'],
         ]);
