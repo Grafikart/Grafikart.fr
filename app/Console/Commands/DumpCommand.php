@@ -16,12 +16,13 @@ class DumpCommand extends Command
     {
         $this->info('Export de la base de données');
 
-        $dumpFile = storage_path('dump.tar');
+        $dumpFile = storage_path('dump.tar.gz');
         $connection = config('database.connections.pgsql');
         $process = new Process([
             'pg_dump',
             '-U', $connection['username'],
             '-Ft',
+            '--compress=gzip:9',
             '-h', $connection['host'],
             '--exclude-table=old_*',
             '-f', $dumpFile,
@@ -37,10 +38,7 @@ class DumpCommand extends Command
         }
 
         $this->info('Upload en cours...');
-        $gzip = new Process(['gzip', $dumpFile]);
-        $gzip->run();
-
-        $stream = fopen($dumpFile.'.gz', 'r');
+        $stream = fopen($dumpFile, 'r');
         if ($stream === false) {
             $this->fail("Impossible de lire le fichier \"$dumpFile\"");
         }
@@ -49,7 +47,7 @@ class DumpCommand extends Command
         try {
             Storage::disk('snapshots')->writeStream("grafikart-{$date}.tar.gz", $stream);
         } finally {
-            @unlink($dumpFile.'.gz');
+            @unlink($dumpFile);
         }
 
         $this->info('La base de données a bien été sauvegardée');
