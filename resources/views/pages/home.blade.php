@@ -26,7 +26,7 @@
     $plans = \App\Domains\Premium\Models\Plan::all();
     @endphp
 
-    <main>
+    <main class="contents">
 
         <section class="py-17.5 md:py-30! container bg-background-light grid gap-8 md:gap-12 md:grid-cols-[400px_1fr] items-center">
             <div>

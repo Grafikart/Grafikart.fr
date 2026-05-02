@@ -8,7 +8,7 @@
 - name: Laravel | Scheduler
   become: no
   cron:
-    name: {{ domain }} scheduler
+    name: "{{ domain }} scheduler"
     job: "cd {{ root_path }} && php-zts artisan schedule:run >> /dev/null 2>&1"
 - name: Laravel | Queue Service
   become: no

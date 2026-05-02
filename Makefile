@@ -1,7 +1,7 @@
 .PHONY: help deploy sync install dev debug dump dumpimport dbupgrade seed format typescript twitch provision lint
 .DEFAULT_GOAL := help
 
-domain := "beta.grafikart.fr"
+domain := "grafikart.fr"
 
 help: ## Affiche cette aide
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
@@ -13,7 +13,6 @@ sync: ## Récupère les données depuis le serveur
 	rsync -avz --ignore-existing --progress --exclude=avatars grafikart:/home/grafikart/grafikart.fr/public/uploads/ ./public/uploads/
 
 install: vendor/autoload.php public/build/manifest.json ## Installe les différentes dépendances
-	composer install --no-dev --optimize-autoloader
 	php artisan migrate --force
 	php artisan config:cache
 	php artisan optimize
@@ -69,7 +68,7 @@ provision: ## Configure la machine distante
 # Dépendances
 # -----------------------------------
 vendor/autoload.php: composer.lock
-	composer install
+	composer install --optimize-autoloader
 	touch vendor/autoload.php
 
 node_modules/time: bun.lock
