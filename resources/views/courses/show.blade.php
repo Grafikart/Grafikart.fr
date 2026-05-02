@@ -121,8 +121,11 @@
         </x-atoms.tabs>
 
         <div class="bg-background pt-10 border-t pb-20">
-            <div class="prose prose-lg max-w-200 mx-auto px-4" id="content">
-                {!! \App\Helpers\MarkdownHelper::html($course->content) !!}
+            <div id="content" class="max-w-200 mx-auto px-4">
+                <div class="prose prose-lg">
+                    {!! \App\Helpers\MarkdownHelper::html($course->content) !!}
+                </div>
+                <x-molecules.revision-link :model="$course" class="mt-8"/>
             </div>
             <div id="support" class="container" hidden>
                 <support-course course="{{ $course->id }}"></support-course>
@@ -144,7 +147,6 @@
         </x-molecules.drawer>
     @endif
 
-    <x-molecules.revision-link :model="$course" class="mb-20"/>
     @endcache
 
     @can('edit', $course)
