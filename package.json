@@ -1,6 +1,6 @@
 {
     "$schema": "https://www.schemastore.org/package.json",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "private": true,
     "type": "module",
     "scripts": {
@@ -45,6 +45,7 @@
         "react-diff-viewer-continued": "^4.1.2",
         "react-dom": "^19.2.0",
         "react-dropzone": "^14.3.8",
+        "react-markdown": "^10.1.0",
         "recharts": "^3.6.0",
         "shiki": "^3.22.0",
         "sonner": "^2.0.7",

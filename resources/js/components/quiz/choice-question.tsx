@@ -1,6 +1,7 @@
 import { CheckIcon, XIcon } from "lucide-react"
 import type { Quiz } from "@/hooks/use-questions.ts"
 import { cn } from "@/lib/utils.ts"
+import { MDText } from "@/components/ui/md-text.tsx"
 
 export function ChoiceQuestion({ quiz }: { quiz: Quiz }) {
   const answered = quiz.state === "answer"
@@ -24,7 +25,9 @@ export function ChoiceQuestion({ quiz }: { quiz: Quiz }) {
                 "border-destructive shadow-destructive text-destructive",
             )}
           >
-            <span className="flex-1">{choice}</span>
+            <span className="flex-1 prose">
+              <MDText text={choice} inline />
+            </span>
             {isCorrect && <CheckIcon className="size-4 shrink-0" />}
             {isWrong && <XIcon className="size-4 shrink-0" />}
           </button>

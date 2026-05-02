@@ -5,6 +5,7 @@ import { ResultScreen } from "@/components/quiz/result-screen.tsx"
 import { TextQuestion } from "@/components/quiz/text-question.tsx"
 import { AnimatePresenceSlide } from "@/components/ui/animate-presence-slide.tsx"
 import { Button } from "@/components/ui/button.tsx"
+import { MDText } from "@/components/ui/md-text.tsx"
 import { type Quiz, useQuestions } from "@/hooks/use-questions.ts"
 import { times } from "@/lib/array.ts"
 import { cn } from "@/lib/utils.ts"
@@ -91,8 +92,8 @@ function Question({ quiz }: { quiz: Quiz }) {
       </div>
 
       <AnimatePresenceSlide step={quiz.step}>
-        <p className="text-lg font-semibold text-foreground-title mb-4">
-          {quiz.question}
+        <p className="text-lg font-semibold text-foreground-title mb-4 prose">
+          <MDText inline text={quiz.question} />
         </p>
 
         {quiz.type === "choice" ? (
