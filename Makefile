@@ -13,10 +13,10 @@ sync: ## Récupère les données depuis le serveur
 	rsync -avz --ignore-existing --progress --exclude=avatars grafikart:/home/grafikart/grafikart.fr/public/uploads/ ./public/uploads/
 
 install: vendor/autoload.php public/build/manifest.json ## Installe les différentes dépendances
-	php-zts composer install --no-dev --optimize-autoloader
-	php-zts artisan migrate --force
-	php-zts artisan config:cache
-	php-zts artisan optimize
+	composer install --no-dev --optimize-autoloader
+	php artisan migrate --force
+	php artisan config:cache
+	php artisan optimize
 
 dev: node_modules/time ## Lance le serveur de développement
 	tmux kill-session -t dev 2>/dev/null || true
@@ -69,7 +69,7 @@ provision: ## Configure la machine distante
 # Dépendances
 # -----------------------------------
 vendor/autoload.php: composer.lock
-	php composer install
+	composer install
 	touch vendor/autoload.php
 
 node_modules/time: bun.lock
