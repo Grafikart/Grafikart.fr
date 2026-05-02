@@ -52,7 +52,7 @@ class UserController extends CmsController
         }
 
         if ($request->query('q')) {
-            $query->whereLike('name', '%'.$request->query('q').'%');
+            $query = $this->applySearch($request->query('q'), $query);
         }
 
         return $this->cmsIndex(query: $query, extra: $extra);
@@ -98,12 +98,15 @@ class UserController extends CmsController
 
     }
 
-    protected function applySearch(string $search, Builder $builder): Builder
+    protected function applySearch(string $search, Builder $query): Builder
     {
+        if (is_numeric($search)) {
+            return $query->where('id', $search);
+        }
+
         $search = '%'.$search.'%';
 
-        return $builder->where(fn (Builder $b) => $b->whereLike('email', $search)->orWhereLike('name', $search)
-        );
+        return $query->where(fn (Builder $b) => $b->whereLike('email', $search)->orWhereLike('name', $search));
     }
 
     /**

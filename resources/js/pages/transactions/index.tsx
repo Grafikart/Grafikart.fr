@@ -16,6 +16,8 @@ import {
 import { formatDate } from "@/lib/date.ts"
 import type { PaginatedData, TransactionRowData } from "@/types"
 import TransactionController from "@/actions/App/Http/Cms/TransactionController.ts"
+import { Link } from "@inertiajs/react"
+import userController from "@/actions/App/Http/Cms/UserController.ts"
 
 type Props = {
   pagination: PaginatedData<TransactionRowData>
@@ -70,10 +72,13 @@ function Item({ item }: { item: TransactionRowData }) {
     <TableRow className="group">
       <TableCell className="text-muted-foreground">{item.id}</TableCell>
       <TableCell>
-        <div className="flex flex-col">
+        <Link
+          className="flex flex-col"
+          href={userController.index({ query: { q: item.id } })}
+        >
           <span>{item.username}</span>
           <span className="text-muted-foreground text-xs">{item.email}</span>
-        </div>
+        </Link>
       </TableCell>
       <TableCell>{(item.price / 100).toFixed(2)} €</TableCell>
       <TableCell>{item.duration} mois</TableCell>
