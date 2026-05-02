@@ -40,7 +40,13 @@
                     <x-lucide-calendar class="size-4"/>
                     <x-atoms.ago :date="$course->created_at"/>
                 </div>
-                <div class="flex justify-end gap-4 ml-auto">
+                <div class="w-full sm:w-max flex-none flex flex-wrap justify-start gap-4 sm:ml-auto">
+                    @if($course->demo)
+                        <x-atoms.button href="{{ $course->demo }}" target="_blank" variant="secondary">
+                            <x-lucide-flask-conical class="text-muted"/>
+                            Voir la démo
+                        </x-atoms.button>
+                    @endif
                     @if($course->source)
                         <x-atoms.button download="{{ $course->filename() }}" href="{{ route('courses.download', ['course' => $course->id, 'type' => 'source']) }}" variant="secondary">
                             <x-lucide-download class="text-muted"/>
