@@ -13,7 +13,7 @@
         </p>
     </div>
 
-    <div class="border-t bg-background pt-10">
+    <div class="border-t bg-background py-10">
         <div class="container">
             <form class="grid gap-4" method="post"
                   action="{{ route('revision.update', ['type' => $type, 'id' => $id]) }}">

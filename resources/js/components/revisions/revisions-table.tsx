@@ -1,5 +1,7 @@
 import { EyeIcon } from "lucide-react"
-import { show } from "@/actions/App/Http/Cms/RevisionController.ts"
+import revisionController, {
+  show,
+} from "@/actions/App/Http/Cms/RevisionController.ts"
 import { Badge } from "@/components/ui/badge.tsx"
 import { ButtonLink } from "@/components/ui/button-link.tsx"
 import {
@@ -12,6 +14,7 @@ import {
 } from "@/components/ui/table.tsx"
 import { formatRelative } from "@/lib/date.ts"
 import type { RevisionRowData, RevisionStatus } from "@/types"
+import { Link } from "@inertiajs/react"
 
 const stateLabels: Record<
   RevisionStatus,
@@ -39,9 +42,21 @@ export function RevisionsTable({ items }: { items: RevisionRowData[] }) {
       <TableBody>
         {items.map((item) => (
           <TableRow key={item.id}>
-            <TableCell>{item.id}</TableCell>
-            <TableCell>{item.authorName}</TableCell>
-            <TableCell>{item.targetTitle}</TableCell>
+            <TableCell>
+              <Link href={revisionController.show({ revision: item.id })}>
+                {item.id}
+              </Link>
+            </TableCell>
+            <TableCell>
+              <Link href={revisionController.show({ revision: item.id })}>
+                {item.authorName}
+              </Link>
+            </TableCell>
+            <TableCell>
+              <Link href={revisionController.show({ revision: item.id })}>
+                {item.targetTitle}
+              </Link>
+            </TableCell>
             <TableCell className="capitalize">{item.targetType}</TableCell>
             <TableCell>
               <Badge variant={stateLabels[item.state].variant}>

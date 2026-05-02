@@ -15,6 +15,8 @@ class RevisionShowData extends Data
         public readonly string $content,
         public readonly string $currentContent,
         public readonly RevisionStatus $state,
+        public readonly string $targetTitle,
+        public readonly string $targetUrl
     ) {}
 
     public static function fromModel(Revision $revision): self
@@ -24,6 +26,8 @@ class RevisionShowData extends Data
             content: $revision->content,
             currentContent: $revision->revisionable?->content ?? '',
             state: $revision->state,
+            targetTitle: $revision->revisionable?->title ?? '',
+            targetUrl: app_url($revision->revisionable),
         );
     }
 }

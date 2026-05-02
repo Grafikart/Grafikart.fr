@@ -1,5 +1,6 @@
-import { BanIcon, CheckIcon } from "lucide-react"
+import { BanIcon, CheckIcon, GitCompareArrowsIcon } from "lucide-react"
 import ReactDiffViewer from "react-diff-viewer-continued"
+import { normalizeLineEnding } from "@/lib/string.ts"
 import { update, index } from "@/actions/App/Http/Cms/RevisionController.ts"
 import { Form } from "@/components/form.tsx"
 import { FormField } from "@/components/form-field.tsx"
@@ -19,7 +20,15 @@ export default withLayout<Props>(
     return (
       <div className="space-y-6">
         <PageTitle>{`Révision #${revision.id}`}</PageTitle>
-
+        <h1 className="flex mb-4 gap-2 items-center font-semibold text-2xl outline-none">
+          <GitCompareArrowsIcon className="text-primary" />
+          <span>
+            Révision de{" "}
+            <a href={revision.targetUrl} target="_blank">
+              {revision.targetTitle}
+            </a>
+          </span>
+        </h1>
         {isPending && (
           <Form
             {...update.post(revision.id)}
@@ -40,10 +49,9 @@ export default withLayout<Props>(
             </Button>
           </Form>
         )}
-
         <ReactDiffViewer
-          oldValue={revision.currentContent}
-          newValue={revision.content}
+          oldValue={normalizeLineEnding(revision.currentContent)}
+          newValue={normalizeLineEnding(revision.content)}
           splitView
           leftTitle="Contenu actuel"
           rightTitle="Proposition"

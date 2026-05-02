@@ -1,3 +1,7 @@
+export function normalizeLineEnding(s?: string): string {
+  return s?.replace(/\r\n/g, "\n") ?? ""
+}
+
 export function slugify(text: string): string {
   return text
     .toLowerCase()

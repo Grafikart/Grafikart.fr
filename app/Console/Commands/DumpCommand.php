@@ -38,12 +38,12 @@ class DumpCommand extends Command
 
         // Gzip the dump
         $this->info('Compressing');
-        $process = new Process(['gzip', $dumpFile, $dumpFile . '.gz']);
+        $process = new Process(['gzip', $dumpFile, $dumpFile.'.gz']);
         $process->run();
         @unlink($dumpFile);
         $dumpFile .= '.gz';
-        if (!$process->isSuccessful()) {
-            $this->fail('Cannot compress pgsql dump ' . $process->getErrorOutput());
+        if (! $process->isSuccessful()) {
+            $this->fail('Cannot compress pgsql dump '.$process->getErrorOutput());
         }
 
         // Upload
@@ -59,7 +59,7 @@ class DumpCommand extends Command
         } catch (\Exception $e) {
             $this->fail("Impossible d'uploader le fichier ".$e->getMessage());
         } finally {
-             @unlink($dumpFile);
+            @unlink($dumpFile);
         }
 
         $this->info('La base de données a bien été sauvegardée');

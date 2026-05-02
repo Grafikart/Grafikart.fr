@@ -295,6 +295,8 @@ export type RevisionShowData = {
   content: string
   currentContent: string
   state: RevisionStatus
+  targetTitle: string
+  targetUrl: string
 }
 export type RevisionStatus = -1 | 0 | 1
 export type SchoolFormData = {
