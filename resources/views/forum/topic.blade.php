@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    <main class="bg-background border-t pt-10 container space-y-10">
+    <main class="bg-background border-t py-10 container space-y-10">
         <div class="prose top-30">
                 {!! \App\Helpers\MarkdownHelper::htmlUntrusted($topic->content) !!}
             </div>
@@ -56,8 +56,6 @@
                 @endforeach
             </div>
         </div>
-
-
     </main>
 
     @endcache

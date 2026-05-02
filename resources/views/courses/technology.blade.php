@@ -30,7 +30,7 @@
                         <h2 class="text-2xl font-bold text-foreground-title">
                             {{ $level === 0 ? 'Apprendre les bases' : 'Se perfectionner' }}
                         </h2>
-                        <div class="space-y-2">
+                        <div class="space-y-4">
                             @foreach($items as $formation)
                                 <x-molecules.formation-card :formation="$formation"/>
                             @endforeach
