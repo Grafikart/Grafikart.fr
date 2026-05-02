@@ -1,15 +1,15 @@
 ---
-- name: Laravel | Clone
-  become: no
-  git:
-    repo: "https://github.com/Grafikart/Grafikart.fr.git"
-    dest: "{{ root_path }}"
-    version: main
+#- name: Laravel | Clone
+#  become: no
+#  git:
+#    repo: "https://github.com/Grafikart/Grafikart.fr.git"
+#    dest: "{{ root_path }}"
+#    version: main
 - name: Laravel | Scheduler
   become: no
   cron:
     name: "{{ domain }} scheduler"
-    job: "cd {{ root_path }} && php-zts artisan schedule:run >> /dev/null 2>&1"
+    job: "cd {{ root_path }} && php artisan schedule:run >> /dev/null 2>&1"
 - name: Laravel | Queue Service
   become: no
   template:
