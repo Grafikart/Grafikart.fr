@@ -1,3 +1,7 @@
+www.{{ domain }} {
+	redir https://{{ domain }}{uri} permanent
+}
+
 {{ domain }} {
 	encode zstd br gzip
 	root * {{ root_path }}/public/
