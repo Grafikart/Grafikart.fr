@@ -16,7 +16,6 @@
         "laravel-lang/common": "^6.7",
         "laravel/fortify": "^1.30",
         "laravel/framework": "^12.0",
-        "laravel/octane": "^2.13",
         "laravel/sanctum": "^4.0",
         "laravel/socialite": "^5.24",
         "laravel/tinker": "^2.10.1",

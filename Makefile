@@ -2,6 +2,7 @@
 .DEFAULT_GOAL := help
 
 domain := "grafikart.fr"
+server := "grafikart"
 
 help: ## Affiche cette aide
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
@@ -16,6 +17,7 @@ install: vendor/autoload.php public/build/manifest.json ## Installe les différe
 	php artisan migrate --force
 	php artisan config:cache
 	php artisan optimize
+	sudo systemctl reload frankenphp.service
 
 dev: node_modules/time ## Lance le serveur de développement
 	tmux kill-session -t dev 2>/dev/null || true
