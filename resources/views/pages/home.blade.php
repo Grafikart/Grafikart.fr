@@ -31,11 +31,9 @@
         <section class="py-17.5 md:py-30! container bg-background-light grid gap-8 md:gap-12 md:grid-cols-[400px_1fr] items-center">
             <div>
                 <h1 class="text-6xl md:text-7xl font-bold font-serif mb-4 text-foreground-title">
-                    <span class="text-primary">Apprenez</span> de<br/>
-                    nouvelles<br/>
-                    choses. </h1>
-                <p class="text-2xl text-balance text-muted">
-                    Améliorez-vous et apprenez de nouvelles choses grâce à <strong class="text-foreground">{{ $duration }}</strong> heures de vidéos.
+                    <span class="text-primary text-balance">Devenez</span> un développeur web.</h1>
+                <p class="text-2xl text-pretty text-muted">
+                    Apprenez ou améliorez vos compétences grâce à <strong class="text-foreground">{{ $duration }}</strong> heures de vidéos.
                 </p>
                 <div class="flex gap-4 mt-4 flex-wrap">
                     <x-atoms.button size="lg" href="{{ route('paths.index') }}">
