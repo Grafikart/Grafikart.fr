@@ -348,7 +348,7 @@ function ChoiceEditor(props: { choices: string[]; answer: number }) {
             <Input
               placeholder={`Choix ${i + 1}`}
               name={`answer.choices.${i}`}
-              value={choice}
+              defaultValue={choice}
             />
             {choices.length > 2 && (
               <Button
