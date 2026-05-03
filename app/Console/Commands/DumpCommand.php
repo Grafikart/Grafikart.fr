@@ -55,7 +55,7 @@ class DumpCommand extends Command
 
         $date = now()->format('Y-m-d');
         try {
-            Storage::disk('snapshots')->writeStream("grafikart-{$date}.dump", $stream);
+            Storage::disk('snapshots')->writeStream("grafikart-{$date}.tar.gz", $stream);
         } catch (\Exception $e) {
             $this->fail("Impossible d'uploader le fichier ".$e->getMessage());
         } finally {
