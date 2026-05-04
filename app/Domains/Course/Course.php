@@ -91,7 +91,7 @@ class Course extends Model implements RegisterMedia, Revisionable, Searchable
      */
     public function questions(): HasMany
     {
-        return $this->hasMany(Question::class)->orderByDesc('id');
+        return $this->hasMany(Question::class)->orderBy('id');
     }
 
     /**

@@ -19,6 +19,7 @@ install: vendor/autoload.php public/build/manifest.json ## Installe les différe
 	php artisan config:cache
 	php artisan optimize
 	sudo systemctl reload frankenphp.service
+	systemctl --user restart queue.service
 
 dev: node_modules/time ## Lance le serveur de développement
 	tmux kill-session -t dev 2>/dev/null || true
