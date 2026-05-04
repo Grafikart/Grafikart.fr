@@ -83,7 +83,7 @@
 
                 <x-atoms.card class="px-6 py-4 relative lg:col-span-23">
                     <h2 class="font-bold text-info-text bg-info-bg/70 rounded-full border-info-text/20 border -top-4 left-2 px-3 py-1 absolute">
-                        Les dernières formations</h2>
+                        Les dernières tutoriels</h2>
                     <div class="divide-y">
                         @foreach($courses as $course)
                             <div class="flex gap-4 items-center py-4 relative">
