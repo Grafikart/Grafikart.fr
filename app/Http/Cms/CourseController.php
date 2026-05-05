@@ -58,10 +58,13 @@ class CourseController extends CmsController
         // Create a clone to copy a course
         if ($clone) {
             $course = clone Course::findOrFail($clone);
-            $course->setAttribute('id', null);
             $course->load('technologies');
+            $course->created_at = $course->created_at->addDay();
+            $course->source = null;
+            $course->youtube_id = null;
+            $course->setAttribute('id', null);
 
-            return $this->cmsCreate(['index' => CourseFormData::from($course)]);
+            return $this->cmsCreate(['item' => CourseFormData::from($course)]);
         }
 
         return $this->cmsCreate();
