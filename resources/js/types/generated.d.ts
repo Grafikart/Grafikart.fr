@@ -57,6 +57,14 @@ export type CommentRowData = {
   ip: string
   createdAt: string
 }
+export type ContactRequestRowData = {
+  id: number
+  name: string
+  email: string
+  message: string
+  ip: string | null
+  createdAt: string
+}
 export type CountryData = {
   name: string
   code: string

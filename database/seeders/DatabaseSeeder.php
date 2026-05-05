@@ -19,6 +19,7 @@ use App\Domains\History\Progress;
 use App\Domains\Premium\Models\Plan;
 use App\Domains\Premium\Models\Transaction;
 use App\Domains\Sponsorship\Sponsor;
+use App\Domains\Support\ContactRequest;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
@@ -46,6 +47,7 @@ class DatabaseSeeder extends Seeder
         Topic::class,
         Progress::class,
         Sponsor::class,
+        ContactRequest::class,
     ];
 
     protected function clean()
@@ -112,6 +114,7 @@ class DatabaseSeeder extends Seeder
         });
 
         Sponsor::factory(10)->create();
+        ContactRequest::factory(10)->create();
 
         // Reset settings
         DB::enableQueryLog();

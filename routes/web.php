@@ -134,6 +134,7 @@ Route::group([
     Route::resource('plans', \App\Http\Cms\PlanController::class)->except(['edit', 'create']);
     Route::resource('schools', \App\Http\Cms\SchoolController::class)->except(['show']);
     Route::resource('support', \App\Http\Cms\SupportController::class)->only(['index', 'edit', 'update', 'destroy']);
+    Route::resource('contact_requests', \App\Http\Cms\ContactRequestController::class)->only(['index', 'show', 'destroy']);
     Route::resource('sponsors', \App\Http\Cms\SponsorController::class)->except(['show']);
     Route::resource('technologies', \App\Http\Cms\TechnologyController::class)->except(['show']);
     Route::get('users/search', [\App\Http\Cms\UserController::class, 'search'])->name('users.search');

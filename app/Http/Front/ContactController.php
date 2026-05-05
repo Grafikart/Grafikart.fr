@@ -2,6 +2,7 @@
 
 namespace App\Http\Front;
 
+use App\Domains\Support\ContactRequest;
 use App\Http\Controller;
 use App\Http\Front\Data\ContactData;
 use App\Infrastructure\Notification\Mail\ContactMail;
@@ -18,6 +19,13 @@ class ContactController extends Controller
 
     public function submit(ContactData $data): RedirectResponse
     {
+        ContactRequest::create([
+            'name' => $data->name,
+            'email' => $data->email,
+            'message' => $data->content,
+            'ip' => request()->ip(),
+        ]);
+
         Mail::to(config('mail.from.address'))->send(new ContactMail($data));
 
         return to_route('contact')->with('success', value: 'Votre mail a bien été envoyé, vous recevrez une réponse dans les plus bref délais.');

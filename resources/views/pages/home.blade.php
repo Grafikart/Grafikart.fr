@@ -165,7 +165,7 @@
                     développement web.
                 </p>
                 <p class="mb-10">
-                    <x-atoms.button size="lg" variant="outline" href="{{ route('courses.index') }}">
+                    <x-atoms.button size="lg" variant="outline" href="{{ route('blog.index') }}">
                         Accéder au blog
                     </x-atoms.button>
                 </p>

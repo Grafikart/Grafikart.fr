@@ -98,7 +98,7 @@ class Technology extends Model implements RegisterMedia
     }
 
     #[Scope]
-    public function published(Builder $query): void
+    protected function published(Builder $query): void
     {
         $query->whereNull('deprecated_by_id');
     }

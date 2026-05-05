@@ -11,6 +11,7 @@ import {
   HouseIcon,
   LifeBuoyIcon,
   ListVideoIcon,
+  MailIcon,
   MessagesSquareIcon,
   MonitorPlayIcon,
   SearchIcon,
@@ -68,6 +69,7 @@ import {
 } from "@/components/ui/input-group.tsx"
 import SponsorController from "@/actions/App/Http/Cms/SponsorController.ts"
 import { trimCharacter } from "@/lib/string.ts"
+import ContactRequestController from "@/actions/App/Http/Cms/ContactRequestController.ts"
 
 type Props = {
   breadcrumb: NavItem[]
@@ -184,6 +186,11 @@ const nav = [
         label: "Révisions",
         icon: GitCompareArrowsIcon,
         href: RevisionController.index(),
+      },
+      {
+        label: "Contact",
+        icon: MailIcon,
+        href: ContactRequestController.index(),
       },
     ],
   },
