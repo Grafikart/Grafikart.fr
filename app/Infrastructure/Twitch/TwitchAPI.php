@@ -29,9 +29,28 @@ class TwitchAPI
 
     public function addWebhookSubscription(): void
     {
+        $endpoint = 'https://api.twitch.tv/helix/eventsub/subscriptions';
+
+        // Delete all previous subscriptions
+        $response = $this->client()->get($endpoint);
+        if ($response->failed()) {
+            throw new Exception("Cannot retrieve previous subscriptions:\n".$response->body());
+        }
+        $subscriptions = $response->json()['data'];
+        foreach ($subscriptions as $subscription) {
+            $id = $subscription['id'];
+            $response = $this->client()
+                ->withQueryParameters(['id' => $id])
+                ->delete($endpoint);
+            if ($response->failed()) {
+                throw new Exception('Cannot delete subscription '.$id."\n".$response->body());
+            }
+        }
+
+        // Add the new subscriptions
         $types = ['stream.online', 'stream.offline'];
         foreach ($types as $type) {
-            $response = $this->client()->post('https://api.twitch.tv/helix/eventsub/subscriptions', [
+            $response = $this->client()->post($endpoint, [
                 'type' => $type,
                 'version' => '1',
                 'condition' => [
