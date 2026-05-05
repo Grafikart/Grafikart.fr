@@ -47,6 +47,8 @@ function SearchInputInner() {
       setSearch("")
     }
   }
+  const hasResults = Boolean(data && data.hits > 0)
+  const isEmpty = Boolean(data && data.hits === 0)
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -81,6 +83,12 @@ function SearchInputInner() {
             )}
           </form>
 
+          {isEmpty && (
+            <Autocomplete.Empty className="text-muted py-2 text-center text-sm">
+              <div>Aucun résultat trouvé</div>
+            </Autocomplete.Empty>
+          )}
+
           <Autocomplete.List hidden={items.length === 0}>
             {(item: APISearchItem) => (
               <Autocomplete.Item
@@ -100,7 +108,7 @@ function SearchInputInner() {
               </Autocomplete.Item>
             )}
           </Autocomplete.List>
-          {data?.hits && (
+          {hasResults && (
             <a
               className="text-muted hover:bg-list-hover py-2 text-center text-sm"
               href={`/recherche?q=${encodeURIComponent(debouncedSearch)}`}
