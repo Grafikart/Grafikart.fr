@@ -44,7 +44,7 @@
                     </x-atoms.button>
                 </div>
             </div>
-            <x-atoms.lazy-video video="1T0R_iTJieo" class="w-full max-w-200 ml-auto"/>
+            <x-atoms.lazy-video video="1T0R_iTJieo" poster="/images/video-presentation.webp" class="w-full max-w-200 ml-auto"/>
         </section>
 
         <section class="container pt-17 grid gap-8 lg:grid lg:grid-cols-[480fr_800px] lg:gap-0 items-start">

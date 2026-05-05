@@ -12,7 +12,7 @@ Route::get('/search', [SearchController::class, 'index']);
 Route::get('/courses/filters', [CourseFilterController::class, 'index'])
     ->middleware(\Spatie\ResponseCache\Middlewares\CacheResponse::for(\Illuminate\Support\minutes(15)));
 Route::get('/courses/{course}/support', [SupportController::class, 'index']);
-Route::post('/twitch/webhook', [TwitchController::class, 'webhook']);
+Route::post('/twitch/webhook', [TwitchController::class, 'webhook'])->name('twitch.webhook');
 Route::get('/courses/{course}/vtt', [\App\Http\API\CourseController::class, 'vtt'])->name('course.vtt');
 Route::post('/stripe/webhook', [\App\Http\API\StripeWebhookController::class, 'webhook']);
 Route::middleware(['auth', 'verified'])->group(function () {

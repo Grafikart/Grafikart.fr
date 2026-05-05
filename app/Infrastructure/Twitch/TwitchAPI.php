@@ -39,7 +39,7 @@ class TwitchAPI
                 ],
                 'transport' => [
                     'method' => 'webhook',
-                    'callback' => 'https://grafikart.fr/twitch/webhook',
+                    'callback' => route('twitch.webhook', absolute: true),
                     'secret' => $this->secret,
                 ],
             ]);
