@@ -13,6 +13,8 @@
     <meta name="turbo-prefetch" content="false">
     @yield('head')
     <link rel="alternate" type="application/rss+xml" title="Grafikart.fr | Flux" href="{{ url('rss') }}"/>
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" sizes="128x128" href="/favicons/icon-128x128.png">
 
     <title>@yield('title') | {{ config('app.name', 'Laravel') }}</title>
