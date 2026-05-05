@@ -30,6 +30,13 @@
         <script src="https://cdn.jsdelivr.net/npm/idiomorph"></script>
         <script src="https://cdn.jsdelivr.net/npm/frankenphp-hot-reload/+esm" type="module"></script>
     @endif
+    @if(app()->isProduction())
+        <script async src="https://stats.grafikart.fr/js/pa-o3Nlhz_HvR3BvmZ4JBBQU.js"></script>
+        <script>
+          window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+          plausible.init()
+        </script>
+    @endif
 </head>
 <body
     @class([
