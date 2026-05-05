@@ -60,7 +60,7 @@ export function AttachmentSelector({
             className={cn(preview && "hidden group-hover:block relative z-5")}
           />
         </DialogTrigger>
-        <DialogContent className="p-0 max-w-300 ">
+        <DialogContent className="p-0 max-w-250 ">
           <FileExplorer
             onSelect={onFileSelect}
             attachableType={attachableType}

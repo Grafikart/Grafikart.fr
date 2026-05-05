@@ -1,5 +1,5 @@
 import { FolderIcon, FolderOpenIcon, SearchIcon, TrashIcon } from "lucide-react"
-import { useCallback, useState } from "react"
+import { useCallback, useRef, useState } from "react"
 import { useDropzone } from "react-dropzone"
 import { toast } from "sonner"
 import route from "@/actions/App/Http/Cms/AttachmentController"
@@ -25,6 +25,7 @@ import { useApiFetch, useApiMutation } from "@/hooks/use-api-fetch.ts"
 import { humanSize } from "@/lib/file.ts"
 import { cn } from "@/lib/utils.ts"
 import type { AttachmentFileData, FolderData } from "@/types"
+import { useDebounceValue } from "usehooks-ts"
 
 type Props = {
   onSelect: (file: AttachmentFileData) => void
@@ -35,15 +36,25 @@ type Props = {
 export function FileExplorer(props: Props) {
   const { data: folders } = useApiFetch<FolderData[]>(route.folders().url)
   const [folder, setFolder] = useState("")
+  const [search, setSearch] = useDebounceValue("", 500)
+  const searchInput = useRef<HTMLInputElement>(null)
 
   const { data, setData } = useApiFetch<AttachmentFileData[]>(
     route.index({
-      query: { path: folder },
+      query: { path: folder, q: search },
     }).url,
   )
   const { mutate, isPending } = useApiMutation<AttachmentFileData>(
     route.store().url,
   )
+
+  const selectFolder = (n: string) => {
+    setFolder(n)
+    setSearch("")
+    if (searchInput.current) {
+      searchInput.current.value = ""
+    }
+  }
 
   const onDrop = useCallback(
     (files: File[]) => {
@@ -73,7 +84,10 @@ export function FileExplorer(props: Props) {
   const files = data ?? []
 
   return (
-    <div className="grid grid-cols-[300px_1fr] relative" {...getRootProps()}>
+    <div
+      className="grid grid-cols-[220px_1fr] relative max-h-200"
+      {...getRootProps()}
+    >
       <div
         className={cn(
           "absolute inset-0 border-2 rounded-lg border-primary bg-primary/10 z-20 place-items-center text-2xl font-semibold text-primary border-dashed hidden",
@@ -84,7 +98,11 @@ export function FileExplorer(props: Props) {
       </div>
       <aside className="space-y-4 overflow-auto p-4">
         <InputGroup>
-          <InputGroupInput placeholder="Rechercher..." />
+          <InputGroupInput
+            placeholder="Rechercher..."
+            ref={searchInput}
+            onChange={(e) => setSearch(e.target.value)}
+          />
           <InputGroupAddon>
             <SearchIcon />
           </InputGroupAddon>
@@ -92,14 +110,14 @@ export function FileExplorer(props: Props) {
 
         <Separator orientation="horizontal" />
 
-        {folders && <Folders folders={folders} onSelect={setFolder} />}
+        {folders && <Folders folders={folders} onSelect={selectFolder} />}
       </aside>
 
       <main className="overflow-auto">
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-70">Image</TableHead>
+              <TableHead className="w-50">Image</TableHead>
               <TableHead>Nom</TableHead>
               <TableHead className="w-10">Taille</TableHead>
               <TableHead className="w-20">Actions</TableHead>
@@ -157,14 +175,14 @@ function FileRow({
 
   return (
     <TableRow key={file.id}>
-      <TableCell>
+      <TableCell className="w-50">
         <button onClick={() => onSelect(file)} type="button">
           <img
             className="rounded-lg shadow"
             src={file.thumbnail}
             alt=""
-            width={250}
-            height={100}
+            width={200}
+            height={75}
           />
         </button>
       </TableCell>
