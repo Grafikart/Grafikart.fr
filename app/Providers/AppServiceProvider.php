@@ -61,14 +61,14 @@ class AppServiceProvider extends ServiceProvider
         });
     }
 
-    private function registerRoutePatterns()
+    private function registerRoutePatterns(): void
     {
         Route::pattern('id', '[0-9]+');
-        Route::pattern('slug', '[a-z0-9\-]+');
+        Route::pattern('slug', '[a-zA-Z0-9\-]+');
         Route::pattern('driver', implode('|', AuthController::DRIVERS));
     }
 
-    private function registerViewGlobals()
+    private function registerViewGlobals(): void
     {
         // Add appearance (theme) to the view
         View::composer(['front', 'cms'], function (\Illuminate\View\View $view): void {
