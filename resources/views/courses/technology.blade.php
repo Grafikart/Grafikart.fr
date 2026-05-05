@@ -4,6 +4,7 @@
 
 @section('body')
 
+
     <div class="container pb-10 bg-background-light grid grid-cols-1 md:grid-cols-[1fr_400px] gap-4">
         <div class="row-2 md:row-1">
             <h1 class="text-page-title mb-4">{{ $technology->name }}</h1>
@@ -20,7 +21,14 @@
 
     <div class="border-t bg-background pt-10 container grid grid-cols-1 md:grid-cols-[1fr_400px] gap-10 pb-20">
         <main class="space-y-8">
-            @if($isEmpty)
+
+            @if($technology->deprecatedBy)
+                <x-atoms.alert type="warning" class="container my-4">
+                    <strong class="text-warning-text">Cette technologie est dépréciée !</strong>
+                    Une technologie plus récente est disponible :
+                    <a href="{{ route('technologies.show', $technology->deprecatedBy) }}">{{ $technology->deprecatedBy->name }}</a>.
+                </x-atoms.alert>
+            @elseif($isEmpty)
                 <x-atoms.alert type="info">
                     Il n'y a pas encore de contenu pour cette technologie :(
                 </x-atoms.alert>

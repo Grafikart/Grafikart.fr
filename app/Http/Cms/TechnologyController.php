@@ -35,7 +35,7 @@ class TechnologyController extends CmsController
         if ($request->has('q') && ! $request->inertia()) {
             $search = $request->string('q');
             $technologies = Technology::query()
-                ->where('name', 'like', "%{$search}%")
+                ->where('name', 'ilike', "%{$search}%")
                 ->orderBy('name')
                 ->limit(10)
                 ->get()
@@ -66,7 +66,7 @@ class TechnologyController extends CmsController
 
     public function edit(Technology $technology): Response
     {
-        $technology->load('requirements');
+        $technology->load(['requirements', 'deprecatedBy']);
 
         return $this->cmsEdit($technology);
     }

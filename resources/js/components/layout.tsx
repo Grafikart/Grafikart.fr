@@ -25,6 +25,7 @@ import {
   type PropsWithChildren,
   type ReactNode,
   useEffect,
+  useRef,
 } from "react"
 import { toast } from "sonner"
 import CommentController from "@/actions/App/Http/Cms/CommentController.ts"
@@ -66,6 +67,7 @@ import {
   InputGroupInput,
 } from "@/components/ui/input-group.tsx"
 import SponsorController from "@/actions/App/Http/Cms/SponsorController.ts"
+import { trimCharacter } from "@/lib/string.ts"
 
 type Props = {
   breadcrumb: NavItem[]
@@ -208,6 +210,18 @@ const nav = [
 ] satisfies NavItem[]
 
 function Header(props: Props) {
+  const { url } = usePage()
+  const searchUrl =
+    "/" + trimCharacter(url, "/").split("/").slice(0, 2).join("/")
+
+  // Empty the search on page change
+  const input = useRef<HTMLInputElement>(null)
+  useEffect(() => {
+    if (input.current) {
+      input.current.value = ""
+    }
+  }, [searchUrl])
+
   return (
     <header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
       <div className="flex w-full items-center gap-1 px-4 lg:gap-2 lg:px-6">
@@ -215,9 +229,10 @@ function Header(props: Props) {
         <Separator orientation="vertical" className="mx-2 h-4" />
         {props.breadcrumb && <BreadcrumbNav items={props.breadcrumb} />}
         <div className="ml-auto" />
-        <Form method="get">
+        <Form method="get" action={searchUrl}>
           <InputGroup className="max-w-xs">
             <InputGroupInput
+              ref={input}
               placeholder="Rechercher..."
               name="q"
               defaultValue={

@@ -41,8 +41,15 @@ function SearchInputInner() {
     setOpen(true)
   })
 
+  const onOpenChange = (o: boolean) => {
+    setOpen(o)
+    if (o) {
+      setSearch("")
+    }
+  }
+
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger
         className="grid size-6 place-items-center"
         title="Rechercher un contenu"
@@ -65,7 +72,7 @@ function SearchInputInner() {
               placeholder="Rechercher un contenu"
               className="rounded-md pl-10 peer"
               name="q"
-              render={<Input />}
+              render={<Input value={search} />}
             />
             {isFetching ? (
               <Spinner className={iconCls} />

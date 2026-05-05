@@ -2,6 +2,7 @@
 
 namespace App\Http\API;
 
+use App\Domains\Course\Technology;
 use App\Http\API\Data\APISearchItem;
 use App\Http\API\Data\APISearchResponse;
 use App\Http\Controller;
@@ -14,20 +15,47 @@ class SearchController extends Controller
 
     public function index(Request $request): APISearchResponse
     {
-        $result = $this->search->search(q: $request->string('q'), limit: 6);
+        // Find technology matching the query
+        $q = trim($request->string('q'));
 
-        $items = array_map(
-            fn ($item) => new APISearchItem(
+        // No search, no results
+        if (empty($q)) {
+            return new APISearchResponse(
+                items: [],
+                hits: 0
+            );
+        }
+
+        /** @var APISearchItem[] $items */
+        $items = [];
+
+        // Find matching technologies
+        $technologies = Technology::query()
+            ->published()
+            ->whereLike('name', '%'.$q.'%')
+            ->limit(10)
+            ->get();
+        foreach ($technologies as $technology) {
+            $items[] = new APISearchItem(
+                title: $technology->name,
+                url: app_url($technology),
+                type: 'Outil',
+            );
+        }
+
+        // Search the site
+        $search = $this->search->search(q: $request->string('q'), limit: 6);
+        foreach ($search->getItems() as $item) {
+            $items[] = new APISearchItem(
                 title: $item->getTitle(),
                 url: $item->getUrl(),
                 type: $item->getType(),
-            ),
-            $result->getItems()
-        );
+            );
+        }
 
         return new APISearchResponse(
             items: $items,
-            hits: $result->getTotal(),
+            hits: $search->getTotal(),
         );
     }
 }

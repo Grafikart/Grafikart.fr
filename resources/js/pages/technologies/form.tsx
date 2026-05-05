@@ -16,11 +16,20 @@ import {
 } from "@/components/ui/command"
 import { ImageInput } from "@/components/ui/form/image-input.tsx"
 import { SlugInput } from "@/components/ui/form/slug-input.tsx"
-import { Switch } from "@/components/ui/switch.tsx"
 import { useApiFetch } from "@/hooks/use-api-fetch"
 import { useList } from "@/hooks/use-list"
 import { cn } from "@/lib/utils"
 import type { OptionItemData, TechnologyFormData } from "@/types"
+import { Label } from "@/components/ui/label.tsx"
+import {
+  Combobox,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxList,
+} from "@/components/ui/combobox"
+import { useDebounceValue } from "usehooks-ts"
 
 type Props = {
   item: TechnologyFormData
@@ -68,14 +77,7 @@ export default withLayout<Props>(
               className="aspect-video"
             />
             <CardContent className="space-y-4">
-              <div className="flex items-center gap-2">
-                <Switch
-                  id="deprecated"
-                  name="deprecated"
-                  defaultChecked={item.deprecated}
-                />
-                <label htmlFor="deprecated">Dépréciée</label>
-              </div>
+              <DeprecatedBySelector defaultValue={item.deprecatedBy ?? null} />
               <RequirementsSelector defaultValue={item.requirements ?? []} />
             </CardContent>
           </Card>
@@ -95,6 +97,50 @@ export default withLayout<Props>(
     ),
   },
 )
+
+type DeprecatedBySelectorProps = {
+  defaultValue: OptionItemData | null
+}
+
+function DeprecatedBySelector({ defaultValue }: DeprecatedBySelectorProps) {
+  const [search, setSearch] = useDebounceValue("", 300)
+  const shouldSearch = search !== ""
+  const { data } = useApiFetch<OptionItemData[]>(
+    route.index({ query: { q: search } }).url,
+    { enabled: shouldSearch, staleTime: 5_000 },
+  )
+
+  const [value, setValue] = useState<OptionItemData | null>(defaultValue)
+
+  const items = data ?? []
+  return (
+    <div className="space-y-2">
+      <input type="hidden" name="deprecatedById" value={value?.id ?? ""} />
+      <Label className="text-xs font-medium text-muted-foreground uppercase">
+        Déprécié par
+      </Label>
+      <Combobox
+        itemToStringLabel={(item: OptionItemData) => item.name}
+        items={items}
+        defaultValue={value}
+        onInputValueChange={setSearch}
+        onValueChange={setValue}
+      >
+        <ComboboxInput placeholder="Select a framework" />
+        <ComboboxContent>
+          <ComboboxEmpty>Rechercher</ComboboxEmpty>
+          <ComboboxList>
+            {(item: OptionItemData) => (
+              <ComboboxItem key={item.id} value={item}>
+                {item.name}
+              </ComboboxItem>
+            )}
+          </ComboboxList>
+        </ComboboxContent>
+      </Combobox>
+    </div>
+  )
+}
 
 type RequirementsSelectorProps = {
   defaultValue: OptionItemData[]
@@ -118,66 +164,75 @@ function RequirementsSelector({ defaultValue }: RequirementsSelectorProps) {
   )
 
   return (
-    <div className="space-y-3">
-      <div className="flex flex-wrap gap-2">
-        {items.map((item, k) => (
-          <div
-            key={item.id}
-            className="flex items-center gap-1 rounded-md bg-muted px-2 py-1 text-sm"
-          >
-            {item.name}
-            <Button
-              variant="ghost"
-              type="button"
-              size="icon-xs"
-              onClick={() => toggleItem(item)}
-              aria-label="Supprimer"
+    <div className="space-y-2">
+      <Label className="text-xs font-medium text-muted-foreground uppercase">
+        Prérequis
+      </Label>
+      <div className="space-y-3">
+        <div className="flex flex-wrap gap-2">
+          {items.map((item, k) => (
+            <div
+              key={item.id}
+              className="flex items-center gap-1 rounded-md bg-muted px-2 py-1 text-sm"
             >
-              <UnlinkIcon className="size-3" />
-            </Button>
-            <input type="hidden" name={`requirements[${k}]`} value={item.id} />
-          </div>
-        ))}
-      </div>
+              {item.name}
+              <Button
+                variant="ghost"
+                type="button"
+                size="icon-xs"
+                onClick={() => toggleItem(item)}
+                aria-label="Supprimer"
+              >
+                <UnlinkIcon className="size-3" />
+              </Button>
+              <input
+                type="hidden"
+                name={`requirements[${k}]`}
+                value={item.id}
+              />
+            </div>
+          ))}
+        </div>
 
-      <Command shouldFilter={false} className="relative">
-        <CommandList className="absolute top-full left-0 z-10 w-full bg-card">
-          <CommandGroup>
-            {isFetching && (
-              <div className="flex justify-center py-2 text-muted-foreground">
-                <LoaderCircle className="animate-spin" size={16} />
-              </div>
-            )}
-            {data
-              ?.filter((item) => !selectedItemsSet.has(item.id))
-              .map((item) => (
-                <CommandItem
-                  key={item.id}
-                  value={item.name}
-                  onSelect={() => {
-                    toggleItem(item)
-                    setSearch("")
-                  }}
-                >
-                  {item.name}
-                  <Check
-                    className={cn(
-                      "ml-auto",
-                      selectedItemsSet.has(item.id)
-                        ? "opacity-100"
-                        : "opacity-0",
-                    )}
-                  />
-                </CommandItem>
-              ))}
-          </CommandGroup>
-        </CommandList>
-        <CommandInput
-          placeholder="Rechercher une technologie"
-          onValueChange={setSearch}
-          value={search}
-        />
-      </Command>
+        <Command shouldFilter={false} className="relative">
+          <CommandList className="absolute top-full left-0 z-10 w-full bg-card">
+            <CommandGroup>
+              {isFetching && (
+                <div className="flex justify-center py-2 text-muted-foreground">
+                  <LoaderCircle className="animate-spin" size={16} />
+                </div>
+              )}
+              {data
+                ?.filter((item) => !selectedItemsSet.has(item.id))
+                .map((item) => (
+                  <CommandItem
+                    key={item.id}
+                    value={item.name}
+                    onSelect={() => {
+                      toggleItem(item)
+                      setSearch("")
+                    }}
+                  >
+                    {item.name}
+                    <Check
+                      className={cn(
+                        "ml-auto",
+                        selectedItemsSet.has(item.id)
+                          ? "opacity-100"
+                          : "opacity-0",
+                      )}
+                    />
+                  </CommandItem>
+                ))}
+            </CommandGroup>
+          </CommandList>
+          <CommandInput
+            placeholder="Rechercher une technologie"
+            onValueChange={setSearch}
+            value={search}
+          />
+        </Command>
+      </div>
     </div>
   )
 }

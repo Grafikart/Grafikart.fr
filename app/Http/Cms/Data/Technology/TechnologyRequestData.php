@@ -18,7 +18,7 @@ class TechnologyRequestData extends Data implements DataToModel
         public string $slug,
         public string $content,
         public ?string $type = null,
-        public bool $deprecated = false,
+        public ?int $deprecatedById = null,
         public ?UploadedFile $imageFile = null,
         /** @var int[] */
         public array $requirements = [],
@@ -31,7 +31,7 @@ class TechnologyRequestData extends Data implements DataToModel
             'slug' => ['required', 'string', 'min:2'],
             'content' => ['required', 'string'],
             'type' => ['nullable', 'string'],
-            'deprecated' => ['boolean'],
+            'deprecatedById' => ['nullable', 'integer', 'exists:technologies,id'],
             'imageFile' => ['nullable', 'file', 'image:allow_svg'],
             'requirements' => ['array', 'exists:technologies,id'],
         ];
@@ -46,7 +46,7 @@ class TechnologyRequestData extends Data implements DataToModel
             'slug' => $this->slug,
             'content' => $this->content,
             'type' => $this->type,
-            'deprecated' => $this->deprecated,
+            'deprecated_by_id' => $this->deprecatedById,
         ]);
         $model->attachMedia($this->imageFile, 'image');
 

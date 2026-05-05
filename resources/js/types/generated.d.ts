@@ -377,7 +377,7 @@ export type TechnologyFormData = {
   name: string
   slug: string
   content: string
-  deprecated: boolean
+  deprecatedBy: OptionItemData | null
   image: string | null
   requirements: Array<OptionItemData> | Array<any> | null
 }

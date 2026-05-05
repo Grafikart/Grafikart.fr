@@ -16,7 +16,7 @@ class TechnologyFormData extends Data
         public string $name = '',
         public string $slug = '',
         public string $content = '',
-        public bool $deprecated = false,
+        public ?OptionItemData $deprecatedBy = null,
         #[MapMedia()]
         public ?string $image = null,
         /** @var Collection<OptionItemData> */

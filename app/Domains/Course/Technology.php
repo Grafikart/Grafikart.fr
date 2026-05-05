@@ -5,8 +5,11 @@ namespace App\Domains\Course;
 use App\Concerns\Media\HasMedia;
 use App\Concerns\Media\RegisterMedia;
 use App\Domains\Course\Factory\TechnologyFactory;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Technology extends Model implements RegisterMedia
@@ -22,8 +25,13 @@ class Technology extends Model implements RegisterMedia
         'content',
         'image',
         'type',
-        'deprecated',
+        'deprecated_by_id',
     ];
+
+    public function deprecatedBy(): BelongsTo
+    {
+        return $this->belongsTo(Technology::class, 'deprecated_by_id');
+    }
 
     /**
      * Technologies that are required for this technology.
@@ -87,5 +95,11 @@ class Technology extends Model implements RegisterMedia
             directory: 'icons',
             filename: 'slug',
         );
+    }
+
+    #[Scope]
+    public function published(Builder $query): void
+    {
+        $query->whereNull('deprecated_by_id');
     }
 }

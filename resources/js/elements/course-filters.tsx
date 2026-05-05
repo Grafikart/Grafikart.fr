@@ -327,12 +327,20 @@ function HighlightMatch({ text, query }: { text: string; query: string }) {
   if (index === -1) {
     return text
   }
+  const end = index + query.length
+  const sides = [
+    ["pl-0", index - 1],
+    ["pr-0", end],
+  ] as const
+  const className = cn(
+    sides.filter(([, i]) => text[i] && !/\s/.test(text[i])).map(([cls]) => cls),
+  )
   return (
-    <>
+    <span>
       {text.slice(0, index)}
-      <mark>{text.slice(index, index + query.length)}</mark>
-      {text.slice(index + query.length)}
-    </>
+      <mark className={className}>{text.slice(index, end)}</mark>
+      {text.slice(end)}
+    </span>
   )
 }
 
