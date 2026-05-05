@@ -4,7 +4,7 @@
         ['label' => 'Tutoriels', 'href' => route('courses.index', absolute: false), 'icon' => 'square-play'],
         ['label' => 'Formations', 'href' => '/formations', 'icon' => 'list-video'],
         ['label' => 'Cursus', 'href' => '/cursus', 'icon' => 'waypoints'],
-        ['label' => 'Premium', 'href' => '/premium', 'icon' => 'star', 'highlight' => true, 'hidden' => $user->isPremium()],
+        ['label' => 'Premium', 'href' => '/premium', 'icon' => 'star', 'highlight' => true, 'hidden' => $user?->isPremium()],
         ['label' => 'Blog', 'href' => '/blog', 'icon' => 'notebook-pen'],
     ], fn (array $item) => !($item['hidden'] ?? false));
 @endphp
