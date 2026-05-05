@@ -7,6 +7,7 @@ use App\Concerns\Media\RegisterMedia;
 use App\Domains\Sponsorship\Factory\SponsorFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Sponsor extends Model implements RegisterMedia
 {
@@ -41,7 +42,7 @@ class Sponsor extends Model implements RegisterMedia
         self::registerMediaForProperty(
             property: 'logo',
             directory: 'sponsors',
-            filename: 'name',
+            filename: fn (Sponsor $sponsor) => Str::slug($sponsor->name),
         );
     }
 }
