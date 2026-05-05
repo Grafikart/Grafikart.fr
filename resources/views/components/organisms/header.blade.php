@@ -1,12 +1,12 @@
 @php
-    $navItems = [
+    $user = auth()->user();
+    $navItems = array_filter([
         ['label' => 'Tutoriels', 'href' => route('courses.index', absolute: false), 'icon' => 'square-play'],
         ['label' => 'Formations', 'href' => '/formations', 'icon' => 'list-video'],
         ['label' => 'Cursus', 'href' => '/cursus', 'icon' => 'waypoints'],
-        ['label' => 'Premium', 'href' => '/premium', 'icon' => 'star', 'highlight' => true],
+        ['label' => 'Premium', 'href' => '/premium', 'icon' => 'star', 'highlight' => true, 'hidden' => $user->isPremium()],
         ['label' => 'Blog', 'href' => '/blog', 'icon' => 'notebook-pen'],
-    ];
-    $user = auth()->user();
+    ], fn (array $item) => !($item['hidden'] ?? false));
 @endphp
 
 <site-header class="[body:not(.has-drawer)_&]:container block text-foreground-title fixed top-0 left-0 right-0 z-50 transition-all [&+*]:pt-28">
@@ -73,12 +73,12 @@
                 @auth
                     <a href="{{ route('users.edit') }}"
                        class="flex items-center gap-2 text-sm hover:text-primary transition-colors">
-                        @if(auth()->user()->isPremium())
+                        @if($user->isPremium())
                             <x-lucide-user-star class="size-4 text-warning"/>
                         @else
                             <x-lucide-user-round class="size-4"/>
                         @endif
-                        <span>{{ auth()->user()->name }}</span>
+                        <span>{{ $user->name }}</span>
                     </a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
