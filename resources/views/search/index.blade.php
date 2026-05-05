@@ -3,7 +3,7 @@
 @section('title', 'Recherche : ' . $q)
 
 @section('body')
-    <header class="bg-background-light container flex items-center pb-15 justify-between gap-25">
+    <header class="bg-background-light container flex flex-col md:flex-row md:items-center pb-15 justify-between gap-8 md:gap-25">
         <h1 class="text-page-title w-max whitespace-nowrap text-trim">
             @if(empty($q))
                 Ooops !

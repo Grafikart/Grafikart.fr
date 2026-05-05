@@ -126,7 +126,7 @@
 
         <section class="container -mt-22 pt-40 pb-20">
             <div class="flex flex-col md:flex-row gap-4 md:items-end md:gap-10 mb-8">
-                <h2 class="text-5xl md:text-6xl font-serif font-bold text-foreground-title text-balance w-max flex-none">
+                <h2 class="text-5xl md:text-6xl font-serif font-bold text-foreground-title text-balance md:w-max flex-none">
                     Choisissez votre
                     <div class="text-primary">prochain parcours</div>
                 </h2>

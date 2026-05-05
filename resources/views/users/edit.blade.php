@@ -5,7 +5,7 @@
 @section('content')
 
     <div class="grid gap-10 grid-cols-1 lg:grid-cols-[1fr_300px]">
-        <main>
+        <main class="flex flex-col gap-4 sm:gap-2">
             <section class="flex flex-col gap-4">
                 <h2 class="text-2xl font-bold text-foreground-title flex items-center gap-2">
                     <x-lucide-user class="size-6 text-primary"/>

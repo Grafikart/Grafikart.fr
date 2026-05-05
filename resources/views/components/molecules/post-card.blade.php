@@ -1,19 +1,20 @@
 @props(['post'])
 
 @cache('post-card', $post)
-<article class="flex gap-8">
+<article class="flex flex-col gap-4 sm:flex-row sm:gap-8 min-w-0">
     @if($post->attachment)
         <a href="{{ route('blog.show', [$post->slug]) }}"
-           class="size-40 hover:ring hover:ring-primary flex-none rounded-md overflow-hidden hover:shadow-lg transition-all">
+           class="hidden sm:block size-40 border hover:ring hover:ring-primary flex-none rounded-md overflow-hidden hover:shadow-lg transition-all">
             <img
                 src="{{ $post->attachment->url(160,160) }}"
                 alt="{{ $post->title }}"
                 class="size-40 object-cover shadow-sm"
-            /></a>
+            />
+        </a>
     @endif
 
     <div>
-        <h2 class="text-4xl font-bold mb-4 text-foreground-title">
+        <h2 class="text-4xl font-bold mb-4 text-foreground-title text-balance">
             <a class="hover:text-primary transition-colors"
                href="{{route('blog.show', [$post->slug])}}">{{ $post->title }}</a>
         </h2>

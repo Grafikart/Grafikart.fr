@@ -11,7 +11,8 @@
                     <x-lucide-file-text class="size-6"/>
                     Mes derniers paiements
                 </h2>
-                <table class="table">
+                <div class="relative w-full overflow-x-auto px-2 -mx-2">
+                <table class="table w-full min-w-150">
                     <thead>
                     <tr>
                         <th class="uppercase text-muted">Date</th>
@@ -36,6 +37,7 @@
                     @endforeach
                     </tbody>
                 </table>
+                </div>
             </section>
         </main>
 
