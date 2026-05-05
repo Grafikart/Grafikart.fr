@@ -4,8 +4,8 @@
     $pill = 'inline-flex items-center px-1.5 rounded-sm text-sm text-trim';
 @endphp
 
-@if ($user->premium)
-    <span {{ $attributes->class([$pill, 'gap-1 uppercase text-warning bg-warning/10']) }}>
+@if ($user->isPremium())
+    <span {{ $attributes->class([$pill, 'gap-1 text-warning bg-warning/10']) }}>
         <x-lucide-star class="size-3" />
         premium
     </span>

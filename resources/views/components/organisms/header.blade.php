@@ -73,7 +73,11 @@
                 @auth
                     <a href="{{ route('users.edit') }}"
                        class="flex items-center gap-2 text-sm hover:text-primary transition-colors">
-                        <x-lucide-user-round  class="size-4"/>
+                        @if(auth()->user()->isPremium())
+                            <x-lucide-user-star class="size-4 text-warning"/>
+                        @else
+                            <x-lucide-user-round class="size-4"/>
+                        @endif
                         <span>{{ auth()->user()->name }}</span>
                     </a>
                     <form method="POST" action="{{ route('logout') }}">

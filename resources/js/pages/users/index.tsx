@@ -4,7 +4,6 @@ import {
   HandCoinsIcon,
   UserLockIcon,
   UserPlusIcon,
-  UserSearchIcon,
   UsersIcon,
   XCircleIcon,
 } from "lucide-react"
@@ -12,7 +11,6 @@ import route from "@/actions/App/Http/Cms/TransactionController.ts"
 import UserController from "@/actions/App/Http/Cms/UserController"
 import { withLayout } from "@/components/layout.tsx"
 import { PageTitle } from "@/components/page-title.tsx"
-import { Button } from "@/components/ui/button.tsx"
 import { ButtonLink } from "@/components/ui/button-link.tsx"
 import { Card, CardContent } from "@/components/ui/card"
 import { Pagination } from "@/components/ui/pagination.tsx"
@@ -112,13 +110,6 @@ function Item({ item }: { item: UserRowData }) {
       <TableCell>{item.lastLoginIp}</TableCell>
       <TableCell>
         <div className="flex items-center justify-end">
-          <Button
-            variant="secondary"
-            nativeButton={false}
-            render={<a href={`/?_ninja=${item.email}`} />}
-          >
-            <UserSearchIcon />
-          </Button>
           <ButtonLink
             variant="secondary"
             nativeButton={false}
