@@ -86,6 +86,7 @@ class UserController
         $user = $request->user();
         assert($user instanceof User);
         $user->password = Hash::make($data->password);
+        $user->save();
 
         return to_route('users.edit')->with('success', 'Votre mot de passe a bien été mis à jour');
     }
