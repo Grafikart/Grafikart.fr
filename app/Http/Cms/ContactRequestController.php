@@ -4,6 +4,7 @@ namespace App\Http\Cms;
 
 use App\Domains\Cms\CmsController;
 use App\Domains\Support\ContactRequest;
+use App\Http\Cms\Data\ContactRequest\ContactRequestData;
 use App\Http\Cms\Data\ContactRequest\ContactRequestRowData;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Response;
@@ -30,7 +31,7 @@ class ContactRequestController extends CmsController
     public function show(ContactRequest $contactRequest): Response
     {
         return \Inertia\Inertia::render('contact-requests/show', [
-            'item' => ContactRequestRowData::fromModel($contactRequest),
+            'item' => ContactRequestData::from($contactRequest),
         ]);
     }
 

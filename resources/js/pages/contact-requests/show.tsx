@@ -26,14 +26,7 @@ export default withLayout<Props>(
         </h1>
 
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_280px]">
-          <Card>
-            <CardHeader>
-              <CardTitle>Message</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="whitespace-pre-wrap text-sm">{item.message}</p>
-            </CardContent>
-          </Card>
+          <p className="whitespace-pre-wrap text-sm">{item.message}</p>
 
           <aside className="space-y-4">
             <Card>
