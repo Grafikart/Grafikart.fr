@@ -16,7 +16,7 @@
                         <button type="button" onclick="toggleRecoveryMode()" class="text-sm text-start text-muted hover:underline">
                             Utiliser un code de récupération
                         </button>
-                        <x-atoms.button type="submit" class="w-full">
+                        <x-atoms.button type="submit" class="w-full!">
                             Vérifier
                             <x-lucide-check class="size-4" />
                         </x-atoms.button>
@@ -31,7 +31,7 @@
     <button type="button" onclick="toggleRecoveryMode()" class="text-sm text-start text-muted hover:underline">
         Utiliser un code d'authentification
     </button>
-                    <x-atoms.button type="submit" class="w-full">
+                    <x-atoms.button type="submit" class="w-full!">
                         Vérifier
                         <x-lucide-check class="size-4" />
                     </x-atoms.button>

@@ -16,7 +16,7 @@
                     <x-molecules.field name="password" label="Nouveau mot de passe" type="password" required autocomplete="new-password" />
                     <x-molecules.field name="password_confirmation" label="Confirmer le mot de passe" type="password" required autocomplete="new-password" />
 
-                    <x-atoms.button type="submit" class="w-full">
+                    <x-atoms.button type="submit" class="w-full!">
                         Réinitialiser le mot de passe
                         <x-lucide-arrow-right class="size-4" />
                     </x-atoms.button>

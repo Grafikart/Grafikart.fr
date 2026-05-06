@@ -35,7 +35,7 @@
                     <x-atoms.label for="remember">Se souvenir de moi</x-atoms.label>
                 </div>
 
-                <x-atoms.button type="submit" class="w-full">
+                <x-atoms.button type="submit" class="w-full!">
                     Se connecter
                     <x-lucide-arrow-right class="size-4"/>
                 </x-atoms.button>

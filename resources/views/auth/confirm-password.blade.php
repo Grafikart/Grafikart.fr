@@ -16,7 +16,7 @@
 
                     <x-molecules.field name="password" label="Mot de passe" type="password" required autofocus autocomplete="current-password" />
 
-                    <x-atoms.button type="submit" class="w-full">
+                    <x-atoms.button type="submit" class="w-full!">
                         Confirmer
                         <x-lucide-check class="size-4" />
                     </x-atoms.button>

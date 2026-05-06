@@ -19,7 +19,7 @@
 
                     <x-molecules.field label="Votre email" name="email" type="email" required autofocus autocomplete="username" />
 
-                    <x-atoms.button type="submit" class="w-full">
+                    <x-atoms.button type="submit" class="w-full!">
                         Envoyer le lien de réinitialisation
                         <x-lucide-send class="size-4" />
                     </x-atoms.button>

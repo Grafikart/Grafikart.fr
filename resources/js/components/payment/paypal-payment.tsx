@@ -25,6 +25,7 @@ export function vatPrice(price: number, countryCode: string) {
 
 export function PaypalPayment(props: Props) {
   const [country, setCountry] = useState("FR")
+  const [loading, setLoading] = useState(false)
   const { data, isPending } = useApiFetch<CountryData[]>("/api/countries")
   const description = `Compte premium ${props.duration} mois`
   const tax = country ? vatPrice(props.price, country) : 0
@@ -34,6 +35,7 @@ export function PaypalPayment(props: Props) {
 
   const loadButtons = useEffectEvent(async () => {
     try {
+      setLoading(true)
       const paypal = await loadScript({
         clientId: props.clientId,
         currency: currency,
@@ -105,6 +107,8 @@ export function PaypalPayment(props: Props) {
       toast.error(
         `Une erreur est survenue lors du chargement des boutons PaypPal, ${e}`,
       )
+    } finally {
+      setLoading(false)
     }
   })
   const container = useRef<HTMLDivElement>(null)
@@ -157,7 +161,8 @@ export function PaypalPayment(props: Props) {
             ))}
           </optgroup>
         </select>
-        <div ref={container}></div>
+        {loading && <div className="w-full flex justify-center"><Spinner className="mx-auto" /></div>}
+        <div ref={container}/>
       </div>
     </div>
   )

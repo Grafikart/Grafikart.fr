@@ -17,7 +17,7 @@
                         <x-molecules.field name="coupon" label="Code étudiant" :value="$coupon ?? ''" readonly />
                     @endif
                     <x-molecules.captcha />
-                    <x-atoms.button type="submit" class="w-full">
+                    <x-atoms.button type="submit" class="w-full!">
                         Créer mon compte
                         <x-lucide-arrow-right class="size-4" />
                     </x-atoms.button>
