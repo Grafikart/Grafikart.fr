@@ -35,7 +35,7 @@ class TechnologyController extends CmsController
         if ($request->has('q') && ! $request->inertia()) {
             $search = $request->string('q');
             $technologies = Technology::query()
-                ->where('name', 'ilike', "%{$search}%")
+                ->whereLike('name', "%{$search}%")
                 ->orderBy('name')
                 ->limit(10)
                 ->get()
