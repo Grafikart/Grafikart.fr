@@ -10,6 +10,47 @@
 
 @section('title', $titleWithPage)
 
+@section('head')
+<style>
+/* Custom select : https://grafikart.fr/tutoriels/select-css-appearance-2284 */
+.select,
+.select::picker(select) {
+  appearance: base-select;
+}
+.select:focus-within button svg {
+  transform: rotate(180deg);
+}
+.select::picker-icon {
+  display: none;
+}
+.select::picker(select) {
+  padding: 8px;
+  background: var(--color-card);
+  border: solid 1px var(--color-border);
+  border-radius: 4px;
+}
+.select option::checkmark {
+  display: none;
+}
+
+.select::picker(select) {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.4s allow-discrete;
+}
+
+.select::picker(select):popover-open {
+  transform: translateY(0px);
+  opacity: 1;
+
+  @starting-style {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+</style>
+@endsection
+
 @section('body')
 
     <header class="container bg-background-light flex sm:items-center pb-10 flex-col sm:flex-row justify-between gap-4">
