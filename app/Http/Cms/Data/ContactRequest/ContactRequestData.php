@@ -2,8 +2,6 @@
 
 namespace App\Http\Cms\Data\ContactRequest;
 
-use App\Domains\Support\ContactRequest;
-use Illuminate\Support\Str;
 use Spatie\LaravelData\Data;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
