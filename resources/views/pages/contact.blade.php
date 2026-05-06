@@ -29,6 +29,7 @@
                             <x-lucide-mail/>
                             Envoyer
                         </x-atoms.button>
+                        <x-molecules.captcha />
                         <p class="text-muted col-span-2 text-sm">
                             J'essaie de traiter les emails le plus rapidement possible, vous devriez recevoir une réponse dans les 5 jours.
                         </p>
