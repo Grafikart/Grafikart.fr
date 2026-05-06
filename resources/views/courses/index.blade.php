@@ -50,6 +50,15 @@
             @endforeach
         </div>
 
+        @if($items->isEmpty())
+            <h1 class="text-6xl font-bold font-serif mb-2  text-foreground-title">
+                Aucun contenu
+            </h1>
+            <p>
+                Aucun contenu ne correspond à ces critères de recherche :(
+            </p>
+        @endif
+
         <div class="mt-8">
             {{ $items->links() }}
         </div>

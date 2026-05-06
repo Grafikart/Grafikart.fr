@@ -16,7 +16,7 @@ import {
 import { queryClient, useApiFetch } from "@/hooks/use-api-fetch.ts"
 import { useVisible } from "@/hooks/use-visible.ts"
 import { cn } from "@/lib/utils.ts"
-import type { CourseFiltersResponse } from "@/types"
+import type { CourseFilterItem, CourseFiltersResponse } from "@/types"
 
 const SearchParamsContext = createContext(
   {} as {
@@ -73,9 +73,15 @@ function CourseFiltersInner() {
 
   const isFormation = pathname.startsWith("/formation")
   const query = search.toLowerCase()
-  const filteredTechnologies = query
-    ? data.technologies.filter((t) => t.label.toLowerCase().includes(query))
-    : data.technologies
+  const countFn = (t: CourseFilterItem): number =>
+    (isFormation ? t.formations_count : t.courses_count) ?? 0
+  const filteredTechnologies = (
+    query
+      ? data.technologies.filter((t) => t.label.toLowerCase().includes(query))
+      : data.technologies
+  )
+    .filter(countFn)
+    .toSorted((a, b) => countFn(b) - countFn(a))
   const technologies = filteredTechnologies.slice(0, 8)
   const hiddenTechnologies = filteredTechnologies.slice(8)
   const hasSearch = !!search
@@ -127,7 +133,7 @@ function CourseFiltersInner() {
         {technologies.map((t) => (
           <FilterLink
             key={t.value}
-            count={isFormation ? t.formations_count : t.courses_count}
+            count={countFn(t)}
             filterKey="technology"
             value={t.value}
           >
@@ -140,7 +146,7 @@ function CourseFiltersInner() {
               hiddenTechnologies.map((t) => (
                 <FilterLink
                   key={t.value}
-                  count={isFormation ? t.formations_count : t.courses_count}
+                  count={countFn(t)}
                   filterKey="technology"
                   value={t.value}
                 >
