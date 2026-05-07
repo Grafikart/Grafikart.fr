@@ -149,6 +149,7 @@ Route::group([
     Route::get('revisions', [\App\Http\Cms\RevisionController::class, 'index'])->name('revisions.index');
     Route::get('revisions/{revision}', [\App\Http\Cms\RevisionController::class, 'show'])->name('revisions.show');
     Route::post('revisions/{revision}', [\App\Http\Cms\RevisionController::class, 'update'])->name('revisions.update');
+    Route::get('logs', [\App\Http\Cms\LogController::class, 'index'])->name('logs.index');
     Route::get('search', [\App\Http\Cms\SearchController::class, 'search'])->name('search');
     Route::post('twitch', [\App\Http\Cms\TwitchController::class, 'store'])->name('twitch.store');
 

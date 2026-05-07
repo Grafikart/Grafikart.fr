@@ -161,8 +161,12 @@ export function PaypalPayment(props: Props) {
             ))}
           </optgroup>
         </select>
-        {loading && <div className="w-full flex justify-center"><Spinner className="mx-auto" /></div>}
-        <div ref={container}/>
+        {loading && (
+          <div className="w-full flex justify-center">
+            <Spinner className="mx-auto" />
+          </div>
+        )}
+        <div ref={container} />
       </div>
     </div>
   )

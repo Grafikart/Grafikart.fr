@@ -18,6 +18,7 @@ import {
   StarIcon,
   TicketIcon,
   UserIcon,
+  TriangleAlertIcon,
   WaypointsIcon,
 } from "lucide-react"
 import {
@@ -67,6 +68,7 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group.tsx"
+import LogController from "@/actions/App/Http/Cms/LogController.ts"
 import SponsorController from "@/actions/App/Http/Cms/SponsorController.ts"
 import { trimCharacter } from "@/lib/string.ts"
 import ContactRequestController from "@/actions/App/Http/Cms/ContactRequestController.ts"
@@ -211,6 +213,11 @@ const nav = [
         label: "Paramètres",
         icon: CogIcon,
         href: SettingsController.index(),
+      },
+      {
+        label: "Logs",
+        icon: TriangleAlertIcon,
+        href: LogController.index(),
       },
     ],
   },
