@@ -68,7 +68,7 @@
             <p class="text-center text-lg text-pretty mb-4">
                 Vous êtes maintenant premium jusqu'au <strong>{{ auth()->user()?->premium_end_at?->translatedFormat('d F Y') }}</strong>.
             </p>
-            <x-atoms.button href="{{ route('courses.index', ['premium' => 1]) }}" class="w-full" size="lg">
+            <x-atoms.button href="{{ route('courses.index', ['premium' => 1]) }}" class="w-full!" size="lg">
                 <x-lucide-star />
                 Voir les tutoriels premiums
             </x-atoms.button>

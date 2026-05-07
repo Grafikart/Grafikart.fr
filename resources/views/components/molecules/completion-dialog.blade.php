@@ -9,7 +9,7 @@
         <p class="text-center text-lg text-pretty mb-4">
             Bien joué ! On poursuit la formation avec une nouvelle vidéo ?
         </p>
-        <x-atoms.button href="{{ app_url($next) }}" class="w-full" size="lg">
+        <x-atoms.button href="{{ app_url($next) }}" class="w-full!" size="lg">
             <x-lucide-star/>
             Aller au chapitre suivant
         </x-atoms.button>
