@@ -1,4 +1,4 @@
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts"
 import {
   ChartContainer,
   ChartTooltip,
@@ -36,6 +36,12 @@ export function SimpleChart<T extends Record<string, unknown>>(
           minTickGap={32}
           tickFormatter={(k) => props.formatter(props.data[k])}
         />
+        <YAxis
+          tickLine={false}
+          axisLine={false}
+          tickFormatter={(v) => v.toString()}
+        >
+        </YAxis>
         <ChartTooltip
           cursor={false}
           content={

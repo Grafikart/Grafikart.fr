@@ -17,7 +17,7 @@ class TransactionRepository
         $results = Transaction::query()
             ->select(
                 DB::raw('DATE(created_at) as date'),
-                DB::raw('SUM(price - tax - fee) as value')
+                DB::raw('SUM(price - tax - fee) / 100 as value')
             )
             ->whereNull('refunded_at')
             ->where('created_at', '>=', now()->subDays(30))
@@ -51,7 +51,7 @@ class TransactionRepository
         }
 
         $results = Transaction::query()
-            ->select($monthExpr, $yearExpr, DB::raw('SUM(price - tax - fee) as value'))
+            ->select($monthExpr, $yearExpr, DB::raw('SUM(price - tax - fee) / 100 as value'))
             ->whereNull('refunded_at')
             ->where('created_at', '>=', now()->subMonths(24))
             ->groupBy('year', 'month')
