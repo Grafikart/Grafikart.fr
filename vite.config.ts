@@ -4,6 +4,8 @@ import react from "@vitejs/plugin-react"
 import laravel from "laravel-vite-plugin"
 import { copyFileSync, readFileSync, unlinkSync, writeFileSync } from "node:fs"
 import { defineConfig, type Plugin } from "vite"
+import {resolve} from "node:path";
+
 
 const inputs = {
   front: ["resources/js/front.ts"],
@@ -21,9 +23,8 @@ function manifestMerge(): Plugin {
         return
       }
 
-      const dir = "public/build"
-      const manifestPath = `${dir}/manifest.json`
-      const manifestTempPath = `${dir}/manifesttmp.json`
+      const manifestPath = resolve('public/build/manifest.json')
+      const manifestTempPath = resolve('storage/manifesttmp.json')
 
       // Build the final manifest combining the previous one
       if (entry === "cms") {
