@@ -20,6 +20,7 @@
             </div>
             <form action="{{ route('two-factor.confirm')}}" method="post" class="contents">
                 @csrf
+                <x-molecules.field type="text" label="Code secret" readonly value="{{ $twoFactorSecret }}" />
                 <x-molecules.field type="code" name="code" label="Code de confirmation" bag="confirmTwoFactorAuthentication"
                                    inputmode="numeric" autocomplete="one-time-code" autofocus/>
 

@@ -1,4 +1,4 @@
-@props(['name', 'label' => null, 'type' => 'text', 'value' => null, 'class' => null, 'inputClass' => null, 'help' => null, 'bag' => 'default'])
+@props(['name' => '', 'label' => null, 'type' => 'text', 'value' => null, 'class' => null, 'inputClass' => null, 'help' => null, 'bag' => 'default'])
 
 @php
     $label = $label ?? ucfirst($name);

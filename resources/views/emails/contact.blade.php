@@ -1,1 +1,1 @@
-{{ $data->content }}
+{!! $data->content !!}

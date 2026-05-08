@@ -26,6 +26,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/profil/subscription', [\App\Http\Front\Account\SubscriptionController::class, 'manage'])->name('users.subscription');
     Route::post('/profil/coupon', [\App\Http\Front\CouponController::class, 'claim'])->middleware('throttle:3')->name('users.coupon');
     Route::post('/profil/password', [\App\Http\Front\UserController::class, 'password'])->name('users.password');
+    Route::get('/profil/2fa-enable', [\App\Http\Front\UserController::class, 'enableTwoFactor'])->name('users.2fa.enable')->middleware('password.confirm');
 
     // School
     Route::get('/ecole', [\App\Http\Front\SchoolController::class, 'show'])->name('schools.show');
