@@ -16,7 +16,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
-use Laravel\Fortify\Actions\EnableTwoFactorAuthentication;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UserController
@@ -65,15 +64,6 @@ class UserController
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'twoFactorEnabled' => $twoFactorEnabled,
         ]);
-    }
-
-    public function enableTwoFactor(Request $request, EnableTwoFactorAuthentication $enable): RedirectResponse
-    {
-        $user = $request->user();
-        assert($user instanceof User);
-        $enable($user);
-
-        return to_route('users.edit')->with('status', 'two-factor-authentication-enabled');
     }
 
     public function update(ProfileUpdateData $data, Request $request)

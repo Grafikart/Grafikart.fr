@@ -95,10 +95,13 @@
                         Protégez votre compte en activant la double authentification. Vous aurez besoin d'une application comme
                         <a href="https://getaegis.app/" class="underline">Aegis</a>.
                     </p>
-                    <x-atoms.button href="{{ route('users.2fa.enable') }}" class="ml-auto">
-                        <x-lucide-shield class="size-4"/>
-                        Activer la 2FA
-                    </x-atoms.button>
+                    <form action="{{ route('two-factor.enable') }}" method="post">
+                        @csrf
+                        <x-atoms.button type="submit" class="ml-auto">
+                            <x-lucide-shield class="size-4"/>
+                            Activer la 2FA
+                        </x-atoms.button>
+                    </form>
                 @endif
             </section>
 
