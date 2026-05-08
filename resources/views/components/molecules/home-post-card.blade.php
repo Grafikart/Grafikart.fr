@@ -17,9 +17,11 @@
             </a>
         </h3>
         <p class="text-muted text-sm my-2">
+            @if($post->created_at)
             <time datetime="{{ $post->created_at->format('Y-m-d') }}">
                 {{ $post->created_at->translatedFormat('j F Y') }}
             </time>
+            @endif
         </p>
         <p class="leading-relaxed">
             {{ \App\Helpers\MarkdownHelper::excerpt($post->content, 125) }}
