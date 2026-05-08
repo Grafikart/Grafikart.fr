@@ -40,8 +40,7 @@ export function SimpleChart<T extends Record<string, unknown>>(
           tickLine={false}
           axisLine={false}
           tickFormatter={(v) => v.toString()}
-        >
-        </YAxis>
+        ></YAxis>
         <ChartTooltip
           cursor={false}
           content={
