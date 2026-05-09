@@ -13,7 +13,7 @@
 @endsection
 
 @section('body')
-    @cache("course-show", $course, ($course->isPublic() || $user?->isPremium()), $user?->html5_player)
+    @cache("course-show", $course, $course->isPublic(), $user?->isPremium(), $user?->html5_player)
     <main class="bg-background-light">
         <div class="max-w-container mx-auto space-y-2">
             <x-breadcrumbs :model="$course" />

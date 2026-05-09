@@ -218,7 +218,7 @@ class Course extends Model implements RegisterMedia, Revisionable, Searchable
 
     public function videoSrc(?bool $forceHTML = false): ?string
     {
-        if ($forceHTML || $this->isPremium()) {
+        if ($forceHTML || $this->isPremium() || $this->isScheduled()) {
             return $this->videoUrl();
         }
 
