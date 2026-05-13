@@ -1,8 +1,11 @@
-@props(['variant' => 'primary', 'size' => 'md', 'href' => null, 'as' => 'button'])
+@props(['variant' => 'primary', 'size' => 'md', 'href' => null, 'as' => 'button', 'class' => null])
 
 @php
+    $hasWidthUtility = $class !== null && preg_match('/(^|\s)(w-|min-w-|max-w-)/', $class) === 1;
+
     $cls = [
-        'rounded-sm [&_svg]:size-4 flex justify-center items-center gap-3 transition-all w-max font-semibold ',
+        'rounded-sm [&_svg]:size-4 flex justify-center items-center gap-3 transition-all font-semibold',
+        'w-max' => ! $hasWidthUtility,
         // Variants
         'bg-primary text-primary-foreground hover:brightness-120 shadow-button ' => $variant === 'primary',
         'border hover:bg-border/30 bg-background font-medium' => $variant === 'secondary',
@@ -16,6 +19,7 @@
         'p-2 rounded-full' => $size === 'icon',
         // Offset the icon a bit for better alignment
         '[&_svg:first-child]:-ml-0.5 [&_svg:last-child]:-mr-0.5' => $size !== 'icon',
+        $class,
     ];
 @endphp
 
