@@ -1,4 +1,4 @@
-import { SaveIcon } from "lucide-react"
+import { LinkIcon, SaveIcon } from "lucide-react"
 import route from "@/actions/App/Http/Cms/SupportController"
 import { Form } from "@/components/form.tsx"
 import { FormField } from "@/components/form-field.tsx"
@@ -73,9 +73,25 @@ export default withLayout<Props>(
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-1 text-sm">
+                <FieldLabel className="text-xs font-medium text-muted-foreground uppercase mb-2">
+                  Date
+                </FieldLabel>
                 <div className="text-muted-foreground">
                   {formatDate(item.createdAt)}
                 </div>
+              </div>
+              <div className="space-y-1 text-sm">
+                <FieldLabel className="text-xs font-medium text-muted-foreground uppercase mb-2">
+                  Contenu
+                </FieldLabel>
+                <a
+                  href={item.courseUrl}
+                  target="_blank"
+                  className="flex items-center gap-1 text-foreground hover:underline"
+                >
+                  <LinkIcon className="size-4" />
+                  {item.courseTitle}
+                </a>
               </div>
 
               <FormField

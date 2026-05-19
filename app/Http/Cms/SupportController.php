@@ -36,7 +36,7 @@ class SupportController extends CmsController
 
     public function edit(SupportQuestion $support): Response
     {
-        $support->loadMissing(['course:id,title']);
+        $support->loadMissing(['course:id,title,slug']);
 
         return $this->cmsEdit($support);
     }
