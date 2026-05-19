@@ -22,6 +22,7 @@ skills-lock.json
 /public/uploads
 /public/hot
 /public/storage
+/public/media-kit
 /resources/js/actions
 /resources/js/routes
 /resources/js/wayfinder

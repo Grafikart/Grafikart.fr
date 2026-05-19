@@ -60,6 +60,7 @@ Route::get('/politique-de-confidentialite', [\App\Http\Front\PageController::cla
 Route::get('/terms', [\App\Http\Front\PageController::class, 'terms'])->name('pages.terms');
 Route::get('/premium', [\App\Http\Front\PageController::class, 'premium'])->name('premium');
 Route::get('/premium/ecoles', [\App\Http\Front\PageController::class, 'school'])->name('pages.school');
+Route::get('/media-kit/{lang?}', [\App\Http\Front\PageController::class, 'mediaKit'])->name('pages.media-kit');
 Route::get('/contact', [\App\Http\Front\ContactController::class, 'show'])->name('contact');
 Route::post('/contact', [\App\Http\Front\ContactController::class, 'submit']);
 Route::get('/tchat', fn () => redirect('https://discordapp.com/invite/rAuuD7Q'))->name('tchat');

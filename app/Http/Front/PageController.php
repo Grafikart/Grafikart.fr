@@ -5,6 +5,7 @@ namespace App\Http\Front;
 use App\Domains\Premium\Models\Plan;
 use App\Http\Controller;
 use App\Http\Front\Data\StudentProgressData;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class PageController extends Controller
@@ -34,6 +35,15 @@ class PageController extends Controller
         return view('pages.premium', [
             'plans' => Plan::all(),
         ]);
+    }
+
+    public function mediaKit(string $lang = 'fr'): View|RedirectResponse
+    {
+        if (! in_array($lang, ['fr', 'en'])) {
+            return to_route('pages.media-kit', ['lang' => 'fr']);
+        }
+
+        return view('pages.media-kit', ['lang' => $lang, 'appearance' => 'light']);
     }
 
     public function school(): View

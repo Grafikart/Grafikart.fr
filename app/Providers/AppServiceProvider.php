@@ -72,7 +72,9 @@ class AppServiceProvider extends ServiceProvider
     {
         // Add appearance (theme) to the view
         View::composer(['front', 'cms'], function (\Illuminate\View\View $view): void {
-            $view->with('appearance', request()->cookie('appearance'));
+            if (! array_key_exists('appearance', $view->getData())) {
+                $view->with('appearance', request()->cookie('appearance'));
+            }
         });
 
         // Inject the authenticated user for all the views
