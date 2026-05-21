@@ -33,6 +33,7 @@ class ProgressController extends Controller
             return response()->json([
                 'html' => view('components.molecules.completion-dialog', [
                     'course' => $course,
+                    'hasEvaluation' => $course->questions()->exists(),
                     'next' => $course->formation?->nextCourse($course->id),
                 ])->toHtml(),
             ]);

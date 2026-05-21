@@ -9,7 +9,7 @@
         <p class="text-center text-lg text-pretty mb-4">
             Bien joué ! On poursuit la formation avec une nouvelle vidéo ?
         </p>
-        <x-atoms.button href="{{ app_url($next) }}" class="w-full!" size="lg">
+        <x-atoms.button href="{{ app_url($next) }}" class="w-full!" size="lg" :variant="$hasEvaluation ? 'secondary' : 'primary'">
             <x-lucide-star/>
             Aller au chapitre suivant
         </x-atoms.button>
@@ -17,9 +17,16 @@
         <p class="text-center text-lg text-pretty mb-4">
             Bien joué ! On poursuit l'apprentissage avec une nouvelle vidéo {{ $course->technology()?->name }} ?
         </p>
-        <x-atoms.button href="{{ app_url($course->technology()) }}" class="w-full!" size="lg">
+        <x-atoms.button href="{{ app_url($course->technology()) }}" class="w-full!" size="lg" :variant="$hasEvaluation ? 'secondary' : 'primary'">
             <x-lucide-star/>
             Découvrir les vidéos {{ $course->technology()?->name }}
+        </x-atoms.button>
+    @endif
+
+    @if($hasEvaluation)
+        <x-atoms.button href="#quizz" variant="primary" class="w-full! mt-2" size="lg" onclick="this.closest('dialog')?.close()">
+            <x-lucide-list-checks/>
+            Commencer le quiz
         </x-atoms.button>
     @endif
 </x-molecules.dialog>

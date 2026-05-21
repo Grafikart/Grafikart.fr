@@ -39,6 +39,7 @@ dump: var/dump ## Génère un dump SQL
 
 dumpimport: ## Import un dump SQL
 	docker compose exec db sh -c 'pg_restore -c -d grafikart -U grafikart /var/dump'
+	php artisan app:anonymize
 
 dbupgrade: ## Migrate the database from the old site to the new
 	php artisan migrate

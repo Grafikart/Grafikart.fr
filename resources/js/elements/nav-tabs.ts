@@ -6,19 +6,31 @@ export class NavTabs extends HTMLElement {
 
     tabs.forEach((tab) => {
       tab.addEventListener("click", (e) => {
-        e.preventDefault()
         if (tab.getAttribute("aria-selected") === "true") {
+          e.preventDefault()
           return
         }
-        this.selectTab(tab)
       })
     })
 
+    window.addEventListener("hashchange", this.selectCurrentHashTab)
+    this.selectCurrentHashTab()
+  }
+
+  disconnectedCallback() {
+    window.removeEventListener("hashchange", this.selectCurrentHashTab)
+  }
+
+  private get tabs(): HTMLAnchorElement[] {
+    return Array.from(this.querySelectorAll<HTMLAnchorElement>("a"))
+  }
+
+  private selectCurrentHashTab = (): void => {
     if (!window.location.hash) {
       return
     }
 
-    const currentTab = tabs.find(
+    const currentTab = this.tabs.find(
       (tab) => tab.getAttribute("href") === window.location.hash,
     )
 
@@ -27,10 +39,6 @@ export class NavTabs extends HTMLElement {
     }
 
     this.selectTab(currentTab)
-  }
-
-  private get tabs(): HTMLAnchorElement[] {
-    return Array.from(this.querySelectorAll<HTMLAnchorElement>("a"))
   }
 
   private selectTab(tab: HTMLAnchorElement): void {
@@ -49,5 +57,10 @@ export class NavTabs extends HTMLElement {
 
     target.removeAttribute("hidden")
     siblings(target).forEach((el) => el.setAttribute("hidden", ""))
+
+    // Scroll if the content is too far away from the visible area
+    if (target.getBoundingClientRect().y > window.innerHeight / 2) {
+      this.scrollIntoView({ behavior: "smooth", block: "start" })
+    }
   }
 }

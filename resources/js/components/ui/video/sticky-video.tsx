@@ -15,12 +15,14 @@ export function StickyVideo(props: Props) {
     initializeWithValue: true,
   })
   const availableWidth = useMemo(() => {
-    const w = (width - 900) / 2
-    if (document.body.classList.contains("has-drawer")) {
-      return w + 120
-    }
-    return w
+    return (
+      (document.querySelector("main")?.getBoundingClientRect().width ?? width) /
+        2 -
+      400 -
+      50
+    )
   }, [width])
+  console.log("availableWidth", availableWidth)
   const [visible, setVisible] = useState(true)
   const sticky = !visible && availableWidth > minWidth
 
@@ -47,7 +49,7 @@ export function StickyVideo(props: Props) {
       className={cn(
         "aspect-video w-full h-auto",
         sticky &&
-          "fixed bottom-4 right-4 rounded-md overflow-hidden shadow-md z-100",
+          "fixed bottom-4 left-4 rounded-md overflow-hidden shadow-md z-100",
       )}
       style={{
         width: sticky ? `${availableWidth}px` : undefined,

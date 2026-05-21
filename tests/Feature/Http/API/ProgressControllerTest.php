@@ -1,6 +1,8 @@
 <?php
 
 use App\Domains\Course\Course;
+use App\Domains\Course\Formation;
+use App\Domains\Evaluation\Question;
 use App\Domains\History\Progress;
 use App\Models\User;
 
@@ -65,4 +67,42 @@ it('returns 401 for unauthenticated user', function () {
     $this->postJson("/api/courses/{$this->course->id}/progress", [
         'progress' => 500,
     ])->assertUnauthorized();
+});
+
+it('includes a quiz button in the completion dialog when the course has questions', function () {
+    Question::factory()->for($this->course)->create();
+
+    $response = $this->actingAs($this->user)
+        ->postJson("/api/courses/{$this->course->id}/progress", [
+            'progress' => 1000,
+        ])
+        ->assertSuccessful();
+
+    expect($response->json('html'))
+        ->toContain('Commencer le quiz')
+        ->toContain('href="#quizz"')
+        ->toContain("this.closest('dialog')?.close()");
+});
+
+it('does not include a quiz button in the completion dialog when the course has no question', function () {
+    $response = $this->actingAs($this->user)
+        ->postJson("/api/courses/{$this->course->id}/progress", [
+            'progress' => 1000,
+        ])
+        ->assertSuccessful();
+
+    expect($response->json('html'))->not->toContain('Commencer le quiz');
+});
+
+it('keeps the next chapter button in the completion dialog for courses in a formation', function () {
+    $formation = Formation::factory()->withChapters(chapterCount: 1, coursesPerChapter: 2)->create();
+    $course = $formation->courses()->firstOrFail();
+
+    $response = $this->actingAs($this->user)
+        ->postJson("/api/courses/{$course->id}/progress", [
+            'progress' => 1000,
+        ])
+        ->assertSuccessful();
+
+    expect($response->json('html'))->toContain('Aller au chapitre suivant');
 });
