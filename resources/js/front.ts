@@ -18,6 +18,7 @@ import { CodeInput } from "@/elements/code-input.ts"
 import { DrawerToggle } from "@/elements/drawer-toggle.ts"
 import { HasCompletedElement } from "@/elements/has-completed.ts"
 import "../../node_modules/@hotwired/turbo/src/index.js"
+import { ScrollTop } from "@/elements/scroll-top.ts"
 
 r2wc("path-detail", () => import("@/elements/path-detail.tsx"), {
   path: "json",
@@ -56,4 +57,5 @@ customElements.define("time-ago", TimeAgo)
 customElements.define("drawer-toggle", DrawerToggle)
 customElements.define("has-completed", HasCompletedElement, { extends: "a" })
 customElements.define("code-input", CodeInput)
+customElements.define("scroll-top", ScrollTop)
 customElements.define("captcha-challenge", CaptchaChallenge)

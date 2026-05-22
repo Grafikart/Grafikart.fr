@@ -33,11 +33,11 @@ export default withLayout<Props>(
         encType="multipart/form-data"
       >
         <PageTitle>{item.name || "Nouveau sponsor"}</PageTitle>
-        <main className="space-y-4">
+        <main className="min-w-0 space-y-4">
           <input
             name="name"
             defaultValue={item.name}
-            className="block w-full font-semibold text-2xl outline-none"
+            className="block w-full py-1 font-semibold text-2xl leading-tight outline-none"
             placeholder="Nom du sponsor"
           />
           <UrlInput defaultValue={item.url} className="mb-3" />

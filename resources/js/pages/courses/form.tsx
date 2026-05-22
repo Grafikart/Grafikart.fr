@@ -42,11 +42,11 @@ function ItemForm({ item }: Props) {
         {...formAction}
       >
         <PageTitle>{item.title || "Nouveau tutoriel"}</PageTitle>
-        <main>
+        <main className="min-w-0">
           <input
             name="title"
             defaultValue={item.title}
-            className="mb-1 block font-semibold text-2xl outline-none"
+            className="mb-1 block w-full py-1 font-semibold text-2xl leading-tight outline-none"
             placeholder="Titre"
           />
           <SlugInput
@@ -57,7 +57,7 @@ function ItemForm({ item }: Props) {
           />
           <MDEditor defaultValue={item.content} name="content" />
         </main>
-        <aside className="space-y-6">
+        <aside className="space-y-6 self-start sticky bottom-4">
           <div className="flex justify-end gap-4">
             <div className="flex items-center space-x-2">
               <Switch

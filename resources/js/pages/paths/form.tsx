@@ -29,11 +29,11 @@ export default withLayout<Props>(
       <Form className="space-y-4" id="form" {...formAction}>
         <PageTitle>{item.title || "Nouveau parcours"}</PageTitle>
         <div className="grid grid-cols-[1fr_300px] gap-6">
-          <main className="space-y-4">
+          <main className="min-w-0 space-y-4">
             <input
               name="title"
               defaultValue={item.title}
-              className="mb-1 block w-full font-semibold text-2xl outline-none"
+              className="mb-1 block w-full py-1 font-semibold text-2xl leading-tight outline-none"
               placeholder="Titre"
             />
             <div className="flex justify-between align-center mb-3">

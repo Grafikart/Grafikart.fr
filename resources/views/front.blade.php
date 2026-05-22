@@ -59,5 +59,8 @@
 @yield('body')
 <x-organisms.footer />
 <search-input></search-input>
+<scroll-top class="fixed right-4 bottom-4 z-2 grid size-10 cursor-pointer place-items-center rounded-sm bg-foreground/30 opacity-100 duration-500 transition-all hover:bg-foreground/50 text-white [[hidden]]:opacity-0 transition-discrete starting:opacity-0" hidden="hidden">
+    <x-lucide-chevron-up class="size-6"/>
+</scroll-top>
 </body>
 </html>

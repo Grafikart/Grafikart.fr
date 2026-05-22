@@ -5,7 +5,7 @@
 @endphp
 <div>
     <div class="text-sm uppercase text-muted px-4 pt-4 pb-4 border-b">Sommaire de la formation</div>
-    <div class="max-h-200 overflow-auto">
+    <div class="overflow-auto">
         @foreach ($chapters as $k => $chapter)
             <details class="group" @if($chapter['title'] === $activeChapterTitle) open @endif>
                 <summary

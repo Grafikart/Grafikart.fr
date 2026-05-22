@@ -48,11 +48,11 @@ export default withLayout<Props>(
         encType="multipart/form-data"
       >
         <PageTitle>{item.name || "Nouvelle technologie"}</PageTitle>
-        <main>
+        <main className="min-w-0">
           <input
             name="name"
             defaultValue={item.name}
-            className="mb-1 block w-full font-semibold text-2xl outline-none"
+            className="mb-1 block w-full py-1 font-semibold text-2xl leading-tight outline-none"
             placeholder="Nom de la technologie"
           />
           <SlugInput
