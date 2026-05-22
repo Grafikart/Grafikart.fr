@@ -33,6 +33,19 @@ export function MDEditor(props: Props) {
       return
     }
 
+    const submitClosestForm = () => {
+      const editor = editorRef.current
+      const textarea = textareaRef.current
+      const form = textarea?.closest("form")
+
+      if (!editor || !textarea || !form) {
+        return
+      }
+
+      textarea.value = editor.value()
+      form.requestSubmit()
+    }
+
     editorRef.current = new EasyMDE({
       element: textareaRef.current,
       status: false,
@@ -64,6 +77,11 @@ export function MDEditor(props: Props) {
         "|",
         "guide",
       ],
+    })
+
+    editorRef.current.codemirror.addKeyMap({
+      "Ctrl-S": submitClosestForm,
+      "Cmd-S": submitClosestForm,
     })
 
     return () => {
