@@ -3,6 +3,7 @@
 namespace App\Domains\Support;
 
 use App\Domains\Course\Course;
+use App\Domains\Support\Event\SupportQuestionCreated;
 use App\Http\API\Data\SupportQuestionRequestData;
 use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -44,6 +45,8 @@ class SupportService
             'course_id' => $course->id,
             'timestamp' => $data->timestamp,
         ]);
+
+        event(new SupportQuestionCreated($question));
 
         return $question->loadMissing([
             'user:id,name',

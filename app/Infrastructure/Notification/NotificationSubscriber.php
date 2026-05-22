@@ -12,12 +12,14 @@ use App\Domains\Course\Formation;
 use App\Domains\Revision\Event\AcceptedRevisionEvent;
 use App\Domains\Revision\Event\RejectedRevisionEvent;
 use App\Domains\Support\Event\SupportQuestionAnswered;
+use App\Domains\Support\Event\SupportQuestionCreated;
 use App\Infrastructure\Notification\Channel\Site;
 use App\Infrastructure\Notification\Notification\ContentPublishedNotification;
 use App\Infrastructure\Notification\Notification\CouponCreatedNotification;
 use App\Infrastructure\Notification\Notification\RevisionAcceptedNotification;
 use App\Infrastructure\Notification\Notification\RevisionRejectedNotification;
 use App\Infrastructure\Notification\Notification\SupportQuestionAnsweredNotification;
+use App\Infrastructure\Notification\Notification\SupportQuestionCreatedNotification;
 use App\Infrastructure\Notification\Notification\SupportQuestionSiteNotification;
 use App\Infrastructure\Notification\Notification\UserDeletionNotification;
 use App\Models\User;
@@ -37,6 +39,7 @@ class NotificationSubscriber
             AcceptedRevisionEvent::class => 'handleAcceptedRevision',
             RejectedRevisionEvent::class => 'handleRejectedRevision',
             SupportQuestionAnswered::class => 'handleSupportQuestionAnswered',
+            SupportQuestionCreated::class => 'handleSupportQuestionCreated',
             ContentCreatedEvent::class => 'handleContentCreated',
             ContentUpdatedEvent::class => 'handleContentCreated',
         ];
@@ -75,6 +78,16 @@ class NotificationSubscriber
             url: app_url($question->course, absolute: true).'#support',
         ));
         $question->user->notify(new SupportQuestionSiteNotification($question));
+    }
+
+    public function handleSupportQuestionCreated(SupportQuestionCreated $event): void
+    {
+        $question = $event->question->loadMissing([
+            'course:id,title,slug',
+            'user:id,name,email',
+        ]);
+
+        User::findAdmin()->notify(new SupportQuestionCreatedNotification($question));
     }
 
     public function handleAcceptedRevision(AcceptedRevisionEvent $event): void
