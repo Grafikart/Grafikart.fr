@@ -118,7 +118,7 @@
             max-width: unset;
             width: 100%;
             --width: 1330px;
-            padding-inline: calc(50% - min(calc(100% - 2rem), var(--width)) * 0.5);
+            padding-inline: calc(50% - min(calc(100% - 6rem), var(--width)) * 0.5);
         }
 
         @layer base {

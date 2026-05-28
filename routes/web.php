@@ -53,6 +53,11 @@ Route::get('/media/resize/{width}/{height}/{path}', [\App\Http\Front\ImageContro
 // Pages
 if (! app()->isProduction()) {
     Route::get('/ui', [\App\Http\Front\PageController::class, 'ui'])->name('pages.ui');
+    Route::get('/errors/{code}', function (int $code) {
+        abort_if($code < 400 || $code > 599, 404);
+
+        abort($code);
+    })->whereNumber('code')->name('errors.preview');
 }
 Route::get('/sponsors', [\App\Http\Front\SponsorController::class, 'index'])->name('pages.sponsors');
 Route::get('/a-propos', [\App\Http\Front\PageController::class, 'about'])->name('pages.about');

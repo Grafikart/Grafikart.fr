@@ -5,7 +5,7 @@
 @section('body')
     <div class="container pb-10 bg-background-light min-h-100 h-screen flex flex-col items-start justify-center">
         <div class="grid xl:gap-0 xl:grid-cols-[max-content_1fr] justify-items-center gap-10 w-full mx-auto min-w-0">
-            <div class="w-max">
+            <div>
                 <p class="text-sm font-semibold uppercase text-primary mb-3">Erreur 503</p>
                 <h2 class="text-page-title mb-4">Maintenance en cours</h2>
                 <p class="text-xl text-muted max-w-2xl mb-4">
