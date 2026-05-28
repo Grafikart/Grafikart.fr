@@ -7,6 +7,8 @@ use App\Domains\Premium\Models\Transaction;
 use App\Models\Factory\UserFactory;
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -94,5 +96,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public static function findAdmin(): self
     {
         return self::query()->where('name', 'Grafikart')->firstOrFail();
+    }
+
+    #[Scope]
+    protected function wherePremium(Builder $query): void
+    {
+        $query->where('premium_end_at', '>=', now());
     }
 }

@@ -15,6 +15,7 @@ Route::get('/courses/{course}/support', [SupportController::class, 'index']);
 Route::post('/twitch/webhook', [TwitchController::class, 'webhook'])->name('twitch.webhook');
 Route::get('/courses/{course}/vtt', [\App\Http\API\CourseController::class, 'vtt'])->name('course.vtt');
 Route::post('/stripe/webhook', [\App\Http\API\StripeWebhookController::class, 'webhook']);
+Route::get('/discord/premium', [\App\Http\API\DiscordController::class, 'premium']);
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/countries', [\App\Http\API\CountryController::class, 'index'])
         ->middleware(\Spatie\ResponseCache\Middlewares\CacheResponse::for(\Illuminate\Support\days(1)));
