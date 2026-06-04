@@ -13,6 +13,7 @@ use App\Http\Front\Data\FormationViewData;
 use App\Http\Front\Data\PathViewData;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Spatie\LaravelData\Data;
 
 class PathController extends Controller
 {
@@ -38,7 +39,7 @@ class PathController extends Controller
         ]);
     }
 
-    public function node(Request $request, PathNode $node)
+    public function node(Request $request, PathNode $node): Data
     {
         if ($node->content instanceof Formation) {
             $node->content->load('courses');

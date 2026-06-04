@@ -86,7 +86,9 @@ Route::get('/cursus/{slug}-{path}', [\App\Http\Front\PathController::class, 'sho
     ->name('paths.show')
     ->whereNumber('path')
     ->middleware(\App\Http\Middleware\RedirectIfSlugMismatch::class.':path');
-Route::get('/cursus/{node}', [\App\Http\Front\PathController::class, 'node'])->name('paths.node');
+Route::get('/cursus/{node}', [\App\Http\Front\PathController::class, 'node'])
+    ->whereNumber('node')
+    ->name('paths.node');
 Route::get('/tutoriels', [\App\Http\Front\CourseController::class, 'index'])->name('courses.index');
 Route::get('/tutoriels/{slug}-{course}', [\App\Http\Front\CourseController::class, 'show'])
     ->whereNumber('course')

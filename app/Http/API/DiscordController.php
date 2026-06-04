@@ -7,7 +7,6 @@ use Illuminate\Support\Collection;
 
 class DiscordController
 {
-
     /**
      * List the discord ids of all premium users (allow the bot to assign the role to users)
      */
@@ -19,5 +18,4 @@ class DiscordController
             ->whereNot('discord_id', '')
             ->pluck('discord_id');
     }
-
 }

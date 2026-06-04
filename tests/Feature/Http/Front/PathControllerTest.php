@@ -37,4 +37,9 @@ describe('show', function () {
             ->assertSuccessful()
             ->assertViewHas('path', fn ($item) => $item->id === $path->id);
     });
+
+    it('does not resolve a malformed path URL as a path node', function () {
+        $this->get('/cursus/backend-laravel-')
+            ->assertNotFound();
+    });
 });
