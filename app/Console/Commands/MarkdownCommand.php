@@ -29,7 +29,9 @@ class MarkdownCommand extends Command
     }
 
     /**
-     * @param  Builder<Post|Course>  $query
+     * @template TModel of Post|Course
+     *
+     * @param  Builder<TModel>  $query
      */
     private function export(Builder $query, string $directory): int
     {

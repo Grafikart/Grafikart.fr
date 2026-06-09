@@ -14,6 +14,7 @@ use App\Http\Front\Data\PathViewData;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Spatie\LaravelData\Data;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PathController extends Controller
 {
@@ -50,5 +51,7 @@ class PathController extends Controller
         if ($node->content instanceof Course) {
             return CourseViewData::fromModel($node->content, $request->user());
         }
+
+        throw new NotFoundHttpException;
     }
 }
