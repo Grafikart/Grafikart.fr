@@ -55,6 +55,7 @@ class PaypalService
             vat: (int) round(floatval($item->getTax()?->getValue() ?? '0') * 100),
             fee: (int) round(floatval($capture->getSellerReceivableBreakdown()?->getPaypalFee()?->getValue() ?? '0') * 100),
             planId: (int) $unit->getCustomId(),
+            method: 'paypal',
             firstname: $payer?->getName()?->getGivenName() ?? '',
             lastname: $payer?->getName()?->getSurname() ?? '',
             address: $address?->getAddressLine1() ?? '',
