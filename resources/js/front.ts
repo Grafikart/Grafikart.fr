@@ -44,6 +44,7 @@ r2wc("burger-menu", BurgerMenu, {}, { append: true })
 
 lazywc("code-block", () => import("@/elements/code-block.ts"))
 lazywc("md-editor", () => import("@/elements/md-editor.ts"))
+lazywc("math-formula", () => import("@/elements/math-formula.ts"))
 
 customElements.define("course-video", CourseVideo)
 customElements.define("lazy-video", LazyVideo)

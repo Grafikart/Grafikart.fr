@@ -1,6 +1,6 @@
 {
     "$schema": "https://www.schemastore.org/package.json",
-    "version": "1.0.12",
+    "version": "1.0.13",
     "private": true,
     "type": "module",
     "scripts": {
@@ -36,6 +36,7 @@
         "idiomorph": "^0.7.4",
         "input-otp": "^1.4.2",
         "jotai": "^2.17.1",
+        "katex": "^0.17.0",
         "lucide-react": "^0.562.0",
         "media-chrome": "^4.17.2",
         "motion": "^12.34.1",

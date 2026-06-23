@@ -1,5 +1,7 @@
 # Project specific
 /downloads
+/public/demo
+/public/uploads_old
 .vault_pass
 .junie
 var
