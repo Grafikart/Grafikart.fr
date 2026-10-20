@@ -43,12 +43,6 @@ Source : [guide Inertia 3](https://inertiajs.com/docs/v3/getting-started/upgrade
 
 Sources : [changelog cumulatif](https://github.com/stripe/stripe-php/blob/v22.0.0/CHANGELOG.md), [migration 20](https://github.com/stripe/stripe-php/wiki/Migration-guide-for-v20), [migration 22](https://github.com/stripe/stripe-php/wiki/Migration-guide-for-v22), [configuration du client](https://github.com/stripe/stripe-php/blob/v22.0.0/lib/BaseStripeClient.php).
 
-### mallardduck/blade-lucide-icons : 1 → 2
-
-Le changelog consulté ne fournit pas de guide complet de rupture pour 2.0.0 ; il signale de nombreuses modifications de SVG en 2.x. Aucun renommage précis de composant utilisé par l'application n'est confirmé par cet audit. Vérifier les composants `x-lucide-*` dans `resources/views`, notamment pagination, contact et media-kit : présence des icônes et rendu visuel. Traiter cette majeure comme une migration à vérifier, sans supposer une compatibilité garantie.
-
-Sources : [changelog officiel](https://github.com/mallardduck/blade-lucide-icons/blob/main/CHANGELOG.md), [documentation du package](https://github.com/mallardduck/blade-lucide-icons/blob/main/README.md).
-
 ## Mises à jour mineures
 
 Aucune mise à jour mineure restante entre les versions verrouillées et les dernières versions stables relevées. Des mineures intermédiaires sont incluses dans les migrations majeures ci-dessus.
