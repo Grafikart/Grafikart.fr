@@ -26,9 +26,15 @@ Les contraintes proposées constituent des cibles de migration, pas un ensemble 
 
 ### inertiajs/inertia-laravel : 2 → 3
 
+Migration effectuée vers `inertiajs/inertia-laravel` 3.5.1 (`^3.5.1`), `@inertiajs/react` et `@inertiajs/core` 3.9.1 (`^3.9.1`). Les chemins et extensions des pages sont déplacés sous `pages`, avec maintien de `resources/js/pages` et des vérifications `assertInertia`. Le titre du CMS utilise `data-inertia`, et le résolveur client retourne explicitement le composant React du module chargé.
+
+Le SSR est désactivé explicitement dans `config/inertia.php`. Son point d'entrée `resources/js/ssr.tsx`, les scripts `build:ssr` / `dev:ssr` et les bundles générés sont supprimés à la demande du projet. Le CMS fonctionne uniquement côté client. Au déploiement, construire les assets et vider les vues compilées avec `php artisan view:clear` pour adopter le nouveau script JSON des données initiales.
+
+Validation : 422 tests PHP (1360 assertions), 44 tests JavaScript, `bun run check` et `bun run build` passent. Le HTML initial contient bien le script JSON Inertia 3 et le titre `data-inertia`. PHPStan conserve les cinq erreurs préexistantes liées aux modèles de révisions.
+
 - Mettre à niveau ensemble `@inertiajs/react` et `@inertiajs/core` dans package.json (actuellement en 2.x). React 19 est déjà présent.
 - Déplacer `testing.page_paths` et `testing.page_extensions` de `config/inertia.php` vers `pages.paths` et `pages.extensions`. Conserver le chemin réel `resources/js/pages` pour les assertions `assertInertia`.
-- La directive `@inertia` change de format de données initiales : vider les vues compilées au déploiement et vérifier le démarrage du CMS et le SSR configuré.
+- La directive `@inertia` change de format de données initiales : vider les vues compilées au déploiement et vérifier le démarrage du CMS côté client.
 - Le transport interne abandonne Axios ; les événements `invalid`/`exception` deviennent `httpException`/`networkError`, `router.cancel` devient `cancelAll`, et `Inertia::lazy` disparaît. Aucun usage direct de ces anciennes API repéré ; vérifier les intégrations lors de la migration du client.
 - Le comportement temporel de `processing` et `progress` change : vérifier les formulaires du CMS et leur état de chargement.
 
