@@ -65,6 +65,8 @@ Sources : [changelog cumulatif](https://github.com/stripe/stripe-php/blob/v22.0.
 
 ### league/glide : 3 → 4
 
+Migration effectuée : `league/glide` 4.2.0 (`^4.2.0`), `intervention/image` 4.4.0 et `intervention/gif` 5.0.1 sont verrouillés. Le contrôleur et la fabrique de réponses restent compatibles sans modification. Les tests de `tests/Unit/Infrastructure/ImageControllerTest.php` valident avec GD le recadrage, l'encodage WebP, le contenu en cache, les en-têtes HTTP, la réponse conditionnelle 304 et le rejet des signatures invalides. Imagick n'est pas installé sur la plateforme de validation.
+
 - Glide passe à Intervention Image 4 : vérifier le pilote GD/Imagick configuré et le rendu des recadrages et encodages WebP de `app/Http/Front/ImageController.php`.
 - Un format invalide déclenche désormais une exception. Le contrôleur impose actuellement `fm=webp`, ce qui limite ce risque ; il ne capture que `SignatureException`.
 - Le traitement de l'alpha des filigranes change avec Intervention 4. Aucun filigrane n'est configuré dans ce contrôleur ; impact conditionnel si d'autres transformations sont ajoutées.
@@ -169,4 +171,4 @@ Ces dépendances ont également été contrôlées ; aucune nouvelle version sta
 5. Après modification des contraintes, lancer d'abord `composer update -W --dry-run --no-scripts`, puis effectuer la mise à jour et examiner les modifications du lock et les scripts Composer. Ne pas utiliser `--ignore-platform-reqs` pour masquer un conflit.
 6. Exécuter les tests existants (`composer test`), l'analyse statique utilisée par le projet, `bun run check` et `bun run build`. Vérifier aussi DKIM, images, sessions/CSRF, CMS et webhooks selon les lots appliqués.
 
-Les versions cibles n'ont pas été installées ni validées fonctionnellement. Le blocage DKIM de la simulation initiale a été levé par le retrait du paquet ; une nouvelle simulation globale reste à effectuer.
+Les versions cibles autres que Glide n'ont pas été installées ni validées fonctionnellement. Le blocage DKIM de la simulation initiale a été levé par le retrait du paquet ; une nouvelle simulation globale reste à effectuer.
