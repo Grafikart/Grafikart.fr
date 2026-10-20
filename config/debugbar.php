@@ -102,9 +102,7 @@ return [
             'backtrace_exclude_paths' => [],   // Paths to exclude from backtrace. (in addition to defaults)
             'timeline' => env('DEBUGBAR_OPTIONS_DB_TIMELINE', false),  // Add the queries to the timeline
             'duration_background' => env('DEBUGBAR_OPTIONS_DB_DURATION_BACKGROUND', true),   // Show shaded background on each query relative to how long it took to execute.
-            'explain' => [                 // Show EXPLAIN output on queries
-                'enabled' => env('DEBUGBAR_OPTIONS_DB_EXPLAIN_ENABLED', true),
-            ],
+            'explain' => env('DEBUGBAR_OPTIONS_DB_EXPLAIN_ENABLED', true), // Show EXPLAIN output on queries
             'only_slow_queries' => env('DEBUGBAR_OPTIONS_DB_ONLY_SLOW_QUERIES', true), // Only track queries that last longer than `slow_threshold`
             'slow_threshold' => env('DEBUGBAR_OPTIONS_DB_SLOW_THRESHOLD', false), // Max query execution time (ms). Exceeding queries will be highlighted
             'memory_usage' => env('DEBUGBAR_OPTIONS_DB_MEMORY_USAGE', false),   // Show queries memory usage
@@ -124,7 +122,7 @@ return [
             ],
         ],
         'inertia' => [
-            'pages' => env('DEBUGBAR_OPTIONS_VIEWS_INERTIA_PAGES', 'js/Pages'),  // Path for Inertia views
+            'pages' => env('DEBUGBAR_OPTIONS_VIEWS_INERTIA_PAGES', 'js/pages'),  // Path for Inertia views
         ],
         'route' => [
             'label' => env('DEBUGBAR_OPTIONS_ROUTE_LABEL', true),  // Show complete route on bar

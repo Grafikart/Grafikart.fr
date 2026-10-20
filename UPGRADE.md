@@ -24,26 +24,6 @@ Ce document prépare la migration. Depuis l'audit initial, `shaffe/laravel-dkim`
 
 Les contraintes proposées constituent des cibles de migration, pas un ensemble actuellement installable.
 
-### Dépendance DKIM retirée
-
-`shaffe/laravel-dkim` a été retiré de composer.json et composer.lock. Il bloquait la simulation initiale de Laravel 13, car sa version 1.0.0 exige `illuminate/mail ^10|^11|^12`. Ce conflit de contraintes est donc levé.
-
-Le fournisseur du paquet était enregistré automatiquement par Laravel, mais sa signature ne s'activait que si `dkim.enabled` était vrai. Cette option est désactivée dans la configuration locale vérifiée ; l'utilisation effective du paquet en production n'est pas confirmée. Son enregistrement automatique ne prouve pas qu'il signait les courriels.
-
-Le projet conserve sa propre implémentation dans `app/Infrastructure/Mailer/Mailer.php`, `MailManager.php` et `MailerServiceProvider.php`. Aucun nouvel écouteur DKIM n'est présent dans l'état actuel du projet.
-
-La simulation initiale s'arrêtait sur ce conflit : la compatibilité globale des versions cibles reste à vérifier avec une nouvelle résolution après retrait du paquet. Source : [manifest du package retiré](https://github.com/shaffe-fr/laravel-dkim/blob/v1.0.0/composer.json).
-
-### laravel/framework : 12 → 13
-
-- PHP 8.4 minimum : déjà couvert par composer.json. Migrer également Tinker vers 3 et Boost vers 2.
-- Le middleware CSRF évolue vers `PreventRequestForgery`, avec prise en compte de `Sec-Fetch-Site`. `bootstrap/app.php` exclut actuellement `*` dans `validateCsrfTokens` : vérifier les POST, connexions et webhooks après migration ; l'ancien middleware devient un alias déprécié.
-- Si les nouvelles configurations du squelette sont adoptées : `cache.serializable_classes=false` affecte les objets en cache. `app/Http/Front/PathController.php` met un `PathViewData` en cache : autoriser les classes nécessaires ou stocker des tableaux.
-- Toujours en cas d'adoption du nouveau squelette : `session.serialization=json` invalide les sessions existantes sérialisées en PHP. Prévoir les reconnexions. Ces deux options ne doivent pas être présentées comme automatiquement appliquées par Composer à la configuration existante.
-- `upsert` exige une clé `uniqueBy` non vide ; l'appel de `SettingsService.php` fournit déjà `['key']`.
-
-Source : [guide Laravel 13](https://laravel.com/framework/docs/13.x/upgrade).
-
 ### inertiajs/inertia-laravel : 2 → 3
 
 - Mettre à niveau ensemble `@inertiajs/react` et `@inertiajs/core` dans package.json (actuellement en 2.x). React 19 est déjà présent.
@@ -62,61 +42,6 @@ Source : [guide Inertia 3](https://inertiajs.com/docs/v3/getting-started/upgrade
 - Les annotations de types évoluent en 21/22 : vérifier les erreurs Larastan éventuelles autour des réponses et erreurs Stripe.
 
 Sources : [changelog cumulatif](https://github.com/stripe/stripe-php/blob/v22.0.0/CHANGELOG.md), [migration 20](https://github.com/stripe/stripe-php/wiki/Migration-guide-for-v20), [migration 22](https://github.com/stripe/stripe-php/wiki/Migration-guide-for-v22), [configuration du client](https://github.com/stripe/stripe-php/blob/v22.0.0/lib/BaseStripeClient.php).
-
-### league/glide : 3 → 4
-
-Migration effectuée : `league/glide` 4.2.0 (`^4.2.0`), `intervention/image` 4.4.0 et `intervention/gif` 5.0.1 sont verrouillés. Le contrôleur et la fabrique de réponses restent compatibles sans modification. Les tests de `tests/Unit/Infrastructure/ImageControllerTest.php` valident avec GD le recadrage, l'encodage WebP, le contenu en cache, les en-têtes HTTP, la réponse conditionnelle 304 et le rejet des signatures invalides. Imagick n'est pas installé sur la plateforme de validation.
-
-- Glide passe à Intervention Image 4 : vérifier le pilote GD/Imagick configuré et le rendu des recadrages et encodages WebP de `app/Http/Front/ImageController.php`.
-- Un format invalide déclenche désormais une exception. Le contrôleur impose actuellement `fm=webp`, ce qui limite ce risque ; il ne capture que `SignatureException`.
-- Le traitement de l'alpha des filigranes change avec Intervention 4. Aucun filigrane n'est configuré dans ce contrôleur ; impact conditionnel si d'autres transformations sont ajoutées.
-- Vérifier aussi la fabrique personnalisée `app/Infrastructure/Image/LaravelResponseFactory.php`, les en-têtes HTTP et le cache d'images après résolution des dépendances.
-
-Source : [notes officielles Glide 4](https://github.com/thephpleague/glide/releases#4.0.0).
-
-### spatie/laravel-typescript-transformer : 2 → 3
-
-Migration effectuée : `spatie/laravel-typescript-transformer` 3.3.0 (`^3.3.0`) et `spatie/typescript-transformer` 3.3.1 sont verrouillés. `app/Providers/TypeScriptTransformerServiceProvider.php` remplace l'ancien fichier de configuration et active l'extension Laravel Data. `FlatModuleWriter` conserve les exports nommés dans `resources/js/types/generated.d.ts`, les dates restent des chaînes et les enums des unions. Le transformateur Data personnalisé conserve la sélection par attribut `#[TypeScript]`, sans exporter les DTO de requêtes internes. Trois PHPDocs de collections précisent désormais `|null` pour préserver leur nullabilité.
-
-La génération conserve tous les exports existants et ajoute six types de pagination fournis par l'extension. Les propriétés PHP `readonly` sont maintenant reflétées en TypeScript, et les collections sont générées sous forme de tableaux typés. Un test de génération couvre le module, les dates, enums, collections nullables et l'exclusion des DTO non annotés. Les 423 tests passent (PHP avec 512 Mo), ainsi que `bun run check` et `bun run build`. PHPStan signale toujours les cinq erreurs préexistantes liées aux modèles de révisions ; les nouveaux fichiers passent Pint.
-
-- La configuration v3 passe par un `TypeScriptTransformerServiceProvider` et `TypeScriptTransformerConfigFactory`. Reprendre explicitement la configuration v2 de `config/typescript-transformer.php` : découverte dans app/, remplacements de dates, enums et format de sortie.
-- Installer/enregistrer le fournisseur via `php artisan typescript:install`, puis configurer l'extension `LaravelDataTypeScriptTransformerExtension` pour les nombreux DTO Spatie Data du projet.
-- Préserver le contrat de `resources/js/types/generated.d.ts` : le choix de writer et la localisation des types doivent être revus avant de régénérer. Comparer les types exportés, imports, nullabilité et propriétés facultatives, puis exécuter `bun run check` et `bun run build`.
-
-Sources : [installation Laravel v3](https://spatie.be/docs/typescript-transformer/v3/laravel/installation-and-setup), [intégration Laravel Data](https://spatie.be/docs/typescript-transformer/v3/laravel/laravel-data), [writers et première génération](https://spatie.be/docs/typescript-transformer/v3/getting-started/first-run).
-
-### pestphp/pest : 4 → 5 et pestphp/pest-plugin-laravel : 4 → 5
-
-- Migrer les deux paquets ensemble : le plugin doit suivre la majeure de Pest.
-- PHP 8.4 minimum, déjà couvert ; Pest 5 passe de PHPUnit 12 à PHPUnit 13.
-- PHPUnit 13 retire notamment `assertContainsOnly`, `assertNotContainsOnly`, `containsOnly`, `Assert::isType`, `RunClassInSeparateProcess` et `CoversNothing` sur les méthodes ; `any()` devient déprécié avec avertissement. Aucun usage de ces assertions/attributs ni `->any()` repéré dans tests/.
-- Exécuter la suite existante et vérifier phpunit.xml et les éventuelles extensions après installation ; la compatibilité du solveur seul ne valide pas les tests.
-
-Sources : [guide Pest 5](https://pestphp.com/docs/upgrade-guide), [changements PHPUnit 13](https://github.com/sebastianbergmann/phpunit/blob/13.0.0/ChangeLog-13.0.md).
-
-### fruitcake/laravel-debugbar : 3 → 4
-
-- Le namespace `Barryvdh\Debugbar` devient `Fruitcake\LaravelDebugbar`. Les helpers `start_measure`, `add_measure`, `stop_measure`, `measure` et certains collecteurs/stockages sont supprimés ; aucun appel direct repéré dans l'application.
-- Comparer le fichier publié `config/debugbar.php` aux nouveaux réglages : collecteur SQL (`bindings` → `params`, `hiddens` → `masked`) et configuration Inertia dédiée.
-- Vérifier la barre et les requêtes du CMS en développement. php-debugbar 3 retire jQuery et Font Awesome, à prendre en compte pour d'éventuelles personnalisations.
-
-Source : [guide Debugbar 4](https://github.com/fruitcake/laravel-debugbar/blob/master/UPGRADE.md).
-
-### laravel/boost : 1 → 2
-
-- Les agents personnalisés passent de `CodeEnvironment` à `Agent`, avec changements de namespaces/contrats ; la clé `code_environment` devient `agents`.
-- Les options `--ignore-guidelines` / `--ignore-mcp` sont remplacées par `--guidelines` / `--skills` / `--mcp`. Aucun agent personnalisé identifié dans le dépôt.
-- Relancer `php artisan boost:install` et examiner les instructions générées. Le script Composer `post-update-cmd` appelle `boost:update` : vérifier ce parcours lors de la migration.
-
-Source : [guide Boost 2](https://github.com/laravel/boost/blob/main/UPGRADE.md).
-
-### laravel/tinker : 2 → 3
-
-- Le support des anciens PHP est retiré : le prérequis actuel PHP 8.4 convient.
-- Les exceptions donnent désormais un code de sortie correct. Les automatisations utilisant `artisan tinker --execute` peuvent donc échouer là où elles semblaient réussir. Aucun usage de ce type identifié dans les scripts Composer.
-
-Source : [release Tinker 3](https://github.com/laravel/tinker/releases/tag/v3.0.0).
 
 ### mallardduck/blade-lucide-icons : 1 → 2
 
@@ -175,4 +100,4 @@ Ces dépendances ont également été contrôlées ; aucune nouvelle version sta
 5. Après modification des contraintes, lancer d'abord `composer update -W --dry-run --no-scripts`, puis effectuer la mise à jour et examiner les modifications du lock et les scripts Composer. Ne pas utiliser `--ignore-platform-reqs` pour masquer un conflit.
 6. Exécuter les tests existants (`composer test`), l'analyse statique utilisée par le projet, `bun run check` et `bun run build`. Vérifier aussi DKIM, images, sessions/CSRF, CMS et webhooks selon les lots appliqués.
 
-Les versions cibles autres que Glide et TypeScript Transformer n'ont pas été installées ni validées fonctionnellement. Le blocage DKIM de la simulation initiale a été levé par le retrait du paquet ; une nouvelle simulation globale reste à effectuer.
+Glide, TypeScript Transformer et le lot Laravel 13 / Tinker 3 / Boost 2 / Pest 5 / Debugbar 4 sont installés. Pour ce dernier lot, les 422 tests, `bun run check`, `bun run build`, la génération TypeScript et les scripts Composer passent. PHPStan signale les cinq erreurs préexistantes liées aux modèles de révisions. Le contrôle Pint global conserve ses erreurs de formatage préexistantes. Les autres versions cibles restent à migrer et à valider.

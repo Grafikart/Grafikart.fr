@@ -1,5 +1,12 @@
 {
-    "agents": ["claude_code"],
-    "editors": ["claude_code"],
-    "guidelines": ["laravel/fortify"]
+    "agents": [
+        "claude_code"
+    ],
+    "editors": [
+        "claude_code"
+    ],
+    "guidelines": true,
+    "mcp": true,
+    "nightwatch": false,
+    "sail": false
 }
