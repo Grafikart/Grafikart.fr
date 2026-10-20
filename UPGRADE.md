@@ -76,6 +76,10 @@ Source : [notes officielles Glide 4](https://github.com/thephpleague/glide/relea
 
 ### spatie/laravel-typescript-transformer : 2 → 3
 
+Migration effectuée : `spatie/laravel-typescript-transformer` 3.3.0 (`^3.3.0`) et `spatie/typescript-transformer` 3.3.1 sont verrouillés. `app/Providers/TypeScriptTransformerServiceProvider.php` remplace l'ancien fichier de configuration et active l'extension Laravel Data. `FlatModuleWriter` conserve les exports nommés dans `resources/js/types/generated.d.ts`, les dates restent des chaînes et les enums des unions. Le transformateur Data personnalisé conserve la sélection par attribut `#[TypeScript]`, sans exporter les DTO de requêtes internes. Trois PHPDocs de collections précisent désormais `|null` pour préserver leur nullabilité.
+
+La génération conserve tous les exports existants et ajoute six types de pagination fournis par l'extension. Les propriétés PHP `readonly` sont maintenant reflétées en TypeScript, et les collections sont générées sous forme de tableaux typés. Un test de génération couvre le module, les dates, enums, collections nullables et l'exclusion des DTO non annotés. Les 423 tests passent (PHP avec 512 Mo), ainsi que `bun run check` et `bun run build`. PHPStan signale toujours les cinq erreurs préexistantes liées aux modèles de révisions ; les nouveaux fichiers passent Pint.
+
 - La configuration v3 passe par un `TypeScriptTransformerServiceProvider` et `TypeScriptTransformerConfigFactory`. Reprendre explicitement la configuration v2 de `config/typescript-transformer.php` : découverte dans app/, remplacements de dates, enums et format de sortie.
 - Installer/enregistrer le fournisseur via `php artisan typescript:install`, puis configurer l'extension `LaravelDataTypeScriptTransformerExtension` pour les nombreux DTO Spatie Data du projet.
 - Préserver le contrat de `resources/js/types/generated.d.ts` : le choix de writer et la localisation des types doivent être revus avant de régénérer. Comparer les types exportés, imports, nullabilité et propriétés facultatives, puis exécuter `bun run check` et `bun run build`.
@@ -171,4 +175,4 @@ Ces dépendances ont également été contrôlées ; aucune nouvelle version sta
 5. Après modification des contraintes, lancer d'abord `composer update -W --dry-run --no-scripts`, puis effectuer la mise à jour et examiner les modifications du lock et les scripts Composer. Ne pas utiliser `--ignore-platform-reqs` pour masquer un conflit.
 6. Exécuter les tests existants (`composer test`), l'analyse statique utilisée par le projet, `bun run check` et `bun run build`. Vérifier aussi DKIM, images, sessions/CSRF, CMS et webhooks selon les lots appliqués.
 
-Les versions cibles autres que Glide n'ont pas été installées ni validées fonctionnellement. Le blocage DKIM de la simulation initiale a été levé par le retrait du paquet ; une nouvelle simulation globale reste à effectuer.
+Les versions cibles autres que Glide et TypeScript Transformer n'ont pas été installées ni validées fonctionnellement. Le blocage DKIM de la simulation initiale a été levé par le retrait du paquet ; une nouvelle simulation globale reste à effectuer.

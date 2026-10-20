@@ -11,4 +11,5 @@ return [
     App\Domains\Premium\PremiumServiceProvider::class,
     App\Providers\FortifyServiceProvider::class,
     App\Infrastructure\Mailer\MailerServiceProvider::class,
+    App\Providers\TypeScriptTransformerServiceProvider::class,
 ];
