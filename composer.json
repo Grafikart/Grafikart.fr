@@ -30,7 +30,7 @@
         "spatie/laravel-data": "^4.18",
         "spatie/laravel-responsecache": "^8.3",
         "spatie/laravel-typescript-transformer": "^3.3.0",
-        "stripe/stripe-php": "^19.3",
+        "stripe/stripe-php": "^22.0.0",
         "symfony/intl": "^8.0"
     },
     "require-dev": {

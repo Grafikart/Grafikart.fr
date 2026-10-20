@@ -24,28 +24,17 @@ Ce document prépare la migration. Depuis l'audit initial, `shaffe/laravel-dkim`
 
 Les contraintes proposées constituent des cibles de migration, pas un ensemble actuellement installable.
 
-### inertiajs/inertia-laravel : 2 → 3
-
-Migration effectuée vers `inertiajs/inertia-laravel` 3.5.1 (`^3.5.1`), `@inertiajs/react` et `@inertiajs/core` 3.9.1 (`^3.9.1`). Les chemins et extensions des pages sont déplacés sous `pages`, avec maintien de `resources/js/pages` et des vérifications `assertInertia`. Le titre du CMS utilise `data-inertia`, et le résolveur client retourne explicitement le composant React du module chargé.
-
-Le SSR est désactivé explicitement dans `config/inertia.php`. Son point d'entrée `resources/js/ssr.tsx`, les scripts `build:ssr` / `dev:ssr` et les bundles générés sont supprimés à la demande du projet. Le CMS fonctionne uniquement côté client. Au déploiement, construire les assets et vider les vues compilées avec `php artisan view:clear` pour adopter le nouveau script JSON des données initiales.
-
-Validation : 422 tests PHP (1360 assertions), 44 tests JavaScript, `bun run check` et `bun run build` passent. Le HTML initial contient bien le script JSON Inertia 3 et le titre `data-inertia`. PHPStan conserve les cinq erreurs préexistantes liées aux modèles de révisions.
-
-- Mettre à niveau ensemble `@inertiajs/react` et `@inertiajs/core` dans package.json (actuellement en 2.x). React 19 est déjà présent.
-- Déplacer `testing.page_paths` et `testing.page_extensions` de `config/inertia.php` vers `pages.paths` et `pages.extensions`. Conserver le chemin réel `resources/js/pages` pour les assertions `assertInertia`.
-- La directive `@inertia` change de format de données initiales : vider les vues compilées au déploiement et vérifier le démarrage du CMS côté client.
-- Le transport interne abandonne Axios ; les événements `invalid`/`exception` deviennent `httpException`/`networkError`, `router.cancel` devient `cancelAll`, et `Inertia::lazy` disparaît. Aucun usage direct de ces anciennes API repéré ; vérifier les intégrations lors de la migration du client.
-- Le comportement temporel de `processing` et `progress` change : vérifier les formulaires du CMS et leur état de chargement.
-
-Source : [guide Inertia 3](https://inertiajs.com/docs/v3/getting-started/upgrade-guide).
-
 ### stripe/stripe-php : 19 → 22, en passant par 20 et 21
 
 - Les changements de version d'API par défaut sont cumulatifs : Clover → Dahlia en 20, puis `2026-09-30.endive` en 22. Examiner les changements Billing/Checkout selon les opérations utilisées et vérifier paiements, abonnements, taxes, remboursements et webhooks.
-- **Impact concret :** `app/Infrastructure/Payment/Stripe/StripeApi.php` appelle `Stripe::setApiVersion('2026-01-28.clover')`, puis `new StripeClient($privateKey)`. Le client a son propre défaut `stripe_version=ApiVersion::CURRENT` : le réglage global ne fige pas ce client. Pour différer la migration d'API, passer explicitement `stripe_version` dans le tableau de configuration du constructeur, puis valider le comportement.
+- **Étape 22 installée :** `stripe/stripe-php` est verrouillé en `22.0.0`, avec la contrainte `^22.0.0`. `app/Infrastructure/Payment/Stripe/StripeApi.php` fixe explicitement `stripe_version` à `2026-01-28.clover` dans le constructeur de `StripeClient`, comme lors des étapes 20 et 21. Le précédent réglage global `Stripe::setApiVersion` ne figeait pas ce client. La migration d'API vers Dahlia/Endive reste différée ; la cible de version du SDK est atteinte.
 - La v20 rejette les parseurs de webhooks inadaptés au format reçu. Le projet utilise `Webhook::constructEvent` : conserver des événements snapshot et vérifier signatures et fixtures avec la version configurée côté Stripe.
+- Validation de l'étape 20 : 423 tests passent (dont les webhooks signés et un test de l'en-tête `Stripe-Version`), avec 512 Mo de mémoire pour la suite PHP. `bun run check`, `bun run build` et Pint sur les fichiers modifiés passent. PHPStan conserve les cinq erreurs préexistantes liées aux révisions. Les paiements réels en environnement de test Stripe et la configuration de version des webhooks côté Stripe restent à vérifier.
 - Les annotations de types évoluent en 21/22 : vérifier les erreurs Larastan éventuelles autour des réponses et erreurs Stripe.
+- Particularités de la v21 : les propriétés de `ErrorObject` peuvent être nulles ; aucun accès concerné dans le code applicatif. La v21.1 retire `dynamic_tax_rates` des annotations Checkout : le projet conserve ce paramètre avec l'API Clover, et deux tests vérifient sa transmission pour les paiements uniques et les abonnements. La v21.3.2 refuse les secrets de webhook vides. [Changelog de la version installée](https://github.com/stripe/stripe-php/blob/v21.3.2/CHANGELOG.md).
+- Validation de l'étape 21 : 425 tests passent (1363 assertions), avec 512 Mo de mémoire. Les scripts Composer, `bun run check`, `bun run build` et Pint sur les fichiers modifiés passent. PHPStan conserve les cinq erreurs préexistantes liées aux révisions. La validation des paiements en environnement de test Stripe et de la version des webhooks côté Stripe reste à effectuer.
+- Particularités de la v22 : PHP 7.4 minimum, compatible avec le prérequis PHP `^8.4` du projet. Les PHPDoc décrivent plus précisément les structures de paramètres dans les unions ; PHPStan ne relève aucune nouvelle erreur liée à Stripe. Le client reste sur Clover pour conserver les paramètres Checkout et le contrat de données existants, sans adopter le défaut `2026-09-30.endive` du SDK.
+- Validation de l'étape 22 : 425 tests passent (1363 assertions), dont les webhooks signés et la transmission des taxes Checkout, avec 512 Mo de mémoire. Les scripts Composer, `bun run check`, `bun run build` et Pint sur les fichiers modifiés passent. PHPStan conserve les cinq erreurs préexistantes liées aux révisions. Les paiements en environnement de test Stripe et la version des webhooks côté Stripe restent à vérifier.
 
 Sources : [changelog cumulatif](https://github.com/stripe/stripe-php/blob/v22.0.0/CHANGELOG.md), [migration 20](https://github.com/stripe/stripe-php/wiki/Migration-guide-for-v20), [migration 22](https://github.com/stripe/stripe-php/wiki/Migration-guide-for-v22), [configuration du client](https://github.com/stripe/stripe-php/blob/v22.0.0/lib/BaseStripeClient.php).
 

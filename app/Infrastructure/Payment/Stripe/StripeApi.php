@@ -11,7 +11,6 @@ use Stripe\Customer;
 use Stripe\Invoice;
 use Stripe\PaymentIntent;
 use Stripe\Plan as StripePlan;
-use Stripe\Stripe;
 use Stripe\StripeClient;
 use Stripe\Subscription;
 
@@ -23,12 +22,15 @@ class StripeApi
 
     public function __construct(string $privateKey)
     {
-        Stripe::setApiVersion('2026-01-28.clover');
         $this->taxes = ['txr_1SzcN4FLYwyu3L7pEz2Rnhlc'];
         if (str_contains($privateKey, 'live')) {
             $this->taxes = ['txr_1I7c7DFCMNgisvowdAol5zkl'];
         }
-        $this->stripe = new StripeClient($privateKey);
+        $this->stripe = new StripeClient([
+            'api_key' => $privateKey,
+            // La migration du SDK ne doit pas changer le contrat de l'API.
+            'stripe_version' => '2026-01-28.clover',
+        ]);
     }
 
     /**
