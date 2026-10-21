@@ -11,7 +11,7 @@ export function CopyButton({ text, ...props }: Props) {
 
   const handleClick = useCallback(() => {
     const value = typeof text === "function" ? text() : text
-    navigator.clipboard.writeText(value)
+    void navigator.clipboard.writeText(value)
     setCopied(true)
   }, [text])
 

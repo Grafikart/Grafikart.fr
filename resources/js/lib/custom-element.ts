@@ -68,8 +68,9 @@ export function r2wc(
           this.root.render(element)
           return
         }
+
         // Async load of the component
-        ;(componentOrImport as LazyImport)().then((module) => {
+        void (componentOrImport as LazyImport)().then((module) => {
           this.root = createRoot(anchorElement)
           const element = createElement(module.default, parseProps(props, this))
           this.root.render(element)
@@ -106,9 +107,9 @@ export function lazywc(
       innerElement: LazyComponent | null = null
 
       connectedCallback() {
-        cb().then((module) => {
+        void cb().then((module) => {
           this.innerElement = new module.default(this)
-          this.innerElement.onMount()
+          void this.innerElement.onMount()
         })
       }
 

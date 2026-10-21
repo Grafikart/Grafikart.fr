@@ -41,7 +41,9 @@ export function useNotifications(initialReadAt: number) {
 
   const fetchNotifications = useEffectEvent(() => {
     if (!fetched) {
-      apiFetch<NotificationData[]>("/api/notifications").then(setNotifications)
+      void apiFetch<NotificationData[]>("/api/notifications").then(
+        setNotifications,
+      )
     }
   })
 
@@ -82,8 +84,8 @@ function playNotification() {
   }
   audio.volume = 0.5
   try {
-    audio.play()
+    void audio.play()
   } catch {
-    // Audi may not play if the user did not interact with the page
+    // Audio may not play if the user did not interact with the page
   }
 }

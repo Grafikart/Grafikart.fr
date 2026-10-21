@@ -6,6 +6,7 @@ type CookieOptions = {
 
 export function cookie(
   name: string,
+  // oxlint-disable-next-line typescript/no-useless-default-assignment we need to assign a default value
   value: string | null | undefined = undefined,
   options: CookieOptions = {},
 ): string | null | undefined {

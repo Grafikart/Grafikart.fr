@@ -12,7 +12,7 @@ const appName = import.meta.env.VITE_APP_NAME || "Laravel"
 
 const queryClient = new QueryClient()
 
-createInertiaApp({
+void createInertiaApp({
   title: (title) => (title ? `${title} - ${appName}` : appName),
   resolve: async (name) => {
     const page = await resolvePageComponent<{ default: ResolvedComponent }>(

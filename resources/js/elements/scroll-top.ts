@@ -15,10 +15,12 @@ export class ScrollTop extends HTMLElement {
         behavior: "smooth",
       })
     })
+    // oxlint-disable-next-line typescript/unbound-method
     window.addEventListener("scroll", this.onScroll)
   }
 
   disconnectedCallback() {
+    // oxlint-disable-next-line typescript/unbound-method
     window.removeEventListener("scroll", this.onScroll)
   }
 

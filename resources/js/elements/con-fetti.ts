@@ -2,7 +2,7 @@ export class Confetti extends HTMLElement {
   connectedCallback() {
     const rect = this.getBoundingClientRect()
     const y = (rect.top + rect.height / 2) / window.innerHeight
-    import("canvas-confetti").then((m) =>
+    void import("canvas-confetti").then((m) =>
       m.default({
         particleCount: 100,
         zIndex: 3000,

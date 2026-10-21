@@ -36,7 +36,7 @@ export class CourseVideo extends HTMLElement {
     window.addEventListener("hashchange", this.onHashChange, {
       capture: true,
     })
-    this.onHashChange()
+    void this.onHashChange()
   }
 
   disconnectedCallback() {
@@ -46,7 +46,7 @@ export class CourseVideo extends HTMLElement {
 
   onHashChange = async () => {
     if (window.location.hash === "#autoplay") {
-      this.init()
+      void this.init()
       return
     }
     if (!window.location.hash.startsWith("#t")) {
@@ -66,7 +66,7 @@ export class CourseVideo extends HTMLElement {
     if (!meta) {
       return this.play(0)
     }
-    this.play(parseInt(meta.getAttribute("content") ?? "0", 10))
+    void this.play(parseInt(meta.getAttribute("content") ?? "0", 10))
   }
 
   play = async (time: number) => {

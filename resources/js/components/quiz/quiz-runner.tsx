@@ -22,6 +22,7 @@ export function QuizRunner({
   stateRef: RefObject<Quiz["state"]>
 }) {
   const quiz = useQuestions(courseId)
+  // oxlint-disable-next-line react/refs
   stateRef.current = quiz.state
   const panel = (() => {
     if (!["start", "end"].includes(quiz.state)) {
