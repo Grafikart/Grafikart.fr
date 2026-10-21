@@ -2,6 +2,7 @@
 
 namespace App\Http\Cms\Data\Comment;
 
+use App\Domains\Comment\Comment;
 use Spatie\LaravelData\Data;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
@@ -16,4 +17,16 @@ class CommentRowData extends Data
         public readonly string $ip,
         public readonly \DateTimeInterface $createdAt,
     ) {}
+
+    public static function fromModel(Comment $comment): self
+    {
+        return new self(
+            id: $comment->id,
+            username: $comment->username ?? $comment->user->username,
+            email: $comment->email ?? $comment->user?->email ?? '',
+            content: $comment->content,
+            ip: $comment->ip,
+            createdAt: $comment->created_at
+        );
+    }
 }
