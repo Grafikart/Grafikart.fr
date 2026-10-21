@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\User::class)->nullable()->constrained()->nullOnDelete();
+            $table->foreignIdFor(App\Models\User::class)->nullable()->constrained()->nullOnDelete();
             $table->morphs('commentable');
             $table->string('email')->nullable();
             $table->string('username')->nullable();

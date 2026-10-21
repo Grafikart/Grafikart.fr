@@ -27,7 +27,7 @@ describe('stripe', function () {
         $session->client_secret = 'cs_secret';
 
         $mock = $this->mock(StripeApi::class);
-        $mock->shouldReceive('createCustomer')->once()->with(\Mockery::on(fn ($u) => $u->id === $user->id))->andReturn($user);
+        $mock->shouldReceive('createCustomer')->once()->with(Mockery::on(fn ($u) => $u->id === $user->id))->andReturn($user);
         $mock->shouldReceive('createPaymentSession')->once()->andReturn($session);
 
         $this->actingAs($user)
@@ -64,7 +64,7 @@ describe('stripe', function () {
         $plan = Plan::factory()->create();
 
         $mock = $this->mock(StripeApi::class);
-        $mock->shouldReceive('createCustomer')->once()->andThrow(new \Exception('Stripe error'));
+        $mock->shouldReceive('createCustomer')->once()->andThrow(new Exception('Stripe error'));
 
         $this->actingAs($user)
             ->postJson("/api/premium/{$plan->id}/stripe")
@@ -155,7 +155,7 @@ describe('paypal', function () {
         $mock = Mockery::mock(PaypalService::class);
         $mock->shouldReceive('capture')
             ->once()
-            ->andThrow(new \Error('Capture failed'));
+            ->andThrow(new Error('Capture failed'));
         $this->app->instance(PaypalService::class, $mock);
 
         $this->actingAs($user)

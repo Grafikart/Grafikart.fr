@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('forum_topics', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\User::class)->nullable()->constrained()->nullOnDelete();
+            $table->foreignIdFor(App\Models\User::class)->nullable()->constrained()->nullOnDelete();
             $table->string('name');
             $table->text('content');
             $table->boolean('solved');
@@ -23,8 +23,8 @@ return new class extends Migration
 
         Schema::create('forum_messages', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Domains\Forum\Topic::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(\App\Models\User::class)->nullable()->constrained()->nullOnDelete();
+            $table->foreignIdFor(App\Domains\Forum\Topic::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(App\Models\User::class)->nullable()->constrained()->nullOnDelete();
             $table->text('content');
             $table->boolean('accepted');
             $table->timestamps();
@@ -32,15 +32,15 @@ return new class extends Migration
 
         Schema::create('forum_tags', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Domains\Forum\TopicTag::class, 'parent_id')->nullable()->constrained('forum_tags')->nullOnDelete();
+            $table->foreignIdFor(App\Domains\Forum\TopicTag::class, 'parent_id')->nullable()->constrained('forum_tags')->nullOnDelete();
             $table->string('name');
             $table->string('color');
             $table->boolean('visible')->default(false);
         });
 
         Schema::create('forum_tag_topic', function (Blueprint $table) {
-            $table->foreignIdFor(\App\Domains\Forum\TopicTag::class, 'tag_id')->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(\App\Domains\Forum\Topic::class, 'topic_id')->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(App\Domains\Forum\TopicTag::class, 'tag_id')->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(App\Domains\Forum\Topic::class, 'topic_id')->constrained()->cascadeOnDelete();
             $table->primary(['tag_id', 'topic_id']);
         });
     }

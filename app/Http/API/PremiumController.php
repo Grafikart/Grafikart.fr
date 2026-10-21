@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
  */
 class PremiumController
 {
-    public function stripe(Plan $plan, StripeApi $api, \Illuminate\Http\Request $request)
+    public function stripe(Plan $plan, StripeApi $api, Request $request)
     {
         $isSubscription = $request->boolean('subscription');
         $url = route('premium', absolute: true);

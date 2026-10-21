@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\User::class)->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(App\Models\User::class)->nullable()->constrained()->cascadeOnDelete();
             $table->nullableMorphs('notifiable');
             $table->string('message');
             $table->string('url');

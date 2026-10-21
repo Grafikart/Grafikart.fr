@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->text('content');
             $table->boolean('online')->default(false);
-            $table->foreignIdFor(\App\Domains\Attachment\Attachment::class)->nullable()->constrained()->nullOnDelete();
-            $table->foreignIdFor(\App\Domains\Blog\BlogCategory::class, 'category_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignIdFor(App\Domains\Attachment\Attachment::class)->nullable()->constrained()->nullOnDelete();
+            $table->foreignIdFor(App\Domains\Blog\BlogCategory::class, 'category_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
         });
     }

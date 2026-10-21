@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Event;
 
 beforeEach(function () {
     $this->user = User::factory()->admin()->create();
-    $this->mock(StripeApi::class)->shouldReceive('getPlan')->andReturn(Mockery::mock(\Stripe\Plan::class));
+    $this->mock(StripeApi::class)->shouldReceive('getPlan')->andReturn(Mockery::mock(Stripe\Plan::class));
     $this->validData = [
         'name' => 'Plan Premium',
         'price' => 99,

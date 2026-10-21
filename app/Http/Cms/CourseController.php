@@ -100,7 +100,7 @@ class CourseController extends CmsController
         return $this->cmsDestroy($course, "Le cours {$course->title} a été supprimé");
     }
 
-    public function upload(\Google_Client $client, \Illuminate\Http\Request $request): RedirectResponse
+    public function upload(\Google_Client $client, Request $request): RedirectResponse
     {
         // Use ?state to get course ID since this is the only parameter accepted by google Oauth
         $courseId = $request->get('state');

@@ -57,7 +57,7 @@ describe('claim', function () {
         ]);
 
         expect(fn () => $this->service->claim('UNKNOWN', $user))
-            ->toThrow(\Illuminate\Database\Eloquent\ModelNotFoundException::class);
+            ->toThrow(Illuminate\Database\Eloquent\ModelNotFoundException::class);
     });
 
 });

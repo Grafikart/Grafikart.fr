@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Domains\Course\Course::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(App\Domains\Course\Course::class)->constrained()->cascadeOnDelete();
             $table->string('question');
             $table->string('type');
             $table->json('answer');
