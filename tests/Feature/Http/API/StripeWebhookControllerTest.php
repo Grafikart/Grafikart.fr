@@ -158,10 +158,7 @@ describe('payment_intent.succeeded', function () {
         }
         $api = $this->mock(StripeApi::class);
         $expectedFee = $intent->latest_charge->balance_transaction->fee;
-        if ($feeSource === 'pending') {
-            $intent->latest_charge->balance_transaction = null;
-            $expectedFee = 0;
-        } elseif ($feeSource === 'id') {
+        if ($feeSource === 'id') {
             $balanceTransaction = $intent->latest_charge->balance_transaction;
             $intent->latest_charge->balance_transaction = $balanceTransaction->id;
             $api->shouldReceive('getTransaction')->once()->with($balanceTransaction->id)->andReturn($balanceTransaction);
@@ -200,8 +197,30 @@ describe('payment_intent.succeeded', function () {
         'one-time zero tax' => ['checkout', 0],
         'subscription zero tax' => ['invoice', 0],
         'fee retrieved by transaction id' => ['checkout', 83, 'id'],
-        'fee not yet available' => ['checkout', 83, 'pending'],
     ]);
+
+    it('rejects the payment when the balance transaction is not yet available', function () {
+        $eventFactory = new StripeEventFactory;
+        $apiFactory = new StripeAPIDataFactory;
+        $user = User::factory()->create(['stripe_id' => 'cus_test123']);
+        $plan = Plan::factory()->create(['price' => 5, 'duration' => 1]);
+        $intent = $apiFactory->paymentIntent($user, $plan);
+        $intent->latest_charge->balance_transaction = null;
+
+        $this->mock(StripeApi::class)
+            ->shouldReceive('getPaymentIntent')
+            ->once()
+            ->with($intent->id)
+            ->andReturn($intent);
+
+        $event = $eventFactory->paymentIntentSucceeded($user, $plan);
+        $event['data']['object']['id'] = $intent->id;
+
+        sendWebhookEvent($this, $event)->assertServerError();
+
+        expect(Transaction::count())->toBe(0);
+        expect($user->refresh()->premium_end_at)->toBeNull();
+    });
 });
 
 describe('customer.subscription.created', function () {
