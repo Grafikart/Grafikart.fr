@@ -22,7 +22,7 @@ class CommentRowData extends Data
     {
         return new self(
             id: $comment->id,
-            username: $comment->username ?? $comment->user->username,
+            username: $comment->username ?? 'Utilisateur supprimé',
             email: $comment->email ?? $comment->user?->email ?? '',
             content: $comment->content,
             ip: $comment->ip,
