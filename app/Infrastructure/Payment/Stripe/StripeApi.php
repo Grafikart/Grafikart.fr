@@ -18,14 +18,8 @@ class StripeApi
 {
     private readonly StripeClient $stripe;
 
-    private array $taxes = [];
-
     public function __construct(string $privateKey)
     {
-        $this->taxes = ['txr_1SzcN4FLYwyu3L7pEz2Rnhlc'];
-        if (str_contains($privateKey, 'live')) {
-            $this->taxes = ['txr_1I7c7DFCMNgisvowdAol5zkl'];
-        }
         $this->stripe = new StripeClient([
             'api_key' => $privateKey,
             // La migration du SDK ne doit pas changer le contrat de l'API.
@@ -64,6 +58,17 @@ class StripeApi
         return $this->stripe->invoices->retrieve($invoice);
     }
 
+    public function getInvoiceFromIntent(string $paymentIntent): ?Invoice
+    {
+        $payments = $this->stripe->invoicePayments->all([
+            'payment' => ['type' => 'payment_intent', 'payment_intent' => $paymentIntent],
+            'expand' => ['data.invoice'],
+            'limit' => 1,
+        ]);
+
+        return $payments->data[0]->invoice ?? null;
+    }
+
     public function getSubscription(string $subscriptionId): Subscription
     {
         return $this->stripe->subscriptions->retrieve($subscriptionId);
@@ -73,8 +78,7 @@ class StripeApi
     {
         return $this->stripe->paymentIntents->retrieve($id, [
             'expand' => [
-                'amount_details.line_items.data.tax',
-                'latest_charge',
+                'latest_charge.balance_transaction',
             ]]
         );
     }
@@ -100,11 +104,14 @@ class StripeApi
                 'plan_id' => (string) $plan->id,
             ],
             'customer' => $user->stripe_id,
+            'automatic_tax' => ['enabled' => true],
+            'billing_address_collection' => 'required',
+            'customer_update' => ['address' => 'auto'],
             'line_items' => [
                 [
+                    // Ce prix doit être configuré en TTC (tax_behavior=inclusive) dans Stripe.
                     'price' => $plan->stripe_id,
                     'quantity' => 1,
-                    'dynamic_tax_rates' => $this->taxes,
                 ],
             ],
         ]);
@@ -116,6 +123,9 @@ class StripeApi
             'cancel_url' => $url,
             'success_url' => $url.'?success=1',
             'mode' => 'payment',
+            'automatic_tax' => ['enabled' => true],
+            'billing_address_collection' => 'required',
+            'customer_update' => ['address' => 'auto'],
             'payment_method_types' => [
                 'card',
             ],
@@ -132,6 +142,7 @@ class StripeApi
                 [
                     'price_data' => [
                         'currency' => 'eur',
+                        'tax_behavior' => 'inclusive',
                         'product_data' => [
                             'name' => $plan->name,
                             'images' => ['https://www.grafikart.fr/assets/logo-footer-f0a333a1c7b2c1833354864ad7c405e0396d894732bf03abb902f2281e6c942e.png'],
@@ -139,7 +150,6 @@ class StripeApi
                         'unit_amount' => $plan->price * 100,
                     ],
                     'quantity' => 1,
-                    'dynamic_tax_rates' => $this->taxes,
                 ],
             ],
         ]);
@@ -166,12 +176,12 @@ class StripeApi
         return $this->stripe->charges->retrieve($id);
     }
 
-    public function getCheckoutSessionFromIntent(string $paymentIntent): Session
+    public function getCheckoutSessionFromIntent(string $paymentIntent): ?Session
     {
         /** @var Session[] $sessions */
         $sessions = $this->stripe->checkout->sessions->all(['payment_intent' => $paymentIntent])->data;
 
-        return $sessions[0];
+        return $sessions[0] ?? null;
     }
 
     public function getTransaction(string $id): BalanceTransaction
