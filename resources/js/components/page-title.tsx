@@ -1,3 +1,5 @@
+import { Head } from "@inertiajs/react"
+
 export function PageTitle({ children }: { children: string }) {
-  return <title>{`${children} | Grafikart`}</title>
+  return <Head title={children} />
 }
