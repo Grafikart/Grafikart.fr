@@ -15,6 +15,18 @@ make dev ## Permet de lancer le serveur de développement, accessible ensuite su
 make seed ## Permet de remplir la base de données
 ```
 
+## Sentry
+
+Les exceptions Laravel sont envoyées à Sentry lorsque `SENTRY_LARAVEL_DSN` est renseigné dans l'environnement. Récupérez le DSN dans les paramètres du projet Sentry de l'organisation `grafikart` (Client Keys), puis ajoutez-le au `.env` du serveur :
+
+```dotenv
+SENTRY_LARAVEL_DSN=https://PUBLIC_KEY@HOST/PROJECT_ID
+SENTRY_SEND_DEFAULT_PII=false
+SENTRY_TRACES_SAMPLE_RATE=0
+```
+
+Après modification, reconstruisez le cache de configuration (`php artisan config:cache`) et redémarrez les workers de queue. Vérifiez l'envoi d'un événement avec `php artisan sentry:test`, puis consultez les issues du projet Sentry. Les traces de performance sont désactivées ; les exceptions sont capturées automatiquement et les exceptions interceptées peuvent être signalées avec `report($exception)`.
+
 ## Tips
 
 Lien de redirection pour l'oauth https://grafikart.fr/oauth/check/{github|google|facebook}
