@@ -105,6 +105,7 @@ export function PaypalPayment(props: Props) {
         .render(container.current!)
     } catch (e) {
       toast.error(
+        // oxlint-disable-next-line typescript/restrict-template-expressions
         `Une erreur est survenue lors du chargement des boutons PaypPal, ${e}`,
       )
     } finally {
@@ -115,7 +116,8 @@ export function PaypalPayment(props: Props) {
 
   useEffect(() => {
     if (country && !isPending) {
-      loadButtons()
+      // oxlint-disable-next-line react/set-state-in-effect I'm using useEffectEvent
+      void loadButtons()
     }
   }, [country, isPending])
 

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\User::class)->nullable()->constrained()->nullOnDelete();
-            $table->foreignIdFor(\App\Domains\Premium\Models\Plan::class)->constrained();
+            $table->foreignIdFor(App\Models\User::class)->nullable()->constrained()->nullOnDelete();
+            $table->foreignIdFor(App\Domains\Premium\Models\Plan::class)->constrained();
             $table->smallInteger('state');
             $table->timestamp('next_payment')->nullable();
             $table->string('stripe_id')->nullable()->unique();

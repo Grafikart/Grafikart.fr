@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('support_questions', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\User::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(App\Models\User::class)->constrained()->cascadeOnDelete();
             $table->string('title');
             $table->text('content');
             $table->text('answer')->nullable();
             $table->boolean('online')->default(false);
-            $table->foreignIdFor(\App\Domains\Course\Course::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(App\Domains\Course\Course::class)->constrained()->cascadeOnDelete();
             $table->integer('timestamp');
             $table->timestamps();
         });

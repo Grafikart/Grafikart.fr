@@ -107,7 +107,7 @@
         /* Completeness */
         // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
         "skipLibCheck": true /* Skip type checking all .d.ts files. */,
-        "baseUrl": ".",
+        "types": ["bun", "node", "react", "react-dom", "youtube"],
         "paths": {
             "@/*": ["./resources/js/*"]
         },

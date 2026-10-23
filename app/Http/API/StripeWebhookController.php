@@ -91,7 +91,7 @@ readonly class StripeWebhookController
 
     private function onSubscriptionCreated(StripeSubscription $stripeSubscription): void
     {
-        $plan = Plan::find($stripeSubscription->metadata['plan_id']);
+        $plan = Plan::withTrashed()->find($stripeSubscription->metadata['plan_id']);
         if ($plan === null) {
             throw new NotFoundHttpException;
         }

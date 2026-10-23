@@ -7,7 +7,7 @@
         ['label' => 'Premium', 'href' => '/premium', 'icon' => 'star', 'highlight' => true, 'hidden' => $user?->isPremium()],
         ['label' => 'Blog', 'href' => '/blog', 'icon' => 'notebook-pen'],
     ], fn (array $item) => !($item['hidden'] ?? false));
-    $hasPromo = !request()->hasCookie('promo-freelance-dismissed');
+    $hasPromo = false; // !request()->hasCookie('promo-freelance-dismissed');
 @endphp
 
 <site-header class=" block text-foreground-title fixed top-0 left-0 right-0 z-50 transition-all [&+*]:pt-28 [.has-promo_&+*]:pt-37">

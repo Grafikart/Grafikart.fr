@@ -35,6 +35,7 @@ export function StripePayment(props: Props) {
       }
       window.location.href = session.url
     } catch (e) {
+      // oxlint-disable-next-line typescript/restrict-template-expressions
       toast.error(`Impossible d'initialiser le paiement ${e}`)
       console.error(e)
     }

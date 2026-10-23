@@ -16,20 +16,17 @@ export async function apiFetch<T>(
   url: string,
   params?: RequestInit,
 ): Promise<T> {
+  const headers = new Headers(params?.headers)
+  headers.set("X-Requested-With", "XMLHttpRequest")
+  headers.set("accept", "application/json")
+  if (typeof params?.body === "string") {
+    headers.set("content-type", "application/json")
+  }
+
   return fetch(url, {
     ...params,
     credentials: "include",
-    headers: {
-      ...params?.headers,
-      "X-Requested-With": "XMLHttpRequest",
-
-      accept: "application/json",
-      ...(typeof params?.body === "string"
-        ? {
-            "content-type": "application/json",
-          }
-        : {}),
-    },
+    headers,
   }).then(async (response) => {
     // Pas de réponse, pas de retour
     if (response.status === 204) {
@@ -67,6 +64,7 @@ function urlWithQueryParams(url: string, params?: Record<string, unknown>) {
   const search = Object.entries(params)
     .reduce((acc, [key, value]) => {
       if (value || typeof value === "number") {
+        // oxlint-disable-next-line typescript/no-base-to-string
         acc.set(key, value.toString())
       }
       return acc

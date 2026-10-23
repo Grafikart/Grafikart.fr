@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Event;
 
 beforeEach(function () {
     $this->user = User::factory()->admin()->create();
-    $this->mock(StripeApi::class)->shouldReceive('getPlan')->andReturn(Mockery::mock(\Stripe\Plan::class));
+    $this->mock(StripeApi::class)->shouldReceive('getPlan')->andReturn(Mockery::mock(Stripe\Plan::class));
     $this->validData = [
         'name' => 'Plan Premium',
         'price' => 99,
@@ -104,8 +104,47 @@ describe('destroy', function () {
             ->assertRedirect(route('cms.plans.index'))
             ->assertSessionHas('success');
 
-        $this->assertDatabaseMissing('plans', ['id' => $plan->id]);
+        $this->assertSoftDeleted('plans', ['id' => $plan->id]);
+        expect(Plan::find($plan->id))->toBeNull();
 
         Event::assertDispatched(ContentDeletedEvent::class);
+    });
+});
+
+describe('restore', function () {
+    it('restores a deleted plan', function () {
+        Event::fake();
+        $plan = Plan::factory()->create();
+        $plan->delete();
+
+        $this->actingAs($this->user)
+            ->patch(route('cms.plans.restore', $plan))
+            ->assertRedirect(route('cms.plans.index'))
+            ->assertSessionHas('success');
+
+        expect(Plan::find($plan->id))->not->toBeNull();
+        Event::assertDispatched(ContentUpdatedEvent::class);
+    });
+
+    it('keeps deleted plans visible in the CMS', function () {
+        $plan = Plan::factory()->create();
+        $plan->delete();
+
+        $this->actingAs($this->user)
+            ->get(route('cms.plans.index'))
+            ->assertOk()
+            ->assertInertia(fn ($page) => $page
+                ->has('pagination.data', 1)
+                ->where('pagination.data.0.id', $plan->id)
+                ->where('pagination.data.0.deletedAt', fn ($value) => $value !== null)
+            );
+    });
+
+    it('preserves the plan of existing subscriptions', function () {
+        $subscription = App\Domains\Premium\Models\Subscription::factory()->create();
+        $plan = $subscription->plan;
+        $plan->delete();
+
+        expect($subscription->fresh()->plan->id)->toBe($plan->id);
     });
 });

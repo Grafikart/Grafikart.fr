@@ -32,7 +32,7 @@ class FormationFormData extends Data
         /** @var ChapterData[] */
         #[MapChapters]
         public array $chapters = [],
-        /** @var Collection<TechnologyUsageData> */
+        /** @var Collection<TechnologyUsageData>|null */
         public ?Collection $technologies = null,
     ) {
         $this->technologies ??= collect();

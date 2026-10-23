@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('progress', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\User::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(App\Models\User::class)->constrained()->cascadeOnDelete();
             $table->morphs('progressable');
             $table->integer('progress')->default(0);
             $table->timestamps();

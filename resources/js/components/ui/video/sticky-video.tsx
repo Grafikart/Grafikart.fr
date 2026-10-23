@@ -29,7 +29,7 @@ export function StickyVideo(props: Props) {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        withViewTransition(() => {
+        void withViewTransition(() => {
           setVisible(entry.isIntersecting)
         })
       },

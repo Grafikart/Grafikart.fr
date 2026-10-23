@@ -1,442 +1,484 @@
 export type APISearchItem = {
-title: string;
-url: string;
-type: string;
+readonly title: string,
+readonly url: string,
+readonly type: string,
 };
 export type APISearchResponse = {
-items: Array<APISearchItem>;
-hits: number;
+readonly items: APISearchItem[],
+readonly hits: number,
 };
 export type AttachmentFileData = {
-id: number;
-createdAt: string;
-name: string;
-url: string;
-size: number;
-thumbnail: string;
+readonly id: number,
+readonly createdAt: string,
+readonly name: string,
+readonly url: string,
+readonly size: number,
+readonly thumbnail: string,
 };
 export type AttachmentUrlData = {
-id: number;
-url: string;
+readonly id: number,
+readonly url: string,
 };
 export type BadgeFormData = {
-id: number | null;
-name: string;
-description: string;
-position: number;
-action: string;
-actionCount: number;
-theme: string;
-image: string | null;
-unlockable: boolean;
+id: number | null,
+name: string,
+description: string,
+position: number,
+action: string,
+actionCount: number,
+theme: string,
+image: string | null,
+unlockable: boolean,
 };
 export type BadgeRowData = {
-id: number;
-name: string;
-action: string;
-actionCount: number;
+id: number,
+name: string,
+action: string,
+actionCount: number,
 };
 export type BlogCategoryData = {
-id: number | null;
-name: string;
-slug: string;
+readonly id: number | null,
+readonly name: string,
+readonly slug: string,
 };
 export type Chapter = {
-title: string;
-ids: Array<number>;
+title: string,
+ids: number[],
 };
 export type ChapterData = {
-title: string;
-courses: Array<OptionItemData>;
+readonly title: string,
+readonly courses: OptionItemData[],
 };
 export type CommentRowData = {
-id: number;
-username: string;
-email: string;
-content: string;
-ip: string;
-createdAt: string;
+readonly id: number,
+readonly username: string,
+readonly email: string,
+readonly content: string,
+readonly ip: string,
+readonly createdAt: string,
 };
 export type ContactRequestData = {
-id: number;
-name: string;
-email: string;
-message: string;
-ip: string | null;
-createdAt: string;
+readonly id: number,
+readonly name: string,
+readonly email: string,
+readonly message: string,
+readonly ip: string | null,
+readonly createdAt: string,
 };
 export type ContactRequestRowData = {
-id: number;
-name: string;
-email: string;
-message: string;
-ip: string | null;
-createdAt: string;
+readonly id: number,
+readonly name: string,
+readonly email: string,
+readonly message: string,
+readonly ip: string | null,
+readonly createdAt: string,
 };
 export type CountryData = {
-name: string;
-code: string;
+readonly name: string,
+readonly code: string,
 };
 export type CouponFormData = {
-id: string;
-months: number;
+readonly id: string,
+readonly months: number,
 };
 export type CouponRowData = {
-id: string;
-email: string;
-months: number;
-claimedAt: string | null;
-createdAt: string;
+readonly id: string,
+readonly email: string,
+readonly months: number,
+readonly claimedAt: string | null,
+readonly createdAt: string,
 };
 export type CourseFilterItem = {
-label: string;
-value: string;
-courses_count: number | null;
-formations_count: number | null;
+readonly label: string,
+readonly value: string,
+readonly courses_count: number | null,
+readonly formations_count: number | null,
 };
 export type CourseFilterTypeCount = {
-course: number;
-formation: number;
+readonly course: number,
+readonly formation: number,
 };
 export type CourseFiltersResponse = {
-technologies: Array<CourseFilterItem>;
-levels: Array<CourseFilterItem>;
-types: CourseFilterTypeCount;
+readonly technologies: CourseFilterItem[],
+readonly levels: CourseFilterItem[],
+readonly types: CourseFilterTypeCount,
 };
 export type CourseFormData = {
-id: number | null;
-title: string;
-slug: string;
-createdAt: string;
-online: boolean;
-premium: boolean;
-forceRedirect: boolean;
-videoPath: string;
-demo: string;
-youtubeId: string;
-duration: number;
-deprecatedById: number | null;
-content: string;
-level: DifficultyLevel;
-source: boolean;
-attachment: AttachmentUrlData | null;
-youtubeThumbnail: AttachmentUrlData | null;
-formationId: number | null;
-questionsCount: number;
-technologies: Array<TechnologyUsageData> | Array<any> | null;
+id: number | null,
+title: string,
+slug: string,
+createdAt: string,
+online: boolean,
+premium: boolean,
+forceRedirect: boolean,
+videoPath: string,
+demo: string,
+youtubeId: string,
+duration: number,
+deprecatedById: number | null,
+content: string,
+level: DifficultyLevel,
+source: boolean,
+attachment: AttachmentUrlData | null,
+youtubeThumbnail: AttachmentUrlData | null,
+formationId: number | null,
+questionsCount: number,
+technologies: TechnologyUsageData[] | null,
 };
 export type CourseRowData = {
-id: number;
-title: string;
-online: boolean;
-createdAt: string;
-technologies: Array<TechnologyUsageData> | Array<any>;
+readonly id: number,
+readonly title: string,
+readonly online: boolean,
+readonly createdAt: string,
+readonly technologies: TechnologyUsageData[],
 };
 export type CourseViewData = {
-type: string;
-id: number;
-title: string;
-video: string;
-content: string;
-poster: string;
+type: string,
+readonly id: number,
+readonly title: string,
+readonly video: string,
+readonly content: string,
+readonly poster: string,
 };
+export type CursorPaginatedDataCollection<TKey, TValue> = CursorPaginator<TKey, TValue>;
+export type CursorPaginator<TKey, TValue> = {
+data: TKey extends string ? Record<TKey, TValue> : TValue[],
+links: {
+url: string | null,
+label: string,
+active: boolean,
+}[],
+meta: {
+path: string,
+per_page: number,
+next_cursor: string | null,
+next_page_url: string | null,
+prev_cursor: string | null,
+prev_page_url: string | null,
+},
+};
+export type CursorPaginatorInterface<TKey, TValue> = CursorPaginator<TKey, TValue>;
 export type DailyData = {
-date: string;
-value: number;
+readonly date: string,
+readonly value: number,
 };
 export type DifficultyLevel = 0 | 1 | 2;
 export type FolderData = {
-path: string;
-count: number;
+readonly path: string,
+readonly count: number,
 };
 export type FormationChapterData = {
-title: string;
-courses: Array<FormationCourseData>;
+readonly title: string,
+readonly courses: FormationCourseData[],
 };
 export type FormationCourseData = {
-url: string;
-id: number;
-title: string;
-slug: string;
-duration: number;
+readonly url: string,
+readonly id: number,
+readonly title: string,
+readonly slug: string,
+readonly duration: number,
 };
 export type FormationFormData = {
-id: number | null;
-title: string;
-slug: string;
-createdAt: string;
-online: boolean;
-forceRedirect: boolean;
-deprecatedBy: number | null;
-content: string;
-short: string | null;
-level: DifficultyLevel;
-attachment: AttachmentUrlData | null;
-youtubePlaylist: string | null;
-links: string | null;
-chapters: Array<ChapterData>;
-technologies: Array<TechnologyUsageData> | Array<any> | null;
+id: number | null,
+title: string,
+slug: string,
+createdAt: string,
+online: boolean,
+forceRedirect: boolean,
+deprecatedBy: number | null,
+content: string,
+short: string | null,
+level: DifficultyLevel,
+attachment: AttachmentUrlData | null,
+youtubePlaylist: string | null,
+links: string | null,
+chapters: ChapterData[],
+technologies: TechnologyUsageData[] | null,
 };
 export type FormationRowData = {
-id: number;
-title: string;
-online: boolean;
-createdAt: string;
-technologies: Array<TechnologyUsageData> | Array<any>;
+readonly id: number,
+readonly title: string,
+readonly online: boolean,
+readonly createdAt: string,
+readonly technologies: TechnologyUsageData[],
 };
 export type FormationViewData = {
-type: string;
-content: string;
-links: string | null;
-chapters: Array<FormationChapterData>;
-duration: number;
-url: string;
+type: string,
+readonly content: string,
+readonly links: string | null,
+readonly chapters: FormationChapterData[],
+readonly duration: number,
+readonly url: string,
 };
 export type JobItemData = {
-id: number;
-type: string;
-message: string;
-exception: string | null;
-date: string;
+id: number,
+type: string,
+message: string,
+exception: string | null,
+date: string,
 };
+export type LengthAwarePaginator<TKey, TValue> = {
+data: TKey extends string ? Record<TKey, TValue> : TValue[],
+links: {
+url: string | null,
+label: string,
+active: boolean,
+}[],
+meta: {
+total: number,
+current_page: number,
+first_page_url: string,
+from: number | null,
+last_page: number,
+last_page_url: string,
+next_page_url: string | null,
+path: string,
+per_page: number,
+prev_page_url: string | null,
+to: number | null,
+},
+};
+export type LengthAwarePaginatorInterface<TKey, TValue> = LengthAwarePaginator<TKey, TValue>;
 export type MonthlyData = {
-month: number;
-year: number;
-value: number;
+readonly month: number,
+readonly year: number,
+readonly value: number,
 };
 export type NotificationCreatedEvent = {
-notification: NotificationData;
+readonly notification: NotificationData,
 };
 export type NotificationData = {
-message: string;
-url: string;
-date: string;
-userId: number | null;
+message: string,
+url: string,
+date: string,
+userId: number | null,
 };
 export type OptionItemData = {
-id: number;
-name: string;
+readonly id: number,
+readonly name: string,
 };
+export type PaginatedDataCollection<TKey, TValue> = LengthAwarePaginator<TKey, TValue>;
 export type PathFormData = {
-id: number | null;
-title: string;
-slug: string;
-createdAt: string;
-online: boolean;
-description: string;
-tags: string;
-nodes: Array<PathNodeData>;
+id: number | null,
+title: string,
+slug: string,
+createdAt: string,
+online: boolean,
+description: string,
+tags: string,
+nodes: PathNodeData[],
 };
 export type PathNodeData = {
-id: number;
-icon: string | null;
-title: string | null;
-description: string | null;
-contentType: string;
-contentId: number | null;
-x: number;
-y: number;
-meta: PathNodeMetaData | null;
-parents: Array<PathNodeEdgeData>;
+id: number,
+icon: string | null,
+title: string | null,
+description: string | null,
+contentType: string,
+contentId: number | null,
+x: number,
+y: number,
+meta: PathNodeMetaData | null,
+parents: PathNodeEdgeData[],
 };
 export type PathNodeEdgeData = {
-id: number;
-primary: boolean;
+id: number,
+primary: boolean,
 };
 export type PathNodeMetaData = {
-video: string | null;
+video: string | null,
 };
 export type PathRowData = {
-id: number;
-title: string;
-online: boolean;
-createdAt: string;
-description: string;
-tags: string;
+id: number,
+title: string,
+online: boolean,
+createdAt: string,
+description: string,
+tags: string,
 };
 export type PathViewData = {
-id: number | null;
-title: string;
-slug: string;
-tags: string;
-description: string;
-nodes: Array<PathNodeData>;
+readonly id: number | null,
+readonly title: string,
+slug: string,
+tags: string,
+readonly description: string,
+readonly nodes: PathNodeData[],
 };
 export type PlanData = {
-id: number | null;
-name: string;
-price: number;
-duration: number;
-stripeId: string;
+readonly id: number | null,
+readonly name: string,
+readonly price: number,
+readonly duration: number,
+readonly stripeId: string,
+readonly deletedAt: string | null,
 };
 export type PostFormData = {
-id: number | null;
-title: string;
-slug: string;
-createdAt: string;
-categoryId: number | null;
-online: boolean;
-attachment: AttachmentUrlData | null;
-content: string;
+id: number | null,
+title: string,
+slug: string,
+createdAt: string,
+categoryId: number | null,
+online: boolean,
+attachment: AttachmentUrlData | null,
+content: string,
 };
 export type PostRowData = {
-id: number;
-title: string;
-online: boolean;
+readonly id: number,
+readonly title: string,
+readonly online: boolean,
 };
 export type QuestionChoicesAnswer = {
-choices: Array<string>;
-answer: number;
+choices: string[],
+answer: number,
 };
 export type QuestionData = {
-id: number;
-question: string;
-type: QuestionType;
-answer: QuestionChoicesAnswer | QuestionTextAnswer;
+id: number,
+question: string,
+type: QuestionType,
+answer: QuestionChoicesAnswer | QuestionTextAnswer,
 };
 export type QuestionTextAnswer = {
-answer: string;
+answer: string,
 };
 export type QuestionType = 'choice' | 'text';
 export type RevisionRowData = {
-id: number;
-authorName: string;
-targetTitle: string;
-targetType: string;
-state: RevisionStatus;
-createdAt: string;
+readonly id: number,
+readonly authorName: string,
+readonly targetTitle: string,
+readonly targetType: string,
+readonly state: RevisionStatus,
+readonly createdAt: string,
 };
 export type RevisionShowData = {
-id: number;
-content: string;
-currentContent: string;
-state: RevisionStatus;
-targetTitle: string;
-targetUrl: string;
+readonly id: number,
+readonly content: string,
+readonly currentContent: string,
+readonly state: RevisionStatus,
+readonly targetTitle: string,
+readonly targetUrl: string,
 };
 export type RevisionStatus = -1 | 0 | 1;
 export type SchoolFormData = {
-id: number | null;
-name: string;
-couponPrefix: string;
-credits: number;
-emailSubject: string;
-emailMessage: string;
-owner: OptionItemData | null;
-students: Array<SchoolStudentData>;
+readonly id: number | null,
+readonly name: string,
+readonly couponPrefix: string,
+readonly credits: number,
+readonly emailSubject: string,
+readonly emailMessage: string,
+readonly owner: OptionItemData | null,
+readonly students: SchoolStudentData[],
 };
 export type SchoolRowData = {
-id: number;
-name: string;
+readonly id: number,
+readonly name: string,
 };
 export type SchoolStudentData = {
-id: number;
-username: string;
-email: string;
-createdAt: string;
-isPremium: boolean;
+readonly id: number,
+readonly username: string,
+readonly email: string,
+readonly createdAt: string,
+readonly isPremium: boolean,
 };
 export type SearchResultData = {
-id: number;
-name: string;
-type: string;
-url: string;
+readonly id: number,
+readonly name: string,
+readonly type: string,
+readonly url: string,
 };
 export type SettingsFormData = {
-liveAt: string;
+liveAt: string,
 };
 export type SponsorFormData = {
-createdAt: string;
-id: number | null;
-name: string;
-url: string;
-content: string;
-type: SponsorType;
-logo: string | null;
+createdAt: string,
+id: number | null,
+name: string,
+url: string,
+content: string,
+type: SponsorType,
+logo: string | null,
 };
 export type SponsorRowData = {
-id: number;
-name: string;
-type: SponsorType;
-url: string;
+id: number,
+name: string,
+type: SponsorType,
+url: string,
 };
 export type SponsorType = 'affiliation' | 'sponsor';
 export type SupportQuestionData = {
-id: number;
-title: string;
-content: string;
-answer: string | null;
-timestamp: number;
-createdAt: string;
-me: boolean;
+readonly id: number,
+readonly title: string,
+readonly content: string,
+readonly answer: string | null,
+readonly timestamp: number,
+readonly createdAt: string,
+readonly me: boolean,
 };
 export type SupportQuestionFormData = {
-id: number;
-title: string;
-content: string;
-answer: string;
-online: boolean;
-courseId: number;
-courseTitle: string;
-courseUrl: string;
-timestamp: number;
-createdAt: string;
+id: number,
+title: string,
+content: string,
+answer: string,
+online: boolean,
+courseId: number,
+courseTitle: string,
+courseUrl: string,
+timestamp: number,
+createdAt: string,
 };
 export type SupportQuestionRowData = {
-id: number;
-title: string;
-courseTitle: string;
-online: boolean;
-answered: boolean;
-createdAt: string;
+readonly id: number,
+readonly title: string,
+readonly courseTitle: string,
+readonly online: boolean,
+readonly answered: boolean,
+readonly createdAt: string,
 };
 export type TechnologyFormData = {
-id: number | null;
-name: string;
-slug: string;
-content: string;
-deprecatedBy: OptionItemData | null;
-image: string | null;
-requirements: Array<OptionItemData> | Array<any> | null;
+id: number | null,
+name: string,
+slug: string,
+content: string,
+deprecatedBy: OptionItemData | null,
+image: string | null,
+requirements: OptionItemData[] | null,
 };
 export type TechnologyRowData = {
-id: number;
-name: string;
-image: string | null;
-count: number;
+id: number,
+name: string,
+image: string | null,
+count: number,
 };
 export type TechnologyUsageData = {
-id: number;
-name: string;
-version: string | null;
-primary: boolean;
+id: number,
+name: string,
+version: string | null,
+primary: boolean,
 };
 export type TransactionReportRowData = {
-method: string;
-month: number;
-price: number;
-tax: number;
-fee: number;
+readonly method: string,
+readonly month: number,
+readonly price: number,
+readonly tax: number,
+readonly fee: number,
 };
 export type TransactionRowData = {
-id: number;
-duration: number;
-price: number;
-tax: number;
-fee: number;
-method: string;
-refunded: boolean;
-createdAt: string;
-userId: number;
-username: string;
-email: string;
+readonly id: number,
+readonly duration: number,
+readonly price: number,
+readonly tax: number,
+readonly fee: number,
+readonly method: string,
+readonly refunded: boolean,
+readonly createdAt: string,
+readonly userId: number,
+readonly username: string,
+readonly email: string,
 };
 export type UserRowData = {
-id: number;
-username: string;
-email: string;
-createdAt: string;
-isPremium: boolean;
-isBanned: boolean;
-lastLoginIp: string | null;
+readonly id: number,
+readonly username: string,
+readonly email: string,
+readonly createdAt: string,
+readonly isPremium: boolean,
+readonly isBanned: boolean,
+readonly lastLoginIp: string | null,
 };

@@ -11,7 +11,7 @@ use Illuminate\View\View;
 
 class CourseController
 {
-    public function index(\Illuminate\Http\Request $request, ContentFilterData $filter, ProgressionService $progressionService): View
+    public function index(Request $request, ContentFilterData $filter, ProgressionService $progressionService): View
     {
         $query = Course::query()
             ->published()

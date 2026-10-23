@@ -20,7 +20,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UserController
 {
-    public function edit(\Illuminate\Http\Request $request): View
+    public function edit(Request $request): View
     {
         $user = $request->user();
         assert($user instanceof User);

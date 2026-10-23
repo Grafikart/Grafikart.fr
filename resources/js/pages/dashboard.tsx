@@ -103,7 +103,7 @@ export default withLayout<Props>(
           <Button
             variant="secondary"
             onClick={() => {
-              apiFetch(notification.url(), {
+              void apiFetch(notification.url(), {
                 method: "POST",
               }).then(() => toast.success("Notification envoyée"))
             }}

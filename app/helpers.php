@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 
 function app_url(mixed $model, bool $absolute = false)
 {
-    return app(\App\Helpers\UrlGenerator::class)->url($model, $absolute);
+    return app(App\Helpers\UrlGenerator::class)->url($model, $absolute);
 }
 
 function cache_key(mixed $expression): string
@@ -25,7 +25,7 @@ function cache_key(mixed $expression): string
 
 function is_live_running(): bool
 {
-    return app(\App\Domains\Live\LiveService::class)->isLiveRunning();
+    return app(App\Domains\Live\LiveService::class)->isLiveRunning();
 }
 
 function file_size(int|float $bytes, int $precision = 0, ?int $maxPrecision = null): string

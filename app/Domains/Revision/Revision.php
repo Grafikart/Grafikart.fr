@@ -2,6 +2,8 @@
 
 namespace App\Domains\Revision;
 
+use App\Domains\Blog\Post;
+use App\Domains\Course\Course;
 use App\Domains\Revision\Factory\RevisionFactory;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Attributes\Scope;
@@ -13,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
  * @property RevisionStatus $state
+ * @property Course|Post|null $revisionable
  */
 class Revision extends Model
 {

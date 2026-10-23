@@ -92,7 +92,7 @@ export function useQuestions(courseId: string) {
     setStep(0)
     setScore(0)
     setSelected(null)
-    refetch()
+    void refetch()
   }, [refetch])
 
   return {

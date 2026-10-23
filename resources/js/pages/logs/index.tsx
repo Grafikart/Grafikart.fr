@@ -10,12 +10,11 @@ type Props = {
 export default withLayout<Props>(
   ({ output }) => {
     const groups = output
-      ? [
-          ...output
-            .split("\n--\n")
-            .map((g) => g.trim())
-            .filter(Boolean),
-        ].reverse()
+      ? output
+          .split("\n--\n")
+          .map((g) => g.trim())
+          .filter(Boolean)
+          .reverse()
       : []
 
     return (

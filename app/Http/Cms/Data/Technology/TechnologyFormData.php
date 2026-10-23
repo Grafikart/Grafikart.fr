@@ -19,7 +19,7 @@ class TechnologyFormData extends Data
         public ?OptionItemData $deprecatedBy = null,
         #[MapMedia()]
         public ?string $image = null,
-        /** @var Collection<OptionItemData> */
+        /** @var Collection<OptionItemData>|null */
         public ?Collection $requirements = null,
     ) {}
 }

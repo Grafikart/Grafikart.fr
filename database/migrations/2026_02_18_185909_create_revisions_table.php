@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('revisions', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\User::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(App\Models\User::class)->constrained()->cascadeOnDelete();
             $table->morphs('revisionable');
             $table->text('content');
             $table->smallInteger('state')->default(0);

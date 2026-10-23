@@ -28,6 +28,7 @@ class PlanData extends Data implements DataToModel
         #[Min(2)]
         #[Rule(new StripePriceId)]
         public readonly string $stripeId = '',
+        public readonly ?string $deletedAt = null,
     ) {}
 
     public function toModel(Model $model): Model

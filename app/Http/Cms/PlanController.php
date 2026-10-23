@@ -26,7 +26,7 @@ class PlanController extends CmsController
 
     public function index(): Response
     {
-        return $this->cmsIndex();
+        return $this->cmsIndex(Plan::withTrashed());
     }
 
     public function update(Plan $plan, PlanData $data): RedirectResponse
@@ -37,6 +37,14 @@ class PlanController extends CmsController
     public function store(PlanData $data): RedirectResponse
     {
         return $this->cmsStore($data);
+    }
+
+    public function restore(Plan $plan): RedirectResponse
+    {
+        $plan->restore();
+        event(new \App\Domains\Cms\Event\ContentUpdatedEvent($plan));
+
+        return to_route('cms.plans.index')->with('success', 'La formule a bien été restaurée');
     }
 
     public function destroy(Plan $plan): RedirectResponse

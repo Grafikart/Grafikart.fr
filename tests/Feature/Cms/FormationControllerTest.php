@@ -88,8 +88,8 @@ describe('store', function () {
     });
 
     it('creates a formation with chapters', function () {
-        $chapter1 = \App\Domains\Course\Course::factory(3)->create();
-        $chapter2 = \App\Domains\Course\Course::factory(2)->create();
+        $chapter1 = App\Domains\Course\Course::factory(3)->create();
+        $chapter2 = App\Domains\Course\Course::factory(2)->create();
         $this->actingAs($this->user)
             ->post(route('cms.formations.store'), [
                 ...$this->validData,
@@ -136,10 +136,10 @@ describe('update', function () {
     it('removes formation_id from courses removed from chapters', function () {
         Event::fake();
         $this->user = User::factory()->admin()->create();
-        $courses = \App\Domains\Course\Course::factory(3)->create();
+        $courses = App\Domains\Course\Course::factory(3)->create();
         $formation = Formation::factory()->create([
             'chapters' => [
-                new \App\Domains\Course\Chapter(title: 'Chapter 1', ids: $courses->pluck('id')->toArray()),
+                new App\Domains\Course\Chapter(title: 'Chapter 1', ids: $courses->pluck('id')->toArray()),
             ],
         ]);
         // Set formation_id on all 3 courses

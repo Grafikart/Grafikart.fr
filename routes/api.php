@@ -10,22 +10,22 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/search', [SearchController::class, 'index']);
 Route::get('/courses/filters', [CourseFilterController::class, 'index'])
-    ->middleware(\Spatie\ResponseCache\Middlewares\CacheResponse::for(\Illuminate\Support\minutes(15)));
+    ->middleware(Spatie\ResponseCache\Middlewares\CacheResponse::for(\Illuminate\Support\minutes(15)));
 Route::get('/courses/{course}/support', [SupportController::class, 'index']);
 Route::post('/twitch/webhook', [TwitchController::class, 'webhook'])->name('twitch.webhook');
-Route::get('/courses/{course}/vtt', [\App\Http\API\CourseController::class, 'vtt'])->name('course.vtt');
-Route::post('/stripe/webhook', [\App\Http\API\StripeWebhookController::class, 'webhook']);
-Route::get('/discord/premium', [\App\Http\API\DiscordController::class, 'premium']);
+Route::get('/courses/{course}/vtt', [App\Http\API\CourseController::class, 'vtt'])->name('course.vtt');
+Route::post('/stripe/webhook', [App\Http\API\StripeWebhookController::class, 'webhook']);
+Route::get('/discord/premium', [App\Http\API\DiscordController::class, 'premium']);
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/countries', [\App\Http\API\CountryController::class, 'index'])
-        ->middleware(\Spatie\ResponseCache\Middlewares\CacheResponse::for(\Illuminate\Support\days(1)));
-    Route::get('/notifications', [\App\Http\API\NotificationController::class, 'index']);
-    Route::post('/notifications/read', [\App\Http\API\NotificationController::class, 'read']);
+    Route::get('/countries', [App\Http\API\CountryController::class, 'index'])
+        ->middleware(Spatie\ResponseCache\Middlewares\CacheResponse::for(\Illuminate\Support\days(1)));
+    Route::get('/notifications', [App\Http\API\NotificationController::class, 'index']);
+    Route::post('/notifications/read', [App\Http\API\NotificationController::class, 'read']);
     Route::get('/courses/{course}/questions', [QuestionController::class, 'index']);
     Route::post('/courses/{course}/support', [SupportController::class, 'store']);
     Route::post('/courses/{course}/progress', [ProgressController::class, 'store']);
-    Route::post('/premium/{plan}/stripe', [\App\Http\API\PremiumController::class, 'stripe'])
+    Route::post('/premium/{plan}/stripe', [App\Http\API\PremiumController::class, 'stripe'])
         ->whereNumber('plan')
         ->name('stripe.checkout');
-    Route::post('/premium/paypal/{orderId}', [\App\Http\API\PremiumController::class, 'paypal']);
+    Route::post('/premium/paypal/{orderId}', [App\Http\API\PremiumController::class, 'paypal']);
 });

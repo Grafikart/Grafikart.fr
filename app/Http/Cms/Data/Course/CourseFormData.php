@@ -34,7 +34,7 @@ class CourseFormData extends Data
         public ?AttachmentUrlData $youtubeThumbnail = null,
         public ?int $formationId = null,
         public int $questionsCount = 0,
-        /** @var Collection<TechnologyUsageData> */
+        /** @var Collection<TechnologyUsageData>|null */
         public ?Collection $technologies = null,
     ) {
         $this->technologies ??= collect();

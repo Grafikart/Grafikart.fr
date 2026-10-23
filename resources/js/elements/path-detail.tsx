@@ -71,7 +71,7 @@ export default function PathDetail({ element, path, completednodeids }: Props) {
     const offset = node.type === "formation" ? 170 : 0
     const zoom = 1.5
     viewport.current = flow.current?.getViewport() ?? null
-    flow.current?.setCenter(
+    void flow.current?.setCenter(
       node.position.x + (isMobile ? 0 : offset / zoom),
       node.position.y + (window.innerHeight / 2 - 200) / zoom,
       {
@@ -95,7 +95,7 @@ export default function PathDetail({ element, path, completednodeids }: Props) {
       selected: false,
     })
     if (viewport.current) {
-      flow.current?.setViewport(viewport.current, { duration })
+      void flow.current?.setViewport(viewport.current, { duration })
     }
   }
   return (

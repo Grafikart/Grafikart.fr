@@ -16,7 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->validateCsrfTokens(except: ['*']);
+        $middleware->preventRequestForgery(except: ['*']);
         $middleware->encryptCookies(except: ['appearance', 'sidebar_state', 'mercureAuthorization', 'promo-freelance-dismissed']);
         $middleware->statefulApi();
 
