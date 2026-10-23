@@ -309,6 +309,7 @@ readonly name: string,
 readonly price: number,
 readonly duration: number,
 readonly stripeId: string,
+readonly deletedAt: string | null,
 };
 export type PostFormData = {
 id: number | null,

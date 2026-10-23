@@ -1,10 +1,19 @@
-import { CheckIcon, EditIcon, PlusIcon, StarIcon, XIcon } from "lucide-react"
+import {
+  CheckIcon,
+  EditIcon,
+  PlusIcon,
+  RotateCcwIcon,
+  StarIcon,
+  TrashIcon,
+  XIcon,
+} from "lucide-react"
 import route from "@/actions/App/Http/Cms/PlanController.ts"
 import { Form } from "@/components/form.tsx"
 import { FormField } from "@/components/form-field.tsx"
 import { withLayout } from "@/components/layout.tsx"
 import { PageTitle } from "@/components/page-title.tsx"
 import { Button } from "@/components/ui/button.tsx"
+import { ButtonLink } from "@/components/ui/button-link.tsx"
 import { Pagination } from "@/components/ui/pagination.tsx"
 import {
   Table,
@@ -36,7 +45,7 @@ export default withLayout<Props>(
               <TableHead>Nom de la formule</TableHead>
               <TableHead className="w-25">Prix</TableHead>
               <TableHead className="w-25">Durée</TableHead>
-              <TableHead className="w-20 text-right">Actions</TableHead>
+              <TableHead className="w-28 text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -69,14 +78,46 @@ function Item({ item }: { item: PlanData }) {
   }
 
   return (
-    <TableRow className="group">
-      <TableCell onClick={toggle}>{item.name}</TableCell>
+    <TableRow className={item.deletedAt ? "text-muted-foreground" : "group"}>
+      <TableCell>
+        {item.name}
+        {item.deletedAt && " (supprimée)"}
+      </TableCell>
       <TableCell>{item.price} €</TableCell>
       <TableCell>{item.duration} mois</TableCell>
       <TableCell className="text-right">
-        <Button onClick={toggle} size="icon" variant="secondary">
-          <EditIcon />
-        </Button>
+        <div className="flex justify-end gap-1">
+          {item.deletedAt ? (
+            <ButtonLink
+              href={route.restore(item.id!)}
+              size="icon"
+              variant="secondary"
+              aria-label="Restaurer la formule"
+            >
+              <RotateCcwIcon />
+            </ButtonLink>
+          ) : (
+            <>
+              <Button
+                onClick={toggle}
+                size="icon"
+                variant="secondary"
+                aria-label="Modifier la formule"
+              >
+                <EditIcon />
+              </Button>
+              <ButtonLink
+                href={route.destroy(item.id!)}
+                size="icon"
+                variant="destructive"
+                confirm="Voulez vous vraiment supprimer cette formule ?"
+                aria-label="Supprimer la formule"
+              >
+                <TrashIcon />
+              </ButtonLink>
+            </>
+          )}
+        </div>
       </TableCell>
     </TableRow>
   )
@@ -88,6 +129,7 @@ const emptyItem = {
   price: 5,
   duration: 1,
   stripeId: "",
+  deletedAt: null,
 } satisfies PlanData
 
 function AddRow() {

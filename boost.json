@@ -1,9 +1,9 @@
 {
     "agents": [
-        "claude_code"
+        "codex"
     ],
     "editors": [
-        "claude_code"
+        "codex"
     ],
     "guidelines": true,
     "mcp": true,

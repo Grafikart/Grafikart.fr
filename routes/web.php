@@ -139,6 +139,7 @@ Route::group([
     Route::resource('formations', App\Http\Cms\FormationController::class)->except(['show']);
     Route::resource('paths', App\Http\Cms\PathController::class)->except(['show']);
     Route::resource('posts', App\Http\Cms\PostController::class)->except(['show']);
+    Route::patch('plans/{plan}/restore', [App\Http\Cms\PlanController::class, 'restore'])->withTrashed()->name('plans.restore');
     Route::resource('plans', App\Http\Cms\PlanController::class)->except(['edit', 'create']);
     Route::resource('schools', App\Http\Cms\SchoolController::class)->except(['show']);
     Route::resource('support', App\Http\Cms\SupportController::class)->only(['index', 'edit', 'update', 'destroy']);
