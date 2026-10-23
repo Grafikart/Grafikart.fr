@@ -320,18 +320,16 @@ type Extra<Props> = {
 }
 
 export function withLayout<Props>(comp: FC<Props>, extra: Extra<Props>) {
-  // @ts-expect-error Inertia specific code
-  comp.layout = (page) => (
-    <Layout
-      top={extra.top}
-      breadcrumb={
-        Array.isArray(extra.breadcrumb)
-          ? extra.breadcrumb
-          : extra.breadcrumb(page.props)
-      }
-    >
-      {page}
-    </Layout>
-  )
-  return comp
+  return Object.assign(comp, {
+    layout: (props: Props) => ({
+      component: Layout,
+      props: {
+        top: extra.top,
+        breadcrumb:
+          Array.isArray(extra.breadcrumb)
+            ? extra.breadcrumb
+            : extra.breadcrumb(props),
+      },
+    }),
+  })
 }
