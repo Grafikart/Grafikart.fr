@@ -12,5 +12,7 @@ class Chapter extends Data
         public string $title,
         /** @var int[] */
         public array $ids,
-    ) {}
+    ) {
+        $this->ids = array_values($ids);
+    }
 }

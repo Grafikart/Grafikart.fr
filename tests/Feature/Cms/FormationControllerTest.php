@@ -116,6 +116,40 @@ describe('store', function () {
 });
 
 describe('update', function () {
+    it('loads and saves chapters with sparse course indexes as lists', function () {
+        Event::fake();
+        $courses = App\Domains\Course\Course::factory(3)->create();
+        $ids = $courses->pluck('id')->all();
+        $sparseIds = [3 => $ids[0], 4 => $ids[1], 6 => $ids[2]];
+        $formation = Formation::factory()->create();
+        $courses->each->update(['formation_id' => $formation->id]);
+        // Reproduce legacy JSON without passing through the model cast.
+        Illuminate\Support\Facades\DB::table('formations')->where('id', $formation->id)->update([
+            'chapters' => json_encode([['title' => 'Découverte', 'ids' => $sparseIds]]),
+        ]);
+
+        $this->actingAs($this->user)
+            ->get(route('cms.formations.edit', $formation))
+            ->assertOk()
+            ->assertInertia(fn ($page) => $page
+                ->where('item.chapters.0.courses', $courses->map(fn ($course) => [
+                    'id' => $course->id,
+                    'name' => $course->title,
+                ])->all())
+            );
+
+        $this->actingAs($this->user)
+            ->put(route('cms.formations.update', $formation), [
+                ...$this->validData,
+                'chapters' => [['title' => 'Découverte', 'ids' => $sparseIds]],
+            ])
+            ->assertRedirect()
+            ->assertSessionHasNoErrors();
+
+        expect(json_decode($formation->fresh()->getRawOriginal('chapters'), true))
+            ->toBe([['title' => 'Découverte', 'ids' => $ids]]);
+    });
+
     it('updates an existing formation', function () {
         Event::fake();
         $formation = Formation::factory()->create();
