@@ -17,7 +17,7 @@ class StripePaymentFactory
         $charge = $intent->latest_charge;
         assert($charge instanceof Charge, "Cannot read latest_charge for {$intent->id}");
         $balanceTransaction = $charge->balance_transaction;
-        if (is_string($balanceTransaction)) {
+        if (is_string($balanceTransaction) || is_null($balanceTransaction)) {
             $balanceTransaction = $this->api->getTransaction($balanceTransaction);
         }
         assert($balanceTransaction instanceof BalanceTransaction);
