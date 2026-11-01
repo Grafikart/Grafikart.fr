@@ -46,6 +46,8 @@ export default withLayout<Props>(
               <TableHead className="w-10">ID</TableHead>
               <TableHead>Utilisateur</TableHead>
               <TableHead>Prix</TableHead>
+              <TableHead>TVA</TableHead>
+              <TableHead>Frais</TableHead>
               <TableHead>Durée</TableHead>
               <TableHead>Méthode</TableHead>
               <TableHead>Date</TableHead>
@@ -81,6 +83,8 @@ function Item({ item }: { item: TransactionRowData }) {
         </Link>
       </TableCell>
       <TableCell>{(item.price / 100).toFixed(2)} €</TableCell>
+      <TableCell>{(item.tax / 100).toFixed(2)} €</TableCell>
+      <TableCell>{(item.fee / 100).toFixed(2)} €</TableCell>
       <TableCell>{item.duration} mois</TableCell>
       <TableCell>
         <Badge variant={item.method === "stripe" ? "default" : "secondary"}>
