@@ -9,6 +9,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
+use Laravel\Socialite\Two\InvalidStateException;
 
 class AuthController
 {
@@ -32,7 +33,11 @@ class AuthController
     public function callback(string $driver, Request $request)
     {
         assert(in_array($driver, self::DRIVERS));
-        $oauthUser = Socialite::driver($driver)->user();
+        try {
+            $oauthUser = Socialite::driver($driver)->user();
+        } catch (InvalidStateException) {
+            return to_route('login')->with('error', 'Votre session de connexion a expiré ou est invalide. Veuillez réessayer.');
+        }
 
         // Find the user based on the token
         $user = $this->findUser($driver, $oauthUser, $request->user());

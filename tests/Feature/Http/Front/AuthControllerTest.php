@@ -40,6 +40,14 @@ describe('oauth connect', function () {
 });
 
 describe('oauth callback', function () {
+    it('redirects to login when the oauth state is missing or invalid', function () {
+        $this->get('/oauth/check/github?state=invalid')
+            ->assertRedirect(route('login'))
+            ->assertSessionHas('error', 'Votre session de connexion a expiré ou est invalide. Veuillez réessayer.');
+
+        $this->assertGuest();
+    });
+
     it('logs in an existing user matched by oauth id', function () {
         $user = User::factory()->create(['github_id' => '12345']);
 
