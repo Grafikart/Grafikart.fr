@@ -3,7 +3,6 @@
 namespace App\Infrastructure\Payment\Stripe;
 
 use App\Infrastructure\Payment\Payment;
-use Stripe\BalanceTransaction;
 use Stripe\Charge;
 use Stripe\PaymentIntent;
 
@@ -17,11 +16,10 @@ class StripePaymentFactory
         $charge = $intent->latest_charge;
         assert($charge instanceof Charge, "Cannot read latest_charge for {$intent->id}");
         $balanceTransaction = $charge->balance_transaction;
-        if (is_string($balanceTransaction) || is_null($balanceTransaction)) {
+        if (is_string($balanceTransaction)) {
             $balanceTransaction = $this->api->getTransaction($balanceTransaction);
         }
-        assert($balanceTransaction instanceof BalanceTransaction);
-        $fee = $balanceTransaction->fee;
+        $fee = $balanceTransaction?->fee ?? 0;
         $invoice = $this->api->getInvoiceFromIntent($intent->id);
         if ($invoice !== null) {
             $vat = 0;
