@@ -47,3 +47,10 @@ describe('markdown math', function () {
         expect($html)->toBe('<code-block lang="txt">$E=\alpha$</code-block>');
     });
 });
+
+it('renders Mermaid code as escaped graph source', function () {
+    $html = MarkdownHelper::html("```mermaid\nflowchart LR\n  A[\"<test> & B\"] --> B\n```");
+
+    expect($html)->toBe('<mermaid-graph>flowchart LR
+  A["&lt;test&gt; &amp; B"] --&gt; B</mermaid-graph>');
+});

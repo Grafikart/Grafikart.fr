@@ -3,7 +3,7 @@
 namespace App\Helpers;
 
 /**
- * Handle custom syntax for code block and handle math expressions
+ * Handle custom syntax for code block and handle math expressions & mermaid graph
  */
 class CustomParsedown extends \Parsedown
 {
@@ -120,9 +120,13 @@ class CustomParsedown extends \Parsedown
 
             if (isset($matches[1])) {
                 $language = substr($matches[1], 0, strcspn($matches[1], " \t\n\f\r"));
-                $element['attributes'] = [
-                    'lang' => $language,
-                ];
+                if ($language === 'mermaid') {
+                    $element['name'] = 'mermaid-graph';
+                } else {
+                    $element['attributes'] = [
+                        'lang' => $language,
+                    ];
+                }
             }
 
             $block = [

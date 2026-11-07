@@ -15,6 +15,22 @@
       margin-block: 1.25rem;
     }
 
+    mermaid-graph {
+      display: block;
+      overflow-x: auto;
+      margin-block: 1.25rem;
+      white-space: pre-wrap;
+      margin-inline: auto;
+      width: max-content;
+      --pele-bg: var(--background);
+      --pele-fg: var(--text);
+      --pele-muted: var(--muted);
+      --pele-line: var(--text);
+      --pele-surface: var(--background-light);
+      --pele-border: var(--border);
+      --pele-accent: var(--primary);
+    }
+
     p {
       margin-block: 1.25em;
       text-wrap: pretty;

@@ -1,6 +1,6 @@
 {
     "$schema": "https://www.schemastore.org/package.json",
-    "version": "1.0.19",
+    "version": "1.0.20",
     "private": true,
     "type": "module",
     "scripts": {
@@ -40,6 +40,7 @@
         "lucide-react": "^1.60.0",
         "media-chrome": "^4.19.3",
         "motion": "^14.4.0",
+        "pele": "^1.13.0",
         "perfect-freehand": "^1.2.3",
         "react": "^19.3.1",
         "react-day-picker": "^10.0.2",
