@@ -12,7 +12,7 @@ readonly class CaptchaRule implements ValidationRule
 
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if (! $this->verifier->verify($value, request()->ip())) {
+        if (! is_string($value) || ! mb_check_encoding($value, 'UTF-8') || ! $this->verifier->verify($value, request()->ip())) {
             $fail('Captcha invalide');
         }
     }
