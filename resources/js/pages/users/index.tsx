@@ -1,7 +1,9 @@
+import { Link } from "@inertiajs/react"
 import {
   CheckCircle2Icon,
   CircleXIcon,
   HandCoinsIcon,
+  MoreHorizontalIcon,
   UserLockIcon,
   UserPlusIcon,
   UsersIcon,
@@ -11,8 +13,15 @@ import route from "@/actions/App/Http/Cms/TransactionController.ts"
 import UserController from "@/actions/App/Http/Cms/UserController"
 import { withLayout } from "@/components/layout.tsx"
 import { PageTitle } from "@/components/page-title.tsx"
+import { Button } from "@/components/ui/button.tsx"
 import { ButtonLink } from "@/components/ui/button-link.tsx"
 import { Card, CardContent } from "@/components/ui/card"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu.tsx"
 import { Pagination } from "@/components/ui/pagination.tsx"
 import { SimpleChart } from "@/components/ui/simple-chart.tsx"
 import {
@@ -108,28 +117,37 @@ function Item({ item }: { item: UserRowData }) {
         )}
       </TableCell>
       <TableCell>{item.lastLoginIp}</TableCell>
-      <TableCell>
-        <div className="flex items-center justify-end">
-          <ButtonLink
-            variant="secondary"
-            nativeButton={false}
-            href={route.index({
-              query: { q: `user:${item.id}` },
-            })}
+      <TableCell className="text-end">
+        <DropdownMenu>
+          <DropdownMenuTrigger
+            render={<Button variant="ghost" size="icon" aria-label={`Actions pour ${item.username}`} />}
           >
-            <HandCoinsIcon />
-            Transactions
-          </ButtonLink>
-          <ButtonLink
-            disabled={item.isBanned || item.isPremium}
-            variant="destructive"
-            href={UserController.destroy(item.id)}
-            confirm="Voulez vous vraiment supprimer cet utilisateur ?"
-          >
-            <XCircleIcon />
-            {item.isBanned ? "Banni !" : "Bannir"}
-          </ButtonLink>
-        </div>
+            <MoreHorizontalIcon />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem
+              className="w-full"
+              render={<Link href={route.index({ query: { q: `user:${item.id}` } })} />}
+            >
+              <HandCoinsIcon />
+              Transactions
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="w-full"
+              disabled={item.isBanned || item.isPremium}
+              variant="destructive"
+              render={
+                <Link
+                  href={UserController.destroy(item.id)}
+                  onBefore={() => window.confirm("Voulez vous vraiment supprimer cet utilisateur ?")}
+                />
+              }
+            >
+              <XCircleIcon />
+              {item.isBanned ? "Banni !" : "Bannir"}
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </TableCell>
     </TableRow>
   )
