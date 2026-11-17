@@ -3,6 +3,7 @@ import {
   CheckCircle2Icon,
   CircleXIcon,
   HandCoinsIcon,
+  MailClockIcon,
   MoreHorizontalIcon,
   UserLockIcon,
   UserPlusIcon,
@@ -33,6 +34,7 @@ import {
   TableRow,
 } from "@/components/ui/table.tsx"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { formatDate } from "@/lib/date.ts"
 import type {
   DailyData,
@@ -40,6 +42,7 @@ import type {
   PaginatedData,
   UserRowData,
 } from "@/types"
+import { clsx } from "clsx"
 
 type Props = {
   pagination: PaginatedData<UserRowData>
@@ -107,7 +110,27 @@ function Item({ item }: { item: UserRowData }) {
     <TableRow className="group">
       <TableCell className="text-muted-foreground">{item.id}</TableCell>
       <TableCell>{item.username}</TableCell>
-      <TableCell>{item.email}</TableCell>
+      <TableCell>
+        <div className={clsx("flex items-center gap-2", item.emailVerifiedAt === null && 'text-muted-foreground')}>
+          {item.email}
+          {item.emailVerifiedAt === null && (
+            <Tooltip>
+              <TooltipTrigger
+                render={
+                  <Link
+                    href={UserController.verifyEmail(item.id)}
+                    aria-label={`Activer le compte de ${item.username}`}
+                    onBefore={() => window.confirm("Voulez vous vraiment activer ce compte ?")}
+                  />
+                }
+              >
+                <MailClockIcon className="size-4" />
+              </TooltipTrigger>
+              <TooltipContent>Activer le compte</TooltipContent>
+            </Tooltip>
+          )}
+        </div>
+      </TableCell>
       <TableCell>{formatDate(item.createdAt)}</TableCell>
       <TableCell>
         {item.isPremium ? (

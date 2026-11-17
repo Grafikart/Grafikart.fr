@@ -60,6 +60,39 @@ describe('index', function () {
     });
 });
 
+describe('verify email', function () {
+    it('verifies an unverified user email', function () {
+        $user = User::factory()->unverified()->create();
+
+        $this->actingAs($this->admin)
+            ->patch(route('cms.users.verify-email', $user))
+            ->assertRedirect();
+
+        expect($user->fresh()->email_verified_at)->not->toBeNull();
+    });
+
+    it('does not change an already verified email date', function () {
+        $user = User::factory()->create();
+        $verifiedAt = $user->email_verified_at;
+
+        $this->actingAs($this->admin)
+            ->patch(route('cms.users.verify-email', $user))
+            ->assertRedirect();
+
+        expect($user->fresh()->email_verified_at->equalTo($verifiedAt))->toBeTrue();
+    });
+
+    it('forbids non administrators from verifying an email', function () {
+        $user = User::factory()->unverified()->create();
+
+        $this->actingAs($user)
+            ->patch(route('cms.users.verify-email', $user))
+            ->assertForbidden();
+
+        expect($user->fresh()->email_verified_at)->toBeNull();
+    });
+});
+
 describe('destroy (ban)', function () {
     it('bans a regular user', function () {
         $this->withoutExceptionHandling();

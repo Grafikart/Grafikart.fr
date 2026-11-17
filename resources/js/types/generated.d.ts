@@ -477,6 +477,7 @@ export type UserRowData = {
 readonly id: number,
 readonly username: string,
 readonly email: string,
+readonly emailVerifiedAt: string | null,
 readonly createdAt: string,
 readonly isPremium: boolean,
 readonly isBanned: boolean,

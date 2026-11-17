@@ -58,6 +58,15 @@ class UserController extends CmsController
         return $this->cmsIndex(query: $query, extra: $extra);
     }
 
+    public function verifyEmail(User $user): RedirectResponse
+    {
+        if (! $user->hasVerifiedEmail()) {
+            $user->markEmailAsVerified();
+        }
+
+        return back()->with('success', "L'adresse e-mail de {$user->name} a été vérifiée");
+    }
+
     public function destroy(User $user): RedirectResponse
     {
         if ($user->isPremium()) {

@@ -147,6 +147,7 @@ Route::group([
     Route::resource('sponsors', App\Http\Cms\SponsorController::class)->except(['show']);
     Route::resource('technologies', App\Http\Cms\TechnologyController::class)->except(['show']);
     Route::get('users/search', [App\Http\Cms\UserController::class, 'search'])->name('users.search');
+    Route::patch('users/{user}/verify-email', [App\Http\Cms\UserController::class, 'verifyEmail'])->withTrashed()->name('users.verify-email');
     Route::resource('users', App\Http\Cms\UserController::class)->only(['index', 'destroy']);
     Route::resource('transactions', App\Http\Cms\TransactionController::class)->only(['index', 'destroy']);
     Route::get('transactions/report', [App\Http\Cms\TransactionController::class, 'report'])->name('transactions.report');
