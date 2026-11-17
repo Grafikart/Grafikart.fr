@@ -18,6 +18,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 
 /**
  * @property CarbonImmutable|null $premium_end_at
+ * @property CarbonImmutable|null $email_verified_at
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
